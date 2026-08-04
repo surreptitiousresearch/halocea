@@ -1,0 +1,7 @@
+#include "../headers/havok/hkpConvexShape.h"
+
+/* hkpConvexShape::getRadius — the extra convex (rounding) radius of the shape. */
+float hkpConvexShape_getRadius(const hkpConvexShape *self)
+{
+    return self->m_radius;
+}

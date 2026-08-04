@@ -1,0 +1,6 @@
+/* rasterizer_frame_statistics_end @0x83791080 — no-op on this platform (single `blr`). The PC rasterizer did per-frame
+ * work here; the Xbox 360 path has nothing to tear down/begin, so the function is empty. */
+
+void rasterizer_frame_statistics_end(void)
+{
+}

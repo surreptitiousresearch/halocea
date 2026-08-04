@@ -1,0 +1,1 @@
+unsigned __int8 rasterizer_motion_sensor_begin_said_to_draw;

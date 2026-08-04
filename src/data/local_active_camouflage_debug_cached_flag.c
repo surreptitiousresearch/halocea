@@ -1,0 +1,1 @@
+unsigned __int8 local_active_camouflage_debug_cached_flag;

@@ -1,0 +1,23 @@
+/* file_reference_create_from_path_absolute @0x83767D80 — initialize a file reference from an absolute path. The
+ * reference is tagged with the 'file' signature and storage location 2 (absolute). When `directory` is set the
+ * path is appended as a directory component; otherwise it is set as the file name. */
+
+#include <stdint.h>
+#include "headers/file_reference.h"
+
+extern void *memset(void *destination, int value, unsigned int size);
+extern void file_path_add_name(char *path, const char *name);
+extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
+
+file_reference *file_reference_create_from_path_absolute(file_reference *reference, const char *path,
+                                                         uint8_t directory)
+{
+    memset(reference, 0, sizeof(file_reference));
+    *(int16_t *)&reference->data[6] = 2;
+    *(unsigned int *)reference->data = 0x66696C65u; /* 'file' */
+    if (directory)
+        file_path_add_name(&reference->data[8], path);
+    else
+        file_reference_set_name(reference, path);
+    return reference;
+}

@@ -1,0 +1,1 @@
+unsigned __int8 g_protocol_changeover_message_flag;

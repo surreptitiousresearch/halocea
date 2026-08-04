@@ -1,0 +1,1 @@
+unsigned __int8 local_environment_fog_screen_flag;

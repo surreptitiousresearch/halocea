@@ -1,0 +1,33 @@
+// osSetThreadPriority @0x825E6448 — map the engine's 0..6 priority enum to a Win32
+// THREAD_PRIORITY_* value and apply it via SetThreadPriority. STRONG_ASSERT(0) on an
+// out-of-range priority (>6) rather than clamping.
+#include "../../headers/ws/os/osHANDLE_DUMMY.h"
+#include "../../headers/ws/os/OS_THREAD_PRIORITY.h"
+
+extern bool IGNORE_STRONG_ASSERT;
+extern "C" void STRONG_ASSERT_DUMMY_Crash(void *self, const char *condition, const char *file, int line, const char *info); /* ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z @0x825202A8: r3=dead this, info=empty string (disasm) */
+extern const char empty_string[];
+extern "C" void SetThreadPriority(osHANDLE_DUMMY *thread, int priority);
+
+void osSetThreadPriority(osHANDLE_DUMMY *ptrThread, unsigned int prior)
+{
+    int win32Priority;
+
+    if (prior > OS_THREAD_PRIORITY_TIME_CRITICAL) {
+        if (!IGNORE_STRONG_ASSERT)
+            STRONG_ASSERT_DUMMY_Crash(0, "0", "D:\\Projects\\code\\common\\src.sys\\ap\\ap_os_xenon.cpp", 1375, empty_string);
+        win32Priority = 0; // DEVIATION: decompiler leaves this branch's value uninitialized
+                            // (reads an uninitialized stack slot); 0 (NORMAL) substituted here.
+    } else {
+        switch (prior) {
+            case OS_THREAD_PRIORITY_LOWEST:       win32Priority = -2; break; // THREAD_PRIORITY_LOWEST
+            case OS_THREAD_PRIORITY_BELOW_NORMAL: win32Priority = -1; break; // THREAD_PRIORITY_BELOW_NORMAL
+            case OS_THREAD_PRIORITY_NORMAL:       win32Priority = 0;  break; // THREAD_PRIORITY_NORMAL
+            case OS_THREAD_PRIORITY_ABOVE_NORMAL: win32Priority = 1;  break; // THREAD_PRIORITY_ABOVE_NORMAL
+            case OS_THREAD_PRIORITY_HIGHEST:      win32Priority = 2;  break; // THREAD_PRIORITY_HIGHEST
+            default: win32Priority = prior ? 15 : -15; break; // IDLE -> -15, TIME_CRITICAL -> 15
+        }
+    }
+
+    SetThreadPriority(ptrThread, win32Priority);
+}

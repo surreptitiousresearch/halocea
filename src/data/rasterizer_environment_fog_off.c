@@ -1,0 +1,1 @@
+int rasterizer_environment_fog_off;

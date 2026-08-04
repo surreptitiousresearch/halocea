@@ -1,0 +1,11 @@
+#include "../headers/ws/ds/ds_boundary.h"
+#include "../headers/hcex/halo_ds_data_type_boundary.h"
+#include "../headers/hcex/haloRAW_INPUT_X360_ENV.h"
+
+// ds_data::dsDATA_TYPE_STATIC<haloRAW_INPUT_X360_ENV>::GetPtr @ 0x823BDD10
+// Thin forwarder returning a mutable pointer into the stored slot.
+template<>
+haloRAW_INPUT_X360_ENV *ds_data::dsDATA_TYPE_STATIC<haloRAW_INPUT_X360_ENV>::GetPtr(unsigned int *storage)
+{
+    return ds_data::dsDATA_TYPE_CONSTRUCT<haloRAW_INPUT_X360_ENV>::GetPtr(storage);
+}

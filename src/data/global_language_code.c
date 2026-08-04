@@ -1,0 +1,1 @@
+__int16 global_language_code;

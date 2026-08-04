@@ -1,0 +1,1 @@
+int hud_calculate_point_no_safearea_fit;

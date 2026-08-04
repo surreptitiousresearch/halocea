@@ -1,0 +1,15 @@
+#include "../headers/convex_polygon2d.h"
+
+/* .data init @0x84186180 (temporary_face/convex_polygon2d, 516 bytes):
+ * a 3072x3072 square centered on the origin. vertex_count=4, remaining vertices zero. */
+const convex_polygon2d default_face =
+{
+    4,   /* point_count */
+    0,   /* _pad02 */
+    {
+        { -1536.0f, -1536.0f },
+        {  1536.0f, -1536.0f },
+        {  1536.0f,  1536.0f },
+        { -1536.0f,  1536.0f },
+    },
+};

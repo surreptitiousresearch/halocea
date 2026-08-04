@@ -1,0 +1,19 @@
+#include "MAP.h"
+#include "../dbg/DBG_CINE_ACTOR_INFO.h"
+#include "ds_assert_boundary.h"
+#include "dsSTRID.h"
+
+// ds::impl::MAP_CONST_ITERATOR<dsSTRID,DBG_CINE_ACTOR_INFO,...>::value() @ 0x823B3418
+// STRONG_ASSERT(item != 0) (ds_map.hpp:169), then the matched node's value.
+template<>
+const DBG_CINE_ACTOR_INFO &ds::impl::MAP_CONST_ITERATOR<dsSTRID, DBG_CINE_ACTOR_INFO, ds::HASH, ds::CMP, dsNODE_CACHE_ALLOCATOR>::value() const
+{
+    typedef ds::MAP<dsSTRID, DBG_CINE_ACTOR_INFO, ds::HASH, ds::CMP, dsNODE_CACHE_ALLOCATOR>::ITEM ITEM;
+    ITEM *matchedItem = reinterpret_cast<ITEM *>(this->item);
+    if (!IGNORE_STRONG_ASSERT) {
+        if (!matchedItem)
+            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("item != 0", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 169, dsStrongAssertMessage);
+        matchedItem = reinterpret_cast<ITEM *>(this->item);
+    }
+    return matchedItem->value;
+}

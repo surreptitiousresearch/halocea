@@ -1,0 +1,8 @@
+// ??0HALO_CHANNEL_PROPERTIES@@QAA@XZ -- 0x836B4F4C
+#include <string.h>
+#include "../../headers/hcex/HALO_CHANNEL_PROPERTIES.h"
+
+HALO_CHANNEL_PROPERTIES::HALO_CHANNEL_PROPERTIES()
+{
+    memset(this, 0, sizeof(HALO_CHANNEL_PROPERTIES));
+}

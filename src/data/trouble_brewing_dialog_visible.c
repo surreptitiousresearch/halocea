@@ -1,0 +1,1 @@
+unsigned __int8 trouble_brewing_dialog_visible;

@@ -1,0 +1,1 @@
+unsigned __int8 local_lightmap_has_no_data;

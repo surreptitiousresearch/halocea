@@ -1,0 +1,28 @@
+/* Blam .lib data-global storage definition (init batch 7). */
+/* mask_technique_names @0x84181C18, DB extent 3072 = char[24][128] technique-name table. */
+char mask_technique_names[24][128] = {
+    "MaskDetailBeforeReflectionBiasedMultiply",
+    "MaskDetailBeforeReflectionMultiply",
+    "MaskDetailBeforeReflectionBiasedAdd",
+    "MaskDetailAfterReflectionBiasedMultiply",
+    "MaskDetailAfterReflectionMultiply",
+    "MaskDetailAfterReflectionBiasedAdd",
+    "MaskInverseDetailBeforeReflectionBiasedMultiply",
+    "MaskInverseDetailBeforeReflectionMultiply",
+    "MaskInverseDetailBeforeReflectionBiasedAdd",
+    "MaskInverseDetailAfterReflectionBiasedMultiply",
+    "MaskInverseDetailAfterReflectionMultiply",
+    "MaskInverseDetailAfterReflectionBiasedAdd",
+    "MaskDetailBeforeReflectionBiasedMultiplyComplexFog",
+    "MaskDetailBeforeReflectionMultiplyComplexFog",
+    "MaskDetailBeforeReflectionBiasedAddComplexFog",
+    "MaskDetailAfterReflectionBiasedMultiplyComplexFog",
+    "MaskDetailAfterReflectionMultiplyComplexFog",
+    "MaskDetailAfterReflectionBiasedAddComplexFog",
+    "MaskInverseDetailBeforeReflectionBiasedMultiplyComplexFog",
+    "MaskInverseDetailBeforeReflectionMultiplyComplexFog",
+    "MaskInverseDetailBeforeReflectionBiasedAddComplexFog",
+    "MaskInverseDetailAfterReflectionBiasedMultiplyComplexFog",
+    "MaskInverseDetailAfterReflectionMultiplyComplexFog",
+    "MaskInverseDetailAfterReflectionBiasedAddComplexFog",
+};

@@ -1,0 +1,1 @@
+unsigned __int8 rasterizer_model_cortana_hack;

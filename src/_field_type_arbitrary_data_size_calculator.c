@@ -1,0 +1,6 @@
+#include "headers/field_properties_definition.h"
+
+int field_type_arbitrary_data_size_calculator(_field_properties_definition *const field_properties_definition)
+{
+    return 8 * *(int *)field_properties_definition->parameters;
+}

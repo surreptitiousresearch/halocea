@@ -1,0 +1,3 @@
+void StopKeystone(void)
+{
+}

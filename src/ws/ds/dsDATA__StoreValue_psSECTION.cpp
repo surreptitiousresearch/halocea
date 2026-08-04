@@ -1,0 +1,28 @@
+#include "dsDATA.h"
+#include "dsDATA_TYPE.h"
+#include "ds_boundary.h"
+#include "../ps/psSECTION.h"
+
+// dsDATA::StoreValue<psSECTION> @ 0x82517480
+// Install `val` as the dsDATA's current value. If empty, adopt the psSECTION type descriptor and
+// construct from val. If it already holds a psSECTION, overwrite in place via CopyObj. Otherwise
+// destroy the old value, switch the type descriptor, and construct the new value from val.
+template<>
+void dsDATA::StoreValue<psSECTION>(const psSECTION &val)
+{
+    const dsDATA_TYPE *destType = dsDATA_TYPE_STORAGE<psSECTION>::dataType;
+    const dsDATA_TYPE *storedType = this->type;
+    if (!storedType) {
+        this->type = destType;
+        if (destType)
+            destType->ConstructFromObj(&this->storage, &val);
+        return;
+    }
+    if (storedType == destType) {
+        storedType->CopyObj(&val, &this->storage);
+    } else {
+        storedType->Destroy(&this->storage);
+        this->type = destType;
+        destType->ConstructFromObj(&this->storage, &val);
+    }
+}

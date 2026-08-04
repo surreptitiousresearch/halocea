@@ -1,0 +1,1 @@
+unsigned __int8 video_test_save_confirmed;

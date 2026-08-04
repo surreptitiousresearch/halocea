@@ -1,0 +1,1 @@
+int local_last_source_object_index;

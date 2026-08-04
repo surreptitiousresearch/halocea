@@ -1,0 +1,15 @@
+/* actor_action_class @0x837F3F20 — return the action class of the actor's currently active action, looked up
+ * through the global action-function dispatch table. */
+
+#include "headers/data_array.h"
+#include "headers/actor_datum.h"
+#include "headers/action_specification.h"
+#include "headers/blam_data_globals.h"
+#include <stdint.h>
+
+
+int16_t actor_action_class(uint16_t actor_index)
+{
+    actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
+    return (unsigned __int16)global_action_functions[actor->state.action].action_class;
+}

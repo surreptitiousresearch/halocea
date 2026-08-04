@@ -1,0 +1,13 @@
+#include "objOBJ.h"
+#include "../ds/ds_assert_boundary.h"
+// 0x82660328  ?GetGeomSharingsOfsFace@objOBJ@@QBAHXZ
+// Read the face-sharing offset from the object's geometry (asserts geometry present).
+
+int objOBJ::GetGeomSharingsOfsFace() const
+{
+    if (!IGNORE_STRONG_ASSERT && !pGeom)
+        STRONG_ASSERT_DUMMY().Crash(
+            "IsGeom()", "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 1218,
+            dsStrongAssertMessage);
+    return pGeom->sharingOfsFace;
+}

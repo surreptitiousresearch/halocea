@@ -1,0 +1,973 @@
+/* hs_external_globals @ 0x84180CF0 -- data-init hs_global_external *[482]. Table of
+ * engine-exposed HaloScript global variable descriptors. Pointer targets recovered from
+ * the binary reloc order (all named globals). */
+#include "../headers/hs_global_external.h"
+
+extern hs_global_external rasterizer_near_clip_distance_definition;
+extern hs_global_external rasterizer_far_clip_distance_definition;
+extern hs_global_external rasterizer_first_person_weapon_near_clip_distance_definition;
+extern hs_global_external rasterizer_first_person_weapon_far_clip_distance_definition;
+extern hs_global_external rasterizer_floating_point_zbuffer_definition;
+extern hs_global_external rasterizer_framerate_throttle_definition;
+extern hs_global_external rasterizer_framerate_stabilization_definition;
+extern hs_global_external rasterizer_refresh_rate_definition;
+extern hs_global_external rasterizer_frame_bounds_left_definition;
+extern hs_global_external rasterizer_frame_bounds_right_definition;
+extern hs_global_external rasterizer_frame_bounds_top_definition;
+extern hs_global_external rasterizer_frame_bounds_bottom_definition;
+extern hs_global_external rasterizer_stats_definition;
+extern hs_global_external rasterizer_mode_definition;
+extern hs_global_external rasterizer_wireframe_definition;
+extern hs_global_external rasterizer_smart_definition;
+extern hs_global_external rasterizer_debug_model_vertices_definition;
+extern hs_global_external rasterizer_debug_model_lod_definition;
+extern hs_global_external rasterizer_debug_transparents_definition;
+extern hs_global_external rasterizer_debug_meter_shader_definition;
+extern hs_global_external rasterizer_models_definition;
+extern hs_global_external rasterizer_model_transparents_definition;
+extern hs_global_external rasterizer_draw_first_person_weapon_first_definition;
+extern hs_global_external rasterizer_stencil_mask_definition;
+extern hs_global_external rasterizer_environment_definition;
+extern hs_global_external rasterizer_environment_lightmaps_definition;
+extern hs_global_external rasterizer_environment_shadows_definition;
+extern hs_global_external rasterizer_environment_diffuse_lights_definition;
+extern hs_global_external rasterizer_environment_diffuse_textures_definition;
+extern hs_global_external rasterizer_environment_decals_definition;
+extern hs_global_external rasterizer_environment_specular_lights_definition;
+extern hs_global_external rasterizer_environment_specular_lightmaps_definition;
+extern hs_global_external rasterizer_environment_reflection_lightmap_mask_definition;
+extern hs_global_external rasterizer_environment_reflection_mirrors_definition;
+extern hs_global_external rasterizer_environment_reflections_definition;
+extern hs_global_external rasterizer_environment_transparents_definition;
+extern hs_global_external rasterizer_environment_fog_definition;
+extern hs_global_external rasterizer_environment_fog_screen_definition;
+extern hs_global_external rasterizer_water_definition;
+extern hs_global_external rasterizer_lens_flares_definition;
+extern hs_global_external rasterizer_dynamic_unlit_geometry_definition;
+extern hs_global_external rasterizer_dynamic_lit_geometry_definition;
+extern hs_global_external rasterizer_dynamic_screen_geometry_definition;
+extern hs_global_external rasterizer_hud_motion_sensor_definition;
+extern hs_global_external rasterizer_detail_objects_definition;
+extern hs_global_external rasterizer_debug_geometry_definition;
+extern hs_global_external rasterizer_debug_geometry_multipass_definition;
+extern hs_global_external rasterizer_fog_atmosphere_definition;
+extern hs_global_external rasterizer_fog_plane_definition;
+extern hs_global_external rasterizer_bump_mapping_definition;
+extern hs_global_external rasterizer_lightmap_ambient_definition;
+extern hs_global_external rasterizer_lightmap_mode_definition;
+extern hs_global_external rasterizer_lightmaps_incident_radiosity_definition;
+extern hs_global_external rasterizer_lightmaps_filtering_definition;
+extern hs_global_external rasterizer_model_lighting_ambient_definition;
+extern hs_global_external rasterizer_environment_alpha_testing_definition;
+extern hs_global_external rasterizer_environment_specular_mask_definition;
+extern hs_global_external rasterizer_shadows_convolution_definition;
+extern hs_global_external rasterizer_shadows_debug_definition;
+extern hs_global_external rasterizer_water_mipmapping_definition;
+extern hs_global_external rasterizer_active_camouflage_definition;
+extern hs_global_external rasterizer_active_camouflage_multipass_definition;
+extern hs_global_external rasterizer_plasma_energy_definition;
+extern hs_global_external rasterizer_lens_flares_occlusion_definition;
+extern hs_global_external rasterizer_lens_flares_occlusion_debug_definition;
+extern hs_global_external rasterizer_ray_of_buddha_definition;
+extern hs_global_external rasterizer_screen_flashes_definition;
+extern hs_global_external rasterizer_screen_effects_definition;
+extern hs_global_external rasterizer_DXTC_noise_definition;
+extern hs_global_external rasterizer_soft_filter_definition;
+extern hs_global_external rasterizer_secondary_render_target_debug_definition;
+extern hs_global_external rasterizer_profile_log_definition;
+extern hs_global_external rasterizer_detail_objects_offset_multiplier_definition;
+extern hs_global_external rasterizer_zbias_definition;
+extern hs_global_external rasterizer_zoffset_definition;
+extern hs_global_external force_all_player_views_to_default_player_definition;
+extern hs_global_external rasterizer_safe_frame_bounds_definition;
+extern hs_global_external freeze_flying_camera_definition;
+extern hs_global_external rasterizer_zsprites_definition;
+extern hs_global_external rasterizer_filthy_decal_fog_hack_definition;
+extern hs_global_external rasterizer_splitscreen_VB_optimization_definition;
+extern hs_global_external rasterizer_profile_print_locks_definition;
+extern hs_global_external rasterizer_profile_objectlock_time_definition;
+extern hs_global_external pad3_definition;
+extern hs_global_external pad3_scale_definition;
+extern hs_global_external f0_definition;
+extern hs_global_external f1_definition;
+extern hs_global_external f2_definition;
+extern hs_global_external f3_definition;
+extern hs_global_external f4_definition;
+extern hs_global_external f5_definition;
+extern hs_global_external rasterizer_transparent_pixel_counter_definition;
+extern hs_global_external rasterizer_effects_level_definition;
+extern hs_global_external rasterizer_fps_definition;
+extern hs_global_external rasterizer_d3dlight_theta_definition;
+extern hs_global_external rasterizer_d3dlight_phi_definition;
+extern hs_global_external rasterizer_d3dlight_falloff_definition;
+extern hs_global_external rasterizer_d3dlight_attenuation0_definition;
+extern hs_global_external rasterizer_d3dlight_attenuation1_definition;
+extern hs_global_external rasterizer_d3dlight_attenuation2_definition;
+extern hs_global_external debug_no_frustum_clip_definition;
+extern hs_global_external debug_frustum_definition;
+extern hs_global_external debug_bink_definition;
+extern hs_global_external screenshot_size_definition;
+extern hs_global_external screenshot_count_definition;
+extern hs_global_external console_dump_to_file_definition;
+extern hs_global_external player_spawn_count_definition;
+extern hs_global_external debug_object_garbage_collection_definition;
+extern hs_global_external debug_render_freeze_definition;
+extern hs_global_external debug_no_drawing_definition;
+extern hs_global_external debug_input_target_definition;
+extern hs_global_external temporary_hud_definition;
+extern hs_global_external debug_leaf_index_definition;
+extern hs_global_external debug_leaf_portal_index_definition;
+extern hs_global_external debug_leaf_portals_definition;
+extern hs_global_external debug_unit_all_animations_definition;
+extern hs_global_external debug_unit_animations_definition;
+extern hs_global_external debug_unit_illumination_definition;
+extern hs_global_external debug_damage_taken_definition;
+extern hs_global_external cheat_deathless_player_definition;
+extern hs_global_external cheat_jetpack_definition;
+extern hs_global_external cheat_infinite_ammo_definition;
+extern hs_global_external cheat_bottomless_clip_definition;
+extern hs_global_external cheat_bump_possession_definition;
+extern hs_global_external cheat_super_jump_definition;
+extern hs_global_external cheat_reflexive_damage_effects_definition;
+extern hs_global_external cheat_medusa_definition;
+extern hs_global_external cheat_omnipotent_definition;
+extern hs_global_external cheat_controller_definition;
+extern hs_global_external effects_corpse_nonviolent_definition;
+extern hs_global_external debug_effects_nonviolent_definition;
+extern hs_global_external debug_sound_definition;
+extern hs_global_external debug_looping_sound_definition;
+extern hs_global_external debug_sound_channels_definition;
+extern hs_global_external debug_sound_channels_detail_definition;
+extern hs_global_external debug_sound_hardware_definition;
+extern hs_global_external loud_dialog_hack_definition;
+extern hs_global_external sound_gain_under_dialog_definition;
+extern hs_global_external debug_sound_environment_definition;
+extern hs_global_external object_light_ambient_base_definition;
+extern hs_global_external object_light_ambient_scale_definition;
+extern hs_global_external object_light_secondary_scale_definition;
+extern hs_global_external object_light_interpolate_definition;
+extern hs_global_external model_animation_compression_definition;
+extern hs_global_external model_animation_data_compressed_size_definition;
+extern hs_global_external model_animation_data_uncompressed_size_definition;
+extern hs_global_external model_animation_data_compression_savings_in_bytes_definition;
+extern hs_global_external model_animation_data_compression_savings_in_bytes_at_import_definition;
+extern hs_global_external model_animation_data_compression_savings_in_percent_definition;
+extern hs_global_external model_animation_bullshit0_definition;
+extern hs_global_external model_animation_bullshit1_definition;
+extern hs_global_external model_animation_bullshit2_definition;
+extern hs_global_external model_animation_bullshit3_definition;
+extern hs_global_external rider_ejection_definition;
+extern hs_global_external stun_enable_definition;
+extern hs_global_external debug_sprites_definition;
+extern hs_global_external debug_portals_definition;
+extern hs_global_external debug_inactive_objects_definition;
+extern hs_global_external render_contrails_definition;
+extern hs_global_external render_particles_definition;
+extern hs_global_external render_psystems_definition;
+extern hs_global_external render_wsystems_definition;
+extern hs_global_external debug_objects_definition;
+extern hs_global_external debug_objects_position_velocity_definition;
+extern hs_global_external debug_objects_root_node_definition;
+extern hs_global_external debug_objects_bounding_spheres_definition;
+extern hs_global_external debug_objects_collision_models_definition;
+extern hs_global_external debug_objects_physics_definition;
+extern hs_global_external debug_objects_names_definition;
+extern hs_global_external debug_objects_pathfinding_spheres_definition;
+extern hs_global_external debug_objects_unit_vectors_definition;
+extern hs_global_external debug_objects_unit_seats_definition;
+extern hs_global_external debug_objects_unit_mouth_apeture_definition;
+extern hs_global_external debug_objects_biped_physics_pills_definition;
+extern hs_global_external debug_objects_biped_autoaim_pills_definition;
+extern hs_global_external debug_objects_vehicle_powered_mass_points_definition;
+extern hs_global_external debug_objects_devices_definition;
+extern hs_global_external debug_objects_biped_messages_definition;
+extern hs_global_external debug_objects_vehicle_messages_definition;
+extern hs_global_external debug_objects_weapon_messages_definition;
+extern hs_global_external debug_objects_projectile_messages_definition;
+extern hs_global_external debug_objects_equipment_messages_definition;
+extern hs_global_external render_model_nodes_definition;
+extern hs_global_external render_model_vertex_counts_definition;
+extern hs_global_external render_model_index_counts_definition;
+extern hs_global_external render_model_markers_definition;
+extern hs_global_external render_model_no_geometry_definition;
+extern hs_global_external render_shadows_definition;
+extern hs_global_external debug_damage_definition;
+extern hs_global_external debug_scripting_definition;
+extern hs_global_external debug_trigger_volumes_definition;
+extern hs_global_external debug_point_physics_definition;
+extern hs_global_external debug_physics_disable_penetration_freeze_definition;
+extern hs_global_external debug_motion_sensor_draw_all_units_definition;
+extern hs_global_external collision_debug_definition;
+extern hs_global_external collision_debug_spray_definition;
+extern hs_global_external collision_debug_features_definition;
+extern hs_global_external collision_debug_repeat_definition;
+extern hs_global_external collision_debug_flag_front_facing_surfaces_definition;
+extern hs_global_external collision_debug_flag_back_facing_surfaces_definition;
+extern hs_global_external collision_debug_flag_ignore_two_sided_surfaces_definition;
+extern hs_global_external collision_debug_flag_ignore_invisible_surfaces_definition;
+extern hs_global_external collision_debug_flag_ignore_breakable_surfaces_definition;
+extern hs_global_external collision_debug_flag_structure_definition;
+extern hs_global_external collision_debug_flag_media_definition;
+extern hs_global_external collision_debug_flag_objects_definition;
+extern hs_global_external collision_debug_flag_objects_bipeds_definition;
+extern hs_global_external collision_debug_flag_objects_vehicles_definition;
+extern hs_global_external collision_debug_flag_objects_weapons_definition;
+extern hs_global_external collision_debug_flag_objects_equipment_definition;
+extern hs_global_external collision_debug_flag_objects_projectiles_definition;
+extern hs_global_external collision_debug_flag_objects_scenery_definition;
+extern hs_global_external collision_debug_flag_objects_machines_definition;
+extern hs_global_external collision_debug_flag_objects_controls_definition;
+extern hs_global_external collision_debug_flag_objects_light_fixtures_definition;
+extern hs_global_external collision_debug_flag_objects_placeholders_definition;
+extern hs_global_external collision_debug_flag_try_to_keep_location_valid_definition;
+extern hs_global_external collision_debug_flag_skip_passthrough_bipeds_definition;
+extern hs_global_external collision_debug_flag_use_vehicle_physics_definition;
+extern hs_global_external collision_debug_point_x_definition;
+extern hs_global_external collision_debug_point_y_definition;
+extern hs_global_external collision_debug_point_z_definition;
+extern hs_global_external collision_debug_vector_i_definition;
+extern hs_global_external collision_debug_vector_j_definition;
+extern hs_global_external collision_debug_vector_k_definition;
+extern hs_global_external collision_debug_length_definition;
+extern hs_global_external collision_debug_width_definition;
+extern hs_global_external collision_debug_height_definition;
+extern hs_global_external collision_debug_phantom_bsp_definition;
+extern hs_global_external collision_log_render_definition;
+extern hs_global_external collision_log_detailed_definition;
+extern hs_global_external collision_log_extended_definition;
+extern hs_global_external collision_log_totals_only_definition;
+extern hs_global_external collision_log_time_definition;
+extern hs_global_external debug_obstacle_path_definition;
+extern hs_global_external debug_obstacle_path_on_failure_definition;
+extern hs_global_external debug_obstacle_path_start_point_x_definition;
+extern hs_global_external debug_obstacle_path_start_point_y_definition;
+extern hs_global_external debug_obstacle_path_start_surface_index_definition;
+extern hs_global_external debug_obstacle_path_goal_point_x_definition;
+extern hs_global_external debug_obstacle_path_goal_point_y_definition;
+extern hs_global_external debug_obstacle_path_goal_surface_index_definition;
+extern hs_global_external debug_camera_definition;
+extern hs_global_external debug_player_definition;
+extern hs_global_external debug_structure_definition;
+extern hs_global_external debug_bsp_definition;
+extern hs_global_external debug_input_definition;
+extern hs_global_external debug_permanent_decals_definition;
+extern hs_global_external debug_fog_planes_definition;
+extern hs_global_external decals_definition;
+extern hs_global_external debug_decals_definition;
+extern hs_global_external debug_object_lights_definition;
+extern hs_global_external debug_lights_definition;
+extern hs_global_external debug_biped_physics_definition;
+extern hs_global_external debug_biped_skip_update_definition;
+extern hs_global_external debug_biped_skip_collision_definition;
+extern hs_global_external debug_biped_limp_body_disable_definition;
+extern hs_global_external debug_collision_skip_objects_definition;
+extern hs_global_external debug_collision_skip_vectors_definition;
+extern hs_global_external debug_material_effects_definition;
+extern hs_global_external weather_definition;
+extern hs_global_external breakable_surfaces_definition;
+extern hs_global_external decals_definition;
+extern hs_global_external profile_graph_definition;
+extern hs_global_external profile_display_definition;
+extern hs_global_external profile_timebase_ticks_definition;
+extern hs_global_external profile_dump_frames_definition;
+extern hs_global_external profile_dump_lost_frames_definition;
+extern hs_global_external recover_saved_games_hack_definition;
+extern hs_global_external structures_use_pvs_for_vs_definition;
+extern hs_global_external debug_texture_cache_definition;
+extern hs_global_external debug_detail_objects_definition;
+extern hs_global_external ai_render_definition;
+extern hs_global_external ai_render_all_actors_definition;
+extern hs_global_external ai_render_inactive_actors_definition;
+extern hs_global_external ai_render_lineoffire_crouching_definition;
+extern hs_global_external ai_render_lineoffire_definition;
+extern hs_global_external ai_render_lineofsight_definition;
+extern hs_global_external ai_render_ballistic_lineoffire_definition;
+extern hs_global_external ai_render_encounter_activeregion_definition;
+extern hs_global_external ai_render_vision_cones_definition;
+extern hs_global_external ai_render_current_state_definition;
+extern hs_global_external ai_render_detailed_state_definition;
+extern hs_global_external ai_render_props_definition;
+extern hs_global_external ai_render_props_web_definition;
+extern hs_global_external ai_render_props_no_friends_definition;
+extern hs_global_external ai_render_props_target_weight_definition;
+extern hs_global_external ai_render_props_unreachable_definition;
+extern hs_global_external ai_render_props_unopposable_definition;
+extern hs_global_external ai_render_idle_look_definition;
+extern hs_global_external ai_render_support_surfaces_definition;
+extern hs_global_external ai_render_recent_damage_definition;
+extern hs_global_external ai_render_threats_definition;
+extern hs_global_external ai_render_emotions_definition;
+extern hs_global_external ai_render_audibility_definition;
+extern hs_global_external ai_render_aiming_vectors_definition;
+extern hs_global_external ai_render_secondary_looking_definition;
+extern hs_global_external ai_render_targets_definition;
+extern hs_global_external ai_render_targets_last_visible_definition;
+extern hs_global_external ai_render_states_definition;
+extern hs_global_external ai_render_vitality_definition;
+extern hs_global_external ai_render_active_cover_seeking_definition;
+extern hs_global_external ai_render_evaluations_definition;
+extern hs_global_external ai_render_pursuit_definition;
+extern hs_global_external ai_render_shooting_definition;
+extern hs_global_external ai_render_trigger_definition;
+extern hs_global_external ai_render_projectile_aiming_definition;
+extern hs_global_external ai_render_aiming_validity_definition;
+extern hs_global_external ai_render_speech_definition;
+extern hs_global_external ai_render_teams_definition;
+extern hs_global_external ai_render_player_ratings_definition;
+extern hs_global_external ai_render_spatial_effects_definition;
+extern hs_global_external ai_render_firing_positions_definition;
+extern hs_global_external ai_render_gun_positions_definition;
+extern hs_global_external ai_render_burst_geometry_definition;
+extern hs_global_external ai_render_vehicle_avoidance_definition;
+extern hs_global_external ai_render_vehicles_enterable_definition;
+extern hs_global_external ai_render_melee_check_definition;
+extern hs_global_external ai_render_dialogue_variants_definition;
+extern hs_global_external ai_render_grenade_decisions_definition;
+extern hs_global_external ai_render_danger_zones_definition;
+extern hs_global_external ai_render_charge_decisions_definition;
+extern hs_global_external ai_render_control_definition;
+extern hs_global_external ai_render_activation_definition;
+extern hs_global_external ai_render_paths_definition;
+extern hs_global_external ai_render_paths_selected_only_definition;
+extern hs_global_external ai_render_paths_destination_definition;
+extern hs_global_external ai_render_paths_current_definition;
+extern hs_global_external ai_render_paths_failed_definition;
+extern hs_global_external ai_render_paths_raw_definition;
+extern hs_global_external ai_render_paths_smoothed_definition;
+extern hs_global_external ai_render_paths_avoided_definition;
+extern hs_global_external ai_render_paths_avoidance_segment_definition;
+extern hs_global_external ai_render_paths_avoidance_obstacles_definition;
+extern hs_global_external ai_render_paths_avoidance_search_definition;
+extern hs_global_external ai_render_paths_nodes_definition;
+extern hs_global_external ai_render_paths_nodes_all_definition;
+extern hs_global_external ai_render_paths_nodes_polygons_definition;
+extern hs_global_external ai_render_paths_nodes_costs_definition;
+extern hs_global_external ai_render_paths_nodes_closest_definition;
+extern hs_global_external ai_render_player_aiming_blocked_definition;
+extern hs_global_external ai_render_vector_avoidance_definition;
+extern hs_global_external ai_render_vector_avoidance_rays_definition;
+extern hs_global_external ai_render_vector_avoidance_sense_t_definition;
+extern hs_global_external ai_render_vector_avoidance_avoid_t_definition;
+extern hs_global_external ai_render_vector_avoidance_clear_time_definition;
+extern hs_global_external ai_render_vector_avoidance_weights_definition;
+extern hs_global_external ai_render_vector_avoidance_objects_definition;
+extern hs_global_external ai_render_vector_avoidance_intermediate_definition;
+extern hs_global_external ai_render_postcombat_definition;
+extern hs_global_external ai_print_pursuit_checks_definition;
+extern hs_global_external ai_print_rules_definition;
+extern hs_global_external ai_print_rule_values_definition;
+extern hs_global_external ai_print_major_upgrade_definition;
+extern hs_global_external ai_print_respawn_definition;
+extern hs_global_external ai_print_evaluation_statistics_definition;
+extern hs_global_external ai_print_communication_definition;
+extern hs_global_external ai_print_communication_player_definition;
+extern hs_global_external ai_print_vocalizations_definition;
+extern hs_global_external ai_print_placement_definition;
+extern hs_global_external ai_print_speech_definition;
+extern hs_global_external ai_print_speech_timers_definition;
+extern hs_global_external ai_print_allegiance_definition;
+extern hs_global_external ai_print_lost_speech_definition;
+extern hs_global_external ai_print_migration_definition;
+extern hs_global_external ai_print_automatic_migration_definition;
+extern hs_global_external ai_print_scripting_definition;
+extern hs_global_external ai_print_surprise_definition;
+extern hs_global_external ai_print_command_lists_definition;
+extern hs_global_external ai_print_damage_modifiers_definition;
+extern hs_global_external ai_print_secondary_looking_definition;
+extern hs_global_external ai_print_oversteer_definition;
+extern hs_global_external ai_print_conversations_definition;
+extern hs_global_external ai_print_killing_sprees_definition;
+extern hs_global_external ai_print_acknowledgement_definition;
+extern hs_global_external ai_print_unfinished_paths_definition;
+extern hs_global_external ai_print_bsp_transition_definition;
+extern hs_global_external ai_print_uncovering_definition;
+extern hs_global_external ai_profile_disable_definition;
+extern hs_global_external ai_profile_random_definition;
+extern hs_global_external ai_show_definition;
+extern hs_global_external ai_show_stats_definition;
+extern hs_global_external ai_show_actors_definition;
+extern hs_global_external ai_show_swarms_definition;
+extern hs_global_external ai_show_paths_definition;
+extern hs_global_external ai_show_line_of_sight_definition;
+extern hs_global_external ai_show_prop_types_definition;
+extern hs_global_external ai_show_sound_distance_definition;
+extern hs_global_external ai_debug_fast_los_definition;
+extern hs_global_external ai_debug_oversteer_disable_definition;
+extern hs_global_external ai_debug_evaluate_all_positions_definition;
+extern hs_global_external ai_debug_path_definition;
+extern hs_global_external ai_debug_path_start_freeze_definition;
+extern hs_global_external ai_debug_path_end_freeze_definition;
+extern hs_global_external ai_debug_path_flood_definition;
+extern hs_global_external ai_debug_path_maximum_radius_definition;
+extern hs_global_external ai_debug_path_attractor_definition;
+extern hs_global_external ai_debug_path_attractor_radius_definition;
+extern hs_global_external ai_debug_path_attractor_weight_definition;
+extern hs_global_external ai_debug_path_accept_radius_definition;
+extern hs_global_external ai_debug_ballistic_lineoffire_freeze_definition;
+extern hs_global_external ai_debug_communication_random_disabled_definition;
+extern hs_global_external ai_debug_communication_timeout_disabled_definition;
+extern hs_global_external ai_debug_communication_unit_repeat_disabled_definition;
+extern hs_global_external ai_debug_communication_focus_enable_definition;
+extern hs_global_external ai_debug_blind_definition;
+extern hs_global_external ai_debug_deaf_definition;
+extern hs_global_external ai_debug_invisible_player_definition;
+extern hs_global_external ai_debug_ignore_player_definition;
+extern hs_global_external ai_debug_flee_always_definition;
+extern hs_global_external ai_debug_force_all_active_definition;
+extern hs_global_external ai_debug_disable_wounded_sounds_definition;
+extern hs_global_external ai_debug_force_vocalizations_definition;
+extern hs_global_external ai_debug_force_crouch_definition;
+extern hs_global_external ai_debug_path_disable_smoothing_definition;
+extern hs_global_external ai_debug_path_disable_obstacle_avoidance_definition;
+extern hs_global_external ai_fix_defending_guard_firing_positions_definition;
+extern hs_global_external ai_fix_actor_variants_definition;
+extern hs_global_external controls_enable_crouch_definition;
+extern hs_global_external controls_swapped_definition;
+extern hs_global_external controls_enable_doubled_spin_definition;
+extern hs_global_external controls_swap_doubled_spin_state_definition;
+extern hs_global_external player_autoaim_definition;
+extern hs_global_external player_magnetism_definition;
+extern hs_global_external debug_player_teleport_definition;
+extern hs_global_external texture_cache_graph_definition;
+extern hs_global_external texture_cache_list_definition;
+extern hs_global_external director_camera_switch_fast_definition;
+extern hs_global_external director_camera_switching_definition;
+extern hs_global_external debug_recording_definition;
+extern hs_global_external debug_recording_newlines_definition;
+extern hs_global_external debug_player_color_definition;
+extern hs_global_external debug_framerate_definition;
+extern hs_global_external display_framerate_definition;
+extern hs_global_external display_vblank_deltas_definition;
+extern hs_global_external framerate_throttle_definition;
+extern hs_global_external framerate_lock_definition;
+extern hs_global_external display_precache_progress_definition;
+extern hs_global_external debug_game_save_definition;
+extern hs_global_external allow_out_of_sync_definition;
+extern hs_global_external global_connection_dont_timeout_definition;
+extern hs_global_external slow_server_startup_safety_zone_in_seconds_definition;
+extern hs_global_external find_all_fucked_up_shit_definition;
+extern hs_global_external error_suppress_all_definition;
+extern hs_global_external run_game_scripts_definition;
+extern hs_global_external leaf_to_leaf_latency_definition;
+extern hs_global_external net_bandwidth_definition;
+extern hs_global_external network_connect_timeout_definition;
+extern hs_global_external net_graph_enabled_definition;
+extern hs_global_external net_graph_period_definition;
+extern hs_global_external allow_client_side_weapon_projectiles_definition;
+extern hs_global_external weapon_incremental_rate_definition;
+extern hs_global_external equipment_incremental_rate_definition;
+extern hs_global_external biped_incremental_rate_definition;
+extern hs_global_external vehicle_incremental_rate_definition;
+extern hs_global_external projectile_incremental_rate_definition;
+extern hs_global_external oddball_baseline_rate_definition;
+extern hs_global_external local_player_update_rate_definition;
+extern hs_global_external local_player_vehicle_update_rate_definition;
+extern hs_global_external remote_player_action_update_rate_definition;
+extern hs_global_external remote_player_action_baseline_update_rate_definition;
+extern hs_global_external remote_player_position_update_rate_definition;
+extern hs_global_external remote_player_position_baseline_update_rate_definition;
+extern hs_global_external remote_player_vehicle_update_rate_definition;
+extern hs_global_external remote_player_vehicle_baseline_update_rate_definition;
+extern hs_global_external use_super_remote_players_action_update_definition;
+extern hs_global_external use_new_vehicle_update_scheme_definition;
+extern hs_global_external log_server_player_update_history_definition;
+extern hs_global_external client_log_destination_definition;
+extern hs_global_external local_player_log_level_definition;
+extern hs_global_external remote_player_log_level_definition;
+extern hs_global_external debug_score_definition;
+extern hs_global_external speed_hack_detection_definition;
+extern hs_global_external speed_hack_log_level_definition;
+extern hs_global_external should_play_multiplayer_hit_sound_definition;
+extern hs_global_external object_prediction_definition;
+extern hs_global_external transport_dumping_definition;
+extern hs_global_external hud_filter_definition;
+extern hs_global_external sv_mapcycle_timeout_definition;
+extern hs_global_external sv_public_definition;
+extern hs_global_external sv_maxplayers_definition;
+extern hs_global_external developer_mode_definition;
+
+hs_global_external *hs_external_globals[482] =
+{
+    &rasterizer_near_clip_distance_definition,
+    &rasterizer_far_clip_distance_definition,
+    &rasterizer_first_person_weapon_near_clip_distance_definition,
+    &rasterizer_first_person_weapon_far_clip_distance_definition,
+    &rasterizer_floating_point_zbuffer_definition,
+    &rasterizer_framerate_throttle_definition,
+    &rasterizer_framerate_stabilization_definition,
+    &rasterizer_refresh_rate_definition,
+    &rasterizer_frame_bounds_left_definition,
+    &rasterizer_frame_bounds_right_definition,
+    &rasterizer_frame_bounds_top_definition,
+    &rasterizer_frame_bounds_bottom_definition,
+    &rasterizer_stats_definition,
+    &rasterizer_mode_definition,
+    &rasterizer_wireframe_definition,
+    &rasterizer_smart_definition,
+    &rasterizer_debug_model_vertices_definition,
+    &rasterizer_debug_model_lod_definition,
+    &rasterizer_debug_transparents_definition,
+    &rasterizer_debug_meter_shader_definition,
+    &rasterizer_models_definition,
+    &rasterizer_model_transparents_definition,
+    &rasterizer_draw_first_person_weapon_first_definition,
+    &rasterizer_stencil_mask_definition,
+    &rasterizer_environment_definition,
+    &rasterizer_environment_lightmaps_definition,
+    &rasterizer_environment_shadows_definition,
+    &rasterizer_environment_diffuse_lights_definition,
+    &rasterizer_environment_diffuse_textures_definition,
+    &rasterizer_environment_decals_definition,
+    &rasterizer_environment_specular_lights_definition,
+    &rasterizer_environment_specular_lightmaps_definition,
+    &rasterizer_environment_reflection_lightmap_mask_definition,
+    &rasterizer_environment_reflection_mirrors_definition,
+    &rasterizer_environment_reflections_definition,
+    &rasterizer_environment_transparents_definition,
+    &rasterizer_environment_fog_definition,
+    &rasterizer_environment_fog_screen_definition,
+    &rasterizer_water_definition,
+    &rasterizer_lens_flares_definition,
+    &rasterizer_dynamic_unlit_geometry_definition,
+    &rasterizer_dynamic_lit_geometry_definition,
+    &rasterizer_dynamic_screen_geometry_definition,
+    &rasterizer_hud_motion_sensor_definition,
+    &rasterizer_detail_objects_definition,
+    &rasterizer_debug_geometry_definition,
+    &rasterizer_debug_geometry_multipass_definition,
+    &rasterizer_fog_atmosphere_definition,
+    &rasterizer_fog_plane_definition,
+    &rasterizer_bump_mapping_definition,
+    &rasterizer_lightmap_ambient_definition,
+    &rasterizer_lightmap_mode_definition,
+    &rasterizer_lightmaps_incident_radiosity_definition,
+    &rasterizer_lightmaps_filtering_definition,
+    &rasterizer_model_lighting_ambient_definition,
+    &rasterizer_environment_alpha_testing_definition,
+    &rasterizer_environment_specular_mask_definition,
+    &rasterizer_shadows_convolution_definition,
+    &rasterizer_shadows_debug_definition,
+    &rasterizer_water_mipmapping_definition,
+    &rasterizer_active_camouflage_definition,
+    &rasterizer_active_camouflage_multipass_definition,
+    &rasterizer_plasma_energy_definition,
+    &rasterizer_lens_flares_occlusion_definition,
+    &rasterizer_lens_flares_occlusion_debug_definition,
+    &rasterizer_ray_of_buddha_definition,
+    &rasterizer_screen_flashes_definition,
+    &rasterizer_screen_effects_definition,
+    &rasterizer_DXTC_noise_definition,
+    &rasterizer_soft_filter_definition,
+    &rasterizer_secondary_render_target_debug_definition,
+    &rasterizer_profile_log_definition,
+    &rasterizer_detail_objects_offset_multiplier_definition,
+    &rasterizer_zbias_definition,
+    &rasterizer_zoffset_definition,
+    &force_all_player_views_to_default_player_definition,
+    &rasterizer_safe_frame_bounds_definition,
+    &freeze_flying_camera_definition,
+    &rasterizer_zsprites_definition,
+    &rasterizer_filthy_decal_fog_hack_definition,
+    &rasterizer_splitscreen_VB_optimization_definition,
+    &rasterizer_profile_print_locks_definition,
+    &rasterizer_profile_objectlock_time_definition,
+    &pad3_definition,
+    &pad3_scale_definition,
+    &f0_definition,
+    &f1_definition,
+    &f2_definition,
+    &f3_definition,
+    &f4_definition,
+    &f5_definition,
+    &rasterizer_transparent_pixel_counter_definition,
+    &rasterizer_effects_level_definition,
+    &rasterizer_fps_definition,
+    &rasterizer_d3dlight_theta_definition,
+    &rasterizer_d3dlight_phi_definition,
+    &rasterizer_d3dlight_falloff_definition,
+    &rasterizer_d3dlight_attenuation0_definition,
+    &rasterizer_d3dlight_attenuation1_definition,
+    &rasterizer_d3dlight_attenuation2_definition,
+    &debug_no_frustum_clip_definition,
+    &debug_frustum_definition,
+    &debug_bink_definition,
+    &screenshot_size_definition,
+    &screenshot_count_definition,
+    &console_dump_to_file_definition,
+    &player_spawn_count_definition,
+    &debug_object_garbage_collection_definition,
+    &debug_render_freeze_definition,
+    &debug_no_drawing_definition,
+    &debug_input_target_definition,
+    &temporary_hud_definition,
+    &debug_leaf_index_definition,
+    &debug_leaf_portal_index_definition,
+    &debug_leaf_portals_definition,
+    &debug_unit_all_animations_definition,
+    &debug_unit_animations_definition,
+    &debug_unit_illumination_definition,
+    &debug_damage_taken_definition,
+    &cheat_deathless_player_definition,
+    &cheat_jetpack_definition,
+    &cheat_infinite_ammo_definition,
+    &cheat_bottomless_clip_definition,
+    &cheat_bump_possession_definition,
+    &cheat_super_jump_definition,
+    &cheat_reflexive_damage_effects_definition,
+    &cheat_medusa_definition,
+    &cheat_omnipotent_definition,
+    &cheat_controller_definition,
+    &effects_corpse_nonviolent_definition,
+    &debug_effects_nonviolent_definition,
+    &debug_sound_definition,
+    &debug_looping_sound_definition,
+    &debug_sound_channels_definition,
+    &debug_sound_channels_detail_definition,
+    &debug_sound_hardware_definition,
+    &loud_dialog_hack_definition,
+    &sound_gain_under_dialog_definition,
+    &debug_sound_environment_definition,
+    &object_light_ambient_base_definition,
+    &object_light_ambient_scale_definition,
+    &object_light_secondary_scale_definition,
+    &object_light_interpolate_definition,
+    &model_animation_compression_definition,
+    &model_animation_data_compressed_size_definition,
+    &model_animation_data_uncompressed_size_definition,
+    &model_animation_data_compression_savings_in_bytes_definition,
+    &model_animation_data_compression_savings_in_bytes_at_import_definition,
+    &model_animation_data_compression_savings_in_percent_definition,
+    &model_animation_bullshit0_definition,
+    &model_animation_bullshit1_definition,
+    &model_animation_bullshit2_definition,
+    &model_animation_bullshit3_definition,
+    &rider_ejection_definition,
+    &stun_enable_definition,
+    &debug_sprites_definition,
+    &debug_portals_definition,
+    &debug_inactive_objects_definition,
+    &render_contrails_definition,
+    &render_particles_definition,
+    &render_psystems_definition,
+    &render_wsystems_definition,
+    &debug_objects_definition,
+    &debug_objects_position_velocity_definition,
+    &debug_objects_root_node_definition,
+    &debug_objects_bounding_spheres_definition,
+    &debug_objects_collision_models_definition,
+    &debug_objects_physics_definition,
+    &debug_objects_names_definition,
+    &debug_objects_pathfinding_spheres_definition,
+    &debug_objects_unit_vectors_definition,
+    &debug_objects_unit_seats_definition,
+    &debug_objects_unit_mouth_apeture_definition,
+    &debug_objects_biped_physics_pills_definition,
+    &debug_objects_biped_autoaim_pills_definition,
+    &debug_objects_vehicle_powered_mass_points_definition,
+    &debug_objects_devices_definition,
+    &debug_objects_biped_messages_definition,
+    &debug_objects_vehicle_messages_definition,
+    &debug_objects_weapon_messages_definition,
+    &debug_objects_projectile_messages_definition,
+    &debug_objects_equipment_messages_definition,
+    &render_model_nodes_definition,
+    &render_model_vertex_counts_definition,
+    &render_model_index_counts_definition,
+    &render_model_markers_definition,
+    &render_model_no_geometry_definition,
+    &render_shadows_definition,
+    &debug_damage_definition,
+    &debug_scripting_definition,
+    &debug_trigger_volumes_definition,
+    &debug_point_physics_definition,
+    &debug_physics_disable_penetration_freeze_definition,
+    &debug_motion_sensor_draw_all_units_definition,
+    &collision_debug_definition,
+    &collision_debug_spray_definition,
+    &collision_debug_features_definition,
+    &collision_debug_repeat_definition,
+    &collision_debug_flag_front_facing_surfaces_definition,
+    &collision_debug_flag_back_facing_surfaces_definition,
+    &collision_debug_flag_ignore_two_sided_surfaces_definition,
+    &collision_debug_flag_ignore_invisible_surfaces_definition,
+    &collision_debug_flag_ignore_breakable_surfaces_definition,
+    &collision_debug_flag_structure_definition,
+    &collision_debug_flag_media_definition,
+    &collision_debug_flag_objects_definition,
+    &collision_debug_flag_objects_bipeds_definition,
+    &collision_debug_flag_objects_vehicles_definition,
+    &collision_debug_flag_objects_weapons_definition,
+    &collision_debug_flag_objects_equipment_definition,
+    &collision_debug_flag_objects_projectiles_definition,
+    &collision_debug_flag_objects_scenery_definition,
+    &collision_debug_flag_objects_machines_definition,
+    &collision_debug_flag_objects_controls_definition,
+    &collision_debug_flag_objects_light_fixtures_definition,
+    &collision_debug_flag_objects_placeholders_definition,
+    &collision_debug_flag_try_to_keep_location_valid_definition,
+    &collision_debug_flag_skip_passthrough_bipeds_definition,
+    &collision_debug_flag_use_vehicle_physics_definition,
+    &collision_debug_point_x_definition,
+    &collision_debug_point_y_definition,
+    &collision_debug_point_z_definition,
+    &collision_debug_vector_i_definition,
+    &collision_debug_vector_j_definition,
+    &collision_debug_vector_k_definition,
+    &collision_debug_length_definition,
+    &collision_debug_width_definition,
+    &collision_debug_height_definition,
+    &collision_debug_phantom_bsp_definition,
+    &collision_log_render_definition,
+    &collision_log_detailed_definition,
+    &collision_log_extended_definition,
+    &collision_log_totals_only_definition,
+    &collision_log_time_definition,
+    &debug_obstacle_path_definition,
+    &debug_obstacle_path_on_failure_definition,
+    &debug_obstacle_path_start_point_x_definition,
+    &debug_obstacle_path_start_point_y_definition,
+    &debug_obstacle_path_start_surface_index_definition,
+    &debug_obstacle_path_goal_point_x_definition,
+    &debug_obstacle_path_goal_point_y_definition,
+    &debug_obstacle_path_goal_surface_index_definition,
+    &debug_camera_definition,
+    &debug_player_definition,
+    &debug_structure_definition,
+    &debug_bsp_definition,
+    &debug_input_definition,
+    &debug_permanent_decals_definition,
+    &debug_fog_planes_definition,
+    &decals_definition,
+    &debug_decals_definition,
+    &debug_object_lights_definition,
+    &debug_lights_definition,
+    &debug_biped_physics_definition,
+    &debug_biped_skip_update_definition,
+    &debug_biped_skip_collision_definition,
+    &debug_biped_limp_body_disable_definition,
+    &debug_collision_skip_objects_definition,
+    &debug_collision_skip_vectors_definition,
+    &debug_material_effects_definition,
+    &weather_definition,
+    &breakable_surfaces_definition,
+    &decals_definition,
+    &profile_graph_definition,
+    &profile_display_definition,
+    &profile_timebase_ticks_definition,
+    &profile_dump_frames_definition,
+    &profile_dump_lost_frames_definition,
+    &recover_saved_games_hack_definition,
+    &structures_use_pvs_for_vs_definition,
+    &debug_texture_cache_definition,
+    &debug_detail_objects_definition,
+    &ai_render_definition,
+    &ai_render_all_actors_definition,
+    &ai_render_inactive_actors_definition,
+    &ai_render_lineoffire_crouching_definition,
+    &ai_render_lineoffire_definition,
+    &ai_render_lineofsight_definition,
+    &ai_render_ballistic_lineoffire_definition,
+    &ai_render_encounter_activeregion_definition,
+    &ai_render_vision_cones_definition,
+    &ai_render_current_state_definition,
+    &ai_render_detailed_state_definition,
+    &ai_render_props_definition,
+    &ai_render_props_web_definition,
+    &ai_render_props_no_friends_definition,
+    &ai_render_props_target_weight_definition,
+    &ai_render_props_unreachable_definition,
+    &ai_render_props_unopposable_definition,
+    &ai_render_idle_look_definition,
+    &ai_render_support_surfaces_definition,
+    &ai_render_recent_damage_definition,
+    &ai_render_threats_definition,
+    &ai_render_emotions_definition,
+    &ai_render_audibility_definition,
+    &ai_render_aiming_vectors_definition,
+    &ai_render_secondary_looking_definition,
+    &ai_render_targets_definition,
+    &ai_render_targets_last_visible_definition,
+    &ai_render_states_definition,
+    &ai_render_vitality_definition,
+    &ai_render_active_cover_seeking_definition,
+    &ai_render_evaluations_definition,
+    &ai_render_pursuit_definition,
+    &ai_render_shooting_definition,
+    &ai_render_trigger_definition,
+    &ai_render_projectile_aiming_definition,
+    &ai_render_aiming_validity_definition,
+    &ai_render_speech_definition,
+    &ai_render_teams_definition,
+    &ai_render_player_ratings_definition,
+    &ai_render_spatial_effects_definition,
+    &ai_render_firing_positions_definition,
+    &ai_render_gun_positions_definition,
+    &ai_render_burst_geometry_definition,
+    &ai_render_vehicle_avoidance_definition,
+    &ai_render_vehicles_enterable_definition,
+    &ai_render_melee_check_definition,
+    &ai_render_dialogue_variants_definition,
+    &ai_render_grenade_decisions_definition,
+    &ai_render_danger_zones_definition,
+    &ai_render_charge_decisions_definition,
+    &ai_render_control_definition,
+    &ai_render_activation_definition,
+    &ai_render_paths_definition,
+    &ai_render_paths_selected_only_definition,
+    &ai_render_paths_destination_definition,
+    &ai_render_paths_current_definition,
+    &ai_render_paths_failed_definition,
+    &ai_render_paths_raw_definition,
+    &ai_render_paths_smoothed_definition,
+    &ai_render_paths_avoided_definition,
+    &ai_render_paths_avoidance_segment_definition,
+    &ai_render_paths_avoidance_obstacles_definition,
+    &ai_render_paths_avoidance_search_definition,
+    &ai_render_paths_nodes_definition,
+    &ai_render_paths_nodes_all_definition,
+    &ai_render_paths_nodes_polygons_definition,
+    &ai_render_paths_nodes_costs_definition,
+    &ai_render_paths_nodes_closest_definition,
+    &ai_render_player_aiming_blocked_definition,
+    &ai_render_vector_avoidance_definition,
+    &ai_render_vector_avoidance_rays_definition,
+    &ai_render_vector_avoidance_sense_t_definition,
+    &ai_render_vector_avoidance_avoid_t_definition,
+    &ai_render_vector_avoidance_clear_time_definition,
+    &ai_render_vector_avoidance_weights_definition,
+    &ai_render_vector_avoidance_objects_definition,
+    &ai_render_vector_avoidance_intermediate_definition,
+    &ai_render_postcombat_definition,
+    &ai_print_pursuit_checks_definition,
+    &ai_print_rules_definition,
+    &ai_print_rule_values_definition,
+    &ai_print_major_upgrade_definition,
+    &ai_print_respawn_definition,
+    &ai_print_evaluation_statistics_definition,
+    &ai_print_communication_definition,
+    &ai_print_communication_player_definition,
+    &ai_print_vocalizations_definition,
+    &ai_print_placement_definition,
+    &ai_print_speech_definition,
+    &ai_print_speech_timers_definition,
+    &ai_print_allegiance_definition,
+    &ai_print_lost_speech_definition,
+    &ai_print_migration_definition,
+    &ai_print_automatic_migration_definition,
+    &ai_print_scripting_definition,
+    &ai_print_surprise_definition,
+    &ai_print_command_lists_definition,
+    &ai_print_damage_modifiers_definition,
+    &ai_print_secondary_looking_definition,
+    &ai_print_oversteer_definition,
+    &ai_print_conversations_definition,
+    &ai_print_killing_sprees_definition,
+    &ai_print_acknowledgement_definition,
+    &ai_print_unfinished_paths_definition,
+    &ai_print_bsp_transition_definition,
+    &ai_print_uncovering_definition,
+    &ai_profile_disable_definition,
+    &ai_profile_random_definition,
+    &ai_show_definition,
+    &ai_show_stats_definition,
+    &ai_show_actors_definition,
+    &ai_show_swarms_definition,
+    &ai_show_paths_definition,
+    &ai_show_line_of_sight_definition,
+    &ai_show_prop_types_definition,
+    &ai_show_sound_distance_definition,
+    &ai_debug_fast_los_definition,
+    &ai_debug_oversteer_disable_definition,
+    &ai_debug_evaluate_all_positions_definition,
+    &ai_debug_path_definition,
+    &ai_debug_path_start_freeze_definition,
+    &ai_debug_path_end_freeze_definition,
+    &ai_debug_path_flood_definition,
+    &ai_debug_path_maximum_radius_definition,
+    &ai_debug_path_attractor_definition,
+    &ai_debug_path_attractor_radius_definition,
+    &ai_debug_path_attractor_weight_definition,
+    &ai_debug_path_accept_radius_definition,
+    &ai_debug_ballistic_lineoffire_freeze_definition,
+    &ai_debug_communication_random_disabled_definition,
+    &ai_debug_communication_timeout_disabled_definition,
+    &ai_debug_communication_unit_repeat_disabled_definition,
+    &ai_debug_communication_focus_enable_definition,
+    &ai_debug_blind_definition,
+    &ai_debug_deaf_definition,
+    &ai_debug_invisible_player_definition,
+    &ai_debug_ignore_player_definition,
+    &ai_debug_flee_always_definition,
+    &ai_debug_force_all_active_definition,
+    &ai_debug_disable_wounded_sounds_definition,
+    &ai_debug_force_vocalizations_definition,
+    &ai_debug_force_crouch_definition,
+    &ai_debug_path_disable_smoothing_definition,
+    &ai_debug_path_disable_obstacle_avoidance_definition,
+    &ai_fix_defending_guard_firing_positions_definition,
+    &ai_fix_actor_variants_definition,
+    &controls_enable_crouch_definition,
+    &controls_swapped_definition,
+    &controls_enable_doubled_spin_definition,
+    &controls_swap_doubled_spin_state_definition,
+    &player_autoaim_definition,
+    &player_magnetism_definition,
+    &debug_player_teleport_definition,
+    &texture_cache_graph_definition,
+    &texture_cache_list_definition,
+    &director_camera_switch_fast_definition,
+    &director_camera_switching_definition,
+    &debug_recording_definition,
+    &debug_recording_newlines_definition,
+    &debug_player_color_definition,
+    &debug_framerate_definition,
+    &display_framerate_definition,
+    &display_vblank_deltas_definition,
+    &framerate_throttle_definition,
+    &framerate_lock_definition,
+    &display_precache_progress_definition,
+    &debug_game_save_definition,
+    &allow_out_of_sync_definition,
+    &global_connection_dont_timeout_definition,
+    &slow_server_startup_safety_zone_in_seconds_definition,
+    &find_all_fucked_up_shit_definition,
+    &error_suppress_all_definition,
+    &run_game_scripts_definition,
+    &leaf_to_leaf_latency_definition,
+    &net_bandwidth_definition,
+    &network_connect_timeout_definition,
+    &net_graph_enabled_definition,
+    &net_graph_period_definition,
+    &allow_client_side_weapon_projectiles_definition,
+    &weapon_incremental_rate_definition,
+    &equipment_incremental_rate_definition,
+    &biped_incremental_rate_definition,
+    &vehicle_incremental_rate_definition,
+    &projectile_incremental_rate_definition,
+    &oddball_baseline_rate_definition,
+    &local_player_update_rate_definition,
+    &local_player_vehicle_update_rate_definition,
+    &remote_player_action_update_rate_definition,
+    &remote_player_action_baseline_update_rate_definition,
+    &remote_player_position_update_rate_definition,
+    &remote_player_position_baseline_update_rate_definition,
+    &remote_player_vehicle_update_rate_definition,
+    &remote_player_vehicle_baseline_update_rate_definition,
+    &use_super_remote_players_action_update_definition,
+    &use_new_vehicle_update_scheme_definition,
+    &log_server_player_update_history_definition,
+    &client_log_destination_definition,
+    &local_player_log_level_definition,
+    &remote_player_log_level_definition,
+    &debug_score_definition,
+    &speed_hack_detection_definition,
+    &speed_hack_log_level_definition,
+    &should_play_multiplayer_hit_sound_definition,
+    &object_prediction_definition,
+    &transport_dumping_definition,
+    &hud_filter_definition,
+    &sv_mapcycle_timeout_definition,
+    &sv_public_definition,
+    &sv_maxplayers_definition,
+    &developer_mode_definition,
+};

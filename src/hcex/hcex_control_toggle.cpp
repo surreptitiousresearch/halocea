@@ -7,6 +7,7 @@
  * DEVIATION: the binary inlines the two name comparisons as open-coded strcmp loops; reproduced here
  * with strcmp. The `value` argument is part of the toggle callback signature but is unused here. */
 
+#include <stdint.h>
 #include "../headers/data_array.h"
 #include "../headers/scenario.h"
 #include "../headers/scenario_object_name.h"
@@ -25,7 +26,7 @@ extern "C" void hcex_control_toggle(int id, float value)
 {
     object_datum *object =
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, id)->datum;
-    __int16 name_index = object->object.name_index;
+    int16_t name_index = object->object.name_index;
     if (name_index == -1)
         return;
 

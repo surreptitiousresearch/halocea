@@ -11,7 +11,7 @@ extern void ui_widgets_close_all(void);
 extern uint8_t network_game_is_splitscreen_local(void);
 extern uint8_t network_game_is_quickstart_local(void);
 extern network_game_server *global_network_game_server_get(void);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 widget_instance *network_game_reset_to_pregame_ui(void)
 {

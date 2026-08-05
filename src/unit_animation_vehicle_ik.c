@@ -2,12 +2,13 @@
  * unit's current animation state? Returns 0 for the enter/exit/eject transition states that must not be
  * IK-driven, 1 otherwise. Pure predicate over unit_animation->state (DB-verified switch). */
 
+#include <stdint.h>
 #include "headers/unit_animation.h"
 #include "headers/unit_animation_state.h"
 
 int unit_animation_vehicle_ik(unit_animation *animation)
 {
-    int state = (unsigned __int8)animation->state;
+    int state = (uint8_t)animation->state;
     int result = 1;
 
     switch (state)

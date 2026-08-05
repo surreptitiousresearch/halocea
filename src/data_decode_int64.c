@@ -3,9 +3,9 @@
 
 extern char *data_decode_memory(data_encoding_state *state, int16_t count, int code);
 
-unsigned __int64 data_decode_int64(data_encoding_state *state)
+uint64_t data_decode_int64(data_encoding_state *state)
 {
-    unsigned __int64 *value = (unsigned __int64 *)data_decode_memory(state, 1, -8);
+    uint64_t *value = (uint64_t *)data_decode_memory(state, 1, -8);
 
     if (value)
         return *value;

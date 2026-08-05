@@ -16,7 +16,7 @@
 #include "headers/collision_surface_flags.h"
 #include "headers/real_point2d.h"
 
-extern const __int16 global_projection3d_mappings[3][2][2];
+extern const int16_t global_projection3d_mappings[3][2][2];
 
 /* Return is 8-bit: both callers (collision_leaf_test_vector @0x837E15A0,
  * bsp3d_test_pill_recursive @0x837E29F0) normalize the result with clrlwi rN,r3,24. */

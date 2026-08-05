@@ -17,7 +17,7 @@ void set_profile_name(widget_instance *text_widget, const wchar_t *name)
 {
     int captions_tag = tag_loaded(0x75737472u, "ui\\shell\\strings\\common_button_captions");
 
-    unsigned __int16 *text = pool_resize_pointer(
+    uint16_t *text = pool_resize_pointer(
         widget_memory_pool, (char *)text_widget->parameters.text_box_parameters.text, 0x80u);
 
     text_widget->parameters.text_box_parameters.text = text;

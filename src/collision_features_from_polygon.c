@@ -42,7 +42,7 @@ void collision_features_from_polygon(int16_t point_count, const real_point3d *po
     prism->projection_sign = (prism->plane.n.n[prism->projection_axis] > 0.0);
     prism->point_count = point_count;
 
-    for ( int i = 0; i < prism->point_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < prism->point_count; i = (int16_t)(i + 1) )
     {
         int map = 2 * prism->projection_axis + prism->projection_sign;
         prism->points[i].n[0] = points[i].n[global_projection3d_mappings[0][map][0]];
@@ -56,7 +56,7 @@ void collision_features_from_polygon(int16_t point_count, const real_point3d *po
         {
             int lowered_component =
                 (global_projection3d_mappings[0][2 * prism->projection_axis + prism->projection_sign][1] == 2);
-            for ( int i = 0; i < prism->point_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < prism->point_count; i = (int16_t)(i + 1) )
                 prism->points[i].n[lowered_component] = (prism->points[i].n[lowered_component] - height);
         }
     }

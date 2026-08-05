@@ -23,7 +23,7 @@ float weapon_compute_movement_penalty(int weapon_index, uint8_t forward, uint8_t
     float penalty = forward ? definition->weapon.forward_movement_penalty
                             : definition->weapon.sideways_movement_penalty;
 
-    __int16 mode = definition->weapon.movement_penalty_mode;
+    int16_t mode = definition->weapon.movement_penalty_mode;
     if ( (mode == _weapon_movement_penalty_when_zoomed
           || (mode == _weapon_movement_penalty_when_zoomed_or_reloading
               && (weapon->weapon.magazines[0].state == _magazine_reloading

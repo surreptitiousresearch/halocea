@@ -35,7 +35,7 @@ extern uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, floa
 extern uint8_t actor_move_to_firing_position(int actor_index, int16_t firing_position_index, path_state *cached_path_state);
 extern uint8_t actor_move_halt(uint16_t actor_index);
 
-unsigned __int8 action_search_perform(int actor_index)
+uint8_t action_search_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     search_state_data *search_finished = &actor->state.action_data.___u0.search;
@@ -43,13 +43,13 @@ unsigned __int8 action_search_perform(int actor_index)
     if ( actor->meta.swarm || !actor->meta.timeslice || search_finished->search_done )
         return search_finished->search_done;
 
-    __int16 same_position_count = 0;
+    int16_t same_position_count = 0;
     int search_state = actor->state.action_data.___u0.search.pursuit_location.type;
     actor->state.action_data.___u0.search.at_destination = 1;
 
     if ( search_state || actor->target.target_prop_index == -1 )
     {
-        if ( search_state == _pursuit_location_position && (unsigned __int16)actor->state.action_data.___u0.search.pursuit_location.firing_position_index != 0xFFFF )
+        if ( search_state == _pursuit_location_position && (uint16_t)actor->state.action_data.___u0.search.pursuit_location.firing_position_index != 0xFFFF )
         {
             float d1 = actor->input.position.body_position.y - actor->state.action_data.___u0.search.pursuit_location.position.y;
             float d2 = actor->input.position.body_position.z - actor->state.action_data.___u0.search.pursuit_location.position.z;
@@ -91,7 +91,7 @@ unsigned __int8 action_search_perform(int actor_index)
 
     if ( !actor->state.action_data.___u0.search.at_destination && !actor->state.action_data.___u0.search.charging )
     {
-        __int16 close_searchers = 0;
+        int16_t close_searchers = 0;
         prop_iterator iterator;
         prop_iterator_new(&iterator, actor_index);
         for ( prop_datum *prop = prop_iterator_next(&iterator); prop; prop = prop_iterator_next(&iterator) )
@@ -117,7 +117,7 @@ unsigned __int8 action_search_perform(int actor_index)
             }
         }
 
-        __int16 required_searchers = (actor->state.action_data.___u0.search.pursuit_location.type != _pursuit_location_position) ? 4 : 2;
+        int16_t required_searchers = (actor->state.action_data.___u0.search.pursuit_location.type != _pursuit_location_position) ? 4 : 2;
         if ( actor->state.action_data.___u0.search.tenacious || same_position_count < required_searchers )
         {
             if ( close_searchers > 0 )

@@ -21,6 +21,8 @@
  *  - the shader-no-fog-flag (0x10) branch of the fog block reads the four contiguous change-colour stack slots;
  *    the 4th (v105 @ sp+7C) is never written by this function (a shipped uninitialized read) — reproduced as 0
  *    for its fog_delta_b term, per the corpus convention (cf. rasterizer_glass_draw_diffuse_pp DEVIATION 3).
+ *  - the decompiler's `*(double *)&global_frame_parameters.game_time_sec` puns are identity casts
+ *    (the field is already a double) and are dropped.
  *  - self-illumination colours are unused when detail_mask is set (that branch never uploads constants[4] and
  *    the later gate is `!detail_mask`); they are initialised to 0 here to avoid an uninitialised read. */
 
@@ -65,7 +67,7 @@ extern void D3DDevice_SetRenderState_BlendOp(D3DDevice *device, unsigned int val
 extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned int value);
 extern void D3DDevice_SetRenderState_AlphaRef(D3DDevice *device, unsigned int value);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
@@ -141,7 +143,7 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
             rasterizer_dx9_reset_zbias();
     }
 
-    unsigned __int16 shader_flags = shader->model.flags;
+    uint16_t shader_flags = shader->model.flags;
     if ( shader_flags & (1u << _shader_model_two_sided_bit) )
     {
         /* two-sided shader: keep culling only when the nocull flag is clear, or the centroid is within 8 units */
@@ -191,7 +193,7 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
                 - shader->model.self_illumination_animation_color_lower_bound.n[1];
         float self_illum_range_b = shader->model.self_illumination_animation_color_upper_bound.n[2]
                 - shader->model.self_illumination_animation_color_lower_bound.n[2];
-        self_illum_phase += *(double *)&global_frame_parameters.game_time_sec
+        self_illum_phase += global_frame_parameters.game_time_sec
                 / shader->model.self_illumination_animation_period;
         float self_illum_function_value =
                 periodic_function_evaluate(shader->model.self_illumination_animation_function, self_illum_phase);
@@ -241,7 +243,7 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
     }
 
     /* vertex-shader variant selection */
-    __int16 vertex_shader_index;
+    int16_t vertex_shader_index;
     if ( shader_flags & (1u << _shader_model_true_atmospheric_fog_bit) )
     {
         vertex_shader_index = 28;
@@ -469,14 +471,14 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
             local_parameters->base_map_scale.n[0] * shader->model.map_scale.n[0],
             local_parameters->base_map_scale.n[1] * shader->model.map_scale.n[1],
             0.0f, 0.0f, 0.0f,
-            (float)*(double *)&global_frame_parameters.game_time_sec,
+            (float)global_frame_parameters.game_time_sec,
             (real_vector4d *)&model_vertex_constants[4],
             (real_vector4d *)&model_vertex_constants[8]);
     model_vertex_constants[10] = shader->model.translucency;
 
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, model_vertex_constants, 3,
-            (unsigned __int64)3 << 60);
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, reflection_block, 2, (unsigned __int64)1 << 60);
+            (uint64_t)3 << 60);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, reflection_block, 2, (uint64_t)1 << 60);
 
     if ( global_rasterizer_model_ambient_reflection_tint
             && (global_rasterizer_model_ambient_reflection_tint->n[0] > 0.0f
@@ -494,7 +496,7 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
         ambient_reflection_block[6] = global_rasterizer_model_ambient_reflection_tint->n[2];
         ambient_reflection_block[7] = global_rasterizer_model_ambient_reflection_tint->n[3];
         D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, ambient_reflection_block, 2,
-                (unsigned __int64)1 << 60);
+                (uint64_t)1 << 60);
     }
 
     unsigned int pass_count[4];
@@ -532,13 +534,13 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
                 local_parameters->base_map_scale.n[0] * shader->model.map_scale.n[0],
                 local_parameters->base_map_scale.n[1] * shader->model.map_scale.n[1],
                 0.0f, 0.0f, 0.0f,
-                (float)*(double *)&global_frame_parameters.game_time_sec,
+                (float)global_frame_parameters.game_time_sec,
                 (real_vector4d *)&back_face_constants[4],
                 (real_vector4d *)&back_face_constants[8]);
         back_face_constants[10] = shader->model.translucency;
 
         D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, back_face_constants, 3,
-                (unsigned __int64)3 << 60);
+                (uint64_t)3 << 60);
 
         ID3DXEffect_Begin(effect_shader->effect, pass_count, 3);
         for ( unsigned int j = 0; j < pass_count[0]; ++j )

@@ -53,7 +53,7 @@ uint8_t object_is_or_contains_player(int object_index)
     if (found)
         return found;
 
-    if (((1 << (unsigned __int16)object->object.type) & 0x1C) == 0)
+    if (((1 << (uint16_t)object->object.type) & 0x1C) == 0)
         return 0;
     if ((((item_datum *)object)->item.flags & (1u << _item_belongs_to_player_bit)) == 0)
         return 0;

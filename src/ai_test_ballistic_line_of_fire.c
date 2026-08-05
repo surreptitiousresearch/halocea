@@ -19,7 +19,7 @@
 #include "headers/collision_test_flags.h"
 #include "headers/line_of_fire_pill.h"
 
-extern __int16 ai_find_line_of_fire_friend_pills(int actor_index, __int16 max_pill_count, line_of_fire_pill *pills);
+extern int16_t ai_find_line_of_fire_friend_pills(int actor_index, int16_t max_pill_count, line_of_fire_pill *pills);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 extern uint8_t vector_intersects_pill3d(const real_point3d *point, const real_vector3d *vector, const real_point3d *base, const real_vector3d *height, float width);
 
@@ -28,7 +28,7 @@ uint8_t ai_test_ballistic_line_of_fire(int actor_index, const real_point3d *orig
                                        int ignore_object_index, uint8_t ignore_vehicles)
 {
     line_of_fire_pill friend_pills[34];
-    __int16 pill_count = ai_find_line_of_fire_friend_pills(actor_index, 32, friend_pills);
+    int16_t pill_count = ai_find_line_of_fire_friend_pills(actor_index, 32, friend_pills);
 
     /* 49843 = 0xC2B3; with vehicles cleared -> 49331 = 0xC0B3 (matches ignore_vehicles path). */
     unsigned int collision_flags =
@@ -66,9 +66,9 @@ uint8_t ai_test_ballistic_line_of_fire(int actor_index, const real_point3d *orig
         segment_delta.n[2] = segment_end.n[2] - segment_start.n[2];
 
         collision_result result;
-        unsigned __int8 hit = collision_test_vector(collision_flags, &segment_start, &segment_delta,
+        uint8_t hit = collision_test_vector(collision_flags, &segment_start, &segment_delta,
                                                     ignore_object_index, &result);
-        unsigned __int8 clear = (hit == 0);
+        uint8_t clear = (hit == 0);
         if (hit)
             return clear; /* blocked by world geometry */
 

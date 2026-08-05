@@ -6,22 +6,23 @@
  *
  * DEVIATION: the decompiler modeled the two parallel partition-bound stacks as single BYREF ints (v19/v20);
  * the surrounding stack frame shows each is really a 32-entry int array, declared as such here. */
+#include <stdint.h>
 
-void qsort_2byte(__int16 *base, unsigned int num, unsigned __int8 (*compare)(__int16, __int16))
+void qsort_2byte(int16_t *base, unsigned int num, uint8_t (*compare)(int16_t, int16_t))
 {
     int stack_depth;
-    __int16 *lo;
-    __int16 *hi;
+    int16_t *lo;
+    int16_t *hi;
     int *hi_stack;
     int *lo_stack;
     unsigned int span;
-    __int16 *max_elem;
-    __int16 *i;
-    __int16 tmp;
+    int16_t *max_elem;
+    int16_t *i;
+    int16_t tmp;
     unsigned int pivot_offset;
-    __int16 *left;
-    __int16 *right;
-    __int16 swap_tmp;
+    int16_t *left;
+    int16_t *right;
+    int16_t swap_tmp;
     int hi_stack_storage[32];
     int lo_stack_storage[32];
 
@@ -59,8 +60,8 @@ void qsort_2byte(__int16 *base, unsigned int num, unsigned __int8 (*compare)(__i
             pivot_offset = span & ~0x1u;   /* round byte span down to a whole 2-byte element */
             left = lo;
             right = hi + 1;
-            swap_tmp = *(__int16 *)((char *)lo + pivot_offset);
-            *(__int16 *)((char *)lo + pivot_offset) = *lo;
+            swap_tmp = *(int16_t *)((char *)lo + pivot_offset);
+            *(int16_t *)((char *)lo + pivot_offset) = *lo;
             *lo = swap_tmp;
 
             while ( 1 )
@@ -99,8 +100,8 @@ pop_partition:
                 --hi_stack;
                 if ( stack_depth < 0 )
                     return;
-                lo = (__int16 *)lo_stack[1];
-                hi = (__int16 *)hi_stack[1];
+                lo = (int16_t *)lo_stack[1];
+                hi = (int16_t *)hi_stack[1];
             }
             else
             {

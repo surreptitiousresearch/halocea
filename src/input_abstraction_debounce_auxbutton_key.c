@@ -5,12 +5,12 @@
 #include "headers/input_abstraction_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern __int16 keyboard_auxbutton_mapping_end;   /* one-past-end sentinel of keyboard_auxbutton_mapping */
+extern int16_t keyboard_auxbutton_mapping_end;   /* one-past-end sentinel of keyboard_auxbutton_mapping */
 
 void input_abstraction_debounce_auxbutton_key(int16_t key_code)
 {
     int i = 0;
-    __int16 *m = keyboard_auxbutton_mapping;
+    int16_t *m = keyboard_auxbutton_mapping;
 
     while (*m != key_code)
     {

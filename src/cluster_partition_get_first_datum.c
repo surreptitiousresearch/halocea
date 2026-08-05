@@ -17,7 +17,7 @@ int cluster_partition_get_first_datum(const cluster_partition *partition, int *r
     if ( reference == -1 )
         return -1;
 
-    datum = &((const data_reference *)partition->data_reference_data->data)[(unsigned __int16)reference];
+    datum = &((const data_reference *)partition->data_reference_data->data)[(uint16_t)reference];
     *reference_index = datum->next_reference_index;
     return datum->datum_index;
 }

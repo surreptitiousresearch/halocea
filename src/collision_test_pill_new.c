@@ -35,7 +35,7 @@ uint8_t collision_test_pill_new(unsigned int flags, const real_point3d *point, c
 
     float t;
     real_vector3d normal;
-    unsigned __int8 hit = collision_bsp_test_pill_new(global_collision_bsp, 0, nullptr, point, vector, radius,
+    uint8_t hit = collision_bsp_test_pill_new(global_collision_bsp, 0, nullptr, point, vector, radius,
         &t, &normal);
 
     if ( hit )

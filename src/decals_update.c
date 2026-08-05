@@ -7,6 +7,7 @@
  * DEVIATION: the decompiler renders the fctiwz float→int store as a spurious ">> 24"; the stored byte
  * is simply the truncated 0..255 alpha. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/data_iterator.h"
 #include "headers/decal_globals.h"
@@ -32,7 +33,7 @@ void decals_update(void)
         decal_datum *decal = DATUM_GET(global_decal_data, decal_datum, iterator.index);
 
         int age_ticks = game_time_get() - decal->creation_time;
-        __int16 flags = decal->flags;
+        int16_t flags = decal->flags;
         decal->intensity = 0xFF;
         float age_seconds = (float)age_ticks * SECONDS_PER_TICK;
 

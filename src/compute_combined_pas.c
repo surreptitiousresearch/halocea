@@ -21,8 +21,8 @@ extern uint8_t structure_bsp_get_cluster_encoded_sound_distance(structure_bsp *s
 void compute_combined_pas(void)
 {
     structure_bsp *bsp = global_structure_bsp;
-    __int16 local_player_index;
-    __int16 i;
+    int16_t local_player_index;
+    int16_t i;
 
     memset(combined_pas, 0, 4 * BIT_VECTOR_SIZE_IN_LONGS(bsp->clusters.count));
 
@@ -33,7 +33,7 @@ void compute_combined_pas(void)
 
         {
             const observer_result *camera = observer_get_camera(local_player_index);
-            __int16 camera_cluster = (unsigned __int16)camera->location.cluster_index; /* recovered: *(_WORD *)((char *)camera + 16) -> location.cluster_index */
+            int16_t camera_cluster = (uint16_t)camera->location.cluster_index; /* recovered: *(_WORD *)((char *)camera + 16) -> location.cluster_index */
             int cluster;
 
             if ( camera_cluster == 0xFFFF )

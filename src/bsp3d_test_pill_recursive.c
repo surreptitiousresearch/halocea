@@ -18,7 +18,7 @@
 #include "headers/real_plane3d.h"
 #include "headers/real_point2d.h"
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern float __fabs(float);
 extern int bsp2d_test_point(const bsp2d *bsp, const real_point2d *point, int child_index);
@@ -47,7 +47,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
 
         char reaches_back = (distance_start <= radius_plus || distance_end <= radius_plus);
         float radius_minus = (-data->radius - 0.00024414062f);
-        unsigned __int8 reaches_front = (distance_start >= radius_minus || distance_end >= radius_minus);
+        uint8_t reaches_front = (distance_start >= radius_minus || distance_end >= radius_minus);
 
         if ( reaches_back && reaches_front )
         {
@@ -88,7 +88,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                 int stack_pos = 0;
                 while ( data->plane_stack[stack_pos] != reference_plane )
                 {
-                    stack_pos = (__int16)(stack_pos + 1);
+                    stack_pos = (int16_t)(stack_pos + 1);
                     if ( stack_pos >= data->stack_depth )
                         goto next_reference;
                 }
@@ -124,7 +124,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     float ax = __fabs(plane[0]);
                     float ay = __fabs(plane[1]);
                     float az = __fabs(plane[2]);
-                    __int16 axis;
+                    int16_t axis;
                     if ( az < ay || az < ax )
                         axis = (ay >= ax);
                     else
@@ -133,7 +133,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     BOOL plane_positive = plane[axis] > 0.0;
                     const bsp2d *leaf_bsp2d = &bsp->bsp2d;
                     int sign_intermediate = (reference_entry->plane_index < 0) - plane_positive;
-                    unsigned __int8 sign =
+                    uint8_t sign =
                         sign_intermediate - (-(reference_entry->plane_index >= 0) - plane_positive + (sign_intermediate == 0));
                     data->projection_sign = sign;
                     int map_index = 2 * axis + sign;

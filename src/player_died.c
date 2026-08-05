@@ -29,7 +29,7 @@ void player_died(int player_index)
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
     int unit_index = player->unit_index;
-    __int16 local_player_index = player->local_player_index;
+    int16_t local_player_index = player->local_player_index;
     player->unit_index = -1;
     player->dead_unit_index = unit_index;
     if (local_player_index != -1)

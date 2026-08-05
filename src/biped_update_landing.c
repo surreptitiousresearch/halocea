@@ -29,7 +29,7 @@ void biped_update_landing(int biped_index, unit_animation_update_data *animation
 
     if (!cinematic_in_progress() && !g_running_simulated_update
         && ((unsigned char)biped->biped.landing_recovery_counter == 2
-            || ((unsigned __int16)biped->biped.landing == 0xFFFF
+            || ((uint16_t)biped->biped.landing == 0xFFFF
                 && (signed char)biped->biped.landing_recovery_time < 2)))
     {
         biped_make_footstep(biped_index, _material_effect_biped_jump_land, 0);
@@ -38,5 +38,5 @@ void biped_update_landing(int biped_index, unit_animation_update_data *animation
 
     /* DEVIATION: replaces the cntlzw zero-test idiom — (cntlzw(frame - 1) & 0x20) != 0 is true
      * exactly when the landing-frame word equals 1. */
-    animation->state_desired = ((unsigned __int16)biped->biped.landing == 1) ? _unit_state_land_hard : _unit_state_land_soft;
+    animation->state_desired = ((uint16_t)biped->biped.landing == 1) ? _unit_state_land_hard : _unit_state_land_soft;
 }

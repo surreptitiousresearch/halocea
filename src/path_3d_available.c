@@ -41,18 +41,18 @@ uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *star
     ray_vector.n[2] = *(const float *)&destination_reference->surface_index - start_point->n[2];
 
     collision_bsp_test_vector_result hit_result;
-    unsigned __int8 obstructed = 0;
+    uint8_t obstructed = 0;
     if (collision_bsp_test_vector(1u, (const struct collision_bsp *)structure_bsp->collision_bsp.address,
             0, 0, start_point, &ray_vector, FLT_MAX, &hit_result)
         && hit_result.t < 1.0f)
     {
         float remaining_t = 1.0f - hit_result.t;
-        obstructed = (unsigned __int8)((ray_vector.n[1] * ray_vector.n[1]
+        obstructed = (uint8_t)((ray_vector.n[1] * ray_vector.n[1]
                         + (ray_vector.n[0] * ray_vector.n[0] + ray_vector.n[2] * ray_vector.n[2]))
                     * (remaining_t * remaining_t) >= 0.1f);
     }
 
-    unsigned __int8 available = obstructed ? 0 : 1;
+    uint8_t available = obstructed ? 0 : 1;
 
     if (path_available_out)
         *path_available_out = available;

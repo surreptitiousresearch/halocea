@@ -33,7 +33,7 @@ void weapon_ready(int weapon_index)
     first_person_weapon_message_from_weapon(weapon_index, _first_person_weapon_message_ready);
     weapon_effect_new(weapon_index, definition->weapon.ready_effect.index, 0.0f, 0.0f);
 
-    __int16 animation_time = weapon_get_first_person_animation_time(weapon_index, 0,
+    int16_t animation_time = weapon_get_first_person_animation_time(weapon_index, 0,
                                  _first_person_weapon_animation_ready, -1);
     weapon->weapon.state_timer = animation_time;
     if ( !weapon->object.datum_role )

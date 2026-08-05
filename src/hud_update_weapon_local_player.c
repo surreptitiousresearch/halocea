@@ -49,7 +49,7 @@ void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index
     if ( !unit )
         return;
 
-    __int16 player_local_index = player->local_player_index;
+    int16_t player_local_index = player->local_player_index;
     crosshair_hud_state *crosshair = &weapon_hud_globals->crosshair_state[player_local_index];
 
     /* Root weapon-HUD interface tag definition, then walk its child-interface chain (each definition's +0xC
@@ -70,7 +70,7 @@ void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index
         const weapon_hud_interface_definition *child = TAG_GET(const weapon_hud_interface_definition, child_index);
         hud_definitions[definition_index] = child;
         render_mask |= child->valid_crosshair_types_flags;
-        definition_index = (__int16)(definition_index + 1);
+        definition_index = (int16_t)(definition_index + 1);
     }
     while ( definition_index < 16 );
 
@@ -82,7 +82,7 @@ void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index
     }
 
     unsigned int render_flags = 0;
-    for ( int crosshair_index = 0; crosshair_index < NUMBER_OF_WEAPON_CROSSHAIR_TYPES; crosshair_index = (__int16)(crosshair_index + 1) )
+    for ( int crosshair_index = 0; crosshair_index < NUMBER_OF_WEAPON_CROSSHAIR_TYPES; crosshair_index = (int16_t)(crosshair_index + 1) )
     {
         unsigned int bit = 1u << crosshair_index;
         if ( (bit & render_mask) == 0 )
@@ -238,7 +238,7 @@ void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index
                 break;
         }
 
-        result = (__int16)result;
+        result = (int16_t)result;
 
         if ( result > 0 || crosshair_index == _weapon_crosshair_aim )
             render_flags |= bit;

@@ -12,7 +12,7 @@ int16_t object_definition_index_to_object_type(int definition_index)
 {
     unsigned int group_tag = tag_get_group_tag(definition_index);
 
-    for ( __int16 object_type = object_type_biped; object_type < number_of_object_types; ++object_type )
+    for ( int16_t object_type = object_type_biped; object_type < number_of_object_types; ++object_type )
     {
         if ( object_type_definitions[object_type]->group_tag == group_tag )
             return object_type;

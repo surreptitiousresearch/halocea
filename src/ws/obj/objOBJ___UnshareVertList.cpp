@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -25,7 +26,7 @@ int objOBJ::_UnshareVertList()
             objGEOM_UNSHARED *pGeom = this->pGeom;
             int elemSize = 12;
             if (pGeom) {
-                __int64 compr = pGeom->pSharedGeom->stateCompr.state;
+                int64_t compr = pGeom->pSharedGeom->stateCompr.state;
                 if (compr & 1)
                     elemSize = (compr & 2) == 0 ? 6 : 8;
             }

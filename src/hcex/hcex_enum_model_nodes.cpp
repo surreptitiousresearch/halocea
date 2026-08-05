@@ -2,6 +2,7 @@
  * node record. Fetches the model definition via TAG_INSTANCE(model_index), then walks its node block.
  * The loop counter is truncated to 16 bits each step, matching the tag's short node index. */
 
+#include <stdint.h>
 #include "../headers/global_tag_instances.h"
 #include "../headers/model.h"
 #include "../headers/model_node.h"
@@ -20,7 +21,7 @@ extern "C" void hcex_enum_model_nodes(int model_index, void (*cb)(void *mdl, con
     do
     {
         cb(mdl, (const char *)&((model_node *)model_definition->nodes.address)[node_index]);
-        node_index = (__int16)(node_index + 1);
+        node_index = (int16_t)(node_index + 1);
     }
     while ( node_index < model_definition->nodes.count );
 }

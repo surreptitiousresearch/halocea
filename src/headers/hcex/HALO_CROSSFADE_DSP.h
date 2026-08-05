@@ -7,12 +7,13 @@
 // DB-verified layout (types_members HALO_CROSSFADE_DSP): startTime@0, endTime@8, refCount@16,
 // dsp@20 (FMOD::DSP*), isFadeIn@24 — size 25 (padded to 28).
 
+#include <stdint.h>
 #include "../ws/snd/snd_fmod_boundary.h"
 #include "../ws/ds/dsVECTOR.h"
 
 typedef struct HALO_CROSSFADE_DSP {
-    unsigned __int64 startTime; // 0x00 -- FMOD DSP-clock tick the ramp begins at
-    unsigned __int64 endTime;   // 0x08 -- FMOD DSP-clock tick the ramp ends at
+    uint64_t startTime; // 0x00 -- FMOD DSP-clock tick the ramp begins at
+    uint64_t endTime;   // 0x08 -- FMOD DSP-clock tick the ramp ends at
     int                refCount;  // 0x10
     FMOD::DSP         *dsp;        // 0x14 -- the underlying FMOD custom DSP unit
     bool               isFadeIn;   // 0x18 -- selects the ramp direction in ReadCallback (see .cpp)
@@ -38,7 +39,7 @@ typedef struct HALO_CROSSFADE_DSP {
     // disasm confirms the DB's 3-arg (start,fadeTime,isFadeIn) prototype -- `start` (a 64-bit
     // DSP-clock tick) is passed whole in a single 64-bit GPR (this ABI's convention for a
     // 64-bit arg, matching the hi:lo pairs FMOD::System::getDSPClock fills elsewhere).
-    void SetSettings(unsigned __int64 start, int fadeTime, bool isFadeIn); // ?SetSettings@HALO_CROSSFADE_DSP@@QAAX_KH_N@Z
+    void SetSettings(uint64_t start, int fadeTime, bool isFadeIn); // ?SetSettings@HALO_CROSSFADE_DSP@@QAAX_KH_N@Z
 
     // FMOD_DSP_DESCRIPTION::read callback -- applies the gain ramp to `outbuffer` in place
     // for the block [blockStart, blockStart+length) if it overlaps [startTime,endTime).

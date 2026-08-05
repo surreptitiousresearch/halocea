@@ -14,7 +14,7 @@ uint8_t virtual_keyboard_is_input_valid(int ascii_code, int validate_mode)
 {
     if (validate_mode == _virtual_keyboard_validate_internet_address)
     {
-        switch ((unsigned __int8)ascii_code)
+        switch ((uint8_t)ascii_code)
         {
             case '.':
             case '-':
@@ -22,14 +22,14 @@ uint8_t virtual_keyboard_is_input_valid(int ascii_code, int validate_mode)
                 return 1;
         }
         const unsigned short *ctype = __pctype_func();
-        return (ctype[(unsigned __int8)ascii_code] & 0x107) != 0;
+        return (ctype[(uint8_t)ascii_code] & 0x107) != 0;
     }
     else if (validate_mode == _virtual_keyboard_validate_number)
     {
-        return __pctype_func()[(unsigned __int8)ascii_code] & 4;   /* 0x4 = digit */
+        return __pctype_func()[(uint8_t)ascii_code] & 4;   /* 0x4 = digit */
     }
     else
     {
-        return strchr(invalid_keys, (unsigned __int8)ascii_code) == nullptr;
+        return strchr(invalid_keys, (uint8_t)ascii_code) == nullptr;
     }
 }

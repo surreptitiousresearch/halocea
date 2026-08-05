@@ -45,7 +45,7 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *props = (prop_datum *)prop_data->data;
 
-    __int16 enemy_count = 0;
+    int16_t enemy_count = 0;
     /* "unopposable retreat" tag-definition base, via the actor's own tag index (actor+88). */
     actor_definition *tag_base = TAG_GET(actor_definition, actor->meta.definition_index);
 
@@ -58,7 +58,7 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
     {
         int prop_index = iter.index;
         /* DEVIATION: collapsed verbatim-inlined copy of zero-xref donor actor_emotion_assess_unopposable_danger@0x837D81D8 (disasm-confirmed field-for-field match at prop offsets 0x24/0xA4/0x74/0x12F/0x122/0x32); donor's actor_index param is itself dead/unused (per the donor's own header comment), so it folds through unchanged, and prop_index is this loop's live index. */
-        __int16 unopposable_type = actor_emotion_assess_unopposable_danger(actor_index, prop_index);
+        int16_t unopposable_type = actor_emotion_assess_unopposable_danger(actor_index, prop_index);
 
         if (unopposable_type <= 0)
         {
@@ -76,16 +76,16 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
                         int threshold = actor->emotions.unopposable_friend_ignore_time;
                         if (threshold == -1 || other_actor->emotions.unopposable_retreat_start_time >= threshold)
                         {
-                            prop_datum *tracked_prop = &props[(unsigned __int16)other_actor->emotions.unopposable_retreat_prop_index];
+                            prop_datum *tracked_prop = &props[(uint16_t)other_actor->emotions.unopposable_retreat_prop_index];
                             int active_prop_index = prop_get_active_by_unit_index(actor_index,
                                     tracked_prop->unit_index);
                             if (active_prop_index != -1)
                             {
-                                prop_datum *closest_prop = &props[(unsigned __int16)active_prop_index];
+                                prop_datum *closest_prop = &props[(uint16_t)active_prop_index];
                                 if (closest_prop->state >= _prop_state_becoming_unacknowledged && closest_prop->state <= _prop_state_acknowledged
                                         && closest_prop->unopposable_enemy)
                                 {
-                                    __int16 slot = actor_emotion_get_unopposable_enemy(
+                                    int16_t slot = actor_emotion_get_unopposable_enemy(
                                             tracked_prop->unit_index, &enemy_count, 16, enemies);
                                     if (slot != -1)
                                     {
@@ -113,7 +113,7 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
         }
         else
         {
-            __int16 slot = actor_emotion_get_unopposable_enemy(prop->unit_index, &enemy_count, 16, enemies);
+            int16_t slot = actor_emotion_get_unopposable_enemy(prop->unit_index, &enemy_count, 16, enemies);
             if (slot != -1)
             {
                 actor_unopposable_enemy *record = &enemies[slot];
@@ -134,13 +134,13 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
         actor_unopposable_enemy *record = &enemies[idx];
         prop_datum *closest_prop = record->prop;
 
-        __int16 hysteresis = tag_base->unopposable.trigger_unreachable_level;
+        int16_t hysteresis = tag_base->unopposable.trigger_unreachable_level;
         if (closest_prop->vehicle_gunner || closest_prop->dangerous_vehicle_driver)
             hysteresis = tag_base->unopposable.trigger_vehicle_level;
 
         if (closest_prop->player)
         {
-            __int16 cap = tag_base->unopposable.trigger_player_level;
+            int16_t cap = tag_base->unopposable.trigger_player_level;
             if (cap > 0)
             {
                 if (hysteresis <= cap)
@@ -176,16 +176,16 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
                 float lower = tag_base->unopposable.trigger_time_lower_bound;
                 unsigned int *seed = get_global_random_seed_address();
                 closest_prop->unopposable_trigger_threshold =
-                        (__int16)(real_seed_random_range(seed, lower, upper) * 30.0f);
+                        (int16_t)(real_seed_random_range(seed, lower, upper) * 30.0f);
             }
-            __int16 previous_timer = closest_prop->unopposable_trigger_timer;
+            int16_t previous_timer = closest_prop->unopposable_trigger_timer;
             closest_prop->unopposable_trigger_hysteresis--;
             closest_prop->unopposable_trigger_timer = previous_timer + 1;
         }
 
         if (closest_prop->visible_ticks >= 45 || record->unopposable_type >= _actor_unopposable_danger_damaging)
         {
-            __int16 trigger_threshold = closest_prop->unopposable_trigger_threshold;
+            int16_t trigger_threshold = closest_prop->unopposable_trigger_threshold;
             if (trigger_threshold > 0 && closest_prop->unopposable_trigger_timer >= trigger_threshold
                     && record->unopposable_type <= _actor_unopposable_danger_time_triggered)
                 record->unopposable_type = _actor_unopposable_danger_time_triggered;
@@ -193,13 +193,13 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
             if (escalate && record->unopposable_type <= _actor_unopposable_danger_immediately_triggered)
                 record->unopposable_type = _actor_unopposable_danger_immediately_triggered;
 
-            __int16 casualties_threshold = tag_base->unopposable.casualties_trigger;
+            int16_t casualties_threshold = tag_base->unopposable.casualties_trigger;
             if (casualties_threshold > 0
                     && closest_prop->unopposable_casualties_inflicted >= casualties_threshold
                     && record->unopposable_type <= _actor_unopposable_danger_friends_killed)
                 record->unopposable_type = _actor_unopposable_danger_friends_killed;
 
-            __int16 refresh_threshold = tag_base->unopposable.retreating_friends_trigger;
+            int16_t refresh_threshold = tag_base->unopposable.retreating_friends_trigger;
             if (refresh_threshold > 0 && record->friends_retreating >= refresh_threshold
                     && record->unopposable_type <= _actor_unopposable_danger_friends_retreating)
                 record->unopposable_type = _actor_unopposable_danger_friends_retreating;
@@ -210,7 +210,7 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
     {
         /* No active retreat pairing: pick the highest-scoring record (above the floor of 5) with a
          * claimed prop and start a new randomized cooldown pairing against that prop. */
-        __int16 best_score = _actor_unopposable_danger_retreat;
+        int16_t best_score = _actor_unopposable_danger_retreat;
         int best_prop_index = -1;
         for (int idx = 0; idx < enemy_total; idx++)
         {
@@ -229,13 +229,13 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
             unsigned int *seed = get_global_random_seed_address();
             float delay = real_seed_random_range(seed, lower, upper);
             actor->emotions.unopposable_retreat_prop_index = best_prop_index;
-            actor->emotions.unopposable_retreat_timer = (__int16)(delay * 30.0f);
+            actor->emotions.unopposable_retreat_timer = (int16_t)(delay * 30.0f);
             actor->emotions.unopposable_retreat_start_time = game_time_get();
         }
     }
     else
     {
-        __int16 remaining = actor->emotions.unopposable_retreat_timer - 1;
+        int16_t remaining = actor->emotions.unopposable_retreat_timer - 1;
         actor->emotions.unopposable_retreat_timer = remaining;
         if (!remaining)
             actor->emotions.unopposable_friend_ignore_time = game_time_get();

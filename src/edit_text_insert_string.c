@@ -20,8 +20,8 @@ static int string_length(const char *s)
 
 void edit_text_insert_string(edit_text *edit, const char *string)
 {
-    __int16 selection_end;
-    __int16 selection_start;
+    int16_t selection_end;
+    int16_t selection_start;
 
     if ( edit_text_get_selection_indices(edit, &selection_start, &selection_end) )
     {

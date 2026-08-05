@@ -46,14 +46,14 @@ int playlist_profile_create_default_profiles_on_disk(void)
     game_variant *(**builder)(game_variant *) = default_variant_building_functions;
     file_reference file;
     char path_buffer[256];
-    unsigned __int16 record_buffer[76];
-    unsigned __int8 checksum_buffer[360];
+    uint16_t record_buffer[76];
+    uint8_t checksum_buffer[360];
     game_variant variant_copy;
     game_variant variant_scratch;
 
     do
     {
-        unsigned __int8 file_written = 0;
+        uint8_t file_written = 0;
 
         game_variant *built_variant = (*builder)(&variant_scratch);
         memcpy(&variant_copy, built_variant, sizeof(variant_copy));
@@ -69,7 +69,7 @@ int playlist_profile_create_default_profiles_on_disk(void)
         memcpy(record_buffer, &variant_copy, sizeof(record_buffer));
         ustrncpy(record_buffer, profile_name, 0x17u);
         record_buffer[23] = 0;
-        record_buffer[74] |= (unsigned __int16)(profile_index << 8);
+        record_buffer[74] |= (uint16_t)(profile_index << 8);
         saved_game_file_generate_checksum(record_buffer, 0x98u, checksum_buffer);
 
         if ( file_reference_create_from_path_absolute(&file, path_buffer, 0) )

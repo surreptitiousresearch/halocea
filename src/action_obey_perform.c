@@ -24,24 +24,24 @@
 
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"
-extern void action_obey_individuals_iterate(int actor_index, unsigned __int8 initialize_structures,
+extern void action_obey_individuals_iterate(int actor_index, uint8_t initialize_structures,
         obey_state_data *state_data,
-        void (*iterator)(int, int, __int16, obey_individual_simple_control *, obey_individual_complex_control *, void *),
+        void (*iterator)(int, int, int16_t, obey_individual_simple_control *, obey_individual_complex_control *, void *),
         void *user_data);
 extern void action_obey_individual_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data);
 extern int game_time_get(void);
 
-unsigned __int8 action_obey_perform(int actor_index)
+uint8_t action_obey_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     obey_state_data *obey = &actor->state.action_data.___u0.obey;
 
-    unsigned __int8 all_finished = 1;
+    uint8_t all_finished = 1;
     action_obey_individuals_iterate(actor_index, 0, obey, action_obey_individual_perform, &all_finished);
 
     if ( all_finished && !obey->finished )
     {
-        unsigned __int8 complete = 1;
+        uint8_t complete = 1;
 
         /* stride was 24 (int-count) → real element is 96-byte ai_command_list_definition;
          * command_list[2] (byte off 8) was the folded flags load — disasm at 0x837DF356 shows

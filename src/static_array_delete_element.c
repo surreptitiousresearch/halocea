@@ -6,7 +6,7 @@
 
 void static_array_delete_element(uint8_t *count, void *elements, int16_t element_size, int16_t index)
 {
-    unsigned __int8 new_count = *count - 1;
+    uint8_t new_count = *count - 1;
     char *bytes = elements;
 
     *count = new_count;

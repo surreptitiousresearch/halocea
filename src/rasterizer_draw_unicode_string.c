@@ -73,10 +73,10 @@ void rasterizer_draw_unicode_string(const rectangle2d *bounds, const rectangle2d
     rectangle2d viewport_bounds;
     if (clip)
     {
-        __int16 viewport_height = render.camera.viewport_bounds.n[2] - render.camera.viewport_bounds.n[0];
-        __int16 viewport_width = render.camera.viewport_bounds.n[3] - render.camera.viewport_bounds.n[1];
-        __int16 y1 = (viewport_height <= clip->n[2]) ? viewport_height : clip->n[2];
-        __int16 x1 = (viewport_width <= clip->n[3]) ? viewport_width : clip->n[3];
+        int16_t viewport_height = render.camera.viewport_bounds.n[2] - render.camera.viewport_bounds.n[0];
+        int16_t viewport_width = render.camera.viewport_bounds.n[3] - render.camera.viewport_bounds.n[1];
+        int16_t y1 = (viewport_height <= clip->n[2]) ? viewport_height : clip->n[2];
+        int16_t x1 = (viewport_width <= clip->n[3]) ? viewport_width : clip->n[3];
         set_rectangle2d(&viewport_bounds,
                         clip->n[1] < 0 ? 0 : clip->n[1],
                         clip->n[0] < 0 ? 0 : clip->n[0],

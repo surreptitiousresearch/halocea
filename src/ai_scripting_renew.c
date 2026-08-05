@@ -38,15 +38,15 @@ void ai_scripting_renew(int ai_index)
         unit_object->object.body_vitality = unit_object->object.maximum_body_vitality > 0.0f ? 1.0f : 0.0f;     /* refill body to full */
         unit_object->object.shield_vitality = unit_object->object.maximum_shield_vitality > 0.0f ? 1.0f : 0.0f; /* refill shield to full */
 
-        __int16 grenade_type = variant_definition->grenade_combat.grenade_type;           /* variant grenade type (+0x180) */
-        if ( (unsigned __int16)grenade_type != 0xFFFF )
+        int16_t grenade_type = variant_definition->grenade_combat.grenade_type;           /* variant grenade type (+0x180) */
+        if ( (uint16_t)grenade_type != 0xFFFF )
         {
-            __int16 min_grenades = variant_definition->items.grenades_lower_bound;       /* +0x1D0 */
-            __int16 max_grenades = variant_definition->items.grenades_upper_bound + 1;   /* +0x1D2, exclusive upper bound */
+            int16_t min_grenades = variant_definition->items.grenades_lower_bound;       /* +0x1D0 */
+            int16_t max_grenades = variant_definition->items.grenades_upper_bound + 1;   /* +0x1D2, exclusive upper bound */
             unsigned int *seed = get_global_random_seed_address();
-            __int16 desired = seed_random_range(seed, min_grenades, max_grenades);
-            __int16 current_grenade_type = unit_get_current_grenade_type(actor->meta.unit_index);
-            __int16 current_count = unit_get_grenade_count(actor->meta.unit_index, current_grenade_type);
+            int16_t desired = seed_random_range(seed, min_grenades, max_grenades);
+            int16_t current_grenade_type = unit_get_current_grenade_type(actor->meta.unit_index);
+            int16_t current_count = unit_get_grenade_count(actor->meta.unit_index, current_grenade_type);
             if ( current_count < desired )
                 unit_add_grenade_type_to_inventory(actor->meta.unit_index, grenade_type, desired - current_count);
         }

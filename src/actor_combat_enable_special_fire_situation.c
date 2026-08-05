@@ -16,19 +16,19 @@ uint8_t actor_combat_enable_special_fire_situation(uint16_t actor_index, int16_t
 
     if ( special_fire_situation == 1 )
     {
-        if ( (unsigned __int16)actor->control.current_fire_target_type != actor_fire_target_prop )
+        if ( (uint16_t)actor->control.current_fire_target_type != actor_fire_target_prop )
             return 0;
         return actor->target.target_type < actor_target_clear_line_of_sight_enemy ? 0 : 1;
     }
     if ( special_fire_situation == 2 )
     {
-        if ( (unsigned __int16)actor->control.current_fire_target_type || actor->target.target_type < actor_target_uninspected_orphan || !actor->target.target_really_alive )
+        if ( (uint16_t)actor->control.current_fire_target_type || actor->target.target_type < actor_target_uninspected_orphan || !actor->target.target_really_alive )
             return 0;
         return actor->target.since_any_target_visible_timer < 75 ? 0 : 1;
     }
     if ( special_fire_situation != 3 )
         return 0;
-    if ( (unsigned __int16)actor->control.current_fire_target_type != actor_fire_target_prop || actor->target.target_type < actor_target_clear_line_of_sight_enemy )
+    if ( (uint16_t)actor->control.current_fire_target_type != actor_fire_target_prop || actor->target.target_type < actor_target_clear_line_of_sight_enemy )
         return 0;
     if ( !actor->input.vehicle_gunner )
         return 0;

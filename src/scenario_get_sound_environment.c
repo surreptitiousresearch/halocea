@@ -50,10 +50,10 @@ void scenario_get_sound_environment(
 {
     int selected_environment = -1;
     int selected_background = -1;
-    __int16 best_priority = 0x8000;     /* signed -32768; any real priority outranks it */
+    int16_t best_priority = 0x8000;     /* signed -32768; any real priority outranks it */
     int underwater = 0;
-    __int16 local_player_index;
-    __int16 i;
+    int16_t local_player_index;
+    int16_t i;
     cache_file_tag_instance *tag_instances = global_tag_instances;
 
     for ( i = 0, local_player_index = 0; i < 2; local_player_index = ++i )
@@ -77,7 +77,7 @@ void scenario_get_sound_environment(
         {
             structure_bsp *bsp = global_structure_bsp;
             structure_cluster *cluster = (structure_cluster *)bsp->clusters.address + cluster_index;
-            __int16 fog_region_index = scenario_get_fog_region_index(&camera->location, &camera->position);
+            int16_t fog_region_index = scenario_get_fog_region_index(&camera->location, &camera->position);
             int background_index;
 
             tag_instances = global_tag_instances;
@@ -113,7 +113,7 @@ void scenario_get_sound_environment(
                 if ( environment_tag != -1
                   && TAG_GET(sound_environment, environment_tag)->priority > best_priority )
                 {
-                    __int16 cluster_background = cluster->background_sound_palette_index;
+                    int16_t cluster_background = cluster->background_sound_palette_index;
                     selected_environment = environment_tag;
                     best_priority = TAG_GET(sound_environment, environment_tag)->priority;
                     underwater = 0;
@@ -132,7 +132,7 @@ void scenario_get_sound_environment(
             : TAG_GET_AT(tag_instances, sound_environment, selected_environment);
         sound_environment *interpolator = &scenario_globals->sound_environment_interpolator;
 
-        if ( (unsigned __int8)underwater != scenario_globals->sound_environment_underwater )
+        if ( (uint8_t)underwater != scenario_globals->sound_environment_underwater )
         {
             memcpy(interpolator, target, sizeof(sound_environment));
             scenario_globals->sound_environment_underwater = underwater;

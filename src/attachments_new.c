@@ -26,7 +26,7 @@ extern int light_new(int definition_index, int object_index, int16_t object_atta
 
 void attachments_new(int object_index)
 {
-    __int16 attachment_index = 0;
+    int16_t attachment_index = 0;
     object_datum *object_data =
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     _object_definition *object_definition =
@@ -38,7 +38,7 @@ void attachments_new(int object_index)
     int slot = 0;
     do
     {
-        __int16 attachment_type = -1;
+        int16_t attachment_type = -1;
         int datum = -1;
         object_attachment_definition *attachment_ref =
             &((object_attachment_definition *)object_definition->attachments.address)[slot];
@@ -95,7 +95,7 @@ void attachments_new(int object_index)
             }
         }
 
-        attachment_index = (__int16)(slot + 1);
+        attachment_index = (int16_t)(slot + 1);
         object_data->object.attachment_types[slot] = attachment_type;
         object_data->object.attachment_indices[slot] = datum;
         slot = attachment_index;

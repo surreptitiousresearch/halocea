@@ -36,6 +36,7 @@
  * is decompiler noise around `rendDrv + 0xB898`; disasm confirms this is simply
  * `++rendDrv->curFrameNmb`. */
 
+#include <stdint.h>
 #include "../headers/ws/ap/apCOUNTER_TIME.h"
 #include "../headers/ws/ap/apPROFILER.h"
 #include "../headers/ws/jbm/jbmMANAGER.h"
@@ -44,7 +45,7 @@
 #include "../headers/ws/msg/msgSYSTEM.h"
 #include "../headers/hcex/hcexCallFrame_boundary.h"
 
-extern unsigned __int64 osGetPerfCounter();       // boundary — os subsystem
+extern uint64_t osGetPerfCounter();       // boundary — os subsystem
 extern int              osGetCurThreadProcessor(); // boundary — os subsystem
 extern void              osPIXEndEvent();          // boundary — PIX event marker
 
@@ -64,7 +65,7 @@ static void gsMsgCounterStart(apCOUNTER_TIME &counter)
     if (state & 0x02)
     {
         unsigned int proc = osGetCurThreadProcessor();
-        counter.tmData[proc].start = (__int64)osGetPerfCounter();
+        counter.tmData[proc].start = (int64_t)osGetPerfCounter();
     }
     if (state & (0x10 | 0x20))
     {
@@ -82,7 +83,7 @@ static void gsMsgCounterStop(apCOUNTER_TIME &counter)
     if (state & 0x02)
     {
         unsigned int proc = osGetCurThreadProcessor();
-        __int64 now = (__int64)osGetPerfCounter();
+        int64_t now = (int64_t)osGetPerfCounter();
         counter.tmData[proc].sum += now - counter.tmData[proc].start;
     }
     if (state & (0x10 | 0x20))

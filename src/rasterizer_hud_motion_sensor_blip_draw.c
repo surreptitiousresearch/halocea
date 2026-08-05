@@ -7,11 +7,12 @@
  * DEVIATION: the DB prototype is (blip_position, fade, radius, blip_color, custom); Hex-Rays kept blip_color
  * (r6) as an unused parameter and invented a phantom `a6` for the color reads. Disasm (0x837AA36C `mr r31,r6`)
  * shows a6 IS blip_color, so the color is read from blip_color->n[0..2]. `custom` is unreferenced in this path.
- * The interleaved float/uint vertex stack layout is reproduced as a flat 24-float buffer with the color slots
- * punned to unsigned int (each vertex = x,y,z,color,u,v; 24-byte stride). */
+ * The vertex stream is the rasterizer's standard 24-byte dynamic_screen_vertex layout
+ * (position, packed color, texcoord). */
 
 #include <stdint.h>
 #include "headers/real_point2d.h"
+#include "headers/dynamic_screen_vertex.h"
 #include "headers/real_rgb_color.h"
 #include "headers/d3d_render_boundary.h"
 #include "headers/rasterizer_debug_options_struct.h"
@@ -46,38 +47,34 @@ void rasterizer_hud_motion_sensor_blip_draw(const real_point2d *blip_position, f
     float green = ((blip_color->n[1] * fade) * (float)255.0);
     float blue = ((blip_color->n[2] * fade) * (float)255.0);
     unsigned int packed_color =
-        ((((unsigned int)(int)red << 8) & 0xFF00 | 0xFFFF0000 | (unsigned __int8)(int)green) << 8)
-        | (unsigned __int8)(int)blue;
+        ((((unsigned int)(int)red << 8) & 0xFF00 | 0xFFFF0000 | (uint8_t)(int)green) << 8)
+        | (uint8_t)(int)blue;
 
-    float vertex_buffer[24];
-    /* vertex 0 */
-    vertex_buffer[0] = center_x - half;
-    vertex_buffer[1] = center_y + half;
-    vertex_buffer[2] = 0.0f;
-    *(unsigned int *)&vertex_buffer[3] = packed_color;
-    vertex_buffer[4] = 0.0f;
-    vertex_buffer[5] = 0.0f;
-    /* vertex 1 */
-    vertex_buffer[6] = center_x + half;
-    vertex_buffer[7] = center_y + half;
-    vertex_buffer[8] = 0.0f;
-    *(unsigned int *)&vertex_buffer[9] = packed_color;
-    vertex_buffer[10] = 1.0f;
-    vertex_buffer[11] = 0.0f;
-    /* vertex 2 */
-    vertex_buffer[12] = center_x + half;
-    vertex_buffer[13] = center_y - half;
-    vertex_buffer[14] = 0.0f;
-    *(unsigned int *)&vertex_buffer[15] = packed_color;
-    vertex_buffer[16] = 1.0f;
-    vertex_buffer[17] = 1.0f;
-    /* vertex 3 */
-    vertex_buffer[18] = center_x - half;
-    vertex_buffer[19] = center_y - half;
-    vertex_buffer[20] = 0.0f;
-    *(unsigned int *)&vertex_buffer[21] = packed_color;
-    vertex_buffer[22] = 0.0f;
-    vertex_buffer[23] = 1.0f;
+    dynamic_screen_vertex vertices[4];
+    vertices[0].position.n[0] = center_x - half;
+    vertices[0].position.n[1] = center_y + half;
+    vertices[0].position.n[2] = 0.0f;
+    vertices[0].color = packed_color;
+    vertices[0].texcoord.n[0] = 0.0f;
+    vertices[0].texcoord.n[1] = 0.0f;
+    vertices[1].position.n[0] = center_x + half;
+    vertices[1].position.n[1] = center_y + half;
+    vertices[1].position.n[2] = 0.0f;
+    vertices[1].color = packed_color;
+    vertices[1].texcoord.n[0] = 1.0f;
+    vertices[1].texcoord.n[1] = 0.0f;
+    vertices[2].position.n[0] = center_x + half;
+    vertices[2].position.n[1] = center_y - half;
+    vertices[2].position.n[2] = 0.0f;
+    vertices[2].color = packed_color;
+    vertices[2].texcoord.n[0] = 1.0f;
+    vertices[2].texcoord.n[1] = 1.0f;
+    vertices[3].position.n[0] = center_x - half;
+    vertices[3].position.n[1] = center_y - half;
+    vertices[3].position.n[2] = 0.0f;
+    vertices[3].color = packed_color;
+    vertices[3].texcoord.n[0] = 0.0f;
+    vertices[3].texcoord.n[1] = 1.0f;
 
-    D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4u, vertex_buffer, 0x18u);
+    D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4u, vertices, 0x18u);
 }

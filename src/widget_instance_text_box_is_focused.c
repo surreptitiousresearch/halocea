@@ -10,7 +10,7 @@
 uint8_t widget_instance_text_box_is_focused(widget_instance *widget)
 {
     widget_instance *parent = widget->parent;
-    unsigned __int8 focused = parent ? (widget == parent->focused_child) : 1;
+    uint8_t focused = parent ? (widget == parent->focused_child) : 1;
 
     if ( !focused && parent )
     {

@@ -15,12 +15,12 @@ extern void hs_return(uint16_t thread_index, int value);
 
 void hs_evaluate_wake(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
     int call_expression = thread->stack->expression_index;
 
     int name_node = HS_SYNTAX_NODE(call_expression).data;
     int script_argument = HS_SYNTAX_NODE(name_node).next_node_index;
-    __int16 script_index = (__int16)HS_SYNTAX_NODE(script_argument).data;
+    int16_t script_index = (int16_t)HS_SYNTAX_NODE(script_argument).data;
 
     int thread_by_script = hs_find_thread_by_script(script_index);
     if ( thread_by_script != -1 )

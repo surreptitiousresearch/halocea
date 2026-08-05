@@ -59,7 +59,7 @@ extern void D3DDevice_SetVertexDeclaration(D3DDevice *pDevice, D3DVertexDeclarat
 extern void D3DDevice_SetVertexShader(D3DDevice *pDevice, D3DVertexShader *pShader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *pDevice, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern void rasterizer_draw_dynamic_triangles_static_vertices(int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer);
 
 /* per-shadow scratch context, latched by _rasterizer_environment_shadow_begin */
@@ -140,7 +140,7 @@ void _rasterizer_environment_shadow_draw(const shader *shader, int16_t shader_pe
         constants[18] = environment_shadow_projection_matrix.up.n[2];
         constants[19] = 0.0f;
 
-        D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, constants, 5, (unsigned __int64)3 << 59);
+        D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, constants, 5, (uint64_t)3 << 59);
 
         ID3DXEffect *effect = dxeffect_shader->effect;
         unsigned int *effect_constants = dxeffect_shader->constants;

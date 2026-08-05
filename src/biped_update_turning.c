@@ -21,6 +21,7 @@
  * both are DB types_members-confirmed. `(_cntlzw(x)&0x20)==0` / `!=0` are the established "x != 0"/"x == 0"
  * branchless idioms used elsewhere in this codebase. */
 
+#include <stdint.h>
 #include <math.h>
 
 #include "headers/biped_datum.h"
@@ -228,7 +229,7 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
     }
 
     float facing_alignment = biped->object.forward.n[0] * turn_axis.n[0] + biped->object.forward.n[1] * turn_axis.n[1];
-    unsigned __int8 turn_right = dot_current_desired > 0.0f;
+    uint8_t turn_right = dot_current_desired > 0.0f;
 
     if ( facing_alignment < -0.89999998f )
     {

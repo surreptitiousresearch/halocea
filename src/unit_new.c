@@ -136,10 +136,10 @@ uint8_t unit_new(int unit_index)
     unit->unit.killing_spree_count = 0;
     unit->unit.killing_spree_last_time = -1;
 
-    __int16 grenade_type = definition->unit.grenade_type;
+    int16_t grenade_type = definition->unit.grenade_type;
     if ( (unsigned int)grenade_type <= 1 )
     {
-        __int16 grenade_count = definition->unit.grenade_count;
+        int16_t grenade_count = definition->unit.grenade_count;
         if ( grenade_count >= 0 )
             unit->unit.grenade_counts[grenade_type] = grenade_count;
     }
@@ -171,13 +171,13 @@ uint8_t unit_new(int unit_index)
 
     /* create mounted weapons if any seat in the definition declares a mounted-weapon object index */
     int seat_count = definition->unit.seats.count;
-    unsigned __int8 has_mounted_weapon = 0;
+    uint8_t has_mounted_weapon = 0;
     if ( seat_count > 0 )
     {
         int seat_index = 0;
         while ( ((unit_seat *)definition->unit.seats.address)[seat_index].built_in_actor_reference.index == -1 )
         {
-            seat_index = (__int16)(seat_index + 1);
+            seat_index = (int16_t)(seat_index + 1);
             if ( seat_index >= seat_count )
                 goto done_seat_scan;
         }

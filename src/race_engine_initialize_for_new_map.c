@@ -37,7 +37,7 @@ extern game_variant *game_engine_get_variant(void);
 extern void game_engine_set_goal_position(int16_t index, real_point3d *position, float vertical_offset, char *descriptor, int player_index, int16_t team_index, int ignore_player_index);
 extern int new_rally_flag(int old_flag);
 
-unsigned __int8 race_engine_initialize_for_new_map(void)
+uint8_t race_engine_initialize_for_new_map(void)
 {
     race_flags_make_unique();
 
@@ -56,7 +56,7 @@ unsigned __int8 race_engine_initialize_for_new_map(void)
         if ( flag->type != _netgame_flag_race_track )
             continue;
 
-        __int16 checkpoint_index = flag->team_index;
+        int16_t checkpoint_index = flag->team_index;
         if ( checkpoint_index >= 32 )
             continue;
 

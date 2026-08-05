@@ -24,7 +24,7 @@ int player_ui_save_profile(void)
 {
     int saved = 0;
     int profile_index = player_ui_globals.edit_profile_data.profile_index;
-    unsigned __int16 file_type = saved_game_file_get_type(profile_index);
+    uint16_t file_type = saved_game_file_get_type(profile_index);
 
     if ( !file_type )
     {

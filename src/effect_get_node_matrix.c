@@ -12,7 +12,7 @@ extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_ind
 
 real_matrix4x3 * effect_get_node_matrix(effect_datum *effect, int16_t node_designator)
 {
-    __int16 node_index;
+    int16_t node_index;
 
     if ( node_designator == -1 )
         return object_get_node_matrix(effect->object_index, -1);

@@ -27,9 +27,9 @@ float transition_function_evaluate(int16_t function_type, float value)
 
     float scaled = value * 1023.0f;
     float fraction = (float)fmod(scaled, 1.0);            /* interpolation weight */
-    __int16 index = (__int16)(int)(scaled - 0.5f);
+    int16_t index = (int16_t)(int)(scaled - 0.5f);
 
-    const unsigned __int8 *table = transition_function_tables[function_type];
+    const uint8_t *table = transition_function_tables[function_type];
     if ( index == 1023 )
         return table[1023] * 0.0039215689f;
 

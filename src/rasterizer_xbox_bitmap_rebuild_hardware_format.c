@@ -27,7 +27,7 @@ int rasterizer_xbox_bitmap_rebuild_hardware_format(bitmap_data *bitmap)
     unsigned int hardware_size = rasterizer_bitmap_get_hw_size(bitmap);
     unsigned int write_offset = 0;
 
-    __int16 face_count = 6;
+    int16_t face_count = 6;
     if ( bitmap->type != bitmap_type_cube_map )
         face_count = 1;
 
@@ -39,12 +39,12 @@ int rasterizer_xbox_bitmap_rebuild_hardware_format(bitmap_data *bitmap)
     int faces = face_count;
     if ( face_count > 0 )
     {
-        for ( int face = 0; face < faces; face = (__int16)(face + 1) )
+        for ( int face = 0; face < faces; face = (int16_t)(face + 1) )
         {
             int max_mipmap_count = rasterizer_xbox_bitmap_get_max_mipmap_count(bitmap);
             if ( max_mipmap_count >= 0 )
             {
-                for ( __int16 mipmap = 0; mipmap <= max_mipmap_count; ++mipmap )
+                for ( int16_t mipmap = 0; mipmap <= max_mipmap_count; ++mipmap )
                 {
                     char *source = bitmap_mipmap_address(bitmap, mipmap);
                     unsigned int slice_size = bitmap_mipmap_get_pixel_data_size(bitmap, mipmap);
@@ -65,7 +65,7 @@ int rasterizer_xbox_bitmap_rebuild_hardware_format(bitmap_data *bitmap)
                                 memset(&buffer[padded_offset], 0, row_padding);
                                 source += row_pitch;
                                 write_offset = row_padding + padded_offset;
-                                row = (__int16)(row + 1);
+                                row = (int16_t)(row + 1);
                             }
                             while ( row < bitmap->height );
                         }

@@ -17,7 +17,7 @@ extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const ch
 void first_person_weapon_center_flashlight(int unit_index, real_point3d *position, real_vector3d *forward,
         real_vector3d *up)
 {
-    __int16 first_person_weapon_index = first_person_weapon_index_from_unit_index(unit_index);
+    int16_t first_person_weapon_index = first_person_weapon_index_from_unit_index(unit_index);
     if ( first_person_weapon_index == -1 )
         return;
 

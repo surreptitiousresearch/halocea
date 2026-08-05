@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* action_specification — one entry in the global actor-action dispatch table (56 bytes, full DB layout).
  * Each actor action class supplies a set of callbacks (all taking the actor index). */
 
@@ -12,10 +13,10 @@ typedef struct action_specification
     const char  *name;                                          /* 0x04 */
     const union real_argb_color **color;                        /* 0x08 */
     unsigned int data_size;                                     /* 0x0C */
-    __int16      action_class;                                  /* 0x10 */
+    int16_t      action_class;                                  /* 0x10 */
     unsigned char _pad0[2]; /* db-verified padding */
     void (__fastcall *begin)(int actor_index);                  /* 0x14 */
-    unsigned __int8 (__fastcall *perform)(int actor_index);     /* 0x18 */
+    uint8_t (__fastcall *perform)(int actor_index);     /* 0x18 */
     void (__fastcall *update)(int actor_index);                 /* 0x1C */
     void (__fastcall *control)(int actor_index);                /* 0x20 */
     void (__fastcall *end)(int actor_index);                    /* 0x24 */

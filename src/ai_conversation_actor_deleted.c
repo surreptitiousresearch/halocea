@@ -33,7 +33,7 @@ void ai_conversation_actor_deleted(int actor_index)
         if ( participant_count <= 0 )
             continue;
 
-        for ( int participant = 0; participant < participant_count; participant = (__int16)(participant + 1) )
+        for ( int participant = 0; participant < participant_count; participant = (int16_t)(participant + 1) )
         {
             if ( conversation->actor_indices[participant] != actor_index )
                 continue;

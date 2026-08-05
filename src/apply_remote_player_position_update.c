@@ -41,7 +41,7 @@ void apply_remote_player_position_update(player_datum *player, unit_datum *unit)
 
         player_update_client_log_specific_remote_player(player, 1, "Waited [%d], dist [%f].", distance);
 
-        unsigned __int8 is_tracked = player_update_client_is_position_tracked_remote_player(player);
+        uint8_t is_tracked = player_update_client_is_position_tracked_remote_player(player);
         int parent_object_index = unit->object.parent_object_index;
         if (is_tracked == 1)
             s_waiting_time = 0;

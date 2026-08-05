@@ -17,7 +17,7 @@ uint8_t object_type_handle_parent_destroyed(int object_index)
     object_type_definition *type = object_type_definitions[object->object.type];
     for ( int i = 0; type->part_definitions[i]; ++i )
     {
-        unsigned __int8 (*handle_parent_destroyed)(int) = type->part_definitions[i]->handle_parent_destroyed;
+        uint8_t (*handle_parent_destroyed)(int) = type->part_definitions[i]->handle_parent_destroyed;
         if ( handle_parent_destroyed && handle_parent_destroyed(object_index) )
             handled = 1;
     }

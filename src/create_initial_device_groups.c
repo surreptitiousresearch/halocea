@@ -2,6 +2,7 @@
  * scenario_device_group, seeded with its initial value and its "changes only once" flag (bit 0 of the
  * scenario definition's flags). Silently skips groups that fail to allocate a datum. */
 
+#include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/scenario_device_group_can_change_only_once_flags.h"
 #include "headers/data_array.h"
@@ -17,10 +18,10 @@ void create_initial_device_groups(void)
 {
     scenario *scen = global_scenario;
 
-    for ( __int16 i = 0; i < scen->device_groups.count; i++ )
+    for ( int16_t i = 0; i < scen->device_groups.count; i++ )
     {
         scenario_device_group *definition = (scenario_device_group *)scen->device_groups.address + i;
-        unsigned __int16 changes_only_once = (definition->flags & (1u << _scenario_device_group_can_change_only_once_bit)) != 0;
+        uint16_t changes_only_once = (definition->flags & (1u << _scenario_device_group_can_change_only_once_bit)) != 0;
         float initial_value = definition->initial_value;
 
         int datum_index = datum_new(device_groups_data);

@@ -10,6 +10,7 @@
  * a bogus &XBM__CaptureCompletionSignalMarker that has no instruction backing it — disasm 0x837B4AB0 has no
  * such store), so its `v1 & 0x1/2/4_00000000LL` tests are just `flags & 1/2/4` on machine.flags. */
 
+#include <stdint.h>
 #include "headers/device_function_mode.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
@@ -32,7 +33,7 @@ void device_export_function_values(int device_index)
 
     do
     {
-        __int16 function_type = definition->device.function_modes[slot];
+        int16_t function_type = definition->device.function_modes[slot];
         if ( !function_type )
             goto next_slot;
 
@@ -65,13 +66,13 @@ void device_export_function_values(int device_index)
                 {
                     if ( device->device.power == 0.0f )
                         value = 1.0f;
-                    if ( (unsigned __int16)device->object.type != object_type_machine || (unsigned __int16)device->device.position_group_index == 0xFFFF )
+                    if ( (uint16_t)device->object.type != object_type_machine || (uint16_t)device->device.position_group_index == 0xFFFF )
                         break;
                     unsigned int flags = device->machine.flags;
                     device_group_datum *group = DATA_ARRAY_ELEMENT(device_groups_data, device_group_datum, device->device.position_group_index);
                     if ( (flags & (1u << _machine_does_not_operate_automatically_bit)) != 0 || (flags & (1u << _machine_one_sided_bit)) != 0 )
                         value = 1.0f;
-                    unsigned __int16 group_flags = group->flags;
+                    uint16_t group_flags = group->flags;
                     if ( (group_flags & (1u << _device_group_can_change_only_once_bit)) != 0 && (group_flags & (1u << _device_group_changed_once_bit)) != 0 )
                         value = 1.0f;
                     if ( device->device.position != 1.0f && (flags & (1u << _machine_never_appears_locked_bit)) == 0 )
@@ -95,7 +96,7 @@ void device_export_function_values(int device_index)
 
         device->object.incoming_function_values[slot] = value;
 next_slot:
-        slot = (__int16)(slot + 1);
+        slot = (int16_t)(slot + 1);
     }
     while ( slot < 4 );
 }

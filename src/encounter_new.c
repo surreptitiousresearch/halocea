@@ -32,11 +32,11 @@ void __fastcall encounter_new(encounter_definition *encounter_definition, int16_
     int encounter_index_saved;
     encounter_datum *encounter;
     int squad_slot;
-    __int16 squad_count;
+    int16_t squad_count;
     int squad_i;
     squad_definition *squad_def;
     squad_datum *squad;
-    __int16 respawn_count;
+    int16_t respawn_count;
     int platoon_count;
     int platoon_index;
     int platoon_i;
@@ -46,7 +46,7 @@ void __fastcall encounter_new(encounter_definition *encounter_definition, int16_
     encounter_index_saved = encounter_index;
     if (encounter_index != -1)
     {
-        encounter = (encounter_datum *)encounter_data->data + (unsigned __int16)encounter_index;
+        encounter = (encounter_datum *)encounter_data->data + (uint16_t)encounter_index;
         squad_slot = 0; /* LOWORD(squad_slot) = 0 */
         encounter->team_index = encounter_definition->team_index;
         encounter->first_actor_index = -1;
@@ -75,7 +75,7 @@ void __fastcall encounter_new(encounter_definition *encounter_definition, int16_
             do
             {
                 squad_def = &((squad_definition *)encounter_definition->squads.address)[squad_i];
-                squad = &squad_array[(__int16)(encounter->squad_base + squad_slot)];
+                squad = &squad_array[(int16_t)(encounter->squad_base + squad_slot)];
                 squad->delay_timer_started = 0;
                 if ((squad_def->flags & (1u << _squad_delay_forever_bit)) != 0)
                     squad->delay_timer = 999;
@@ -90,7 +90,7 @@ void __fastcall encounter_new(encounter_definition *encounter_definition, int16_
                         respawn_count = 999;
                     squad->respawn_actors_left = respawn_count;
                 }
-                squad_slot = (__int16)(squad_i + 1);
+                squad_slot = (int16_t)(squad_i + 1);
                 squad_i = squad_slot;
             }
             while (squad_slot < encounter->squad_count);
@@ -105,8 +105,8 @@ void __fastcall encounter_new(encounter_definition *encounter_definition, int16_
             platoon_i = 0;
             do
             {
-                platoon_datum_index = (__int16)(platoon_index + encounter->platoon_base);
-                platoon_index = (__int16)(platoon_i + 1);
+                platoon_datum_index = (int16_t)(platoon_index + encounter->platoon_base);
+                platoon_index = (int16_t)(platoon_i + 1);
                 platoon_array[platoon_datum_index].defending =
                     (((platoon_definition *)encounter_definition->platoons.address)[platoon_i].flags
                         & (1u << _platoon_initially_defending_bit)) != 0;

@@ -27,7 +27,7 @@
 extern void unit_estimate_position(int unit_index, int16_t estimate_mode, const real_point3d *body_position, real_vector3d *desired_facing, real_vector3d *desired_gun_offset, real_point3d *estimated_position);
 extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index, const real_point3d *p1, int16_t p1_cluster_index, int16_t mode, uint8_t test_line_of_fire, int ignore_object_index, uint8_t ignore_vehicles);
 
-BOOL action_flee_current_position_exposed(unsigned __int16 actor_index, flee_state_data *flee_state_data)
+BOOL action_flee_current_position_exposed(uint16_t actor_index, flee_state_data *flee_state_data)
 {
     BOOL exposed = 0;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
@@ -35,7 +35,7 @@ BOOL action_flee_current_position_exposed(unsigned __int16 actor_index, flee_sta
     if ( flee_state_data->flee_prop_index == -1 || actor->meta.encounter_index == -1 )
         return exposed;
 
-    __int16 firing_position_index = flee_state_data->flee_firing_position_index;
+    int16_t firing_position_index = flee_state_data->flee_firing_position_index;
     if ( firing_position_index == -1 )
         return exposed;
 
@@ -43,7 +43,7 @@ BOOL action_flee_current_position_exposed(unsigned __int16 actor_index, flee_sta
      * encounter_definition block (176-byte stride) holds a firing_positions tag_block at +152; its .address
      * (+156) points at an array of firing_position_definition (24 bytes each). */
     const encounter_definition *encounter =
-        &((const encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)actor->meta.encounter_index];
+        &((const encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)actor->meta.encounter_index];
     const firing_position_definition *firing_position =
         &((const firing_position_definition *)encounter->firing_positions.address)[firing_position_index];
 
@@ -53,7 +53,7 @@ BOOL action_flee_current_position_exposed(unsigned __int16 actor_index, flee_sta
     unit_estimate_position(actor->meta.unit_index, 2, &firing_position->position, nullptr, nullptr,
         &estimated_position);
 
-    __int16 sight_result = ai_test_line_of_sight(&estimated_position, firing_position->cluster_index,
+    int16_t sight_result = ai_test_line_of_sight(&estimated_position, firing_position->cluster_index,
         &prop->head_position, prop->body_location.cluster_index, 1, 0,
         prop->vehicle_index, actor->input.vehicle_index != -1);
 

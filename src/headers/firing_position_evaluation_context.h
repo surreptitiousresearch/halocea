@@ -2,6 +2,7 @@
 /* firing_position_evaluation_context — the full query/scoring state passed to firing-position evaluators.
  * DB layout (offsets authoritative). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "evaluation_data.h"
@@ -11,7 +12,7 @@
 typedef struct firing_position_evaluation_context
 {
     unsigned int    allowed_position_mask;                  /* 0x000 */
-    __int16         evaluation_mode;                        /* 0x004 */
+    int16_t         evaluation_mode;                        /* 0x004 */
     unsigned char _pad0[2]; /* db-verified padding */
     evaluation_data evaluation_data;                        /* 0x008 */
     unsigned char   allow_rejected_positions;               /* 0x014 */
@@ -23,7 +24,7 @@ typedef struct firing_position_evaluation_context
     unsigned char _pad2[3]; /* db-verified padding */
     real_point3d    specific_target_point;                  /* 0x024 */
     int             specific_target_surface_index;          /* 0x030 */
-    __int16         specific_target_cluster_index;          /* 0x034 */
+    int16_t         specific_target_cluster_index;          /* 0x034 */
     unsigned char   attractor_enable;                       /* 0x036 */
     unsigned char _pad3[1]; /* db-verified padding */
     float           attractor_weight;                       /* 0x038 */
@@ -40,9 +41,9 @@ typedef struct firing_position_evaluation_context
     float           preferred_weight;                       /* 0x04C */
     int             avoid_point_count;                      /* 0x050 */
     firing_position_avoid_point avoid_point[32];            /* 0x054 */
-    __int16         attack_vector_count;                    /* 0x254 */
-    __int16         friend_attack_vector_count;             /* 0x256 */
-    __int16         dangerous_enemy_attack_vector_count;    /* 0x258 */
+    int16_t         attack_vector_count;                    /* 0x254 */
+    int16_t         friend_attack_vector_count;             /* 0x256 */
+    int16_t         dangerous_enemy_attack_vector_count;    /* 0x258 */
     unsigned char _pad5[2]; /* db-verified padding */
     firing_position_attack_vector attack_vectors[32];       /* 0x25C */
     unsigned char   has_gun_offset_stand;                   /* 0x5DC */
@@ -62,7 +63,7 @@ typedef struct firing_position_evaluation_context
     int             target_vehicle_index;                   /* 0x62C */
     int             target_pathfinding_surface_index;       /* 0x630 */
     real_point3d    target_pathfinding_point;               /* 0x634 */
-    __int16         target_cluster_index;                   /* 0x640 */
+    int16_t         target_cluster_index;                   /* 0x640 */
     unsigned char _pad10[2]; /* db-verified padding */
     int             target_prop_index;                      /* 0x644 */
     unsigned char   target_has_hint_vector;                 /* 0x648 */

@@ -11,7 +11,7 @@
 extern uint8_t hs_parse_primitive(int expression_index);
 extern uint8_t hs_parse_nonprimitive(int expression_index);
 
-int hs_parse_debug_string(__int16 function_index, int expression_index)
+int hs_parse_debug_string(int16_t function_index, int expression_index)
 {
     int result = 1;
     int argument = HS_SYNTAX_NODE(HS_SYNTAX_NODE(expression_index).data).next_node_index;

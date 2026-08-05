@@ -7,6 +7,7 @@
  * offset dword ((y << 16) | x) compared as a 32-bit integer — the compiled code never loads an actual cursor
  * position. Reproduced verbatim. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/ui_widget_definition.h"
 #include "headers/global_tag_instances.h"
@@ -26,7 +27,7 @@ int mouse_over_spinner_arrow(widget_instance *widget)
     widget_instance_expand_bounds_for_spinner(widget, &bounds);
 
     /* n[3] == x1, n[1] == x0; midpoint of the two right/left edges (each offset by the cumulative x). */
-    int midpoint_x = ((__int16)(bounds.n[3] + offset.n[0]) + (__int16)(bounds.n[1] + offset.n[0])) / 2;
+    int midpoint_x = ((int16_t)(bounds.n[3] + offset.n[0]) + (int16_t)(bounds.n[1] + offset.n[0])) / 2;
     if ( *(int *)&offset > midpoint_x )
         return 1;
     return -1;

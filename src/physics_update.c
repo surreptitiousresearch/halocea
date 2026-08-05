@@ -50,7 +50,7 @@ void physics_update(int object_index, powered_mass_point_datum *powered_mass_poi
     int powered_mass_point_count = physics_def->powered_mass_points.count; /* +104 */
     if (powered_mass_points && powered_mass_point_count > 0)
     {
-        for (int i = 0; i < powered_mass_point_count; i = (__int16)(i + 1))
+        for (int i = 0; i < powered_mass_point_count; i = (int16_t)(i + 1))
         {
             powered_mass_point_datum *powered = &powered_mass_points[i];
             matrix4x3_rotation_from_quaternion(&powered->rotation_matrix, &powered->rotation);

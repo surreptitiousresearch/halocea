@@ -40,7 +40,7 @@ void observer_update(float dt, uint8_t predict_local_player_movement)
 
     for ( local_player = 0; local_player < 2; local_player++ )
     {
-        int player_index = local_player_get_player_index((__int16)local_player);
+        int player_index = local_player_get_player_index((int16_t)local_player);
         float since_tick;
         observer *obs;
 

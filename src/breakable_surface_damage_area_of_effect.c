@@ -32,9 +32,9 @@ void breakable_surface_damage_area_of_effect(const damage_data *damage_data)
     damage_radius = definition->cutoff_radius;
 
     for ( surface_index = 0; surface_index < bsp->breakable_surfaces.count;
-          surface_index = (__int16)(surface_index + 1) )
+          surface_index = (int16_t)(surface_index + 1) )
     {
-        __int16 bsp_index = global_structure_bsp_index;
+        int16_t bsp_index = global_structure_bsp_index;
         int intact;
         structure_breakable_surface *surface;
         float dx, dy, dz, reach;

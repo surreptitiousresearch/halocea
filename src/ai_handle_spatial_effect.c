@@ -33,14 +33,14 @@ void ai_handle_spatial_effect(int object_index, const real_point3d *position, in
         return;
 
     ai_spatial_effect *effect = nullptr;
-    unsigned __int8 should_notify = 1;
-    unsigned __int16 reusable_slot_index = 0xFFFF;
+    uint8_t should_notify = 1;
+    uint16_t reusable_slot_index = 0xFFFF;
 
-    for ( signed __int16 i = ai_globals->spatial_effects_first_index;
+    for ( int16_t i = ai_globals->spatial_effects_first_index;
             i != ai_globals->spatial_effects_last_index;
             i = (i + 1) & 0x1F )
     {
-        unsigned __int8 position_matches = 0;
+        uint8_t position_matches = 0;
         if ( effect_type == ai_globals->spatial_effects[i].type )
             position_matches =
                     distance_squared3d(&ai_globals->spatial_effects[i].position, position) < 1.0;
@@ -84,7 +84,7 @@ void ai_handle_spatial_effect(int object_index, const real_point3d *position, in
 
     if ( !effect )
     {
-        __int16 new_slot_index;
+        int16_t new_slot_index;
         if ( reusable_slot_index == 0xFFFF )
         {
             new_slot_index = ai_globals->spatial_effects_last_index;

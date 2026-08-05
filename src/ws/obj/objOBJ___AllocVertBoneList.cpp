@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -49,5 +50,5 @@ void objOBJ::_AllocVertBoneList(int nVertNew)
     }
 
     SetVertBoneWeightList((float *)weightList);
-    SetVertBoneIdxList((unsigned __int8 *)idxList);
+    SetVertBoneIdxList((uint8_t *)idxList);
 }

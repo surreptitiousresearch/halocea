@@ -10,5 +10,5 @@ int16_t floor_log2(unsigned int k)
             ++result;
         } while ( k != 1 );
     }
-    return (__int16)result;
+    return (int16_t)result;
 }

@@ -70,7 +70,7 @@ void player_update_history_play(player_update_history *history, int unit_index, 
     vehicle_datum *vehicle_object = 0;
     biped_datum *unit_object = (biped_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     int vehicle_index = unit_object->object.parent_object_index;
-    unsigned __int8 can_playback;
+    uint8_t can_playback;
     if ( vehicle_index != -1 )
     {
         if ( unit_seat_is_driver(vehicle_index, unit_object->unit.parent_seat_index) != 1
@@ -138,8 +138,9 @@ void player_update_history_play(player_update_history *history, int unit_index, 
     unit_object->object.forward.n[2] = starting_update->biped_initial_state.forward.n[2];
     unit_object->object.animation.animation_graph_index = starting_update->biped_initial_state.object_animation.animation_graph_index;
     unit_object->object.animation.state = starting_update->biped_initial_state.object_animation.state;
-    /* combined 4-byte bit-copy: interpolation_frame_index (__int16) + interpolation_frame_count (__int16) */
-    *(int *)&unit_object->object.animation.interpolation_frame_index = *(int *)&starting_update->biped_initial_state.object_animation.interpolation_frame_index;
+    /* single 4-byte copy in the binary moves both adjacent halfwords */
+    unit_object->object.animation.interpolation_frame_index = starting_update->biped_initial_state.object_animation.interpolation_frame_index;
+    unit_object->object.animation.interpolation_frame_count = starting_update->biped_initial_state.object_animation.interpolation_frame_count;
     memcpy(&unit_object->unit.animation, &starting_update->biped_initial_state.unit_animation, 0x48u);
     unit_object->unit.seat_last_position.n[0] = starting_update->biped_initial_state.seat_last_position.n[0];
     unit_object->unit.seat_last_position.n[1] = starting_update->biped_initial_state.seat_last_position.n[1];
@@ -188,19 +189,12 @@ void player_update_history_play(player_update_history *history, int unit_index, 
         vehicle_object->unit.seat_power[1] = starting_update->vehicle_initial_state.seat_power[1];
         memcpy(&vehicle_object->vehicle, &starting_update->vehicle_initial_state.vehicle_data, 0xF4u);
         vehicle_set_position_and_correct_children(unit_object->object.parent_object_index, &starting_position);
-        /* overwrite dynamics with the server's authoritative kinematic state (raw 32-bit bit-copy into floats) */
-        *(int *)&vehicle_object->object.translational_velocity.n[0] = *(int *)&vehicle_starting_info->translational_velocity.n[0];
-        *(int *)&vehicle_object->object.translational_velocity.n[1] = *(int *)&vehicle_starting_info->translational_velocity.n[1];
-        *(int *)&vehicle_object->object.translational_velocity.n[2] = *(int *)&vehicle_starting_info->translational_velocity.n[2];
-        *(int *)&vehicle_object->object.angular_velocity.n[0] = *(int *)&vehicle_starting_info->angular_velocity.n[0];
-        *(int *)&vehicle_object->object.angular_velocity.n[1] = *(int *)&vehicle_starting_info->angular_velocity.n[1];
-        *(int *)&vehicle_object->object.angular_velocity.n[2] = *(int *)&vehicle_starting_info->angular_velocity.n[2];
-        *(int *)&vehicle_object->object.forward.n[0] = *(int *)&vehicle_starting_info->forward.n[0];
-        *(int *)&vehicle_object->object.forward.n[1] = *(int *)&vehicle_starting_info->forward.n[1];
-        *(int *)&vehicle_object->object.forward.n[2] = *(int *)&vehicle_starting_info->forward.n[2];
-        *(int *)&vehicle_object->object.up.n[0] = *(int *)&vehicle_starting_info->up.n[0];
-        *(int *)&vehicle_object->object.up.n[1] = *(int *)&vehicle_starting_info->up.n[1];
-        *(int *)&vehicle_object->object.up.n[2] = *(int *)&vehicle_starting_info->up.n[2];
+        /* overwrite dynamics with the server's authoritative kinematic state (binary uses lwz/stw
+         * word moves; both sides are the same real_vector3d floats — plain struct assignments) */
+        vehicle_object->object.translational_velocity = vehicle_starting_info->translational_velocity;
+        vehicle_object->object.angular_velocity = vehicle_starting_info->angular_velocity;
+        vehicle_object->object.forward = vehicle_starting_info->forward;
+        vehicle_object->object.up = vehicle_starting_info->up;
     }
     else
     {
@@ -281,7 +275,7 @@ void player_update_history_play(player_update_history *history, int unit_index, 
     player_update_client_log(_client_log_local_player, 4, "         Difference: [%f]", difference);
     player_update_client_log(_client_log_local_player, 2,
                              "        Ran updates: [%d] -> [%d], [%d] updates == [%d] ticks",
-                             starting_update->id, (unsigned __int8)last_played_id, update_count, total_ticks);
+                             starting_update->id, (uint8_t)last_played_id, update_count, total_ticks);
 
     /* update the running playback statistics */
     float ending2_x, ending2_y, ending2_z;

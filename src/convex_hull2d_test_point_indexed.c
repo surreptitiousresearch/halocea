@@ -12,10 +12,10 @@
 
 uint8_t convex_hull2d_test_point_indexed(int16_t count, const int16_t *indices, const real_point2d *points, const real_point2d *point, float epsilon)
 {
-    for ( __int16 i = 0; i < count; i++ )
+    for ( int16_t i = 0; i < count; i++ )
     {
         const real_point2d *vertex = &points[indices[i]];
-        __int16 next_index = (__int16)(i + 1) < count ? (__int16)(i + 1) : 0;
+        int16_t next_index = (int16_t)(i + 1) < count ? (int16_t)(i + 1) : 0;
         const real_point2d *next_vertex = &points[indices[next_index]];
 
         float edge_x = next_vertex->n[0] - vertex->n[0];

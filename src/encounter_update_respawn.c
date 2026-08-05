@@ -34,7 +34,7 @@ void encounter_update_respawn(int encounter_index)
     if ( !encounter->respawn_enabled )            /* recovered: encounter[0x3C] */
         return;
 
-    __int16 respawn_timer = encounter->respawn_delay_ticks; /* recovered: *(__int16 *)(encounter + 0x3E) */
+    int16_t respawn_timer = encounter->respawn_delay_ticks; /* recovered: *(__int16 *)(encounter + 0x3E) */
     if ( respawn_timer > 15 )
     {
         encounter->respawn_delay_ticks = respawn_timer - 15;
@@ -42,17 +42,17 @@ void encounter_update_respawn(int encounter_index)
     }
 
     encounter_definition *encounter_def =
-        &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)encounter_index];
+        &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)encounter_index];
     encounter->respawn_delay_ticks = 0;           /* recovered: *(__int16 *)(encounter + 0x3E) */
 
     unsigned int respawn_window_mask[2] = { 0, 0 };
-    __int16 due_count = 0;
+    int16_t due_count = 0;
 
     int squad_def_count = encounter_def->squads.count;
-    for ( __int16 squad_local_index = 0; squad_local_index < squad_def_count; ++squad_local_index )
+    for ( int16_t squad_local_index = 0; squad_local_index < squad_def_count; ++squad_local_index )
     {
         squad_definition *squad_def = &((squad_definition *)encounter_def->squads.address)[squad_local_index];
-        squad_datum *squad = &squad_array[(__int16)(squad_local_index + encounter->squad_base)]; /* recovered: *(__int16 *)(encounter + 4) */
+        squad_datum *squad = &squad_array[(int16_t)(squad_local_index + encounter->squad_base)]; /* recovered: *(__int16 *)(encounter + 4) */
 
         if ( squad->respawn_actors_left > 0 )
         {
@@ -64,7 +64,7 @@ void encounter_update_respawn(int encounter_index)
 
         if ( squad->respawn_actors_left > 0 && squad->current_count < squad_def->respawn_max_actors )
         {
-            __int16 respawn_delay_ticks = squad->respawn_delay_ticks;
+            int16_t respawn_delay_ticks = squad->respawn_delay_ticks;
             if ( respawn_delay_ticks <= 15 )
             {
                 squad->respawn_delay_ticks = 0;
@@ -80,8 +80,8 @@ void encounter_update_respawn(int encounter_index)
 
     if ( due_count > 0 && !encounter->respawn_delay_ticks )  /* recovered: *(__int16 *)(encounter + 0x3E) */
     {
-        __int16 pick = seed_random_range(get_global_random_seed_address(), 0, due_count);
-        for ( __int16 squad_local_index = 0;
+        int16_t pick = seed_random_range(get_global_random_seed_address(), 0, due_count);
+        for ( int16_t squad_local_index = 0;
               squad_local_index < encounter->squad_count;            /* recovered: *(__int16 *)(encounter + 6) */
               ++squad_local_index )
         {

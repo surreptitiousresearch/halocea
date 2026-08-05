@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "headers/blam_data_globals.h"
 /* sv_dedicated_verify_parameters @0x8376700C — validate/report dedicated-server init.txt settings at startup:
  * defaults sv_name to "Halo" (with a warning) if left blank, then logs the effective sv_name, sv_maxplayers,
@@ -16,7 +17,7 @@ void sv_dedicated_verify_parameters(void)
     }
     else
     {
-        ustrcpy(sv_name_value, (const unsigned __int16 *)L"Halo");
+        ustrcpy(sv_name_value, (const uint16_t *)L"Halo");
         ship_terminal_printf(0, "WARNING: sv_name unspecified in init.txt, defaulting to %ls", sv_name_value);
     }
 

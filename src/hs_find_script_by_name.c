@@ -18,7 +18,7 @@ int16_t hs_find_script_by_name(const char *name)
     if ( count <= 0 )
         return -1;
 
-    for ( i = 0; i < count; i = (__int16)(i + 1) )
+    for ( i = 0; i < count; i = (int16_t)(i + 1) )
     {
         const unsigned char *entry_name = (const unsigned char *)((hs_script *)global_scenario->hs_scripts.address)[i].name;
         const char *p = name;

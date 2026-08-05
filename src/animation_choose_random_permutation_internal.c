@@ -29,7 +29,7 @@ int16_t animation_choose_random_permutation_internal(int render_or_affects_game_
         animation *anim = &((animation *)graph->animations.address)[animation_index];
         if ( sample <= anim->runtime_normalized_weight )
             break;
-        animation_index = (unsigned __int16)anim->next_animation_index;
+        animation_index = (uint16_t)anim->next_animation_index;
     }
     return animation_index;
 }

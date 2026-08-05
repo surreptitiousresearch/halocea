@@ -64,8 +64,8 @@ float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_si
         char clear_los = 0;
         if ( test_line_of_sight )
         {
-            __int16 unit_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(unit_index))->datum)->object.location.cluster_index;
-            __int16 player_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(player_unit))->datum)->object.location.cluster_index;
+            int16_t unit_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(unit_index))->datum)->object.location.cluster_index;
+            int16_t player_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(player_unit))->datum)->object.location.cluster_index;
             if ( unit_cluster == 0xFFFF || player_cluster == -1 || scenario_test_pvs(unit_cluster, player_cluster) )
             {
                 real_vector3d delta;
@@ -73,7 +73,7 @@ float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_si
                 delta.n[1] = unit_head.n[1] - player_head.n[1];
                 delta.n[2] = unit_head.n[2] - player_head.n[2];
                 collision_result collision;
-                unsigned __int8 hit = collision_test_vector((1u << _collision_test_front_facing_surfaces_bit) | (1u << _collision_test_back_facing_surfaces_bit)
+                uint8_t hit = collision_test_vector((1u << _collision_test_front_facing_surfaces_bit) | (1u << _collision_test_back_facing_surfaces_bit)
                         | (1u << _collision_test_ignore_two_sided_surfaces_bit) | (1u << _collision_test_structure_bit), &player_head, &delta, -1, &collision);
                 if ( distance_sq < 9.0f || !hit )
                     clear_los = 1;

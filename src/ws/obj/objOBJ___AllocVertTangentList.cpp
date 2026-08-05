@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -17,7 +18,7 @@ int objOBJ::_AllocVertTangentList(int tcInd, int nVert)
         return 0;
 
     objGEOM_SHARED *pSharedGeom = pGeom->pSharedGeom;
-    unsigned __int64 comprMask = (unsigned __int64)0x2000 << tcInd; // packed-tangent format bit
+    uint64_t comprMask = (uint64_t)0x2000 << tcInd; // packed-tangent format bit
     int elemSize = 16;                                              // full m4dV tangent
     if ((comprMask & pSharedGeom->stateCompr.state) != 0)
         elemSize = 4;                                              // packed tangent

@@ -22,7 +22,7 @@ int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound
             result = current_range;
     }
 
-    if ( (__int16)result != -1 )
+    if ( (int16_t)result != -1 )
         return result;
 
     count = sound->pitch_ranges.count;
@@ -30,7 +30,7 @@ int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound
     if ( count <= 0 )
         return result;
 
-    for ( i = 0; i < count; i = (__int16)(i + 1) )
+    for ( i = 0; i < count; i = (int16_t)(i + 1) )
     {
         sound_pitch_range *range = (sound_pitch_range *)sound->pitch_ranges.address + i;
         if ( range->permutations.count )

@@ -40,9 +40,9 @@ void unit_speak(int unit_index, int16_t play_type, const unit_speech_item *speec
     if ( play_type == _unit_play_speech_immediate_dequeue && speech->queued.priority > 0 )
         speech->queued.priority = 0;
 
-    __int16 pre_delay  = speech->current.delay_time;
-    __int16 post_delay = speech->current.pause_time;
-    __int16 ai_delay   = speech->current.ai_notification_delay;
+    int16_t pre_delay  = speech->current.delay_time;
+    int16_t post_delay = speech->current.pause_time;
+    int16_t ai_delay   = speech->current.ai_notification_delay;
     int sound_definition_index = speech->current.sound_definition_index;
 
     speech->played = 0;

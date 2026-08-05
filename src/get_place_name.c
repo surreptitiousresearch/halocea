@@ -15,11 +15,11 @@
 
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
-extern unsigned __int16 empty_wide_string;
+extern uint16_t empty_wide_string;
 
 uint16_t * get_place_name(game_engine_place place)
 {
-    __int16 string_index;
+    int16_t string_index;
 
     if ( (place.flags & (1 << _place_two_groups)) != 0 && (place.flags & (1 << _place_tied)) != 0 )
     {

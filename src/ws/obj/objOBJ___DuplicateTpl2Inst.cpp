@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include <new>
 #include "objOBJ.h"
@@ -27,7 +28,7 @@ objOBJ *objOBJ::_DuplicateTpl2Inst(int isShareGeom)
     *dup = *this; // objOBJ::operator=
 
     int state = dup->state;
-    unsigned __int16 stateRend = dup->stateRend;
+    uint16_t stateRend = dup->stateRend;
     dup->next = dup;
     dup->prev = dup;
     dup->child = nullptr;
@@ -63,9 +64,9 @@ objOBJ *objOBJ::_DuplicateTpl2Inst(int isShareGeom)
 
         for (int tcInd = 0; tcInd < 5; ++tcInd) {
             if (this->GetTexCoordList(tcInd))
-                dup->stateShare.state |= ((unsigned __int64)0x800 << tcInd);   // shared texcoord tcInd
+                dup->stateShare.state |= ((uint64_t)0x800 << tcInd);   // shared texcoord tcInd
             if (this->pGeom->pSharedGeom->tangentList[tcInd])
-                dup->stateShare.state |= ((unsigned __int64)0x10000 << tcInd); // shared tangent tcInd
+                dup->stateShare.state |= ((uint64_t)0x10000 << tcInd); // shared tangent tcInd
         }
 
         if (this->pGeom->pSharedGeom->colorVertList[0])

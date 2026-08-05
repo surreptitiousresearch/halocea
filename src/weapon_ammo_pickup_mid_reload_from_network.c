@@ -34,9 +34,9 @@ void weapon_ammo_pickup_mid_reload_from_network(message_delta_processor_header *
     struct
     {
         int    translated_weapon_index;
-        __int16 magazine_index;
-        __int16 new_loaded;
-        __int16 rounds_picked_up;
+        int16_t magazine_index;
+        int16_t new_loaded;
+        int16_t rounds_picked_up;
     } payload;
 
     if ( !message_delta_processor_decode_stateless(&payload, header) )
@@ -48,8 +48,7 @@ void weapon_ammo_pickup_mid_reload_from_network(message_delta_processor_header *
     if ( !weapon )
         return;
 
-    /* datum_role is an opaque 4-byte NetworkedDatumRole at object+0; compare its raw word */
-    if ( *(int *)&weapon->object.datum_role != _networked_datum_puppet )
+    if ( weapon->object.datum_role != _networked_datum_puppet )
         return;
 
     weapon_magazine *magazine = &weapon->weapon.magazines[payload.magazine_index];
@@ -60,7 +59,7 @@ void weapon_ammo_pickup_mid_reload_from_network(message_delta_processor_header *
     }
     else
     {
-        __int16 reserve_rounds = magazine->rounds_loaded;
+        int16_t reserve_rounds = magazine->rounds_loaded;
         magazine->rounds_total = payload.new_loaded;
         magazine->rounds_loaded = reserve_rounds + payload.rounds_picked_up;
     }

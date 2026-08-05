@@ -9,13 +9,13 @@
 
 int bitmap_mipmap_get_pixel_count(const bitmap_data *bitmap, int16_t mipmap_index)
 {
-    __int16 width = bitmap->width >> mipmap_index;
+    int16_t width = bitmap->width >> mipmap_index;
     if ( width <= 1 )
         width = 1;
-    __int16 height = bitmap->height >> mipmap_index;
+    int16_t height = bitmap->height >> mipmap_index;
     if ( height <= 1 )
         height = 1;
-    __int16 depth = bitmap->depth >> mipmap_index;
+    int16_t depth = bitmap->depth >> mipmap_index;
     if ( depth <= 1 )
         depth = 1;
 
@@ -26,7 +26,7 @@ int bitmap_mipmap_get_pixel_count(const bitmap_data *bitmap, int16_t mipmap_inde
     }
 
     int pixel_count = depth * height * width;
-    if ( (unsigned __int16)bitmap->type == bitmap_type_cube_map )
+    if ( (uint16_t)bitmap->type == bitmap_type_cube_map )
         pixel_count *= 6;
     return pixel_count;
 }

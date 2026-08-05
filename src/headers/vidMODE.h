@@ -2,11 +2,12 @@
 // vidMODE -- ws-engine video-mode descriptor. Layout DB-verified against types_members
 // (vidMODE, sizeof=0x28). External boundary type in origin, but fully modeled here at its
 // authoritative offsets. XREF: d3dMODE.baseclass_0.
+#include <stdint.h>
 #include "ws/ap/apSTATE_T.h"
 
 typedef struct vidMODE
 {
-    __int64                  vmState;       /* 0x00 */
+    int64_t                  vmState;       /* 0x00 */
     apSTATE_T<unsigned long>  state;        /* 0x08 */
     int                       freq;         /* 0x0C */
     int                       sx;           /* 0x10 */

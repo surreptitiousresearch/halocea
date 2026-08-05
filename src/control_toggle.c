@@ -27,11 +27,11 @@ void control_toggle(int control_index)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, control_index)->datum;
     control_definition *definition = TAG_GET(control_definition, object->definition_index);
 
-    unsigned __int16 device_group_index = (unsigned __int16)object->device.position_group_index;
+    uint16_t device_group_index = (uint16_t)object->device.position_group_index;
     if (device_group_index == 0xFFFF)
         return;
 
-    unsigned int control_type = (unsigned __int16)definition->control.type;
+    unsigned int control_type = (uint16_t)definition->control.type;
 
     float desired_value;   /* type > 3 leaves this indeterminate, matching the binary */
     if (control_type >= NUMBER_OF_CONTROL_TYPES)

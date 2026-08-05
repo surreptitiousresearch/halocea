@@ -2,20 +2,21 @@
 /* unit_kill_network_data — stateless message-delta decode target for the "unit kill" network message
  * (32 bytes). DB-verified via types_members unit_kill_network_data. */
 
+#include <stdint.h>
 #include "real_vector2d.h"
 
 typedef struct unit_kill_network_data
 {
     int             unit_index;                       /* 0x00 — translated object index */
-    unsigned __int8 should_cause_ping;                /* 0x04 — gates the unit_ping_animation call */
-    unsigned __int8 died;                             /* 0x05 */
-    unsigned __int8 feign_death;                      /* 0x06 — also unit_died_client's "feigned" arg */
-    unsigned __int8 died_flying;                      /* 0x07 */
-    unsigned __int8 ignore_hard_pings;                /* 0x08 */
-    unsigned __int8 force_hard_pings;                 /* 0x09 */
-    unsigned __int8 should_alignment_vector_be_null;  /* 0x0A — gates whether alignment_vector is passed */
+    uint8_t should_cause_ping;                /* 0x04 — gates the unit_ping_animation call */
+    uint8_t died;                             /* 0x05 */
+    uint8_t feign_death;                      /* 0x06 — also unit_died_client's "feigned" arg */
+    uint8_t died_flying;                      /* 0x07 */
+    uint8_t ignore_hard_pings;                /* 0x08 */
+    uint8_t force_hard_pings;                 /* 0x09 */
+    uint8_t should_alignment_vector_be_null;  /* 0x0A — gates whether alignment_vector is passed */
     unsigned char   _pad0B;                           /* 0x0B */
-    __int16         damage_part;                      /* 0x0C */
+    int16_t         damage_part;                      /* 0x0C */
     unsigned char   _pad0E[2];                        /* 0x0E */
     float           angle;                            /* 0x10 */
     real_vector2d   alignment_vector;                 /* 0x14 */

@@ -18,7 +18,7 @@
 
 extern uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control);
 extern void action_obey_command_end(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *next_command_index);
-extern unsigned __int8 action_obey_command_begin(int actor_index, int unit_index, __int16 command_list_index,
+extern uint8_t action_obey_command_begin(int actor_index, int unit_index, int16_t command_list_index,
     obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control);
 
 void action_obey_individual_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data)
@@ -28,18 +28,18 @@ void action_obey_individual_perform(int actor_index, int unit_index, int16_t com
 
     if ( !(simple_control->metadata_flags & (1u << _obey_metadata_commands_finished_bit)) )
     {
-        unsigned __int8 command_valid = simple_control->current_command_index < command_list->commands.count;
+        uint8_t command_valid = simple_control->current_command_index < command_list->commands.count;
         simple_control->loop_counter = 0;
 
         do
         {
-            unsigned __int8 command_was_valid = command_valid;
+            uint8_t command_was_valid = command_valid;
 
             if ( command_valid && !action_obey_command_perform(actor_index, unit_index, command_list_index,
                     simple_control, complex_control) )
                 break;
 
-            unsigned __int8 next_command_index = simple_control->current_command_index + 1;
+            uint8_t next_command_index = simple_control->current_command_index + 1;
 
             if ( command_was_valid )
             {

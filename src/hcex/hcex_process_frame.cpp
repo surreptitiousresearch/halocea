@@ -90,7 +90,7 @@ void hcex_process_frame(void)
     {
         if ( local_player_count() > 0 )
             hcex_render_ready = 1;
-        if ( *(int *)&hcexHaloLogic > 0 )   /* lockDepth (head of osLOCK) */
+        if ( hcexHaloLogic.lockDepth > 0 )   /* DEVIATION: was *(int*)& head-pun; binary reads osLOCK.lockDepth (+0x24) */
             osLOCK_Unlock(&hcexHaloLogic, 0, 0);
     }
 

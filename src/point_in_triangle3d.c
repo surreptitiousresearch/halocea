@@ -10,7 +10,7 @@
 #include <stdint.h>
 #include "headers/real_point3d.h"
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float x);
 
 /* attested: return is uint8_t — both callers re-normalize with clrlwi r3,24

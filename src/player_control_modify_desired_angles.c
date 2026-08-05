@@ -110,7 +110,7 @@ void player_control_modify_desired_angles(int16_t local_player_index, float delt
             pitch_maximum = camera_info.unit_camera->pitch_maximum;
 
             /* unit mostly upright (up.z > 0.2): bias limits by look-vs-unit-up angle */
-            if ( (unsigned __int16)camera_info.seat_index != 0xFFFF && unit_object->object.up.n[2] > 0.2f )
+            if ( (uint16_t)camera_info.seat_index != 0xFFFF && unit_object->object.up.n[2] > 0.2f )
             {
                 real_euler_angles2d look_angles;
                 real_vector3d look_vector;

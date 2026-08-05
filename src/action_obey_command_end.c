@@ -2,7 +2,7 @@
  * next command starts from a neutral control state. Looks up the current command in the actor's obey command
  * list; based on the command opcode it halts movement (move/goto commands, only if the obeying unit is the
  * actor's own unit) and clears the complex-control destination, releases a direct-facing hold, stops secondary
- * looking (look commands), clears the shoot-at-target flag, or clears a vehicle's control bits. The loop
+ * looking (look commands), clears the shoot-at-target flag, or clears the obeying biped's absolute-movement/no-collision bits. The loop
  * command (0x14) optionally jumps the next-command cursor back to its loop target: unconditionally for a plain
  * loop, or gated on a metadata flag toggle for a conditional loop, capped at 10 iterations via loop_counter.
  * Out-of-range command indices and unhandled opcodes are no-ops.
@@ -16,7 +16,8 @@
 #include "headers/ai_command_list_definition.h"
 #include "headers/ai_command_definition.h"
 #include "headers/actor_datum.h"
-#include "headers/vehicle_datum.h"
+#include "headers/biped_datum.h"
+#include "headers/biped_datum_flags.h"
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_simple_control_flags.h"
 #include "headers/obey_metadata_flags.h"
@@ -82,12 +83,12 @@ void action_obey_command_end(int actor_index, int unit_index, int16_t command_li
 
         case _ai_atom_animate:
         {
-            vehicle_datum *vehicle = object_try_and_get_and_verify_type(unit_index, object_mask_biped);
-            if ( vehicle )
-                /* 32-bit RMW at &vehicle->vehicle.flags clears bits 0x0C, spanning _vehicle_datum.flags
-                 * (0x4CC) + stop_time (0x4CE); the DB splits this into two 16-bit members so the op is
-                 * kept as a byte-exact 32-bit access at the flags member address */
-                *(int *)&vehicle->vehicle.flags &= 0xFFFFFFF3;
+            /* DEVIATION: decompiler mistyped the object_mask_biped lookup as vehicle_datum; the 32-bit
+             * RMW at 0x4CC (lwz/rlwinm 0,30,27/stw @0x837DEB00) is biped_datum.biped.flags (DB: uint32
+             * at 0x4CC), clearing the absolute_movement + no_collision bits. */
+            biped_datum *biped = object_try_and_get_and_verify_type(unit_index, object_mask_biped);
+            if ( biped )
+                biped->biped.flags &= ~((1u << _biped_absolute_movement_bit) | (1u << _biped_no_collision_bit));
             break;
         }
 
@@ -106,7 +107,7 @@ void action_obey_command_end(int actor_index, int unit_index, int16_t command_li
             }
             if ( should_jump )
             {
-                __int16 loop_target = command->command_index;
+                int16_t loop_target = command->command_index;
                 if ( loop_target != current_command_index && simple_control->loop_counter < 0xAu )
                 {
                     *next_command_index = (uint8_t)loop_target;

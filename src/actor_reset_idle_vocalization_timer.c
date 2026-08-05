@@ -24,14 +24,14 @@ void actor_reset_idle_vocalization_timer(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *character = TAG_GET(actor_definition, actor->meta.definition_index);
-    unsigned __int8 in_combat = actor_in_combat(actor_index);
+    uint8_t in_combat = actor_in_combat(actor_index);
 
-    __int16 speech_offset = 0;
+    int16_t speech_offset = 0;
     if ( actor->meta.unit_index != -1 )
     {
         unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, actor->meta.unit_index)->datum);
         if ( unit->unit.speech.current.priority > 0 )
-            speech_offset = (unsigned __int16)unit->unit.speech.sound_timer;
+            speech_offset = (uint16_t)unit->unit.speech.sound_timer;
     }
 
     float min_delay, max_delay;

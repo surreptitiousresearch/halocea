@@ -3,6 +3,7 @@
  * 276 bytes. Full DB types_members layout. charging_time > 0 marks a charge-up trigger (plasma pistol
  * overcharge et al.) — the field AI charge-counter checks read. */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 #include "real_point3d.h"
@@ -16,12 +17,12 @@ typedef struct weapon_trigger_definition
     float         rate_of_fire_deceleration_time;           /* 0x010 */
     float         blurred_rate_of_fire;                     /* 0x014 */
     float         rate_of_fire_unused[2];                   /* 0x018 */
-    __int16       magazine_index;                           /* 0x020 */
-    __int16       rounds_per_shot;                          /* 0x022 */
-    __int16       minimum_rounds_loaded_per_shot;           /* 0x024 */
-    __int16       rounds_between_tracers;                   /* 0x026 */
-    __int16       ammunition_unused[3];                     /* 0x028 */
-    __int16       firing_noise;                             /* 0x02E */
+    int16_t       magazine_index;                           /* 0x020 */
+    int16_t       rounds_per_shot;                          /* 0x022 */
+    int16_t       minimum_rounds_loaded_per_shot;           /* 0x024 */
+    int16_t       rounds_between_tracers;                   /* 0x026 */
+    int16_t       ammunition_unused[3];                     /* 0x028 */
+    int16_t       firing_noise;                             /* 0x02E */
     float         initial_error;                            /* 0x030 */
     float         final_error;                              /* 0x034 */
     float         error_acceleration_time;                  /* 0x038 */
@@ -29,13 +30,13 @@ typedef struct weapon_trigger_definition
     float         error_unused[2];                          /* 0x040 */
     float         charging_time;                            /* 0x048 */
     float         charged_time;                             /* 0x04C */
-    __int16       overcharged_action;                       /* 0x050 */
-    unsigned __int16 pad;                                   /* 0x052 */
+    int16_t       overcharged_action;                       /* 0x050 */
+    uint16_t pad;                                   /* 0x052 */
     float         charged_illumination;                     /* 0x054 */
     float         spew_time;                                /* 0x058 */
     tag_reference charging_effect;                          /* 0x05C */
-    __int16       projectile_distribution_function;         /* 0x06C */
-    __int16       projectiles_per_shot;                     /* 0x06E */
+    int16_t       projectile_distribution_function;         /* 0x06C */
+    int16_t       projectiles_per_shot;                     /* 0x06E */
     float         projectile_distribution_angle;            /* 0x070 */
     float         projectile_unused0[1];                    /* 0x074 */
     float         projectile_error_inner_cone_angle;        /* 0x078 */

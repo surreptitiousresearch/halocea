@@ -11,9 +11,9 @@
 
 int16_t weather_polyhedra_find(int16_t *weather_polyhedra_indices, float maximum_distance)
 {
-    __int16 found = 0;
+    int16_t found = 0;
 
-    for ( __int16 i = 0; i < global_structure_bsp->weather_polyhedra.count; ++i )
+    for ( int16_t i = 0; i < global_structure_bsp->weather_polyhedra.count; ++i )
     {
         structure_weather_polyhedron *polyhedron =
             &((structure_weather_polyhedron *)global_structure_bsp->weather_polyhedra.address)[i];

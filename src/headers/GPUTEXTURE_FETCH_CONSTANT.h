@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "GPUTEXTURESIZE_1D.h"
 #include "GPUTEXTURESIZE_2D.h"
 #include "GPUTEXTURESIZE_3D.h"
@@ -14,24 +15,24 @@
 typedef struct _83F7CCE36CB6F839A961843D35C7AA0B
 {
     /* dword 0 */
-    unsigned __int32 Type : 2;
-    unsigned __int32 SignX : 2;
-    unsigned __int32 SignY : 2;
-    unsigned __int32 SignZ : 2;
-    unsigned __int32 SignW : 2;
-    unsigned __int32 ClampX : 3;
-    unsigned __int32 ClampY : 3;
-    unsigned __int32 ClampZ : 3;
-    unsigned __int32 : 3;
-    unsigned __int32 Pitch : 9;
-    unsigned __int32 Tiled : 1;
+    uint32_t Type : 2;
+    uint32_t SignX : 2;
+    uint32_t SignY : 2;
+    uint32_t SignZ : 2;
+    uint32_t SignW : 2;
+    uint32_t ClampX : 3;
+    uint32_t ClampY : 3;
+    uint32_t ClampZ : 3;
+    uint32_t : 3;
+    uint32_t Pitch : 9;
+    uint32_t Tiled : 1;
     /* dword 1 */
-    unsigned __int32 DataFormat : 6;
-    unsigned __int32 Endian : 2;
-    unsigned __int32 RequestSize : 2;
-    unsigned __int32 Stacked : 1;
-    unsigned __int32 ClampPolicy : 1;
-    unsigned __int32 BaseAddress : 20;
+    uint32_t DataFormat : 6;
+    uint32_t Endian : 2;
+    uint32_t RequestSize : 2;
+    uint32_t Stacked : 1;
+    uint32_t ClampPolicy : 1;
+    uint32_t BaseAddress : 20;
     /* dword 2 — DB member type GPUTEXTURE_FETCH_CONSTANT::<unnamed_tag>::<unnamed_type_Size>
      * (unnamed union; the $-tag below is a local spelling for the DB's unnamed tag) */
     union $GPUTEXTURE_FETCH_CONSTANT_Size {
@@ -41,36 +42,36 @@ typedef struct _83F7CCE36CB6F839A961843D35C7AA0B
         GPUTEXTURESIZE_STACK Stack;
     } Size;
     /* dword 3 */
-    unsigned __int32 NumFormat : 1;
-    unsigned __int32 SwizzleX : 3;
-    unsigned __int32 SwizzleY : 3;
-    unsigned __int32 SwizzleZ : 3;
-    unsigned __int32 SwizzleW : 3;
-    __int32          ExpAdjust : 6;
-    unsigned __int32 MagFilter : 2;
-    unsigned __int32 MinFilter : 2;
-    unsigned __int32 MipFilter : 2;
-    unsigned __int32 AnisoFilter : 3;
-    unsigned __int32 : 3;
-    unsigned __int32 BorderSize : 1;
+    uint32_t NumFormat : 1;
+    uint32_t SwizzleX : 3;
+    uint32_t SwizzleY : 3;
+    uint32_t SwizzleZ : 3;
+    uint32_t SwizzleW : 3;
+    int32_t          ExpAdjust : 6;
+    uint32_t MagFilter : 2;
+    uint32_t MinFilter : 2;
+    uint32_t MipFilter : 2;
+    uint32_t AnisoFilter : 3;
+    uint32_t : 3;
+    uint32_t BorderSize : 1;
     /* dword 4 */
-    unsigned __int32 VolMagFilter : 1;
-    unsigned __int32 VolMinFilter : 1;
-    unsigned __int32 MinMipLevel : 4;
-    unsigned __int32 MaxMipLevel : 4;
-    unsigned __int32 MagAnisoWalk : 1;
-    unsigned __int32 MinAnisoWalk : 1;
-    __int32          LODBias : 10;
-    __int32          GradExpAdjustH : 5;
-    __int32          GradExpAdjustV : 5;
+    uint32_t VolMagFilter : 1;
+    uint32_t VolMinFilter : 1;
+    uint32_t MinMipLevel : 4;
+    uint32_t MaxMipLevel : 4;
+    uint32_t MagAnisoWalk : 1;
+    uint32_t MinAnisoWalk : 1;
+    int32_t          LODBias : 10;
+    int32_t          GradExpAdjustH : 5;
+    int32_t          GradExpAdjustV : 5;
     /* dword 5 */
-    unsigned __int32 BorderColor : 2;
-    unsigned __int32 ForceBCWToMax : 1;
-    unsigned __int32 TriClamp : 2;
-    __int32          AnisoBias : 4;
-    unsigned __int32 Dimension : 2;
-    unsigned __int32 PackedMips : 1;
-    unsigned __int32 MipAddress : 20;
+    uint32_t BorderColor : 2;
+    uint32_t ForceBCWToMax : 1;
+    uint32_t TriClamp : 2;
+    int32_t          AnisoBias : 4;
+    uint32_t Dimension : 2;
+    uint32_t PackedMips : 1;
+    uint32_t MipAddress : 20;
 } _83F7CCE36CB6F839A961843D35C7AA0B;
 
 typedef union GPUTEXTURE_FETCH_CONSTANT

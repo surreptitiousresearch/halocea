@@ -39,7 +39,7 @@ void actor_stimulus_prop_just_killed(uint16_t actor_index, uint16_t prop_index)
 
     /* if the killed friend matches the actor definition's "notable ally" unit and the actor's current
      * emotion priority leaves room, maybe latch a strong reaction toward the killer */
-    if ((unsigned __int16)prop->type == (unsigned __int16)character->panic.panic_leader_type
+    if ((uint16_t)prop->type == (uint16_t)character->panic.panic_leader_type
         && actor->stimuli.panic_type < _actor_panic_friend_leader_type_killed)
     {
         if (real_seed_random(get_global_random_seed_address()) < (double)character->panic.panic_chance_leader_type_killed)
@@ -58,7 +58,7 @@ void actor_stimulus_prop_just_killed(uint16_t actor_index, uint16_t prop_index)
             {
                 int character_flags2 = character->flags2;
                 float flee_chance = character->panic.panic_chance_friend_killed;
-                unsigned __int8 fled = 0;
+                uint8_t fled = 0;
                 if ((character_flags2 & (1u << _actor_definition_flags2_panic_in_groups_bit)) != 0 && game_time_get() > actor->emotions.flee_with_friends_disable_time)
                     fled = actor_emotion_flee_with_friends(actor_index, &flee_chance);
 
@@ -74,7 +74,7 @@ void actor_stimulus_prop_just_killed(uint16_t actor_index, uint16_t prop_index)
 
             if (killer_prop->unopposable_enemy)
             {
-                __int16 kills = killer_prop->unopposable_casualties_inflicted;
+                int16_t kills = killer_prop->unopposable_casualties_inflicted;
                 killer_prop->unopposable_casualty_decay_timer = 750;
                 killer_prop->unopposable_casualties_inflicted = kills + 1;
             }

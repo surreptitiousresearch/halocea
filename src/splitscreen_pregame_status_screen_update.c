@@ -29,8 +29,8 @@ extern unsigned int ustrlen(const wchar_t *string);
 extern uint8_t network_player_is_valid(network_player *player);
 extern void widget_instance_set_visibility_recursive(widget_instance *widget, uint8_t visible);
 
-extern const unsigned __int16 empty_wide_string[];         /* RAW (irreducible): scratch source string stripped from binary — only the auto-named data label survives */
-extern const unsigned __int8 indexed_controller_bitmaps[][3];
+extern const uint16_t empty_wide_string[];         /* RAW (irreducible): scratch source string stripped from binary — only the auto-named data label survives */
+extern const uint8_t indexed_controller_bitmaps[][3];
 
 void splitscreen_pregame_status_screen_update(widget_instance *widget)
 {
@@ -43,7 +43,7 @@ void splitscreen_pregame_status_screen_update(widget_instance *widget)
     widget_instance *status_line = children->next;
     widget_instance *timer_widget = status_line->next;
 
-    unsigned __int16 *timer_text = ui_widget_realloc(
+    uint16_t *timer_text = ui_widget_realloc(
             timer_widget->parameters.text_box_parameters.text, 0x20);
     timer_widget->parameters.text_box_parameters.text = timer_text;
     if ( timer_text )
@@ -52,7 +52,7 @@ void splitscreen_pregame_status_screen_update(widget_instance *widget)
         ustrncpy(timer_widget->parameters.text_box_parameters.text, L"-:--", 0xF);
         status_line->visible = 1;
         status_line->parameters.text_box_parameters.string_list_index = 1;
-        unsigned __int16 *text = timer_widget->parameters.text_box_parameters.text;
+        uint16_t *text = timer_widget->parameters.text_box_parameters.text;
         timer_widget->visible = 0;
         text[15] = 0;
     }
@@ -85,7 +85,7 @@ void splitscreen_pregame_status_screen_update(widget_instance *widget)
     }
 
     unsigned int status_length = ustrlen(L"?");
-    unsigned __int16 *status_text = ui_widget_realloc(
+    uint16_t *status_text = ui_widget_realloc(
             status_root->parameters.text_box_parameters.text, 2 * status_length + 2);
     status_root->parameters.text_box_parameters.text = status_text;
     if ( status_text )
@@ -95,7 +95,7 @@ void splitscreen_pregame_status_screen_update(widget_instance *widget)
     }
     status_root_next->animation_data.current_frame_index = 0;
 
-    const unsigned __int8 *controller_bitmap = &indexed_controller_bitmaps[0][2];
+    const uint8_t *controller_bitmap = &indexed_controller_bitmaps[0][2];
     for ( int i = 0; ; ++i )
     {
         widget_instance *entry = (widget_instance *)slots[i + 2];
@@ -110,7 +110,7 @@ void splitscreen_pregame_status_screen_update(widget_instance *widget)
         if ( player_slot == -1 )
         {
             name_widget->animation_data.current_frame_index = 0;
-            unsigned __int16 *empty = ui_widget_realloc(
+            uint16_t *empty = ui_widget_realloc(
                     icon_widget->parameters.text_box_parameters.text, 2);
             icon_widget->parameters.text_box_parameters.text = empty;
             if ( empty )
@@ -120,7 +120,7 @@ void splitscreen_pregame_status_screen_update(widget_instance *widget)
         else
         {
             unsigned int name_length = ustrlen(game->players[player_slot].name);
-            unsigned __int16 *name_text = ui_widget_realloc(
+            uint16_t *name_text = ui_widget_realloc(
                     icon_widget->parameters.text_box_parameters.text, 2 * name_length + 2);
             icon_widget->parameters.text_box_parameters.text = name_text;
             if ( name_text )

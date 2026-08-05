@@ -4,12 +4,13 @@
    obstacles_get_discs_in_sphere reads the point at +8 was a mistranslation — the decompiler's
    base pointer there is an unsigned __int16*, so its "+8" is byte offset 16 = center. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 
 typedef struct pathfinding_sphere
 {
-    __int16          node_index; /* 0x00 */
-    unsigned __int16 pad;        /* 0x02 */
+    int16_t          node_index; /* 0x00 */
+    uint16_t pad;        /* 0x02 */
     int              unused[3];  /* 0x04 */
     real_point3d     center;     /* 0x10 */
     float            radius;     /* 0x1C */

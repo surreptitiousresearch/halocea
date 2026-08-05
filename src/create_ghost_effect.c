@@ -48,11 +48,11 @@ void create_ghost_effect(int vehicle_index)
         return;
 
     object_marker markers[16];
-    __int16 marker_count = object_get_marker_by_name(vehicle_index, "hover thrusters", markers, 15);
+    int16_t marker_count = object_get_marker_by_name(vehicle_index, "hover thrusters", markers, 15);
     if (marker_count <= 0)
         return;
 
-    for (int i = 0; i < marker_count; i = (__int16)(i + 1))
+    for (int i = 0; i < marker_count; i = (int16_t)(i + 1))
     {
         object_marker *marker = &markers[i];
 

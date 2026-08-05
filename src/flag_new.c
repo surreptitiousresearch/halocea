@@ -8,6 +8,7 @@
  * disasm (0x8380F5C0/0x8380F5C4) shows no argument reload between the two shape calls and both functions'
  * prototypes are (flag_definition*, flag_datum*), so trailing_shape reuses the same (definition, flag) pair. */
 
+#include <stdint.h>
 #include "headers/global_tag_instances.h"
 #include "headers/data_array.h"
 #include "headers/flag_datum.h"
@@ -55,7 +56,7 @@ int flag_new(int flag_definition_index)
             do
             {
                 int height = definition->height;
-                for ( int row = 0; row < height; row = (__int16)(row + 1) )
+                for ( int row = 0; row < height; row = (int16_t)(row + 1) )
                 {
                     flag->vertices[column * height + row].p = *global_origin3d;
                     flag->vertices[column * height + row].v = *global_zero_vector3d;
@@ -67,7 +68,7 @@ int flag_new(int flag_definition_index)
                     }
                     height = definition->height;
                 }
-                column = (__int16)(column + 1);
+                column = (int16_t)(column + 1);
             }
             while ( column < definition->width );
         }

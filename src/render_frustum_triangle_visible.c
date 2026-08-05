@@ -11,17 +11,17 @@ extern int16_t render_frustum_build_point_flags(const render_frustum *frustum, c
 
 uint8_t render_frustum_triangle_visible(const render_frustum *frustum, const real_point3d *p0, const real_point3d *p1, const real_point3d *p2)
 {
-    __int16 flags0 = render_frustum_build_point_flags(frustum, p0);
+    int16_t flags0 = render_frustum_build_point_flags(frustum, p0);
     if (!flags0)
         return 1;
 
-    __int16 flags1 = render_frustum_build_point_flags(frustum, p1);
+    int16_t flags1 = render_frustum_build_point_flags(frustum, p1);
     if (!flags1)
         return 1;
 
-    __int16 flags2 = render_frustum_build_point_flags(frustum, p2);
+    int16_t flags2 = render_frustum_build_point_flags(frustum, p2);
     if (!flags2)
         return 1;
 
-    return (__int16)((flags0 & 0x3F) & flags1 & flags2) == 0;
+    return (int16_t)((flags0 & 0x3F) & flags1 & flags2) == 0;
 }

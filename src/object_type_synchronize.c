@@ -129,7 +129,7 @@ int object_type_synchronize(int object_index, scenario_object_datum *scenario_ob
         result_object = -1;
     }
 
-    if ( (unsigned __int16)scenario_object->name_index != 0xFFFF )
+    if ( (uint16_t)scenario_object->name_index != 0xFFFF )
     {
         scenario_object_name *name_entry = (scenario_object_name *)global_scenario->object_names.address
                 + scenario_object->name_index;

@@ -58,7 +58,7 @@ int effect_new_from_object(
 
     memset(effect->location_datum_indices, -1, sizeof(effect->location_datum_indices));
     effect_build_locations(effect, object_get_marker_by_name);
-    if ( (unsigned __int16)effect->local_player_index != 0xFFFF )
+    if ( (uint16_t)effect->local_player_index != 0xFFFF )
         effect_build_locations(effect, first_person_weapon_get_marker_by_name);
     if ( force_local_player_index != -1 )
         effect->local_player_index = force_local_player_index;

@@ -37,14 +37,14 @@ uint8_t unit_start_user_animation(int unit_index, int animation_graph_index, con
     unit_datum *unit =
         (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    __int16 animation_index = animation_graph_get_animation_by_name(animation_graph_index, animation_name);
+    int16_t animation_index = animation_graph_get_animation_by_name(animation_graph_index, animation_name);
     if ( animation_index == -1 )
     {
         console_warning("the animation '%s' doesn't exist in the graph '%s'", animation_name, tag_get_name(animation_graph_index));
         return 0;
     }
 
-    __int16 permutation = animation_choose_random_permutation_internal(
+    int16_t permutation = animation_choose_random_permutation_internal(
         animation_update_kind_affects_game_state, animation_graph_index, animation_index);
     animation *animations_block = (animation *)graph->animations.address;
     animation *anim = &animations_block[permutation];
@@ -60,7 +60,7 @@ uint8_t unit_start_user_animation(int unit_index, int animation_graph_index, con
             animation *current_animation = &animations_block[current_animation_index];
             if ( current_animation->runtime_parent_animation_index == anim->runtime_parent_animation_index )
             {
-                __int16 final_frame = current_animation->private_key_frame_index;
+                int16_t final_frame = current_animation->private_key_frame_index;
                 int current_frame = unit->object.animation.state.frame_index;
                 if ( current_frame + 2 == final_frame )
                 {

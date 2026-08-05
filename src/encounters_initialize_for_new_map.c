@@ -30,8 +30,8 @@ extern void squad_reset_starting_locations(uint16_t encounter_index, int16_t squ
 
 void encounters_initialize_for_new_map(void)
 {
-    __int16 squad_base_counter = 0;
-    __int16 platoon_base_counter = 0;
+    int16_t squad_base_counter = 0;
+    int16_t platoon_base_counter = 0;
     scenario *scenario_ptr = global_scenario;
 
     data_make_valid(encounter_data);
@@ -39,7 +39,7 @@ void encounters_initialize_for_new_map(void)
     memset(squad_array, 0, 0x8000u);
     memset(platoon_array, 0, 0x1000u);
 
-    for ( int i = 0; i < scenario_ptr->ai_encounters.count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < scenario_ptr->ai_encounters.count; i = (int16_t)(i + 1) )
     {
         encounter_definition *encounter_def = (encounter_definition *)scenario_ptr->ai_encounters.address + i;
         int datum_index = datum_new(encounter_data);
@@ -68,14 +68,14 @@ void encounters_initialize_for_new_map(void)
         encounter->last_active_time = -1;
 
         /* squads */
-        __int16 squad_count = encounter_def->squads.count;
+        int16_t squad_count = encounter_def->squads.count;
         encounter->squad_base = squad_base_counter;
         encounter->squad_count = squad_count;
         squad_base_counter += squad_count;
-        for ( __int16 s = 0; s < encounter->squad_count; s = (__int16)(s + 1) )
+        for ( int16_t s = 0; s < encounter->squad_count; s = (int16_t)(s + 1) )
         {
             squad_definition *scenario_squad = (squad_definition *)encounter_def->squads.address + s;
-            squad_datum *squad = &squad_array[(__int16)(s + encounter->squad_base)];
+            squad_datum *squad = &squad_array[(int16_t)(s + encounter->squad_base)];
             unsigned int squad_flags = scenario_squad->flags;
             squad->delay_timer_started = 0;
             if ( (squad_flags & (1u << _squad_delay_forever_bit)) != 0 )
@@ -86,7 +86,7 @@ void encounters_initialize_for_new_map(void)
             squad_reset_starting_locations(datum_index, s);
             if ( scenario_squad->respawn_max_actors > 0 || scenario_squad->respawn_min_actors > 0 )
             {
-                __int16 respawn = scenario_squad->respawn_total_count;
+                int16_t respawn = scenario_squad->respawn_total_count;
                 if ( !respawn )
                     respawn = 999;
                 squad->respawn_actors_left = respawn;
@@ -94,14 +94,14 @@ void encounters_initialize_for_new_map(void)
         }
 
         /* platoons */
-        __int16 platoon_count = encounter_def->platoons.count;
+        int16_t platoon_count = encounter_def->platoons.count;
         encounter->platoon_base = platoon_base_counter;
         encounter->platoon_count = platoon_count;
         platoon_base_counter += platoon_count;
-        for ( __int16 p = 0; p < encounter->platoon_count; p = (__int16)(p + 1) )
+        for ( int16_t p = 0; p < encounter->platoon_count; p = (int16_t)(p + 1) )
         {
             platoon_definition *scenario_platoon = (platoon_definition *)encounter_def->platoons.address + p;
-            platoon_array[(__int16)(p + encounter->platoon_base)].defending =
+            platoon_array[(int16_t)(p + encounter->platoon_base)].defending =
                 (scenario_platoon->flags & (1u << _platoon_initially_defending_bit)) != 0;
         }
     }

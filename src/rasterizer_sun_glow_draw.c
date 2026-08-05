@@ -86,7 +86,7 @@ extern void D3DDevice_SetPixelShader(D3DDevice *device, D3DPixelShader *shader);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
         const void *vertex_data, unsigned int vertex_stride);
 
@@ -152,7 +152,7 @@ void rasterizer_sun_glow_draw(const rasterizer_lens_flare_submit_parameters *fla
     projection[17] = 0.0f;
     projection[18] = 0.0f;
     projection[19] = 1.0f;
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, projection, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, projection, 5, (uint64_t)3 << 59);
 
     /* Occlusion sample point = light position offset along its own (uncompressed) direction. */
     real_vector3d flare_direction;
@@ -266,7 +266,7 @@ void rasterizer_sun_glow_draw(const rasterizer_lens_flare_submit_parameters *fla
     glow_bounds.n[3] = bottom;
     rasterizer_sun_glow_copy_source(6, &glow_bounds);
     rasterizer_sun_glow_copy_source(7, &glow_bounds);
-    __int16 blurred_target = rasterizer_sun_glow_convolve(6, 7, 4);
+    int16_t blurred_target = rasterizer_sun_glow_convolve(6, 7, 4);
 
     float convolve_projection[20];
     convolve_projection[0]  = (1.0f / viewport_width) * 2.0f;
@@ -289,7 +289,7 @@ void rasterizer_sun_glow_draw(const rasterizer_lens_flare_submit_parameters *fla
     convolve_projection[17] = 1.0f;
     convolve_projection[18] = 0.0f;
     convolve_projection[19] = 1.0f;
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, convolve_projection, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, convolve_projection, 5, (uint64_t)3 << 59);
 
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_unlit));
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_lens_flare));

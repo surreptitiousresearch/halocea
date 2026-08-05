@@ -49,7 +49,7 @@
 extern int transparent_geometry_cached_sorted_index;                    /* decal/camouflage singleton group's cached sorted index */
 extern const render_animation *transparent_geometry_cached_animation;  /* cached queued-parameters animation snapshot */
 extern const real_matrix4x3 *transparent_geometry_cached_node_matrices;    /* cached queued-parameters node matrices */
-extern __int16 transparent_geometry_cached_node_matrix_count;                    /* cached queued-parameters node matrix count */
+extern int16_t transparent_geometry_cached_node_matrix_count;                    /* cached queued-parameters node matrix count */
 extern const render_lighting *transparent_geometry_cached_lighting;    /* cached queued-parameters lighting snapshot */
 
 extern uint8_t shader_is_decal(const shader *shader);
@@ -80,11 +80,11 @@ transparent_geometry_group *_rasterizer_model_transparent_geometry_submit(
     /* skip_submit: true only when shader is a decal-capable shader (type 4) whose second radiosity block
      * has flag bit 0x8 set — those are drawn through a different path entirely. */
     /* second radiosity block of a model shader overlays shader_model.flags; bit 3 = alpha-blended decal (DB enum shader_model_flags). */
-    unsigned __int8 skip_submit = shader && shader->base.type == _shader_type_model && (shader[1].base.radiosity.flags & (1u << _shader_model_alpha_blended_decal_bit)) != 0;
+    uint8_t skip_submit = shader && shader->base.type == _shader_type_model && (shader[1].base.radiosity.flags & (1u << _shader_model_alpha_blended_decal_bit)) != 0;
 
     /* wants_skinned_or_decal_path: camouflage/skinned effect, or a non-decal shader while the current
      * model effect is camouflage (type 1) — both gate the immediate-draw / singleton-group branch below. */
-    unsigned __int8 wants_skinned_or_decal_path = local_model_effect_type != _render_model_effect_type_active_camouflage
+    uint8_t wants_skinned_or_decal_path = local_model_effect_type != _render_model_effect_type_active_camouflage
             || (shader && shader->base.type == _shader_type_model && shader[1].base.radiosity.flags);
 
     if (skip_submit)
@@ -102,7 +102,7 @@ transparent_geometry_group *_rasterizer_model_transparent_geometry_submit(
     unsigned int geometry_flags = local_parameters->geometry_flags;
     if (wants_skinned_or_decal_path)
     {
-        unsigned __int8 is_decal = shader_is_decal(shader);
+        uint8_t is_decal = shader_is_decal(shader);
         parameters = local_parameters;
         if (is_decal)
             geometry_flags |= (1u << _rasterizer_geometry_no_sort_bit)
@@ -191,7 +191,7 @@ transparent_geometry_group *_rasterizer_model_transparent_geometry_submit(
     group->prev_group_presorted_index = -1;
     group->next_group_presorted_index = -1;
 
-    if ((unsigned __int16)local_model_effect_type != _render_model_effect_type_active_camouflage || shader->base.type == _shader_type_model)
+    if ((uint16_t)local_model_effect_type != _render_model_effect_type_active_camouflage || shader->base.type == _shader_type_model)
         group->active_camouflage_transparent_source_object_index = 0;
     else
         group->active_camouflage_transparent_source_object_index = parameters->effect.source_object_index;

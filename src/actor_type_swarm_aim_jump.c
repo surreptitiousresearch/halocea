@@ -17,7 +17,7 @@ extern actor_type_definition  *actor_type_definitions[16];
 void actor_type_swarm_aim_jump(uint16_t actor_index, int unit_index, float jump_magnitude,
                                real_vector3d *jump_velocity)
 {
-    __int16 actor_type = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.type;
+    int16_t actor_type = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.type;
     void (*swarm_aim_jump)(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity) =
         actor_type_definitions[actor_type]->swarm_aim_jump;
     if (swarm_aim_jump)

@@ -33,9 +33,9 @@ extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct ne
 void weapon_ammo_pickup_mid_reload_to_network(int weapon_index, int16_t magazine_index, int16_t rounds_picked_up)
 {
     int message_weapon_index;
-    __int16 message_magazine_index;
-    __int16 message_new_loaded;
-    __int16 message_reserve_delta;
+    int16_t message_magazine_index;
+    int16_t message_new_loaded;
+    int16_t message_reserve_delta;
 
     weapon_datum *weapon = (weapon_datum *)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
@@ -46,26 +46,26 @@ void weapon_ammo_pickup_mid_reload_to_network(int weapon_index, int16_t magazine
                                weapon_index);
     message_new_loaded = magazine->rounds_total + rounds_picked_up;
 
-    __int16 loaded_rounds = magazine->rounds_total;
+    int16_t loaded_rounds = magazine->rounds_total;
     weapon_definition *definition = TAG_GET(weapon_definition, weapon->definition_index);
     weapon_magazine_definition *magazine_definition =
         &((weapon_magazine_definition *)definition->weapon.magazines.address)[magazine_index];
-    __int16 magazine_loaded_capacity = magazine_definition->rounds_reloaded;
-    __int16 total_capacity = magazine_definition->rounds_loaded_maximum;
-    __int16 reserve_rounds = magazine->rounds_loaded;
+    int16_t magazine_loaded_capacity = magazine_definition->rounds_reloaded;
+    int16_t total_capacity = magazine_definition->rounds_loaded_maximum;
+    int16_t reserve_rounds = magazine->rounds_loaded;
 
     /* clamp the current loaded rounds to the magazine's loaded capacity for the old-total baseline */
-    __int16 clamped_loaded = loaded_rounds;
+    int16_t clamped_loaded = loaded_rounds;
     if ( magazine_loaded_capacity <= loaded_rounds )
         clamped_loaded = magazine_loaded_capacity;
 
-    int old_total = (__int16)(reserve_rounds + clamped_loaded);
+    int old_total = (int16_t)(reserve_rounds + clamped_loaded);
     if ( old_total <= total_capacity )
     {
-        __int16 new_loaded = loaded_rounds + rounds_picked_up;
+        int16_t new_loaded = loaded_rounds + rounds_picked_up;
         if ( magazine_loaded_capacity <= new_loaded )
             new_loaded = magazine_loaded_capacity;
-        int new_total = (__int16)(reserve_rounds + new_loaded);
+        int new_total = (int16_t)(reserve_rounds + new_loaded);
         if ( new_total > total_capacity )
             new_total = total_capacity;
         message_reserve_delta = new_total - old_total;

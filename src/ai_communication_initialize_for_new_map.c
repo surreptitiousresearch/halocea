@@ -2,6 +2,7 @@
  * map: enable dialogue triggers, clear the per-team chatter/talk/shout timers, reset every dialogue and reply
  * event's throttle, clear the recent-conversation ring, and revalidate the conversation datum array. */
 
+#include <stdint.h>
 #include "headers/ai_globals.h"
 #include "headers/dialogue_event_status.h"
 #include "headers/data_array.h"
@@ -21,12 +22,12 @@ void ai_communication_initialize_for_new_map(void)
     ai_globals->last_shout_time[0] = 0;
     ai_globals->last_shout_time[1] = 0;
 
-    for ( __int16 i = 0; i < 2 * global_dialogue_event_count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < 2 * global_dialogue_event_count; i = (int16_t)(i + 1) )
     {
         global_dialogue_events[i].disable_until_time = -1;
         global_dialogue_events[i].last_time_spoken = -1;
     }
-    for ( __int16 i = 0; i < 2 * global_reply_event_count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < 2 * global_reply_event_count; i = (int16_t)(i + 1) )
     {
         global_reply_events[i].disable_until_time = -1;
         global_reply_events[i].last_time_spoken = -1;

@@ -80,7 +80,7 @@ int vehicle_build_update_delta(int object_index, void *buffer, int buffer_size_i
     if (result > 0)
     {
         unsigned int next_sequence_number = (unsigned char)(vehicle->vehicle.message_index + 1);
-        vehicle->vehicle.message_index = (unsigned __int8)next_sequence_number;
+        vehicle->vehicle.message_index = (uint8_t)next_sequence_number;
         if (next_sequence_number >= 0xFF)
             vehicle->vehicle.message_index = 0;
     }

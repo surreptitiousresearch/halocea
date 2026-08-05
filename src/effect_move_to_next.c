@@ -93,7 +93,7 @@ scan:;
     }
 
     real_point3d position;
-    unsigned __int16 node_designator = instance->node_designator;
+    uint16_t node_designator = instance->node_designator;
     if ( node_designator == 0xFFFF )
     {
         position = instance->matrix.position;

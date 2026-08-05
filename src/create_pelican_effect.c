@@ -52,13 +52,13 @@ void create_pelican_effect(int vehicle_index)
         return;
 
     object_marker markers[16];
-    __int16 hover_count = object_get_marker_by_name(vehicle_index, "hover thrusters", markers, 15);
-    __int16 total_count = object_get_marker_by_name(vehicle_index, "jet thrusters", &markers[hover_count],
+    int16_t hover_count = object_get_marker_by_name(vehicle_index, "hover thrusters", markers, 15);
+    int16_t total_count = object_get_marker_by_name(vehicle_index, "jet thrusters", &markers[hover_count],
                                                     16 - hover_count) + hover_count;
     if (total_count <= 0)
         return;
 
-    for (int i = 0; i < total_count; i = (__int16)(i + 1))
+    for (int i = 0; i < total_count; i = (int16_t)(i + 1))
     {
         object_marker *marker = &markers[i];
 

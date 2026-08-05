@@ -21,16 +21,16 @@
 
 
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
-extern unsigned __int8 message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
-        const message_delta_processor_header *header, unsigned __int8 allow_empty_body);
+extern uint8_t message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
+        const message_delta_processor_header *header, uint8_t allow_empty_body);
 extern void find_hill(void);
 extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void king_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header,
         network_game_client *client)
 {
-    unsigned __int8 decoded;
-    unsigned __int8 hill_changed;
+    uint8_t decoded;
+    uint8_t hill_changed;
     int hill_id;
 
     if ( header->decoding_information->mode )

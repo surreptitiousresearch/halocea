@@ -25,7 +25,7 @@
 
 extern void *memset(void *destination, int value, unsigned int size);
 extern game_variant *game_engine_get_variant(void);
-extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, __int16 type, __int16 team);
+extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type, int16_t team);
 extern int16_t game_connection(void);
 extern void create_the_ball(int ball_index);
 
@@ -48,7 +48,7 @@ uint8_t oddball_engine_initialize_for_new_map(void)
         return 1;
 
     oddball_ball_type oddball_ball_type = game_engine_get_variant()->game_engine_variant.oddball.oddball_ball_type;
-    unsigned __int8 spawn_multiple_balls = oddball_ball_type > _oddball_normal && oddball_ball_type <= _oddball_terminator;
+    uint8_t spawn_multiple_balls = oddball_ball_type > _oddball_normal && oddball_ball_type <= _oddball_terminator;
 
     if ( spawn_multiple_balls )
     {

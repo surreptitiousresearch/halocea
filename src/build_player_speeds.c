@@ -5,6 +5,7 @@
  * 2+, 1.1x for a gap of exactly 1, or 1.0x otherwise (catch-up boost for trailing players). The function's
  * own return value (whatever data_iterator_next last produced, i.e. NULL at loop end) is not meaningful. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/data_iterator.h"
 #include "headers/game_variant.h"
@@ -15,13 +16,13 @@ extern game_variant *game_engine_get_variant(void);
 
 void build_player_speeds(void)
 {
-    __int16 max_counter = 0;
+    int16_t max_counter = 0;
 
     data_iterator iterator;
     data_iterator_new(&iterator, player_data);
     for ( player_datum *player = data_iterator_next(&iterator); player; player = data_iterator_next(&iterator) )
     {
-        __int16 counter = player->statistics.multiplayer_statistics.race_statistics.laps;
+        int16_t counter = player->statistics.multiplayer_statistics.race_statistics.laps;
         if ( max_counter <= counter )
             max_counter = counter;
     }

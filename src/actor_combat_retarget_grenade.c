@@ -19,7 +19,7 @@
 
 extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
 
-unsigned __int8 actor_combat_retarget_grenade(int actor_index, const real_point3d *desired_grenade_target)
+uint8_t actor_combat_retarget_grenade(int actor_index, const real_point3d *desired_grenade_target)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

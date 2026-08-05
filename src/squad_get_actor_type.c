@@ -13,7 +13,7 @@
 
 int16_t squad_get_actor_type(squad_definition *squad_definition)
 {
-    __int16 actor_palette_index = squad_definition->actor_palette_index;
+    int16_t actor_palette_index = squad_definition->actor_palette_index;
 
     if ( actor_palette_index >= 0 && actor_palette_index < global_scenario->ai_actor_palette.count )
     {

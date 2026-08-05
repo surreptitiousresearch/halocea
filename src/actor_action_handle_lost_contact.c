@@ -26,7 +26,6 @@
 #include "headers/firing_position.h"
 #include "headers/firing_position_evaluation_context.h"
 #include "headers/global_tag_instances.h"
-#include "headers/hexrays_defs.h"
 #include "headers/actor_datum.h"
 #include "headers/actor_definition.h"
 #include "headers/encounter_datum.h"
@@ -53,9 +52,9 @@ typedef struct ai_information_data ai_information_data;
 #include "headers/search_state_data.h"
 extern action_specification global_action_functions[];
 
-extern __int16 actor_type_get_when_to_search_at_target(__int16 actor_type);
-extern __int16 actor_type_get_when_to_pursue(__int16 actor_type);
-extern __int16 actor_type_get_when_to_search_pursuit(__int16 actor_type);
+extern int16_t actor_type_get_when_to_search_at_target(int16_t actor_type);
+extern int16_t actor_type_get_when_to_pursue(int16_t actor_type);
+extern int16_t actor_type_get_when_to_search_pursuit(int16_t actor_type);
 extern uint8_t actor_type_get_pursuit_controller(int16_t actor_type);
 extern void encounter_modify_pursuit_desires(uint16_t encounter_index, int16_t squad_index, uint8_t *pursue_tenacious, int16_t *group_pursuit_restriction, uint8_t *group_pursuit_controller, int16_t *desired_target_search, int16_t *desired_pursuit, int16_t *desired_pursuit_search);
 extern void encounter_determine_pursuit_availability(int encounter_index, int actor_index, int16_t group_pursuit_restriction, uint8_t is_pursuit_controller, uint8_t *allow_target_uncover, uint8_t *allow_indefinite_target_uncover, uint8_t *allow_target_search, uint8_t *allow_pursuit, uint8_t *allow_pursuit_search, uint8_t *controlling_group_pursuit, uint8_t *controlled_by_group_pursuit, uint8_t *wait_after_pursuit);
@@ -74,9 +73,9 @@ extern void actor_perception_tried_to_uncover(int actor_index, int prop_index);
 extern void actor_perception_tried_to_search(int actor_index, int prop_index);
 extern void actor_perception_abandoned_search(int actor_index, int prop_index);
 extern int actor_target_unit_index(uint16_t actor_index);
-extern __int16 actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
+extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
         firing_position *best_firing_position, int *current_owner, path_state *area_path_state,
-        unsigned __int8 *area_path_state_valid);
+        uint8_t *area_path_state_valid);
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
 extern uint8_t encounter_mark_examined_pursuit_position(int encounter_index, int actor_index, int16_t firing_position_index, int history_start_time);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
@@ -95,8 +94,8 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
                           ? nullptr
                           : DATUM_GET(encounter_data, encounter_datum, actor->meta.encounter_index);
 
-    unsigned __int8 changed = 0;
-    unsigned __int8 should_return_to_idle = 0;
+    uint8_t changed = 0;
+    uint8_t should_return_to_idle = 0;
     char wants_postcombat_guard = 0;
     action_state_data action_data; /* v57 — the single action working-state buffer reused for every setup */
 
@@ -117,29 +116,29 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
                            ? nullptr
                            : DATUM_GET(prop_data, prop_datum, actor->target.target_prop_index);
 
-        unsigned __int8 allow_target_uncover = 0;
-        unsigned __int8 allow_indefinite_uncover = 0;
-        unsigned __int8 allow_target_search = 0;
-        unsigned __int8 allow_pursuit = 0;
-        unsigned __int8 allow_pursuit_search = 0;
-        unsigned __int8 pursue_tenacious = 0;
-        unsigned __int8 wait_after_pursuit = 0;
-        unsigned __int8 controlling_group_pursuit;
-        unsigned __int8 group_pursuit_controller;
-        unsigned __int8 controlled_by_group_pursuit;
-        __int16 when_to_pursue;
-        __int16 when_to_search_pursuit;
-        __int16 group_pursuit_restriction;
+        uint8_t allow_target_uncover = 0;
+        uint8_t allow_indefinite_uncover = 0;
+        uint8_t allow_target_search = 0;
+        uint8_t allow_pursuit = 0;
+        uint8_t allow_pursuit_search = 0;
+        uint8_t pursue_tenacious = 0;
+        uint8_t wait_after_pursuit = 0;
+        uint8_t controlling_group_pursuit;
+        uint8_t group_pursuit_controller;
+        uint8_t controlled_by_group_pursuit;
+        int16_t when_to_pursue;
+        int16_t when_to_search_pursuit;
+        int16_t group_pursuit_restriction;
         int search_scratch[4];
-        __int16 when_to_search_at_target;
+        int16_t when_to_search_at_target;
 
         /* skip desire evaluation when a live orphan already directs the search (abandoned_search). */
         if (!orphan || !orphan->abandoned_search)
         {
-            when_to_search_at_target = actor_type_get_when_to_search_at_target((unsigned __int16)actor->meta.type);
-            when_to_pursue = actor_type_get_when_to_pursue((unsigned __int16)actor->meta.type);
-            when_to_search_pursuit = actor_type_get_when_to_search_pursuit((unsigned __int16)actor->meta.type);
-            group_pursuit_controller = actor_type_get_pursuit_controller((unsigned __int16)actor->meta.type);
+            when_to_search_at_target = actor_type_get_when_to_search_at_target((uint16_t)actor->meta.type);
+            when_to_pursue = actor_type_get_when_to_pursue((uint16_t)actor->meta.type);
+            when_to_search_pursuit = actor_type_get_when_to_search_pursuit((uint16_t)actor->meta.type);
+            group_pursuit_controller = actor_type_get_pursuit_controller((uint16_t)actor->meta.type);
             controlling_group_pursuit = 0;
             group_pursuit_restriction = 0;
             controlled_by_group_pursuit = 0;
@@ -154,7 +153,7 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
             allow_pursuit_search = 1;
             if (encounter_index != -1)
             {
-                encounter_modify_pursuit_desires(encounter_index, (unsigned __int16)actor->meta.squad_index,
+                encounter_modify_pursuit_desires(encounter_index, (uint16_t)actor->meta.squad_index,
                                                  &pursue_tenacious, &group_pursuit_restriction,
                                                  &group_pursuit_controller, &when_to_search_at_target,
                                                  &when_to_pursue, &when_to_search_pursuit);
@@ -209,7 +208,7 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
                 actor_action_change(actor_index, actor_action_search, &action_data);
                 changed = 1;
             }
-            unsigned __int8 changed_snapshot = changed;
+            uint8_t changed_snapshot = changed;
             if (!changed)
             {
                 actor_perception_tried_to_search(actor_index, actor->target.target_prop_index);
@@ -220,9 +219,9 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
                     actor_firing_positions->pursuit_communicated_lost_contact = 1;
                 }
 
-                __int16 firing_position_index = -1;
+                int16_t firing_position_index = -1;
                 char pursue_from_guard = 0;
-                unsigned __int8 search_started;
+                uint8_t search_started;
                 if (!allow_pursuit)
                     goto check_examined;
                 actor->state.searching = 1;
@@ -244,7 +243,7 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
                     }
                     if (firing_position_index == -1)
                     {
-                        __int16 examine_threshold = (actor->external_orders.pursuit_group_prop_index == -1)
+                        int16_t examine_threshold = (actor->external_orders.pursuit_group_prop_index == -1)
                                                         ? character->pursuit.uncoordinated_pursuit_positions
                                                         : character->pursuit.coordinated_pursuit_positions;
                         if (pursue_tenacious || actor_firing_positions->pursuit_prop_index != actor->target.target_prop_index

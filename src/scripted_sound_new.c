@@ -53,7 +53,7 @@ void scripted_sound_new(int definition_index, int source_object_index, float sca
         object_marker marker;
         real_point3d position;
         real_vector3d forward;
-        __int16 node_index;
+        int16_t node_index;
         if ( object_get_marker_by_name(source_object_index, "head", &marker, 1) )
         {
             node_index = marker.node_index;

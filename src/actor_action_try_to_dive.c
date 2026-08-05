@@ -37,8 +37,8 @@ uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, floa
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    __int16 evade_direction = escape_direction;   /* in/out: refined by the evasion query */
-    unsigned __int8 evasion_is_ledge = 0;
+    int16_t evade_direction = escape_direction;   /* in/out: refined by the evasion query */
+    uint8_t evasion_is_ledge = 0;
     real_vector2d animation_alignment;
     path_collision_result path_result;
 
@@ -52,7 +52,7 @@ uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, floa
     /* Rotate the alignment vector into the actor's local frame per the evade direction. */
     float alignment_i;
     float alignment_j;
-    switch ( (unsigned __int16)evade_direction )
+    switch ( (uint16_t)evade_direction )
     {
         case _actor_evade_left:
             alignment_j = alignment_vector->n[0];
@@ -85,8 +85,8 @@ uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, floa
     direction_scores[2] = forward_alignment;
     direction_scores[3] = -forward_alignment;
 
-    __int16 best_animation_impulse = -1;
-    __int16 best_direction = -1;
+    int16_t best_animation_impulse = -1;
+    int16_t best_direction = -1;
     float best_score = -0.5f;
     for ( dive_animation_possibility *possibility = global_dive_animation_table;
           possibility->animation_impulse != -1;
@@ -106,7 +106,7 @@ uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, floa
         return 0;
 
     /* Re-derive the alignment vector for the chosen animation's direction. */
-    switch ( (unsigned __int16)best_direction )
+    switch ( (uint16_t)best_direction )
     {
         case _actor_evade_left:
             animation_alignment.n[0] = alignment_j;
@@ -125,7 +125,7 @@ uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, floa
             break;
     }
 
-    unsigned __int8 impulse_applied = actor_move_animation_impulse(actor_index, best_animation_impulse,
+    uint8_t impulse_applied = actor_move_animation_impulse(actor_index, best_animation_impulse,
             &animation_alignment);
     if ( impulse_applied )
         ai_communication_event(_ai_communication_dive, actor->meta.unit_index, -1, -1, -1, -1, nullptr);

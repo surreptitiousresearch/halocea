@@ -35,7 +35,7 @@ uint8_t playlist_profile_change_item_options(widget_instance *widget, event_reco
     widget_instance *group = widget->parent->parent->children;
 
     widget_instance *flag_box = first_text_box(group);
-    int flag_index = (unsigned __int16)flag_box->parameters.text_box_parameters.string_list_index;
+    int flag_index = (uint16_t)flag_box->parameters.text_box_parameters.string_list_index;
     if ( flag_index == 0 )
         edit_playlist_profile->universal_variant.flags |= (1u << _infinite_grenades_bit);
     else if ( flag_index == 1 )
@@ -60,7 +60,7 @@ uint8_t playlist_profile_change_item_options(widget_instance *widget, event_reco
     }
 
     widget_instance *third_box = first_text_box(group->next->next);
-    int third_index = (unsigned __int16)third_box->parameters.text_box_parameters.string_list_index;
+    int third_index = (uint16_t)third_box->parameters.text_box_parameters.string_list_index;
     if ( third_index == 0 )
         edit_playlist_profile->universal_variant.flags &= ~(1u << _generic_starting_equipment_bit);
     else if ( third_index == 1 )

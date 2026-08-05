@@ -17,7 +17,7 @@ void device_set_power(int device_index, float power)
     device_datum *device = (device_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, device_index)->datum;
     unsigned int flags = device->device.flags;
     device->device.power = power;
-    __int16 power_group = device->device.power_group_index;
+    int16_t power_group = device->device.power_group_index;
     device->device.flags = flags | (1u << _device_animation_changed_bit);
     device_group_set_desired_value(power_group, power);
 }

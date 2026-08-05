@@ -15,6 +15,7 @@
  * (int vehicle_index) only. component_vectors_from_normal3d's 4 args were confirmed from disasm
  * (0x83760A88-0x83760A98): (velocity, forward, parallel_out, perpendicular_out). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/vehicle_datum.h"
@@ -49,9 +50,9 @@ void vehicle_export_function_values(int vehicle_index)
     float turn_scale_b = __fabs(definition->vehicle.turn.minimum_position);
     float turn_range = turn_scale_a <= turn_scale_b ? turn_scale_b : turn_scale_a;
 
-    for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
     {
-        __int16 export_source = definition->vehicle.function_modes[i];
+        int16_t export_source = definition->vehicle.function_modes[i];
         if ( !export_source )
             continue;
 

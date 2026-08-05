@@ -12,6 +12,7 @@
  * running). If the actor is not currently in the command-list action (state.action != actor_action_obey), the
  * fallback uses the actor's finish timer (actor+0x94): finished within the last 150 ticks counts as status 1. */
 
+#include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/swarm_component_flags.h"
 #include "headers/data_array.h"
@@ -58,13 +59,13 @@ int ai_scripting_command_list_status(int object_list_index)
             int unit_count = swarm->unit_count;
             int slot = 0;
             while ( slot < unit_count && swarm->unit_indices[slot] != unit_index )
-                slot = (__int16)(slot + 1);
-            if ( (__int16)slot >= unit_count )
+                slot = (int16_t)(slot + 1);
+            if ( (int16_t)slot >= unit_count )
                 goto accumulate;
 
             /* recovered: (char*)swarm_component_data->data + ((idx<<6)&0x3FFFC0) -> DATA_ARRAY_ELEMENT (stride 64 = swarm_component datum_size) */
             swarm_component_datum *component =
-                DATA_ARRAY_ELEMENT(swarm_component_data, swarm_component_datum, swarm->component_indices[(__int16)slot]);
+                DATA_ARRAY_ELEMENT(swarm_component_data, swarm_component_datum, swarm->component_indices[(int16_t)slot]);
             if ( (component->flags & (1u << _swarm_component_obey_direct_bit)) == 0 )
                 goto accumulate;
 

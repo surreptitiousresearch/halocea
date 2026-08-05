@@ -9,11 +9,12 @@
  * The `count` parameter is unused (it is part of the shared stimulus signature). As in the impact sibling, one
  * stack direction_specification is reused two ways — first with a real_vector3d aliased over its first 12 bytes
  * (the surprise direction, for actor_stimulus_surprise), then as a proper direction_specification (type 3,
- * explicit point) for actor_look_secondary. Danger-state and team fields are raw actor-datum offsets. */
+ * explicit point) for actor_look_secondary. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
+#include "headers/object_datum.h"
 #include "headers/global_tag_instances.h"
 #include "headers/actor_datum.h"
 #include "headers/actor_definition.h"
@@ -88,7 +89,7 @@ void actor_stimulus_weapon_detonation(int actor_index, int object_index, const r
                           surprise, -1, 0, 0);
 
     if ( object_index != -1
-      && game_team_is_enemy(actor->meta.team_index, *(unsigned __int16 *)(((char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum) + 184)) )
+      && game_team_is_enemy(actor->meta.team_index, ((object_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum)->object.owner_team_index) )
     {
         int danger_level = actor->stimuli.suspicion_combat_status;
         if ( danger_level >= _actor_combat_status_investigate )

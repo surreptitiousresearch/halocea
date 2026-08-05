@@ -12,7 +12,7 @@ extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 
 uint8_t virtual_keyboard_tab_down(void)
 {
-    __int16 row = virtual_keyboard_globals.row;
+    int16_t row = virtual_keyboard_globals.row;
     char start_key_code = virtual_keyboard_layout_table[row][virtual_keyboard_globals.column];
 
     do

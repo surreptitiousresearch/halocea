@@ -24,9 +24,9 @@ uint8_t scenario_location_underwater(const location *location, const real_point3
                                      int16_t *optional_weather_palette_index)
 {
     structure_bsp *bsp = global_structure_bsp;
-    __int16 fog_region_index = scenario_get_fog_region_index(location, position);
+    int16_t fog_region_index = scenario_get_fog_region_index(location, position);
     int underwater = 0;
-    __int16 weather_index = -1;
+    int16_t weather_index = -1;
 
     if ( fog_region_index != -1 )
     {

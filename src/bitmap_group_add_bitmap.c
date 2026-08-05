@@ -34,7 +34,7 @@ extern uint8_t tag_data_resize(tag_data *data, int size);
 
 int16_t bitmap_group_add_bitmap(bitmap_group *group, int16_t width, int16_t height, int16_t depth, int16_t type, int16_t format, int16_t mipmap_count)
 {
-    __int16 group_type = group->type;
+    int16_t group_type = group->type;
 
     bitmap_data new_bitmap;
     new_bitmap.width = width;
@@ -51,8 +51,8 @@ int16_t bitmap_group_add_bitmap(bitmap_group *group, int16_t width, int16_t heig
     new_bitmap.hardware_format = nullptr;
     new_bitmap.base_address = nullptr;
 
-    unsigned __int16 flags;
-    unsigned __int8 accepted = 1;
+    uint16_t flags;
+    uint8_t accepted = 1;
     if ( group_type == _bitmap_group_type_interface_bitmaps )
     {
         flags = (1u << _bitmap_linear_bit);   /* 0x10 */
@@ -120,7 +120,7 @@ validated:
     /* re-point every existing bitmap into the (possibly relocated) pixel_data, and find the running end offset */
     int pixels_end = 0;
     const bitmap_data *last_with_pixels = nullptr;
-    for ( int i = 0; i < group->bitmaps.count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < group->bitmaps.count; i = (int16_t)(i + 1) )
     {
         bitmap_data *existing = &((bitmap_data *)group->bitmaps.address)[i];
         if ( existing->base_address )
@@ -132,12 +132,12 @@ validated:
     }
     (void)last_with_pixels;
 
-    bitmap_data *slot = &((bitmap_data *)group->bitmaps.address)[(__int16)previous_count];
+    bitmap_data *slot = &((bitmap_data *)group->bitmaps.address)[(int16_t)previous_count];
     memcpy(slot, &new_bitmap, 0x30u);
     slot->pixels_offset = pixels_end;
     char *pixels = (char *)group->pixel_data.address + pixels_end;
     slot->base_address = pixels;
     memset(pixels, 0, pixel_data_size);
 
-    return (__int16)previous_count;
+    return (int16_t)previous_count;
 }

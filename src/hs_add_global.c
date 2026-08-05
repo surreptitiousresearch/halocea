@@ -52,7 +52,7 @@ int hs_add_global(int expression_index)
         return 0;
     }
 
-    __int16 type = string_list_find(&hs_compile_globals.compiled_source[HS_SYNTAX_NODE(type_node).source_offset], number_of_hs_node_types, hs_type_names);
+    int16_t type = string_list_find(&hs_compile_globals.compiled_source[HS_SYNTAX_NODE(type_node).source_offset], number_of_hs_node_types, hs_type_names);
     if ( type < first_hs_type || type >= number_of_hs_node_types )
     {
         hs_compile_globals.__noop = "this is not a valid type.";
@@ -80,7 +80,7 @@ int hs_add_global(int expression_index)
     hs_compile_globals.disallow_sets = 1;
     if ( hs_parse(value_node, type) )
     {
-        __int16 element = tag_block_add_element(&global_scenario->hs_globals);
+        int16_t element = tag_block_add_element(&global_scenario->hs_globals);
         if ( element != -1 )
         {
             hs_global_internal *entry =

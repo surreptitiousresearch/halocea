@@ -18,7 +18,7 @@ void bitmap_3d_height_map(bitmap_data *bitmap, float bump_height)
 
     if ( slice && slice->base_address )
     {
-        for ( __int16 slice_index = 0; slice_index < bitmap->depth; slice_index++ )
+        for ( int16_t slice_index = 0; slice_index < bitmap->depth; slice_index++ )
         {
             bitmap_3d_slice_extract(bitmap, 0, slice_index, slice);
             bitmap_2d_height_map(slice, bump_height);

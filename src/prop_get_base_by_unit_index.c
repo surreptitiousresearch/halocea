@@ -65,7 +65,7 @@ int prop_get_base_by_unit_index(int actor_index, int unit_index, uint8_t acquire
 acquire_path:
     if ( acquire && actor->meta.active )
     {
-        unsigned __int8 enemy = game_team_is_enemy(actor->meta.team_index, unit->object.owner_team_index);
+        uint8_t enemy = game_team_is_enemy(actor->meta.team_index, unit->object.owner_team_index);
         prop_index = prop_new_unacknowledged(actor_index, unit_index, enemy);
         if ( prop_index != -1 )
         {
@@ -79,7 +79,7 @@ acquire_path:
                 prop_status_refresh(actor_index, prop_index, &sense_position);
                 if ( new_prop->perception >= 2 )
                 {
-                    unsigned __int8 expected = actor_expected_acknowledgement(actor_index, prop_index);
+                    uint8_t expected = actor_expected_acknowledgement(actor_index, prop_index);
                     new_prop->state = _prop_state_acknowledged;
                     actor_perception_acknowledge(actor_index, prop_index, 0, expected);
                 }

@@ -65,7 +65,7 @@ void player_examine_nearby_item(int player_index, int item_index)
 
     /* 1. let an existing inventory weapon absorb the item as ammunition */
     int matched_weapon = -1;
-    __int16 ammo_picked_up = 0;
+    int16_t ammo_picked_up = 0;
     for (int slot = 0; slot < 4; slot++)
     {
         int weapon_in_slot = unit_object->unit.weapon_object_indices[slot];
@@ -90,7 +90,7 @@ void player_examine_nearby_item(int player_index, int item_index)
     {
         equipment_definition *equip_definition =
             TAG_GET(equipment_definition, equipment_object->definition_index);
-        __int16 equipment_type = equip_definition->equipment.powerup_type;
+        int16_t equipment_type = equip_definition->equipment.powerup_type;
         if (equipment_type == _powerup_type_grenade)
         {
             if (unit_add_grenade_to_inventory(unit_index, item_index))
@@ -102,8 +102,8 @@ void player_examine_nearby_item(int player_index, int item_index)
         {
             if (unit_get_current_equipment(unit_index) == -1)
                 player_handle_powerup_equipment(player_index, item_index);
-            else if ((unsigned __int16)equip_definition->equipment.powerup_type
-                     != (unsigned __int16)(TAG_GET(equipment_definition, equipment_object->definition_index))->equipment.powerup_type)
+            else if ((uint16_t)equip_definition->equipment.powerup_type
+                     != (uint16_t)(TAG_GET(equipment_definition, equipment_object->definition_index))->equipment.powerup_type)
                 player_set_action_result(player_index, _player_action_result_swap_for_powerup, item_index, -1);
         }
     }
@@ -153,7 +153,7 @@ void player_examine_nearby_item(int player_index, int item_index)
             {
                 item_datum *current_weapon_object =
                     object_try_and_get_and_verify_type(current_weapon, object_mask_weapon);
-                __int16 action_result;
+                int16_t action_result;
                 if (weapon_count != 1 || !current_weapon_object
                     || current_weapon_object->definition_index == weapon_object->definition_index)
                     action_result = _player_action_result_swap_for_weapon;

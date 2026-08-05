@@ -31,8 +31,8 @@ int actor_action_handle_vehicle_exit(uint16_t actor_index)
     if ( actor->input.vehicle_index == -1 )
         return exited;
 
-    unsigned __int8 want_exit = 0;
-    unsigned __int8 forced_exit = 0;
+    uint8_t want_exit = 0;
+    uint8_t forced_exit = 0;
 
     prop_iterator iterator;
     prop_iterator_new(&iterator, actor_index);

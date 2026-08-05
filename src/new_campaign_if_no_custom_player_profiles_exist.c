@@ -10,8 +10,8 @@
 #include "headers/event_record.h"
 #include "headers/blam_data_globals.h"
 
-extern unsigned __int16 new_campaign_entered_name[11];
-extern __int16 new_campaign_name_cursor;
+extern uint16_t new_campaign_entered_name[11];
+extern int16_t new_campaign_name_cursor;
 
 extern void player_profiles_enumerate_available_to_local_player_index(int16_t local_player_index, uint16_t *number_of_profiles, int *player_profile_indices, uint8_t include_default_profiles);
 extern void saved_game_file_get_useable_untitled_profile_name(uint16_t *display_name);
@@ -20,11 +20,11 @@ extern uint8_t virtual_keyboard_launch(uint16_t *text_buffer, uint16_t buffer_si
 
 uint8_t new_campaign_if_no_custom_player_profiles_exist(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
-    __int16 number_of_profiles = 1;
+    int16_t number_of_profiles = 1;
     int profile_indices[3];
     wchar_t generated_name[152];
 
-    player_profiles_enumerate_available_to_local_player_index(-1, (unsigned __int16 *)&number_of_profiles,
+    player_profiles_enumerate_available_to_local_player_index(-1, (uint16_t *)&number_of_profiles,
             profile_indices, 0);
     if ( number_of_profiles > 0 )
         return 1;

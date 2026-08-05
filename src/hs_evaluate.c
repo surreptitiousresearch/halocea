@@ -23,15 +23,15 @@ void hs_evaluate(int thread_index, int expression_index, int *destination)
 {
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
-    __int16 flags = node->flags;
+    int16_t flags = node->flags;
 
     if ( (flags & (1u << _hs_syntax_node_primitive_bit)) != 0 )             /* primitive */
     {
         if ( (flags & (1u << _hs_syntax_node_variable_bit)) != 0 )          /* global/variable reference */
         {
             int value = hs_global_evaluate(node->data);
-            __int16 requested_type = node->type;
-            __int16 global_type = hs_global_get_type(node->data);
+            int16_t requested_type = node->type;
+            int16_t global_type = hs_global_get_type(node->data);
             *destination = hs_cast(thread_index, global_type, requested_type, value);
         }
         else                            /* literal */

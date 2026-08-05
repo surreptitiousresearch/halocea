@@ -67,7 +67,7 @@ void unit_get_camera_position(int unit_index, real_point3d *camera_position)
         int parent_object = unit->object.parent_object_index;
         unit_datum *parent = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_object)->datum);
         *camera_position = parent->object.position;
-        __int16 parent_type = parent->object.type;
+        int16_t parent_type = parent->object.type;
         if ( ((1 << parent_type) & object_mask_unit) != 0 )
         {
             int seat_index = unit->unit.parent_seat_index;

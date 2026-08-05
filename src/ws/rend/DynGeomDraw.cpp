@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "../../headers/ws/rend/rendDRIVER.h"      // REND_PRIMTYPE + extern "C" DynGeomDraw decl
 #include "../../headers/vidDRIVER_DYNGEOM_BUFFER.h" // buffer + vidDriver->drvInterface->dynGeomBuffer chain
 #include "../../headers/ws/ds/ds_assert_boundary.h"
@@ -23,7 +24,7 @@ extern vidVBUF_MNG *vidVBMng;
 extern vidFVF_DESCR *vidVBUF_MNG_FitFVF(vidVBUF_MNG *self, unsigned long long fvf);
 
 void DynGeomDraw(REND_PRIMTYPE primType, void *vertList, int nVert,
-                 unsigned short *indList, int nInd, unsigned __int64 fvf,
+                 unsigned short *indList, int nInd, uint64_t fvf,
                  unsigned int callerID)
 {
     vidDRIVER_DYNGEOM_BUFFER *buffer = vidDriver->drvInterface->dynGeomBuffer;

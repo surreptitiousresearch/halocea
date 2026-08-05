@@ -25,7 +25,7 @@ extern widget_instance *widget_instance_find_by_tag_index_recursive(widget_insta
 extern void widget_instance_give_focus_directly(widget_instance *widget, widget_instance *target);
 extern void ui_widget_delete(widget_instance *widget);
 extern widget_instance *ui_widget_launch_widget(widget_instance *widget, int new_widget_tag_index);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 extern void widget_instance_go_back_to_previous(widget_instance *widget);
 extern int unspatialized_impulse_sound_new(int definition_index, float scale);
 extern widget_instance *widget_instance_get_topmost_parent(widget_instance *widget);
@@ -38,7 +38,7 @@ void event_handler_dispatch(widget_instance *widget, ui_widget_definition *defin
 {
     unsigned char deleted[16];
     char function_failed = 0;
-    __int16 sound_code = 0;
+    int16_t sound_code = 0;
     char delete_topmost = 0;
     char self_handled = 0;
     char succeeded = 1;

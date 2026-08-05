@@ -40,7 +40,7 @@ void hs_object_set_permutation(int object_index, const char *region_name, char *
     }
     while ( !diff );
 
-    __int16 region_index = -1;
+    int16_t region_index = -1;
     if ( diff )
     {
         object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
@@ -55,7 +55,7 @@ void hs_object_set_permutation(int object_index, const char *region_name, char *
                 int i = 0;
                 while ( stricmp(((model_region *)model_data->regions.address)[i].name, region_name) )
                 {
-                    i = (__int16)(i + 1);
+                    i = (int16_t)(i + 1);
                     if ( i >= model_data->regions.count )
                         goto apply;
                 }

@@ -80,11 +80,11 @@ void player_spawn_from_network(message_delta_processor_header *header, network_g
     player->team_index = message.team_index;
     player->network_player_data.team_index = (char)message.team_index;
     unit->object.owner_player_index = player_index;
-    unit->object.owner_team_index = (__int16)player->team_index;
+    unit->object.owner_team_index = (int16_t)player->team_index;
     unit->unit.player_index = player_index;             /* controlling player index */
     unit_set_actively_controlled(unit_index, 1u);
 
-    if ( (unsigned __int16)player->local_player_index == 0xFFFF )   /* sentinel on signed __int16 */
+    if ( (uint16_t)player->local_player_index == 0xFFFF )   /* sentinel on signed __int16 */
     {
         simple_circular_queue_empty(&player->___u26.client_update_data.___u0.remote_player.position_queue.queue);
         simple_circular_queue_empty(&player->___u26.client_update_data.___u0.remote_player.vehicle_update_queue.queue);
@@ -109,8 +109,9 @@ void player_spawn_from_network(message_delta_processor_header *header, network_g
         }
     }
 
-    /* 4-byte clear spans both powerup_durations[0] and [1] */
-    *(int *)&player->powerup_durations[0] = 0;
+    /* single 4-byte store in the binary clears both halfwords */
+    player->powerup_durations[0] = 0;
+    player->powerup_durations[1] = 0;
     player->action_result = 0;
     player->action_object_index = -1;
     game_engine_postspawn_player_update(player_index);

@@ -4,18 +4,19 @@
  * matches both C:\noav\headers_ref\_item_definition.h and the PDB types_members dump for
  * `_item_definition` (sizeof 0x18C). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 
 typedef struct _item_definition
 {
     unsigned int    flags;                                  /* 0x00 */
-    __int16         hud_message_index;                       /* 0x04 */
-    __int16         inventory_sort_order;                     /* 0x06 */
+    int16_t         hud_message_index;                       /* 0x04 */
+    int16_t         inventory_sort_order;                     /* 0x06 */
     float           scale;                                     /* 0x08 */
-    __int16         hud_message_value_scale;                    /* 0x0C */
-    __int16         padd;                                        /* 0x0E */
+    int16_t         hud_message_value_scale;                    /* 0x0C */
+    int16_t         padd;                                        /* 0x0E */
     int             unused[4];                                    /* 0x10 */
-    __int16         function_modes[4];                             /* 0x20 */
+    int16_t         function_modes[4];                             /* 0x20 */
     int             inventory_unused[41];                          /* 0x28 */
     tag_reference   material_effects;                              /* 0xCC */
     tag_reference   collision_sound;                               /* 0xDC */

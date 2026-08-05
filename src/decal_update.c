@@ -8,6 +8,7 @@
  *
  * Decal record fields resolved to the DB decal_datum struct (56-byte stride; see decal_delete.c). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/decal_globals.h"
 #include "headers/decal_datum.h"
@@ -23,7 +24,7 @@ void decal_update(int decal_index)
 {
     decal_datum *decal = DATUM_GET(global_decal_data, decal_datum, decal_index);
 
-    unsigned __int16 flags = decal->flags;
+    uint16_t flags = decal->flags;
     int age_ticks = game_time_get() - decal->creation_time;
     decal->intensity = -1;
 

@@ -30,7 +30,7 @@ void mounted_weapon_decide_action(int actor_index)
     if ( !actor_action_deny_transition(actor_index) )
         actor_action_handle_combat_transition(actor_index);
 
-    __int16 action_mode = actor->state.action;
+    int16_t action_mode = actor->state.action;
     if ( (unsigned int)(action_mode - actor_action_fight) > 8 )   /* only fight(3)..obey(11) */
         return;
 

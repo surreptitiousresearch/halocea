@@ -13,7 +13,7 @@ void ai_scripting_living_fraction_evaluate(int16_t function_index, int thread_in
     if ( arguments )
     {
         int result;
-        *(float *)&result = ai_scripting_living_fraction(arguments[0]);
+        *(float *)&result = ai_scripting_living_fraction(arguments[0]);  /* float bits packed into the 32-bit hs value */
         hs_return(thread_index, result);
     }
 }

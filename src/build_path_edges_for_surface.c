@@ -15,7 +15,7 @@ int16_t build_path_edges_for_surface(const structure_bsp *structure, int surface
     const collision_bsp *bsp = (const collision_bsp *)structure->collision_bsp.address;
     const unsigned char *pathfinding_flags = (const unsigned char *)structure->pathfinding_surfaces.address;
 
-    __int16 edge_count = 0;
+    int16_t edge_count = 0;
     const collision_surface *surface = &((const collision_surface *)bsp->surfaces.address)[surface_index];
     int first_edge_index = surface->first_edge_index;
     int edge_index = first_edge_index;
@@ -24,9 +24,9 @@ int16_t build_path_edges_for_surface(const structure_bsp *structure, int surface
     {
         const collision_edge *edge = &((const collision_edge *)bsp->edges.address)[edge_index];
         path_edge *output = &edges[edge_count];
-        edge_count = (__int16)(edge_count + 1);
+        edge_count = (int16_t)(edge_count + 1);
 
-        unsigned __int8 is_right_surface = edge->surface_indices[1] == surface_index;
+        uint8_t is_right_surface = edge->surface_indices[1] == surface_index;
         int adjacent_surface_index = is_right_surface ? edge->surface_indices[0] : edge->surface_indices[1];
 
         output->adjacent_surface_index = adjacent_surface_index;

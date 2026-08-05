@@ -17,7 +17,7 @@ extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
 bitmap_data * bitmap_clone(const bitmap_data *source_bitmap)
 {
     bitmap_data *clone;
-    unsigned int type = (unsigned __int16)source_bitmap->type;
+    unsigned int type = (uint16_t)source_bitmap->type;
 
     if ( type == bitmap_type_2d )
     {

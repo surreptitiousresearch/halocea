@@ -15,8 +15,8 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 
 void contrail_next_frame(contrail_datum *contrail)
 {
-    __int16 sequence_index = contrail->sequence_index;
-    __int16 next_frame = contrail->frame_index + 1;
+    int16_t sequence_index = contrail->sequence_index;
+    int16_t next_frame = contrail->frame_index + 1;
     contrail_definition *definition = TAG_GET(contrail_definition, contrail->definition_index);
     bitmap_group *bitmap = TAG_GET(bitmap_group, definition->bitmap.index);
 
@@ -28,8 +28,8 @@ void contrail_next_frame(contrail_datum *contrail)
       || next_frame < 0
       || next_frame >= ((bitmap_group_sequence *)bitmap->sequences.address)[sequence_index].bitmap_count )
     {
-        __int16 first_sequence = definition->first_sequence_index;
-        __int16 last_sequence = definition->sequence_count + first_sequence;
+        int16_t first_sequence = definition->first_sequence_index;
+        int16_t last_sequence = definition->sequence_count + first_sequence;
         unsigned int *seed = get_global_local_random_seed_address();
         contrail->sequence_index = seed_random_range(seed, first_sequence, last_sequence);
         contrail->frame_index = 0;

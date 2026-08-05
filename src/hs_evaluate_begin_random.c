@@ -21,24 +21,24 @@ extern void *memset(void *dst, int value, unsigned int count);
 
 void hs_evaluate_begin_random(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate x3: reserve slots at the frame data top, aligned up.
      * The compiled `if (slot - elem > top) slot -= elem` correction can never fire (align-up
      * advances at most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    __int16 *count = (__int16 *)(((unsigned int)stack_top + 1) & ~0x1u);   /* 2-byte slot */
+    int16_t *count = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);   /* 2-byte slot */
     if ( (unsigned int)(count - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --count;
-    frame->size = (__int16)((unsigned char *)count - frame->data + 2);
+    frame->size = (int16_t)((unsigned char *)count - frame->data + 2);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    char *used_mask = (char *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(used_mask - 4) > (unsigned int)stack_top )   /* dead branch (shipped) */
-        used_mask -= 4;
-    frame->size = (__int16)((unsigned char *)used_mask - frame->data + 4);
+    unsigned int *used_mask = (unsigned int *)(((unsigned int)stack_top + 3) & ~0x3u);
+    if ( (unsigned int)(used_mask - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+        --used_mask;
+    frame->size = (int16_t)((unsigned char *)used_mask - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
@@ -46,7 +46,7 @@ void hs_evaluate_begin_random(int16_t function_index, int thread_index, uint8_t 
     if ( (unsigned int)(result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --result;
     int probe_count = 0;   /* v15: number of used slots skipped this pass */
-    frame->size = (__int16)((unsigned char *)result - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)result - frame->data + 4);
 
     int begin_expression = frame->expression_index;
     int first_argument = HS_SYNTAX_NODE(HS_SYNTAX_NODE(begin_expression).data).next_node_index;
@@ -59,7 +59,7 @@ void hs_evaluate_begin_random(int16_t function_index, int thread_index, uint8_t 
         memset(used_mask, 0, 4 * ((*count + 31) >> 5));
     }
 
-    __int16 total = *count;
+    int16_t total = *count;
     unsigned int *seed = get_global_random_seed_address();
     int random_start = seed_random_range(seed, 0, total);
     int n = *count;
@@ -71,23 +71,23 @@ void hs_evaluate_begin_random(int16_t function_index, int thread_index, uint8_t 
         int chosen;
         while ( 1 )
         {
-            mask_offset = 4 * ((__int16)((random_start + offset) % n) >> 5);
+            mask_offset = (int16_t)((random_start + offset) % n) >> 5;   /* word index into the bitmask */
             bit = 1 << (((random_start + offset) % n) & 0x1F);
-            chosen = (__int16)((random_start + offset) % n);
-            if ( (bit & *(int *)&used_mask[mask_offset]) == 0 )
+            chosen = (int16_t)((random_start + offset) % n);
+            if ( (bit & used_mask[mask_offset]) == 0 )
                 break;
-            probe_count = (__int16)(offset + 1);
+            probe_count = (int16_t)(offset + 1);
             offset = probe_count;
             if ( probe_count >= *count )
                 goto done;
         }
         int node = first_argument;
         for ( ; chosen > 0; node = HS_SYNTAX_NODE(node).next_node_index )
-            chosen = (__int16)(chosen - 1);
+            chosen = (int16_t)(chosen - 1);
         hs_evaluate(thread_index, node, result);
-        *(int *)&used_mask[mask_offset] |= bit;
+        used_mask[mask_offset] |= bit;
     }
 done:
-    if ( (__int16)probe_count == *count )
+    if ( (int16_t)probe_count == *count )
         hs_return(thread_index, *result);
 }

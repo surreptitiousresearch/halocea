@@ -18,7 +18,7 @@ void slayer_engine_player_added(int player_index)
     player->multiplayer.special = -1;
     if ( game_connection() == _game_connection_network_server )
     {
-        slayer_globals.individual_score[(unsigned __int16)player_index] = 0;
+        slayer_globals.individual_score[(uint16_t)player_index] = 0;
         if ( !game_engine_has_teams() )
             slayer_globals.team_score[player->team_index] = 0;
     }

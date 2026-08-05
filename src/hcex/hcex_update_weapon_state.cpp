@@ -10,6 +10,7 @@
  * the database's 9-argument prototype; wpn is read as a float array for the plasma-pistol telemetry.
  * DEVIATION 2: the three weapon-name comparisons were emitted as inlined byte loops; restored to strcmp(). */
 
+#include <stdint.h>
 #include "../headers/weapon_definition.h"
 #include "../headers/weapon_interface_state.h"
 
@@ -24,13 +25,13 @@ extern int strcmp(const char *a, const char *b);
 extern float __fabs(float x);
 extern void hcex_dbg_add_float(const char *name, float v);
 extern void hcex_print_compass(int idx, float compass_magnitude);
-extern float hcex_update_heat(int modelId, __int16 local_player_index, float heat_level);
-extern int hcex_update_ammo(int modelId, __int16 local_player_index, int arifle_ammo);
-extern float hcex_update_compass(int modelId, __int16 local_player_index, float compass_magnitude);
+extern float hcex_update_heat(int modelId, int16_t local_player_index, float heat_level);
+extern int hcex_update_ammo(int modelId, int16_t local_player_index, int arifle_ammo);
+extern float hcex_update_compass(int modelId, int16_t local_player_index, float compass_magnitude);
 
-extern "C" void hcex_update_weapon_state(__int16 local_player_index, const weapon_definition *w,
-                              const weapon_interface_state *weapon_state, const __int16 *state_flags,
-                              const __int16 *overlay_flags, const __int16 *numbers, const float *numbers_real,
+extern "C" void hcex_update_weapon_state(int16_t local_player_index, const weapon_definition *w,
+                              const weapon_interface_state *weapon_state, const int16_t *state_flags,
+                              const int16_t *overlay_flags, const int16_t *numbers, const float *numbers_real,
                               float compass_magnitude, const weapon_datum *wpn)
 {
     if (!w)

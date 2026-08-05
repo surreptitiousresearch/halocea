@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../cdt/cdtOFL.h"
 #include "../cdt/cdtINFO.h"
 #include "../ds/dsSTRID.h"
@@ -18,9 +19,9 @@ namespace scorch {
 typedef struct OBJ_INFO {
     objOBJ           *pObj;      // 0x00
     objSPLIT_ENTRY   *pEntry;    // 0x04
-    unsigned __int16  startFace; // 0x08
-    unsigned __int16  nFace;     // 0x0A
-    unsigned __int8   mtlID;     // 0x0C
+    uint16_t  startFace; // 0x08
+    uint16_t  nFace;     // 0x0A
+    uint8_t   mtlID;     // 0x0C
 } OBJ_INFO;
 
 // DB types_members scorch::FILTER_STAT — size 16.

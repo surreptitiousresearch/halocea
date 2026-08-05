@@ -41,14 +41,14 @@ int contrail_new(int definition_index, int object_index, int16_t attachment_inde
     /* the attachment's primary scale function drives contrail density */
     object_attachment_definition *attachment =
         &((object_attachment_definition *)object_def->attachments.address)[attachment_index];
-    __int16 density_function = attachment->primary_scale_function_reference;
+    int16_t density_function = attachment->primary_scale_function_reference;
     contrail->sequence_index = -1;
     contrail->density_function_index = density_function - 1;
     contrail_next_frame(contrail);
 
     contrail->texture_offset_u = 0.0;
     contrail->texture_offset_v = 0.0;
-    for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
     {
         contrail->contrail_point_counts[i] = 0;
         contrail->first_contrail_point_indices[i] = -1;

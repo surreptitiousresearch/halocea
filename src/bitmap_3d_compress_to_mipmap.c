@@ -27,7 +27,7 @@ void bitmap_3d_compress_to_mipmap(const bitmap_data *source_bitmap, bitmap_data 
     if ( source_scratch && source_scratch->base_address
       && destination_scratch && destination_scratch->base_address )
     {
-        for ( __int16 slice_index = 0; slice_index < source_bitmap->depth; slice_index++ )
+        for ( int16_t slice_index = 0; slice_index < source_bitmap->depth; slice_index++ )
         {
             bitmap_3d_slice_extract(source_bitmap, 0, slice_index, source_scratch);
             bitmap_3d_slice_insert(destination_scratch, destination_bitmap, destination_mipmap_index, slice_index);

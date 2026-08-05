@@ -22,7 +22,7 @@ int16_t map_leaf_find_face_on_node(const map_leaf *leaf, int node_index, int unu
 
     const map_leaf_face *faces = (const map_leaf_face *)leaf->faces.address;
 
-    for (__int16 i = 0; i < count; ++i)
+    for (int16_t i = 0; i < count; ++i)
     {
         if (faces[i].node_index == node_index)
             return i;

@@ -3,10 +3,11 @@
  *
  * DEVIATION: the decompiler's local-variable allocation failed on this function and it emitted confusing
  * bit-reinterpretation casts; rewritten from disasm's actual sequence (fmuls, floor, fctiwz, extsh). */
+#include <stdint.h>
 
 extern double floor(double x);
 
-__int16 compress_real_to_int16(float z)
+int16_t compress_real_to_int16(float z)
 {
-    return (__int16)(int)floor((double)(z * 32767.5f));
+    return (int16_t)(int)floor((double)(z * 32767.5f));
 }

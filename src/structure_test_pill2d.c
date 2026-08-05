@@ -110,7 +110,7 @@ uint8_t structure_test_pill2d(const structure_bsp *structure, uint8_t ignore_bro
                 && (flags & 1) == 0)
         {
             path_collision_result refine;
-            unsigned __int8 refine_hit = structure_test_line2d(structure, ignore_broken_surfaces,
+            uint8_t refine_hit = structure_test_line2d(structure, ignore_broken_surfaces,
                     (const real_point2d *)&right_probe.point, right_probe.surface_index,
                     end_point, end_surface_index, &refine);
             if (!refine_hit)
@@ -131,7 +131,7 @@ uint8_t structure_test_pill2d(const structure_bsp *structure, uint8_t ignore_bro
                 && (flags & 1) == 0)
         {
             path_collision_result refine;
-            unsigned __int8 refine_hit = structure_test_line2d(structure, ignore_broken_surfaces,
+            uint8_t refine_hit = structure_test_line2d(structure, ignore_broken_surfaces,
                     (const real_point2d *)&left_probe.point, left_probe.surface_index,
                     end_point, end_surface_index, &refine);
             if (!refine_hit)

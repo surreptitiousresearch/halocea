@@ -26,7 +26,7 @@
 /* After appending a new vertex to `result`, drop it again if it duplicates (within epsilon) the polygon's
  * first vertex or its own immediate predecessor — collapses degenerate near-zero-length edges produced by
  * a plane crossing landing exactly on an existing vertex. */
-static __int16 drop_last_point_if_duplicate(real_point3d *result, __int16 output_count, float epsilon)
+static int16_t drop_last_point_if_duplicate(real_point3d *result, int16_t output_count, float epsilon)
 {
     if (output_count == 1)
         return output_count;
@@ -34,10 +34,10 @@ static __int16 drop_last_point_if_duplicate(real_point3d *result, __int16 output
     const real_point3d *last = &result[output_count - 1];
     const real_point3d *prev = &result[output_count - 2];
 
-    unsigned __int8 duplicates_first = __fabs(last->n[0] - result[0].n[0]) < epsilon
+    uint8_t duplicates_first = __fabs(last->n[0] - result[0].n[0]) < epsilon
                                      && __fabs(last->n[1] - result[0].n[1]) < epsilon
                                      && __fabs(last->n[2] - result[0].n[2]) < epsilon;
-    unsigned __int8 duplicates_prev  = __fabs(last->n[0] - prev->n[0]) < epsilon
+    uint8_t duplicates_prev  = __fabs(last->n[0] - prev->n[0]) < epsilon
                                      && __fabs(last->n[1] - prev->n[1]) < epsilon
                                      && __fabs(last->n[2] - prev->n[2]) < epsilon;
 
@@ -48,9 +48,9 @@ int16_t convex_polygon3d_clip_to_plane(int16_t count, const real_point3d *points
 {
     real_point3d local_points[180]; /* self-overlap staging buffer when points == result */
 
-    __int16          output_count = 0;
-    unsigned __int8  any_positive = 0; /* any vertex clearly beyond +epsilon of the plane */
-    unsigned __int8  any_negative = 0; /* any vertex clearly beyond -epsilon of the plane */
+    int16_t          output_count = 0;
+    uint8_t  any_positive = 0; /* any vertex clearly beyond +epsilon of the plane */
+    uint8_t  any_negative = 0; /* any vertex clearly beyond -epsilon of the plane */
 
     if (clipped)
         *clipped = 0;
@@ -65,15 +65,15 @@ int16_t convex_polygon3d_clip_to_plane(int16_t count, const real_point3d *points
     float previous_distance = plane->n.n[0] * previous_point->n[0]
                              + plane->n.n[1] * previous_point->n[1]
                              + plane->n.n[2] * previous_point->n[2] - plane->d;
-    unsigned __int8 previous_side = previous_distance >= 0.0f;
+    uint8_t previous_side = previous_distance >= 0.0f;
 
-    for (__int16 i = 0; i < count; ++i)
+    for (int16_t i = 0; i < count; ++i)
     {
         const real_point3d *current_point = &points[i];
         float signed_distance = plane->n.n[0] * current_point->n[0]
                                + plane->n.n[1] * current_point->n[1]
                                + plane->n.n[2] * current_point->n[2] - plane->d;
-        unsigned __int8 current_side = signed_distance >= 0.0f;
+        uint8_t current_side = signed_distance >= 0.0f;
 
         if (signed_distance <= epsilon)
         {
@@ -144,7 +144,7 @@ overflow:
         return output_count;
     }
 
-    __int16 clipped_count = (output_count >= 3) ? output_count : 0;
+    int16_t clipped_count = (output_count >= 3) ? output_count : 0;
 
     if (any_positive || (!any_negative && keep_coplanar))
     {

@@ -18,13 +18,13 @@ uint8_t actor_perception_become_acknowledged(int actor_index, int prop_index,
                                                      uint8_t *expected_reference)
 {
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-    unsigned __int8 result = 0;
-    unsigned __int8 expected = 0;
+    uint8_t result = 0;
+    uint8_t expected = 0;
 
-    __int16 state = prop->state;
+    int16_t state = prop->state;
     if ( state < _prop_state_becoming_unacknowledged || state > _prop_state_acknowledged )
     {
-        unsigned __int8 had_orphan = (prop->___u3.orphan_prop_index != -1);
+        uint8_t had_orphan = (prop->___u3.orphan_prop_index != -1);
         expected = actor_expected_acknowledgement(actor_index, prop_index);
         if ( had_orphan )
         {

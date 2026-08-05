@@ -66,7 +66,7 @@ void player_spawn(int player_index)
 
     if (!game_engine_running())
     {
-        int local_player_index = (unsigned __int16)player->local_player_index;
+        int local_player_index = (uint16_t)player->local_player_index;
         if (local_player_index != 0xFFFF)
         {
             unit_index = players_globals->local_player_failed_teleport_unit_indices[local_player_index];
@@ -94,7 +94,7 @@ void player_spawn(int player_index)
     if (game_connection() != _game_connection_network_server && game_connection() && game_connection() != _game_connection_film_playback)
         goto cleanup;
 
-    __int16 best_starting_location_index = find_best_starting_location_index(player_index);
+    int16_t best_starting_location_index = find_best_starting_location_index(player_index);
     if (best_starting_location_index == -1)
         goto cleanup;
 
@@ -143,19 +143,19 @@ void player_spawn(int player_index)
         goto cleanup;
 
     unit->object.owner_player_index = player_index;
-    unit->object.owner_team_index = (__int16)player->team_index;
+    unit->object.owner_team_index = (int16_t)player->team_index;
     unit->unit.player_index = player_index;
     player->unit_index = new_unit_index;
     unit_set_actively_controlled(new_unit_index, 1);
 
-    int local_player_index = (unsigned __int16)player->local_player_index;
+    int local_player_index = (uint16_t)player->local_player_index;
     if (local_player_index != 0xFFFF)
         player_control_new_unit(local_player_index, new_unit_index);
 
     if (!game_engine_running())
     {
         int starting_profile_count = global_scenario->starting_profiles.count;
-        __int16 starting_profile_index;
+        int16_t starting_profile_index;
         if (starting_profile_count <= 1 || player->statistics.deaths <= 0)
         {
             if (!starting_profile_count)
@@ -191,7 +191,7 @@ cleanup:
     *(int *)player->powerup_durations = 0;       /* clears both 16-bit powerup timers in one store */
     player->action_result = 0;
     player->action_object_index = -1;
-    int local_player_index_final = (unsigned __int16)player->local_player_index;
+    int local_player_index_final = (uint16_t)player->local_player_index;
     if (local_player_index_final != 0xFFFF)
         observer_obsolete_position(local_player_index_final);
 }

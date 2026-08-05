@@ -38,29 +38,29 @@ void bitmap_2d_height_map(bitmap_data *bitmap, float bump_height)
     /* Height scale is derived from the bitmap HEIGHT (shipped code, reproduced). */
     float height_scale = ((float)bitmap->height * bump_height) * 0.0039215689f;
 
-    for ( int y = 0; y < bitmap->height; y = (__int16)(y + 1) )
+    for ( int y = 0; y < bitmap->height; y = (int16_t)(y + 1) )
     {
-        for ( int x = 0; x < bitmap->width; x = (__int16)(x + 1) )
+        for ( int x = 0; x < bitmap->width; x = (int16_t)(x + 1) )
         {
             unsigned int center_pixel = *(unsigned int *)bitmap_2d_address(bitmap, x, y, 0);
 
-            __int16 left_x  = x ? (__int16)(x - 1) : (__int16)(bitmap->width - 1);
+            int16_t left_x  = x ? (int16_t)(x - 1) : (int16_t)(bitmap->width - 1);
             unsigned int left_pixel = *(unsigned int *)bitmap_2d_address(bitmap, left_x, y, 0);
 
-            __int16 right_x = (x == bitmap->width - 1) ? 0 : (__int16)(x + 1);
+            int16_t right_x = (x == bitmap->width - 1) ? 0 : (int16_t)(x + 1);
             unsigned int right_pixel = *(unsigned int *)bitmap_2d_address(bitmap, right_x, y, 0);
 
-            __int16 up_y = y ? (__int16)(y - 1) : (__int16)(bitmap->height - 1);
+            int16_t up_y = y ? (int16_t)(y - 1) : (int16_t)(bitmap->height - 1);
             unsigned int up_pixel = *(unsigned int *)bitmap_2d_address(bitmap, x, up_y, 0);
 
-            __int16 down_y = (y == bitmap->height - 1) ? 0 : (__int16)(y + 1);
+            int16_t down_y = (y == bitmap->height - 1) ? 0 : (int16_t)(y + 1);
 
             /* R channel of each sample (memory byte 1 of the big-endian ARGB word). */
             float center = (float)((center_pixel >> 16) & 0xFF) * height_scale;
             float left   = (float)((left_pixel   >> 16) & 0xFF) * height_scale;
             float right  = (float)((right_pixel  >> 16) & 0xFF) * height_scale;
             float up     = (float)((up_pixel     >> 16) & 0xFF) * height_scale;
-            float down   = (float)*((unsigned __int8 *)bitmap_2d_address(bitmap, x, down_y, 0) + 1)
+            float down   = (float)*((uint8_t *)bitmap_2d_address(bitmap, x, down_y, 0) + 1)
                          * height_scale;
 
             float slope_x, sign_x;

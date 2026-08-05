@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ap/apSTATE_T.h"
 #include "../m3d/m3dMATR.h"
 #include "../ps/psSECTION.h"
@@ -26,7 +27,7 @@ typedef struct objOBJ {
     static DataFreeProc  dataFree;  // 0x842264C4
 
     char              *name;              // 0x00
-    __int16            id;                // 0x04
+    int16_t            id;                // 0x04
     unsigned char _pad0[2]; /* db-verified padding */
     objGEOM_UNSHARED  *pGeom;             // 0x08
     int                nFace;             // 0x0C
@@ -34,8 +35,8 @@ typedef struct objOBJ {
     animINST          *pInst;             // 0x14
     int                state;             // 0x18
     int                stateProc;         // 0x1C
-    apSTATE_T<__int64> stateUsr64;        // 0x20
-    apSTATE_T<__int64> stateShare;        // 0x28
+    apSTATE_T<int64_t> stateUsr64;        // 0x20
+    apSTATE_T<int64_t> stateShare;        // 0x28
     apSTATE_T<unsigned char> stateVis;    // 0x30
     unsigned char _pad1[3]; /* db-verified padding */
     dsAFFIX_STRING     affixes;           // 0x34
@@ -48,8 +49,8 @@ typedef struct objOBJ {
     m3dMATR            matrModel;         // 0x8C
     m3dMATR           *pMatrLTPrev;       // 0xCC
     psSECTION          ps;                // 0xD0
-    __int16            animNmb;           // 0xD4
-    unsigned __int16   stateRend;         // 0xD6
+    int16_t            animNmb;           // 0xD4
+    uint16_t   stateRend;         // 0xD6
     int                dbgRenderRefCount; // 0xD8
 
     // ---- reversed in the ws_obj_0001 batch ----
@@ -62,10 +63,10 @@ typedef struct objOBJ {
     void _FreeGeom();                                               // 0x82A7EDD8
     int  _AllocName(int nameLen);                                   // 0x82A7E3A8
     void SetInterleavedData(void *interleavedData, int size,
-                            unsigned __int64 fvf);                  // 0x82BCB5D0
+                            uint64_t fvf);                  // 0x82BCB5D0
     void *GetVertBoneIdxList(int offset);                           // 0x82BCC9F0
     void *GetVertBoneWeightList(int offset);                        // 0x82BCC998
-    void SetVertBoneIdxList(unsigned __int8 *idxList);             // 0x82BCB3E8
+    void SetVertBoneIdxList(uint8_t *idxList);             // 0x82BCB3E8
     int  GetFaceSize() const;                                       // 0x82A7F740
     void SetRenderPassId(int passId);                              // 0x826823C0
     void GetOBB(struct m3dOBB *obb);                                // boundary (used by rendCullAndValidateInst)
@@ -107,7 +108,7 @@ typedef struct objOBJ {
     int   _AllocVertList(int nVert);                               // 0x82A7EFD0
     int   _AllocGeom();                                            // 0x82A7ECC0
     void  _AllocInterleavedData(int nVert, unsigned char size,
-                                unsigned __int64 fvf);             // 0x82A7F638
+                                uint64_t fvf);             // 0x82A7F638
     int   _UnshareFaceList();                                      // 0x82A805D0
     int   _UnshareColorList(unsigned int vcInd);                   // 0x82A7FBB8
     int   _UnshareVertNormalList();                               // 0x82A7FD38
@@ -125,8 +126,8 @@ typedef struct objOBJ {
     void SetTexCoordList(unsigned int tcInd, m3dVTX *ptr);         // 0x82BCCD18
     void SetVertTangentList(unsigned int tcInd, void *tangentList);// 0x82BCCFA8
     int  _AllocFaceList(int nFace);                                // 0x82A803A0
-    void _AllocInstancedData(unsigned __int16 num, unsigned char size,
-                             unsigned __int64 fvf);                // 0x82A80008
+    void _AllocInstancedData(uint16_t num, unsigned char size,
+                             uint64_t fvf);                // 0x82A80008
     void Detach();                                                 // 0x826605C8
     int  _UnshareAll();                                            // 0x82660760
     void _UnshareVertBoneList();                                   // 0x82A7F960

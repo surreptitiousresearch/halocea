@@ -1,14 +1,15 @@
 #pragma once
 /* firing_position — one candidate AI firing position with its pathfinding/scoring state. DB layout. */
 
+#include <stdint.h>
 #include "real_vector3d.h"
 #include "firing_position_definition.h"
 
 typedef struct firing_position
 {
     firing_position_definition *definition;                 /* 0x00 */
-    __int16        original_index;                           /* 0x04 */
-    __int16        line_of_sight;                            /* 0x06 */
+    int16_t        original_index;                           /* 0x04 */
+    int16_t        line_of_sight;                            /* 0x06 */
     float          path_distance_from_actor;                 /* 0x08 */
     real_vector3d  path_direction_from_actor;                /* 0x0C */
     float          path_distance_to_target;                  /* 0x18 */

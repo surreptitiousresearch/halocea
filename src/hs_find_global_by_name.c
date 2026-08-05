@@ -12,16 +12,16 @@
 #include "headers/blam_data_globals.h"
 
 extern int stricmp(const char *a, const char *b);
-extern __int16 hs_external_global_count;
+extern int16_t hs_external_global_count;
 
 int16_t hs_find_global_by_name(const char *name)
 {
     if ( hs_external_global_count > 0 )
     {
-        for ( int i = 0; i < hs_external_global_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < hs_external_global_count; i = (int16_t)(i + 1) )
         {
             if ( !stricmp(name, hs_external_globals[i]->name) )
-                return (__int16)MAKE_EXTERNAL_GLOBAL_DESIGNATOR(i);
+                return (int16_t)MAKE_EXTERNAL_GLOBAL_DESIGNATOR(i);
         }
     }
 
@@ -32,7 +32,7 @@ int16_t hs_find_global_by_name(const char *name)
     if ( scn->hs_globals.count <= 0 )
         return -1;
 
-    for ( int i = 0; i < scn->hs_globals.count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < scn->hs_globals.count; i = (int16_t)(i + 1) )
     {
         if ( !stricmp(name, ((hs_global_internal *)scn->hs_globals.address)[i].name) )
             return HS_GLOBAL_DESIGNATOR_TO_INDEX(i);

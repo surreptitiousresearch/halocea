@@ -31,7 +31,7 @@ void hs_script_evaluate(int16_t script_index, int thread_index, uint8_t initiali
     int *result_slot = (int *)(((unsigned int)stack_top + 3) & ~3u);
     if ( (unsigned int)(result_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --result_slot;
-    frame->size = (__int16)((unsigned char *)result_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)result_slot - frame->data + 4);
 
     if ( initialize )
     {

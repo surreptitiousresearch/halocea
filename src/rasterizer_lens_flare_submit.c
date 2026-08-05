@@ -13,6 +13,7 @@
  * Disasm 0x8379258C / 0x837925B8 verified the index repacking (lens index +8, light index | 0x8000) and the
  * 8-halfword row reset. The camera-distance dot product keeps the decompiler's (z + (x + y)) association. */
 
+#include <stdint.h>
 #include "headers/rasterizer_lens_flare_submit_parameters.h"  /* local_lens_flare_parameters[], local_lens_flare_count */
 #include "headers/lens_flare_definition.h"
 #include "headers/rasterizer_debug_options_struct.h"
@@ -58,7 +59,7 @@ void rasterizer_lens_flare_submit(const rasterizer_lens_flare_submit_parameters 
     {
         if ( parameters->light_index == -1 )
         {
-            slot->light_index = (__int16)0x8000;
+            slot->light_index = (int16_t)0x8000;
         }
         else
         {
@@ -70,12 +71,12 @@ void rasterizer_lens_flare_submit(const rasterizer_lens_flare_submit_parameters 
     else
     {
         unsigned char *occlusion_row = ((unsigned char (*)[18])local_lens_flare_occlusion_test_results)[slot->light_index];
-        if ( parameters->light_identifier != *(__int16 *)occlusion_row )
+        if ( parameters->light_identifier != *(int16_t *)occlusion_row )
         {
             /* flat [i16 light_identifier][8 x i16 window] row; clear the 8 window slots */
             for ( int i = 0; i < 8; i++ )
-                ((__int16 *)(occlusion_row + 2))[i] = 0;
-            *(__int16 *)occlusion_row = slot->light_identifier;
+                ((int16_t *)(occlusion_row + 2))[i] = 0;
+            *(int16_t *)occlusion_row = slot->light_identifier;
         }
     }
 }

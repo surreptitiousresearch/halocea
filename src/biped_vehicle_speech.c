@@ -45,7 +45,7 @@ void biped_vehicle_speech(int biped_index)
 
     if (((TAG_GET(unit_definition, vehicle->definition_index)->unit.flags) & (1u << _unit_definition_causes_passenger_dialogue_bit)) == 0
         || biped->unit.actor_index == -1
-        || (unsigned __int8)biped->unit.animation.state == _unit_state_ai_impulse
+        || (uint8_t)biped->unit.animation.state == _unit_state_ai_impulse
         || biped->unit.gunner_inactive_ticks <= 120)
         return;
 
@@ -76,7 +76,7 @@ void biped_vehicle_speech(int biped_index)
         }
     }
 
-    __int16 communication;
+    int16_t communication;
     if (will_land_badly)
     {
         communication = _ai_communication_vehicle_falling;

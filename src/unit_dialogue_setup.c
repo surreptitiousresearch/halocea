@@ -20,7 +20,7 @@ extern int unit_find_dialogue_variant(const unit_definition *definition, int16_t
 void unit_dialogue_setup(int unit_index)
 {
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
-    __int16 requested_variant = unit->object.variant_number;
+    int16_t requested_variant = unit->object.variant_number;
     unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
 
     int dialogue_variant = -1;

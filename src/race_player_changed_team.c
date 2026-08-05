@@ -42,7 +42,7 @@ void race_player_changed_team(int player_index, uint8_t new_team)
         player->statistics.multiplayer_statistics.ctf_statistics.flag_returns = 0;
         player->statistics.multiplayer_statistics.ctf_statistics.flag_scores = 0;
         player->multiplayer.special = game_time_get();
-        race_globals.lap_bit_vector[(unsigned __int16)player_index] = 0;
+        race_globals.lap_bit_vector[(uint16_t)player_index] = 0;
     }
     race_update_team_score();
 }

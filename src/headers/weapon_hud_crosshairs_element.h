@@ -3,14 +3,15 @@
  * (hud.c). DB-verified layout (types_members): the bitmap + overlay-items pair lives in the nested
  * weapon_hud_crosshair_definition `crosshairs` sub-block at 0x24. */
 
+#include <stdint.h>
 #include "weapon_hud_crosshair_definition.h"
 
 typedef struct weapon_hud_crosshairs_element
 {
-    __int16 crosshair_type;                        /* 0x00 — 0..18, selects the crosshair_hud_state.states slot */
-    __int16 runtime_flags;                         /* 0x02 */
-    __int16 use_on_map_type;                       /* 0x04 — bit index into the game-mode mask (0=in-game, 1=full screen, 2=split screen) */
-    __int16 pad;                                   /* 0x06 */
+    int16_t crosshair_type;                        /* 0x00 — 0..18, selects the crosshair_hud_state.states slot */
+    int16_t runtime_flags;                         /* 0x02 */
+    int16_t use_on_map_type;                       /* 0x04 — bit index into the game-mode mask (0=in-game, 1=full screen, 2=split screen) */
+    int16_t pad;                                   /* 0x06 */
     int     unused[7];                             /* 0x08 */
     weapon_hud_crosshair_definition crosshairs;    /* 0x24 — bitmap @0x24, items @0x34 */
     int     unused2[10];                           /* 0x40 */

@@ -33,14 +33,14 @@ int16_t sound_find_like_channel(uint16_t sound_index, const int16_t *channel_ind
 
     for ( i = 0; i < channel_count; ++i )
     {
-        int channel = (unsigned __int16)channel_indices[i];
-        sound_datum *other = (sound_datum *)(176 * (unsigned __int16)sound_channels[(__int16)channel].sound_index + sound_base);
+        int channel = (uint16_t)channel_indices[i];
+        sound_datum *other = (sound_datum *)(176 * (uint16_t)sound_channels[(int16_t)channel].sound_index + sound_base);
         float distance = 0.0f;
 
         if ( sound_manager_globals.render_time - other->start_time >= preemption_time )
         {
             const sound_source *source = &other->source;
-            unsigned int mode = (unsigned __int16)source->spatialization_mode;
+            unsigned int mode = (uint16_t)source->spatialization_mode;
             if ( mode )
             {
                 if ( mode == _sound_spatialization_mode_absolute )

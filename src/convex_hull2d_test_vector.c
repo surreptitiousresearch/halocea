@@ -7,21 +7,22 @@
  * writes the final t_in/t_out bounds out and returns 1; otherwise returns 0. A non-positive `count` always
  * succeeds with the initial -inf/+inf bounds. */
 
+#include <stdint.h>
 #include "headers/real_point2d.h"
 #include "headers/real_vector2d.h"
 
 extern float fabsf(float value);
 
-int convex_hull2d_test_vector(__int16 count, const real_point2d *points, const real_point2d *point,
+int convex_hull2d_test_vector(int16_t count, const real_point2d *points, const real_point2d *point,
     const real_vector2d *vector, float *t_in_reference, float *t_out_reference)
 {
     float t_in = -3.4028235e38f;
     float t_out = 3.4028235e38f;
     int result = 1;
 
-    for ( __int16 i = 0; i < count; i++ )
+    for ( int16_t i = 0; i < count; i++ )
     {
-        __int16 next = (i + 1 < count) ? (i + 1) : 0;
+        int16_t next = (i + 1 < count) ? (i + 1) : 0;
         const real_point2d *a = &points[i];
         const real_point2d *b = &points[next];
 

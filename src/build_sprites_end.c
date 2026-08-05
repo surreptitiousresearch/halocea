@@ -3,6 +3,7 @@
  * decompiler's fcfid int->double conversion dance (HIDWORD/LODWORD union trick) to the plain
  * count ? 1.0f/count : 0.0f it computes. */
 
+#include <stdint.h>
 #include "headers/build_sprite_data.h"
 #include "headers/build_sprite_flags.h"
 #include "headers/build_sprites_internal_flags.h"
@@ -29,14 +30,14 @@ void build_sprites_end(build_sprite_data *data)
     data->centroid.n[2] *= oo_sprite_count;
     matrix4x3_transform_point(&render.frustum.view_to_world, &data->centroid, &data->centroid);
 
-    for ( __int16 group_index = 0; group_index < data->group_count; group_index++ )
+    for ( int16_t group_index = 0; group_index < data->group_count; group_index++ )
     {
         build_sprite_group *group = &data->groups[group_index];
 
         if ( group->vertex_buffer_index != -1 )
             rasterizer_dynamic_vertices_unlock(group->vertex_buffer_index);
 
-        __int16 triangle_count = group->sprite_count;
+        int16_t triangle_count = group->sprite_count;
         if ( triangle_count )
         {
             if ( (data->flags & (1u << _build_sprite_viewer_space_bit)) != 0 )

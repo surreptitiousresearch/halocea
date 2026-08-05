@@ -23,8 +23,8 @@ extern int game_time_get(void);
 uint8_t encounter_activate(int encounter_index)
 {
     encounter_datum *encounter = DATUM_GET(encounter_data, encounter_datum, encounter_index);
-    __int16 bsp_index = ((encounter_definition *)global_scenario->ai_encounters.address)
-                        [(unsigned __int16)encounter_index].runtime_structure_bsp_reference_index;
+    int16_t bsp_index = ((encounter_definition *)global_scenario->ai_encounters.address)
+                        [(uint16_t)encounter_index].runtime_structure_bsp_reference_index;
     if ( bsp_index == -1 || bsp_index == global_structure_bsp_index )
     {
         if ( !encounter->active )

@@ -31,7 +31,7 @@ uint8_t unit_add_grenade_to_inventory(int unit_index, int equipment_index)
 
     if (grenade_globals && unit_object->unit.grenade_counts[grenade_type] < grenade_globals->maximum_count)
     {
-        ++*(uint8_t *)&unit_object->unit.grenade_counts[definition->equipment.grenade_type];
+        ++unit_object->unit.grenade_counts[definition->equipment.grenade_type];
         unit_object->object.flags |= (1u << _object_force_baseline_update_bit);
         if (player_index_from_unit_index(unit_index) != -1
             && DATA_ARRAY_ELEMENT(player_data, player_datum,

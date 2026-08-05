@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"
 #include "../headers/ws/ds/dsDATA.h"
 
@@ -10,6 +11,6 @@ void haloPLAYER_ACTIONS_ENV::Pack(ds::BIT_STREAM &stream, const dsDATA &userCtx)
 
     unsigned int skipCineField = skip_cine;
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&skipCineField), 4, 4);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&skipCineField), 4, 4);
     stream.RawWrite(&skipCineField, 0x20u, 0);
 }

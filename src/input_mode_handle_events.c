@@ -31,7 +31,7 @@ extern void event_manager_queue_delete_event(uint8_t ticks, int16_t player_numbe
 
 void input_mode_handle_events(void)
 {
-    for (int controller = 0; controller < 4; controller = (__int16)(controller + 1))
+    for (int controller = 0; controller < 4; controller = (int16_t)(controller + 1))
     {
         char up_event = 0;
         char down_event = 0;

@@ -86,8 +86,8 @@ uint8_t object_test_vector(int object_index, unsigned int flags, unsigned int bs
                   && collision->t > (double)model_result.bsp_result.t )
                 {
                     int plane_designator = model_result.bsp_result.plane_designator;
-                    __int16 material_index = model_result.bsp_result.material_index;
-                    __int16 material_type;
+                    int16_t material_index = model_result.bsp_result.material_index;
+                    int16_t material_type;
 
                     collision->t = model_result.bsp_result.t;
                     collision->type = collision_result_object;

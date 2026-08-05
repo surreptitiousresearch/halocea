@@ -17,11 +17,11 @@ extern uint16_t saved_game_file_get_type(int index);
 
 uint8_t player_ui_edit_profile_is_dirty(void)
 {
-    unsigned __int8 dirty = 0;
+    uint8_t dirty = 0;
 
     if ( player_ui_globals.edit_profile_data.profile_index != -1 )
     {
-        unsigned __int16 saved_game_type = saved_game_file_get_type(player_ui_globals.edit_profile_data.profile_index);
+        uint16_t saved_game_type = saved_game_file_get_type(player_ui_globals.edit_profile_data.profile_index);
         if ( saved_game_type )
         {
             /* edit_profile/original_profile are union values, not pointers: take their address */
@@ -29,10 +29,10 @@ uint8_t player_ui_edit_profile_is_dirty(void)
             unsigned char *original_slot = (unsigned char *)&player_ui_globals.edit_profile_data.original_profile;
             unsigned int flags_offset = (saved_game_type == 1) ? 0x94 : 0x11C; /* game_variant.flags vs player_profile.flags */
 
-            unsigned __int16 original_flags = *(unsigned __int16 *)(original_slot + flags_offset);
-            unsigned __int16 edit_flags = *(unsigned __int16 *)(edit_slot + flags_offset);
-            *(unsigned __int16 *)(original_slot + flags_offset) = 0;
-            *(unsigned __int16 *)(edit_slot + flags_offset) = 0;
+            uint16_t original_flags = *(uint16_t *)(original_slot + flags_offset);
+            uint16_t edit_flags = *(uint16_t *)(edit_slot + flags_offset);
+            *(uint16_t *)(original_slot + flags_offset) = 0;
+            *(uint16_t *)(edit_slot + flags_offset) = 0;
 
             unsigned char *p_original = original_slot;
             unsigned char *p_edit = edit_slot;
@@ -49,8 +49,8 @@ uint8_t player_ui_edit_profile_is_dirty(void)
             if ( byte_diff )
                 dirty = 1;
 
-            *(unsigned __int16 *)(original_slot + flags_offset) = original_flags;
-            *(unsigned __int16 *)(edit_slot + flags_offset) = edit_flags;
+            *(uint16_t *)(original_slot + flags_offset) = original_flags;
+            *(uint16_t *)(edit_slot + flags_offset) = edit_flags;
         }
     }
 

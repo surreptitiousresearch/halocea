@@ -58,7 +58,7 @@ void unit_throw_grenade_release(int unit_index, uint8_t premature)
     unit_datum *object_data = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     unit_definition *object_definition = TAG_GET(unit_definition, object_data->definition_index);
 
-    if ( (unsigned __int8)object_data->unit.grenade_throw_state != _grenade_throw_state_in_hand )
+    if ( (uint8_t)object_data->unit.grenade_throw_state != _grenade_throw_state_in_hand )
         return;
 
     int grenade_index = object_data->unit.grenade_object_index;

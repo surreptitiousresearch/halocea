@@ -27,12 +27,12 @@ void cheat_teleport_to_camera(void)
         return;
 
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
-    int observer_index = (unsigned __int16)player->local_player_index;
+    int observer_index = (uint16_t)player->local_player_index;
     if ( observer_index == 0xFFFF )
         return;
 
     const observer_result *camera = observer_get_camera(observer_index);
-    if ( (unsigned __int16)camera->location.cluster_index == 0xFFFF )
+    if ( (uint16_t)camera->location.cluster_index == 0xFFFF )
     {
         terminal_printf(global_real_argb_orange, "Camera is outside BSP... cannot initiate teleportation...");
         return;

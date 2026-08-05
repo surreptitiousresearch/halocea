@@ -33,10 +33,10 @@ extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 
 uint8_t create_and_begin_editing_new_gametype_profile(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
-    unsigned __int8 launched = 0;
+    uint8_t launched = 0;
     widget_instance *parent = widget->parent->parent;
 
-    unsigned __int16 profile_name[128];
+    uint16_t profile_name[128];
     saved_game_file_get_useable_untitled_profile_name(profile_name);
 
     if ( !profile_name[0] )

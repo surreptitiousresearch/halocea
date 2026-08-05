@@ -39,7 +39,7 @@
 extern int unit_inventory_get_weapon(int unit_index, int16_t index);
 extern uint8_t weapon_prevents_grenade_throwing(int weapon_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern __int16 unit_get_current_grenade_type(int unit_index);
+extern int16_t unit_get_current_grenade_type(int unit_index);
 extern int16_t unit_get_grenade_count(int unit_index, int16_t grenade_type);
 extern int game_time_get(void);
 extern int16_t local_player_count(void);
@@ -61,7 +61,7 @@ void render_grenade_hud(int16_t local_player_index, int unit_index)
                         || parent_vehicle->unit.gunner_object_index == unit_index))
         return;
 
-    __int16 current_grenade_type = unit_get_current_grenade_type(unit_index);
+    int16_t current_grenade_type = unit_get_current_grenade_type(unit_index);
     if (current_grenade_type == -1)
         return;
 
@@ -75,12 +75,12 @@ void render_grenade_hud(int16_t local_player_index, int unit_index)
     char selector = obj->unit.current_grenade_index;
     char selected_byte = obj->unit.grenade_counts[selector];
     grenade_hud_interface_definition *ghi = TAG_GET(grenade_hud_interface_definition, hud_tag_index);
-    __int16 flash_cutoff = ghi->grenade_count_panel.flash_cutoff;
+    int16_t flash_cutoff = ghi->grenade_count_panel.flash_cutoff;
 
-    unsigned int background_flag_bits = ((unsigned __int64)flash_cutoff >> 32)
+    unsigned int background_flag_bits = ((uint64_t)flash_cutoff >> 32)
         + (flash_cutoff >= (unsigned int)selected_byte)
         + ((unsigned int)selected_byte >> 31);
-    __int16 background_draw_flags = selected_byte
+    int16_t background_draw_flags = selected_byte
         ? (background_flag_bits & ~(1u << _hud_draw_disabled_bit))
         : (background_flag_bits | (1u << _hud_draw_disabled_bit));
     background_draw_flags = (local_player_count() <= 1)
@@ -109,8 +109,8 @@ void render_grenade_hud(int16_t local_player_index, int unit_index)
     if (ghi->grenade_count_panel.numbers.digits)
     {
         int flash_reference_time = hud_state->last_grenade_flash_time;
-        __int16 grenade_type_for_count = unit_get_current_grenade_type(unit_index);
-        __int16 grenade_count = unit_get_grenade_count(unit_index, grenade_type_for_count);
+        int16_t grenade_type_for_count = unit_get_current_grenade_type(unit_index);
+        int16_t grenade_count = unit_get_grenade_count(unit_index, grenade_type_for_count);
         hud_draw_numbers(local_player_index, &ghi->absolute_placement,
                          &ghi->grenade_count_panel.numbers, grenade_count, -1, background_draw_flags,
                          flash_reference_time, 0.0f);
@@ -126,10 +126,10 @@ void render_grenade_hud(int16_t local_player_index, int unit_index)
          * decompiler displayed this occurrence as a plain `>>31` (giving 0/1) instead of the equivalent
          * `(unsigned __int64)x>>32` form (giving 0/-1) it used for the first occurrence. Corrected to
          * match the real (identical) hardware computation. */
-        unsigned int overlay_flag_bits = ((unsigned __int64)flash_cutoff >> 32)
+        unsigned int overlay_flag_bits = ((uint64_t)flash_cutoff >> 32)
             + (flash_cutoff >= (unsigned int)selected_byte2)
             + ((unsigned int)selected_byte2 >> 31);
-        __int16 overlay_type_flags = selected_byte2
+        int16_t overlay_type_flags = selected_byte2
             ? (overlay_flag_bits & ~(1u << _grenade_overlay_on_empty_bit))
             : (overlay_flag_bits | (1u << _grenade_overlay_on_empty_bit));
         overlay_type_flags = overlay_type_flags
@@ -137,8 +137,8 @@ void render_grenade_hud(int16_t local_player_index, int unit_index)
             : (1u << _grenade_overlay_on_default_bit);
         overlay_type_flags |= 1u << _grenade_overlay_on_always_bit;
 
-        __int16 player_count = local_player_count();
-        unsigned __int8 in_multiplayer = ((player_count >= 0) + ((unsigned int)player_count <= 1)) & 1;
+        int16_t player_count = local_player_count();
+        uint8_t in_multiplayer = ((player_count >= 0) + ((unsigned int)player_count <= 1)) & 1;
 
         hud_draw_weapon_overlays(local_player_index, &ghi->absolute_placement, &ghi->overlays,
                                  overlay_type_flags, hud_state->last_grenade_flash_time, background_draw_flags,

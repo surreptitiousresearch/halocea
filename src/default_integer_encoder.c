@@ -5,6 +5,7 @@
  * 5 = 5; default/6 = 6 bits). Returns the number of bits written, or 0 if nothing was written (baseline
  * matched, or the class was out of range). */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"
 
@@ -22,11 +23,11 @@ unsigned int default_integer_encoder(const _field_properties_definition *const f
     switch ( bit_width_class )
     {
         case 0:
-            if ( !baseline_data || *(const unsigned __int8 *)baseline_data != *(const unsigned __int8 *)source_data )
+            if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 8u);
             break;
         case 1:
-            if ( !baseline_data || *(const unsigned __int16 *)baseline_data != *(const unsigned __int16 *)source_data )
+            if ( !baseline_data || *(const uint16_t *)baseline_data != *(const uint16_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 0x10u);
             break;
         case 2:
@@ -34,19 +35,19 @@ unsigned int default_integer_encoder(const _field_properties_definition *const f
                 return bitstream_write_bits(output_stream, source_data, 0x20u);
             break;
         case 3:
-            if ( !baseline_data || *(const unsigned __int8 *)baseline_data != *(const unsigned __int8 *)source_data )
+            if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 1u);
             break;
         case 4:
-            if ( !baseline_data || *(const unsigned __int8 *)baseline_data != *(const unsigned __int8 *)source_data )
+            if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 3u);
             break;
         case 5:
-            if ( !baseline_data || *(const unsigned __int8 *)baseline_data != *(const unsigned __int8 *)source_data )
+            if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 5u);
             break;
         default:
-            if ( !baseline_data || *(const unsigned __int8 *)baseline_data != *(const unsigned __int8 *)source_data )
+            if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 6u);
             break;
     }

@@ -11,8 +11,8 @@
 #include "headers/event_record.h"
 #include "headers/blam_data_globals.h"
 
-extern unsigned __int16 new_campaign_entered_name[11];
-extern __int16 new_campaign_name_cursor;
+extern uint16_t new_campaign_entered_name[11];
+extern int16_t new_campaign_name_cursor;
 
 extern void saved_game_file_get_useable_untitled_profile_name(uint16_t *display_name);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);

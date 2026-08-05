@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include <stddef.h> /* wchar_t is not a builtin type in C */
 /* virtual_key — one key definition in a virtual_keyboard's key layout (80 bytes, DB layout): the raw key
  * code plus all 7 shift/caps/symbols character variants and their background bitmaps. */
@@ -7,7 +8,7 @@
 
 typedef struct virtual_key
 {
-    unsigned __int16 virtual_key;                     /* 0x00 */
+    uint16_t virtual_key;                     /* 0x00 */
     wchar_t           lowercase_character;             /* 0x02 */
     wchar_t           shift_character;                 /* 0x04 */
     wchar_t           caps_character;                  /* 0x06 */

@@ -29,7 +29,7 @@ extern void object_deplete_shield(int object_index);
 void object_deplete_body(int object_index)
 {
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
-    __int16 object_flags = object->object.damage_flags;
+    int16_t object_flags = object->object.damage_flags;
     if ( (object_flags & (1u << _object_dead_bit)) != 0 )
         return;
 
@@ -53,7 +53,7 @@ void object_deplete_body(int object_index)
                 DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, seat)->datum;
             if ( !occupant->object.type  /* biped */
               && (occupant->unit.player_index == -1 || !cheat.deathless_player)
-              && (unsigned __int16)occupant->unit.parent_seat_index != 0xFFFF )
+              && (uint16_t)occupant->unit.parent_seat_index != 0xFFFF )
             {
                 unit_kill(seat);
             }

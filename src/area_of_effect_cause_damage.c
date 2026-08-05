@@ -27,7 +27,7 @@ void area_of_effect_cause_damage(damage_data *damage_data, int unlucky_object_in
     const damage_effect_definition *jolt = (const damage_effect_definition *)definition->base_address;
     float radius = jolt->cutoff_radius;
     int object_indices[72];
-    __int16 count;
+    int16_t count;
 
     if ( hcex_double_damage_radius )
         radius = jolt->cutoff_radius * 2.0f;
@@ -37,7 +37,7 @@ void area_of_effect_cause_damage(damage_data *damage_data, int unlucky_object_in
                               object_indices, 64);
     if ( count > 0 )
     {
-        __int16 i;
+        int16_t i;
         for ( i = 0; i < count; ++i )
             area_of_effect_cause_damage_to_object(damage_data, object_indices[i], 0);
     }

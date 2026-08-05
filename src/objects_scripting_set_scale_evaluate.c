@@ -10,7 +10,7 @@ void objects_scripting_set_scale_evaluate(int16_t function_index, int thread_ind
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        objects_scripting_set_scale(arguments[0], ((float *)arguments)[1], ((__int16 *)arguments)[4]);
+        objects_scripting_set_scale(arguments[0], ((float *)arguments)[1], ((int16_t *)arguments)[4]);
         hs_return(thread_index, 0);
     }
 }

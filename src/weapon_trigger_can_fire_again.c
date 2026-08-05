@@ -46,8 +46,8 @@ uint8_t weapon_trigger_can_fire_again(int weapon_index, int16_t trigger_index)
     if ( rate_modifier > 0.0f )
         required_ticks = (weapon->weapon.age * rate_modifier + 1.0f) * required_ticks;
 
-    unsigned __int8 ticks_since_fire = trigger->idle_ticks;
-    unsigned __int8 result = ((float)ticks_since_fire + 1.0f) >= required_ticks;
+    uint8_t ticks_since_fire = trigger->idle_ticks;
+    uint8_t result = ((float)ticks_since_fire + 1.0f) >= required_ticks;
 
     if ( (trigger_definition->flags & (1u << _weapon_trigger_latched_bit)) != 0 && (weapon->item.flags & (1u << _item_belongs_to_player_bit)) != 0 )
         return (trigger->flags & (1u << _weapon_trigger_released_since_last_shot_bit)) == 0 ? 0 : result;

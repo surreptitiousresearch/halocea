@@ -37,8 +37,8 @@ extern void actor_find_pathfinding_location(uint16_t actor_index);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
 extern float actor_destination_tolerance(uint16_t actor_index);
 extern uint8_t actor_move_halt(uint16_t actor_index);
-extern __int16 actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *context,
-        firing_position *out_position, int *out_current_owner, path_state *path, unsigned __int8 *area_path_state_valid);
+extern int16_t actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *context,
+        firing_position *out_position, int *out_current_owner, path_state *path, uint8_t *area_path_state_valid);
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
@@ -47,7 +47,7 @@ extern void actor_perception_unreachable(int actor_index, int prop_index, uint8_
 extern void *memset(void *dest, int value, unsigned int count);
 
 
-unsigned __int8 action_fight_perform(int actor_index)
+uint8_t action_fight_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( !actor->meta.timeslice )
@@ -68,15 +68,15 @@ unsigned __int8 action_fight_perform(int actor_index)
         if ( !actor_nearby_firing_positions(actor_index, &actor->input.pathfinding_point, actor->input.pathfinding_surface_index, 0) )
             goto reselect;
 
-        unsigned __int8 firing_position_ok = 0;
+        uint8_t firing_position_ok = 0;
         if ( actor->meta.encounter_index != -1 )
         {
-            __int16 firing_position_index = actor->firing_positions.current_position_index;
+            int16_t firing_position_index = actor->firing_positions.current_position_index;
             if ( firing_position_index != -1 )
             {
                 float *firing_position = ((firing_position_definition *)((encounter_definition *)
                                 global_scenario->ai_encounters.address)
-                                [(unsigned __int16)actor->meta.encounter_index].firing_positions.address)
+                                [(uint16_t)actor->meta.encounter_index].firing_positions.address)
                         [firing_position_index].position.n;
                 float tolerance = actor_destination_tolerance(actor_index);
                 float dy = (firing_position[1] - actor->input.position.body_position.y);
@@ -92,7 +92,7 @@ unsigned __int8 action_fight_perform(int actor_index)
             if ( actor->target.target_prop_index != -1 )
                 /* recovered: *(float *)((char *)variant + 0xA0) -> ranged_combat.combat_range_upper_bound */
                 firing_position_ok = *((float *)prop_data->data
-                                + 78 * (unsigned __int16)actor->target.target_prop_index + 71)
+                                + 78 * (uint16_t)actor->target.target_prop_index + 71)
                         >= (double)firing_variant_definition->ranged_combat.combat_range_upper_bound;
         }
         if ( !firing_position_ok )
@@ -106,17 +106,17 @@ unsigned __int8 action_fight_perform(int actor_index)
 reselect:
     if ( do_reselect )
     {
-        __int16 previous_position = actor->firing_positions.current_position_index;
+        int16_t previous_position = actor->firing_positions.current_position_index;
         firing_position_evaluation_context context;
         firing_position selected;
         int selected_a4;
-        unsigned __int8 path_bytes[8];
+        uint8_t path_bytes[8];
 
         memset(&context, 0, sizeof(context));
         context.evaluation_mode = _firing_point_evaluation_mode_fight;
-        __int16 selection = actor_active_select_firing_position(actor_index, &context, &selected, &selected_a4,
+        int16_t selection = actor_active_select_firing_position(actor_index, &context, &selected, &selected_a4,
                 (path_state *)path_bytes, path_bytes);
-        __int16 new_position = actor_change_firing_position(actor_index, selection, &selected, selected_a4,
+        int16_t new_position = actor_change_firing_position(actor_index, selection, &selected, selected_a4,
                 (path_state *)path_bytes, path_bytes[0]);
         if ( new_position == -1 )
         {
@@ -145,7 +145,7 @@ reselect:
 
     if ( actor->target.target_type >= actor_target_acknowledged_enemy )
     {
-        unsigned __int8 unreachable = 1;
+        uint8_t unreachable = 1;
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
         if ( actor_has_ranged_weapon(actor_index) )
         {
@@ -153,12 +153,12 @@ reselect:
                 goto reachable;
             if ( actor->meta.encounter_index != -1 )
             {
-                __int16 firing_position_index = actor->firing_positions.current_position_index;
+                int16_t firing_position_index = actor->firing_positions.current_position_index;
                 if ( firing_position_index != -1 )
                 {
                     float *firing_position = ((firing_position_definition *)((encounter_definition *)
                                     global_scenario->ai_encounters.address)
-                                    [(unsigned __int16)actor->meta.encounter_index].firing_positions.address)
+                                    [(uint16_t)actor->meta.encounter_index].firing_positions.address)
                             [firing_position_index].position.n;
                     float tolerance = actor_destination_tolerance(actor_index);
                     float dy = (firing_position[1] - actor->input.position.body_position.y);

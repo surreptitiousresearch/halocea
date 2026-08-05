@@ -28,7 +28,7 @@
 #include "headers/game_engine_multiplayer_sound.h"
 #include "headers/blam_data_globals.h"
 
-extern __int16 king_engine_hill_count;
+extern int16_t king_engine_hill_count;
 
 extern uint8_t game_engine_can_score(void);
 extern int16_t game_connection(void);
@@ -44,7 +44,7 @@ extern int king_calculate_hill_state(void);
 int king_engine_update(void)
 {
     int new_hill_id;
-    unsigned __int8 has_hill_points;
+    uint8_t has_hill_points;
 
     if ( game_engine_can_score() && game_connection() == _game_connection_network_server && game_engine_get_variant()->game_engine_variant.ctf.assault
       && --king_globals.hill_timer == 0 )
@@ -54,14 +54,14 @@ int king_engine_update(void)
 
         for ( ;; )
         {
-            __int16 hill_count = king_engine_hill_count;
-            __int16 start_index = seed_random_range(get_global_random_seed_address(), 0, hill_count);
+            int16_t hill_count = king_engine_hill_count;
+            int16_t start_index = seed_random_range(get_global_random_seed_address(), 0, hill_count);
 
             if ( hill_count > 0 )
             {
-                for ( __int16 offset = 0; offset < hill_count; offset = (__int16)(offset + 1) )
+                for ( int16_t offset = 0; offset < hill_count; offset = (int16_t)(offset + 1) )
                 {
-                    __int16 candidate = king_engine_hills[(__int16)((start_index + offset) % hill_count)];
+                    int16_t candidate = king_engine_hills[(int16_t)((start_index + offset) % hill_count)];
                     if ( hill_id != candidate )
                     {
                         new_hill_id = candidate;
@@ -99,7 +99,7 @@ failed_to_find_hill:
         console_printf(0, "FAILED TO FIND HILL");
     }
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if ( connection == 2 )
         return king_calculate_hill_state();
 

@@ -21,15 +21,15 @@ extern int16_t structure_clusters_in_sphere(int16_t cluster_index, const real_po
 void cluster_partition_reconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference,
     const real_point3d *position, float radius, const location *location)
 {
-    __int16 intersected_cluster_indices[64];
-    __int16 cluster_count = structure_clusters_in_sphere(location->cluster_index, position, radius,
+    int16_t intersected_cluster_indices[64];
+    int16_t cluster_count = structure_clusters_in_sphere(location->cluster_index, position, radius,
         64, intersected_cluster_indices);
     if ( cluster_count > 64 )
         cluster_count = 64;
 
     for ( int i = 0; i < cluster_count; ++i )
     {
-        __int16 cluster_index = intersected_cluster_indices[i];
+        int16_t cluster_index = intersected_cluster_indices[i];
 
         data_array *cluster_reference_data = partition->cluster_reference_data;
         int cluster_reference_index = datum_new(cluster_reference_data);

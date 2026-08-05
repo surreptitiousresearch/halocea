@@ -32,7 +32,7 @@ void biped_accelerate(int biped_index, real_vector3d *acceleration)
     if ( (definition->unit.flags & (1u << _unit_is_special)) != 0 )  /* unit.flags: no acceleration */
         return;
 
-    __int16 damage_flags = biped->object.damage_flags;
+    int16_t damage_flags = biped->object.damage_flags;
     if ( (damage_flags & (1u << _object_dead_bit)) == 0 )  /* living biped: take half the impulse */
     {
         acceleration->n[0] *= 0.5f;

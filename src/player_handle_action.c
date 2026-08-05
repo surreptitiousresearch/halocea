@@ -61,7 +61,7 @@ uint8_t player_handle_action(int player_index)
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
     int   unit_index = player->unit_index;
     unit_datum *unit_object = (unit_datum *)object_data_ptr(unit_index);
-    __int16 action_type = (unsigned __int16)player->action_result;
+    int16_t action_type = (uint16_t)player->action_result;
     char  can_enter = 0;
     int   result = 0;
 
@@ -155,7 +155,7 @@ uint8_t player_handle_action(int player_index)
                         result = 1;
                         if ( game_connection() == _game_connection_network_client )
                         {
-                            if ( (unsigned __int16)player->local_player_index == 0xFFFF )
+                            if ( (uint16_t)player->local_player_index == 0xFFFF )
                             {
                                 simple_circular_queue_empty(&player->___u26.client_update_data.___u0.remote_player.position_queue.queue);
                                 simple_circular_queue_empty(&player->___u26.client_update_data.___u0.remote_player.vehicle_update_queue.queue);
@@ -181,10 +181,10 @@ uint8_t player_handle_action(int player_index)
         }
     }
 
-    if ( (unsigned __int8)result == 1 && !unit_object->object.datum_role )
+    if ( (uint8_t)result == 1 && !unit_object->object.datum_role )
         player_set_action_result_to_network(player_index, _networked_action_result_type_action,
                                             player->action_object_index,
-                                            (unsigned __int16)player->action_result,
+                                            (uint16_t)player->action_result,
                                             player->action_seat_index, -1);
 
     return result;

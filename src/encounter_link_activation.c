@@ -19,7 +19,7 @@ int encounter_link_activation(uint16_t encounter_index, int16_t link_encounter_i
         int i = 0;
         while ( encounter->link_encounter_indices[i] != link_encounter_index )
         {
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             if ( i >= encounter->link_encounter_count )
                 goto check_room;
         }

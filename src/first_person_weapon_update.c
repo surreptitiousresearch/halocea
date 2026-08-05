@@ -101,9 +101,9 @@ void first_person_weapon_update(int16_t local_player_index)
 
         real_vector3d *throttle = &unit_data->unit.throttle;
         float speed_sq = throttle->__s1.k * throttle->__s1.k + (throttle->__s1.i * throttle->__s1.i + throttle->__s1.j * throttle->__s1.j);
-        unsigned __int8 moving = (sqrtf(speed_sq) > 0.1f) && (unit_flying_through_air(fpw->unit_index) == 0);
+        uint8_t moving = (sqrtf(speed_sq) > 0.1f) && (unit_flying_through_air(fpw->unit_index) == 0);
 
-        if ( (unsigned __int16)fpw->moving_animation.index == 0xFFFF )
+        if ( (uint16_t)fpw->moving_animation.index == 0xFFFF )
         {
             if ( moving )
             {
@@ -114,7 +114,7 @@ void first_person_weapon_update(int16_t local_player_index)
                 if ( animation_set->animations.count <= _first_person_weapon_animation_moving )
                     fpw->moving_animation.index = -1;
                 else
-                    fpw->moving_animation.index = ((__int16 *)animation_set->animations.address)[_first_person_weapon_animation_moving];
+                    fpw->moving_animation.index = ((int16_t *)animation_set->animations.address)[_first_person_weapon_animation_moving];
             }
         }
         else
@@ -130,7 +130,7 @@ void first_person_weapon_update(int16_t local_player_index)
         }
 
         int   jitter_index = fpw->overcharged_jitter_animation.index;
-        __int16 state16 = fpw->state;
+        int16_t state16 = fpw->state;
         if ( jitter_index == -1 )
         {
             if ( state16 == _first_person_weapon_state_charged )
@@ -142,12 +142,12 @@ void first_person_weapon_update(int16_t local_player_index)
                 if ( animation_set->animations.count <= _first_person_weapon_animation_overcharged_jitter )
                     fpw->overcharged_jitter_animation.index = -1;
                 else
-                    fpw->overcharged_jitter_animation.index = ((__int16 *)animation_set->animations.address)[_first_person_weapon_animation_overcharged_jitter];
+                    fpw->overcharged_jitter_animation.index = ((int16_t *)animation_set->animations.address)[_first_person_weapon_animation_overcharged_jitter];
             }
         }
         else if ( state16 == _first_person_weapon_state_charged )
         {
-            __int16 frame_count = ((animation *)graph->animations.address)[jitter_index].frame_count;
+            int16_t frame_count = ((animation *)graph->animations.address)[jitter_index].frame_count;
             double dividend = (double)(((weapon_data->weapon.overcharged + 1.0f) * 2.0f)
                                        + fpw->overcharged_jitter_animation.frame_index);
             fpw->overcharged_jitter_animation.frame_index = (float)fmod(dividend, (double)frame_count);
@@ -194,7 +194,7 @@ void first_person_weapon_update(int16_t local_player_index)
 
         if ( fpw->interpolation_frame_count > 0 )
         {
-            __int16 next = (__int16)(fpw->interpolation_frame_index + 1);
+            int16_t next = (int16_t)(fpw->interpolation_frame_index + 1);
             fpw->interpolation_frame_index = next;
             if ( next >= fpw->interpolation_frame_count )
                 fpw->interpolation_frame_count = 0;
@@ -209,7 +209,7 @@ void first_person_weapon_update(int16_t local_player_index)
           || fpw->turning.n[1] != 0.0f )
         {
             fpw->ticks_idle = 0;
-            if ( (unsigned __int16)fpw->state == _first_person_weapon_state_posing )
+            if ( (uint16_t)fpw->state == _first_person_weapon_state_posing )
                 first_person_weapon_set_state(local_player_index, _first_person_weapon_state_idle, 1u);
         }
         else if ( fpw->state )
@@ -222,10 +222,10 @@ void first_person_weapon_update(int16_t local_player_index)
             if ( !fpw->ticks_until_pose )
             {
                 unsigned int *seed = get_global_local_random_seed_address();
-                fpw->ticks_until_pose = (__int16)(int)(real_seed_random_range(seed, player_information->first_person_idle_time_lower_bound,
+                fpw->ticks_until_pose = (int16_t)(int)(real_seed_random_range(seed, player_information->first_person_idle_time_lower_bound,
                                                                               player_information->first_person_idle_time_upper_bound) * 30.0f);
             }
-            int idle = (__int16)(fpw->ticks_idle + 1);
+            int idle = (int16_t)(fpw->ticks_idle + 1);
             fpw->ticks_idle = idle;
             if ( idle > fpw->ticks_until_pose )
             {
@@ -236,7 +236,7 @@ void first_person_weapon_update(int16_t local_player_index)
         }
     }
 
-    __int16 predict = (__int16)(fpw->ticks_until_predict - 1);
+    int16_t predict = (int16_t)(fpw->ticks_until_predict - 1);
     fpw->ticks_until_predict = predict;
     if ( predict <= 0 )
         first_person_weapon_predict(local_player_index);

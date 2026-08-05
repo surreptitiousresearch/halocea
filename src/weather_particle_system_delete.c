@@ -19,7 +19,7 @@ void weather_particle_system_delete(int16_t system_index)
         TAG_GET(weather_particle_system_definition, system->definition_index);
 
     int type_count = definition->particle_types.count;
-    for (int type = 0; type < type_count; type = (__int16)(type + 1))
+    for (int type = 0; type < type_count; type = (int16_t)(type + 1))
     {
         weather_particle_type_datum *type_datum = &system->types[type];
         if (type_datum->first_particle_index != -1)
@@ -29,10 +29,10 @@ void weather_particle_system_delete(int16_t system_index)
             {
                 int particle_index = type_datum->first_particle_index;
                 weather_particle_datum *particle =
-                    (weather_particle_datum *)weather_particle_data->data + (unsigned __int16)particle_index;
+                    (weather_particle_datum *)weather_particle_data->data + (uint16_t)particle_index;
                 next = particle->next_particle_index;
                 datum_delete(weather_particle_data, particle_index);
-                __int16 particle_count = type_datum->particle_count;
+                int16_t particle_count = type_datum->particle_count;
                 type_datum->first_particle_index = next;
                 type_datum->particle_count = particle_count - 1;
             } while (next != -1);

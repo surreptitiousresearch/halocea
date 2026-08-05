@@ -112,9 +112,9 @@ void unit_preprocess_node_orientations(int object_index, real_orientation *node_
      * slot 11; emotion_index doubles as the explicit frame to display. */
     if (emotion_index != -1)
     {
-        __int16 emotion_animation_index = seat->animations.count <= 11
+        int16_t emotion_animation_index = seat->animations.count <= 11
                 ? -1
-                : ((__int16 *)seat->animations.address)[11];
+                : ((int16_t *)seat->animations.address)[11];
         if (unit->unit.override_emotion_animation_index != -1)
             emotion_animation_index = unit->unit.override_emotion_animation_index;
 
@@ -130,9 +130,9 @@ void unit_preprocess_node_orientations(int object_index, real_orientation *node_
     /* Mouth/talk overlay: seat's fixed slot 10, scaled by the live mouth_aperture value. */
     if (unit->unit.mouth_aperture > 0.0f)
     {
-        __int16 mouth_animation_index = seat->animations.count <= 10
+        int16_t mouth_animation_index = seat->animations.count <= 10
                 ? -1
-                : ((__int16 *)seat->animations.address)[10];
+                : ((int16_t *)seat->animations.address)[10];
         if (mouth_animation_index != -1)
             overlay_animation_apply_scaled(
                     &((const animation *)graph->animations.address)[mouth_animation_index],
@@ -146,9 +146,9 @@ void unit_preprocess_node_orientations(int object_index, real_orientation *node_
         for (int i = 0; i < 3; ++i)
         {
             int slot = i + 2;
-            __int16 additive_animation_index = (slot < 0 || slot >= seat->animations.count)
+            int16_t additive_animation_index = (slot < 0 || slot >= seat->animations.count)
                     ? -1
-                    : ((__int16 *)seat->animations.address)[slot];
+                    : ((int16_t *)seat->animations.address)[slot];
             if (additive_animation_index != -1)
             {
                 const animation *additive_animation =

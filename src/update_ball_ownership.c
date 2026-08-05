@@ -35,7 +35,7 @@ void update_ball_ownership(int player_index)
         return;
 
     unit_datum *unit_object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->unit_index)->datum;
-    __int16 current_weapon_slot = unit_object->unit.current_weapon_index;
+    int16_t current_weapon_slot = unit_object->unit.current_weapon_index;
     if ( current_weapon_slot == -1 )
         return;
 

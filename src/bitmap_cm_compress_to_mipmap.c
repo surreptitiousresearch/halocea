@@ -23,7 +23,7 @@ void bitmap_cm_compress_to_mipmap(const bitmap_data *source_bitmap, bitmap_data 
 
     if ( source_face && source_face->base_address && destination_face && destination_face->base_address )
     {
-        for ( __int16 face_index = 0; face_index < 6; face_index++ )
+        for ( int16_t face_index = 0; face_index < 6; face_index++ )
         {
             bitmap_cube_map_face_extract(source_bitmap, 0, face_index, source_face);
             bitmap_cube_map_face_insert(destination_face, destination_bitmap, destination_mipmap_index,

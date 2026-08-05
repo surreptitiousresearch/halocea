@@ -75,14 +75,14 @@ int16_t collision_move_point(
     float plane_x = 0, plane_y = 0, plane_z = 0, plane_d = 0;
     float last_plane_x = 0, last_plane_y = 0, last_plane_z = 0;  /* saved plane normal (single-plane slide) */
     float crease_x = 0, crease_y = 0, crease_z = 0;              /* saved crease direction (two-plane slide) */
-    __int16 active_stack[3] = {0, 0, 0};
-    __int16 new_stack[3];
+    int16_t active_stack[3] = {0, 0, 0};
+    int16_t new_stack[3];
 
     while ( fabsf(move.n[0]) >= eps || fabsf(move.n[1]) >= eps || fabsf(move.n[2]) >= eps )
     {
-        int hit_index = (__int16)collision_count;
+        int hit_index = (int16_t)collision_count;
         collision_plane *hit = &collisions[hit_index];
-        unsigned __int8 collided = collision_features_test_vector(features, &position, &move, hit);
+        uint8_t collided = collision_features_test_vector(features, &position, &move, hit);
         float contact_y = hit->point.n[1];
 
         if ( !collided )
@@ -99,16 +99,16 @@ int16_t collision_move_point(
 
         float contact_x = hit->point.n[0];
         float contact_z = hit->point.n[2];
-        collision_count = (__int16)(collision_count + 1);
+        collision_count = (int16_t)(collision_count + 1);
 
         float remaining = 1.0f - hit->t;
-        new_stack[0] = (__int16)hit_index;
+        new_stack[0] = (int16_t)hit_index;
 
         velocity_y = velocity_y * remaining;
         velocity_z = velocity_z * remaining;
         velocity_x = velocity_x * remaining;
 
-        int next_count = (__int16)(hit_index + 1);
+        int next_count = (int16_t)(hit_index + 1);
         int previous_active_count = active_plane_count;
         int new_active = 1;
         const real_plane3d *p_plane = &hit->plane;
@@ -175,7 +175,7 @@ int16_t collision_move_point(
                 if ( into_third >= -eps )
                     goto iteration_end;
 
-                unsigned __int8 corner_ok = point_from_planes3d(p_plane, prev_plane, &third->plane, &corner_point);
+                uint8_t corner_ok = point_from_planes3d(p_plane, prev_plane, &third->plane, &corner_point);
                 crease_x = crease_line.n[0];
                 crease_y = crease_line.n[1];
                 crease_z = crease_line.n[2];
@@ -278,13 +278,13 @@ iteration_end:
         new_velocity->n[2] = old_velocity->n[2];
     }
 
-    if ( active_plane_count <= 1 || (__int16)collision_count >= maximum_collision_count )
+    if ( active_plane_count <= 1 || (int16_t)collision_count >= maximum_collision_count )
         return collision_count;
 
     /* append a synthetic floor plane from the steepest struck plane and world up */
     float steepest_slope = 0.0f;
-    collision_plane *floor = &collisions[(__int16)collision_count];
-    collision_count = (__int16)(collision_count + 1);
+    collision_plane *floor = &collisions[(int16_t)collision_count];
+    collision_count = (int16_t)(collision_count + 1);
     int steepest_stack_index = -1;
     collision_plane *last_active = &collisions[active_stack[active_plane_count - 1]];
     floor->t = last_active->t;
@@ -330,7 +330,7 @@ iteration_end:
             floor->plane.n.n[1] = steepest->plane.n.n[1] * scale + global_up3d->n[1];
             floor->plane.n.n[2] = steepest->plane.n.n[2] * scale + global_up3d->n[2];
             if ( normalize3d(&floor->plane.n) == 0.0f )
-                return (__int16)(collision_count - 1);
+                return (int16_t)(collision_count - 1);
             plane_dist = floor->plane.n.n[0] * corner_point.n[0]
                        + (corner_point.n[1] * floor->plane.n.n[1] + corner_point.n[2] * floor->plane.n.n[2]);
         }
@@ -371,5 +371,5 @@ iteration_end:
                               + (floor->plane.n.n[0] * crease_point.n[0] + crease_point.n[2] * floor->plane.n.n[2]);
         return collision_count;
     }
-    return (__int16)(collision_count - 1);
+    return (int16_t)(collision_count - 1);
 }

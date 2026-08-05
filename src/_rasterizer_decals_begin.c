@@ -19,7 +19,7 @@
 
 
 #include "headers/point2d.h"
-extern __int16 rasterizer_decal_cached_bitmap_index;
+extern int16_t rasterizer_decal_cached_bitmap_index;
 extern int rasterizer_decal_cached_bitmap_group_index;
 
 extern point2d *rasterizer_set_texture(int16_t stage, int16_t type, int16_t usage, int bitmap_group_index, int16_t bitmap_index);

@@ -16,14 +16,14 @@ extern int race_engine_get_score(int player_index, get_score_type get_score_type
 extern int race_engine_get_team_score(int team_index);
 extern void race_engine_handle_client_message(int player_index, void *encoded_message, int16_t encoded_message_size);
 extern void race_engine_handle_server_message(void *encoded_message, int16_t encoded_message_size);
-extern unsigned __int8 race_engine_initialize_for_new_map(void);
+extern uint8_t race_engine_initialize_for_new_map(void);
 extern void race_engine_player_added(int player_index);
 extern void race_engine_player_damaged_player(int killing_player_index, int dead_player_index, uint8_t friendly_fire);
 extern void race_engine_player_killed_player(int killing_player_index, int killing_object_index, int dead_player_index, uint8_t friendly_fire);
 extern void race_engine_player_removed(int player_index);
 extern void race_engine_player_update(int player_index);
 extern void race_engine_post_rasterize(void); /* prototype not in DB */
-extern unsigned __int8 __fastcall race_engine_postspawn_player_update(int player_index);
+extern uint8_t __fastcall race_engine_postspawn_player_update(int player_index);
 extern void race_engine_pregame_post_rasterize(void); /* prototype not in DB */
 extern void race_engine_prespawn_player_update(int player_index);
 extern void race_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header, network_game_client *client);

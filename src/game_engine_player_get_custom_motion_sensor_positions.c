@@ -31,12 +31,12 @@ uint8_t game_engine_player_get_custom_motion_sensor_positions(int player_index, 
         do
         {
             if ( goal_matches_player(player, player_index, goal_index)
-              && (__int16)point_count < max_points )
+              && (int16_t)point_count < max_points )
             {
-                goal_indices[(__int16)point_count] = goal_index;
-                points[(__int16)point_count].n[0] = goal->position.n[0];
-                points[(__int16)point_count].n[1] = goal->position.n[1];
-                point_count = (__int16)(point_count + 1);
+                goal_indices[(int16_t)point_count] = goal_index;
+                points[(int16_t)point_count].n[0] = goal->position.n[0];
+                points[(int16_t)point_count].n[1] = goal->position.n[1];
+                point_count = (int16_t)(point_count + 1);
             }
             ++goal;
             ++goal_index;

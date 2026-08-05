@@ -75,7 +75,7 @@ void ai_scripting_attach_units(int object_list_index, unsigned int ai_index)
             continue;
 
         squad_definition *squad = &squads[squad_index];
-        __int16 actor_type = squad->actor_palette_index;
+        int16_t actor_type = squad->actor_palette_index;
         if ( actor_type == -1 )
             continue;
 
@@ -92,8 +92,8 @@ void ai_scripting_attach_units(int object_list_index, unsigned int ai_index)
         actor_definition *actor_def = TAG_GET(actor_definition, actor_definition_index);
         unsigned char swarm = (actor_def->flags & (1u << _actor_definition_swarm_actor_bit)) != 0;
         unsigned char initially_braindead = (encounter->flags & (1u << _encounter_braindead_bit)) != 0;   /* DB: encounter_definition.flags @0x20 */
-        __int16 initial_state = squad->initial_state;
-        __int16 default_state = squad->default_state;
+        int16_t initial_state = squad->initial_state;
+        int16_t default_state = squad->default_state;
 
         int actor_index = actor_create_for_unit(swarm, unit_index, actor_variant_index, (unsigned short)ai_index,
                                                 squad_index, 0, -1, initially_braindead, initial_state, default_state,

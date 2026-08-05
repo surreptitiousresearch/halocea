@@ -3,6 +3,7 @@
  * array's storage, zero the freed tail, and update count/actual_count/first_free_absolute_index to the new
  * element count. No-op if the scratch allocation fails. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
@@ -16,18 +17,18 @@ void data_compact(data_array *data)
     if ( !scratch )
         return;
 
-    __int16 compacted_count = 0;
-    unsigned __int16 *element = (unsigned __int16 *)data->data;
+    int16_t compacted_count = 0;
+    uint16_t *element = (uint16_t *)data->data;
 
     if ( data->count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
             if ( *element )
                 memcpy(&scratch[compacted_count++ * data->size], element, data->size);
-            i = (__int16)(i + 1);
-            element = (unsigned __int16 *)((char *)element + data->size);
+            i = (int16_t)(i + 1);
+            element = (uint16_t *)((char *)element + data->size);
         }
         while ( i < data->count );
     }

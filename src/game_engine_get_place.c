@@ -10,6 +10,7 @@
  * offset 0, place at offset 2). The first get_score call is rendered arg-less by the decompiler but takes
  * (player_index, score_type) like the second (its arg registers are still live). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/data_iterator.h"
 #include "headers/game_engine.h"
@@ -22,7 +23,7 @@
 
 game_engine_place game_engine_get_place(int player_index, get_score_type score_type)
 {
-    __int16 place = 0;
+    int16_t place = 0;
     char all_scores_equal = 1;
     char tie_at_my_score = 0;
     int participant_count = 1;
@@ -76,12 +77,12 @@ game_engine_place game_engine_get_place(int player_index, get_score_type score_t
         }
     }
 
-    __int16 flags;
+    int16_t flags;
     if ( tie_at_my_score )
         flags = (score_type != _get_score_team ? 0 : (1 << _place_team)) | (1 << _place_tied);
     else
         flags = score_type != _get_score_team ? 0 : (1 << _place_team);
-    if ( ((unsigned __int8)all_scores_equal & (unsigned __int8)tie_at_my_score) != 0 )
+    if ( ((uint8_t)all_scores_equal & (uint8_t)tie_at_my_score) != 0 )
         flags |= 1 << _place_all_tied;
     else
         flags &= ~(1 << _place_all_tied);

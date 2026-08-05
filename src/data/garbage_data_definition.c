@@ -5,7 +5,7 @@
 extern object_type_definition item_data_definition;
 extern object_type_definition object_data_definition;
 extern uint8_t garbage_new(int garbage_index);
-extern unsigned __int8 garbage_update(int garbage_index);
+extern uint8_t garbage_update(int garbage_index);
 
 object_type_definition garbage_data_definition = {
     .name = "garbage",

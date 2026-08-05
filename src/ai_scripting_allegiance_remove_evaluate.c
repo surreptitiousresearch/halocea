@@ -9,7 +9,7 @@ extern void ai_scripting_allegiance_remove(int16_t team1_index, int16_t team2_in
 
 void ai_scripting_allegiance_remove_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
         ai_scripting_allegiance_remove(arguments[0], arguments[2]);

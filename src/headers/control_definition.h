@@ -1,14 +1,15 @@
 #pragma once
 /* _control_definition + control_definition — the 'ctrl' tag body (DB-verified). */
 
+#include <stdint.h>
 #include "_object_definition.h"
 #include "_device_definition.h"
 #include "tag_reference.h"
 
 typedef struct _control_definition
 {
-    __int16       type;        /* 0x00 — 0 toggle, 1 on, 2 off, 3 call */
-    __int16       trigger;     /* 0x02 */
+    int16_t       type;        /* 0x00 — 0 toggle, 1 on, 2 off, 3 call */
+    int16_t       trigger;     /* 0x02 */
     float         call_value;  /* 0x04 */
     unsigned int  unused[20];  /* 0x08 */
     tag_reference on_effect;   /* 0x58 */

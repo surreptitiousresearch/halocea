@@ -1,15 +1,16 @@
 #pragma once
+#include <stdint.h>
 
 /* GPU_CONTEXTMISC - Xbox 360 D3D/GPU SDK type (external library boundary). DB-verified (types_members GPU_CONTEXTMISC). */
 typedef struct _8CE5B508FFC7A2118BA8518A4C89AB9F { // DB types_members _8CE5B508FFC7A2118BA8518A4C89AB9F
-    unsigned __int32 InstPredOptimize : 1;
-    unsigned __int32 OutputScreenXY : 1;
-    unsigned __int32 SampleControl : 2;
-    unsigned __int32 : 4;
-    unsigned __int32 ParamGenPos : 8;
-    unsigned __int32 PerfCounterRef : 1;
-    unsigned __int32 YieldOptimize : 1;
-    unsigned __int32 TxCacheSelect : 1;
+    uint32_t InstPredOptimize : 1;
+    uint32_t OutputScreenXY : 1;
+    uint32_t SampleControl : 2;
+    uint32_t : 4;
+    uint32_t ParamGenPos : 8;
+    uint32_t PerfCounterRef : 1;
+    uint32_t YieldOptimize : 1;
+    uint32_t TxCacheSelect : 1;
 } _8CE5B508FFC7A2118BA8518A4C89AB9F;
 
 typedef union GPU_CONTEXTMISC { // DB types_members GPU_CONTEXTMISC

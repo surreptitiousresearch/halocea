@@ -2,6 +2,7 @@
  * its actors hold position rather than maneuver. The AI index selects the encounter and the platoon range
  * via ai_index_platoon_iterator. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/platoon_datum.h"
 #include "headers/encounter_datum.h"
@@ -25,8 +26,8 @@ void ai_scripting_defend(int ai_index)
     {
         if ( platoon_index > last_platoon_index )
             break;
-        __int16 base_platoon_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->platoon_base;
-        platoon_datum *platoon = &platoon_array[(__int16)(base_platoon_index + platoon_index++)];
+        int16_t base_platoon_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->platoon_base;
+        platoon_datum *platoon = &platoon_array[(int16_t)(base_platoon_index + platoon_index++)];
         if ( !platoon )
             break;
         platoon->defending = 1;

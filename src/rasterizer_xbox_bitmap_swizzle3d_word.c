@@ -19,20 +19,20 @@ void rasterizer_xbox_bitmap_swizzle3d_word(char *dst, char *src, int16_t width, 
 
     compute_swizzle_masks(width, height, depth);
 
-    for ( __int16 slice = 0; slice < depth; ++slice )
+    for ( int16_t slice = 0; slice < depth; ++slice )
     {
         y_swizzle = 0;
 
-        for ( __int16 row = 0; row < height; ++row )
+        for ( int16_t row = 0; row < height; ++row )
         {
             x_swizzle = 0;
             char *source = &src[2 * src_index - 2];
 
-            for ( __int16 col = 0; col < width; ++col )
+            for ( int16_t col = 0; col < width; ++col )
             {
                 source += 2;
                 ++src_index;
-                *(unsigned __int16 *)&dst[2 * (z_swizzle | y_swizzle | x_swizzle)] = *(unsigned __int16 *)source;
+                *(uint16_t *)&dst[2 * (z_swizzle | y_swizzle | x_swizzle)] = *(uint16_t *)source;
                 x_swizzle = (x_swizzle - rasterizer_swizzle_x_mask) & rasterizer_swizzle_x_mask;
             }
 

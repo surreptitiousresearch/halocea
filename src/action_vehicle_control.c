@@ -25,9 +25,8 @@ void action_vehicle_control(uint16_t actor_index)
     {
         actor->orders.look.primary_priority = _primary_priority_exact_facing;
         actor->orders.look.primary_direction.type = _direction_specification_vector;
-        *(int *)&actor->orders.look.primary_direction.___u1.point.x = *(int *)&actor->state.action_data.___u0.vehicle.destination_facing.i;
-        *(int *)&actor->orders.look.primary_direction.___u1.point.y = *(int *)&actor->state.action_data.___u0.vehicle.destination_facing.j;
-        *(int *)&actor->orders.look.primary_direction.___u1.point.z = *(int *)&actor->state.action_data.___u0.vehicle.destination_facing.k;
+        /* DEVIATION: decompiler word-punned this 12-byte real_vector3d copy (lwz/stw triple, 0x3F0..0x3F8) through the point arm; type is _direction_specification_vector, use the vector arm */
+        actor->orders.look.primary_direction.___u1.vector = actor->state.action_data.___u0.vehicle.destination_facing;
     }
     else if ( actor_path_has_path(actor_index) )
     {

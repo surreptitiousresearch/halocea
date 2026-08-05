@@ -2,13 +2,14 @@
 /* ai_conversation — one scenario AI conversation definition (116 bytes), addressed via
  * scenario.ai_conversations. Full DB layout. */
 
+#include <stdint.h>
 #include "tag_block.h"
 
 typedef struct ai_conversation
 {
     char             name[32];            /* 0x00 */
-    unsigned __int16 flags;               /* 0x20 */
-    unsigned __int16 pad;                 /* 0x22 */
+    uint16_t flags;               /* 0x20 */
+    uint16_t pad;                 /* 0x22 */
     float            trigger_dist;        /* 0x24 */
     float            run_to_player_dist;  /* 0x28 */
     unsigned int     unused[9];           /* 0x2C */

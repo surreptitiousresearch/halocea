@@ -11,15 +11,15 @@
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-int choose_random_array_element(char *array, __int16 element_size, __int16 element_count,
-        __int16 weight_field_offset, unsigned int *used_bit_vector)
+int choose_random_array_element(char *array, int16_t element_size, int16_t element_count,
+        int16_t weight_field_offset, unsigned int *used_bit_vector)
 {
     if ( element_count <= 0 )
         return -1;
 
     float total_weight = 0.0f;
     const float *weight = (const float *)&array[weight_field_offset];
-    for ( __int16 i = 0; i < element_count; i++ )
+    for ( int16_t i = 0; i < element_count; i++ )
     {
         if ( !BIT_VECTOR_TEST_FLAG(used_bit_vector, i) )
             total_weight += *weight;
@@ -33,7 +33,7 @@ int choose_random_array_element(char *array, __int16 element_size, __int16 eleme
 
     float accumulated = 0.0f;
     weight = (const float *)&array[weight_field_offset];
-    __int16 index = 0;
+    int16_t index = 0;
 
     while ( 1 )
     {

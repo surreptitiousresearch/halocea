@@ -52,7 +52,7 @@ uint8_t race_engine_display_score(int player_index, int message, int message_dat
     {
         case game_engine_message_show_score: /* 22 */
         {
-            __int16 *subject = datum_try_and_get(player_data, message_data);
+            int16_t *subject = datum_try_and_get(player_data, message_data);
             if ( !subject || !datum_try_and_get(player_data, player_index) )
                 return 0;
 
@@ -69,9 +69,9 @@ uint8_t race_engine_display_score(int player_index, int message, int message_dat
                 int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
                 const wchar_t *format = (text_tag == -1) ? &empty_wide_string
                         : unicode_string_list_get_string(text_tag, _string_name_n_flags);
-                __int16 lap_count = subject[99];
+                int16_t lap_count = subject[99];
                 game_engine_place place = game_engine_get_place(player_index, _get_score_team);
-                unsigned __int16 *place_name = get_place_name(place);
+                uint16_t *place_name = get_place_name(place);
                 usnprintf(buffer, buffer_size, format, place_name, lap_count);
                 return 1;
             }
@@ -88,9 +88,9 @@ uint8_t race_engine_display_score(int player_index, int message, int message_dat
                 const wchar_t *format = (text_tag == -1) ? &empty_wide_string
                         : unicode_string_list_get_string(text_tag, _string_name_lap_n_of_total);
                 int score_to_win = game_engine_get_variant()->universal_variant.score_to_win;
-                __int16 lap_count = subject[99];
+                int16_t lap_count = subject[99];
                 game_engine_place place = game_engine_get_place(player_index, _get_score_team);
-                unsigned __int16 *place_name = get_place_name(place);
+                uint16_t *place_name = get_place_name(place);
                 usnprintf(buffer, buffer_size, format, place_name, lap_count + 1, score_to_win);
                 return 1;
             }
@@ -98,7 +98,7 @@ uint8_t race_engine_display_score(int player_index, int message, int message_dat
 format_with_place:
             {
                 game_engine_place place = game_engine_get_place(player_index, _get_score_team);
-                unsigned __int16 *place_name = get_place_name(place);
+                uint16_t *place_name = get_place_name(place);
                 usnprintf(buffer, buffer_size, place_format, place_name);
                 return 1;
             }
@@ -107,7 +107,7 @@ format_with_place:
         case race_message_you_completed_a_lap: /* 31 */
         {
             player_datum *player = datum_try_and_get(player_data, message_data);
-            __int16 *player_again = datum_try_and_get(player_data, message_data);
+            int16_t *player_again = datum_try_and_get(player_data, message_data);
             if ( !player_again || !player )
                 return 0;
             /* stat[0] = race_statistics.last_lap_time (byte +196), ticks */

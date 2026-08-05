@@ -4,6 +4,7 @@
  * index is read, and from the cluster the visible sky index; if that sky has a model the visible_sky_model flag
  * is set. */
 
+#include <stdint.h>
 #include "headers/render_globals.h"
 #include "headers/render_camera.h"
 #include "headers/structure_bsp.h"
@@ -15,7 +16,7 @@
 
 
 extern int bsp3d_test_point(const bsp3d *bsp, int node_index, const real_point3d *point);
-extern sky *scenario_get_sky(__int16 sky_index);
+extern sky *scenario_get_sky(int16_t sky_index);
 
 void structure_visibility_find_camera(const render_camera *camera)
 {

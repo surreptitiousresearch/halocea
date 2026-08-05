@@ -38,7 +38,7 @@ int weapon_build_update_delta(int object_index, void *buffer, int buffer_size_in
         return 0;
 
     int translated_index = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
-    __int16 object_type = object->object.type;
+    int16_t object_type = object->object.type;
 
     _weapon_update_header header;
     header.translated_object_index = translated_index;

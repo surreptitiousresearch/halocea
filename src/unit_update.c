@@ -117,17 +117,17 @@ uint8_t unit_update(int unit_index)
     char used_global_time = 0;
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
     unit_definition *unit_def = TAG_GET(unit_definition, unit->definition_index);
-    unsigned __int8 integrated_lights_allowed = game_engine_allow_integrated_lights(unit_index);
+    uint8_t integrated_lights_allowed = game_engine_allow_integrated_lights(unit_index);
 
     /* update-timer round-robin: at most one unit per tick gets the "used global time" slot */
     if ( !g_running_simulated_update )
     {
-        __int16 timer = unit->unit.timer + 1;
+        int16_t timer = unit->unit.timer + 1;
         struct unit_globals *globals = unit_globals; /* unit_globals is a bare struct tag */
         unit->unit.timer = timer;
         if ( globals->used_time || timer <= globals->next_timer )
         {
-            __int16 highest = globals->highest_timer;
+            int16_t highest = globals->highest_timer;
             if ( highest <= unit->unit.timer )
                 highest = unit->unit.timer;
             globals->highest_timer = highest;
@@ -242,7 +242,7 @@ uint8_t unit_update(int unit_index)
                     && unit->unit.cause_for_camo_regrowth
                     && unit->unit.cause_for_camo_regrowth == 1 )
                 {
-                    __int16 weapon_slot = unit->unit.current_weapon_index;
+                    int16_t weapon_slot = unit->unit.current_weapon_index;
                     if ( weapon_slot != -1 )
                     {
                         int weapon = unit->unit.weapon_object_indices[weapon_slot];
@@ -297,10 +297,10 @@ uint8_t unit_update(int unit_index)
 
         if ( !g_running_simulated_update )
         {
-            __int16 timer = unit->unit.body_stun_ticks;
+            int16_t timer = unit->unit.body_stun_ticks;
             if ( timer > 0 )
             {
-                __int16 remaining = timer - 1;
+                int16_t remaining = timer - 1;
                 unit->unit.body_stun_ticks = remaining;
                 if ( !remaining )
                     unit->unit.body_stun = 0.0f;
@@ -321,10 +321,10 @@ uint8_t unit_update(int unit_index)
 
         if ( !g_running_simulated_update )
         {
-            __int16 death_timer = unit->unit.feign_death_timer;
+            int16_t death_timer = unit->unit.feign_death_timer;
             if ( death_timer > 0 && (unit->object.flags & (1u << _object_at_rest_bit)) != 0 )
             {
-                __int16 remaining = death_timer - 1;
+                int16_t remaining = death_timer - 1;
                 unit->unit.feign_death_timer = remaining;
                 if ( !remaining )
                 {
@@ -335,7 +335,7 @@ uint8_t unit_update(int unit_index)
                     else
                     {
                         /* survived the death timer: re-stand as actively controlled, scream */
-                        __int16 anim_state = (((unsigned int)~unit->unit.animation.flags >> _unit_animation_fallen_on_front_bit) & 1) | _unit_state_resurrect_front;
+                        int16_t anim_state = (((unsigned int)~unit->unit.animation.flags >> _unit_animation_fallen_on_front_bit) & 1) | _unit_state_resurrect_front;
                         unit->object.damage_flags &= ~(1u << _object_dead_bit);
                         unit_set_actively_controlled(unit_index, 1u);
                         unit_set_or_test_seat_and_weapon_label(unit_index, base_seat_labels[_base_seat_stand], nullptr, 1u);
@@ -363,7 +363,7 @@ uint8_t unit_update(int unit_index)
             else if ( unit->unit.desired_weapon_index != unit->unit.current_weapon_index
                    && !unit_animation_busy(&unit->unit.animation) )
             {
-                __int16 desired_slot = unit->unit.desired_weapon_index;
+                int16_t desired_slot = unit->unit.desired_weapon_index;
                 if ( desired_slot != -1 )
                 {
                     int weapon = unit->unit.weapon_object_indices[desired_slot];
@@ -375,21 +375,21 @@ uint8_t unit_update(int unit_index)
             if ( unit->unit.desired_grenade_index != unit->unit.current_grenade_index
                 && !unit_animation_busy(&unit->unit.animation) )
             {
-                __int16 grenade = unit_inventory_next_grenade(unit_index, unit->unit.current_grenade_index, 0);
+                int16_t grenade = unit_inventory_next_grenade(unit_index, unit->unit.current_grenade_index, 0);
                 if ( grenade != -1 )
                     unit->unit.current_grenade_index = (char)grenade;
             }
 
             if ( cheat.infinite_ammo && unit->unit.player_index != -1 )
             {
-                for ( int i = 0; i < 2; i = (__int16)(i + 1) )
+                for ( int i = 0; i < 2; i = (int16_t)(i + 1) )
                 {
                     char ammo = unit->unit.grenade_counts[i];
                     if ( ammo <= 1 )
                         ammo = 1;
                     unit->unit.grenade_counts[i] = ammo;
                 }
-                if ( (unsigned __int8)unit->unit.desired_grenade_index == 255 )
+                if ( (uint8_t)unit->unit.desired_grenade_index == 255 )
                     unit->unit.desired_grenade_index = 0;
             }
 
@@ -404,7 +404,7 @@ uint8_t unit_update(int unit_index)
                     && DATA_ARRAY_ELEMENT(player_data, player_datum, player_index_from_unit_index(unit_index))
                         ->local_player_index != 0xFFFF )
                 {
-                    __int16 weapon_slot = unit->unit.current_weapon_index;
+                    int16_t weapon_slot = unit->unit.current_weapon_index;
                     if ( weapon_slot != -1 )
                     {
                         int weapon = unit->unit.weapon_object_indices[weapon_slot];
@@ -421,7 +421,7 @@ uint8_t unit_update(int unit_index)
                             float pitch = 1.0f;
                             if ( level != -1 )
                             {
-                                __int16 zoom_levels = weapon_def->weapon.zoom_level_count;
+                                int16_t zoom_levels = weapon_def->weapon.zoom_level_count;
                                 if ( zoom_levels > 1 )
                                     pitch = (float)level / (float)(zoom_levels - 1);
                             }
@@ -452,7 +452,7 @@ uint8_t unit_update(int unit_index)
             if ( game_engine_running() && unit_index != -1 )
             {
                 if ( unit->unit.player_index != -1
-                    && (unit->object.parent_object_index == -1 || unit->unit.parent_seat_index == (__int16)0xFFFF) )
+                    && (unit->object.parent_object_index == -1 || unit->unit.parent_seat_index == (int16_t)0xFFFF) )
                     clip = 0;
             }
             if ( clip )
@@ -495,7 +495,7 @@ uint8_t unit_update(int unit_index)
             else if ( aim_fraction > 1.0f )
                 aim_fraction = 1.0f;
         }
-        unit->unit.aiming_change = (unsigned __int8)(__int64)(aim_fraction * 255.0f);
+        unit->unit.aiming_change = (uint8_t)(int64_t)(aim_fraction * 255.0f);
 
         /* ---- looking slew (looking_vector toward desired_looking_vector), velocity at looking_velocity ---- */
         float look_velocity_max = (unit_def->unit.looking_velocity_maximum * speed_scale * SECONDS_PER_TICK);
@@ -530,7 +530,7 @@ uint8_t unit_update(int unit_index)
         if ( !g_running_simulated_update )
         {
             /* grenade-throw state machine */
-            unsigned __int8 throw_state = unit->unit.grenade_throw_state;
+            uint8_t throw_state = unit->unit.grenade_throw_state;
             if ( throw_state <= _grenade_throw_state_released )
             {
                 if ( throw_state == _grenade_throw_state_begin )
@@ -540,7 +540,7 @@ uint8_t unit_update(int unit_index)
                 }
                 else if ( throw_state == _grenade_throw_state_in_hand )
                 {
-                    int anim_state = (unsigned __int8)unit->unit.animation.state;
+                    int anim_state = (uint8_t)unit->unit.animation.state;
                     ++unit->unit.grenade_throw_ticks;
                     if ( anim_state != _unit_state_throw_grenade )
                         unit_throw_grenade_release(unit_index, 1u);
@@ -558,7 +558,7 @@ uint8_t unit_update(int unit_index)
         }
 
         /* ---- weapon owner control flags ---- */
-        __int16 weapon_slot = unit->unit.current_weapon_index;
+        int16_t weapon_slot = unit->unit.current_weapon_index;
         if ( weapon_slot != -1 && !g_running_simulated_update )
         {
             float primary_trigger = unit->unit.primary_trigger;
@@ -578,7 +578,7 @@ uint8_t unit_update(int unit_index)
                 if ( (unit_def->unit.flags & (1u << _unit_integrated_light_controls_weapon_directly)) != 0 )
                 {
                     int weapon = -1;
-                    __int16 slot = unit->unit.current_weapon_index;
+                    int16_t slot = unit->unit.current_weapon_index;
                     if ( slot != -1 )
                         weapon = unit->unit.weapon_object_indices[slot];
                     weapon_set_integrated_light_power(weapon, unit->unit.integrated_light_power);
@@ -590,7 +590,7 @@ uint8_t unit_update(int unit_index)
                 /* biped-only: object.type == object_type_biped guards the _biped_datum extension read */
                 if ( !unit->object.type && ((biped_datum *)unit)->biped.player_melee_ticks > 0 )
                     control_flags |= (1u << _weapon_control_user_busy_bit);
-                if ( (unsigned __int8)unit->unit.current_zoom_level != 255 )
+                if ( (uint8_t)unit->unit.current_zoom_level != 255 )
                     control_flags |= (1u << _weapon_control_zoomed_bit);
             }
             else
@@ -598,7 +598,7 @@ uint8_t unit_update(int unit_index)
                 control_flags = (1u << _weapon_control_user_switching_weapons_bit);
             }
             int weapon = -1;
-            __int16 slot = unit->unit.current_weapon_index;
+            int16_t slot = unit->unit.current_weapon_index;
             if ( slot != -1 )
                 weapon = unit->unit.weapon_object_indices[slot];
             weapon_owner_update(weapon, control_flags, primary_trigger);
@@ -625,7 +625,7 @@ uint8_t unit_update(int unit_index)
         if ( light_count > 0 )
         {
             powered_seat_definition *seats = (powered_seat_definition *)unit_def->unit.powered_seats.address;
-            for ( int light_index = 0; light_index < light_count; light_index = (__int16)(light_index + 1) )
+            for ( int light_index = 0; light_index < light_count; light_index = (int16_t)(light_index + 1) )
             {
                 powered_seat_definition *seat = &seats[light_index];
                 char light_on;
@@ -658,10 +658,10 @@ uint8_t unit_update(int unit_index)
     }
 
     /* deferred AI damage notification */
-    __int16 damage_timer = unit->unit.delayed_damage_timer;
+    int16_t damage_timer = unit->unit.delayed_damage_timer;
     if ( damage_timer > 0 )
     {
-        __int16 remaining = damage_timer - 1;
+        int16_t remaining = damage_timer - 1;
         unit->unit.delayed_damage_timer = remaining;
         if ( !remaining )
         {

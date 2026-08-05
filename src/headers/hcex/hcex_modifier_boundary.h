@@ -9,6 +9,7 @@
  * types_members) and the template "methods" are declared as free functions whose first parameter is the
  * object. The parameter-list container itself is reused from hcex_param_list_boundary.h. */
 
+#include <stdint.h>
 #include "hcex_param_list_boundary.h"   /* dsVECTOR_PARAM_LIST, dsSTRID, dsTSTRING_flat, dsSTRID_ctor, dlFree */
 
 /* ws-engine object modifier list (propENT @0 + dsVECTOR<...> listModifiers @40); opaque here. */
@@ -41,7 +42,7 @@ struct REF_TYPE {
 typedef ds_data::REF_TYPE_DATA<dsVECTOR_PARAM_LIST> REF_TYPE_DATA_param_list;
 typedef ds_data::REF_TYPE<dsVECTOR_PARAM_LIST>      REF_TYPE_param_list;
 
-extern propOBJ_MODIFIER_LIST *GetModifier(int modelId, __int16 local_player_index);
+extern propOBJ_MODIFIER_LIST *GetModifier(int modelId, int16_t local_player_index);
 
 /* ::operator new(size, file, line) — the debug/placement global allocator the ws build links in. */
 extern void *ds_operator_new_dbg(unsigned int size, const char *file, unsigned int line);

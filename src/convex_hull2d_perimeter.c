@@ -11,7 +11,7 @@ float convex_hull2d_perimeter(int16_t count, const real_point2d *points)
     float dy = points[0].n[1] - points[count - 1].n[1];
     float perimeter = sqrtf(dx * dx + dy * dy);
 
-    for ( __int16 i = 1; i < count; ++i )
+    for ( int16_t i = 1; i < count; ++i )
     {
         dx = points[i].n[0] - points[i - 1].n[0];
         dy = points[i].n[1] - points[i - 1].n[1];

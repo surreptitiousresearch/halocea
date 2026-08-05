@@ -75,7 +75,7 @@ uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state 
 
     /* Path-destination "kind": 0/1 = none/idle, 2 = explicit point, 3/4 = AI-encounter search/firing
      * position (two different encounter sub-tables), 5 = a prop's pathfinding location. */
-    __int16 kind = actor->control.path.destination_orders.destination_type;
+    int16_t kind = actor->control.path.destination_orders.destination_type;
 
     unsigned char had_previous_destination = 0;
     real_point3d previous_destination;
@@ -110,13 +110,13 @@ uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state 
             int encounter_index = actor->meta.encounter_index;
             if (encounter_index != -1)
             {
-                __int16 cell_index = actor->control.path.destination_orders.___u3.move_position_index;
+                int16_t cell_index = actor->control.path.destination_orders.___u3.move_position_index;
                 /* BUGFIX vs prior transcription: the decompiler indexed ai_encounters with DWORD
                  * arithmetic (44 dwords = one 176-byte encounter_definition); the raw-offset version
                  * had kept "44" against a char*. */
                 squad_definition *squad_def = (squad_definition *)
                         ((encounter_definition *)global_scenario->ai_encounters.address
-                         + (unsigned __int16)encounter_index)->squads.address
+                         + (uint16_t)encounter_index)->squads.address
                         + actor->meta.squad_index;
                 if (cell_index >= 0 && cell_index < squad_def->move_positions.count)
                 {
@@ -152,7 +152,7 @@ uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state 
                 /* same DWORD-stride BUGFIX as the kind==4 branch above */
                 firing_position_definition *record = (firing_position_definition *)
                         ((encounter_definition *)global_scenario->ai_encounters.address
-                         + (unsigned __int16)encounter_index)->firing_positions.address
+                         + (uint16_t)encounter_index)->firing_positions.address
                         + actor->control.path.destination_orders.___u3.firing_position_index;
                 actor->control.path.destination.point.x = record->position.x;
                 actor->control.path.destination.point.y = record->position.y;
@@ -164,9 +164,9 @@ uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state 
         }
         else /* kind == _destination_prop: prop pathfinding location */
         {
-            int prop_index = (unsigned __int16)actor->control.path.destination_orders.___u3.prop.prop_index;
+            int prop_index = (uint16_t)actor->control.path.destination_orders.___u3.prop.prop_index;
             prop_datum *prop = DATUM_GET(prop_data, prop_datum, prop_index);
-            __int16 prop_state = prop->state;
+            int16_t prop_state = prop->state;
             if (prop_state < _prop_state_uninspected_orphan || prop_state > _prop_state_inspected_orphan)
                 actor_perception_find_prop_pathfinding_location(actor_index, actor->control.path.destination_orders.___u3.prop.prop_index);
 
@@ -197,7 +197,7 @@ uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state 
     unsigned char rebuild_result = target_found;
     if (target_found)
     {
-        unsigned __int8 should_rebuild = 1;
+        uint8_t should_rebuild = 1;
         if (actor->state.flying)
         {
             float avoidance_distance_out = 0.0f;
@@ -207,8 +207,9 @@ uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state 
         else if (actor->control.path.destination.target_radius == 0.0f)
         {
             /* No accept radius: rebuild whenever the path is exhausted or nearly so. */
-            int path_progress = actor->control.path.destination.surface_index;
-            should_rebuild = *(unsigned char *)&actor->control.path.destination.surface_index + 1 - (path_progress + (path_progress == -1));
+            /* DEVIATION: disasm is lwz(surface_index); addi +1; addic/subfe — the carry idiom for
+             * (surface_index + 1 != 0), i.e. surface_index != -1; the byte-pun arithmetic was decompiler garbage. */
+            should_rebuild = actor->control.path.destination.surface_index != -1;
         }
 
         if (should_rebuild)

@@ -2,6 +2,7 @@
  * orientation into a world-space matrix. The root node's parent is a synthetic basis built from
  * origin/forward/up; every other node's parent is its own already-computed matrix in `node_matrices`. */
 
+#include <stdint.h>
 #include "headers/model.h"
 #include "headers/model_node.h"
 #include "headers/real_orientation.h"
@@ -22,14 +23,14 @@ void model_node_matrices_from_orientations(const model *model, real_matrix4x3 *n
     if ( model->nodes.count <= 0 )
         return;
 
-    unsigned __int16 node_stack[64];
-    __int16 head = 0;
-    __int16 tail = 1;
+    uint16_t node_stack[64];
+    int16_t head = 0;
+    int16_t tail = 1;
     node_stack[0] = 0;
 
     do
     {
-        __int16 current = node_stack[head++];
+        int16_t current = node_stack[head++];
         model_node *node = &((model_node *)model->nodes.address)[current];
 
         const real_matrix4x3 *parent_matrix = current ? &node_matrices[node->parent_node_index] : &root_matrix;

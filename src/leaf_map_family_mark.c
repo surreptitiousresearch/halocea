@@ -2,6 +2,7 @@
  * leaf map's portal graph into the marked_leaves bit vector (24-byte leaf and portal records; a leaf's
  * portal count/list at dwords +12/+16, a portal's two leaves at dwords +4/+8). */
 
+#include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/map_leaf.h"
 #include "headers/leaf_portal.h"
@@ -10,7 +11,7 @@ void leaf_map_family_mark(const leaf_map *leaf_map, unsigned int *marked_leaves,
 {
     map_leaf *leaf = &((map_leaf *)leaf_map->leaves.address)[leaf_index];
 
-    for ( __int16 i = 0; i < leaf->portal_designators.count; i++ )
+    for ( int16_t i = 0; i < leaf->portal_designators.count; i++ )
     {
         int portal_index = ((int *)leaf->portal_designators.address)[i];
         leaf_portal *portal = &((leaf_portal *)leaf_map->portals.address)[portal_index];

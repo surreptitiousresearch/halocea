@@ -20,11 +20,11 @@ extern uint8_t hs_parse_primitive(int expression_index);
 extern uint8_t hs_parse_nonprimitive(int expression_index);
 extern int sprintf_0(char *string, const char *format, ...);
 
-int hs_parse_begin(__int16 function_index, int expression_index)
+int hs_parse_begin(int16_t function_index, int expression_index)
 {
     hs_syntax_node *group = &HS_SYNTAX_NODE(expression_index);
     int result = 1;
-    __int16 argument_count = 0;
+    int16_t argument_count = 0;
 
     /* first real argument = sibling of the function-name node */
     int argument = HS_SYNTAX_NODE(group->data).next_node_index;
@@ -36,7 +36,7 @@ int hs_parse_begin(__int16 function_index, int expression_index)
         if ( function_index )
         {
             result = 1;
-            __int16 group_type = group->type;
+            int16_t group_type = group->type;
             if ( !arg_node->type )
             {
                 arg_node->type = group_type;
@@ -53,7 +53,7 @@ int hs_parse_begin(__int16 function_index, int expression_index)
         }
         else
         {
-            __int16 wanted = (next == -1) ? group->type : hs_type_void;
+            int16_t wanted = (next == -1) ? group->type : hs_type_void;
             result = 1;
             if ( !arg_node->type )
             {

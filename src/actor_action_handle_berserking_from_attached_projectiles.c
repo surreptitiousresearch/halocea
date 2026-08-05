@@ -39,7 +39,7 @@ uint8_t actor_action_handle_berserking_from_attached_projectiles(int actor_index
     if ( real_seed_random(get_global_random_seed_address()) >= actor_definition_tag->berserk.grenade_attached_chance )
         return 0;
 
-    __int16 berserk_timer = actor->stimuli.berserk_type;
+    int16_t berserk_timer = actor->stimuli.berserk_type;
     if ( berserk_timer <= 4 )
         berserk_timer = 4;
     actor->stimuli.berserk_type = berserk_timer;

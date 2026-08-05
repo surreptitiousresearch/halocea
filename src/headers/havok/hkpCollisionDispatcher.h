@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "hkReferencedObject.h"
 #include "hkBool.h"
 #include "hkArray.h"
@@ -48,9 +49,9 @@ typedef struct hkpCollisionDispatcher_Agent3Funcs
     void *(*m_createFunc)(const hkpAgent3Input *, hkpAgentEntry *, void *);                                                        /* 0x00 */
     void (*m_destroyFunc)(hkpAgentEntry *, void *, hkpContactMgr *, hkpConstraintOwner *, struct hkpCollisionDispatcher *);        /* 0x04 */
     void *(*m_cleanupFunc)(hkpAgentEntry *, void *, hkpContactMgr *, hkpConstraintOwner *);                                        /* 0x08 */
-    void (*m_removePointFunc)(hkpAgentEntry *, void *, unsigned __int16);                                                          /* 0x0C */
-    void (*m_commitPotentialFunc)(hkpAgentEntry *, void *, unsigned __int16);                                                      /* 0x10 */
-    void (*m_createZombieFunc)(hkpAgentEntry *, void *, unsigned __int16);                                                         /* 0x14 */
+    void (*m_removePointFunc)(hkpAgentEntry *, void *, uint16_t);                                                          /* 0x0C */
+    void (*m_commitPotentialFunc)(hkpAgentEntry *, void *, uint16_t);                                                      /* 0x10 */
+    void (*m_createZombieFunc)(hkpAgentEntry *, void *, uint16_t);                                                         /* 0x14 */
     void (*m_updateFilterFunc)(hkpAgentEntry *, void *, const hkpCdBody *, const hkpCdBody *, const hkpCollisionInput *, hkpContactMgr *, hkpConstraintOwner *); /* 0x18 */
     void (*m_calcStatisticsFunc)(hkpAgentEntry *, void *, const hkpCollisionInput *, hkStatisticsCollector *);                     /* 0x1C */
     void (*m_invalidateTimFunc)(hkpAgentEntry *, void *, const hkpCollisionInput *);                                               /* 0x20 */
@@ -91,7 +92,7 @@ typedef struct hkpCollisionQualityInfo
     float m_toiAccuracy;                   /* 0x30 */
     float m_maxContraintViolation;         /* 0x34 */
     float m_minToiDeltaTime;               /* 0x38 */
-    unsigned __int16 m_constraintPriority; /* 0x3C */
+    uint16_t m_constraintPriority; /* 0x3C */
     hkBool m_enableToiWeldRejection;       /* 0x3E */
 } hkpCollisionQualityInfo;
 

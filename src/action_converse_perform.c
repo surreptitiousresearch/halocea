@@ -23,7 +23,7 @@ extern int prop_get_base_by_unit_index(int actor_index, int unit_index, uint8_t 
 extern uint8_t actor_move_halt(uint16_t actor_index);
 extern uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, float accept_radius);
 
-unsigned __int8 action_converse_perform(int actor_index)
+uint8_t action_converse_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     converse_state_data *converse = &actor->state.action_data.___u0.converse;

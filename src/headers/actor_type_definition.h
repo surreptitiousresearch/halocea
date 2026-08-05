@@ -8,12 +8,12 @@
 typedef struct actor_type_definition
 {
     const char     *name;                          /* 0x00 */
-    __int16         race;                           /* 0x04 */
-    __int16         when_to_search_at_target;       /* 0x06 */
-    __int16         when_to_pursue;                 /* 0x08 */
-    __int16         when_to_search_pursuit;         /* 0x0A */
-    unsigned __int8 pursuit_controller;             /* 0x0C */
-    unsigned __int8 swarm;                          /* 0x0D */
+    int16_t         race;                           /* 0x04 */
+    int16_t         when_to_search_at_target;       /* 0x06 */
+    int16_t         when_to_pursue;                 /* 0x08 */
+    int16_t         when_to_search_pursuit;         /* 0x0A */
+    uint8_t pursuit_controller;             /* 0x0C */
+    uint8_t swarm;                          /* 0x0D */
     /* 0x0E-0x0F: 2 bytes implicit padding (pointer member below forces 4-byte align to 0x10 —
      * db-verified. Left implicit so the flat static initializers map 1:1 to the named members. */
     void (__fastcall *initialize)(int actor_index);                 /* 0x10 */

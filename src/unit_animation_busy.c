@@ -10,7 +10,7 @@
 uint8_t unit_animation_busy(unit_animation *animation)
 {
     uint8_t result = 0;
-    switch ( (unsigned __int8)animation->state )
+    switch ( (uint8_t)animation->state )
     {
         case _unit_state_hard_ping: case _unit_state_dying_airborne: case _unit_state_dying:
         case _unit_state_entering_seat: case _unit_state_exiting_seat:

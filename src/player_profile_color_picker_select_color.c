@@ -12,7 +12,7 @@ extern int preview_list_get_list_index_for_item(int index);
 uint8_t player_profile_color_picker_select_color(widget_instance *screen_widget, event_record *event, uint8_t *widget_deleted)
 {
     player_profile *edit_player_profile = player_ui_get_edit_player_profile();
-    __int16 selected_list_item_index = screen_widget->parameters.list_parameters.selected_list_item_index;
+    int16_t selected_list_item_index = screen_widget->parameters.list_parameters.selected_list_item_index;
     int list_index_for_item = preview_list_get_list_index_for_item(selected_list_item_index);
 
     if ( !edit_player_profile )

@@ -36,37 +36,37 @@ void draw_unicode_string(
     const wchar_t *string)
 {
     const rectangle2d *line_bounds = bounds;
-    __int16 wrapped_line_index = 0;
-    __int16 max_wrapped_line_index = 0;
-    __int16 tab_index = 0;
-    __int16 paragraph_line_offset = 0;
+    int16_t wrapped_line_index = 0;
+    int16_t max_wrapped_line_index = 0;
+    int16_t tab_index = 0;
+    int16_t paragraph_line_offset = 0;
 
     parse_string_state state[6];
     parse_string_new(state, (const char *)string, font_drawing_globals.current_font_index,
                      font_drawing_globals.current_style, font_drawing_globals.current_justification,
                      &font_drawing_globals.current_color);
 
-    __int16 string_index = state[0].string_index;
+    int16_t string_index = state[0].string_index;
     font_header *font = state[0].font_header;
 
     point2d cursor;
     while (1)
     {
-        __int16 tab_stop_count = font_drawing_globals.tab_stop_count;
-        __int16 justification = state[0].justification;
-        unsigned __int16 line_width = 0;
+        int16_t tab_stop_count = font_drawing_globals.tab_stop_count;
+        int16_t justification = state[0].justification;
+        uint16_t line_width = 0;
         int break_candidate_end = 0;
-        __int16 previous_result = -1;
-        __int16 segment_start_index = string_index;
+        int16_t previous_result = -1;
+        int16_t segment_start_index = string_index;
         rectangle2d line_rect = *line_bounds;
         char segment_done = 0;
         int segment_end_index = 0;
-        unsigned __int16 saved_width_at_break = 0;
+        uint16_t saved_width_at_break = 0;
 
-        __int16 line_left;
+        int16_t line_left;
         if (tab_stop_count <= 0)
         {
-            __int16 indent = paragraph_line_offset ? font_drawing_globals.paragraph_indent
+            int16_t indent = paragraph_line_offset ? font_drawing_globals.paragraph_indent
                                                    : font_drawing_globals.initial_indent;
             line_left = indent + line_rect.n[1];
             line_rect.n[1] += indent;
@@ -80,7 +80,7 @@ void draw_unicode_string(
             }
             else
             {
-                __int16 indent = paragraph_line_offset ? font_drawing_globals.paragraph_indent
+                int16_t indent = paragraph_line_offset ? font_drawing_globals.paragraph_indent
                                                        : font_drawing_globals.initial_indent;
                 line_left = indent + line_rect.n[1];
             }
@@ -89,7 +89,7 @@ void draw_unicode_string(
                 line_rect.n[3] = font_drawing_globals.tab_stops[tab_index];
         }
 
-        __int16 ascending_height = font->ascending_height;
+        int16_t ascending_height = font->ascending_height;
         int cursor_x_start = font->leading_width + line_left;
         int line_top = (font->leading_height + font->descending_height + height_adjust + ascending_height)
                             * (wrapped_line_index + paragraph_line_offset)
@@ -99,7 +99,7 @@ void draw_unicode_string(
         cursor.n[1] = line_top + ascending_height;
 
         /* measure forward to the line break */
-        __int16 result;
+        int16_t result;
         do
         {
             char wrapped = 0;
@@ -116,14 +116,14 @@ void draw_unicode_string(
                 break_candidate_end = segment_end_index;
                 saved_width_at_break = line_width;
             }
-            if (character->bitmap_width + cursor_x_start + (__int16)line_width < line_rect.n[3])
+            if (character->bitmap_width + cursor_x_start + (int16_t)line_width < line_rect.n[3])
             {
                 line_width += character->character_width;
                 goto advance;
             }
             if (font_drawing_globals.current_flags & (1u << _draw_text_wrap_horizontally_bit))
             {
-                if ((__int16)break_candidate_end > 0)
+                if ((int16_t)break_candidate_end > 0)
                 {
                     line_width = saved_width_at_break;
                     segment_end_index = break_candidate_end;
@@ -134,20 +134,20 @@ void draw_unicode_string(
             }
         advance:
             if (!wrapped)
-                segment_end_index = (unsigned __int16)state[0].string_index;
+                segment_end_index = (uint16_t)state[0].string_index;
             previous_result = result;
         } while (!segment_done);
 
         /* horizontal justification */
         if (justification == _text_justification_right)
         {
-            __int16 width = rectangle2d_width(&line_rect);
+            int16_t width = rectangle2d_width(&line_rect);
             cursor.n[0] = width + line_rect.n[1] - font->leading_width - line_width;
         }
         else if (justification == _text_justification_center)
         {
-            __int16 width = rectangle2d_width(&line_rect);
-            cursor.n[0] = ((width - (__int16)line_width) >> 1) + line_rect.n[1];
+            int16_t width = rectangle2d_width(&line_rect);
+            cursor.n[0] = ((width - (int16_t)line_width) >> 1) + line_rect.n[1];
         }
 
         /* draw the line unless clipped below the bounds (and not forced) */
@@ -169,7 +169,7 @@ void draw_unicode_string(
                     break;
                 case _parsed_end_of_word:   /* end of run → next line */
                 default:
-                    wrapped_line_index = (__int16)(wrapped_line_index + 1);
+                    wrapped_line_index = (int16_t)(wrapped_line_index + 1);
                     if (wrapped_line_index > max_wrapped_line_index)
                         max_wrapped_line_index = wrapped_line_index;
                     break;

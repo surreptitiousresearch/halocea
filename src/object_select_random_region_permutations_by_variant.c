@@ -26,19 +26,19 @@ uint8_t object_select_random_region_permutations_by_variant(int object_index, co
     if ( model->regions.count <= 0 )
         return all_resolved;
 
-    __int16 available_permutations[72];
+    int16_t available_permutations[72];
     int region_index = 0;
     do
     {
         model_region *region = &((model_region *)model->regions.address)[region_index];
-        __int16 count = object_find_region_permutations_available_with_variant(
+        int16_t count = object_find_region_permutations_available_with_variant(
             region, variant_number, available_permutations);
         if ( !count && variant_number != -1 )
             count = object_find_region_permutations_available_with_variant(region, 0, available_permutations);
 
         if ( count )
         {
-            __int16 pick;
+            int16_t pick;
             if ( count == 1 )
                 pick = 0;
             else
@@ -50,7 +50,7 @@ uint8_t object_select_random_region_permutations_by_variant(int object_index, co
             all_resolved = 0;
             object_data->object.region_permutations[region_index] = 0;
         }
-        region_index = (__int16)(region_index + 1);
+        region_index = (int16_t)(region_index + 1);
     }
     while ( region_index < model->regions.count );
 

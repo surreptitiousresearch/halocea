@@ -33,18 +33,18 @@
 extern uint8_t accelerate_to_position(float *position_reference, float *velocity_reference, float position_desired, float acceleration_maximum, float velocity_maximum, float position_lower_bound, float position_upper_bound, uint8_t circular_position);
 extern void device_effect_new(int device_index, int effect_index);
 
-unsigned __int8 device_update(int device_index)
+uint8_t device_update(int device_index)
 {
     int changed = 0;
     device_datum *device = (device_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, device_index)->datum;
-    __int16 power_group = device->device.power_group_index;
+    int16_t power_group = device->device.power_group_index;
     device_definition *definition = TAG_GET(device_definition, device->definition_index);
     device_group_datum *groups = (device_group_datum *)device_groups_data->data;
 
-    if ( (unsigned __int16)power_group != 0xFFFF )
+    if ( (uint16_t)power_group != 0xFFFF )
     {
         float power = device->device.power;
-        float power_target = groups[(unsigned __int16)power_group].desired_value;
+        float power_target = groups[(uint16_t)power_group].desired_value;
         if ( power_target != power || device->device.power_velocity != 0.0f )
         {
             if ( !accelerate_to_position(&device->device.power, &device->device.power_velocity, power_target,
@@ -56,12 +56,12 @@ unsigned __int8 device_update(int device_index)
         }
     }
 
-    __int16 position_group = device->device.position_group_index;
-    if ( (unsigned __int16)position_group == 0xFFFF )
+    int16_t position_group = device->device.position_group_index;
+    if ( (uint16_t)position_group == 0xFFFF )
         return changed;
 
     float position_target = device->device.position;
-    device_group_datum *group = &groups[(unsigned __int16)position_group];
+    device_group_datum *group = &groups[(uint16_t)position_group];
     float group_position = group->desired_value;
     if ( group_position == position_target && device->device.position_velocity == 0.0f )
     {
@@ -75,14 +75,14 @@ unsigned __int8 device_update(int device_index)
             + (definition->device.runtime_maximum_powered_position_acceleration * power_now));
     float velocity_limit = ((definition->device.runtime_maximum_depowered_position_velocity * (1.0f - power_now))
             + (definition->device.runtime_maximum_powered_position_velocity * power_now));
-    __int16 dwell_counter = device->device.delay_ticks;
+    int16_t dwell_counter = device->device.delay_ticks;
     char velocity_positive = position_velocity > 0.0f;
 
     if ( (float)dwell_counter < definition->device.runtime_delay_ticks
       && position_target == 0.0f && group_position >= position_target )
     {
         device->device.delay_ticks = dwell_counter + 1;
-        if ( (__int16)(dwell_counter + 1) == 1 )
+        if ( (int16_t)(dwell_counter + 1) == 1 )
             device_effect_new(device_index, definition->device.delay_effect.index);
         return changed;
     }

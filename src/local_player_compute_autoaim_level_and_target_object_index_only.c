@@ -26,7 +26,7 @@ extern uint8_t aim_assist(const aim_assist_parameters *parameters, const real_po
 
 int local_player_compute_autoaim_level_and_target_object_index_only(int16_t local_player_index, float *autoaim_level)
 {
-    __int16 perspective = director_get_perspective(local_player_index);
+    int16_t perspective = director_get_perspective(local_player_index);
     *autoaim_level = 0.0f;
     if ( perspective != _director_perspective_first_person && perspective != _director_perspective_third_person )
         return -1;
@@ -34,7 +34,7 @@ int local_player_compute_autoaim_level_and_target_object_index_only(int16_t loca
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum,
         local_player_get_player_index(local_player_index));
     int aiming_unit_index = unit_get_aiming_unit_index(player->unit_index);
-    __int16 zoom_level = player_control_get_zoom_level(local_player_index);
+    int16_t zoom_level = player_control_get_zoom_level(local_player_index);
 
     aim_assist_parameters parameters;
     if ( !unit_get_aim_assist_parameters(aiming_unit_index, zoom_level, &parameters) )

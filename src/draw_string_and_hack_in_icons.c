@@ -31,8 +31,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern unsigned __int16 *wcscpy(unsigned __int16 *dst, const wchar_t *src);
-extern unsigned __int16 *wcschr(const wchar_t *string, wchar_t ch);
+extern uint16_t *wcscpy(uint16_t *dst, const wchar_t *src);
+extern uint16_t *wcschr(const wchar_t *string, wchar_t ch);
 /* wcslen provided by CRT via <wchar.h>; local non-standard extern removed (C2371 unsigned int vs size_t) */
 
 extern void draw_string_set_indents(int16_t initial_indent, int16_t paragraph_indent);
@@ -58,15 +58,15 @@ void draw_string_and_hack_in_icons(
     wcscpy(string_data, instring);
 
     rectangle2d local_bounds = *bounds;
-    unsigned __int16 *current = string_data;
+    uint16_t *current = string_data;
 
     while (1)
     {
-        unsigned __int16 *percent_pos = wcschr(current, L'%');
+        uint16_t *percent_pos = wcschr(current, L'%');
         if (!percent_pos)
             break;
         *percent_pos = 0;
-        unsigned __int16 *icon_spec = percent_pos + 1;
+        uint16_t *icon_spec = percent_pos + 1;
 
         /* FAITHFUL: equivalent to the binary's carry-flag idiom for max(0, diff) */
         short indent_diff = (short)(local_bounds.__s1.x0 - bounds->__s1.x0);
@@ -83,7 +83,7 @@ void draw_string_and_hack_in_icons(
         bounds->__s1.y0 = local_bounds.__s1.y0;
         current = icon_spec;
 
-        __int16 icon_type = get_icon_type(icon_spec);
+        int16_t icon_type = get_icon_type(icon_spec);
         if (icon_type == -1)
         {
             render_state_text_0(bounds, &local_bounds, L"%");
@@ -92,9 +92,9 @@ void draw_string_and_hack_in_icons(
         {
             current = icon_spec + wcslen(icon_names[icon_type]);
 
-            __int16 remapped = remap_sticks_for_local_player(icon_type,
+            int16_t remapped = remap_sticks_for_local_player(icon_type,
                     local_player_index_for_draw_string_and_hack_in_icons);
-            __int16 button_index = -1;
+            int16_t button_index = -1;
             if (remapped <= 17)
             {
                 button_index = remapped;
@@ -125,8 +125,8 @@ void draw_string_and_hack_in_icons(
                 icon_hud_element_definition *icon =
                         &((icon_hud_element_definition *)hud_globals->messaging.button_icons.address)[button_index];
 
-                unsigned __int8 saved_flags = icon->flags;
-                __int16 saved_width_offset = icon->width_offset;
+                uint8_t saved_flags = icon->flags;
+                int16_t saved_width_offset = icon->width_offset;
 
                 real_argb_color icon_color;
                 pixel32_to_real_argb_color(icon->color, &icon_color); /* FAITHFUL QUIRK: result unused below */

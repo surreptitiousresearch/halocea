@@ -12,7 +12,7 @@ extern void qsort(void *base, unsigned int count, unsigned int size, int (__fast
 
 void rasterizer_sort_external(void)
 {
-    for ( __int16 i = 0; i < transparent_geometry_group_count; ++i )
+    for ( int16_t i = 0; i < transparent_geometry_group_count; ++i )
         transparent_geometry_group_sorted_indices[i] = i;
 
     qsort(transparent_geometry_group_sorted_indices, transparent_geometry_group_count, 2u,

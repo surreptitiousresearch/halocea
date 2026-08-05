@@ -41,16 +41,16 @@ void path_add_steps(obstacle_path *path, int16_t step_index, int16_t seed_disc_i
     unsigned int visited[4];
     memset(visited, 0, 4 * BIT_VECTOR_SIZE_IN_LONGS(path->obstacles->disc_count));
 
-    __int16 queue[132];
+    int16_t queue[132];
     int queue_count = 1;
     queue[0] = seed_disc_index;
     BIT_VECTOR_SET_FLAG(visited, seed_disc_index);
 
     do
     {
-        __int16 disc_index = queue[--queue_count];
+        int16_t disc_index = queue[--queue_count];
 
-        __int16 obstacle_index = (disc_index == -1) ? -1 : path->obstacles->discs[disc_index].obstacle_index;
+        int16_t obstacle_index = (disc_index == -1) ? -1 : path->obstacles->discs[disc_index].obstacle_index;
 
         real_vector2d tangent_directions[2];
         float tangent_distance;
@@ -69,9 +69,9 @@ void path_add_steps(obstacle_path *path, int16_t step_index, int16_t seed_disc_i
                     &current_step->point, current_step->surface_index, direction, path->radius,
                     path->radius * 2.0f + tangent_distance, 0, 0, path->ignore_optional, &pill_hit);
 
-            if ((unsigned __int16)pill_hit.disc_index != 0xFFFF)
+            if ((uint16_t)pill_hit.disc_index != 0xFFFF)
             {
-                __int16 hit_disc_index = pill_hit.disc_index;
+                int16_t hit_disc_index = pill_hit.disc_index;
                 int word_index = hit_disc_index >> 5;
                 unsigned int bit = 1 << (hit_disc_index & 0x1F);
                 if ((visited[word_index] & bit) == 0)

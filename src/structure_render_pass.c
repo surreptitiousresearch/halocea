@@ -23,12 +23,12 @@ extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int1
  * stack frame at those offsets. Typed here to match what is actually invoked. */
 void structure_render_pass(
         int    *surface_indices,
-        __int16 surface_count,
+        int16_t surface_count,
         int     dynamic_triangles_index,
         void (__fastcall *begin_lightmap)(bitmap_data *),
-        void (__fastcall *draw_triangles)(const shader *, __int16, int, int, int, const vertex_buffer *),
+        void (__fastcall *draw_triangles)(const shader *, int16_t, int, int, int, const vertex_buffer *),
         void (__fastcall *end_lightmap)(void),
-        void (__fastcall *draw_transparent_triangles)(const shader *, __int16, bitmap_data *, int, int, int,
+        void (__fastcall *draw_transparent_triangles)(const shader *, int16_t, bitmap_data *, int, int, int,
                                                        const vertex_buffer *, const real_point3d *))
 {
     structure_bsp *bsp                = global_structure_bsp;
@@ -41,7 +41,7 @@ void structure_render_pass(
 
     structure_lightmap *lightmaps = (structure_lightmap *)bsp->lightmaps.address;
 
-    for (__int16 lightmap_index = 0; lightmap_index < bsp->lightmaps.count; lightmap_index++)
+    for (int16_t lightmap_index = 0; lightmap_index < bsp->lightmaps.count; lightmap_index++)
     {
         if (surface_cursor >= surface_end)
             break;
@@ -83,7 +83,7 @@ void structure_render_pass(
                     ++surface_cursor;
                 while (surface_cursor < surface_end && *surface_cursor < surface_end_idx);
 
-                __int16 chunk_count = (__int16)(surface_cursor - chunk_start);
+                int16_t chunk_count = (int16_t)(surface_cursor - chunk_start);
 
                 if (breakable_surface_extant(material->breakable_surface_index))
                 {

@@ -13,7 +13,7 @@ void cinematic_set_title_delayed_evaluate(int16_t function_index, int thread_ind
     if ( arguments )
     {
         /* HS argument block: packed wire, faithfully de-flagged */
-        cinematic_set_title_delayed(*(__int16 *)arguments, ((float *)arguments)[1]);
+        cinematic_set_title_delayed(*(int16_t *)arguments, ((float *)arguments)[1]);
         hs_return(thread_index, 0);
     }
 }

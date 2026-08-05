@@ -12,6 +12,7 @@ typedef struct animINST animINST;
 typedef struct entENTITY entENTITY;   /* ws entity — boundary */
 typedef struct m3dMATR m3dMATR;       /* ws 4x4 matrix — boundary */
 
+#include <stdint.h>
 #include "../apCL.h"
 
 /* ds::WEAK_PTR<T> — boundary shim (referenced only as a dsVECTOR element type here). */
@@ -37,22 +38,22 @@ typedef struct HCEX_OBJ
     int                  modelIdx;      /* 0x08 */
     dsVECTOR<WEAK_PTR<entENTITY>, 8> followers;  /* 0x0C */
     dsVECTOR<m3dMATR, 8> followersOfs;  /* 0x20 */
-    unsigned __int32 _reserved_bits : 17; /* 0x34 (anonymous :17 in DB) */
-    unsigned __int32 isFuncDin : 1;
-    unsigned __int32 isFuncCin : 1;
-    unsigned __int32 isFuncBin : 1;
-    unsigned __int32 isFuncAin : 1;
-    unsigned __int32 isFuncD : 1;
-    unsigned __int32 isFuncC : 1;
-    unsigned __int32 isFuncB : 1;
-    unsigned __int32 isFuncA : 1;
-    unsigned __int32 isMachinePositionOn : 1;
-    unsigned __int32 isMachinePowerOn : 1;
-    unsigned __int32 isMachineLocked : 1;
-    unsigned __int32 isShieldShow : 1;
-    unsigned __int32 isActCamo : 1;
-    unsigned __int32 isHidden : 1;
-    unsigned __int32 isInited : 1;
+    uint32_t _reserved_bits : 17; /* 0x34 (anonymous :17 in DB) */
+    uint32_t isFuncDin : 1;
+    uint32_t isFuncCin : 1;
+    uint32_t isFuncBin : 1;
+    uint32_t isFuncAin : 1;
+    uint32_t isFuncD : 1;
+    uint32_t isFuncC : 1;
+    uint32_t isFuncB : 1;
+    uint32_t isFuncA : 1;
+    uint32_t isMachinePositionOn : 1;
+    uint32_t isMachinePowerOn : 1;
+    uint32_t isMachineLocked : 1;
+    uint32_t isShieldShow : 1;
+    uint32_t isActCamo : 1;
+    uint32_t isHidden : 1;
+    uint32_t isInited : 1;
 } HCEX_OBJ;                             /* 56 bytes */
 
 /* Whole 32-bit flag block at 0x34 — use with the verified masks below. */

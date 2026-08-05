@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* race_globals_type — Race game-engine state (328 bytes). Full layout from DB types_members. */
 
 typedef struct race_globals_type
@@ -17,7 +18,7 @@ typedef struct race_globals_type
     int           number_of_spawned_tanks;               /* 0x138 */
     int           number_of_spawned_rocket_warthogs;      /* 0x13C */
     int           number_of_spawned_banshees;             /* 0x140 */
-    unsigned __int8 vehicles_have_been_added;              /* 0x144 */
+    uint8_t vehicles_have_been_added;              /* 0x144 */
 } race_globals_type; /* 328 bytes */
 
 extern race_globals_type race_globals;

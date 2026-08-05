@@ -26,8 +26,8 @@
 
 #include "headers/ai_information_data.h"
 extern int game_time_get(void);
-extern unsigned __int8 action_flee_at_flee_position(int actor_index);
-extern unsigned __int8 action_flee_current_position_exposed(unsigned __int16 actor_index,
+extern uint8_t action_flee_at_flee_position(int actor_index);
+extern uint8_t action_flee_current_position_exposed(uint16_t actor_index,
         flee_state_data *flee_state_data);
 extern void action_flee_find_flee_position(int actor_index, flee_state_data *state_data);
 extern void actor_situation_update_target_status(uint16_t actor_index);
@@ -52,7 +52,7 @@ int action_flee_perform(int actor_index)
 
     if ( flee->flee_stationary_ticks <= 0 )
     {
-        if ( (unsigned __int16)flee->flee_firing_position_index == 0xFFFF )
+        if ( (uint16_t)flee->flee_firing_position_index == 0xFFFF )
         {
             flee->find_new_flee_position = 1;
         }
@@ -77,8 +77,8 @@ int action_flee_perform(int actor_index)
                 if ( flee_prop_index != -1 )
                 {
                     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, flee_prop_index);
-                    __int16 audibility = prop->audibility;
-                    __int16 ineffability = prop->ineffability;
+                    int16_t audibility = prop->audibility;
+                    int16_t ineffability = prop->ineffability;
                     prop->visibility = 0;
                     if ( audibility > ineffability )
                         ineffability = audibility;
@@ -100,7 +100,7 @@ int action_flee_perform(int actor_index)
     if ( flee->panic_type >= _actor_panic_grenade_attached_to_us
       && flee->panic_type <= _actor_panic_burning_to_death )
     {
-        unsigned __int8 finished;
+        uint8_t finished;
         if ( flee->panic_type == _actor_panic_delayed_projectile_attached_to_us || flee->panic_type == _actor_panic_grenade_attached_to_us )
         {
             finished = actor->input.delayed_attached_projectile_index == -1;   /* threat target cleared */
@@ -120,7 +120,7 @@ int action_flee_perform(int actor_index)
     /* If actively threatened and not yet done, keep the flee position fresh. */
     if ( actor->meta.timeslice && !flee->done_fleeing )
     {
-        if ( (unsigned __int16)flee->flee_firing_position_index != 0xFFFF
+        if ( (uint16_t)flee->flee_firing_position_index != 0xFFFF
           && !flee->forced_flee_ticks
           && action_flee_current_position_exposed(actor_index, flee) )
         {
@@ -139,7 +139,7 @@ int action_flee_perform(int actor_index)
         if ( flee->find_new_flee_position )
         {
             action_flee_find_flee_position(actor_index, flee);
-            if ( (unsigned __int16)flee->flee_firing_position_index == 0xFFFF )
+            if ( (uint16_t)flee->flee_firing_position_index == 0xFFFF )
             {
                 flee->unable_to_flee = 1;
                 actor->emotions.last_flee_failed_time = game_time_get();
@@ -160,15 +160,15 @@ communicate:
     }
 
     if ( flee->panic_type > _actor_panic_none
-      && (unsigned __int16)flee->flee_firing_position_index != 0xFFFF
+      && (uint16_t)flee->flee_firing_position_index != 0xFFFF
       && !flee->unable_to_flee
       && actor->meta.unit_index != -1 )
     {
         int now = game_time_get();
         if ( !flee->communicated_flee || flee->last_communication_time + 60 >= now )
         {
-            __int16 panic_type = flee->panic_type;
-            __int16 scream_type;
+            int16_t panic_type = flee->panic_type;
+            int16_t scream_type;
             if ( panic_type == _actor_panic_burning_to_death || panic_type == _actor_panic_melee_attached_to_us )
             {
                 scream_type = _unit_scream_burning_to_death;

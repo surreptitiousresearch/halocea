@@ -2,8 +2,9 @@
  * is widened and passed through the wide-character towlower (so bytes >= 0x80 sign-extend before the
  * lookup), and the s1 cursor is maintained as a pointer difference against the advancing s2 cursor, exactly
  * as compiled. Returns <0 / 0 / >0 like strcasecmp. */
+#include <stdint.h>
 
-extern unsigned __int16 towlower(unsigned __int16 c);
+extern uint16_t towlower(uint16_t c);
 
 int csstrcasecmp(const char *s1, const char *s2)
 {

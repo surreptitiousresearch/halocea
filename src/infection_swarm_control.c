@@ -87,16 +87,16 @@ void infection_swarm_control(int actor_index)
             TAG_GET(actor_variant_definition, actor->meta.variant_definition_index);
 
     const float action_duration_scale = 30.0f;
-    __int16 intermittent_action_member = -1;
+    int16_t intermittent_action_member = -1;
 
     /* Once per cycle: refresh the intermittent-action timer and pick a member to perform it. */
     if ( swarm->swarm_intermittent_action_timer <= 0 )
     {
-        __int16 action = actor->state.action;
+        int16_t action = actor->state.action;
         if ( action == actor_action_search || action == actor_action_charge )
         {
             float duration = real_seed_random_range(get_global_random_seed_address(), 6.0f, 8.0f);
-            __int16 unit_count = swarm->unit_count;
+            int16_t unit_count = swarm->unit_count;
             float new_timer = duration / (float)unit_count * action_duration_scale;
             if ( new_timer <= 6.0f )
                 new_timer = 6.0f;
@@ -133,7 +133,7 @@ void infection_swarm_control(int actor_index)
     {
         int move_target_index = -1;
         int movement_mode = _swarm_movement_none;
-        __int16 aiming_speed = 1;
+        int16_t aiming_speed = 1;
         int unit_index = swarm->unit_indices[member_slot];
         char animation_state = _unit_animation_state_in_combat;
         char facing_aligned = 0;
@@ -427,7 +427,7 @@ after_parent:
                             }
                             int pause_ticks = (int)(pause_fraction * action_duration_scale);
                             char pause_clamped = pause_ticks;
-                            if ( (__int16)pause_ticks > 255 )
+                            if ( (int16_t)pause_ticks > 255 )
                                 pause_clamped = -1;
                             component->___u9.wander.pause_ticks = pause_clamped;
                         }
@@ -450,7 +450,7 @@ after_parent:
                                     flee_pause_min, flee_pause_max);
                         int move_ticks = (int)(move_fraction * action_duration_scale);
                         char move_clamped = move_ticks;
-                        if ( (__int16)move_ticks > 255 )
+                        if ( (int16_t)move_ticks > 255 )
                             move_clamped = -1;
                         component->___u9.wander.move_ticks = move_clamped;
                     }
@@ -522,7 +522,7 @@ after_parent:
                 /* recovered: *(u16*)(component+0x24) -> obey.___u5.directmovement.facing; *(float*)(component+0x28/0x2C/0x30) -> obey.___u5.directmovement.vector.n[0..2] */
                 /* facing values 0-3 select forward / negated / cross / negated-cross of the direct vector;
                  * no enum exists for them (the obey atom_modifier vocabulary, also takes 10 and -1). */
-                unsigned int obey_mode = (unsigned __int16)component->___u9.obey.___u5.directmovement.facing;
+                unsigned int obey_mode = (uint16_t)component->___u9.obey.___u5.directmovement.facing;
                 have_direction = 1;
                 if ( obey_mode >= 2 && obey_mode <= 3 )
                 {
@@ -532,7 +532,7 @@ after_parent:
                     movement_vector.n[0] = up_reference.n[1] * obey_z - up_reference.n[2] * obey_y;
                     movement_vector.n[1] = up_reference.n[2] * obey_x - obey_z * up_reference.n[0];
                     movement_vector.n[2] = up_reference.n[0] * obey_y - up_reference.n[1] * obey_x;
-                    if ( (unsigned __int16)component->___u9.obey.___u5.directmovement.facing == 3 )
+                    if ( (uint16_t)component->___u9.obey.___u5.directmovement.facing == 3 )
                     {
                         movement_vector.n[0] = -movement_vector.n[0];
                         movement_vector.n[1] = -movement_vector.n[1];
@@ -543,7 +543,7 @@ after_parent:
                 movement_vector.n[0] = component->___u9.obey.___u5.directmovement.vector.n[0];
                 movement_vector.n[1] = component->___u9.obey.___u5.directmovement.vector.n[1];
                 movement_vector.n[2] = component->___u9.obey.___u5.directmovement.vector.n[2];
-                if ( (unsigned __int16)component->___u9.obey.___u5.directmovement.facing == 1 )
+                if ( (uint16_t)component->___u9.obey.___u5.directmovement.facing == 1 )
                 {
                     movement_vector.n[0] = -movement_vector.n[0];
                     movement_vector.n[1] = -movement_vector.n[1];
@@ -559,7 +559,7 @@ lunge_check:
                 /* Lunge/jump obey state: latch the busy flag once, then steer along object forward. */
                 /* recovered: *(u16*)(component+0x24) -> obey.___u5.directmovement.facing */
                 if ( (component->___u9.obey.simple_control_flags & (1u << _obey_simple_control_jump_begun_bit)) == 0
-                  && !(unsigned __int16)component->___u9.obey.___u5.directmovement.facing )
+                  && !(uint16_t)component->___u9.obey.___u5.directmovement.facing )
                 {
                     if ( !unit_is_busy(unit_index) )
                     {
@@ -657,7 +657,7 @@ have_basis:
              * swarm members that lie ahead of a short probe point. ------------------------------- */
             if ( movement_mode != _swarm_movement_obey )
             {
-                __int16 member_count = swarm->unit_count;
+                int16_t member_count = swarm->unit_count;
                 float avoidance_turn = 0.0f;
                 if ( member_count > 0 )
                 {
@@ -690,7 +690,7 @@ have_basis:
                                 }
                             }
                         }
-                        other_slot = (__int16)(other_slot + 1);
+                        other_slot = (int16_t)(other_slot + 1);
                     }
                     while ( other_slot < member_count );
 
@@ -753,7 +753,7 @@ build_packet:
         }
 
         /* Update the biped's melee state and record the looking target on the biped. */
-        __int16 component_flags = component->flags;
+        int16_t component_flags = component->flags;
         if ( (component_flags & (1u << _swarm_component_attached_bit)) != 0 )
         {
             if ( (component_flags & (1u << _swarm_component_melee_engaged_bit)) == 0 )
@@ -765,7 +765,7 @@ build_packet:
         }
         else
         {
-            __int16 updated_flags;
+            int16_t updated_flags;
             if ( !target_in_melee || component->attack_delay_ticks )
                 updated_flags = component->flags & ~(1u << _swarm_component_melee_engaged_bit);
             else
@@ -826,7 +826,7 @@ emit_control:
             unit_control(unit_index, &control, -1);
         }
 
-        member_slot = (__int16)(member_slot + 1);
+        member_slot = (int16_t)(member_slot + 1);
         if ( member_slot >= swarm->unit_count )
             return;
     }

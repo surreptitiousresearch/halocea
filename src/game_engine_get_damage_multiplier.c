@@ -4,6 +4,7 @@
  * (trait 3). Returns 1.0 outside a running game engine. */
 
 /* blam_data_globals.h first: supplies wchar_t before dependent headers are parsed (migration) */
+#include <stdint.h>
 #include "headers/blam_data_globals.h"
 #include "headers/game_engine.h"
 #include "headers/game_variant.h"
@@ -36,7 +37,7 @@ float game_engine_get_damage_multiplier(int attacker_index, int defender_index)
     if ( attacker_boost )
         multiplier = multiplier * 1.5f;
 
-    unsigned __int8 defender_resist = 0;
+    uint8_t defender_resist = 0;
     if ( game_engine && game_engine->game_engine_test_trait )
         defender_resist = game_engine->game_engine_test_trait(defender_index, _game_trait_damage_resistant);
     if ( defender_resist )

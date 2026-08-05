@@ -10,7 +10,7 @@ extern int player_new_client(int machine_index, int player_index, int16_t local_
 
 uint8_t network_game_spawn_player_client(network_player *player, int player_index)
 {
-    __int16 controller_index = network_game_player_is_local(player) ? player->controller_index : -1;
+    int16_t controller_index = network_game_player_is_local(player) ? player->controller_index : -1;
 
     player_new_client(player->machine_index, player_index, controller_index, player);
 

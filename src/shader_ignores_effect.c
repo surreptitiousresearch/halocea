@@ -11,7 +11,7 @@ uint8_t shader_ignores_effect(const shader *shader)
 {
     if ( !shader )
         return 0;
-    int type = (unsigned __int16)shader->base.type;
+    int type = (uint16_t)shader->base.type;
     if ( type == _shader_type_transparent_generic
         || type == _shader_type_transparent_chicago
         || type == _shader_type_transparent_chicago_extended )

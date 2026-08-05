@@ -1,6 +1,7 @@
 /* scenario_location_from_point @ 0x83704210 — resolve the full BSP location (leaf + cluster) of a
  * world point in the active scenario structure, clearing the bonus field. */
 
+#include <stdint.h>
 #include "headers/location.h"
 #include "headers/real_point3d.h"
 #include "headers/structure_bsp.h"
@@ -13,7 +14,7 @@ extern int bsp3d_test_point(const bsp3d *bsp, int node_index, const real_point3d
 void scenario_location_from_point(location *location, const real_point3d *point)
 {
     int leaf_index = bsp3d_test_point(global_bsp3d, 0, point);
-    __int16 cluster_index;
+    int16_t cluster_index;
 
     location->leaf_index = leaf_index;
     if ( leaf_index == -1 )

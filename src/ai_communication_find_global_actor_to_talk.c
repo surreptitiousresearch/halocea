@@ -44,7 +44,7 @@ int ai_communication_find_global_actor_to_talk(int16_t team_index, int16_t find_
         }
         else
         {
-            unsigned __int8 is_enemy = game_team_is_enemy(team_index, actor->meta.team_index);
+            uint8_t is_enemy = game_team_is_enemy(team_index, actor->meta.team_index);
             if ( find_actor_mode == 1 )
                 eligible = (is_enemy == 0);
             else if ( find_actor_mode )

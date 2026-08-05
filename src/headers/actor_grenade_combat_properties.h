@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* actor_grenade_combat_properties — actor_variant_definition.grenade_combat (64 bytes), per an
  * authoritative structure dump (C:\halo\headers_ref\actor_grenade_combat_properties.h). Sits
  * immediately after ranged_combat at absolute byte 384 (0x180) — confirmed by 9 of the doc's raw
@@ -6,10 +7,10 @@
 
 typedef struct actor_grenade_combat_properties
 {
-    __int16  grenade_type;                  /* 0x00 (abs 384) */
-    __int16  trajectory_type;                /* 0x02 (abs 386) */
-    __int16  stimulus_type;                   /* 0x04 (abs 388) */
-    __int16  minimum_enemy_count;              /* 0x06 (abs 390) — doc's "minimum_enemy_count (+0x186)" */
+    int16_t  grenade_type;                  /* 0x00 (abs 384) */
+    int16_t  trajectory_type;                /* 0x02 (abs 386) */
+    int16_t  stimulus_type;                   /* 0x04 (abs 388) */
+    int16_t  minimum_enemy_count;              /* 0x06 (abs 390) — doc's "minimum_enemy_count (+0x186)" */
     float    enemy_radius;                       /* 0x08 (abs 392) — doc's "enemy_radius +0x188" */
     float    grenade_unused;                      /* 0x0C (abs 396) */
     float    grenade_maximum_velocity;              /* 0x10 (abs 400) — doc's "velocity_max (+400)" */

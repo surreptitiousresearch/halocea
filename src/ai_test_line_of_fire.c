@@ -7,7 +7,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/line_of_fire_pill.h"
 
-extern __int16 ai_find_line_of_fire_friend_pills(int actor_index, __int16 max_pill_count, line_of_fire_pill *pills);
+extern int16_t ai_find_line_of_fire_friend_pills(int actor_index, int16_t max_pill_count, line_of_fire_pill *pills);
 extern uint8_t fast_vector_intersects_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
 extern uint8_t vector_intersects_pill3d(const real_point3d *point, const real_vector3d *vector, const real_point3d *base, const real_vector3d *height, float width);
 
@@ -39,7 +39,7 @@ uint8_t ai_test_line_of_fire(
                 if (hit)
                     break;
             }
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             if (i >= pill_count)
                 goto done;
         }

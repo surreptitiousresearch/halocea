@@ -1,12 +1,13 @@
 #pragma once
 /* shader_environment_specular_properties — perpendicular/parallel specular tint block (DB, 84 bytes). */
 
+#include <stdint.h>
 #include "real_rgb_color.h"
 
 typedef struct shader_environment_specular_properties
 {
-    unsigned __int16 flags;                      /* 0x00 */
-    __int16          type;                       /* 0x02 */
+    uint16_t flags;                      /* 0x00 */
+    int16_t          type;                       /* 0x02 */
     int              unused1[4];                 /* 0x04 */
     float            brightness;                 /* 0x14 */
     int              unused2[5];                 /* 0x18 */

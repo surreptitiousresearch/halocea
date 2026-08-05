@@ -27,10 +27,10 @@ void attachments_delete(int object_index)
 
     if ( object_definition->attachments.count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
-            unsigned __int8 attachment_type = ((unsigned char *)object_data)[324 + i];
+            uint8_t attachment_type = ((unsigned char *)object_data)[324 + i];
             if ( attachment_type != _object_attachment_type_none )
             {
                 int attachment_index = ((int *)object_data)[i + 83];  /* raw int[] at +332+4*i */
@@ -57,7 +57,7 @@ void attachments_delete(int object_index)
                     }
                 }
             }
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < object_definition->attachments.count );
     }

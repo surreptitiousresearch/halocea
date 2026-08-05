@@ -15,6 +15,6 @@ void bitmap_uncompress_from_mipmap(const bitmap_data *source_bitmap, bitmap_data
         bitmap_2d_uncompress_from_mipmap(source_bitmap, destination_bitmap, source_mipmap_index);
     else if (source_bitmap->type == bitmap_type_3d)
         bitmap_3d_uncompress_from_mipmap(source_bitmap, destination_bitmap, source_mipmap_index);
-    else if ((unsigned __int16)source_bitmap->type < bitmap_type_white)
+    else if ((uint16_t)source_bitmap->type < bitmap_type_white)
         bitmap_cm_uncompress_from_mipmap(source_bitmap, destination_bitmap, source_mipmap_index);
 }

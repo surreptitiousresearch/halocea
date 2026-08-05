@@ -6,6 +6,7 @@
  * awareness (state.combat_status >= _actor_combat_status_clear_los), additionally mark
  * orders.combat.shoot_at_target and escalate the look priority to _primary_priority_locked_aiming (7). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/actor_combat_status.h"
@@ -20,7 +21,7 @@ void action_fight_control(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     char saved_flag = actor->emotions.defensive_crouch;
-    unsigned __int16 vehicle_driver_type = (unsigned __int16)actor->input.vehicle_driver_type;
+    uint16_t vehicle_driver_type = (uint16_t)actor->input.vehicle_driver_type;
 
     actor->orders.look.primary_priority = _primary_priority_aiming;
     actor->orders.look.primary_direction.type = _direction_specification_target;

@@ -29,8 +29,8 @@ extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, con
 
 void build_torus(const real_matrix4x3 *matrix, int16_t *vertex_count_reference, int16_t *triangle_strip_count_reference, real_point3d *points, real_point2d *texture_uvs, int16_t *triangle_strip_vertex_indices, int16_t ring_segment_count, float ring_radius, int16_t cylinder_segment_count, float cylinder_radius)
 {
-    __int16 vertex_count = 0;
-    __int16 triangle_strip_count = 0;
+    int16_t vertex_count = 0;
+    int16_t triangle_strip_count = 0;
 
     if ( ring_segment_count >= 0 )
     {
@@ -38,7 +38,7 @@ void build_torus(const real_matrix4x3 *matrix, int16_t *vertex_count_reference, 
 
         for ( int ring_index = 0;
               ring_index <= ring_segment_count;
-              ring_index = (__int16)(ring_index + 1) )
+              ring_index = (int16_t)(ring_index + 1) )
         {
             float ring_fraction = ((float)ring_index / ring_segment_count_float);
             float ring_angle = (ring_fraction * TWO_PI);
@@ -77,7 +77,7 @@ void build_torus(const real_matrix4x3 *matrix, int16_t *vertex_count_reference, 
 
                 for ( int cylinder_index = 0;
                       cylinder_index <= cylinder_segment_count;
-                      cylinder_index = (__int16)(cylinder_index + 1) )
+                      cylinder_index = (int16_t)(cylinder_index + 1) )
                 {
                     texture_uvs->n[1] = ring_texture_coordinate;
 
@@ -137,7 +137,7 @@ void build_torus(const real_matrix4x3 *matrix, int16_t *vertex_count_reference, 
 
                     ++points;
                     ++texture_uvs;
-                    vertex_count = (__int16)(vertex_count + 1);
+                    vertex_count = (int16_t)(vertex_count + 1);
                 }
             }
         }

@@ -18,11 +18,11 @@ void game_allegiance_update(void)
         game_allegiance *allegiance = &allegiances[i];
         if ( allegiance->current_incident_decay_time > 0 )
         {
-            __int16 decay = allegiance->current_incident_decay_time - 1;
+            int16_t decay = allegiance->current_incident_decay_time - 1;
             allegiance->current_incident_decay_time = decay;
             if ( decay == 0 )
             {
-                __int16 remaining = allegiance->current_incidents;
+                int16_t remaining = allegiance->current_incidents;
                 allegiance->current_incidents = remaining - 1;
                 if ( remaining == 1 )
                     game_allegiance_broken(allegiance, 0, 0);   /* last incident forgiven: restore */

@@ -23,9 +23,9 @@ void hs_evaluate_inequality(int16_t function_index, int thread_index, uint8_t in
     hs_stack_frame *frame = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index)->stack;
     int call_expression = frame->expression_index;
     int first_argument = HS_SYNTAX_NODE(HS_SYNTAX_NODE(call_expression).data).next_node_index;
-    __int16 operand_type = HS_SYNTAX_NODE(first_argument).type;
+    int16_t operand_type = HS_SYNTAX_NODE(first_argument).type;
 
-    __int16 parameter_types[2] = { operand_type, operand_type };
+    int16_t parameter_types[2] = { operand_type, operand_type };
     void *values = hs_arguments_evaluate(thread_index, 2, parameter_types, initialize);
     if ( !values )
         return;
@@ -43,8 +43,8 @@ void hs_evaluate_inequality(int16_t function_index, int thread_index, uint8_t in
     }
     else                                /* short / enum */
     {
-        left = (float)((__int16 *)values)[0];
-        right = (float)((__int16 *)values)[2];   /* second slot at byte +4 */
+        left = (float)((int16_t *)values)[0];
+        right = (float)((int16_t *)values)[2];   /* second slot at byte +4 */
     }
 
     unsigned char comparison;

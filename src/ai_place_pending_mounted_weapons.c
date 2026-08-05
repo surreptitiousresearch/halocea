@@ -29,7 +29,7 @@ void ai_place_pending_mounted_weapons(void)
         return;
     }
 
-    for ( int queue_index = 0; queue_index < ai_globals->mounted_weapon_unit_count; queue_index = (__int16)(queue_index + 1) )
+    for ( int queue_index = 0; queue_index < ai_globals->mounted_weapon_unit_count; queue_index = (int16_t)(queue_index + 1) )
     {
         int object_index = ai_globals->mounted_weapon_unit_indices[queue_index];
 
@@ -38,7 +38,7 @@ void ai_place_pending_mounted_weapons(void)
 
         if ( definition->unit.seats.count > 0 )
         {
-            __int16 seat_index = 0;
+            int16_t seat_index = 0;
             do
             {
                 unit_seat *seat = (unit_seat *)definition->unit.seats.address + seat_index;
@@ -54,7 +54,7 @@ void ai_place_pending_mounted_weapons(void)
                         unit_enter_seat(DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.unit_index,
                                         object_index, seat_index);
                 }
-                seat_index = (__int16)(seat_index + 1);
+                seat_index = (int16_t)(seat_index + 1);
             }
             while ( seat_index < definition->unit.seats.count );
         }

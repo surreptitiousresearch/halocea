@@ -42,7 +42,7 @@ extern void rasterizer_set_target_as_texture_for_effect(int16_t stage, int16_t t
 extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
@@ -75,7 +75,7 @@ void _rasterizer_environment_reflection_mirror_draw(const shader *shader, int16_
         return;
 
     unsigned int pass_count[4];
-    __int16 effect_index;
+    int16_t effect_index;
     if (reflection_mode == _shader_environment_reflection_type_bumped)
         effect_index = _dxshader_environment_reflection_mirror_bumped;
     else if (reflection_mode == _shader_environment_reflection_type_flat)
@@ -83,7 +83,7 @@ void _rasterizer_environment_reflection_mirror_draw(const shader *shader, int16_
                            ? _dxshader_environment_reflection_mirror_flat_specular
                            : _dxshader_environment_reflection_mirror_flat;
     else if ((unsigned int)reflection_mode >= NUMBER_OF_SHADER_ENVIRONMENT_REFLECTION_TYPES)
-        effect_index = (__int16)(pass_count[0] >> 16); /* FAITHFUL QUIRK: reads uninitialized stack */
+        effect_index = (int16_t)(pass_count[0] >> 16); /* FAITHFUL QUIRK: reads uninitialized stack */
     else /* _shader_environment_reflection_type_radiosity */
         effect_index = _dxshader_environment_reflection_mirror_bumped;
 
@@ -95,7 +95,7 @@ void _rasterizer_environment_reflection_mirror_draw(const shader *shader, int16_
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(effect_shader->vshader9));
 
     int bump_map_index = shader_env->environment.diffuse.bump_map.index;
-    __int16 normalization_stage;
+    int16_t normalization_stage;
     if (bump_map_index == -1)
     {
         normalization_stage = 2;
@@ -128,7 +128,7 @@ void _rasterizer_environment_reflection_mirror_draw(const shader *shader, int16_
                                                   &texture_transform_constants[7],
                                                   &texture_transform_constants[11]);
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, texture_transform_constants, 3,
-                                        (unsigned __int64)3 << 60);
+                                        (uint64_t)3 << 60);
 
     /* c0: camera forward remapped to [-1,1] (xyz) + colored-lightmap flag (w). */
     float mirror_constants[4];

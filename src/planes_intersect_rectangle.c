@@ -14,7 +14,7 @@ int16_t planes_intersect_rectangle(const real_rectangle3d *bounds, int16_t cull_
     float z0 = bounds->n[4], z1 = bounds->n[5];
 
     int accumulated_behind = 0;
-    for (int plane_index = 0; plane_index < cull_plane_count; plane_index = (__int16)(plane_index + 1))
+    for (int plane_index = 0; plane_index < cull_plane_count; plane_index = (int16_t)(plane_index + 1))
     {
         const real_plane3d *plane = &cull_planes[plane_index];
         float nx = plane->n.n[0];

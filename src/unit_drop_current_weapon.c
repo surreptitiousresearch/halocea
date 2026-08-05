@@ -32,11 +32,11 @@ uint8_t unit_drop_current_weapon(int unit_index, uint8_t immediate)
     int weapon_index = -1;
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
 
-    __int16 current_slot = unit->unit.current_weapon_index;
+    int16_t current_slot = unit->unit.current_weapon_index;
     if ( current_slot != -1 )
         weapon_index = unit->unit.weapon_object_indices[current_slot];
 
-    __int16 next_slot = unit_weapon_next_index(unit_index, unit->unit.current_weapon_index, 1);
+    int16_t next_slot = unit_weapon_next_index(unit_index, unit->unit.current_weapon_index, 1);
     if ( weapon_index == -1 || (next_slot == unit->unit.current_weapon_index && !immediate) )
         return 0;
 
@@ -55,7 +55,7 @@ uint8_t unit_drop_current_weapon(int unit_index, uint8_t immediate)
         if ( hcex_ai_drop_wpn_half_ammo && unit->object.owner_player_index == -1 )
         {
             weapon_datum *dropped = (weapon_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
-            __int16 reserve_ammo = dropped->weapon.magazines[0].rounds_loaded;
+            int16_t reserve_ammo = dropped->weapon.magazines[0].rounds_loaded;
             float doubled = (dropped->weapon.age * 2.0f);
             dropped->weapon.magazines[0].rounds_total /= 2;
             dropped->weapon.magazines[0].rounds_loaded = (reserve_ammo >> 1) + (reserve_ammo < 0 && (reserve_ammo & 1) != 0);

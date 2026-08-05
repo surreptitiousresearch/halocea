@@ -12,7 +12,7 @@ extern int16_t game_connection(void);
 uint8_t equipment_new(int equipment_index)
 {
     equipment_datum *object = (equipment_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, equipment_index)->datum;
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
 
     if ( connection == 1 || connection == 2 )
     {

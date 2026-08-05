@@ -22,7 +22,7 @@ int16_t hs_find_function_by_name(const char *name)
     if ( !stricmp(name, legacy_alias) )
         lookup = "player_effect_set_max_vibrate";
 
-    for ( __int16 i = 0; i < HS_FUNCTION_COUNT; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < HS_FUNCTION_COUNT; i = (int16_t)(i + 1) )
         if ( !stricmp(hs_function_table[i]->name, lookup) )
             return i;
     return -1;

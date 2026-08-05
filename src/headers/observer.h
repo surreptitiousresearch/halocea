@@ -5,6 +5,7 @@
  * interpolation coefficient rows a..f). observer_globals holds a 4-byte header followed by the per-local-player
  * observer records at stride 0x29C. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "observer_command.h"
@@ -25,8 +26,8 @@ typedef struct observer
     int               header_signature;    /* 0x000 — 'obsr' (1918985249) */
     observer_command *pending_command;     /* 0x004 */
     observer_command  last_command;        /* 0x008 */
-    unsigned __int8   updated_for_frame;   /* 0x070 */
-    unsigned __int8   first_command;       /* 0x071 */
+    uint8_t   updated_for_frame;   /* 0x070 */
+    uint8_t   first_command;       /* 0x071 */
     char              _pad072[2];          /* 0x072 */
     observer_result   result;              /* 0x074 — resolved viewpoint */
     /* 0x0B0 — current camera state. Anonymous wrapper keeps the named ___u6 path and adds

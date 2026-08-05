@@ -20,7 +20,7 @@
 extern void *memset(void *dest, int value, unsigned int count);
 extern void actor_look_secondary_stop(uint16_t actor_index);
 
-typedef void (*obey_individual_iterator)(int actor_index, int unit_index, __int16 command_list_index,
+typedef void (*obey_individual_iterator)(int actor_index, int unit_index, int16_t command_list_index,
                                          obey_individual_simple_control *simple_control,
                                          obey_individual_complex_control *complex_control, void *user_data);
 extern void action_obey_individual_setup(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data);
@@ -46,7 +46,7 @@ uint8_t action_obey_command_list_setup(int actor_index, int16_t command_list_ind
     }
     else
     {
-        __int16 command_list_bsp = command_list->runtime_structure_bsp_reference_index;
+        int16_t command_list_bsp = command_list->runtime_structure_bsp_reference_index;
         if ( command_list_bsp == -1 || command_list_bsp == global_structure_bsp_index )
         {
             state_data->command_list_index = command_list_index;

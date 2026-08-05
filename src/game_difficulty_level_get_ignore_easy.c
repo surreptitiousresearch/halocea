@@ -2,6 +2,7 @@
  * Normal (1) so scripts that branch on difficulty never see the Easy tier. */
 
 /* blam_data_globals.h first: supplies wchar_t before dependent headers are parsed (migration) */
+#include <stdint.h>
 #include "headers/blam_data_globals.h"
 #include "headers/game_globals.h"
 #include "headers/game_difficulty.h"
@@ -12,5 +13,5 @@ int game_difficulty_level_get_ignore_easy(void)
     int difficulty = game_globals->options.difficulty;
     if ( difficulty <= game_difficulty_level_normal )
         difficulty = game_difficulty_level_normal;
-    return (__int16)difficulty;
+    return (int16_t)difficulty;
 }

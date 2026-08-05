@@ -17,10 +17,10 @@
 
 extern uint8_t player_profile_get_string(uint16_t *out, int index, void *list_items);
 extern void single_preview_column_list_update(widget_instance *widget,
-        unsigned __int8 (*get_string)(unsigned __int16 *, int, void *));
+        uint8_t (*get_string)(uint16_t *, int, void *));
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
-extern unsigned __int16 player_profile_number_of_available_primary_colors(void);
+extern uint16_t player_profile_number_of_available_primary_colors(void);
 extern void * preview_list_get_data_for_item(int index);
 extern void player_profile_update_item(widget_instance *item, player_profile *profile);
 extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int n);

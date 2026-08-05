@@ -22,9 +22,9 @@ extern void preview_list_create(void);
 extern int player_ui_get_player1_last_used_profile_index(void);
 extern uint8_t player_profile_get(int player_profile_index, player_profile *profile);
 extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data, int data_len,
-        unsigned __int8 is_default);
+        uint8_t is_default);
 
-uint8_t player_profiles_list_initialize(widget_instance *list_widget, event_record *event, unsigned __int8 *widget_deleted)
+uint8_t player_profiles_list_initialize(widget_instance *list_widget, event_record *event, uint8_t *widget_deleted)
 {
     ui_widget_definition *widget_definition =
         TAG_GET(ui_widget_definition, list_widget->ui_widget_tag_index);
@@ -38,13 +38,13 @@ uint8_t player_profiles_list_initialize(widget_instance *list_widget, event_reco
     if ( list_items_buffer )
     {
         int *list_items = (int *)list_items_buffer;
-        unsigned __int16 number_of_profiles = 100;
+        uint16_t number_of_profiles = 100;
         player_profiles_enumerate_available_to_local_player_index(list_widget->local_player_index,
                 &number_of_profiles, list_items, 0);
 
         if ( widget_definition->child_widget_references.count == 3 && number_of_profiles < 3 )
         {
-            for ( unsigned __int16 i = number_of_profiles; i < 3; ++i )
+            for ( uint16_t i = number_of_profiles; i < 3; ++i )
                 list_items[i] = -1;
             number_of_profiles = 3;
         }
@@ -55,7 +55,7 @@ uint8_t player_profiles_list_initialize(widget_instance *list_widget, event_reco
         int last_used_profile_index = player_ui_get_player1_last_used_profile_index();
         list_widget->parameters.text_box_parameters.string_list_index = -1;
 
-        for ( __int16 i = 0; i < list_widget->parameters.list_parameters.number_of_items; ++i )
+        for ( int16_t i = 0; i < list_widget->parameters.list_parameters.number_of_items; ++i )
         {
             if ( last_used_profile_index != -1 && list_items[i] == last_used_profile_index )
                 list_widget->parameters.text_box_parameters.string_list_index = i;
@@ -68,7 +68,7 @@ uint8_t player_profiles_list_initialize(widget_instance *list_widget, event_reco
             }
         }
 
-        if ( (unsigned __int16)list_widget->parameters.text_box_parameters.string_list_index == 0xFFFF )
+        if ( (uint16_t)list_widget->parameters.text_box_parameters.string_list_index == 0xFFFF )
             list_widget->parameters.text_box_parameters.string_list_index = 0;
 
         list_widget->parameters.list_parameters.list_item_top_index = -1;

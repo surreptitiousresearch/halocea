@@ -26,7 +26,7 @@ extern void structure_render_set_fog_offset(real_vector3d *vector_offset);
 void structure_get_planar_fog(int16_t cluster_index, render_fog *fog)
 {
     const structure_bsp *structure = global_structure_bsp;
-    unsigned __int8 is_screen_fog = 0;
+    uint8_t is_screen_fog = 0;
 
     fog->planar_mode = 0;
     fog->fog_definition_flags = 0;
@@ -53,7 +53,7 @@ void structure_get_planar_fog(int16_t cluster_index, render_fog *fog)
         return;
     }
 
-    unsigned __int16 cluster_fog_plane = (unsigned __int16)cluster->fog_designator;
+    uint16_t cluster_fog_plane = (uint16_t)cluster->fog_designator;
     if ((cluster_fog_plane & 0x8000) != 0)
     {
         fog->planar_mode = _render_planar_fog_mode_normal;
@@ -88,6 +88,6 @@ void structure_get_planar_fog(int16_t cluster_index, render_fog *fog)
         structure_render_set_fog_offset(&offset);
     }
 
-    fog->fog_definition_flags = (unsigned __int16)definition->flags;
+    fog->fog_definition_flags = (uint16_t)definition->flags;
     fog->screen = &definition->screen; /* fog tag +0x84 */
 }

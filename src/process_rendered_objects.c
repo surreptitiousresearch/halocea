@@ -44,7 +44,7 @@ extern void *memset(void *dst, int value, unsigned int count);
 
 void process_rendered_objects(object_render_data *data)
 {
-    __int16 i;
+    int16_t i;
     int rendered_index;
 
     if ( render_object_globals.rendered_object_count <= 0 )
@@ -149,7 +149,7 @@ void process_rendered_objects(object_render_data *data)
             }
         }
 
-        i = (__int16)(i + 1);
+        i = (int16_t)(i + 1);
         rendered_index = i;
     }
     while ( i < render_object_globals.rendered_object_count );

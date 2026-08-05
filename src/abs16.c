@@ -11,9 +11,9 @@
 
 #include <stdint.h>
 
-__int16 abs16(__int16 value)
+int16_t abs16(int16_t value)
 {
     int32_t sign_extended = value;                          /* extsh: sign-extend __int16 to 32-bit */
     int32_t mask = sign_extended >> 31;                     /* srawi rX,rX,0x1F: 0 or -1 */
-    return (__int16)((sign_extended ^ mask) - mask);        /* xor then subf: branchless abs */
+    return (int16_t)((sign_extended ^ mask) - mask);        /* xor then subf: branchless abs */
 }

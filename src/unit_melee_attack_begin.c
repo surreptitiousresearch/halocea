@@ -37,10 +37,10 @@ uint8_t unit_melee_attack_begin(int unit_index, uint8_t continuous, const real_v
     if (!unit->object.type)
         melee_flag = unit->biped.flags & (1u << _biped_airborne_bit);   /* biped block only valid for type 0 */
 
-    __int16 state;
+    int16_t state;
     if (continuous)
         state = _unit_state_melee_continuous;
-    else if ((unsigned __int8)animation->state == _unit_state_leap_airborne)
+    else if ((uint8_t)animation->state == _unit_state_leap_airborne)
         state = _unit_state_leap_melee;
     else
         state = (melee_flag != 0) + _unit_state_melee_attack;   /* 30 melee / 31 melee-airborne */

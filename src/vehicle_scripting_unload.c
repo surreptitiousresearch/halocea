@@ -48,18 +48,18 @@ extern void unit_exit_seat_to_network(int object_index, uint8_t force_exit);
 
 int16_t vehicle_scripting_unload(int unit_index, const char *seat_substring_name)
 {
-    __int16 count = 0;
+    int16_t count = 0;
     if (unit_index == -1)
         return count;
 
     vehicle_datum *vehicle_object = ((vehicle_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
     vehicle_definition *vehicle_def = TAG_GET(vehicle_definition, vehicle_object->definition_index);
 
-    unsigned __int8 match_all = (!seat_substring_name || seat_substring_name[0] == '\0');
+    uint8_t match_all = (!seat_substring_name || seat_substring_name[0] == '\0');
 
     object_iterator iterator;
     object_iterator_new(&iterator, object_mask_unit, 0); /* units */
-    for (__int16 *occupant = object_iterator_next(&iterator);
+    for (int16_t *occupant = object_iterator_next(&iterator);
          occupant;
          occupant = object_iterator_next(&iterator))
     {
@@ -80,7 +80,7 @@ int16_t vehicle_scripting_unload(int unit_index, const char *seat_substring_name
         if (!match_all && !strstr(seat_label, seat_substring_name))
             continue;
 
-        unsigned __int8 ejected = 0;
+        uint8_t ejected = 0;
         int index = iterator.index;
         unit_datum *occupant_object = object_try_and_get_and_verify_type(index, object_mask_unit);
         if (occupant_object)
@@ -90,9 +90,9 @@ int16_t vehicle_scripting_unload(int unit_index, const char *seat_substring_name
                 game_connection();
             }
             else if (occupant_object->object.parent_object_index != -1
-                     && (unsigned __int16)occupant_object->unit.parent_seat_index != 0xFFFF) /* seated */
+                     && (uint16_t)occupant_object->unit.parent_seat_index != 0xFFFF) /* seated */
             {
-                if ((unsigned __int16)occupant_object->object.type == object_type_vehicle) /* vehicle-type occupant */
+                if ((uint16_t)occupant_object->object.type == object_type_vehicle) /* vehicle-type occupant */
                 {
                     unit_exit_seat_end(index, 1, 0, 1);
                 }
@@ -103,16 +103,16 @@ int16_t vehicle_scripting_unload(int unit_index, const char *seat_substring_name
                     animation_graph_unit_seat *seat_animations =
                         (animation_graph_unit_seat *)(TAG_GET(animation_graph, animation_graph_index))->unit_seats.address
                         + (unsigned char)occupant_object->unit.animation.seat_index;
-                    __int16 animation_index = (seat_animations->animations.count <= 8)
+                    int16_t animation_index = (seat_animations->animations.count <= 8)
                         ? -1
-                        : ((unsigned __int16 *)seat_animations->animations.address)[8];
+                        : ((uint16_t *)seat_animations->animations.address)[8];
 
                     if (animation_index != -1)
                     {
                         if (vehicle_object->unit.driver_object_index == index)
                             unit_animation_set_state(unit_index, _unit_state_opening);
 
-                        __int16 permutation = animation_choose_random_permutation_internal(
+                        int16_t permutation = animation_choose_random_permutation_internal(
                             animation_update_kind_affects_game_state, animation_graph_index, animation_index);
 
                         occupant_object->object.animation.animation_graph_index = animation_graph_index;
@@ -129,12 +129,12 @@ int16_t vehicle_scripting_unload(int unit_index, const char *seat_substring_name
             if (ejected == 1)
             {
                 game_connection();
-                if (!*(int *)&occupant_object->object.datum_role)  /* object rel 0: datum_role */
+                if (occupant_object->object.datum_role == _networked_datum_master)
                     unit_exit_seat_to_network(index, 0);
             }
 
             if (ejected)
-                count = (__int16)(count + 1);
+                count = (int16_t)(count + 1);
         }
     }
 

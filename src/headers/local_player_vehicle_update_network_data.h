@@ -3,13 +3,14 @@
  * (68 bytes, DB layout): update sequence/id header followed by the ridden vehicle's translated object
  * index and its full kinematic state (position, linear/angular velocity, and orientation basis). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 
 typedef struct local_player_vehicle_update_network_data
 {
-    unsigned __int8 sequence_number;          /* 0x00 */
-    unsigned __int8 last_completed_update_id; /* 0x01 */
+    uint8_t sequence_number;          /* 0x00 */
+    uint8_t last_completed_update_id; /* 0x01 */
     unsigned char   _pad2[2];                 /* 0x02 */
     int             vehicle_index;            /* 0x04 — translated object index */
     real_point3d    position;                 /* 0x08 */

@@ -20,7 +20,7 @@ uint8_t message_delta_processor_discard_iteration_body(const message_delta_proce
     const void *baseline_data = decoding_information->mode != _message_delta_mode_incremental ? 0 : scratch;
     int bits_consumed = decode_message_body(decoding_information, header->field_included, baseline_data, scratch);
 
-    unsigned __int8 body_decoded;
+    uint8_t body_decoded;
     if ( bits_consumed || decoding_information->mode )
     {
         decoding_information->state += bits_consumed;

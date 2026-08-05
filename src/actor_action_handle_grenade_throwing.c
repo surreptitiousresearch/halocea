@@ -30,20 +30,20 @@
 #include "headers/blam_data_globals.h"
 
 
-extern unsigned __int8 actor_action_consider_grenade(int actor_index);
+extern uint8_t actor_action_consider_grenade(int actor_index);
 extern int actor_action_try_to_throw_grenade(int actor_index, uint8_t known_trajectory);
 
 uint8_t actor_action_handle_grenade_throwing(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 result = 0;
+    uint8_t result = 0;
 
     /* recovered: raw word offset 616 -> actor->target.target_type — the graded target-knowledge scale
      * (actor_action_can_stop_conversing gates on >=6 alerted / >=9 visible enemy); the prior
      * "grenade-readiness timer" name was a guess. */
-    __int16 target_knowledge_level = actor->target.target_type;
+    int16_t target_knowledge_level = actor->target.target_type;
 
-    unsigned __int8 ready_to_throw;
+    uint8_t ready_to_throw;
     if ( target_knowledge_level < actor_target_uninspected_orphan )
     {
         ready_to_throw = 0;
@@ -53,7 +53,7 @@ uint8_t actor_action_handle_grenade_throwing(int actor_index)
         ready_to_throw = 1;
         if ( actor->state.action == actor_action_flee )
         {
-            __int16 shoot_action_shot_counter = actor->state.action_data.___u0.flee.panic_type;
+            int16_t shoot_action_shot_counter = actor->state.action_data.___u0.flee.panic_type;
             ready_to_throw = (shoot_action_shot_counter <= 0);
         }
     }
@@ -69,7 +69,7 @@ uint8_t actor_action_handle_grenade_throwing(int actor_index)
      * "==2 trap" — grenade_type has only 0/1, but stimulus_type legitimately has visibletarget/seekcover). */
     actor_variant_definition *variant_definition =
         TAG_GET(actor_variant_definition, actor->meta.variant_definition_index);
-    __int16 grenade_stimulus = variant_definition->grenade_combat.stimulus_type;
+    int16_t grenade_stimulus = variant_definition->grenade_combat.stimulus_type;
 
     if ( grenade_stimulus == actor_grenade_stimulus_visibletarget )
     {

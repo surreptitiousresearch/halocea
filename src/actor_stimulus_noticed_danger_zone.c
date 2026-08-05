@@ -41,7 +41,7 @@ void actor_stimulus_noticed_danger_zone(uint16_t actor_index, int16_t danger_typ
 
     if (danger_type == actor_danger_zone_projectile)
     {
-        __int16 hostility = -1;
+        int16_t hostility = -1;
         if (danger_hostility)   /* != _actor_danger_hostility_enemy */
         {
             if (danger_hostility == _actor_danger_hostility_friend)

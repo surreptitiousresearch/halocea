@@ -37,9 +37,9 @@ void object_export_function_values(int object_index)
     object_datum *object = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);
     _object_definition *definition = TAG_GET(_object_definition, object->definition_index);
 
-    for ( int slot = 0; slot < 4; slot = (__int16)(slot + 1) )
+    for ( int slot = 0; slot < 4; slot = (int16_t)(slot + 1) )
     {
-        __int16 export_source = definition->function_modes[slot];
+        int16_t export_source = definition->function_modes[slot];
         if ( !export_source )
             continue;
 
@@ -98,7 +98,7 @@ void object_export_function_values(int object_index)
                 break;
             }
             default:
-                value = object->object.region_damage[(__int16)(export_source - _object_export_region_00_damage)] * 0.0039215689f;
+                value = object->object.region_damage[(int16_t)(export_source - _object_export_region_00_damage)] * 0.0039215689f;
                 break;
         }
 

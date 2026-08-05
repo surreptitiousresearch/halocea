@@ -20,7 +20,7 @@ void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int referenc
          player = data_iterator_next(&it))
     {
         /* sentinel: local_player_index is __int16; keep the unsigned compare against 0xFFFF */
-        if ((unsigned __int16)player->local_player_index == 0xFFFF || it.index == -1)
+        if ((uint16_t)player->local_player_index == 0xFFFF || it.index == -1)
             continue;
 
         /* the player datum's local/controller index (record stride 512 bytes) */
@@ -30,7 +30,7 @@ void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int referenc
 
         hud_nav_point_player_datum *player_navs = &nav_point_data[local_player];
 
-        __int16 free_slot = -1;
+        int16_t free_slot = -1;
         int slot = 0;
         do
         {
@@ -44,8 +44,8 @@ void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int referenc
                 goto next_player;
             }
             if (slot_type == -1)
-                free_slot = (__int16)slot;
-            slot = (__int16)(slot + 1);
+                free_slot = (int16_t)slot;
+            slot = (int16_t)(slot + 1);
         } while (slot < MAXIMUM_ACTIVE_NAV_POINTS);
 
         if (free_slot != -1)

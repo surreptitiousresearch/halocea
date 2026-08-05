@@ -3,6 +3,7 @@
  * object_datum (which prefixes it with a 4-byte definition index). This is the level-specific field
  * block; the composite lives in object_datum.h. Full layout from the database (types_members). */
 
+#include <stdint.h>
 #include "networked_datum_role.h"
 #include "real_point3d.h"
 #include "real_vector3d.h"
@@ -42,12 +43,12 @@ typedef struct _object_datum
     real_point3d     bounding_sphere_center;                   /* 0x9C */
     float            bounding_sphere_radius;                   /* 0xA8 */
     float            scale;                                    /* 0xAC */
-    __int16          type;                                     /* 0xB0 — object type (0 = biped) */
-    unsigned __int16 render_flags;                             /* 0xB2 */
-    __int16          owner_team_index;                         /* 0xB4 */
-    __int16          name_index;                               /* 0xB6 */
-    __int16          idle_ticks;                               /* 0xB8 */
-    __int16          variant_number;                           /* 0xBA */
+    int16_t          type;                                     /* 0xB0 — object type (0 = biped) */
+    uint16_t render_flags;                             /* 0xB2 */
+    int16_t          owner_team_index;                         /* 0xB4 */
+    int16_t          name_index;                               /* 0xB6 */
+    int16_t          idle_ticks;                               /* 0xB8 */
+    int16_t          variant_number;                           /* 0xBA */
     int              owner_player_index;                       /* 0xBC */
     int              owner_object_index;                       /* 0xC0 */
     int              owner_object_definition_index;            /* 0xC4 */
@@ -63,8 +64,8 @@ typedef struct _object_datum
     float            recent_body_damage;                       /* 0xF4 */
     int              shield_damage_decay_timer;                /* 0xF8 */
     int              body_damage_decay_timer;                  /* 0xFC */
-    __int16          shield_stun_ticks;                        /* 0x100 */
-    unsigned __int16 damage_flags;                             /* 0x102 */
+    int16_t          shield_stun_ticks;                        /* 0x100 */
+    uint16_t damage_flags;                             /* 0x102 */
     int              scenery_idx;                              /* 0x104 */
     int              first_cluster_reference_index;            /* 0x108 */
     int              next_garbage_object_index;                /* 0x10C */
@@ -81,8 +82,8 @@ typedef struct _object_datum
     int              attachment_indices[8];                    /* 0x148 */
     int              first_widget_index;                       /* 0x168 */
     int              cached_render_state_index;                /* 0x16C */
-    unsigned __int16 regions_destroyed_flags;                  /* 0x170 */
-    __int16          forced_shader_permutation_index;          /* 0x172 */
+    uint16_t regions_destroyed_flags;                  /* 0x170 */
+    int16_t          forced_shader_permutation_index;          /* 0x172 */
     unsigned char    region_damage[8];                         /* 0x174 */
     unsigned char    region_permutations[8];                   /* 0x17C */
     real_rgb_color   base_change_colors[4];                    /* 0x184 */

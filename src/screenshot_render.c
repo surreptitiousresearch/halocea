@@ -39,8 +39,8 @@ void screenshot_render(struct render_window *window)
         size = 3;
     global_screenshot_size = size;
 
-    __int16 width = size * (rasterizer_globals.screen_bounds.n[3] - rasterizer_globals.screen_bounds.n[1]);
-    __int16 height = size * (rasterizer_globals.screen_bounds.n[2] - rasterizer_globals.screen_bounds.n[0]);
+    int16_t width = size * (rasterizer_globals.screen_bounds.n[3] - rasterizer_globals.screen_bounds.n[1]);
+    int16_t height = size * (rasterizer_globals.screen_bounds.n[2] - rasterizer_globals.screen_bounds.n[0]);
     bitmap_data *bitmap = bitmap_2d_new(width, height, 0, _bitmap_format_x8r8g8b8);
 
     if (!bitmap || !bitmap->base_address)

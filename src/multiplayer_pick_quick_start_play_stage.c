@@ -7,7 +7,7 @@
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
 
-extern int game_engine_playlist_initialize(unsigned __int8 force_begin_playlist);
+extern int game_engine_playlist_initialize(uint8_t force_begin_playlist);
 extern void game_engine_playlist_next(void);
 extern void network_game_set_quickstart_local(void);
 

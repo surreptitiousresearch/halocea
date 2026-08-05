@@ -24,7 +24,7 @@ extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *poi
 
 uint8_t action_charge_valid_melee_destination(int actor_index, real_point3d *goal, real_point3d *melee_target_point)
 {
-    unsigned __int8 have_start_point = 1;
+    uint8_t have_start_point = 1;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     real_point3d start_point;
 

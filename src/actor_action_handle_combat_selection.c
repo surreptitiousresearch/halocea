@@ -57,7 +57,7 @@ extern uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_d
 extern uint8_t action_fight_setup(int actor_index, fight_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 
-unsigned __int8 actor_action_handle_combat_selection(int actor_index)
+uint8_t actor_action_handle_combat_selection(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *definition =
@@ -67,7 +67,7 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
     actor_variant_definition *firing_variant = actor_combat_get_firing_variant_definition(actor_index);
     charge_state_data *charge = &actor->state.action_data.___u0.charge;
 
-    unsigned __int8 action_changed = 0;
+    uint8_t action_changed = 0;
     prop_datum *prop = 0;
     float prop_distance = 3.4028235e38f; /* FLT_MAX when the actor has no target prop */
     action_state_data new_action_data;
@@ -81,12 +81,12 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
         /* ---- stalking discovery: charging with goal 1 (stalk) ---- */
         if ( actor->state.action == actor_action_charge && charge->goal == charge_goal_stalking )
         {
-            unsigned __int8 discovered =
+            uint8_t discovered =
                 prop->currently_damaging_me
                 || (prop->shooting && prop->quantized_distance <= 1)
                 || (definition->defensive.stalking_discovery_time > 0.0f
                     && charge->stalking_discovery_timer
-                       >= (__int16)(int)(definition->defensive.stalking_discovery_time * 30.0f));
+                       >= (int16_t)(int)(definition->defensive.stalking_discovery_time * 30.0f));
             if ( discovered )
             {
                 if ( prop_distance > firing_variant->ranged_combat.combat_range_upper_bound )
@@ -106,8 +106,8 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
                     && actor->control.fire_state != actor_fire_state_bursting ) /* recovered: *(__int16*)(actor+0x5F2) -> control.fire_state */
                 {
                     int current_time = game_time_get();
-                    unsigned __int8 berserking = actor->emotions.berserk; /* recovered: raw actor+0x378 -> emotions.berserk */
-                    unsigned __int8 use_berserk_range = berserking;
+                    uint8_t berserking = actor->emotions.berserk; /* recovered: raw actor+0x378 -> emotions.berserk */
+                    uint8_t use_berserk_range = berserking;
                     if ( !actor_has_ranged_weapon(actor_index) && (definition->flags & (1u << _actor_definition_stalking_behavior_bit)) == 0 )
                         use_berserk_range = 1;
                     float charge_delay = berserking ? 0.0f
@@ -117,13 +117,13 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
                     float charge_range = use_berserk_range ? variant->ranged_combat.berserk_melee_range
                                                            : variant->ranged_combat.melee_range;
 
-                    unsigned __int8 begin_charge = 0;
+                    uint8_t begin_charge = 0;
                     int last_attempt_time = actor->emotions.last_melee_check_time; /* recovered: raw actor+0x37C -> emotions.last_melee_check_time */
                     if ( last_attempt_time == -1 || last_attempt_time + 10 < current_time )
                     {
                         if ( prop_distance <= charge_range )
                         {
-                            unsigned __int8 in_range = 1;
+                            uint8_t in_range = 1;
                             if ( actor->external_orders.disable_charging )
                             {
                                 /* charging disabled still allows point-blank charges (fsel = max(0, x)) */
@@ -164,7 +164,7 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
             && actor->input.vehicle_driver_type > _actor_vehicle_driver_none )
         {
             int last_ram_time = actor->emotions.last_vehicle_charge_time; /* recovered: raw actor+0x388 -> emotions.last_vehicle_charge_time */
-            unsigned __int8 repeat_elapsed = 0;
+            uint8_t repeat_elapsed = 0;
             if ( last_ram_time == -1 )
             {
                 repeat_elapsed = 1;
@@ -179,7 +179,7 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
             }
             if ( repeat_elapsed )
             {
-                unsigned __int8 begin_ram = 0;
+                uint8_t begin_ram = 0;
                 if ( actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying )
                 {
                     if ( prop_distance > firing_variant->ranged_combat.melee_range && !prop->line_of_sight )
@@ -198,18 +198,18 @@ unsigned __int8 actor_action_handle_combat_selection(int actor_index)
         return action_changed;
 
     /* ---- fallback: re-derive the desire to charge, else fight ---- */
-    unsigned __int8 desires_charge = actor->emotions.forced_to_charge /* recovered: raw actor+0x375 -> emotions.forced_to_charge */
+    uint8_t desires_charge = actor->emotions.forced_to_charge /* recovered: raw actor+0x375 -> emotions.forced_to_charge */
                                      && !actor->external_orders.disable_charging;
-    unsigned __int8 restart_charge = 0;
+    uint8_t restart_charge = 0;
 
     if ( !actor->external_orders.disable_charging && !actor_has_ranged_weapon(actor_index)
         && (definition->flags & (1u << _actor_definition_charge_in_attacking_mode_bit)) != 0 )
         desires_charge = 1;
 
-    __int16 action = actor->state.action;
+    int16_t action = actor->state.action;
     if ( action == actor_action_charge )
     {
-        __int16 goal = charge->goal;
+        int16_t goal = charge->goal;
         if ( goal == charge_goal_melee || goal == charge_goal_melee_leaping )
         {
             if ( !charge->finished_melee_attack && !charge->aborted_melee_attack

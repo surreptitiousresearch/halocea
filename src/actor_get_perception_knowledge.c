@@ -23,8 +23,8 @@ int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index)
     if ( prop_index != -1 )
     {
         char *prop_pool = (char *)prop_data->data;
-        prop_datum *prop = (prop_datum *)&prop_pool[312 * (unsigned __int16)prop_index];
-        __int16 state = prop->state;
+        prop_datum *prop = (prop_datum *)&prop_pool[312 * (uint16_t)prop_index];
+        int16_t state = prop->state;
         int sound_class = prop->unit_effect;
         if ( (state >= _prop_state_becoming_unacknowledged && state <= _prop_state_acknowledged)
           || sound_class == _ai_unit_effect_shooting
@@ -33,12 +33,12 @@ int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index)
         {
             result = _actor_knowledge_definite;
         }
-        if ( (__int16)result == -1 && prop->___u3.orphan_prop_index != -1 )
+        if ( (int16_t)result == -1 && prop->___u3.orphan_prop_index != -1 )
             /* orphan latch byte -> _actor_knowledge_definite when set, else _actor_knowledge_searching */
-            result = (prop_pool[312 * (unsigned __int16)prop->___u3.orphan_prop_index + 184] != 0) + _actor_knowledge_searching;
+            result = (prop_pool[312 * (uint16_t)prop->___u3.orphan_prop_index + 184] != 0) + _actor_knowledge_searching;
     }
 
-    if ( (__int16)result == -1 )
+    if ( (int16_t)result == -1 )
     {
         if ( actor->state.combat_status < _actor_combat_status_investigate )
             /* sign/compare trick yields _actor_knowledge_noncombat (0) or _actor_knowledge_guard (1) */

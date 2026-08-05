@@ -64,7 +64,7 @@ extern void rasterizer_dynamic_vertices_delete(int dynamic_vertex_buffer_index);
 extern void rasterizer_dynamic_unlit_geometry_draw(const shader *shader, const bitmap_data *primary_map, const render_animation *animation, int dynamic_triangle_buffer_index, int dynamic_vertex_buffer_index, int triangle_count, const real_point3d *centroid, unsigned int geometry_flags);
 
 /* animation function look-up: source index is 1..4 into the animation's value or color channel */
-static float lightning_animation_value(const render_animation *animation, __int16 source, float fallback)
+static float lightning_animation_value(const render_animation *animation, int16_t source, float fallback)
 {
     if ( animation && animation->values && source >= 1 && source <= 4 )
         return animation->values[source - 1];
@@ -108,7 +108,7 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
     int instance = 0;
     do
     {
-        __int16 point_count = 0;
+        int16_t point_count = 0;
         char first_marker = 1;
         float jitter_scale = lightning_animation_value(animation, definition->jitter_scale_source, 1.0f);
 
@@ -135,7 +135,7 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
                 rasterizer->current_lock_operation = _rasterizer_lock_lightning;
                 if ( point_count > 2 )
                 {
-                    int point_total = (__int16)(point_count + 1);
+                    int point_total = (int16_t)(point_count + 1);
                     int vertex_count = 2 * point_total;
                     int buffer = rasterizer_dynamic_vertices_new(_rasterizer_vertex_type_dynamic_unlit, vertex_count);
                     if ( buffer != -1 )
@@ -155,7 +155,7 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
                         float aabb_min_x = 0.0, aabb_min_y = 0.0, aabb_min_z = 0.0;
                         float aabb_max_x = 0.0, aabb_max_y = 0.0, aabb_max_z = 0.0;
 
-                        for ( int i = 0; i < point_total; i = (__int16)(i + 1) )
+                        for ( int i = 0; i < point_total; i = (int16_t)(i + 1) )
                         {
                             intermediate_lightning_point *point = &points[i];
                             /* recovered: point - 8 -> &points[i - 1] (8 floats == sizeof intermediate_lightning_point) */
@@ -188,10 +188,10 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
                             float uv_u = (((float)i * inverse_total) + uv_base);
 
                             /* pack the per-node ARGB tint modulated by animation tint/brightness */
-                            unsigned __int8 a = (unsigned __int8)(int)((point->color.alpha * brightness_scale) * (float)255.0);
-                            unsigned __int8 r = (unsigned __int8)(int)((point->color.rgb.red * tint->n[0]) * (float)255.0);
-                            unsigned __int8 g = (unsigned __int8)(int)((point->color.rgb.green * tint->n[1]) * (float)255.0);
-                            unsigned __int8 b = (unsigned __int8)(int)((point->color.rgb.blue * tint->n[2]) * (float)255.0);
+                            uint8_t a = (uint8_t)(int)((point->color.alpha * brightness_scale) * (float)255.0);
+                            uint8_t r = (uint8_t)(int)((point->color.rgb.red * tint->n[0]) * (float)255.0);
+                            uint8_t g = (uint8_t)(int)((point->color.rgb.green * tint->n[1]) * (float)255.0);
+                            uint8_t b = (uint8_t)(int)((point->color.rgb.blue * tint->n[2]) * (float)255.0);
                             int packed_color = (a << 24) | (r << 16) | (g << 8) | b;
 
                             /* two vertices: node position offset ±half_width along the side vector */
@@ -247,11 +247,11 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
             else
             {
                 /* interior marker: recursively subdivide the path toward the next marker */
-                __int16 octaves = marker_def->octaves_to_next_marker;
+                int16_t octaves = marker_def->octaves_to_next_marker;
                 float level_scale = 1.0f;
                 const lightning_marker_definition *next_marker_def = &markers[marker_index + 1];
                 object_get_marker_by_name(object_index, next_marker_def->attachment_marker, &marker, 1);
-                int segment_count = (__int16)(1 << octaves);
+                int segment_count = (int16_t)(1 << octaves);
                 int base_index = point_count;
 
                 /* seed the next marker's endpoint at base_index + segment_count */
@@ -283,7 +283,7 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
                     int level = 1;
                     do
                     {
-                        int half_span = (__int16)(1 << (octaves - level));
+                        int half_span = (int16_t)(1 << (octaves - level));
                         if ( half_span < segment_count )
                         {
                             float segment_count_f = (float)segment_count;
@@ -316,24 +316,24 @@ void lightning_submit(int object_index, int widget_index, const render_lighting 
                                 middle->color.n[1] = ((right->color.n[1] + left->color.n[1]) * (float)0.5);
                                 middle->color.n[2] = ((right->color.n[2] + left->color.n[2]) * (float)0.5);
                                 middle->color.n[3] = ((right->color.n[3] + left->color.n[3]) * (float)0.5);
-                                index = (__int16)(2 * half_span + index);
+                                index = (int16_t)(2 * half_span + index);
                             }
                             while ( index < segment_count );
                         }
                         level_scale = (level_scale * (float)0.5);
-                        level = (__int16)(level + 1);
+                        level = (int16_t)(level + 1);
                     }
                     while ( level <= octaves );
                 }
 
-                point_count = (__int16)(segment_count + base_index);
+                point_count = (int16_t)(segment_count + base_index);
             }
 
-            marker_index = (__int16)(marker_index + 1);
+            marker_index = (int16_t)(marker_index + 1);
         }
         while ( marker_index < definition->markers.count );
 
-        instance = (__int16)(instance + 1);
+        instance = (int16_t)(instance + 1);
     }
     while ( instance < definition->count );
 }

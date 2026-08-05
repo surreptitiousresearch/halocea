@@ -27,10 +27,10 @@ extern real_plane3d *plane3d_from_points(real_plane3d *plane, const real_point3d
 
 uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int16_t vertex_count, vertex3d *vertices, int16_t edge_count, edge3d *edges, int16_t surface_count, surface3d *surfaces)
 {
-    __int16 min_x_index = -1;
-    __int16 farthest_index = -1;
-    __int16 line_farthest_index = -1;
-    __int16 plane_farthest_index = -1;
+    int16_t min_x_index = -1;
+    int16_t farthest_index = -1;
+    int16_t line_farthest_index = -1;
+    int16_t plane_farthest_index = -1;
 
     if ( vertex_count < 4 )
         return 0;
@@ -41,7 +41,7 @@ uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int
 
     /* 1. the lowest-X point */
     float min_x = 3.4028235e38f;
-    for ( int i = 0; i < point_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < point_count; i = (int16_t)(i + 1) )
     {
         if ( points[i].n[0] < min_x )
         {
@@ -59,7 +59,7 @@ uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int
         float base_x = base->n[0];
         float base_y = base->n[1];
         float base_z = base->n[2];
-        for ( int i = 0; i < point_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < point_count; i = (int16_t)(i + 1) )
         {
             float dx = (base_x - points[i].n[0]);
             float dy = (base_y - points[i].n[1]);
@@ -87,7 +87,7 @@ uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int
         float dir_x = (points[farthest_index].n[0] - base_x);
         float dir_y = (points[farthest_index].n[1] - base_y);
         float dir_z = (points[farthest_index].n[2] - base_z);
-        for ( int i = 0; i < point_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < point_count; i = (int16_t)(i + 1) )
         {
             const real_point3d *p = &points[i];
             float t = ((((p->n[0] - base_x) * dir_x)
@@ -113,7 +113,7 @@ uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int
     real_plane3d base_plane;
     plane3d_from_points(&base_plane, &points[min_x_index], &points[farthest_index], &points[line_farthest_index]);
     float max_plane_distance = 0.0f;
-    for ( int i = 0; i < point_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < point_count; i = (int16_t)(i + 1) )
     {
         const real_point3d *p = &points[i];
         float signed_distance = (((p->n[0] * base_plane.n.n[0])
@@ -131,7 +131,7 @@ uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int
 
     if ( max_plane_distance > 0.0f )
     {
-        __int16 swap = farthest_index;
+        int16_t swap = farthest_index;
         farthest_index = line_farthest_index;
         line_farthest_index = swap;
     }
@@ -213,11 +213,11 @@ uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int
     surfaces[3].edge_index = 2;
 
     /* mark the unused tail of each array non-extant */
-    for ( int i = 4; i < vertex_count; i = (__int16)(i + 1) )
+    for ( int i = 4; i < vertex_count; i = (int16_t)(i + 1) )
         vertices[i].extant = 0;
-    for ( int i = 6; i < edge_count; i = (__int16)(i + 1) )
+    for ( int i = 6; i < edge_count; i = (int16_t)(i + 1) )
         edges[i].extant = 0;
-    for ( int i = 4; i < surface_count; i = (__int16)(i + 1) )
+    for ( int i = 4; i < surface_count; i = (int16_t)(i + 1) )
         surfaces[i].extant = 0;
 
     return 1;

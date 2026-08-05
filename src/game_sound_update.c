@@ -43,7 +43,7 @@ void game_sound_update(float dt)  /* caller passes f1=dt (single); body ignores 
     {
         int background_def;
         int environment;
-        unsigned __int8 out3[4];
+        uint8_t out3[4];
         int index;
 
         scenario_get_sound_environment(&background_def, &environment, out3);
@@ -151,7 +151,7 @@ void game_sound_update(float dt)  /* caller passes f1=dt (single); body ignores 
                                                             &function_value);
         }
 
-        if ( (unsigned __int8)on || (sound->state != _game_looping_sound_inactive && updated_recently) )
+        if ( (uint8_t)on || (sound->state != _game_looping_sound_inactive && updated_recently) )
             sound_refresh_looping_not(i, (sound->flags & (1u << _game_looping_sound_alternate_bit)) != 0);
     }
 }

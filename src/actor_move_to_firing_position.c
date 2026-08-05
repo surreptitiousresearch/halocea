@@ -26,7 +26,7 @@ uint8_t actor_move_to_firing_position(int actor_index, int16_t firing_position_i
 
     actor_set_dormant(actor_index, 0);
 
-    if ( actor->control.path.destination_orders.destination_type == _destination_firing_position && (unsigned __int16)actor->control.path.destination_orders.___u3.firing_position_index == firing_position_index )
+    if ( actor->control.path.destination_orders.destination_type == _destination_firing_position && (uint16_t)actor->control.path.destination_orders.___u3.firing_position_index == firing_position_index )
     {
         if ( !actor->meta.timeslice || actor->control.path.refreshed_this_tick )
             return 1;

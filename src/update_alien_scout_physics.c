@@ -34,6 +34,7 @@
  *                                                       +0x4EC       antigrav_ratio     (float, 0..1)
  */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -104,7 +105,7 @@ void update_alien_scout_physics(int vehicle_index, float steering,
     /* Seed every powered mass point: antigrav authority + identity rotation. */
     powered_mass_point_count = physics->powered_mass_points.count;
     for (mass_point_index = 0; mass_point_index < powered_mass_point_count;
-         mass_point_index = (__int16)(mass_point_index + 1))
+         mass_point_index = (int16_t)(mass_point_index + 1))
     {
         powered_mass_points[mass_point_index].antigrav_fraction = antigrav_base;
         powered_mass_points[mass_point_index].rotation.n[0] = 0.0f;
@@ -351,18 +352,18 @@ void update_alien_scout_physics(int vehicle_index, float steering,
         if (mass_point_count > 0)
         {
             mass_point_definition *mass_point_defs = (mass_point_definition *)physics->mass_points.address;   /* +120 */
-            for (i = 0; i < mass_point_count; i = (__int16)(i + 1))
+            for (i = 0; i < mass_point_count; i = (int16_t)(i + 1))
             {
-                if ((unsigned __int16)mass_point_defs[i].powered_mass_point_index != 0xFFFF)
+                if ((uint16_t)mass_point_defs[i].powered_mass_point_index != 0xFFFF)
                 {
-                    grounded = (__int16)(grounded + 1);
+                    grounded = (int16_t)(grounded + 1);
                     if ((mass_points[i].flags & 0x10) != 0)
                         ++grounded_settled;
                 }
             }
         }
 
-        if ((__int16)grounded > 0)
+        if ((int16_t)grounded > 0)
             ratio = (float)grounded_settled / (float)grounded;
 
         target = ratio * settle_cap;

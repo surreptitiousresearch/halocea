@@ -20,7 +20,7 @@ extern void * rasterizer_dynamic_vertices_lock(int dynamic_vertex_buffer_index);
 
 int16_t build_sprite_get_group(build_sprite_data *data, bitmap_data *bitmap)
 {
-    __int16 index = 0;
+    int16_t index = 0;
 
     if ( data->group_count > 0 )
     {
@@ -29,7 +29,7 @@ int16_t build_sprite_get_group(build_sprite_data *data, bitmap_data *bitmap)
         {
             if ( data->groups[index].bitmap == bitmap )
                 break;
-            index = (__int16)(index + 1);
+            index = (int16_t)(index + 1);
         } while ( index < data->group_count );
     }
 
@@ -46,7 +46,7 @@ int16_t build_sprite_get_group(build_sprite_data *data, bitmap_data *bitmap)
                 if ( _texture_cache_bitmap_get_hardware_format(bitmap, 0, 1u) )
                 {
                     rasterizer_globals.current_lock_operation = _rasterizer_lock_sprite;
-                    __int16 type = (data->flags & (1u << _build_sprite_viewer_space_bit)) == 0 ? 6 : 8;
+                    int16_t type = (data->flags & (1u << _build_sprite_viewer_space_bit)) == 0 ? 6 : 8;
                     group->vertex_buffer_index = rasterizer_dynamic_vertices_new(type, 4 * data->maximum_sprite_count);
                     if ( group->vertex_buffer_index == -1 )
                     {

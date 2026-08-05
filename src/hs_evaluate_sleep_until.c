@@ -19,7 +19,7 @@ extern int game_time_get(void);
 
 void hs_evaluate_sleep_until(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate x5: reserve slots at the frame data top, aligned up.
      * The compiled `if (slot - 1 > top) --slot` correction can never fire (align-up advances at
@@ -29,35 +29,35 @@ void hs_evaluate_sleep_until(int16_t function_index, int thread_index, uint8_t i
     int *condition_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)(condition_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --condition_slot;
-    frame->size = (__int16)((unsigned char *)condition_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)condition_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *period_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)(period_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --period_slot;
-    frame->size = (__int16)((unsigned char *)period_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)period_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *timeout_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)(timeout_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --timeout_slot;
-    frame->size = (__int16)((unsigned char *)timeout_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)timeout_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *start_time = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)(start_time - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --start_time;
-    frame->size = (__int16)((unsigned char *)start_time - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)start_time - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    __int16 *phase = (__int16 *)(((unsigned int)stack_top + 1) & ~0x1u);
+    int16_t *phase = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);
     if ( (unsigned int)(phase - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --phase;
-    frame->size = (__int16)((unsigned char *)phase - frame->data + 2);
+    frame->size = (int16_t)((unsigned char *)phase - frame->data + 2);
 
     int sleep_expression = frame->expression_index;
     int condition = HS_SYNTAX_NODE(HS_SYNTAX_NODE(sleep_expression).data).next_node_index;
@@ -68,7 +68,7 @@ void hs_evaluate_sleep_until(int16_t function_index, int thread_index, uint8_t i
         *(char *)condition_slot = 0;
         *start_time = game_time_get();
         *phase = 0;
-        *(__int16 *)period_slot = 30;
+        *(int16_t *)period_slot = 30;
         *timeout_slot = -1;
         if ( period_argument != -1 )
         {
@@ -113,7 +113,7 @@ void hs_evaluate_sleep_until(int16_t function_index, int thread_index, uint8_t i
         else
         {
             hs_evaluate(thread_index, condition, condition_slot);
-            int period = (*(__int16 *)period_slot >= 1) ? *(__int16 *)period_slot : 1;
+            int period = (*(int16_t *)period_slot >= 1) ? *(int16_t *)period_slot : 1;
             int wake = game_time_get() + period;
             thread->sleep_until = wake;
             if ( *timeout_slot != -1 )

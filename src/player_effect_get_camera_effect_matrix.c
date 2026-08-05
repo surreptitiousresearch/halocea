@@ -145,7 +145,7 @@ void player_effect_get_camera_effect_matrix(int16_t local_player_index, real_mat
         impulse_matrix.n[3][1] = effect->jitter.n[1] * impulse_scale + effect->direction.n[1] * translation;
         impulse_matrix.n[3][2] = effect->jitter.n[2] * impulse_scale + effect->direction.n[2] * translation;
 
-        __int16 elapsed = game_time_get_elapsed();
+        int16_t elapsed = game_time_get_elapsed();
         impulse_source = &impulse_matrix;
         effect->camera_impulse_time_left -= elapsed;
     }
@@ -156,7 +156,7 @@ void player_effect_get_camera_effect_matrix(int16_t local_player_index, real_mat
 
     memcpy(matrix, impulse_source, sizeof(real_matrix4x3));
 
-    __int16 camera_shake_time_left = effect->camera_shake_time_left;
+    int16_t camera_shake_time_left = effect->camera_shake_time_left;
     if (camera_shake_time_left > 0 || (effect->flags & (1u << _camera_shake_just_started_bit)))
     {
         real_matrix4x3 shake_matrix;
@@ -197,7 +197,7 @@ void player_effect_get_camera_effect_matrix(int16_t local_player_index, real_mat
         vibrate_player_continuous(local_player_index, effect->continuous_effect.vibrate_frequencies[0],
                                   effect->continuous_effect.vibrate_frequencies[1]);
 
-        __int16 new_timer = (__int16)(game_time_get_elapsed() + effect->continuous_effect_timer);
+        int16_t new_timer = (int16_t)(game_time_get_elapsed() + effect->continuous_effect_timer);
         effect->continuous_effect_timer = new_timer;
         if (new_timer > 0)
         {

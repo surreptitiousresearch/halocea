@@ -27,15 +27,15 @@ void encounter_update_platoons(int encounter_index)
 {
     encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
     encounter_definition *encounter_def =
-        (encounter_definition *)global_scenario->ai_encounters.address + (unsigned __int16)encounter_index;
+        (encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)encounter_index;
 
     if ( encounter->platoon_count <= 0 )
         return;
 
     platoon_definition *platoon_definitions = (platoon_definition *)encounter_def->platoons.address;
-    for ( __int16 platoon_local_index = 0; platoon_local_index < encounter->platoon_count; ++platoon_local_index )
+    for ( int16_t platoon_local_index = 0; platoon_local_index < encounter->platoon_count; ++platoon_local_index )
     {
-        platoon_datum *platoon = &platoon_array[(__int16)(encounter->platoon_base + platoon_local_index)];
+        platoon_datum *platoon = &platoon_array[(int16_t)(encounter->platoon_base + platoon_local_index)];
         if ( platoon->current_count <= 0 )
             continue;
 

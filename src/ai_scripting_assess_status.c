@@ -24,7 +24,7 @@ int16_t ai_scripting_assess_status(uint16_t actor_index)
     if ( !actor->state.combat_status )
         return 2;
 
-    __int16 progress = actor->target.target_type;
+    int16_t progress = actor->target.target_type;
     if ( progress < actor_target_definite_orphan )
         return 3;
     if ( progress < actor_target_visible_enemy )

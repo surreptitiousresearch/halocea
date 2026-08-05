@@ -39,8 +39,8 @@ void set_window_camera_values(struct render_window *current_window, const observ
 
     if (observer)
     {
-        float height = (__int16)(camera->viewport_bounds.n[2] - camera->viewport_bounds.n[0]);
-        float width = (__int16)(camera->viewport_bounds.n[3] - camera->viewport_bounds.n[1]);
+        float height = (int16_t)(camera->viewport_bounds.n[2] - camera->viewport_bounds.n[0]);
+        float width = (int16_t)(camera->viewport_bounds.n[3] - camera->viewport_bounds.n[1]);
         float aspect = height / width;
 
         camera->position = observer->position;
@@ -50,7 +50,7 @@ void set_window_camera_values(struct render_window *current_window, const observ
         float half_horizontal_fov = (observer->field_of_view * 0.5f);
         camera->vertical_field_of_view = (float)atan2(tan(half_horizontal_fov) * aspect, 1.0) * 2.0f;
 
-        if ((unsigned __int16)current_window->local_player_index != 0xFFFF
+        if ((uint16_t)current_window->local_player_index != 0xFFFF
             && !console_is_active()
             && !game_time_get_paused()
             && director_get_perspective(current_window->local_player_index) != _director_perspective_neutral)

@@ -82,8 +82,8 @@ void unit_damage_aftermath(int unit_index, damage_data *damage_data, char being_
     unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
 
     uint8_t lethal_flag = being_damaged_flags & (1u << _object_being_damaged_body_depleted_bit);
-    unsigned __int8 feign_death = 0;
-    unsigned __int8 should_cause_ping = 0;
+    uint8_t feign_death = 0;
+    uint8_t should_cause_ping = 0;
     uint8_t died = lethal_flag;
 
     /* bleeding/burning: record the ongoing damage source on the unit */
@@ -92,7 +92,7 @@ void unit_damage_aftermath(int unit_index, damage_data *damage_data, char being_
         float accumulated = unit->object.recent_body_damage + unit->object.recent_shield_damage;
         if ( accumulated > 0.0f )
         {
-            __int16 damage_category = damage->category;
+            int16_t damage_category = damage->category;
             float current = unit->unit.delayed_damage_peak;
             unit->unit.delayed_damage_timer = 45;
             unit->unit.last_damage_category = damage_category;
@@ -138,10 +138,10 @@ void unit_damage_aftermath(int unit_index, damage_data *damage_data, char being_
 
     real_vector2d alignment_vector = { { 0.0f, 0.0f } };
     float ping_angle = 0.0f;
-    unsigned __int8 alignment_valid = 0;
-    unsigned __int8 ignore_hard_pings = 0;
-    unsigned __int8 force_hard_pings = 0;
-    unsigned __int8 died_flying = 0;
+    uint8_t alignment_valid = 0;
+    uint8_t ignore_hard_pings = 0;
+    uint8_t force_hard_pings = 0;
+    uint8_t died_flying = 0;
 
     if ( unit->unit.player_index == -1
       && lethal_flag
@@ -260,12 +260,12 @@ void unit_damage_aftermath(int unit_index, damage_data *damage_data, char being_
                 unit->unit.body_stun = max_stun;
         }
 
-        __int16 max_duration = (int)(player_information->maximum_stun_time * 30.0f);
-        __int16 add_duration = (int)(damage->stun_time * 30.0f);
-        __int16 min_duration = (int)(player_information->minimum_stun_time * 30.0f);
+        int16_t max_duration = (int)(player_information->maximum_stun_time * 30.0f);
+        int16_t add_duration = (int)(damage->stun_time * 30.0f);
+        int16_t min_duration = (int)(player_information->minimum_stun_time * 30.0f);
         if ( unit->unit.body_stun_ticks < min_duration )
             unit->unit.body_stun_ticks = min_duration;
-        __int16 duration = add_duration + unit->unit.body_stun_ticks;
+        int16_t duration = add_duration + unit->unit.body_stun_ticks;
         unit->unit.body_stun_ticks = duration;
         if ( duration > max_duration )
             unit->unit.body_stun_ticks = max_duration;

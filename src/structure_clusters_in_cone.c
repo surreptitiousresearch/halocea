@@ -35,7 +35,7 @@ int structure_clusters_in_cone(int16_t position_cluster_index, const real_point3
     if (structure_globals.cluster_magic_numbers[position_cluster_index] != marker)
         structure_globals.cluster_magic_numbers[position_cluster_index] = marker;
 
-    __int16 cluster_stack[512];
+    int16_t cluster_stack[512];
     cluster_stack[0] = position_cluster_index;
     int stack_depth = 1;
 
@@ -45,7 +45,7 @@ int structure_clusters_in_cone(int16_t position_cluster_index, const real_point3
             break;
 
         char *clusters = (char *)bsp->clusters.address;
-        __int16 current_cluster = cluster_stack[--stack_depth];
+        int16_t current_cluster = cluster_stack[--stack_depth];
         cluster_indices[found_count++] = current_cluster;
 
         structure_cluster *cluster = &((structure_cluster *)clusters)[current_cluster];
@@ -55,18 +55,18 @@ int structure_clusters_in_cone(int16_t position_cluster_index, const real_point3
             int portal_index_list = (int)cluster->portal_indices.address;
             for (int i = 0; i < portal_count; i++)
             {
-                __int16 portal_index = ((__int16 *)portal_index_list)[i];  /* portal-index list is a packed __int16[] */
+                int16_t portal_index = ((int16_t *)portal_index_list)[i];  /* portal-index list is a packed __int16[] */
                 cluster_portal *portal = &((cluster_portal *)bsp->cluster_portals.address)[portal_index];
 
                 int neighbor_cluster = portal->cluster_indices[0];
                 if (neighbor_cluster == current_cluster)
                     neighbor_cluster = portal->cluster_indices[1]; /* the cluster on the far side of the portal */
-                neighbor_cluster = (__int16)neighbor_cluster;
+                neighbor_cluster = (int16_t)neighbor_cluster;
 
                 /* DEVIATION: inlined copy of structure_cluster_unmarked@0x83744610 (zero-xref donor); local `marker` cache is invariant == structure_globals.cluster_marker for the life of this call, so it collapses directly to a call with cluster_index=neighbor_cluster, no arg folding needed. */
                 if (structure_cluster_unmarked(neighbor_cluster))
                 {
-                    unsigned __int8 in_cone = sphere_intersects_cone3d(
+                    uint8_t in_cone = sphere_intersects_cone3d(
                         &portal->centroid, portal->bounding_radius,
                         position, direction, distance, sine, cosine);
                     marker = structure_globals.cluster_marker; /* binary reloads; value is unchanged */

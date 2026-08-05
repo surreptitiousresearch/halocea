@@ -26,7 +26,7 @@ void glow_normal_particle_update_position(int object_index, glow_datum *glow, gl
 {
     glow_definition *definition = TAG_GET(glow_definition, glow->definition_index);
 
-    unsigned __int16 distance_function_index = definition->distance_to_object_attachment_index;
+    uint16_t distance_function_index = definition->distance_to_object_attachment_index;
     if ( distance_function_index != 0xFFFF )
     {
         float value;
@@ -39,7 +39,7 @@ void glow_normal_particle_update_position(int object_index, glow_datum *glow, gl
     }
 
     unsigned int flags = particle->flags;
-    __int16 loop_mode = definition->boundary_effect;
+    int16_t loop_mode = definition->boundary_effect;
     float new_t;
     float reflect_total_time;
     unsigned int reflect_flags;

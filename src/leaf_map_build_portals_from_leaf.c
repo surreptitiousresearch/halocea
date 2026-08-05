@@ -42,7 +42,7 @@ void leaf_map_build_portals_from_leaf(leaf_map *leaf_map, int ancestor_node_inde
             stacked_node = leaf_map_globals.node_stack[leaf_map_globals.node_stack_count - scan - 1];
             if ( nodes[2 * stacked_node + (stacked_node & 0x7FFFFFFF)] == *node )
                 break;
-            scan = (__int16)(scan + 1);
+            scan = (int16_t)(scan + 1);
             if ( scan >= leaf_map_globals.node_stack_count )
                 goto scanned;
         }
@@ -51,7 +51,7 @@ void leaf_map_build_portals_from_leaf(leaf_map *leaf_map, int ancestor_node_inde
     }
 scanned:
 
-    for ( int i = 0; i < 2; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 2; i = (int16_t)(i + 1) )
     {
         /* prefer this node as the descent ancestor for the far child of the root call */
         int prefer_this_node =
@@ -70,7 +70,7 @@ scanned:
             /* only descend interior children the leaf actually touches through this node */
             map_leaf *leaf = &((map_leaf *)leaf_map->leaves.address)[leaf_index];
             int face_count = leaf->faces.count;
-            __int16 matching_face = 0;
+            int16_t matching_face = 0;
             if ( face_count <= 0 )
             {
                 matching_face = -1;
@@ -78,7 +78,7 @@ scanned:
             else
             {
                 map_leaf_face *faces = (map_leaf_face *)leaf->faces.address;
-                __int16 face = 0;
+                int16_t face = 0;
                 while ( faces[face].node_index != node_index )
                 {
                     matching_face = ++face;

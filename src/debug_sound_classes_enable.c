@@ -10,7 +10,7 @@ extern char *strstr(const char *haystack, const char *needle);
 
 void debug_sound_classes_enable(const char *substring, uint8_t enabled)
 {
-    for ( int i = 0; i < NUMBER_OF_SOUND_CLASSES; i = (__int16)(i + 1) )
+    for ( int i = 0; i < NUMBER_OF_SOUND_CLASSES; i = (int16_t)(i + 1) )
     {
         const char *name = sound_class_names[i];
         if ( *name && strstr(name, substring) )

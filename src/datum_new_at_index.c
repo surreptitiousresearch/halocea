@@ -1,6 +1,7 @@
 /* datum_new_at_index @ 0x836FB288 — claim a specific slot in a data_array by datum id.
  * Returns the full datum identifier ((salt<<16)|index) or -1 on failure. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/datum_header.h"
 #include "headers/datum_index.h"
@@ -14,7 +15,7 @@ int datum_new_at_index(data_array *data, int index)
     datum_header *datum;
     int count;
 
-    if ( (__int16)index < 0 )               return -1;
+    if ( (int16_t)index < 0 )               return -1;
     if ( slot >= data->maximum_count )      return -1;
     if ( !salt )                            return -1;
 

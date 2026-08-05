@@ -4,6 +4,7 @@
  * translation table and the parallel translated-index allocation array (all slots -1 = free, slot 0 seeded
  * to 1 per the compiled initializer). */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/_field_type_translated_index_parameters.h"
 
@@ -12,7 +13,7 @@ extern void *memset(void *dst, int value, unsigned int n);
 extern void index_resolution_initialize(index_resolution_table *table, int number_of_slots);
 extern void index_resolution_set(index_resolution_table *table, int server_object_index, int local_object_index);
 
-unsigned __int8 field_type_translated_index_parameter_verifier(const _field_properties_definition *const field_properties_definition)
+uint8_t field_type_translated_index_parameter_verifier(const _field_properties_definition *const field_properties_definition)
 {
     _field_type_translated_index_parameters *parameters =
         (_field_type_translated_index_parameters *)field_properties_definition->parameters;

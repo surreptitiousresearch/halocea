@@ -9,6 +9,7 @@
  * decompiler labels an extra phantom a4 output; the disassembly shows the real output is the 3rd argument
  * (`offset`), which is what uniform_cubic_spline_vector3d writes. */
 
+#include <stdint.h>
 #include "headers/unit_camera.h"
 #include "headers/unit_camera_track.h"
 #include "headers/camera_track_definition.h"
@@ -52,7 +53,7 @@ void camera_track_splut(const unit_camera *camera, float pitch, real_vector3d *o
 
     inv_span = (1.0f / (float)(frame_count - 1));
     fraction = ((pitch + 1.5707964f) * 0.31830987f);   /* (pitch+pi/2)/pi */
-    frame = (__int16)(int)((float)(frame_count - 1) * (float)fraction);
+    frame = (int16_t)(int)((float)(frame_count - 1) * (float)fraction);
 
     /* back the start frame off until a 4-keyframe span fits and we don't exceed the target frame */
     clamped = frame;
@@ -62,7 +63,7 @@ void camera_track_splut(const unit_camera *camera, float pitch, real_vector3d *o
         {
             if ( clamped + 4 <= frame_count && clamped <= frame - 1 )
                 break;
-            clamped = (__int16)(clamped - 1);
+            clamped = (int16_t)(clamped - 1);
         }
         while ( clamped > 0 );
     }

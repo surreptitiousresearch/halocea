@@ -10,9 +10,9 @@
 #include "headers/real_point3d.h"
 extern void object_marker_begin(void);
 extern void object_marker_end(void);
-extern __int16 structure_visibility_find_objects(
-    int *result_indices, __int16 maximum_count,
-    int (*cluster_get_first)(int *, __int16),
+extern int16_t structure_visibility_find_objects(
+    int *result_indices, int16_t maximum_count,
+    int (*cluster_get_first)(int *, int16_t),
     int (*cluster_get_next)(int *),
     void (*get_bounding_sphere)(int, real_point3d *, float *),
     int (*unmarked)(uint16_t),

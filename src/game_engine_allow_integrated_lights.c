@@ -6,6 +6,7 @@
  * DEVIATION: the local-player test's arithmetic (v4+1-(v4+(v4==-1))) is reproduced verbatim; it evaluates to
  * 1 when the unit has a local player (index != -1), else 0. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/game_engine_flags.h"
 #include "headers/player_datum.h"
@@ -30,7 +31,7 @@ int game_engine_allow_integrated_lights(int object_index)
     int player_index = player_index_from_unit_index(object_index);
     if ( player_index != -1 )
     {
-        __int16 local_player_index = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
+        int16_t local_player_index = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
         return local_player_index + 1 - (local_player_index + (local_player_index == -1));
     }
     return 0;

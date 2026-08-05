@@ -48,28 +48,28 @@ int _rasterizer_widget_submit_occlusion_test(const real_point3d *point, float ra
         left_f = -32767.0f;
     else if ( left_f > 32767.0f )
         left_f = 32767.0f;
-    __int16 left = (int)(float)floor(left_f);
+    int16_t left = (int)(float)floor(left_f);
 
     float top_f = (projected_center.n[1] - half_height);
     if ( top_f < -32767.0f )
         top_f = -32767.0f;
     else if ( top_f > 32767.0f )
         top_f = 32767.0f;
-    __int16 top = (int)(float)floor(top_f);
+    int16_t top = (int)(float)floor(top_f);
 
     float right_f = (projected_center.n[0] + half_width);
     if ( right_f < -32767.0f )
         right_f = -32767.0f;
     else if ( right_f > 32767.0f )
         right_f = 32767.0f;
-    __int16 right = (int)(float)floor(right_f);
+    int16_t right = (int)(float)floor(right_f);
 
     float bottom_f = (projected_center.n[1] + half_height);
     if ( bottom_f < -32767.0f )
         bottom_f = -32767.0f;
     else if ( bottom_f > 32767.0f )
         bottom_f = 32767.0f;
-    __int16 bottom = (__int16)(int)(float)floor(bottom_f);
+    int16_t bottom = (int16_t)(int)(float)floor(bottom_f);
 
     int rectangle_area = (right - left) * (bottom - top);
     /* two-thirds of the (non-negative) rectangle area = expected coverage in pixels */

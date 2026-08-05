@@ -16,7 +16,7 @@
 
 extern uint8_t fast_vector_intersects_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
 
-unsigned __int8 sphere_intersects_triangle3d(const real_point3d *center, float radius, const real_point3d *p0,
+uint8_t sphere_intersects_triangle3d(const real_point3d *center, float radius, const real_point3d *p0,
         const real_point3d *p1, const real_point3d *p2)
 {
     real_vector3d edge01;
@@ -44,7 +44,7 @@ unsigned __int8 sphere_intersects_triangle3d(const real_point3d *center, float r
     if ( plane_distance * plane_distance > ((nz * nz + (ny * ny + nx * nx)) * radius) * radius )
         return 0;
 
-    unsigned __int8 result = 1;
+    uint8_t result = 1;
 
     /* edge p0->p1 */
     if ( (edge01.n[2] * cy0 - edge01.n[1] * cz0) * nz

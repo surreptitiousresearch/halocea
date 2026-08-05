@@ -22,7 +22,7 @@ extern void draw_quad(rectangle2d *rect, unsigned int color);
 
 void interface_splitscreen_render(void)
 {
-    __int16 player_count;
+    int16_t player_count;
     if (game_engine_force_single_screen() || cinematic_in_progress()
         || ui_widgets_force_fullscreen(nullptr) || hcex_coop_local_player_index >= 0)
         player_count = 1;

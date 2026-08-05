@@ -32,7 +32,7 @@ uint8_t first_person_weapon_adjust_light(int weapon_index, const char *marker_na
         return 0;
 
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, controlling_player_index);
-    __int16 local_player_index = player->local_player_index;
+    int16_t local_player_index = player->local_player_index;
 
     object_marker marker;
     if ( local_player_index == -1 || local_player_index != render.local_player_index

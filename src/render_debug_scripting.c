@@ -31,7 +31,7 @@ void render_debug_scripting(void)
     if ( !debug_scripting )
         return;
 
-    __int16 tab_stops[8];
+    int16_t tab_stops[8];
     char buffer[2112];
     tab_stops[0] = 200;
     tab_stops[1] = 300;
@@ -43,7 +43,7 @@ void render_debug_scripting(void)
         if ( i == -1 )
             break;
 
-        hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)i;
+        hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)i;
         if ( thread->sleep_until >= 0 )
         {
             sprintf_0(&buffer[strlen(buffer)], "|n%s|t", hs_thread_format(i));
@@ -52,7 +52,7 @@ void render_debug_scripting(void)
             strcat(buffer, "|t");
 
             hs_stack_frame *current_expression = thread->stack;
-            if ( (unsigned __int8 *)current_expression != thread->stack_data && thread->sleep_until != -2 )
+            if ( (uint8_t *)current_expression != thread->stack_data && thread->sleep_until != -2 )
                 strcat(buffer, expression_get_function_name(i, current_expression->expression_index));
         }
     }

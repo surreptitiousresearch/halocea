@@ -26,7 +26,7 @@ int16_t source_audible(sound_source *source, float maximum_distance)
     else
     {
         float best = 3.4028235e38f;
-        __int16 i;
+        int16_t i;
         for ( i = 0; i < 2; ++i )
         {
             if ( sound_manager_globals.listeners[i].valid )
@@ -39,10 +39,10 @@ int16_t source_audible(sound_source *source, float maximum_distance)
                 }
             }
         }
-        if ( (__int16)nearest != -1 )
+        if ( (int16_t)nearest != -1 )
             compute_sound_obstruction(nearest, source, __builtin_sqrtf(best));
         if ( best > (maximum_distance * maximum_distance) || source->occlusion == 1.0f )
             return -1;
     }
-    return (__int16)nearest;
+    return (int16_t)nearest;
 }

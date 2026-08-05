@@ -7,11 +7,12 @@
  * The reference normal is computed from points[0..2] before the count check, matching the binary (callers
  * pass real polygons with count >= 3). */
 
+#include <stdint.h>
 #include "headers/real_point3d.h"
 
 extern int _isnan(double x);
 
-unsigned __int8 convex_polygon3d_verify(__int16 count, const real_point3d *points)
+uint8_t convex_polygon3d_verify(int16_t count, const real_point3d *points)
 {
     float normal_z = (points[2].n[1] - points[1].n[1]) * (points[0].n[0] - points[1].n[0])
                    - (points[2].n[0] - points[1].n[0]) * (points[0].n[1] - points[1].n[1]);
@@ -23,7 +24,7 @@ unsigned __int8 convex_polygon3d_verify(__int16 count, const real_point3d *point
     if ( count <= 0 )
         return 1;
 
-    for ( int i = 0; i < count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < count; i = (int16_t)(i + 1) )
     {
         const real_point3d *previous = &points[(i ? i : count) - 1];
         const real_point3d *current = &points[i];

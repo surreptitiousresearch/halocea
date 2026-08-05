@@ -38,8 +38,8 @@ int actor_action_consider_grenade(int actor_index)
     if ( !ai_globals->grenades_enabled )
         return 0;
 
-    if ( (unsigned __int16)variant_tag->grenade_combat.grenade_type == 0xFFFF
-      || (unsigned __int16)variant_tag->grenade_combat.trajectory_type == 0xFFFF )
+    if ( (uint16_t)variant_tag->grenade_combat.grenade_type == 0xFFFF
+      || (uint16_t)variant_tag->grenade_combat.trajectory_type == 0xFFFF )
         return 0;
 
     int current_time = game_time_get();

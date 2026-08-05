@@ -40,11 +40,11 @@ void sound_channel_summary_build(sound_channel_summary *summary, uint16_t sound_
             {
                 if ( datum->definition_index == other->definition_index )
                 {
-                    summary->like_definition_channels[summary->like_definition_count++] = (__int16)channel;
+                    summary->like_definition_channels[summary->like_definition_count++] = (int16_t)channel;
                     {
                         int source = datum->source_identifier;
                         if ( source != -1 && source == other->source_identifier )
-                            summary->like_source_channels[summary->like_source_count++] = (__int16)channel;
+                            summary->like_source_channels[summary->like_source_count++] = (int16_t)channel;
                     }
                 }
             }

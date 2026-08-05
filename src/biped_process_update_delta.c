@@ -24,9 +24,9 @@
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t object_type_is_update_valid(int object_index, const message_delta_processor_mode mode, const int baseline_index_from_update, int message_index_from_update, const int latest_valid_baseline_index, int latest_valid_message_index, const int maximum_message_index);
-extern unsigned __int8 message_delta_processor_decode_incremental(void *const destination_data,
+extern uint8_t message_delta_processor_decode_incremental(void *const destination_data,
     const void *const baseline_data, const message_delta_processor_header *const header,
-    const unsigned __int8 allow_empty_body);
+    const uint8_t allow_empty_body);
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
 
@@ -45,7 +45,7 @@ void biped_process_update_delta(int object_index, message_delta_processor_header
 
     _biped_update_body body = *&biped->biped.baseline;
 
-    unsigned __int8 decoded;
+    uint8_t decoded;
     if ( header->decoding_information->mode == _message_delta_mode_incremental )
         decoded = message_delta_processor_decode_incremental(&body, &biped->biped.baseline, header, 0);
     else
@@ -63,7 +63,9 @@ void biped_process_update_delta(int object_index, message_delta_processor_header
         biped->biped.baseline = body; /* _biped_update_body == biped_datum_network_data */
     }
 
-    *(__int16 *)biped->unit.grenade_counts = *(const __int16 *)body.grenade_counts; /* was payload_a>>16: BE bytes 0-1 = grenade_counts */
+    /* DEVIATION: was a 16-bit pun copy over char[2] (payload_a>>16, BE bytes 0-1); element-wise copy */
+    biped->unit.grenade_counts[0] = body.grenade_counts[0];
+    biped->unit.grenade_counts[1] = body.grenade_counts[1];
     biped->object.body_vitality = body.body_vitality;
 
     float tripled_crouch = body.shield_vitality * 3.0f;
@@ -74,8 +76,11 @@ void biped_process_update_delta(int object_index, message_delta_processor_header
     biped->unit.is_from_network_data_valid = 1;
     biped->biped.last_network_data_valid = 1;
 
-    *(int *)&biped->biped.last_network_data = *(const int *)&body; /* raw 4-byte copy: grenade_counts + pad */
+    /* DEVIATION: the binary's two lwz/stw word copies also moved the 2/3 db-verified padding bytes;
+     * rewritten as member copies (padding carries no data) */
+    biped->biped.last_network_data.grenade_counts[0] = body.grenade_counts[0];
+    biped->biped.last_network_data.grenade_counts[1] = body.grenade_counts[1];
     biped->biped.last_network_data.body_vitality = body.body_vitality;
     biped->biped.last_network_data.shield_vitality = tripled_crouch;
-    *(int *)&biped->biped.last_network_data.shield_stun_ticks_greater_than_zero = *(const int *)&body.shield_stun_ticks_greater_than_zero; /* raw 4-byte copy: stun byte + trailing pad */
+    biped->biped.last_network_data.shield_stun_ticks_greater_than_zero = body.shield_stun_ticks_greater_than_zero;
 }

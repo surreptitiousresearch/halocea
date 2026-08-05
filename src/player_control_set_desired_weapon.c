@@ -17,7 +17,7 @@ void player_control_set_desired_weapon(int unit_index, int16_t desired_weapon_in
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     int controlling_player = unit->unit.player_index;
 
-    __int16 local_player_index;
+    int16_t local_player_index;
     if (controlling_player == -1)
         local_player_index = -1;
     else

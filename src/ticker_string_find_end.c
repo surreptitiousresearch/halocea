@@ -20,7 +20,7 @@ extern font_character *font_get_character_by_ascii_code(font_header *header, uin
 
 int ticker_string_find_end(const wchar_t *string, int *max_len)
 {
-    unsigned __int8 done = 0;
+    uint8_t done = 0;
     int consumed_width = 0;
     int string_index = 0;
 

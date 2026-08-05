@@ -26,6 +26,6 @@ void player_handle_powerup_minor(int player_index, int16_t powerup_type, int16_t
             unit->unit.cause_for_camo_regrowth = 0;
         }
     }
-    __int16 current = player->powerup_durations[powerup_type];
+    int16_t current = player->powerup_durations[powerup_type];
     player->powerup_durations[powerup_type] = current <= minor_duration ? minor_duration : current;
 }

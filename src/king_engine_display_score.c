@@ -54,7 +54,7 @@ uint8_t king_engine_display_score(int player_index, int message, int message_dat
             if ( datum_try_and_get(player_data, player_index) && player )
             {
                 game_engine_place place = game_engine_get_place(player_index, _get_score_team);
-                unsigned __int16 *place_name = get_place_name(place);
+                uint16_t *place_name = get_place_name(place);
                 int score = king_globals.score[player->team_index] / 30;
                 int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
                 if ( text_tag == -1 )

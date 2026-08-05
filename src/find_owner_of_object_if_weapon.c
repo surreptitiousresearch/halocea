@@ -30,7 +30,7 @@ int16_t find_owner_of_object_if_weapon(int object_index)
         unit_datum *unit =
             (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
         if ( object_index == unit_inventory_get_weapon(unit_index, unit->unit.current_weapon_index) )
-            return (unsigned __int16)player->local_player_index == 0xFFFF ? -1 : 1;
+            return (uint16_t)player->local_player_index == 0xFFFF ? -1 : 1;
     }
     return 0;
 }

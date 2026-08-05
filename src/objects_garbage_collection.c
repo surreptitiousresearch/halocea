@@ -39,7 +39,7 @@ extern void console_printf(uint8_t clear, const char *format, ...);
 
 void objects_garbage_collection(void)
 {
-    __int16 mode = -1;
+    int16_t mode = -1;
 
     if ( object_globals->force_garbage_collection )
     {
@@ -74,7 +74,7 @@ void objects_garbage_collection(void)
      * (The original aliases this with the 4096-byte release-proc scratch buffer below; kept separate
      * here for clarity — both sized to the same 4096-byte / 1024-entry region.) */
     int garbage_stack[1024];
-    __int16 garbage_count = 0;
+    int16_t garbage_count = 0;
     int garbage_index = object_globals->first_garbage_object_index;
     if ( garbage_index != -1 )
     {
@@ -112,7 +112,7 @@ void objects_garbage_collection(void)
         if ( mode == 1 )
             was_active = object_header->flags & (1u << _object_header_active_bit);
 
-        if ( ((unsigned __int8)((object_visible_to_any_player(object_index) != 0) - 1) & (unsigned __int8)was_active) != 0 )
+        if ( ((uint8_t)((object_visible_to_any_player(object_index) != 0) - 1) & (uint8_t)was_active) != 0 )
         {
             if ( (object_header->flags & (1u << _object_header_active_bit)) != 0 )
                 --object_globals->active_garbage_object_count;
@@ -208,10 +208,10 @@ void objects_garbage_collection(void)
                 break;
             }
 
-            unsigned __int8 done = 0;
+            uint8_t done = 0;
             while ( !done )
             {
-                unsigned __int8 more = 0;
+                uint8_t more = 0;
                 if ( !buffer_initialized && release_proc->init_function )
                 {
                     release_proc->init_function(release_buffer, 4096);

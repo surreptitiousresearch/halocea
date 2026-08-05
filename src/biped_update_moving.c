@@ -40,7 +40,6 @@
 #include "headers/object_header_datum.h"
 #include "headers/game_globals_tag.h"
 #include "headers/game_globals_player_information.h"
-#include "headers/hexrays_defs.h"
 #include "headers/object_damage_flags.h"
 #include "headers/object_flags.h"
 #include "headers/biped_datum_flags.h"
@@ -102,7 +101,7 @@ void biped_update_moving(int biped_index, unit_animation_update_data *animation_
     const biped_definition *definition;
     biped_datum *biped;
     float movement_scale;
-    unsigned __int16 in_flags;
+    uint16_t in_flags;
 
     biped = ((biped_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, biped_index)->datum);
 
@@ -142,7 +141,7 @@ void biped_update_moving(int biped_index, unit_animation_update_data *animation_
     physics.ground_tangential_angle = 0.0f;
     physics.existing_support_surface_index = biped->biped.support_surface_index;
 
-    if ( (unsigned __int16)biped->biped.landing == 1 )
+    if ( (uint16_t)biped->biped.landing == 1 )
     {
         physics.movement_desired.n[0] = 0.0f;
         physics.movement_desired.n[1] = 0.0f;
@@ -218,7 +217,7 @@ void biped_update_moving(int biped_index, unit_animation_update_data *animation_
                 float desired_y = physics.movement_desired.n[1];
                 animation_graph *graph = TAG_GET(animation_graph, biped->object.animation.animation_graph_index);
                 animation *animation_def = (animation *)graph->animations.address + animation_index;
-                int frame_component_count = (unsigned __int16)animation_def->frame_info_type;
+                int frame_component_count = (uint16_t)animation_def->frame_info_type;
                 int frame_index = biped->object.animation.state.frame_index;
                 char *frame_base = (char *)animation_def->frame_info.address;
 
@@ -382,7 +381,7 @@ void biped_update_moving(int biped_index, unit_animation_update_data *animation_
                         side_speed = player_movement->run_forward_speed;
                     }
 
-                    base_seat_index = (unsigned __int8)biped->unit.animation.base_seat_index;
+                    base_seat_index = (uint8_t)biped->unit.animation.base_seat_index;
                     forward_velocity = (side_speed * uncrouch) + (forward_speed * crouch);
                     physics.movement_desired.n[0] = forward_velocity;
                     side_velocity = (player_movement->run_sideways_speed * uncrouch) + (player_movement->sneak_sideways_speed * crouch);

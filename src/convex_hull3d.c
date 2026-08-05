@@ -15,7 +15,7 @@ uint8_t convex_hull3d(int16_t point_count, const real_point3d *points, int16_t v
     if ( !convex_hull3d_begin(point_count, points, vertex_count, vertices, edge_count, edges, surface_count, surfaces) )
         return 0;
 
-    for ( __int16 point_index = 0; point_index < point_count; ++point_index )
+    for ( int16_t point_index = 0; point_index < point_count; ++point_index )
     {
         if ( !convex_hull3d_expand(point_count, points, vertex_count, vertices, edge_count, edges, surface_count,
                 surfaces, point_index) )

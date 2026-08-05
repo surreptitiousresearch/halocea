@@ -4,6 +4,7 @@
  * captured when the update was added, used for client-side prediction and reconciliation. Layout from the
  * database (0x418 bytes). */
 
+#include <stdint.h>
 #include "player_action.h"
 #include "biped_state.h"
 #include "vehicle_state.h"
@@ -13,7 +14,7 @@ typedef struct player_update
     int                   id;                        /* 0x000 */
     int                   ticks_to_apply_update_to;  /* 0x004 */
     player_action         action;                    /* 0x008 */
-    unsigned __int8       was_vehicle_driver;        /* 0x028 */
+    uint8_t       was_vehicle_driver;        /* 0x028 */
     char                  _pad029[3];                /* 0x029 */
     biped_state           biped_initial_state;       /* 0x02C */
     vehicle_state         vehicle_initial_state;     /* 0x100 */

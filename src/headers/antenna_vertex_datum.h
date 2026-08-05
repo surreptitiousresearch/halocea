@@ -5,6 +5,7 @@
  * the trailing sprites animate. Offsets verified against antenna_update disassembly (vertex stride 0x20,
  * p@0, v@0xC, sprite_index@0x1C). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 
@@ -13,6 +14,6 @@ typedef struct antenna_vertex_datum
     real_point3d  p;              /* 0x00 — world position */
     real_vector3d v;              /* 0x0C — velocity */
     float         sprite_scale;   /* 0x18 — DB: float sprite_scale */
-    __int16          sprite_index; /* 0x1C — incremented each update */
-    unsigned __int16 pad;          /* 0x1E */
+    int16_t          sprite_index; /* 0x1C — incremented each update */
+    uint16_t pad;          /* 0x1E */
 } antenna_vertex_datum;           /* 0x20 */

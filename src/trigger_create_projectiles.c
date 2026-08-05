@@ -86,7 +86,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
     }
 
     object_marker markers[28];
-    __int16 marker_count = object_get_marker_by_name(marker_object_index,
+    int16_t marker_count = object_get_marker_by_name(marker_object_index,
             trigger_marker_names[trigger_index], markers, 64);
     if ( !marker_count )
         marker_count = 1;
@@ -108,7 +108,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
 
         int controlling_player = -1;
         int controlling_actor = -1;
-        unsigned __int8 do_aim = (trigger->flags & (1u << _weapon_trigger_projectiles_cannot_be_aimed_bit)) == 0 && owner_unit
+        uint8_t do_aim = (trigger->flags & (1u << _weapon_trigger_projectiles_cannot_be_aimed_bit)) == 0 && owner_unit
                 && (owner_unit->object.damage_flags & (1u << _object_dead_bit)) == 0;
         if ( do_aim )
         {
@@ -122,8 +122,8 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
                 controlling_actor = vehicle->unit.actor_index;
             }
 
-            unsigned __int8 not_firing_blindly = 1;
-            unsigned __int8 offset_origin =
+            uint8_t not_firing_blindly = 1;
+            uint8_t offset_origin =
                     (TAG_GET(unit_definition, owner_unit->definition_index)->unit.flags
                      >> _unit_definition_fires_from_camera_bit) & 1;
             if ( controlling_actor != -1 )
@@ -174,8 +174,8 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
 
         /* projectile count (and definition/velocity-flag source), boosted for a charged primary shot */
         int projectile_definition_index;
-        __int16 projectile_count;
-        __int16 charge_level = weapon->weapon.alternate_shots_loaded;
+        int16_t projectile_count;
+        int16_t charge_level = weapon->weapon.alternate_shots_loaded;
         if ( trigger_index || charge_level <= 0 )
         {
             projectile_definition_index = trigger->projectile.index;
@@ -216,7 +216,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
         real_vector3d first_marker_forward;
         for ( int shot = 0; shot < projectile_count; ++shot )
         {
-            unsigned __int8 spawn_tracer = 0;
+            uint8_t spawn_tracer = 0;
             object_placement_data placement;
             object_placement_data_new(&placement, trigger->projectile.index, target_object_index);
             float tracer_frequency = trigger_state->rate_of_fire;
@@ -224,7 +224,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
             placement.forward = forward;
 
             /* tracer cadence: every trigger+38 rounds, or always when frequency is 0 */
-            __int16 tracer_counter = trigger_state->sequential_non_tracer_rounds;
+            int16_t tracer_counter = trigger_state->sequential_non_tracer_rounds;
             trigger_state->sequential_non_tracer_rounds = tracer_counter + 1;
             if ( tracer_frequency == 0.0f || tracer_counter >= trigger->rounds_between_tracers )
             {
@@ -266,7 +266,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
 
             projectile_distribute(&placement.forward, &placement.up,
                     trigger->projectile_distribution_function,
-                    trigger->projectile_distribution_angle, (__int16)shot, projectile_count);
+                    trigger->projectile_distribution_angle, (int16_t)shot, projectile_count);
 
             /* inherit shooter velocity when the projectile definition requests it, else fixed muzzle speed */
             if ( projectile_def && (projectile_def->projectile.flags & (1u << _projectile_combine_initial_velocity_with_parent_velocity_bit)) )
@@ -280,7 +280,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
                 placement.translational_velocity.n[2] = placement.forward.n[2] * inherited_velocity;
             }
 
-            unsigned __int8 force_inside_bsp = owner_unit && owner_unit->unit.player_index != -1;
+            uint8_t force_inside_bsp = owner_unit && owner_unit->unit.player_index != -1;
             if ( force_inside_bsp )
                 placement.flags |= 2u;
 

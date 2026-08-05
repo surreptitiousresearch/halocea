@@ -51,13 +51,13 @@ void bitmap_3d_alpha_bleed(bitmap_data *bitmap, int16_t passes)
                             unsigned int texel = source_row[x];
                             if ( (texel & 0xFF000000) == 0 )
                             {
-                                unsigned __int8 found = 0;
+                                uint8_t found = 0;
                                 for ( int dy = -1; dy <= 1 && !found; ++dy )
                                 {
                                     for ( int dx = -1; dx <= 1 && !found; ++dx )
                                     {
-                                        __int16 nx = (__int16)(dx + x);
-                                        __int16 ny = (__int16)(dy + y);
+                                        int16_t nx = (int16_t)(dx + x);
+                                        int16_t ny = (int16_t)(dy + y);
                                         if ( nx >= 0 && ny >= 0 && nx < slice->width && ny < slice->height )
                                         {
                                             unsigned int neighbor =

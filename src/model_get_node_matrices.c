@@ -5,6 +5,7 @@
  * translation/rotation (point_and_quaternion), with the root instead applying its local transform
  * in-place onto its already-built base matrix. node_matrices must have one entry per model node. */
 
+#include <stdint.h>
 #include "headers/model.h"
 #include "headers/model_node.h"
 #include "headers/real_matrix4x3.h"
@@ -22,14 +23,14 @@ extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b,
 void model_get_node_matrices(const model *model, real_matrix4x3 *node_matrices, const real_point3d *origin,
     const real_vector3d *forward, const real_vector3d *up)
 {
-    __int16 queue[120];
-    __int16 read_cursor = 0;
-    __int16 write_cursor = 1;
+    int16_t queue[120];
+    int16_t read_cursor = 0;
+    int16_t write_cursor = 1;
     queue[0] = 0;
 
     do
     {
-        __int16 node_index = queue[read_cursor++];
+        int16_t node_index = queue[read_cursor++];
         const model_node *node = (const model_node *)model->nodes.address + node_index;
 
         real_matrix4x3 local_transform;
@@ -59,11 +60,11 @@ void model_get_node_matrices(const model *model, real_matrix4x3 *node_matrices, 
 
         /* recovered: node+0x20/+0x22 are next_sibling/first_child per DB model_node layout
          * (the decompiler's local labels were swapped); order of enqueue is unchanged. */
-        unsigned __int16 next_sibling = (unsigned __int16)node->next_sibling_node_index;
+        uint16_t next_sibling = (uint16_t)node->next_sibling_node_index;
         if ( next_sibling != 0xFFFF )
             queue[write_cursor++] = next_sibling;
 
-        unsigned __int16 first_child = (unsigned __int16)node->first_child_node_index;
+        uint16_t first_child = (uint16_t)node->first_child_node_index;
         if ( first_child != 0xFFFF )
             queue[write_cursor++] = first_child;
     }

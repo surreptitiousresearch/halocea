@@ -20,7 +20,7 @@ void solo_game_objective_text(widget_instance *widget)
 
         if ( length > 0 )
         {
-            unsigned __int16 *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 2 * length + 2);
+            uint16_t *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 2 * length + 2);
 
             widget->parameters.text_box_parameters.text = text;
             if ( text )

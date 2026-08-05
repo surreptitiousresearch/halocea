@@ -7,6 +7,7 @@
  * in the body) alongside the real output pointer ("a4"); the DB's 3-parameter prototype
  * (matrix, determinant, result) is ground truth — "a4" is that real `result` output pointer. */
 
+#include <stdint.h>
 #include "headers/real_matrix3x3.h"
 
 real_matrix3x3 * matrix3x3_inverse(const real_matrix3x3 *matrix, float determinant, real_matrix3x3 *result)
@@ -22,15 +23,15 @@ real_matrix3x3 * matrix3x3_inverse(const real_matrix3x3 *matrix, float determina
 
     /* Output is transposed relative to the input row/col basis used below (adjugate = transpose(cofactor)):
      * result->n[col][row] is written for each (row, col) pair of the input matrix's minor. */
-    for ( __int16 row = 0; row < 3; row++ )
+    for ( int16_t row = 0; row < 3; row++ )
     {
-        __int16 next_row = (row >= 2) ? 0 : row + 1;
-        __int16 prev_row = (row <= 0) ? 2 : row - 1;
+        int16_t next_row = (row >= 2) ? 0 : row + 1;
+        int16_t prev_row = (row <= 0) ? 2 : row - 1;
 
-        for ( __int16 col = 0; col < 3; col++ )
+        for ( int16_t col = 0; col < 3; col++ )
         {
-            __int16 next_col = (col >= 2) ? 0 : col + 1;
-            __int16 prev_col = (col <= 0) ? 2 : col - 1;
+            int16_t next_col = (col >= 2) ? 0 : col + 1;
+            int16_t prev_col = (col <= 0) ? 2 : col - 1;
 
             result->n[col][row] = (matrix->n[next_row][next_col] * matrix->n[prev_row][prev_col]
                                   - matrix->n[next_row][prev_col] * matrix->n[prev_row][next_col])

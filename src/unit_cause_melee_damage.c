@@ -78,7 +78,7 @@ void unit_cause_melee_damage(int unit_index, uint8_t silent, int target_object_i
         int damage_definition_index = definition_tag->unit.melee_damage.index;
 
         /* if a weapon is equipped that flags its own melee damage, use that instead */
-        __int16 weapon_slot = unit_data->unit.current_weapon_index;
+        int16_t weapon_slot = unit_data->unit.current_weapon_index;
         if ( weapon_slot != -1 )
         {
             int weapon_object_index = unit_data->unit.weapon_object_indices[weapon_slot];
@@ -112,7 +112,7 @@ void unit_cause_melee_damage(int unit_index, uint8_t silent, int target_object_i
             object_cause_damage(&damage, target_object_index, target_node_index, target_region_index,
                                 target_material_index, target_object_normal);
 
-        if ( !silent && damage.material_type != (__int16)0xFFFF )
+        if ( !silent && damage.material_type != (int16_t)0xFFFF )
             unit_melee_sound(unit_index, damage_definition_index, damage.material_type);
     }
 

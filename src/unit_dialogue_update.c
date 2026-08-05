@@ -38,7 +38,7 @@ void unit_dialogue_update(int unit_index)
 
     if ( (unit->unit.flags & (1u << _unit_must_set_up_dialogue_bit)) != 0 )
     {
-        __int16 actor_type = unit->object.variant_number;
+        int16_t actor_type = unit->object.variant_number;
         unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
         int dialogue_variant;
         if ( actor_type <= 0
@@ -55,7 +55,7 @@ void unit_dialogue_update(int unit_index)
     int stutter_timer = unit->unit.speech.damage_minor_decay_timer;
     if ( stutter_timer > 0 )
     {
-        __int16 remaining = stutter_timer - 1;
+        int16_t remaining = stutter_timer - 1;
         unit->unit.speech.damage_minor_decay_timer = remaining;
         if ( !remaining )
         {
@@ -84,7 +84,7 @@ void unit_dialogue_update(int unit_index)
             {
                 real_point3d position;
                 real_vector3d forward;
-                __int16 node_index;
+                int16_t node_index;
                 object_marker marker;
                 if ( object_get_marker_by_name(unit_index, "head", &marker, 1) )
                 {
@@ -134,7 +134,7 @@ void unit_dialogue_update(int unit_index)
             }
             else
             {
-                __int16 remaining = body_timer - 1;
+                int16_t remaining = body_timer - 1;
                 unit->unit.speech.sound_timer = remaining;
                 if ( !remaining )
                     unit->unit.speech.impulse_sound_index = -1;

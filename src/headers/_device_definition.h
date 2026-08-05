@@ -3,6 +3,7 @@
  * inside composite device-class tag definitions (machine/control/light fixture), after
  * _object_definition. Layout DB-verified against type '_device_definition' (2026-07-14). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 
 typedef struct _device_definition
@@ -14,7 +15,7 @@ typedef struct _device_definition
     float         powered_position_acceleration_time;             /* 0x10 */
     float         depowered_position_transition_time;             /* 0x14 */
     float         depowered_position_acceleration_time;           /* 0x18 */
-    __int16       function_modes[4];                              /* 0x1C */
+    int16_t       function_modes[4];                              /* 0x1C */
     tag_reference positive_start_effect;                          /* 0x24 */
     tag_reference negative_start_effect;                          /* 0x34 */
     tag_reference positive_stop_effect;                           /* 0x44 */

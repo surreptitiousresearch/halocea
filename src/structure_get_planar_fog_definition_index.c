@@ -13,7 +13,7 @@
 #include "headers/fog_designator.h"
 #include "headers/sky.h"
 
-extern sky *scenario_get_sky(__int16 sky_index);
+extern sky *scenario_get_sky(int16_t sky_index);
 
 int structure_get_planar_fog_definition_index(const structure_bsp *structure, int16_t cluster_index, uint8_t get_fog_from_sky)
 {
@@ -28,11 +28,11 @@ int structure_get_planar_fog_definition_index(const structure_bsp *structure, in
         return -1;
     }
 
-    __int16 fog_plane_reference = ((structure_cluster *)structure->clusters.address)[cluster_index].fog_designator;
+    int16_t fog_plane_reference = ((structure_cluster *)structure->clusters.address)[cluster_index].fog_designator;
     if (fog_plane_reference == -1)
         return -1;
 
-    __int16 fog_region_index =
+    int16_t fog_region_index =
         FOG_DESIGNATOR_IS_PLANE(fog_plane_reference)
             /* (32*d) & 0xFFFE0 == (d & 0x7FFF)*32 — strip the 0x8000 flag; region_index @0 in the 32B plane */
             ? ((const structure_fog_plane *)structure->fog_planes.address)[fog_plane_reference & 0x7FFF].region_index

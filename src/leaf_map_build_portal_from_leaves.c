@@ -36,12 +36,12 @@ extern void leaf_map_close_portal(leaf_map *leaf_map, int portal_index);
 extern float __fsqrts(float x);
 
 /* first face index in `leaf` whose node index == node_index, or -1 (faces are 16 bytes, node index @0) */
-static __int16 find_face_on_node(const tag_block *leaf, int node_index)
+static int16_t find_face_on_node(const tag_block *leaf, int node_index)
 {
     if ( leaf->count <= 0 )
         return -1;
     const map_leaf_face *faces = (const map_leaf_face *)leaf->address;
-    __int16 face = 0;
+    int16_t face = 0;
     while ( faces[face].node_index != node_index )
     {
         ++face;
@@ -59,8 +59,8 @@ void leaf_map_build_portal_from_leaves(leaf_map *leaf_map, int node_index, int l
     tag_block *leaf0 = (tag_block *)&leaves[16 * leaf_index0 + 8 * (leaf_index0 & 0x7FFFFFFF)];
     tag_block *leaf1 = (tag_block *)&leaves[16 * leaf_index1 + 8 * (leaf_index1 & 0x7FFFFFFF)];
 
-    __int16 face0 = find_face_on_node(leaf0, node_index);
-    __int16 face1 = find_face_on_node(leaf1, node_index);
+    int16_t face0 = find_face_on_node(leaf0, node_index);
+    int16_t face1 = find_face_on_node(leaf1, node_index);
     if ( face0 == -1 || face1 == -1 )
         return;
 
@@ -96,8 +96,8 @@ void leaf_map_build_portal_from_leaves(leaf_map *leaf_map, int node_index, int l
     const real_plane3d *plane = &((const real_plane3d *)leaf_map->bsp->planes.address)[plane_index];
 
     portal->plane_index = plane_index;
-    __int16 projection = projection_from_vector3d(&plane->n);
-    unsigned __int8 sign = plane->n.n[projection] > 0.0f;
+    int16_t projection = projection_from_vector3d(&plane->n);
+    uint8_t sign = plane->n.n[projection] > 0.0f;
     portal->leaf_index0 = masked_leaf0;
     portal->leaf_index1 = masked_leaf1;
     *((int *)leaf0[1].address + designator0) = portal_index;
@@ -105,7 +105,7 @@ void leaf_map_build_portal_from_leaves(leaf_map *leaf_map, int node_index, int l
 
     if ( tag_block_resize(&portal->vertices, vertex_count) && vertex_count > 0 )
     {
-        for ( int i = 0; i < vertex_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < vertex_count; i = (int16_t)(i + 1) )
             project_point2d(&intersection[i], plane, projection, sign,
                     (real_point3d *)portal->vertices.address + i);
     }

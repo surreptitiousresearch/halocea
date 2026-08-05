@@ -25,8 +25,8 @@ int player_handle_powerup_from_network(message_delta_processor_header *header)
     struct
     {
         int     translated_player_index;
-        __int16 powerup_type;
-        __int16 duration_in_ticks;
+        int16_t powerup_type;
+        int16_t duration_in_ticks;
     } payload;
 
     if ( message_delta_processor_decode_stateless(&payload, header) )

@@ -11,7 +11,7 @@ void director_initialize_variables(int16_t local_player_index)
     director *dir = &director_globals.local_players[local_player_index];
     int i;
 
-    for ( i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( i = 0; i < 4; i = (int16_t)(i + 1) )
     {
         dir->debug_variables[i].value = variables[i].initial_value;
         dir->debug_variables[i].delta = 0.0f;

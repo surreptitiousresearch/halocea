@@ -81,7 +81,7 @@ void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, u
         else
         {
             int parent = object_get_ultimate_parent(actor->meta.unit_index);  /* meta.unit_index (0x18) */
-            __int16 cluster = (((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum))->object.location.cluster_index;
+            int16_t cluster = (((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum))->object.location.cluster_index;
             if ( cluster != -1 )
             {
                 int word_index = cluster >> 5;
@@ -93,18 +93,19 @@ void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, u
 
             if ( encounter->active )  /* fold in firing positions / props */
             {
-                __int16 actor_mode = actor->state.mode;    /* state.mode (0x6A) */
+                int16_t actor_mode = actor->state.mode;    /* state.mode (0x6A) */
                 if ( actor_mode == _actor_mode_combat )
                 {
                     if ( actor->state.combat_status >= _actor_combat_status_investigate )          /* state.combat_status (0x6E) */
                         firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_pursue, 1);
-                    __int16 actor_action = actor->state.action;  /* state.action (0x6C) */
+                    int16_t actor_action = actor->state.action;  /* state.action (0x6C) */
                     if ( actor_action == actor_action_guard || actor_action == actor_action_flee )
                         firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_guard, 0);
                     else if ( actor_action == actor_action_fight || actor_action == actor_action_uncover )
                         firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_fight, 0);
                 }
-                else if ( actor_mode == _actor_mode_alert && *(__int16 *)&actor->state.action_data )  /* state.action_data[0] (0x9C) */
+                else if ( actor_mode == _actor_mode_alert
+                          && actor->state.action_data.___u0.alert.move_position_order )  /* alert arm of the action_data union (0x9C); mode-alert actors run the alert action */
                 {
                     active_squad_mask |= 1 << actor->meta.squad_index;  /* meta.squad_index (0x3A) */
                 }
@@ -113,7 +114,7 @@ void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, u
                 if ( prop_index != -1 )
                 {
                     /* prop.body_location.cluster_index (prop stride 312, field 0x100) */
-                    __int16 prop_cluster = DATUM_GET(prop_data, prop_datum, prop_index)->body_location.cluster_index;
+                    int16_t prop_cluster = DATUM_GET(prop_data, prop_datum, prop_index)->body_location.cluster_index;
                     if ( prop_cluster != -1 )
                         BIT_VECTOR_SET_FLAG(bit_vector, prop_cluster);
                 }
@@ -122,7 +123,7 @@ void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, u
 
         if ( update_dormancy )
             /* squad_array[actor.squad_index + encounter.squad_base].disable_dormant pins the actor active */
-            actor->meta.dormant_desire = squad_array[(__int16)(actor->meta.squad_index + encounter->squad_base)].disable_dormant
+            actor->meta.dormant_desire = squad_array[(int16_t)(actor->meta.squad_index + encounter->squad_base)].disable_dormant
                             ? 0
                             : actor_in_active_area;
 
@@ -134,10 +135,10 @@ void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, u
      * cluster (firing position @ +14), gated by group index @ +12. encounter_def[38]=count, [39]=address. */
     if ( firing_position_group_mask && encounter_def->firing_positions.count > 0 )
     {
-        for ( int i = 0; i < encounter_def->firing_positions.count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < encounter_def->firing_positions.count; i = (int16_t)(i + 1) )
         {
             firing_position_definition *firing_position = (firing_position_definition *)encounter_def->firing_positions.address + i;
-            if ( (unsigned __int16)firing_position->cluster_index != 0xFFFF
+            if ( (uint16_t)firing_position->cluster_index != 0xFFFF
                  && ((1 << firing_position->group_index) & firing_position_group_mask) != 0 )
                 BIT_VECTOR_SET_FLAG(bit_vector, firing_position->cluster_index);
         }
@@ -148,16 +149,16 @@ void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, u
      * [33]=squads.address. */
     if ( active_squad_mask && encounter_def->squads.count > 0 )
     {
-        for ( int squad = 0; squad < encounter_def->squads.count; squad = (__int16)(squad + 1) )
+        for ( int squad = 0; squad < encounter_def->squads.count; squad = (int16_t)(squad + 1) )
         {
             if ( ((1 << squad) & active_squad_mask) != 0 )
             {
                 squad_definition *squad_def = (squad_definition *)encounter_def->squads.address + squad;
                 if ( squad_def->move_positions.count > 0 )
                 {
-                    for ( int point = 0; point < squad_def->move_positions.count; point = (__int16)(point + 1) )
+                    for ( int point = 0; point < squad_def->move_positions.count; point = (int16_t)(point + 1) )
                     {
-                        __int16 cluster = (unsigned __int16)((move_position_definition *)squad_def->move_positions.address + point)->cluster_index;
+                        int16_t cluster = (uint16_t)((move_position_definition *)squad_def->move_positions.address + point)->cluster_index;
                         if ( cluster != -1 )
                             BIT_VECTOR_SET_FLAG(bit_vector, cluster);
                     }

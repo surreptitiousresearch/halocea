@@ -24,7 +24,7 @@
 #include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern int16_t projection_from_vector3d(const real_vector3d *n);
 extern uint8_t convex_hull2d_test_circle(int16_t count, const real_point2d *points, const real_point2d *p, float radius);
 

@@ -68,11 +68,11 @@ void unit_cause_player_melee_damage(int unit_index)
     unit_definition *unit_definition_tag = TAG_GET(unit_definition, unit_data->definition_index);
 
     int best_object = -1;
-    __int16 material_type = -1;
-    __int16 breakable_surface_index = -1;
+    int16_t material_type = -1;
+    int16_t breakable_surface_index = -1;
     int recoil_effect = -1;
     int surface_index = -1;
-    __int16 best_object_type = 0;
+    int16_t best_object_type = 0;
     float best_t = 0.0f;
 
     float *forward = unit_data->unit.aiming_vector.n;
@@ -136,7 +136,7 @@ void unit_cause_player_melee_damage(int unit_index)
                         object_index)->datum;
                 }
 
-                __int16 hit_type = hit_data->object.type;
+                int16_t hit_type = hit_data->object.type;
                 if ( best_object == -1
                   || (hit_type == object_type_biped
                       && (best_object_type != object_type_biped || collision.t < best_t)) )
@@ -152,7 +152,7 @@ void unit_cause_player_melee_damage(int unit_index)
 
     /* choose the damage effect: equipped weapon's melee override, else the unit's default melee effect */
     unit_datum *unit_data2 = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
-    __int16 weapon_slot = unit_data2->unit.current_weapon_index;
+    int16_t weapon_slot = unit_data2->unit.current_weapon_index;
     int damage_definition_index;
     if ( weapon_slot == -1
       || unit_data2->unit.weapon_object_indices[weapon_slot] == -1 )
@@ -269,7 +269,7 @@ void unit_cause_player_melee_damage(int unit_index)
 
                 if ( hcex_recharge_on_melee )
                 {
-                    __int16 player_index = (player_index_from_unit_index(unit_index) == -1)
+                    int16_t player_index = (player_index_from_unit_index(unit_index) == -1)
                         ? -1
                         : DATA_ARRAY_ELEMENT(player_data, player_datum,
                               player_index_from_unit_index(unit_index))->local_player_index;

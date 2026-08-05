@@ -2,6 +2,7 @@
 /* damage_data — a damage event description passed to object_cause_damage / effect systems. Layout from
  * the database. */
 
+#include <stdint.h>
 #include "location.h"
 #include "real_point3d.h"
 #include "real_vector3d.h"
@@ -14,7 +15,7 @@ typedef struct damage_data
     unsigned int   flags;                  /* 0x04 */
     int            owner_player_index;      /* 0x08 */
     int            owner_object_index;      /* 0x0C */
-    __int16        owner_team_index;        /* 0x10 */
+    int16_t        owner_team_index;        /* 0x10 */
     char           _pad12[2];               /* 0x12 */
     location       location;                /* 0x14 */
     real_point3d   origin;                  /* 0x1C */
@@ -23,7 +24,7 @@ typedef struct damage_data
     float          scale;                   /* 0x40 */
     float          multiplier;              /* 0x44 */
     float          material_effect_scale;   /* 0x48 */
-    __int16        material_type;           /* 0x4C */
+    int16_t        material_type;           /* 0x4C */
     char           _pad4E[2];               /* 0x4E */
     const struct projectile_material_response_definition *material_response; /* 0x50 */
 } damage_data;

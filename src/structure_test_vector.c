@@ -40,7 +40,7 @@ uint8_t structure_test_vector(const real_point3d *p, const real_vector3d *v, rea
             if ( structure_render_surface_from_point_and_leaf(collision_point,
                         collision.location.leaf_index, plane_designator & 0x7FFFFFFF,
                         lightmap_index, material_index, surface_index, s, t)
-              && (unsigned __int16)((structure_lightmap *)structure->lightmaps.address)[*lightmap_index].bitmap_index != 0xFFFF )
+              && (uint16_t)((structure_lightmap *)structure->lightmaps.address)[*lightmap_index].bitmap_index != 0xFFFF )
             {
                 found = 1;
             }

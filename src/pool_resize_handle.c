@@ -15,10 +15,10 @@ uint8_t pool_resize_handle(stack_memory_pool *pool, void ***h, unsigned int new_
     memory_block *block = (memory_block *)*h;
     unsigned char *base_address = pool->base_address;
 
-    unsigned __int8 valid = 0;
+    uint8_t valid = 0;
     if ( block >= (memory_block *)base_address && block < (memory_block *)&base_address[pool->pool_size] )
     {
-        unsigned __int8 in_use = block && (block->bits & 0x7FFFFFFF) != 0x10;
+        uint8_t in_use = block && (block->bits & 0x7FFFFFFF) != 0x10;
 
         if ( in_use )
         {

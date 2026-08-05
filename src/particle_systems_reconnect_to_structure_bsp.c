@@ -42,7 +42,7 @@ int particle_systems_reconnect_to_structure_bsp(void)
         else
         {
             scenario_location_from_point(&system->location, &system->position);
-            if ( system->location.cluster_index == (__int16)0xFFFF )
+            if ( system->location.cluster_index == (int16_t)0xFFFF )
             {
                 particle_system_delete(system_index);
                 system_index = data_next_index(particle_systems, system_index);
@@ -51,7 +51,7 @@ int particle_systems_reconnect_to_structure_bsp(void)
         }
 
         int max_particles_per_type = definition->types.count;
-        for ( __int16 type_index = 0; type_index < max_particles_per_type; ++type_index )
+        for ( int16_t type_index = 0; type_index < max_particles_per_type; ++type_index )
         {
             int *particle_index_ref = &system->types[type_index].first_particle_index;
 
@@ -62,7 +62,7 @@ int particle_systems_reconnect_to_structure_bsp(void)
 
                 scenario_location_from_point(&particle->location, &particle->position);
 
-                if ( particle->location.cluster_index == (__int16)0xFFFF )
+                if ( particle->location.cluster_index == (int16_t)0xFFFF )
                 {
                     datum_delete(system_particles, *particle_index_ref);
                     *particle_index_ref = particle->next_particle_index;

@@ -19,7 +19,7 @@ extern void *data_iterator_next(data_iterator *iterator);
 extern void ai_conversation_finish(int conversation_index, uint8_t unable_to_begin, uint8_t success);
 extern int game_time_get(void);
 
-int ai_conversation_new(__int16 conversation_definition_index, char scripted)
+int ai_conversation_new(int16_t conversation_definition_index, char scripted)
 {
     int conversation_index = datum_new(conversation_data);
 

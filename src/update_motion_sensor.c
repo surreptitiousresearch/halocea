@@ -47,7 +47,7 @@ void update_motion_sensor(int16_t local_player_index)
     if ( !motion_sensor_globals->update )
         return;
 
-    __int16 sensor_active_index = motion_sensor_globals->sensor_active_index;
+    int16_t sensor_active_index = motion_sensor_globals->sensor_active_index;
 
     int unit_index;
     if ( local_player_get_player_index(local_player_index) == -1 )
@@ -65,13 +65,13 @@ void update_motion_sensor(int16_t local_player_index)
     sensor->reference_point.n[0] = camera_position.n[0];
     sensor->reference_point.n[1] = camera_position.n[1];
 
-    for ( int i = 0; i < 16; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 16; i = (int16_t)(i + 1) )
     {
         int object_index = player_sensor->current_unit_indices[i];
         if ( !object_try_and_get_and_verify_type(object_index, object_mask_unit) )
             continue;
 
-        unsigned __int8 draw = should_draw_object(object_index);
+        uint8_t draw = should_draw_object(object_index);
         float center_x = sensor->reference_point.n[0];
         float center_y = sensor->reference_point.n[1];
         object_datum *object = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);

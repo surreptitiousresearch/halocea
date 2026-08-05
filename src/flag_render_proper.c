@@ -90,7 +90,7 @@ void flag_render_proper(flag_datum *flag, flag_definition *flag_definition, cons
 
     int width = flag_definition->width;
     int height = flag_definition->height;
-    int dynamic_triangle_buffer_index = rasterizer_dynamic_triangles_new((__int16)(2 * (height - 1) * (width - 1)));
+    int dynamic_triangle_buffer_index = rasterizer_dynamic_triangles_new((int16_t)(2 * (height - 1) * (width - 1)));
     int dynamic_vertex_buffer_index = rasterizer_dynamic_vertices_new(_rasterizer_vertex_type_model_uncompressed, width * height);
 
     if ( dynamic_triangle_buffer_index != -1 && dynamic_vertex_buffer_index != -1 )
@@ -151,7 +151,7 @@ void flag_render_proper(flag_datum *flag, flag_definition *flag_definition, cons
         {
             for ( int row = 0; row < height - 1; ++row )
             {
-                __int16 tesselation = flag->cells[column * (height - 1) + row].tesselation;
+                int16_t tesselation = flag->cells[column * (height - 1) + row].tesselation;
                 int top_left = height * column + row;
                 int top_right = top_left + 1;
                 int bottom_left = height * (column + 1) + row;

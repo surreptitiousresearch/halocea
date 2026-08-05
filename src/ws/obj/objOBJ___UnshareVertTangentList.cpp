@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -17,7 +18,7 @@ int objOBJ::_UnshareVertTangentList(int tcInd)
     if (!this->pGeom)
         return 0;
 
-    unsigned __int64 shareBit = (unsigned __int64)0x10000 << tcInd; // OBJ_ST_SHARED_TANGENT<tcInd>
+    uint64_t shareBit = (uint64_t)0x10000 << tcInd; // OBJ_ST_SHARED_TANGENT<tcInd>
     if ((this->stateShare.state & shareBit) != 0) {
         _UnshareGeom();
         this->stateShare.state &= ~shareBit;
@@ -31,7 +32,7 @@ int objOBJ::_UnshareVertTangentList(int tcInd)
             objGEOM_UNSHARED *pGeom = this->pGeom;
             int elemSize = 16; // full m4dV tangent
             if (pGeom &&
-                (pGeom->pSharedGeom->stateCompr.state & ((unsigned __int64)0x2000 << tcInd)))
+                (pGeom->pSharedGeom->stateCompr.state & ((uint64_t)0x2000 << tcInd)))
                 elemSize = 4; // packed tangent
             memcpy(pGeom->pSharedGeom->tangentList[tcInd], oldTangents,
                    (size_t)this->nVert * elemSize);

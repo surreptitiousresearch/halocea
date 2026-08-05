@@ -13,7 +13,7 @@ extern void action_obey_command_end(int actor_index, int unit_index, int16_t com
 void action_obey_individual_end(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, void *user_data)
 {
     unit_datum *object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-    unsigned __int8 next_command_index[16];
+    uint8_t next_command_index[16];
 
     if ( !(simple_control->metadata_flags & (1u << _obey_metadata_commands_finished_bit)) )
         action_obey_command_end(actor_index, unit_index, command_list_index, simple_control, complex_control, next_command_index);

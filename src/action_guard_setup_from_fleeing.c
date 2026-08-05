@@ -45,7 +45,7 @@ int action_guard_setup_from_fleeing(uint16_t actor_index, flee_state_data *flee_
         int panic_positive = -flee_state_data->panic_type & ~flee_state_data->panic_type;
         state_data->cower_panicked = panic_positive < 0;
 
-        unsigned __int8 cower_from_retreat = 1;
+        uint8_t cower_from_retreat = 1;
         if ( actor->emotions.unopposable_retreat_timer <= 0 || panic_positive < 0 )
             cower_from_retreat = 0;
         state_data->cower_from_retreat = cower_from_retreat;
@@ -71,7 +71,7 @@ int action_guard_setup_from_fleeing(uint16_t actor_index, flee_state_data *flee_
                 (int)(real_seed_random_range(seed, cower_time_min, cower_time_max) * 30.0f);
         }
 
-        if ( (unsigned __int16)flee_state_data->flee_firing_position_index == 0xFFFF )
+        if ( (uint16_t)flee_state_data->flee_firing_position_index == 0xFFFF )
         {
             state_data->find_new_guard_position = 1;
             state_data->guard_location_type = _actor_guard_location_none;

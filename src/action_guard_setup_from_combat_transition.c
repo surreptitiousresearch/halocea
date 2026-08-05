@@ -42,7 +42,7 @@ uint8_t action_guard_setup_from_combat_transition(int actor_index, guard_state_d
     }
     else
     {
-        unsigned __int8 have_firing_position = 0;
+        uint8_t have_firing_position = 0;
 
         if ( actor->stimuli.combat_transition_guard_at_point && actor_nearby_firing_positions(actor_index,
                 &actor->stimuli.combat_transition_guard_point,

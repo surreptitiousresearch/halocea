@@ -3,6 +3,7 @@
  * scoped forms (see ai_index_from_string.c for the packing scheme: bits 30-31 select scope, byte 1 is the
  * sub-index), or "<error>" for the reserved/invalid scope. */
 
+#include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/encounter_definition.h"
 #include "headers/platoon_definition.h"
@@ -21,7 +22,7 @@ void ai_index_to_string(unsigned int ai_index, scenario *scenario, char *buffer,
     }
 
     encounter_definition *encounter =
-        &((encounter_definition *)scenario->ai_encounters.address)[(unsigned __int16)ai_index];
+        &((encounter_definition *)scenario->ai_encounters.address)[(uint16_t)ai_index];
     unsigned char sub_index = (unsigned char)(ai_index >> 8);
 
     switch ( ai_index >> 30 )

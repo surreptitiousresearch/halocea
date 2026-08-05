@@ -27,7 +27,7 @@ extern float projectile_get_ballistic_acceleration(const projectile_definition *
 uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_point3d *grenade_origin, float velocity_max, const real_point3d *desired_impact_point, float *optional_ballistic_fraction_min, uint8_t lob, real_vector3d *aim_vector, float *aim_speed, float *arc_time, real_vector3d *arc_initial_velocity, float *arc_acceleration)
 {
     float velocity_max_copy = velocity_max;
-    unsigned __int8 success = 0;
+    uint8_t success = 0;
 
     /* recovered: (char *)grenades.address + 68 * grenade_type -> typed &grenades[grenade_type] */
     game_globals_grenade *grenade_entry = &((game_globals_grenade *)global_game_globals->grenades.address)[grenade_type];
@@ -39,7 +39,7 @@ uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_p
             const projectile_definition *definition = TAG_GET(const projectile_definition, projectile_definition_index);
             if ( definition )
             {
-                unsigned __int8 result_linear;
+                uint8_t result_linear;
                 if ( projectile_aim(definition, grenade_origin, desired_impact_point, &velocity_max_copy,
                         nullptr, optional_ballistic_fraction_min, nullptr, 0, aim_vector, aim_speed,
                         nullptr, nullptr, &result_linear) )

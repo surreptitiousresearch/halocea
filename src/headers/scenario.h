@@ -2,6 +2,7 @@
 /* scenario — scenario tag (scenario.c). Layout reproduced verbatim from the database `scenario` type.
  * Unnamed "*_unused" gaps are kept as sized arrays so member offsets stay exact. */
 
+#include <stdint.h>
 #include "tag_data.h"
 #include "tag_block.h"
 #include "tag_reference.h"
@@ -12,8 +13,8 @@ typedef struct scenario
     tag_reference unloved_globals;                     /* 0x010 */
     tag_reference bad_sky;                             /* 0x020 */
     tag_block     sky_references;                      /* 0x030 */
-    __int16       type;                                /* 0x03C */
-    unsigned __int16 flags;                            /* 0x03E */
+    int16_t       type;                                /* 0x03C */
+    uint16_t flags;                            /* 0x03E */
     tag_block     scenario_references;                 /* 0x040 */
     float         local_north;                         /* 0x04C */
     unsigned int  header_unused[5];                    /* 0x050 */

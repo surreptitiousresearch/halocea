@@ -27,6 +27,7 @@
  * angle is updated in place. The `out_velocity` outputs are written to slots that are never read again
  * (dead outputs); modeled here as throwaway locals. */
 
+#include <stdint.h>
 #include <math.h>
 
 #include "headers/real_matrix4x3.h"
@@ -172,9 +173,9 @@ void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *
     unit_euler_axis_couple(&yaw_plan, &pitch_plan, angular_acceleration_limit, yaw_velocity);
 
     float dead_velocity_out1, dead_velocity_out2;
-    unsigned __int8 yaw_plan_done = unit_euler_axis_doplan(&yaw_plan, 1.0f, yaw_delta, &yaw_delta,
+    uint8_t yaw_plan_done = unit_euler_axis_doplan(&yaw_plan, 1.0f, yaw_delta, &yaw_delta,
             yaw_velocity, &dead_velocity_out1);
-    unsigned __int8 pitch_plan_done = unit_euler_axis_doplan(&pitch_plan, 1.0f, pitch_delta, &pitch_delta,
+    uint8_t pitch_plan_done = unit_euler_axis_doplan(&pitch_plan, 1.0f, pitch_delta, &pitch_delta,
             pitch_velocity, &dead_velocity_out2);
 
     if (yaw_plan_done && pitch_plan_done)

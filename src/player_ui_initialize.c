@@ -33,7 +33,7 @@ void player_ui_initialize(void)
     {
         player_profile_build_default_profile(&player_ui_globals.player_data[i].profile, 0, 0);
         player_ui_globals.player_data[i].profile_index = -1;
-        player_ui_globals.single_player_controller_index[(__int16)i] = -1;
+        player_ui_globals.single_player_controller_index[(int16_t)i] = -1;
         set_local_player_controls_from_player_profile(i);
     }
 

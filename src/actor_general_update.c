@@ -49,7 +49,7 @@ uint8_t actor_general_update(int actor_index)
             actor->state.suspicion_combat_status = _actor_combat_status_none;
     }
 
-    __int16 short_timer = actor->state.command_list_delay_timer;
+    int16_t short_timer = actor->state.command_list_delay_timer;
     if ( short_timer > 0 )
         actor->state.command_list_delay_timer = short_timer - 1;
 
@@ -58,7 +58,7 @@ uint8_t actor_general_update(int actor_index)
                     ? NULL
                     : DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
 
-    unsigned __int8 force_active = actor->meta.force_active;           /* meta.force_active */
+    uint8_t force_active = actor->meta.force_active;           /* meta.force_active */
     if ( encounter )
         force_active |= encounter->force_active;
 
@@ -71,7 +71,7 @@ uint8_t actor_general_update(int actor_index)
     if ( actor->meta.dormant )                                    /* already dormant */
         return 1;
 
-    __int16 action_class = actor_action_class(actor_index);
+    int16_t action_class = actor_action_class(actor_index);
     char can_become_dormant = 1;
 
     int active_prop_index = actor->target.target_prop_index;
@@ -84,7 +84,7 @@ uint8_t actor_general_update(int actor_index)
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, active_prop_index);
         if ( prop->player && prop->enemy && !prop->dead )
         {
-            __int16 prop_state = prop->state;
+            int16_t prop_state = prop->state;
             if ( (prop_state >= _prop_state_becoming_unacknowledged && prop_state <= _prop_state_acknowledged)
               || (prop_state >= _prop_state_uninspected_orphan && prop_state <= _prop_state_inspected_orphan && action_class == _action_class_pursuit) )
                 can_become_dormant = 0;
@@ -93,7 +93,7 @@ uint8_t actor_general_update(int actor_index)
 
     if ( can_become_dormant && actor_path_has_path(actor_index) )
     {
-        unsigned __int16 pathing_kind = actor->control.path.destination_orders.destination_type;
+        uint16_t pathing_kind = actor->control.path.destination_orders.destination_type;
         if ( pathing_kind == _destination_firing_position )
         {
             if ( actor->state.action == actor_action_guard )       /* action type */
@@ -109,7 +109,7 @@ uint8_t actor_general_update(int actor_index)
 
     if ( can_become_dormant )
     {
-        __int16 become_dormant_timer = (__int16)(actor->meta.become_dormant_timer + 1);
+        int16_t become_dormant_timer = (int16_t)(actor->meta.become_dormant_timer + 1);
         actor->meta.become_dormant_timer = become_dormant_timer;
         if ( become_dormant_timer >= 60 )
             actor_set_dormant(actor_index, 1u);

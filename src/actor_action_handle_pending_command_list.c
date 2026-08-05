@@ -20,12 +20,12 @@ extern void actor_action_change(int actor_index, int new_action_type, action_sta
 uint8_t actor_action_handle_pending_command_list(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 entered_obey = 0;
+    uint8_t entered_obey = 0;
 
     if ( actor->state.command_list_index == 0xFFFF )
         return 0;
 
-    unsigned __int8 blocked = 0;
+    uint8_t blocked = 0;
     if ( actor->state.command_list_immediate )
         blocked = 0;
     else if ( !actor->state.mode || actor_action_deny_transition(actor_index) )

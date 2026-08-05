@@ -4,16 +4,17 @@
  * markers the path is recursively subdivided octaves_to_next_marker times with random midpoint displacement.
  * Layout from the database (228 bytes). */
 
+#include <stdint.h>
 #include "real_vector3d.h"
 #include "real_argb_color.h"
 
 typedef struct lightning_marker_definition
 {
     char             attachment_marker[32];  /* 0x00 — object marker name this bolt node attaches to */
-    unsigned __int16 flags;                  /* 0x20 — bit0 = last node of a bolt (emit the strip here) */
-    __int16          type;                   /* 0x22 */
-    __int16          octaves_to_next_marker; /* 0x24 — subdivision depth toward the next marker */
-    unsigned __int16 pad;                    /* 0x26 */
+    uint16_t flags;                  /* 0x20 — bit0 = last node of a bolt (emit the strip here) */
+    int16_t          type;                   /* 0x22 */
+    int16_t          octaves_to_next_marker; /* 0x24 — subdivision depth toward the next marker */
+    uint16_t pad;                    /* 0x26 */
     int              unused1[19];            /* 0x28 */
     real_vector3d    random_position_bounds; /* 0x74 — per-axis endpoint jitter bounds (marker space) */
     float            random_jitter_offset;   /* 0x80 — midpoint displacement amplitude */

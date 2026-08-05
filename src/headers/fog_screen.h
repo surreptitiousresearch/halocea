@@ -4,12 +4,13 @@
  * record. DB-verified layout (types_members fog_screen). Referenced (as an opaque pointer) by
  * render_fog.screen and populated by structure_get_planar_fog. */
 
+#include <stdint.h>
 #include "tag_reference.h"
 
 typedef struct fog_screen
 {
-    unsigned __int16 flags;                        /* 0x00 */
-    __int16          layer_count;                  /* 0x02 */
+    uint16_t flags;                        /* 0x00 */
+    int16_t          layer_count;                  /* 0x02 */
     float            near_distance;                /* 0x04 */
     float            far_distance;                 /* 0x08 */
     float            near_density;                 /* 0x0C */

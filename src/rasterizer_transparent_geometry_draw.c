@@ -32,13 +32,13 @@ void rasterizer_transparent_geometry_draw(uint8_t water)
 
     if (water)
     {
-        for (int i = 0; i < transparent_geometry_group_count; i = (__int16)(i + 1))
+        for (int i = 0; i < transparent_geometry_group_count; i = (int16_t)(i + 1))
             transparent_geometry_group_sorted_indices[i] = i;
 
         qsort(transparent_geometry_group_sorted_indices, transparent_geometry_group_count, 2,
               (int (*)(const void *, const void *))group_sorted_indices_cmpfn);
 
-        for (int i = 0; i < transparent_geometry_group_count; i = (__int16)(i + 1))
+        for (int i = 0; i < transparent_geometry_group_count; i = (int16_t)(i + 1))
             transparent_geometry_groups[transparent_geometry_group_sorted_indices[i]].sorted_index = i;
 
         group_index = 0;

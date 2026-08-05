@@ -85,7 +85,7 @@ void players_update_after_game(void)
             else if ( player->unit_index != -1
                    && (object_data_ptr(player->unit_index)->object.damage_flags & (1u << _object_die_act_of_god_bit)) == 0 )
             {
-                if ( (unsigned __int16)player->local_player_index != 0xFFFF )
+                if ( (uint16_t)player->local_player_index != 0xFFFF )
                 {
                     int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
                     const wchar_t *text = text_tag == -1 ? &empty_wide_string
@@ -111,15 +111,15 @@ void players_update_after_game(void)
             int i;
             for ( i = 0; i < 2; i++ )
             {
-                __int16 *timer = &player_base->powerup_durations[i];
+                int16_t *timer = &player_base->powerup_durations[i];
                 if ( *timer > 0 )
                 {
-                    __int16 remaining = *timer;
+                    int16_t remaining = *timer;
                     *timer = remaining - 1;
                     if ( remaining == 1 && !i )
                     {
                         unit_datum *unit_data = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum,
-                            DATA_ARRAY_ELEMENT(player_data, player_datum, (__int16)iter.index)->unit_index)->datum;
+                            DATA_ARRAY_ELEMENT(player_data, player_datum, (int16_t)iter.index)->unit_index)->datum;
                         unit_data->unit.flags &= ~(1u << _unit_active_camouflaged_bit);   /* clear post-spawn invuln flag */
                     }
                 }
@@ -143,7 +143,7 @@ void players_update_after_game(void)
                         /* recovered: bsp_switch_state nibble math -> 0x1F bitfields */
                         players_globals->bsp_check_recursive_switch_ticks = 0;
                         players_globals->local_player_triggered_switch = player->local_player_index;
-                        players_globals->bsp_switch_trigger_index = (__int16)i;
+                        players_globals->bsp_switch_trigger_index = (int16_t)i;
                         main_switch_structure_bsp(trigger->destination_bsp_index);
                     }
                 }
@@ -188,7 +188,7 @@ void players_update_after_game(void)
             {
                 unsigned int *seed = get_global_local_random_seed_address();
                 result = seed_random_range(seed, 0, 6);
-                hcex_off_hud_element = (__int16)result % 6;
+                hcex_off_hud_element = (int16_t)result % 6;
                 map_lost = 1;
             }
             else

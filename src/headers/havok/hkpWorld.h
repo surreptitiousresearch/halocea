@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "hkArray.h"
 #include "hkReferencedObject.h"
 #include "hkBool.h"
@@ -41,7 +42,7 @@ typedef struct hkpIslandPostCollideListener hkpIslandPostCollideListener;
 typedef struct hkpCollisionListener hkpCollisionListener;
 typedef struct hkpContactImpulseLimitBreachedListener hkpContactImpulseLimitBreachedListener;
 typedef struct hkdWorld hkdWorld;
-typedef unsigned __int16 hkHalf; /* 16-bit float storage */
+typedef uint16_t hkHalf; /* 16-bit float storage */
 
 /* types_members hkStepInfo (size 16) */
 typedef struct hkStepInfo
@@ -90,8 +91,8 @@ typedef struct hkpSolverInfo
     float m_invNumMicroSteps;                    /* 0x11C */
     float m_invNumSteps;                         /* 0x120 */
     hkBool m_forceCoherentConstraintOrderingInSolver;         /* 0x124 */
-    unsigned __int8 m_deactivationNumInactiveFramesSelectFlag[2]; /* 0x125 */
-    unsigned __int8 m_deactivationIntegrateCounter;           /* 0x127 */
+    uint8_t m_deactivationNumInactiveFramesSelectFlag[2]; /* 0x125 */
+    uint8_t m_deactivationIntegrateCounter;           /* 0x127 */
 } hkpSolverInfo;
 
 /* types_members hkpWorldDynamicsStepInfo (size 320) */

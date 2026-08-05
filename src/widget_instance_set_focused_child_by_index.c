@@ -48,7 +48,7 @@ void widget_instance_set_focused_child_by_index(widget_instance *widget,
                     TAG_GET(ui_widget_definition, ancestor->ui_widget_tag_index);
                 if ( !(definition_data->flags & (1u << _widget_pass_unhandled_events_to_children_bit)) )
                 {
-                    __int16 widget_type = ancestor->widget_type;
+                    int16_t widget_type = ancestor->widget_type;
                     if ( widget_type == _ui_widget_type_spinner_list || widget_type == _ui_widget_type_column_list )
                     {
                         can_focus = 0;

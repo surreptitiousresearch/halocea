@@ -29,11 +29,11 @@ float scenario_location_water_depth(const location *location, const real_point3d
 
     structure_cluster *cluster =
         &((structure_cluster *)global_structure_bsp->clusters.address)[cluster_index];
-    __int16 fog_ref = cluster->fog_designator;
+    int16_t fog_ref = cluster->fog_designator;
     if (fog_ref == -1)
         return -3.4028235e38f;
 
-    __int16 fog_region_index;
+    int16_t fog_region_index;
     real_plane3d *plane;   /* fog plane; null when the cluster has no bounding plane */
     if (FOG_DESIGNATOR_IS_PLANE(fog_ref))
     {

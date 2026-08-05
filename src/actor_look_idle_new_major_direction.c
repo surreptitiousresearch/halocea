@@ -41,9 +41,9 @@ uint8_t actor_look_idle_new_major_direction(int actor_index, actor_idle_looking 
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);
 
-    unsigned __int8 prop = 0;
-    unsigned __int8 interesting_prop = 0;
-    unsigned __int8 interesting_direction = 0;
+    uint8_t prop = 0;
+    uint8_t interesting_prop = 0;
+    uint8_t interesting_direction = 0;
     actor->control.idle_major_active = 0;
 
     if (!has_minor_variation)

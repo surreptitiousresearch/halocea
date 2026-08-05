@@ -39,7 +39,7 @@ extern float normalize3d(real_vector3d *v);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 extern void fast_normals_interpolate(const real_vector3d *a, const real_vector3d *b, float t,
         real_vector3d *result);
-extern unsigned __int8 pin_normal_to_cone3d(const real_vector3d *normal, const real_vector3d *direction,
+extern uint8_t pin_normal_to_cone3d(const real_vector3d *normal, const real_vector3d *direction,
         float sine, float cosine, real_vector3d *result);
 extern int game_time_get(void);
 
@@ -48,7 +48,7 @@ int player_aim_projectile(int player_index, const real_point3d *position, real_v
     int hit_object_index = -1;
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
     int aiming_unit_index = unit_get_aiming_unit_index(player->unit_index);
-    __int16 zoom_level = unit_get_zoom_level(aiming_unit_index);
+    int16_t zoom_level = unit_get_zoom_level(aiming_unit_index);
 
     aim_assist_parameters aim_params;
     if ( !unit_get_aim_assist_parameters(aiming_unit_index, zoom_level, &aim_params) )

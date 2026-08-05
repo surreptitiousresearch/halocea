@@ -27,8 +27,8 @@ void path_new(obstacle_path *path, const obstacles *obstacles, const structure_b
     path->goal = *goal;
     path->goal_surface_index = goal_surface_index;
 
-    __int16 disc_index = obstacles_test_circle(obstacles, -1, goal, radius);
-    __int16 goal_obstacle_index = disc_index == -1 ? (__int16)-1 : obstacles->discs[disc_index].obstacle_index;
+    int16_t disc_index = obstacles_test_circle(obstacles, -1, goal, radius);
+    int16_t goal_obstacle_index = disc_index == -1 ? (int16_t)-1 : obstacles->discs[disc_index].obstacle_index;
 
     path->goal_step_index = -1;
     path->best_goal_blocked_step_index = -1;
@@ -39,5 +39,5 @@ void path_new(obstacle_path *path, const obstacles *obstacles, const structure_b
     path->step_count = 0;
     path->heap_count = 0;
 
-    path_add_step(path, start, start_surface_index, -1, 0, 0.0f, (__int16)finishing_path);
+    path_add_step(path, start, start_surface_index, -1, 0, 0.0f, (int16_t)finishing_path);
 }

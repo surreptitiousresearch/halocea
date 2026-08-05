@@ -35,9 +35,9 @@ extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_evasion(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern unsigned __int8 actor_action_can_stop_guarding(int actor_index, __int16 guard_investigate_threshold,
-    __int16 cower_investigate_threshold);
-extern unsigned __int8 actor_action_can_stop_conversing(int actor_index);
+extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold,
+    int16_t cower_investigate_threshold);
+extern uint8_t actor_action_can_stop_conversing(int actor_index);
 
 void engineer_decide_action(int actor_index)
 {
@@ -59,8 +59,8 @@ void engineer_decide_action(int actor_index)
         actor_action_handle_danger_avoidance(actor_index);
     }
 
-    unsigned __int8 allow_initiative;
-    unsigned __int8 force_decision;
+    uint8_t allow_initiative;
+    uint8_t force_decision;
 
     switch ( actor->state.action )
     {

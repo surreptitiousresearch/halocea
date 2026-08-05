@@ -21,7 +21,7 @@ uint8_t pin_aiming_for_unit(int unit_index)
 
         if (unit->unit.player_index != -1
             && (unit->object.parent_object_index == -1
-                || (unsigned __int16)unit->unit.parent_seat_index == 0xFFFF))
+                || (uint16_t)unit->unit.parent_seat_index == 0xFFFF))
             return 0;
     }
     return 1;

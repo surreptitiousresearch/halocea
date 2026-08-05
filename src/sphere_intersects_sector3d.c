@@ -15,7 +15,7 @@
 
 extern uint8_t point_in_sector3d(const real_point3d *point, const real_point3d *base, const real_vector3d *direction, float distance, float cosine);
 
-unsigned __int8 sphere_intersects_sector3d(const real_point3d *center, float radius, const real_point3d *base,
+uint8_t sphere_intersects_sector3d(const real_point3d *center, float radius, const real_point3d *base,
         const real_vector3d *direction, float distance, float sine, float cosine)
 {
     float projection = direction->n[2] * (center->n[2] - base->n[2])

@@ -29,7 +29,7 @@ uint8_t game_engine_should_spawn_player(int player_index)
     if (!game_engine)
         return 0;
 
-    int player_slot = (unsigned __int16)player_index;
+    int player_slot = (uint16_t)player_index;
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
     int should_spawn;

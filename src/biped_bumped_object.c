@@ -62,7 +62,7 @@ void biped_bumped_object(int biped_index, int object_index, const real_vector3d 
     {
         if ( cheat.bump_possession )
         {
-            __int16 local_player_index = unit_get_local_player_index(biped_index);
+            int16_t local_player_index = unit_get_local_player_index(biped_index);
             if ( local_player_index != -1 )
             {
                 object->biped.bump_ticks = -15;

@@ -35,9 +35,9 @@ void virtual_keyboard_process_internal(void)
         {
             if (event.value.analog_value.n[1] == 0x7FFF)
                 direction = _event_tab_up;
-            else if (event.value.analog_value.n[1] == (__int16)0x8000)
+            else if (event.value.analog_value.n[1] == (int16_t)0x8000)
                 direction = _event_tab_down;
-            else if (event.value.analog_value.n[0] == (__int16)0x8000)
+            else if (event.value.analog_value.n[0] == (int16_t)0x8000)
                 direction = _event_tab_left;
             else if (event.value.analog_value.n[0] == 0x7FFF)
                 direction = _event_tab_right;
@@ -152,20 +152,20 @@ void virtual_keyboard_process_internal(void)
     if (direction == -1)
         return;
 
-    __int16 row               = virtual_keyboard_globals.row;
-    __int16 column            = virtual_keyboard_globals.column;
+    int16_t row               = virtual_keyboard_globals.row;
+    int16_t column            = virtual_keyboard_globals.column;
     int     row_stride        = NUMBER_OF_VIRTUAL_KEYBOARD_COLUMNS * row;
     char    current_key       = virtual_keyboard_layout_table[0][column + row_stride];
     virtual_keyboard_globals.last_key = current_key;
 
-    unsigned __int8 acted = 0;
+    uint8_t acted = 0;
 
     switch (direction)
     {
     case _event_tab_right: /* advance column, skipping cells identical to current key */
         do
         {
-            column = ((__int16)(column + 1) == NUMBER_OF_VIRTUAL_KEYBOARD_COLUMNS) ? 0 : column + 1;
+            column = ((int16_t)(column + 1) == NUMBER_OF_VIRTUAL_KEYBOARD_COLUMNS) ? 0 : column + 1;
             virtual_keyboard_globals.column = column;
         }
         while (virtual_keyboard_layout_table[0][column + row_stride] == current_key);
@@ -174,7 +174,7 @@ void virtual_keyboard_process_internal(void)
     case _event_tab_up: /* retreat row, skipping cells identical to current key */
         do
         {
-            row = (__int16)(row - 1);
+            row = (int16_t)(row - 1);
             virtual_keyboard_globals.row = row;
             if (row < 0)
             {
@@ -188,7 +188,7 @@ void virtual_keyboard_process_internal(void)
     case _event_tab_down: /* advance row, skipping cells identical to current key */
         do
         {
-            row = ((__int16)(row + 1) == NUMBER_OF_VIRTUAL_KEYBOARD_ROWS) ? 0 : row + 1;
+            row = ((int16_t)(row + 1) == NUMBER_OF_VIRTUAL_KEYBOARD_ROWS) ? 0 : row + 1;
             virtual_keyboard_globals.row = row;
         }
         while (virtual_keyboard_layout_table[row][column] == current_key);
@@ -218,7 +218,7 @@ void virtual_keyboard_process_internal(void)
         /* left: retreat column, skipping cells identical to current key */
         do
         {
-            column = (__int16)(column - 1);
+            column = (int16_t)(column - 1);
             virtual_keyboard_globals.column = column;
             if (column < 0)
             {

@@ -3,6 +3,7 @@
  * and NUL-terminated past the quote; a bare token is read until whitespace, EOL, ')' or ';'. Outside console
  * mode the token text is lower-cased in place. */
 
+#include <stdint.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_compile_globals.h"
 #include "headers/hs_tokenizer.h"
@@ -15,7 +16,7 @@ extern char *strlwr(char *string);
 
 static int char_in_pair(int ch, const char *pair)
 {
-    for ( int i = 0; i < 2; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 2; i = (int16_t)(i + 1) )
         if ( ch == pair[i] )
             return 1;
     return 0;

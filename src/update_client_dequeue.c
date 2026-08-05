@@ -35,7 +35,7 @@ uint8_t update_client_dequeue(player_action *actions, int *completed_client_upda
           queue_action;
           queue_action = data_iterator_next(&iter) )
     {
-        index = (__int16)(index + 1);
+        index = (int16_t)(index + 1);
         if ( index < update->data.number_of_actions )
         {
             /* source action[index]: update + 32*index bytes; floats [2..7] = facing/throttle/trigger,
@@ -50,8 +50,8 @@ uint8_t update_client_dequeue(player_action *actions, int *completed_client_upda
             queue_action[6] = src[6];
             queue_action[7] = src[7];
             /* words [16..18] = desired weapon/grenade/zoom (packed wire; no DB type — word cursors) */
-            unsigned __int16 *queue_action_words = (unsigned __int16 *)queue_action;
-            unsigned __int16 *src_words = (unsigned __int16 *)src;
+            uint16_t *queue_action_words = (uint16_t *)queue_action;
+            uint16_t *src_words = (uint16_t *)src;
             queue_action_words[16] = src_words[16];
             queue_action_words[17] = src_words[17];
             queue_action_words[18] = src_words[18];
@@ -66,7 +66,7 @@ uint8_t update_client_dequeue(player_action *actions, int *completed_client_upda
           queue_action = data_iterator_next(&iter) )
     {
         player_action *out;
-        index = (__int16)(index + 1);
+        index = (int16_t)(index + 1);
         out = &actions[index];
 
         out->control_flags = queue_action[1] & ~queue_action[2];   /* held & ~latched */
@@ -76,7 +76,7 @@ uint8_t update_client_dequeue(player_action *actions, int *completed_client_upda
         out->throttle.n[0] = ((float *)queue_action)[5];
         out->throttle.n[1] = ((float *)queue_action)[6];
         out->primary_trigger = ((float *)queue_action)[7];
-        unsigned __int16 *queue_action_words = (unsigned __int16 *)queue_action;
+        uint16_t *queue_action_words = (uint16_t *)queue_action;
         out->desired_weapon_index = queue_action_words[16];
         out->desired_grenade_index = queue_action_words[17];
         out->desired_zoom_level = queue_action_words[18];

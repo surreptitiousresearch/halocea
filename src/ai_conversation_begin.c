@@ -54,8 +54,8 @@ uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_try
     ai_conversation *definition = (ai_conversation *)&conversations_base[116 * conversation->conversation_definition_index];
 
     float best_distance = 3.4028235e38f;
-    unsigned __int8 try_alternate = 0;
-    unsigned __int8 found_specific = 0;
+    uint8_t try_alternate = 0;
+    uint8_t found_specific = 0;
     int participant_better_rating_mask = 0;   /* per-participant "would-be-better-with-player" bits */
     int placed_secondary = 0;
     int can_begin = 1;
@@ -81,7 +81,7 @@ uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_try
                 &((ai_conversation_participant *)definition->participants.address)[slot];
             if ( (participant->flags & (1u << _ai_conversation_participant_is_alternate_bit)) == 0 )
             {
-                unsigned __int8 better_rating = 0;
+                uint8_t better_rating = 0;
                 ai_conversation_find_participant(conversation_index, participant_index,
                                                  &found_specific, &try_alternate, &better_rating, &best_distance);
                 if ( better_rating )
@@ -90,11 +90,11 @@ uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_try
                     participant_better_rating_mask &= ~(1 << slot);
             }
             participant_count = definition->participants.count;
-            participant_index = (__int16)(slot + 1);
+            participant_index = (int16_t)(slot + 1);
         }
     }
 
-    unsigned __int8 any_found_specific = found_specific;
+    uint8_t any_found_specific = found_specific;
     int primary_try_alternate = try_alternate;
 
     /* Alternate pass: place secondary participants (flag 4 set) not yet filled. */
@@ -117,7 +117,7 @@ uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_try
                     participant_better_rating_mask &= ~(1 << slot);
             }
             participant_count = definition->participants.count;
-            slot = (__int16)(slot + 1);
+            slot = (int16_t)(slot + 1);
         }
         while ( slot < participant_count );
         any_found_specific = found_specific;
@@ -133,13 +133,13 @@ uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_try
         {
             ai_conversation_participant *participant =
                 &((ai_conversation_participant *)definition->participants.address)[slot];
-            unsigned __int16 flags = participant->flags;
+            uint16_t flags = participant->flags;
             if ( (flags & (1u << _ai_conversation_participant_optional_bit)) == 0   /* required */
               && (conversation->participant_bitmask & (1 << slot)) == 0             /* not placed */
               && ((flags & (1u << _ai_conversation_participant_has_alternate_bit)) == 0 || !placed_secondary)
               && ((flags & (1u << _ai_conversation_participant_is_alternate_bit)) == 0 || primary_try_alternate) )
                 break;
-            slot = (__int16)(slot + 1);
+            slot = (int16_t)(slot + 1);
             if ( slot >= participant_count )
                 goto blocking_resolved;
         }
@@ -190,7 +190,7 @@ blocking_resolved:
                 float nearest_prop_distance = 3.4028235e38f;
                 if ( definition->participants.count > 0 )
                 {
-                    for ( int slot = 0; slot < definition->participants.count; slot = (__int16)(slot + 1) )
+                    for ( int slot = 0; slot < definition->participants.count; slot = (int16_t)(slot + 1) )
                     {
                         int actor_index = conversation->actor_indices[slot];
                         if ( actor_index == -1 )
@@ -199,7 +199,7 @@ blocking_resolved:
                         if ( prop_index != -1 )
                         {
                             prop_datum *prop = DATUM_GET(prop_data, prop_datum, prop_index);
-                            __int16 prop_status = prop->state;
+                            int16_t prop_status = prop->state;
                             if ( prop_status >= _prop_state_becoming_unacknowledged && prop_status <= _prop_state_acknowledged && nearest_prop_distance > prop->distance )
                                 nearest_prop_distance = prop->distance;
                         }
@@ -246,7 +246,7 @@ blocking_resolved:
                                                                 conversation->actor_indices[slot])->input.position.head_position,
                                             0.52359879f) )
                 {
-                    slot = (__int16)(slot + 1);
+                    slot = (int16_t)(slot + 1);
                     if ( slot >= definition->participants.count )
                         goto next_player;
                 }
@@ -277,9 +277,9 @@ blocking_resolved:
                         &((ai_conversation_participant *)definition->participants.address)[slot];
                     int unit_index = DATUM_GET(actor_data, actor_datum,
                                        conversation->actor_indices[slot])->meta.unit_index;
-                    __int16 attach_name = participant->new_attach_object_name_index;
+                    int16_t attach_name = participant->new_attach_object_name_index;
                     unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-                    if ( (unsigned __int16)attach_name != 0xFFFF )
+                    if ( (uint16_t)attach_name != 0xFFFF )
                         object_set_object_index_for_name_index(attach_name, unit_index);
 
                     action_state_data converse_state;
@@ -290,7 +290,7 @@ blocking_resolved:
                         actor_action_change(conversation->actor_indices[slot], actor_action_converse, &converse_state);
                     }
 
-                    __int16 chosen_variant = participant->dialogue_variants[conversation->dialogue_indices[slot]];
+                    int16_t chosen_variant = participant->dialogue_variants[conversation->dialogue_indices[slot]];
                     if ( unit_object->object.variant_number != chosen_variant )
                     {
                         int unit_flags = unit_object->unit.flags;
@@ -298,7 +298,7 @@ blocking_resolved:
                         unit_object->unit.flags = unit_flags & ~(1u << _unit_must_set_up_dialogue_bit);
                     }
                 }
-                slot = (__int16)(slot + 1);
+                slot = (int16_t)(slot + 1);
             }
             while ( slot < definition->participants.count );
         }

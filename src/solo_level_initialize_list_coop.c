@@ -32,15 +32,15 @@ uint8_t solo_level_initialize_list_coop(widget_instance *list_widget, event_reco
 
     player_profile profile0;
     player_ui_get_active_player_profile(0, &profile0);
-    __int16 player0_highest_level;
-    __int16 player0_highest_difficulty[7];   /* write-only scratch (sized per the single-player sibling) */
+    int16_t player0_highest_level;
+    int16_t player0_highest_difficulty[7];   /* write-only scratch (sized per the single-player sibling) */
     player_profile_get_highest_completed_solo_level(&profile0, &player0_highest_level,
             player0_highest_difficulty);
 
     player_profile profile1;
     player_ui_get_active_player_profile(1, &profile1);
-    __int16 player1_highest_level;
-    __int16 player1_highest_difficulty[7];
+    int16_t player1_highest_level;
+    int16_t player1_highest_difficulty[7];
     player_profile_get_highest_completed_solo_level(&profile1, &player1_highest_level,
             player1_highest_difficulty);
 

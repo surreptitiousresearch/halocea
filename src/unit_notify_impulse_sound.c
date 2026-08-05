@@ -28,9 +28,9 @@ void unit_notify_impulse_sound(int unit_index, int sound_definition_index, int i
 {
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    __int16 vocalization_type = -1;
+    int16_t vocalization_type = -1;
     int test_sound_definition_index = sound_definition_index;
-    __int16 priority = unit_test_speech(unit_index, _unit_speech_scripted, 0, 0, 0, &vocalization_type, &test_sound_definition_index);
+    int16_t priority = unit_test_speech(unit_index, _unit_speech_scripted, 0, 0, 0, &vocalization_type, &test_sound_definition_index);
     if ( priority <= _unit_speech_pain )
         priority = _unit_speech_pain;
 

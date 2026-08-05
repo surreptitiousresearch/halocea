@@ -3,6 +3,7 @@
  * following the common 40-byte _shader base (see shader_model.h). Layout DB-verified via
  * types_members; unnamed `unusedN` gaps are the tag's reserved padding runs. */
 
+#include <stdint.h>
 #include "real_rgb_color.h"
 #include "real_argb_color.h"
 #include "real_vector2d.h"
@@ -11,18 +12,18 @@
 
 typedef struct _shader_model
 {
-    unsigned __int16 flags;                                        /* 0x000 */
-    __int16          type;                                         /* 0x002 */
+    uint16_t flags;                                        /* 0x000 */
+    int16_t          type;                                         /* 0x002 */
     int              unused1[3];                                   /* 0x004 */
     float            translucency;                                 /* 0x010 */
     int              unused2[4];                                   /* 0x014 */
-    __int16          diffuse_change_color_source;                  /* 0x024 */
-    __int16          pad;                                          /* 0x026 */
+    int16_t          diffuse_change_color_source;                  /* 0x024 */
+    int16_t          pad;                                          /* 0x026 */
     int              unused3[7];                                   /* 0x028 */
-    unsigned __int16 self_illumination_flags;                      /* 0x044 */
-    unsigned __int16 self_illumination_pad;                        /* 0x046 */
-    __int16          self_illumination_color_source;               /* 0x048 */
-    __int16          self_illumination_animation_function;         /* 0x04A */
+    uint16_t self_illumination_flags;                      /* 0x044 */
+    uint16_t self_illumination_pad;                        /* 0x046 */
+    int16_t          self_illumination_color_source;               /* 0x048 */
+    int16_t          self_illumination_animation_function;         /* 0x04A */
     float            self_illumination_animation_period;           /* 0x04C */
     real_rgb_color   self_illumination_animation_color_lower_bound; /* 0x050 */
     real_rgb_color   self_illumination_animation_color_upper_bound; /* 0x05C */
@@ -32,8 +33,8 @@ typedef struct _shader_model
     int              unused5[2];                                   /* 0x08C */
     tag_reference    multipurpose_map;                             /* 0x094 */
     int              unused6[2];                                   /* 0x0A4 */
-    __int16          detail_function;                              /* 0x0AC */
-    __int16          detail_mask;                                  /* 0x0AE */
+    int16_t          detail_function;                              /* 0x0AC */
+    int16_t          detail_mask;                                  /* 0x0AE */
     float            detail_map_scale;                             /* 0x0B0 */
     tag_reference    detail_map;                                   /* 0x0B4 */
     float            detail_map_v_scale;                           /* 0x0C4 */

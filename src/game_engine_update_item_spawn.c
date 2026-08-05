@@ -58,7 +58,7 @@ void game_engine_update_item_spawn(void)
 {
     int count = global_scenario->netgame_equipment.count;
 
-    for (__int16 i = 0; i < global_scenario->netgame_equipment.count; i = (__int16)(i + 1))
+    for (int16_t i = 0; i < global_scenario->netgame_equipment.count; i = (int16_t)(i + 1))
     {
         scenario_netgame_equipment *equipment =
             (scenario_netgame_equipment *)global_scenario->netgame_equipment.address + i;
@@ -81,7 +81,7 @@ void game_engine_update_item_spawn(void)
         if (game_time_get() % period != 0)
             continue;
 
-        unsigned __int8 should_spawn = 1;
+        uint8_t should_spawn = 1;
         int current_object_index = equipment->run_time_spawned_item_index;
         if (current_object_index != -1)
         {

@@ -4,6 +4,7 @@
  * This is the level-specific unit field block; the composite lives in unit_datum.h.
  * Full layout DB-verified from the database (types_members). */
 
+#include <stdint.h>
 #include "real_vector3d.h"
 #include "real_point3d.h"
 #include "unit_animation.h"
@@ -29,14 +30,14 @@ typedef struct _unit_datum
     int    swarm_prev_unit_index;                   /* 0x00C (12) */
     unsigned int flags;                             /* 0x010 (16) */
     unsigned int control_flags;                     /* 0x014 (20) */
-    __int16 timer;                                  /* 0x018 (24) */
+    int16_t timer;                                  /* 0x018 (24) */
     char   shield_sap_timeout;                      /* 0x01A (26) */
     char   magic_seat_index;                        /* 0x01B (27) */
     int    persistent_control_timer;                /* 0x01C (28) */
     unsigned int persistent_control_flags;          /* 0x020 (32) */
     int    player_index;                            /* 0x024 (36) — -1 when not player-controlled */
-    __int16 last_unit_effect_type;                  /* 0x028 (40) */
-    __int16 override_emotion_animation_index;       /* 0x02A (42) */
+    int16_t last_unit_effect_type;                  /* 0x028 (40) */
+    int16_t override_emotion_animation_index;       /* 0x02A (42) */
     int    game_time_at_last_unit_effect;           /* 0x02C (44) */
     real_vector3d desired_facing_vector;            /* 0x030 (48) */
     real_vector3d desired_aiming_vector;             /* 0x03C (60) */
@@ -50,11 +51,11 @@ typedef struct _unit_datum
     char   aiming_speed;                              /* 0x094 (148) */
     char   melee_attack_state;                        /* 0x095 (149) */
     char   melee_continuous_damage_effect_timer;       /* 0x096 (150) */
-    unsigned __int8 flaming_death_delay;               /* 0x097 (151) */
+    uint8_t flaming_death_delay;               /* 0x097 (151) */
     char   weapon_drop_delay_ticks;                    /* 0x098 (152) */
     char   grenade_throw_state;                        /* 0x099 (153) */
-    __int16 grenade_throw_ticks;                       /* 0x09A (154) */
-    __int16 grenade_throw_full_power_ticks;            /* 0x09C (156) */
+    int16_t grenade_throw_ticks;                       /* 0x09A (154) */
+    int16_t grenade_throw_full_power_ticks;            /* 0x09C (156) */
     unsigned char _pad09E[2];                          /* 0x09E (158) */
     int    grenade_object_index;                       /* 0x0A0 (160) */
     unit_animation animation;                          /* 0x0A4 (164) */
@@ -62,9 +63,9 @@ typedef struct _unit_datum
     float  self_illumination;                           /* 0x0F0 (240) */
     float  mouth_aperture;                              /* 0x0F4 (244) */
     int    last_entrance_attempt;                       /* 0x0F8 (248) */
-    __int16 parent_seat_index;                          /* 0x0FC (252) */
-    __int16 current_weapon_index;                       /* 0x0FE (254) */
-    __int16 desired_weapon_index;                       /* 0x100 (256) */
+    int16_t parent_seat_index;                          /* 0x0FC (252) */
+    int16_t current_weapon_index;                       /* 0x0FE (254) */
+    int16_t desired_weapon_index;                       /* 0x100 (256) */
     unsigned char _pad102[2];                           /* 0x102 (258) */
     int    weapon_object_indices[4];                    /* 0x104 (260) */
     int    weapon_last_used_at_game_time[4];            /* 0x114 (276) */
@@ -75,13 +76,13 @@ typedef struct _unit_datum
     char   current_zoom_level;                          /* 0x12C (300) */
     char   desired_zoom_level;                          /* 0x12D (301) */
     char   gunner_inactive_ticks;                       /* 0x12E (302) */
-    unsigned __int8 aiming_change;                      /* 0x12F (303) */
+    uint8_t aiming_change;                      /* 0x12F (303) */
     int    driver_object_index;                         /* 0x130 (304) */
     int    gunner_object_index;                         /* 0x134 (308) */
     int    last_vehicle_index;                          /* 0x138 (312) */
     int    game_time_at_last_vehicle_exit;              /* 0x13C (316) */
-    __int16 fake_encounter_index;                       /* 0x140 (320) */
-    __int16 fake_squad_index;                           /* 0x142 (322) */
+    int16_t fake_encounter_index;                       /* 0x140 (320) */
+    int16_t fake_squad_index;                           /* 0x142 (322) */
     float  seat_power[2];                                /* 0x144 (324) */
     float  integrated_light_power;                       /* 0x14C (332) */
     float  integrated_light_battery;                     /* 0x150 (336) */
@@ -94,27 +95,27 @@ typedef struct _unit_datum
     float  active_camouflage_super_amount;               /* 0x18C (396) */
     int    dialogue_index;                               /* 0x190 (400) */
     unit_speech speech;                                  /* 0x194 (404) */
-    __int16 last_damage_category;                        /* 0x210 (528) */
-    __int16 delayed_damage_timer;                        /* 0x212 (530) */
+    int16_t last_damage_category;                        /* 0x210 (528) */
+    int16_t delayed_damage_timer;                        /* 0x212 (530) */
     float  delayed_damage_peak;                          /* 0x214 (532) */
     int    delayed_damage_attacker_object_index;         /* 0x218 (536) */
     int    flaming_death_attacker_object_index;          /* 0x21C (540) */
     float  run_blindly_angle;                            /* 0x220 (544) */
     float  run_blindly_angle_delta;                      /* 0x224 (548) */
     int    time_of_death;                                /* 0x228 (552) */
-    __int16 feign_death_timer;                           /* 0x22C (556) */
-    __int16 cause_for_camo_regrowth;                     /* 0x22E (558) */
+    int16_t feign_death_timer;                           /* 0x22C (556) */
+    int16_t cause_for_camo_regrowth;                     /* 0x22E (558) */
     float  body_stun;                                    /* 0x230 (560) */
-    __int16 body_stun_ticks;                             /* 0x234 (564) */
-    __int16 killing_spree_count;                         /* 0x236 (566) */
+    int16_t body_stun_ticks;                             /* 0x234 (564) */
+    int16_t killing_spree_count;                         /* 0x236 (566) */
     int    killing_spree_last_time;                      /* 0x238 (568) */
     unit_attacker attackers[4];                          /* 0x23C (572) */
-    __int16 user_animation_indices[2];                   /* 0x27C (636) */
-    unsigned __int8 force_local_update;                  /* 0x280 (640) */
-    unsigned __int8 is_from_network_data_valid;          /* 0x281 (641) */
+    int16_t user_animation_indices[2];                   /* 0x27C (636) */
+    uint8_t force_local_update;                  /* 0x280 (640) */
+    uint8_t is_from_network_data_valid;          /* 0x281 (641) */
     unsigned char _pad282[2];                            /* 0x282 (642) */
     _21A06478D43D3D5CB6DF9EA4457C77F5 ___u87;            /* 0x284 (644) — anonymous union, defined above */
-    unsigned __int8 did_just_complete_client_update;     /* 0x2C4 (708) */
+    uint8_t did_just_complete_client_update;     /* 0x2C4 (708) */
     unsigned char _pad2C5[3];                            /* 0x2C5 (709) */
     int    last_completed_client_update_id;              /* 0x2C8 (712) */
     real_point3d position_after_completing_last_client_update; /* 0x2CC (716) */

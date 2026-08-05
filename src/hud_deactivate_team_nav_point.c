@@ -22,7 +22,7 @@ void hud_deactivate_team_nav_point(int16_t team_index, int16_t type, int referen
          player;
          player = data_iterator_next(&iterator))
     {
-        if ((unsigned __int16)player->local_player_index == 0xFFFF
+        if ((uint16_t)player->local_player_index == 0xFFFF
             || team_index != player->team_index || iterator.index == -1)
             continue;
 

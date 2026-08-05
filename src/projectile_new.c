@@ -79,7 +79,7 @@ uint8_t projectile_new(int projectile_index)
         int material_index = 0;
         while ( ((object_attachment_definition *)definition->object.attachments.address)[material_index].type.group_tag != 0x636F6E74 /* "cont" */ )
         {
-            material_index = (__int16)(material_index + 1);
+            material_index = (int16_t)(material_index + 1);
             if ( material_index >= material_count )
                 goto velocity;
         }
@@ -94,7 +94,7 @@ velocity:
         projectile->object.translational_velocity.n[2] = projectile->object.forward.n[2] * velocity_scale + projectile->object.translational_velocity.n[2];
     }
 
-    unsigned __int8 underwater = scenario_location_underwater(&projectile->object.location,
+    uint8_t underwater = scenario_location_underwater(&projectile->object.location,
             &projectile->object.bounding_sphere_center, nullptr);
     unsigned int flags = projectile->object.flags;
     if ( underwater )
@@ -107,7 +107,7 @@ velocity:
     projectile_calculate_deceleration(projectile_index);
     projectile->object.flags |= (1u << _object_shadowless_bit) | (1u << _object_deleted_when_deactivated_bit);
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if ( connection == _game_connection_network_client || connection == _game_connection_network_server )
     {
         projectile->projectile.baseline_valid = 0;

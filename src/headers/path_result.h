@@ -1,15 +1,16 @@
 #pragma once
 
+#include <stdint.h>
 #include "path_destination.h"
 #include "path_step.h"
 
 /* path_result — Blam pathfinding output buffer (92 bytes). Layout confirmed via types_members. */
 typedef struct path_result
 {
-    unsigned __int8   valid;              /* 0x00 */
+    uint8_t   valid;              /* 0x00 */
     unsigned char     _pad1[3];           /* 0x01 */
     path_destination  endpoint;           /* 0x04 */
-    unsigned __int8   steps_finish_path;  /* 0x18 */
+    uint8_t   steps_finish_path;  /* 0x18 */
     char              step_count;         /* 0x19 */
     char              step_index;         /* 0x1A */
     unsigned char     _pad2;              /* 0x1B */

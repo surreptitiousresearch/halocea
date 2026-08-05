@@ -1,6 +1,7 @@
 #ifndef OBEY_INDIVIDUAL_SIMPLE_CONTROL_H
 #define OBEY_INDIVIDUAL_SIMPLE_CONTROL_H
 
+#include <stdint.h>
 #include "obey_individual_directmovement_control.h"
 #include "obey_individual_jump_control.h"
 
@@ -14,12 +15,12 @@ typedef union _3369FF960A473C765539227E34924144
 
 typedef struct obey_individual_simple_control
 {
-    unsigned __int8 current_command_index;    /* 0x00 */
-    unsigned __int8 loop_counter;             /* 0x01 */
-    __int16         pause_timer;              /* 0x02 */
-    unsigned __int8 metadata_flags;           /* 0x04 */
-    unsigned __int8 simple_control_flags;     /* 0x05 */
-    unsigned __int8 _pad06[2];                /* 0x06 */
+    uint8_t current_command_index;    /* 0x00 */
+    uint8_t loop_counter;             /* 0x01 */
+    int16_t         pause_timer;              /* 0x02 */
+    uint8_t metadata_flags;           /* 0x04 */
+    uint8_t simple_control_flags;     /* 0x05 */
+    uint8_t _pad06[2];                /* 0x06 */
     union _3369FF960A473C765539227E34924144 ___u5; /* 0x08 */
 } obey_individual_simple_control;             /* 0x24 */
 

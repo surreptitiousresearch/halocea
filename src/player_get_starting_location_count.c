@@ -7,5 +7,5 @@
 
 int16_t player_get_starting_location_count(void)
 {
-    return (__int16)global_scenario->players.count;
+    return (int16_t)global_scenario->players.count;
 }

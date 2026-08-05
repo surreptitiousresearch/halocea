@@ -17,15 +17,15 @@ uint16_t * network_game_get_random_player_name(void)
 {
     int tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\random_player_names");
     if ( tag_index == -1 )
-        return (unsigned __int16 *)&empty_wide_string;
+        return (uint16_t *)&empty_wide_string;
 
-    __int16 *string_list = TAG_GET(__int16, tag_index);
+    int16_t *string_list = TAG_GET(int16_t, tag_index);
     if ( !string_list )
-        return (unsigned __int16 *)&empty_wide_string;
+        return (uint16_t *)&empty_wide_string;
 
-    __int16 max_index = *string_list - 1;
+    int16_t max_index = *string_list - 1;
     unsigned int *seed = get_global_local_random_seed_address();
-    __int16 chosen_index = seed_random_range(seed, 0, max_index);
+    int16_t chosen_index = seed_random_range(seed, 0, max_index);
 
     return unicode_string_list_get_string(tag_index, chosen_index);
 }

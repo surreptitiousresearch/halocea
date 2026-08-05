@@ -8,6 +8,7 @@
 // the window starts exactly at this block's first affected sample) are unified below into one
 // general lerp formula -- mathematically equivalent, since the skipped branch is just that
 // formula's ratio=0 case.
+#include <stdint.h>
 #include <math.h>
 #include <string.h>
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
@@ -15,7 +16,7 @@
 extern "C" const char *FModErrorDesc(FMOD_RESULT res, bool info);
 extern void _apLog(const char *fmt, ...);
 extern "C" void         osOutputDebugString(const char *fmt, ...);
-extern "C" double       __u64tod(unsigned __int64 value); // boundary -- PPC runtime helper
+extern "C" double       __u64tod(uint64_t value); // boundary -- PPC runtime helper
 extern const float      inv_log_2;                        // boundary -- 1/ln(2), named global
 
 FMOD_RESULT __fastcall HALO_CROSSFADE_DSP::ReadCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer,
@@ -59,8 +60,8 @@ FMOD_RESULT __fastcall HALO_CROSSFADE_DSP::ReadCallback(FMOD_DSP_STATE *dsp_stat
     // is applied to outbuffer in place afterward.
     memcpy(outbuffer, inbuffer, sizeof(float) * length * inchannels);
 
-    unsigned __int64 blockStart = ((unsigned __int64)blockStartHi << 32) | blockStartLo;
-    unsigned __int64 blockEnd = blockStart + (length - 1);
+    uint64_t blockStart = ((uint64_t)blockStartHi << 32) | blockStartLo;
+    uint64_t blockEnd = blockStart + (length - 1);
 
     if (state->startTime > blockEnd || state->endTime < blockStart)
         return FMOD_OK; // crossfade window doesn't overlap this block at all
@@ -72,8 +73,8 @@ FMOD_RESULT __fastcall HALO_CROSSFADE_DSP::ReadCallback(FMOD_DSP_STATE *dsp_stat
 
     double windowDuration = __u64tod(state->endTime - state->startTime);
 
-    unsigned __int64 windowStartAbs = (state->startTime > blockStart) ? state->startTime : blockStart;
-    unsigned __int64 windowEndAbs = (state->endTime < blockEnd) ? state->endTime : blockEnd;
+    uint64_t windowStartAbs = (state->startTime > blockStart) ? state->startTime : blockStart;
+    uint64_t windowEndAbs = (state->endTime < blockEnd) ? state->endTime : blockEnd;
 
     unsigned int windowStartSample = (unsigned int)(windowStartAbs - blockStart);
     unsigned int windowEndSample = (unsigned int)(windowEndAbs - blockStart);

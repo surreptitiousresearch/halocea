@@ -43,7 +43,7 @@ void ai_conversation_update(void)
 
         if ( !conversation->begun )
         {
-            unsigned __int8 continue_trying = 1;
+            uint8_t continue_trying = 1;
             if ( (time - conversation->creation_time) % 30 == 0 )
                 ai_conversation_begin(iterator.index, &continue_trying);
             if ( !conversation->begun && !continue_trying )
@@ -52,14 +52,14 @@ void ai_conversation_update(void)
 
         if ( conversation->begun && !conversation->finished )
         {
-            unsigned __int16 line = conversation->line_index;
-            unsigned __int8 advance = (line < 0x8000 && (__int16)line < definition->lines.count) ? 1 : 0;
+            uint16_t line = conversation->line_index;
+            uint8_t advance = (line < 0x8000 && (int16_t)line < definition->lines.count) ? 1 : 0;
 
-            for ( unsigned __int8 perform = advance;
+            for ( uint8_t perform = advance;
                   !perform || ai_conversation_line_perform(iterator.index);
                   perform = ai_conversation_line_begin(iterator.index) )
             {
-                __int16 next_line = (__int16)(conversation->line_index + 1);
+                int16_t next_line = (int16_t)(conversation->line_index + 1);
                 conversation->line_index = next_line;
                 if ( next_line >= definition->lines.count )
                 {
@@ -75,7 +75,7 @@ void ai_conversation_update(void)
         }
         else if ( conversation->begun && definition->participants.count > 0 )
         {
-            for ( __int16 participant = 0; participant < definition->participants.count; participant = (__int16)(participant + 1) )
+            for ( int16_t participant = 0; participant < definition->participants.count; participant = (int16_t)(participant + 1) )
             {
                 if ( ((1 << participant) & conversation->participant_bitmask) != 0
                      && conversation->actor_indices[participant] != -1 )

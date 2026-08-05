@@ -35,7 +35,7 @@ int16_t portal_hull_from_points(const render_camera *camera, const render_frustu
                             - plane->d;
     float facing = camera_distance * (float)winding;
 
-    __int16 walk_step = winding;
+    int16_t walk_step = winding;
     if (camera->mirrored)
         walk_step = -winding;
 
@@ -45,10 +45,10 @@ int16_t portal_hull_from_points(const render_camera *camera, const render_frustu
         return _portal_hull_from_portal_discarded;
 
     real_point3d view_space[261];
-    for (int i = 0; i < vertex_count; i = (__int16)(i + 1))
+    for (int i = 0; i < vertex_count; i = (int16_t)(i + 1))
         matrix4x3_transform_point(&frustum->world_to_view, &vertices[i], &view_space[i]);
 
-    __int16 clipped_count = convex_polygon3d_clip_to_plane(vertex_count, view_space, &screen_plane, 256,
+    int16_t clipped_count = convex_polygon3d_clip_to_plane(vertex_count, view_space, &screen_plane, 256,
                                                            view_space, nullptr, 0.000099999997f, 1);
     hull->vertex_count = clipped_count;
 
@@ -72,7 +72,7 @@ int16_t portal_hull_from_points(const render_camera *camera, const render_frustu
         hull->vertices[output_index].n[0] = view_space[source_index].n[0] * inverse_z;
         hull->vertices[output_index].n[1] = view_space[source_index].n[1] * inverse_z;
         ++output_index;
-        source_index = (__int16)(source_index + walk_step);
+        source_index = (int16_t)(source_index + walk_step);
     }
 
     return ((hull->vertex_count >= 0) + ((unsigned int)hull->vertex_count >= 3)) & 1;

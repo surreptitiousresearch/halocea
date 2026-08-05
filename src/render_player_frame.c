@@ -43,7 +43,7 @@ extern void render_window(int16_t local_player_index, const render_camera *sourc
 void render_player_frame(struct render_window *window, const point2d *screenshot_combined_index)
 {
     render_camera *camera = &window->render_camera;
-    unsigned __int8 has_mirror = 0;
+    uint8_t has_mirror = 0;
 
     structure_visibility_find_camera(&window->render_camera);
     render.fog.runtime_flags = 0;
@@ -53,7 +53,7 @@ void render_player_frame(struct render_window *window, const point2d *screenshot
 
     float atmospheric_maximum_distance = render.fog.atmospheric_maximum_distance;
     float planar_maximum_distance = render.fog.planar_maximum_distance;
-    if (atmospheric_maximum_distance != 0.0f && (unsigned __int16)render.visible_sky_index == 0xFFFF)
+    if (atmospheric_maximum_distance != 0.0f && (uint16_t)render.visible_sky_index == 0xFFFF)
     {
         if (render.fog.planar_maximum_distance > atmospheric_maximum_distance)
         {
@@ -112,7 +112,7 @@ void render_player_frame(struct render_window *window, const point2d *screenshot
         if (structure_visibility_find_mirror(camera, &frustum, &mirror)
             && !rasterizer_globals.alpha_render_targets_disabled)
         {
-            __int16 saved_cluster_index = render.cluster_index;
+            int16_t saved_cluster_index = render.cluster_index;
             render_camera mirror_camera;
             render_frustum mirror_frustum;
             render_camera_mirror(camera, &mirror, &mirror_camera);

@@ -12,7 +12,7 @@ void device_group_set_actual_value_evaluate(int16_t function_index, int thread_i
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        device_group_set_actual_value(*(__int16 *)arguments, ((float *)arguments)[1]);
+        device_group_set_actual_value(*(int16_t *)arguments, ((float *)arguments)[1]);
         hs_return(thread_index, 0);
     }
 }

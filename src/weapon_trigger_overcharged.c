@@ -24,7 +24,7 @@ void weapon_trigger_overcharged(int weapon_index, int16_t trigger_index)
     weapon_trigger_definition *trigger_definition =
         &((weapon_trigger_definition *)definition->weapon.triggers.address)[trigger_index];
 
-    switch ( (unsigned __int16)trigger_definition->overcharged_action )
+    switch ( (uint16_t)trigger_definition->overcharged_action )
     {
         case _trigger_overcharged_explodes:
             weapon_detonate(weapon_index);

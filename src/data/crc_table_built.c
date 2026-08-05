@@ -1,3 +1,4 @@
+#include <stdint.h>
 /* crc_table_built @ 0x8445DA00 - data-bss zero-fill; DB applied-type `unsigned __int8 crc_table_built;`. DB type is 1 bytes; ledger size 8 is the next-symbol gap heuristic (overcount) - DB authoritative. */
 
-unsigned __int8 crc_table_built;
+uint8_t crc_table_built;

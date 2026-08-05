@@ -15,7 +15,7 @@ uint8_t _field_type_flags_parameter_verifier(const _field_properties_definition 
 
     if (bit_count > 0 && bit_count <= 32)
     {
-        const unsigned __int8 *flags = (const unsigned __int8 *)(parameters + 1);
+        const uint8_t *flags = (const uint8_t *)(parameters + 1);
         for (int i = 0; i < bit_count; i++)
         {
             if (flags[i] != 0 && flags[i] != 1)

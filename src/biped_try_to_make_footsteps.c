@@ -65,7 +65,7 @@ void biped_try_to_make_footsteps(int biped_index)
         else if (moving && (animation_record->private_left_foot_frame_index
                             || animation_record->private_right_foot_frame_index))
         {
-            __int16 frame = biped->object.animation.state.frame_index;
+            int16_t frame = biped->object.animation.state.frame_index;
             char foot = 0;
             bool matched = false;
             if (frame == animation_record->private_left_foot_frame_index)
@@ -80,7 +80,7 @@ void biped_try_to_make_footsteps(int biped_index)
             }
             if (matched)
                 /* event index: _material_effect_biped_run (1) when standing, else _material_effect_biped_walk (0) */
-                biped_make_footstep(biped_index, (unsigned __int8)biped->unit.animation.base_seat_index == _base_seat_stand, foot);
+                biped_make_footstep(biped_index, (uint8_t)biped->unit.animation.base_seat_index == _base_seat_stand, foot);
         }
     }
 

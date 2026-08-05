@@ -12,6 +12,7 @@
  * point2d.c): projection = 2*dominant_axis + normal_sign selects the (u_axis, v_axis) pair, and the third
  * coordinate is solved from the plane equation. */
 
+#include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/map_leaf.h"
 #include "headers/map_leaf_face.h"
@@ -24,7 +25,7 @@
 #include "headers/blam_data_globals.h"
 
 /* pointer, not a value: disasm 0x8381AA90 loads it with lwz, then copies through it (-> private_null_rectangle) */
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern float sqrtf(float x);
 extern float fabsf(float x);
 

@@ -4,6 +4,7 @@
  * driver yet; the gunner is assigned when the gunner seat is free or currently held by the driver. Seat
  * roles come from the seat block in the vehicle definition (driver bit 0x4, gunner bit 0x8). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -26,7 +27,7 @@ void unit_update_driver_and_gunner(int parent_object_index)
         unit_datum *child_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, child)->datum);
         int next = child_object->object.next_object_index;
 
-        if (((1 << (unsigned __int16)child_object->object.type) & object_mask_unit) == 0)  /* biped or vehicle only */
+        if (((1 << (uint16_t)child_object->object.type) & object_mask_unit) == 0)  /* biped or vehicle only */
         {
             child = next;
             continue;

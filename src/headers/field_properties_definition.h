@@ -6,6 +6,7 @@
  * DEVIATION: `type` was previously modeled as a pointer, but DB types_members confirms it's a plain 4-byte
  * `_field_type` enum value (used directly as an index into message_delta_global_field_type_list[28]). */
 
+#include <stdint.h>
 #include "_field_type.h"   /* enum modeled in DB (types_enum_values _field_type) */
 
 typedef struct _field_properties_definition
@@ -18,5 +19,5 @@ typedef struct _field_properties_definition
     void *const               parameters;     /* 0x58 */
     int                       maximum_size;    /* 0x5C */
     int                       overhead_bits;   /* 0x60 */
-    unsigned __int8           initialized;     /* 0x64 */
+    uint8_t           initialized;     /* 0x64 */
 } _field_properties_definition;

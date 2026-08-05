@@ -15,7 +15,7 @@ void get_editable_player_profile_display_name(widget_instance *widget)
 
     if ( edit_player_profile )
     {
-        unsigned __int16 *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x18u);
+        uint16_t *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x18u);
 
         widget->parameters.text_box_parameters.text = text;
         if ( text )

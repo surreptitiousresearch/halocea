@@ -13,6 +13,7 @@
  *   - All the (float)(...) casts are single-precision intermediates; the double temporaries and the
  *     bank-angle / quaternion-angle double-splits are decompiler fcfid artifacts. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -46,7 +47,7 @@ extern double cos(double x);
 void update_human_plane_physics(int vehicle_index, mass_point_datum *mass_points)
 {
     vehicle_datum *vehicle = ((vehicle_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum);
-    __int16 flags = vehicle->vehicle.flags;
+    int16_t flags = vehicle->vehicle.flags;
     vehicle_definition *definition = TAG_GET(vehicle_definition, *(int *)vehicle);
     /* physics_model is the referenced physics tag blob; +0/+8 (scale factors) and +116 (mass-point count)
      * have no clean DB member — faithful cast-indexed reads. */

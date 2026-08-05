@@ -14,6 +14,7 @@
  * reset on contact), on_ground_ticks advances while a mass point is in contact. So the local flag that
  * the old draft named `airborne` actually signals ground contact; renamed to `on_ground`. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -54,7 +55,7 @@ void compute_airborne_ticks(int vehicle_index, mass_point_datum *mass_points)
             }
             if (flags & 0x10)
                 vehicle_obj->vehicle.airborne_ticks = 0;
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while (i < physics_def->mass_points.count);
     }

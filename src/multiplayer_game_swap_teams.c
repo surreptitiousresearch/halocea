@@ -29,7 +29,7 @@ uint8_t multiplayer_game_swap_teams(widget_instance *local_player_data_widget, e
                 network_player *player = &game->players[i];
                 if ( network_player_is_valid(player)
                     && player->machine_index == local_machine_index
-                    && (unsigned __int8)player->controller_index == (unsigned __int8)event->controller_index )
+                    && (uint8_t)player->controller_index == (uint8_t)event->controller_index )
                 {
                     found = 1;
                     break;

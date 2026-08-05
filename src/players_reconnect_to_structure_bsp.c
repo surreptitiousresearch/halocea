@@ -34,21 +34,21 @@ extern int16_t scenario_cluster_index_from_point(const real_point3d *point);
 extern int16_t local_player_get_next(int16_t local_player_index);
 extern void player_teleport_on_bsp_switch(int player_index, int source_unit_index, const real_point3d *position);
 
-__int16 *players_reconnect_to_structure_bsp(void)
+int16_t *players_reconnect_to_structure_bsp(void)
 {
     data_iterator iterator;
 
-    if ( (unsigned __int16)players_globals->bsp_switch_trigger_index != 0xFFFF
+    if ( (uint16_t)players_globals->bsp_switch_trigger_index != 0xFFFF
       && players_globals->local_player_count > 1 )
     {
         int anchor_unit_index = -1;
-        unsigned __int8 found_anchor = 0;
-        unsigned __int8 flag_position_valid = 0;
+        uint8_t found_anchor = 0;
+        uint8_t flag_position_valid = 0;
         real_point3d destination;
 
-        __int16 cutscene_flag_index =
+        int16_t cutscene_flag_index =
             ((const scenario_bsp_switch_trigger_volume *)global_scenario->bsp_switch_trigger_volumes.address)
-                [(unsigned __int16)players_globals->bsp_switch_trigger_index].safe_flag_index;
+                [(uint16_t)players_globals->bsp_switch_trigger_index].safe_flag_index;
         if ( cutscene_flag_index != -1 )
         {
             destination = ((const scenario_cutscene_flag *)global_scenario->cutscene_flags.address)
@@ -77,7 +77,7 @@ __int16 *players_reconnect_to_structure_bsp(void)
             if ( unit_index == -1 )
                 continue;
 
-            __int16 trigger_index = players_globals->bsp_switch_trigger_index;
+            int16_t trigger_index = players_globals->bsp_switch_trigger_index;
             const scenario_bsp_switch_trigger_volume *trigger_volume;
             if ( trigger_index == -1 )
                 trigger_volume = 0;
@@ -104,7 +104,7 @@ __int16 *players_reconnect_to_structure_bsp(void)
 
         if ( found_anchor )
         {
-            for ( __int16 local_player = local_player_get_next(-1); local_player != -1;
+            for ( int16_t local_player = local_player_get_next(-1); local_player != -1;
                     local_player = local_player_get_next(local_player) )
             {
                 int player_index = players_globals->local_player_indices[local_player];
@@ -128,5 +128,5 @@ __int16 *players_reconnect_to_structure_bsp(void)
         player->cluster_index = -1;    /* invalidate cached BSP cluster for every player */
         player = data_iterator_next(&iterator);
     }
-    return (__int16 *)player;
+    return (int16_t *)player;
 }

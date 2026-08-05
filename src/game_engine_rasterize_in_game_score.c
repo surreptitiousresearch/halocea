@@ -211,7 +211,7 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
         passes--;
     }
 
-    __int16 variant_name_id = get_variant_name_id();
+    int16_t variant_name_id = get_variant_name_id();
     if (variant_name_id == 8)
         return;
 

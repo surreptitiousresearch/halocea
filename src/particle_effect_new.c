@@ -42,7 +42,7 @@ void particle_effect_new(particle_datum *particle, unsigned int group_tag, int e
          * impulse-field and deterministic args as uninitialized stack values. */
         const real_rgb_color *color = &down_color;
         const effect_vector_field *impulse_field = NULL;
-        unsigned __int8 deterministic = 0;
+        uint8_t deterministic = 0;
 
         facing.n[0] = particle->direction.n[0];
         facing.n[1] = particle->direction.n[1];

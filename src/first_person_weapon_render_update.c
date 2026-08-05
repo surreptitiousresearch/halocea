@@ -21,7 +21,7 @@ void first_person_weapon_render_update(void)
     if (weapon->unit_index == -1 || weapon->weapon_index == -1)
         return;
 
-    unsigned __int8 visible = 1;
+    uint8_t visible = 1;
     if (director_get_perspective(render.local_player_index)
         || player_control_get_zoom_level(render.local_player_index) != -1)
         visible = 0;

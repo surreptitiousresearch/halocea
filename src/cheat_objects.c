@@ -44,7 +44,7 @@ void cheat_objects(const game_globals_tag_reference *references, int16_t name_co
         angle_step = 0.39269909f;
     float base_angle = (float)atan2(forward.n[1], forward.n[0]);
 
-    for ( int i = 0; i < name_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < name_count; i = (int16_t)(i + 1) )
     {
         int tag_index = references[i].reference.index;
         if ( tag_index == -1 )

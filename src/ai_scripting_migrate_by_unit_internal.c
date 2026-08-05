@@ -19,7 +19,7 @@
 #include "headers/global_tag_instances.h"
 #include "headers/blam_data_globals.h"
 
-extern int ai_scripting_migrate_find_target_squad(__int16 source_squad_index, actor_variant_definition *source_variant,
+extern int ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant,
                                                   actor_definition *source_actor, int match_by_squad_index,
                                                   int target_encounter_index, int unused_target_ai_index,
                                                   const char *unused_debug_description);
@@ -36,11 +36,11 @@ void ai_scripting_migrate_by_unit_internal(int unit_index, int ai_index, uint8_t
     if ( actor_index == -1 || ai_index == -1 )
         return;
 
-    int target = (unsigned __int16)ai_index;
+    int target = (uint16_t)ai_index;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    int same_encounter = (unsigned __int16)(actor->meta.encounter_index ^ ai_index) == 0;   /* meta.encounter_index == ai_index */
+    int same_encounter = (uint16_t)(actor->meta.encounter_index ^ ai_index) == 0;   /* meta.encounter_index == ai_index */
 
-    __int16 target_squad = ai_scripting_migrate_find_target_squad(
+    int16_t target_squad = ai_scripting_migrate_find_target_squad(
         actor->meta.squad_index,                                                         /* actor +0x3A */
         TAG_GET(actor_variant_definition, actor->meta.definition_index),        /* +0x58 definition_index */
         TAG_GET(actor_definition, actor->meta.variant_definition_index),        /* +0x5C variant_definition_index */

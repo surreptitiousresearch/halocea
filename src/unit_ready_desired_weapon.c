@@ -40,7 +40,7 @@ void unit_ready_desired_weapon(int unit_index, uint8_t immediate)
     int desired_weapon = -1;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    __int16 desired_slot = unit->unit.desired_weapon_index;
+    int16_t desired_slot = unit->unit.desired_weapon_index;
     unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
     if ( desired_slot != -1 )
         desired_weapon = unit->unit.weapon_object_indices[desired_slot];
@@ -91,9 +91,9 @@ void unit_ready_desired_weapon(int unit_index, uint8_t immediate)
         object_attach_to_marker(unit_index, weapon_class->hand_marker_name, desired_weapon,
             weapon_class->grip_marker_name);
 
-        __int16 new_slot = unit->unit.desired_weapon_index;
+        int16_t new_slot = unit->unit.desired_weapon_index;
         unit->unit.current_weapon_index = new_slot;
-        if ( (unsigned __int16)new_slot != 0xFFFF )
+        if ( (uint16_t)new_slot != 0xFFFF )
             unit->unit.weapon_last_used_at_game_time[unit->unit.current_weapon_index] = game_time_get();
         weapon_ready(desired_weapon);
     }

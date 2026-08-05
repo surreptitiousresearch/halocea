@@ -32,7 +32,7 @@ int default_structure_decoder(const _field_properties_definition *const field_pr
             const _field_reference_definition *field = &parameters->members_references[i];
 
             unsigned int saved_position = bitstream_tell(input_stream);
-            unsigned __int8 changed = 0;
+            uint8_t changed = 0;
             bitstream_seek(input_stream, group_start_bit + i, _bitstream_seek_beginning);
             bitstream_read_bit(input_stream, &changed);
             bitstream_seek(input_stream, saved_position, _bitstream_seek_beginning);

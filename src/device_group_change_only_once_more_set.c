@@ -17,7 +17,7 @@ void device_group_change_only_once_more_set(int device_group_index, uint8_t chan
     if ( device_group_index == -1 )
         return;
     device_group_datum *group = DATA_ARRAY_ELEMENT(device_groups_data, device_group_datum, device_group_index);
-    __int16 flags = change_only_once ? (group->flags | (1u << _device_group_can_change_only_once_bit)) : (group->flags & ~(1u << _device_group_can_change_only_once_bit));
+    int16_t flags = change_only_once ? (group->flags | (1u << _device_group_can_change_only_once_bit)) : (group->flags & ~(1u << _device_group_can_change_only_once_bit));
     group->flags = flags;
     group->flags = flags & ~(1u << _device_group_changed_once_bit);
 }

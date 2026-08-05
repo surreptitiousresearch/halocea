@@ -29,7 +29,7 @@ uint8_t string_is_ui_compatible(const char *str, const wchar_t *wstr, int valida
     int length = scan - str - 1;
 
     if (validate_mode == _virtual_keyboard_validate_not_empty)
-        compatible = *(unsigned __int8 *)str != 0;
+        compatible = *(uint8_t *)str != 0;
 
     if (compatible && length > 0)
     {

@@ -102,7 +102,7 @@ void rasterizer_geometry_uncompress_vertices(int16_t type, int count, void *unco
             destination[vertex_index].nodes[1] = source[vertex_index].nodes[1] / 3;
 
             /* weight is a single quantised byte in the low half of weights[0]; the pair sums to 1 */
-            quantised_weight = (unsigned __int8)source[vertex_index].weights[0];
+            quantised_weight = (uint8_t)source[vertex_index].weights[0];
             destination[vertex_index].weights[0] = (float)quantised_weight * 0.0039215689f;   /* / 255 */
             destination[vertex_index].weights[1] = 1.0f - (float)quantised_weight * 0.0039215689f;
         }

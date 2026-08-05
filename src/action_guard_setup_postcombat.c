@@ -38,7 +38,7 @@ uint8_t action_guard_setup_postcombat(int actor_index, guard_state_data *state_d
     if ( !actor->input.vehicle_passenger && !actor->meta.swarm && actor->external_orders.postcombat_prop_index != -1 )
     {
         int prop_index = actor->external_orders.postcombat_prop_index;
-        unsigned __int8 recognized_type = 1;
+        uint8_t recognized_type = 1;
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
 
         state_data->guard_look_until_reached_point = 1;

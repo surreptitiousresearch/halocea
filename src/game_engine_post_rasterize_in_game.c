@@ -22,7 +22,7 @@ extern double pow(double base, double exponent);
 
 void game_engine_post_rasterize_in_game(void)
 {
-    __int16 local_player_index = render.local_player_index;
+    int16_t local_player_index = render.local_player_index;
     int player_index = local_player_get_player_index(local_player_index);
 
     /* the original tests the player datum pointer for non-null alongside the game-engine pointer. */

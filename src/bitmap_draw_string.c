@@ -36,7 +36,7 @@ void bitmap_draw_string(bitmap_data *bitmap, const rectangle2d *bounds, const re
         const char *string)
 {
     const rectangle2d *effective_bounds = bounds;
-    unsigned __int16 format = (unsigned __int16)bitmap->format;
+    uint16_t format = (uint16_t)bitmap->format;
 
     draw_character_software_globals.bitmap = bitmap;
 
@@ -64,15 +64,15 @@ void bitmap_draw_string(bitmap_data *bitmap, const rectangle2d *bounds, const re
     {
         const rectangle2d *default_bounds = (const rectangle2d *)0;   /* dead null-bounds default (see header) */
 
-        __int16 bottom = default_bounds->y1;
+        int16_t bottom = default_bounds->y1;
         if ( bitmap->height <= default_bounds->y1 )
             bottom = bitmap->height;
-        __int16 right = default_bounds->x1;
+        int16_t right = default_bounds->x1;
         if ( bitmap->width <= default_bounds->x1 )
             right = bitmap->width;
 
-        __int16 left = default_bounds->x0 < 0 ? 0 : default_bounds->x0;
-        __int16 top = default_bounds->y0 < 0 ? 0 : default_bounds->y0;
+        int16_t left = default_bounds->x0 < 0 ? 0 : default_bounds->x0;
+        int16_t top = default_bounds->y0 < 0 ? 0 : default_bounds->y0;
 
         set_rectangle2d(&clamped_bounds, left, top, right, bottom);
         effective_bounds = &clamped_bounds;
@@ -80,10 +80,10 @@ void bitmap_draw_string(bitmap_data *bitmap, const rectangle2d *bounds, const re
 
     if ( clip )
     {
-        __int16 bottom = clip->y1;
+        int16_t bottom = clip->y1;
         if ( bitmap->height <= clip->y1 )
             bottom = bitmap->height;
-        __int16 right = clip->x1;
+        int16_t right = clip->x1;
         if ( bitmap->width <= clip->x1 )
             right = bitmap->width;
 

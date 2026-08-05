@@ -4,6 +4,7 @@
  * and its cluster index returned (provided the object is valid and flagged as occupying a cluster).
  * A stale object source is cleared to inactive. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_globals.h"
@@ -19,11 +20,11 @@ extern int object_get_ultimate_parent(int object_index);
 
 int objects_get_activating_cluster_index(void)
 {
-    int activation_type = (unsigned __int16)object_globals->pvs_activation_type;
+    int activation_type = (uint16_t)object_globals->pvs_activation_type;
     if (activation_type != _pvs_activation_object)
     {
         if (activation_type == _pvs_activation_cluster)
-            return (unsigned __int16)object_globals->pvs_activation.cluster_index;
+            return (uint16_t)object_globals->pvs_activation.cluster_index;
         return -1;
     }
 
@@ -33,13 +34,13 @@ int objects_get_activating_cluster_index(void)
         return -1;
     }
 
-    int parent_index = (unsigned __int16)object_get_ultimate_parent(object_globals->pvs_activation.object_index);
+    int parent_index = (uint16_t)object_get_ultimate_parent(object_globals->pvs_activation.object_index);
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_index)->datum;
 
     if ((object->object.flags & (1u << _object_connected_to_map_bit)) == 0)
         return -1;
 
-    int cluster_index = (unsigned __int16)object->object.location.cluster_index;
+    int cluster_index = (uint16_t)object->object.location.cluster_index;
     if (cluster_index == 0xFFFF)
         return -1;
     return cluster_index;

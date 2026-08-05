@@ -51,10 +51,10 @@ uint8_t collision_fix_pill(unsigned int flags, const real_point3d *old_position,
     }
 
     char have_fallback = 0;
-    __int16 i = 0;
+    int16_t i = 0;
     while ( 1 )
     {
-        __int16 current = i;
+        int16_t current = i;
         candidate.n[0] = (offsets[i].n[0] * distance) + old_position->n[0];
         candidate.n[1] = (offsets[i].n[1] * distance) + old_position->n[1];
         candidate.n[2] = (offsets[i].n[2] * distance) + old_position->n[2];
@@ -84,7 +84,7 @@ uint8_t collision_fix_pill(unsigned int flags, const real_point3d *old_position,
         }
 
         i = current + 1;
-        if ( (unsigned __int16)(current + 1) >= 0x11u )
+        if ( (uint16_t)(current + 1) >= 0x11u )
             break;
     }
 

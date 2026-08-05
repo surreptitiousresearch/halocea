@@ -5,6 +5,7 @@
  * position/velocity, resolved support/elevator surfaces, landing velocity). Layout DB-verified
  * (types_members, 204 bytes). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "real_plane3d.h"
@@ -12,7 +13,7 @@
 typedef struct biped_physics
 {
     int              biped_index;                     /* 0x00 */
-    unsigned __int16 in_flags;                        /* 0x04 */
+    uint16_t in_flags;                        /* 0x04 */
     char             _pad06[2];                        /* 0x06 */
     real_point3d     position;                        /* 0x08 */
     real_vector3d    forward;                         /* 0x14 */
@@ -39,7 +40,7 @@ typedef struct biped_physics
     float            gravity;                         /* 0x94 */
     int              bumped_object_index;             /* 0x98 */
     int              elevator_object_index;           /* 0x9C */
-    unsigned __int16 out_flags;                       /* 0xA0 */
+    uint16_t out_flags;                       /* 0xA0 */
     char             _padA2[2];                        /* 0xA2 */
     int              support_surface_index;           /* 0xA4 */
     int              stick_surface_index;             /* 0xA8 */

@@ -24,7 +24,7 @@ void unit_scripting_suspended(int unit_index, uint8_t suspend)
         flags = unit->unit.flags & ~(1u << _unit_suspended_bit);
     unit->unit.flags = flags;
 
-    __int16 object_type = unit->object.type;
+    int16_t object_type = unit->object.type;
     unit->object.translational_velocity = *global_zero_vector3d;
     if ( !object_type )
     {

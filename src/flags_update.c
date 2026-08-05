@@ -21,7 +21,7 @@ void flags_update(float dt)
     {
         flag_datum *flag = DATA_ARRAY_ELEMENT(flag_data, flag_datum, flag_index);
         flag_definition *definition = TAG_GET(flag_definition, flag->definition_index);
-        __int16 updates_since_last_render = flag->updates_since_last_render + 1;
+        int16_t updates_since_last_render = flag->updates_since_last_render + 1;
         flag->updates_since_last_render = updates_since_last_render;
 
         if ( flag->object_index != -1 && updates_since_last_render < 5 && dt != 0.0f )

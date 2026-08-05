@@ -23,11 +23,11 @@ void _byte_swap_recording_stream_v1(void *data, int size, uint8_t unit_control_v
 
     byte_swap_data(&animation_event_v1_bs_definition, data, 1);
 
-    unsigned __int16 version = *(unsigned __int16 *)data;
-    unsigned __int16 *cursor = (unsigned __int16 *)((char *)data + 4);
+    uint16_t version = *(uint16_t *)data;
+    uint16_t *cursor = (uint16_t *)data + 2;   /* records are 4 bytes; skip the stream header */
     while ( version != 1 )
     {
-        if ( (__int16)version != 0 )
+        if ( (int16_t)version != 0 )
             break;
         byte_swap_data(&animation_event_v1_bs_definition, cursor, 1);
         version = *cursor;

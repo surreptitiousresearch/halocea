@@ -39,7 +39,7 @@ void player_control_new_unit(int16_t local_player_index, int unit_index)
         euler_angles2d_from_vector3d(&control->desired_angles, &unit->unit.desired_facing_vector);
         if (control->desired_angles.n[0] < 0.0f)
             control->desired_angles.n[0] += TWO_PI;
-        control->desired_weapon_index = (unsigned __int16)unit->unit.desired_weapon_index;
+        control->desired_weapon_index = (uint16_t)unit->unit.desired_weapon_index;
         control->desired_grenade_index = unit->unit.desired_grenade_index;
         control->desired_zoom_level = unit->unit.desired_zoom_level;
     }

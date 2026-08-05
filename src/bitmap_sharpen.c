@@ -8,7 +8,7 @@
 #include "headers/bitmap_type.h"
 #include "headers/blam_data_globals.h"
 
-extern __int16 bitmap_sharpen_negative_table[256];
+extern int16_t bitmap_sharpen_negative_table[256];
 
 extern void bitmap_2d_sharpen(bitmap_data *bitmap, const int16_t *positive_table, const int16_t *negative_table, float sharpen_amount);
 extern void bitmap_3d_sharpen(bitmap_data *bitmap, float sharpen_amount, const int16_t *positive_table, const int16_t *negative_table);
@@ -19,20 +19,20 @@ void bitmap_sharpen(bitmap_data *bitmap, float sharpen_amount)
     if ( sharpen_amount <= 0.0f )
         return;
 
-    __int16 strength = (__int16)(sharpen_amount * 100.0f);
+    int16_t strength = (int16_t)(sharpen_amount * 100.0f);
     if ( strength < 0 )
         strength = 0;
     else if ( strength > 100 )
         strength = 100;
 
-    __int16 falloff = 100 - strength;
+    int16_t falloff = 100 - strength;
     if ( falloff < 1 )
         falloff = 1;
 
-    for ( __int16 i = 0; i < 256; ++i )
+    for ( int16_t i = 0; i < 256; ++i )
     {
-        bitmap_sharpen_negative_table[i] = (__int16)(i * strength / 8 / falloff);
-        positive_table[i] = (__int16)(100 * i / falloff);
+        bitmap_sharpen_negative_table[i] = (int16_t)(i * strength / 8 / falloff);
+        positive_table[i] = (int16_t)(100 * i / falloff);
     }
 
     if ( bitmap->type == bitmap_type_2d )

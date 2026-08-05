@@ -15,7 +15,7 @@ void unit_custom_animation_at_frame_evaluate(int16_t function_index, int thread_
         /* HaloScript packed argument buffer (opaque wire layout): interpolate flag byte at +12,
          * frame __int16 at +16; read at exact byte offsets to preserve big-endian semantics. */
         unsigned char *argument_bytes = (unsigned char *)arguments;
-        __int16 *argument_words = (__int16 *)arguments;
+        int16_t *argument_words = (int16_t *)arguments;
         *((unsigned char *)&result + 3) = unit_custom_animation_at_frame(
             arguments[0], arguments[1], (const char *)arguments[2],
             argument_bytes[12], argument_words[8]);

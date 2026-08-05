@@ -20,7 +20,7 @@ extern uint8_t player_ui_game_variant_specified(game_variant *variant);
 extern char *main_get_multiplayer_map_name(void);
 extern int game_engine_playlist_add_selection(const char *map_name, const char *in_variant_name, game_variant *in_variant);
 
-int game_engine_playlist_initialize(unsigned __int8 force_begin_playlist)
+int game_engine_playlist_initialize(uint8_t force_begin_playlist)
 {
     global_network_game_server_get();
     game_engine_playlist_clear();

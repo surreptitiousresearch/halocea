@@ -4,12 +4,13 @@
  * target that `lighting` interpolates toward. The frame/scene stamps drive when each is recomputed. Layout from
  * the database. */
 
+#include <stdint.h>
 #include "render_lighting.h"
 
 typedef struct object_render_state
 {
-    __int16         identifier;           /* 0x00 */
-    unsigned __int16 pad;                  /* 0x02 */
+    int16_t         identifier;           /* 0x00 */
+    uint16_t pad;                  /* 0x02 */
     int             object_index;         /* 0x04 */
     int             refresh_frame_index;  /* 0x08 — frame the static lighting was last prepared */
     int             render_scene_index;   /* 0x0C — scene index at last refresh */

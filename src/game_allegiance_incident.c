@@ -35,7 +35,7 @@ uint8_t game_allegiance_incident(int16_t aggressor_team_index, int16_t victim_te
             return 0;
     }
 
-    __int16 increment = 0;
+    int16_t increment = 0;
     if ( type == _allegiance_incident_accident )
         increment = 1;
     else if ( type == _allegiance_incident_betrayal )
@@ -43,8 +43,8 @@ uint8_t game_allegiance_incident(int16_t aggressor_team_index, int16_t victim_te
     else if ( (unsigned int)type < 3 )   /* _allegiance_incident_forgive */
         increment = -1;
 
-    __int16 new_count = allegiances->current_incidents + increment;
-    int decay_time = (unsigned __int16)allegiances->incident_decay_time;
+    int16_t new_count = allegiances->current_incidents + increment;
+    int decay_time = (uint16_t)allegiances->incident_decay_time;
     allegiances->current_incidents = new_count;
     if ( decay_time != 0xFFFF )
         allegiances->current_incident_decay_time = decay_time;

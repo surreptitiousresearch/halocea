@@ -28,8 +28,8 @@ void hs_parse_call_predicate(int expression_index)
     const char *name = &hs_compile_globals.compiled_source[head->source_offset];
     node->___u1.function_index = hs_find_function_by_name(name);
     head->type = hs_function_name;
-    __int16 resolved = node->___u1.function_index;
-    if ( (unsigned __int16)resolved == 0xFFFF )
+    int16_t resolved = node->___u1.function_index;
+    if ( (uint16_t)resolved == 0xFFFF )
     {
         resolved = hs_find_script_by_name(name);
         node->___u1.function_index = resolved;

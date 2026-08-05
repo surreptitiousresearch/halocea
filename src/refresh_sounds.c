@@ -44,7 +44,7 @@ void refresh_sounds(void)
     while ( i != -1 )
     {
         sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, i);
-        int channel = (unsigned __int16)datum->playing_channel_index;
+        int channel = (uint16_t)datum->playing_channel_index;
         sound_definition *def = TAG_GET(sound_definition, datum->definition_index);
         int stop = 0;
 
@@ -62,7 +62,7 @@ void refresh_sounds(void)
         {
             sound_source *source = &datum->source; /* non-const: source_audible mutates via compute_sound_obstruction */
             float maximum_distance = sound_definition_get_maximum_distance(datum->definition_index);
-            __int16 audibility = source_audible(source, maximum_distance);
+            int16_t audibility = source_audible(source, maximum_distance);
             int class_index;
             int faded_out;
 

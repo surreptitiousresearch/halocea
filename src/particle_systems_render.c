@@ -20,7 +20,7 @@ void particle_systems_render(void)
     {
         const location *systems_location =
             &DATA_ARRAY_ELEMENT(particle_systems, particle_system_datum, index)->location;
-        if ((unsigned __int16)systems_location->cluster_index != 0xFFFF)
+        if ((uint16_t)systems_location->cluster_index != 0xFFFF)
         {
             if (scenario_location_potentially_visible_local(systems_location))
                 particle_system_render(index);

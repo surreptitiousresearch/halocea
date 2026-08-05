@@ -28,8 +28,8 @@
 typedef struct _field_properties_definition _field_properties_definition;
 extern int field_translated_index_get_local_index(const _field_properties_definition *const field_properties_definition, const int translated_index);
 extern int game_engine_player_score_get_slot_index_for_player(int player_index);
-extern unsigned __int8 message_delta_processor_decode_incremental(void *destination_data, const void *baseline_data,
-    const message_delta_processor_header *header, unsigned __int8 allow_empty_body);
+extern uint8_t message_delta_processor_decode_incremental(void *destination_data, const void *baseline_data,
+    const message_delta_processor_header *header, uint8_t allow_empty_body);
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
 extern void *datum_try_and_get(const data_array *data, int index);
@@ -48,7 +48,7 @@ void game_engine_player_score_replicate_from_network(message_delta_processor_hea
     }
 
     player_score_network_data *baseline = &g_player_score_baselines[slot].baseline;
-    unsigned __int8 decoded;
+    uint8_t decoded;
 
     if ( header->decoding_information->mode )
     {

@@ -25,7 +25,7 @@ void weapon_magazine_start_chamber(int weapon_index, int16_t magazine_index)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
     weapon_magazine *magazine = &weapon->weapon.magazines[magazine_index];
 
-    __int16 magazine_state = magazine->state;
+    int16_t magazine_state = magazine->state;
     if ( magazine_state != _weapon_magazine_idle && magazine_state != _weapon_magazine_reloaded )
         return;
 

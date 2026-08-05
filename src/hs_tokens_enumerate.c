@@ -15,9 +15,9 @@
 #include "headers/hs_token_type.h"
 #include "headers/blam_data_globals.h"
 
-extern __int16 hs_tokens_enumerate_result_count;          /* running result count */
+extern int16_t hs_tokens_enumerate_result_count;          /* running result count */
 extern char empty_string[];           /* empty-string fallback */
-extern __int16 hs_console_flags_to_test;          /* console-flags-to-test */
+extern int16_t hs_console_flags_to_test;          /* console-flags-to-test */
 extern void (*hs_token_enumerators[NUMBER_OF_HS_TOKEN_TYPES])(void);
 extern int alphabetize(const char **string1, const char **string2);
 extern void qsort(void *base, unsigned int count, unsigned int size, int (__fastcall *compare)(const void *, const void *));
@@ -30,7 +30,7 @@ int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **
     hs_tokens_enumerate_substring = substring ? substring : empty_string;
     hs_console_flags_to_test = console_flags_to_test;
 
-    for ( int kind = 0; kind < NUMBER_OF_HS_TOKEN_TYPES; kind = (__int16)(kind + 1) )
+    for ( int kind = 0; kind < NUMBER_OF_HS_TOKEN_TYPES; kind = (int16_t)(kind + 1) )
     {
         if ( ((1 << kind) & type_flags) != 0 )
             hs_token_enumerators[kind]();

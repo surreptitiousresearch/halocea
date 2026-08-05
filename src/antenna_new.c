@@ -53,7 +53,7 @@ int antenna_new(int antenna_definition_index)
     antenna->updates_since_last_render = 0;
     antenna->definition_index = antenna_definition_index;
     /* branchless-signed idiom (((x&0x80000000)==0)+(x>=2))&1 == signed (int)vertex_count < 2 */
-    antenna->__noop = (unsigned __int8)((int)vertex_count < 2);
+    antenna->__noop = (uint8_t)((int)vertex_count < 2);
 
     float pos_x = antenna->last_attachment_location.n[0];   /* all 0.0 — running accumulated node position */
     float pos_y = antenna->last_attachment_location.n[1];
@@ -79,7 +79,7 @@ int antenna_new(int antenna_definition_index)
             int bitmap_group_index = definition->texture.index;
             if ( bitmap_group_index != -1 )
             {
-                __int16 sequence_index = def_vertex->sequence_index;
+                int16_t sequence_index = def_vertex->sequence_index;
                 const bitmap_group *bitmap_group_def = TAG_GET(const bitmap_group, bitmap_group_index);
                 if ( sequence_index >= 0 && sequence_index < bitmap_group_def->sequences.count )
                 {
@@ -102,7 +102,7 @@ int antenna_new(int antenna_definition_index)
                 }
             }
 
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             pos_x += def_vertex->vector_to_next.n[0];
             pos_y += def_vertex->vector_to_next.n[1];
             pos_z += def_vertex->vector_to_next.n[2];
@@ -110,7 +110,7 @@ int antenna_new(int antenna_definition_index)
         while ( i < (int)vertex_count );
     }
 
-    antenna_vertex_datum *sentinel = &antenna->vertices[(__int16)i];
+    antenna_vertex_datum *sentinel = &antenna->vertices[(int16_t)i];
     sentinel->p.n[0] = pos_x;
     sentinel->p.n[1] = pos_y;
     sentinel->p.n[2] = pos_z;

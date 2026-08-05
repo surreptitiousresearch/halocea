@@ -43,18 +43,18 @@ uint8_t ai_conversation_line_perform(int conversation_index)
 
     if (!conversation->line_spoken)
     {
-        unsigned __int8 busy = 0;
+        uint8_t busy = 0;
         int sound_definition_index = conversation->line_sound_index;
 
         if (sound_definition_index != -1)
         {
-            __int16 flags = conversation->line_flags;
+            int16_t flags = conversation->line_flags;
             if ((flags & (1u << _ai_conversation_line_wait_until_speaker_nearby_bit)) != 0
                 || (flags & (1u << _ai_conversation_line_wait_until_everyone_nearby_bit)) != 0)
             {
                 int participant_count = ((ai_conversation *)global_scenario->ai_conversations.address
                                       + conversation->conversation_definition_index)->participants.count;
-                for (int i = 0; i < participant_count; i = (__int16)(i + 1))
+                for (int i = 0; i < participant_count; i = (int16_t)(i + 1))
                 {
                     int participant_actor = conversation->actor_indices[i];
                     if (participant_actor == -1)
@@ -85,8 +85,8 @@ uint8_t ai_conversation_line_perform(int conversation_index)
                 else
                 {
                     int sound_definition = conversation->line_sound_index;
-                    __int16 vocalization = -1;
-                    __int16 play_handle = unit_test_speech(speaking_unit_index, _ai_communication_priority_yell, 0, 1, nullptr,
+                    int16_t vocalization = -1;
+                    int16_t play_handle = unit_test_speech(speaking_unit_index, _ai_communication_priority_yell, 0, 1, nullptr,
                                                            &vocalization, &sound_definition);
                     if (play_handle == 1)
                     {
@@ -134,21 +134,21 @@ uint8_t ai_conversation_line_perform(int conversation_index)
             {
                 int speaking_unit = conversation->line_unit_index;
                 unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, speaking_unit)->datum);
-                conversation->line_finished = ((unsigned __int16)unit_object->unit.speech.current.priority != _ai_communication_priority_yell);
+                conversation->line_finished = ((uint16_t)unit_object->unit.speech.current.priority != _ai_communication_priority_yell);
             }
         }
 
         if (conversation->line_finished)
         {
-            __int16 delay_ticks = conversation->line_delay_timer;
+            int16_t delay_ticks = conversation->line_delay_timer;
             if (delay_ticks > 0)
             {
-                unsigned __int8 result = conversation->line_advance;
+                uint8_t result = conversation->line_advance;
                 conversation->line_delay_timer = delay_ticks - 1;
                 return result;
             }
 
-            __int16 line_flags = conversation->line_flags;
+            int16_t line_flags = conversation->line_flags;
             conversation->line_advance = 1;
             if ((line_flags & (1u << _ai_conversation_line_wait_after_until_told_to_advance_bit)) != 0)
             {

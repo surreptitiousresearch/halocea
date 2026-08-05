@@ -27,7 +27,7 @@ void wind_update(void)
     ++wind_globals.time;
     count = bsp->weather_palette.count;
 
-    for ( i = 0; i < count; i = (__int16)(i + 1) )
+    for ( i = 0; i < count; i = (int16_t)(i + 1) )
     {
         structure_weather_palette_entry *palette =
             &((structure_weather_palette_entry *)bsp->weather_palette.address)[i];

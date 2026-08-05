@@ -1,1 +1,2 @@
-unsigned __int8 debug_sound;
+#include <stdint.h>
+uint8_t debug_sound;

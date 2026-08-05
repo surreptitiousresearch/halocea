@@ -22,7 +22,7 @@ extern int sprintf_0(char *string, const char *format, ...);
 int hs_parse_object_name(int expression_index)
 {
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
-    __int16 name_index = scenario_object_name_index_from_string(
+    int16_t name_index = scenario_object_name_index_from_string(
                              global_scenario,
                              &hs_compile_globals.compiled_source[node->source_offset]);
 
@@ -33,10 +33,10 @@ int hs_parse_object_name(int expression_index)
     }
     else
     {
-        __int16 object_type = ((scenario_object_name *)global_scenario->object_names.address)[name_index].runtime_object_type;
+        int16_t object_type = ((scenario_object_name *)global_scenario->object_names.address)[name_index].runtime_object_type;
         if ( ((1 << object_type) & hs_object_type_masks[node->type - first_hs_object_name_type]) != 0 )
         {
-            *(__int16 *)&node->data = name_index;
+            *(int16_t *)&node->data = name_index;
             return 1;
         }
         sprintf_0(hs_compile_globals.error_buffer, "this is not an object of type %s.", hs_type_names[node->type]);

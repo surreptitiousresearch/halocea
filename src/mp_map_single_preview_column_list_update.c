@@ -7,15 +7,15 @@
 #include "headers/widget_instance.h"
 #include "headers/player_profile.h"
 
-extern void single_preview_column_list_update(widget_instance *widget, unsigned __int8 (__fastcall *func)(unsigned __int16 *, int, void *));
-extern int mp_map_get_string(unsigned __int16 *buffer, int index, void *unused);
+extern void single_preview_column_list_update(widget_instance *widget, uint8_t (__fastcall *func)(uint16_t *, int, void *));
+extern int mp_map_get_string(uint16_t *buffer, int index, void *unused);
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
 extern int16_t map_list_get_pic_name_index(int index);
 
 void mp_map_single_preview_column_list_update(widget_instance *widget)
 {
-    single_preview_column_list_update(widget, (unsigned __int8 (__fastcall *)(unsigned __int16 *, int, void *))mp_map_get_string);
+    single_preview_column_list_update(widget, (uint8_t (__fastcall *)(uint16_t *, int, void *))mp_map_get_string);
 
     player_profile profile;
     player_ui_get_active_player_profile(0, &profile);

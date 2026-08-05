@@ -2,6 +2,7 @@
 /* biped_state — networked snapshot of a biped unit's physics/animation state, saved into a player_update for
  * client-side prediction and replayed during reconciliation. Layout from the database (212 bytes). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "object_animation_state.h"
@@ -25,7 +26,7 @@ typedef struct biped_state
     char                   airborne_ticks;             /* 0xB1 */
     char                   slipping_ticks;             /* 0xB2 */
     char                   jump_recovery_timer;        /* 0xB3 */
-    __int16                landing;                    /* 0xB4 */
+    int16_t                landing;                    /* 0xB4 */
     unsigned char _pad0[2]; /* db-verified padding */
     float                  crouch;                     /* 0xB8 */
     real_plane3d           ground_plane;               /* 0xBC */

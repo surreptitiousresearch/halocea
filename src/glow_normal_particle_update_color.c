@@ -20,7 +20,7 @@ void glow_normal_particle_update_color(int object_index, glow_datum *glow, glow_
 {
     glow_definition *definition = TAG_GET(glow_definition, glow->definition_index);
 
-    unsigned __int16 color_function_index = definition->color_attachment_index;
+    uint16_t color_function_index = definition->color_attachment_index;
     if ( color_function_index != 0xFFFF )
     {
         float value;

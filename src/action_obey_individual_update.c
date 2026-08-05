@@ -10,7 +10,7 @@ void action_obey_individual_update(int actor_index, int unit_index, int16_t comm
     if ( simple_control->pause_timer > 0 )
         simple_control->pause_timer--;
 
-    unsigned __int8 flags = simple_control->simple_control_flags;
+    uint8_t flags = simple_control->simple_control_flags;
     if ( flags & (1u << _obey_simple_jump_bit) )
     {
         /* jump-active branch; union offset 0 aliases directmovement.facing / jump.delay_ticks. */

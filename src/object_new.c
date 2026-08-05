@@ -22,7 +22,7 @@ int object_new(object_placement_data *data)
     if ( game_connection() == _game_connection_network_server )
     {
         /* DEVIATION FIX: restored missing deref — DB reads **(_WORD **)(slot), the definition's type word */
-        __int16 object_type = TAG_GET(_object_definition, data->definition_index)->type;
+        int16_t object_type = TAG_GET(_object_definition, data->definition_index)->type;
         role = object_type_get_update_message_type(object_type) != -1
                    ? _networked_datum_master
                    : _networked_datum_autonomous;

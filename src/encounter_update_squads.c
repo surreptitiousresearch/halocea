@@ -24,16 +24,16 @@ void encounter_update_squads(int encounter_index)
 {
     encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
     encounter_definition *encounter_def =
-        &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)encounter_index];
+        &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)encounter_index];
 
     if ( encounter->squad_count <= 0 )
         return;
 
     squad_definition *squad_definitions = (squad_definition *)encounter_def->squads.address;
-    for ( __int16 squad_local_index = 0; squad_local_index < encounter->squad_count; ++squad_local_index )
+    for ( int16_t squad_local_index = 0; squad_local_index < encounter->squad_count; ++squad_local_index )
     {
-        squad_datum *squad = &squad_array[(__int16)(encounter->squad_base + squad_local_index)];
-        __int16 delay_timer = squad->delay_timer;
+        squad_datum *squad = &squad_array[(int16_t)(encounter->squad_base + squad_local_index)];
+        int16_t delay_timer = squad->delay_timer;
         if ( delay_timer <= 0 )
             continue;
 

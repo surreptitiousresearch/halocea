@@ -22,7 +22,7 @@ uint8_t static_array_resize(uint8_t *count, void *elements, int16_t element_size
         else
             memset(old_end, 0, new_end - old_end);
 
-        *count = (unsigned __int8)new_count;
+        *count = (uint8_t)new_count;
     }
 
     return 1;

@@ -17,7 +17,7 @@ int actor_action_handle_panic_from_attached_melee_attackers(uint16_t actor_index
     if (!actor->input.melee_attacker_attached)
         return 0;
 
-    __int16 panic_type = actor->stimuli.panic_type;
+    int16_t panic_type = actor->stimuli.panic_type;
     if (panic_type <= _actor_panic_melee_attached_to_us)
         panic_type = _actor_panic_melee_attached_to_us;
     actor->stimuli.panic_type = panic_type;

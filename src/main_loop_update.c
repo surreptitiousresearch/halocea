@@ -404,7 +404,7 @@ frame:
             while ( player )
             {
                 /* local_player_index is signed __int16; keep the unsigned cast for the 0xFFFF sentinel compare */
-                if ( (unsigned __int16)player->local_player_index != 0xFFFF )
+                if ( (uint16_t)player->local_player_index != 0xFFFF )
                 {
                     if ( player->unit_index != -1 )
                         global_network_game_client_get();
@@ -437,7 +437,7 @@ frame:
         {
             if ( !debug_no_drawing )
             {
-                __int64 render_clocks = system_clocks();
+                int64_t render_clocks = system_clocks();
                 float since_render = 0.0f;
                 if ( !game_time_get_paused() && !console_is_active() )
                 {
@@ -487,7 +487,7 @@ end_of_frame:
 
     if ( main_globals.restart_time )
     {
-        __int64 clocks = system_clocks();
+        int64_t clocks = system_clocks();
         main_globals.restart_time = 0;
         main_globals.last_time_clocks = clocks;
         main_globals.last_render_clocks = clocks;

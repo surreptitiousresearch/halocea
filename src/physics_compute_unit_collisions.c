@@ -34,7 +34,7 @@ extern uint8_t physics_compute_biped_collision(collision_model_instance *instanc
 void physics_compute_unit_collisions(int vehicle_index)
 {
     collision_model_instance collision_instance;
-    unsigned __int8 collision_model_valid = collision_model_instance_new(&collision_instance, vehicle_index);
+    uint8_t collision_model_valid = collision_model_instance_new(&collision_instance, vehicle_index);
 
     physics_instance vehicle_physics;
     if (!physics_instance_new(&vehicle_physics, vehicle_index))
@@ -56,7 +56,7 @@ void physics_compute_unit_collisions(int vehicle_index)
     {
         int object_index = found_objects[i];
         object_header_datum *header = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index);
-        unsigned __int8 object_type = header->type;
+        uint8_t object_type = header->type;
 
         if (object_type)
         {
@@ -64,7 +64,7 @@ void physics_compute_unit_collisions(int vehicle_index)
             {
                 physics_instance other_physics;
                 if (physics_instance_new(&other_physics, object_index)
-                    && ((unsigned __int16)object_index < (unsigned __int16)vehicle_index
+                    && ((uint16_t)object_index < (uint16_t)vehicle_index
                         || (header->datum->object.flags & (1u << _object_at_rest_bit)) != 0
                         || other_physics.physics->radius > 0.0f))
                 {

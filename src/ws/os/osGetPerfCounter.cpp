@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "../../headers/ws/os/os_boundary.h"
 
 // DEVIATION: the decompiler rendered this as returning only `counter.LowPart` (32-bit), but
@@ -5,7 +6,7 @@
 // LARGE_INTEGER into r3 -- Xenon's ABI returns 64-bit values whole in r3 (64-bit GPRs even in
 // 32-bit PPC mode). This matches the caller osTIMER2::Snapshot, which already declares/consumes
 // this as `unsigned __int64`. Reconstructed as the full QuadPart return.
-unsigned __int64 osGetPerfCounter()
+uint64_t osGetPerfCounter()
 {
     _LARGE_INTEGER counter;
     QueryPerformanceCounter(&counter);

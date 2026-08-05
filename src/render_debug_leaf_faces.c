@@ -5,6 +5,7 @@
  * map_leaf (24 bytes, faces tag_block at +0); each face is map_leaf_face (16 bytes), and the +4 "vertex_count"
  * is that face's vertices tag_block .count. */
 
+#include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/map_leaf.h"
 #include "headers/map_leaf_face.h"
@@ -24,7 +25,7 @@ void render_debug_leaf_faces(const leaf_map *map, int leaf_index)
 
             if ( vertex_count > 2 )
             {
-                for ( __int16 fan_index = 2; fan_index < vertex_count; ++fan_index )
+                for ( int16_t fan_index = 2; fan_index < vertex_count; ++fan_index )
                     ;
             }
         }

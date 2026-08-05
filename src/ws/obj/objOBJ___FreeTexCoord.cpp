@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -20,7 +21,7 @@ void objOBJ::_FreeTexCoord(unsigned int tcInd)
     if (!this->pGeom || tcInd > 4)
         return;
 
-    unsigned __int64 shareBit = (unsigned __int64)0x800 << tcInd; // OBJ_ST_SHARED_TEXCOORD<tcInd>
+    uint64_t shareBit = (uint64_t)0x800 << tcInd; // OBJ_ST_SHARED_TEXCOORD<tcInd>
     bool isShared = (this->stateShare.state & shareBit) != 0;
     if (!isShared)
         FreeObjData(tcInd + 15, GetTexCoordList(tcInd));

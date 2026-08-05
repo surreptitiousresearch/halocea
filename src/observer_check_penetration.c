@@ -32,7 +32,7 @@ void observer_check_penetration(real_point3d *focus_position, const real_vector3
 
     location focus_location;
     scenario_location_from_point(&focus_location, focus_position);
-    unsigned __int8 ignore_media = scenario_location_underwater(&focus_location, focus_position, nullptr);
+    uint8_t ignore_media = scenario_location_underwater(&focus_location, focus_position, nullptr);
 
     /* desired camera position straight back from the focus point */
     float reach = *distance + safe_distance;
@@ -57,7 +57,7 @@ void observer_check_penetration(real_point3d *focus_position, const real_vector3
     real_vector3d *best_offset = nullptr;
     float best_sign = 0.0f;
 
-    for (int i = 0; i < 4; i = (__int16)(i + 1))
+    for (int i = 0; i < 4; i = (int16_t)(i + 1))
     {
         float sign = (i & 2) ? 1.0f : -1.0f;
         real_vector3d *offset = &perturbation[i & 1];
@@ -86,14 +86,14 @@ void observer_check_penetration(real_point3d *focus_position, const real_vector3
         float lower = 0.0f;
         float upper = best_sign;
 
-        for (int j = 0; j < 10; j = (__int16)(j + 1))
+        for (int j = 0; j < 10; j = (int16_t)(j + 1))
         {
             float mid = (upper + lower) * 0.5f;
             real_point3d probe;
             probe.n[0] = offset_x * mid + desired_camera.n[0];
             probe.n[1] = offset_y * mid + desired_camera.n[1];
             probe.n[2] = offset_z * mid + desired_camera.n[2];
-            unsigned __int8 hit = observer_collision_test_with_t(focus_position, &probe, &collision_t, ignore_media);
+            uint8_t hit = observer_collision_test_with_t(focus_position, &probe, &collision_t, ignore_media);
             if (hit && __fabs(collision_t - last_hit_t) < 0.1f)
             {
                 upper = mid;

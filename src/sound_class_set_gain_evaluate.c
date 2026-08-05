@@ -15,7 +15,7 @@ void sound_class_set_gain_evaluate(int16_t function_index, int thread_index, uin
     if ( arguments )
     {
         /* HS argument block is packed wire (mixed-width slots): keep faithful indexed reads. */
-        sound_class_set_gain((const char *)arguments[0], ((float *)arguments)[1], ((__int16 *)arguments)[4]);
+        sound_class_set_gain((const char *)arguments[0], ((float *)arguments)[1], ((int16_t *)arguments)[4]);
         hs_return(thread_index, 0);
     }
 }

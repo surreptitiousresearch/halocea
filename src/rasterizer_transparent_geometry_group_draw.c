@@ -23,13 +23,17 @@
  *   - SetVertexShaderConstantFN count/mask come from disasm (reg 0x1A: 3 / 3<<56; reg 0xD: 4 / 3<<59; reg 0xA:
  *     3 / 3<<60); the decompiler rendered them as garbage. SetPixelShaderConstantFN reg 0 count 6.
  *   - The `long double` cos/period scratch and the `__asm fsel` lines are plain double / (x>=0?x:1.0f).
- *   - The vertex-shader-constant scratch blocks are grouped into named float arrays; shader-tag fields use the
- *     modeled shader struct (shader[N] = the Nth 0x28-byte layer). local_last_source_object_index tracks the
- *     last drawn source object across the recursive calls. */
+ *   - The vertex-shader-constant scratch blocks are grouped into named float arrays; the decompiler's
+ *     stacked-0x28-shader-layer puns (shader[N].base...) are retyped to the real derived tag structs
+ *     (shader_effect / shader_transparent_glass / shader_transparent_meter, DB types_members-confirmed).
+ *     local_last_source_object_index tracks the last drawn source object across the recursive calls. */
 
 #include <stdint.h>
 #include "headers/transparent_geometry_group.h"
 #include "headers/shader.h"
+#include "headers/shader_effect.h"
+#include "headers/shader_transparent_glass.h"
+#include "headers/shader_transparent_meter.h"
 #include "headers/rasterizer_dx9_shader_table.h"
 #include "headers/render_skinning.h"
 #include "headers/render_animation.h"
@@ -83,9 +87,9 @@ extern void D3DDevice_SetSamplerState_MagFilter(D3DDevice *device, unsigned int 
 extern void D3DDevice_SetSamplerState_MinFilter(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetSamplerState_SeparateZFilterEnable(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void SetTextureStageStateSmart(unsigned int stage, _D3DTEXTURESTAGESTATETYPE State, unsigned int Value);
 
 /* rasterizer / shader helpers */
@@ -135,7 +139,7 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
     }
     rasterizer_transparent_geometry_set_group_pending_status(group, 0);
 
-    int prev_presorted_index = (unsigned __int16)group->prev_group_presorted_index;
+    int prev_presorted_index = (uint16_t)group->prev_group_presorted_index;
     if ( prev_presorted_index != 0xFFFF )
         rasterizer_transparent_geometry_group_draw(
                 rasterizer_transparent_geometry_get_group_from_presorted_index(prev_presorted_index), dirty);
@@ -143,7 +147,7 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
     int *last_source = &local_last_source_object_index;
 
     /* type-2 active-camouflage source-object depth pre-fill */
-    if ( (unsigned __int16)group->effect.type == _render_model_effect_type_transparent_zbuffered )
+    if ( (uint16_t)group->effect.type == _render_model_effect_type_transparent_zbuffered )
     {
         int source_object_index = group->source_object_index;
         if ( source_object_index != local_last_source_object_index && !dirty )
@@ -185,7 +189,7 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
                     }
                     skinning.node_matrices = node_matrices;
                     rasterizer_set_model_skinning(&skinning,
-                            ((unsigned __int16)~(unsigned __int16)(group->geometry_flags >> 16) >> 8) & 1);
+                            ((uint16_t)~(uint16_t)(group->geometry_flags >> 16) >> 8) & 1);
                     if ( (group->geometry_flags & (1u << _rasterizer_geometry_parts_define_local_nodes_bit)) != 0 )
                         _rasterizer_model_setupnodeparts(g->local_node_remap_table_size,
                                 g->local_node_remap_table, skinning.node_matrices);
@@ -283,7 +287,7 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
     }
 
     shader_get_vertex_shader_permutation(group->shader);
-    __int16 primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
+    int16_t primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
 
     if ( (group->geometry_flags & (1u << _rasterizer_geometry_no_queue_bit)) == 0 )
     {
@@ -300,7 +304,7 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
             skinning.node_matrix_count = 1;
         }
         skinning.node_matrices = node_matrices;
-        rasterizer_set_model_skinning(&skinning, ((unsigned __int16)~(unsigned __int16)(group->geometry_flags >> 16) >> 8) & 1);
+        rasterizer_set_model_skinning(&skinning, ((uint16_t)~(uint16_t)(group->geometry_flags >> 16) >> 8) & 1);
         if ( (group->geometry_flags & (1u << _rasterizer_geometry_parts_define_local_nodes_bit)) != 0 )
             _rasterizer_model_setupnodeparts(group->local_node_remap_table_size,
                     group->local_node_remap_table, skinning.node_matrices);
@@ -332,12 +336,12 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
         {
             if ( group->effect.type == _render_model_effect_type_active_camouflage )
             {
-                if ( (__int16)pass > 0 )
+                if ( (int16_t)pass > 0 )
                     break;
                 rasterizer_set_frustum_z(rasterizer_globals.z_near_first_person,
                                          rasterizer_globals.z_far_first_person);
             }
-            else if ( (__int16)pass )
+            else if ( (int16_t)pass )
             {
                 rasterizer_set_stencil_mode(_rasterizer_stencil_mode_reject);
                 D3DDevice_SetRenderState_ZEnable(global_d3d_device, 0);
@@ -346,12 +350,12 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
             {
                 const shader *s = group->shader;
                 if ( s && s->base.type == _shader_type_effect
-                     && (s[1].base.radiosity.flags & (1u << _shader_effect_flags_dont_overdraw_first_person_weapon_bit)) != 0 )
+                     && (((const shader_effect *)s)->effect.flags & (1u << _shader_effect_flags_dont_overdraw_first_person_weapon_bit)) != 0 )
                     goto next_pass;
                 rasterizer_set_stencil_mode(_rasterizer_stencil_mode_reject_invert);
             }
         }
-        else if ( (__int16)pass > 0 )
+        else if ( (int16_t)pass > 0 )
         {
             break;
         }
@@ -362,21 +366,24 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
         {
             case _shader_type_effect:
             {
+                /* DEVIATION: the decompiler modeled the tag as stacked 0x28 `shader` layers
+                 * (shader[N].base...); retyped to the real shader_effect tag fields. */
+                const shader_effect *fx = (const shader_effect *)shader;
                 char has_texture_animation;
-                if ( *(int *)&shader[2].base.radiosity.color.n[0] == -1
-                     || (unsigned __int16)(*(unsigned int *)&shader[2].base.radiosity.color.__s1.green >> 16) == 2 )
+                if ( fx->effect.secondary_map.index == -1
+                     || (uint16_t)fx->effect.secondary_map_anchor == 2 )
                     has_texture_animation = 0;
                 else
                     has_texture_animation = 1;
 
                 /* uses_nonlinear_tint selects the +96.. dx-shader family, otherwise the family 6 lower
                  * (compiler form was flag_bias = 0 or -1; (-1 & 0xFFFA) == -6). */
-                __int16 flag_bias = ((shader[1].base.radiosity.flags & (1u << _shader_effect_uses_nonlinear_tint_bit)) != 0) ? 0 : -6;
-                __int16 shader_index = flag_bias + 96;
+                int16_t flag_bias = ((fx->effect.flags & (1u << _shader_effect_uses_nonlinear_tint_bit)) != 0) ? 0 : -6;
+                int16_t shader_index = flag_bias + 96;
                 unsigned int detail_level;
                 if ( (group->geometry_flags & (1u << _rasterizer_geometry_no_fog_bit)) != 0 )
                     goto env_shader_selected;
-                detail_level = (unsigned __int16)shader[1].base.radiosity.detail_level;
+                detail_level = (uint16_t)fx->effect.framebuffer_blend_function;
                 if ( detail_level > 7 )
                     goto env_shader_selected;
                 if ( detail_level == 1 )
@@ -387,19 +394,19 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
                 {
                     shader_index = flag_bias + 99;
                 }
-                else if ( (detail_level == 3 || detail_level == 4) && shader[1].base.radiosity.detail_level )
+                else if ( (detail_level == 3 || detail_level == 4) && fx->effect.framebuffer_blend_function )
                 {
                     shader_index = flag_bias + 97;
                 }
-                else if ( detail_level == 5 && shader[1].base.radiosity.detail_level )
+                else if ( detail_level == 5 && fx->effect.framebuffer_blend_function )
                 {
                     shader_index = flag_bias + 100;
                 }
-                else if ( detail_level == 6 && shader[1].base.radiosity.detail_level )
+                else if ( detail_level == 6 && fx->effect.framebuffer_blend_function )
                 {
                     shader_index = flag_bias + 97;
                 }
-                else if ( shader[1].base.radiosity.detail_level )
+                else if ( fx->effect.framebuffer_blend_function )
                 {
                     shader_index = flag_bias + 101;
                 }
@@ -414,21 +421,25 @@ env_shader_selected:
                     const bitmap_data *lightmap = group->lightmap;
                     if ( lightmap && lightmap->hardware_format )
                     {
-                        unsigned __int16 power = (unsigned __int16)*(unsigned int *)&shader[1].base.radiosity.power;
+                        /* DEVIATION: the decompiler read one 32-bit word covering framebuffer_fade_mode
+                         * (high half, BE) + primary_map_flags (low half); untangled into the two fields.
+                         * The SeparateZFilterEnable bit came from bit 23 of that packed word = bit 7 of
+                         * framebuffer_fade_mode (always 0 for valid fade modes, so the value is 1). */
+                        uint16_t primary_map_flags = fx->effect.primary_map_flags;
                         rasterizer_set_texture_bitmap_data_for_effect(0, (bitmap_data *)group->lightmap, effect_shader); /* lazy hw-format mutation: drop const view */
                         /* DEVIATION: fetch-constant sampler pokes decoded to inline helpers (0x838134C8-). */
-                        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, (power << 10) & 0x800);
-                        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, (power << 12) & 0x4000);
-                        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, (power & 1) == 0);
-                        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, (power & 1) == 0);
+                        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, ((unsigned int)primary_map_flags << 10) & 0x800);
+                        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, ((unsigned int)primary_map_flags << 12) & 0x4000);
+                        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, (primary_map_flags & 1) == 0);
+                        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, (primary_map_flags & 1) == 0);
                         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0,
-                                (~power >> 23) & 1);
+                                (~(unsigned int)(uint16_t)fx->effect.framebuffer_fade_mode >> 7) & 1);
                     }
                     D3DDevice_SetRenderState_CullMode(global_d3d_device, 0 /* D3DCULL_NONE */);
                     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
                     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
-                    rasterizer_set_framebuffer_blend_function(shader[1].base.radiosity.detail_level);
+                    rasterizer_set_framebuffer_blend_function(fx->effect.framebuffer_blend_function);
 
                     /* view-to-world + camera position (register 0x1A, 3 vec4) */
                     float camera_constants[12];
@@ -465,16 +476,16 @@ env_shader_selected:
                         real_vector4d *out0 = (real_vector4d *)&texture_transform[8];
                         real_vector4d *out1 = (real_vector4d *)&texture_transform[12];
                         shader_texture_animation_evaluate(
-                                (const shader_texture_animation *)&shader[2].base.radiosity.color.__s1.blue,
+                                &fx->effect.secondary_map_animation,
                                 group->animation, group->model_base_map_scale.n[0],
                                 group->model_base_map_scale.n[1], 0.0f, 0.0f, 0.0f,
                                 (float)global_frame_parameters.game_time_sec, out1, out0);
                     }
 
                     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x1A, camera_constants, 3,
-                                                        (unsigned __int64)3 << 56);
+                                                        (uint64_t)3 << 56);
                     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, texture_transform, 4,
-                                                        (unsigned __int64)3 << 59);
+                                                        (uint64_t)3 << 59);
                     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_unlit));
                     D3DDevice_SetVertexShader(global_d3d_device,
                             rasterizer_dx9_shaders_vshader9_get(effect_shader->vshader9));
@@ -513,11 +524,14 @@ env_shader_selected:
 
             case _shader_type_transparent_glass:
             {
+                /* DEVIATION: the decompiler modeled the tag as stacked 0x28 `shader` layers
+                 * (shader[N].base...); retyped to the real shader_transparent_glass tag fields. */
+                const shader_transparent_glass *glass = (const shader_transparent_glass *)shader;
                 /* reflection_mode holds the glass reflection.type tag field (bumped/flat/mirror);
                  * it is later overwritten with a computed permutation index for the draw call. */
-                __int16 reflection_mode = (unsigned __int16)*(unsigned int *)&shader[3].base.radiosity.color.__s1.blue;
+                int16_t reflection_mode = glass->glass.reflection_type;
                 D3DDevice_SetRenderState_CullMode(global_d3d_device,
-                        (shader[1].base.radiosity.flags & (1u << _shader_transparent_glass_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
+                        (glass->glass.flags & (1u << _shader_transparent_glass_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
                 D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0 /* D3DBLENDOP_ADD */);
@@ -532,29 +546,26 @@ env_shader_selected:
                      || (global_window_parameters.has_mirror
                          && (reflection_mode != _shader_transparent_glass_reflection_type_mirror || global_window_parameters.rasterizer_target == _rasterizer_target_render_primary)) )
                 {
-                    if ( *(int *)&shader[2].base.physics != -1
-                         || shader[2].base.radiosity.power != 0.0f
-                         || shader[2].base.radiosity.color.n[0] != 0.0f
-                         || shader[2].base.radiosity.color.n[1] != 0.0f )
+                    if ( glass->glass.tint_map.index != -1
+                         || glass->glass.tint_color.n[0] != 0.0f
+                         || glass->glass.tint_color.n[1] != 0.0f
+                         || glass->glass.tint_color.n[2] != 0.0f )
                     {
                         rasterizer_glass_draw_tint(group);
                     }
-                    if ( (shader[3].base.radiosity.tint_color.n[0] > 0.0f
-                          /* deliberate float reinterpret of the 4-byte word at layer-3 offset 0x24
-                           * (type+pad); disasm-confirmed `lfs f0,0x9C(r30)` at 0x8381394C. Prior sweep
-                           * had corrupted this 0.0f literal into '_shader_type_screen.0f'. */
-                          || *(float *)&shader[3].base.type > 0.0f)
-                         && (*(int *)&shader[4].base.radiosity.tint_color.n[1] != -1
+                    if ( (glass->glass.reflection_view_perpendicular_color.alpha > 0.0f
+                          || glass->glass.reflection_view_parallel_color.alpha > 0.0f)
+                         && (glass->glass.reflection_map.index != -1
                              || reflection_mode == _shader_transparent_glass_reflection_type_mirror) )
                     {
                         if ( !reflection_mode )
-                            reflection_mode = (shader[1].base.radiosity.flags & (1u << _shader_transparent_glass_bump_map_is_specular_mask_bit)) != 0;
+                            reflection_mode = (glass->glass.flags & (1u << _shader_transparent_glass_bump_map_is_specular_mask_bit)) != 0;
                         if ( !reflection_mode )
-                            reflection_mode = *(int *)&shader[5].base.radiosity.power == -1;
+                            reflection_mode = glass->glass.reflection_bump_map.index == -1;
                         rasterizer_glass_draw_reflection(group, reflection_mode);
                     }
-                    if ( *(int *)&shader[8].base.type != -1
-                         || *(int *)&shader[9].base.radiosity.color.n[2] != -1 )
+                    if ( glass->glass.diffuse_map.index != -1
+                         || glass->glass.diffuse_detail_map.index != -1 )
                         rasterizer_glass_draw_diffuse(group);
                 }
                 break;
@@ -562,7 +573,7 @@ env_shader_selected:
 
             case _shader_type_transparent_meter:
             {
-                __int16 vshader_bias = 0;
+                int16_t vshader_bias = 0;
                 if ( !primary_vertex_type || primary_vertex_type == _rasterizer_vertex_type_environment_lightmap_uncompressed )
                     vshader_bias = 0;
                 else if ( primary_vertex_type == _rasterizer_vertex_type_model_uncompressed )
@@ -570,7 +581,9 @@ env_shader_selected:
                 effect_shader = rasterizer_shader_select(_dxshader_transparent_meter);
                 if ( !effect_shader || !effect_shader->effect )
                     break;
-                const struct shader *s = group->shader; /* deviation: struct tag; typedef 'shader' shadowed by outer local */
+                /* DEVIATION: the decompiler modeled the tag as stacked 0x28 `shader` layers
+                 * (s[N].base...); retyped to the real shader_transparent_meter tag fields. */
+                const shader_transparent_meter *mtr = (const shader_transparent_meter *)group->shader;
                 float anim_a = 1.0f, anim_b = 1.0f, anim_c = 1.0f, anim_d = 1.0f;
                 D3DDevice_SetVertexDeclaration(global_d3d_device,
                         rasterizer_dx9_shaders_vdecl9_get(primary_vertex_type));
@@ -582,16 +595,16 @@ env_shader_selected:
                     const float *values = animation->values;
                     if ( values )
                     {
-                        int idx_a = (signed __int16)(*(unsigned int *)&s[5].base.radiosity.color.__s1.blue >> 16);
+                        int idx_a = mtr->meter.meter_brightness_source;
                         if ( idx_a >= 1 && idx_a <= 4 )
                             anim_a = values[idx_a - 1];
-                        int idx_b = (signed __int16)*(unsigned int *)&s[5].base.radiosity.color.__s1.blue;
+                        int idx_b = mtr->meter.flash_brightness_source;
                         if ( idx_b >= 1 && idx_b <= 4 )
                             anim_b = values[idx_b - 1];
-                        int idx_c = (signed __int16)(*(unsigned int *)&s[5].base.radiosity.tint_color.n[0] >> 16);
+                        int idx_c = mtr->meter.value_source;
                         if ( idx_c >= 1 && idx_c <= 4 )
                             anim_c = values[idx_c - 1];
-                        int idx_d = (signed __int16)*(unsigned int *)&s[5].base.radiosity.tint_color.__s1.red;
+                        int idx_d = mtr->meter.gradient_source;
                         if ( idx_d >= 1 && idx_d <= 4 )
                             anim_d = values[idx_d - 1];
                     }
@@ -612,72 +625,72 @@ env_shader_selected:
 
                 /* pixel-shader constants (register 0, 6 vec4 = 24 floats) */
                 float pixel_constants[24];
-                pixel_constants[0] = *(float *)&s[4].base.radiosity.flags * anim_b;
-                pixel_constants[1] = s[4].base.radiosity.power * anim_b;
-                pixel_constants[2] = s[4].base.radiosity.color.n[0] * anim_b;
+                pixel_constants[0] = mtr->meter.flash_color.n[0] * anim_b;
+                pixel_constants[1] = mtr->meter.flash_color.n[1] * anim_b;
+                pixel_constants[2] = mtr->meter.flash_color.n[2] * anim_b;
                 pixel_constants[3] = 1.0f;
-                pixel_constants[4] = s[3].base.radiosity.color.n[2];
-                pixel_constants[5] = s[3].base.radiosity.tint_color.n[0];
-                pixel_constants[6] = s[3].base.radiosity.tint_color.n[1];
+                pixel_constants[4] = mtr->meter.gradient_max_color.n[0];
+                pixel_constants[5] = mtr->meter.gradient_max_color.n[1];
+                pixel_constants[6] = mtr->meter.gradient_max_color.n[2];
                 pixel_constants[7] = (1.0f / scaled_intensity);
-                pixel_constants[8] = s[3].base.radiosity.power;
-                pixel_constants[9] = s[3].base.radiosity.color.n[0];
-                pixel_constants[10] = s[3].base.radiosity.color.n[1];
+                pixel_constants[8] = mtr->meter.gradient_min_color.n[0];
+                pixel_constants[9] = mtr->meter.gradient_min_color.n[1];
+                pixel_constants[10] = mtr->meter.gradient_min_color.n[2];
                 pixel_constants[11] = anim_c;
-                pixel_constants[12] = s[3].base.radiosity.tint_color.n[2];
-                pixel_constants[13] = *(float *)&s[3].base.physics;
-                pixel_constants[14] = *(float *)&s[3].base.type;
+                pixel_constants[12] = mtr->meter.background_color.n[0];
+                pixel_constants[13] = mtr->meter.background_color.n[1];
+                pixel_constants[14] = mtr->meter.background_color.n[2];
                 pixel_constants[15] = 1.0f;
-                pixel_constants[16] = s[4].base.radiosity.color.n[1];
-                pixel_constants[17] = s[4].base.radiosity.color.n[2];
-                pixel_constants[18] = s[4].base.radiosity.tint_color.n[0];
+                pixel_constants[16] = mtr->meter.tint_color.n[0];
+                pixel_constants[17] = mtr->meter.tint_color.n[1];
+                pixel_constants[18] = mtr->meter.tint_color.n[2];
                 pixel_constants[19] = 1.0f;
-                if ( (s[1].base.radiosity.flags & (1u << _shader_transparent_meter_flash_color_is_negative_bit)) != 0 )
+                if ( (mtr->meter.flags & (1u << _shader_transparent_meter_flash_color_is_negative_bit)) != 0 )
                 {
                     pixel_constants[23] = -1.0f;
-                    pixel_constants[20] = -(*(float *)&s[4].base.radiosity.flags * anim_b);
-                    pixel_constants[21] = -(s[4].base.radiosity.power * anim_b);
-                    pixel_constants[22] = -(s[4].base.radiosity.color.n[0] * anim_b);
+                    pixel_constants[20] = -(mtr->meter.flash_color.n[0] * anim_b);
+                    pixel_constants[21] = -(mtr->meter.flash_color.n[1] * anim_b);
+                    pixel_constants[22] = -(mtr->meter.flash_color.n[2] * anim_b);
                 }
                 else
                 {
                     pixel_constants[23] = 1.0f;
-                    pixel_constants[20] = (*(float *)&s[4].base.radiosity.flags * anim_b);
-                    pixel_constants[21] = (s[4].base.radiosity.power * anim_b);
-                    pixel_constants[22] = (s[4].base.radiosity.color.n[0] * anim_b);
+                    pixel_constants[20] = (mtr->meter.flash_color.n[0] * anim_b);
+                    pixel_constants[21] = (mtr->meter.flash_color.n[1] * anim_b);
+                    pixel_constants[22] = (mtr->meter.flash_color.n[2] * anim_b);
                 }
-                if ( (s[1].base.radiosity.flags & (1u << _shader_transparent_meter_tint_mode_2_bit)) != 0 )
+                if ( (mtr->meter.flags & (1u << _shader_transparent_meter_tint_mode_2_bit)) != 0 )
                 {
-                    pixel_constants[3] = s[4].base.radiosity.tint_color.n[1];
-                    pixel_constants[17] = (s[4].base.radiosity.color.n[2] * anim_a);
-                    pixel_constants[18] = (s[4].base.radiosity.tint_color.n[0] * anim_a);
-                    pixel_constants[15] = s[4].base.radiosity.tint_color.n[2];
-                    pixel_constants[16] = (s[4].base.radiosity.color.n[1] * anim_a);
-                    pixel_constants[19] = s[4].base.radiosity.tint_color.n[1];
+                    pixel_constants[3] = mtr->meter.meter_transparency;
+                    pixel_constants[17] = (mtr->meter.tint_color.n[1] * anim_a);
+                    pixel_constants[18] = (mtr->meter.tint_color.n[2] * anim_a);
+                    pixel_constants[15] = mtr->meter.background_transparency;
+                    pixel_constants[16] = (mtr->meter.tint_color.n[0] * anim_a);
+                    pixel_constants[19] = mtr->meter.meter_transparency;
                 }
                 else
                 {
                     pixel_constants[3] = anim_a;
                     pixel_constants[15] = 0.0f;
-                    pixel_constants[16] = s[4].base.radiosity.color.n[1];
-                    pixel_constants[17] = s[4].base.radiosity.color.n[2];
-                    pixel_constants[18] = s[4].base.radiosity.tint_color.n[0];
+                    pixel_constants[16] = mtr->meter.tint_color.n[0];
+                    pixel_constants[17] = mtr->meter.tint_color.n[1];
+                    pixel_constants[18] = mtr->meter.tint_color.n[2];
                     pixel_constants[19] = anim_a;
                 }
 
-                rasterizer_set_texture_for_effect(0, 0, 1, *(int *)&s[2].base.radiosity.color.n[0],
+                rasterizer_set_texture_for_effect(0, 0, 1, mtr->meter.map.index,
                         group->shader_permutation_index, effect_shader);
                 /* DEVIATION: fetch-constant sampler pokes decoded to inline helpers. */
                 D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
                 D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
                 D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0,
-                        ((unsigned int)~s[1].base.radiosity.flags >> 4) & 1);
+                        ((unsigned int)~mtr->meter.flags >> _shader_transparent_meter_point_sampled_bit) & 1);
                 D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0,
-                        ((unsigned int)~s[1].base.radiosity.flags >> 4) & 1);
+                        ((unsigned int)~mtr->meter.flags >> _shader_transparent_meter_point_sampled_bit) & 1);
                 D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0,
-                        (~(s[1].base.radiosity.flags >> 4) >> 23) & 1);
+                        (~((unsigned int)mtr->meter.flags >> 4) >> 23) & 1);
                 D3DDevice_SetRenderState_CullMode(global_d3d_device,
-                        (s[1].base.radiosity.flags & (1u << _shader_transparent_meter_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
+                        (mtr->meter.flags & (1u << _shader_transparent_meter_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
                 D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1 /* D3DBLEND_ONE */);
@@ -695,7 +708,7 @@ env_shader_selected:
                 base_map_transform[9] = group->model_base_map_scale.n[1];
                 base_map_transform[10] = 0.0f; base_map_transform[11] = 0.0f;
                 D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, base_map_transform, 3,
-                                                    (unsigned __int64)3 << 60);
+                                                    (uint64_t)3 << 60);
                 if ( rasterizer_debug_options.debug_meter_shader_enabled && rasterizer_debug_options.pad3 )
                     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
                 unsigned int pass_count;
@@ -704,7 +717,7 @@ env_shader_selected:
                 {
                     ID3DXEffect_BeginPass(effect_shader->effect, j);
                     D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constants, 6,
-                                                       (unsigned __int64)3 << 62);
+                                                       (uint64_t)3 << 62);
                     rasterizer_transparent_geometry_group_draw_internal(group, 0);
                     ID3DXEffect_EndPass(effect_shader->effect);
                 }
@@ -720,7 +733,7 @@ env_shader_selected:
                 break;
         }
 next_pass:
-        pass = (__int16)(pass + 1);
+        pass = (int16_t)(pass + 1);
     }
     while ( pass < 2 );
 
@@ -734,22 +747,22 @@ record_source:
     if ( !dirty )
         *last_source = group->source_object_index;
 
-    int next_presorted_index = (unsigned __int16)group->next_group_presorted_index;
+    int next_presorted_index = (uint16_t)group->next_group_presorted_index;
     if ( next_presorted_index != 0xFFFF )
         rasterizer_transparent_geometry_group_draw(
                 rasterizer_transparent_geometry_get_group_from_presorted_index(next_presorted_index), dirty);
 
     if ( camo_second_pass )
     {
-        __int16 group_count;
+        int16_t group_count;
         const transparent_geometry_group *groups2 = rasterizer_transparent_geometry_get_groups2(&group_count);
-        for ( int k = 0; k < group_count; k = (__int16)(k + 1) )
+        for ( int k = 0; k < group_count; k = (int16_t)(k + 1) )
         {
             const transparent_geometry_group *g = &groups2[k];
             if ( g->active_camouflage_transparent_source_object_index == group->source_object_index
                  && g->effect.type == _render_model_effect_type_active_camouflage )
             {
-                unsigned __int8 camo_dirty = 1; /* second camouflage pass draws dirty */
+                uint8_t camo_dirty = 1; /* second camouflage pass draws dirty */
                 rasterizer_transparent_geometry_group_draw(g, camo_dirty);
                 if ( rasterizer_debug_options.pad3 )
                     ((unsigned char *)last_source)[4] = 1;

@@ -67,7 +67,7 @@ void players_update_before_game_client(void)
     player_action dequeued[32];
     data_iterator iter;
     player_datum *player;
-    __int16       slot = 0;
+    int16_t       slot = 0;
 
     memset(dequeued, 0, sizeof(dequeued));
     if ( !update_client_dequeue_client(dequeued) )
@@ -84,7 +84,7 @@ void players_update_before_game_client(void)
         int               output_client_update_id;
 
         /* resolve this player's action */
-        if ( (unsigned __int16)player->local_player_index == 0xFFFF )
+        if ( (uint16_t)player->local_player_index == 0xFFFF )
         {
             /* local player: read from its own action queue */
             if ( !action_queue_read(&player->___u26.client_update_data.___u0.remote_player.action_queue, &action,
@@ -99,8 +99,8 @@ void players_update_before_game_client(void)
                 {
                     /* no action available → default "empty" packet (see DEVIATION): overwrite the whole
                      * 32-byte player_action as four aligned {HIDWORD=-1, LODWORD=0} doublewords */
-                    unsigned __int64 empty_fill = 0xFFFFFFFF00000000ULL;
-                    unsigned __int64 *action_words = (unsigned __int64 *)&action;
+                    uint64_t empty_fill = 0xFFFFFFFF00000000ULL;
+                    uint64_t *action_words = (uint64_t *)&action;
                     action_words[0] = empty_fill;
                     action_words[1] = empty_fill;
                     action_words[2] = empty_fill;
@@ -114,7 +114,7 @@ void players_update_before_game_client(void)
             action = dequeued[slot];
             completed_client_update_id = -1;
         }
-        slot = (__int16)(slot + 1);
+        slot = (int16_t)(slot + 1);
 
         /* spawning (no current unit, not in editor) */
         if ( player->unit_index == -1 && !game_in_editor() )
@@ -218,7 +218,7 @@ void players_update_before_game_client(void)
     players_compute_combined_pvs(players_globals->combined_pvs, 0);
 
     {
-        __int16 local_count = 0;
+        int16_t local_count = 0;
         int j;
         for ( j = 0; j < 2; j++ )
         {

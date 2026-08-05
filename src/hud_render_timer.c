@@ -35,7 +35,7 @@ extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern int game_time_get(void);
-extern __int16 scripted_hud_get_timer_ticks(void);
+extern int16_t scripted_hud_get_timer_ticks(void);
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_definition *placement, const number_hud_element_definition *numbers, int16_t value, int16_t decimal_value, int16_t draw_flags, int flash_reference_time, float override_scale);
 
@@ -50,9 +50,9 @@ void hud_render_timer(void)
     memset(&placement.pad, 0, 0x22);  /* zero the remaining 34 bytes (pad + unused[8]) */
 
     int current_time = game_time_get();
-    __int16 flash = 0;
-    __int16 digit_advance = 0;
-    __int16 timer_ticks = scripted_hud_get_timer_ticks();
+    int16_t flash = 0;
+    int16_t digit_advance = 0;
+    int16_t timer_ticks = scripted_hud_get_timer_ticks();
 
     number_hud_element_definition numbers;
     numbers.digits = 2;
@@ -68,11 +68,11 @@ void hud_render_timer(void)
     {
         const hud_number_definition *interface_definition =
             TAG_GET(hud_number_definition, tag_index);
-        digit_advance = (__int16)(int)((float)(signed char)interface_definition->screen_width * 2.0f);
+        digit_advance = (int16_t)(int)((float)(signed char)interface_definition->screen_width * 2.0f);
     }
 
     /* corner-relative horizontal positioning of the field group */
-    switch ((unsigned __int16)timer->corner)
+    switch ((uint16_t)timer->corner)
     {
         case _hud_corner_top_left:
         case _hud_corner_bottom_left:
@@ -91,7 +91,7 @@ void hud_render_timer(void)
     {
         numbers.colors = hud_globals->timer_definition.color;  /* recovered: *(hud_color_definition *)((char *)hud_globals + 0x360) -> timer_definition.color (running) */
 
-        __int16 flash_cutoff = timer->flash_cutoff;
+        int16_t flash_cutoff = timer->flash_cutoff;
         if (timer_ticks <= flash_cutoff)
         {
             flash = 1;
@@ -111,8 +111,8 @@ void hud_render_timer(void)
             timer->reference_time = game_time_get();
     }
 
-    __int16 clamped_ticks = (__int16)(timer_ticks < 0 ? 0 : timer_ticks);  /* max(0, timer_ticks) */
-    __int16 total_seconds = clamped_ticks / 30;
+    int16_t clamped_ticks = (int16_t)(timer_ticks < 0 ? 0 : timer_ticks);  /* max(0, timer_ticks) */
+    int16_t total_seconds = clamped_ticks / 30;
     double advance = (double)digit_advance * 2.5;
 
     /* minutes */
@@ -121,13 +121,13 @@ void hud_render_timer(void)
 
     /* seconds */
     numbers.placement.offset.n[0] =
-        (__int16)(int)((double)numbers.placement.offset.n[0] + advance);
+        (int16_t)(int)((double)numbers.placement.offset.n[0] + advance);
     hud_draw_numbers(render.local_player_index, &placement, &numbers, total_seconds % 60, -1, flash,
                      timer->reference_time, 2.0f);
 
     /* hundredths */
     numbers.placement.offset.n[0] =
-        (__int16)(int)((double)numbers.placement.offset.n[0] + advance);
+        (int16_t)(int)((double)numbers.placement.offset.n[0] + advance);
     hud_draw_numbers(render.local_player_index, &placement, &numbers, 100 * (clamped_ticks % 30) / 30, -1, flash,
                      timer->reference_time, 2.0f);
 }

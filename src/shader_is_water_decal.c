@@ -14,7 +14,7 @@ uint8_t shader_is_water_decal(const shader *shader)
     if (!shader)
         return 0;
 
-    unsigned __int16 type = shader->base.type;
+    uint16_t type = shader->base.type;
     if (type == _shader_type_transparent_generic
         || type == _shader_type_transparent_chicago
         || type == _shader_type_transparent_chicago_extended)

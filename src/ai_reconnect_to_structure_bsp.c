@@ -19,7 +19,7 @@ extern void encounter_attach_actor(int actor_index, int encounter_index, int16_t
 
 void ai_reconnect_to_structure_bsp(void)
 {
-    __int16 current_bsp = global_structure_bsp_index_get();
+    int16_t current_bsp = global_structure_bsp_index_get();
 
     int actor_index = ai_globals->first_encounterless_actor_index;
     if ( actor_index != -1 )
@@ -33,7 +33,7 @@ void ai_reconnect_to_structure_bsp(void)
             int disconnected_encounter_index = actor->meta.disconnected_encounter_index;
             if ( disconnected_encounter_index != -1
               && ((const encounter_definition *)global_scenario->ai_encounters.address)
-                     [(unsigned __int16)disconnected_encounter_index].runtime_structure_bsp_reference_index == current_bsp )
+                     [(uint16_t)disconnected_encounter_index].runtime_structure_bsp_reference_index == current_bsp )
             {
                 encounterless_detach_actor(actor_index);
                 encounter_attach_actor(actor_index, disconnected_encounter_index,

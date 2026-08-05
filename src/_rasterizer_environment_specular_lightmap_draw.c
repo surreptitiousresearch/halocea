@@ -41,14 +41,14 @@ extern point2d *rasterizer_set_texture_for_effect(int16_t stage, int16_t type, i
 extern int rasterizer_set_texture_direct_for_effect(int16_t stage, int bitmap_group_index, int16_t bitmap_index, rasterizer_dx9_shader *dxeffect_shader);
 extern int rasterizer_set_texture_bitmap_data_for_effect(int16_t stage, bitmap_data *bitmap, rasterizer_dx9_shader *dxeffect_shader);
 extern void D3DDevice_SetTexture(D3DDevice *device, unsigned int Sampler, struct D3DBaseTexture *texture,
-                                 unsigned __int64 fetch_constant);
+                                 uint64_t fetch_constant);
 extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                const float *pConstantData, unsigned int Vector4fCount,
-                                               unsigned __int64 PendingMask1);
+                                               uint64_t PendingMask1);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
@@ -67,7 +67,7 @@ void _rasterizer_environment_specular_lightmap_draw(const shader *shader, int16_
         || (shader_env->environment.specular.flags & (1u << _shader_environment_specular_lightmap_bit)) == 0)
         return;
 
-    __int16 effect_index = (shader_env->environment.flags & (1u << _shader_environment_bump_map_is_specular_mask_bit))
+    int16_t effect_index = (shader_env->environment.flags & (1u << _shader_environment_bump_map_is_specular_mask_bit))
                                ? _dxshader_environment_specular_lightmap_flat
                                : _dxshader_environment_specular_lightmap_bumped;
     rasterizer_dx9_shader *effect_shader = rasterizer_shader_select(effect_index);
@@ -108,7 +108,7 @@ void _rasterizer_environment_specular_lightmap_draw(const shader *shader, int16_
                                                   &texture_transform_constants[7],
                                                   &texture_transform_constants[11]);
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, texture_transform_constants, 3,
-                                        (unsigned __int64)3 << 60);
+                                        (uint64_t)3 << 60);
 
     /* c0..c3 specular tint constants: brightness, perpendicular color, parallel color, exponent. */
     float pixel_constants[16];

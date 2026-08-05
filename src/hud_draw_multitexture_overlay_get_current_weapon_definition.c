@@ -30,7 +30,7 @@ uint8_t hud_draw_multitexture_overlay_get_current_weapon_definition(const player
         if ( parent_unit_index == -1 )
             return 0;
 
-        __int16 seat_weapon_index = unit_object->unit.parent_seat_index;
+        int16_t seat_weapon_index = unit_object->unit.parent_seat_index;
         if ( seat_weapon_index == -1 )
             return 0;
 

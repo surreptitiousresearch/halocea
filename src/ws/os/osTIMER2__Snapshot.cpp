@@ -1,8 +1,9 @@
+#include <stdint.h>
 #include "../os/osTIMER2.h"
 
 // High-resolution timer primitives — Saber os boundary (Xenon time-base backed).
-extern "C" unsigned __int64 osGetPerfCounter(void);
-extern "C" unsigned __int64 osGetPerfFrequancy(void);
+extern "C" uint64_t osGetPerfCounter(void);
+extern "C" uint64_t osGetPerfFrequancy(void);
 
 // DEVIATION: the decompiler produced a garbled LODWORD/HIDWORD 64-bit-in-32-bit-GPR
 // reconstruction (register-allocation artifact of the Xenon 64-bit-GPR/32-bit-pointer ABI).
@@ -13,7 +14,7 @@ extern "C" unsigned __int64 osGetPerfFrequancy(void);
 // so this returns MILLISECONDS elapsed since Reset(), not seconds as CLAUDE.md guessed.
 float osTIMER2::Snapshot()
 {
-    unsigned __int64 elapsedTicks = osGetPerfCounter() - start;
+    uint64_t elapsedTicks = osGetPerfCounter() - start;
     float elapsedMs = (float)elapsedTicks * 1000.0f / (float)osGetPerfFrequancy();
     time = elapsedMs;
     return elapsedMs;

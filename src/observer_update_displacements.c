@@ -18,7 +18,7 @@ void observer_update_displacements(int16_t local_player_index)
     const float *current_positions = obs->positions;
     float *displacements = obs->displacements.focus_position.n;
 
-    __int16 scalar_index = 0;
+    int16_t scalar_index = 0;
     do
     {
         displacements[scalar_index] = command_parameters[scalar_index] - current_positions[scalar_index];

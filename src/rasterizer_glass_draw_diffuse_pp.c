@@ -16,12 +16,14 @@
  * (3, (unsigned __int64)3 << 60) (li r6,3; li r7,3; sldi r7,r7,60). MagFilter's stage-1 Value (decompiler
  * HIDWORD garbage) is 1.
  * DEVIATION 3: for a primary vertex type other than 0/2/4 the original reads an uninitialized stack slot for
- * the vertex-shader variant (dead path for glass); reproduced as 0. Shader bitmap-index/colour fields are the
- * 40-byte shader[N] type-pun reads the decompiler emits. */
+ * the vertex-shader variant (dead path for glass); reproduced as 0. The decompiler's 40-byte shader[N]
+ * type-pun reads are resolved to the shader_transparent_glass DB members (diffuse_map/diffuse_detail_map
+ * indices + scales). */
 
 #include <stdint.h>
 #include "headers/transparent_geometry_group.h"
 #include "headers/shader.h"
+#include "headers/shader_transparent_glass.h"
 #include "headers/rasterizer_dx9_shader_table.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
@@ -45,7 +47,7 @@ extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetSamplerState_AddressU_Inline(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetSamplerState_AddressV_Inline(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetSamplerState_MagFilter(D3DDevice *device, unsigned int Sampler, unsigned int Value);
@@ -58,15 +60,15 @@ extern void rasterizer_transparent_geometry_group_draw_internal(const transparen
 
 void rasterizer_glass_draw_diffuse_pp(const transparent_geometry_group *group)
 {
-    const shader *shader = group->shader;
+    const shader_transparent_glass *glass = (const shader_transparent_glass *)group->shader;
     rasterizer_dx9_shader *effect_shader = rasterizer_shader_select(_dxshader_transparent_glass_diffuse);
     if ( !effect_shader || !effect_shader->effect )
         return;
 
-    __int16 primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
+    int16_t primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
     unsigned int pass_index = 0;
 
-    __int16 vertex_shader_variant;
+    int16_t vertex_shader_variant;
     if ( !primary_vertex_type || primary_vertex_type == _rasterizer_vertex_type_environment_lightmap_uncompressed )
     {
         vertex_shader_variant = 0;
@@ -85,16 +87,17 @@ void rasterizer_glass_draw_diffuse_pp(const transparent_geometry_group *group)
     D3DDevice_SetVertexShader(global_d3d_device,
             rasterizer_dx9_shaders_vshader9_get(vertex_shader_variant + 48));
 
-    /* c10..c12: base-map texture transform (x/y scaled by tint colour, second row by the detail scale) */
+    /* c10..c12: base-map texture transform (x/y scaled by the diffuse map scale, second pair by the
+     * diffuse detail map scale) */
     float base_map_transform_constants[12];
     base_map_transform_constants[0] =
-            group->model_base_map_scale.n[0] * shader[8].base.radiosity.tint_color.n[0];
+            group->model_base_map_scale.n[0] * glass->glass.diffuse_map_scale;
     base_map_transform_constants[1] =
-            group->model_base_map_scale.n[1] * shader[8].base.radiosity.tint_color.n[0];
+            group->model_base_map_scale.n[1] * glass->glass.diffuse_map_scale;
     base_map_transform_constants[2] =
-            group->model_base_map_scale.n[0] * *(float *)&shader[9].base.radiosity.flags;
+            group->model_base_map_scale.n[0] * glass->glass.diffuse_detail_map_scale;
     base_map_transform_constants[3] =
-            group->model_base_map_scale.n[1] * *(float *)&shader[9].base.radiosity.flags;
+            group->model_base_map_scale.n[1] * glass->glass.diffuse_detail_map_scale;
     base_map_transform_constants[4] = 0.0f;
     base_map_transform_constants[5] = 0.0f;
     base_map_transform_constants[6] = 0.0f;
@@ -104,11 +107,11 @@ void rasterizer_glass_draw_diffuse_pp(const transparent_geometry_group *group)
     base_map_transform_constants[10] = 0.0f;
     base_map_transform_constants[11] = 0.0f;
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, base_map_transform_constants, 3,
-            (unsigned __int64)3 << 60);
+            (uint64_t)3 << 60);
 
-    rasterizer_set_texture_for_effect(0, 0, 1, *(int *)&shader[8].base.type,
+    rasterizer_set_texture_for_effect(0, 0, 1, glass->glass.diffuse_map.index,
             group->shader_permutation_index, effect_shader);
-    rasterizer_set_texture_for_effect(1, 0, 2, *(int *)&shader[9].base.radiosity.color.n[2],
+    rasterizer_set_texture_for_effect(1, 0, 2, glass->glass.diffuse_detail_map.index,
             group->shader_permutation_index, effect_shader);
 
     D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 0);

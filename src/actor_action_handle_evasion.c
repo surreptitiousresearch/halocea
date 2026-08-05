@@ -44,9 +44,9 @@
 extern int game_time_get(void);
 extern uint8_t actor_action_allow_cover_seeking(int actor_index, uint8_t unopposable);
 extern uint8_t actor_action_try_to_seek_cover(int actor_index, uint8_t cover_from_last_visible_location, uint8_t allow_occluded_points);
-extern unsigned __int8 actor_action_try_to_panic(int actor_index, __int16 panic_type, int panic_prop_index,
-        unsigned __int8 force_flee_transition);
-extern unsigned __int8 actor_action_consider_grenade(int actor_index);
+extern uint8_t actor_action_try_to_panic(int actor_index, int16_t panic_type, int panic_prop_index,
+        uint8_t force_flee_transition);
+extern uint8_t actor_action_consider_grenade(int actor_index);
 extern uint8_t actor_action_try_to_evade(int actor_index);
 extern int actor_target_unit_index(uint16_t actor_index);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
@@ -62,7 +62,7 @@ uint8_t actor_action_handle_evasion(int actor_index)
     const actor_definition *behavior_tag = TAG_GET(const actor_definition, actor->meta.definition_index);
 
     int current_time = game_time_get();
-    unsigned __int8 acted = 0;
+    uint8_t acted = 0;
 
     /* +936 = emotions.unopposable_retreat_timer, +344 = input.vehicle_index,
      * +940 = emotions.unopposable_retreat_prop_index, +876 = emotions.last_defensive_cover_seeking_time. */
@@ -117,8 +117,8 @@ uint8_t actor_action_handle_evasion(int actor_index)
     }
 
     /* v12 = "tracked prop still dangerous"; v13 = "not already committed to a fleeing action". */
-    unsigned __int8 prop_dangerous = 1;
-    unsigned __int8 not_fleeing = 1;
+    uint8_t prop_dangerous = 1;
+    uint8_t not_fleeing = 1;
 
     if ( actor->emotions.defensive_crouch )   /* has a secondary tracked prop */
     {
@@ -138,7 +138,7 @@ uint8_t actor_action_handle_evasion(int actor_index)
     /* state.action == actor_action_charge with a melee/melee-leaping charge goal → fleeing. */
     if ( actor->state.action == actor_action_charge )
     {
-        __int16 charge_goal = actor->state.action_data.___u0.charge.goal;
+        int16_t charge_goal = actor->state.action_data.___u0.charge.goal;
         if ( charge_goal == charge_goal_melee || charge_goal == charge_goal_melee_leaping )
             not_fleeing = 0;
     }

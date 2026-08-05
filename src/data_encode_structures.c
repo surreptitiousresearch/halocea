@@ -10,7 +10,7 @@
 
 uint8_t data_encode_structures(data_encoding_state *state, void *source_structures, int16_t structure_count, byte_swap_definition *bs_definition)
 {
-    __int16 byte_count = (__int16)(bs_definition->size * structure_count);
+    int16_t byte_count = (int16_t)(bs_definition->size * structure_count);
 
     if ( byte_count > 0 )
     {

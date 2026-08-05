@@ -46,16 +46,16 @@
 #include "headers/hud_placement_definition.h"
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, unsigned __int8 block,
-        unsigned __int8 load);
-extern __int16 abs16(__int16 value);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
+        uint8_t load);
+extern int16_t abs16(int16_t value);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 extern void hud_calculate_point(int16_t local_player_index, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const bitmap_data *bitmap, uint8_t in_multiplayer, float override_scale, point2d *result);
 extern void hud_retrieve_bitmap_and_bounding_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame_index, const bitmap_data **bitmap, const real_rectangle2d **clip);
 extern void hud_draw_bitmap_direct(const bitmap_data *bitmap, int16_t placement, const point2d *point, const real_rectangle2d *clip, float scale, float theta, unsigned int color, uint8_t is_interface_bitmap);
 
-static void hud_draw_number_glyph(int bitmap_group_index, __int16 frame, __int16 corner,
-        __int16 x, __int16 y, float scale, unsigned int color, unsigned __int8 is_interface_bitmap)
+static void hud_draw_number_glyph(int bitmap_group_index, int16_t frame, int16_t corner,
+        int16_t x, int16_t y, float scale, unsigned int color, uint8_t is_interface_bitmap)
 {
     const bitmap_data *glyph = 0;
     const real_rectangle2d *clip = 0;
@@ -79,11 +79,11 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
     bitmap_group *number_bitmap_group = TAG_GET(bitmap_group, bitmap_group_index);
 
     bitmap_data *bitmap = bitmap_group_get_bitmap_from_sequence(bitmap_group_index, 0, 0);
-    unsigned __int8 value_in_range = ((value >= 0) + ((unsigned int)value <= 0x3E7)) & 1;
+    uint8_t value_in_range = ((value >= 0) + ((unsigned int)value <= 0x3E7)) & 1;
     if ( !_texture_cache_bitmap_get_hardware_format(bitmap, 0, 1) )
         return;
 
-    unsigned __int8 value_is_negative = (unsigned int)value >> 31;
+    uint8_t value_is_negative = (unsigned int)value >> 31;
 
     /* total field count = integer digits + (decimal point + fractional digits) */
     char fractional_digits = numbers->fractional_digits;
@@ -108,33 +108,33 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
         total_field_count = total_field_count + 1.0f;
         if ( value_in_range )
         {
-            __int16 original_value = value;
+            int16_t original_value = value;
             value /= 1000;
             decimal_value = 10 * original_value;
         }
     }
 
-    __int16 abs_value = abs16(value);
+    int16_t abs_value = abs16(value);
 
     point2d origin;
     hud_calculate_point(local_player_index, placement, &numbers->placement, 0,
             (draw_flags & (1u << _hud_draw_in_multiplayer_bit)) != 0, 0.0f, &origin);
 
     /* corner alignment: set the right-hand pen x for right-to-left digit layout */
-    __int16 pen_x;
-    __int16 corner = placement->corner;
+    int16_t pen_x;
+    int16_t corner = placement->corner;
     if ( corner == _hud_corner_top_right || corner == _hud_corner_bottom_right )
     {
         pen_x = origin.__s1.x;
     }
     else if ( corner == _hud_corner_top_left || corner == _hud_corner_bottom_left )
     {
-        pen_x = (__int16)(int)((((total_field_count - 2.0f) * advance) + decimal_metric) * scale
+        pen_x = (int16_t)(int)((((total_field_count - 2.0f) * advance) + decimal_metric) * scale
                               + (float)origin.__s1.x);
     }
     else
     {
-        pen_x = (__int16)(int)(((((total_field_count - 1.0f) * advance) + decimal_metric) * scale) * 0.5f
+        pen_x = (int16_t)(int)(((((total_field_count - 1.0f) * advance) + decimal_metric) * scale) * 0.5f
                               + (float)origin.__s1.x);
     }
 
@@ -149,15 +149,15 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
     else
         color = numbers->colors.color;
 
-    __int16 pen_y = origin.__s1.y;
-    unsigned __int8 is_interface_bitmap = number_bitmap_group->type == _bitmap_group_type_interface_bitmaps;
+    int16_t pen_y = origin.__s1.y;
+    uint8_t is_interface_bitmap = number_bitmap_group->type == _bitmap_group_type_interface_bitmaps;
 
     /* "over 1000" suffix glyph (frame 14 in range, 13 out of range) */
     if ( numbers->number_flags & (1u << _hud_number_show_trailing_m) )
     {
         hud_draw_number_glyph(bitmap_group_index, value_in_range ? 14 : 13, placement->corner,
                 pen_x, pen_y, scale, color, is_interface_bitmap);
-        pen_x = (__int16)(int)-((advance * scale) - (float)pen_x);
+        pen_x = (int16_t)(int)-((advance * scale) - (float)pen_x);
     }
 
     /* fractional part + decimal point */
@@ -171,16 +171,16 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
         {
             hud_draw_number_glyph(bitmap_group_index, decimal_value % 10, placement->corner,
                     pen_x, pen_y, scale, color, is_interface_bitmap);
-            pen_x = (__int16)(int)-((advance * scale) - (float)pen_x);
+            pen_x = (int16_t)(int)-((advance * scale) - (float)pen_x);
             decimal_value /= 10;
         }
 
         /* decimal point (frame 10): nudged right one advance then left by the decimal metric */
-        __int16 decimal_anchor = (__int16)(int)((advance * scale) + (float)pen_x);
-        __int16 decimal_x = (__int16)(int)-((decimal_metric * scale) - (float)decimal_anchor);
+        int16_t decimal_anchor = (int16_t)(int)((advance * scale) + (float)pen_x);
+        int16_t decimal_x = (int16_t)(int)-((decimal_metric * scale) - (float)decimal_anchor);
         hud_draw_number_glyph(bitmap_group_index, 10, placement->corner,
                 decimal_x, pen_y, scale, color, is_interface_bitmap);
-        pen_x = (__int16)(int)-((advance * scale) - (float)decimal_x);
+        pen_x = (int16_t)(int)-((advance * scale) - (float)decimal_x);
     }
 
     /* integer digits (least significant first, right-to-left) */
@@ -193,7 +193,7 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
                 break;
             hud_draw_number_glyph(bitmap_group_index, abs_value % 10, placement->corner,
                     pen_x, pen_y, scale, color, is_interface_bitmap);
-            pen_x = (__int16)(int)-((advance * scale) - (float)pen_x);
+            pen_x = (int16_t)(int)-((advance * scale) - (float)pen_x);
             abs_value /= 10;
         }
     }

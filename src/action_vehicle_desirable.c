@@ -47,7 +47,7 @@ uint8_t action_vehicle_desirable(int actor_index, int vehicle_index, uint8_t scr
     float dy = vehicle_origin.n[1] - actor_position->n[1];
     float dz = vehicle_origin.n[2] - actor_position->n[2];
 
-    unsigned __int8 desirable = 0;
+    uint8_t desirable = 0;
 
     if (already_inside || dx * dx + dz * dz + dy * dy < distance_threshold * distance_threshold)
     {

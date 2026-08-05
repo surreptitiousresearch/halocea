@@ -33,20 +33,20 @@ int16_t animation_update_internal(animation_update_kind render_or_affects_game_s
             *triggered_sound_index = ((animation_graph_sound_reference *)graph->sound_references.address)[sound_event].sound.index;
     }
 
-    __int16 next_frame = (__int16)(state->frame_index + 1);
+    int16_t next_frame = (int16_t)(state->frame_index + 1);
     state->frame_index = next_frame;
-    __int16 frame_count = anim->frame_count;
+    int16_t frame_count = anim->frame_count;
 
     if (next_frame < frame_count)
     {
-        if ((__int16)(next_frame + 1) != frame_count || anim->private_loop_frame_index)
+        if ((int16_t)(next_frame + 1) != frame_count || anim->private_loop_frame_index)
             return state->frame_index == anim->private_key_frame_index || state->frame_index == anim->private_second_key_frame_index;
         else
             return 2;
     }
     else
     {
-        __int16 loop_frame = anim->private_loop_frame_index;
+        int16_t loop_frame = anim->private_loop_frame_index;
         if (loop_frame <= 0)
         {
             state->index = animation_choose_random_permutation_internal(render_or_affects_game_state,

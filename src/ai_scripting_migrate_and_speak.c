@@ -9,7 +9,7 @@ extern void ai_scripting_migrate_internal(int source_index, int target_index, ui
 
 void ai_scripting_migrate_and_speak(int source_index, int target_index, const char *speech_type)
 {
-    unsigned __int8 advancing;
+    uint8_t advancing;
     if ( stricmp(speech_type, "advance") )
     {
         stricmp(speech_type, "retreat");   /* result unused — retreat is the default */

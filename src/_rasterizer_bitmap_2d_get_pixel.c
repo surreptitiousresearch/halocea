@@ -27,7 +27,6 @@
 #include "headers/bitmap_format.h"
 #include "headers/real_point2d.h"
 #include "headers/d3d_render_boundary.h"
-#include "headers/hexrays_defs.h"
 #include "headers/blam_data_globals.h"
 
 typedef struct S3TCBlockRGB S3TCBlockRGB;
@@ -57,24 +56,24 @@ unsigned int _rasterizer_bitmap_2d_get_pixel(const bitmap_data *bitmap, const re
     D3DBaseTexture *hw_texture = hcex_tex_gethw(hardware_format, 0);
     D3DTexture *texture = (D3DTexture *)hw_texture;
 
-    __int16 mip_level;
+    int16_t mip_level;
     if (lod >= 1.0f || bitmap->mipmap_count <= 0)
         mip_level = 0;
     else
-        mip_level = (__int16)(int)((1.0f - lod) * (float)bitmap->mipmap_count);
+        mip_level = (int16_t)(int)((1.0f - lod) * (float)bitmap->mipmap_count);
 
     unsigned int level_count = D3DBaseTexture_GetLevelCount(hw_texture);
     if ((unsigned int)mip_level >= level_count - 1)
-        mip_level = (__int16)(level_count - 1);
+        mip_level = (int16_t)(level_count - 1);
 
-    __int16 width = bitmap_mipmap_get_width(bitmap, mip_level);
-    __int16 height = bitmap_mipmap_get_height(bitmap, mip_level);
+    int16_t width = bitmap_mipmap_get_width(bitmap, mip_level);
+    int16_t height = bitmap_mipmap_get_height(bitmap, mip_level);
 
     int raw_u = (int)((float)width * point->n[0] - 0.5f);
-    __int16 u = ((width - 1) & width) ? (__int16)(((raw_u % width) + width) % width) : (__int16)(raw_u & (width - 1));
+    int16_t u = ((width - 1) & width) ? (int16_t)(((raw_u % width) + width) % width) : (int16_t)(raw_u & (width - 1));
 
     int raw_v = (int)((float)height * point->n[1] - 0.5f);
-    __int16 v = ((height - 1) & height) ? (__int16)(((raw_v % height) + height) % height) : (__int16)(raw_v & (height - 1));
+    int16_t v = ((height - 1) & height) ? (int16_t)(((raw_v % height) + height) % height) : (int16_t)(raw_v & (height - 1));
 
     _D3DLOCKED_RECT locked_rect;
     D3DTexture_LockRect(texture, mip_level, &locked_rect, 0, 0x10u);
@@ -86,13 +85,13 @@ unsigned int _rasterizer_bitmap_2d_get_pixel(const bitmap_data *bitmap, const re
     if (bitmap->flags & (1u << _bitmap_compressed_bit))
     {
         /* compressed (S3TC) bitmap */
-        __int16 bits_per_pixel = bitmap_format_get_bits_per_pixel(bitmap->format);
-        __int16 block_u = u & 3;
-        __int16 block_v = v & 3;
-        __int16 block_size = (__int16)((16 * bits_per_pixel) >> 3);
+        int16_t bits_per_pixel = bitmap_format_get_bits_per_pixel(bitmap->format);
+        int16_t block_u = u & 3;
+        int16_t block_v = v & 3;
+        int16_t block_size = (int16_t)((16 * bits_per_pixel) >> 3);
         const void *block = &pBits[block_size * (v / 4 * width / 4 + u / 4)];
 
-        switch ((unsigned __int16)bitmap->format)
+        switch ((uint16_t)bitmap->format)
         {
             case _bitmap_format_dxt1:
                 DecodeBlockRGB__single_pixel((const S3TCBlockRGB *)block, (S3TC_COLOR *)&pixel, block_u, block_v);
@@ -105,14 +104,14 @@ unsigned int _rasterizer_bitmap_2d_get_pixel(const bitmap_data *bitmap, const re
                 break;
         }
 
-        pixel = (unsigned __int16)((((unsigned __int16)(pixel >> 16)) | (pixel & 0xFFFF0000)) >> 8)
-              | (((pixel << 16) | (unsigned __int16)pixel) << 8) & 0xFFFF0000;
+        pixel = (uint16_t)((((uint16_t)(pixel >> 16)) | (pixel & 0xFFFF0000)) >> 8)
+              | (((pixel << 16) | (uint16_t)pixel) << 8) & 0xFFFF0000;
         D3DTexture_UnlockRect(texture, mip_level);
         return pixel;
     }
 
     /* raw (uncompressed) bitmap */
-    __int16 raw_format = (unsigned __int16)bitmap->format;
+    int16_t raw_format = (uint16_t)bitmap->format;
     int row_offset = v * locked_rect.Pitch;
 
     /* Collapse formats that share a decode path onto their 32-bit-expanded equivalents. */
@@ -134,7 +133,7 @@ unsigned int _rasterizer_bitmap_2d_get_pixel(const bitmap_data *bitmap, const re
     {
         case _bitmap_format_a1r5g5b5 - _bitmap_format_r5g6b5: /* 2: A1R5G5B5 */
         {
-            unsigned int p = *(unsigned __int16 *)(pBits + row_offset + 2 * u);
+            unsigned int p = *(uint16_t *)(pBits + row_offset + 2 * u);
             pixel = (2 * ((4 * ((2 * ((4 * ((8 * p) & 0x3E000 | p & 0x3E0)) | p & 0x7000)) | p & 0x1F))
                           | p & 0x380))
                   | (p >> 2) & 7
@@ -144,7 +143,7 @@ unsigned int _rasterizer_bitmap_2d_get_pixel(const bitmap_data *bitmap, const re
         }
         case _bitmap_format_a4r4g4b4 - _bitmap_format_r5g6b5: /* 3: A4R4G4B4 */
         {
-            unsigned int p = *(unsigned __int16 *)(pBits + row_offset + 2 * u);
+            unsigned int p = *(uint16_t *)(pBits + row_offset + 2 * u);
             pixel = (16 * ((16 * ((16 * ((16 * p) & 0xFFFF0000
                                           | p & 0xFFFFF000
                                           | (16 * ((p >> 4) & 0xF0 | (p >> 8) & 0xF))
@@ -163,12 +162,12 @@ unsigned int _rasterizer_bitmap_2d_get_pixel(const bitmap_data *bitmap, const re
             if (format_index)
             {
                 /* 8bpp; FAITHFUL QUIRK: strided by 4*u, matching the 32-bit path, not 1*u */
-                pixel = *(unsigned __int8 *)(pBits + row_offset + 4 * u);
+                pixel = *(uint8_t *)(pBits + row_offset + 4 * u);
             }
             else
             {
                 /* R5G6B5 */
-                unsigned int p = *(unsigned __int16 *)(pBits + row_offset + 2 * u);
+                unsigned int p = *(uint16_t *)(pBits + row_offset + 2 * u);
                 pixel = (8 * (((32 * (p & 0xFFFFF8FF)) | p) & 0xFFFFE01F | (4 * p) & 0x1F80 | 0xFFE00000))
                       | (((p >> 1) & 0xE | p & 0xFFF1) >> 1) & 0x307;
             }

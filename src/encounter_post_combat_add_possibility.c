@@ -23,7 +23,7 @@ uint8_t encounter_post_combat_add_possibility(post_combat_possibility *possibili
 {
     uint8_t inserted = 0;
 
-    for ( __int16 i = 0; i < 2; i++ )
+    for ( int16_t i = 0; i < 2; i++ )
     {
         post_combat_possibility *slot = &possibility_array[i];
         if ( weight > slot->weight )

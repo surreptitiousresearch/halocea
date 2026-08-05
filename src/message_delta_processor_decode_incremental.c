@@ -12,16 +12,16 @@
 extern int decode_message_body(message_delta_processor_decoding_information *const decoding_information, const uint8_t *const field_included, const char *baseline_data, char *destination_data); /* field_included/baseline const per disasm 0x837A1880 (read-only) 2026-07-31 (C4090) */
 extern uint8_t bitstream_seek(bitstream_t *const bit_stream, const int offset, const bitstream_seek_origin origin);
 
-unsigned __int8 message_delta_processor_decode_incremental(void *const destination_data,
+uint8_t message_delta_processor_decode_incremental(void *const destination_data,
     const void *const baseline_data, const message_delta_processor_header *const header,
-    const unsigned __int8 allow_empty_body)
+    const uint8_t allow_empty_body)
 {
     message_delta_processor_decoding_information *decoding_information = header->decoding_information;
     int bits_consumed = decode_message_body(decoding_information, header->field_included, baseline_data, destination_data);
 
     decoding_information->state += bits_consumed;
 
-    unsigned __int8 body_decoded;
+    uint8_t body_decoded;
     if ( bits_consumed || allow_empty_body )
     {
         body_decoded = 1;

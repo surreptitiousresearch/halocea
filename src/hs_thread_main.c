@@ -48,7 +48,7 @@ static int *hs_thread_push_result_slot(hs_thread *thread)
     int *slot = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
     if ((unsigned int)(slot - 1) > (unsigned int)stack_top)   /* dead branch (shipped) */
         --slot;
-    frame->size = (__int16)((unsigned char *)slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)slot - frame->data + 4);
     return slot;
 }
 
@@ -84,7 +84,7 @@ void hs_thread_main(int thread_index)
 
         hs_stack_frame *frame = thread->stack;
         char start_flag = thread->flags & (1u << _hs_thread_in_function_call_bit);
-        int node_index = (unsigned __int16)frame->expression_index;
+        int node_index = (uint16_t)frame->expression_index;
         frame->size = 0;
         thread->flags &= ~(1u << _hs_thread_in_function_call_bit);
 
@@ -106,7 +106,7 @@ void hs_thread_main(int thread_index)
         }
         else /* built-in function */
         {
-            __int16 function_index = node->___u1.function_index;
+            int16_t function_index = node->___u1.function_index;
             hs_function_table[function_index]->evaluate(function_index, thread_index, start_flag);
         }
     }

@@ -16,7 +16,7 @@ extern void unit_start_running_blindly(int unit_index);
 void action_flee_begin(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 flee_mode_value = actor->state.action_data.___u0.flee.panic_type;
+    int16_t flee_mode_value = actor->state.action_data.___u0.flee.panic_type;
 
     actor->state.action_data.___u0.flee.flee_timer = 0;
 
@@ -29,7 +29,7 @@ void action_flee_begin(uint16_t actor_index)
 
         if ( flee_target != -1 )
         {
-            __int16 flee_mode_value2 = actor->state.action_data.___u0.flee.panic_type;
+            int16_t flee_mode_value2 = actor->state.action_data.___u0.flee.panic_type;
 
             if ( flee_mode_value2 >= _actor_panic_grenade_attached_to_us
               && flee_mode_value2 <= _actor_panic_burning_to_death )

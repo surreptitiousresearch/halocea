@@ -28,9 +28,9 @@ int build_local_player_position_update(player_datum *source_player, int player_i
     local_player_update_network_data body;
     body.position = source_player->___u26.server_update_data.position_as_of_last_completed_update;
     body.sequence_number =
-        (unsigned __int8)source_player->___u26.server_update_data.next_local_player_update_sequence_number;
+        (uint8_t)source_player->___u26.server_update_data.next_local_player_update_sequence_number;
     body.last_completed_update_id =
-        (unsigned __int8)source_player->___u26.server_update_data.last_completed_update_id;
+        (uint8_t)source_player->___u26.server_update_data.last_completed_update_id;
 
     if (source_player->___u26.server_update_data.last_acked_update_id != -1
         && (unsigned int)game_time_get() < source_player->___u26.server_update_data.time_of_last_ack

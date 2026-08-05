@@ -1,12 +1,13 @@
 #pragma once
 /* cluster_portal — a portal between two structure clusters (DB-verified, 64 bytes). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "tag_block.h"
 
 typedef struct cluster_portal
 {
-    __int16 cluster_indices[2]; /* 0x00 */
+    int16_t cluster_indices[2]; /* 0x00 */
     int plane_index;            /* 0x04 */
     real_point3d centroid;      /* 0x08 */
     float bounding_radius;      /* 0x14 */

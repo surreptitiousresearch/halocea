@@ -27,15 +27,15 @@ void rasterizer_draw_character(parse_string_state *parse_state, font_header *fon
 {
     cache_hardware_format_character(font_header, font_character);
 
-    __int16 hardware_character_index = font_character->hardware_character_index;
+    int16_t hardware_character_index = font_character->hardware_character_index;
     if ( hardware_character_index == -1 )
         return;
 
     hardware_character *character = &hardware_character_cache.characters[hardware_character_index];
-    __int16 texel_u0 = character->x0 + x;
-    __int16 texel_v0 = character->y0 + y;
-    __int16 texel_u1 = texel_u0 + dx;
-    __int16 texel_v1 = texel_v0 + dy;
+    int16_t texel_u0 = character->x0 + x;
+    int16_t texel_v0 = character->y0 + y;
+    int16_t texel_u1 = texel_u0 + dx;
+    int16_t texel_v1 = texel_v0 + dy;
 
     dynamic_screen_vertex vertices[4];
 

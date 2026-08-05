@@ -12,7 +12,7 @@ actor_idle_looking * actor_look_get_looking_definition(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int variant_definition_index = actor->meta.definition_index;
-    unsigned __int16 looking_mode = actor->orders.look.idle_look_type;
+    uint16_t looking_mode = actor->orders.look.idle_look_type;
     actor_definition *variant_definition = TAG_GET(actor_definition, variant_definition_index);
 
     if ( looking_mode == _idle_look_guarding )

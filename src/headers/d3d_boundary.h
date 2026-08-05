@@ -13,6 +13,7 @@ typedef long HRESULT;
 typedef unsigned int _D3DRENDERSTATETYPE;
 typedef unsigned int _D3DSAMPLERSTATETYPE;
 
+#include <stdint.h>
 #include "_D3DDEVTYPE.h"
 #include "_D3DFORMAT.h"
 #include "D3DDevice.h"
@@ -92,7 +93,7 @@ extern void D3DDevice_SetRenderState_BlendOp(D3DDevice *pDevice, unsigned int Va
 extern void D3DDevice_SetRenderState_ZFunc(D3DDevice *pDevice, unsigned int Value);
 extern void D3DDevice_SetRenderState_ZWriteEnable(D3DDevice *pDevice, unsigned int Value);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *pDevice, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetRenderState_AlphaFunc(D3DDevice *pDevice, unsigned int Value);
 extern void D3DDevice_SetRenderState_FillMode(D3DDevice *pDevice, unsigned int Value);
 

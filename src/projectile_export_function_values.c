@@ -4,6 +4,7 @@
  * definition range, 2 = time remaining (detonation_timer), 3 = 1.0 while tracer flag (projectile flags
  * bit 1) is set. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/object_header_datum.h"
@@ -27,7 +28,7 @@ void projectile_export_function_values(int projectile_index)
         if ( !definition->projectile.function_modes[export_index] )
             goto next_export;
 
-        unsigned __int16 function_selector = definition->projectile.function_modes[export_index];
+        uint16_t function_selector = definition->projectile.function_modes[export_index];
         float value = 0.0f;
         switch ( function_selector )
         {
@@ -48,7 +49,7 @@ void projectile_export_function_values(int projectile_index)
         projectile->object.incoming_function_values[export_index] = value;
 
 next_export:
-        export_index = (__int16)(export_index + 1);
+        export_index = (int16_t)(export_index + 1);
     }
     while ( export_index < 4 );
 }

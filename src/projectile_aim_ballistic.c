@@ -74,8 +74,8 @@ uint8_t projectile_aim_ballistic(float base_velocity, float gravity_scale,
     }
 
     /* solve for the time-of-flight factor of the chosen arc */
-    unsigned __int8 result_flag = 1;
-    unsigned __int8 solved = 0;
+    uint8_t result_flag = 1;
+    uint8_t solved = 0;
     float time_of_flight;
 
     if (effective_velocity >= velocity_floor)
@@ -113,7 +113,7 @@ uint8_t projectile_aim_ballistic(float base_velocity, float gravity_scale,
     float total_speed = __fsqrts((aim_z * aim_z + aim_x * aim_x) + aim_y * aim_y);
 
     real_vector3d aim;
-    unsigned __int8 degenerate;
+    uint8_t degenerate;
     if (__fabs(total_speed) >= 0.000099999997f)
     {
         float inverse_total = 1.0f / total_speed;

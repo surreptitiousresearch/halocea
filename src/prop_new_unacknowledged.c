@@ -34,12 +34,12 @@ int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy)
     {
         int current_prop_index = prop_index;
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-        __int16 state = prop->state;
+        int16_t state = prop->state;
         prop_index = prop->next_prop_index;
 
         if ( (state < _prop_state_uninspected_orphan || state > _prop_state_inspected_orphan) && prop->___u3.orphan_prop_index == -1 )
         {
-            unsigned __int8 desire_scratch = 0;
+            uint8_t desire_scratch = 0;
             if ( actor_perception_desire_prop(actor_index, -1, prop->unit_index, prop->actor_index,
                                               prop->in_use, prop->player, prop->enemy, prop->dead,
                                               prop->dead_ticks, prop->suicide_radius,
@@ -67,7 +67,7 @@ int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy)
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, eviction_prop_index);
         actor_switch_props(actor_index, eviction_prop_index, -1);
         prop_remove(actor_index, eviction_prop_index);
-        __int16 identifier = prop->identifier;   /* preserve datum salt header across the wipe */
+        int16_t identifier = prop->identifier;   /* preserve datum salt header across the wipe */
         memset(prop, 0, sizeof(prop_datum));
         prop->identifier = identifier;
     }

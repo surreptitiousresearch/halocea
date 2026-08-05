@@ -29,7 +29,7 @@ typedef struct rasterizer_meter_parameters rasterizer_meter_parameters;
 extern int game_time_get(void);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 extern void hud_retrieve_bitmap_and_bounding_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame_index, const bitmap_data **bitmap, const real_rectangle2d **clip);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, unsigned __int8 block, unsigned __int8 load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
 
 void hud_draw_weapon_overlays(int16_t local_player_index, const hud_absolute_placement_definition *placement, const weapon_hud_overlay_definition *overlays, int type_flags, int reference_time, int16_t draw_flags, uint8_t in_multiplayer)
@@ -52,7 +52,7 @@ void hud_draw_weapon_overlays(int16_t local_player_index, const hud_absolute_pla
         else
             color = item->colors.color;
 
-        __int16 frame_index;
+        int16_t frame_index;
         if ((item->flags & (1u << _hud_overlay_flashes_bit)) && (draw_flags & 1) && item->frame_rate > 0)
         {
             bitmap_group *bitmap_tag_def = TAG_GET(bitmap_group, overlays->bitmap.index);
@@ -60,7 +60,7 @@ void hud_draw_weapon_overlays(int16_t local_player_index, const hud_absolute_pla
                 &((bitmap_group_sequence *)bitmap_tag_def->sequences.address)[item->sequence_index];
             int frame_count = sequence_entry->sprites.count;
             int elapsed = game_time_get() - reference_time;
-            frame_index = (__int16)(elapsed / item->frame_rate / 30 % frame_count);
+            frame_index = (int16_t)(elapsed / item->frame_rate / 30 % frame_count);
         }
         else
         {
@@ -73,7 +73,7 @@ void hud_draw_weapon_overlays(int16_t local_player_index, const hud_absolute_pla
 
         if (bitmap && _texture_cache_bitmap_get_hardware_format((bitmap_data *)bitmap, 0, 1u))
         {
-            unsigned __int8 is_interface_bitmap; /* FAITHFUL QUIRK: uninitialized at this call site */
+            uint8_t is_interface_bitmap; /* FAITHFUL QUIRK: uninitialized at this call site */
             /* recovered: (const hud_placement_definition *)item -> &item->placement (placement is at offset 0) */
             hud_draw_bitmap_with_meter(0, bitmap, placement, &item->placement, clip,
                                        hcex_hud_globals_scale, 0.0f, color, in_multiplayer, is_interface_bitmap, 0);

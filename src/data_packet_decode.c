@@ -28,8 +28,8 @@ uint8_t data_packet_decode(data_packet_definition *packet_definition, void *enco
 
     if (!packet_definition->initialized_flag)
     {
-        __int16 byte_count;
-        __int16 field_count;
+        int16_t byte_count;
+        int16_t field_count;
         _data_packet_verify(packet_definition, &byte_count, packet_definition->fields, &field_count);
         packet_definition->initialized_flag = 1;
     }
@@ -37,7 +37,7 @@ uint8_t data_packet_decode(data_packet_definition *packet_definition, void *enco
     data_encoding_state decode_state;
     data_decode_new(&decode_state, encoded_packet, encoded_packet_size);
 
-    __int16 version = packet_definition->version;
+    int16_t version = packet_definition->version;
     if (version)
         version = data_decode_byte(&decode_state);
 

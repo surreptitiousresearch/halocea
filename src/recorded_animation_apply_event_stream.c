@@ -22,8 +22,8 @@ uint8_t recorded_animation_apply_event_stream(animation_playback_controller *ani
 {
     const unsigned char *event;
     unsigned int event_byte;
-    unsigned __int16 delta;
-    unsigned __int8 header_size;
+    uint16_t delta;
+    uint8_t header_size;
 
     while ( 1 )
     {
@@ -45,7 +45,7 @@ uint8_t recorded_animation_apply_event_stream(animation_playback_controller *ani
             header_size = 1;
             break;
         default: /* _time_delta_word */
-            delta = *(const unsigned __int16 *)(event + 1);
+            delta = *(const uint16_t *)(event + 1);
             header_size = 3;
             break;
         }

@@ -6,6 +6,7 @@
  * bit). This looks like a bug in the original game code, but it's exactly what the compiled binary does, so
  * it's reproduced faithfully rather than "corrected". Returns the final bitmask. */
 
+#include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/scenario_netgame_flag.h"
 #include "headers/netgame_flag_type.h"
@@ -19,10 +20,10 @@ int race_flags_make_unique(void)
         scenario_netgame_flag *netgame_flag =
             &((scenario_netgame_flag *)global_scenario->netgame_flags.address)[i];
 
-        if ( (unsigned __int16)netgame_flag->type != _netgame_flag_race_track )
+        if ( (uint16_t)netgame_flag->type != _netgame_flag_race_track )
             continue;
 
-        __int16 flag_index = netgame_flag->team_index;
+        int16_t flag_index = netgame_flag->team_index;
         if ( flag_index < 0 || flag_index >= 0x20 )
             continue;
 
@@ -40,13 +41,13 @@ int race_flags_make_unique(void)
                 break;
             if ( ++free_bit >= 0x20 )
             {
-                netgame_flag->team_index = (__int16)free_bit;
+                netgame_flag->team_index = (int16_t)free_bit;
                 goto next;
             }
         }
 
         used_flags |= flag_bit;
-        netgame_flag->team_index = (__int16)free_bit;
+        netgame_flag->team_index = (int16_t)free_bit;
 
 next:;
     }

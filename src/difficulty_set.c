@@ -12,7 +12,7 @@ extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 
 uint8_t difficulty_set(widget_instance *list_widget, event_record *event, uint8_t *widget_deleted)
 {
-    __int16 selected_list_item_index =
+    int16_t selected_list_item_index =
         list_widget->parent->parent->parameters.list_parameters.selected_list_item_index;
 
     if ( selected_list_item_index < 4 )

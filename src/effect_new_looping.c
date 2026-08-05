@@ -21,7 +21,7 @@ extern int16_t first_person_weapon_get_local_index(int object_index);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern void effect_build_locations(effect_datum *effect, int16_t (__fastcall *get_markers_by_name)(int, const char *, object_marker *, int16_t));
-extern void hcex_init_effect_by_locations(unsigned __int16 effect_index, int obj_follow, float scale);
+extern void hcex_init_effect_by_locations(uint16_t effect_index, int obj_follow, float scale);
 extern void effect_update(int effect_index, float dt);
 
 int effect_new_looping(int definition_index, int object_index, int16_t scale_a_function_index,
@@ -46,7 +46,7 @@ int effect_new_looping(int definition_index, int object_index, int16_t scale_a_f
     memset(effect->location_datum_indices, -1, sizeof(effect->location_datum_indices));
 
     effect_build_locations(effect, object_get_marker_by_name);
-    if ( (unsigned __int16)effect->local_player_index != 0xFFFF )
+    if ( (uint16_t)effect->local_player_index != 0xFFFF )
         effect_build_locations(effect, first_person_weapon_get_marker_by_name);
 
     hcex_init_effect_by_locations(effect_index, object_index, 1.0);

@@ -11,13 +11,14 @@
  * `shader` is laid out at 184 — i.e. the two names refer to the SAME bytes, kept separate here only
  * because this function reads them as bare integers rather than through the nested shader_effect. */
 
+#include <stdint.h>
 #include "shader_effect.h"
 
 typedef struct particle_system_particle_state_render_info
 {
     char             _pad00[60];   /* 0x00 */
     int              bitmap_group_index; /* 0x3C (60) */
-    __int16          sequence_range;     /* 0x40 (64) — build_sprite's sequence_index /
+    int16_t          sequence_range;     /* 0x40 (64) — build_sprite's sequence_index /
                                          *  build_sprite_rotational's first_sequence_index */
     char             _pad42[128 - 0x42]; /* 0x42 */
     float            secondary_map_radius; /* 0x80 (128) */

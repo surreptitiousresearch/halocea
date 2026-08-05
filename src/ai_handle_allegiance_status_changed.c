@@ -23,7 +23,7 @@ void ai_handle_allegiance_status_changed(int16_t team1_index, int16_t team2_inde
     actor_iterator_new(&actors, 1u);
     for ( actor_datum *actor = actor_iterator_next(&actors); actor; actor = actor_iterator_next(&actors) )
     {
-        __int16 other_team = -1;
+        int16_t other_team = -1;
         int team_index = actor->meta.team_index;
         if ( team_index == team1_index )
             other_team = team2_index;

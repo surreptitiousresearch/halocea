@@ -59,9 +59,10 @@ int biped_build_update_delta(int object_index, void *buffer, int buffer_size_in_
             ? object->object.shield_vitality * 0.33333334f
             : object->biped.baseline.shield_vitality;
 
-        __int16 shield_stun_ticks = object->object.shield_stun_ticks;
-        /* unit.grenade_counts is char[2]; copied as a 16-bit value spanning both bytes */
-        *(__int16 *)payload.grenade_counts = *(__int16 *)&object->unit.grenade_counts[0];
+        int16_t shield_stun_ticks = object->object.shield_stun_ticks;
+        /* DEVIATION: was a 16-bit pun copy spanning both bytes of char[2]; element-wise copy is identical */
+        payload.grenade_counts[0] = object->unit.grenade_counts[0];
+        payload.grenade_counts[1] = object->unit.grenade_counts[1];
         payload.body_vitality = object->object.body_vitality;
         payload.shield_stun_ticks_greater_than_zero = (shield_stun_ticks > 0);
 

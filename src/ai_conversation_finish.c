@@ -43,14 +43,14 @@ void ai_conversation_finish(int conversation_index, uint8_t unable_to_begin, uin
     entry->finish_time = game_time_get();
 
     int participant_count = definition->participants.count;
-    for ( int participant = 0; participant < participant_count; participant = (__int16)(participant + 1) )
+    for ( int participant = 0; participant < participant_count; participant = (int16_t)(participant + 1) )
     {
         if ( ((1 << participant) & conversation->participant_bitmask) != 0
           && conversation->actor_indices[participant] != -1 )
         {
             actor_datum *actor = &((actor_datum *)actor_data->data)
-                                   [(unsigned __int16)conversation->actor_indices[participant]];
-            int actor_state = (unsigned __int16)actor->state.action;
+                                   [(uint16_t)conversation->actor_indices[participant]];
+            int actor_state = (uint16_t)actor->state.action;
             actor->external_orders.conversation_index = -1;
             actor->external_orders.conversation_attention_unit_index = -1;
             if ( actor_state == actor_action_converse )

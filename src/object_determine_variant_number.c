@@ -5,6 +5,7 @@
  * permutation's variant_number. It returns the first non-zero variant number found (regions are
  * scanned in order and the loop stops as soon as a non-zero variant is picked up). */
 
+#include <stdint.h>
 #include "headers/model.h"
 #include "headers/model_region.h"
 #include "headers/model_region_permutation.h"
@@ -19,10 +20,10 @@ int object_determine_variant_number(int object_index, model *model)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
 
     int region_count = model->regions.count;
-    __int16 variant_number = 0;
+    int16_t variant_number = 0;
 
-    for ( __int16 region_index = 0; region_index < region_count;
-          region_index = (__int16)(region_index + 1) )
+    for ( int16_t region_index = 0; region_index < region_count;
+          region_index = (int16_t)(region_index + 1) )
     {
         if ( variant_number )
             break;

@@ -18,9 +18,9 @@ void rasterizer_xbox_bitmap_swizzle2d_long(void *dst, const void *src, int16_t w
 
     compute_swizzle_masks(width, height, 1);
 
-    for ( __int16 row = 0; row < height; ++row )
+    for ( int16_t row = 0; row < height; ++row )
     {
-        for ( __int16 col = 0; col < width; ++col )
+        for ( int16_t col = 0; col < width; ++col )
         {
             ((unsigned int *)dst)[y_swizzle | x_swizzle] = ((const unsigned int *)src)[src_index];
             ++src_index;

@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
+#include "headers/object_datum.h"
 #include "headers/global_tag_instances.h"
 #include "headers/scenario.h"
 #include "headers/encounter_datum.h"
@@ -63,9 +64,9 @@ void ai_disconnect_from_structure_bsp(void)
                 for ( actor_datum *actor = encounter_actor_iterator_next(&it); actor;
                       actor = encounter_actor_iterator_next(&it) )
                 {
-                    unsigned __int8 disconnect = 0;
+                    uint8_t disconnect = 0;
                     int target_prop_index = actor->target.target_prop_index;
-                    __int16 target_type = actor->target.target_type;
+                    int16_t target_type = actor->target.target_type;
 
                     if ( target_prop_index == -1 || target_type < actor_target_uninspected_orphan )
                     {
@@ -104,16 +105,16 @@ void ai_disconnect_from_structure_bsp(void)
                         {
                             swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
                             const unsigned int *combined_pvs = players_get_combined_pvs();
-                            __int16 detached_count = 0;
+                            int16_t detached_count = 0;
                             int detached_units[32];
                             int unit_count = swarm->unit_count;
-                            for ( int k = 0; k < unit_count; k = (__int16)(k + 1) )
+                            for ( int k = 0; k < unit_count; k = (int16_t)(k + 1) )
                             {
                                 int unit_handle = swarm->unit_indices[k];
                                 int ultimate_parent = object_get_ultimate_parent(unit_handle);
-                                int cluster = *(unsigned __int16 *)(((char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, ultimate_parent)->datum) + 156);
+                                int cluster = (uint16_t)((object_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, ultimate_parent)->datum)->object.location.cluster_index;
                                 if ( cluster == 0xFFFF
-                                  || !BIT_VECTOR_TEST_FLAG(combined_pvs, (__int16)cluster) )
+                                  || !BIT_VECTOR_TEST_FLAG(combined_pvs, (int16_t)cluster) )
                                 {
                                     detached_units[detached_count++] = unit_handle;
                                 }
@@ -127,13 +128,13 @@ void ai_disconnect_from_structure_bsp(void)
                                 }
                                 else
                                 {
-                                    for ( int m = 0; m < detached_count; m = (__int16)(m + 1) )
+                                    for ( int m = 0; m < detached_count; m = (int16_t)(m + 1) )
                                     {
                                         int unit_handle = detached_units[m];
                                         actor_swarm_detach_from_unit(it.index, unit_handle);
                                         /* initial_state/default_state/command_list/sequence are read
                                          * uninitialized — faithful to shipped code */
-                                        __int16 initial_state, default_state, initial_command_list_index;
+                                        int16_t initial_state, default_state, initial_command_list_index;
                                         char noncombat_sequence_id;
                                         if ( actor_create_for_unit(1u, unit_handle,
                                                 actor->meta.variant_definition_index, actor->meta.encounter_index,
@@ -149,7 +150,7 @@ void ai_disconnect_from_structure_bsp(void)
 
                     if ( disconnect )
                     {
-                        __int16 squad_index = actor->meta.squad_index;
+                        int16_t squad_index = actor->meta.squad_index;
                         actor->meta.disconnected_encounter_index = encounter_index;
                         actor->meta.disconnected_squad_index = squad_index;
                         actor_flush_position_indices(it.index);
@@ -159,7 +160,7 @@ void ai_disconnect_from_structure_bsp(void)
                 }
             }
             encounter_force_deactivate(encounter_index);
-            encounter_index = (__int16)(encounter_index + 1);
+            encounter_index = (int16_t)(encounter_index + 1);
         }
         while ( encounter_index < scn->ai_encounters.count );
     }

@@ -52,10 +52,10 @@ void ai_communication_notify(int unit_index, int16_t priority, int16_t vocalizat
     if ( !ai_information->information_type && ai_information->look_priority <= 0 )
         return;
 
-    __int16 sound_volume = _ai_sound_volume_medium;
+    int16_t sound_volume = _ai_sound_volume_medium;
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
     const location *sound_location = &unit->object.location;   /* unit+152 = _object_datum.location */
-    __int16 speaker_team = unit->object.owner_team_index;
+    int16_t speaker_team = unit->object.owner_team_index;
 
     real_point3d speaker_head;
     unit_get_head_position(unit_index, &speaker_head);

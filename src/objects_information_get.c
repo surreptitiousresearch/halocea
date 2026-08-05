@@ -4,6 +4,7 @@
  * DEVIATION: the soft-float __SPAIR64__ idiom is the int->float conversion of the contiguous free size;
  * used_memory = 1 - free_size/2097152 (the pool's 2 MB capacity). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/objects_information.h"
 #include "headers/object_header_datum.h"
@@ -32,7 +33,7 @@ void objects_information_get(objects_information *information)
                     ++information->active_object_count;
             }
             ++entry;
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < object_header_data->count );
     }

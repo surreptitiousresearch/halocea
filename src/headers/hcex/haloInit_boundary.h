@@ -5,6 +5,7 @@
  * all reused directly). Everything here is a ws-engine subsystem haloInit only registers with or
  * calls into — declared per the project's re-source conventions, not descended into. */
 
+#include <stdint.h>
 #include "engine_control/haloENGINE_CONTROL_boundary.h"
 #include "../ws/dsc/dscDESC_FAMILY.h"
 #include "../ws/ia/iaIACTOR.h"
@@ -98,7 +99,7 @@ struct dbgVAR_MANAGER;
 extern dbgVAR_MANAGER *dbgVAR_MANAGER_GetManager();
 extern dbgVAR *dbgVAR_MANAGER_FindFirst(dbgVAR_MANAGER *mgr, const dsTSTRING<char> *name); // boundary
 extern void     dbgVAR_MANAGER_SendVarUpdate(dbgVAR_MANAGER *mgr, dbgVAR *var);             // boundary
-extern unsigned __int8      debug_no_drawing;
+extern uint8_t      debug_no_drawing;
 extern void      vidLOCK_Lock(void *lock, void *site, int flag);   // boundary
 extern void      vidLOCK_Unlock(void *lock, void *site, int flag); // boundary
 extern void     *vidLock;

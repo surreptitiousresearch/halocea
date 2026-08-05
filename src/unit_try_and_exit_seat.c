@@ -44,7 +44,7 @@ uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients)
     int vehicle_object_index = unit_data->object.parent_object_index;
     if ( (game_connection() != _game_connection_network_client || (game_connection() == _game_connection_network_client && should_allow_clients == 1))
       && vehicle_object_index != -1
-      && (unsigned __int16)unit_data->unit.parent_seat_index != 0xFFFF )  /* in a seat */
+      && (uint16_t)unit_data->unit.parent_seat_index != 0xFFFF )  /* in a seat */
     {
         if ( unit_data->object.type == object_type_vehicle )  /* vehicles exit immediately */
         {
@@ -57,9 +57,9 @@ uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients)
             animation_graph *graph = TAG_GET(animation_graph, animation_graph_index);
             const animation_graph_unit_seat *seat_animations =
                 (const animation_graph_unit_seat *)graph->unit_seats.address + animation->seat_index;
-            __int16 animation_index = seat_animations->animations.count <= _unit_seat_animation_seat_exit
+            int16_t animation_index = seat_animations->animations.count <= _unit_seat_animation_seat_exit
                 ? -1
-                : ((const __int16 *)seat_animations->animations.address)[_unit_seat_animation_seat_exit];
+                : ((const int16_t *)seat_animations->animations.address)[_unit_seat_animation_seat_exit];
 
             if ( animation_index != -1 )
             {
@@ -67,7 +67,7 @@ uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients)
                 if ( vehicle_data->unit.driver_object_index == object_index )  /* unit is the driver */
                     unit_animation_set_state(vehicle_object_index, _unit_state_opening);
 
-                __int16 permutation = animation_choose_random_permutation_internal(
+                int16_t permutation = animation_choose_random_permutation_internal(
                     animation_update_kind_affects_game_state, animation_graph_index, animation_index);
 
                 unit_datum *object_data = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);
@@ -84,7 +84,7 @@ uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients)
         }
     }
 
-    if ( (unsigned __int8)started == 1 )
+    if ( (uint8_t)started == 1 )
     {
         game_connection();
         if ( !unit_data->object.datum_role )  /* not a network-remote object */

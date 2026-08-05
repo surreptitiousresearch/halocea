@@ -101,34 +101,34 @@ void first_person_weapon_build_node_matrices(int16_t local_player_index)
             animation_get_node_orientations(0, state_anim, fpw->state_animation.frame_index, fpw->node_orientations);
         }
 
-        __int16 firing_overlay_index = (animation_set->animations.count <= _first_person_weapon_animation_ammunition)
-                                      ? -1 : ((__int16 *)animation_set->animations.address)[_first_person_weapon_animation_ammunition];
+        int16_t firing_overlay_index = (animation_set->animations.count <= _first_person_weapon_animation_ammunition)
+                                      ? -1 : ((int16_t *)animation_set->animations.address)[_first_person_weapon_animation_ammunition];
 
         if (firing_overlay_index != -1)
         {
             const animation *firing_animation = &((const animation *)graph->animations.address)[firing_overlay_index];
-            __int16 committed_frame = weapon_object->weapon.magazines[0].rounds_loaded;
-            unsigned __int8 apply_overlay = 1;
+            int16_t committed_frame = weapon_object->weapon.magazines[0].rounds_loaded;
+            uint8_t apply_overlay = 1;
 
             int state = first_person_weapons->state;
             if (definition->weapon.weapon_type == _weapon_type_needler && (state == _first_person_weapon_state_reload_while_empty || state == _first_person_weapon_state_reload_while_full))
             {
                 /* server-predicted frame settle: ease the committed frame toward the predicted frame over
                  * the last 0.2 (1/5) of a ~44-tick window; no frame_count bounds check on this path. */
-                __int16 settle_delay = (__int16)(weapon_object->weapon.magazines[0].original_time
+                int16_t settle_delay = (int16_t)(weapon_object->weapon.magazines[0].original_time
                                                  - weapon_object->weapon.magazines[0].state_timer);
                 if (settle_delay >= 44)
                 {
-                    float settle_fraction = (float)(__int16)(settle_delay - 44) * 0.2f;
+                    float settle_fraction = (float)(int16_t)(settle_delay - 44) * 0.2f;
                     if (settle_fraction > 1.0f)
                         settle_fraction = 1.0f;
 
-                    __int16 predicted_frame = weapon_object->weapon.magazines[0].rounds_total;
-                    __int16 max_frame = ((weapon_magazine_definition *)definition->weapon.magazines.address)->rounds_loaded_maximum;
+                    int16_t predicted_frame = weapon_object->weapon.magazines[0].rounds_total;
+                    int16_t max_frame = ((weapon_magazine_definition *)definition->weapon.magazines.address)->rounds_loaded_maximum;
                     if (predicted_frame > max_frame)
                         predicted_frame = max_frame;
 
-                    committed_frame = (__int16)((float)(__int16)(predicted_frame - committed_frame) * settle_fraction)
+                    committed_frame = (int16_t)((float)(int16_t)(predicted_frame - committed_frame) * settle_fraction)
                                     + committed_frame;
                 }
             }
@@ -154,8 +154,8 @@ void first_person_weapon_build_node_matrices(int16_t local_player_index)
                                                       weapon_object->weapon.overcharged + 0.5f, fpw->node_orientations);
         }
 
-        __int16 sway_overlay_index = (animation_set->animations.count <= _first_person_weapon_animation_overlays)
-                                    ? -1 : ((__int16 *)animation_set->animations.address)[_first_person_weapon_animation_overlays];
+        int16_t sway_overlay_index = (animation_set->animations.count <= _first_person_weapon_animation_overlays)
+                                    ? -1 : ((int16_t *)animation_set->animations.address)[_first_person_weapon_animation_overlays];
 
         if (sway_overlay_index != -1)
         {
@@ -193,7 +193,7 @@ void first_person_weapon_build_node_matrices(int16_t local_player_index)
 
         if (fpw->interpolation_frame_count > 0)
         {
-            interpolate_node_orientations((__int16)graph->nodes.count, fpw->original_node_orientations,
+            interpolate_node_orientations((int16_t)graph->nodes.count, fpw->original_node_orientations,
                                           fpw->node_orientations, fpw->interpolation_frame_index,
                                           fpw->interpolation_frame_count);
         }

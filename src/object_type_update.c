@@ -2,6 +2,7 @@
  * object's type (super-type plus sub-types), stopping at the null terminator. Returns 1 if any part's
  * datum_update reported a change. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_type_definition.h"
@@ -16,7 +17,7 @@ int object_type_update(int object_index)
 
     for ( int i = 0; type_definition->part_definitions[i]; ++i )
     {
-        unsigned __int8 (*datum_update)(int) = type_definition->part_definitions[i]->datum_update;
+        uint8_t (*datum_update)(int) = type_definition->part_definitions[i]->datum_update;
         if ( datum_update && datum_update(object_index) )
             result = 1;
     }

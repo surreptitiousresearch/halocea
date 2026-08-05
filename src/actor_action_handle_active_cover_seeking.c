@@ -26,8 +26,8 @@
 extern int game_time_get(void);
 extern uint8_t actor_action_allow_cover_seeking(int actor_index, uint8_t unopposable);
 extern uint8_t actor_action_try_to_seek_cover(int actor_index, uint8_t cover_from_last_visible_location, uint8_t allow_occluded_points);
-extern unsigned __int8 actor_action_try_to_panic(int actor_index, __int16 panic_type, int panic_prop_index,
-    unsigned __int8 force_flee_transition);
+extern uint8_t actor_action_try_to_panic(int actor_index, int16_t panic_type, int panic_prop_index,
+    uint8_t force_flee_transition);
 
 int actor_action_handle_active_cover_seeking(int actor_index, uint8_t allow_panicking, uint8_t force_panicking)
 {
@@ -42,7 +42,7 @@ int actor_action_handle_active_cover_seeking(int actor_index, uint8_t allow_pani
     if ( actor->input.recent_shield_damage > definition_tag->defensive.shield_fraction_hide )
         return 0;
 
-    __int16 action_class = global_action_functions[actor->state.action].action_class;
+    int16_t action_class = global_action_functions[actor->state.action].action_class;
 
     if ( actor->emotions.berserk || (action_class != _action_class_active && action_class != _action_class_pursuit) || actor->state.combat_status < _actor_combat_status_investigate )
         return 0;

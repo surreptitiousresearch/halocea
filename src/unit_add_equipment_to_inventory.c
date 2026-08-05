@@ -35,7 +35,7 @@ uint8_t unit_add_equipment_to_inventory(int unit_index, int equipment_index, int
     object_disconnect_from_map(equipment_index);
     object_set_visibility(equipment_index, 0);
     if ( player_index_from_unit_index(unit_index) != -1
-      && (unsigned __int16)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index_from_unit_index(unit_index))->local_player_index != 0xFFFF )
+      && (uint16_t)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index_from_unit_index(unit_index))->local_player_index != 0xFFFF )
     {
         equipment_handle_pickup(equipment_index);
     }

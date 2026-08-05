@@ -12,7 +12,7 @@ void get_active_player_profile_display_name(widget_instance *widget)
 
     player_ui_get_active_player_profile(widget->local_player_index, &profile);
 
-    unsigned __int16 *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x18u);
+    uint16_t *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x18u);
     widget->parameters.text_box_parameters.text = text;
     if ( text )
     {

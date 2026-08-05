@@ -16,7 +16,7 @@ int16_t collision_surface_edge_count(const collision_bsp *bsp, int surface_index
     int *edges = (int *)bsp->edges.address;
     int first_edge_index = surfaces[3 * surface_index + 1];
     int edge_index = first_edge_index;
-    __int16 count = 0;
+    int16_t count = 0;
 
     do
     {

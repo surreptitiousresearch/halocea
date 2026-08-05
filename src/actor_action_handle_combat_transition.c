@@ -15,7 +15,7 @@
 #include "headers/guard_state_data.h"
 extern uint8_t action_guard_setup_from_combat_transition(int actor_index, guard_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
-extern unsigned __int8 actor_action_handle_combat_selection(int actor_index);
+extern uint8_t actor_action_handle_combat_selection(int actor_index);
 
 uint8_t actor_action_handle_combat_transition(int actor_index)
 {

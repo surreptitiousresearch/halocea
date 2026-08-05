@@ -5,6 +5,7 @@
  *
  * Deviation: the "none" compare is inlined as a byte loop in the decompiler; reproduced with strcmp. */
 
+#include <stdint.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_compile_globals.h"
 #include "headers/data_array.h"
@@ -28,9 +29,9 @@ int hs_parse_object(int expression_index)
         return 1;
     }
 
-    node->type = (__int16)(node->type + HS_OBJECT_TO_OBJECT_NAME_SHIFT);
+    node->type = (int16_t)(node->type + HS_OBJECT_TO_OBJECT_NAME_SHIFT);
     node->___u1.constant_type = node->type;
     int result = hs_parse_object_name(expression_index);
-    node->type = (__int16)(node->type - HS_OBJECT_TO_OBJECT_NAME_SHIFT);
+    node->type = (int16_t)(node->type - HS_OBJECT_TO_OBJECT_NAME_SHIFT);
     return result;
 }

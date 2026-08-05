@@ -3,6 +3,7 @@
  * those of its first child and next sibling. Used so attached lights make an object appear lit.
  * Attachment slot count is the definition's attachments tag-block count. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/object_header_datum.h"
@@ -23,14 +24,14 @@ float object_get_self_illumination(int object_index)
 
     if ( object_definition->attachments.count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
             if ( !object->object.attachment_types[i] && object->object.attachment_indices[i] != -1 )
                 illumination += real_rgb_color_brightness(
                     &DATA_ARRAY_ELEMENT(light_data, light_datum,
                                         object->object.attachment_indices[i])->current_color);
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < object_definition->attachments.count );
     }

@@ -43,7 +43,7 @@ void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, 
         TAG_GET(contrail_definition, contrail->definition_index);
     int object_index = contrail->object_index;
     object_marker markers[4];
-    __int16 marker_count;
+    int16_t marker_count;
     int marker;
 
     if ( !contrail_point_count )
@@ -77,10 +77,10 @@ void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, 
         if ( (flags & (1u << _contrail_point_velocity_fraction_bit)) != 0 )
             perpendicular_velocity = density * definition->point_inherited_velocity_fraction;
 
-        for ( marker = 0; marker < marker_count; marker = (__int16)(marker + 1) )
+        for ( marker = 0; marker < marker_count; marker = (int16_t)(marker + 1) )
         {
             object_marker *marker_data = &markers[marker];
-            __int16 points_to_add = contrail_point_count;
+            int16_t points_to_add = contrail_point_count;
             contrail_point_datum *previous_point = DATA_ARRAY_ELEMENT(contrail_point_data,
                     contrail_point_datum, contrail->first_contrail_point_indices[marker]);
             int chain_index;
@@ -110,7 +110,7 @@ void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, 
                     continue;
             }
 
-            for ( chain_index = 1; chain_index <= points_to_add; chain_index = (__int16)(chain_index + 1) )
+            for ( chain_index = 1; chain_index <= points_to_add; chain_index = (int16_t)(chain_index + 1) )
             {
                 int new_index = datum_new(contrail_point_data);
                 contrail_point_datum *point;

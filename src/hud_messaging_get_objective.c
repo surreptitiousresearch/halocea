@@ -23,5 +23,5 @@ uint16_t * hud_messaging_get_objective(void)
         return 0;
 
     messages_tag = TAG_GET(hud_state_messages, global_scenario->hud_messages.index);
-    return (unsigned __int16 *)messages_tag->text_data.address + message->text_start_index;
+    return (uint16_t *)messages_tag->text_data.address + message->text_start_index;
 }

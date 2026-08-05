@@ -45,9 +45,9 @@ void EncodeBlockRGBColorKey(S3TC_COLOR *colorSrc, S3TCBlockRGB *pblockDst, int c
         return;
 
     /* Opaque-texel mask — built to 0xFFFF (all 16 texels present). */
-    unsigned __int16 pixelMask = 0;
+    uint16_t pixelMask = 0;
     for ( int bit = 0; bit < 16; ++bit )
-        pixelMask = (unsigned __int16)((2 * pixelMask) | 1);
+        pixelMask = (uint16_t)((2 * pixelMask) | 1);
 
     /* 1) Load 16 texels, weight each channel by wtPrimary and normalize to [0,1]. */
     float weightedPixels[16][4];

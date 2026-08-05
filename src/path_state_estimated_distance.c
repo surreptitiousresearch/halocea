@@ -15,6 +15,7 @@
  * 0x84+52*i. (The decompiler renders the node base with the 0x84 folded into a real_point3d* index; recovered to
  * named path_node fields here.) */
 
+#include <stdint.h>
 #include "headers/path_state.h"
 #include "headers/path_node.h"
 #include "headers/real_point3d.h"
@@ -32,7 +33,7 @@ int path_state_estimated_distance(path_state *state, const real_point3d *end_poi
         real_vector3d *estimated_direction_reference)
 {
     /* DEVIATION: collapsed compiler-inlined path_node_from_hash_table@0x837D2A98 (zero-xref donor) back into a call; end_surface_index passed straight through; the host's local while(1)/goto not_found tail is preserved to feed the function's existing not-found error path. */
-    __int16 goal_node_index = (__int16)path_node_from_hash_table(state, end_surface_index);
+    int16_t goal_node_index = (int16_t)path_node_from_hash_table(state, end_surface_index);
     if ( goal_node_index == -1 )
         goto not_found;
 
@@ -67,9 +68,9 @@ int path_state_estimated_distance(path_state *state, const real_point3d *end_poi
     if ( estimated_direction_reference )
     {
         /* Thread child links by walking the parent chain from the goal node up to the root. */
-        __int16 previous_node_index = -1;
-        __int16 current_node_index = goal_node_index;
-        __int16 parent_node_index;
+        int16_t previous_node_index = -1;
+        int16_t current_node_index = goal_node_index;
+        int16_t parent_node_index;
         do
         {
             state->node_list[current_node_index].child_node_index = previous_node_index;
@@ -80,7 +81,7 @@ int path_state_estimated_distance(path_state *state, const real_point3d *end_poi
         while ( parent_node_index != -1 );
 
         /* Walk the child chain back down from the root, accumulating ~0.8 world-units of path length. */
-        __int16 walk_node_index = previous_node_index;   /* == root of the path */
+        int16_t walk_node_index = previous_node_index;   /* == root of the path */
         path_node *walk_node = goal_node;
         float accumulated_distance = 0.0f;
         if ( walk_node_index != -1 )

@@ -10,7 +10,7 @@ extern void hud_print_message(int16_t local_player_index, const wchar_t *text);
 
 void hud_load(uint8_t begin)
 {
-    __int16 index = begin ? hud_globals->loading_begin_index : hud_globals->loading_end_index;
+    int16_t index = begin ? hud_globals->loading_begin_index : hud_globals->loading_end_index;
     scripted_hud_messages_clear();
     if ( index != -1 )
     {

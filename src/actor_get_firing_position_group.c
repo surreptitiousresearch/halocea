@@ -28,10 +28,10 @@ unsigned int actor_get_firing_position_group(uint16_t actor_index,
 
     /* recovered: raw encounter+132 -> encounter_definition.squads.address (tag_block at 128, DB) */
     encounter_definition *encounter = (encounter_definition *)global_scenario->ai_encounters.address
-                                      + (unsigned __int16)actor->meta.encounter_index;
+                                      + (uint16_t)actor->meta.encounter_index;
     squad_definition *squad = (squad_definition *)encounter->squads.address + actor->meta.squad_index;
 
-    unsigned __int8 searching = actor->state.searching;
+    uint8_t searching = actor->state.searching;
 
     if ( group_selection_mode == _firing_position_group_when_searching )
         searching = 1;
@@ -40,7 +40,7 @@ unsigned int actor_get_firing_position_group(uint16_t actor_index,
 
     /* recovered: raw actor+0x374 -> emotions.currently_defending (DB); the shipped code uses this
      * emotion byte as the vehicle/on-foot firing-group discriminator */
-    unsigned __int8 currently_defending = actor->emotions.currently_defending;
+    uint8_t currently_defending = actor->emotions.currently_defending;
 
     switch ( evaluation_mode )
     {

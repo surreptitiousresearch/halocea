@@ -8,5 +8,5 @@ extern void hs_effect_new(int definition_index, int16_t flag_index);
 void hs_effect_new_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
-    if ( arguments ) { hs_effect_new(arguments[0], ((__int16 *)arguments)[2] /* +4: flag index (packed HS arg buffer) */); hs_return(thread_index, 0); }
+    if ( arguments ) { hs_effect_new(arguments[0], ((int16_t *)arguments)[2] /* +4: flag index (packed HS arg buffer) */); hs_return(thread_index, 0); }
 }

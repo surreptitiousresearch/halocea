@@ -23,7 +23,7 @@ int hs_parse_arithmetic(int16_t function_index, int expression_index)
 {
     hs_syntax_node *group = &HS_SYNTAX_NODE(expression_index);
     int result = 1;
-    __int16 argument_count = 0;
+    int16_t argument_count = 0;
 
     int argument = HS_SYNTAX_NODE(group->data).next_node_index;
     while ( argument != -1 )

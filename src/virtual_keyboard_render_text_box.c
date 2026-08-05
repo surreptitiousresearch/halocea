@@ -61,10 +61,10 @@ void virtual_keyboard_render_text_box(rectangle2d *rect)
         && virtual_keyboard_globals.caret_bitmap_tag != -1
         && ((system_milliseconds() / 1000) & 1) != 0)
     {
-        __int16 cursor_offset = 0;
-        unsigned __int16 *text_buffer = virtual_keyboard_globals.text_buffer;
-        __int16 total_width = 0;
-        __int16 text_height = text_font->descending_height + text_font->ascending_height;
+        int16_t cursor_offset = 0;
+        uint16_t *text_buffer = virtual_keyboard_globals.text_buffer;
+        int16_t total_width = 0;
+        int16_t text_height = text_font->descending_height + text_font->ascending_height;
         bitmap_data *caret = bitmap_group_get_bitmap_from_sequence(virtual_keyboard_globals.caret_bitmap_tag, 0, 0);
         if (caret)
         {

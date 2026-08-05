@@ -5,6 +5,7 @@
  * encounter_data is the runtime encounter datum array (108-byte elements; base platoon index at +8). platoon_array
  * elements are 16 bytes with "defending" at offset 0 (disasm-verified at 0x837700A0..0x837700C8). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/platoon_datum.h"
 #include "headers/ai_index_platoon_iterator.h"
@@ -29,7 +30,7 @@ void ai_scripting_attack(int ai_index)
 
         unsigned short base_platoon_index =
             DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, iterator.encounter_index)->platoon_base;
-        platoon_datum *platoon = &platoon_array[(__int16)(base_platoon_index + platoon_index)];
+        platoon_datum *platoon = &platoon_array[(int16_t)(base_platoon_index + platoon_index)];
         ++platoon_index;
         if ( !platoon )
             break;

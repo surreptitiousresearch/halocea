@@ -20,7 +20,7 @@ int default_flags_encoder(const _field_properties_definition *const field_proper
     int bits_written = 0;
     const unsigned int *parameters = field_properties->parameters;
     unsigned int start_position = bitstream_tell(output_stream);
-    unsigned __int8 must_write = 0;
+    uint8_t must_write = 0;
 
     for ( int i = 0; i < *parameters; ++i )
     {

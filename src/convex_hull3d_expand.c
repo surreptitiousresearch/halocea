@@ -41,8 +41,8 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
     const real_point3d *new_point = &points[point_index];
 
     /* Trivial accept: new_point is already inside every extant surface (within delta) — nothing to expand. */
-    unsigned __int8 already_contained = 1;
-    for ( __int16 i = 0; i < surface_count; ++i )
+    uint8_t already_contained = 1;
+    for ( int16_t i = 0; i < surface_count; ++i )
     {
         surface3d *surface = &surfaces[i];
         if ( surface->extant )
@@ -61,7 +61,7 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
         return 1;
 
     /* Mark which surfaces survive (new_point is safely behind them) vs. are removed (new_point sees them). */
-    for ( __int16 i = 0; i < surface_count; ++i )
+    for ( int16_t i = 0; i < surface_count; ++i )
     {
         surface3d *surface = &surfaces[i];
         if ( surface->extant )
@@ -75,8 +75,8 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
 
     /* Classify edges: keep if either bordering surface survived; if exactly one survived, this is a horizon
      * edge — sever the link to the removed surface and remember the first horizon edge found. */
-    __int16 first_horizon_edge = -1;
-    for ( __int16 i = 0; i < edge_count; ++i )
+    int16_t first_horizon_edge = -1;
+    for ( int16_t i = 0; i < edge_count; ++i )
     {
         edge3d *edge = &edges[i];
         if ( !edge->extant )
@@ -87,7 +87,7 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
         if ( surface0 < 0 || surface0 >= surface_count || surface1 < 0 || surface1 >= surface_count )
             return 0;
 
-        unsigned __int8 keep = surfaces[surface0].extant || surfaces[surface1].extant;
+        uint8_t keep = surfaces[surface0].extant || surfaces[surface1].extant;
         edge->extant = keep;
         if ( keep && surfaces[surface0].extant != surfaces[surface1].extant )
         {
@@ -101,15 +101,15 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
     }
 
     /* Splice each vertex's edge fan (circular linked list) to drop removed edges; drop vertices left bare. */
-    for ( __int16 v = 0; v < vertex_count; ++v )
+    for ( int16_t v = 0; v < vertex_count; ++v )
     {
         vertex3d *vertex = &vertices[v];
         if ( !vertex->extant )
             continue;
 
-        __int16 first_surviving_edge = -1;
-        __int16 last_surviving_edge = -1;
-        __int16 edge_index = vertex->edge_index;
+        int16_t first_surviving_edge = -1;
+        int16_t last_surviving_edge = -1;
+        int16_t edge_index = vertex->edge_index;
         do
         {
             edge3d *edge = &edges[edge_index];
@@ -138,7 +138,7 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
     }
 
     /* First free vertex slot for the new point (vertex_count if the array is already full). */
-    __int16 new_vertex_index = 0;
+    int16_t new_vertex_index = 0;
     while ( new_vertex_index < vertex_count && vertices[new_vertex_index].extant )
         ++new_vertex_index;
     if ( new_vertex_index >= vertex_count )
@@ -146,30 +146,30 @@ uint8_t convex_hull3d_expand(int16_t point_count, const real_point3d *points, in
 
     /* Walk the horizon loop, adding one triangular surface + one new edge per horizon edge, closing the fan
      * once the walk returns to its starting edge. */
-    __int16 start_edge = first_horizon_edge;
-    __int16 horizon_edge_index = first_horizon_edge;
-    __int16 previous_new_edge = -1;
-    __int16 first_new_edge = -1;
+    int16_t start_edge = first_horizon_edge;
+    int16_t horizon_edge_index = first_horizon_edge;
+    int16_t previous_new_edge = -1;
+    int16_t first_new_edge = -1;
 
     for ( ; ; )
     {
-        __int16 new_surface_index = 0;
+        int16_t new_surface_index = 0;
         while ( new_surface_index < surface_count && surfaces[new_surface_index].extant )
             ++new_surface_index;
         if ( new_surface_index >= surface_count )
             break;
 
-        __int16 new_edge_index = 0;
+        int16_t new_edge_index = 0;
         while ( new_edge_index < edge_count && edges[new_edge_index].extant )
             ++new_edge_index;
         if ( new_edge_index >= edge_count )
             break;
 
         edge3d *horizon_edge = &edges[horizon_edge_index];
-        unsigned __int8 far_slot_by_surface0 = horizon_edge->surface_indices[0] == -1 ? 0 : 1;
-        unsigned __int8 far_slot_by_surface1 = horizon_edge->surface_indices[1] == -1 ? 0 : 1;
-        __int16 far_vertex = horizon_edge->vertex_indices[far_slot_by_surface1];
-        __int16 near_vertex = horizon_edge->vertex_indices[far_slot_by_surface0];
+        uint8_t far_slot_by_surface0 = horizon_edge->surface_indices[0] == -1 ? 0 : 1;
+        uint8_t far_slot_by_surface1 = horizon_edge->surface_indices[1] == -1 ? 0 : 1;
+        int16_t far_vertex = horizon_edge->vertex_indices[far_slot_by_surface1];
+        int16_t near_vertex = horizon_edge->vertex_indices[far_slot_by_surface0];
 
         surface3d *new_surface = &surfaces[new_surface_index];
         new_surface->extant = 1;

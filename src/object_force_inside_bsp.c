@@ -28,12 +28,12 @@ uint8_t object_force_inside_bsp(int object_index, int ignore_object_index, const
 
     collision_result result;
     if ( !collision_test_vector(_collision_test_for_projectiles_flags /* 0x1000E9 */, known_good_point, &delta, ignore_object_index, &result)
-      && (unsigned __int16)object->object.location.cluster_index != 0xFFFF )
+      && (uint16_t)object->object.location.cluster_index != 0xFFFF )
     {
         return 1;
     }
 
-    if ( (unsigned __int16)result.location.cluster_index != 0xFFFF )
+    if ( (uint16_t)result.location.cluster_index != 0xFFFF )
     {
         object_translate(object_index, &result.point, &result.location);
         object_compute_node_matrices(object_index);

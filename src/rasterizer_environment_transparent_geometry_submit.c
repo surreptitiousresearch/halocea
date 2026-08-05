@@ -11,7 +11,7 @@ struct real_vector3d;
 struct render_lighting;
 
 extern void _rasterizer_environment_transparent_geometry_submit(
-    const struct shader *shader, __int16 shader_permutation_index, const struct bitmap_data *lightmap,
+    const struct shader *shader, int16_t shader_permutation_index, const struct bitmap_data *lightmap,
     int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count,
     const struct vertex_buffer *vertex_buffers, const struct real_point3d *centroid,
     const struct real_plane3d *plane, const struct real_vector3d *offset,

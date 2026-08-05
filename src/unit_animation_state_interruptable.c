@@ -10,7 +10,7 @@
 
 uint8_t unit_animation_state_interruptable(unit_animation *animation, int16_t new_state)
 {
-    int state = (unsigned __int8)animation->state;
+    int state = (uint8_t)animation->state;
     switch ( state )
     {
         case _unit_state_turn_left: case _unit_state_turn_right: case _unit_state_opening: case _unit_state_closing:

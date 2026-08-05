@@ -61,7 +61,7 @@ extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen
 
 void hud_draw_multitexture_overlay(
         const multitexture_overlay_hud_element_definition *overlay,
-        __int16 local_player_index,
+        int16_t local_player_index,
         const point2d *point,
         const real_rectangle2d *clip,
         const real_rectangle2d *bounds,
@@ -92,7 +92,7 @@ void hud_draw_multitexture_overlay(
 
     /* build the four rotated screen-space quad vertices */
     dynamic_screen_vertex vertices[6];
-    for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
     {
         int corner_x = (i + 1) & 2;
         float tex_u = corner_x ? clip->n[1] : clip->n[0];
@@ -132,9 +132,9 @@ void hud_draw_multitexture_overlay(
     params.map[2] = bitmap_group_get_bitmap_from_sequence(overlay->map[2].index, 0, 0);
 
     /* the two map-to-map blend-function slots, addressed as a small pointer table indexed by map */
-    __int16 *map_blend_slot[2] = { &params.map0_to_1_blend_function, &params.map1_to_2_blend_function };
+    int16_t *map_blend_slot[2] = { &params.map0_to_1_blend_function, &params.map1_to_2_blend_function };
 
-    for ( int map_index = 0; map_index < 3; map_index = (__int16)(map_index + 1) )
+    for ( int map_index = 0; map_index < 3; map_index = (int16_t)(map_index + 1) )
     {
         bitmap_data *bitmap = params.map[map_index];
         if ( bitmap )
@@ -166,7 +166,7 @@ void hud_draw_multitexture_overlay(
         }
         else
         {
-            unsigned __int16 blend = overlay->map_blending_function[map_index];
+            uint16_t blend = overlay->map_blending_function[map_index];
             if ( blend <= 4 )
             {
                 if ( blend == 1 )
@@ -187,13 +187,13 @@ void hud_draw_multitexture_overlay(
     if ( overlay->functions.count > 0 )
     {
         float input_value = *(float *)&map_blend_slot[0];   /* v74 seed: garbage float bit-copy, matches shipped code */
-        for ( int f = 0; f < overlay->functions.count; f = (__int16)(f + 1) )
+        for ( int f = 0; f < overlay->functions.count; f = (int16_t)(f + 1) )
         {
             multitexture_overlay_hud_element_effector_definition *effector =
                 &((multitexture_overlay_hud_element_effector_definition *)overlay->functions.address)[f];
             theta = theta + 0.050000001f;
 
-            unsigned int input_type = (unsigned __int16)effector->source;
+            unsigned int input_type = (uint16_t)effector->source;
             if ( input_type >= NUMBER_OF_HUD_MULTITEXTURE_OVERLAY_EFFECTOR_SOURCES )
                 goto apply;
 
@@ -266,11 +266,11 @@ void hud_draw_multitexture_overlay(
                         &effector->tint_color_lower_bounds, &effector->tint_color_upper_bounds, t);
                 }
 
-                unsigned int output_type = (unsigned __int16)effector->destination;
+                unsigned int output_type = (uint16_t)effector->destination;
                 if ( output_type >= NUMBER_OF_HUD_MULTITEXTURE_OVERLAY_EFFECTOR_DESTINATIONS )
                     goto next;
 
-                __int16 output_channel = effector->destination_type;
+                int16_t output_channel = effector->destination_type;
                 if ( output_type == _hud_multitexture_overlay_effector_destination_primary_map )
                 {
                     if ( output_channel )

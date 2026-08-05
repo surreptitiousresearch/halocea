@@ -10,7 +10,7 @@
 
 extern uint8_t hs_parse(int expression_index, int16_t expected_type);
 
-int hs_parse_sleep_until(__int16 function_index, int expression_index)
+int hs_parse_sleep_until(int16_t function_index, int expression_index)
 {
     hs_syntax_node *group = &HS_SYNTAX_NODE(expression_index);
     int condition = HS_SYNTAX_NODE(group->data).next_node_index;

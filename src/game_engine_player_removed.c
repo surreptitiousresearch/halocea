@@ -19,7 +19,7 @@ extern int16_t game_connection(void);
 void game_engine_player_removed(int player_index)
 {
     data_iterator iterator;
-    unsigned __int16 message[1048];
+    uint16_t message[1048];
 
     data_iterator_new(&iterator, player_data);
     while ( data_iterator_next(&iterator) )
@@ -28,7 +28,7 @@ void game_engine_player_removed(int player_index)
         player_datum *player = datum_try_and_get(player_data, iterator.index);
         if ( player )
         {
-            if ( (unsigned __int16)player->local_player_index != 0xFFFF
+            if ( (uint16_t)player->local_player_index != 0xFFFF
                     && multiplayer_message_internal(index, game_engine_message_quit, player_index, message, 1024) )
             {
                 message[1023] = 0;

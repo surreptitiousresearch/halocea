@@ -20,6 +20,7 @@
  *  - The HIDWORD/LODWORD __int64 splits around each frame index are the fcfid int->float conversion of a
  *    32-bit (frame_count - 1); reconstructed as (float)(frame_count - 1) * factor. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/animation.h"
@@ -58,17 +59,17 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
 
     char *animations_data = (char *)graph->animations.address;
     int screen_count = unit_block->animations.count;
-    __int16 *aiming_indices = (__int16 *)unit_block->animations.address;
+    int16_t *aiming_indices = (int16_t *)unit_block->animations.address;
 
     /* aiming screen: primary aiming animation driven by the steering direction */
-    __int16 aiming_index = screen_count <= 0 ? -1 : aiming_indices[0];
+    int16_t aiming_index = screen_count <= 0 ? -1 : aiming_indices[0];
     if ( aiming_index != -1 )
         aiming_screen_apply((const animation *)(180 * aiming_index + animations_data),
                 &unit_block->steering_screen_bounds, vehicle_object->vehicle.turn, 0.0f,
                 node_orientations);
 
     /* overlay 0: yaw from velocity . (basis triple product), mapped to 0..1 */
-    __int16 overlay0_index = screen_count <= 1 ? -1 : aiming_indices[1];
+    int16_t overlay0_index = screen_count <= 1 ? -1 : aiming_indices[1];
     if ( overlay0_index != -1 )
     {
         const animation *overlay0 = (const animation *)(180 * overlay0_index + animations_data);
@@ -92,7 +93,7 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     }
 
     /* overlay 1: signed steering value, split about zero by the definition's left/right ranges */
-    __int16 overlay1_index = screen_count <= 2 ? -1 : aiming_indices[2];
+    int16_t overlay1_index = screen_count <= 2 ? -1 : aiming_indices[2];
     if ( overlay1_index != -1 )
     {
         const animation *overlay1 = (const animation *)(180 * overlay1_index + animations_data);
@@ -108,7 +109,7 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     }
 
     /* overlay 2: forward-dot-velocity, clamped, normalized by the yaw range magnitude */
-    __int16 overlay2_index = screen_count <= 3 ? -1 : aiming_indices[3];
+    int16_t overlay2_index = screen_count <= 3 ? -1 : aiming_indices[3];
     if ( overlay2_index != -1 )
     {
         const animation *overlay2 = (const animation *)(180 * overlay2_index + animations_data);
@@ -128,7 +129,7 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     }
 
     /* overlay 3: scalar ratio; uses frame_count (not frame_count - 1) */
-    __int16 overlay3_index = screen_count <= 5 ? -1 : aiming_indices[5];
+    int16_t overlay3_index = screen_count <= 5 ? -1 : aiming_indices[5];
     if ( overlay3_index != -1 )
     {
         const animation *overlay3 = (const animation *)(180 * overlay3_index + animations_data);
@@ -146,13 +147,13 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     {
         animation_graph_vehicle_suspension_animation *weighted_nodes_data =
                 (animation_graph_vehicle_suspension_animation *)unit_block->suspension_animations.address;
-        for ( int i = 0; i < weighted_node_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < weighted_node_count; i = (int16_t)(i + 1) )
         {
-            __int16 node_animation_index = weighted_nodes_data[i].animation_index;
+            int16_t node_animation_index = weighted_nodes_data[i].animation_index;
             if ( node_animation_index != -1 )
             {
                 const animation *node_animation = (const animation *)(180 * node_animation_index + animations_data);
-                unsigned __int8 weight_byte = vehicle_object->vehicle.suspension[i];
+                uint8_t weight_byte = vehicle_object->vehicle.suspension[i];
                 float weight = weight_byte == 255 ? 1.0f : ((float)weight_byte * (float)0.0039215689);
                 overlay_animation_apply_continuous(node_animation,
                         (float)(node_animation->frame_count - 1) * weight, node_orientations);

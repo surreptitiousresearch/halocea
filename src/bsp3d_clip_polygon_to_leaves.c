@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "headers/bsp3d.h"
 #include "headers/real_point3d.h"
 
@@ -6,9 +7,9 @@ extern int bsp3d_clip_polygon_to_leaves_recursive(
         int root_node_index,
         int parent_node_index,
         const real_point3d *vertices,
-        __int16 vertex_count,
+        int16_t vertex_count,
         float epsilon,
-        void (*handler)(const real_point3d *, __int16, int, int, void *),
+        void (*handler)(const real_point3d *, int16_t, int, int, void *),
         void *user_data);
 
 /* DEFECT_FIXED 2026-08-03: the prior reconstruction typed `user_data` as a callback and passed it
@@ -20,9 +21,9 @@ int bsp3d_clip_polygon_to_leaves(
         const bsp3d *bsp,
         int root_node_index,
         const real_point3d *vertices,
-        __int16 vertex_count,
+        int16_t vertex_count,
         float epsilon,
-        void (*handler)(const real_point3d *, __int16, int, int, void *),
+        void (*handler)(const real_point3d *, int16_t, int, int, void *),
         void *user_data)
 {
     return bsp3d_clip_polygon_to_leaves_recursive(

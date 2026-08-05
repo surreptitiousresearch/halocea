@@ -18,7 +18,7 @@ extern void apply_remote_player_position_update(player_datum *player, unit_datum
 
 void players_apply_server_position_to_specific_client(player_datum *player)
 {
-    if ( game_connection() == _game_connection_network_client && (unsigned __int16)player->local_player_index == 0xFFFF )
+    if ( game_connection() == _game_connection_network_client && (uint16_t)player->local_player_index == 0xFFFF )
     {
         int unit_index = player->unit_index;
         if ( unit_index != -1 )

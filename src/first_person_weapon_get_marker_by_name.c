@@ -25,7 +25,7 @@ int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *nam
                                                int16_t maximum_marker_count)
 {
     weapon_datum *weapon_object = object_try_and_get_and_verify_type(weapon_index, object_mask_weapon);
-    __int16 person_index;
+    int16_t person_index;
     first_person_weapon *fpw;
     weapon_definition *definition;
     int model_index;

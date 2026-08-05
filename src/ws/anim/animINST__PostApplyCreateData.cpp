@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "animINST.h"
 #include "animMNG.h"
 #include "animCREATE_DATA.h"
@@ -12,11 +13,11 @@ void animINST::PostApplyCreateData(animCREATE_DATA *pCD)
     if (!pCD || !this->pAnimMng)
         return;
 
-    unsigned int seqNmb = (unsigned __int16)pCD->animSeqNmb;
+    unsigned int seqNmb = (uint16_t)pCD->animSeqNmb;
     if (seqNmb >= 0x8000)              // 0xFFFF sentinel = "no sequence"
         return;
 
-    int seqIndex = (__int16)seqNmb;
+    int seqIndex = (int16_t)seqNmb;
     if (seqIndex >= this->pAnimMng->GetNAnimSeq())
         return;
 

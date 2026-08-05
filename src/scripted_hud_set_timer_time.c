@@ -14,7 +14,7 @@ void scripted_hud_set_timer_time(int16_t minutes, int16_t seconds)
     hud_messaging_globals->timer.enabled = 1;
     hud_messaging_globals->timer.ticks = 30 * (60 * minutes + seconds);
     hud_messaging_globals->timer.reference_time = game_time_get();
-    __int16 corner = hud_messaging_globals->timer.corner;
+    int16_t corner = hud_messaging_globals->timer.corner;
     if ( corner < 0 )
         corner = 0;
     else if ( corner > 4 )

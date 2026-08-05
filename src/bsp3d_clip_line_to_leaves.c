@@ -11,6 +11,7 @@
  * every deeper node — reproduced from the decompiler's `v14=0; if(node_index) v14=node_count; node_count=v14+1`.
  * epsilon = 0.00024414062 = 1/4096. Per-step (float) casts preserved for single-precision rounding. */
 
+#include <stdint.h>
 #include "headers/bsp3d.h"
 #include "headers/bsp3d_node.h"
 #include "headers/real_point3d.h"
@@ -33,8 +34,8 @@ int bsp3d_clip_line_to_leaves(const bsp3d *bsp, int node_index, const real_point
 
     node_count = node_index ? node_count + 1 : 1;
 
-    unsigned __int8 p0_side[2];   /* [0] = behind plane, [1] = in front */
-    unsigned __int8 p1_side[2];
+    uint8_t p0_side[2];   /* [0] = behind plane, [1] = in front */
+    uint8_t p1_side[2];
     p0_side[0] = distance_p0 < -0.00024414062f;
     p0_side[1] = distance_p0 > 0.00024414062f;
     p1_side[0] = distance_p1 < -0.00024414062f;

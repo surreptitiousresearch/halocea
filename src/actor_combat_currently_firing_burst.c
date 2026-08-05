@@ -14,6 +14,6 @@ uint8_t actor_combat_currently_firing_burst(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->control.current_fire_target_type > actor_fire_target_none )
-        return (unsigned __int16)actor->control.fire_state == actor_fire_state_bursting;
+        return (uint16_t)actor->control.fire_state == actor_fire_state_bursting;
     return 0;
 }

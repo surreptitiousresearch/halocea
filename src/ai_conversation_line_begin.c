@@ -39,9 +39,9 @@ int ai_conversation_line_begin(uint16_t conversation_index)
     ai_conversation_line *line =
         &((ai_conversation_line *)definition->lines.address)[conversation->line_index];
 
-    __int16 participant_index = line->participant_index;
+    int16_t participant_index = line->participant_index;
     if (participant_index < 0
-        || participant_index >= (__int16)definition->participants.count
+        || participant_index >= (int16_t)definition->participants.count
         || ((1u << participant_index) & conversation->participant_bitmask) == 0)
         return 0;
 
@@ -69,9 +69,9 @@ int ai_conversation_line_begin(uint16_t conversation_index)
         }
         else if (line->address_type == _ai_conversation_address_participant)
         {
-            __int16 address_participant = line->address_participant_index;
+            int16_t address_participant = line->address_participant_index;
             if (address_participant >= 0
-                && address_participant < (__int16)definition->participants.count
+                && address_participant < (int16_t)definition->participants.count
                 && conversation->actor_indices[address_participant] != -1)
             {
                 conversation->line_address_unit_index =
@@ -85,9 +85,9 @@ int ai_conversation_line_begin(uint16_t conversation_index)
              || participant->selection_type == _ai_conversation_selection_radio_sargeant) ? 1 : 0;
     }
 
-    __int16 variant = conversation->dialogue_indices[line->participant_index];
+    int16_t variant = conversation->dialogue_indices[line->participant_index];
     conversation->line_sound_index = line->dialogue[variant].index;
-    conversation->line_delay_timer = (__int16)(int)(line->delay_time * 30.0f);
+    conversation->line_delay_timer = (int16_t)(int)(line->delay_time * 30.0f);
     conversation->line_flags = line->flags;
     conversation->line_advance = 0;
     conversation->line_finished = 0;

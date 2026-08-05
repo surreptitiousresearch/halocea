@@ -5,6 +5,7 @@
  * No layout or codegen impact: bool is the 1-byte _Bool, nullptr is ((void*)0). */
 
 #ifndef __cplusplus
+#include <stdint.h>
 #include <stdbool.h>   /* bool / true / false */
 #ifndef nullptr
 #define nullptr ((void *)0)
@@ -27,7 +28,7 @@ typedef int BOOL;
 #ifndef BLAM_IDA_INTS_DEFINED
 #define BLAM_IDA_INTS_DEFINED
 typedef unsigned char      _BYTE;
-typedef unsigned __int16   _WORD;
-typedef unsigned __int32   _DWORD;
-typedef unsigned __int64   _QWORD;
+typedef uint16_t   _WORD;
+typedef uint32_t   _DWORD;
+typedef uint64_t   _QWORD;
 #endif

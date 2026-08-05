@@ -95,7 +95,7 @@ void actor_action_determine_pursuit_options(int actor_index, int16_t desire_targ
 
     if ( actor->input.vehicle_driver_type > _actor_vehicle_driver_none )
         *allow_target_uncover = 0;
-    if ( (unsigned __int16)actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying )
+    if ( (uint16_t)actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying )
     {
         *allow_target_search = 0;
         *allow_pursuit_search = 0;

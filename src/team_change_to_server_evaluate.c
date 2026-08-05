@@ -11,7 +11,7 @@ void team_change_to_server_evaluate(int16_t function_index, int thread_index, ui
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        team_change_to_server(*(__int16 *)arguments);
+        team_change_to_server(*(int16_t *)arguments);
         hs_return(thread_index, 0);
     }
 }

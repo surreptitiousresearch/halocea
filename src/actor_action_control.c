@@ -9,7 +9,7 @@
 
 void actor_action_control(uint16_t actor_index)
 {
-    __int16 action = ((__int16 *)actor_data->data)[914 * actor_index + 54];
+    int16_t action = ((int16_t *)actor_data->data)[914 * actor_index + 54];
     void (__fastcall *control)(int) = global_action_functions[action].control;
     if ( control )
         control(actor_index);

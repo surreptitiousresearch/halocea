@@ -28,7 +28,7 @@ extern void hs_return(uint16_t thread_index, int value);
 
 void hs_evaluate_set(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
     hs_stack_frame *frame = thread->stack;
 
     int set_expression = frame->expression_index;
@@ -43,9 +43,9 @@ void hs_evaluate_set(int16_t function_index, int thread_index, uint8_t initializ
     int *popped = (int *)(((unsigned int)stack_top + 3) & ~0x3u); /* align up to 4 */
     if ( (unsigned int)(popped - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --popped;
-    frame->size = (__int16)((unsigned char *)popped - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)popped - frame->data + 4);
 
-    __int16 type = hs_global_get_type(global_designator);
+    int16_t type = hs_global_get_type(global_designator);
     if ( !initialize )
     {
         hs_global_reconcile_write(global_designator);

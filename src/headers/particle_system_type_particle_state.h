@@ -2,6 +2,7 @@
 /* particle_system_type_particle_state — one particle state within a particle system type's
    particle_states block (376 bytes; DB-verified, matches headers_ref). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 #include "real_argb_color.h"
@@ -16,8 +17,8 @@ typedef struct particle_system_type_particle_state
     float            transition_time_lower_bound;  /* 0x028 */
     float            transition_time_upper_bound;  /* 0x02C */
     tag_reference    bitmaps;                      /* 0x030 */
-    __int16          sequence_index;               /* 0x040 */
-    unsigned __int16 pad;                          /* 0x042 */
+    int16_t          sequence_index;               /* 0x040 */
+    uint16_t pad;                          /* 0x042 */
     int              unused0[1];                   /* 0x044 */
     float            scale_lower_bound;            /* 0x048 */
     float            scale_upper_bound;            /* 0x04C */

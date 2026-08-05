@@ -19,8 +19,8 @@ void hud_message_to_all(uint16_t *string)
           player;
           player = data_iterator_next(&iterator) )
     {
-        __int16 local_player_index = player->local_player_index;
-        if ( (unsigned __int16)local_player_index != 0xFFFF )
+        int16_t local_player_index = player->local_player_index;
+        if ( (uint16_t)local_player_index != 0xFFFF )
             hud_print_message(local_player_index, (const wchar_t *)string);
     }
 }

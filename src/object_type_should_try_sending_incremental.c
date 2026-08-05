@@ -15,7 +15,7 @@ uint8_t object_type_should_try_sending_incremental(int object_index)
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     object_type_definition *type = object_type_definitions[object->object.type];
 
-    for ( __int16 i = 15; i >= 0; --i )
+    for ( int16_t i = 15; i >= 0; --i )
     {
         object_type_definition *part = type->part_definitions[i];
 

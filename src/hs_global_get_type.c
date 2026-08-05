@@ -11,6 +11,6 @@
 int16_t hs_global_get_type(int16_t designator)
 {
     if ( HS_GLOBAL_IS_EXTERNAL(designator) )
-        return (unsigned __int16)hs_external_globals[HS_GLOBAL_DESIGNATOR_TO_INDEX(designator)]->type;
-    return (unsigned __int16)((hs_global_internal *)global_scenario->hs_globals.address)[HS_GLOBAL_DESIGNATOR_TO_INDEX(designator)].type;
+        return (uint16_t)hs_external_globals[HS_GLOBAL_DESIGNATOR_TO_INDEX(designator)]->type;
+    return (uint16_t)((hs_global_internal *)global_scenario->hs_globals.address)[HS_GLOBAL_DESIGNATOR_TO_INDEX(designator)].type;
 }

@@ -40,7 +40,7 @@ int actor_perception_unit_from_swarm(actor_position_data *sense_position, int ac
         float best_distance = 3.4028235e38f;
         if ( unit != -1 )
         {
-            unsigned __int8 mark = mark_units;
+            uint8_t mark = mark_units;
             do
             {
                 unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit)->datum);
@@ -74,7 +74,7 @@ int actor_perception_unit_from_swarm(actor_position_data *sense_position, int ac
     if ( swarm->unit_count <= 0 )
         return best_unit;
 
-    unsigned __int8 mark = mark_units;
+    uint8_t mark = mark_units;
     int marker = global_object_marker;
     for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
     {

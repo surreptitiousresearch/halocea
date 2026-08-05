@@ -14,6 +14,7 @@
  * Deviation: the cluster/bonus store was a single int write covering both halfwords; written as the
  * two named halfword assignments. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_header_flags.h"
@@ -48,11 +49,11 @@ void object_reconnect_to_map(int object_index, const location *location_in)
         {
             scenario_location_from_point(&local_location, &object->object.bounding_sphere_center);
             loc = &local_location;
-            if ( (unsigned __int16)local_location.cluster_index == 0xFFFF )
+            if ( (uint16_t)local_location.cluster_index == 0xFFFF )
                 scenario_location_from_point(&local_location, &object->object.position);
         }
 
-        if ( (unsigned __int16)loc->cluster_index == 0xFFFF )
+        if ( (uint16_t)loc->cluster_index == 0xFFFF )
         {
             object->object.flags |= (1u << _object_outside_of_map_bit);
         }
@@ -80,9 +81,9 @@ void object_reconnect_to_map(int object_index, const location *location_in)
 
         if ( (header->flags & (1u << _object_header_automatically_deactivate_bit)) != 0 )
         {
-            int cluster = (unsigned __int16)header->cluster_index;
+            int cluster = (uint16_t)header->cluster_index;
             if ( cluster == 0xFFFF
-                || !BIT_VECTOR_TEST_FLAG(players_get_combined_pvs(), (__int16)cluster) )
+                || !BIT_VECTOR_TEST_FLAG(players_get_combined_pvs(), (int16_t)cluster) )
             {
                 if ( (object->object.flags & (1u << _object_deleted_when_deactivated_bit)) != 0 )
                     object_delete(object_index);

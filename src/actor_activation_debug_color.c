@@ -28,12 +28,12 @@ const real_argb_color * actor_activation_debug_color(uint16_t actor_index)
     }
 
     int encounter_index = actor->meta.encounter_index;
-    unsigned __int8 relevant_to_current_bsp = 0;
+    uint8_t relevant_to_current_bsp = 0;
 
     if ( encounter_index != -1 )
     {
-        __int16 encounter_bsp_index = ((encounter_definition *)global_scenario->ai_encounters.address)
-                                     [(unsigned __int16)encounter_index].runtime_structure_bsp_reference_index;
+        int16_t encounter_bsp_index = ((encounter_definition *)global_scenario->ai_encounters.address)
+                                     [(uint16_t)encounter_index].runtime_structure_bsp_reference_index;
         relevant_to_current_bsp = encounter_bsp_index != -1 && encounter_bsp_index != global_structure_bsp_index;
     }
 

@@ -9,6 +9,6 @@ extern int16_t game_difficulty_level_get(void);
 void game_difficulty_level_get_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((__int16 *)&result + 1) = game_difficulty_level_get();
+    *((int16_t *)&result + 1) = game_difficulty_level_get();
     hs_return(thread_index, result);
 }

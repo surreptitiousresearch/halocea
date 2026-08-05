@@ -120,7 +120,7 @@ void light_volume_render(int object_index, int widget_index)
             if ( count > 0 )
             {
                 float divisor = (float)(count - 1);
-                for ( int i = 0; i < count; i = (__int16)(i + 1) )
+                for ( int i = 0; i < count; i = (int16_t)(i + 1) )
                 {
                     float base = ((float)i / divisor);
                     float offset_shaped = light_volume_shape(base, frame->offset_exponent);
@@ -149,8 +149,8 @@ void light_volume_render(int object_index, int widget_index)
 
                     /* (brightness << 8) | red; green/blue are dropped with the widget's extra color args */
                     unsigned int packed_color =
-                            ((unsigned int)(unsigned __int8)(__int64)(brightness * 255.0f) << 8)
-                            | (unsigned __int8)(__int64)(sprite_color.n[0] * 255.0f);
+                            ((unsigned int)(uint8_t)(int64_t)(brightness * 255.0f) << 8)
+                            | (uint8_t)(int64_t)(sprite_color.n[0] * 255.0f);
                     rasterizer_widget_draw_sprite3d(&sprite_position, radius,
                             (const real_vector2d *)packed_color, 0.0f, 0);
                 }

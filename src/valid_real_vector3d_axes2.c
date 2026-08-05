@@ -8,7 +8,7 @@
 extern uint8_t valid_real_normal3d(const real_vector3d *n);
 extern uint8_t valid_realcmp(float x, float y);
 
-unsigned __int8 valid_real_vector3d_axes2(const real_vector3d *f, const real_vector3d *u)
+uint8_t valid_real_vector3d_axes2(const real_vector3d *f, const real_vector3d *u)
 {
     if ( !valid_real_normal3d(f) )
         return 0;

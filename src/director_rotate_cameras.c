@@ -35,15 +35,15 @@ void director_rotate_cameras(int16_t local_player_index, const int16_t *cameras,
 {
     director *dir = &director_globals.local_players[local_player_index];
     int next = dir->camera_mode_index + 1;
-    int wrapped = (__int16)(next - next / camera_count * camera_count);
+    int wrapped = (int16_t)(next - next / camera_count * camera_count);
     unsigned int kind;
     /* camera_proc is one generic slot in the original binary; each per-kind update fn takes its
      * concrete camera type, so the function-pointer casts below are binary-faithful type-puns. */
     void (__fastcall *proc)(flying_camera *, const camera_control *, observer_command *) = 0;
     int changed = 1;
 
-    dir->camera_mode_index = (__int16)wrapped;
-    kind = (unsigned __int16)cameras[wrapped];
+    dir->camera_mode_index = (int16_t)wrapped;
+    kind = (uint16_t)cameras[wrapped];
 
     if ( kind <= _camera_first_person )
     {

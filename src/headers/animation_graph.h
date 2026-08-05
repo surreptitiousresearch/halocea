@@ -2,6 +2,7 @@
 /* animation_graph — the "antr" tag definition (128 bytes, DB layout). Only tag_block members needed by
  * reconstructed source are laid out; the rest is generic tag_block accounting. */
 
+#include <stdint.h>
 #include "tag_block.h"
 
 typedef struct animation_graph
@@ -15,8 +16,8 @@ typedef struct animation_graph
     tag_block first_person_weapon_animations; /* 0x48 */
     tag_block sound_references;               /* 0x54 */
     float     limp_body_node_collision_radius; /* 0x60 */
-    unsigned __int16 flags;                    /* 0x64 */
-    unsigned __int16 pad;                      /* 0x66 */
+    uint16_t flags;                    /* 0x64 */
+    uint16_t pad;                      /* 0x66 */
     tag_block nodes;                           /* 0x68 */
     tag_block animations;                      /* 0x74 */
 } animation_graph;                              /* 128 bytes */

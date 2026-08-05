@@ -11,7 +11,6 @@
    be re-checked against disasm (0x837F98C8) before being trusted.
    ========================================================================= */
 #include <stdint.h>
-#include "headers/hexrays_defs.h" /* LODWORD */
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_vector2d.h"
@@ -54,7 +53,7 @@ extern void actor_perception_unreachable(int actor_index, int prop_index, uint8_
 
 extern float __fsqrts(float x);
 
-unsigned __int8 action_charge_perform(int actor_index) /* was: int — DB prototype */
+uint8_t action_charge_perform(int actor_index) /* was: int — DB prototype */
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     charge_state_data *charge = &actor->state.action_data.___u0.charge;
@@ -67,7 +66,6 @@ unsigned __int8 action_charge_perform(int actor_index) /* was: int — DB protot
     real_point3d aim[6];
     float ballistic_scratch[3]; /* [0] seeded min-velocity in, [1]=horizontal, [2]=vertical results (frame slots var_E0/var_DC/var_D8) 2026-07-31 (C4047) */
     float *target_object = 0;
-    __int64 packed_ticks;
     int charge_state;
     float distance;
     char do_melee;
@@ -259,7 +257,8 @@ after_charge_flags:
                                  + (prop->actor_to_prop.n[1] * prop->velocity.n[1]
                                          + prop->actor_to_prop.n[2] * prop->velocity.n[2])) / speed) + 1.0f) * 0.5f;
 
-        *(int *)&packed_ticks = charge->melee_ticks_until_dangerous;
+        /* DEVIATION: decompiler rendered the std+lfd+fcfid int->float idiom (0x837F9E50) as a
+         * 64-bit pun store into a scratch slot; it is just the conversion below. */
         dt = (float)charge->melee_ticks_until_dangerous;
 
         /* lead the aim point by the prop velocity * dt * lead */
@@ -309,7 +308,9 @@ after_charge_flags:
                     charge->leap_pending = 1;
                     charge->leap_horizontal_velocity = ballistic_scratch[1];
                     charge->leap_vertical_velocity = ballistic_scratch[2]; /* disasm 0x837FA000 lfs var_D8 = result_vertical_velocity out-slot, not the packed_ticks pun 2026-07-31 (C4047) */
-                    *(__int64 *)&charge->leap_alignment_vector = *(__int64 *)aim[0].n;
+                    /* DEVIATION: 64-bit std copy (0x837FA010) of aim.xy into the real_vector2d; plain component copy */
+                    charge->leap_alignment_vector.i = aim[0].n[0];
+                    charge->leap_alignment_vector.j = aim[0].n[1];
                 }
             }
         }
@@ -438,7 +439,7 @@ tail:
                     unsigned char unreachable = 0;
                     int st = charge->goal;
                     char range_exceeded =
-                        *((float *)prop_data->data + 78 * (unsigned __int16)actor->target.target_prop_index + 71) > charge->acceptable_target_range;
+                        *((float *)prop_data->data + 78 * (uint16_t)actor->target.target_prop_index + 71) > charge->acceptable_target_range;
                     if ((st == charge_goal_melee || st == charge_goal_melee_leaping) && (charge->launched_leap || charge->leap_pending || charge->launched_melee_attack))
                         range_exceeded = 0;
                     if (range_exceeded

@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -7,7 +8,7 @@
 // num*size bytes (16-byte aligned), and record instance count/size and the instanced FVF. Clears the
 // OBJ_ST_SHARED_INSTANCED flag (0x200000). Routes through the dataAlloc/dataFree hooks when set.
 
-void objOBJ::_AllocInstancedData(unsigned __int16 num, unsigned __int8 size, unsigned __int64 fvf)
+void objOBJ::_AllocInstancedData(uint16_t num, uint8_t size, uint64_t fvf)
 {
     if (!this->pGeom) {
         // STRONG_ASSERT: 0  (Obj_alloc.cpp:1350)
@@ -31,5 +32,5 @@ void objOBJ::_AllocInstancedData(unsigned __int16 num, unsigned __int8 size, uns
     this->pGeom->pSharedGeom->instSize = size;
     this->pGeom->pSharedGeom->instNum = num;
     this->pGeom->pSharedGeom->fvfInstanced = fvf;
-    this->stateShare.state &= ~(unsigned __int64)0x200000; // clear OBJ_ST_SHARED_INSTANCED
+    this->stateShare.state &= ~(uint64_t)0x200000; // clear OBJ_ST_SHARED_INSTANCED
 }

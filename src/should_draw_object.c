@@ -36,10 +36,10 @@ uint8_t should_draw_object(int object_index)
     real_vector3d velocity;
     object_get_velocities(object_index, &velocity, 0);
 
-    unsigned __int8 active_or_multiplayer = game_engine_running() || !(object->unit.flags & (1u << _unit_active_camouflaged_bit));
+    uint8_t active_or_multiplayer = game_engine_running() || !(object->unit.flags & (1u << _unit_active_camouflaged_bit));
 
     float speed_squared = velocity.n[2] * velocity.n[2] + velocity.n[1] * velocity.n[1] + velocity.n[0] * velocity.n[0];
-    unsigned __int8 fast_enough_or_debug =
+    uint8_t fast_enough_or_debug =
         (speed_squared >= hud_globals->defaults.motion_sensor_velocity_sensitivity) || debug_motion_sensor_draw_all_units;
 
     if (!active_or_multiplayer)

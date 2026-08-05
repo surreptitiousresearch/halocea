@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 // ws-engine ds: a bit-granularity network serialization stream. Used throughout the HCEX
 // network-pack layer (haloPLAYER_ACTION_PACKER::Pack/Unpack, haloRAW_INPUT_X360_ENV::Pack/Unpack,
 // haloPLAYER_ACTIONS_ENV::Pack/Unpack). BOUNDARY -- only the fields/methods those callers touch
@@ -13,7 +14,7 @@ struct BIT_STREAM_vtbl; // boundary -- vtable shape not needed by these callers
 
 typedef struct BIT_STREAM {
     BIT_STREAM_vtbl   *__vftable;      // 0x00
-    unsigned __int8   *m_pData;        // 0x04
+    uint8_t   *m_pData;        // 0x04
     unsigned int       m_size;         // 0x08
     unsigned int       m_pos;          // 0x0C
     bool               m_isWrite;      // 0x10
@@ -33,6 +34,6 @@ typedef struct BIT_STREAM {
 
 // ?ByteReorder@ds@@YAXPAEHH@Z @ 0x82521C70 -- swap byte order of `data` (network <-> host),
 // used when m_reordering is set. Not reversed here; boundary.
-void ByteReorder(unsigned __int8 *data, int size, int reorderGain);
+void ByteReorder(uint8_t *data, int size, int reorderGain);
 
 } // namespace ds

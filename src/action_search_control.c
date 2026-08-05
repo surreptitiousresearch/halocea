@@ -46,12 +46,12 @@ void action_search_control(uint16_t actor_index)
         if ( window <= 90 )
             window = 90;
 
-        unsigned __int8 transitioned = 0;
+        uint8_t transitioned = 0;
 
         if ( elapsed - last_update < window )
         {
             /* pursuit_location.type: _pursuit_location_target(0) vs _pursuit_location_position(1). */
-            __int16 *search_cue_ref = &actor->state.action_data.___u0.search.pursuit_location.type;
+            int16_t *search_cue_ref = &actor->state.action_data.___u0.search.pursuit_location.type;
 
             if ( *search_cue_ref )
             {
@@ -61,9 +61,9 @@ void action_search_control(uint16_t actor_index)
                     actor->orders.look.primary_direction.type = _direction_specification_point;
 
                     /* copy the search cue's position into the actor's committed search target. */
-                    actor->orders.look.primary_direction.___u1.prop_index = *(int *)&actor->state.action_data.___u0.search.pursuit_location.position.x;
-                    *(int *)&actor->orders.look.primary_direction.___u1.point.y = *(int *)&actor->state.action_data.___u0.search.pursuit_location.position.y;
-                    *(int *)&actor->orders.look.primary_direction.___u1.point.z = *(int *)&actor->state.action_data.___u0.search.pursuit_location.position.z;
+                    /* DEVIATION: decompiler word-punned the 3x lwz/stw real_point3d copy
+                     * (0x83823508..18) across the union arms; plain assignment into the point arm. */
+                    actor->orders.look.primary_direction.___u1.point = actor->state.action_data.___u0.search.pursuit_location.position;
 
                     transitioned = 1;
                 }

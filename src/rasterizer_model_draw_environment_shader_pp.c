@@ -6,11 +6,9 @@
  * when the shader's no-fog flag is set), pushes the fog constants to the effect, then draws the dynamic
  * triangles once per effect pass.
  *
- * Clean decompile. shader[N] is the decompiler's 40-byte shader-block type-pun (see the diffuse-light
- * sibling _rasterizer_environment_diffuse_light_draw_pp for the same pattern): several fields are read
- * through a differently-typed reinterpret of the same bytes (`*(int *)&shader[N]...`, `*(float *)&shader[N]...`)
- * because the tag block packs unrelated values into a shader_radiosity_properties-shaped slot per technique
- * variant. DEVIATION (disasm 0x8378BB58-0x8378BB78, 0x8378BB74-0x8378BB8C): the decompiler garbled both
+ * Clean decompile. The decompiler's 40-byte shader[N] type-puns are resolved to the shader_environment DB
+ * members (environment.flags, diffuse.base/detail/bump maps, specular perpendicular/parallel colours,
+ * reflection brightnesses + map). DEVIATION (disasm 0x8378BB58-0x8378BB78, 0x8378BB74-0x8378BB8C): the decompiler garbled both
  * D3DDevice_SetVertexShaderConstantFN calls' trailing args (FPR/GPR-shadow pun) — count/mask are actually
  * (device, 0xA, base_map_transform, 3, (uint64)3<<60) and (device, 0xD, reflection_block, 2, (uint64)1<<60),
  * confirmed against the raw immediates (li r6,3/sldi r7,r7,60 and li r6,2/li r7,1;extldi r7,r7,64,60 — the
@@ -19,6 +17,7 @@
 #include <stdint.h>
 #include "headers/fog_definition_flags.h"
 #include "headers/shader.h"
+#include "headers/shader_environment.h"
 #include "headers/shader_environment_flags.h"
 #include "headers/vertex_buffer.h"
 #include "headers/triangle_buffer.h"
@@ -50,7 +49,7 @@ extern void D3DDevice_SetRenderState_BlendOp(D3DDevice *device, unsigned int val
 extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned int value);
 extern void D3DDevice_SetRenderState_AlphaRef(D3DDevice *device, unsigned int value);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
@@ -64,6 +63,7 @@ extern void rasterizer_draw(const triangle_buffer *triangle_buffer, int dynamic_
 
 void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t shader_permutation_index, const triangle_buffer *triangle_buffer, int dynamic_triangle_buffer_index, int triangle_count, const vertex_buffer *vertex_buffer, int dynamic_vertex_buffer_index)
 {
+    const shader_environment *env = (const shader_environment *)shader;
     if ( !rasterizer_debug_options.draw_models )
         return;
 
@@ -88,17 +88,18 @@ void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t s
     D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);               /* D3DBLEND_SRCALPHA */
     D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);              /* D3DBLEND_INVSRCALPHA */
     D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);                /* D3DBLENDOP_ADD */
-    D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, shader[1].base.radiosity.flags & 1);
+    D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device,
+            env->environment.flags & (1u << _shader_environment_alpha_tested_bit));
     D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0x7F);            /* alpha test reference 127 */
 
-    __int16 vertex_shader_index = 28;
-    if ( (shader[1].base.radiosity.flags & (1u << _shader_environment_true_atmospheric_fog_bit)) == 0 )
+    int16_t vertex_shader_index = 28;
+    if ( (env->environment.flags & (1u << _shader_environment_true_atmospheric_fog_bit)) == 0 )
     {
         if ( local_planar_fog_flag )
             vertex_shader_index = 25;
         else if ( local_parameters->lighting.point_light_count > 0 )
             vertex_shader_index = 26;
-        else if ( *(int *)&shader[20].base.radiosity.color.n[2] == -1
+        else if ( env->environment.reflection.map.index == -1
                 && local_parameters->skinning.node_matrix_count <= 1 )
             vertex_shader_index = 29;
     }
@@ -110,46 +111,45 @@ void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t s
         return;
     }
 
-    /* technique-variant packed into the upper 16 bits of shader[4]'s color.blue slot */
-    __int16 technique_variant = (unsigned __int16)(*(unsigned int *)&shader[4].base.radiosity.color.blue >> 16);
-    unsigned int technique = (shader[1].base.radiosity.flags & (1u << _shader_environment_true_atmospheric_fog_bit)) != 0
+    int16_t technique_variant = env->environment.diffuse.detail_map_function;
+    unsigned int technique = (env->environment.flags & (1u << _shader_environment_true_atmospheric_fog_bit)) != 0
             ? hModelEnvironmentNoMaskTechniques[technique_variant]
             : hModelEnvironmentNoMaskTechniques[technique_variant + 6];
     rasterizer_set_technique(effect_shader->effect, technique);
 
-    rasterizer_set_texture_for_effect(0, 0, 1, *(int *)&shader[3].base.radiosity.tint_color.n[2],
+    rasterizer_set_texture_for_effect(0, 0, 1, env->environment.diffuse.base_map.index,
             shader_permutation_index, effect_shader);
-    rasterizer_set_texture_for_effect(1, 0, 2, *(int *)&shader[4].base.type, shader_permutation_index,
-            effect_shader);
+    rasterizer_set_texture_for_effect(1, 0, 2, env->environment.diffuse.primary_detail_map.index,
+            shader_permutation_index, effect_shader);
 
-    int specular_map_index = (shader[1].base.radiosity.flags & 1) != 0
-            ? *(int *)&shader[7].base.radiosity.tint_color.n[2]
+    /* stage 2: the bump map doubles as the specular mask, bound only for alpha-tested shaders */
+    int bump_map_index = (env->environment.flags & (1u << _shader_environment_alpha_tested_bit)) != 0
+            ? env->environment.diffuse.bump_map.index
             : -1;
-    rasterizer_set_texture_for_effect(2, 0, 1, specular_map_index, shader_permutation_index, effect_shader);
+    rasterizer_set_texture_for_effect(2, 0, 1, bump_map_index, shader_permutation_index, effect_shader);
 
-    rasterizer_set_texture_for_effect(3, 2, 0, *(int *)&shader[20].base.radiosity.color.n[2],
+    rasterizer_set_texture_for_effect(3, 2, 0, env->environment.reflection.map.index,
             shader_permutation_index, effect_shader);
 
-    /* reflection-tint terms, each a shader[17..19] coefficient scaled by local_parameters's per-draw
-     * reflection tint color; several of shader[17..19]'s fields are read through a differently-typed
-     * reinterpret of the same 40-byte block (see file comment) */
+    /* reflection-tint terms: the specular view-perpendicular/parallel colours and the reflection
+     * view brightnesses, each scaled by local_parameters's per-draw reflection tint color */
     float reflection_r = local_parameters->lighting.reflection_tint_color.n[0];
     float reflection_g = local_parameters->lighting.reflection_tint_color.n[1];
     float reflection_b = local_parameters->lighting.reflection_tint_color.n[2];
     float reflection_a = local_parameters->lighting.reflection_tint_color.n[3];
 
-    float shader18_type_term = *(float *)&shader[18].base.type * reflection_r;
-    float shader17_flags_term = *(float *)&shader[17].base.radiosity.flags * reflection_g;
-    float shader17_power_term = shader[17].base.radiosity.power * reflection_b;
-    float shader19_flags_term = *(float *)&shader[19].base.radiosity.flags * reflection_r;
-    float shader17_color1_term = shader[17].base.radiosity.color.n[1] * reflection_g;
-    float shader17_color2_term = shader[17].base.radiosity.color.n[2] * reflection_b;
-    float shader17_tint0_term = shader[17].base.radiosity.tint_color.n[0] * reflection_a;
-    float shader17_color0_term = shader[17].base.radiosity.color.n[0] * reflection_a;
+    float perp_brightness_term = env->environment.reflection.view_perpendicular_brightness * reflection_r;
+    float perp_red_term = env->environment.specular.view_perpendicular_color.n[0] * reflection_g;
+    float perp_green_term = env->environment.specular.view_perpendicular_color.n[1] * reflection_b;
+    float par_brightness_term = env->environment.reflection.view_parallel_brightness * reflection_r;
+    float par_red_term = env->environment.specular.view_parallel_color.n[0] * reflection_g;
+    float par_green_term = env->environment.specular.view_parallel_color.n[1] * reflection_b;
+    float par_blue_term = env->environment.specular.view_parallel_color.n[2] * reflection_a;
+    float perp_blue_term = env->environment.specular.view_perpendicular_color.n[2] * reflection_a;
 
-    /* c10..c12: base-map UV scale followed by a fixed 1,1 pair */
+    /* c10..c12: primary-detail-map UV scale followed by a fixed 1,1 pair */
     float base_map_transform[12];
-    base_map_transform[0] = shader[4].base.radiosity.tint_color.n[0];
+    base_map_transform[0] = env->environment.diffuse.primary_detail_map_scale;
     base_map_transform[1] = base_map_transform[0];
     base_map_transform[2] = 1.0f;
     base_map_transform[3] = 1.0f;
@@ -162,20 +162,20 @@ void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t s
     base_map_transform[10] = 0.0f;
     base_map_transform[11] = 0.0f;
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, base_map_transform, 3,
-            (unsigned __int64)3 << 60);
+            (uint64_t)3 << 60);
 
     /* c13/c14: reflection-tint delta block (diffs) followed by the raw per-channel scaled terms */
     float reflection_block[8];
-    reflection_block[0] = shader17_flags_term - shader17_color1_term;
-    reflection_block[1] = shader17_power_term - shader17_color2_term;
-    reflection_block[2] = shader17_color0_term - shader17_tint0_term;
-    reflection_block[3] = shader18_type_term - shader19_flags_term;
-    reflection_block[4] = shader17_color1_term;
-    reflection_block[5] = shader17_color2_term;
-    reflection_block[6] = shader17_tint0_term;
-    reflection_block[7] = shader19_flags_term;
+    reflection_block[0] = perp_red_term - par_red_term;
+    reflection_block[1] = perp_green_term - par_green_term;
+    reflection_block[2] = perp_blue_term - par_blue_term;
+    reflection_block[3] = perp_brightness_term - par_brightness_term;
+    reflection_block[4] = par_red_term;
+    reflection_block[5] = par_green_term;
+    reflection_block[6] = par_blue_term;
+    reflection_block[7] = par_brightness_term;
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, reflection_block, 2,
-            (unsigned __int64)1 << 60);
+            (uint64_t)1 << 60);
 
     float fog_alpha;
     float fog_delta_r, fog_delta_g, fog_delta_b;
@@ -185,7 +185,7 @@ void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t s
 
     if ( global_fog_enabled )
     {
-        if ( (shader[1].base.radiosity.flags & (1u << _shader_environment_true_atmospheric_fog_bit)) != 0 )
+        if ( (env->environment.flags & (1u << _shader_environment_true_atmospheric_fog_bit)) != 0 )
         {
             /* no-fog shader variant: pass the reflection-tint terms straight through */
             fog_alpha = reflection_block[0];

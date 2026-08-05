@@ -82,7 +82,7 @@ void projectile_detonate(int projectile_index, uint8_t first_collision, float ti
     if ( (definition->projectile.flags & (1u << _projectile_super_combining_explosion_bit)) != 0 && (projectile->projectile.flags & (1u << _projectile_already_super_exploded_bit)) == 0
             && projectile->object.parent_object_index != -1 )
     {
-        __int16 sibling_count = 0;
+        int16_t sibling_count = 0;
         unit_datum *parent = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, projectile->object.parent_object_index)->datum;
         projectile_datum *child;
         for ( int child_index = parent->object.first_child_object_index; child_index != -1;
@@ -190,7 +190,7 @@ void projectile_detonate(int projectile_index, uint8_t first_collision, float ti
     }
 
     /* stage E: hit material response detonation effect */
-    __int16 hit_material_type = projectile->projectile.hit_material_type;
+    int16_t hit_material_type = projectile->projectile.hit_material_type;
     if ( hit_material_type != -1 )
     {
         projectile_material_response_definition *response;

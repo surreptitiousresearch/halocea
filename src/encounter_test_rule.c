@@ -20,15 +20,15 @@
 uint8_t encounter_test_rule(uint16_t encounter_index, platoon_rule *rule)
 {
     encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
-    __int16 platoon_index = rule->platoon_index;
+    int16_t platoon_index = rule->platoon_index;
 
-    __int16 original_count;
+    int16_t original_count;
     float   current_strength_fraction;
-    __int16 current_count;
+    int16_t current_count;
 
     if (platoon_index >= 0 && platoon_index < encounter->platoon_count)
     {
-        platoon_datum *platoon = &platoon_array[(__int16)(encounter->platoon_base + platoon_index)];
+        platoon_datum *platoon = &platoon_array[(int16_t)(encounter->platoon_base + platoon_index)];
         original_count            = platoon->original_count;
         current_strength_fraction = platoon->current_strength_fraction;
         current_count             = platoon->current_count;
@@ -59,15 +59,15 @@ uint8_t encounter_test_rule(uint16_t encounter_index, platoon_rule *rule)
         case _platoon_rule_25_dead:
             return original_count >= 4 * current_count / 3;
         case _platoon_rule_50_dead:
-            return (unsigned __int8)((original_count >> 31)
+            return (uint8_t)((original_count >> 31)
                                     + (original_count >= (unsigned int)(2 * current_count))
                                     + ((current_count & 0x40000000) != 0));
         case _platoon_rule_75_dead:
-            return (unsigned __int8)((original_count >> 31)
+            return (uint8_t)((original_count >> 31)
                                     + (original_count >= (unsigned int)(4 * current_count))
                                     + ((current_count & 0x20000000) != 0));
         case _platoon_rule_all_but_one_dead:
-            return (unsigned __int8)(((unsigned int)current_count <= 1) + (current_count < 0));
+            return (uint8_t)(((unsigned int)current_count <= 1) + (current_count < 0));
         case _platoon_rule_all_dead: /* wiped out */
             return current_count == 0;
         default:

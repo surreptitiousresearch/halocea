@@ -17,9 +17,9 @@ font_character *font_get_character_by_ascii_code(font_header *header, uint16_t c
     int *page = (int *)&tables[4 * ((character >> 8) & 0xFF) + 4 * ((character >> 7) & 0x1FE)];
     if (*page > 0)
     {
-        __int16 *index_table = nullptr;
+        int16_t *index_table = nullptr;
         if (*page == 256)
-            index_table = (__int16 *)(((2 * character) & 0x1FE) + page[1]);
+            index_table = (int16_t *)(((2 * character) & 0x1FE) + page[1]);
 
         int character_index = *index_table;
         if (character_index != -1)

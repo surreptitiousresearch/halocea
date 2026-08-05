@@ -21,37 +21,39 @@
 
 extern void *memset(void *destination, int value, unsigned int size);
 
-static unsigned __int8 disc_flag_test(unsigned char *disc_flags, __int16 disc_index)
+static uint8_t disc_flag_test(uint32_t *disc_words, int16_t disc_index)
 {
-    return (*(unsigned int *)&disc_flags[4 * (disc_index >> 5)] & (1u << (disc_index & 0x1F))) != 0;
+    return BIT_VECTOR_TEST_FLAG(disc_words, disc_index);
 }
 
-static void disc_flag_set(unsigned char *disc_flags, __int16 disc_index)
+static void disc_flag_set(uint32_t *disc_words, int16_t disc_index)
 {
-    *(unsigned int *)&disc_flags[4 * (disc_index >> 5)] |= 1u << (disc_index & 0x1F);
+    BIT_VECTOR_SET_FLAG(disc_words, disc_index);
 }
 
 void obstacles_disc_neighborhood(const obstacles *obstacles, float radius, int16_t seed_disc_index, uint8_t *disc_flags)
 {
+    uint32_t *disc_words = (uint32_t *)disc_flags;  /* 32-bit-word view of the bitset (DB param is uint8_t*) */
+
     memset(disc_flags, 0, 4 * BIT_VECTOR_SIZE_IN_LONGS(obstacles->disc_count));
 
     if ( seed_disc_index == -1 )
         return;
 
-    __int16 stack[128];
-    __int16 stack_top = 0;
+    int16_t stack[128];
+    int16_t stack_top = 0;
 
     stack[stack_top++] = seed_disc_index;
-    disc_flag_set(disc_flags, seed_disc_index);
+    disc_flag_set(disc_words, seed_disc_index);
 
     while ( stack_top > 0 )
     {
-        __int16 current_index = stack[--stack_top];
+        int16_t current_index = stack[--stack_top];
         const disc *current = &obstacles->discs[current_index];
 
-        for ( __int16 candidate_index = 0; candidate_index < obstacles->disc_count; ++candidate_index )
+        for ( int16_t candidate_index = 0; candidate_index < obstacles->disc_count; ++candidate_index )
         {
-            if ( disc_flag_test(disc_flags, candidate_index) )
+            if ( disc_flag_test(disc_words, candidate_index) )
                 continue;
 
             const disc *candidate = &obstacles->discs[candidate_index];
@@ -61,7 +63,7 @@ void obstacles_disc_neighborhood(const obstacles *obstacles, float radius, int16
 
             if ( dx * dx + dy * dy <= threshold * threshold )
             {
-                disc_flag_set(disc_flags, candidate_index);
+                disc_flag_set(disc_words, candidate_index);
                 stack[stack_top++] = candidate_index;
             }
         }

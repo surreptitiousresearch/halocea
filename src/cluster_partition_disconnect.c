@@ -5,6 +5,7 @@
  * [cluster], chained through ref+8) to find and unlink the entry pointing back at datum_index (ref+4).
  * Finally resets the object's cluster-reference head to -1. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/data_reference.h"
 #include "headers/cluster_partition.h"
@@ -23,7 +24,7 @@ void cluster_partition_disconnect(cluster_partition *partition, int datum_index,
         datum_delete(cluster_reference_data, cluster_reference_index);
 
         data_array *data_reference_data = partition->data_reference_data;
-        int *link = &partition->cluster_first_data_references[(__int16)cluster_index];
+        int *link = &partition->cluster_first_data_references[(int16_t)cluster_index];
         if ( *link != -1 )
         {
             while ( 1 )

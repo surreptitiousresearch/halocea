@@ -45,10 +45,10 @@ void ai_scripting_teleport_starting_location_private(int ai_index, uint8_t only_
 
         int squad_index = actor->meta.squad_index;
         encounter_definition *encounter =
-            &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)actor->meta.encounter_index];
+            &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)actor->meta.encounter_index];
         squad_definition *squad = &((squad_definition *)encounter->squads.address)[squad_index];
 
-        __int16 starting_location = encounter_get_actor_starting_location(actor->meta.encounter_index, squad_index, 1u);
+        int16_t starting_location = encounter_get_actor_starting_location(actor->meta.encounter_index, squad_index, 1u);
         if ( starting_location != -1 )
         {
             const actor_starting_location_definition *location =

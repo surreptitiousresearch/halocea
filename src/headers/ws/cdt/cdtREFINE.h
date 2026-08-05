@@ -6,6 +6,7 @@
 //   __vftable@0, ds::WEAK_PTR_BASE<cdtREFINE>@4 (pHandle), stateObjUsrIncl@8 (apSTATE_T<__int64>),
 //   pInstSelf@16 (animINST*), state@20 (apSTATE_T<unsigned long>), layerMask@24, specMode@28.
 
+#include <stdint.h>
 #include "../ds/WEAK_PTR_BASE.h"
 #include "../ap/apSTATE_T.h"
 
@@ -32,14 +33,14 @@ typedef struct cdtREFINE {
 
     cdtREFINE_vtbl              *__vftable;    // 0x00
     ds::WEAK_PTR_BASE<cdtREFINE> weakSelf;     // 0x04 (pHandle)
-    apSTATE_T<__int64>       stateObjUsrIncl; // 0x08 user object-inclusion state (low) + layer (high)
+    apSTATE_T<int64_t>       stateObjUsrIncl; // 0x08 user object-inclusion state (low) + layer (high)
     animINST                *pInstSelf;       // 0x10 the querying instance, excluded from results
     apSTATE_T<unsigned long> state;           // 0x14 refine flags
     unsigned int             layerMask;       // 0x18 collision layer mask
     SELDOM                   specMode;        // 0x1C sparse-sampling mode (default = 5, see ctor)
 
     // 0x827139E8 — construct from (flags, layerMask+objState packed in _stateObjUsrIncl, self inst).
-    cdtREFINE(unsigned int flags, __int64 stateObjUsrIncl, animINST *pInstSelf);
+    cdtREFINE(unsigned int flags, int64_t stateObjUsrIncl, animINST *pInstSelf);
     // 0x823D6590 — release weak handle on destroy. Dispatched through the explicit __vftable
     // member (slot 0); declared non-virtual so MSVC emits no implicit vptr — a `virtual` here
     // would shift every member +4 vs the DB layout (single-vptr convention, as in cdtBONE et al).

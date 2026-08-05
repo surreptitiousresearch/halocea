@@ -50,7 +50,7 @@ uint8_t hs_rebuild_source(void)
     /* standard qsort idiom: typed comparator cast to qsort's generic const void* signature */
     qsort(found, file_count, 0x10Cu, (int (__fastcall *)(const void *, const void *))alphabetize_file_references);
 
-    for ( __int16 i = 0; i < file_count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < file_count; i = (int16_t)(i + 1) )
     {
         char name[256];
         file_reference_get_name(&found[i], 8u, name);

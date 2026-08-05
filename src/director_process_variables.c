@@ -30,7 +30,7 @@ void director_process_variables(int16_t local_player_index, int control_bits, fl
         scale = 50.0f;
     dir->debug_input_scale = scale;
 
-    for ( i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( i = 0; i < 4; i = (int16_t)(i + 1) )
     {
         const director_variable_definition *def = &variables[i];
         float *value = &dir->debug_variables[i].value;

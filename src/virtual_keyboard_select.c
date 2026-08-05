@@ -114,7 +114,7 @@ finish_editing:
 
     /* default: replace-buffer-on-first-key, then insert a literal space if there's room */
     {
-        unsigned __int16 *text_buffer = virtual_keyboard_globals.text_buffer;
+        uint16_t *text_buffer = virtual_keyboard_globals.text_buffer;
         if ( virtual_keyboard_globals.first_key_replaces_buffer == 1 )
         {
             memset(virtual_keyboard_globals.text_buffer, 0, virtual_keyboard_globals.buffer_size);
@@ -137,7 +137,7 @@ finish_editing:
 
 insert_character:
     {
-        unsigned __int16 *text_buffer = virtual_keyboard_globals.text_buffer;
+        uint16_t *text_buffer = virtual_keyboard_globals.text_buffer;
         if ( virtual_keyboard_globals.first_key_replaces_buffer == 1 )
         {
             memset(virtual_keyboard_globals.text_buffer, 0, virtual_keyboard_globals.buffer_size);
@@ -160,7 +160,7 @@ insert_character:
             unsigned int fortune_index = system_milliseconds() % 10;
             if ( fortune_index > 9 )
                 fortune_index = 9;
-            virtual_keyboard_globals.caption_index = (__int16)(fortune_index + 11);
+            virtual_keyboard_globals.caption_index = (int16_t)(fortune_index + 11);
 
             if ( virtual_keyboard_globals.original_buffer[0] )
             {
@@ -181,7 +181,7 @@ insert_character:
 buffer_full:
     audio_feedback_sound = _ui_audio_feedback_flag_failure;
 play_sound:
-    ui_play_audio_feedback_sound((__int16)audio_feedback_sound);
+    ui_play_audio_feedback_sound((int16_t)audio_feedback_sound);
 
 update_shift:
     virtual_keyboard_globals.shift_active &=

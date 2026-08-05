@@ -2,6 +2,7 @@
  * null if the index is invalid: the sentinel -1, a negative (high-bit-set) handle, an out-of-range
  * slot, an empty slot (salt word 0), or a salt mismatch against the handle's high word. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/datum_index.h"
 
@@ -9,13 +10,13 @@
  * slot address in r3. `data` is never written through — const. */
 void *datum_try_and_get(const data_array *data, int index)
 {
-    if ( index != -1 && (__int16)index >= 0 && (__int16)index < data->maximum_count )
+    if ( index != -1 && (int16_t)index >= 0 && (int16_t)index < data->maximum_count )
     {
-        __int16 *datum = (__int16 *)((char *)data->data + data->size * (__int16)index);
+        int16_t *datum = (int16_t *)((char *)data->data + data->size * (int16_t)index);
         if ( *datum )
         {
             /* identifier salt = handle's high 16 bits (value semantics) */
-        if ( !DATUM_INDEX_TO_IDENTIFIER(index) || *datum == (__int16)DATUM_INDEX_TO_IDENTIFIER(index) )
+        if ( !DATUM_INDEX_TO_IDENTIFIER(index) || *datum == (int16_t)DATUM_INDEX_TO_IDENTIFIER(index) )
                 return datum;
         }
     }

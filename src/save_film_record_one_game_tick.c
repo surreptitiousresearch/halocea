@@ -34,8 +34,8 @@ uint8_t save_film_record_one_game_tick(unsigned int update_number, unsigned int 
     tick.random_seed = random_seed;
     tick.crc = game_state_calculate_crc();
 
-    __int16 header_size = 8;
-    __int16 body_size = 400;
+    int16_t header_size = 8;
+    int16_t body_size = 400;
 
     int actions_changed;
     if (player_count != global_saved_film.player_count)
@@ -60,7 +60,7 @@ uint8_t save_film_record_one_game_tick(unsigned int update_number, unsigned int 
     if (data_packet_group_encode_packet(&saved_film_group, &tick, encoded_body, &body_size,
                                         _message_server_game_update_packet, SAVED_FILM_VERSION))
     {
-        __int16 frame_size = body_size;
+        int16_t frame_size = body_size;
         unsigned char encoded_header[8];
         if (body_size > 0
             && data_packet_group_encode_packet(&saved_film_group, &frame_size, encoded_header, &header_size,

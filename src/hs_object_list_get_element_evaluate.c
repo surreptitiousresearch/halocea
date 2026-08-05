@@ -10,6 +10,6 @@ void hs_object_list_get_element_evaluate(int16_t function_index, int thread_inde
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        hs_return(thread_index, hs_object_list_get_element(arguments[0], ((__int16 *)arguments)[2]));
+        hs_return(thread_index, hs_object_list_get_element(arguments[0], ((int16_t *)arguments)[2]));
     }
 }

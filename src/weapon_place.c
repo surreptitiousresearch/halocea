@@ -6,6 +6,7 @@
  * ORs in +16 bit 0x20000, and — only when the "starts loaded" placement flag (0x1) is clear — nudges the
  * object's spawn-stagger float (+100) by 0.05. Returns weapon_index unchanged. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/object_header_datum.h"
@@ -30,12 +31,12 @@ int weapon_place(int weapon_index, scenario_weapon_datum *scenario_weapon)
         weapon_magazine_definition *magazine =
             (weapon_magazine_definition *)definition->weapon.magazines.address;
 
-        __int16 rounds_total = scenario_weapon->rounds_total;
+        int16_t rounds_total = scenario_weapon->rounds_total;
         if ( rounds_total > magazine->rounds_total_maximum )
             rounds_total = magazine->rounds_total_maximum;
         weapon->weapon.magazines[0].rounds_total = rounds_total;
 
-        __int16 rounds_loaded = scenario_weapon->rounds_loaded;
+        int16_t rounds_loaded = scenario_weapon->rounds_loaded;
         if ( rounds_loaded > magazine->rounds_loaded_maximum )
             rounds_loaded = magazine->rounds_loaded_maximum;
         weapon->weapon.magazines[0].rounds_loaded = rounds_loaded;

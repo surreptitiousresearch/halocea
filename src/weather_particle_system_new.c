@@ -26,7 +26,7 @@ void weather_particle_system_new(int16_t system_index, int definition_index, flo
     int type_count = definition->particle_types.count;
     weather_particle_type_definition *type_defs =
         (weather_particle_type_definition *)definition->particle_types.address;
-    for (int type = 0; type < type_count; type = (__int16)(type + 1))
+    for (int type = 0; type < type_count; type = (int16_t)(type + 1))
     {
         weather_particle_type_datum *type_datum = &system->types[type];
         type_datum->first_particle_index = -1;

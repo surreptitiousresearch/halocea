@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "apCOUNTER.h"
 // ap named cumulative call-time counters (profiling). apCOUNTER_TIME_RECUR (full definition:
 // apCOUNTER_TIME_RECUR.h) is a static per-call-site recurring time counter; apCOUNTER_TIME_CALL_WRP
@@ -18,11 +19,11 @@ struct apCOUNTER_TIME : apCOUNTER {
     // DB-verified (types_members apCOUNTER_TIME::tmDATA): start@0, sum@8 — size 16 (no `depth`,
     // unlike apCOUNTER_TIME_RECUR — this counter does not support re-entrant timing).
     struct tmDATA {
-        __int64 start; // 0x00 sample start timestamp (osGetPerfCounter ticks)
-        __int64 sum;   // 0x08 accumulated elapsed time
+        int64_t start; // 0x00 sample start timestamp (osGetPerfCounter ticks)
+        int64_t sum;   // 0x08 accumulated elapsed time
     };
 
-    __int64 customFreq; // 0x20 custom timer frequency override (0 = use default)
+    int64_t customFreq; // 0x20 custom timer frequency override (0 = use default)
     tmDATA  tmData[8];   // 0x28 per-processor-slot start/accumulate
     tmDATA  tmDataTotal; // 0xA8 all-time accumulation
 

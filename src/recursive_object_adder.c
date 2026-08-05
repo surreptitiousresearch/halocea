@@ -7,6 +7,7 @@
  * references `custom_data`; disasm_range(0x836EE1D8, 0x836EE2AC) shows it's actually called as
  * `add_object_function(object_index, custom_data)` (r3, r4 at the call site). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
@@ -15,7 +16,7 @@
 
 int recursive_object_adder(
         int object_index,
-        unsigned __int8 (*add_object_function)(int object_index, void *custom_data),
+        uint8_t (*add_object_function)(int object_index, void *custom_data),
         void *custom_data,
         int object_count,
         int maximum_count,

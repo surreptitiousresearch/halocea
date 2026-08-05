@@ -63,7 +63,7 @@ void actor_delete_props(uint16_t actor_index)
                                     swarm->component_indices[i]);
                     if ( component->combat_target_prop_index == prop_index )
                         component->combat_target_prop_index = -1;
-                    i = (__int16)(i + 1);
+                    i = (int16_t)(i + 1);
                 }
                 while ( i < swarm->unit_count );
             }

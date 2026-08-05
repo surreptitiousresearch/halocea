@@ -22,7 +22,7 @@ uint8_t unit_should_autopick_weapon(int unit_index, int weapon_index)
     weapon_definition *definition = TAG_GET(weapon_definition, weapon_object_definition);
     int weapon_count = unit_get_weapon_count(unit_index);
 
-    unsigned __int8 should_pick_up = unit_approve_weapon_pickup(unit_index, weapon_index)
+    uint8_t should_pick_up = unit_approve_weapon_pickup(unit_index, weapon_index)
         && (definition->weapon.flags & (1u << _weapon_doesnt_count_toward_maximum_bit)) != 0;
     if (should_pick_up || weapon_count == 0)
         return 1;

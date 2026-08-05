@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "../headers/hcex/haloRAW_INPUT_X360_ENV.h"
 #include "../headers/ws/ds/dsDATA.h"
 
@@ -10,33 +11,33 @@ void haloRAW_INPUT_X360_ENV::Unpack(ds::BIT_STREAM &stream, const dsDATA &userCt
 {
     stream.RawRead(&msgId, 0x20u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&msgId), 4, 4);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&msgId), 4, 4);
 
     stream.RawRead(&tick, 0x20u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&tick), 4, 4);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&tick), 4, 4);
 
     stream.RawRead(&crc, 0x20u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&crc), 4, 4);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&crc), 4, 4);
 
     stream.RawRead(&buttons, 0x20u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&buttons), 4, 4);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&buttons), 4, 4);
 
     stream.RawRead(&sThumbLX, 0x10u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&sThumbLX), 2, 2);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&sThumbLX), 2, 2);
 
     stream.RawRead(&sThumbLY, 0x10u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&sThumbLY), 2, 2);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&sThumbLY), 2, 2);
 
     stream.RawRead(&sThumbRX, 0x10u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&sThumbRX), 2, 2);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&sThumbRX), 2, 2);
 
     stream.RawRead(&sThumbRY, 0x10u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&sThumbRY), 2, 2);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&sThumbRY), 2, 2);
 }

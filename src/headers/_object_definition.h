@@ -5,14 +5,15 @@
  * `TAG_GET(int, *unit_object)[17]` (int index 17 = byte 68) in
  * action_obey_command_begin.c's atom 0xD handler down to `object.animation_graph.index`. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "tag_reference.h"
 #include "tag_block.h"
 
 typedef struct _object_definition
 {
-    __int16          type;                        /* 0x00 */
-    unsigned __int16 flags;                        /* 0x02 */
+    int16_t          type;                        /* 0x00 */
+    uint16_t flags;                        /* 0x02 */
     float            bounding_radius;              /* 0x04 */
     real_point3d     bounding_offset;               /* 0x08 */
     real_point3d     origin_offset;                  /* 0x14 */
@@ -27,10 +28,10 @@ typedef struct _object_definition
     tag_reference    creation_effect;                                /* 0xA0 */
     int              unused1[21];                                     /* 0xB0 */
     float            render_bounding_radius;                            /* 0x104 */
-    __int16          function_modes[4];                                  /* 0x108 */
+    int16_t          function_modes[4];                                  /* 0x108 */
     int              unused2[11];                                          /* 0x110 */
-    __int16          icon_text_index;                                        /* 0x13C */
-    __int16          forced_shader_permutation_index;                          /* 0x13E */
+    int16_t          icon_text_index;                                        /* 0x13C */
+    int16_t          forced_shader_permutation_index;                          /* 0x13E */
     tag_block        attachments;                                                /* 0x140 */
     tag_block        widgets;                                                      /* 0x14C */
     tag_block        functions;                                                      /* 0x158 */

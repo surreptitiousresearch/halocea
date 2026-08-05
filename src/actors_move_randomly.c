@@ -49,7 +49,7 @@ void actors_move_randomly(void)
             continue;
 
         swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
-        for ( int member = 0; member < swarm->unit_count; member = (__int16)(member + 1) )
+        for ( int member = 0; member < swarm->unit_count; member = (int16_t)(member + 1) )
         {
             int unit_index = swarm->unit_indices[member];
 

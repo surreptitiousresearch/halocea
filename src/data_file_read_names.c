@@ -15,7 +15,7 @@ uint8_t data_file_read_names(data_file_s *data_file)
 
     data_file->names = dlMalloc(names_size, "D:\\Projects\\code\\HCEX\\sources\\cache\\data_file.c", 0xACu);
 
-    unsigned __int8 success = cached_sync_read(data_file->hFile, data_file->names, names_size, data_file->header.names_offset);
+    uint8_t success = cached_sync_read(data_file->hFile, data_file->names, names_size, data_file->header.names_offset);
 
     if ( success )
     {

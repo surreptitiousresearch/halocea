@@ -57,7 +57,7 @@ extern int player_index_from_unit_index(int unit_index);
 extern char *main_get_map_name(void);
 extern char *strstr(const char *haystack, const char *needle);
 extern float device_group_get_value(int group_index);
-extern void hcex_fire_plr_event(const char *event_name, __int16 player_identifier);
+extern void hcex_fire_plr_event(const char *event_name, int16_t player_identifier);
 extern uint32_t *get_global_random_seed_address(void);
 extern uint16_t seed_random(uint32_t *seed);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
@@ -102,7 +102,7 @@ void weapon_trigger_fire(int weapon_index, int16_t trigger_index)
     /* HCEX b30-map fire event when a player is the shooter. */
     if ( (weapon->item.flags & (1u << _item_belongs_to_player_bit)) != 0 )
     {
-        __int16 shooter_local_player;
+        int16_t shooter_local_player;
         if ( player_index_from_unit_index(owner_unit_index) == -1 )
             shooter_local_player = -1;
         else
@@ -136,7 +136,7 @@ void weapon_trigger_fire(int weapon_index, int16_t trigger_index)
     }
 
     /* Consume a round from the loaded magazine. */
-    unsigned int magazine_index = (unsigned __int16)trigger_definition->magazine_index;
+    unsigned int magazine_index = (uint16_t)trigger_definition->magazine_index;
     if ( magazine_index == 0xFFFF )
     {
         did_fire = 1;
@@ -144,9 +144,9 @@ void weapon_trigger_fire(int weapon_index, int16_t trigger_index)
     }
 
     {
-        weapon_magazine *magazine = &weapon->weapon.magazines[(__int16)magazine_index];
+        weapon_magazine *magazine = &weapon->weapon.magazines[(int16_t)magazine_index];
         weapon_magazine_definition *magazine_def = &((weapon_magazine_definition *)
-            definition->weapon.magazines.address)[(__int16)magazine_index];
+            definition->weapon.magazines.address)[(int16_t)magazine_index];
 
         if ( !overload_this_shot
           || weapon->weapon.alternate_shots_loaded < definition->weapon.maximum_alternate_shots_loaded )
@@ -181,13 +181,13 @@ have_fire_decision:
         did_fire = 1;
 
     int barrel_count = trigger_definition->firing_effects.count;
-    __int16 barrel_rounds; /* v29 — rounds left before advancing barrel / rolled animation range */
+    int16_t barrel_rounds; /* v29 — rounds left before advancing barrel / rolled animation range */
     if ( barrel_count > 0 )
     {
         barrel_rounds = trigger_state->firing_effect_shots_remaining;
         if ( barrel_rounds <= 0 )
         {
-            __int16 start_barrel = trigger_state->firing_effect_index;
+            int16_t start_barrel = trigger_state->firing_effect_index;
             int current_barrel;
             if ( (trigger_definition->flags & (1u << _weapon_trigger_random_firing_effects_bit)) != 0 )
             {
@@ -223,7 +223,7 @@ have_fire_decision:
                 trigger_state->firing_effect_index = current_barrel;
                 trigger_state->firing_effects_used_flags = barrel_bit | used_mask;
 
-                trigger_firing_effect *barrel = &barrels[(__int16)current_barrel];
+                trigger_firing_effect *barrel = &barrels[(int16_t)current_barrel];
                 unsigned int *seed = get_global_random_seed_address();
                 barrel_rounds = seed_random_range(seed, barrel->shots_lower_bound,
                                                   barrel->shots_upper_bound);
@@ -232,7 +232,7 @@ have_fire_decision:
             while ( barrel_rounds <= 0 && current_barrel != start_barrel );
         }
 
-        __int16 active_barrel = trigger_state->firing_effect_index;
+        int16_t active_barrel = trigger_state->firing_effect_index;
         trigger_state->firing_effect_shots_remaining = barrel_rounds - 1;
 
         /* Overcharge roll: fraction of the weapon's charge past the misfire threshold. */
@@ -296,7 +296,7 @@ have_fire_decision:
 
         weapon->weapon.game_time_last_fired = game_time_get();
 
-        __int16 message_index;
+        int16_t message_index;
         if ( overcharged )
             message_index = (trigger != 0) ? _first_person_weapon_message_secondary_misfire
                                            : _first_person_weapon_message_primary_misfire;
@@ -349,7 +349,7 @@ have_fire_decision:
             {
                 char should_create_projectiles;
                 NetworkedDatumRole projectile_role;
-                __int16 connection = game_connection();
+                int16_t connection = game_connection();
                 if ( connection == 1 )
                 {
                     if ( (trigger_definition->flags & (1u << _weapon_trigger_client_side_only_bit)) != 0 && allow_client_side_weapon_projectiles == 1 )

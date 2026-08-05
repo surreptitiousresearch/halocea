@@ -68,7 +68,7 @@ void halt_and_catch_fire(void)
     {
         recursion_lock = 1;
 
-        for ( __int16 gamepad = 0; gamepad < 4; ++gamepad )
+        for ( int16_t gamepad = 0; gamepad < 4; ++gamepad )
         {
             if ( input_has_gamepad(gamepad) )
                 input_set_gamepad_vibrate_state(gamepad, 0, 0);

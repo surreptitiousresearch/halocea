@@ -6,29 +6,30 @@
  * cell falls on (reproduced via the compiled sign/comparison bit-trick rather than re-derived, to avoid
  * introducing a sign-handling mistake). */
 
+#include <stdint.h>
 #include "headers/flag_definition.h"
 #include "headers/flag_datum.h"
 
-void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, __int16 x, __int16 y,
-    __int16 size, __int16 tesselation)
+void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y,
+    int16_t size, int16_t tesselation)
 {
-    __int16 origin_x = x;
-    __int16 origin_y = y;
-    __int16 x_end = size + x;
+    int16_t origin_x = x;
+    int16_t origin_y = y;
+    int16_t x_end = size + x;
 
     for ( ; x < x_end; x++ )
     {
-        __int16 y_end = origin_y + size;
-        for ( __int16 row = y; row < y_end; row++ )
+        int16_t y_end = origin_y + size;
+        for ( int16_t row = y; row < y_end; row++ )
         {
             if ( x < 0 || row < 0 || x >= flag_definition->width - 1 )
                 continue;
 
-            __int16 height_stride = flag_definition->height - 1;
+            int16_t height_stride = flag_definition->height - 1;
             if ( row >= height_stride )
                 continue;
 
-            __int16 horizontal_side, vertical_side;
+            int16_t horizontal_side, vertical_side;
             if ( tesselation == 4 || tesselation == 5 )
                 horizontal_side = x - origin_x;
             else
@@ -39,7 +40,7 @@ void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, _
             else
                 vertical_side = origin_y - row + size - 1;
 
-            __int16 *cell = &flag->cells[height_stride * x + row].tesselation;
+            int16_t *cell = &flag->cells[height_stride * x + row].tesselation;
             if ( horizontal_side == vertical_side )
             {
                 *cell = tesselation;

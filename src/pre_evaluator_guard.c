@@ -10,7 +10,7 @@
 
 void pre_evaluator_guard(int actor_index, firing_position_evaluation_context *evaluation_context, int16_t firing_position_count, firing_position *firing_positions)
 {
-    for ( __int16 i = 0; i < firing_position_count; i++ )
+    for ( int16_t i = 0; i < firing_position_count; i++ )
     {
         firing_position *position = &firing_positions[i];
         if ( !position->valid )

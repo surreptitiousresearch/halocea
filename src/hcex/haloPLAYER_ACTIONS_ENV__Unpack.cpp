@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"
 #include "../headers/ws/ds/dsDATA.h"
 
@@ -9,5 +10,5 @@ void haloPLAYER_ACTIONS_ENV::Unpack(ds::BIT_STREAM &stream, const dsDATA &userCt
 
     stream.RawRead(&skip_cine, 0x20u, 0);
     if ( stream.m_reordering )
-        ds::ByteReorder(reinterpret_cast<unsigned __int8 *>(&skip_cine), 4, 4);
+        ds::ByteReorder(reinterpret_cast<uint8_t *>(&skip_cine), 4, 4);
 }

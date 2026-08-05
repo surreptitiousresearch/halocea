@@ -27,10 +27,10 @@ void sound_set_definition_end(uint16_t sound_index)
     sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     int end_definition_index = datum->next_definition_index;
     float pitch_modifier = datum->pitch;
-    __int16 flags = datum->flags;
+    int16_t flags = datum->flags;
     sound_definition *definition = TAG_GET(sound_definition, end_definition_index);
-    __int16 pitch_range;
-    __int16 permutation;
+    int16_t pitch_range;
+    int16_t permutation;
     int assigned_channel;
     sound_channel_summary summary;
 
@@ -41,7 +41,7 @@ void sound_set_definition_end(uint16_t sound_index)
     pitch_range = sound_definition_find_pitch_range_by_pitch(definition, pitch_modifier, flags);
     datum->pitch_range_index = pitch_range;
     permutation = sound_definition_next_permutation(definition, pitch_range, -1);
-    assigned_channel = (unsigned __int16)datum->playing_channel_index;
+    assigned_channel = (uint16_t)datum->playing_channel_index;
     datum->permutation_index = permutation;
 
     if ( assigned_channel == 0xFFFF )
@@ -50,7 +50,7 @@ void sound_set_definition_end(uint16_t sound_index)
     sound_channel_summary_build(&summary, sound_index);
     if ( summary.like_source_count < summary.maximum_source_instance_count )
     {
-        __int16 like_channel;
+        int16_t like_channel;
         if ( summary.like_definition_count < summary.maximum_instance_count )
             return;
         like_channel = sound_find_like_channel(sound_index, summary.like_definition_channels,
@@ -63,7 +63,7 @@ void sound_set_definition_end(uint16_t sound_index)
     }
     else
     {
-        __int16 like_channel = sound_find_like_channel(sound_index, summary.like_source_channels,
+        int16_t like_channel = sound_find_like_channel(sound_index, summary.like_source_channels,
                                                        summary.like_source_count);
         if ( like_channel != -1 )
         {

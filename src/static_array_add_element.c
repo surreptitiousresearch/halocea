@@ -3,7 +3,7 @@
 
 int16_t static_array_add_element(uint8_t *count, void *elements, int16_t element_size, int16_t maximum_count)
 {
-    unsigned __int8 index = *count;
+    uint8_t index = *count;
 
     if ( index >= maximum_count )
         return -1;

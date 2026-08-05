@@ -4,9 +4,10 @@
  * header, but read here via 4-byte array-element addressing matching the compiled `self + 0x998 + 4*i`) is
  * only ever tested at index 0. */
 
+#include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 
-extern int SleepEx(unsigned int milliseconds, unsigned __int8 alertable);
+extern int SleepEx(unsigned int milliseconds, uint8_t alertable);
 
 void wait_for_io_to_complete(simple_decompressor_definition *self)
 {
@@ -14,7 +15,7 @@ void wait_for_io_to_complete(simple_decompressor_definition *self)
 
     while ( 1 )
     {
-        unsigned __int8 still_pending = 0;
+        uint8_t still_pending = 0;
         for ( int i = 0; i < 1; ++i )
         {
             if ( self->overlapped_in_use_flags[i] )

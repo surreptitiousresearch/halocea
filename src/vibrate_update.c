@@ -20,11 +20,11 @@ extern float transition_function_evaluate(int16_t function_type, float value);
 extern int local_player_get_player_index(int16_t local_player_index);
 extern int16_t player_ui_get_single_player_local_player_from_controller(int16_t controller_index);
 extern uint8_t player_ui_vibrate_disabled(int16_t local_player_index);
-extern void input_set_gamepad_vibrater_state(int controller, unsigned __int16 left, unsigned __int16 right);
+extern void input_set_gamepad_vibrater_state(int controller, uint16_t left, uint16_t right);
 
 void vibrate_update(void)
 {
-    __int16 controller;
+    int16_t controller;
 
     for ( controller = 0; controller < 2; controller++ )
     {
@@ -33,7 +33,7 @@ void vibrate_update(void)
         int impulse_index;
         double left, right;
         double scaled;
-        unsigned __int16 left_motor, right_motor;
+        uint16_t left_motor, right_motor;
         int player_index, unit_player_index;
 
         channel[0] = vib->left_frequency_continuous;

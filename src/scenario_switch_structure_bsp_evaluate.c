@@ -11,7 +11,7 @@ void scenario_switch_structure_bsp_evaluate(int16_t function_index, int thread_i
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        scenario_switch_structure_bsp(*(__int16 *)arguments);
+        scenario_switch_structure_bsp(*(int16_t *)arguments);
         hs_return(thread_index, 0);
     }
 }

@@ -69,12 +69,12 @@ void cache_copy_run_decompression(simple_decompressor_definition *self)
             if ( !zlib_stream->avail_in )
             {
                 cache_copy_read_request *current_request = self->current_request;
-                __int16 request_index = (__int16)(current_request - self->read_requests);
+                int16_t request_index = (int16_t)(current_request - self->read_requests);
                 self->overlapped_completed_flags[0] &= ~(1 << (request_index & 0x1F));
                 current_request->read_sequence_index = -1;
                 cache_copy_issue_read_request_internal(self, current_request, request_index);
-                __int16 sequence_index = self->current_sequence_index;
-                __int16 read_sequence_count = self->current_read_sequence_count;
+                int16_t sequence_index = self->current_sequence_index;
+                int16_t read_sequence_count = self->current_read_sequence_count;
                 self->current_request = 0;
                 self->current_sequence_index = sequence_index + 1;
                 self->current_read_sequence_count = read_sequence_count - 1;

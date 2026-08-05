@@ -23,7 +23,7 @@ int16_t data_decode_integer(data_encoding_state *state, int maximum_value)
         return data_decode_short(state);
     }
 
-    unsigned __int8 *value = (unsigned __int8 *)data_decode_memory(state, 1, 1);
+    uint8_t *value = (uint8_t *)data_decode_memory(state, 1, 1);
     if (value)
         return *value;
     return 0;

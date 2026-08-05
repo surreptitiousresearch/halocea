@@ -17,7 +17,7 @@ void player_effect_get_damage_indicators(int16_t local_player_index, uint8_t *da
     damage_indicators[2] = effect->damage_indicator_ticks[2];
     damage_indicators[3] = effect->damage_indicator_ticks[3];
 
-    for ( __int16 i = 0; i < 4; ++i )
+    for ( int16_t i = 0; i < 4; ++i )
     {
         if ( effect->damage_indicator_ticks[i] )
         {

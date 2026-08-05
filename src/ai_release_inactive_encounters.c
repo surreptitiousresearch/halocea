@@ -30,7 +30,7 @@ extern void ai_erase(int encounter_index, int platoon_index, int squad_index, ui
 int ai_release_inactive_encounters(char *result_description, uint8_t *more_to_release, uint8_t *working_memory, int16_t working_memory_size)
 {
     ai_inactive_release_memory *memory = (ai_inactive_release_memory *)working_memory;
-    __int16 cursor = memory->cursor;
+    int16_t cursor = memory->cursor;
     int result = 0;
 
     if ( cursor < memory->count )
@@ -48,7 +48,7 @@ int ai_release_inactive_encounters(char *result_description, uint8_t *more_to_re
         else
         {
             sprintf_0(result_description, "encounter %s (%d units)",
-                ((encounter_definition *)global_scenario->ai_encounters.address + (unsigned __int16)index)->name,
+                ((encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)index)->name,
                 DATUM_GET(encounter_data, encounter_datum, index)->current_count);
             ai_erase(index, -1, -1, 1u);
         }
@@ -57,8 +57,8 @@ int ai_release_inactive_encounters(char *result_description, uint8_t *more_to_re
         ++memory->cursor;
     }
 
-    __int16 count = memory->count;
-    __int16 new_cursor = memory->cursor;
+    int16_t count = memory->count;
+    int16_t new_cursor = memory->cursor;
     *more_to_release = (((count ^ new_cursor) >= 0) + (new_cursor >= (unsigned int)count)) & 1;
 
     return result;

@@ -15,7 +15,7 @@ void multiplayer_game_set_text_box_for_number_of_players(widget_instance *widget
 
     if ( game )
     {
-        unsigned __int16 *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 8u);
+        uint16_t *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 8u);
 
         widget->parameters.text_box_parameters.text = text;
         if ( text )

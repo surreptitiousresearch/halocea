@@ -26,20 +26,20 @@ int16_t convex_hull2d_intersect(int16_t p_count, const real_point2d *p, int q_co
     real_plane2d clip_line;
     real_point2d ping_pong[2][512];
 
-    int active_count = (__int16)q_count;
+    int active_count = (int16_t)q_count;
     int edge_index = 0;
     while (active_count > 0)
     {
-        int previous_vertex = (__int16)edge_index != 0 ? edge_index - 1 : p_count - 1;
+        int previous_vertex = (int16_t)edge_index != 0 ? edge_index - 1 : p_count - 1;
         real_point2d *output = (edge_index == p_count - 1) ? result : ping_pong[edge_index & 1];
 
         if (plane2d_from_points(&clip_line, &p[edge_index], &p[previous_vertex]))
         {
             int clipped_count = convex_polygon2d_clip_to_plane(current_count, q, &clip_line, maximum_count,
                                                                output, nullptr, nullptr, epsilon);
-            active_count = (__int16)clipped_count;
+            active_count = (int16_t)clipped_count;
             current_count = clipped_count;
-            if ((__int16)clipped_count == -1)
+            if ((int16_t)clipped_count == -1)
                 return -1;
         }
         else
@@ -48,7 +48,7 @@ int16_t convex_hull2d_intersect(int16_t p_count, const real_point2d *p, int q_co
         }
 
         q = output;
-        edge_index = (__int16)(edge_index + 1);
+        edge_index = (int16_t)(edge_index + 1);
         if (edge_index >= p_count)
             return current_count;
     }

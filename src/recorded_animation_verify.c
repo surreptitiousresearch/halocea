@@ -7,6 +7,7 @@
  * `(char *)&playback_codec[-1] + __ROL4__(version, 2)`, which for the small version values in play is
  * exactly playback_codec[version - 1]; written in that direct form to match the established sibling. */
 
+#include <stdint.h>
 #include "headers/recorded_animation_definition.h"
 #include "headers/animation_playback.h"
 #include "headers/animation_playback_controller.h"
@@ -29,7 +30,7 @@ void recorded_animation_verify(const recorded_animation_definition *recording)
         &event_stream,
         recording->unit_control_data_version);
 
-    unsigned __int8 more;
+    uint8_t more;
     do
     {
         more = playback_codec[recording->version - 1]->apply_event_stream(

@@ -3,6 +3,7 @@
  * verbatim from the database type of the same name. */
 #pragma once
 
+#include <stdint.h>
 #include "real_plane3d.h"
 
 typedef struct collision_bsp_test_pill_result
@@ -12,7 +13,7 @@ typedef struct collision_bsp_test_pill_result
     int             surface_index;           /* 0x14 */
     unsigned char   flags;                   /* 0x18 */
     unsigned char   breakable_surface_index; /* 0x19 */
-    __int16         material_index;          /* 0x1A */
+    int16_t         material_index;          /* 0x1A */
     int             leaf_count;              /* 0x1C */
     int             leaf_indices[256];       /* 0x20 — leaf_count entries */
 } collision_bsp_test_pill_result;

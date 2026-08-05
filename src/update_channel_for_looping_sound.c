@@ -88,7 +88,7 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
     assigned_channel = datum->playing_channel_index;
     if ( assigned_channel != -1 )
     {
-        __int16 pitch_range_index;
+        int16_t pitch_range_index;
         sound_pitch_range *pitch_range;
         float current_pitch;
         float bent_pitch;
@@ -99,7 +99,7 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
             return;
         }
 
-        pitch_range_index = (unsigned __int16)datum->pitch_range_index;
+        pitch_range_index = (uint16_t)datum->pitch_range_index;
         pitch_range = (sound_pitch_range *)def->pitch_ranges.address + pitch_range_index;
         current_pitch = (sound_channels[assigned_channel].pitch * pitch_range->natural_pitch);
 
@@ -125,14 +125,14 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
         properties.pitch = pitch_range->runtime_oo_natural_pitch * bent_pitch;
 
         /* if the bent pitch crossed into a different pitch range, start a crossfade to a new child sound */
-        if ( (unsigned __int16)datum->type == _sound_loop_track
+        if ( (uint16_t)datum->type == _sound_loop_track
           && (datum->fade_start_time == datum->fade_stop_time || datum->fade_interpolation_end != 0.0)
           && sound_definition_find_pitch_range_by_pitch(def, bent_pitch, 9 * pitch_range_index) != datum->pitch_range_index
           && sound_channels[channel_index_s].sound_index == loop_datum->tracks[loop_track_index].primary_sound_index
           && !sound_manager_globals.idling )
         {
             int new_sound = looping_sound_new_sound(datum->source_identifier, datum->definition_index,
-                                                    (unsigned __int16)datum->loop_track_index, _sound_loop_track);
+                                                    (uint16_t)datum->loop_track_index, _sound_loop_track);
             if ( new_sound != -1 )
             {
                 /* the new crossfade child fades down from full gain (r6 slot); the unused fade-in
@@ -146,7 +146,7 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
             int loop_state = datum->type;
             if ( loop_state != _sound_stop_track
               && (loop_state != _sound_start_track || (track->flags & (1u << _fade_in_at_start_bit)) == 0)
-              && (channel_get_state((unsigned __int16)datum->playing_channel_index) != _sound_channel_full
+              && (channel_get_state((uint16_t)datum->playing_channel_index) != _sound_channel_full
                   || (datum->flags & (1u << _sound_waiting_for_cache_bit)) != 0
                   || datum->next_definition_index != -1) )
             {
@@ -154,9 +154,9 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
                 {
                     if ( (datum->flags & (1u << _sound_waiting_for_cache_bit)) == 0 )
                     {
-                        __int16 permutation = sound_definition_next_permutation(def,
-                                                  (unsigned __int16)datum->pitch_range_index,
-                                                  (unsigned __int16)datum->permutation_index);
+                        int16_t permutation = sound_definition_next_permutation(def,
+                                                  (uint16_t)datum->pitch_range_index,
+                                                  (uint16_t)datum->permutation_index);
                         restart_flag = 1;
                         if ( permutation == -1 )
                         {
@@ -168,7 +168,7 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
                             else
                             {
                                 permutation = sound_definition_next_permutation(def,
-                                                  (unsigned __int16)datum->pitch_range_index, -1);
+                                                  (uint16_t)datum->pitch_range_index, -1);
                             }
                         }
                         if ( permutation != -1 )
@@ -189,7 +189,7 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
                     sound_permutation *next_permutation =
                         (sound_permutation *)pitch_range->permutations.address + datum->permutation_index;
 
-                    if ( (unsigned __int16)datum->type != _sound_stop_track
+                    if ( (uint16_t)datum->type != _sound_stop_track
                       && _sound_cache_sound_request(next_permutation, 0, 1u, 1u) )
                     {
                         int owning_object = get_object_by_looping_sound(loop_datum->loop_identifier);
@@ -232,7 +232,7 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
         owning_object = get_object_by_looping_sound(loop_datum->loop_identifier);
         channel_queue_sound(channel_index, permutation, owning_object, datum->is_local_player,
                             def->class_index, 0);
-        datum->playing_channel_index = (unsigned __int16)channel_index;
+        datum->playing_channel_index = (uint16_t)channel_index;
     }
     else
     {

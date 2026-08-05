@@ -36,7 +36,7 @@ void biped_find_nearby_support_surface(int biped_index)
     float pill_radius[2];
     biped_get_physics_pill(biped_index, centre, pill_axis, pill_radius);
 
-    const unsigned __int8 *breakable_surface_flags = breakable_surface_flags_get();
+    const uint8_t *breakable_surface_flags = breakable_surface_flags_get();
 
     collision_bsp_test_sphere_result result;
     if ( !collision_bsp_test_sphere(bsp, 256, breakable_surface_flags, centre,

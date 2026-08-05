@@ -26,8 +26,8 @@
 extern void game_engine_state_message(int player_index, int message, int message_data);
 extern uint8_t game_engine_can_score(void);
 extern int16_t game_connection(void);
-extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, __int16 type,
-        __int16 team);
+extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type,
+        int16_t team);
 extern void race_touch_flag(int player_index, int netgame_flag_index);
 
 void race_engine_player_update(int player_index)

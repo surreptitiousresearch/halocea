@@ -73,13 +73,13 @@ void render_model(int model_index, float level_of_detail_pixels, const real_matr
                 matrix4x3_multiply(&node_matrices[i],
                                    (const real_matrix4x3 *)model_definition->nodes.address + 3 * i + 2,
                                    &skinned_node_matrices[i]);
-                i = (__int16)(i + 1);
+                i = (int16_t)(i + 1);
                 node_count = model_definition->nodes.count;
             }
         }
         else
         {
-            for ( int i = 0; i < node_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < node_count; i = (int16_t)(i + 1) )
                 memcpy(&skinned_node_matrices[i], &render.frustum.world_to_view, sizeof(real_matrix4x3));
         }
 
@@ -89,12 +89,12 @@ void render_model(int model_index, float level_of_detail_pixels, const real_matr
         {
             if ( level_of_detail_pixels >= model_definition->detail_cutoff_pixels[level] )
                 break;
-            geometry_detail_level_index = (__int16)(level - 1);
+            geometry_detail_level_index = (int16_t)(level - 1);
             level = geometry_detail_level_index;
             if ( geometry_detail_level_index <= 0 )
                 break;
         }
-        __int16 debug_model_lod = rasterizer_debug_options.debug_model_lod;
+        int16_t debug_model_lod = rasterizer_debug_options.debug_model_lod;
         if ( debug_model_lod != -1 )
         {
             if ( debug_model_lod >= 0 )

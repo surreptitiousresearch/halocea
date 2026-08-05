@@ -31,16 +31,16 @@ int16_t sound_find_best_channel(uint16_t sound_index)
     int best_sound = -1;
     float best_distance = 0.0f;
     float distance = source_distance_squared(datum->listener_index, source);
-    __int16 compression = def->compression;
-    __int16 encoding = def->encoding;
-    __int16 sample_rate = def->sample_rate;
-    __int16 spatialization = source->spatialization_mode;
+    int16_t compression = def->compression;
+    int16_t encoding = def->encoding;
+    int16_t sample_rate = def->sample_rate;
+    int16_t spatialization = source->spatialization_mode;
     int channel;
 
     if ( sound_manager_globals.channel_count <= 0 )
         return -1;
 
-    for ( channel = 0; ; channel = (__int16)(channel + 1) )
+    for ( channel = 0; ; channel = (int16_t)(channel + 1) )
     {
         sound_channel_datum *ch = &sound_channels[channel];
         if ( sound_valid_for_channel(compression, encoding, sample_rate, spatialization, ch->type_flags) )
@@ -50,15 +50,15 @@ int16_t sound_find_best_channel(uint16_t sound_index)
                 return channel;                       /* a free matching channel */
 
             if ( sound_preempts_sound(sound_index, other_sound, distance)
-              && ((__int16)best_channel == -1 || sound_preempts_sound(best_sound, other_sound, best_distance)) )
+              && ((int16_t)best_channel == -1 || sound_preempts_sound(best_sound, other_sound, best_distance)) )
             {
                 best_channel = channel;
                 best_sound = other_sound;
-                sound_datum *other = (sound_datum *)&data[176 * (unsigned __int16)other_sound];
+                sound_datum *other = (sound_datum *)&data[176 * (uint16_t)other_sound];
                 best_distance = source_distance_squared(other->listener_index, &other->source);
             }
         }
-        if ( (__int16)(channel + 1) >= sound_manager_globals.channel_count )
+        if ( (int16_t)(channel + 1) >= sound_manager_globals.channel_count )
             return best_channel;
     }
 }

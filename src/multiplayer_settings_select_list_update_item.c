@@ -38,13 +38,13 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
 
     if ( !variant )
     {
-        unsigned __int16 *cleared = ui_widget_realloc(
+        uint16_t *cleared = ui_widget_realloc(
                 description_box->parameters.text_box_parameters.text, 0x100u);
         description_box->parameters.text_box_parameters.text = cleared;
         if ( cleared )
             *cleared = 0;
         icon->animation_data.current_frame_index = 5;
-        unsigned __int16 *label = ui_widget_realloc(
+        uint16_t *label = ui_widget_realloc(
                 label_box->parameters.text_box_parameters.text, 0x200u);
         label_box->parameters.text_box_parameters.text = label;
         if ( label )
@@ -54,7 +54,7 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
             *label_box->parameters.text_box_parameters.text = 0;
             if ( labels_tag != -1 )
             {
-                unsigned __int16 *string = unicode_string_list_get_string(labels_tag, 5);
+                uint16_t *string = unicode_string_list_get_string(labels_tag, 5);
                 ustrncpy(label_box->parameters.text_box_parameters.text, (const wchar_t *)string, 0xFFu);
                 label_box->parameters.text_box_parameters.text[255] = 0;
             }
@@ -62,7 +62,7 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
         return;
     }
 
-    unsigned __int16 *description = ui_widget_realloc(
+    uint16_t *description = ui_widget_realloc(
             description_box->parameters.text_box_parameters.text, 0x100u);
     description_box->parameters.text_box_parameters.text = description;
     if ( description )
@@ -72,7 +72,7 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
     }
 
     icon->animation_data.current_frame_index = 5;
-    unsigned __int16 *label = ui_widget_realloc(
+    uint16_t *label = ui_widget_realloc(
             label_box->parameters.text_box_parameters.text, 0x200u);
     label_box->parameters.text_box_parameters.text = label;
     if ( label )
@@ -97,7 +97,7 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
         }
         if ( descriptions_tag != -1 && label_box->parameters.text_box_parameters.text )
         {
-            unsigned __int16 *string = unicode_string_list_get_string(descriptions_tag, description_id);
+            uint16_t *string = unicode_string_list_get_string(descriptions_tag, description_id);
             ustrncpy(label_box->parameters.text_box_parameters.text, (const wchar_t *)string, 0xFFu);
             label_box->parameters.text_box_parameters.text[255] = 0;
         }
@@ -108,7 +108,7 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
     if ( engine_minus_one > 4 )
         return;
 
-    __int16 mode_string_index;
+    int16_t mode_string_index;
     switch ( variant->game_engine_index )
     {
         case game_engine_slayer:
@@ -136,7 +136,7 @@ void multiplayer_settings_select_list_update_item(widget_instance *item, game_va
     if ( descriptions_tag == -1 || !label_box->parameters.text_box_parameters.text )
         return;
 
-    unsigned __int16 *string = unicode_string_list_get_string(descriptions_tag, mode_string_index);
+    uint16_t *string = unicode_string_list_get_string(descriptions_tag, mode_string_index);
     ustrncpy(label_box->parameters.text_box_parameters.text, (const wchar_t *)string, 0xFFu);
     label_box->parameters.text_box_parameters.text[255] = 0;
 }

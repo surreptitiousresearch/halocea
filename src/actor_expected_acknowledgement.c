@@ -15,7 +15,7 @@ extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 int actor_expected_acknowledgement(int actor_index, int prop_index)
 {
     prop_datum *target = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-    unsigned __int8 expected = 0;
+    uint8_t expected = 0;
     prop_iterator iterator;
 
     prop_iterator_new(&iterator, actor_index);

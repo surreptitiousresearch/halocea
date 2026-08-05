@@ -40,7 +40,7 @@ extern void game_engine_end_game(void);
 void king_engine_player_update(int player_index)
 {
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
-    unsigned __int16 player_slot = (unsigned __int16)player_index;
+    uint16_t player_slot = (uint16_t)player_index;
 
     game_engine_state_message(player_index, -1, -1);
     king_globals.on_the_hill[player_slot] = 0;
@@ -48,7 +48,7 @@ void king_engine_player_update(int player_index)
     if ( player->unit_index == -1 || !game_engine_can_score() )
         return;
 
-    unsigned __int8 on_hill = 0;
+    uint8_t on_hill = 0;
     if ( player_index != -1 )
     {
         int unit_index = player->unit_index;

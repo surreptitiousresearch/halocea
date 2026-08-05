@@ -22,83 +22,78 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squad_index, uint8_t spawn)
 {
     (void)spawn;
-    unsigned __int16 enc = encounter_index;
 
-    encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[enc];
+    encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[encounter_index];
     squad_definition *squad = &((squad_definition *)encounter_def->squads.address)[squad_index];
     int location_count = squad->starting_locations.count;
 
     /* squad_datum index = encounter datum's squad base + squad_index */
-    int squad_datum_index = (__int16)(DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, enc)->squad_base + squad_index);
+    int squad_datum_index = (int16_t)(DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->squad_base + squad_index);
     squad_datum *runtime = &squad_array[squad_datum_index];
 
-    unsigned int taken[8];      /* per-call "already assigned" bitmask; only the first qword is initialized */
-    *(long long *)taken = 0;
+    uint32_t taken[8];          /* per-call "already assigned" bitmask; only the first two words are
+                                 * initialized (a single 8-byte `std` of zero in the disassembly) */
+    taken[0] = 0;
+    taken[1] = 0;
 
     int chosen = -1;
 
     /* --- pass 1: required locations --- */
-    __int16 required_available = 0;
+    int16_t required_available = 0;
     if ( location_count > 0 )
     {
-        for ( int i = 0; i < location_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < location_count; i = (int16_t)(i + 1) )
         {
-            int word = i >> 5;
-            int mask = 1 << (i & 0x1F);
-            if ( (runtime->required_locations[word] & mask) != 0 && (taken[word] & mask) == 0 )
+            if ( BIT_VECTOR_TEST_FLAG(runtime->required_locations, i) && !BIT_VECTOR_TEST_FLAG(taken, i) )
                 ++required_available;
         }
     }
     if ( required_available > 0 )
     {
-        unsigned int *seed = get_global_random_seed_address();
-        __int16 pick = seed_random_range(seed, 0, required_available);
+        uint32_t *seed = get_global_random_seed_address();
+        int16_t pick = seed_random_range(seed, 0, required_available);
         int count = squad->starting_locations.count;
         if ( count > 0 )
         {
             int index = 0;
             do
             {
-                int word = index >> 5;
-                int mask = 1 << (index & 0x1F);
-                unsigned int *required_word = &runtime->required_locations[word];
-                if ( (mask & runtime->required_locations[word]) != 0 && (taken[word] & mask) == 0 )
+                if ( BIT_VECTOR_TEST_FLAG(runtime->required_locations, index) && !BIT_VECTOR_TEST_FLAG(taken, index) )
                 {
                     if ( !pick )
                     {
+                        unsigned int *required_word = &runtime->required_locations[index >> 5];
                         chosen = index;
-                        *required_word &= ~mask;
-                        required_word[1] &= ~mask; /* also clear from the adjacent unused_locations bank */
+                        *required_word &= ~(1 << (index & 31));
+                        required_word[1] &= ~(1 << (index & 31)); /* also clear from the adjacent unused_locations bank */
                         break;
                     }
                     --pick;
                 }
-                index = (__int16)(index + 1);
+                index = (int16_t)(index + 1);
             }
             while ( index < count );
         }
     }
-    if ( (__int16)chosen != -1 )
+    if ( (int16_t)chosen != -1 )
         return chosen;
 
     /* --- pass 2: unused locations, refilling the unused set if it is empty but required ones remain --- */
-    __int16 unused_available;
-    char refilled;
+    int16_t unused_available;
+    uint8_t refilled;
     do
     {
         int count = squad->starting_locations.count;
-        char has_non_unused = 0;
+        uint8_t has_non_unused = 0;
         refilled = 0;
         unused_available = 0;
         if ( count > 0 )
         {
-            for ( int j = 0; j < count; j = (__int16)(j + 1) )
+            for ( int j = 0; j < count; j = (int16_t)(j + 1) )
             {
-                int word = j >> 5;
-                int mask = 1 << (j & 0x1F);
-                if ( (taken[word] & mask) == 0 )
+                if ( !BIT_VECTOR_TEST_FLAG(taken, j) )
                 {
-                    if ( (runtime->unused_locations[word] & mask) != 0 )
+                    if ( BIT_VECTOR_TEST_FLAG(runtime->unused_locations, j) )
                         ++unused_available;
                     else
                         has_non_unused = 1;
@@ -116,24 +111,22 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
     if ( unused_available <= 0 )
         return chosen;
 
-    unsigned int *seed = get_global_random_seed_address();
-    __int16 pick = seed_random_range(seed, 0, unused_available);
-    int count = (squad)->starting_locations.count;
+    uint32_t *seed = get_global_random_seed_address();
+    int16_t pick = seed_random_range(seed, 0, unused_available);
+    int count = squad->starting_locations.count;
     if ( count <= 0 )
         return chosen;
 
     int index = 0;
     while ( 1 )
     {
-        int word = index >> 5;
-        int mask = 1 << (index & 0x1F);
-        if ( (mask & runtime->unused_locations[word]) != 0 && (taken[word] & mask) == 0 )
+        if ( BIT_VECTOR_TEST_FLAG(runtime->unused_locations, index) && !BIT_VECTOR_TEST_FLAG(taken, index) )
         {
             if ( !pick )
                 break;
             --pick;
         }
-        index = (__int16)(index + 1);
+        index = (int16_t)(index + 1);
         if ( index >= count )
             return chosen;
     }

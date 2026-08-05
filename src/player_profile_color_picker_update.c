@@ -8,7 +8,7 @@
 #include "headers/player_profile.h"
 
 extern void single_preview_column_list_update(widget_instance *widget,
-    unsigned __int8 (__fastcall *func)(unsigned __int16 *, int, void *));
+    uint8_t (__fastcall *func)(uint16_t *, int, void *));
 extern uint8_t color_picker_get_string(uint16_t *out, int index, void *list_items);
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
@@ -21,7 +21,7 @@ void player_profile_color_picker_update(widget_instance *list_widget)
     player_ui_get_active_player_profile(0, &profile);
     set_profile_name(list_widget->parameters.list_parameters.extended_description->children, profile.player_name);
 
-    __int16 selected_list_item_index = list_widget->parameters.list_parameters.selected_list_item_index;
+    int16_t selected_list_item_index = list_widget->parameters.list_parameters.selected_list_item_index;
     widget_instance *swatch = list_widget->parameters.list_parameters.extended_description->children->next->children;
     widget_instance *next = swatch->next;
 

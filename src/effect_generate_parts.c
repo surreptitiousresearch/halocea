@@ -41,7 +41,7 @@ void effect_generate_parts(effect_datum *effect)
     if ( event->parts.count <= 0 )
         return;
 
-    for ( part = 0; part < event->parts.count; part = (__int16)(part + 1) )
+    for ( part = 0; part < event->parts.count; part = (int16_t)(part + 1) )
     {
         /* recovered: (effect_part_definition *)(104 * part + block) -> &part_block[part] */
         const effect_part_definition *part_definition = &part_block[part];
@@ -62,7 +62,7 @@ void effect_generate_parts(effect_datum *effect)
         instance = effect_location_get_next_instance(effect, &location_cursor, 0);
         while ( instance )
         {
-            unsigned __int16 node_designator = (unsigned __int16)instance->node_designator;
+            uint16_t node_designator = (uint16_t)instance->node_designator;
             real_point3d world_point;
             real_vector3d world_forward;
             real_vector3d world_up;
@@ -86,7 +86,7 @@ void effect_generate_parts(effect_datum *effect)
                     node_matrix = first_person_weapon_get_node_matrix(effect->local_player_index, EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator));
                 else
                     node_matrix = object_get_node_matrix(effect->object_index,
-                                      ((__int16)node_designator == -1) ? -1 : EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator));
+                                      ((int16_t)node_designator == -1) ? -1 : EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator));
                 matrix4x3_transform_point(node_matrix, (const real_point3d *)&instance->matrix.n[3], &world_point);
                 matrix4x3_transform_normal(node_matrix, (const real_vector3d *)&instance->matrix.n[0], &world_forward);
                 matrix4x3_transform_normal(node_matrix, (const real_vector3d *)&instance->matrix.n[2], &world_up);

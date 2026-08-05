@@ -70,14 +70,14 @@ uint8_t update_suspension(int vehicle_index)
 
     if (vehicle_animations->suspension_animations.count > 0)
     {
-        for (int wheel = 0; wheel < vehicle_animations->suspension_animations.count; wheel = (__int16)(wheel + 1))
+        for (int wheel = 0; wheel < vehicle_animations->suspension_animations.count; wheel = (int16_t)(wheel + 1))
         {
             animation_graph_vehicle_suspension_animation *suspension_point =
                 &((animation_graph_vehicle_suspension_animation *)vehicle_animations->suspension_animations.address)[wheel];
             int node_index = suspension_point->mass_point_index;
             /* sentinel: animation_index is signed __int16 — keep the unsigned compare vs 0xFFFF */
             if (node_index < 0 || node_index >= physics->mass_points.count
-                || (unsigned __int16)suspension_point->animation_index == 0xFFFF)
+                || (uint16_t)suspension_point->animation_index == 0xFFFF)
                 continue;
 
             mass_point_definition *mass_point =

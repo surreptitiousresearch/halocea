@@ -10,6 +10,6 @@
 
 void actor_type_swarm_control(uint16_t actor_index)
 {
-    __int16 type = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.type;
+    int16_t type = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.type;
     actor_type_definitions[type]->swarm_control(actor_index);
 }

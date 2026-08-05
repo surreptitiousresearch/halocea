@@ -15,7 +15,7 @@ void multiplayer_game_set_text_box_for_score_limit(widget_instance *widget)
 
     if ( game )
     {
-        unsigned __int16 *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x10u);
+        uint16_t *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x10u);
 
         widget->parameters.text_box_parameters.text = text;
         if ( text )

@@ -3,6 +3,7 @@
  * 5 = in close combat, 6 = in close combat and either firing or has taken damage. The maximum over all
  * addressed actors is returned. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/ai_index_actor_iterator.h"
@@ -21,7 +22,7 @@ int ai_scripting_status(int ai_index)
     while ( ai_index_actor_iterator_next(&iterator) )
     {
         actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, iterator.iterator.index);
-        __int16 status;
+        int16_t status;
         if ( actor->meta.active )                              /* meta.active */
         {
             if ( actor->state.action >= actor_action_fight )                    /* actor +0x6A combat phase */
@@ -55,7 +56,7 @@ int ai_scripting_status(int ai_index)
         {
             status = 0;
         }
-        if ( (__int16)max_status > status )
+        if ( (int16_t)max_status > status )
             status = max_status;
         max_status = status;
     }

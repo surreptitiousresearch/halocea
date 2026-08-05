@@ -65,7 +65,7 @@ unsigned int simple_cache_copy_thread(void *parameter)
             if ( cache_file_header_verify(&self->header, "cache decompressed", 1) )
             {
                 bool active = 1;
-                __int16 read_sequence = 0;
+                int16_t read_sequence = 0;
                 int bytes_to_write = self->header.size - 2048;
                 self->async_write_bytes_left = bytes_to_write;
                 self->write_bytes_left = bytes_to_write;
@@ -74,7 +74,7 @@ unsigned int simple_cache_copy_thread(void *parameter)
                 do
                 {
                     cache_copy_issue_read_request_internal(self, &self->read_requests[read_index], read_sequence);
-                    read_sequence = (__int16)(read_index + 1);
+                    read_sequence = (int16_t)(read_index + 1);
                     /* decompiler rendered this as src_name[4*((read_index>>5)+614)]; 4*614 == &overlapped_in_use_flags */
                     self->overlapped_in_use_flags[0] |= 1u << (read_index & 0x1F);
                     read_index = read_sequence;
@@ -102,7 +102,7 @@ unsigned int simple_cache_copy_thread(void *parameter)
                             bool no_request = acquire_read_request(self, self->current_sequence_index) == nullptr;
                             bool write_ready = 0;
                             if ( self->write_requests_pending == 1
-                              && (unsigned __int16)self->current_write_buffer_index == 0xFFFF )
+                              && (uint16_t)self->current_write_buffer_index == 0xFFFF )
                             {
                                 write_ready = 1;
                             }

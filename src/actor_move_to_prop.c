@@ -27,7 +27,7 @@ uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, float accep
     actor->firing_positions.current_position_index = -1;
     actor_set_dormant(actor_index, 0);
 
-    unsigned __int16 cached_state = actor->control.path.destination_orders.destination_type;
+    uint16_t cached_state = actor->control.path.destination_orders.destination_type;
     int cached_prop_index = actor->control.path.destination_orders.___u3.prop.prop_index;
     /* decompiler wrote .vector.n[1] (a raw-view alias); the prop-destination arm names this same
      * offset (union+0x04) as accept_radius — identical layout. */

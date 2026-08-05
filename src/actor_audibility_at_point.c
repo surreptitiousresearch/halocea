@@ -33,8 +33,8 @@ int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sen
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( !sound_volume
-      || (unsigned __int16)sense_position->body_location.cluster_index == 0xFFFF
-      || (unsigned __int16)location->cluster_index == 0xFFFF )
+      || (uint16_t)sense_position->body_location.cluster_index == 0xFFFF
+      || (uint16_t)location->cluster_index == 0xFFFF )
     {
         return 0;
     }
@@ -72,7 +72,7 @@ int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sen
     if ( distance_squared >= (range * range) )
         return 0;
 
-    unsigned __int8 encoded = structure_bsp_get_cluster_encoded_sound_distance(
+    uint8_t encoded = structure_bsp_get_cluster_encoded_sound_distance(
         global_structure_bsp, location->cluster_index, sense_position->body_location.cluster_index);
     if ( ENCODED_SOUND_DISTANCE_HAS_NO_PATH(encoded) )
         return 0;

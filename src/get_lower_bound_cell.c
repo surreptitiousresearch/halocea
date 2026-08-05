@@ -2,6 +2,7 @@
  * detail_object_cell_definition, ordered by (cell_x, cell_y, cell_z). Returns the first element not less than
  * `key`. */
 
+#include <stdint.h>
 #include "headers/detail_object_cell_definition.h"
 #include "headers/detail_object_cell_coord.h"
 
@@ -14,7 +15,7 @@ detail_object_cell_definition * get_lower_bound_cell(detail_object_cell_definiti
         int half = count / 2;
         detail_object_cell_definition *mid = &begin[half];
 
-        unsigned __int8 mid_is_less = mid->cell_x < key->x
+        uint8_t mid_is_less = mid->cell_x < key->x
             || (mid->cell_x == key->x && (mid->cell_y < key->y
                 || (mid->cell_y == key->y && mid->cell_z < key->z)));
 

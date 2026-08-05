@@ -43,16 +43,16 @@ void bitmap_2d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
     int shift = 2 * filter_size;
 
     /* horizontal pass: pixels -> scratch, wrapping in x */
-    for ( int y = 0; y < bitmap->height; y = (__int16)(y + 1) )
+    for ( int y = 0; y < bitmap->height; y = (int16_t)(y + 1) )
     {
         int width = bitmap->width;
-        for ( int x = 0; x < width; x = (__int16)(x + 1) )
+        for ( int x = 0; x < width; x = (int16_t)(x + 1) )
         {
             int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
-            for ( int tap = -filter_size; tap <= filter_size; tap = (__int16)(tap + 1) )
+            for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
             {
                 int source_width = bitmap->width;
-                int wrapped = (__int16)((source_width + tap + x) % source_width);
+                int wrapped = (int16_t)((source_width + tap + x) % source_width);
                 int coefficient = filter_coefficients[tap + filter_size];
                 unsigned int texel = pixels[wrapped + source_width * y];
                 sum3 += (texel >> 24) * coefficient;
@@ -69,16 +69,16 @@ void bitmap_2d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
     }
 
     /* vertical pass: scratch -> pixels, wrapping in y */
-    for ( int row = 0; row < bitmap->height; row = (__int16)(row + 1) )
+    for ( int row = 0; row < bitmap->height; row = (int16_t)(row + 1) )
     {
         int width = bitmap->width;
-        for ( int col = 0; col < width; col = (__int16)(col + 1) )
+        for ( int col = 0; col < width; col = (int16_t)(col + 1) )
         {
             int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
-            for ( int tap = -filter_size; tap <= filter_size; tap = (__int16)(tap + 1) )
+            for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
             {
                 int source_height = bitmap->height;
-                int wrapped = (__int16)((source_height + tap + row) % source_height);
+                int wrapped = (int16_t)((source_height + tap + row) % source_height);
                 int coefficient = filter_coefficients[tap + filter_size];
                 unsigned int texel = scratch[wrapped * width + col];
                 sum3 += (texel >> 24) * coefficient;

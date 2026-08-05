@@ -33,9 +33,9 @@ uint8_t path_state_build_path(path_state *state, path_result *path)
     int surface_index = state->destination.surface_index;
 
     /* DEVIATION: collapsed compiler-inlined path_node_from_hash_table@0x837D2A98 (zero-xref donor) back into a call; surface_index passed straight through, no args folded. */
-    __int16 found_node_index = (__int16)path_node_from_hash_table(state, surface_index);
+    int16_t found_node_index = (int16_t)path_node_from_hash_table(state, surface_index);
 
-    __int16 search_node_index = found_node_index;
+    int16_t search_node_index = found_node_index;
 
     if (found_node_index == -1)
     {
@@ -59,25 +59,25 @@ uint8_t path_state_build_path(path_state *state, path_result *path)
     if (search_node_index == -1)
         return path->valid;
 
-    __int16 depth = state->node_list[search_node_index].depth;
+    int16_t depth = state->node_list[search_node_index].depth;
 
-    __int16 raw_step_count = depth + 1;
+    int16_t raw_step_count = depth + 1;
     if (raw_step_count > 64)
         raw_step_count = 64;
 
-    unsigned __int8 steps_finish_path = 1;
-    __int16 smoothed_step_count = 0;
-    __int16 avoided_step_count = 0;
+    uint8_t steps_finish_path = 1;
+    int16_t smoothed_step_count = 0;
+    int16_t avoided_step_count = 0;
     path_step raw_steps[67]; /* stack-confirmed size (67*16 == remaining frame past this buffer's start) */
     path_step smoothed_steps[4];
     path_step avoided_steps[4];
 
     path_node *previous_node = NULL;
-    __int16 node_index = search_node_index;
+    int16_t node_index = search_node_index;
     do
     {
         path_node *node = &state->node_list[node_index];
-        __int16 node_depth = node->depth;
+        int16_t node_depth = node->depth;
 
         if (node_depth < 64)
         {
@@ -107,7 +107,7 @@ uint8_t path_state_build_path(path_state *state, path_result *path)
     path->steps_finish_path = steps_finish_path;
     memcpy(path->steps, avoided_steps, sizeof(path_step) * avoided_step_count);
 
-    unsigned __int8 result = path->valid;
+    uint8_t result = path->valid;
     if (path->steps_finish_path)
     {
         path_step *last_step = &path->steps[path->step_count - 1];

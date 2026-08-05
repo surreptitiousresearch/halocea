@@ -76,7 +76,7 @@ void dead_camera_update(dead_camera *camera, const camera_control *controls, obs
     {
         int player_index = camera->player_index;
         int next_unit = -1;
-        unsigned __int8 found_teammate = 0;
+        uint8_t found_teammate = 0;
         int team = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->team_index;
         data_iterator iter;
         player_datum *player;

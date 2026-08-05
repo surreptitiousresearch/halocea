@@ -74,7 +74,7 @@ uint8_t actor_look_idle_find_prop(int actor_index, uint8_t free_facing, uint8_t 
     int best_prop_index = -1;
     prop_datum *best_prop = nullptr;
     float best_score = 0.0f;
-    unsigned __int8 best_newly_interesting = 0;
+    uint8_t best_newly_interesting = 0;
 
     prop_datum *prop = prop_iterator_next(&look_state.iterator);
     if (!prop)
@@ -99,11 +99,11 @@ uint8_t actor_look_idle_find_prop(int actor_index, uint8_t free_facing, uint8_t 
                 if (decay > 1.0f)
                     decay = 1.0f;
                 float score = interest * decay;
-                unsigned __int8 newly_interesting = interest > prop->last_idle_look_interest;
+                uint8_t newly_interesting = interest > prop->last_idle_look_interest;
 
                 if (score > 0.0f)
                 {
-                    unsigned __int8 valid;
+                    uint8_t valid;
                     if (aim_at_prop)
                     {
                         if (free_facing && interest > prop->last_idle_look_interest)

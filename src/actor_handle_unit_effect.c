@@ -34,7 +34,7 @@ void actor_handle_unit_effect(int actor_index, int prop_index, int16_t effect_ty
     if ( encounter_index != -1 )
         encounter_deaf = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->deaf;
 
-    __int16 current_effect = prop->unit_effect;
+    int16_t current_effect = prop->unit_effect;
     unsigned int latched_effect = effect_type;
     if ( current_effect == -1 || current_effect <= effect_type )
     {
@@ -59,7 +59,7 @@ void actor_handle_unit_effect(int actor_index, int prop_index, int16_t effect_ty
     {
         if ( !encounter_deaf && !prop->ignore )
         {
-            unsigned __int8 was_player = prop->player;
+            uint8_t was_player = prop->player;
             prop->shooting = 1;
             prop->audibility = _ai_sound_volume_shout;
             prop->perception = 3;
@@ -85,7 +85,7 @@ void actor_handle_unit_effect(int actor_index, int prop_index, int16_t effect_ty
     {
         if ( !prop->ignore )
         {
-            unsigned __int8 was_player = prop->player;
+            uint8_t was_player = prop->player;
             prop->ineffability = 3;
             prop->perception = 3;
             prop->refresh_stimuli = 1;

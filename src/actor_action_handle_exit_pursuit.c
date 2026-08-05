@@ -19,7 +19,7 @@ extern uint8_t actor_action_handle_lost_contact(int actor_index);
 uint8_t actor_action_handle_exit_pursuit(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 reported = 0;
+    uint8_t reported = 0;
 
     switch ( actor->state.action )
     {

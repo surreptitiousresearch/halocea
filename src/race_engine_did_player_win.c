@@ -25,7 +25,7 @@ int race_engine_did_player_win(int player_index)
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
     int team_index = player->team_index;
 
-    unsigned __int8 team_can_win[2];
+    uint8_t team_can_win[2];
     team_can_win[0] = race_team_can_win_game(0);
     team_can_win[1] = race_team_can_win_game(1);
 

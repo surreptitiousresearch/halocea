@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ap/apSTATE_T.h"
 // ws-engine m3d: keyframed spline evaluator. DB-verified layout (types_members m3dSPL /
 // m3dSPL_vtbl). GetValue and the other evaluators are dispatched through the vtable.
@@ -20,12 +21,12 @@ struct m3dSPL_vtbl {
 struct m3dSPL {
     m3dSPL_vtbl              *__vftable;  // 0x00
     apSTATE_T<unsigned char>  state;      // 0x04
-    unsigned __int8           type;       // 0x05
-    unsigned __int8           valDim;     // 0x06
-    unsigned __int8           dataDim;    // 0x07
+    uint8_t           type;       // 0x05
+    uint8_t           valDim;     // 0x06
+    uint8_t           dataDim;    // 0x07
     int                       nKp;        // 0x08 keyframe count
     int                       dataSize;   // 0x0C
-    unsigned __int8          *pData;      // 0x10
+    uint8_t          *pData;      // 0x10
 
     // argument (parametric time) of keyframe `idx`. boundary
     float GetKpArg(int idx);

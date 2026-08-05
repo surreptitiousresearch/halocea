@@ -51,7 +51,7 @@ int actor_new(int variant_definition_index)
     actor->meta.definition_index = character_definition_index;
     actor->meta.variant_definition_index = variant_definition_index;
     actor->meta.swarm = (character_flags & (1u << _actor_definition_swarm_actor_bit)) != 0;
-    __int16 actor_type = character->type;
+    int16_t actor_type = character->type;
     actor->meta.unit_index = -1;
     actor->meta.disconnected_squad_index = -1;
     actor->meta.type = actor_type;

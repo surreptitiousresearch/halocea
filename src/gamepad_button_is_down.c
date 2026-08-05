@@ -9,12 +9,12 @@ extern gamepad_state *input_get_gamepad_state(int16_t gamepad_index);
 
 int gamepad_button_is_down(int16_t button_index)
 {
-    __int16 machine_index = 0;
+    int16_t machine_index = 0;
     do
     {
         if ( input_has_gamepad(machine_index) )
             break;
-        machine_index = (__int16)(machine_index + 1);
+        machine_index = (int16_t)(machine_index + 1);
     }
     while ( machine_index < 4 );
 

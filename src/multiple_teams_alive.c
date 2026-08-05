@@ -30,7 +30,7 @@ uint8_t multiple_teams_alive(void)
 
     while ( player )
     {
-        unsigned __int8 alive;
+        uint8_t alive;
 
         if ( player->quit_out_of_game )
         {
@@ -46,7 +46,7 @@ uint8_t multiple_teams_alive(void)
         }
         else
         {
-            unsigned __int8 used_up_lives = 0;
+            uint8_t used_up_lives = 0;
             if ( global_variant.universal_variant.lives > 0 )
             {
                 player_datum *player_by_index = DATA_ARRAY_ELEMENT(player_data, player_datum, iterator.index);

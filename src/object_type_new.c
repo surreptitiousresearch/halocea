@@ -22,7 +22,7 @@ uint8_t object_type_new(int object_index)
 
     for ( i = 0; definition->part_definitions[i]; ++i )
     {
-        unsigned __int8 (*datum_new)(int) = definition->part_definitions[i]->datum_new;
+        uint8_t (*datum_new)(int) = definition->part_definitions[i]->datum_new;
         if ( datum_new && !datum_new(object_index) )
             return 0;
     }

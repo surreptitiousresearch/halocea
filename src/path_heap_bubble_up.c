@@ -7,17 +7,17 @@
 
 void path_heap_bubble_up(path_state *state, int16_t heap_index)
 {
-    __int16 node_index = state->heap[heap_index].node_index;
-    __int16 quantized_cost_estimate = state->heap[heap_index].quantized_cost_estimate;
+    int16_t node_index = state->heap[heap_index].node_index;
+    int16_t quantized_cost_estimate = state->heap[heap_index].quantized_cost_estimate;
 
     if (heap_index > 1)
     {
-        __int16 parent_index;
+        int16_t parent_index;
         do
         {
             parent_index = heap_index >> 1;
-            __int16 parent_cost_estimate = state->heap[parent_index].quantized_cost_estimate;
-            __int16 parent_node_index = state->heap[parent_index].node_index;
+            int16_t parent_cost_estimate = state->heap[parent_index].quantized_cost_estimate;
+            int16_t parent_node_index = state->heap[parent_index].node_index;
 
             if (quantized_cost_estimate >= parent_cost_estimate)
                 break;

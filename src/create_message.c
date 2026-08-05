@@ -8,10 +8,10 @@ extern void *memcpy(void *dest, const void *src, unsigned int size);
 
 uint16_t * create_message(uint8_t type, void *data, uint16_t data_size, uint16_t *buffer, uint16_t buffer_size)
 {
-    unsigned __int16 total_size = data_size + 2;
-    unsigned __int16 *message = buffer
+    uint16_t total_size = data_size + 2;
+    uint16_t *message = buffer
         ? buffer
-        : (unsigned __int16 *)dlMalloc(total_size, "D:\\Projects\\code\\HCEX\\sources\\bungie_net\\common\\message_header.c", 0x2Eu);
+        : (uint16_t *)dlMalloc(total_size, "D:\\Projects\\code\\HCEX\\sources\\bungie_net\\common\\message_header.c", 0x2Eu);
 
     if ( message )
     {

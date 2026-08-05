@@ -60,18 +60,18 @@ extern float __fabs(float x);
 
 void flag_update(flag_datum *flag, flag_definition *flag_definition, float time)
 {
-    unsigned __int8 sweep_forward = flag->update_state == 0;
+    uint8_t sweep_forward = flag->update_state == 0;
 
     location attachment_location;
     real_point3d attachment_points[5];
     real_point3d attachment_force_points[46];
-    __int16 attachment_y[8];
-    __int16 y_attachments[40];
+    int16_t attachment_y[8];
+    int16_t y_attachments[40];
     flag_update_attachment(flag, flag_definition, &attachment_location, attachment_points, attachment_force_points,
             attachment_y, y_attachments);
 
-    __int16 weather_palette_index;
-    unsigned __int8 underwater = scenario_location_underwater(&attachment_location,
+    int16_t weather_palette_index;
+    uint8_t underwater = scenario_location_underwater(&attachment_location,
             &attachment_points[flag_definition->attachment_points.count - 1], &weather_palette_index);
 
     if ( flag->__noop )
@@ -129,12 +129,12 @@ void flag_update(flag_datum *flag, flag_definition *flag_definition, float time)
 
             location physics_location = attachment_location;
             real_point3d integrated_position = vertex->p;
-            __int16 collision_material_type;
+            int16_t collision_material_type;
             point_physics_update(physics_flags, physics_definition, &physics_location, weather_palette_index,
                     &integrated_position, &vertex->v, &wind_force, 0, &collision_material_type, 0.02f, time);
 
             real_point3d final_position;
-            __int16 attachment_index_for_row = y_attachments[row];
+            int16_t attachment_index_for_row = y_attachments[row];
 
             if ( column != 0 || attachment_index_for_row == -1 )
             {

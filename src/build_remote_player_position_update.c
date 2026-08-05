@@ -22,7 +22,7 @@ extern int message_delta_processor_encode_stateless(message_delta_processor_mess
 extern int message_delta_processor_encode_incremental(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, const void *baseline_data, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
 
 int build_remote_player_position_update(player_datum *source_player, int player_index,
-                                        unsigned __int8 *is_reliable_send)
+                                        uint8_t *is_reliable_send)
 {
     *is_reliable_send = 0;
 

@@ -4,7 +4,7 @@
 
 extern int ai_conversation_line(int16_t conversation_definition_index);
 
-int ai_scripting_conversation_line(__int16 conversation_index)
+int ai_scripting_conversation_line(int16_t conversation_index)
 {
     return ai_conversation_line(conversation_index);
 }

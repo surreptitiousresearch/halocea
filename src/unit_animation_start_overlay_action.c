@@ -36,8 +36,8 @@ void unit_animation_start_overlay_action(int unit_index, int16_t overlay_action)
         unsigned int action = overlay_action - 1;
         int animation_graph_index =
             TAG_GET(unit_definition, unit->definition_index)->object.animation_graph.index;
-        __int16 animation_type = -1;
-        __int16 animation_index = -1;
+        int16_t animation_type = -1;
+        int16_t animation_index = -1;
 
         animation_graph *graph = TAG_GET(animation_graph, animation_graph_index);
         animation_graph_unit_seat *seat =
@@ -67,7 +67,7 @@ void unit_animation_start_overlay_action(int unit_index, int16_t overlay_action)
             if ( animation_type < 0 || animation_type >= weapon_type->animations.count )
                 animation_index = -1;
             else
-                animation_index = ((__int16 *)weapon_type->animations.address)[animation_type];
+                animation_index = ((int16_t *)weapon_type->animations.address)[animation_type];
         }
 
         if ( animation_index != -1 )

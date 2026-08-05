@@ -18,7 +18,7 @@ typedef struct collision_bsp collision_bsp;
 typedef struct bsp3d bsp3d;
 
 
-extern void hcex_scenario_switch_structure_bsp(__int16);
+extern void hcex_scenario_switch_structure_bsp(int16_t);
 extern void main_stop_time(void);
 extern void main_start_time(void);
 extern void (*disconnect_from_structure_bsp_procs[10])(void);

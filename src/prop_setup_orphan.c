@@ -20,7 +20,7 @@ void prop_setup_orphan(uint16_t prop_index, uint16_t orphan_prop_index, int ackn
 {
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
 
-    __int16 identifier = prop->identifier;
+    int16_t identifier = prop->identifier;
     int owner_actor_index = prop->owner_actor_index;
     int next_prop_index = prop->next_prop_index;
     int orphan_link = prop->___u3.orphan_prop_index;

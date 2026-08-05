@@ -47,7 +47,7 @@ int hs_add_script(int expression_index)
         return 0;
     }
 
-    __int16 script_type = string_list_find(&hs_compile_globals.compiled_source[HS_SYNTAX_NODE(type_keyword_node).source_offset], NUMBER_OF_HS_SCRIPT_TYPES, hs_script_type_names);
+    int16_t script_type = string_list_find(&hs_compile_globals.compiled_source[HS_SYNTAX_NODE(type_keyword_node).source_offset], NUMBER_OF_HS_SCRIPT_TYPES, hs_script_type_names);
     if ( script_type == -1 )
     {
         hs_compile_globals.__noop = "script type must be \"startup\", \"dormant\", \"continuous\", or \"static\".";
@@ -56,7 +56,7 @@ int hs_add_script(int expression_index)
     }
 
     int name_node = -1;
-    __int16 return_type = hs_type_void;  /* implicit void for non-static/stub scripts */
+    int16_t return_type = hs_type_void;  /* implicit void for non-static/stub scripts */
     int ready = 0;
 
     if ( script_type != _hs_script_static && script_type != _hs_script_stub )   /* startup / dormant / continuous */
@@ -75,7 +75,7 @@ int hs_add_script(int expression_index)
         else
         {
             int return_type_node = HS_SYNTAX_NODE(type_keyword_node).next_node_index;
-            __int16 found = string_list_find(&hs_compile_globals.compiled_source[HS_SYNTAX_NODE(return_type_node).source_offset], number_of_hs_node_types, hs_type_names);
+            int16_t found = string_list_find(&hs_compile_globals.compiled_source[HS_SYNTAX_NODE(return_type_node).source_offset], number_of_hs_node_types, hs_type_names);
             name_node = HS_SYNTAX_NODE(return_type_node).next_node_index;
             return_type = found;
             if ( found >= first_hs_type && found < number_of_hs_node_types )
@@ -118,7 +118,7 @@ int hs_add_script(int expression_index)
     }
 
     scenario *scn = global_scenario;
-    __int16 existing = hs_find_script_by_name(name);
+    int16_t existing = hs_find_script_by_name(name);
     int script_index = existing;
     if ( existing == -1 )
     {
@@ -133,7 +133,7 @@ int hs_add_script(int expression_index)
     else
     {
         hs_script *existing_entry = &((hs_script *)scn->hs_scripts.address)[existing];
-        __int16 existing_type = existing_entry->script_type;
+        int16_t existing_type = existing_entry->script_type;
         if ( existing_type == _hs_script_stub && existing_entry->return_type == return_type && script_type == _hs_script_static )
         {
             /* overriding a stub with a matching static — fall through to (re)define */

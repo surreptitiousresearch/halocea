@@ -2,6 +2,7 @@
  * distance rating (forced to zero when the engine enforces team play and the spawn belongs to another team),
  * scale by the friendly-spawn bonus in team variants, then by the game-engine-specific rating hook. */
 
+#include <stdint.h>
 #include "headers/game_engine.h"
 #include "headers/player_datum.h"
 #include "headers/scenario_player.h"
@@ -18,7 +19,7 @@ float default_starting_location_rate_function(int player_index, scenario_player 
     struct game_engine *engine = game_engine; /* game_engine is a bare struct tag */
 
     float rating;
-    unsigned __int8 enforce_team = 0;
+    uint8_t enforce_team = 0;
     if (engine && engine->game_engine_test_flag)
         enforce_team = engine->game_engine_test_flag(0);
 

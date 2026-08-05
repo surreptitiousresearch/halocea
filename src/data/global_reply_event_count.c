@@ -1,1 +1,2 @@
-__int16 global_reply_event_count;
+#include <stdint.h>
+int16_t global_reply_event_count;

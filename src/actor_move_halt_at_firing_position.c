@@ -26,7 +26,7 @@ uint8_t actor_move_halt_at_firing_position(uint16_t actor_index)
 
     if ( actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying )
     {
-        __int16 firing_position_index = actor->firing_positions.current_position_index;
+        int16_t firing_position_index = actor->firing_positions.current_position_index;
 
         if ( firing_position_index == -1 )
             return actor_move_halt(actor_index);

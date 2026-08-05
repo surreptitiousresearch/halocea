@@ -3,6 +3,7 @@
  * CE multiplayer maps, 19 for anything unrecognized), stored as the widget's current animation frame. No-op
  * when no network game is active. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 
@@ -16,7 +17,7 @@ void multiplayer_game_set_bitmap_for_map(widget_instance *widget)
         return;
 
     const char *name = game->map.name;
-    __int16 map_index;
+    int16_t map_index;
     if ( strstr(name, "beavercreek") )        map_index = 0;
     else if ( strstr(name, "sidewinder") )    map_index = 1;
     else if ( strstr(name, "damnation") )     map_index = 2;

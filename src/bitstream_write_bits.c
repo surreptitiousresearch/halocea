@@ -41,7 +41,7 @@ int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int bit_cou
             {
                 /* fill the remainder of the current partial byte */
                 unsigned int first_chunk = 8 - current_bit_in_byte;
-                unsigned __int8 mask = s_one_masks[first_chunk];
+                uint8_t mask = s_one_masks[first_chunk];
                 int shifted_mask = mask << current_bit_in_byte;
                 residual = word >> first_chunk;
                 int value_bits = (mask & word) << current_bit_in_byte;
@@ -107,6 +107,6 @@ int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int bit_cou
     }
 
     /* trailing remainder (< 32 bits) */
-    unsigned __int8 ok = write_bits(bit_stream, *words, bit_count);
+    uint8_t ok = write_bits(bit_stream, *words, bit_count);
     return original_count - (ok != 0 ? 0 : bit_count);
 }

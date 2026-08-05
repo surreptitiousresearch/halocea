@@ -11,7 +11,7 @@
 extern _message_definition **message_delta_global_message_list;
 extern uint8_t bitstream_initialize(bitstream_t *bit_stream, uint8_t *buffer, unsigned int first_bit, unsigned int bit_count, bitstream_mode mode);
 
-unsigned __int8 message_iteration_begin(iterated_message *const message)
+uint8_t message_iteration_begin(iterated_message *const message)
 {
     message->iteration_body_bits_written = 0;
     message->iteration_header_bits_written = 0;

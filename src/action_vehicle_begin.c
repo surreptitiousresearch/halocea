@@ -11,7 +11,6 @@ void action_vehicle_begin(uint16_t actor_index)
 
     actor->state.action_data.___u0.vehicle.stuck_detection_counter = 0;
     actor->state.action_data.___u0.vehicle.stuck_detection_time = game_time_get();
-    *(int *)&actor->state.action_data.___u0.vehicle.stuck_detection_point.x = *(int *)&actor->input.position.body_position.x;
-    *(int *)&actor->state.action_data.___u0.vehicle.stuck_detection_point.y = *(int *)&actor->input.position.body_position.y;
-    *(int *)&actor->state.action_data.___u0.vehicle.stuck_detection_point.z = *(int *)&actor->input.position.body_position.z;
+    /* DEVIATION: decompiler word-punned this 12-byte real_point3d copy (lwz/stw triple, 0xAC..0xB8); plain struct assignment */
+    actor->state.action_data.___u0.vehicle.stuck_detection_point = actor->input.position.body_position;
 }

@@ -22,7 +22,7 @@ void hs_enumerate_block_data(tag_block *block, int16_t element_offset, int eleme
     if ( block->count <= 0 )
         return;
 
-    for ( __int16 i = 0; i < block->count; i++ )
+    for ( int16_t i = 0; i < block->count; i++ )
     {
         const char *name = tag_block_get_element_with_size(block, i, element_size) + element_offset;
         int global_by_name = hs_find_global_by_name(name);

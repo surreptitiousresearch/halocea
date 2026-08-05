@@ -15,7 +15,7 @@ extern int16_t floor_log2(unsigned int k);
 
 int16_t rasterizer_xbox_bitmap_get_max_mipmap_count(const bitmap_data *bitmap)
 {
-    unsigned __int16 flags = bitmap->flags;
+    uint16_t flags = bitmap->flags;
 
     if ( (flags & 1) == 0 || (flags & 0x10) != 0 )
         return 0;
@@ -36,7 +36,7 @@ int16_t rasterizer_xbox_bitmap_get_max_mipmap_count(const bitmap_data *bitmap)
     if ( largest < width )
         largest = width;
 
-    __int16 max_mipmap_count = floor_log2(largest);
+    int16_t max_mipmap_count = floor_log2(largest);
     if ( bitmap->mipmap_count <= max_mipmap_count )
         return bitmap->mipmap_count;
     return max_mipmap_count;

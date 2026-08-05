@@ -35,7 +35,7 @@ uint8_t oddball_weapon_pickup(int weapon_index, int player_index)
     if ( unit_index == -1 )
         return 1;
 
-    unsigned __int8 allowed = unit_has_weapon_with_flag(unit_index, _weapon_must_be_readied_bit) == 0;
+    uint8_t allowed = unit_has_weapon_with_flag(unit_index, _weapon_must_be_readied_bit) == 0;
     if ( allowed )
         weapon->weapon.flags |= (1u << _weapon_multiplayer_flag);
     return allowed;

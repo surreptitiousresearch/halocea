@@ -8,6 +8,7 @@
  * with an explicitly-uninitialized local (matching the decompiler's own unresolved "back_chain_2") rather
  * than inventing defined behavior for what is, in the original binary, an undefined-behavior read. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/ui_widget_type.h"
 
@@ -19,7 +20,7 @@ void game_options_menu_update_pic_desc(widget_instance *widget)
     if ( focused_child )
     {
         widget_instance *column = widget->children;
-        __int16 item_offset = 0;
+        int16_t item_offset = 0;
 
         if ( column )
         {
@@ -56,7 +57,7 @@ void game_options_menu_update_pic_desc(widget_instance *widget)
     }
     else
     {
-        __int16 uninitialized_stack_value; /* genuinely unset in the original — see file header comment */
+        int16_t uninitialized_stack_value; /* genuinely unset in the original — see file header comment */
         extended_description->animation_data.current_frame_index = uninitialized_stack_value;
     }
 }

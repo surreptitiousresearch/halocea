@@ -91,7 +91,7 @@ void update_potentially_audible_looping_sound(int sound_index, const location *l
 
     if ( audible )
     {
-        __int16 mode = (sound->state == _game_looping_sound_active || !serviced_last_frame)
+        int16_t mode = (sound->state == _game_looping_sound_active || !serviced_last_frame)
                            ? _looping_sound_refresh_loop : _looping_sound_refresh_start;
         sound->state = _game_looping_sound_active;
         if ( !sound_refresh_looping(sound->definition_index, sound_index, source, mode,

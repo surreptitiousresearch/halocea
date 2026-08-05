@@ -24,14 +24,14 @@
 char * expression_get_function_name(uint16_t thread_index, int expression_index)
 {
     hs_syntax_node *syntax_data = (hs_syntax_node *)hs_syntax_data->data;
-    hs_syntax_node *syntax_node = &syntax_data[(unsigned __int16)expression_index];
+    hs_syntax_node *syntax_node = &syntax_data[(uint16_t)expression_index];
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
     hs_script *scripts = (hs_script *)global_scenario->hs_scripts.address;
 
     if ( (syntax_node->flags & (1u << _hs_syntax_node_script_bit)) != 0 )
         return scripts[syntax_node->___u1.script_index].name;
 
-    __int16 function_or_script_id;
+    int16_t function_or_script_id;
     while ( 1 )
     {
         function_or_script_id = syntax_node->___u1.function_index;
@@ -49,7 +49,7 @@ char * expression_get_function_name(uint16_t thread_index, int expression_index)
 
         expression_index = next_expression_index;
         thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
-        syntax_node = &syntax_data[(unsigned __int16)next_expression_index];
+        syntax_node = &syntax_data[(uint16_t)next_expression_index];
         if ( (syntax_node->flags & (1u << _hs_syntax_node_script_bit)) != 0 )
             return scripts[syntax_node->___u1.script_index].name;
     }

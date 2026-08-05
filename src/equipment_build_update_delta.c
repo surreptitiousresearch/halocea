@@ -12,6 +12,7 @@
 #include "headers/message_delta_processor_mode.h"
 #include "headers/message_delta_message_ids.h"
 #include "headers/equipment_datum.h"
+#include "headers/equipment_datum_network_data.h"
 #include "headers/equipment_update_header.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
@@ -32,7 +33,7 @@ int equipment_build_update_delta(int object_index, void *buffer, int buffer_size
         return 0;
 
     int translated_index = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
-    __int16 object_type = object->object.type;
+    int16_t object_type = object->object.type;
 
     _equipment_update_header header;
     header.translated_object_index = translated_index;
@@ -45,19 +46,14 @@ int equipment_build_update_delta(int object_index, void *buffer, int buffer_size
     int result;
     if ( mode == _message_delta_mode_incremental )
     {
-        /* motion state bit-copied (float->int) into the encoder's 9-dword source blob */
-        int source_data[9];
-        source_data[0] = *(int *)&object->object.position.n[0];
-        source_data[1] = *(int *)&object->object.position.n[1];
-        source_data[2] = *(int *)&object->object.position.n[2];
-        source_data[3] = *(int *)&object->object.translational_velocity.n[0];
-        source_data[4] = *(int *)&object->object.translational_velocity.n[1];
-        source_data[5] = *(int *)&object->object.translational_velocity.n[2];
-        source_data[6] = *(int *)&object->object.angular_velocity.n[0];
-        source_data[7] = *(int *)&object->object.angular_velocity.n[1];
-        source_data[8] = *(int *)&object->object.angular_velocity.n[2];
+        /* DEVIATION: decompiler's 9 float->int bit-copies collapsed to struct copies — the payload is
+         * exactly equipment_datum_network_data (position + linear/angular velocity, DB layout) */
+        equipment_datum_network_data source_data;
+        source_data.position = object->object.position;
+        source_data.translational_velocity = object->object.translational_velocity;
+        source_data.angular_velocity = object->object.angular_velocity;
 
-        result = message_delta_processor_encode_incremental(update_message_type, &header, source_data,
+        result = message_delta_processor_encode_incremental(update_message_type, &header, &source_data,
             &object->equipment.baseline, buffer, buffer_size_in_bits, 0);
     }
     else

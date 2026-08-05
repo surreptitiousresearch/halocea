@@ -15,6 +15,7 @@
  *   +0x14/+0x18 (burst_duration_lower/upper_bound). */
 
 #include <stdint.h>
+#include "headers/actor_fire_target_type.h"
 #include "headers/prop_datum.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
@@ -57,7 +58,7 @@ void actor_start_burst(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_variant_definition *firing_variant = actor_combat_get_firing_variant_definition(actor_index);
-    unsigned __int8 use_bombardment_target = 0;
+    uint8_t use_bombardment_target = 0;
 
     /* latch special-fire pending flag (+1540) into the active flag (+1539) unless the situation lapsed */
     if ( actor->control.next_burst_secondary
@@ -70,7 +71,7 @@ void actor_start_burst(int actor_index)
     actor->control.fire_burst_secondary = special_fire;
 
     /* moving flag (+1537): true when the aim object is moving faster than 1 wu/tick */
-    unsigned __int8 moving;
+    uint8_t moving;
     if ( aim_object_index == -1 )
     {
         moving = actor->input.in_midair || actor->control.moving;
@@ -87,7 +88,9 @@ void actor_start_burst(int actor_index)
     /* new-target flag (+1536): true while the actor has recently reacquired (last-target tick +391) */
     float new_target_pattern_time = firing_variant->ranged_combat.new_target_pattern_time;
     float team_value = game_difficulty_get_team_value(_game_difficulty_new_target_delay_scale, actor->meta.team_index);
-    actor->control.firing_at_new_target = (float)*(int *)&actor->control.___u58.current_fire_target_manual_point.z < (double)(team_value * new_target_pattern_time * 30.0f);
+    /* DEVIATION: disasm lwz at control+0x1B0 = current_fire_target_timer (int→float via std/lfd/fcfid);
+     * prior source read ___u58 union +8 (0x1AC), one member early */
+    actor->control.firing_at_new_target = (float)actor->control.current_fire_target_timer < (double)(team_value * new_target_pattern_time * 30.0f);
 
     actor_burst_geometry *burst_geometry = 0;
     actor_firing_pattern *firing_pattern = 0;
@@ -104,7 +107,7 @@ void actor_start_burst(int actor_index)
         if ( actor->external_orders.playfighting )   /* berserk: shorter bursts */
             burst_duration = burst_duration * 0.60000002f;
     }
-    __int16 team_index = actor->meta.team_index;
+    int16_t team_index = actor->meta.team_index;
     actor->control.fire_state_timer = (int)(burst_duration * 30.0f);   /* burst tick count (+0x5F4) */
 
     /* projectile error angle (+422), difficulty- and pattern-scaled */
@@ -155,19 +158,23 @@ void actor_start_burst(int actor_index)
     }
 
     /* bombardment target search when armed for it and the prop target is a live "combat" prop */
-    if ( firing_variant->ranged_combat.weapon_bombardment_range > 0.0f && *((__int16 *)&actor->control.weapon_maximum_range) == 1 )
+    /* DEVIATION: disasm lhz control+0x1A0 / lwz control+0x1A4 = current_fire_target_type / union prop index;
+     * prior source read weapon_maximum_range/current_fire_target_type (each one member early) */
+    if ( firing_variant->ranged_combat.weapon_bombardment_range > 0.0f && actor->control.current_fire_target_type == actor_fire_target_prop )
     {
-        prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, *(int *)&actor->control.current_fire_target_type);
-        __int16 prop_state = prop->state;
+        prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->control.___u58.current_fire_target_prop_index);
+        int16_t prop_state = prop->state;
         if ( prop_state < _prop_state_becoming_unacknowledged || prop_state > _prop_state_acknowledged || !prop->visibility )
             use_bombardment_target = 1;
     }
 
     /* target position (+395..397); optionally snapped to a nearby bombardment target */
+    /* DEVIATION: disasm lwz control+0x1C0/0x1C4/0x1C8 = current_fire_target_position x/y/z;
+     * prior source started one member early (aiming_at_fire_target) */
     real_point3d target;
-    target.n[0] = *(float *)&actor->control.aiming_at_fire_target;
-    target.n[1] = actor->control.current_fire_target_position.x;
-    target.n[2] = actor->control.current_fire_target_position.y;
+    target.n[0] = actor->control.current_fire_target_position.x;
+    target.n[1] = actor->control.current_fire_target_position.y;
+    target.n[2] = actor->control.current_fire_target_position.z;
     if ( use_bombardment_target )
         actor_combat_find_nearby_target(&target, firing_variant->ranged_combat.weapon_bombardment_range);
 
@@ -225,7 +232,8 @@ void actor_start_burst(int actor_index)
             if ( sweep > 0.78539819f )   /* clamp to pi/4 */
                 sweep = 0.78539819f;
             double sweep_tangent = tan(sweep);
-            float sweep_limit = actor->control.current_fire_target_position.z * (float)sweep_tangent;
+            /* DEVIATION: disasm lfs control+0x1CC = current_fire_target_range (was position.z, one member early) */
+            float sweep_limit = actor->control.current_fire_target_range * (float)sweep_tangent;
             if ( origin_radius > sweep_limit )
             {
                 if ( origin_radius >= sweep_limit * 1.5f )
@@ -267,33 +275,37 @@ void actor_start_burst(int actor_index)
         return_vec_z = inverse_ticks * return_vec_z;
     }
 
-    /* store target point, sweep vectors, and the sweep endpoint into the actor burst block (+403..417) */
-    *(int *)&actor->control.current_fire_target_distance = *(int *)&target.n[0];
-    actor->control.burst_initial_position.x = target.n[1];
-    actor->control.burst_origin.z = origin_vec_x;
-    actor->control.burst_relative_position.n[0] = origin_vec_y;
-    actor->control.burst_relative_position.n[1] = origin_vec_z;
-    actor->control.burst_relative_position.n[2] = return_vec_x;
-    actor->control.burst_adjustment.n[0] = return_vec_y;
-    actor->control.burst_adjustment.n[1] = return_vec_z;
-    actor->control.burst_initial_position.y = target.n[2];
-    actor->control.burst_adjustment.n[2] = actor->control.current_fire_target_distance + actor->control.burst_origin.z;
-    actor->control.burst_target.x = actor->control.burst_relative_position.n[0] + actor->control.burst_initial_position.x;
-    actor->control.burst_target.y = actor->control.burst_relative_position.n[1] + actor->control.burst_initial_position.y;
+    /* DEVIATION: disasm stw control+0x1E0..0x1E8 / +0x1F8..0x20C, stfs +0x210..0x218 — the whole prior
+     * store block was shifted one member early (started at current_fire_target_distance @0x1DC). True
+     * targets: burst_initial_position = target, burst_relative_position = origin sweep,
+     * burst_adjustment = return sweep, burst_target = initial + relative (x/y/z). */
+    actor->control.burst_initial_position.x = target.n[0];
+    actor->control.burst_initial_position.y = target.n[1];
+    actor->control.burst_initial_position.z = target.n[2];
+    actor->control.burst_relative_position.n[0] = origin_vec_x;
+    actor->control.burst_relative_position.n[1] = origin_vec_y;
+    actor->control.burst_relative_position.n[2] = origin_vec_z;
+    actor->control.burst_adjustment.n[0] = return_vec_x;
+    actor->control.burst_adjustment.n[1] = return_vec_y;
+    actor->control.burst_adjustment.n[2] = return_vec_z;
+    actor->control.burst_target.x = actor->control.burst_initial_position.x + actor->control.burst_relative_position.n[0];
+    actor->control.burst_target.y = actor->control.burst_initial_position.y + actor->control.burst_relative_position.n[1];
+    actor->control.burst_target.z = actor->control.burst_initial_position.z + actor->control.burst_relative_position.n[2];
 
     /* combat-communication event, if the actor is aware enough (state word +55 >= 7) */
     if ( actor->state.combat_status >= _actor_combat_status_visible )
     {
         char prop_special = 0;
         int cause_unit_index = -1;
-        if ( *((__int16 *)&actor->control.weapon_maximum_range) == 1 )
+        /* DEVIATION: same one-member-early shift corrected (type @0x1A0, prop index @0x1A4) */
+        if ( actor->control.current_fire_target_type == actor_fire_target_prop )
         {
-            prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, *(int *)&actor->control.current_fire_target_type);
+            prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->control.___u58.current_fire_target_prop_index);
             prop_special = prop->ally;
             cause_unit_index = prop->unit_index;
         }
 
-        __int16 communication_type;
+        int16_t communication_type;
         if ( actor->emotions.berserk )                 /* berserk */
             communication_type = _ai_communication_shooting_berserk;
         else if ( prop_special )

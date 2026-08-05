@@ -3,6 +3,7 @@
  * inside the composite weapon_definition, after the shared _object_definition (0x00) and
  * _item_definition (0x17C) levels. Layout DB-verified against type '_weapon_definition' (2026-07-13). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 #include "aim_assist_parameters.h"
@@ -12,9 +13,9 @@ typedef struct _weapon_definition
 {
     unsigned int    flags;                          /* 0x00 */
     char            label[32];                       /* 0x04 */
-    __int16         secondary_trigger_mode;            /* 0x24 */
-    __int16         maximum_alternate_shots_loaded;      /* 0x26 */
-    __int16         function_modes[4];                    /* 0x28 */
+    int16_t         secondary_trigger_mode;            /* 0x24 */
+    int16_t         maximum_alternate_shots_loaded;      /* 0x26 */
+    int16_t         function_modes[4];                    /* 0x28 */
     float           ready_time;                             /* 0x30 */
     tag_reference   ready_effect;                             /* 0x34 */
     float           heat_recovery_threshold;                    /* 0x44 */
@@ -33,13 +34,13 @@ typedef struct _weapon_definition
     float           near_reticle_range;                                                 /* 0xC4 */
     float           far_reticle_range;                                                    /* 0xC8 */
     float           intersection_reticle_range;                                            /* 0xCC */
-    unsigned __int16 pad;                                                                    /* 0xD0 */
-    __int16         zoom_level_count;                                                          /* 0xD2 */
+    uint16_t pad;                                                                    /* 0xD0 */
+    int16_t         zoom_level_count;                                                          /* 0xD2 */
     float           zoom_magnification_minimum;                                                  /* 0xD4 */
     float           zoom_magnification_maximum;                                                    /* 0xD8 */
     aim_assist_parameters aim_assist_parameters;                                                     /* 0xDC */
-    __int16         movement_penalty_mode;                                                             /* 0xF4 */
-    unsigned __int16 pad1;                                                                               /* 0xF6 */
+    int16_t         movement_penalty_mode;                                                             /* 0xF4 */
+    uint16_t pad1;                                                                               /* 0xF6 */
     float           forward_movement_penalty;                                                              /* 0xF8 */
     float           sideways_movement_penalty;                                                               /* 0xFC */
     float           properties_unused;                                                                         /* 0x100 */
@@ -63,8 +64,8 @@ typedef struct _weapon_definition
     float           active_camo_ding;                                                                                                                          /* 0x1C4 */
     float           active_camo_regrowth_rate;                                                                                                                    /* 0x1C8 */
     int             unused4[3];                                                                                                                                     /* 0x1CC */
-    __int16         unused5;                                                                                                                                          /* 0x1D8 */
-    __int16         weapon_type;                                                                                                                                        /* 0x1DA */
+    int16_t         unused5;                                                                                                                                          /* 0x1D8 */
+    int16_t         weapon_type;                                                                                                                                        /* 0x1DA */
     tag_block       predicted_resources;                                                                                                                                  /* 0x1DC */
     tag_block       magazines;                                                                                                                                              /* 0x1E8 */
     tag_block       triggers;                                                                                                                                                 /* 0x1F4 */

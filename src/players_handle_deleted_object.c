@@ -21,7 +21,7 @@
 
 
 #include "headers/network_game_client.h"
-extern void hcex_fire_plr_event(const char *event_name, __int16 local_player);
+extern void hcex_fire_plr_event(const char *event_name, int16_t local_player);
 extern void player_control_new_unit(int16_t local_player_index, int unit_index);
 extern void player_cleanup_after_player_has_quit_game_and_no_longer_attached_to_unit(int player_index);
 extern int16_t game_connection(void);
@@ -43,11 +43,11 @@ void players_handle_deleted_object(int object_index)
         if ( player->unit_index != object_index )
             continue;
 
-        int player_index_low = (unsigned __int16)iterator.index;
+        int player_index_low = (uint16_t)iterator.index;
         player_datum *record = DATA_ARRAY_ELEMENT(player_data, player_datum, iterator.index);
         int player_index = iterator.index;
         int old_unit_index = record->unit_index;
-        __int16 local_player = record->local_player_index;
+        int16_t local_player = record->local_player_index;
         record->unit_index = -1;
         record->dead_unit_index = old_unit_index;
         if ( local_player != -1 )
@@ -74,7 +74,7 @@ void players_handle_deleted_object(int object_index)
         {
             if ( game_connection() == _game_connection_network_server )
                 update_server_player_died(player_index);
-            if ( (unsigned __int16)fixed_record->local_player_index == 0xFFFF )   /* sentinel 0xFFFF on signed __int16 */
+            if ( (uint16_t)fixed_record->local_player_index == 0xFFFF )   /* sentinel 0xFFFF on signed __int16 */
             {
                 if ( game_connection() == _game_connection_network_client )
                 {

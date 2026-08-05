@@ -15,6 +15,7 @@
  * pointer is always `event + sizeof(vector_short_difference_data)` (4 bytes), not +1 — the underlying
  * type is genuinely `const vector_short_difference_data *`, just under-typed in the DB signature. */
 
+#include <stdint.h>
 #include "headers/animation_playback_controller.h"
 #include "headers/animation_event_header.h"
 #include "headers/unit_control_data.h"
@@ -32,8 +33,8 @@ void apply_vector_short_difference(animation_playback_controller *animation_stat
     const vector_short_difference_data *event = (const vector_short_difference_data *)*playback_stream;
 
     /* recovered: *(const unsigned char *)header >> 2 -> header->event_type */
-    unsigned __int8 event_type = header->event_type - _playback_vector_short_difference_set;
-    unsigned __int8 update_facing = event_type & (1u << _control_vector_facing_bit);
+    uint8_t event_type = header->event_type - _playback_vector_short_difference_set;
+    uint8_t update_facing = event_type & (1u << _control_vector_facing_bit);
 
     if ( update_facing )
     {

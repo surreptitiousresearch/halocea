@@ -41,7 +41,7 @@ int decal_insert(int cache_index, int16_t cluster_index, int16_t layer, int next
     else
     {
         unsigned int *seed = get_global_local_random_seed_address();
-        unsigned __int16 roll = seed_random(seed);
+        uint16_t roll = seed_random(seed);
         if ( 100 * roll >= 655350 )
         {
             new_decal->flags = 0;
@@ -72,7 +72,7 @@ int decal_insert(int cache_index, int16_t cluster_index, int16_t layer, int next
                         {
                             unsigned int *evict_seed = get_global_local_random_seed_address();
                             if ( !(100 * seed_random(evict_seed) >= 2686935
-                                    && (unsigned __int16)decal->cluster_index != 0xFFFF) )
+                                    && (uint16_t)decal->cluster_index != 0xFFFF) )
                             {
                                 decal->flags &= ~(1u << _decal_locked_bit);
                                 --decal_globals->locked_count;

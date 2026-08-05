@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/object_header_datum.h"
@@ -16,7 +17,7 @@ void player_update_powerups(int player_index)
 
     for ( int i = 0; i < 2; i++ )
     {
-        __int16 duration = player->powerup_durations[i];
+        int16_t duration = player->powerup_durations[i];
         if ( duration > 0 )
         {
             player->powerup_durations[i] = duration - 1;

@@ -26,7 +26,7 @@ void weather_particle_system_update_particle_count(int16_t system_index, int16_t
 
     float raw_target = type->density * type->box_width * type->box_width * type->box_width * scale
                       / (float)weather_particle_system_globals.active_system_count;
-    __int16 target_count = (int)raw_target < 0 ? 0 : (__int16)(int)raw_target;
+    int16_t target_count = (int)raw_target < 0 ? 0 : (int16_t)(int)raw_target;
 
     while ( type->particle_count < target_count )
     {
@@ -37,7 +37,7 @@ void weather_particle_system_update_particle_count(int16_t system_index, int16_t
     while ( type->particle_count > target_count )
     {
         weather_particle_datum *particle =
-            (weather_particle_datum *)weather_particle_data->data + (unsigned __int16)type->first_particle_index;
+            (weather_particle_datum *)weather_particle_data->data + (uint16_t)type->first_particle_index;
         int next_free_particle_index = particle->next_particle_index;
         datum_delete(weather_particle_data, type->first_particle_index);
         type->first_particle_index = next_free_particle_index;

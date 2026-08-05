@@ -30,17 +30,17 @@ int structure_visibility_build_surfaces_traverse_clusters(int *surface_indices, 
     int found = 0;
     structure_bsp *bsp = global_structure_bsp;
 
-    for (int ci = 0; ci < cluster_count; ci = (__int16)(ci + 1))
+    for (int ci = 0; ci < cluster_count; ci = (int16_t)(ci + 1))
     {
-        if ((__int16)found >= maximum_count)
+        if ((int16_t)found >= maximum_count)
             break;
 
         structure_cluster *cluster = (structure_cluster *)bsp->clusters.address + cluster_indices[ci];
         int subcluster_count = cluster->subclusters.count;
 
-        for (int sci = 0; sci < subcluster_count; sci = (__int16)(sci + 1))
+        for (int sci = 0; sci < subcluster_count; sci = (int16_t)(sci + 1))
         {
-            if ((__int16)found >= maximum_count)
+            if ((int16_t)found >= maximum_count)
                 break;
 
             structure_subcluster *subcluster = (structure_subcluster *)cluster->subclusters.address + sci;
@@ -59,11 +59,11 @@ int structure_visibility_build_surfaces_traverse_clusters(int *surface_indices, 
                 unsigned int bit = 1 << (surface_index & 0x1F);
                 if ((render.environment_surface_flags[word] & bit) != 0 && (surface_flags[word] & bit) == 0)
                 {
-                    if ((__int16)found >= maximum_count)
+                    if ((int16_t)found >= maximum_count)
                         break;
                     surface_flags[word] |= bit;
                     surface_indices[found] = surface_index;
-                    found = (__int16)(found + 1);
+                    found = (int16_t)(found + 1);
                 }
             }
         }

@@ -52,7 +52,7 @@ void king_calculate_hill_state(void)
              player != 0;
              player = data_iterator_next(&iterator))
         {
-            if (king_globals.on_the_hill[(unsigned __int16)iterator.index])
+            if (king_globals.on_the_hill[(uint16_t)iterator.index])
             {
                 if (player->team_index) /* team index (+0x20) */
                     ++count_controlling;
@@ -102,7 +102,7 @@ void king_calculate_hill_state(void)
 
     do
     {
-        if (king_globals.on_the_hill[(unsigned __int16)iterator.index])
+        if (king_globals.on_the_hill[(uint16_t)iterator.index])
         {
             controller = iterator.index;
             ++count_on_foot;

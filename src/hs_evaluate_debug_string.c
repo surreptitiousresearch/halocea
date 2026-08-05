@@ -17,7 +17,7 @@ extern void *memset(void *dst, int value, unsigned int count);
 
 void hs_evaluate_debug_string(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate x3: reserve slots at the frame data top, 4-aligned up.
      * The compiled `if (slot - elem > top) slot -= elem` correction can never fire (align-up
@@ -27,21 +27,21 @@ void hs_evaluate_debug_string(int16_t function_index, int thread_index, uint8_t 
     int *iterator = (int *)(((unsigned int)stack_top + 3) & ~3u);
     if ( (unsigned int)(iterator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --iterator;
-    frame->size = (__int16)((unsigned char *)iterator - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)iterator - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *count = (int *)(((unsigned int)stack_top + 3) & ~3u);
     if ( (unsigned int)(count - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --count;
-    frame->size = (__int16)((unsigned char *)count - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)count - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     char *strings = (char *)(((unsigned int)stack_top + 3) & ~3u);
     if ( (unsigned int)(strings - 4) > (unsigned int)stack_top )   /* dead branch (shipped) */
         strings -= 4;
-    frame->size = (__int16)((unsigned char *)strings - frame->data + 128);
+    frame->size = (int16_t)((unsigned char *)strings - frame->data + 128);
 
     if ( initialize )
     {
@@ -60,6 +60,6 @@ void hs_evaluate_debug_string(int16_t function_index, int thread_index, uint8_t 
         int evaluated_string;
         hs_evaluate(thread_index, *iterator, &evaluated_string);
         *iterator = HS_SYNTAX_NODE(*iterator).next_node_index;
-        *(int *)&strings[4 * (*count)++] = evaluated_string;
+        ((int *)strings)[(*count)++] = evaluated_string;   /* 4-byte slots in the 4-aligned frame array */
     }
 }

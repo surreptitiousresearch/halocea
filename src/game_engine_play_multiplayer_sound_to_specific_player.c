@@ -25,7 +25,7 @@ extern int get_sound_length_in_ticks(int index);
 
 void game_engine_play_multiplayer_sound_to_specific_player(int player_index, int index, uint8_t should_replicate)
 {
-    unsigned __int8 replicate = game_connection() != _game_connection_network_server ? 0 : should_replicate;
+    uint8_t replicate = game_connection() != _game_connection_network_server ? 0 : should_replicate;
 
     if (!sound_is_queueable[index])
     {

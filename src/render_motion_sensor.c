@@ -43,7 +43,7 @@ extern void tiny_point2d_get(tiny_point2d *tiny_position, real_point2d *position
 
 void render_motion_sensor(int16_t local_player_index, uint8_t in_multiplayer, const point2d *reference)
 {
-    __int16 perspective = director_get_perspective(local_player_index);
+    int16_t perspective = director_get_perspective(local_player_index);
     if ( perspective == _director_perspective_neutral || perspective == _director_perspective_scripted )
         return;
 
@@ -68,7 +68,7 @@ void render_motion_sensor(int16_t local_player_index, uint8_t in_multiplayer, co
 
     rasterizer_hud_motion_sensor_blip_begin();
 
-    for ( int i = 0; i < 10; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 10; i = (int16_t)(i + 1) )
     {
         int slot = (motion_sensor_globals->sensor_active_index - i + 10) % 10;
         motion_sensor_datum *sensor = &player_sensor->sensor_data[slot];
@@ -77,17 +77,17 @@ void render_motion_sensor(int16_t local_player_index, uint8_t in_multiplayer, co
         float fade = (weight * weight);
         float radius = (float)((float)pow(1.0f - weight, 3.5) * 7.0 + 1.0);
 
-        for ( int blip_index = 0; blip_index < 16; blip_index = (__int16)(blip_index + 1) )
+        for ( int blip_index = 0; blip_index < 16; blip_index = (int16_t)(blip_index + 1) )
         {
             motion_sensor_blip *blip = &sensor->blips[blip_index];
-            unsigned __int8 hidden = blip->type == _blip_type_none;
+            uint8_t hidden = blip->type == _blip_type_none;
 
             if ( blip->type != _blip_type_none && game_engine_running() )
             {
                 game_variant *variant = game_engine_get_variant();
                 if ( variant )
                 {
-                    unsigned __int8 hide_this = 0;
+                    uint8_t hide_this = 0;
                     if ( (variant->universal_variant.flags & (1u << _motion_tracker_no_enemies_bit)) != 0 )
                     {
                         char blip_type = blip->type;
@@ -110,7 +110,7 @@ void render_motion_sensor(int16_t local_player_index, uint8_t in_multiplayer, co
         if ( sensor->custom_blips_active )
         {
             for ( int custom_index = 0; custom_index < sensor->custom_blips_active;
-                  custom_index = (__int16)(custom_index + 1) )
+                  custom_index = (int16_t)(custom_index + 1) )
             {
                 if ( game_engine_get_goal_in_use(sensor->custom_blip_goal_indices[custom_index]) )
                 {

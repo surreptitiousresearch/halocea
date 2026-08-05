@@ -60,8 +60,8 @@ extern void D3DDevice_SetRenderState_ZWriteEnable(D3DDevice *device, unsigned in
 void _rasterizer_widget_begin(int16_t type, uint16_t flags)
 {
     rectangle2d *viewport = &global_window_parameters.camera.viewport_bounds;
-    int width = (__int16)(viewport->n[3] - viewport->n[1]);
-    int height = (__int16)((unsigned __int16)viewport->n[2] - (unsigned __int16)viewport->n[0]);
+    int width = (int16_t)(viewport->n[3] - viewport->n[1]);
+    int height = (int16_t)((uint16_t)viewport->n[2] - (uint16_t)viewport->n[0]);
 
     /* pixel -> NDC orthographic projection (vs registers 0xD..0x11) */
     float vsh_constants[20];
@@ -85,7 +85,7 @@ void _rasterizer_widget_begin(int16_t type, uint16_t flags)
     vsh_constants[3] = ((float)-1.0 - ((float)1.0 / (float)width));
     vsh_constants[5] = (((float)1.0 / (float)height) * (float)-2.0);
     vsh_constants[7] = (((float)1.0 / (float)height) + (float)1.0);
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vsh_constants, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vsh_constants, 5, (uint64_t)3 << 59);
 
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_widget));
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_widget));

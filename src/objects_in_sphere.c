@@ -24,7 +24,7 @@ extern int16_t objects_in_clusters_by_indices(unsigned int class_flags, int16_t 
 int16_t objects_in_sphere(unsigned int class_flags, unsigned int type_flags, const location *location,
         const real_point3d *center, float radius, int *object_indices, int16_t maximum_count)
 {
-    __int16 cluster_indices[512];
+    int16_t cluster_indices[512];
     int found_objects[2048];
     unsigned int type_mask = type_flags ? type_flags : 0xFFFFFFFF;
     int accepted = 0;
@@ -48,7 +48,7 @@ int16_t objects_in_sphere(unsigned int class_flags, unsigned int type_flags, con
         object_index = found_objects[i];
         object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
 
-        if ( ((1 << (unsigned __int16)object->object.type) & type_mask) != 0 )
+        if ( ((1 << (uint16_t)object->object.type) & type_mask) != 0 )
         {
             float dx = object->object.bounding_sphere_center.n[0] - center->n[0];
             float dy = object->object.bounding_sphere_center.n[1] - center->n[1];

@@ -45,7 +45,7 @@ void object_damage_shield(int object_index, const damage_resistance *damage_resi
                           damage_dealt_network_data *replicated_damage_data)
 {
     char negligible = 0;
-    unsigned __int8 harmless_to_vehicle = 0;
+    uint8_t harmless_to_vehicle = 0;
 
     float incoming = *shield_damage_reference;
     float shield_absorbed = incoming;
@@ -56,7 +56,7 @@ void object_damage_shield(int object_index, const damage_resistance *damage_resi
     replicated_damage_data->shields_depleted = 0;
 
     if ( !game_engine_running() && damage_definition->category == _damage_category_falling )
-        harmless_to_vehicle = (unsigned __int16)object->object.owner_team_index == _game_team_player;
+        harmless_to_vehicle = (uint16_t)object->object.owner_team_index == _game_team_player;
 
     float *shield_vitality = &object->object.shield_vitality;
     float material_modifier = damage_definition->material_modifiers[damage_resistance->shield_material_type];
@@ -140,7 +140,7 @@ void object_damage_shield(int object_index, const damage_resistance *damage_resi
 
         if ( !negligible && should_do_actual_damage == 1 )
         {
-            __int16 object_flags = object->object.damage_flags;
+            int16_t object_flags = object->object.damage_flags;
             float drained = (*shield_damage_reference - incoming) * inverse_max;
             object->object.shield_damage_decay_timer = 0;
             if ( (object_flags & (1u << _object_shield_depleted_bit)) == 0 )

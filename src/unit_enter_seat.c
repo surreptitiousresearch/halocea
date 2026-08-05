@@ -72,7 +72,7 @@ uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_inde
         const char *vehicle_name = parent_definition->object.model.name;
 
         int player_index = player_index_from_unit_index(unit_index);
-        __int16 player_event_id = player_index == -1
+        int16_t player_event_id = player_index == -1
             ? -1
             : DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
 
@@ -107,7 +107,7 @@ uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_inde
 
     /* reconcile the seat's weapon label with the unit's current weapon (or "unarmed") */
     unit_datum *unit_object_reloaded = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
-    __int16 current_weapon_slot = unit_object_reloaded->unit.current_weapon_index;
+    int16_t current_weapon_slot = unit_object_reloaded->unit.current_weapon_index;
     int weapon_index;
     const char *weapon_label;
     if (current_weapon_slot == -1
@@ -126,16 +126,16 @@ uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_inde
         (animation_graph_unit_seat *)((char *)(TAG_GET(animation_graph, animation_graph_index))->unit_seats.address
             + 100 * unit_object->unit.animation.seat_index);
 
-    __int16 enter_animation;
+    int16_t enter_animation;
     if (seat_animations->animations.count <= _unit_seat_animation_seat_enter)
         enter_animation = -1;
     else
-        enter_animation = ((__int16 *)seat_animations->animations.address)[_unit_seat_animation_seat_enter];
+        enter_animation = ((int16_t *)seat_animations->animations.address)[_unit_seat_animation_seat_enter];
 
     if (enter_animation != -1)
     {
         object_start_interpolation(unit_index, 6);
-        __int16 permutation = animation_choose_random_permutation_internal(
+        int16_t permutation = animation_choose_random_permutation_internal(
             animation_update_kind_affects_game_state, animation_graph_index, enter_animation);
 
         unit_datum *unit_object_anim = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;

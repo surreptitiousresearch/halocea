@@ -53,7 +53,7 @@ extern void D3DDevice_SetRenderState_AlphaBlendEnable(D3DDevice *device, unsigne
 extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
         const void *vertex_data, unsigned int stride);
 
@@ -86,9 +86,9 @@ void rasterizer_active_camouflage_cache_primary_render_target(void)
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 0);
 
-        float viewport_width = (float)(__int16)(global_window_parameters.camera.viewport_bounds.n[2]
+        float viewport_width = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.n[2]
                 - global_window_parameters.camera.viewport_bounds.n[0]);
-        float viewport_height = (float)(__int16)(global_window_parameters.camera.viewport_bounds.n[3]
+        float viewport_height = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.n[3]
                 - global_window_parameters.camera.viewport_bounds.n[1]);
 
         /* Screen-space orthographic view matrix (5 vec4 at register 0xD): x maps by 2/width, y by
@@ -104,7 +104,7 @@ void rasterizer_active_camouflage_cache_primary_render_target(void)
             0.0f, 0.0f, 0.0f, 0.0f,
             0.0f, 0.0f, 0.0f, 0.0f,
         };
-        D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, view_constants, 5, (unsigned __int64)3 << 59);
+        D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, view_constants, 5, (uint64_t)3 << 59);
 
         vertex_data_1[0].position = (real_point3d){ { 0.0f, 0.0f, 0.0f } };
         vertex_data_1[0].texcoord = (real_point2d){ { 0.0f, 0.0f } };

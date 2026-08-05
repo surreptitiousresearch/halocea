@@ -28,7 +28,7 @@ void unit_handle_deleted_object(int unit_index, int deleted_object_index)
     if ( object->unit.gunner_object_index == deleted_object_index )
         object->unit.gunner_object_index = -1;
 
-    for ( int weapon_slot = 0; weapon_slot < MAXIMUM_WEAPONS_PER_UNIT; weapon_slot = (__int16)(weapon_slot + 1) )
+    for ( int weapon_slot = 0; weapon_slot < MAXIMUM_WEAPONS_PER_UNIT; weapon_slot = (int16_t)(weapon_slot + 1) )
     {
         if ( object->unit.weapon_object_indices[weapon_slot] == deleted_object_index )
         {
@@ -40,10 +40,10 @@ void unit_handle_deleted_object(int unit_index, int deleted_object_index)
         }
     }
 
-    if ( (unsigned __int16)object->unit.current_weapon_index == 0xFFFF )
+    if ( (uint16_t)object->unit.current_weapon_index == 0xFFFF )
     {
-        __int16 best_weapon_slot = -1;
-        __int16 next_slot = 0;
+        int16_t best_weapon_slot = -1;
+        int16_t next_slot = 0;
         unit_datum *unit_object =
             (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
         int weapon_slot = 0;

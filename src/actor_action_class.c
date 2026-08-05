@@ -11,5 +11,5 @@
 int16_t actor_action_class(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    return (unsigned __int16)global_action_functions[actor->state.action].action_class;
+    return (uint16_t)global_action_functions[actor->state.action].action_class;
 }

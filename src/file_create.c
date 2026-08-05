@@ -18,7 +18,7 @@ uint8_t file_create(file_reference *file)
     memset(full_path, 0, 256);
     file_location_get_full_path(*(unsigned short *)&file->data[6], &file->data[8], full_path);
 
-    if ( (*(unsigned short *)&file->data[4] & 1) == 0 )
+    if ( (*(unsigned short *)&file->data[4] & 1) == 0 )   /* name-set flag word at data[4] (file_reference is an opaque char[268] in the DB) */
     {
         if ( CreateDirectoryA((const char *)&file->data[8], 0) )
             created = 1;

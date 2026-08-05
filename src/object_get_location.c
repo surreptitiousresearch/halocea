@@ -4,6 +4,7 @@
  * Deviation: the decompiler lost the assignment of the output pointer (an uninitialised local mapped
  * to the `location` out-parameter); restored here to write through `location`. */
 
+#include <stdint.h>
 #include "headers/location.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
@@ -13,7 +14,7 @@ extern int object_get_ultimate_parent(int object_index);
 
 location *object_get_location(int object_index, location *location_out)
 {
-    int parent = (unsigned __int16)object_get_ultimate_parent(object_index);
+    int parent = (uint16_t)object_get_ultimate_parent(object_index);
     object_datum *object =
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum;
 

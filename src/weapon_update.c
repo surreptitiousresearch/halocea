@@ -102,16 +102,16 @@ uint8_t weapon_update(int weapon_index) /* was: int — DB prototype */
 
     /* advance the weapon's own animation */
     int animation_graph_index = definition->object.animation_graph.index;
-    if ( animation_graph_index != -1 && (unsigned __int16)weapon->object.animation.state.index != 0xFFFF )
+    if ( animation_graph_index != -1 && (uint16_t)weapon->object.animation.state.index != 0xFFFF )
     {
-        __int16 animation_result = animation_update_internal(animation_update_kind_affects_game_state,
+        int16_t animation_result = animation_update_internal(animation_update_kind_affects_game_state,
                                                              animation_graph_index,
                                                              &weapon->object.animation.state, 0);
         if ( animation_result == 1 )
         {
             /* animation finished: eject a shell for chambering states */
-            int animation_state_value = (unsigned __int8)weapon->weapon.state;
-            __int16 ejection_barrel_index;
+            int animation_state_value = (uint8_t)weapon->weapon.state;
+            int16_t ejection_barrel_index;
             if ( animation_state_value == weapon_state_primary_chamber )
                 ejection_barrel_index = 0;
             else if ( animation_state_value == weapon_state_secondary_chamber )
@@ -123,7 +123,7 @@ uint8_t weapon_update(int weapon_index) /* was: int — DB prototype */
         else if ( animation_result == 2 )
         {
             /* animation interrupted: drop back to idle unless in a locked ready/put-away state */
-            unsigned int animation_state_value = (unsigned __int8)weapon->weapon.state;
+            unsigned int animation_state_value = (uint8_t)weapon->weapon.state;
             if ( animation_state_value < weapon_state_primary_charged
                  || animation_state_value > weapon_state_secondary_charged
                     && animation_state_value != weapon_state_put_away )
@@ -175,7 +175,7 @@ animation_done:
                 unsigned int overheated_flags = heat_flags | (1u << _weapon_overheated_bit);
                 weapon->weapon.flags = overheated_flags;
 
-                __int16 overheat_message;
+                int16_t overheat_message;
                 if ( definition->weapon.weapon_type == _weapon_type_plasma_pistol
                      && (overheated_flags & (1u << _weapon_overheat_recoil_bit)) != 0 )
                 {
@@ -247,13 +247,13 @@ animation_done:
     }
 
     /* trigger-input latch: tick down the "just fired" countdown and clear the per-frame cool lock */
-    __int16 fire_countdown = weapon->weapon.state_timer;
+    int16_t fire_countdown = weapon->weapon.state_timer;
     weapon->weapon.overcharged = 0.0;
     if ( fire_countdown > 0 )
         weapon->weapon.state_timer = fire_countdown - 1;
 
     /* determine which triggers the player/AI wants to fire this frame (up to 2 triggers) */
-    unsigned __int16 trigger_input_flags = weapon->weapon.control_flags;
+    uint16_t trigger_input_flags = weapon->weapon.control_flags;
     char trigger_input_low = (char)trigger_input_flags;
     char secondary_wants_fire;
     char trigger_should_fire[2];
@@ -273,7 +273,7 @@ animation_done:
                                ? 1 : 0;
     }
 
-    int secondary_trigger_mode = (unsigned __int16)definition->weapon.secondary_trigger_mode;
+    int secondary_trigger_mode = (uint16_t)definition->weapon.secondary_trigger_mode;
     trigger_should_fire[1] = secondary_wants_fire;
     if ( secondary_trigger_mode == _weapon_secondary_trigger_mode_slaved_to_primary )
     {
@@ -295,7 +295,7 @@ animation_done:
         weapon_magazine_start_reload(weapon_index, 0, 1);
 
     /* service every magazine: reload progress and reload/chamber timers */
-    __int16 magazine_index = 0;
+    int16_t magazine_index = 0;
     if ( definition->weapon.magazines.count > 0 )
     {
         int magazine = 0;
@@ -304,25 +304,25 @@ animation_done:
             weapon_magazine_definition *magazine_definition =
                 &((weapon_magazine_definition *)definition->weapon.magazines.address)[magazine];
             weapon_magazine *magazine_state_block = &weapon->weapon.magazines[magazine];
-            __int16 reload_increment = magazine_definition->rounds_recharged_per_second;
+            int16_t reload_increment = magazine_definition->rounds_recharged_per_second;
             if ( reload_increment > 0 )
             {
-                int loaded_rounds = (unsigned __int16)magazine_state_block->rounds_loaded;
-                if ( (__int16)loaded_rounds < magazine_definition->rounds_loaded_maximum )
+                int loaded_rounds = (uint16_t)magazine_state_block->rounds_loaded;
+                if ( (int16_t)loaded_rounds < magazine_definition->rounds_loaded_maximum )
                 {
-                    int loaded_fraction = (unsigned __int16)magazine_state_block->rounds_fractional_recharged;
+                    int loaded_fraction = (uint16_t)magazine_state_block->rounds_fractional_recharged;
                     /* rounds are stored as whole rounds plus a /30 fractional part;
                      * magic-number division by 30 in the binary rewritten as /30 and %30 */
                     int new_loaded = reload_increment / 30 + loaded_rounds;
                     magazine_state_block->rounds_loaded = new_loaded;
                     int new_fraction = reload_increment % 30 + loaded_fraction;
                     magazine_state_block->rounds_fractional_recharged = new_fraction;
-                    if ( (__int16)new_fraction >= 30 )
+                    if ( (int16_t)new_fraction >= 30 )
                     {
                         magazine_state_block->rounds_fractional_recharged = new_fraction - 30;
                         magazine_state_block->rounds_loaded = new_loaded + 1;
                     }
-                    __int16 magazine_capacity = magazine_definition->rounds_loaded_maximum;
+                    int16_t magazine_capacity = magazine_definition->rounds_loaded_maximum;
                     if ( magazine_state_block->rounds_loaded > magazine_capacity )
                         magazine_state_block->rounds_loaded = magazine_capacity;
                 }
@@ -331,7 +331,7 @@ animation_done:
             if ( magazine_state_block->state_timer )
                 --magazine_state_block->state_timer;
 
-            int magazine_state = (unsigned __int16)magazine_state_block->state;
+            int magazine_state = (uint16_t)magazine_state_block->state;
             if ( magazine_state == _weapon_magazine_reloading )
             {
                 if ( magazine_state_block->state_timer - 1 <= 0 )
@@ -347,14 +347,14 @@ animation_done:
                 magazine_state_block->state_timer = 0;
             }
 
-            magazine_index = (__int16)(magazine + 1);
+            magazine_index = (int16_t)(magazine + 1);
             magazine = magazine_index;
         }
         while ( magazine_index < definition->weapon.magazines.count );
     }
 
     /* service every trigger: input latch, firing state machine, and visual interpolation */
-    __int16 trigger_index = 0;
+    int16_t trigger_index = 0;
     if ( definition->weapon.triggers.count > 0 )
     {
         int trigger = 0;
@@ -419,7 +419,7 @@ animation_done:
                     trigger_state->illumination = 0.0;
             }
 
-            unsigned int firing_state = (unsigned __int8)trigger_state->state;
+            unsigned int firing_state = (uint8_t)trigger_state->state;
             if ( firing_state <= _weapon_trigger_ready )
             {
                 if ( firing_state == _weapon_trigger_firing )   /* firing */
@@ -434,7 +434,7 @@ animation_done:
                     {
                         if ( trigger + 1 < definition->weapon.triggers.count )
                             weapon_trigger_fire(weapon_index, trigger + 1);
-                        __int16 fire_duration = (int)(trigger_definition->overloading_time * (float)30.0);
+                        int16_t fire_duration = (int)(trigger_definition->overloading_time * (float)30.0);
                         trigger_state->state = _weapon_trigger_firing;
                         trigger_state->state_timer = fire_duration;
                     }
@@ -478,7 +478,7 @@ animation_done:
                 {
                     if ( !trigger_firing )
                         goto trigger_release_charge;
-                    __int16 charge_hold_timer = trigger_state->state_timer;
+                    int16_t charge_hold_timer = trigger_state->state_timer;
                     float charge_fraction = ((float)1.0
                                                     - (((float)charge_hold_timer * SECONDS_PER_TICK)
                                                               / trigger_definition->charged_time));
@@ -495,7 +495,7 @@ trigger_release_charge:
                     }
                     else   /* charge held to the limit: overcharge action */
                     {
-                        int overcharge_action = (unsigned __int16)trigger_definition->overcharged_action;
+                        int overcharge_action = (uint16_t)trigger_definition->overcharged_action;
                         if ( overcharge_action == _weapon_overcharged_action_explode )
                             weapon_detonate(weapon_index);
                         else if ( overcharge_action == _weapon_overcharged_action_discharge )
@@ -563,10 +563,10 @@ clear_firing_block:
                         {
                             int rounds_needed = trigger_definition->rounds_per_shot;
                             weapon_magazine *trigger_magazine = &weapon->weapon.magazines[magazine_for_trigger];
-                            __int16 loaded = trigger_magazine->rounds_loaded;
+                            int16_t loaded = trigger_magazine->rounds_loaded;
                             if ( loaded < rounds_needed && (trigger_definition->flags & (1u << _weapon_trigger_can_fire_with_partial_ammunition_bit)) == 0
                                  || loaded < trigger_definition->minimum_rounds_loaded_per_shot
-                                 || !(unsigned __int16)trigger_magazine->rounds_loaded )
+                                 || !(uint16_t)trigger_magazine->rounds_loaded )
                             {
                                 char do_reload = 0;
                                 if ( !weapon->object.datum_role && rounds_needed > 0 )
@@ -575,7 +575,7 @@ clear_firing_block:
                                     trigger_state->delay_ticks_before_empty_clip_auto_reload = autoreload_counter;
                                     /* can_fire = (reserve rounds > 0) */
                                     can_fire = (~((unsigned int)trigger_magazine->rounds_total >> 31)
-                                                + ((unsigned __int16)trigger_magazine->rounds_total != 0)) & 1;
+                                                + ((uint16_t)trigger_magazine->rounds_total != 0)) & 1;
                                     if ( autoreload_counter > 10 )
                                     {
                                         can_fire = 1;
@@ -587,7 +587,7 @@ clear_firing_block:
                                     do_reload = 1;
                                 if ( do_reload == 1 )
                                     weapon_magazine_start_reload(weapon_index,
-                                                                 (unsigned __int16)trigger_definition->magazine_index, 1);
+                                                                 (uint16_t)trigger_definition->magazine_index, 1);
                             }
                         }
                     }
@@ -666,7 +666,7 @@ trigger_effect_intensity:
                 }
             }
 
-            trigger_index = (__int16)(trigger + 1);
+            trigger_index = (int16_t)(trigger + 1);
             trigger = trigger_index;
         }
         while ( trigger_index < definition->weapon.triggers.count );

@@ -1,1 +1,2 @@
-unsigned __int8 shadow_setup;
+#include <stdint.h>
+uint8_t shadow_setup;

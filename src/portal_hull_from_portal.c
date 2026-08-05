@@ -19,7 +19,7 @@ int16_t portal_hull_from_portal(int16_t portal_index, uint8_t direction, portal_
 
     int plane_index = portal->plane_index;
     real_plane3d *plane = &((real_plane3d *)collision_bsp->planes.address)[plane_index];
-    __int16 vertex_count = portal->vertices.count;
+    int16_t vertex_count = portal->vertices.count;
     const real_point3d *vertices = (const real_point3d *)portal->vertices.address;
 
     return portal_hull_from_points(&render.camera, &render.frustum, plane, vertex_count, vertices,

@@ -40,7 +40,7 @@ extern real_rgb_color *rgb_colors_interpolate(real_rgb_color *rgb_result, unsign
 extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
 
 /* meter->{alpha_multiplier,bias} shape a 0..255 input; clamp to [0,255] then floor at minimum_value. */
-static int hud_meter_shape_alpha(const meter_hud_element_definition *meter, unsigned __int8 value)
+static int hud_meter_shape_alpha(const meter_hud_element_definition *meter, uint8_t value)
 {
     int product = value * meter->alpha_multiplier + meter->alpha_bias;
     int clamped = product < 0 ? 0 : (product > 255 ? 255 : product);
@@ -144,7 +144,7 @@ void hud_draw_meter(int16_t local_player_index, const hud_absolute_placement_def
     /* stored to tint_color and reused as the color32 argument (decompiler folded the field store) */
     meter_parameters.tint_color = tint_color;
 
-    unsigned __int8 is_crosshair_bitmap;   /* passed uninitialized — faithful shipped quirk */
+    uint8_t is_crosshair_bitmap;   /* passed uninitialized — faithful shipped quirk */
     hud_draw_bitmap_with_meter(&meter_parameters, bitmap, placement, &meter->placement, clip, scale, 0.0f,
             tint_color, 0, 0xFFu, is_crosshair_bitmap);
 }

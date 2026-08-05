@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "vidMODE.h"                 // vidMODE *pMode / modeList
 #include "vidDRIVER_INTERFACE.h"     // vidDRIVER_INTERFACE *drvInterface
 #include "ws/ap/apSTATE_T.h"
@@ -182,9 +183,9 @@ typedef struct vidDRIVER
     // GPU hardware-timer virtuals — base-class no-op stubs (the d3dDRIVER override does the real
     // D3D timestamp-query work). Kept identical to the disassembly's constant returns.
     // 0x8266B9B8 — reversed in vidDRIVER__GpuTimeQueryGetTime.cpp. Base returns 0.
-    unsigned __int64 GpuTimeQueryGetTime(VID_TQ query, int split_index);
+    uint64_t GpuTimeQueryGetTime(VID_TQ query, int split_index);
     // 0x8266B9C0 — reversed in vidDRIVER__GpuTimeQueryGetFreq.cpp. Base returns 1 (avoid /0).
-    unsigned __int64 GpuTimeQueryGetFreq();
+    uint64_t GpuTimeQueryGetFreq();
     // 0x8266B9C8 — reversed in vidDRIVER__GpuTimeIdlePercent.cpp. Base returns 0.0f.
     float GpuTimeIdlePercent();
 

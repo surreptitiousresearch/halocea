@@ -11,7 +11,7 @@ unsigned int filesystem_initialization_thread_proc(void *input)
     widget_globals.filesystem_check_result = saved_game_perform_file_system_checks();
     if ( !widget_globals.filesystem_check_result )
     {
-        unsigned __int16 number_of_profiles = 1;
+        uint16_t number_of_profiles = 1;
         int profile_index;
 
         playlist_profiles_enumerate_available_to_local_player_index(-1, &number_of_profiles, &profile_index);

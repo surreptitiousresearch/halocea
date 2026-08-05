@@ -11,7 +11,7 @@
 #include "headers/stack_memory_pool.h"
 extern void dispose_pointer(stack_memory_pool *pool, void *p);
 extern void ui_widget_delete(widget_instance *widget);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 extern void widget_instance_set_focused_child_by_index(widget_instance *widget, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 
@@ -21,8 +21,8 @@ void widget_instance_go_back_to_previous(widget_instance *widget)
     widget_stack_node *node = widget_globals.widget_stack[slot];
     int previous_widget_tag = -1;
     int focused_child_parent_widget_tag = 0;
-    __int16 restore_controller = -1;
-    __int16 focused_child_index = 0;
+    int16_t restore_controller = -1;
+    int16_t focused_child_index = 0;
     widget_instance *root, *p, *reloaded;
 
     if ( node )
@@ -31,8 +31,8 @@ void widget_instance_go_back_to_previous(widget_instance *widget)
         previous_widget_tag = node->data.previous_widget_tag;
         focused_child_parent_widget_tag = node->data.focused_child_parent_widget_tag;
         widget_globals.widget_stack[slot] = node->next;
-        focused_child_index = (__int16)(packed_focus >> 16);
-        restore_controller = (__int16)packed_focus;
+        focused_child_index = (int16_t)(packed_focus >> 16);
+        restore_controller = (int16_t)packed_focus;
         dispose_pointer(widget_memory_pool, node);
     }
 

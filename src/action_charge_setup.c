@@ -61,7 +61,7 @@ uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_data *st
     if ( goal == charge_goal_vehicle_ramming || goal == charge_goal_vehicle_strafing )
     {
         /* input.vehicle_driver_type @+350 (0x15E). Branchless "> 1" for a non-negative value. */
-        __int16 counter = actor->input.vehicle_driver_type;
+        int16_t counter = actor->input.vehicle_driver_type;
         result = ((counter >= 0) + ((unsigned int)counter <= 1)) & 1;
     }
     else if ( goal == charge_goal_melee )
@@ -83,7 +83,7 @@ uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_data *st
         {
             prop_datum *prop = DATUM_GET(prop_data, prop_datum, pursuit_prop_index);
 
-            unsigned __int8 leap;
+            uint8_t leap;
             if ( definition->berserk.melee_leap_range_upper_bound == 0.0f
               || definition->berserk.melee_leap_chance == 0.0f )
             {
@@ -107,13 +107,13 @@ uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_data *st
             if ( leap )
                 goal = charge_goal_melee_leaping;
 
-            __int16 start_tick;
+            int16_t start_tick;
             float start_range;
-            __int16 end_tick;
+            int16_t end_tick;
             float end_range[2];
             if ( unit_get_melee_range_and_ticks(unit_index, leap, &start_tick, &start_range, &end_tick, end_range) )
             {
-                __int16 ticks_until_dangerous;
+                int16_t ticks_until_dangerous;
                 if ( (definition->flags & (1u << _actor_definition_suicidal_melee_attack_bit)) != 0 )
                 {
                     ticks_until_dangerous = end_tick;
@@ -133,7 +133,7 @@ uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_data *st
                 }
                 state_data->melee_ticks_until_dangerous = ticks_until_dangerous;
 
-                unsigned __int8 valid = 0;
+                uint8_t valid = 0;
                 float target_range = action_charge_find_target_range(actor_index, goal, state_data);
                 state_data->acceptable_target_range = target_range;
 

@@ -23,7 +23,7 @@ void effects_information_get(effects_information *information)
     for ( int effect_index = data_next_index(effect_data, -1); effect_index != -1;
           effect_index = data_next_index(effect_data, effect_index) )
     {
-        __int16 flags = DATA_ARRAY_ELEMENT(effect_data, effect_datum, effect_index)->flags;
+        int16_t flags = DATA_ARRAY_ELEMENT(effect_data, effect_datum, effect_index)->flags;
         if ( (flags & (1u << _effect_stopped_bit)) == 0 && (flags & (1u << _effect_invisible_bit)) == 0 )
             ++information->active_effect_count;
     }

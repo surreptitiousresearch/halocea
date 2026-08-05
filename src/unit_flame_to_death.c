@@ -28,7 +28,7 @@ void unit_flame_to_death(int unit_index)
 
     int flags = unit->unit.flags;
     unit->unit.flags = flags & ~(1u << _unit_running_blindly_bit); /* dead store (overwritten below); 0xFDFFFFFF */
-    __int16 damage_flags = unit->object.damage_flags & ~(1u << _object_cannot_take_damage_bit);
+    int16_t damage_flags = unit->object.damage_flags & ~(1u << _object_cannot_take_damage_bit);
     unit->unit.flags = flags & ~((1u << _unit_running_blindly_bit) | (1u << _unit_ignore_hard_pings_bit)); /* 0xFDFFFF7F */
     unit->object.damage_flags = damage_flags;
 
@@ -49,7 +49,7 @@ void unit_flame_to_death(int unit_index)
         object_cause_damage(&damage, unit_index, -1, -1, -1, 0);
     }
 
-    __int16 final_flags = unit->object.damage_flags;
+    int16_t final_flags = unit->object.damage_flags;
     if ( (final_flags & (1u << _object_dead_bit)) == 0 )
         unit->object.damage_flags = final_flags | (1u << _object_die_act_of_god_bit);
 }

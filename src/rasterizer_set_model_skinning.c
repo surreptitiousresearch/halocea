@@ -16,7 +16,7 @@
 
 void rasterizer_set_model_skinning(const render_skinning *skinning, uint8_t uploadconstants)
 {
-    __int16 node_count = skinning->node_matrix_count;
+    int16_t node_count = skinning->node_matrix_count;
     if (rasterizer_globals.maximum_nodes_per_model < node_count)
         node_count = rasterizer_globals.maximum_nodes_per_model;
 
@@ -43,9 +43,9 @@ void rasterizer_set_model_skinning(const render_skinning *skinning, uint8_t uplo
     if (!uploadconstants)
         return;
 
-    __int64      mask_seed    = (__int64)((unsigned __int64)1 << 63);
+    int64_t      mask_seed    = (int64_t)((uint64_t)1 << 63);
     unsigned int shift_amount = ((unsigned int)(3 * node_count + 28) >> 2) - 7;
-    unsigned __int64 pending_mask = (unsigned __int64)(mask_seed >> shift_amount) >> 7;
+    uint64_t pending_mask = (uint64_t)(mask_seed >> shift_amount) >> 7;
 
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x1D, vsh_constants__nodematrices,
                                         3 * node_count, pending_mask);

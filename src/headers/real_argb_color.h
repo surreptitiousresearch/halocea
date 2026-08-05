@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "real_rgb_color.h"
 
 /* real_argb_color — ARGB color (16 bytes). DB union: float n[4] view, an
@@ -17,7 +18,7 @@ typedef struct _4B4036038E783B5674E58077268CAECC
 /* DB struct _A1D52E832813CCBC7C7218CE9905C4B4 — per-channel float view. */
 typedef struct _A1D52E832813CCBC7C7218CE9905C4B4
 {
-    unsigned __int8 gap0[4]; /* 0x00 — DB _BYTE[4] */
+    uint8_t gap0[4]; /* 0x00 — DB _BYTE[4] */
     float           red;     /* 0x04 */
     float           green;   /* 0x08 */
     float           blue;    /* 0x0C */

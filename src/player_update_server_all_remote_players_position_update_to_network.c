@@ -20,7 +20,7 @@
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
 extern int build_remote_player_position_update(player_datum *source_player, int player_index,
-        unsigned __int8 *is_reliable_send);
+        uint8_t *is_reliable_send);
 extern int build_remote_player_vehicle_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t player_is_vehicle_driver(int player_index);
@@ -34,7 +34,7 @@ void *player_update_server_all_remote_players_position_update_to_network(void)
     void *result;
     while ( (result = data_iterator_next(&iterator)) != nullptr )
     {
-        unsigned __int8 is_reliable_send = 0;
+        uint8_t is_reliable_send = 0;
         int player_index = iterator.index;
         player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, iterator.index);
 

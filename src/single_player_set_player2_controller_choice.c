@@ -13,7 +13,7 @@ extern void display_error(int16_t error_code, int16_t local_player_index, uint8_
 
 uint8_t single_player_set_player2_controller_choice(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
-    __int16 controller_index = event->controller_index;
+    int16_t controller_index = event->controller_index;
     if ( controller_index == player_ui_get_single_player_local_player_controller(0) )
     {
         display_error(_error_controller_coop_controller_conflict, -1, 1u, 0);

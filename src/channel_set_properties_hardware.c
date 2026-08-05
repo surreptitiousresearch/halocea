@@ -19,9 +19,9 @@ void channel_set_properties_hardware(int16_t channel_index, platform_sound_chann
 {
     sound_channel_datum *channel = &sound_channels[channel_index];
 
-    unsigned __int8 alternate = 0;
+    uint8_t alternate = 0;
     if ( channel->sound_index != -1 )
-        alternate = *((_BYTE *)sound_data->data + 176 * (unsigned __int16)channel->sound_index + 172);
+        alternate = *((_BYTE *)sound_data->data + 176 * (uint16_t)channel->sound_index + 172);
 
     if ( !gain_only )
         channel->pitch = properties->pitch;

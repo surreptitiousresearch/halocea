@@ -4,6 +4,7 @@
  * detail's random position offset, and — for world-spatialized sounds — re-bases that offset on the
  * looping sound's current position. Returns 0 if the parent looping sound has been freed. */
 
+#include <stdint.h>
 #include "headers/sound_source.h"
 #include "headers/looping_sound_datum.h"
 #include "headers/loop_impulse_sound_tracking_data.h"
@@ -34,9 +35,10 @@ int track_loop_impulse_sound(int looping_sound_index, const loop_impulse_sound_t
         source->location.forward.n[1] = loop->source.location.forward.n[1];
         source->location.forward.n[2] = loop->source.location.forward.n[2];
         source->location.game_location.leaf_index = loop->source.location.game_location.leaf_index;
-        /* both cluster words copied as one dword, as in the binary */
-        *(int *)&source->location.game_location.cluster_index =
-            *(int *)&loop->source.location.game_location.cluster_index;
+        /* DEVIATION: the binary copies cluster_index+bonus as one dword; split into the two
+         * 16-bit members (same bytes moved) */
+        source->location.game_location.cluster_index = loop->source.location.game_location.cluster_index;
+        source->location.game_location.bonus = loop->source.location.game_location.bonus;
     }
     else
     {
@@ -44,7 +46,7 @@ int track_loop_impulse_sound(int looping_sound_index, const loop_impulse_sound_t
         source->location.translational_velocity = *global_zero_vector3d;
     }
 
-    spatialization_mode = (unsigned __int16)source->spatialization_mode;
+    spatialization_mode = (uint16_t)source->spatialization_mode;
     source->location.position.n[0] = track_data->position_offset.n[0];
     source->location.position.n[1] = track_data->position_offset.n[1];
     source->location.position.n[2] = track_data->position_offset.n[2];

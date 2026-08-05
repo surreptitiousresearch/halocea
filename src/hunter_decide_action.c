@@ -31,7 +31,7 @@ extern int actor_action_handle_danger_avoidance(int actor_index);
 extern uint8_t actor_action_handle_combat_status(int actor_index, uint8_t allow_initiative, uint8_t force_decision);
 extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern unsigned __int8 actor_action_can_stop_conversing(int actor_index);
+extern uint8_t actor_action_can_stop_conversing(int actor_index);
 
 void hunter_decide_action(int actor_index)
 {
@@ -49,8 +49,8 @@ void hunter_decide_action(int actor_index)
         actor_action_handle_danger_avoidance(actor_index);
     }
 
-    unsigned __int8 allow_initiative;
-    unsigned __int8 force_decision;
+    uint8_t allow_initiative;
+    uint8_t force_decision;
 
     switch ( actor->state.action )
     {
@@ -81,7 +81,7 @@ void hunter_decide_action(int actor_index)
         case actor_action_converse:
         {
             converse_state_data *converse_state = &actor->state.action_data.___u0.converse;
-            unsigned __int8 conversation_over = converse_state->failed || actor->external_orders.conversation_index == -1;
+            uint8_t conversation_over = converse_state->failed || actor->external_orders.conversation_index == -1;
             allow_initiative = actor_action_can_stop_conversing(actor_index);
             force_decision = conversation_over;
             break;

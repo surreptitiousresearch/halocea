@@ -21,7 +21,7 @@ uint8_t hs_compile_source(void)
     scenario *scn = global_scenario;
     hs_compile_initialize(1u);
 
-    for ( __int16 i = 0; i < scn->hs_source_files.count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < scn->hs_source_files.count; i = (int16_t)(i + 1) )
     {
         const tag_data *source = &((hs_source_file *)scn->hs_source_files.address)[i].source;
         const char *text = tag_data_get_pointer(source, 0, source->size);

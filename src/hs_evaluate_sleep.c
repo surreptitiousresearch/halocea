@@ -20,7 +20,7 @@ extern int game_time_get(void);
 
 void hs_evaluate_sleep(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate x3: reserve slots at the frame data top, aligned up.
      * The compiled `if (slot - 1 > top) --slot` correction can never fire (align-up advances at
@@ -30,22 +30,22 @@ void hs_evaluate_sleep(int16_t function_index, int thread_index, uint8_t initial
     int *ticks_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)(ticks_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --ticks_slot;
-    frame->size = (__int16)((unsigned char *)ticks_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)ticks_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *script_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)(script_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --script_slot;
-    frame->size = (__int16)((unsigned char *)script_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)script_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    __int16 *phase = (__int16 *)(((unsigned int)stack_top + 1) & ~0x1u);
+    int16_t *phase = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);
     if ( (unsigned int)(phase - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --phase;
     int target_thread = thread_index;
-    frame->size = (__int16)((unsigned char *)phase - frame->data + 2);
+    frame->size = (int16_t)((unsigned char *)phase - frame->data + 2);
 
     int sleep_expression = frame->expression_index;
     int name_node = HS_SYNTAX_NODE(sleep_expression).data;
@@ -72,15 +72,15 @@ void hs_evaluate_sleep(int16_t function_index, int thread_index, uint8_t initial
 
     if ( *phase )
     {
-        __int16 ticks = (__int16)*ticks_slot;
-        if ( *(__int16 *)ticks_slot )
+        int16_t ticks = (int16_t)*ticks_slot;
+        if ( *(int16_t *)ticks_slot )
         {
-            unsigned __int16 script_index = (unsigned __int16)*script_slot;
+            uint16_t script_index = (uint16_t)*script_slot;
             if ( script_index != 0xFFFF )
                 target_thread = hs_find_thread_by_script(script_index);
             if ( target_thread != -1 )
             {
-                hs_thread *target = (hs_thread *)hs_thread_data->data + (unsigned __int16)target_thread;
+                hs_thread *target = (hs_thread *)hs_thread_data->data + (uint16_t)target_thread;
                 int wake_time = (ticks >= 0) ? game_time_get() + ticks : -2;
                 int current_wake = target->sleep_until;
                 if ( current_wake != -1 )

@@ -21,7 +21,7 @@ int actor_get_timeslice(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    unsigned __int8 jumping = 0;
+    uint8_t jumping = 0;
     if ( actor->state.action == actor_action_charge )
     {
         int sub_state = actor->state.action_data.___u0.charge.goal;
@@ -30,7 +30,7 @@ int actor_get_timeslice(uint16_t actor_index)
             jumping = 1;
     }
 
-    __int16 service_timer = (jumping ? 3 : 1) + actor->meta.service_timer;
+    int16_t service_timer = (jumping ? 3 : 1) + actor->meta.service_timer;
     actor->meta.service_timer = service_timer;
 
     if ( ai_globals->time_given_this_frame

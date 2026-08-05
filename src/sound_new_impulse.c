@@ -44,11 +44,11 @@ int sound_new_impulse(int definition_index, sound_source *source, int source_ide
     float scale = source->scale;
     sound_definition *def = TAG_GET(sound_definition, definition_index);
     int result = -1;
-    __int16 class_index = def->class_index;
+    int16_t class_index = def->class_index;
     sound_datum *snd;   /* runtime sound datum */
     int sound_index;
-    __int16 audible_index;
-    __int16 promotion;  /* 0 = play, 1 = play promotion sound, 2 = drop */
+    int16_t audible_index;
+    int16_t promotion;  /* 0 = play, 1 = play promotion sound, 2 = drop */
     int distance_delay;
 
     /* scripted-dialog timing window */
@@ -122,7 +122,7 @@ int sound_new_impulse(int definition_index, sound_source *source, int source_ide
     /* listener distance for the delay / falloff */
     {
         float distance;
-        unsigned int mode = (unsigned __int16)source->spatialization_mode;
+        unsigned int mode = (uint16_t)source->spatialization_mode;
         if ( source->spatialization_mode )
         {
             if ( mode == _sound_spatialization_mode_absolute )
@@ -209,8 +209,8 @@ int sound_new_impulse(int definition_index, sound_source *source, int source_ide
         memcpy(snd->track_data, track_data, track_data_size);
 
     {
-        __int16 pitch_range = sound_definition_find_pitch_range_by_pitch(def, snd->pitch, 0);
-        __int16 perm;
+        int16_t pitch_range = sound_definition_find_pitch_range_by_pitch(def, snd->pitch, 0);
+        int16_t perm;
         sound_definition *snd_def;
         sound_pitch_range *ranges;
         sound_permutation *permutation_ptr;

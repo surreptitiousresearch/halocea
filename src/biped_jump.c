@@ -75,7 +75,7 @@ int biped_jump(int biped_index)
     if (actor_index != -1)
     {
         char state = biped->unit.animation.state;
-        unsigned __int8 leap = (state == _unit_state_leap_start || state == _unit_state_leap_airborne);
+        uint8_t leap = (state == _unit_state_leap_start || state == _unit_state_leap_airborne);
         jumped = actor_aim_jump(actor_index, biped_index, leap, jump_magnitude, &jump_velocity);
     }
 

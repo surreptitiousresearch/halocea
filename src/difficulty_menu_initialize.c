@@ -12,10 +12,10 @@ extern char *main_get_map_name(void);
 extern int stricmp(const char *string1, const char *string2);
 extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int index);
 
-uint8_t difficulty_menu_initialize(widget_instance *widget, event_record *event, unsigned __int8 *widget_deleted)
+uint8_t difficulty_menu_initialize(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     widget_instance *focused_child;
-    __int16 difficulty;
+    int16_t difficulty;
 
     if ( persistant_game_data_info.valid != 1
         || stricmp(persistant_game_data_info.map_name, main_get_map_name()) )

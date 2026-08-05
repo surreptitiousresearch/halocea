@@ -41,7 +41,7 @@ extern void *datum_get(data_array *array, int index);
 int particle_update_physics(int particle_index, float dt)
 {
     particle_datum *particle = datum_get(particle_data, particle_index);
-    unsigned __int16 flags = particle->flags;
+    uint16_t flags = particle->flags;
     int object_index = particle->object_index;
     particle_definition *definition = TAG_GET(particle_definition, particle->definition_index);
     point_physics_definition *physics;
@@ -126,7 +126,7 @@ int particle_update_physics(int particle_index, float dt)
         float radius = particle->radius;
         float life_fraction = (particle->life_time / particle->life_span);
         particle_definition *p_definition = TAG_GET(particle_definition, particle->definition_index);
-        __int16 collision_material_type;
+        int16_t collision_material_type;
         real_vector3d collision_normal;
         unsigned int collision;
         int collided_solid;

@@ -20,7 +20,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/sound_source.h"
-extern int track_loop_track_sound;
+extern int track_loop_track_sound(int looping_sound_index, const void *unused, sound_source *source);
 
 extern float sound_definition_get_maximum_distance(int sound_definition_index);
 extern int16_t source_audible(sound_source *source, float maximum_distance);
@@ -53,11 +53,11 @@ int looping_sound_new_sound(int looping_sound_index, int definition_index, int16
 
     {
         float maximum_distance = sound_definition_get_maximum_distance(definition_index);
-        __int16 audibility = source_audible(&looping->source, maximum_distance);
+        int16_t audibility = source_audible(&looping->source, maximum_distance);
         int sound_index;
         sound_datum *new_datum;
         float pitch_modifier;
-        __int16 pitch_range;
+        int16_t pitch_range;
         unsigned char is_local_player;
         int new_definition_index;
 
@@ -80,8 +80,10 @@ int looping_sound_new_sound(int looping_sound_index, int definition_index, int16
         new_datum->source_identifier = looping_sound_index;
         memcpy(&new_datum->source, &looping->source, 0x40u);
         new_datum->type = type;
-        /* track_loop_track_sound is the tracking callback's address stored as data */
-        *(int *)&new_datum->track_proc = track_loop_track_sound;
+        /* DEVIATION: was `extern int` + int-punned address store; track_loop_track_sound is the
+         * in-corpus tracking callback (returns int; the track_proc field type says uint8_t —
+         * width-compatible boolean result, cast bridges the return spelling). */
+        new_datum->track_proc = (uint8_t (*)(int, const void *, sound_source *))track_loop_track_sound;
         new_datum->start_time = sound_manager_globals.render_time;
         new_datum->loop_track_index = track_index;
         new_datum->fade_stop_time = 0;

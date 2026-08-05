@@ -12,7 +12,7 @@ void ai_scripting_set_return_state_evaluate(int16_t function_index, int thread_i
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        ai_scripting_set_return_state(arguments[0], ((__int16 *)arguments)[2]);
+        ai_scripting_set_return_state(arguments[0], ((int16_t *)arguments)[2]);
         hs_return(thread_index, 0);
     }
 }

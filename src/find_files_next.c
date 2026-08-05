@@ -40,7 +40,7 @@ uint8_t find_files_next(file_reference *file, file_last_modification_date *date)
     char full_path[368];
     memset(full_path, 0, 256);
 
-    __int16 depth = find_files_globals.depth;
+    int16_t depth = find_files_globals.depth;
     int level = find_files_globals.depth;
     if (depth < 0)
     {

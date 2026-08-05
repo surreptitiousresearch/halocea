@@ -59,7 +59,7 @@ int actor_combat_reaim_grenade(int actor_index, const real_point3d *grenade_orig
     float result_velocity;
     float result_ticks;
     float result_distance;
-    unsigned __int8 result_linear;
+    uint8_t result_linear;
 
     if ( !projectile_aim(projectile_definition, grenade_origin, &actor->control.grenade_current_target,
                          0, 0, 0, &actor->control.grenade_current_aim_speed, actor->control.grenade_current_lob,

@@ -1,1 +1,2 @@
-unsigned __int8 gGameEngineRunningOriginalMap;
+#include <stdint.h>
+uint8_t gGameEngineRunningOriginalMap;

@@ -28,10 +28,10 @@ uint8_t collision_model_get_features_in_sphere(const collision_model_instance *i
 {
     int produced = 0;
 
-    for ( int node_index = 0; node_index < instance->model->nodes.count; node_index = (__int16)(node_index + 1) )
+    for ( int node_index = 0; node_index < instance->model->nodes.count; node_index = (int16_t)(node_index + 1) )
     {
         const collision_node *node = &((const collision_node *)instance->model->nodes.address)[node_index];
-        __int16 region_index = node->region_index;
+        int16_t region_index = node->region_index;
         if ( region_index == -1 )
             continue;
 
@@ -42,9 +42,9 @@ uint8_t collision_model_get_features_in_sphere(const collision_model_instance *i
 
         int last_bsp = bsp_count - 1;
         if ( permutation > last_bsp )
-            permutation = (__int16)last_bsp;
+            permutation = (int16_t)last_bsp;
 
-        const collision_bsp *bsp = &((const collision_bsp *)node->bsps.address)[(__int16)permutation];
+        const collision_bsp *bsp = &((const collision_bsp *)node->bsps.address)[(int16_t)permutation];
         if ( bsp->bsp3d.nodes.count <= 0 )
             continue;
 

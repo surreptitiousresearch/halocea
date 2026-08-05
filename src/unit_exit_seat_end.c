@@ -67,7 +67,7 @@ void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit,
     int parent_object_index = object_data->object.parent_object_index;
     if ( parent_object_index != -1 )
     {
-        __int16 seat_index = object_data->unit.parent_seat_index;
+        int16_t seat_index = object_data->unit.parent_seat_index;
         if ( seat_index != -1 )
         {
             unit_datum *parent_data =
@@ -172,7 +172,7 @@ void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit,
             if ( game_connection() == _game_connection_network_client )
             {
                 player_datum *player = datum_try_and_get(player_data, object_data->unit.player_index);
-                if ( player && (unsigned __int16)player->local_player_index == 0xFFFF )
+                if ( player && (uint16_t)player->local_player_index == 0xFFFF )
                 {
                     simple_circular_queue_empty(
                         &player->___u26.client_update_data.___u0.remote_player.position_queue.queue);
@@ -189,7 +189,7 @@ void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit,
     if ( game_connection() == _game_connection_network_client )
     {
         player_datum *player = datum_try_and_get(player_data, object_data->unit.player_index);
-        if ( player && (unsigned __int16)player->local_player_index != 0xFFFF )
+        if ( player && (uint16_t)player->local_player_index != 0xFFFF )
         {
             if ( global_network_game_client_get() )
                 player_update_history_clear(0);

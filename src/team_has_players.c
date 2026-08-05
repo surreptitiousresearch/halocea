@@ -31,7 +31,7 @@ uint8_t team_has_players(int team_index)
 
     while ( 1 )
     {
-        unsigned __int8 qualifies;
+        uint8_t qualifies;
 
         if ( player->quit_out_of_game )
         {
@@ -43,7 +43,7 @@ uint8_t team_has_players(int team_index)
         }
         else
         {
-            unsigned __int8 out_of_lives = 0;
+            uint8_t out_of_lives = 0;
             if ( global_variant.universal_variant.lives > 0 )
             {
                 player_datum *player_slot = DATA_ARRAY_ELEMENT(player_data, player_datum, iterator.index);

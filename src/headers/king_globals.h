@@ -1,6 +1,7 @@
 #pragma once
 /* king_globals_type — King of the Hill game-engine state (428 bytes, DB types_members-confirmed layout). */
 
+#include <stdint.h>
 #include "real_point2d.h"
 #include "real_point3d.h"
 
@@ -8,7 +9,7 @@ typedef struct king_globals_type
 {
     int              score[16];               /* 0x000 */
     int              score_tick[16];           /* 0x040 */
-    unsigned __int8  on_the_hill[16];           /* 0x080 */
+    uint8_t  on_the_hill[16];           /* 0x080 */
     int              hill_point_count;          /* 0x090 */
     real_point3d     hill_points[12];            /* 0x094 */
     real_point2d     convex_hull[12];             /* 0x124 */

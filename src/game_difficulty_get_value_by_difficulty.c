@@ -15,7 +15,7 @@ float game_difficulty_get_value_by_difficulty(int16_t value_type, int16_t diffic
     if ( !difficulty_table )
         return 1.0f;
 
-    __int16 clamped_difficulty = difficulty;
+    int16_t clamped_difficulty = difficulty;
     if ( difficulty < game_difficulty_level_easy )
         clamped_difficulty = 0;
     else if ( difficulty > game_difficulty_level_impossible )

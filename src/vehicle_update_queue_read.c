@@ -17,7 +17,7 @@ uint8_t vehicle_update_queue_read(vehicle_update_queue *queue, int client_update
 {
     void *head[12];
     int result = simple_circular_queue_peek(&queue->queue, head);
-    if ((unsigned __int8)result == 1)
+    if ((uint8_t)result == 1)
     {
         vehicle_update_entry *head_entry = (vehicle_update_entry *)head[0];
         /* recovered: *(int *)head[0] -> head_entry->client_update_id */

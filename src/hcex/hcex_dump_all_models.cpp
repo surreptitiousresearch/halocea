@@ -15,11 +15,11 @@
 #include "../headers/model_region.h"
 #include "../headers/model_region_permutation.h"
 
-extern unsigned __int8 dump_decals;
-extern unsigned __int8 dump_perm;
-extern unsigned __int8 dump_effe;
-extern unsigned __int8 dump_model_names;
-extern unsigned __int8 dump_model_nodes;
+extern uint8_t dump_decals;
+extern uint8_t dump_perm;
+extern uint8_t dump_effe;
+extern uint8_t dump_model_names;
+extern uint8_t dump_model_nodes;
 
 extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
 extern int tag_iterator_next(tag_iterator *iterator);
@@ -68,7 +68,7 @@ extern "C" void hcex_dump_all_models(void)
 
             hcex_output_dbg("%s\n", name);
             for ( int region_index = 0; region_index < model_definition->regions.count;
-                  region_index = (__int16)(region_index + 1) )
+                  region_index = (int16_t)(region_index + 1) )
             {
                 model_region *region = &((model_region *)model_definition->regions.address)[region_index];
                 hcex_output_dbg("  %s\n", region->name);
@@ -146,7 +146,7 @@ extern "C" void hcex_dump_all_models(void)
             if ( !model_definition )
                 continue;
             for ( int node_index = 0; node_index < model_definition->nodes.count;
-                  node_index = (__int16)(node_index + 1) )
+                  node_index = (int16_t)(node_index + 1) )
             {
                 const char *node = ((model_node *)model_definition->nodes.address)[node_index].name;
                 hcex_output_dbg("  ");

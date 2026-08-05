@@ -19,7 +19,7 @@ void encounter_squad_timer_expire(uint16_t encounter_index, int16_t squad_index)
     /* encounter def squads block (element 232 bytes); flags @0x28, bit 0x10 = "magically aware on timer". */
     squad_definition *squad_def =
         &((squad_definition *)((encounter_definition *)global_scenario->ai_encounters.address)[encounter_index].squads.address)[squad_index];
-    squad_array[(__int16)(DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->squad_base + squad_index)].delay_timer = 0;
+    squad_array[(int16_t)(DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->squad_base + squad_index)].delay_timer = 0;
     if ( (squad_def->flags & (1u << _squad_magic_sight_after_timer_bit)) != 0 )
         ai_scripting_magically_see_players((squad_index << 16) & 0xFF0000 | 0x80000000 | encounter_index);
 }

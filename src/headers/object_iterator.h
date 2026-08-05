@@ -6,9 +6,9 @@
 typedef struct object_iterator
 {
     unsigned int    type_flags;     /* 0x00 */
-    unsigned __int8 flags;          /* 0x04 */
+    uint8_t flags;          /* 0x04 */
     char            _pad05;         /* 0x05 */
-    __int16         absolute_index; /* 0x06 */
+    int16_t         absolute_index; /* 0x06 */
     int             index;          /* 0x08 */
     unsigned int    signature;      /* 0x0C */
 } object_iterator;

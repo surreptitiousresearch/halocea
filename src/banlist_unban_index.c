@@ -15,7 +15,7 @@ extern int fclose(struct _iobuf *stream);
 
 uint8_t banlist_unban_index(int index)
 {
-    unsigned __int8 removed = 0;
+    uint8_t removed = 0;
     if ( index >= 0 && index < banned_players.count )
     {
         dynamic_array_delete_element(&banned_players, index);

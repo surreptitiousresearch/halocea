@@ -2,13 +2,14 @@
 /* _update_client_globals — the client-side prediction/replay queue: tracks which numbered updates have
  * been received and dequeued, the saved actions for the local players, and the ring of pending updates. */
 
+#include <stdint.h>
 #include "player_action_collection.h"
 #include "update.h"
 #include "data_array.h"
 
 typedef struct _update_client_globals
 {
-    unsigned __int8          initialized;                     /* 0x00 */
+    uint8_t          initialized;                     /* 0x00 */
     unsigned char _pad0[3]; /* db-verified padding */
     int                      next_update_number_to_dequeue;   /* 0x04 */
     int                      latest_update_number_received;   /* 0x08 */

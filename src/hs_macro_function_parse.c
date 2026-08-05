@@ -31,13 +31,13 @@ uint8_t hs_macro_function_parse(int16_t function_index, int expression_index)
     const hs_function_definition *function = hs_function_table[function_index];
     int arg_index = HS_SYNTAX_NODE(HS_SYNTAX_NODE(expression_index).data).next_node_index;
 
-    unsigned __int8 success = 1;
-    __int16 param_index = 0;
+    uint8_t success = 1;
+    int16_t param_index = 0;
 
     while ( param_index < function->formal_parameter_count && arg_index != -1 )
     {
-        __int16 formal_type = function->formal_parameters[param_index];
-        unsigned __int8 parsed = 1;
+        int16_t formal_type = function->formal_parameters[param_index];
+        uint8_t parsed = 1;
 
         if ( !HS_SYNTAX_NODE(arg_index).type )
         {
@@ -67,7 +67,7 @@ uint8_t hs_macro_function_parse(int16_t function_index, int expression_index)
     if ( !success )
         return success;
 
-    __int16 formal_parameter_count = function->formal_parameter_count;
+    int16_t formal_parameter_count = function->formal_parameter_count;
     if ( param_index == formal_parameter_count && arg_index == -1 )
         return success;
 

@@ -10,6 +10,7 @@
  * next nibble" packing, processing each row's 4 pixels from index 3 down to 0 — restored as the equivalent
  * loop. */
 
+#include <stdint.h>
 #include "headers/s3tc_block.h"
 
 extern void EncodeBlockRGBColorKey(S3TC_COLOR *colorSrc, S3TCBlockRGB *pblockDst, int colorKey);
@@ -18,9 +19,9 @@ void EncodeBlockAlpha4(S3TC_COLOR *colorSrc, S3TCBlockAlpha4 *pblockDst)
 {
     for (int row = 0; row < 4; row++)
     {
-        unsigned __int16 packed = 0;
+        uint16_t packed = 0;
         for (int col = 3; col >= 0; col--)
-            packed = (unsigned __int16)((packed << 4) | ((colorSrc[row * 4 + col].rgba[3] >> 4) & 0xF));
+            packed = (uint16_t)((packed << 4) | ((colorSrc[row * 4 + col].rgba[3] >> 4) & 0xF));
         pblockDst->alphabm[row] = packed;
     }
 

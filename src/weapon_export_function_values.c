@@ -51,9 +51,9 @@ void weapon_export_function_values(int weapon_index)
         }
     }
 
-    for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
     {
-        __int16 function_type = definition->weapon.function_modes[i];
+        int16_t function_type = definition->weapon.function_modes[i];
         if ( !function_type )
             continue;
 
@@ -66,14 +66,14 @@ void weapon_export_function_values(int weapon_index)
             case _weapon_export_primary_ammunition:
             case _weapon_export_secondary_ammunition:
             {
-                int magazine = (__int16)(function_type - _weapon_export_primary_ammunition);
+                int magazine = (int16_t)(function_type - _weapon_export_primary_ammunition);
                 weapon_magazine_definition *magazine_definitions =
                     (weapon_magazine_definition *)definition->weapon.magazines.address;
                 if ( magazine < definition->weapon.magazines.count
                   && magazine_definitions[magazine].rounds_loaded_maximum )
                 {
-                    __int16 capacity = magazine_definitions[magazine].rounds_loaded_maximum;
-                    __int16 rounds = object->weapon.magazines[magazine].rounds_loaded;
+                    int16_t capacity = magazine_definitions[magazine].rounds_loaded_maximum;
+                    int16_t rounds = object->weapon.magazines[magazine].rounds_loaded;
                     charged_fraction = ((float)rounds / (float)capacity);
                 }
                 break;
@@ -81,7 +81,7 @@ void weapon_export_function_values(int weapon_index)
             case _weapon_export_primary_rate_of_fire:
             case _weapon_export_secondary_rate_of_fire:
             {
-                int trigger = (__int16)(function_type - _weapon_export_primary_rate_of_fire);
+                int trigger = (int16_t)(function_type - _weapon_export_primary_rate_of_fire);
                 if ( trigger < definition->weapon.triggers.count )
                     charged_fraction = object->weapon.triggers[trigger].rate_of_fire;
                 break;
@@ -92,7 +92,7 @@ void weapon_export_function_values(int weapon_index)
             case _weapon_export_primary_ejection_port:
             case _weapon_export_secondary_ejection_port:
             {
-                int trigger = (__int16)(function_type - _weapon_export_primary_ejection_port);
+                int trigger = (int16_t)(function_type - _weapon_export_primary_ejection_port);
                 if ( trigger < definition->weapon.triggers.count )
                     charged_fraction = object->weapon.triggers[trigger].ejection_port_position;
                 break;
@@ -105,7 +105,7 @@ void weapon_export_function_values(int weapon_index)
             case _weapon_export_primary_charged:
             case _weapon_export_secondary_charged:
             {
-                int trigger = (__int16)(function_type - _weapon_export_primary_charged);
+                int trigger = (int16_t)(function_type - _weapon_export_primary_charged);
                 if ( trigger < definition->weapon.triggers.count )
                     charged_fraction = weapon_trigger_get_charged_fraction(weapon_index, trigger);
                 break;
@@ -136,7 +136,7 @@ void weapon_export_function_values(int weapon_index)
                         if ( charged_fraction <= object->weapon.triggers[index].illumination )
                             charged_fraction = object->weapon.triggers[index].illumination;
                         object->weapon.triggers[index].illumination = charged_fraction;
-                        trigger = (__int16)(index + 1);
+                        trigger = (int16_t)(index + 1);
                         index = trigger;
                     }
                     while ( trigger < definition->weapon.triggers.count );
@@ -154,7 +154,7 @@ void weapon_export_function_values(int weapon_index)
             case _weapon_export_primary_firing:
             case _weapon_export_secondary_firing:
             {
-                int trigger = (__int16)(function_type - _weapon_export_primary_firing);
+                int trigger = (int16_t)(function_type - _weapon_export_primary_firing);
                 if ( trigger < definition->weapon.triggers.count )
                 {
                     charged_fraction = object->weapon.triggers[trigger].rate_of_fire;
@@ -166,7 +166,7 @@ void weapon_export_function_values(int weapon_index)
             case _weapon_export_primary_firing_on:
             case _weapon_export_secondary_firing_on:
             {
-                int trigger = (__int16)(function_type - _weapon_export_primary_firing_on);
+                int trigger = (int16_t)(function_type - _weapon_export_primary_firing_on);
                 if ( trigger < definition->weapon.triggers.count )
                 {
                     charged_fraction = object->weapon.triggers[trigger].rate_of_fire;

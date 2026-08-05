@@ -25,7 +25,7 @@
 extern uint8_t collision_bsp_test_pill(const collision_bsp *bsp, const real_point3d *point, const real_vector3d *vector, float radius, float maximum_t, collision_bsp_test_pill_result *result);
 extern void scenario_location_from_point(location *location, const real_point3d *point);
 
-static __int16 leaf_cluster(int leaf_index)
+static int16_t leaf_cluster(int leaf_index)
 {
     if ( leaf_index == -1 )
         return -1;

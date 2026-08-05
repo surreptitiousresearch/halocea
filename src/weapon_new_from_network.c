@@ -106,9 +106,8 @@ void weapon_new_from_network(message_delta_processor_header *header, network_gam
     object->weapon.message_index = 0;
     gearbox_object_translate(object_index, &object->weapon.baseline.position);
     object->weapon.age = object->weapon.baseline.age;
-    *(int *)&object->object.translational_velocity.n[0] = *(int *)&object->weapon.baseline.translational_velocity.n[0];
-    *(int *)&object->object.translational_velocity.n[1] = *(int *)&object->weapon.baseline.translational_velocity.n[1];
-    *(int *)&object->object.translational_velocity.n[2] = *(int *)&object->weapon.baseline.translational_velocity.n[2];
+    /* DEVIATION: binary moves the three floats as raw words (lwz/stw); plain vector copy */
+    object->object.translational_velocity = object->weapon.baseline.translational_velocity;
     object->weapon.magazines[0].rounds_total = object->weapon.baseline.magazine_0_rounds_total;
     object->weapon.magazines[1].rounds_total = object->weapon.baseline.magazine_1_rounds_total;
     object->weapon.magazines[0].rounds_loaded = message.magazine_0_rounds_loaded;

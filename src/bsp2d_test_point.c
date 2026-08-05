@@ -12,9 +12,10 @@ int bsp2d_test_point(const bsp2d *bsp, const real_point2d *point, int child_inde
 {
     while ( child_index >= 0 )
     {
-        float *node = (float *)&((bsp2d_node *)bsp->nodes.address)[child_index];
-        int front = (node[1] * point->n[1] + node[0] * point->n[0]) - node[2] >= 0.0f;
-        child_index = *(int *)&node[front + 3];
+        /* DEVIATION: decompiler's float*+index pun retyped to bsp2d_node members (indexed child load kept) */
+        const bsp2d_node *node = &((const bsp2d_node *)bsp->nodes.address)[child_index];
+        int front = (node->plane.n.n[1] * point->n[1] + node->plane.n.n[0] * point->n[0]) - node->plane.d >= 0.0f;
+        child_index = node->child_indices[front];
     }
 
     if ( child_index == -1 )

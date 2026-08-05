@@ -58,11 +58,11 @@ void rasterizer_transparent_geometry_group_draw_internal(const transparent_geome
 
     /* negative buffer index encodes vertices-per-primitive (3 = triangle list, 4 = quad list;
      * see rasterizer_draw_dynamic_vertices), not an enum */
-    __int16 vertices_per_primitive = (__int16)(-dynamic_triangle_buffer_index);
-    __int16 primitive_count;
+    int16_t vertices_per_primitive = (int16_t)(-dynamic_triangle_buffer_index);
+    int16_t primitive_count;
 
     if ( vertices_per_primitive == 3 || vertices_per_primitive == 4 )
-        primitive_count = (__int16)(group->triangle_count / (vertices_per_primitive - 2));
+        primitive_count = (int16_t)(group->triangle_count / (vertices_per_primitive - 2));
     else
         primitive_count = 1;
 

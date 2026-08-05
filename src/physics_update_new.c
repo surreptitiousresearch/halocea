@@ -124,7 +124,7 @@ void physics_update_new(const physics_instance *instance, const powered_mass_poi
     }
     else
     {
-        __int16 passes_remaining = 4;
+        int16_t passes_remaining = 4;
         unsigned char penetration_unresolved = 0;
         for (;;)
         {
@@ -144,7 +144,7 @@ void physics_update_new(const physics_instance *instance, const powered_mass_poi
             matrix4x3_transform_point(&world_matrix, &center_of_mass_negated, &world_center_of_mass);
             world_matrix.position = world_center_of_mass;
 
-            for (int i = 0; i < physics->mass_points.count; i = (__int16)(i + 1))
+            for (int i = 0; i < physics->mass_points.count; i = (int16_t)(i + 1))
             {
                 const mass_point_datum *runtime_mass_point = &mass_points[i];
                 const real_point3d *tag_position =
@@ -223,12 +223,12 @@ void physics_update_new(const physics_instance *instance, const powered_mass_poi
     }
 
     /* "at rest" bookkeeping: tally 4 independent flag bits across every runtime mass point */
-    __int16 mass_point_flag_bit0_count = 0;
-    __int16 mass_point_flag_bit1_count = 0;
-    __int16 mass_point_flag_bit2_count = 0;
-    __int16 mass_point_flag_bit3_count = 0;
+    int16_t mass_point_flag_bit0_count = 0;
+    int16_t mass_point_flag_bit1_count = 0;
+    int16_t mass_point_flag_bit2_count = 0;
+    int16_t mass_point_flag_bit3_count = 0;
     int mass_point_count = physics->mass_points.count;
-    for (int i = 0; i < mass_point_count; i = (__int16)(i + 1))
+    for (int i = 0; i < mass_point_count; i = (int16_t)(i + 1))
     {
         unsigned int flags = mass_points[i].flags;
         mass_point_flag_bit0_count += flags & 1;

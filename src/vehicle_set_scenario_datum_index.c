@@ -12,6 +12,6 @@ void vehicle_set_scenario_datum_index(int vehicle_index, int16_t scenario_datum_
 {
     vehicle_datum *vehicle = (vehicle_datum *)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum;
-    /* DB member name ___u27 (unnamed): the vehicle's scenario datum index */
-    *(__int16 *)&vehicle->vehicle.___u27 = scenario_datum_index;
+    /* DB member ___u27 is an anonymous 2-byte union; scenario-datum-index arm */
+    vehicle->vehicle.___u27.vehicle_scenario_datum_index = scenario_datum_index;
 }

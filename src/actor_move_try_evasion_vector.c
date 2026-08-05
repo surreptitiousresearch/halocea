@@ -41,8 +41,8 @@ extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collis
 uint8_t actor_move_try_evasion_vector(int actor_index, real_vector2d *evasion_vector, float evade_distance, float maximum_ledge_height, uint8_t *evasion_is_ledge_reference, path_collision_result *result)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 found = 0;
-    unsigned __int8 is_ledge = 0;
+    uint8_t found = 0;
+    uint8_t is_ledge = 0;
     const actor_definition *definition = TAG_GET(const actor_definition, actor->meta.definition_index);
 
     if ( !actor->state.flying )

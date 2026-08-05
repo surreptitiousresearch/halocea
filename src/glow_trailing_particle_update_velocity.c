@@ -10,6 +10,7 @@
  * (+0x38/+0x3C/+0x40 initial_velocity, +0x44/+0x48/+0x4C present_velocity, +0x50/+0x52
  * ticks_in_existence/lifetime) — restored using glow_particle.h's named fields. */
 
+#include <stdint.h>
 #include "headers/glow_datum.h"
 #include "headers/glow_particle.h"
 #include "headers/glow_definition.h"
@@ -19,7 +20,7 @@
 void glow_trailing_particle_update_velocity(glow_datum *glow, glow_particle *particle)
 {
     glow_definition *definition = TAG_GET(glow_definition, glow->definition_index);
-    unsigned __int8 fades_over_lifetime = (definition->flags & (1u << _glow_trailing_particles_fade_over_time_bit)) != 0;
+    uint8_t fades_over_lifetime = (definition->flags & (1u << _glow_trailing_particles_fade_over_time_bit)) != 0;
 
     if ( fades_over_lifetime )
     {

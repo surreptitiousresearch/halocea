@@ -17,7 +17,7 @@
 
 uint8_t convex_hull3d_test_point(int16_t point_count, const real_point3d *points, int16_t vertex_count, const vertex3d *vertices, int16_t edge_count, const edge3d *edges, int16_t surface_count, const surface3d *surfaces, const real_point3d *point)
 {
-    for ( __int16 i = 0; i < surface_count; ++i )
+    for ( int16_t i = 0; i < surface_count; ++i )
     {
         const surface3d *surface = &surfaces[i];
 

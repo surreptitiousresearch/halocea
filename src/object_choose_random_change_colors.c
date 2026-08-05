@@ -10,6 +10,7 @@
  * Deviation: the seed copy was a raw double+int pair (8+4 bytes); written as a real_rgb_color struct
  * assignment (identical 12-byte copy). */
 
+#include <stdint.h>
 #include <math.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
@@ -67,7 +68,7 @@ void object_choose_random_change_colors(int object_index, const real_rgb_color *
                     permutation = &permutations[i];
                     if ( (float)permutation_key <= permutation->weight )
                         break;
-                    i = (__int16)(i + 1);
+                    i = (int16_t)(i + 1);
                     if ( i >= permutation_count )
                         goto clamp;
                 }
@@ -87,7 +88,7 @@ void object_choose_random_change_colors(int object_index, const real_rgb_color *
         object->object.outgoing_change_colors[change_color_index].blue =
             clamp01(object->object.base_change_colors[change_color_index].blue);
 
-        change_color_index = (__int16)(change_color_index + 1);
+        change_color_index = (int16_t)(change_color_index + 1);
     }
     while ( change_color_index < 4 );
 }

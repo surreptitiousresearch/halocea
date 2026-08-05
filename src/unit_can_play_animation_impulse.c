@@ -33,7 +33,7 @@ uint8_t unit_can_play_animation_impulse(int unit_index, int16_t animation_impuls
         return animation_impulse < _unit_animation_impulse_vehicle_celebrate
                || animation_impulse > _unit_animation_impulse_vehicle_panic;
 
-    if ( (unsigned __int16)unit->unit.parent_seat_index == 0xFFFF )   /* cast: header field is signed */
+    if ( (uint16_t)unit->unit.parent_seat_index == 0xFFFF )   /* cast: header field is signed */
         return 0;
 
     int *parent_object = object_try_and_get_and_verify_type(parent, object_mask_unit);

@@ -12,7 +12,7 @@ void rasterizer_screen_effect_set_video_evaluate(int16_t function_index, int thr
     if ( arguments )
     {
         /* HS argument block: packed 4-byte slots (short arg in slot 0, real in slot 1) */
-        rasterizer_screen_effect_set_video(*(__int16 *)arguments, ((float *)arguments)[1]);
+        rasterizer_screen_effect_set_video(*(int16_t *)arguments, ((float *)arguments)[1]);
         hs_return(thread_index, 0);
     }
 }

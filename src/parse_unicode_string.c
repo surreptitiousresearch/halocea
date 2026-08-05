@@ -12,10 +12,10 @@
  * declared return is uint16_t even though the sampled callers ignore the value. */
 uint16_t parse_unicode_string(parse_string_state *state)
 {
-    unsigned __int8 *string = state->string;
+    uint16_t *string = (uint16_t *)state->string;  /* UTF-16 view; state->string is shared with the 8-bit parser */
     int string_index = state->string_index;
 
-    int character = *(unsigned __int16 *)&string[2 * string_index];
+    int character = string[string_index];
     state->string_index = string_index + 1;
     state->character = character;
 
@@ -43,8 +43,8 @@ uint16_t parse_unicode_string(parse_string_state *state)
         return _parsed_character;
     }
 
-    int next_character = *(unsigned __int16 *)&string[2 * state->string_index];
-    __int16 advanced_index = state->string_index + 1;
+    int next_character = string[state->string_index];
+    int16_t advanced_index = state->string_index + 1;
     state->string_index = advanced_index;
     if (next_character == 110)
     {

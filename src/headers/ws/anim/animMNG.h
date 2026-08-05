@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsPAIR.h"
 #include "../ds/dsSTRID.h"
@@ -46,7 +47,7 @@ typedef struct animMNG_vtbl {
     const animOBJ_ANIM *(*GetObjAnim)(animMNG *self, objOBJ *obj, animSEQ *seq); // 0x2C
     void (*EvalTranData)(animMNG *self, const anim_blend::SEQ_ID_FULL *from, const anim_blend::SEQ_ID_FULL *to, animTRAN_INFO *info); // 0x30
     void (*UpdateAnim)(animMNG *self, const animMNG_UPDATE_INFO *info, animUPDATE_STATUS *status); // 0x34
-    void (*ApplyAnim)(animMNG *self, unsigned __int8 applyToChildren); // 0x38
+    void (*ApplyAnim)(animMNG *self, uint8_t applyToChildren); // 0x38
     void (*AddRefAnimSeq)(animMNG *self, const anim_blend::SEQ_ID_FULL *id); // 0x3C
     void (*RemoveRefAnimSeq)(animMNG *self, const anim_blend::SEQ_ID_FULL *id); // 0x40
     void (*EnableAnimLink)(animMNG *self); // 0x44

@@ -27,7 +27,7 @@ float periodic_function_evaluate(int16_t function_type, float time)
     float fraction = (float)fmod(scaled, 1.0);          /* interpolation weight */
     int index = (int)(scaled - fraction) & 0x3FF;
 
-    const unsigned __int8 *table = periodic_function_tables[function_type];
+    const uint8_t *table = periodic_function_tables[function_type];
     float low  = table[index] * 0.0039215689f;
     float high = table[(index + 1) & 0x3FF] * 0.0039215689f;
 

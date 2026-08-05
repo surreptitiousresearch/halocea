@@ -3,14 +3,15 @@
  * decal_insert allocates the slot (setting identifier/flags/cluster/layer and the prev/next chain);
  * decal_new_from_collision fills the visual fields below. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 
 typedef struct decal_datum
 {
-    __int16          identifier;                    /* 0x00 */
-    unsigned __int16 flags;                         /* 0x02 */
-    __int16          cluster_index;                 /* 0x04 */
-    __int16          layer;                         /* 0x06 */
+    int16_t          identifier;                    /* 0x00 */
+    uint16_t flags;                         /* 0x02 */
+    int16_t          cluster_index;                 /* 0x04 */
+    int16_t          layer;                         /* 0x06 */
     real_point3d     position;                      /* 0x08 */
     int              creation_time;                 /* 0x14 */
     char             sequence_index;                /* 0x18 */
@@ -20,9 +21,9 @@ typedef struct decal_datum
     float            lifetime;                      /* 0x1C */
     float            decay_time;                    /* 0x20 */
     unsigned int     color;                         /* 0x24 — packed ARGB */
-    unsigned __int8  intensity;                     /* 0x28 */
-    unsigned __int8  pad;                           /* 0x29 */
-    __int16          quad_count;                    /* 0x2A */
+    uint8_t  intensity;                     /* 0x28 */
+    uint8_t  pad;                           /* 0x29 */
+    int16_t          quad_count;                    /* 0x2A */
     int              definition_index;              /* 0x2C */
     int              prev_decal_index;              /* 0x30 */
     int              next_decal_index;              /* 0x34 */

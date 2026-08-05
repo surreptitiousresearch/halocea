@@ -1,6 +1,7 @@
 #pragma once
 /* motion_sensor_datum — per-sensor radar state: active blips, custom blips, orientation. */
 
+#include <stdint.h>
 #include "motion_sensor_blip.h"
 #include "tiny_point2d.h"
 #include "real_point2d.h"
@@ -13,5 +14,5 @@ typedef struct motion_sensor_datum
     real_point2d       reference_point;              /* 0x70 */
     int                num_blips_active;             /* 0x78 */
     float              yaw;                          /* 0x7C */
-    unsigned __int8    custom_blips_active;          /* 0x80 */
+    uint8_t    custom_blips_active;          /* 0x80 */
 } motion_sensor_datum; /* 132 bytes */

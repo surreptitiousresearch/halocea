@@ -4,7 +4,7 @@
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
 extern void hs_return(uint16_t thread_index, int value);
-extern unsigned char recorded_animation_play(int object_index, __int16 recorded_animation_index);
+extern unsigned char recorded_animation_play(int object_index, int16_t recorded_animation_index);
 
 void recorded_animation_play_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
@@ -13,7 +13,7 @@ void recorded_animation_play_evaluate(int16_t function_index, int thread_index, 
     if ( arguments )
     {
         /* HS argument block: packed wire, faithfully de-flagged */
-        *((unsigned char *)&result + 3) = recorded_animation_play(arguments[0], ((__int16 *)arguments)[2]);
+        *((unsigned char *)&result + 3) = recorded_animation_play(arguments[0], ((int16_t *)arguments)[2]);
         hs_return(thread_index, result);
     }
 }

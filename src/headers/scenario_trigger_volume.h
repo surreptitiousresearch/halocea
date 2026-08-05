@@ -4,6 +4,7 @@
  * type 1 = oriented box (point/forward/up frame + extents), type 0 = world-aligned box (min/max
  * rectangle). Both arms overlap the same 60 bytes. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "real_rectangle3d.h"
@@ -27,8 +28,8 @@ typedef struct scenario_trigger_volume_world_aligned
 
 typedef struct scenario_trigger_volume
 {
-    __int16          type;         /* 0x00 */
-    unsigned __int16 pad;          /* 0x02 */
+    int16_t          type;         /* 0x00 */
+    uint16_t pad;          /* 0x02 */
     char             name[32];     /* 0x04 */
     union
     {

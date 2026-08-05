@@ -18,7 +18,7 @@ extern int datum_new(data_array *data);
 int encounter_find_pursuit(uint16_t encounter_index, int16_t firing_position_index, int history_start_time, uint8_t force_create)
 {
     encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
-    unsigned __int8 needs_reset = 0;
+    uint8_t needs_reset = 0;
     int pursuit_index = encounter->first_pursuit_index;
     pursuit_datum *pursuit_record = nullptr;
 

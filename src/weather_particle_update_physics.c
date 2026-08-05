@@ -86,7 +86,7 @@ void weather_particle_update_physics(int16_t system_index, int16_t type_index, u
     }
 
     point_physics_definition *physics = TAG_GET(point_physics_definition, type_def->physics.index);
-    __int16 collision_material_type;
+    int16_t collision_material_type;
     point_physics_update(system->under_water == 0 ? 5 : 7, physics, &system->location,
             system->weather_palette_index, &particle->position,
             &particle->velocity, nullptr, nullptr, &collision_material_type,

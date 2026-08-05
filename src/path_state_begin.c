@@ -29,7 +29,7 @@ uint8_t path_state_begin(path_state *state)
         return 0;
 
     float distance_to_destination;
-    __int16 quantized_cost_estimate;
+    int16_t quantized_cost_estimate;
     if (state->destination_valid)
     {
         float dx = state->destination.point.n[0] - state->input.start_point.n[0];
@@ -40,7 +40,7 @@ uint8_t path_state_begin(path_state *state)
         int scaled = (int)(distance_to_destination * 10.0f);
         if (scaled >= 0x7FFF)
             return 0;
-        quantized_cost_estimate = (__int16)scaled;
+        quantized_cost_estimate = (int16_t)scaled;
     }
     else
     {
@@ -48,7 +48,7 @@ uint8_t path_state_begin(path_state *state)
         quantized_cost_estimate = 0;
     }
 
-    __int16 node_index = state->node_count;
+    int16_t node_index = state->node_count;
     state->node_count = node_index + 1;
 
     path_node *node = &state->node_list[node_index];
@@ -76,7 +76,7 @@ uint8_t path_state_begin(path_state *state)
 
     if (state->heap_count < 1024)
     {
-        __int16 heap_index = state->heap_count;
+        int16_t heap_index = state->heap_count;
         state->heap_count = heap_index + 1;
         state->heap[heap_index].node_index = node_index;
         state->heap[heap_index].quantized_cost_estimate = quantized_cost_estimate;

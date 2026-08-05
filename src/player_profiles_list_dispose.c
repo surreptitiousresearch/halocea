@@ -9,7 +9,7 @@ extern void widget_free(void *ptr);
 extern void preview_list_free(void);
 
 uint8_t player_profiles_list_dispose(widget_instance *list_widget, event_record *event,
-        unsigned __int8 *widget_deleted)
+        uint8_t *widget_deleted)
 {
     void *list_items = list_widget->parameters.list_parameters.list_items;
     if ( list_items )

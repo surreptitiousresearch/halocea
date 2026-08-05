@@ -8,7 +8,7 @@ extern object_type_definition object_data_definition;
 extern void light_fixture_delete(int light_fixture_index);
 extern uint8_t light_fixture_new(int light_fixture_index);
 extern void light_fixture_place(int light_fixture_index, scenario_light_fixture_datum *scenario_light_fixture);
-extern unsigned __int8 light_fixture_update(int light_fixture_index);
+extern uint8_t light_fixture_update(int light_fixture_index);
 extern void light_fixtures_dispose(void);
 extern void light_fixtures_dispose_from_old_map(void);
 extern void light_fixtures_initialize(void);

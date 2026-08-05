@@ -97,7 +97,7 @@ extern int   hcex_always_shoot;
 extern int   hcex_material_effect_type;
 extern float hcex_fly_mode_speed_scale;
 extern bool  hcex_render_ready;
-extern unsigned __int8   debug_objects;
+extern uint8_t   debug_objects;
 extern const char *const hcex_mtl_effects[0x21];   /* 33-entry material-effect-type name table */
 
 #include "../ws/ds/dsVECTOR.h"

@@ -32,7 +32,7 @@ uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destin
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     float avoidance_distance = 0.0f;
-    unsigned __int8 available = 1;
+    uint8_t available = 1;
 
     if (actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying)
     {

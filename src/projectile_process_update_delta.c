@@ -8,16 +8,17 @@
  * 0x800), it teleports the object to the decoded position. Finally it records the update into the object's
  * history block (+166).
  *
- * DEVIATION: register-pun doubles are plain float math; the three hand-inlined 6-dword block copies are written
- * as loops. The projectile object is accessed through the DB-typed projectile_datum struct; the baseline /
- * last_network_data blobs are aliased as int[6] to preserve the raw-bit network copy. `client` is part of the
- * processor signature but unused by this handler. */
+ * DEVIATION: register-pun doubles are plain float math; the three hand-inlined 6-dword block copies (lwz/stw)
+ * are written as projectile_datum_network_data struct assignments (bit-exact). The projectile object is
+ * accessed through the DB-typed projectile_datum struct; the incremental decoder still sees the baseline as
+ * raw dwords. `client` is part of the processor signature but unused by this handler. */
 
 #include <stdint.h>
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"
 #include "headers/real_point3d.h"
 #include "headers/projectile_datum.h"
+#include "headers/projectile_datum_network_data.h"
 #include "headers/object_flags.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
@@ -26,7 +27,7 @@ extern float __fsqrts(float);
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t object_type_is_update_valid(int object_index, const message_delta_processor_mode mode, const int baseline_index_from_update, int message_index_from_update, const int latest_valid_baseline_index, int latest_valid_message_index, const int maximum_message_index);
-extern unsigned __int8 message_delta_processor_decode_incremental(real_point3d *decoded_state,
+extern uint8_t message_delta_processor_decode_incremental(real_point3d *decoded_state,
         int *baseline_state, message_delta_processor_header *header, int flags);
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
@@ -47,15 +48,14 @@ void projectile_process_update_delta(int object_index, message_delta_processor_h
         return;
     }
 
-    /* baseline / last_network_data are 6-dword (position + translational_velocity) network blobs */
+    /* baseline / last_network_data are 6-dword (position + translational_velocity) network blocks;
+       the incremental decoder consumes the stored baseline as raw dwords */
     int *baseline = (int *)&projectile->projectile.baseline;
 
-    int decoded_state[6];
-    real_point3d *decoded_position = (real_point3d *)decoded_state;
-    for ( int i = 0; i < 6; i++ )                    /* seed decode from the stored baseline */
-        decoded_state[i] = baseline[i];
+    projectile_datum_network_data decoded_state = projectile->projectile.baseline;  /* seed decode from the stored baseline */
+    real_point3d *decoded_position = &decoded_state.position;
 
-    unsigned __int8 decoded;
+    uint8_t decoded;
     if ( header->decoding_information->mode == _message_delta_mode_incremental )
         decoded = message_delta_processor_decode_incremental(decoded_position, baseline, header, 0);
     else
@@ -68,22 +68,16 @@ void projectile_process_update_delta(int object_index, message_delta_processor_h
     if ( custom_header[6] )
     {
         projectile->projectile.baseline_index = custom_header[4];
-        for ( int i = 0; i < 6; i++ )
-            baseline[i] = decoded_state[i];
+        projectile->projectile.baseline = decoded_state;
     }
 
-    /* translational_velocity xyz = decoded velocity dwords (raw float bits) */
-    *(int *)&projectile->object.translational_velocity.n[0] = decoded_state[3];
-    *(int *)&projectile->object.translational_velocity.n[1] = decoded_state[4];
-    *(int *)&projectile->object.translational_velocity.n[2] = decoded_state[5];
+    projectile->object.translational_velocity = decoded_state.translational_velocity;
     projectile->object.last_server_position.n[0] = decoded_position->n[0];
     projectile->object.last_server_position.n[1] = decoded_position->n[1];
     projectile->object.last_server_position.n[2] = decoded_position->n[2];
     projectile->object.is_server_position_valid = 1;
     projectile->object.is_server_translational_velocity_valid = 1;
-    *(int *)&projectile->object.last_server_translational_velocity.n[0] = decoded_state[3];
-    *(int *)&projectile->object.last_server_translational_velocity.n[1] = decoded_state[4];
-    *(int *)&projectile->object.last_server_translational_velocity.n[2] = decoded_state[5];
+    projectile->object.last_server_translational_velocity = decoded_state.translational_velocity;
 
     if ( (header->decoding_information->mode != _message_delta_mode_incremental
        || __fsqrts((decoded_position->n[1] - projectile->object.position.n[1]) * (decoded_position->n[1] - projectile->object.position.n[1])
@@ -96,7 +90,5 @@ void projectile_process_update_delta(int object_index, message_delta_processor_h
     }
 
     projectile->projectile.last_network_data_valid = 1;
-    int *last_network_data = (int *)&projectile->projectile.last_network_data;
-    for ( int i = 0; i < 6; i++ )                    /* record into the last_network_data history block */
-        last_network_data[i] = decoded_state[i];
+    projectile->projectile.last_network_data = decoded_state;  /* record into the history block */
 }

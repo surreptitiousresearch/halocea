@@ -31,7 +31,7 @@ void player_update_history_play_from_console(int last_completed_update_id, uint8
     player = data_iterator_next(&iterator);
     if (player)
     {
-        while ((unsigned __int16)player->local_player_index == 0xFFFF)  /* sentinel on signed __int16 -- skip empty slots */
+        while ((uint16_t)player->local_player_index == 0xFFFF)  /* sentinel on signed __int16 -- skip empty slots */
         {
             player = data_iterator_next(&iterator);
             if (!player)

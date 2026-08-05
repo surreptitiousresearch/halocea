@@ -13,10 +13,10 @@ int16_t path_heap_pop_cheapest_node(path_state *state)
     if ( state->heap_count <= 1 )
         return -1;
 
-    __int16 node_index = state->heap[1].node_index;
+    int16_t node_index = state->heap[1].node_index;
     state->node_list[node_index].heap_location = -1;
 
-    __int16 new_count = state->heap_count - 1;
+    int16_t new_count = state->heap_count - 1;
     state->heap_count = new_count;
     if ( new_count > 1 )
     {

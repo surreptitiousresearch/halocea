@@ -59,7 +59,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
     ai_command_definition *command = (ai_command_definition *)command_list->commands.address + current_command_index;
     int actor_unit_index = actor->meta.unit_index;   /* actor meta.unit_index (+0x18) */
 
-    switch ( *(__int16 *)command )
+    switch ( *(int16_t *)command )
     {
         case _ai_atom_pause:
         case _ai_atom_look:
@@ -97,7 +97,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
             {
                 if ( actor->control.moving )
                     simple_control->pause_timer = 10;
-                unsigned __int8 arrived = 1;
+                uint8_t arrived = 1;
                 if ( !(char)done || simple_control->pause_timer )
                     arrived = 0;
                 done = arrived;
@@ -173,14 +173,16 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
             if ( unit_index != actor_unit_index || !complex_control )
                 return 1;
             {
-                float sx = *(float *)&actor->control.current_fire_target_type - complex_control->shoot_target.n[0];
-                float sy = actor->control.___u58.current_fire_target_manual_point.x - complex_control->shoot_target.n[1];
-                float sz = actor->control.___u58.current_fire_target_manual_point.y - complex_control->shoot_target.n[2];
+                /* DEVIATION: decompiler pun shifted the reads down one field (float at &current_fire_target_type);
+                 * disasm 0x837DE55C..7C loads control+0x1A4/0x1A8/0x1AC = manual_point.x/y/z (DB-verified). */
+                float sx = actor->control.___u58.current_fire_target_manual_point.x - complex_control->shoot_target.n[0];
+                float sy = actor->control.___u58.current_fire_target_manual_point.y - complex_control->shoot_target.n[1];
+                float sz = actor->control.___u58.current_fire_target_manual_point.z - complex_control->shoot_target.n[2];
                 if ( actor->control.current_fire_target_type != actor_fire_target_manual_point || sx * sx + (sz * sz + sy * sy) >= 0.25f )
                 {
                     /* not shooting the target yet: hold for the variant's first-burst delay (sec->ticks), floored at 60 */
                     actor_variant_definition *variant = TAG_GET(actor_variant_definition, actor->meta.variant_definition_index);
-                    __int16 timer = (int)(variant->ranged_combat.first_burst_delay_upper_bound * 30.0f);  /* variant+132 */
+                    int16_t timer = (int)(variant->ranged_combat.first_burst_delay_upper_bound * 30.0f);  /* variant+132 */
                     if ( timer <= 60 )
                         timer = 60;
                     simple_control->pause_timer = timer;
@@ -194,7 +196,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
             if ( complex_control->grenade_throw_started )
             {
                 /* still throwing: hold while the unit reports the grenade is in hand (unit +653) */
-                unsigned __int8 in_hand = ((unsigned char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum)[653];
+                uint8_t in_hand = ((unsigned char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum)[653];
                 simple_control->pause_timer = in_hand ? 0x1E : 0;
                 return (in_hand ? 0x1E : 0) == 0;
             }
@@ -215,7 +217,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
         {
             if ( (simple_control->simple_control_flags & (1u << _obey_simple_control_jump_bit)) == 0 )
                 return 1;
-            unsigned __int8 airborne;
+            uint8_t airborne;
             if ( unit_index == actor_unit_index )
                 airborne = actor->input.in_midair;
             else
@@ -244,12 +246,12 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
         case _ai_atom_vocalize:
         {
             unsigned char *unit = ((unsigned char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-            return (unsigned __int16)((unit_datum *)unit)->unit.speech.current.priority != _unit_speech_scripted;   /* branchless in the binary */
+            return (uint16_t)((unit_datum *)unit)->unit.speech.current.priority != _unit_speech_scripted;   /* branchless in the binary */
         }
 
         case _ai_atom_wait:
         {
-            unsigned int parameter = (unsigned __int16)command->atom_modifier;
+            unsigned int parameter = (uint16_t)command->atom_modifier;
             int result;
             if ( parameter )
             {
@@ -262,7 +264,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
                     if ( parameter >= 3 )
                         return 1;
                     /* parameter == 2: one-shot latch on told_to_advance -> waiting_for_advance_notification */
-                    unsigned __int8 metadata_flags = simple_control->metadata_flags;
+                    uint8_t metadata_flags = simple_control->metadata_flags;
                     if ( (metadata_flags & (1u << _obey_metadata_told_to_advance_bit)) != 0 )
                     {
                         simple_control->metadata_flags = metadata_flags

@@ -13,14 +13,14 @@ void set_textbox_to_build_number(widget_instance *widget)
 {
     if ( !widget->parameters.text_box_parameters.text )
     {
-        unsigned __int16 *text = ui_widget_realloc(nullptr, 0x80u);
+        uint16_t *text = ui_widget_realloc(nullptr, 0x80u);
 
         widget->parameters.text_box_parameters.text = text;
         if ( text )
             memset(text, 0, 0x80u);
     }
 
-    unsigned __int16 *text = widget->parameters.text_box_parameters.text;
+    uint16_t *text = widget->parameters.text_box_parameters.text;
 
     if ( text )
     {

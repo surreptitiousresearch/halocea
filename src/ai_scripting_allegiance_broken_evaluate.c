@@ -9,7 +9,7 @@ extern uint8_t ai_scripting_allegiance_broken(int16_t team1_index, int16_t team2
 
 void ai_scripting_allegiance_broken_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
         int result = 0;

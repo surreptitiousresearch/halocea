@@ -34,7 +34,7 @@ unsigned int XCreateSaveGame(const char *lpRootPathName, const wchar_t *lpSaveGa
         return 87;
 
     char save_name[128];
-    wide_to_ascii((unsigned __int16 *)lpSaveGameName, save_name, 0x80);
+    wide_to_ascii((uint16_t *)lpSaveGameName, save_name, 0x80);
 
     char save_dir[272];
     char info_file_path[272];
@@ -42,7 +42,7 @@ unsigned int XCreateSaveGame(const char *lpRootPathName, const wchar_t *lpSaveGa
     sprintf_0(info_file_path, "%s%s", save_dir, save_name);
 
     char metadata[1072];
-    unsigned __int16 metadata_wide[128];
+    uint16_t metadata_wide[128];
     sprintf_0(metadata, "Name=%s\n", save_name);
     ascii_to_wide(metadata, metadata_wide, 0x80);
 

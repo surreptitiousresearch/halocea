@@ -86,7 +86,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
 
     /* the local machine applies authoritative damage when it owns the object (network role 0 or 3) */
     int network_role = object->object.datum_role;
-    unsigned __int8 should_do_actual_damage = (!network_role || network_role == 3);
+    uint8_t should_do_actual_damage = (!network_role || network_role == 3);
 
     if ( damage_data->owner_player_index != -1
       && !datum_try_and_get(player_data, damage_data->owner_player_index) )
@@ -130,8 +130,8 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
     }
     else
     {
-        __int16 owner_team = (unsigned __int16)damage_data->owner_team_index;
-        if ( owner_team != (__int16)0xFFFF && game_team_is_enemy(owner_team, _game_team_player) )
+        int16_t owner_team = (uint16_t)damage_data->owner_team_index;
+        if ( owner_team != (int16_t)0xFFFF && game_team_is_enemy(owner_team, _game_team_player) )
         {
             total_damage = game_difficulty_get_value(0) * total_damage;
             friendly_difficulty_applied = 1;
@@ -140,7 +140,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
 
     struct damage_data working;  /* struct tag: a param named damage_data shadows the typedef */
     int *affected_objects = (int *)&working.epicenter;  /* index array overlays epicenter onward */
-    __int16 affected_count = 0;
+    int16_t affected_count = 0;
 
     unsigned int flags = damage_data->flags;
     int is_area_damage = flags & (1u << _damage_area_of_effect_bit);
@@ -235,7 +235,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
         directional_effect = 0;
 
     /* fire the local player damage effect for any affected object the local machine controls */
-    for ( __int16 i = 0; i < affected_count; ++i )
+    for ( int16_t i = 0; i < affected_count; ++i )
     {
         unit_datum *affected = object_try_and_get_and_verify_type(affected_objects[i], object_mask_unit);
         if ( !affected )
@@ -243,7 +243,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
 
         if ( affected->unit.player_index != -1 )  /* controlling player */
         {
-            __int16 connection = game_connection();
+            int16_t connection = game_connection();
             if ( (unsigned int)connection < NUMBER_OF_GAME_CONNECTIONS )
             {
                 switch ( connection )
@@ -271,7 +271,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
         }
         else if ( cheat.reflexive_damage_effects )  /* unowned object: local cheat self-effect */
         {
-            __int16 connection = game_connection();
+            int16_t connection = game_connection();
             switch ( connection )
             {
                 case _game_connection_local:
@@ -305,7 +305,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
         *(float *)&working.owner_player_index = 0.0f;
         *(float *)&working.owner_team_index = 0.0f;
         working.definition_index = 0;
-        __int16 body_part = -1;
+        int16_t body_part = -1;
 
         int current_object_index = affected_objects[affected_count];
         object_datum *current_object =
@@ -325,7 +325,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
             char friendly_fire_damages_body = 1;
 
             /* whether this machine should produce visible damage effects (recovered from disasm) */
-            unsigned __int8 should_do_damage_effects;
+            uint8_t should_do_damage_effects;
             if ( current_network_role == 3 || current_network_role == 0 )
             {
                 should_do_damage_effects = 1;
@@ -337,7 +337,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
                 if ( role_owner != -1 )
                 {
                     player_datum *role_player = datum_try_and_get(player_data, role_owner);
-                    if ( role_player && (unsigned __int16)role_player->local_player_index != 0xFFFF )
+                    if ( role_player && (uint16_t)role_player->local_player_index != 0xFFFF )
                         should_do_damage_effects = 0;
                 }
             }
@@ -350,7 +350,7 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
             /* friendly-fire team handling: the branch is taken only when victim and attacker are teammates */
             int victim_player;
             player_datum *victim_player_data;
-            unsigned __int8 is_enemy = 1;
+            uint8_t is_enemy = 1;
             if ( game_engine_running()
               && game_engine_has_teams()
               && (victim_player = player_index_from_unit_index(current_object_index)) != -1
@@ -392,8 +392,8 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
             if ( friendly_difficulty_applied )
                 working.definition_index = (1u << _object_being_damaged_multiplied_by_difficulty_bit);
 
-            __int16 owner_team = (unsigned __int16)damage_data->owner_team_index;
-            if ( owner_team != (__int16)0xFFFF
+            int16_t owner_team = (uint16_t)damage_data->owner_team_index;
+            if ( owner_team != (int16_t)0xFFFF
               && !game_team_is_enemy(current_object->object.owner_team_index, owner_team) )
                 working.definition_index |= (1u << _object_being_damaged_by_friendly_bit);
 
@@ -449,8 +449,8 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
                       || (victim_is_teammate && !friendly_fire_damages_body) )
                         total_damage = 0.0f;
 
-                    __int16 body_node = node_index;
-                    __int16 body_region = region_index;
+                    int16_t body_node = node_index;
+                    int16_t body_region = region_index;
                     if ( affected_count )
                     {
                         body_node = -1;

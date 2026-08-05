@@ -23,7 +23,7 @@ void bitmap_3d_uncompress_from_mipmap(const bitmap_data *source_bitmap, bitmap_d
 
     if ( source_slice && source_slice->base_address && destination_slice && destination_slice->base_address )
     {
-        for ( __int16 slice_index = 0; slice_index < source_bitmap->depth; slice_index++ )
+        for ( int16_t slice_index = 0; slice_index < source_bitmap->depth; slice_index++ )
         {
             bitmap_3d_slice_extract(source_bitmap, source_mipmap_index, slice_index, source_slice);
             bitmap_2d_uncompress_from_mipmap(source_slice, destination_slice, 0);

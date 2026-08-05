@@ -46,7 +46,7 @@ enum postgame_statistic select_players_to_display(statistic_buffer *out_players,
         {
             int player_index = all_players[i].player_index;
             player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
-            if (player && (unsigned __int16)player->local_player_index != 0xFFFF)
+            if (player && (uint16_t)player->local_player_index != 0xFFFF)
             {
                 if (debug)
                     terminal_printf(global_real_argb_white, "found local player");
@@ -63,7 +63,7 @@ enum postgame_statistic select_players_to_display(statistic_buffer *out_players,
             while (evict_index >= 0)
             {
                 int player_index = all_players[evict_index].player_index;
-                if ((unsigned __int16)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index == 0xFFFF)
+                if ((uint16_t)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index == 0xFFFF)
                     break; /* found a non-local player slot to evict */
                 evict_index--;
             }

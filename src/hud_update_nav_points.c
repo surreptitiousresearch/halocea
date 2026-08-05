@@ -29,7 +29,7 @@ extern int local_player_get_player_index(int16_t local_player_index);
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *game_engine_get_goal_position(real_point3d *result, int16_t index);
-extern __int16 hud_get_nav_point_render_type(__int16 local_player_index, const real_point3d *head,
+extern int16_t hud_get_nav_point_render_type(int16_t local_player_index, const real_point3d *head,
                                              const real_point3d *position, int reference_object_index);
 
 void hud_update_nav_points(void)
@@ -47,11 +47,11 @@ void hud_update_nav_points(void)
             unit_index = DATA_ARRAY_ELEMENT(player_data, player_datum,
                          local_player_get_player_index(local_player_index))->unit_index;
 
-        for (int j = 0; j < MAXIMUM_ACTIVE_NAV_POINTS; j = (__int16)(j + 1))
+        for (int j = 0; j < MAXIMUM_ACTIVE_NAV_POINTS; j = (int16_t)(j + 1))
         {
             hud_nav_point_datum *nav_point = &player_nav->nav_points[j];
 
-            if ((unsigned __int16)nav_point->nav_index == 0xFFFF
+            if ((uint16_t)nav_point->nav_index == 0xFFFF
                 || nav_point->reference_index == -1
                 /* recovered: (nav_point->packing & 0xF000) == 0xF000 -> nav_point->type == -1 */
                 || nav_point->type == -1)

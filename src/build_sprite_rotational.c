@@ -60,8 +60,8 @@ void build_sprite_rotational(build_sprite_data *data, unsigned int flags, int16_
     {
         bitmap_group *group = TAG_GET(bitmap_group, data->bitmap_group_index);
         bitmap_group_sequence *sequences = (bitmap_group_sequence *)group->sequences.address;
-        __int16 pole_sprite_count = sequences[first_sequence_index + 1].sprites.count;
-        __int16 frame_index;
+        int16_t pole_sprite_count = sequences[first_sequence_index + 1].sprites.count;
+        int16_t frame_index;
         float inner_rotation;
         unsigned int inner_flags = 1;
 
@@ -69,9 +69,9 @@ void build_sprite_rotational(build_sprite_data *data, unsigned int flags, int16_
         {
             double raw_frame = fmod((double)(pole_sprite_count * rotation * one_over_full_circle + 0.5f),
                     (double)pole_sprite_count);
-            frame_index = (__int16)(raw_frame + sprite_index);
+            frame_index = (int16_t)(raw_frame + sprite_index);
             if (angle_from_equator < 0.0f)
-                frame_index = (__int16)(pole_sprite_count - sprite_index);
+                frame_index = (int16_t)(pole_sprite_count - sprite_index);
             inner_rotation = 0.0f;
         }
         else
@@ -91,11 +91,11 @@ void build_sprite_rotational(build_sprite_data *data, unsigned int flags, int16_
     {
         bitmap_group *group = TAG_GET(bitmap_group, data->bitmap_group_index);
         bitmap_group_sequence *sequences = (bitmap_group_sequence *)group->sequences.address;
-        __int16 side_sprite_count = sequences[first_sequence_index].sprites.count;
+        int16_t side_sprite_count = sequences[first_sequence_index].sprites.count;
 
         double raw_frame = fmod((double)(side_sprite_count * rotation * one_over_full_circle + 0.5f),
                 (double)side_sprite_count);
-        __int16 frame_index = (__int16)raw_frame;
+        int16_t frame_index = (int16_t)raw_frame;
         float screen_rotation = (float)atan2(transformed_axis.n[1], transformed_axis.n[0]);
 
         unsigned int equator_flags = 1;  /* same flag word as inner_flags base value in the pole arm */

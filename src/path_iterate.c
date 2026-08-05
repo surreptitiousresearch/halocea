@@ -40,7 +40,7 @@ extern void path_add_steps(obstacle_path *path, int16_t step_index, int16_t seed
 
 uint8_t path_iterate(obstacle_path *path)
 {
-    __int16 step_index;
+    int16_t step_index;
 
     if (path->heap_count <= 0)
     {
@@ -57,7 +57,7 @@ uint8_t path_iterate(obstacle_path *path)
     if (step_index != -1)
     {
         step *current_step = &path->steps[step_index];
-        unsigned __int8 ignore_structure = (current_step->previous_step_index == -1);
+        uint8_t ignore_structure = (current_step->previous_step_index == -1);
 
         path_test_pill2d_result result;
         path_test_pill2d(path->structure, path->ignore_broken_surfaces, path->obstacles, -1,
@@ -68,7 +68,7 @@ uint8_t path_iterate(obstacle_path *path)
         {
             if (result.disc_index == 0xFFFF)
             {
-                unsigned __int8 reached_goal;
+                uint8_t reached_goal;
                 if (result.surface_index == path->goal_surface_index)
                     reached_goal = 1;
                 else
@@ -100,7 +100,7 @@ uint8_t path_iterate(obstacle_path *path)
         }
     }
 
-    if ((unsigned __int16)path->goal_step_index != 0xFFFF)
+    if ((uint16_t)path->goal_step_index != 0xFFFF)
         return 0;
     return path->heap_count > 0;
 }

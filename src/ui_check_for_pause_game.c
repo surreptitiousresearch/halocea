@@ -23,7 +23,7 @@ extern uint8_t game_engine_allow_pause(void);
 extern uint8_t ui_widgets_active(void);
 extern network_game_client *global_network_game_client_get(void);
 extern int16_t local_player_get_next(int16_t local_player_index);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 extern gamepad_state *input_get_gamepad_state(int16_t gamepad_index);
 
@@ -31,7 +31,7 @@ int ui_check_for_pause_game(void)
 {
     char start_pressed = 0;
     unsigned char networked = network_game_is_active();
-    __int16 pressing_controller = -1;
+    int16_t pressing_controller = -1;
     int pause_loaded = 0;
     int controller;
 
@@ -57,9 +57,9 @@ int ui_check_for_pause_game(void)
     if ( start_pressed )
     {
         int only_presser_is_solo = 1;
-        __int16 local_player_count = 0;
-        __int16 matched_controller = -1;
-        __int16 player;
+        int16_t local_player_count = 0;
+        int16_t matched_controller = -1;
+        int16_t player;
 
         for ( player = local_player_get_next(-1); player != -1; player = local_player_get_next(player) )
         {

@@ -42,19 +42,19 @@ extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint8_t actor_action_allowed_to_enter_vehicle(int actor_index, int vehicle_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
-extern unsigned __int8 action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float attempt_distance,
+extern uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float attempt_distance,
         float continue_distance, vehicle_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 
 #define VEHICLE_ENTRY_FLT_MAX 3.4028235e38f
 
-unsigned __int8 actor_action_handle_vehicle_entry(int actor_index)
+uint8_t actor_action_handle_vehicle_entry(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);
     int now = game_time_get();
 
-    __int16 current_action = actor->state.action;
+    int16_t current_action = actor->state.action;
     /* recovered: *(__int16 *)((char*)&action_data + 12) -> flee.panic_type (action 4 == flee) */
     if ( current_action == actor_action_flee && actor->state.action_data.___u0.flee.panic_type > _actor_panic_none )
         return 0;
@@ -118,7 +118,7 @@ unsigned __int8 actor_action_handle_vehicle_entry(int actor_index)
     if ( ai_globals->enterable_vehicle_count <= 0 )
         return 0;
 
-    for ( int slot = 0; slot < ai_globals->enterable_vehicle_count; slot = (__int16)(slot + 1) )
+    for ( int slot = 0; slot < ai_globals->enterable_vehicle_count; slot = (int16_t)(slot + 1) )
     {
         ai_vehicle_enterable *enterable = &ai_globals->enterable_vehicles[slot];
         if ( !object_try_and_get_and_verify_type(enterable->vehicle_index, object_mask_vehicle) )
@@ -137,41 +137,42 @@ unsigned __int8 actor_action_handle_vehicle_entry(int actor_index)
            && distance_squared > (enterable->radius * enterable->radius)) )
             continue;
 
-        __int16 team_bitmask = enterable->team_bitmask;
+        int16_t team_bitmask = enterable->team_bitmask;
         if ( team_bitmask > 0 )
         {
-            __int16 actor_team = actor->meta.team_index;
+            int16_t actor_team = actor->meta.team_index;
             if ( actor_team == -1 || ((1 << actor_team) & team_bitmask) == 0 )
                 continue;
         }
-        __int16 actor_type_bitmask = enterable->actor_type_bitmask;
-        if ( actor_type_bitmask > 0 && ((1 << (unsigned __int16)actor->meta.type) & actor_type_bitmask) == 0 )
+        int16_t actor_type_bitmask = enterable->actor_type_bitmask;
+        if ( actor_type_bitmask > 0 && ((1 << (uint16_t)actor->meta.type) & actor_type_bitmask) == 0 )
             continue;
 
-        __int16 ai_indices_count = enterable->ai_indices_count;
-        unsigned __int8 matched;
+        int16_t ai_indices_count = enterable->ai_indices_count;
+        uint8_t matched;
         if ( ai_indices_count <= 0 )
         {
             /* no allowed-index restriction: any actor may enter */
             goto select_vehicle;
         }
         matched = 0;
-        for ( int i = 0; i < ai_indices_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < ai_indices_count; i = (int16_t)(i + 1) )
         {
             unsigned int ai_index = enterable->ai_indices[i];
             if ( ai_index == -1 )
                 continue;
-            /* low-16 match via cntlzw==0 idiom */
-            matched = (unsigned __int16)(*(unsigned __int16 *)&actor->meta.encounter_index ^ ai_index) == 0;
+            /* low-16 match via cntlzw==0 idiom. DEVIATION: disasm is lwz(full encounter_index) ^ ai_index, clrlwi 16 —
+             * i.e. low 16 bits of the full-width xor; the previous *(uint16_t*)& pun read the BE high half (endian-unsafe). */
+            matched = (uint16_t)(actor->meta.encounter_index ^ ai_index) == 0;
             if ( matched )
             {
                 if ( ai_index >> 30 == 1 )
                 {
-                    matched = (unsigned __int8)(((ai_index >> 8) & 0xFF) == actor->meta.platoon_index);
+                    matched = (uint8_t)(((ai_index >> 8) & 0xFF) == actor->meta.platoon_index);
                 }
                 else if ( ai_index >> 30 == 2 )
                 {
-                    matched = (unsigned __int8)(((ai_index >> 8) & 0xFF) == actor->meta.squad_index);
+                    matched = (uint8_t)(((ai_index >> 8) & 0xFF) == actor->meta.squad_index);
                 }
                 /* types 0 and 3: the low-16 match alone is sufficient */
             }

@@ -5,6 +5,7 @@
  * *info from the animation's frame-info type: 0 -> "none", 1 -> "xy", 2 -> "xyr", 3 -> "xyzr". A type > 3
  * leaves *info unchanged. */
 
+#include <stdint.h>
 #include "../headers/data_array.h"
 #include "../headers/object_header_datum.h"
 #include "../headers/animation_graph.h"
@@ -27,7 +28,7 @@ extern "C" void hcex_debug_get_anim_info(int objId, int *frameCount, char **info
 
     *frameCount = anim->frame_count;
 
-    unsigned int frame_info_type = (unsigned __int16)anim->frame_info_type;
+    unsigned int frame_info_type = (uint16_t)anim->frame_info_type;
     if ( frame_info_type < NUMBER_OF_ANIMATION_FRAME_INFO_TYPES )
     {
         if ( frame_info_type == _animation_frame_info_xy_translation )

@@ -21,7 +21,7 @@ extern void ship_terminal_printf(const real_argb_color *color, const char *forma
 
 void hs_evaluate_inspect(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate(thread, sizeof(int)): reserve the value slot at the frame
      * data top, 4-aligned up. The compiled `if (slot - 1 > top) --slot` correction can never fire
@@ -31,7 +31,7 @@ void hs_evaluate_inspect(int16_t function_index, int thread_index, uint8_t initi
     int *value_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
     if ( (unsigned int)(value_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --value_slot;
-    frame->size = (__int16)((unsigned char *)value_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)value_slot - frame->data + 4);
 
     int inspect_expression = frame->expression_index;
     int argument = HS_SYNTAX_NODE(HS_SYNTAX_NODE(inspect_expression).data).next_node_index;
@@ -43,7 +43,7 @@ void hs_evaluate_inspect(int16_t function_index, int thread_index, uint8_t initi
     }
 
     char buffer[1024];
-    __int16 argument_type = HS_SYNTAX_NODE(argument).type;
+    int16_t argument_type = HS_SYNTAX_NODE(argument).type;
     if ( hs_type_inspectors[argument_type] )
     {
         hs_type_inspectors[argument_type](argument_type, *value_slot, buffer); /* DB proto takes (value_type, value, buffer) */

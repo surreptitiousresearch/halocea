@@ -27,7 +27,7 @@ int hs_thread_new(int16_t type, int script_index)
         thread->stack->parent = 0;
         thread->stack->size = 0;
         thread->stack->expression_index = -1;
-        thread->type = (unsigned __int8)type;
+        thread->type = (uint8_t)type;
         thread->script_index = script_index;
         thread->flags = 0;
         if ( script_index != -1

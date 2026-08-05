@@ -12,7 +12,7 @@ player_update * player_update_history_slide(player_update_history *history, int 
 {
     player_update *head = history->update_history_head;
     player_update *next = 0;
-    unsigned __int8 found = 0;
+    uint8_t found = 0;
 
     for ( player_update *update = head; update; update = update->next )
     {

@@ -2,6 +2,7 @@
  * same salted object-header lookup as vehicle_hover.c). The hover anchor point at +1276 (see vehicle_hover.c)
  * is deliberately left untouched — it is not part of this reset range. */
 
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/vehicle_datum.h"
@@ -26,8 +27,8 @@ void vehicle_reset(int vehicle_index)
     vehicle->vehicle.on_ground_ticks = 0;
     vehicle->vehicle.thrust = 0.0f;
     vehicle->vehicle.hover = 0.0f;
-    *(int *)&vehicle->vehicle.suspension[0] = 0;   /* suspension is char[8]; cleared as two 32-bit stores */
-    *(int *)&vehicle->vehicle.suspension[4] = 0;
+    /* DEVIATION: binary zeroes suspension (uint8_t[8]) as two dword stores */
+    memset(vehicle->vehicle.suspension, 0, sizeof(vehicle->vehicle.suspension));
     vehicle->vehicle.collision_force.n[0] = 0.0f;
     vehicle->vehicle.collision_force.n[1] = 0.0f;
     vehicle->vehicle.collision_force.n[2] = 0.0f;

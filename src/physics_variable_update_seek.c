@@ -22,7 +22,7 @@ extern void physics_variable_speed_update(float *speed, const physics_variable_s
 
 uint8_t physics_variable_update_seek(float *position, float *speed, const physics_variable *definition, uint8_t cyclical_position, float desired_position, float magnitude)
 {
-    unsigned __int8 arrived = 1;
+    uint8_t arrived = 1;
     float delta = desired_position - *position;
 
     if ( delta != 0.0f )

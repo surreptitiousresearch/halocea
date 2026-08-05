@@ -32,7 +32,7 @@ extern void hud_play_unit_sounds(const player_datum *player, uint8_t show_hud);
 
 void hud_update_unit(void)
 {
-    __int16 local_player_index = local_player_get_next(-1);
+    int16_t local_player_index = local_player_get_next(-1);
     if (local_player_index == -1)
         return;
 

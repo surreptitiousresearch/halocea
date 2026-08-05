@@ -44,7 +44,7 @@ void actor_set_dormant(uint16_t actor_index, uint8_t dormant)
             swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
             if ( swarm->unit_count > 0 )
             {
-                for ( __int16 i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+                for ( int16_t i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
                 {
                     int unit_index = swarm->unit_indices[i];
                     if ( set_dormant )

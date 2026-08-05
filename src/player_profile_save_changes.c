@@ -9,7 +9,7 @@
 
 extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 extern uint8_t player_ui_edit_profile_is_dirty(void);
-extern unsigned __int8 player_ui_save_profile(void);
+extern uint8_t player_ui_save_profile(void);
 extern void player_ui_end_editing_profile(void);
 extern widget_instance *widget_instance_get_topmost_parent(widget_instance *widget);
 extern void ui_widget_delete(widget_instance *widget);
@@ -21,7 +21,7 @@ uint8_t player_profile_save_changes(widget_instance *widget, event_record *event
     ui_play_audio_feedback_sound(_ui_audio_feedback_forward);
     if ( player_ui_edit_profile_is_dirty() )
         save_result = player_ui_save_profile();
-    if ( !(unsigned __int8)save_result )
+    if ( !(uint8_t)save_result )
     {
         player_ui_end_editing_profile();
         widget_instance *topmost_parent = widget_instance_get_topmost_parent(widget);

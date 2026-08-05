@@ -27,12 +27,12 @@ uint8_t scenario_get_current(const location *location, const real_point3d *posit
                          unsigned int flags)
 {
     int in_water = 0;
-    __int16 weather_palette_index = -1;
+    int16_t weather_palette_index = -1;
 
-    if ( (unsigned __int16)location->cluster_index != 0xFFFF )
+    if ( (uint16_t)location->cluster_index != 0xFFFF )
     {
         structure_bsp *bsp = global_structure_bsp;
-        __int16 fog_region_index = scenario_get_fog_region_index(location, (flags & 4) != 0 ? NULL : position);
+        int16_t fog_region_index = scenario_get_fog_region_index(location, (flags & 4) != 0 ? NULL : position);
 
         weather_palette_index = ((structure_cluster *)bsp->clusters.address)[location->cluster_index].weather_palette_index;
 
@@ -42,7 +42,7 @@ uint8_t scenario_get_current(const location *location, const real_point3d *posit
                 &((structure_fog_region *)bsp->fog_regions.address)[fog_region_index];
             int fog_palette_index = fog_region->fog_palette_index;
             if ( fog_palette_index != -1
-              && (unsigned __int16)fog_region->weather_palette_index != 0xFFFF )
+              && (uint16_t)fog_region->weather_palette_index != 0xFFFF )
             {
                 int fog_tag = ((structure_fog_palette_entry *)bsp->fog_palette.address)[fog_palette_index].fog.index;
                 if ( fog_tag != -1 )

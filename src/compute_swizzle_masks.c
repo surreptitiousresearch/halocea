@@ -23,20 +23,20 @@ void compute_swizzle_masks(int16_t width, int16_t height, int16_t depth)
     {
         advanced = 0;
 
-        if ( size < (unsigned __int16)width )
+        if ( size < (uint16_t)width )
         {
             x_mask |= bit;
             bit *= 2;
             advanced = bit;
         }
-        if ( size < (unsigned __int16)height )
+        if ( size < (uint16_t)height )
         {
             y_mask |= bit;
             bit *= 2;
             ay = y_mask;
             advanced = bit;
         }
-        if ( size < (unsigned __int16)depth )
+        if ( size < (uint16_t)depth )
         {
             z_mask |= bit;
             bit *= 2;

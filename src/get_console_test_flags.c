@@ -16,9 +16,9 @@ extern void player_ui_get_active_player_profile(int16_t local_player_index, play
 uint16_t get_console_test_flags(uint16_t extra_flags)
 {
     int connection = game_connection();
-    __int16 base = 1;
-    __int16 mode_flags;
-    unsigned __int16 flags;
+    int16_t base = 1;
+    int16_t mode_flags;
+    uint16_t flags;
     int result;
 
     if ( game_engine_running() )

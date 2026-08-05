@@ -16,7 +16,7 @@ void hud_broadcast_team_message(int victim_player_index, const wchar_t *message)
     if ( !game_engine_running() )
         return;
 
-    for ( __int16 local_player_index = 0; local_player_index < 2; ++local_player_index )
+    for ( int16_t local_player_index = 0; local_player_index < 2; ++local_player_index )
     {
         int player_index = local_player_get_player_index(local_player_index);
         if ( player_index == -1 )

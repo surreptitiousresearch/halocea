@@ -5,6 +5,7 @@
  * Disasm-verified: no call past matrix4x3_transform_point exists in the loop body; the function
  * unconditionally `li r3,0` before returning. Reproduced verbatim, dead work included. */
 
+#include <stdint.h>
 #include "headers/real_point3d.h"
 #include "headers/real_matrix4x3.h"
 #include "headers/collision_model_instance.h"
@@ -23,7 +24,7 @@ int collision_model_test_sphere(const collision_model_instance *instance, const 
         do
         {
             collision_node *node_def = &((collision_node *)model->nodes.address)[node];
-            __int16 region = node_def->region_index;
+            int16_t region = node_def->region_index;
             if ( region != -1 )
             {
                 int permutation = instance->region_permutation_indices[region];
@@ -34,7 +35,7 @@ int collision_model_test_sphere(const collision_model_instance *instance, const 
                         permutation = permutation_count - 1;
                     /* recovered: 96*permutation + base -> collision_bsp array indexing (96 = sizeof) */
                     const collision_bsp *bsp =
-                        &((const collision_bsp *)node_def->bsps.address)[(__int16)permutation];
+                        &((const collision_bsp *)node_def->bsps.address)[(int16_t)permutation];
                     if ( bsp->bsp3d.nodes.count > 0 )
                     {
                         real_matrix4x3 inverse;
@@ -46,7 +47,7 @@ int collision_model_test_sphere(const collision_model_instance *instance, const 
                 }
             }
             model = instance->model;
-            node = (__int16)(node + 1);
+            node = (int16_t)(node + 1);
         }
         while ( node < model->nodes.count );
     }

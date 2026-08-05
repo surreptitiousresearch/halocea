@@ -46,7 +46,7 @@ float actor_look_compute_prop_interest(uint16_t actor_index, uint16_t prop_index
         weight = 1.5f;
 
     /* no DB enum found: prop_datum.quantized_speed is a runtime-quantized bucket index (char, no named domain) */
-    switch ( (unsigned __int8)prop->quantized_speed )
+    switch ( (uint8_t)prop->quantized_speed )
     {
         case 1: interest = (weight * 0.5f) + interest; break;
         case 2: interest = weight + interest; break;
@@ -56,7 +56,7 @@ float actor_look_compute_prop_interest(uint16_t actor_index, uint16_t prop_index
         interest = (weight * 2.0f) + interest;
 
     /* no DB enum found: prop_datum.quantized_distance is a runtime-quantized bucket index (char, no named domain) */
-    switch ( (unsigned __int8)prop->quantized_distance )
+    switch ( (uint8_t)prop->quantized_distance )
     {
         case 1: interest = interest * 0.60000002f; break;
         case 3: interest = interest * 0.40000001f; break;

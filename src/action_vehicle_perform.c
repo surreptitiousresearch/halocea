@@ -54,8 +54,8 @@ int action_vehicle_perform(int actor_index)
     vehicle_state_data *action_data = &actor->state.action_data.___u0.vehicle;
 
     int target_index = action_data->vehicle_index;                     /* vehicle object index being entered */
-    __int16 seat_index = action_data->seat_index;
-    unsigned __int8 scripted_entry = action_data->impromptu == 0;      /* actor+0xA2 == 0 -> forced/scripted entry */
+    int16_t seat_index = action_data->seat_index;
+    uint8_t scripted_entry = action_data->impromptu == 0;      /* actor+0xA2 == 0 -> forced/scripted entry */
     real_point3d *actor_position = &actor->input.position.body_position;
 
     void *vehicle_object = object_try_and_get_and_verify_type(target_index, object_mask_vehicle);
@@ -88,9 +88,8 @@ int action_vehicle_perform(int actor_index)
                 if ( ((dz * dz) + ((dy * dy) + (dx * dx))) >= 25.0f )
                 {
                     action_data->stuck_detection_counter = 0;          /* moved >5 units -> not stuck; re-cache position */
-                    *(int *)&action_data->stuck_detection_point.n[0] = *(int *)&actor->input.position.body_position.n[0];
-                    *(int *)&action_data->stuck_detection_point.n[1] = *(int *)&actor->input.position.body_position.n[1];
-                    *(int *)&action_data->stuck_detection_point.n[2] = *(int *)&actor->input.position.body_position.n[2];
+                    /* DEVIATION: decompiler word-punned this 12-byte real_point3d copy (lwz/stw triple, 0x12C..0x134 -> 0x14..0x1C); plain struct assignment */
+                    action_data->stuck_detection_point = actor->input.position.body_position;
                 }
                 else
                 {
@@ -101,9 +100,9 @@ int action_vehicle_perform(int actor_index)
             real_point3d entry_point;
             real_vector3d entry_facing;
             real_point3d hint_point;
-            unsigned __int8 within_range;
-            unsigned __int8 correct_facing;
-            unsigned __int8 could_potentially_fake;
+            uint8_t within_range;
+            uint8_t correct_facing;
+            uint8_t could_potentially_fake;
 
             if ( action_data->stuck_detection_counter < 8
               && action_vehicle_evaluate_seat(actor_index, target_index, seat_index, scripted_entry,
@@ -112,7 +111,7 @@ int action_vehicle_perform(int actor_index)
             {
                 if ( could_potentially_fake )
                 {
-                    __int16 fake_ticks = action_data->fake_entry_potential_timer + 1;
+                    int16_t fake_ticks = action_data->fake_entry_potential_timer + 1;
                     action_data->fake_entry_potential_timer = fake_ticks;
                     if ( fake_ticks >= 30 )                    /* fake the entry after 30 ticks */
                     {
@@ -140,7 +139,7 @@ int action_vehicle_perform(int actor_index)
                 /* not within range yet: path toward the vehicle */
                 if ( actor->meta.timeslice )
                 {
-                    unsigned __int8 moving = 0;
+                    uint8_t moving = 0;
                     if ( action_vehicle_find_destination(actor_index, target_index, &entry_point, &entry_facing,
                                 /* hint_point: reinterpret of vehicle_state_data.ignore_hint (byte +7), per decompile */
                                 (real_point3d *)&action_data->ignore_hint, &action_data->destination_point,
@@ -155,7 +154,7 @@ int action_vehicle_perform(int actor_index)
                     }
                     else
                     {
-                        __int16 fails = action_data->pathfinding_failures + 1;
+                        int16_t fails = action_data->pathfinding_failures + 1;
                         action_data->pathfinding_failures = fails;
                         if ( fails > (scripted_entry ? 5 : 50) )
                             action_data->vehicle_entry_failed = 1;     /* too many path failures -> abort */

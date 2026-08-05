@@ -22,7 +22,7 @@ extern void player_ui_remember_player1_profile(uint8_t write_to_disk);
 uint8_t difficulty_item_select(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     widget_instance *parent = widget->parent;
-    __int16 item_index = 0;
+    int16_t item_index = 0;
 
     for ( widget_instance *child = parent->children; widget != child; child = child->next )
     {
@@ -33,7 +33,7 @@ uint8_t difficulty_item_select(widget_instance *widget, event_record *event, uin
     if ( parent->parameters.list_parameters.selected_list_item_index == item_index )
     {
         /* compiled pointer walk: 5th child -> its children -> parent -> parent == the list widget */
-        __int16 difficulty = parent->children->next->next->next->next
+        int16_t difficulty = parent->children->next->next->next->next
                                  ->children->parent->parent->parameters.list_parameters.selected_list_item_index;
         if ( difficulty < number_of_game_difficulty_levels )
         {

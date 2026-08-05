@@ -19,8 +19,8 @@ extern void _data_packet_encode(data_packet_definition *packet_definition, data_
 uint8_t data_packet_encode(data_packet_definition *packet_definition, int16_t version, void *packet,
                                    void *buffer, int16_t *buffer_size, int16_t maximum_buffer_size)
 {
-    __int16 scratch_field_count;
-    __int16 total_size_scratch[7];
+    int16_t scratch_field_count;
+    int16_t total_size_scratch[7];
     data_encoding_state state;
 
     if ( !packet_definition->initialized_flag )
@@ -34,7 +34,7 @@ uint8_t data_packet_encode(data_packet_definition *packet_definition, int16_t ve
         version = packet_definition->version;
     if ( packet_definition->version > 0 )
     {
-        __int16 version_field;
+        int16_t version_field;
         *(char *)&version_field = version; /* leading byte (big-endian) carries the version */
         data_encode_memory(&state, &version_field, 1, 1);
     }

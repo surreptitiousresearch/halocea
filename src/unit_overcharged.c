@@ -14,7 +14,7 @@ uint8_t unit_overcharged(int unit_index)
 {
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    __int16 weapon_slot = unit->unit.current_weapon_index;
+    int16_t weapon_slot = unit->unit.current_weapon_index;
     if (weapon_slot == -1)
         return 0;
 

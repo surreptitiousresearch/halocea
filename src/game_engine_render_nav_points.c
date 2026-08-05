@@ -19,7 +19,7 @@ extern int local_player_get_player_index(int16_t local_player_index);
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
 extern unsigned int game_engine_get_type(void);
 extern uint8_t goal_matches_player(player_datum *player, int player_index, int goal_index);
-extern __int16 hud_get_nav_point_render_type(__int16 local_player_index, const real_point3d *head,
+extern int16_t hud_get_nav_point_render_type(int16_t local_player_index, const real_point3d *head,
                                               const real_point3d *position, int reference_object_index);
 extern void custom_render_nav_point(int16_t local_player_index, const real_point3d *position_pointer, int16_t nav_index, int16_t waypoint_type, uint8_t render_distance);
 
@@ -50,8 +50,8 @@ void game_engine_render_nav_points(int16_t local_player_index)
         if ( !goal_matches_player(player, player_index, goal_index) )
             continue;
 
-        __int16 nav_point_render_type;
-        unsigned __int8 render_distance;
+        int16_t nav_point_render_type;
+        uint8_t render_distance;
 
         if ( game_engine_get_type() != game_engine_ctf
              || global_variant.game_engine_variant.ctf.assault

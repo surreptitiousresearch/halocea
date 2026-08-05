@@ -2,6 +2,7 @@
  * identity orientation (forward/up), 50° field of view, origin position with invalid PVS location and zero
  * velocity, a cleared command, and freshly stamped header/trailer signatures. */
 
+#include <stdint.h>
 #include "headers/observer_globals.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_point3d.h"
@@ -18,7 +19,7 @@ void observer_initialize_for_new_map(void)
     const real_vector3d *up = global_up3d;
     const real_vector3d *forward = global_forward3d;
 
-    for ( __int16 p = 0; p < 2; p = (__int16)(p + 1) )
+    for ( int16_t p = 0; p < 2; p = (int16_t)(p + 1) )
     {
         observer *obs = &observer_globals.local_players[p];
         obs->forward = *forward;

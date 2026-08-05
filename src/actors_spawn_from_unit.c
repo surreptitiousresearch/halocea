@@ -48,8 +48,8 @@ int actors_spawn_from_unit(int unit_index, int actor_variant_definition_index, i
 
     unit_datum *source_unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
 
-    __int16 encounter_index;
-    __int16 squad_index;
+    int16_t encounter_index;
+    int16_t squad_index;
     if ( source_unit->unit.swarm_actor_index == -1 && source_unit->unit.actor_index == -1 )
     {
         encounter_index = source_unit->unit.fake_encounter_index;
@@ -69,7 +69,7 @@ int actors_spawn_from_unit(int unit_index, int actor_variant_definition_index, i
         TAG_GET(actor_variant_definition, actor_variant_definition_index);
     actor_definition *actor_def = TAG_GET(actor_definition, variant_def->actor_reference.index);
 
-    for ( __int16 i = 0; i < count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < count; i = (int16_t)(i + 1) )
     {
         float angle = real_seed_random_range(get_global_random_seed_address(), 0.0f, TWO_PI);
 
@@ -110,7 +110,7 @@ int actors_spawn_from_unit(int unit_index, int actor_variant_definition_index, i
                 if ( !new_unit->object.type )
                     biped_accelerate(object_index, &launch);
             }
-            spawned = (__int16)(spawned + 1);
+            spawned = (int16_t)(spawned + 1);
         }
     }
 

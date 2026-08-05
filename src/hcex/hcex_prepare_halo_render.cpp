@@ -14,16 +14,16 @@
 #include "headers/render_frustum.h"
 extern render_globals render;
 extern rasterizer_window_begin_parameters global_window_parameters;
-extern __int16 global_current_render_target;
+extern int16_t global_current_render_target;
 extern render_window hcex_window[];
 
-extern __int16 hcex_render_player_index(int cam_idx);
+extern int16_t hcex_render_player_index(int cam_idx);
 extern void render_camera_build_frustum_bounds(const render_camera *camera, real_rectangle2d *frustum_bounds);
 extern void render_camera_build_frustum(const render_camera *camera, const real_rectangle2d *frustum_bounds, render_frustum *frustum, uint8_t build_projection);
 
 extern "C" void hcex_prepare_halo_render(int cam_idx)
 {
-    __int16 local_player_index = hcex_render_player_index(cam_idx);
+    int16_t local_player_index = hcex_render_player_index(cam_idx);
     memset(&global_window_parameters, 0, sizeof(global_window_parameters));
 
     render_camera *rasterizer_camera = &hcex_window[cam_idx + 1].rasterizer_camera;

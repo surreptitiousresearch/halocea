@@ -42,7 +42,7 @@ extern void D3DDevice_SetRenderState_BlendOp(D3DDevice *device, unsigned int op)
 extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
@@ -68,14 +68,14 @@ int16_t rasterizer_sun_glow_convolve(int16_t primary_target, int16_t secondary_t
         D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_screen));
         D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(0));
         D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vsh_constants__texanim, 8,
-                (unsigned __int64)7 << 58);
+                (uint64_t)7 << 58);
 
-        for (__int16 pass = 0; pass < passes; pass++)
+        for (int16_t pass = 0; pass < passes; pass++)
         {
-            __int16 source_target = (pass & 1) == 0 ? primary_target : secondary_target;
-            __int16 destination_target = (pass & 1) == 0 ? secondary_target : primary_target;
+            int16_t source_target = (pass & 1) == 0 ? primary_target : secondary_target;
+            int16_t destination_target = (pass & 1) == 0 ? secondary_target : primary_target;
 
-            for (__int16 stage = 0; stage < 4; stage++)
+            for (int16_t stage = 0; stage < 4; stage++)
             {
                 rasterizer_set_target_as_texture_for_effect(stage, source_target, 0, shader);
                 D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, stage, 0);

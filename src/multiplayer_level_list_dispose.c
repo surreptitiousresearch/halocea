@@ -8,7 +8,7 @@
 extern void preview_list_free(void);
 
 uint8_t multiplayer_level_list_dispose(widget_instance *list_widget, event_record *event,
-        unsigned __int8 *widget_deleted)
+        uint8_t *widget_deleted)
 {
     list_widget->parameters.list_parameters.list_items = nullptr;
     list_widget->parameters.list_parameters.number_of_items = 0;

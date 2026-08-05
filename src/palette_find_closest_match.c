@@ -8,10 +8,10 @@ uint8_t palette_find_closest_match(const unsigned int *palette, unsigned int col
     if ( (color & 0xFF000000) <= 0x80000000 )
         return 255;
 
-    unsigned __int8 closest_index = -1;
+    uint8_t closest_index = -1;
     int closest_distance = 0;
 
-    for ( __int16 i = 0; i < 256; i++ )
+    for ( int16_t i = 0; i < 256; i++ )
     {
         unsigned int entry = palette[i];
         if ( !entry )

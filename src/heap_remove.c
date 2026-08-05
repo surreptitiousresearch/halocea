@@ -11,8 +11,8 @@ int16_t heap_remove(obstacle_path *path)
     if ( path->heap_count <= 0 )
         return -1;
 
-    __int16 root = path->heap[0];
-    __int16 new_count = path->heap_count - 1;
+    int16_t root = path->heap[0];
+    int16_t new_count = path->heap_count - 1;
 
     path->heap_count = new_count;
     path->heap[0] = path->heap[new_count];

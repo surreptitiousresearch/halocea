@@ -6,6 +6,7 @@
  * at 10/15 of the ramp, raised to the power 1.9, then halved.
  * DEVIATION: decompiler wrote pow(v10, v9) — disasm shows pow(f1=fade, f2=1.9); args corrected. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include <math.h>
@@ -23,7 +24,7 @@ void internal_rasterize_target_name(int player_index)
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
     int closest_player_index = -1;
-    if ( player->local_player_index != (unsigned __int16)0xFFFF && player->unit_index != -1 )
+    if ( player->local_player_index != (uint16_t)0xFFFF && player->unit_index != -1 )
     {
         closest_player_index = find_closest_player_index(player_index);
         if ( closest_player_index == player_index )

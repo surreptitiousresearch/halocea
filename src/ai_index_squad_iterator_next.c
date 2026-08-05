@@ -7,6 +7,7 @@
  * with squad_array elements 32 bytes wide — reconstructed accordingly. The platoon index is read raw from the
  * squad_definition.platoon_index (offset 34 in the 232-byte squad_definition element). */
 
+#include <stdint.h>
 #include "headers/ai_index_squad_iterator.h"
 #include "headers/squad_datum.h"
 #include "headers/scenario.h"
@@ -46,5 +47,5 @@ squad_datum *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator)
     }
 
     int base_squad_index = (unsigned short)encounter_runtime->squad_base;
-    return &squad_array[(__int16)(base_squad_index + iterator->squad_index)];
+    return &squad_array[(int16_t)(base_squad_index + iterator->squad_index)];
 }

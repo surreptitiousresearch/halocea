@@ -60,7 +60,7 @@ uint8_t action_flee_setup(int actor_index, int16_t panic_type, int panic_prop_in
 
     action_flee_find_flee_position(actor_index, state_data);
 
-    if ((unsigned __int16)state_data->flee_firing_position_index == 0xFFFF)
+    if ((uint16_t)state_data->flee_firing_position_index == 0xFFFF)
     {
         state_data->unable_to_flee = 0;
         return 0;

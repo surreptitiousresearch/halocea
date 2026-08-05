@@ -23,8 +23,8 @@ int16_t render_frustum_cube_visible(const render_frustum *frustum, const real_re
     float plane1_x, plane1_y, plane1_z, plane1_d;
     float plane2_x, plane2_y, plane2_z, plane2_d;
     float plane3_x, plane3_y, plane3_z, plane3_d;
-    __int16 corners_outside_common;
-    __int16 corners_outside_any;
+    int16_t corners_outside_common;
+    int16_t corners_outside_any;
     int corner_index;
     float cube_corners[24];
 
@@ -91,8 +91,8 @@ int16_t render_frustum_cube_visible(const render_frustum *frustum, const real_re
         float cy = corner[1];
         float cx = *corner;
         float cz = corner[2];
-        __int16 flags;
-        __int16 bit;
+        int16_t flags;
+        int16_t bit;
 
         flags = (((cz * plane0_z) + ((plane0_x * cx) + (cy * plane0_y)))
                       - plane0_d) > 0.0;
@@ -112,7 +112,7 @@ int16_t render_frustum_cube_visible(const render_frustum *frustum, const real_re
             bit = 0;
         flags |= bit;
 
-        corner_index = (__int16)(corner_index + 1);
+        corner_index = (int16_t)(corner_index + 1);
         corners_outside_common &= flags;
         corners_outside_any |= flags;
     }
@@ -126,7 +126,7 @@ int16_t render_frustum_cube_visible(const render_frustum *frustum, const real_re
         return 1;
 
     /* reverse test: the 5 frustum world vertices vs the box AABB */
-    __int16 vertices_outside_common = 63;
+    int16_t vertices_outside_common = 63;
     int vertex_index = 0;
     do
     {
@@ -134,8 +134,8 @@ int16_t render_frustum_cube_visible(const render_frustum *frustum, const real_re
         float vx = vertex->n[0];
         float vy = vertex->n[1];
         float vz = vertex->n[2];
-        __int16 flags;
-        __int16 bit;
+        int16_t flags;
+        int16_t bit;
 
         flags = vx <= bx0;
         bit = 2;
@@ -158,7 +158,7 @@ int16_t render_frustum_cube_visible(const render_frustum *frustum, const real_re
         if ( vz < bz1 )
             bit = 0;
 
-        vertex_index = (__int16)(vertex_index + 1);
+        vertex_index = (int16_t)(vertex_index + 1);
         vertices_outside_common &= flags | bit;
     }
     while ( vertex_index < 5 );

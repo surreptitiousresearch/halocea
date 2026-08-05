@@ -65,7 +65,7 @@ connection_check:
     {
         player_datum *player = datum_try_and_get(player_data, player_index);
         /* sentinel: local_player_index is __int16; keep the unsigned cast so -1 compares as 0xFFFF */
-        if (player && (unsigned __int16)player->local_player_index != 0xFFFF)
+        if (player && (uint16_t)player->local_player_index != 0xFFFF)
             goto play_sound;
     }
     return;

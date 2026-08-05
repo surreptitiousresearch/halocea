@@ -53,7 +53,7 @@ uint8_t biped_predicted_movement_localplayer(real_point3d *position, real_vector
         return 0;
 
     /* find the local player (local_player_index is valid) */
-    while ( (unsigned __int16)player->local_player_index == 0xFFFF )
+    while ( (uint16_t)player->local_player_index == 0xFFFF )
     {
         player = data_iterator_next(iter);
         if ( !player )

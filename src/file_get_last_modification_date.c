@@ -20,7 +20,7 @@ uint8_t file_get_last_modification_date(const file_reference *file, file_last_mo
 {
     char full_path[288];
     WIN32_FILE_ATTRIBUTE_DATA attribute_data;
-    unsigned __int8 succeeded = 0;
+    uint8_t succeeded = 0;
 
     memset(date, 0, sizeof(*date));
     memset(full_path, 0, 256);

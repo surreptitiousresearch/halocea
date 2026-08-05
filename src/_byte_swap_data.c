@@ -16,6 +16,7 @@
  * slot (the -102 out-param scratch); reproduced faithfully. Undefined opcodes <= -8 loop without advancing —
  * a shipped assumption that only valid streams occur. */
 
+#include <stdint.h>
 #include "headers/byte_swap_definition.h"
 
 void _byte_swap_data(byte_swap_definition *definition, void *data, int *codes,
@@ -78,8 +79,8 @@ void _byte_swap_data(byte_swap_definition *definition, void *data, int *codes,
             {
                 if ( data )
                 {
-                    unsigned __int64 qw = *(unsigned __int64 *)&bytes[offset];
-                    *(unsigned __int64 *)&bytes[offset] =
+                    uint64_t qw = *(uint64_t *)&bytes[offset];
+                    *(uint64_t *)&bytes[offset] =
                           ((qw & 0x00000000000000FFull) << 56) | ((qw & 0x000000000000FF00ull) << 40)
                         | ((qw & 0x0000000000FF0000ull) << 24) | ((qw & 0x00000000FF000000ull) << 8)
                         | ((qw & 0x000000FF00000000ull) >> 8)  | ((qw & 0x0000FF0000000000ull) >> 24)

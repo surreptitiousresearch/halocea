@@ -113,11 +113,11 @@ void actor_perception_refresh_danger_zone(int actor_index)
     actor->danger_zone.bounding_sphere_radius =
         __fsqrts(rad_x * rad_x + (rad_y * rad_y + rad_z * rad_z)) + actor->danger_zone.danger_radius;
 
-    unsigned __int8 danger_moved_to_owner_team = 0; /* v21 */
+    uint8_t danger_moved_to_owner_team = 0; /* v21 */
 
     /* ignore_vehicles argument shared by the line-of-sight tests: the actor+344 terms cancel to
      * `1 - (actor+86 == -1)`, i.e. whether the actor's slot-86 index is valid. */
-    unsigned __int8 los_ignore_vehicles = (unsigned __int8)(actor->input.vehicle_index != -1);
+    uint8_t los_ignore_vehicles = (uint8_t)(actor->input.vehicle_index != -1);
 
     switch ( danger_type )
     {
@@ -130,8 +130,8 @@ void actor_perception_refresh_danger_zone(int actor_index)
                 if ( active_prop != -1 )
                     reacted = (DATA_ARRAY_ELEMENT(prop_data, prop_datum, active_prop))->perception >= 2;
             }
-            __int16 animation_state[8];
-            __int16 frames_remaining = unit_get_animation_frames_remaining(danger_object_index, animation_state);
+            int16_t animation_state[8];
+            int16_t frames_remaining = unit_get_animation_frames_remaining(danger_object_index, animation_state);
             if ( animation_state[0] != _unit_state_dying )
                 frames_remaining = -1;
             actor->danger_zone.___u19.suicide.time_until_death = frames_remaining; /* recovered: scalar assign -> union member (danger_type 1) */
@@ -155,7 +155,7 @@ void actor_perception_refresh_danger_zone(int actor_index)
                 direction_specification fuse;
                 fuse.___u1.prop_index = (int)((1.0f - danger_projectile->projectile.detonation_timer)
                                                / danger_projectile->projectile.detonation_timer_delta);
-                actor->danger_zone.___u19.projectile.time_until_explosion = (__int16)fuse.___u1.object_index; /* recovered: scalar assign -> union member; low word of fuse frame count */
+                actor->danger_zone.___u19.projectile.time_until_explosion = (int16_t)fuse.___u1.object_index; /* recovered: scalar assign -> union member; low word of fuse frame count */
             }
 
             char already = 0;
@@ -172,15 +172,15 @@ void actor_perception_refresh_danger_zone(int actor_index)
                   && actor->danger_zone.current_distance_from_actor
                         < (double)(TAG_GET(projectile_definition, danger_object->definition_index))->projectile.danger_perception_radius )  /* def+412 */
                 {
-                    __int16 target_cluster = danger_object->object.location.cluster_index;  /* object+156 */
+                    int16_t target_cluster = danger_object->object.location.cluster_index;  /* object+156 */
                     if ( danger_object->object.parent_object_index != -1 )
                         target_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(danger_object_index))->datum)->object.location.cluster_index;
 
-                    __int16 line_of_sight = ai_test_line_of_sight(&sense[0].head_position,
+                    int16_t line_of_sight = ai_test_line_of_sight(&sense[0].head_position,
                             sense[0].body_location.cluster_index, &actor->danger_zone.position,
                             target_cluster, 0, 0, danger_object_index, los_ignore_vehicles);
 
-                    __int16 combat_knowledge;
+                    int16_t combat_knowledge;
                     if ( actor->state.combat_status < _actor_combat_status_investigate )
                         combat_knowledge = (actor->state.mode >> 15) + ((unsigned int)actor->state.mode >= _actor_mode_combat);
                     else
@@ -231,11 +231,11 @@ void actor_perception_refresh_danger_zone(int actor_index)
             else
                 danger_location = (const location *)(((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(danger_object_index))->datum) + 152);
 
-            __int16 line_of_sight = ai_test_line_of_sight(&sense[0].head_position,
+            int16_t line_of_sight = ai_test_line_of_sight(&sense[0].head_position,
                     sense[0].body_location.cluster_index, &actor->danger_zone.position,
                     danger_location->cluster_index, 0, 0, danger_object_index, los_ignore_vehicles);
 
-            __int16 combat_knowledge;
+            int16_t combat_knowledge;
             if ( actor->state.combat_status < _actor_combat_status_investigate )
                 combat_knowledge = (actor->state.mode >> 15) + ((unsigned int)actor->state.mode >= _actor_mode_combat);
             else

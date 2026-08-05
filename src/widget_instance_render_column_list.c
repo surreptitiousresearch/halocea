@@ -23,21 +23,21 @@ void widget_instance_render_column_list(widget_instance *widget, ui_widget_defin
         extended_description->alpha_modifier = alpha;
 
         {
-            unsigned __int8 focus = 0;
-            unsigned __int8 use_nifty_plasma_fx = 1;
+            uint8_t focus = 0;
+            uint8_t use_nifty_plasma_fx = 1;
             widget_instance_render_recursive(extended_description, clip_rect, offset, focus, use_nifty_plasma_fx);
         }
     }
 
     if ( (definition->list_flags & (1u << _list_items_generated_in_code)) != 0 )
     {
-        __int16 item_index = 0;
+        int16_t item_index = 0;
         for ( widget_instance *child = widget->children; child; child = child->next )
         {
-            if ( item_index >= (__int16)widget->parameters.list_parameters.number_of_items )
+            if ( item_index >= (int16_t)widget->parameters.list_parameters.number_of_items )
                 break;
 
-            unsigned __int8 selected = widget->parameters.text_box_parameters.string_list_index == item_index;
+            uint8_t selected = widget->parameters.text_box_parameters.string_list_index == item_index;
             item_index++;
             widget_instance_render_recursive(child, clip_rect, offset, focus, selected);
         }

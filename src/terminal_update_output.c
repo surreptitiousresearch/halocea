@@ -3,6 +3,7 @@
  * unlinked from the newest<->oldest doubly-linked list and its datum freed. Records are walked from
  * newest toward oldest via older_line_index (@+8). newer_line_index is @+4, timer is @+288. */
 
+#include <stdint.h>
 #include "headers/terminal_globals.h"
 #include "headers/output_line_datum.h"
 
@@ -19,7 +20,7 @@ void terminal_update_output(void)
     do
     {
         output_line_datum *lines = (output_line_datum *)output_lines->data;
-        output_line_datum *line = &lines[(unsigned __int16)line_index];
+        output_line_datum *line = &lines[(uint16_t)line_index];
         next_index = line->older_line_index;
 
         int age = line->timer + 1;
@@ -33,13 +34,13 @@ void terminal_update_output(void)
             if (older == -1)
                 terminal_globals.oldest_output_line_index = newer;
             else
-                lines[(unsigned __int16)older].newer_line_index = newer;
+                lines[(uint16_t)older].newer_line_index = newer;
 
             /* detach from the newer neighbour (or update the newest pointer) */
             if (newer == -1)
                 terminal_globals.newest_output_line_index = older;
             else
-                lines[(unsigned __int16)newer].older_line_index = older;
+                lines[(uint16_t)newer].older_line_index = older;
 
             datum_delete(output_lines, line_index);
             output_lines = terminal_globals.output_lines;

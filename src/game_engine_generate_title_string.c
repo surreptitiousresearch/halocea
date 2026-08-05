@@ -35,7 +35,7 @@ extern uint16_t * get_place_string(statistic_buffer *buffer);
 
 void game_engine_generate_title_string(int player_index, uint16_t *title_string)
 {
-    unsigned __int16 lives_count_buffer[128];
+    uint16_t lives_count_buffer[128];
     const wchar_t *lives_status_text = &empty_wide_string;
 
     if (global_variant.universal_variant.lives > 0)
@@ -73,7 +73,7 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
             did_win = game_engine->game_engine_did_player_win ? game_engine->game_engine_did_player_win(player_index)
                     : game_engine_did_player_win_default(player_index);
         }
-        unsigned __int8 teams = game_engine ? global_variant.universal_variant.teams : 0;
+        uint8_t teams = game_engine ? global_variant.universal_variant.teams : 0;
 
         switch (did_win)
         {
@@ -120,13 +120,13 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
         return;
     }
 
-    unsigned __int8 teams = game_engine ? global_variant.universal_variant.teams : 0;
+    uint8_t teams = game_engine ? global_variant.universal_variant.teams : 0;
     if (!teams)
     {
         statistic_buffer place_stats;
         game_engine_get_player_place(&place_stats, player_index);
 
-        unsigned __int16 score_string[296];
+        uint16_t score_string[296];
         game_engine->get_score_string(player_index, score_string);
 
         int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
@@ -134,14 +134,14 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
                 ? unicode_string_list_get_string(text_tag, (place_stats.place >= 0) ? 64 : 63)
                 : &empty_wide_string;
 
-        unsigned __int16 *place_string = get_place_string(&place_stats);
+        uint16_t *place_string = get_place_string(&place_stats);
         usnprintf(title_string, 0x50u, format, place_string, score_string, lives_status_text);
         title_string[79] = 0;
         return;
     }
 
-    unsigned __int16 team0_score_string[14];
-    unsigned __int16 team1_score_string[14];
+    uint16_t team0_score_string[14];
+    uint16_t team1_score_string[14];
     game_engine->get_team_score_string(0, team0_score_string);
     game_engine->get_team_score_string(1, team1_score_string);
     int team0_score = game_engine->get_team_score(0);

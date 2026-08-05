@@ -57,7 +57,7 @@ void *objects_reconnect_to_structure_bsp(void)
         location leaf_location;
         scenario_location_from_point(&leaf_location, &object->object.bounding_sphere_center);
 
-        if ( (unsigned __int16)leaf_location.cluster_index == 0xFFFF )
+        if ( (uint16_t)leaf_location.cluster_index == 0xFFFF )
         {
             collision_bsp_test_sphere_result sphere_result;
             collision_bsp_test_sphere(global_collision_bsp, 0, nullptr, &object->object.bounding_sphere_center,

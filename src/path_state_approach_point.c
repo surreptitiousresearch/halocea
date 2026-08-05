@@ -27,14 +27,14 @@ extern int path_node_from_hash_table(path_state *state, int surface_index);
 uint8_t path_state_approach_point(path_state *state, const real_point2d *end_point, int end_surface_index, uint8_t *straight_line_reference, real_point3d *approach_point_reference)
 {
     /* DEVIATION: collapsed compiler-inlined path_node_from_hash_table@0x837D2A98 (zero-xref donor) back into a call; end_surface_index passed straight through, no args folded. This also fixes a pre-existing transcription bug where the increment had been ordered before the fetch (disasm shows fetch-then-increment, matching the donor). */
-    __int16 node_index = (__int16)path_node_from_hash_table(state, end_surface_index);
+    int16_t node_index = (int16_t)path_node_from_hash_table(state, end_surface_index);
 
     if ( node_index == -1 )
         return 0;
 
     const path_node *node = &state->node_list[node_index];
 
-    if ( node->parent_node_index != (__int16)0xFFFF )
+    if ( node->parent_node_index != (int16_t)0xFFFF )
     {
         do
         {
@@ -48,10 +48,10 @@ uint8_t path_state_approach_point(path_state *state, const real_point2d *end_poi
 
             node = parent;
         }
-        while ( node->parent_node_index != (__int16)0xFFFF );
+        while ( node->parent_node_index != (int16_t)0xFFFF );
     }
 
-    if ( node->parent_node_index == (__int16)0xFFFF )
+    if ( node->parent_node_index == (int16_t)0xFFFF )
     {
         *straight_line_reference = 1;
         *approach_point_reference = state->input.start_point;

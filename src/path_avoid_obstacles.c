@@ -84,7 +84,7 @@ uint8_t path_avoid_obstacles(path_state *state, int16_t input_step_count, const 
     real_point3d segment_goal_point;
     int surface_index = 0; /* holds the current segment's goal surface index; carried into the next
                              * iteration's segment_start_surface_index, matching r27's reuse in disasm. */
-    __int16 step_index = 0;
+    int16_t step_index = 0;
 
     for (;;)
     {
@@ -121,7 +121,7 @@ uint8_t path_avoid_obstacles(path_state *state, int16_t input_step_count, const 
             direction.n[2] *= inv_length;
         }
 
-        unsigned __int8 need_recompute = 1;
+        uint8_t need_recompute = 1;
         if (debug)
         {
             current_obstacles = &debug->path_obstacles[step_index];
@@ -147,11 +147,11 @@ uint8_t path_avoid_obstacles(path_state *state, int16_t input_step_count, const 
                 debug->stored_obstacle_step_count++;
         }
 
-        unsigned __int8 segment_finishing = (step_index == input_step_count - 1) && *steps_finish_path;
+        uint8_t segment_finishing = (step_index == input_step_count - 1) && *steps_finish_path;
 
         /* path_find is a 2D (horizontal-plane) solver: the real_point3d args are reinterpreted as
          * real_point2d so only their x,y are read — the authentic Blam idiom, kept load-bearing. */
-        unsigned __int8 path_found = path_find(current_obstacle_path, state->input.ignore_broken_surfaces,
+        uint8_t path_found = path_find(current_obstacle_path, state->input.ignore_broken_surfaces,
                 current_obstacles, pathfinding_radius, (const real_point2d *)segment_start_point,
                 segment_start_surface_index, (const real_point2d *)&current_input_step->point, surface_index,
                 segment_finishing, 0);
@@ -173,9 +173,9 @@ uint8_t path_avoid_obstacles(path_state *state, int16_t input_step_count, const 
                     &goal_step->point, &segment_goal_point);
         }
 
-        unsigned __int8 overflow = 0;
+        uint8_t overflow = 0;
         int chain_count = 0;
-        __int16 chain_index = current_obstacle_path->goal_step_index;
+        int16_t chain_index = current_obstacle_path->goal_step_index;
         if (chain_index != 0)
         {
             for (;;)
@@ -197,7 +197,7 @@ uint8_t path_avoid_obstacles(path_state *state, int16_t input_step_count, const 
             }
         }
 
-        __int16 output_count = *avoided_step_count;
+        int16_t output_count = *avoided_step_count;
         int copy_index = chain_count - 1;
         if (copy_index >= 0)
         {

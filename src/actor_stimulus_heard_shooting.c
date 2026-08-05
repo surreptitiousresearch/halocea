@@ -12,6 +12,7 @@
 #include "headers/actor_combat_status.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
+#include "headers/object_datum.h"
 #include "headers/direction_specification.h"
 #include "headers/direction_specification_type.h"
 #include "headers/secondary_look_type.h"
@@ -55,7 +56,7 @@ void actor_stimulus_heard_shooting(uint16_t actor_index, uint16_t prop_index)
                 && player->aim_assist_timestamp + 90 >= game_time_get()
                 && game_team_is_enemy(
                        DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.team_index,
-                       *(__int16 *)(((char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->aim_assist_unit_index)->datum) + 184)))
+                       ((object_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->aim_assist_unit_index)->datum)->object.owner_team_index))
                 actor_perception_create_orphan_from_friend(actor_index, player->aim_assist_unit_index, -1, -1);
         }
     }

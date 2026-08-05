@@ -80,9 +80,9 @@ extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int ena
 extern void D3DDevice_SetRenderState_ZWriteEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetRenderState_ZFunc(D3DDevice *device, unsigned int func);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 
 void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
 {
@@ -169,7 +169,7 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
             vs_camo[9] = tint_lerp_1;
             vs_camo[10] = tint_lerp_2;
             vs_camo[11] = 0.0f;
-            D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, vs_camo, 3, (unsigned __int64)3 << 60);
+            D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, vs_camo, 3, (uint64_t)3 << 60);
 
             /* c27..c28: view->world basis rows 0 and 1 */
             float vs_view_to_world[8];
@@ -181,7 +181,7 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
             vs_view_to_world[5] = global_window_parameters.frustum.view_to_world.n[1][1];
             vs_view_to_world[6] = global_window_parameters.frustum.view_to_world.n[1][2];
             vs_view_to_world[7] = 3.0f;
-            D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x1B, vs_view_to_world, 2, (unsigned __int64)3 << 56);
+            D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x1B, vs_view_to_world, 2, (uint64_t)3 << 56);
 
             /* c4..c5: camera position + forward */
             float vs_camera[8];
@@ -193,7 +193,7 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
             vs_camera[5] = global_window_parameters.camera.forward.n[1];
             vs_camera[6] = global_window_parameters.camera.forward.n[2];
             vs_camera[7] = 0.5f;
-            D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 4, vs_camera, 2, (unsigned __int64)1 << 62);
+            D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 4, vs_camera, 2, (uint64_t)1 << 62);
 
             unsigned int pass_count[4];
             ID3DXEffect_Begin(dxeffect->effect, pass_count, 3);
@@ -203,7 +203,7 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
             /* pixel-shader constant c256 = intensity across all four channels (inline Alu[256] poke +
              * m_Pending mask 1<<63, per the SetPixelShaderConstantFN convention in _rasterizer_decals_draw) */
             float ps_intensity[4] = { intensity, intensity, intensity, intensity };
-            D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 256, ps_intensity, 1, (unsigned __int64)1 << 63);
+            D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 256, ps_intensity, 1, (uint64_t)1 << 63);
 
             rasterizer_transparent_geometry_group_draw_internal(group, 0);
             ID3DXEffect_EndPass(dxeffect->effect);

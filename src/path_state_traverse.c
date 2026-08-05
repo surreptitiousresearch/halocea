@@ -19,6 +19,7 @@
 #include "headers/PATHFINDING_SURFACE_flags.h"
 #include "headers/collision_surface_flags.h"
 #include "headers/collision_surface.h"
+#include "headers/bit_vector.h"
 #include "headers/path_constants.h"
 
 #include "headers/structure_bsp.h"
@@ -93,9 +94,9 @@ uint8_t path_state_traverse(path_state *state)
                 if ( (surface->flags & (1u << _collision_surface_breakable_bit)) != 0 )
                 {
                     uint8_t breakable_index = surface->breakable_surface_index;
-                    /* dword-aligned packed-bit read, same idiom as surface_is_broken.c */
-                    is_broken = ((1 << (breakable_index & 0x1F))
-                                 & *(int *)&breakable_surface_flags_get()[(breakable_index >> 3) & 0x1FFFFFFC]) == 0;
+                    /* 32-bit-word bit-vector test, same idiom as surface_is_broken.c (bit clear = broken) */
+                    const uint32_t *breakable_flags = (const uint32_t *)breakable_surface_flags_get();
+                    is_broken = !BIT_VECTOR_TEST_FLAG(breakable_flags, breakable_index);
                 }
                 if ( is_broken )
                     passable = 0;

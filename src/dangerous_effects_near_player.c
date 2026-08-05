@@ -60,7 +60,7 @@ uint8_t dangerous_effects_near_player(void)
                  instance = effect_location_get_next_instance(effect, location_cursor, 0))
             {
                 real_point3d world_position;
-                unsigned int node_designator = (unsigned __int16)instance->node_designator;
+                unsigned int node_designator = (uint16_t)instance->node_designator;
                 if (node_designator == 0xFFFF) /* world space: position is the matrix translation */
                 {
                     world_position.n[0] = instance->matrix.n[3][0];

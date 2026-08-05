@@ -33,7 +33,7 @@ int player_get_next_player_with_a_unit(int player_index, int old_player_index, u
         {
             if ( index != -1 )
             {
-                if ( (__int16)iterator.index > (int)(unsigned __int16)old_player_index )
+                if ( (int16_t)iterator.index > (int)(uint16_t)old_player_index )
                 {
                     index = iterator.index;
                     break;

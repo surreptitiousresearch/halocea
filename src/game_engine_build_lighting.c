@@ -42,7 +42,7 @@ void *game_engine_build_lighting(void)
         if (global_variant.game_engine_index == game_engine_race)
         {
             int flag_count = global_scenario->netgame_flags.count;
-            for (int i = 0; i < flag_count; i = (__int16)(i + 1))
+            for (int i = 0; i < flag_count; i = (int16_t)(i + 1))
             {
                 if (((scenario_netgame_flag *)global_scenario->netgame_flags.address)[i].type == _netgame_flag_race_vehicle)
                     ++secondary_count;

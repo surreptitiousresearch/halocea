@@ -100,10 +100,10 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
     float angular_velocity_delta_x = 0.0f, angular_velocity_delta_y = 0.0f, angular_velocity_delta_z = 0.0f;
 
     /* per-object contact tallies over the mass points */
-    __int16 stopped_count = 0;
-    __int16 ground_contact_count = 0;
-    __int16 secondary_contact_count = 0;
-    __int16 water_contact_count = 0;
+    int16_t stopped_count = 0;
+    int16_t ground_contact_count = 0;
+    int16_t secondary_contact_count = 0;
+    int16_t water_contact_count = 0;
 
     int mass_point_count;
     int i;
@@ -119,7 +119,7 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
             powered_mass_point_datum *pmp = &powered_mass_points[p];
             matrix4x3_rotation_from_quaternion(&pmp->rotation_matrix, &pmp->rotation);
             matrix4x3_transpose(&pmp->rotation_matrix);
-            p = (__int16)(p + 1);
+            p = (int16_t)(p + 1);
         } while (p < physics->powered_mass_points.count);
     }
 
@@ -149,7 +149,7 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
             const mass_point_definition *def =
                 &((const mass_point_definition *)physics->mass_points.address)[i];
             mass_point_datum *mp = &mass_points[i];
-            __int16 powered_index = def->powered_mass_point_index;
+            int16_t powered_index = def->powered_mass_point_index;
             powered_mass_point_definition *pmp_def = 0; /* powered mass point DEFINITION */
             powered_mass_point_datum *pmp = 0;          /* powered mass point DATUM */
             const real_matrix4x3 *normal_matrix;
@@ -504,7 +504,7 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
             mp->force.n[2] = mp->powered_force.n[2] + mp->force.n[2];
 
             mp->torque.n[0] = (mp->force.n[2] * mp->radius.n[1]) - (mp->radius.n[2] * mp->force.n[1]);
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             mp->torque.n[2] = (mp->radius.n[0] * mp->force.n[1]) - (mp->radius.n[1] * mp->force.n[0]);
             mp->torque.n[1] = (mp->radius.n[2] * mp->force.n[0]) - (mp->radius.n[0] * mp->force.n[2]);
 
@@ -553,7 +553,7 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                         float radius_dot_axis;
                         float perp_x, perp_y, perp_z;
 
-                        j = (__int16)(j + 1);
+                        j = (int16_t)(j + 1);
                         radius_dot_axis = ((mp->radius.n[0] * axis_x)
                                                 + ((mp->radius.n[1] * axis_y) + (mp->radius.n[2] * axis_z)));
                         perp_x = (-radius_dot_axis * axis_x) + mp->radius.n[0];

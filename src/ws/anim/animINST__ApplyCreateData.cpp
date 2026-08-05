@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "animINST.h"
 #include "animMNG.h"
 #include "animCREATE_DATA.h"
@@ -49,7 +50,7 @@ void animINST::ApplyCreateData(animCREATE_DATA *pCD)
     this->Invalidate(2048, 1);
 
     // Kick off the initial animation sequence requested by the create-data (if any).
-    if (this->pAnimMng && (unsigned __int16)pCD->animSeqNmb < 0x8000u)
+    if (this->pAnimMng && (uint16_t)pCD->animSeqNmb < 0x8000u)
     {
         int seqIndex = pCD->animSeqNmb;
         if (seqIndex < this->pAnimMng->GetNAnimSeq())

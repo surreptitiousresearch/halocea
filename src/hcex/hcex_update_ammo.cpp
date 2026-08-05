@@ -8,9 +8,10 @@
  * aliased temporaries; the real prototype is (modelId, local_player_index, arifle_ammo). The ws modifier /
  * ref-type / parameter-list types are extern boundaries. */
 
+#include <stdint.h>
 #include "../headers/hcex/hcex_modifier_boundary.h"
 
-extern "C" int hcex_update_ammo(int modelId, __int16 local_player_index, int arifle_ammo)
+extern "C" int hcex_update_ammo(int modelId, int16_t local_player_index, int arifle_ammo)
 {
     propOBJ_MODIFIER_LIST *modifier = GetModifier(modelId, local_player_index);
     if ( !modifier )

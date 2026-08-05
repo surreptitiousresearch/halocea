@@ -27,10 +27,10 @@ int unit_test_spawning(int unit_index)
         unit_definition *definition = TAG_GET(unit_definition, object_data->definition_index);
         if ( definition->unit.spawned_actor_variant.index != -1 )
         {
-            __int16 low = definition->unit.spawn_actor_lower_bound;
-            __int16 high = definition->unit.spawn_actor_upper_bound + 1;
+            int16_t low = definition->unit.spawn_actor_lower_bound;
+            int16_t high = definition->unit.spawn_actor_upper_bound + 1;
             result = seed_random_range(get_global_random_seed_address(), low, high);
-            if ( (__int16)result > 0 )
+            if ( (int16_t)result > 0 )
                 result = actors_spawn_from_unit(unit_index, definition->unit.spawned_actor_variant.index, result,
                              definition->unit.spawn_throw_velocity * SECONDS_PER_TICK);
             object_data->unit.flags |= (1u << _unit_spawned_actors_bit);

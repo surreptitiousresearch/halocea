@@ -29,7 +29,7 @@ uint8_t collision_model_test_pill(const collision_model_instance *instance, cons
                                           collision_model_test_pill_result *result)
 {
     int struck = 0;
-    __int16 node_index = 0;
+    int16_t node_index = 0;
 
     result->bsp_result.t = 3.4028235e38;
     const collision_model *model = instance->model;
@@ -39,7 +39,7 @@ uint8_t collision_model_test_pill(const collision_model_instance *instance, cons
         do
         {
             const collision_node *node_def = &((const collision_node *)model->nodes.address)[node];
-            __int16 region = node_def->region_index;
+            int16_t region = node_def->region_index;
             if ( region != -1 )
             {
                 int permutation = instance->region_permutation_indices[region];
@@ -48,7 +48,7 @@ uint8_t collision_model_test_pill(const collision_model_instance *instance, cons
                 {
                     if ( permutation > permutation_count - 1 )
                         permutation = permutation_count - 1;
-                    __int16 permutation_index = permutation;
+                    int16_t permutation_index = permutation;
                     const collision_bsp *bsp =
                         &((const collision_bsp *)node_def->bsps.address)[permutation_index];
                     if ( bsp->bsp3d.nodes.count > 0 )
@@ -72,7 +72,7 @@ uint8_t collision_model_test_pill(const collision_model_instance *instance, cons
                 }
             }
             model = instance->model;
-            node_index = (__int16)(node + 1);
+            node_index = (int16_t)(node + 1);
             node = node_index;
         }
         while ( node_index < model->nodes.count );

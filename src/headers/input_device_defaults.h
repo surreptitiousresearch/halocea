@@ -1,6 +1,7 @@
 #ifndef INPUT_DEVICE_DEFAULTS_H
 #define INPUT_DEVICE_DEFAULTS_H
 
+#include <stdint.h>
 #include "tag_data.h"
 
 /* input_device_defaults_device_type - DB-verified via types_enum_values
@@ -15,8 +16,8 @@ enum input_device_defaults_device_type {
 /* input_device_defaults - the "devc" tag definition. DB-verified layout (44 bytes). */
 typedef struct input_device_defaults
 {
-	__int16  device_type;  /* 0x00 - input_device_defaults_device_type */
-	__int16  flags;        /* 0x02 */
+	int16_t  device_type;  /* 0x00 - input_device_defaults_device_type */
+	int16_t  flags;        /* 0x02 */
 	tag_data device_id;    /* 0x04 */
 	tag_data profile;      /* 0x18 - a player_profile blob for full_profile devices */
 } input_device_defaults;   /* 44 bytes */

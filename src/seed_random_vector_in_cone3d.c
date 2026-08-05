@@ -32,7 +32,7 @@ real_vector3d *seed_random_vector_in_cone3d(uint32_t *seed, const real_vector3d 
     *result = *axis;
     *seed = next_seed;
 
-    random_direction = random_direction_table[(__int16)((unsigned int)(((unsigned __int16)(next_seed >> 16)) * random_direction_table_size) >> 16)].n;
+    random_direction = random_direction_table[(int16_t)((unsigned int)(((uint16_t)(next_seed >> 16)) * random_direction_table_size) >> 16)].n;
 
     cross_x = (axis->n[1] * random_direction[2]) - (axis->n[2] * random_direction[1]);
     cross_y = (axis->n[2] * random_direction[0]) - (axis->n[0] * random_direction[2]);
@@ -49,7 +49,7 @@ real_vector3d *seed_random_vector_in_cone3d(uint32_t *seed, const real_vector3d 
         if ( length > 0.0 )
         {
             unsigned int angle_seed = 1664525 * next_seed + 1013904223;
-            float fraction = (float)(unsigned __int16)(angle_seed >> 16) * 0.000015259022f;   /* in [0,1) */
+            float fraction = (float)(uint16_t)(angle_seed >> 16) * 0.000015259022f;   /* in [0,1) */
             double angle;
             *seed = angle_seed;
             angle = ((fraction * (outer_cone_angle - inner_cone_angle)) + inner_cone_angle);

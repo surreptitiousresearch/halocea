@@ -18,7 +18,7 @@
 
 
 extern void *memset(void *dest, int value, unsigned int count);
-extern unsigned __int8 has_spinner_as_first_child(widget_instance *widget);
+extern uint8_t has_spinner_as_first_child(widget_instance *widget);
 extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern void playlist_profiles_enumerate_available_to_local_player_index(int16_t local_player_index, uint16_t *number_of_profiles, int *playlist_profile_indices);
 extern void preview_list_create(void);
@@ -26,12 +26,12 @@ extern uint8_t saved_game_file_retrieve_last_used_multiplayer_variant_directory(
 extern int saved_game_file_find_profile_index_for_directory_path(char *directory_path, int16_t saved_game_file_type);
 extern uint8_t playlist_profile_get(int playlist_profile_index, game_variant *variant);
 extern void preview_list_add_item_to_bank(
-    int bank, const wchar_t *description, int item_index, game_variant *variant, int item_size, unsigned __int8 selected);
+    int bank, const wchar_t *description, int item_index, game_variant *variant, int item_size, uint8_t selected);
 
 uint8_t multiplayer_profiles_list_initialize(
-    widget_instance *list_widget, event_record *event, unsigned __int8 *widget_deleted)
+    widget_instance *list_widget, event_record *event, uint8_t *widget_deleted)
 {
-    unsigned __int8 has_spinner = has_spinner_as_first_child(list_widget);
+    uint8_t has_spinner = has_spinner_as_first_child(list_widget);
     delete_profile_index = -1;
     memset(cached_variant_profile, -1, sizeof(cached_variant_profile));
 
@@ -39,19 +39,19 @@ uint8_t multiplayer_profiles_list_initialize(
     list_widget->parameters.list_parameters.list_items = list_items;
     if ( list_items )
     {
-        unsigned __int16 count_buffer[8];
+        uint16_t count_buffer[8];
         count_buffer[0] = 100;
         int last_used_profile_index = -1;
         playlist_profiles_enumerate_available_to_local_player_index(0, count_buffer, list_items);
 
-        unsigned __int16 item_count = count_buffer[0];
+        uint16_t item_count = count_buffer[0];
         if ( count_buffer[0] < 3u )
         {
             unsigned int index = count_buffer[0];
             do
             {
                 list_items[index] = -1;
-                index = (unsigned __int16)(index + 1);
+                index = (uint16_t)(index + 1);
                 item_count = ++count_buffer[0];
             }
             while ( index < 3 );
@@ -65,8 +65,8 @@ uint8_t multiplayer_profiles_list_initialize(
             last_used_profile_index = saved_game_file_find_profile_index_for_directory_path(directory, 1);
             if ( last_used_profile_index != -1 && count_buffer[0] )
             {
-                __int16 selected = 0;
-                unsigned __int16 i = 0;
+                int16_t selected = 0;
+                uint16_t i = 0;
                 int index = 0;
                 while ( list_items[index] != last_used_profile_index )
                 {
@@ -94,13 +94,13 @@ populate_items:
                     preview_list_add_item_to_bank(
                         bank, variant.human_readable_game_description, i, &variant, 152, list_items[i] == last_used_profile_index);
                 }
-                i = (unsigned __int16)(i + 1);
+                i = (uint16_t)(i + 1);
             }
             while ( i < count_buffer[0] );
         }
     }
 
-    __int16 string_list_index = list_widget->parameters.text_box_parameters.string_list_index;
+    int16_t string_list_index = list_widget->parameters.text_box_parameters.string_list_index;
     list_widget->parameters.list_parameters.list_item_top_index = -1;
     list_widget->parameters.list_parameters.selected_list_item_index = string_list_index;
     return 1;

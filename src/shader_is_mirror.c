@@ -5,6 +5,7 @@
  * The glass compare value 2 = _shader_transparent_glass_reflection_type_mirror
  * (DB enum $E160613C0679F6AD80E5248BEAFC0911). */
 
+#include <stdint.h>
 #include "headers/shader.h"
 #include "headers/shader_type.h"
 #include "headers/shader_transparent_glass_reflection_type.h"
@@ -19,7 +20,7 @@ BOOL shader_is_mirror(shader *shader)
     case _shader_type_environment:
         return shader[18].base.radiosity.flags & 1;
     case _shader_type_transparent_glass:
-        return *((unsigned __int16 *)&shader[3].base.radiosity.color.blue + 1)
+        return *((uint16_t *)&shader[3].base.radiosity.color.blue + 1)
             == _shader_transparent_glass_reflection_type_mirror;
     default:
         return 0;

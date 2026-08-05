@@ -15,7 +15,7 @@ void device_set_actual_position(int device_index, float value)
         return;
     device_datum *device = (device_datum *)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, device_index)->datum;
-    int position_group = (unsigned __int16)device->device.position_group_index;
+    int position_group = (uint16_t)device->device.position_group_index;
     if ( position_group != 0xFFFF )
         device_group_set_actual_value(position_group, value);
 }

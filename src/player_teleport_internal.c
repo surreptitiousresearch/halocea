@@ -129,7 +129,7 @@ uint8_t player_teleport_internal(int player_index, int source_unit_index, const 
                                          &exit_direction, global_up3d);
         search_matrix.scale = search_radius;
 
-        for (__int16 offset_index = 0; !fixed && (unsigned __int16)(offset_index + 1) < 9; offset_index++)
+        for (int16_t offset_index = 0; !fixed && (uint16_t)(offset_index + 1) < 9; offset_index++)
         {
             real_point3d candidate_position;
             matrix4x3_transform_point(&search_matrix, &adjustment_weights[offset_index], &candidate_position);
@@ -197,8 +197,8 @@ uint8_t player_teleport_internal(int player_index, int source_unit_index, const 
             unit_object->unit.desired_aiming_vector  = exit_forward;
             unit_object->unit.desired_looking_vector = exit_forward;
 
-            __int16 local_player_index = (unsigned __int16)player->local_player_index;
-            if (local_player_index != (__int16)0xFFFF)
+            int16_t local_player_index = (uint16_t)player->local_player_index;
+            if (local_player_index != (int16_t)0xFFFF)
                 player_control_set_facing(local_player_index, &exit_forward);
 
             int exit_effect_index = ((game_globals_player_information *)global_game_globals->player_information.address)->coop_respawn_effect.index;

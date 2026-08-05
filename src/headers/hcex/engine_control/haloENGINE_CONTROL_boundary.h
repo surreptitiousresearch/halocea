@@ -174,7 +174,7 @@ typedef struct fnmFILE_LOOK_THROUGH {
 extern "C" {
     extern int  load_as_halo;
     extern int  firstLoadInSolo;
-    extern __int16  player_spawn_count;
+    extern int16_t  player_spawn_count;
     extern bool hcex_call_frame;   // DB: ?hcex_call_frame@@3_NA (_N = bool), not int
     extern bool hcex_split_screen; // DB: ?hcex_split_screen@@3_NA (_N = bool), not int
     extern int  hcex_coop_online_test_local;

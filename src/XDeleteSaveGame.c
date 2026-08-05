@@ -27,7 +27,7 @@ unsigned int XDeleteSaveGame(const char *lpRootPathName, const wchar_t *lpSaveGa
         return 87;
 
     char save_name[128];
-    wide_to_ascii((unsigned __int16 *)lpSaveGameName, save_name, 0x80u);
+    wide_to_ascii((uint16_t *)lpSaveGameName, save_name, 0x80u);
 
     char save_directory[272];
     sprintf_0(save_directory, "%s\\%s\\", lpRootPathName, save_name);

@@ -13,6 +13,7 @@
  *
  */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -32,9 +33,9 @@ void unit_export_function_values(int unit_index)
         (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     unit_definition *definition = TAG_GET(unit_definition, object->definition_index);
 
-    for ( int slot = 0; slot < 4; slot = (__int16)(slot + 1) )
+    for ( int slot = 0; slot < 4; slot = (int16_t)(slot + 1) )
     {
-        __int16 export_type = definition->unit.function_modes[slot];
+        int16_t export_type = definition->unit.function_modes[slot];
         if ( !export_type )
             continue;
 
@@ -64,11 +65,11 @@ void unit_export_function_values(int unit_index)
                     break;
                 default: /* _unit_export_shield_sapping (7): normalized animation frame position */
                 {
-                    __int16 marker_index = object->object.animation.state.index;
+                    int16_t marker_index = object->object.animation.state.index;
                     animation_graph *graph =
                         TAG_GET(animation_graph, object->object.animation.animation_graph_index);
                     animation *anim = &((animation *)graph->animations.address)[marker_index];
-                    __int16 frame_limit = anim->private_loop_frame_index;
+                    int16_t frame_limit = anim->private_loop_frame_index;
                     if ( marker_index < frame_limit )
                         value = (float)marker_index / (float)frame_limit;
                     else

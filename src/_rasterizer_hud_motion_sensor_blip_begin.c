@@ -29,7 +29,7 @@
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
-extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister, const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask1);
+extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister, const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask1);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 

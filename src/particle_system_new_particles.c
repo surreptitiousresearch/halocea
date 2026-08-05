@@ -61,13 +61,13 @@ void particle_system_new_particles(particle_system_datum *system, int16_t type_i
     particle_system_type_state *state_record = is_burst ? nullptr
         : (particle_system_type_state *)type_record->type_states.address + type->state_index;
     int object_index = system->object_index;
-    __int16 first_person_role = 0;     /* 0 = not the player's weapon, 1 = third-person owner, -1 = first */
+    int16_t first_person_role = 0;     /* 0 = not the player's weapon, 1 = third-person owner, -1 = first */
     int spawn_count;
     int target_count;
     data_iterator iterator;
     player_datum *player;
     object_marker markers[8];
-    __int16 marker_count;
+    int16_t marker_count;
 
     /* find whether this system belongs to a local player's held weapon */
     data_iterator_new(&iterator, player_data);
@@ -83,7 +83,7 @@ void particle_system_new_particles(particle_system_datum *system, int16_t type_i
             if ( !player )
                 goto role_resolved;
         }
-        first_person_role = ((unsigned __int16)player->local_player_index == 0xFFFF) ? -1 : 1;
+        first_person_role = ((uint16_t)player->local_player_index == 0xFFFF) ? -1 : 1;
     }
 
 role_resolved:
@@ -105,7 +105,7 @@ role_resolved:
     {
         float rate = (type->variables.particle_creation_rate * dt);
         float fractional = type->fractional_particle_count;
-        int particle_count = (unsigned __int16)type->particle_count;
+        int particle_count = (uint16_t)type->particle_count;
         int whole = (int)rate;
         spawn_count = particle_count + whole;
         type->fractional_particle_count = ((rate - (float)whole) + fractional);
@@ -154,14 +154,14 @@ role_resolved:
             }
         }
 
-        if ( (unsigned __int16)system->location.cluster_index != 0xFFFF )
+        if ( (uint16_t)system->location.cluster_index != 0xFFFF )
         {
-            __int16 spawned = 0;
+            int16_t spawned = 0;
             while ( type->particle_count < target_count )
             {
                 int new_index;
                 ps_particle_datum *particle;
-                __int16 creation_function;
+                int16_t creation_function;
 
                 if ( !marker_count || spawned >= 128 )
                     break;
@@ -181,18 +181,18 @@ role_resolved:
                 particle->rotation = real_seed_random_range(get_global_local_random_seed_address(), 0.0f, TWO_PI);
 
                 {
-                    __int16 marker = seed_random_range(get_global_local_random_seed_address(), 0, marker_count);
+                    int16_t marker = seed_random_range(get_global_local_random_seed_address(), 0, marker_count);
                     particle_creation_functions[creation_function](system, type_index, particle, &markers[marker]);
                 }
                 scenario_location_from_point(&particle->location, &particle->position);
-                if ( (unsigned __int16)particle->location.cluster_index == 0xFFFF )
+                if ( (uint16_t)particle->location.cluster_index == 0xFFFF )
                 {
                     datum_delete(system_particles, new_index);
                 }
                 else
                 {
                     particle->next_particle_index = type->first_particle_index;
-                    type->particle_count = (__int16)(type->particle_count + 1);
+                    type->particle_count = (int16_t)(type->particle_count + 1);
                     type->first_particle_index = new_index;
                 }
                 spawned = spawned + 1;

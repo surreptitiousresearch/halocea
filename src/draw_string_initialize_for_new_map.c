@@ -17,7 +17,7 @@ void draw_string_initialize_for_new_map(void)
     if ( tag_index != -1 )
     {
         const char *language_string = string_list_get_string(tag_index, 0);
-        __int16 language_code = atoi(language_string);
+        int16_t language_code = atoi(language_string);
         set_language_code(language_code);
         font_drawing_globals.current_font_index = -1;
         font_drawing_globals.tab_stop_count = 0;

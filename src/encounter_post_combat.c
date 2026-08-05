@@ -49,7 +49,7 @@
 
 
 /* Maps a selected post-combat behavior index (0..3) to the actor behavior code written into the actor. */
-extern const __int16 global_post_combat_translation_table[];
+extern const int16_t global_post_combat_translation_table[];
 
 extern float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_sight, int *unit_index_reference, float *distance_reference);
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
@@ -72,12 +72,12 @@ void encounter_post_combat(int encounter_index)
     encounter_datum *encounter = DATUM_GET(encounter_data, encounter_datum, encounter_index);
 
     int behavior_actor = -1;                    /* v2 — highest-rated actor for the health-derived behavior */
-    __int16 behavior = -1;                      /* v5 — health-derived behavior (actor_postcombat_type, written to postcombat_type) */
+    int16_t behavior = -1;                      /* v5 — health-derived behavior (actor_postcombat_type, written to postcombat_type) */
     char found_any_possibility = 0;             /* v6 */
     float best_team_rating = 0.0f;              /* v11 */
 
     /* v82: [0] = first weighted-random behavior index, [1] = second (both -1 = none). */
-    __int16 selected_behavior[2] = { -1, -1 };
+    int16_t selected_behavior[2] = { -1, -1 };
     int fallback = -1;                          /* v83 */
     post_combat_possibility selected[2];        /* v87, v88 */
     prop_iterator prop_iter;                    /* v84 */
@@ -117,7 +117,7 @@ void encounter_post_combat(int encounter_index)
                     if ( !prop->dead )
                         continue;
 
-                    __int16 bucket;
+                    int16_t bucket;
                     float base_distance;
                     float extra_weight;
                     if ( prop->enemy )
@@ -171,7 +171,7 @@ void encounter_post_combat(int encounter_index)
                 if ( found_enemy )
                 {
                     unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-                    __int16 killing_spree = unit_object->unit.killing_spree_count;
+                    int16_t killing_spree = unit_object->unit.killing_spree_count;
                     float leader_weight = (float)killing_spree * 0.69999999f + player_rating;
 
                     if ( encounter_post_combat_add_possibility(&possibilities[3][0], this_actor,
@@ -188,7 +188,7 @@ void encounter_post_combat(int encounter_index)
         int first_index = encounter_post_combat_select_random_behavior(possibilities, &selected[0]);
         selected_behavior[0] = first_index;
 
-        if ( (unsigned __int16)encounter->team_index != _game_team_human || encounter->enemies_defeated >= 8 )
+        if ( (uint16_t)encounter->team_index != _game_team_human || encounter->enemies_defeated >= 8 )
         {
             int selected_unit = selected[0].unit_index;
             int selected_actor = selected[0].actor_index;
@@ -221,7 +221,7 @@ void encounter_post_combat(int encounter_index)
     int search_actor = -1;                      /* v63 */
     int search_prop = -1;                       /* v64 */
 
-    if ( (unsigned __int16)encounter->team_index != _game_team_human || encounter->enemies_defeated >= 4 )
+    if ( (uint16_t)encounter->team_index != _game_team_human || encounter->enemies_defeated >= 4 )
     {
         char want_search = 0;                   /* v51 */
         int best_actor = -1;                    /* v52 */
@@ -241,7 +241,7 @@ void encounter_post_combat(int encounter_index)
 
                 if ( unit_index != -1 )
                 {
-                    __int16 dead_counter = 0;   /* v57 — empty decompiler counter, no effect */
+                    int16_t dead_counter = 0;   /* v57 — empty decompiler counter, no effect */
                     do
                         ++dead_counter;
                     while ( dead_counter < 4 );
@@ -264,7 +264,7 @@ void encounter_post_combat(int encounter_index)
 
             if ( health >= 0.5f || (chosen->emotions.original_body_vitality - health) <= 0.30000001f )
             {
-                __int16 living = encounter->current_count;
+                int16_t living = encounter->current_count;
                 if ( living == 1 && encounter->prebattle_living_count > 1 )
                 {
                     behavior = actor_postcombat_speak_alone;
@@ -273,7 +273,7 @@ void encounter_post_combat(int encounter_index)
                 {
                     if ( living >= 2 )
                     {
-                        __int16 threshold = 2;
+                        int16_t threshold = 2;
                         if ( living <= 2 )
                             threshold = encounter->current_count;
 
@@ -318,7 +318,7 @@ apply_behaviors_check:
 
                         if ( actor->meta.unit_index != -1 )
                         {
-                            __int16 dead_counter = 0;   /* v69 — empty decompiler counter, no effect */
+                            int16_t dead_counter = 0;   /* v69 — empty decompiler counter, no effect */
                             do
                                 ++dead_counter;
                             while ( dead_counter < 4 );

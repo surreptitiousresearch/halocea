@@ -42,8 +42,8 @@ extern void unit_get_camera_position(int unit_index, real_point3d *camera_positi
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern uint8_t render_camera_view_to_screen(const render_camera *camera, const render_frustum *frustum, const real_point3d *view_point, real_point2d *screen_point);
 extern void hud_retrieve_bitmap_and_bounding_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame_index, const bitmap_data **bitmap, const real_rectangle2d **clip);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, unsigned __int8 block,
-        unsigned __int8 load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
+        uint8_t load);
 extern real_rgb_color *pixel32_to_real_rgb_color(unsigned int pixel, real_rgb_color *color);
 extern void hud_draw_bitmap_direct(const bitmap_data *bitmap, int16_t placement, const point2d *point, const real_rectangle2d *clip, float scale, float theta, unsigned int color, uint8_t is_interface_bitmap);
 extern void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_definition *placement, const number_hud_element_definition *numbers, int16_t value, int16_t decimal_value, int16_t draw_flags, int flash_reference_time, float override_scale);
@@ -75,7 +75,7 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
 
     /* arrow_state doubles as the sequence-index selector: the incoming waypoint_type, forced to 1
      * when the point is off-screen or clamped to the screen-edge ellipse */
-    __int16 arrow_state = waypoint_type;
+    int16_t arrow_state = waypoint_type;
     float rotation = 0.0f;
     real_point2d screen_point;
     float offset_x;
@@ -139,8 +139,8 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
         return;
 
     point2d point;
-    point.__s1.x = (__int16)(int)screen_point.n[0];
-    point.__s1.y = (__int16)(int)screen_point.n[1];
+    point.__s1.x = (int16_t)(int)screen_point.n[0];
+    point.__s1.y = (int16_t)(int)screen_point.n[1];
 
     int alpha = 255 * (int)arrow->opacity;
     if ( alpha < 0 )
@@ -168,9 +168,9 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
     }
 
     unsigned int color_argb = ((((((unsigned int)alpha << 8)
-            | (unsigned __int8)(__int64)(color.n[0] * 255.0f)) << 8)
-            | (unsigned __int8)(__int64)(color.n[1] * 255.0f)) << 8)
-            | (unsigned __int8)(__int64)(color.n[2] * 255.0f);
+            | (uint8_t)(int64_t)(color.n[0] * 255.0f)) << 8)
+            | (uint8_t)(int64_t)(color.n[1] * 255.0f)) << 8)
+            | (uint8_t)(int64_t)(color.n[2] * 255.0f);
     hud_draw_bitmap_direct(bitmap, 4, &point, clip, arrow_scale, rotation, color_argb, 0);
 
     if ( arrow_state != 1 && render_distance )
@@ -189,11 +189,11 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
         numbers.colors.flash_color = color_argb;
         numbers.colors.color = color_argb;
 
-        __int16 number_x = (__int16)(int)((((clip->__s1.x1 - clip->__s1.x0) * (float)bitmap->width) * 0.5f)
+        int16_t number_x = (int16_t)(int)((((clip->__s1.x1 - clip->__s1.x0) * (float)bitmap->width) * 0.5f)
                 * arrow_scale * 0.33000001f + (float)point.__s1.x);
         numbers.placement.offset.__s1.x = number_x - render.camera.window_bounds.__s1.x0
                 + render.camera.viewport_bounds.__s1.x0;
-        __int16 number_y = (__int16)(int)((((clip->__s1.y1 - clip->__s1.y0) * (float)bitmap->height) * 0.5f)
+        int16_t number_y = (int16_t)(int)((((clip->__s1.y1 - clip->__s1.y0) * (float)bitmap->height) * 0.5f)
                 * arrow_scale * 0.66000003f + (float)point.__s1.y);
         numbers.placement.offset.__s1.y = number_y - render.camera.window_bounds.__s1.y0
                 + render.camera.viewport_bounds.__s1.y0;
@@ -201,8 +201,8 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
         float decimal_modulus = (float)pow(10.0, 4.0);   /* computed at runtime in the binary */
         hud_calculate_point_no_safearea_fit = 1;
         hud_draw_numbers(local_player_index, &placement, &numbers,
-                (__int16)(int)display_distance,
-                (__int16)(int)(float)fmod(fabsf(decimal_modulus * display_distance), decimal_modulus),
+                (int16_t)(int)display_distance,
+                (int16_t)(int)(float)fmod(fabsf(decimal_modulus * display_distance), decimal_modulus),
                 0, 0, 0.0f);
         hud_calculate_point_no_safearea_fit = 0;
     }

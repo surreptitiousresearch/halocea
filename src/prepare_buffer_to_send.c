@@ -5,6 +5,6 @@
 uint16_t * prepare_buffer_to_send(uint8_t type, void *buffer, uint16_t content_size)
 {
     if (buffer)
-        *(unsigned __int16 *)buffer = (unsigned __int16)(16 * (content_size + 2)) | ((4 * type) & 0xC);
-    return (unsigned __int16 *)buffer;
+        *(uint16_t *)buffer = (uint16_t)(16 * (content_size + 2)) | ((4 * type) & 0xC);
+    return (uint16_t *)buffer;
 }

@@ -4,6 +4,7 @@
  * range). Counterpart of multiplayer_game_set_bitmap_for_ruleset.c (which only distinguishes the engine,
  * not the sub-mode). */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 #include "headers/game_engine_type.h"
@@ -17,7 +18,7 @@ void multiplayer_game_set_text_box_for_game_ruleset(widget_instance *widget)
     if ( !game )
         return;
 
-    __int16 string_index;
+    int16_t string_index;
     if ( (unsigned int)(game->variant.game_engine_index - 1) > 4 )
     {
         string_index = _string_unknown_game_type;

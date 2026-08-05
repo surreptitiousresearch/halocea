@@ -17,15 +17,15 @@ int light_build_cluster_array(uint16_t light_index, int16_t maximum_count, int16
     int count = 0;
     int reference_index[12];
 
-    for (__int16 cluster = cluster_partition_get_first_cluster(&light_cluster_partition, reference_index,
+    for (int16_t cluster = cluster_partition_get_first_cluster(&light_cluster_partition, reference_index,
                                                                *((int *)light_data->data + 31 * light_index + 4));
          count < maximum_count;
          cluster = cluster_partition_get_next_cluster(&light_cluster_partition, reference_index))
     {
         if (cluster == -1)
             break;
-        cluster_indices[(__int16)count] = cluster;
-        count = (__int16)(count + 1);
+        cluster_indices[(int16_t)count] = cluster;
+        count = (int16_t)(count + 1);
     }
 
     return count;

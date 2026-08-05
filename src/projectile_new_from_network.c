@@ -94,7 +94,6 @@ void projectile_new_from_network(message_delta_processor_header *header, network
     object->projectile.baseline.position.n[0] = message.position.n[0];
     object->projectile.baseline.position.n[1] = message.position.n[1];
     object->projectile.baseline.position.n[2] = message.position.n[2];
-    /* velocity[] is an int[3] of raw float bits — preserve the bit-copy */
     object->projectile.baseline.translational_velocity.n[0] = message.translational_velocity.n[0];
     object->projectile.baseline.translational_velocity.n[1] = message.translational_velocity.n[1];
     object->projectile.baseline.translational_velocity.n[2] = message.translational_velocity.n[2];
@@ -102,7 +101,7 @@ void projectile_new_from_network(message_delta_processor_header *header, network
     object->projectile.baseline_valid = 1;
     object->projectile.message_index = 0;
     gearbox_object_translate(object_index, &object->projectile.baseline.position);
-    *(int *)&object->object.translational_velocity.n[0] = *(int *)&object->projectile.baseline.translational_velocity.n[0];
-    *(int *)&object->object.translational_velocity.n[1] = *(int *)&object->projectile.baseline.translational_velocity.n[1];
-    *(int *)&object->object.translational_velocity.n[2] = *(int *)&object->projectile.baseline.translational_velocity.n[2];
+    /* DEVIATION: the decompiler's word-punned dword copy (lwz/stw @0x8375A900-0x8375A914) is a plain
+       real_vector3d copy — struct assignment is bit-exact */
+    object->object.translational_velocity = object->projectile.baseline.translational_velocity;
 }

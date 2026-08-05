@@ -58,7 +58,7 @@ void ai_handle_editing(int encounter_index)
     scenario *scn = global_scenario;
     int encounter_count = scn->ai_encounters.count;
 
-    if ( (__int16)encounter_index < 0 || (__int16)encounter_index >= encounter_count )
+    if ( (int16_t)encounter_index < 0 || (int16_t)encounter_index >= encounter_count )
     {
         /* Out-of-range / sentinel → tear down and reinitialize the AI subsystem for the edited map. */
         actor_iterator it;
@@ -78,12 +78,12 @@ void ai_handle_editing(int encounter_index)
 
     encounter_datum *enc = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
     encounter_definition *enc_def =
-        &((encounter_definition *)scn->ai_encounters.address)[(unsigned __int16)encounter_index];
+        &((encounter_definition *)scn->ai_encounters.address)[(uint16_t)encounter_index];
 
-    __int16 old_squad_count = enc->squad_count;
+    int16_t old_squad_count = enc->squad_count;
     int new_squad_count = enc_def->squads.count;
-    __int16 squad_delta = (__int16)(new_squad_count - old_squad_count);
-    __int16 platoon_delta = (__int16)(enc_def->platoons.count - enc->platoon_count);
+    int16_t squad_delta = (int16_t)(new_squad_count - old_squad_count);
+    int16_t platoon_delta = (int16_t)(enc_def->platoons.count - enc->platoon_count);
 
     if ( squad_delta != 0 )
     {
@@ -92,7 +92,7 @@ void ai_handle_editing(int encounter_index)
         /* Shift following encounters' squads; length is an unscaled element count (see DEVIATION 2). */
         memmove(&squad_array[enc->squad_base + new_squad_count],
                 &squad_array[enc->squad_base + old_squad_count],
-                (__int16)(last->squad_base + last->squad_count) - enc->squad_base - old_squad_count);
+                (int16_t)(last->squad_base + last->squad_count) - enc->squad_base - old_squad_count);
         if ( squad_delta > 0 )
             memset(&squad_array[enc->squad_count + enc->squad_base], 0, 32 * squad_delta);
         enc->squad_count += squad_delta;
@@ -105,7 +105,7 @@ void ai_handle_editing(int encounter_index)
         /* Shift following encounters' platoons; length is an unscaled element count (see DEVIATION 2). */
         memmove(&platoon_array[enc->platoon_base + enc_def->platoons.count],
                 &platoon_array[enc->platoon_base + enc->platoon_count],
-                (__int16)(last->platoon_base + last->platoon_count) - enc->platoon_base - enc->platoon_count);
+                (int16_t)(last->platoon_base + last->platoon_count) - enc->platoon_base - enc->platoon_count);
         if ( platoon_delta > 0 )
             memset(&platoon_array[enc->platoon_base + enc->platoon_count], 0, 16 * platoon_delta);
         enc->platoon_count += platoon_delta;
@@ -113,8 +113,8 @@ void ai_handle_editing(int encounter_index)
 
     if ( squad_delta || platoon_delta )
     {
-        for ( int next = (__int16)(encounter_index + 1); next < scn->ai_encounters.count;
-              next = (__int16)(next + 1) )
+        for ( int next = (int16_t)(encounter_index + 1); next < scn->ai_encounters.count;
+              next = (int16_t)(next + 1) )
         {
             encounter_datum *following = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, next);
             following->platoon_base += platoon_delta;
@@ -128,7 +128,7 @@ void ai_handle_editing(int encounter_index)
     for ( actor_datum *actor = encounter_actor_iterator_next(&actor_it); actor;
           actor = encounter_actor_iterator_next(&actor_it) )
     {
-        unsigned __int8 kill = 0;
+        uint8_t kill = 0;
         int squad_index = actor->meta.squad_index;
         if ( squad_index < 0 || squad_index >= enc_def->squads.count )
         {
@@ -138,8 +138,8 @@ void ai_handle_editing(int encounter_index)
                 squad_definition *first_squad = (squad_definition *)enc_def->squads.address;
                 actor->meta.squad_index = 0;
                 actor->meta.platoon_index = first_squad->platoon_index;
-                unsigned int platoon = (unsigned __int16)first_squad->platoon_index;
-                if ( platoon >= 0x8000 || (__int16)platoon >= enc_def->platoons.count )
+                unsigned int platoon = (uint16_t)first_squad->platoon_index;
+                if ( platoon >= 0x8000 || (int16_t)platoon >= enc_def->platoons.count )
                     actor->meta.platoon_index = -1;
             }
             else

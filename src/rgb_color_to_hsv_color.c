@@ -8,6 +8,7 @@
  * algorithm in real_rgb_color_to_real_hsv_color.c plus the observed output scaling/offsets (sat at n[1],
  * hue at n[0], value at n[2]). */
 
+#include <stdint.h>
 #include "headers/rgb_color.h"
 #include "headers/hsv_color.h"
 
@@ -47,8 +48,8 @@ hsv_color * rgb_color_to_hsv_color(const rgb_color *rgb, hsv_color *hsv)
             hue += 1.0f;
     }
 
-    hsv->n[0] = (unsigned __int16)(hue * 65536.0f);
-    hsv->n[1] = (unsigned __int16)(saturation * 65535.0f);
-    hsv->n[2] = (unsigned __int16)(value * 65535.0f);
+    hsv->n[0] = (uint16_t)(hue * 65536.0f);
+    hsv->n[1] = (uint16_t)(saturation * 65535.0f);
+    hsv->n[2] = (uint16_t)(value * 65535.0f);
     return hsv;
 }

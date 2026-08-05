@@ -27,7 +27,7 @@
 #include "headers/game_time_constants.h"
 
 #include "headers/point2d.h"
-extern const __int16 terminal_tab_stops[];
+extern const int16_t terminal_tab_stops[];
 
 extern char *strcpy(char *destination, const char *source);
 extern char *strcat(char *destination, const char *source);
@@ -51,8 +51,8 @@ void terminal_draw(void)
     /* font vertical metrics (ascender + descender + leading) give the line height */
     font_header *font_definition = TAG_GET(font_header, font_index);
     /* line height = leading + descending + ascending vertical metrics */
-    __int16 line_height = font_definition->leading_height + font_definition->descending_height
-                          + (unsigned __int16)font_definition->ascending_height;
+    int16_t line_height = font_definition->leading_height + font_definition->descending_height
+                          + (uint16_t)font_definition->ascending_height;
 
     if (input_state)
     {
@@ -61,7 +61,7 @@ void terminal_draw(void)
         input_state->prompt[31] = 0;
         strcpy(line_buffer, input_state->prompt);
         input_state->result[255] = 0;
-        __int16 prompt_length = (__int16)strlen(line_buffer);
+        int16_t prompt_length = (int16_t)strlen(line_buffer);
         strcat(line_buffer, input_state->result);
 
         rectangle2d bounds = convert_to_title_safe_pixel_bounds(&render.camera.window_bounds);
@@ -72,7 +72,7 @@ void terminal_draw(void)
 
         if (terminal_globals.insertion_point_visible)
         {
-            int cursor_position = (__int16)(terminal_globals.input_state->edit.insertion_point_index + prompt_length);
+            int cursor_position = (int16_t)(terminal_globals.input_state->edit.insertion_point_index + prompt_length);
             if (!line_buffer[cursor_position])
                 line_buffer[cursor_position + 1] = 0;
             line_buffer[cursor_position] = 127;
@@ -85,13 +85,13 @@ void terminal_draw(void)
         return;
 
     rectangle2d bounds = convert_to_title_safe_pixel_bounds(&render.camera.window_bounds);
-    __int16 y = bounds.n[2] - line_height;
+    int16_t y = bounds.n[2] - line_height;
     int line_index = terminal_globals.newest_output_line_index;
     if (line_index == -1)
         return;
 
-    __int16 right = bounds.n[3];
-    __int16 left = bounds.n[1];
+    int16_t right = bounds.n[3];
+    int16_t left = bounds.n[1];
 
     do
     {
@@ -99,7 +99,7 @@ void terminal_draw(void)
         if (next_y <= 0)
             break;
 
-        output_line_datum *line = &((output_line_datum *)terminal_globals.output_lines->data)[(unsigned __int16)line_index];
+        output_line_datum *line = &((output_line_datum *)terminal_globals.output_lines->data)[(uint16_t)line_index];
 
         real_argb_color color = line->color;
         int age = line->timer;
@@ -111,10 +111,10 @@ void terminal_draw(void)
         color.n[0] = fade * color.n[0];
 
         bounds.n[2] = y;
-        bounds.n[0] = (__int16)next_y;
+        bounds.n[0] = (int16_t)next_y;
         bounds.n[1] = left;
         bounds.n[3] = right;
-        y = (__int16)next_y;
+        y = (int16_t)next_y;
 
         offset_rectangle2d(&bounds, -render.camera.viewport_bounds.n[1], -render.camera.viewport_bounds.n[0]);
 

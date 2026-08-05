@@ -3,18 +3,19 @@
  * tag (80 bytes, DB types_members-confirmed). Follows the 40-byte _shader base. Identical to
  * _shader_transparent_chicago plus an extra maps_ff tag_block for fixed-function fallback maps. */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 
 typedef struct _shader_transparent_chicago_extended
 {
-    unsigned __int8 numeric_counter_limit;      /* 0x00 */
-    unsigned __int8 flags;                       /* 0x01 */
-    __int16         type;                        /* 0x02 */
-    __int16         framebuffer_blend_function;  /* 0x04 */
-    __int16         framebuffer_fade_mode;       /* 0x06 */
-    __int16         framebuffer_fade_source;     /* 0x08 */
-    __int16         framebuffer_fade_unused;     /* 0x0A */
+    uint8_t numeric_counter_limit;      /* 0x00 */
+    uint8_t flags;                       /* 0x01 */
+    int16_t         type;                        /* 0x02 */
+    int16_t         framebuffer_blend_function;  /* 0x04 */
+    int16_t         framebuffer_fade_mode;       /* 0x06 */
+    int16_t         framebuffer_fade_source;     /* 0x08 */
+    int16_t         framebuffer_fade_unused;     /* 0x0A */
     float           lens_flare_spacing;          /* 0x0C */
     tag_reference   lens_flare;                  /* 0x10 */
     tag_block       extra_layers;                /* 0x20 */

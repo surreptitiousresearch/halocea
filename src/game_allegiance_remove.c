@@ -27,7 +27,7 @@ int game_allegiance_remove(int16_t team1_index, int16_t team2_index)
         if ( allegiance->team2_index == team1_index && t1 == team2_index )
             break;
         ++allegiance;
-        index = (__int16)(index + 1);
+        index = (int16_t)(index + 1);
         if ( index >= count )
             return 0;
     }
@@ -51,9 +51,9 @@ int game_allegiance_remove(int16_t team1_index, int16_t team2_index)
 
     /* swap-remove: decrement count, move the (new) last record into the freed slot. Decompiler does this with a
      * 9-word int16 copy loop; reproduced as the equivalent struct assignment. */
-    __int16 new_count = game_allegiance_globals->allegiance_count - 1;
+    int16_t new_count = game_allegiance_globals->allegiance_count - 1;
     game_allegiance_globals->allegiance_count = new_count;
-    if ( new_count > (__int16)index )
+    if ( new_count > (int16_t)index )
         game_allegiance_globals->allegiances[index] = game_allegiance_globals->allegiances[new_count];
 
     return 1;

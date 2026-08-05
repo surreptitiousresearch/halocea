@@ -24,9 +24,9 @@ uint8_t rasterizer_project_billboard(const real_point3d *point, float radius, re
     if ( radius <= 0.0f )
         return 0;
 
-    __int16 viewport_extent_x = global_window_parameters.camera.viewport_bounds.n[3]  /* x1 - x0 */
+    int16_t viewport_extent_x = global_window_parameters.camera.viewport_bounds.n[3]  /* x1 - x0 */
         - global_window_parameters.camera.viewport_bounds.n[1];
-    __int16 viewport_extent_y = global_window_parameters.camera.viewport_bounds.n[2]  /* y1 - y0 */
+    int16_t viewport_extent_y = global_window_parameters.camera.viewport_bounds.n[2]  /* y1 - y0 */
         - global_window_parameters.camera.viewport_bounds.n[0];
 
     real_point3d view_point;

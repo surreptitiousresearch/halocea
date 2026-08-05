@@ -1,6 +1,7 @@
 #pragma once
 /* _unit_definition — shared unit tag definition block (DB types_members-confirmed, 372 bytes). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 #include "unit_camera.h"
@@ -9,11 +10,11 @@
 typedef struct _unit_definition
 {
     unsigned int  flags;                                    /* 0x000 */
-    __int16       default_team;                             /* 0x004 */
-    __int16       constant_sound;                           /* 0x006 */
+    int16_t       default_team;                             /* 0x004 */
+    int16_t       constant_sound;                           /* 0x006 */
     float         child_damage_fraction;                    /* 0x008 */
     tag_reference integrated_light_toggle_effect;           /* 0x00C */
-    __int16       function_modes[4];                        /* 0x01C */
+    int16_t       function_modes[4];                        /* 0x01C */
     float         camera_field_of_view;                     /* 0x024 */
     float         camera_impulse_stiffness;                 /* 0x028 */
     unit_camera   camera;                                   /* 0x02C */
@@ -35,8 +36,8 @@ typedef struct _unit_definition
     float         feign_death_chance;                       /* 0x0C8 */
     float         feign_death_repeat_chance;                /* 0x0CC */
     tag_reference spawned_actor_variant;                    /* 0x0D0 */
-    __int16       spawn_actor_lower_bound;                  /* 0x0E0 */
-    __int16       spawn_actor_upper_bound;                  /* 0x0E2 */
+    int16_t       spawn_actor_lower_bound;                  /* 0x0E0 */
+    int16_t       spawn_actor_upper_bound;                  /* 0x0E2 */
     float         spawn_throw_velocity;                     /* 0x0E4 */
     float         aiming_velocity_maximum;                  /* 0x0E8 */
     float         aiming_acceleration_maximum;              /* 0x0EC */
@@ -47,18 +48,18 @@ typedef struct _unit_definition
     float         ai_vehicle_avoidance_radius;              /* 0x104 */
     float         ai_danger_radius;                         /* 0x108 */
     tag_reference melee_damage;                             /* 0x10C */
-    __int16       blip_type;                                /* 0x11C — motion-sensor blip type; also reused in
+    int16_t       blip_type;                                /* 0x11C — motion-sensor blip type; also reused in
                                                              * physics_compute_biped_collision as an index into
                                                              * the `scales` global */
-    __int16       padxxx;                                   /* 0x11E */
+    int16_t       padxxx;                                   /* 0x11E */
     int           unused[3];                                /* 0x120 */
     tag_block     huds;                                     /* 0x12C */
     tag_block     dialogue_variants;                        /* 0x138 */
     float         grenade_velocity;                         /* 0x144 */
-    __int16       grenade_type;                             /* 0x148 */
-    __int16       grenade_count;                            /* 0x14A */
-    __int16       runtime_soft_ping_minimum_interrupt_ticks;/* 0x14C */
-    __int16       runtime_hard_ping_minimum_interrupt_ticks;/* 0x14E */
+    int16_t       grenade_type;                             /* 0x148 */
+    int16_t       grenade_count;                            /* 0x14A */
+    int16_t       runtime_soft_ping_minimum_interrupt_ticks;/* 0x14C */
+    int16_t       runtime_hard_ping_minimum_interrupt_ticks;/* 0x14E */
     tag_block     powered_seats;                            /* 0x150 */
     tag_block     initial_weapons;                          /* 0x15C */
     tag_block     seats;                                    /* 0x168 */

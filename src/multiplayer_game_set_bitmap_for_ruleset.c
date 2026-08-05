@@ -2,6 +2,7 @@
  * ruleset bitmap frame matching the active network game's game engine (falls back to a generic frame if
  * there's no active game, or the engine index is out of the known range). */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 #include "headers/game_engine_type.h"
@@ -14,7 +15,7 @@ void multiplayer_game_set_bitmap_for_ruleset(widget_instance *widget)
     if ( !game )
         return;
 
-    __int16 frame_index;
+    int16_t frame_index;
     if ( (unsigned int)(game->variant.game_engine_index - 1) > 4 )
     {
         frame_index = 5;

@@ -26,7 +26,7 @@ uint8_t encounter_mark_examined_pursuit_position(int encounter_index, int actor_
     {
         pursuit_datum *pursuit = DATA_ARRAY_ELEMENT(pursuit_data, pursuit_datum, pursuit_index);
 
-        __int16 examiner_slot;
+        int16_t examiner_slot;
         for ( examiner_slot = 0; examiner_slot < 6; examiner_slot++ )
         {
             if ( pursuit->actor_indices[examiner_slot] == actor_index )
@@ -36,7 +36,7 @@ uint8_t encounter_mark_examined_pursuit_position(int encounter_index, int actor_
         if ( examiner_slot >= 6 )
         {
             newly_recorded = 1;
-            __int16 next_examiner_slot = pursuit->next_actor_index_index;
+            int16_t next_examiner_slot = pursuit->next_actor_index_index;
             pursuit->actor_indices[next_examiner_slot] = actor_index;
             ++pursuit->actor_count;
             pursuit->next_actor_index_index = (next_examiner_slot + 1) % 6;

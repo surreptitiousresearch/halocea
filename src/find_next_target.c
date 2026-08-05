@@ -16,7 +16,7 @@ extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 extern void game_show_score_extended(int recipient_player_index, int subject_player_index, int message, int message_data, uint8_t should_replicate);
 
-static unsigned __int8 target_is_eligible(player_datum *me, int current_target, int my_index, player_datum *candidate,
+static uint8_t target_is_eligible(player_datum *me, int current_target, int my_index, player_datum *candidate,
         int candidate_index)
 {
     return candidate_index != my_index && candidate_index != current_target
@@ -43,7 +43,7 @@ void find_next_target(int my_index)
 
     if ( eligible_count > 0 )
     {
-        __int16 chosen = seed_random_range(get_global_random_seed_address(), 0, eligible_count);
+        int16_t chosen = seed_random_range(get_global_random_seed_address(), 0, eligible_count);
 
         data_iterator_new(&player_iterator, player_data);
         while ( data_iterator_next(&player_iterator) )

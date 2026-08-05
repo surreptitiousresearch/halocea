@@ -25,7 +25,7 @@ int network_game_remove_player(network_game_data *game, network_player *player)
     while ( 1 )
     {
         network_player *record = &game->players[slot_index];
-        unsigned __int8 in_use = 1;
+        uint8_t in_use = 1;
         if ( (unsigned char)record->controller_index > 1 || record->machine_index < 0 || record->machine_index >= 16 )
             in_use = 0;
 

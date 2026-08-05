@@ -23,7 +23,7 @@ uint8_t actor_combat_allow_special_fire_situation(uint16_t actor_index, int16_t 
         return 1;
 
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int16 prop_index = (unsigned __int16)actor->control.current_fire_target_type;
+    uint16_t prop_index = (uint16_t)actor->control.current_fire_target_type;
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
 
     if ( prop->vehicle_index != -1 )
@@ -31,7 +31,7 @@ uint8_t actor_combat_allow_special_fire_situation(uint16_t actor_index, int16_t 
     if ( prop->player )
         return 0;
 
-    __int16 enemy_count = 0;
+    int16_t enemy_count = 0;
     actor_combat_check_collateral_damage(actor_index, 6.0f, 0.0f, (const float *)&prop->body_position, &enemy_count);
     return enemy_count >= 3 ? 1 : 0;
 }

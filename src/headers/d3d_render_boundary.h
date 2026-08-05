@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "d3d_boundary.h"
 #include "_D3DFORMAT.h"
 #include "GPUTEXTURE_FETCH_CONSTANT.h"
@@ -56,10 +57,10 @@ extern void XGOffsetResourceAddress(D3DResource *pResource, void *pBaseAddress);
 /* Sampler / stream state ops. The trailing PendingMask3 is the Xbox 360 GPU
  * pending-register bitmask for the slot being written (boundary types). */
 extern void D3DDevice_SetTexture(D3DDevice *pDevice, unsigned int Sampler,
-                                 D3DBaseTexture *pTexture, unsigned __int64 PendingMask3);
+                                 D3DBaseTexture *pTexture, uint64_t PendingMask3);
 extern void D3DDevice_SetStreamSource(D3DDevice *pDevice, unsigned int StreamNumber,
                                       D3DVertexBuffer *pVertexBuffer, unsigned int OffsetInBytes,
-                                      unsigned int StrideInBytes, unsigned __int64 PendingMask3);
+                                      unsigned int StrideInBytes, uint64_t PendingMask3);
 extern void D3DDevice_SetIndices(D3DDevice *pDevice, D3DIndexBuffer *pIndexData);
 
 extern void D3DDevice_DrawIndexedVertices(D3DDevice *pDevice, _D3DPRIMITIVETYPE PrimitiveType,

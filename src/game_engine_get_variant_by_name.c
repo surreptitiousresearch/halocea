@@ -67,7 +67,7 @@ uint8_t game_engine_get_variant_by_name(const char *name, game_variant *variant)
     uint8_t found;
     game_variant *built_variant;
     unsigned int profile_index;
-    unsigned __int16 number_of_profiles;
+    uint16_t number_of_profiles;
     game_variant working_variant;
     game_variant variant_scratch;
     wchar_t wide_name[24];
@@ -468,7 +468,7 @@ uint8_t game_engine_get_variant_by_name(const char *name, game_variant *variant)
     while ( !playlist_profile_get(playlist_profile_indices[profile_index], &working_variant)
             || ustrcasecmp(working_variant.human_readable_game_description, wide_name) )
     {
-        profile_index = (unsigned __int16)(profile_index + 1);
+        profile_index = (uint16_t)(profile_index + 1);
         if ( profile_index >= number_of_profiles )
             return found;
     }

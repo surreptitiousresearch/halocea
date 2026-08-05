@@ -25,7 +25,7 @@ extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *poi
 void compute_sound_obstruction(int16_t local_player_index, sound_source *source, float distance)
 {
     const observer_result *camera = observer_get_camera(local_player_index);
-    int source_cluster = (unsigned __int16)source->location.game_location.cluster_index;
+    int source_cluster = (uint16_t)source->location.game_location.cluster_index;
     int camera_cluster;
     int encoded_distance;
     float propagation_distance;
@@ -36,7 +36,7 @@ void compute_sound_obstruction(int16_t local_player_index, sound_source *source,
     if ( source_cluster == 0xFFFF )
         return;
 
-    camera_cluster = (unsigned __int16)camera->location.cluster_index;
+    camera_cluster = (uint16_t)camera->location.cluster_index;
     if ( camera_cluster == 0xFFFF )
         return;
 

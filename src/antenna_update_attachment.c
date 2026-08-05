@@ -49,7 +49,7 @@ void antenna_update_attachment(antenna_datum *antenna, antenna_definition *anten
 
     if ( (float)moved_x > 1.0f || (float)moved_y > 1.0f || (float)moved_z > 1.0f )
     {
-        for ( __int16 i = 0; i < antenna_definition->vertices.count + 1; i = (__int16)(i + 1) )
+        for ( int16_t i = 0; i < antenna_definition->vertices.count + 1; i = (int16_t)(i + 1) )
         {
             /* recovered: (float*)((char*)antenna + 32*i + 28) -> &antenna->vertices[i].p */
             real_point3d *vertex_position = &antenna->vertices[i].p;

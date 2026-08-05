@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* blam_cpp_compat.h — force-included (cl /FI) into every C++ TU by the C++ build/check
  * scripts (clcheck_cpp.bat). The Hex-Rays decompiler emits IDA/GCC spellings that MSVC C++
  * does not provide as builtins. bool/true/false/nullptr ARE C++ keywords, so unlike the C
@@ -20,9 +21,9 @@ typedef int BOOL;
 #ifndef BLAM_IDA_INTS_DEFINED
 #define BLAM_IDA_INTS_DEFINED
 typedef unsigned char      _BYTE;
-typedef unsigned __int16   _WORD;
-typedef unsigned __int32   _DWORD;
-typedef unsigned __int64   _QWORD;
+typedef uint16_t   _WORD;
+typedef uint32_t   _DWORD;
+typedef uint64_t   _QWORD;
 #endif
 
 /* PPC floating-point intrinsics the Hex-Rays PPC decompiler emits inline. On the Xbox 360

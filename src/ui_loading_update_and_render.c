@@ -173,7 +173,7 @@ void ui_loading_update_and_render(void)
 
         case 8:
         {
-            __int16 string_index = (game_connection() == _game_connection_network_server) 
+            int16_t string_index = (game_connection() == _game_connection_network_server) 
                     ? loading_string_server_loading : loading_string_connected_loading;
             usprintf(line, unicode_string_list_get_string(strings_index, string_index), loading_screen_map);
             break;

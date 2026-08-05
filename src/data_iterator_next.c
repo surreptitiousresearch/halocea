@@ -2,17 +2,18 @@
  * at the end. A datum is in-use when its leading __int16 identifier word is nonzero. The packed index stored in
  * iterator->index is (identifier << 16) | absolute_index. */
 
+#include <stdint.h>
 #include "headers/data_iterator.h"
 #include "headers/datum_index.h"
 
 void *data_iterator_next(data_iterator *iterator)
 {
-    __int16 absolute_index = iterator->absolute_index;
-    __int16 count = iterator->data->count;
+    int16_t absolute_index = iterator->absolute_index;
+    int16_t count = iterator->data->count;
     int     size = iterator->data->size;
     int     current_index = absolute_index;
     char   *base = (char *)iterator->data->data;
-    char   *datum = &base[absolute_index * (__int16)size];
+    char   *datum = &base[absolute_index * (int16_t)size];
     char   *result = nullptr;
     int     packed_index;
 
@@ -21,8 +22,8 @@ void *data_iterator_next(data_iterator *iterator)
         while ( 1 )
         {
             absolute_index = current_index + 1;
-            packed_index = BUILD_DATUM_INDEX(*(__int16 *)datum, current_index);
-            if ( *(unsigned __int16 *)datum )
+            packed_index = BUILD_DATUM_INDEX(*(int16_t *)datum, current_index);
+            if ( *(uint16_t *)datum )
                 break;
             current_index = absolute_index;
             datum += size;

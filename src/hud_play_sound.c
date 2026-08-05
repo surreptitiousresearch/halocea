@@ -21,7 +21,7 @@ void hud_play_sound(int16_t local_player_index, int type_flags, tag_block *sound
     if (sounds->count <= 0)
         return;
 
-    for (int i = 0; i < sounds->count; i = (__int16)(i + 1))
+    for (int i = 0; i < sounds->count; i = (int16_t)(i + 1))
     {
         char *entry = (char *)sounds->address + 56 * i;
         int looping = (*(unsigned int *)entry == 0x6C736E64u /* 'lsnd' */);

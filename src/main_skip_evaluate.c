@@ -8,7 +8,7 @@ extern void hs_return(uint16_t thread_index, int value);
 
 void main_skip_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *ticks = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *ticks = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( ticks )
     {
         main_skip(*ticks);

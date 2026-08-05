@@ -34,7 +34,7 @@ int16_t unit_find_nearby_seat(int unit_index, int parent_unit_index, int16_t *pa
     unit_definition *vehicle_definition = TAG_GET(unit_definition, vehicle_object->definition_index);
 
     int best_priority = 0;
-    __int16 best_seat = -1;
+    int16_t best_seat = -1;
 
     if ((vehicle_object->object.damage_flags & (1u << _object_dead_bit)) != 0 || (vehicle_object->unit.flags & (1u << _unit_not_enterable_by_player_bit)) != 0)
     {
@@ -46,7 +46,7 @@ int16_t unit_find_nearby_seat(int unit_index, int parent_unit_index, int16_t *pa
     float best_cost = 3.4028235e38f;
 
     int seat_count = vehicle_definition->unit.seats.count;
-    for (__int16 seat_index = 0; seat_index < seat_count; seat_index = (__int16)(seat_index + 1))
+    for (int16_t seat_index = 0; seat_index < seat_count; seat_index = (int16_t)(seat_index + 1))
     {
         unit_seat *seat = &((unit_seat *)vehicle_definition->unit.seats.address)[seat_index];
 
@@ -87,14 +87,14 @@ int16_t unit_find_nearby_seat(int unit_index, int parent_unit_index, int16_t *pa
             }
         }
 
-        if ((__int16)priority > 0)
+        if ((int16_t)priority > 0)
         {
             float cost_multiplier = 1.0f;
             if (best_seat_is_special && ((seat_flags >> _unit_seat_is_driver_bit) & 1) == 0)
                 cost_multiplier = 1.5f;
 
             char take_seat = 0;
-            if (best_seat == -1 || (__int16)priority > (__int16)best_priority || cost_multiplier * distance < best_cost)
+            if (best_seat == -1 || (int16_t)priority > (int16_t)best_priority || cost_multiplier * distance < best_cost)
                 take_seat = 1;
             if (take_seat)
             {

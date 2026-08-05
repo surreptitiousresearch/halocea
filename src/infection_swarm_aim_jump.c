@@ -45,7 +45,7 @@ void infection_swarm_aim_jump(uint16_t actor_index, int unit_index, float jump_m
 
     for ( int member_index = 0;
           member_index < swarm->unit_count;
-          member_index = (__int16)(member_index + 1) )
+          member_index = (int16_t)(member_index + 1) )
     {
         if ( swarm->unit_indices[member_index] != unit_index )
             continue;
@@ -53,7 +53,7 @@ void infection_swarm_aim_jump(uint16_t actor_index, int unit_index, float jump_m
         unit_datum *object_datum = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
         swarm_component_datum *component = DATUM_GET(swarm_component_data, swarm_component_datum,
                 swarm->component_indices[member_index]);
-        unsigned __int16 component_flags = component->flags;
+        uint16_t component_flags = component->flags;
         int prop_index = component->combat_target_prop_index;
 
         if ( (component_flags & (1u << _swarm_component_melee_engaged_bit)) != 0 && prop_index != -1 )

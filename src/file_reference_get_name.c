@@ -20,7 +20,7 @@ char *file_reference_get_name(const file_reference *reference, unsigned int flag
     char full_path[304];
 
     memset(full_path, 0, 256);
-    file_location_get_full_path(*(unsigned __int16 *)&reference->data[6], &reference->data[8], full_path);
+    file_location_get_full_path(*(uint16_t *)&reference->data[6], &reference->data[8], full_path);
     file_path_split(full_path, &base_name, &file_name, &directory, &extension, reference->data[4] & 1);
 
     *name = 0;

@@ -38,7 +38,7 @@ uint8_t local_player_is_piloting_aircraft(int16_t controller_index)
     if ( vehicle_index == -1 )
         return 0;
 
-    __int16 seat_index = unit->unit.parent_seat_index;
+    int16_t seat_index = unit->unit.parent_seat_index;
     if ( seat_index == -1 )
         return 0;
 

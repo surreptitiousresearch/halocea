@@ -5,6 +5,7 @@
 // the master's pixel buffer and Resize()d to the per-viewport dimensions.
 // Source: D:\Projects\code\common\src.sys ... (txm subsystem)
 
+#include <stdint.h>
 #include "../../headers/ws/txm/txmTEXTURE.h"
 #include "../../headers/ws/txm/txm_vid_boundary.h" /* vidDriver->pMode->vmState */
 
@@ -26,7 +27,7 @@ void txmTEXTURE::RecreateSplitScreen()
     if (!(this->state.state & TXM_STATE_SPLITSCREEN_MASTER))
         return;
 
-    __int64 vmState = vidDriver->pMode->vmState;
+    int64_t vmState = vidDriver->pMode->vmState;
     if (!(vmState & VMSTATE_SPLIT_ANY))
         return;
 

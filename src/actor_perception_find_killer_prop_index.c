@@ -43,7 +43,7 @@ int actor_perception_find_killer_prop_index(int actor_index, uint16_t killed_pro
             continue;
 
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-        __int16 perception_state = prop->state;
+        int16_t perception_state = prop->state;
         if (perception_state >= _prop_state_becoming_unacknowledged && perception_state <= _prop_state_acknowledged
             && (prop->enemy || !skip_friendlies)
             && attack_time > best_attack_time)

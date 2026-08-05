@@ -25,7 +25,7 @@ uint8_t multiplayer_level_select(widget_instance *wrapper_widget, event_record *
         preview_list_get_list_index_for_item(
             wrapper_widget->parameters.list_parameters.selected_list_item_index)].name;
 
-    unsigned __int8 map_exists = cache_file_map_exists(name);
+    uint8_t map_exists = cache_file_map_exists(name);
     if ( map_exists )
     {
         main_set_multiplayer_map_name(name);

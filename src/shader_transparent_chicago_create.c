@@ -24,6 +24,7 @@
  * signed 16-bit value, i.e. (__int16)maps.count. The decompiler's `*(__int16*)(shader+0x54)` would read the
  * HIGH halfword on big-endian PPC; the (__int16) cast on maps.count reproduces the real low-halfword value. */
 
+#include <stdint.h>
 #include "headers/shader.h"
 #include "headers/shader_transparent_chicago.h"
 #include "headers/chicago_shaders.h"
@@ -34,7 +35,7 @@
 int shader_transparent_chicago_create(const shader *shader, int use_additional_op)
 {
     const shader_transparent_chicago *chicago = (const shader_transparent_chicago *)shader;
-    int stage_count = (__int16)chicago->chicago.maps.count;
+    int stage_count = (int16_t)chicago->chicago.maps.count;
     if ( stage_count <= 0 )
         return 0;
 
@@ -67,7 +68,7 @@ int shader_transparent_chicago_create(const shader *shader, int use_additional_o
     }
     else
     {
-        unsigned __int16 selector = (unsigned __int16)chicago->chicago.framebuffer_blend_function;
+        uint16_t selector = (uint16_t)chicago->chicago.framebuffer_blend_function;
         additional_op_arg = chicago->chicago.framebuffer_fade_mode;
         int uninitialized_op;   /* DEVIATION: shipped uninitialized-stack read for selector > 7 */
         switch ( selector )
@@ -84,7 +85,7 @@ int shader_transparent_chicago_create(const shader *shader, int use_additional_o
         }
     }
 
-    int detail_level = (unsigned __int16)chicago->chicago.type;
+    int detail_level = (uint16_t)chicago->chicago.type;
     set_chicago_shader(detail_level != 0, stages[0], stages[1], stages[2], additional_op_arg, additional_op);
     return 1;
 }

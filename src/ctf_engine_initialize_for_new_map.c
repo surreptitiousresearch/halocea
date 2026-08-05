@@ -27,8 +27,8 @@
 
 
 extern game_variant *game_engine_get_variant(void);
-extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, __int16 type,
-        __int16 team);
+extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type,
+        int16_t team);
 extern int16_t game_connection(void);
 extern int get_flag_definition_index(void);
 extern void object_placement_data_new(object_placement_data *data, int definition_index, int owner_object_index);
@@ -37,12 +37,12 @@ extern void object_set_automatic_deactivation(int object_index, uint8_t automati
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 extern void create_the_flag(int team_index);
-extern void game_show_score_team(int team, int message, unsigned __int8 should_replicate);
+extern void game_show_score_team(int team, int message, uint8_t should_replicate);
 extern int16_t player_get_starting_location_count(void);
 extern scenario_player * player_get_starting_location(int16_t location_index);
 extern uint8_t match_game_type(int game_engine_type, int count, const int16_t *game_type);
 
-unsigned __int8 ctf_engine_initialize_for_new_map(void)
+uint8_t ctf_engine_initialize_for_new_map(void)
 {
     game_engine_get_variant();
     memset(&ctf_globals, 0, sizeof(ctf_globals));
@@ -56,7 +56,7 @@ unsigned __int8 ctf_engine_initialize_for_new_map(void)
     int team = 0;
     do
     {
-        int netgame_flag = find_netgame_flag(nullptr, 0.0f, 0.0f, 0, (__int16)team);
+        int netgame_flag = find_netgame_flag(nullptr, 0.0f, 0.0f, 0, (int16_t)team);
         *score = 0;
         int flag_slot = team;
         if ( game_engine_get_variant()->game_engine_variant.ctf.assault )
@@ -75,7 +75,7 @@ unsigned __int8 ctf_engine_initialize_for_new_map(void)
         if ( game_engine_get_variant()->game_engine_variant.ctf.single_flag_time <= 0 )
         {
             /* classic CTF: spawn both teams' flag objects */
-            for ( __int16 flag_team = 0; flag_team < 2; ++flag_team )
+            for ( int16_t flag_team = 0; flag_team < 2; ++flag_team )
             {
                 scenario_netgame_flag *flag = ctf_globals.flags[flag_team];
                 if ( flag )
@@ -108,14 +108,14 @@ unsigned __int8 ctf_engine_initialize_for_new_map(void)
     ctf_globals.score_to_win = game_engine_get_variant()->universal_variant.score_to_win;
 
     int starting_location_count = player_get_starting_location_count();
-    for ( __int16 i = 0; i < starting_location_count; ++i )
+    for ( int16_t i = 0; i < starting_location_count; ++i )
     {
         scenario_player *location = player_get_starting_location(i);
         if ( (location->team_index && location->team_index != _multiplayer_team_blue)
           || !match_game_type(1, 4, location->game_type) )
             continue;
 
-        unsigned __int8 assault = game_engine_get_variant()->game_engine_variant.ctf.assault != 0;
+        uint8_t assault = game_engine_get_variant()->game_engine_variant.ctf.assault != 0;
         int own_team = location->team_index % 2;
         scenario_netgame_flag *own_flag = ctf_globals.flags[own_team];
         scenario_netgame_flag *enemy_flag = ctf_globals.flags[(own_team + 1) % 2];
@@ -133,7 +133,7 @@ unsigned __int8 ctf_engine_initialize_for_new_map(void)
                                 * (location->position.n[0] - enemy_flag->position.n[0]))
                         + (enemy_dz * enemy_dz)));
 
-        unsigned __int8 reassign = 1;
+        uint8_t reassign = 1;
         if ( assault )
         {
             if ( !(distance_to_own < distance_to_enemy) )

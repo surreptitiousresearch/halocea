@@ -25,7 +25,7 @@ void object_connect_lights(int object_index, uint8_t disconnect, uint8_t reconne
         _object_definition *object_definition = TAG_GET(_object_definition, object_data->definition_index);
         if ( object_definition->attachments.count > 0 )
         {
-            __int16 i = 0;
+            int16_t i = 0;
             do
             {
                 if ( !object_data->object.attachment_types[i] )
@@ -39,7 +39,7 @@ void object_connect_lights(int object_index, uint8_t disconnect, uint8_t reconne
                             light_reconnect_to_map(object_data->object.attachment_indices[i]);
                     }
                 }
-                i = (__int16)(i + 1);
+                i = (int16_t)(i + 1);
             }
             while ( i < object_definition->attachments.count );
         }

@@ -17,7 +17,7 @@ extern int16_t game_connection(void);
 
 uint8_t game_engine_player_is_odd_man_out(int player_index)
 {
-    int player_slot = (unsigned __int16)player_index;
+    int player_slot = (uint16_t)player_index;
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
     /* unit_index == -1 means dead/awaiting respawn */
@@ -47,7 +47,7 @@ uint8_t game_engine_player_is_odd_man_out(int player_index)
             int other_score = other->multiplayer.time_of_death;
             int my_score    = player->multiplayer.time_of_death;
             if (other_score > my_score ||
-                (other_score == my_score && player_slot < (unsigned __int16)iterator.index))
+                (other_score == my_score && player_slot < (uint16_t)iterator.index))
                 is_odd_man = 0;
         }
     }

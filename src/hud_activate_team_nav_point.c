@@ -19,7 +19,7 @@ void hud_activate_team_nav_point(int16_t nav_index, int16_t team_index, int16_t 
     for (player_datum *player = data_iterator_next(&iterator); player;
          player = data_iterator_next(&iterator))
     {
-        if ((unsigned __int16)player->local_player_index == 0xFFFF || team_index != player->team_index || iterator.index == -1)
+        if ((uint16_t)player->local_player_index == 0xFFFF || team_index != player->team_index || iterator.index == -1)
             continue;
 
         unsigned int local_player = DATA_ARRAY_ELEMENT(player_data, player_datum, iterator.index)->local_player_index;
@@ -28,7 +28,7 @@ void hud_activate_team_nav_point(int16_t nav_index, int16_t team_index, int16_t 
 
         hud_nav_point_player_datum *player_navs = &nav_point_data[local_player];
 
-        __int16 free_slot = -1;
+        int16_t free_slot = -1;
         int slot = 0;
         bool updated = false;
         do
@@ -44,8 +44,8 @@ void hud_activate_team_nav_point(int16_t nav_index, int16_t team_index, int16_t 
                 break;
             }
             if (slot_type == -1)
-                free_slot = (__int16)slot;
-            slot = (__int16)(slot + 1);
+                free_slot = (int16_t)slot;
+            slot = (int16_t)(slot + 1);
         } while (slot < MAXIMUM_ACTIVE_NAV_POINTS);
 
         if (!updated && free_slot != -1)

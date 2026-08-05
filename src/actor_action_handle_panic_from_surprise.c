@@ -26,7 +26,7 @@ uint8_t actor_action_handle_panic_from_surprise(uint16_t actor_index)
         actor->stimuli.panic_prop_index = actor->stimuli.surprise_prop_index;
 
     /* floor is a panic_type priority, not a tick count */
-    __int16 panic_type = actor->stimuli.panic_type;
+    int16_t panic_type = actor->stimuli.panic_type;
     if ( panic_type <= _actor_panic_surprise )
         panic_type = _actor_panic_surprise;
     actor->stimuli.panic_type = panic_type;

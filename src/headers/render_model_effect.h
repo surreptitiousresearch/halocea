@@ -2,6 +2,7 @@
 /* render_model_effect — per-render-call model effect descriptor (screen-effect / camouflage modifier).
  * Layout from the database (40 bytes). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "render_animation.h"
 
@@ -9,7 +10,7 @@ struct shader;
 
 typedef struct render_model_effect
 {
-    __int16              type;                   /* 0x00 */
+    int16_t              type;                   /* 0x00 */
     unsigned char        _pad02[2];              /* 0x02 */
     float                intensity;              /* 0x04 */
     float                parameter;              /* 0x08 */

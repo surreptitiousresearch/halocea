@@ -17,7 +17,7 @@ void structure_render_dynamic_triangles_from_indices(int16_t surface_count, int 
 
     qsort_4byte(surface_indices, surface_count, compare_surface_indices);
 
-    for ( __int16 i = 0; i < surface_count; i++ )
+    for ( int16_t i = 0; i < surface_count; i++ )
     {
         /* surfaces are 6-byte structure_surface records, same layout as rasterizer_triangle */
         rasterizer_triangle *surface =

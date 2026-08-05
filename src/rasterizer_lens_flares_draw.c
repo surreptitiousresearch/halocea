@@ -153,7 +153,7 @@ void rasterizer_lens_flares_draw(void)
                         / (definition->near_fade_distance - definition->far_fade_distance));
             }
 
-            float light_alpha = uncompress_int8_to_real((unsigned __int8)(flare->compressed_light_color >> 24))
+            float light_alpha = uncompress_int8_to_real((uint8_t)(flare->compressed_light_color >> 24))
                     * occlusion_fraction * distance_fade;
 
             float corona_rotation = lens_flare_evaluate_corona_rotation_function(definition->corona_rotation_function,
@@ -258,10 +258,10 @@ void rasterizer_lens_flares_draw(void)
                         static_color.n[1] *= interpolated_color.n[1];
                         static_color.n[2] *= interpolated_color.n[2];
                     }
-                    unsigned int red_byte = (unsigned __int8)(int)(static_color.n[0] * 255.0f);
-                    unsigned int green_byte = (unsigned __int8)(int)(static_color.n[1] * 255.0f);
-                    unsigned int blue_byte = (unsigned __int8)(int)(static_color.n[2] * 255.0f);
-                    unsigned int alpha_byte = (unsigned __int8)(int)(reflection->tint_color.__s1.alpha * 255.0f);
+                    unsigned int red_byte = (uint8_t)(int)(static_color.n[0] * 255.0f);
+                    unsigned int green_byte = (uint8_t)(int)(static_color.n[1] * 255.0f);
+                    unsigned int blue_byte = (uint8_t)(int)(static_color.n[2] * 255.0f);
+                    unsigned int alpha_byte = (uint8_t)(int)(reflection->tint_color.__s1.alpha * 255.0f);
                     color = (alpha_byte << 24) | (red_byte << 16) | (green_byte << 8) | blue_byte;
                     tint_factor = reflection->tint_color.__s1.alpha;
                 }
@@ -295,7 +295,7 @@ void rasterizer_lens_flares_draw(void)
                     break;
                 rasterizer_widget_set_tint_factor(tint_factor);
 
-                __int16 stencil_mode = _rasterizer_stencil_mode_none;
+                int16_t stencil_mode = _rasterizer_stencil_mode_none;
                 if ( (reflection->flags & (1u << _lens_flare_reflection_zbuffer_bit)) != 0 && LENS_FLARE_IS_FIRST_PERSON_MARKER(flare->compressed_window_index) )
                     stencil_mode = _rasterizer_stencil_mode_reject;
                 rasterizer_widget_set_stencil_mode(stencil_mode);

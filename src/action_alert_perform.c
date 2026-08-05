@@ -35,15 +35,15 @@ extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 extern uint8_t actor_move_to_move_position(int actor_index, int16_t move_position_index);
 
-unsigned __int8 action_alert_perform(int actor_index)
+uint8_t action_alert_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     alert_state_data *alert = &actor->state.action_data.___u0.alert;   /* alert action-working-state */
 
-    if ( alert->move_position_order && (unsigned __int16)alert->pending_move_position_index == 0xFFFF )
+    if ( alert->move_position_order && (uint16_t)alert->pending_move_position_index == 0xFFFF )
     {
         char reached = 1;
-        if ( (unsigned __int16)alert->target_move_position_index != 0xFFFF && actor_path_has_path(actor_index) )
+        if ( (uint16_t)alert->target_move_position_index != 0xFFFF && actor_path_has_path(actor_index) )
         {
             float delta_x = alert->target_position_definition.position.n[0] - actor->input.position.body_position.x;  /* target - actor body pos */
             float delta_z = alert->target_position_definition.position.n[2] - actor->input.position.body_position.z;
@@ -69,7 +69,7 @@ unsigned __int8 action_alert_perform(int actor_index)
                 {
                     int unit_index = actor->meta.unit_index;
                     unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-                    if ( (unsigned __int8)unit_object->unit.animation.state == _unit_state_user_animation )
+                    if ( (uint8_t)unit_object->unit.animation.state == _unit_state_user_animation )
                         reached = 0;
                 }
             }
@@ -97,7 +97,7 @@ unsigned __int8 action_alert_perform(int actor_index)
     if ( actor->meta.encounter_index != -1 )
     {
         encounter_definition *encounter =
-            &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)actor->meta.encounter_index];
+            &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)actor->meta.encounter_index];
         squad_definition *squad =
             &((squad_definition *)encounter->squads.address)[actor->meta.squad_index];
 
@@ -110,11 +110,11 @@ unsigned __int8 action_alert_perform(int actor_index)
             float range_min = firing_position[5];
             float dwell = real_seed_random_range(get_global_random_seed_address(), range_min, range_max);
 
-            __int16 saved_position = alert->pending_move_position_index;
+            int16_t saved_position = alert->pending_move_position_index;
             alert->pending_move_position_index = -1;
             alert->target_move_position_index = saved_position;
             memcpy(&alert->target_position_definition, firing_position, 0x50);
-            __int16 current_position = alert->target_move_position_index;
+            int16_t current_position = alert->target_move_position_index;
             alert->must_play_animation = 1;
             alert->wait_ticks = (int)(dwell * 30.0f);
             moved = actor_move_to_move_position(actor_index, current_position) != 0;
@@ -123,7 +123,7 @@ unsigned __int8 action_alert_perform(int actor_index)
 
     if ( !moved )
     {
-        __int16 saved_position = alert->pending_move_position_index;
+        int16_t saved_position = alert->pending_move_position_index;
         alert->pending_move_position_index = -1;
         alert->wait_ticks = 0;
         alert->must_play_animation = 0;

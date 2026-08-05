@@ -14,8 +14,8 @@
  * lruv locked_block_proc slot is uint8_t(*)(int) corpus-wide (C4133 at _rasterizer_decals_initialize) */
 uint8_t rasterizer_decal_vertices_locked_proc(int block_index)
 {
-    decal_datum *decal = (decal_datum *)global_decal_data->data + (unsigned __int16)block_index;
-    unsigned __int16 flags = decal->flags;
+    decal_datum *decal = (decal_datum *)global_decal_data->data + (uint16_t)block_index;
+    uint16_t flags = decal->flags;
 
     int locked = (flags & (1u << _decal_permanent_bit)) != 0 ||
                  (flags & (1u << _decal_locked_bit)) == 0;

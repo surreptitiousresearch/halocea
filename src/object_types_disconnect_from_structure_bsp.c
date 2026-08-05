@@ -16,7 +16,7 @@ object_datum *object_types_disconnect_from_structure_bsp(void)
           object = object_iterator_next(&iterator) )
     {
         /* name_index is a signed __int16; keep the unsigned cast so the 0xFFFF sentinel compare holds */
-        if ( (unsigned __int16)object->object.name_index == 0xFFFF )
+        if ( (uint16_t)object->object.name_index == 0xFFFF )
             object_delete(iterator.index);
     }
     return object;

@@ -79,12 +79,12 @@ void _rasterizer_detail_objects_rebuild_vertices(const detail_object_view_data *
                         }
                         total_drawn += count;
 
-                        cell_index = (__int16)(cell_index + 1);
+                        cell_index = (int16_t)(cell_index + 1);
                     }
                     while (cell_index < layer->cell_count);
                 }
 
-                layer_index = (__int16)(layer_index + 1);
+                layer_index = (int16_t)(layer_index + 1);
             }
             while (layer_index < detail_object_view_data->layer_count);
         }

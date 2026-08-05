@@ -2,6 +2,7 @@
  * translational velocity, age and both magazine round-totals into the baseline network-data copy, advance
  * the baseline generation index, mark the baseline valid and reset the message index. */
 
+#include <stdint.h>
 #include "headers/weapon_datum.h"
 #include "headers/object_type.h"
 
@@ -13,9 +14,9 @@ void weapon_update_baseline(int object_index)
 
     if ( object )
     {
-        __int16 magazine_0_rounds_total = object->weapon.magazines[0].rounds_total;
-        __int16 magazine_1_rounds_total = object->weapon.magazines[1].rounds_total;
-        unsigned __int8 next_generation = object->weapon.baseline_index + 1;
+        int16_t magazine_0_rounds_total = object->weapon.magazines[0].rounds_total;
+        int16_t magazine_1_rounds_total = object->weapon.magazines[1].rounds_total;
+        uint8_t next_generation = object->weapon.baseline_index + 1;
 
         object->weapon.baseline.position = object->object.position;
         object->weapon.baseline.age = object->weapon.age;

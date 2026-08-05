@@ -25,7 +25,7 @@ void hs_get_function_parameters_string(int16_t function_index, char *buffer)
     }
     else if (function->formal_parameter_count > 0)
     {
-        for (__int16 i = 0; i < function->formal_parameter_count; i++)
+        for (int16_t i = 0; i < function->formal_parameter_count; i++)
         {
             strcat(buffer, " <");
             strcat(buffer, hs_type_names[function->formal_parameters[i]]);

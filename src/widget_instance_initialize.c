@@ -29,10 +29,10 @@ extern void game_time_set_paused(uint8_t paused);
 extern void sound_pause(uint8_t paused);
 
 void widget_instance_initialize(widget_instance *widget, widget_instance *parent,
-                                int ui_widget_definition_index, __int16 local_player_index,
+                                int ui_widget_definition_index, int16_t local_player_index,
                                 ui_widget_definition *definition, int back_inhibited)
 {
-    __int16 type;
+    int16_t type;
     int background_index;
     int i;
     event_record init_event;

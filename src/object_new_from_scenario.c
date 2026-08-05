@@ -3,6 +3,7 @@
  * index, or -1 if the palette entry is empty, the placement is suppressed during initial placement, the name
  * is already bound, or object creation fails. */
 
+#include <stdint.h>
 #include "headers/scenario_object_datum.h"
 #include "headers/scenario_object_palette_entry.h"
 #include "headers/object_header_datum.h"
@@ -24,15 +25,15 @@ extern void object_type_place(int object_index, scenario_object_datum *scenario_
 
 int object_new_from_scenario(scenario_object_datum *scenario_object, tag_block *palette)
 {
-    __int16 palette_entry_index = scenario_object->palette_entry_index;
+    int16_t palette_entry_index = scenario_object->palette_entry_index;
     int result = -1;
     if ( palette_entry_index != -1
       && (!object_globals->initial_placement || (scenario_object->placement_flags & (1u << _scenario_object_placement_not_automatic_bit)) == 0) )
     {
-        int name_index = (unsigned __int16)scenario_object->name_index;
+        int name_index = (uint16_t)scenario_object->name_index;
         if ( name_index == 0xFFFF
-          || (unsigned int)(__int16)name_index >= MAXIMUM_OBJECT_NAMES_PER_SCENARIO
-          || object_name_list[(__int16)name_index] == -1 )
+          || (unsigned int)(int16_t)name_index >= MAXIMUM_OBJECT_NAMES_PER_SCENARIO
+          || object_name_list[(int16_t)name_index] == -1 )
         {
             int object_definition_index =
                 ((scenario_object_palette_entry *)palette->address)[palette_entry_index].reference.index;
@@ -49,10 +50,10 @@ int object_new_from_scenario(scenario_object_datum *scenario_object, tag_block *
                 if ( result != -1 )
                 {
                     object_type_place(result, scenario_object);
-                    int name = (unsigned __int16)scenario_object->name_index;
+                    int name = (uint16_t)scenario_object->name_index;
                     if ( name != 0xFFFF )
                     {
-                        int name_slot = (__int16)name;
+                        int name_slot = (int16_t)name;
                         object_datum *object_data =
                             DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, result)->datum;
                         if ( object_name_list[name_slot] == -1 )

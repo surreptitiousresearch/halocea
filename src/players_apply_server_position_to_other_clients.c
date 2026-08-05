@@ -35,7 +35,7 @@ void players_apply_server_position_to_other_clients(void)
     for ( player = data_iterator_next(&iter); player;
           player = data_iterator_next(&iter) )
     {
-        if ( game_connection() == _game_connection_network_client && (unsigned __int16)player->local_player_index == 0xFFFF )
+        if ( game_connection() == _game_connection_network_client && (uint16_t)player->local_player_index == 0xFFFF )
         {
             int unit_index = player->unit_index;
             unit_datum *unit;

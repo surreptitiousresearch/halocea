@@ -25,8 +25,8 @@ void ai_scripting_maneuver_enable(int ai_index, uint8_t enabled)
     {
         if ( platoon_index > last_platoon_index )
             break;
-        __int16 base_platoon_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->platoon_base;
-        platoon_datum *platoon = &platoon_array[(__int16)(base_platoon_index + platoon_index++)];
+        int16_t base_platoon_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->platoon_base;
+        platoon_datum *platoon = &platoon_array[(int16_t)(base_platoon_index + platoon_index++)];
         if ( !platoon )
             break;
         platoon->maneuver_disable = enabled == 0;

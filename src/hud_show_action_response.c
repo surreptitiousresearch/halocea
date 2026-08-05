@@ -45,10 +45,10 @@ extern int16_t unit_inventory_next_weapon(int unit_index, int16_t current_index,
 extern void weapon_build_weapon_interface_state(int weapon_index, weapon_interface_state *state);
 extern uint8_t game_engine_get_state_message(int player_index, uint16_t *buffer, int buffer_length);
 extern void hud_set_state_message(int16_t local_player_index, int16_t message_index);
-extern void hud_set_state_message_text(__int16 local_player_index, __int16 custom_icon_index,
-        __int16 icon_string_index, unsigned __int8 uses_scenario_names);
+extern void hud_set_state_message_text(int16_t local_player_index, int16_t custom_icon_index,
+        int16_t icon_string_index, uint8_t uses_scenario_names);
 extern void hud_set_state_message_icon(int16_t local_player_index, int16_t custom_icon_index, const icon_hud_element_definition *icon);
-extern void hud_enable_custom_state_message(__int16 local_player_index, unsigned __int8 enabled);
+extern void hud_enable_custom_state_message(int16_t local_player_index, uint8_t enabled);
 extern void hud_set_state_text(int16_t local_player_index, const wchar_t *message);
 
 /* datum pointer for object `idx` from the object header array (salted table index, +2 = data pointer). */
@@ -58,7 +58,7 @@ extern void hud_set_state_text(int16_t local_player_index, const wchar_t *messag
 void hud_show_action_response(int player_index)
 {
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
-    __int16 respawn_failure = players_get_respawn_failure();
+    int16_t respawn_failure = players_get_respawn_failure();
 
     if (respawn_failure && player->unit_index == -1)
     {
@@ -75,7 +75,7 @@ void hud_show_action_response(int player_index)
 
     int action_object = player->action_object_index;
     /* item-name string index = the interaction target's object definition icon_text_index. */
-    __int16 item_name_index = (action_object == -1)
+    int16_t item_name_index = (action_object == -1)
                                   ? -1
                                   : ((const _object_definition *)TAG_DEF(
                                         ((object_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, action_object)->datum)
@@ -95,7 +95,7 @@ void hud_show_action_response(int player_index)
         {
             unit_datum *target_datum = (unit_datum *)(DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->unit_index)->datum);
             hud_set_state_message(render.local_player_index, 7);
-            __int16 icon_index = get_object_icon_text_index(target_datum->object.parent_object_index);
+            int16_t icon_index = get_object_icon_text_index(target_datum->object.parent_object_index);
             hud_set_state_message_text(render.local_player_index, 0, icon_index, 0);
             break;
         }
@@ -103,7 +103,7 @@ void hud_show_action_response(int player_index)
         case _player_action_result_swap_for_powerup:
         {
             hud_set_state_message(render.local_player_index, 1);
-            __int16 equipment_icon = get_object_icon_text_index(unit_get_current_equipment(player->unit_index));
+            int16_t equipment_icon = get_object_icon_text_index(unit_get_current_equipment(player->unit_index));
             hud_set_state_message_text(render.local_player_index, 0, equipment_icon, 0);
             hud_set_state_message_text(render.local_player_index, 1, item_name_index, 0);
             break;
@@ -124,7 +124,7 @@ void hud_show_action_response(int player_index)
                     icon = (messaging_icon->sequence_index == -1) ? nullptr : messaging_icon;
                 }
                 hud_set_state_message(render.local_player_index, 4);
-                __int16 local_player_index = render.local_player_index;
+                int16_t local_player_index = render.local_player_index;
                 if (icon)
                     hud_set_state_message_icon(local_player_index, 0, icon);
                 else
@@ -148,7 +148,7 @@ void hud_show_action_response(int player_index)
                     icon = (messaging_icon->sequence_index == -1) ? nullptr : messaging_icon;
                 }
                 hud_set_state_message(render.local_player_index, 0);
-                __int16 local_player_index = render.local_player_index;
+                int16_t local_player_index = render.local_player_index;
                 if (icon)
                     hud_set_state_message_icon(local_player_index, 0, icon);
                 else
@@ -165,7 +165,7 @@ void hud_show_action_response(int player_index)
             object_datum *vehicle_object = DATA_ARRAY_ELEMENT(
                 object_header_data, object_header_datum, action_object)->datum;
             unit_definition *vehicle_def = (unit_definition *)TAG_DEF(vehicle_object->definition_index);
-            __int16 seat_label = ((unit_seat *)vehicle_def->unit.seats.address)[player->action_seat_index].icon_text_index;
+            int16_t seat_label = ((unit_seat *)vehicle_def->unit.seats.address)[player->action_seat_index].icon_text_index;
             hud_set_state_message_text(render.local_player_index, 0, seat_label, 0);
             hud_set_state_message_text(render.local_player_index, 1, item_name_index, 0);
             break;
@@ -174,8 +174,8 @@ void hud_show_action_response(int player_index)
         case _player_action_result_touch_device:
         {
             control_datum *target_datum = (control_datum *)(DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, action_object)->datum);
-            __int16 label = target_datum->control.hud_override_index;
-            if ((unsigned __int16)label == 0xFFFF)
+            int16_t label = target_datum->control.hud_override_index;
+            if ((uint16_t)label == 0xFFFF)
             {
                 hud_set_state_message(render.local_player_index, 2);
                 hud_set_state_message_text(render.local_player_index, 0, item_name_index, 0);
@@ -191,7 +191,7 @@ void hud_show_action_response(int player_index)
         case _player_action_result_flip_vehicle:
         {
             hud_set_state_message(render.local_player_index, 8);
-            __int16 icon_index = get_object_icon_text_index(action_object);
+            int16_t icon_index = get_object_icon_text_index(action_object);
             hud_set_state_message_text(render.local_player_index, 0, icon_index, 0);
             break;
         }
@@ -217,7 +217,7 @@ void hud_show_action_response(int player_index)
 
                 if (unit->object.parent_object_index != -1)
                 {
-                    __int16 weapon_slot = unit->unit.parent_seat_index;
+                    int16_t weapon_slot = unit->unit.parent_seat_index;
                     if (weapon_slot != -1)
                     {
                         int parent_vehicle = unit->object.parent_object_index;
@@ -241,8 +241,8 @@ void hud_show_action_response(int player_index)
                                             || weapon_state.age == 1.0f;
                     if (current_depleted)
                     {
-                        __int16 slot = unit->unit.current_weapon_index;
-                        __int16 weapon_count = unit_get_weapon_count(player->unit_index);
+                        int16_t slot = unit->unit.current_weapon_index;
+                        int16_t weapon_count = unit_get_weapon_count(player->unit_index);
                         int candidate = 0;
                         double candidate_age = 0.0;
                         do
@@ -277,7 +277,7 @@ void hud_show_action_response(int player_index)
                                 if (icon_tag_index == -1
                                     /* recovered: TAG_DEF+316 -> weapon_hud_interface_definition.messaging_icon (0x13C) */
                                     || (icon = &((const weapon_hud_interface_definition *)TAG_DEF(icon_tag_index))->messaging_icon,
-                                        (unsigned __int16)icon->sequence_index == 0xFFFF))
+                                        (uint16_t)icon->sequence_index == 0xFFFF))
                                 {
                                     hud_set_state_message_text(render.local_player_index, 0, item_name_index, 0);
                                 }

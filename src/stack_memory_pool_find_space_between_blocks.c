@@ -34,7 +34,7 @@ uint8_t * stack_memory_pool_find_space_between_blocks(stack_memory_pool *pool, u
         }
 
         *free_space_in_pool_previous = first_block;
-        return (unsigned __int8 *)first_block + first_block_size;
+        return (uint8_t *)first_block + first_block_size;
     }
 
     return pool->base_address;

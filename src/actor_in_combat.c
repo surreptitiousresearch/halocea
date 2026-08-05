@@ -16,8 +16,8 @@ uint8_t actor_in_combat(uint16_t actor_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->state.mode != _actor_mode_combat )
         return 0;
-    __int16 previous_status = actor->state.artificial_combat_status;
-    __int16 status = actor->state.combat_status;
+    int16_t previous_status = actor->state.artificial_combat_status;
+    int16_t status = actor->state.combat_status;
     if ( status <= previous_status )
         return 0;
     return 1;

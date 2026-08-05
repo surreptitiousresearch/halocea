@@ -10,13 +10,13 @@
 
 extern uint8_t observer_collision_test_with_t(const real_point3d *p0, const real_point3d *p1, float *t, uint8_t ignore_media);
 
-unsigned __int8 observer_collision_test_differential(
+uint8_t observer_collision_test_differential(
     const real_point3d *origin,
     const real_point3d *destination,
     const real_vector3d *differential_basis,
     float differential,
     float *t,
-    unsigned __int8 ignore_media)
+    uint8_t ignore_media)
 {
     real_point3d computed_destination;
 

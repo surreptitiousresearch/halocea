@@ -38,7 +38,7 @@ static int object_data_ptr(int object_handle)
 void following_camera_update(following_camera *camera, const camera_control *controls, observer_command *result)
 {
     unit_camera_info info;
-    __int16 seat_index;
+    int16_t seat_index;
     int unit_index;
 
     player_control_get_unit_camera_info(controls->local_player_index, &info);

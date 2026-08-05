@@ -50,8 +50,8 @@ void device_preprocess_node_orientations(int device_index, real_orientation *nod
 
     /* selector 0: the device's own open/close-position overlay.
      * selector_record->animations is a tag_block of __int16 animation indices. */
-    __int16 position_animation_index = selector_record->animations.count > 0
-            ? *(__int16 *)selector_record->animations.address
+    int16_t position_animation_index = selector_record->animations.count > 0
+            ? *(int16_t *)selector_record->animations.address
             : -1;
 
     if ( position_animation_index != -1 )
@@ -69,14 +69,14 @@ void device_preprocess_node_orientations(int device_index, real_orientation *nod
         float real_frame_index = (float)reference_frame * scaled_position;
 
         if ( flags & (1u << _device_position_animation_not_interpolated_bit) )
-            overlay_animation_apply(position_animation, (__int16)(int)real_frame_index, node_orientations);
+            overlay_animation_apply(position_animation, (int16_t)(int)real_frame_index, node_orientations);
         else
             overlay_animation_apply_continuous(position_animation, real_frame_index, node_orientations);
     }
 
     /* selector 1: an optional secondary continuous overlay */
-    __int16 secondary_animation_index = selector_record->animations.count > 1
-            ? ((__int16 *)selector_record->animations.address)[1]
+    int16_t secondary_animation_index = selector_record->animations.count > 1
+            ? ((int16_t *)selector_record->animations.address)[1]
             : -1;
 
     if ( secondary_animation_index != -1 )

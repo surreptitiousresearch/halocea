@@ -81,10 +81,10 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
     {
         player_datum   *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
         player_control *control = &player_control_globals->players[local_player_index];
-        __int16         machine_index = (unsigned __int16)player->local_player_index;
+        int16_t         machine_index = (uint16_t)player->local_player_index;
         int             unit_index = player->unit_index;
 
-        if ( machine_index != (__int16)0xFFFF && input_has_gamepad(machine_index) )
+        if ( machine_index != (int16_t)0xFFFF && input_has_gamepad(machine_index) )
         {
             const gamepad_state *gamepad = input_get_gamepad_state(machine_index);
             /* player-control tuning constants for this player's control tag-block element */
@@ -104,7 +104,7 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
 
                 if ( parent_object_index != -1 )
                 {
-                    __int16 seat_index = unit_object->unit.parent_seat_index;
+                    int16_t seat_index = unit_object->unit.parent_seat_index;
                     if ( seat_index != -1 )
                     {
                         int parent_definition = object_data_ptr(parent_object_index)->definition_index;
@@ -179,7 +179,7 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
                             /* zoom scaling: divide sensitivity by the active zoom magnification */
                             if ( unit_index != -1 )
                             {
-                                int zoom_level = (unsigned __int16)control->desired_zoom_level;
+                                int zoom_level = (uint16_t)control->desired_zoom_level;
                                 if ( zoom_level != 0xFFFF )
                                 {
                                     float inv_zoom = 1.0f / unit_get_zoom_magnification(unit_index, zoom_level);
@@ -270,7 +270,7 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
 
                         if ( unit_index != -1 )
                         {
-                            int zoom_level = (unsigned __int16)control->desired_zoom_level;
+                            int zoom_level = (uint16_t)control->desired_zoom_level;
                             if ( zoom_level != 0xFFFF )
                                 inv_scale = 1.0f / unit_get_zoom_magnification(unit_index, zoom_level);
                         }
@@ -313,9 +313,9 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
 
                 /* clear inhibited buttons that the player has now released (reset-when-released latch) */
                 {
-                    unsigned __int16 reset_mask = control->reset_button_when_released_bit_vector;
-                    unsigned __int16 inhibited  = control->inhibited_button_bit_vector;
-                    unsigned __int16 pending    = (unsigned __int16)(inhibited & reset_mask);
+                    uint16_t reset_mask = control->reset_button_when_released_bit_vector;
+                    uint16_t inhibited  = control->inhibited_button_bit_vector;
+                    uint16_t pending    = (uint16_t)(inhibited & reset_mask);
                     if ( pending != 0 )
                     {
                         bit = 1;
@@ -323,8 +323,8 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
                         {
                             if ( (pending & bit) != 0 && !input_state->buttons[b] )
                             {
-                                control->inhibited_button_bit_vector &= ~(unsigned __int16)bit;
-                                control->reset_button_when_released_bit_vector &= ~(unsigned __int16)bit;
+                                control->inhibited_button_bit_vector &= ~(uint16_t)bit;
+                                control->reset_button_when_released_bit_vector &= ~(uint16_t)bit;
                             }
                             bit = (bit << 1) | (bit >> 31);
                         }
@@ -333,7 +333,7 @@ void get_local_player_input_blob(int16_t local_player_index, float seconds_elaps
 
                 /* copy through the button press durations that are not inhibited */
                 {
-                    unsigned __int16 inhibited = control->inhibited_button_bit_vector;
+                    uint16_t inhibited = control->inhibited_button_bit_vector;
                     bit = 1;
                     for ( b = 0; b < NUMBER_OF_ACTION_CONTROL_BUTTONS; ++b )
                     {

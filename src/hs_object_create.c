@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 extern int object_index_from_name_index(int16_t name_index);
-extern void object_new_by_name(__int16 object_name_index);
+extern void object_new_by_name(int16_t object_name_index);
 
 void hs_object_create(int16_t object_name_index)
 {

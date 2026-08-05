@@ -48,13 +48,13 @@ int unit_throw_grenade_begin(int unit_index, const real_vector2d *alignment_vect
     unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
     unit_animation *unit_anim = &unit->unit.animation; /* renamed: local shadowed the `animation` typedef used below */
 
-    __int16 weapon_slot = unit->unit.current_weapon_index;
+    int16_t weapon_slot = unit->unit.current_weapon_index;
     int weapon_index = -1;
     if (weapon_slot != -1)
         weapon_index = unit->unit.weapon_object_indices[weapon_slot];
 
     int grenade_type = unit->unit.current_grenade_index;
-    __int16 grenade_count = (grenade_type == -1) ? 0 : unit->unit.grenade_counts[grenade_type];
+    int16_t grenade_count = (grenade_type == -1) ? 0 : unit->unit.grenade_counts[grenade_type];
 
     if (grenade_count <= 0
         || unit_animation_busy(unit_anim)
@@ -71,7 +71,7 @@ int unit_throw_grenade_begin(int unit_index, const real_vector2d *alignment_vect
         return 0;
 
     unit->unit.grenade_throw_ticks = 0;
-    __int16 animation_index = unit->object.animation.state.index;
+    int16_t animation_index = unit->object.animation.state.index;
     unit->unit.grenade_throw_state = _grenade_throw_state_begin;
 
     const animation *animations =

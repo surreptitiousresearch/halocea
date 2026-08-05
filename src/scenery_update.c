@@ -17,7 +17,7 @@
 #include "headers/animation_state.h"
 extern int16_t animation_update_internal(animation_update_kind render_or_affects_game_state, int animation_graph_index, animation_state *state, int *triggered_sound_index);
 
-unsigned __int8 scenery_update(int scenery_index)
+uint8_t scenery_update(int scenery_index)
 {
     scenery_datum *scenery = (scenery_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, scenery_index)->datum;
 

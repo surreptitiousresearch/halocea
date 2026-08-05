@@ -21,7 +21,10 @@ uint8_t action_converse_setup(uint16_t actor_index, int conversation_index, conv
         &((ai_conversation *)global_scenario->ai_conversations.address)[conversation->conversation_definition_index];
 
     state_data->conversation_index = 0;
-    *(int *)&state_data->failed = 0;          /* clears failed + in_range + pad in one store */
+    /* DEVIATION: disasm 0x837FCAB0 zeroes bytes 4..7 (failed + in_range + pad) with one stw;
+     * untangled into the per-field clears (pad bytes carry no state). */
+    state_data->failed = 0;
+    state_data->in_range = 0;
     state_data->run_to_distance = 0.0;
     state_data->run_to_unit_index = 0;
     state_data->run_to_prop_index = 0;

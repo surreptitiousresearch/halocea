@@ -35,7 +35,7 @@ uint8_t collision_bsp_test_pill_new_recursive(test_pill_new_data *data, int chil
         float  distance_start;
         float  distance_at_t0;
         float  distance_at_t1;
-        unsigned __int8 descend_front;
+        uint8_t descend_front;
 
         while ( 1 )
         {
@@ -101,7 +101,7 @@ uint8_t collision_bsp_test_pill_new_recursive(test_pill_new_data *data, int chil
 
         data->last_plane_designator = facing_front ? (*node | 0x80000000) : (*node & 0x7FFFFFFF);
         return collision_bsp_test_pill_new_recursive(data, node[facing_front + 1], crossing_far, original_t1)
-                | (unsigned __int8)near_hit;
+                | (uint8_t)near_hit;
     }
 
 leaf:

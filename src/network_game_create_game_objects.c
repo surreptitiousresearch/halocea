@@ -37,7 +37,7 @@ uint8_t network_game_create_game_objects(network_game_data *game)
     strncpy(options.map_name, game->map.name, 0x7Fu);
     options.difficulty = game->difficulty_level;
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if (connection > 0)
     {
         if (connection <= _game_connection_network_server)

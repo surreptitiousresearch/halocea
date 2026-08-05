@@ -12,7 +12,7 @@ int16_t scenario_get_animation_by_name(scenario *scenario, const char *animation
     if ( scenario->recorded_animations.count <= 0 )
         return -1;
 
-    __int16 i = 0;
+    int16_t i = 0;
 
     while ( stricmp(((recorded_animation_definition *)scenario->recorded_animations.address)[i].name, animation_name) )
     {

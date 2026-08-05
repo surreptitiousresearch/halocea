@@ -24,7 +24,7 @@ void actor_perception_find_sense_position(uint16_t actor_index, const real_point
         float closest_distance_squared = 3.4028235e38f;
         swarm_datum *swarm = DATUM_GET(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
         int unit_count = swarm->unit_count;
-        for ( int i = 0; i < unit_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < unit_count; i = (int16_t)(i + 1) )
         {
             swarm_component_datum *component = DATUM_GET(swarm_component_data, swarm_component_datum,
                                                                   swarm->component_indices[i]);

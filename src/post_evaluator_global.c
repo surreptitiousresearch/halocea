@@ -25,7 +25,7 @@
 extern uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destination_point, float *avoidance_distance_reference);
 extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
 
-unsigned __int8 post_evaluator_global(int actor_index, firing_position_evaluation_context *evaluation_context,
+uint8_t post_evaluator_global(int actor_index, firing_position_evaluation_context *evaluation_context,
         firing_position *firing_position)
 {
     if ( evaluation_context->flying )
@@ -40,7 +40,7 @@ unsigned __int8 post_evaluator_global(int actor_index, firing_position_evaluatio
         float avoidance_distance = 0.0f;
 
         /* recovered: (const real_point3d *)definition -> &definition->position (leading member @0x0) */
-        unsigned __int8 path_available = actor_path_3d_available(actor_index,
+        uint8_t path_available = actor_path_3d_available(actor_index,
             &firing_position->definition->position, &avoidance_distance);
 
         /* actor +300 = actor_datum.input.position.body_position (0x120 + 0xC) */

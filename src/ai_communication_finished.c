@@ -25,9 +25,9 @@
 #include "headers/blam_data_globals.h"
 
 extern const reply_usage global_reply_table[];
-extern const __int16 communication_speech_priorities[];
+extern const int16_t communication_speech_priorities[];
 extern const float   communication_notification_delays[];
-extern const __int16 communication_protagonist_default_look_priorities[];
+extern const int16_t communication_protagonist_default_look_priorities[];
 
 extern int ai_communication_find_global_actor_to_talk(int16_t team_index, int16_t find_actor_mode, int subject_unit_index, int cause_unit_index, float max_distance, int16_t ai_communication_type, int16_t ai_communication_priority, int16_t unit_speech_priority, int16_t vocalization_type, int16_t animation_type, int16_t flags);
 extern int ai_communication_find_specific_actor_to_talk(int ai_index, int subject_unit_index, int cause_unit_index, float max_distance, int16_t ai_communication_type, int16_t ai_communication_priority, int16_t unit_speech_priority, int16_t vocalization_type, int16_t animation_type, int16_t flags);
@@ -48,7 +48,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
         return;
 
     const reply_usage *row = global_reply_table;
-    __int16 reply_row_index = 0;
+    int16_t reply_row_index = 0;
     do
     {
         if ( row->original_vocalization_type != vocalization_type )
@@ -58,7 +58,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
             (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
         actor_datum *speaker_actor = unit->unit.actor_index == -1 ? nullptr
                             : DATA_ARRAY_ELEMENT(actor_data, actor_datum, unit->unit.actor_index);
-        __int16 speech_priority = communication_speech_priorities[row->communication_priority];
+        int16_t speech_priority = communication_speech_priorities[row->communication_priority];
 
         if ( row->original_damage_category != -1
           && row->original_damage_category != ai_information->damage_category )
@@ -75,7 +75,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
         else
         {
             int found_actor;
-            switch ( (unsigned __int16)row->protagonist_type )
+            switch ( (uint16_t)row->protagonist_type )
             {
                 case _comm_protagonist_friend:
                     if ( !speaker_actor || speaker_actor->meta.encounter_index == -1 )
@@ -84,7 +84,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
                             row->communication_priority, speech_priority, row->animation_type, 0);
                     else
                         found_actor = ai_communication_find_specific_actor_to_talk(
-                            (unsigned __int16)speaker_actor->meta.encounter_index, unit_index, -1, 9.0f,
+                            (uint16_t)speaker_actor->meta.encounter_index, unit_index, -1, 9.0f,
                             row->animation_type, -1, row->communication_priority, speech_priority,
                             row->vocalization_type, 0);
                     if ( found_actor == -1 )
@@ -123,7 +123,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
         if ( target->unit.player_index != -1 )
             goto next_row;
 
-        unsigned __int8 do_reply = reply_to_player;
+        uint8_t do_reply = reply_to_player;
         if ( !reply_to_player && row->chance > 0.0f )
         {
             unsigned int *seed = get_global_random_seed_address();
@@ -137,11 +137,11 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
           && !row->reply_filter(unit_index, ai_information, target->unit.actor_index) )
             goto next_row;
 
-        __int16 reply_vocalization = row->vocalization_type;
-        __int16 delay_ticks = (int)(row->delay_time * 30.0f);
+        int16_t reply_vocalization = row->vocalization_type;
+        int16_t delay_ticks = (int)(row->delay_time * 30.0f);
         float weight = 1.0f;
         int sound_definition_index = -1;
-        __int16 considered_vocalization = ai_communication_consider_speech(
+        int16_t considered_vocalization = ai_communication_consider_speech(
             target_unit_index, row->communication_priority, speech_priority, delay_ticks, 0, 0,
             &reply_vocalization, &weight, &sound_definition_index, nullptr);
         if ( considered_vocalization <= 0 )
@@ -175,5 +175,5 @@ next_row:
         ++row;
         ++reply_row_index;
     }
-    while ( (unsigned __int16)row->original_vocalization_type != 0xFFFF );
+    while ( (uint16_t)row->original_vocalization_type != 0xFFFF );
 }

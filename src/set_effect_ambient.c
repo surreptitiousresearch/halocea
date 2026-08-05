@@ -27,7 +27,7 @@ void set_effect_ambient(uint8_t in_game_play)
 
     if (!in_game_play)
         return;
-    if ((unsigned __int16)render.local_player_index == 0xFFFF)
+    if ((uint16_t)render.local_player_index == 0xFFFF)
         return;
 
     float flashlight_power;

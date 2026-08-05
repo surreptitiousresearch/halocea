@@ -60,7 +60,7 @@ uint8_t actor_look_find_random_vector(const real_point3d *center_point, const re
         rotate_vector_about_axis(&candidate, &pitch_axis, (float)sin(pitch), (float)cos(pitch));
         rotate_vector_about_axis(&candidate, global_up3d, (float)sin(yaw), (float)cos(yaw));
 
-        unsigned __int8 unobstructed = 1;
+        uint8_t unobstructed = 1;
         if (avoid_obstructions)
         {
             real_vector3d probe;
@@ -74,7 +74,7 @@ uint8_t actor_look_find_random_vector(const real_point3d *center_point, const re
         if (unobstructed)
             break;
 
-        attempts = (__int16)(attempts + 1);
+        attempts = (int16_t)(attempts + 1);
         if (attempts >= 10)
             return 0;
     }

@@ -29,7 +29,7 @@ void unit_seat_update(int object_index)
     char have_frame = 0;
     unit_datum *object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     int parent_object = object->object.parent_object_index;
-    __int16 seat_index;
+    int16_t seat_index;
     const float *acceleration_scale = 0;
     object_marker marker;
 

@@ -60,7 +60,7 @@ void widget_instance_process_one_event_recursive(widget_instance *widget,
     /* auto-close this dialog as soon as the relevant controller is present */
     if ( widget->close_if_local_player_controller_present == 1 )
     {
-        __int16 lpi = widget->local_player_index;
+        int16_t lpi = widget->local_player_index;
         int present;
         if ( (unsigned int)lpi >= 4 )
         {
@@ -156,7 +156,7 @@ void widget_instance_process_one_event_recursive(widget_instance *widget,
 
     if ( !deleted[0] )
     {
-        __int16 widget_type = widget->widget_type;
+        int16_t widget_type = widget->widget_type;
 
         /* clamp negative animation frame indices to 0 */
         /* DEVIATION: verbatim inlined copy of widget_instance_update_animation_parameters@0x837320F0 (donor's `definition` param is unused in its body, so it is passed through unmodified rather than folded) — collapsed to a call */
@@ -180,7 +180,7 @@ void widget_instance_process_one_event_recursive(widget_instance *widget,
             widget_instance *child;
             for ( child = widget->children; child; child = child->next )
             {
-                int sprites = (unsigned __int16)child->animation_data.number_of_sprite_frames;
+                int sprites = (uint16_t)child->animation_data.number_of_sprite_frames;
                 if ( child == widget->focused_child )
                 {
                     if ( sprites == 2 )
@@ -348,27 +348,27 @@ handler_section:
                 break;
 
             handler = (event_handler_reference *)definition->event_handler_references.address + i;
-            if ( (unsigned int)((unsigned __int16)event->type - 1) <= 4 )
+            if ( (unsigned int)((uint16_t)event->type - 1) <= 4 )
             {
-                __int16 et = handler->event_type;
+                int16_t et = handler->event_type;
                 switch ( event->type )
                 {
                     case event_type_left_analog_stick:
-                        if ( (unsigned int)(unsigned __int16)(et - _widget_event_left_analog_stick_up) <= 3 )
+                        if ( (unsigned int)(uint16_t)(et - _widget_event_left_analog_stick_up) <= 3 )
                         {
-                            if ( et == _widget_event_left_analog_stick_down )      hit = ((unsigned __int16)event->value.analog_value.n[1] == 0x8000);
-                            else if ( et == _widget_event_left_analog_stick_left ) hit = ((unsigned __int16)event->value.analog_value.n[0] == 0x8000);
+                            if ( et == _widget_event_left_analog_stick_down )      hit = ((uint16_t)event->value.analog_value.n[1] == 0x8000);
+                            else if ( et == _widget_event_left_analog_stick_left ) hit = ((uint16_t)event->value.analog_value.n[0] == 0x8000);
                             else if ( et == _widget_event_left_analog_stick_up )   hit = (event->value.analog_value.n[1] == 0x7FFF);
                             else                 hit = (event->value.analog_value.n[0] == 0x7FFF);
                             matched = hit;
                         }
                         break;
                     case event_type_right_analog_stick:
-                        if ( (unsigned int)(unsigned __int16)(et - _widget_event_right_analog_stick_up) <= 3 )
+                        if ( (unsigned int)(uint16_t)(et - _widget_event_right_analog_stick_up) <= 3 )
                         {
                             if ( et == _widget_event_right_analog_stick_up )        hit = (event->value.analog_value.n[1] == 0x7FFF);
-                            else if ( et == _widget_event_right_analog_stick_down ) hit = ((unsigned __int16)event->value.analog_value.n[1] == 0x8000);
-                            else if ( et == _widget_event_right_analog_stick_left ) hit = ((unsigned __int16)event->value.analog_value.n[0] == 0x8000);
+                            else if ( et == _widget_event_right_analog_stick_down ) hit = ((uint16_t)event->value.analog_value.n[1] == 0x8000);
+                            else if ( et == _widget_event_right_analog_stick_left ) hit = ((uint16_t)event->value.analog_value.n[0] == 0x8000);
                             else                 hit = (event->value.analog_value.n[0] == 0x7FFF);
                             matched = hit;
                         }
@@ -444,12 +444,12 @@ recurse_section:
     }
 
     /* play the UI feedback sound matching the action taken */
-    if ( (__int16)sound_code >= _ui_audio_feedback_cursor
-      && (__int16)sound_code <= _ui_audio_feedback_flag_failure )
+    if ( (int16_t)sound_code >= _ui_audio_feedback_cursor
+      && (int16_t)sound_code <= _ui_audio_feedback_flag_failure )
     {
         const char *sound_name;
         int sound_tag;
-        switch ( (__int16)sound_code )
+        switch ( (int16_t)sound_code )
         {
             case _ui_audio_feedback_forward:  sound_name = "sound\\sfx\\ui\\forward"; break;
             case _ui_audio_feedback_back:  sound_name = "sound\\sfx\\ui\\back"; break;

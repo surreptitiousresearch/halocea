@@ -73,8 +73,8 @@ int message_iteration_encode(iterated_message *message, char *header, const void
     {
         /* const-boundary: encode_iterated_body_field feeds data/baseline into the field's
            non-const `void *` encode funcptr (shared encode/decode); drop the read-only view's const */
-        unsigned __int8 encoded = encode_iterated_body_field(message, field_index, (char *)data, (char *)baseline);
-        unsigned __int8 next;
+        uint8_t encoded = encode_iterated_body_field(message, field_index, (char *)data, (char *)baseline);
+        uint8_t next;
         if ( message->mode == _message_delta_mode_incremental )
             next = ((unsigned char)status_accumulator || encoded) ? 1 : 0;
         else

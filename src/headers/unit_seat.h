@@ -1,6 +1,7 @@
 #pragma once
 /* unit_seat — one element of _unit_definition.seats (284 bytes). Full DB types_members layout. */
 
+#include <stdint.h>
 #include "real_vector3d.h"
 #include "unit_camera.h"
 #include "tag_block.h"
@@ -19,8 +20,8 @@ typedef struct unit_seat
     unit_camera   camera;                    /* 0x084 */
     tag_block     seat_huds;                 /* 0x0DC */
     int           pad0;                      /* 0x0E8 */
-    __int16       icon_text_index;           /* 0x0EC */
-    __int16       pad;                       /* 0x0EE */
+    int16_t       icon_text_index;           /* 0x0EC */
+    int16_t       pad;                       /* 0x0EE */
     float         yaw_minimum;               /* 0x0F0 */
     float         yaw_maximum;               /* 0x0F4 */
     tag_reference built_in_actor_reference;  /* 0x0F8 */

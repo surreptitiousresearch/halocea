@@ -4,9 +4,7 @@
  * forward vector by the (penetration-corrected) distance; resolve the eye's BSP location (precaching
  * resources when the cluster changes); nudge the eye out of shallow water; clamp the final eye position;
  * and copy the forward/up/fov plus negated integrator velocity into the result before handing it to the
- * renderer bridge (hcex_update_observer_res).
- *
- * eye_location (a `location`) doubles as float scratch for the distance, matching the decompiler. */
+ * renderer bridge (hcex_update_observer_res). */
 
 #include <stdint.h>
 #include "headers/observer_globals.h"
@@ -37,7 +35,8 @@ static double clamp(double x, double lo, double hi)
 void observer_postcheck(int16_t local_player_index)
 {
     observer *obs = &observer_globals.local_players[local_player_index];
-    location eye_location;                 /* scratch: .leaf_index aliased as the float distance */
+    location eye_location;
+    float distance_f;                      /* DEVIATION: decompiler fused this float into eye_location.leaf_index (shared stack slot); untangled */
     real_point3d target;
     double distance, fov, heading_x, heading_y, len;
     double offset_x, offset_y;
@@ -49,7 +48,7 @@ void observer_postcheck(int16_t local_player_index)
     target.n[2] = obs->focus_position.n[2];
 
     distance = clamp(obs->focus_distance, 0.0, 3.4028235e38);
-    *(float *)&eye_location.leaf_index = (float)distance;
+    distance_f = (float)distance;
 
     fov = obs->field_of_view;
     if ( fov >= 0.001 )
@@ -62,7 +61,7 @@ void observer_postcheck(int16_t local_player_index)
     target.n[1] = clamp(target.n[1], -5000.0, 5000.0);
     target.n[2] = clamp(target.n[2], -5000.0, 5000.0);
     distance = clamp(distance, 0.0, 5000.0);
-    *(float *)&eye_location.leaf_index = (float)distance;
+    distance_f = (float)distance;
 
     /* normalized heading from the forward vector's xy projection */
     heading_x = obs->forward.n[0];
@@ -88,8 +87,8 @@ void observer_postcheck(int16_t local_player_index)
 
     if ( !suppress_penetration && distance != 0.0 )
     {
-        observer_check_penetration(&target, &obs->forward, &obs->up, (float *)&eye_location.leaf_index, 0.02);
-        distance = *(float *)&eye_location.leaf_index;
+        observer_check_penetration(&target, &obs->forward, &obs->up, &distance_f, 0.02);
+        distance = distance_f;
     }
 
     result_pos = obs->result.position.n;

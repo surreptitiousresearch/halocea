@@ -14,6 +14,7 @@
  * `double` by the decompiler despite every arithmetic op on it being single-precision (`fmuls`/`fsubs`/
  * `fmadds`); reconstructed as `float` per the same precedent established for `normalize2d`. */
 
+#include <stdint.h>
 #include "headers/real_point2d.h"
 #include "headers/real_vector2d.h"
 #include "headers/blam_data_globals.h"
@@ -30,7 +31,7 @@ void find_avoidance_point(const real_point2d *tangent_points, const real_point2d
     float dy1 = tangent_points[1].n[1] - center->n[1];
     float cross = dy1 * dx0 - dy0 * dx1;
 
-    unsigned __int8 have_intersection_point = 0;
+    uint8_t have_intersection_point = 0;
 
     if (__fabs(cross) >= 0.000099999997f)
     {

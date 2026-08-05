@@ -2,6 +2,7 @@
  * list index to the ruleset name matching the currently-edited playlist profile's game engine (falls back
  * to a generic index if there's no profile being edited, or the engine index is out of the known range). */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/game_variant.h"
 #include "headers/game_engine_type.h"
@@ -15,7 +16,7 @@ void multiplayer_edit_profile_set_ruleset_textbox_string_index(widget_instance *
     if ( !edit_playlist_profile )
         return;
 
-    __int16 string_list_index;
+    int16_t string_list_index;
     if ( (unsigned int)(edit_playlist_profile->game_engine_index - 1) > 4 )
     {
         string_list_index = _string_unknown_game_type;

@@ -7,6 +7,7 @@
  * immediately following the last real one isn't itself a valid all-zero terminator. Returns whether
  * initialization fully succeeded. */
 
+#include <stdint.h>
 #include "headers/message_definition_field_reference_set.h"
 #include "headers/field_type_definition.h"
 #include "headers/blam_data_globals.h"
@@ -49,7 +50,7 @@ int message_definition_field_reference_set_initialize(_message_definition_field_
     }
 
     _field_reference_definition *terminator = &field_reference_set->field_references[processed];
-    unsigned __int8 terminator_valid = !(terminator->offset || terminator->baseline_offset || terminator->properties);
+    uint8_t terminator_valid = !(terminator->offset || terminator->baseline_offset || terminator->properties);
 
     if ( processed != count )
         return 0;

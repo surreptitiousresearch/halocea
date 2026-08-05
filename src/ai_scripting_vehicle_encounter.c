@@ -24,14 +24,14 @@ void ai_scripting_vehicle_encounter(int unit_index, unsigned int ai_index)
     if ( unit_index == -1 )
         return;
 
-    __int16 target_encounter = -1;
-    __int16 target_squad = -1;
+    int16_t target_encounter = -1;
+    int16_t target_squad = -1;
     unit_datum *vehicle_object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    if ( ai_index != -1 && (__int16)ai_index >= 0 && (__int16)ai_index < global_scenario->ai_encounters.count )
+    if ( ai_index != -1 && (int16_t)ai_index >= 0 && (int16_t)ai_index < global_scenario->ai_encounters.count )
     {
-        encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)ai_index];
-        __int16 squad = 0;
+        encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)ai_index];
+        int16_t squad = 0;
         if ( ai_index >> 30 == 1 )
         {
             /* Platoon-scoped: first squad whose platoon (squad def +0x22) matches byte 1, else squad 0. */
@@ -39,13 +39,13 @@ void ai_scripting_vehicle_encounter(int unit_index, unsigned int ai_index)
             int found = 0;
             if ( squad_count > 0 )
             {
-                for ( found = 0; found < squad_count; found = (__int16)(found + 1) )
+                for ( found = 0; found < squad_count; found = (int16_t)(found + 1) )
                 {
                     if ( ((squad_definition *)encounter_def->squads.address)[found].platoon_index == ((ai_index >> 8) & 0xFF) )
                         break;
                 }
             }
-            squad = (__int16)found < squad_count ? (__int16)found : 0;
+            squad = (int16_t)found < squad_count ? (int16_t)found : 0;
         }
         else if ( ai_index >> 30 == 2 )
         {
@@ -61,7 +61,7 @@ void ai_scripting_vehicle_encounter(int unit_index, unsigned int ai_index)
 
     if ( target_encounter != -1 && target_squad != -1 )
     {
-        __int16 previous_encounter = vehicle_object->unit.fake_encounter_index;
+        int16_t previous_encounter = vehicle_object->unit.fake_encounter_index;
         if ( previous_encounter != -1 )
         {
             encounter_actor_iterator iterator;

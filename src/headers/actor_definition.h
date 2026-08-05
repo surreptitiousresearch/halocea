@@ -7,6 +7,7 @@
  * unused2[12], none of it read by any reconstructed function) remain opaque.
  * unused3[2] holds the variant-definition tag reference index used by the migration code. */
 
+#include <stdint.h>
 #include "actor_moving_properties.h"
 #include "actor_defensive_properties.h"
 #include "actor_perception_properties.h"
@@ -24,8 +25,8 @@ typedef struct actor_definition
     unsigned int    flags;          /* 0x00 */
     unsigned int    flags2;         /* 0x04 */
     unsigned int    unused3[3];     /* 0x08 — unused3[2] (0x10) = variant definition tag index */
-    __int16         type;           /* 0x14 */
-    unsigned __int16 pad;           /* 0x16 */
+    int16_t         type;           /* 0x14 */
+    uint16_t pad;           /* 0x16 */
     actor_perception_properties  perception;      /* 0x18 (24) */
     actor_moving_properties      moving;           /* 0x80 (128) */
     actor_looking_properties     looking;           /* 0xA4 (164) */

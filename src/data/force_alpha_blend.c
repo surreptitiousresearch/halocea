@@ -1,1 +1,2 @@
-unsigned __int8 force_alpha_blend;
+#include <stdint.h>
+uint8_t force_alpha_blend;

@@ -10,7 +10,7 @@ void scripted_camera_set_evaluate(int16_t function_index, int thread_index, uint
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        scripted_camera_set(*(__int16 *)arguments, ((__int16 *)arguments)[2], arguments[2]);
+        scripted_camera_set(*(int16_t *)arguments, ((int16_t *)arguments)[2], arguments[2]);
         hs_return(thread_index, 0);
     }
 }

@@ -1,6 +1,7 @@
 #pragma once
 /* game_globals_rasterizer_data — the rasterizer configuration block from the game globals tag (428 bytes). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "real_rgb_color.h"
 
@@ -19,8 +20,8 @@ typedef struct game_globals_rasterizer_data
     tag_reference screen_effect_video_scanline_map;                        /* 0x11C */
     tag_reference screen_effect_video_noise_map;                           /* 0x12C */
     int           unused2[13];                                              /* 0x13C */
-    unsigned __int16 active_camouflage_flags;                               /* 0x170 */
-    unsigned __int16 pad;                                                   /* 0x172 */
+    uint16_t active_camouflage_flags;                               /* 0x170 */
+    uint16_t pad;                                                   /* 0x172 */
     float         active_camouflage_refraction_amount;                      /* 0x174 */
     float         active_camouflage_distance_falloff;                       /* 0x178 */
     real_rgb_color active_camouflage_tint_color;                            /* 0x17C */

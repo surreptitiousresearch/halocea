@@ -23,7 +23,7 @@ int16_t channel_get_state(int16_t channel_index)
     int state = ((int (*)(void))sound_manager_globals.platform->get_channel_state)();
     sound_permutation *playing_permutation;
 
-    if ( channel->queued_permutation && (__int16)state < 2 )
+    if ( channel->queued_permutation && (int16_t)state < 2 )
     {
         sound_permutation *queued_permutation;
         sound_cache_sound_finished(channel->playing_permutation);
@@ -35,7 +35,7 @@ int16_t channel_get_state(int16_t channel_index)
     }
 
     playing_permutation = channel->playing_permutation;
-    if ( playing_permutation && (__int16)state < 1 )
+    if ( playing_permutation && (int16_t)state < 1 )
     {
         sound_cache_sound_finished(playing_permutation);
         channel->playing_permutation = 0;

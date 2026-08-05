@@ -15,16 +15,16 @@ extern int tag_loaded(uint32_t group_tag, const char *name);
 extern void *pool_new_pointer(stack_memory_pool *pool, unsigned int size);
 extern void ui_widget_delete(widget_instance *widget);
 /* extern corrected to match def (widget_instance_initialize.c): 5th arg is ui_widget_definition*. */
-extern void widget_instance_initialize(widget_instance *widget, widget_instance *parent, int ui_widget_definition_index, __int16 local_player_index, ui_widget_definition *definition, int back_inhibited);
+extern void widget_instance_initialize(widget_instance *widget, widget_instance *parent, int ui_widget_definition_index, int16_t local_player_index, ui_widget_definition *definition, int back_inhibited);
 
 
 widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent,
-                                               __int16 local_player_index, int invoking_widget_tag,
+                                               int16_t local_player_index, int invoking_widget_tag,
                                                int focused_child_parent_widget_tag,
-                                               __int16 focused_child_index)
+                                               int16_t focused_child_index)
 {
-    __int16 controller_index = local_player_index;
-    __int16 stack_controller;
+    int16_t controller_index = local_player_index;
+    int16_t stack_controller;
     ui_widget_definition *definition_data;   /* retyped from int: the tag slot stores a pointer (disasm reads a word ptr) */
     widget_instance *widget;
     int back_inhibited = 0;   /* holds flags & _widget_dont_push_history_data_bit (a boolean); passed to initialize which ignores it */
@@ -47,7 +47,7 @@ widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, 
     if ( !parent )
     {
         widget_instance *current = widget_globals.active_widgets[stack_controller];
-        __int16 previous_controller;
+        int16_t previous_controller;
 
         if ( current )
         {
@@ -70,18 +70,18 @@ widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, 
                  & (1u << _widget_dont_push_history_data_bit);
             if ( !back_inhibited )
             {
-                int packed_focus;
                 widget_stack_node *node;
-
-                ((__int16 *)&packed_focus)[1] = focused_child_index;  /* HIWORD */
-                ((__int16 *)&packed_focus)[0] = previous_controller;  /* LOWORD */
 
                 node = pool_new_pointer(widget_memory_pool, 0x10u);
                 if ( node )
                 {
                     node->data.previous_widget_tag = invoking_widget_tag;
                     node->data.focused_child_parent_widget_tag = focused_child_parent_widget_tag;
-                    *(int *)&node->data.focused_child_index = packed_focus;
+                    /* DEVIATION: decompiler packed both int16s into one dword store; split into
+                     * the two members (focused_child_index @0x8 = BE high half, local_player_index
+                     * @0xA = low half — same bytes stored) */
+                    node->data.focused_child_index = focused_child_index;
+                    node->data.local_player_index = previous_controller;
                     node->next = widget_globals.widget_stack[stack_controller];
                     widget_globals.widget_stack[stack_controller] = node;
                 }
@@ -92,7 +92,7 @@ widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, 
     /* resolve a concrete controller from the widget's player count when caller passed -1 */
     if ( local_player_index == -1 )
     {
-        unsigned int player_count = *(unsigned __int16 *)&definition_data->controller_index;
+        unsigned int player_count = (uint16_t)definition_data->controller_index;
         if ( player_count <= 4 )
         {
             if ( player_count == 1 )

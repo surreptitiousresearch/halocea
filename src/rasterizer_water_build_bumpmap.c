@@ -6,11 +6,10 @@
  * weights and a single varying alpha-role channel that ramps 0..tint_color.n[0] across the passes.
  * Runs only when rasterizer_debug_options.draw_water.
  *
- * Reconstructed from disassembly (decompiler reported "local variable allocation has failed"). shader[7] is
- * the established 40-byte shader-block type-pun (see the diffuse-light sibling
- * _rasterizer_environment_diffuse_light_draw_pp): its radiosity.color.n[1]/n[2] slots hold a count/address
- * pun for the water_bumpmap_layer tag block, not real color channels; shader[5]'s color.n[1] is a second,
- * unrelated bitmap_group_index pun. DEVIATIONS, all disasm-verified:
+ * Reconstructed from disassembly (decompiler reported "local variable allocation has failed"). The
+ * decompiler's stacked-0x28-shader-layer puns (shader[5]/shader[7].base.radiosity...) are retyped to the
+ * real shader_transparent_water tag fields (ripple_mipmap_levels / ripple_mipmap_fade_factor / ripple_maps /
+ * ripples tag block). DEVIATIONS, all disasm-verified:
  * (1) the four per-stage `m_Constants.Fetch[stage].Texture.dword[...]`/`m_Pending.m_Mask[3]` raw pokes are
  * the compiler-inlined AddressU/AddressV/SeparateZFilterEnable setters (bit ranges cross-checked against
  * the already-verified sibling rasterizer_plasma_energy_draw.c: U=0x1C00, V=0xE000, dword[0]; the
@@ -39,6 +38,7 @@
 
 #include <stdint.h>
 #include "headers/shader.h"
+#include "headers/shader_transparent_water.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
@@ -64,8 +64,8 @@ typedef struct water_bumpmap_layer
     float   u_base;             /* 0x08 */
     float   v_base;             /* 0x0C */
     char    unused[4];          /* 0x10 */
-    __int16 uv_scale;           /* 0x14 */
-    __int16 bitmap_index;       /* 0x16 */
+    int16_t uv_scale;           /* 0x14 */
+    int16_t bitmap_index;       /* 0x16 */
     char    unused2[52];        /* 0x18 */
 } water_bumpmap_layer; /* 76 bytes */
 
@@ -94,9 +94,9 @@ extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask1);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask1);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
         const void *vertices, unsigned int stride);
 extern void rasterizer_set_stencil_mode(int16_t stencil_mode);
@@ -155,9 +155,13 @@ void rasterizer_water_build_bumpmap(const shader *shader)
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_screen));
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_convolution));
 
-    __int16 layer_count = 4;
-    if ( (__int16)(unsigned __int16)(*(unsigned int *)&shader[5].base.radiosity.color.__s1.blue >> 16) <= 4 )
-        layer_count = (unsigned __int16)(*(unsigned int *)&shader[5].base.radiosity.color.__s1.blue >> 16);
+    /* DEVIATION: the decompiler modeled the tag as stacked 0x28 `shader` layers (shader[N].base...);
+     * retyped to the real shader_transparent_water tag (DB types_members-confirmed layout). */
+    const shader_transparent_water *water = (const shader_transparent_water *)shader;
+
+    int16_t layer_count = 4;
+    if ( water->water.ripple_mipmap_levels <= 4 )
+        layer_count = water->water.ripple_mipmap_levels;
 
     /* per-layer texture-transform constants (c13..c20): {uv_scale,0,0,u_offset},{0,uv_scale,0,v_offset} */
     float texture_transforms[32];
@@ -174,10 +178,10 @@ void rasterizer_water_build_bumpmap(const shader *shader)
     pixel_constants[9] = 0.0f;
     pixel_constants[10] = 0.0f;
 
-    int reflection_count = *(int *)&shader[7].base.radiosity.color.n[1];
-    water_bumpmap_layer *reflection_layers = *(water_bumpmap_layer **)&shader[7].base.radiosity.color.n[2];
+    int reflection_count = water->water.ripples.count;
+    water_bumpmap_layer *reflection_layers = (water_bumpmap_layer *)water->water.ripples.address;
     water_bumpmap_layer layers[4];
-    for ( __int16 layer_index = 0; layer_index < 4; ++layer_index )
+    for ( int16_t layer_index = 0; layer_index < 4; ++layer_index )
     {
         if ( layer_index >= reflection_count )
         {
@@ -204,7 +208,7 @@ void rasterizer_water_build_bumpmap(const shader *shader)
         layers[3].rotation_amplitude = 1.0f;
 
     float game_time = (float)global_frame_parameters.game_time_sec;
-    for ( __int16 layer_index = 0; layer_index < 4; ++layer_index )
+    for ( int16_t layer_index = 0; layer_index < 4; ++layer_index )
     {
         water_bumpmap_layer *layer = &layers[layer_index];
         double cos_angle = cos(layer->rotation_angle);
@@ -220,7 +224,7 @@ void rasterizer_water_build_bumpmap(const shader *shader)
         constants[6] = 0.0f;
         constants[7] = (layer->rotation_amplitude * (float)sin_angle) * game_time + layer->v_base;
     }
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, texture_transforms, 8, (unsigned __int64)7 << 58);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, texture_transforms, 8, (uint64_t)7 << 58);
 
     pixel_constants[3] = blend_a / (blend_b + blend_a);
     pixel_constants[7] = blend_c / (layers[3].rotation_amplitude + blend_c);
@@ -229,24 +233,24 @@ void rasterizer_water_build_bumpmap(const shader *shader)
 
     if ( layer_count > 0 )
     {
-        for ( __int16 stage_index = 0; stage_index < layer_count; ++stage_index )
+        for ( int16_t stage_index = 0; stage_index < layer_count; ++stage_index )
         {
             /* bump base color; RGB is provably fixed here (see file comment, deviation 5) */
-            __int16 tint_source_count = (__int16)(unsigned __int16)(*(unsigned int *)&shader[5].base.radiosity.color.__s1.blue >> 16);
+            int16_t tint_source_count = water->water.ripple_mipmap_levels;
             pixel_constants[12] = 0.50196081f;
             pixel_constants[13] = 0.50196081f;
             pixel_constants[14] = 1.0f;
             pixel_constants[15] = tint_source_count <= 1
                     ? 0.0f
-                    : shader[5].base.radiosity.tint_color.n[0] * ((float)stage_index / (float)(tint_source_count - 1));
+                    : water->water.ripple_mipmap_fade_factor * ((float)stage_index / (float)(tint_source_count - 1));
 
             rasterizer_set_target(8, stage_index, 0, 0, 0);
 
-            for ( __int16 texture_stage = 0; texture_stage < 4; ++texture_stage )
+            for ( int16_t texture_stage = 0; texture_stage < 4; ++texture_stage )
             {
                 int bitmap_group_index = texture_stage >= reflection_count
                         ? -1
-                        : *(int *)&shader[5].base.radiosity.color.n[1];
+                        : water->water.ripple_maps.index;
                 rasterizer_set_texture_for_effect(texture_stage, 0, 3, bitmap_group_index,
                         layers[texture_stage].bitmap_index, effect_shader);
             }
@@ -257,7 +261,7 @@ void rasterizer_water_build_bumpmap(const shader *shader)
             {
                 ID3DXEffect_BeginPass(effect_shader->effect, pass);
                 D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constants, 4,
-                        (unsigned __int64)1 << 63);
+                        (uint64_t)1 << 63);
                 D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4, vertex_data_0,
                         sizeof(dynamic_screen_vertex));
                 ID3DXEffect_EndPass(effect_shader->effect);

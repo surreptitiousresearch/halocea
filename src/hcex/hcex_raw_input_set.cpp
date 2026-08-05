@@ -4,11 +4,12 @@
  * hcex_raw_input_get. */
 
 extern char  hcex_gamepad_buttons[4][16];
-extern __int16 hcex_sThumbLX[4];
-extern __int16 hcex_sThumbLY[4];
-extern __int16 hcex_sThumbRX[4];
-extern __int16 hcex_sThumbRY[4];
+extern int16_t hcex_sThumbLX[4];
+extern int16_t hcex_sThumbLY[4];
+extern int16_t hcex_sThumbRX[4];
+extern int16_t hcex_sThumbRY[4];
 
+#include <stdint.h>
 #include "../headers/hcex/haloRAW_INPUT_X360.h"
 
 void hcex_raw_input_set(int gamepadId, const haloRAW_INPUT_X360 *inp)

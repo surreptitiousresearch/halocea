@@ -29,29 +29,29 @@ void draw_string_partial(
 {
     int clip_left = -32768;
     int clip_top = -32768;
-    __int16 clip_right = 0x7FFF;
-    __int16 clip_bottom = 0x7FFF;
+    int16_t clip_right = 0x7FFF;
+    int16_t clip_bottom = 0x7FFF;
 
     if (bounds)
     {
-        if (bounds->n[1] != -32768) clip_left = (unsigned __int16)bounds->n[1];
+        if (bounds->n[1] != -32768) clip_left = (uint16_t)bounds->n[1];
         if (bounds->n[3] != 0x7FFF)  clip_right = bounds->n[3];
-        if (bounds->n[0] != -32768) clip_top = (unsigned __int16)bounds->n[0];
+        if (bounds->n[0] != -32768) clip_top = (uint16_t)bounds->n[0];
         if (bounds->n[2] != 0x7FFF)  clip_bottom = bounds->n[2];
     }
     if (clip)
     {
-        if (clip->n[1] > (__int16)clip_left)  clip_left = (unsigned __int16)clip->n[1];
+        if (clip->n[1] > (int16_t)clip_left)  clip_left = (uint16_t)clip->n[1];
         if (clip->n[3] < clip_right)          clip_right = clip->n[3];
-        if (clip->n[0] > (__int16)clip_top)   clip_top = (unsigned __int16)clip->n[0];
+        if (clip->n[0] > (int16_t)clip_top)   clip_top = (uint16_t)clip->n[0];
         if (clip->n[2] < clip_bottom)         clip_bottom = clip->n[2];
     }
 
     int region_right = clip_right;
-    if ((__int16)clip_left >= clip_right)
+    if ((int16_t)clip_left >= clip_right)
         return;
     int region_bottom = clip_bottom;
-    if ((__int16)clip_top >= clip_bottom)
+    if ((int16_t)clip_top >= clip_bottom)
         return;
 
     parse_string_state state;
@@ -75,30 +75,30 @@ void draw_string_partial(
 
         int source_x = 0;
         int source_y = 0;
-        __int16 bitmap_width = glyph->bitmap_width;
-        __int16 bitmap_height = glyph->bitmap_height;
-        __int16 cursor_y = cursor->n[1];
-        int destination_x = (__int16)(cursor->n[0] - glyph->bitmap_origin_x);
+        int16_t bitmap_width = glyph->bitmap_width;
+        int16_t bitmap_height = glyph->bitmap_height;
+        int16_t cursor_y = cursor->n[1];
+        int destination_x = (int16_t)(cursor->n[0] - glyph->bitmap_origin_x);
         int destination_x_unclipped = destination_x;
-        int destination_y = (__int16)(cursor_y - glyph->bitmap_origin_y);
+        int destination_y = (int16_t)(cursor_y - glyph->bitmap_origin_y);
 
         cursor->n[0] = glyph->character_width + cursor->n[0];
 
         if (bitmap_width + destination_x > region_right)
             bitmap_width = region_right - destination_x;
-        if (destination_x < (__int16)clip_left)
+        if (destination_x < (int16_t)clip_left)
         {
             destination_x = clip_left;
-            source_x = (__int16)(clip_left - destination_x_unclipped);
+            source_x = (int16_t)(clip_left - destination_x_unclipped);
             bitmap_width -= source_x;
         }
 
-        if (bitmap_height + (__int16)destination_y > region_bottom)
+        if (bitmap_height + (int16_t)destination_y > region_bottom)
             bitmap_height = region_bottom - destination_y;
-        if ((__int16)destination_y < (__int16)clip_top)
+        if ((int16_t)destination_y < (int16_t)clip_top)
         {
             destination_y = clip_top;
-            source_y = (__int16)(clip_top - (cursor_y - glyph->bitmap_origin_y));
+            source_y = (int16_t)(clip_top - (cursor_y - glyph->bitmap_origin_y));
             bitmap_height -= source_y;
         }
 

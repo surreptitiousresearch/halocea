@@ -13,6 +13,7 @@
  * redundant `&& detail_mask` guards Hex-Rays kept on the mask==3..7 arms are dead (each implies a nonzero mask)
  * and folded out; the per-branch null checks are hoisted after the switch since every arm performs them. */
 
+#include <stdint.h>
 #include "headers/rasterizer_model_techniques.h"
 #include "headers/shader_model.h"
 #include "headers/shader_model_flags.h"
@@ -23,7 +24,7 @@ extern long rasterizer_set_technique(ID3DXEffect *effect, unsigned int technique
 
 rasterizer_dx9_shader * rasterizer_model_setup_model_shader(shader_model *shader_model)
 {
-    unsigned __int16 flags = shader_model->model.flags;
+    uint16_t flags = shader_model->model.flags;
 
     int technique_row = shader_model->model.detail_function;
     if ( (flags & (1u << _shader_model_detail_after_reflection_bit)) != 0 )
@@ -31,7 +32,7 @@ rasterizer_dx9_shader * rasterizer_model_setup_model_shader(shader_model *shader
     if ( (flags & (1u << _shader_model_true_atmospheric_fog_bit)) == 0 )
         technique_row += shader_model->model.detail_mask ? 12 : 6;
 
-    unsigned int detail_mask = (unsigned __int16)shader_model->model.detail_mask;
+    unsigned int detail_mask = (uint16_t)shader_model->model.detail_mask;
     if ( detail_mask >= NUMBER_OF_SHADER_MODEL_DETAIL_MASKS )
         return nullptr;
 

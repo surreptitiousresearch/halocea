@@ -35,11 +35,11 @@ void actor_situation_update_target_status(uint16_t actor_index)
     }
 
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
-    unsigned int engagement_state = (unsigned __int16)prop->state;
+    unsigned int engagement_state = (uint16_t)prop->state;
     object_datum *target_object =
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, prop->unit_index)->datum;
 
-    __int16 status = actor->target.target_type; /* preserved for the unreachable state>5 path */
+    int16_t status = actor->target.target_type; /* preserved for the unreachable state>5 path */
     if (engagement_state > _prop_state_inspected_orphan)
     {
         /* unreachable; decompiler read an uninitialized slot here */
@@ -56,7 +56,7 @@ void actor_situation_update_target_status(uint16_t actor_index)
             status = actor_target_damaging_enemy;
         else if (prop->visibility < 2)
         {
-            if ((unsigned __int16)prop->line_of_sight == _ai_line_of_sight_clear || (unsigned __int16)prop->line_of_sight == _ai_line_of_sight_occluded)
+            if ((uint16_t)prop->line_of_sight == _ai_line_of_sight_clear || (uint16_t)prop->line_of_sight == _ai_line_of_sight_occluded)
             {
                 if (prop->quantized_facing > 2 || prop->distance >= 6.0f)
                     status = actor_target_clear_line_of_sight_enemy;

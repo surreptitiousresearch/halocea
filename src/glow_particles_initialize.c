@@ -15,11 +15,11 @@ extern glow_particle * glow_normal_particle_new(glow_datum *glow, int16_t index,
 
 void glow_particles_initialize(glow_datum *glow)
 {
-    unsigned __int8 alternate = 1;
+    uint8_t alternate = 1;
     glow_particle *previous = 0;
     glow_definition *definition = TAG_GET(glow_definition, glow->definition_index);
 
-    for ( __int16 index = 0; index < glow->number_of_particles; index++ )
+    for ( int16_t index = 0; index < glow->number_of_particles; index++ )
     {
         glow_particle *particle = glow_normal_particle_new(glow, index, glow->number_of_particles);
         if ( !particle )

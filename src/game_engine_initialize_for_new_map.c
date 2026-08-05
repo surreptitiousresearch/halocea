@@ -40,7 +40,7 @@ void game_engine_initialize_for_new_map(void)
     timeout_for_endgame_sound = 0;
     game_engine_globals.current_team_to_add = 0;
 
-    unsigned __int8 (*initialize)(void) = game_engine->initialize;
+    uint8_t (*initialize)(void) = game_engine->initialize;
     if ( initialize )
     {
         if ( !initialize() )

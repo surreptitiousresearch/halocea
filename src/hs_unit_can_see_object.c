@@ -16,7 +16,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
 extern uint8_t unit_can_see_point(int unit_index, const real_point3d *point, float theta);
 
-unsigned __int8 hs_unit_can_see_object(int unit_index, int object_index, float degrees)
+uint8_t hs_unit_can_see_object(int unit_index, int object_index, float degrees)
 {
     if ( object_index == -1 )
         return 0;

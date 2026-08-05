@@ -2,12 +2,13 @@
 /* state_info — one resolved slot of a HUD state message (4 bytes). Either an icon element pointer,
  * or a text reference (string index + scenario-names flag). Layout from the database. */
 
+#include <stdint.h>
 #include "icon_hud_element_definition.h"
 
 /* IDA anonymous struct for the text arm (DB: _BECA036B426CABFAF46B8904C2CEA3F4, 4 bytes) */
 typedef struct _BECA036B426CABFAF46B8904C2CEA3F4
 {
-    __int16       string_index;            /* 0x0 */
+    int16_t       string_index;            /* 0x0 */
     unsigned char uses_scenario_names;     /* 0x2 */
 } _BECA036B426CABFAF46B8904C2CEA3F4;
 

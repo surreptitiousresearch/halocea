@@ -2,15 +2,16 @@
 /* _projectile_definition — the projectile-specific definition level of the 'proj' tag,
  * embedded at 0x17C inside the composite projectile_definition. DB layout (208 bytes). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 
 typedef struct _projectile_definition
 {
     unsigned int     flags;                          /* 0x00 — 0x8 = combine initial velocity w/ parent (grouped super detonation) */
-    __int16          detonation_timer_mode;          /* 0x04 */
-    __int16          impact_noise;                   /* 0x06 */
-    __int16          function_modes[4];              /* 0x08 */
+    int16_t          detonation_timer_mode;          /* 0x04 */
+    int16_t          impact_noise;                   /* 0x06 */
+    int16_t          function_modes[4];              /* 0x08 */
     tag_reference    super_detonation_effect;        /* 0x10 */
     float            danger_perception_radius;       /* 0x20 */
     float            collision_radius;               /* 0x24 */
@@ -30,8 +31,8 @@ typedef struct _projectile_definition
     float            initial_velocity;               /* 0x68 */
     float            final_velocity;                 /* 0x6C */
     float            guided_angular_velocity;        /* 0x70 */
-    __int16          detonation_noise;               /* 0x74 */
-    unsigned __int16 unused1;                        /* 0x76 */
+    int16_t          detonation_noise;               /* 0x74 */
+    uint16_t unused1;                        /* 0x76 */
     tag_reference    detonation_timer_started;       /* 0x78 */
     tag_reference    flyby_sound;                    /* 0x88 */
     tag_reference    detonation_damage;              /* 0x98 */

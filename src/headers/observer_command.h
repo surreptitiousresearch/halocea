@@ -4,6 +4,7 @@
  * array; the per-parameter flag bytes and timers track in-progress interpolations of each parameter.
  * DB anonymous aggregates reproduced verbatim ($ in identifiers is an MSVC extension). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 
@@ -29,18 +30,18 @@ typedef union _96FA3D8D0396145E4B1FA76BA3C8BDEE
 /* DB struct _230D652E0E0CA22B04AE94E5CE1D68F0 (5 bytes) — per-parameter flag bytes view. */
 typedef struct _230D652E0E0CA22B04AE94E5CE1D68F0
 {
-    unsigned __int8 position_flags;      /* 0x00 */
-    unsigned __int8 focus_offset_flags;  /* 0x01 */
-    unsigned __int8 distance_flags;      /* 0x02 */
-    unsigned __int8 field_of_view_flags; /* 0x03 */
-    unsigned __int8 orientation_flags;   /* 0x04 */
+    uint8_t position_flags;      /* 0x00 */
+    uint8_t focus_offset_flags;  /* 0x01 */
+    uint8_t distance_flags;      /* 0x02 */
+    uint8_t field_of_view_flags; /* 0x03 */
+    uint8_t orientation_flags;   /* 0x04 */
 } _230D652E0E0CA22B04AE94E5CE1D68F0;
 
 /* DB union _535E206AE24421D92381F969DB501938 (5 bytes) — observer_command member ___u4. */
 typedef union _535E206AE24421D92381F969DB501938
 {
     struct _230D652E0E0CA22B04AE94E5CE1D68F0 __s0; /* 0x00 */
-    unsigned __int8 parameter_flags[5];            /* 0x00 — flat overlay */
+    uint8_t parameter_flags[5];            /* 0x00 — flat overlay */
 } _535E206AE24421D92381F969DB501938;
 
 /* DB struct _F832A41915FBA18F56360CBB3FCE07BC (20 bytes) — per-parameter timers view. */

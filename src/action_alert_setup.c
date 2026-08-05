@@ -16,7 +16,7 @@ uint8_t action_alert_setup(uint16_t actor_index, int16_t move_position_order, in
 
     memset(state_data, 0, sizeof(alert_state_data));
 
-    unsigned __int8 is_swarm = actor->meta.swarm;
+    uint8_t is_swarm = actor->meta.swarm;
 
     state_data->pending_move_position_index = initial_move_position_index;
     state_data->wait_ticks = 0;

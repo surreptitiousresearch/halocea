@@ -46,7 +46,7 @@ extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclarati
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void rasterizer_render_target_get_dimension(int16_t target, unsigned int *width, unsigned int *height);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void rasterizer_set_target(int16_t target, int16_t mipmap_index, uint32_t background_color, uint8_t clear, uint8_t zbuffer);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
         const void *vertex_data, unsigned int stride);
@@ -73,9 +73,9 @@ void rasterizer_sun_glow_copy_source(int16_t target, const real_rectangle2d *bou
     float extent_v = bounds->n[3] - bounds->n[2];
     float base_v = bounds->n[2];
 
-    float viewport_width = (float)(__int16)(global_window_parameters.camera.viewport_bounds.n[2]
+    float viewport_width = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.n[2]
                                             - global_window_parameters.camera.viewport_bounds.n[0]);
-    float viewport_height = (float)(__int16)(global_window_parameters.camera.viewport_bounds.n[3]
+    float viewport_height = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.n[3]
                                              - global_window_parameters.camera.viewport_bounds.n[1]);
 
     float scale_u = extent_u / viewport_height;
@@ -105,7 +105,7 @@ void rasterizer_sun_glow_copy_source(int16_t target, const real_rectangle2d *bou
         0.0f, 1.0f, 0.0f, 0.0f,
     };
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, texture_transform, 8,
-            (unsigned __int64)7 << 58);
+            (uint64_t)7 << 58);
 
     rasterizer_set_target(target, 0, 0, 0, 0);
 

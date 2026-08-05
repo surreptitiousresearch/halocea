@@ -15,7 +15,7 @@ int hs_doc(void)
 {
     FILE *file = fopen("hs_doc.txt", "w");
     char buffer[2096];
-    for ( int i = 0; i < 471; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 471; i = (int16_t)(i + 1) )
     {
         hs_get_function_parameters_string(i, buffer);
         fprintf(file, "%s\r\n", buffer);

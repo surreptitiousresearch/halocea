@@ -1,1 +1,2 @@
-unsigned __int8 use_roll;
+#include <stdint.h>
+uint8_t use_roll;

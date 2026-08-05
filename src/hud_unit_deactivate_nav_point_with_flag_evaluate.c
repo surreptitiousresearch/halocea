@@ -12,7 +12,7 @@ void hud_unit_deactivate_nav_point_with_flag_evaluate(int16_t function_index, in
     if ( arguments )
     {
         /* HS argument block: 4-byte slots — unit_nav@0, flag_index@4. */
-        hud_unit_deactivate_nav_point_with_flag(*(__int16 *)arguments, ((__int16 *)arguments)[2]);
+        hud_unit_deactivate_nav_point_with_flag(*(int16_t *)arguments, ((int16_t *)arguments)[2]);
         hs_return(thread_index, 0);
     }
 }

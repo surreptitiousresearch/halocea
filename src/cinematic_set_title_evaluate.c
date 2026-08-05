@@ -9,7 +9,7 @@ extern void cinematic_set_title(int16_t index);
 
 void cinematic_set_title_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
         cinematic_set_title(*arguments);

@@ -91,8 +91,8 @@ int object_new_with_datum_role_control(object_placement_data *data, NetworkedDat
         return -1;
 
     _object_definition *object_definition = TAG_GET(_object_definition, definition_index);
-    __int16 object_type = object_definition->type;
-    __int16 game_datum_size = object_type_definition_get(object_type)->game_datum_size;
+    int16_t object_type = object_definition->type;
+    int16_t game_datum_size = object_type_definition_get(object_type)->game_datum_size;
 
     /* DEVIATION: the decompiler's datum_new + pool-allocate + memset block here is a verbatim
      * compiler-inlined copy of object_header_new @0x836ECD98 constant-folded for index=-1
@@ -106,7 +106,7 @@ int object_new_with_datum_role_control(object_placement_data *data, NetworkedDat
     object_datum *object_data = header_entry->datum;
 
     header_entry->flags |= (1u << _object_header_being_created_bit) | (1u << _object_header_automatically_deactivate_bit);
-    header_entry->type = (unsigned __int8)object_type;
+    header_entry->type = (uint8_t)object_type;
     object_data->definition_index = definition_index;
     object_data->object.type = object_type;
     object_type_adjust_placement(object_index, data);
@@ -167,9 +167,9 @@ int object_new_with_datum_role_control(object_placement_data *data, NetworkedDat
     else
         object_data->object.flags |= (1u << _object_has_collision_model_bit);
 
-    /* decompiler artifact preserved: byte-read of model.index + arithmetic collapses to (model.index != -1) */
-    object_set_visibility(object_index, *(unsigned char *)&object_definition->model.index + 1
-        - (object_definition->model.index + (object_definition->model.index == -1)));
+    /* DEVIATION: decompiler rendered the addi/addic/subfe (x+1 != 0) idiom on the full lwz of
+     * model.index as a bogus byte-read expression; it is simply (model.index != -1). */
+    object_set_visibility(object_index, object_definition->model.index != -1);
 
     object_data->object.owner_team_index = data->owner_team_index;
     object_data->object.owner_player_index = data->owner_player_index;
@@ -179,7 +179,7 @@ int object_new_with_datum_role_control(object_placement_data *data, NetworkedDat
 
     /* node count from the object's model tag for matrix-block allocation */
     int model_index = object_definition->model.index;
-    __int16 node_count = (model_index == -1) ? 1 : (__int16)(TAG_GET(model, model_index))->nodes.count;
+    int16_t node_count = (model_index == -1) ? 1 : (int16_t)(TAG_GET(model, model_index))->nodes.count;
 
     /* Types that keep only the node-matrix block (no separate node-orientation blocks):
      * projectile..sound_scenery. Mask 0xFE0 = bits [projectile..sound_scenery]. */
@@ -223,7 +223,7 @@ int object_new_with_datum_role_control(object_placement_data *data, NetworkedDat
 
         if ( (header_entry->flags & (1u << _object_header_active_bit)) == 0
             && (object_data->object.flags & (1u << _object_deleted_when_deactivated_bit)) != 0
-            && ((data->flags & (1u << _new_object_never_automatically_delete_bit)) == 0 || (unsigned __int16)object_data->object.location.cluster_index != 0xFFFF) )
+            && ((data->flags & (1u << _new_object_never_automatically_delete_bit)) == 0 || (uint16_t)object_data->object.location.cluster_index != 0xFFFF) )
             object_delete(object_index);
     }
     else

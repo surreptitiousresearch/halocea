@@ -34,7 +34,7 @@ int prop_orphan_from_friend(int actor_index, int unacknowledged_prop_index, int 
     unacknowledged->___u3.orphan_prop_index = new_prop_index;
     orphan->___u3.orphan_prop_index = unacknowledged_prop_index;
 
-    __int16 friend_state = friend->state;
+    int16_t friend_state = friend->state;
     if (friend_state >= _prop_state_uninspected_orphan && friend_state <= _prop_state_inspected_orphan)
         orphan->state = friend_state;
 

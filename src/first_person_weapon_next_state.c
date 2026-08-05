@@ -20,7 +20,7 @@ extern void first_person_weapon_set_state(int16_t local_player_index, int16_t ne
 
 void first_person_weapon_next_state(int16_t local_player_index)
 {
-    __int16 new_state = -1;
+    int16_t new_state = -1;
     first_person_weapon *fpw = &first_person_weapons[local_player_index];
 
     switch (fpw->state)

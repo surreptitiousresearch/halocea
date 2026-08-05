@@ -28,7 +28,7 @@ extern int16_t sound_find_channel(uint16_t sound_index);
 extern void sound_stop(int sound_index);
 /* declared to the generic callback-slot signature (matches sound_datum.track_proc) so the
  * funcptr identity comparison below needs no cast */
-extern unsigned __int8 track_loop_impulse_sound(int sound_index, const void *track_data, sound_source *source);
+extern uint8_t track_loop_impulse_sound(int sound_index, const void *track_data, sound_source *source);
 
 void prioritize_sounds(void)
 {
@@ -40,7 +40,7 @@ void prioritize_sounds(void)
 
         if ( datum->start_time <= sound_manager_globals.render_time )
         {
-            int assigned = (unsigned __int16)datum->playing_channel_index != 0xFFFF;
+            int assigned = (uint16_t)datum->playing_channel_index != 0xFFFF;
             sound_definition *def = TAG_GET(sound_definition, datum->definition_index);
             sound_permutation *permutation =
                 &((sound_permutation *)((sound_pitch_range *)def->pitch_ranges.address
@@ -49,7 +49,7 @@ void prioritize_sounds(void)
 
             if ( assigned || _sound_cache_sound_request(permutation, 0, 1u, 1u) )
             {
-                __int16 channel;
+                int16_t channel;
                 datum->flags |= (1u << _sound_cached_bit);
                 channel = sound_find_channel(i);
                 if ( channel != -1 )
@@ -75,7 +75,7 @@ void prioritize_sounds(void)
             {
                 sound_pitch_range *pitch_range =
                     (sound_pitch_range *)def->pitch_ranges.address + datum->pitch_range_index;
-                if ( (unsigned __int16)pitch_range->runtime_discarded_permutation_index == 0xFFFF )
+                if ( (uint16_t)pitch_range->runtime_discarded_permutation_index == 0xFFFF )
                     pitch_range->runtime_discarded_permutation_index = datum->permutation_index;
             }
 

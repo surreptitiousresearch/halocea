@@ -24,7 +24,7 @@ uint8_t unit_seats_empty(int unit_index)
     if ( seat_count <= 0 )
         return 1;
 
-    for ( __int16 seat_index = 0; seat_index < seat_count; seat_index = (__int16)(seat_index + 1) )
+    for ( int16_t seat_index = 0; seat_index < seat_count; seat_index = (int16_t)(seat_index + 1) )
     {
         char occupied = 0;
         object_iterator iterator;

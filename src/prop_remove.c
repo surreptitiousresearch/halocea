@@ -12,7 +12,7 @@ void prop_remove(uint16_t actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *props = (prop_datum *)prop_data->data;
-    prop_datum *prop = &props[(unsigned __int16)actor->meta.first_prop_index];
+    prop_datum *prop = &props[(uint16_t)actor->meta.first_prop_index];
 
     if ( actor->meta.first_prop_index == prop_index )
     {
@@ -26,7 +26,7 @@ void prop_remove(uint16_t actor_index, int prop_index)
         {
             next_index = prop->next_prop_index;
             link = &prop->next_prop_index;
-            prop = &props[(unsigned __int16)next_index];
+            prop = &props[(uint16_t)next_index];
         }
         while ( next_index != prop_index );
         *link = prop->next_prop_index;

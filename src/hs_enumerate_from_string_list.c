@@ -10,6 +10,6 @@ extern void hs_tokens_enumerate_add_string(const char *string);
 
 void hs_enumerate_from_string_list(const char **strings, int16_t start_index, int16_t count)
 {
-    for ( __int16 i = start_index; i < count; i++ )
+    for ( int16_t i = start_index; i < count; i++ )
         hs_tokens_enumerate_add_string(strings[i]);
 }

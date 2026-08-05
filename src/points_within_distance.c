@@ -17,7 +17,7 @@ uint8_t points_within_distance(int16_t point_count, const real_point3d *points, 
     if ( point_count <= 0 )
         return 0;
 
-    __int16 i = 0;
+    int16_t i = 0;
     while ( render.camera.forward.n[1] * (points[i].n[1] - render.camera.position.n[1])
           + render.camera.forward.n[2] * (points[i].n[2] - render.camera.position.n[2])
           + render.camera.forward.n[0] * (points[i].n[0] - render.camera.position.n[0]) > distance )

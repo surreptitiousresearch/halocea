@@ -23,12 +23,12 @@ extern const uint8_t *breakable_surface_flags_get(void);
 extern float __fsqrts(float x);
 extern real_point3d *collision_surface_project_point2d(const collision_bsp *bsp, int surface_index, int16_t projection_axis, uint8_t projection_sign, const real_point2d *p2d, real_point3d *p3d);
 
-static unsigned __int8 structure_test_line2d_surface_passable(const unsigned char *pathfinding_surfaces,
-        const collision_surface *surfaces, const unsigned char *breakable_flags, unsigned __int8 ignore_broken_surfaces,
+static uint8_t structure_test_line2d_surface_passable(const unsigned char *pathfinding_surfaces,
+        const collision_surface *surfaces, const unsigned char *breakable_flags, uint8_t ignore_broken_surfaces,
         int surface_index)
 {
     unsigned char flags = pathfinding_surfaces[surface_index];
-    unsigned __int8 passable = (flags >> PATHFINDING_SURFACE_WALKABLE_BIT) & 1;
+    uint8_t passable = (flags >> PATHFINDING_SURFACE_WALKABLE_BIT) & 1;
     if (!ignore_broken_surfaces && passable && (flags & (1u << PATHFINDING_SURFACE_BREAKABLE_BIT)))
     {
         unsigned char breakable_index = surfaces[surface_index].breakable_surface_index;
@@ -47,8 +47,8 @@ uint8_t structure_test_line2d(const structure_bsp *structure, uint8_t ignore_bro
 
     float dx = p1->n[0] - p0->n[0];
     float dy = p1->n[1] - p0->n[1];
-    unsigned __int8 recursed = 0;
-    unsigned __int8 reached_target = 0;
+    uint8_t recursed = 0;
+    uint8_t reached_target = 0;
     int surface_index = p0_surface_index;
 
     for (;;)
@@ -59,7 +59,7 @@ uint8_t structure_test_line2d(const structure_bsp *structure, uint8_t ignore_bro
         int first_edge_index = surfaces[surface_index].first_edge_index;
         int edge_index = first_edge_index;
         int edge_count = 0;
-        unsigned __int8 crossed_any = 0;
+        uint8_t crossed_any = 0;
         real_point3d centroid = *global_origin3d;
 
         reached_target = 0;
@@ -67,7 +67,7 @@ uint8_t structure_test_line2d(const structure_bsp *structure, uint8_t ignore_bro
         do
         {
             const collision_edge *edge = &edges[edge_index];
-            unsigned __int8 on_right_side = (edge->surface_indices[1] == surface_index);
+            uint8_t on_right_side = (edge->surface_indices[1] == surface_index);
             int neighbor_surface_index = on_right_side ? edge->surface_indices[0] : edge->surface_indices[1];
 
             const real_point3d *vertex_a = &vertices[on_right_side ? edge->vertex_indices[1] : edge->vertex_indices[0]].point;

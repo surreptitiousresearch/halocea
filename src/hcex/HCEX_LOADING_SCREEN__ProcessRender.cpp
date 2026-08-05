@@ -23,6 +23,7 @@
  * `vidDriver->resolveTargetTex` (name inferred from usage: the frame's resolved/backbuffer
  * texture, bound as sampler 2 and D3DDevice_Resolve's destination). */
 
+#include <stdint.h>
 #include "../headers/hcex/HCEX_LOADING_SCREEN.h"
 #include "../headers/d3d_render_boundary.h"
 #include "../headers/_D3DPRIMITIVETYPE.h"
@@ -64,7 +65,7 @@ extern void D3DDevice_SetRenderState_DestBlend(D3DDevice *pDevice, unsigned int 
 extern void D3DDevice_SetRenderState_SrcBlendAlpha(D3DDevice *pDevice, unsigned int value);
 extern void D3DDevice_SetRenderState_DestBlendAlpha(D3DDevice *pDevice, unsigned int value);
 extern void D3DDevice_SetTexture(D3DDevice *pDevice, unsigned int sampler, D3DBaseTexture *pTexture,
-                                  unsigned __int64 pendingMask);
+                                  uint64_t pendingMask);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *pDevice, D3DVertexDeclaration *pDeclaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *pDevice, D3DVertexShader *pShader);
 extern void D3DDevice_SetPixelShader(D3DDevice *pDevice, D3DPixelShader *pShader);

@@ -57,7 +57,7 @@ extern void object_cause_damage(damage_data *damage_data, int object_index, int1
 
 uint8_t physics_compute_biped_collision(collision_model_instance *instance, int biped_index)
 {
-    unsigned __int8 collision_occurred = 0;
+    uint8_t collision_occurred = 0;
 
     real_point3d pill_base;
     float pill_height, pill_width;
@@ -129,7 +129,7 @@ uint8_t physics_compute_biped_collision(collision_model_instance *instance, int 
     proposed_position.y = pill_base.y + acceleration.n[1] * 2.0f;
     proposed_position.z = pill_base.z + acceleration.n[2] * 2.0f;
 
-    unsigned __int8 fix_succeeded;
+    uint8_t fix_succeeded;
     real_point3d new_position;
     if (collision_fix_pill(_collision_test_for_bipeds_living_flags, &proposed_position, pill_width * 2.0f, pill_height, pill_width, biped_index,
                             &new_position))

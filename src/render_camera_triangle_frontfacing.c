@@ -1,10 +1,11 @@
 /* render_camera_triangle_frontfacing @0x8376C7FC — true if triangle (p0,p1,p2) faces the camera: the sign of
  * the scalar triple product of the triangle's edge vectors against the vector from p0 to the camera. */
 
+#include <stdint.h>
 #include "headers/render_camera.h"
 #include "headers/real_point3d.h"
 
-unsigned __int8 render_camera_triangle_frontfacing(const render_camera *camera, const real_point3d *p0,
+uint8_t render_camera_triangle_frontfacing(const render_camera *camera, const real_point3d *p0,
     const real_point3d *p1, const real_point3d *p2)
 {
     float e1x = p1->n[0] - p0->n[0];

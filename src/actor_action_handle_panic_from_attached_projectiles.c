@@ -37,7 +37,7 @@ uint8_t actor_action_handle_panic_from_attached_projectiles(uint16_t actor_index
     }
 
     /* floor is a panic_type priority, not a tick count */
-    __int16 panic_type = actor->stimuli.panic_type;
+    int16_t panic_type = actor->stimuli.panic_type;
     if ( !panic_type || actor->stimuli.panic_prop_index == -1 )
         actor->stimuli.panic_prop_index = active_by_unit_index;
 

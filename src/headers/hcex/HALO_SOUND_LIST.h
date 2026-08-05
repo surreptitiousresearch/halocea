@@ -7,6 +7,7 @@
 // streams@44 (dsVECTOR<FMOD::Sound*,8>), streamUsed@64 (dsVECTOR<bool,8>) — size 84.
 // Source: D:\Projects\code\HCEX\sources\sound\fmod\sound_dsound_fmod.cpp.
 
+#include <stdint.h>
 #include "../ws/ds/dsTSTRING.h"
 #include "../ws/ds/dsVECTOR.h"
 #include "../ws/snd/snd_fmod_boundary.h"
@@ -18,12 +19,12 @@ struct HALO_CUSTOM_SOUND; // full layout in HALO_CUSTOM_SOUND.h
 typedef struct HALO_SOUND_LIST {
     bool                          isMemory;    // 0x00 -- true: whole .fsb loaded into `data`/streams[0]; false: on-demand streams
     bool                          isLoaded;     // 0x01 -- true once Preload()'d (isMemory) or ready (streaming)
-    unsigned __int8               _pad02[2];    // 0x02
+    uint8_t               _pad02[2];    // 0x02
     dsTSTRING<char>                levelName;    // 0x04
     dsTSTRING<char>                fileName;     // 0x08 -- the .fsb path
     dsVECTOR<HALO_SOUND_TAG, 8>    tags;          // 0x0C -- sorted by name; binary-searched by Find
     int                            soundsCount;  // 0x20 -- total sub-sound count across all tags
-    unsigned __int8               *data;         // 0x24 -- isMemory: the whole .fsb file, owned (new[]/delete[])
+    uint8_t               *data;         // 0x24 -- isMemory: the whole .fsb file, owned (new[]/delete[])
     int                            dataLength;   // 0x28 -- isMemory: byte length of `data`
     dsVECTOR<FMOD::Sound *, 8>     streams;       // 0x2C -- isMemory: streams[0] is the one bank; else: one stream per prepared voice
     dsVECTOR<bool, 8>              streamUsed;    // 0x40 -- streaming: per-stream in-use flag

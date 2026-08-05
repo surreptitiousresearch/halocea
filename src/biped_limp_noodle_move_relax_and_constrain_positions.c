@@ -85,19 +85,19 @@ void biped_limp_noodle_move_relax_and_constrain_positions(int biped_index, real_
 
     for ( int iteration = 0; iteration < 4; ++iteration )
     {
-        __int16 node_queue[64];
-        __int16 queue_head = 0;
-        __int16 queue_tail = 1;
+        int16_t node_queue[64];
+        int16_t queue_head = 0;
+        int16_t queue_tail = 1;
         node_queue[0] = 0;
         do
         {
-            __int16 node_index = node_queue[queue_head++];
+            int16_t node_index = node_queue[queue_head++];
             animation_graph_node *graph_node = &graph_nodes[node_index];
             if ( node_index )
             {
                 real_matrix4x3 *node_matrix = &node_matrices[node_index];
                 real_point3d *position = &node_matrix->position;
-                __int16 parent_index = graph_node->parent_node_index;
+                int16_t parent_index = graph_node->parent_node_index;
                 real_point3d *parent_position = &node_matrices[parent_index].position;
 
                 real_vector3d velocity;
@@ -138,7 +138,7 @@ void biped_limp_noodle_move_relax_and_constrain_positions(int biped_index, real_
                 collision_result collision;
                 if ( collision_test_vector(_collision_test_for_bipeds_dead_flags | (1u << _collision_test_ignore_invisible_surfaces_bit), &ray_origin, &segment, biped_index, &collision) )
                 {
-                    unsigned __int8 embedded[2];
+                    uint8_t embedded[2];
                     embedded[0] = collision_test_sphere(position, 0.029999999f, biped_index);
                     embedded[1] = collision_test_sphere(parent_position, 0.029999999f, biped_index);
                     if ( embedded[0] + embedded[1] )
@@ -255,12 +255,12 @@ void biped_limp_noodle_move_relax_and_constrain_positions(int biped_index, real_
             }
 next_node:
             {
-                unsigned int next_sibling = (unsigned __int16)graph_node->next_sibling_node_index;
+                unsigned int next_sibling = (uint16_t)graph_node->next_sibling_node_index;
                 if ( next_sibling != 0xFFFF )
-                    node_queue[queue_tail++] = (__int16)next_sibling;
-                unsigned int first_child = (unsigned __int16)graph_node->first_child_node_index;
+                    node_queue[queue_tail++] = (int16_t)next_sibling;
+                unsigned int first_child = (uint16_t)graph_node->first_child_node_index;
                 if ( first_child != 0xFFFF )
-                    node_queue[queue_tail++] = (__int16)first_child;
+                    node_queue[queue_tail++] = (int16_t)first_child;
             }
         }
         while ( queue_head != queue_tail );

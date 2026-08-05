@@ -94,15 +94,15 @@ void hud_messaging_update(int16_t local_player_index)
 
     point2d screen_point;   /* CAVEAT: reconstructed result pointer of hud_calculate_point */
     {
-        __int16 player_count = local_player_count();
+        int16_t player_count = local_player_count();
         hud_calculate_point(local_player_index, &hud_msg_def->absolute_placement,
-            &hud_msg_def->placement, nullptr, (unsigned __int8)(player_count > 1), 0.0f, &screen_point);
+            &hud_msg_def->placement, nullptr, (uint8_t)(player_count > 1), 0.0f, &screen_point);
     }
 
     short line_top = screen_point.__s1.y;
 
     /* font metrics live at halfword offsets 2/3/4 of the font tag definition data */
-    unsigned __int16 *font_data = TAG_GET(unsigned __int16, font_index);
+    uint16_t *font_data = TAG_GET(uint16_t, font_index);
     short font_leading = font_data[4];
     short line_height;
     if ( is_split_screen )
@@ -218,9 +218,9 @@ void hud_messaging_update(int16_t local_player_index)
         cache_file_tag_instance *hud_messages_instance;
         if ( objective_active )
         {
-            __int16 *p_uptime = &hud_messaging_globals->objective.uptime;
+            int16_t *p_uptime = &hud_messaging_globals->objective.uptime;
             int remaining = *p_uptime - game_time_get_elapsed();
-            *p_uptime = remaining <= 0 ? 0 : (__int16)remaining;
+            *p_uptime = remaining <= 0 ? 0 : (int16_t)remaining;
             message = hud_messaging_globals->objective.message;
             hud_messages_instance = TAG_INSTANCE_ELEMENT(global_scenario->hud_messages.index);
         }
@@ -249,7 +249,7 @@ void hud_messaging_update(int16_t local_player_index)
             hud_state_message_definition *definitions = (hud_state_message_definition *)hud_messages_data[9];
             while ( message != &definitions[i] )
             {
-                i = (__int16)(i + 1);
+                i = (int16_t)(i + 1);
                 if ( i >= message_count )
                     goto after_index_search;
             }
@@ -277,7 +277,7 @@ after_index_search:
             }
 
             unsigned int element_data = element_bytes[1];
-            __int16 button_icon_index = -1;
+            int16_t button_icon_index = -1;
 
             if ( element_data <= _hud_icon_specific_button_end )
             {
@@ -288,14 +288,14 @@ after_index_search:
                 /* icon / scenario-name slot */
                 if ( !hud_scripted_globals->show_hud_help_text )
                 {
-                    int slot = (__int16)(element_bytes[1] - _hud_icon_misc_start);
+                    int slot = (int16_t)(element_bytes[1] - _hud_icon_misc_start);
                     const icon_hud_element_definition *is_text =
                         (const icon_hud_element_definition *)
                             (datum->state_message.is_text_flags & (1 << (element_bytes[1] - _hud_icon_misc_start)));
                     if ( is_text )
                     {
-                        __int16 string_index = datum->state_message.info[slot].text.string_index;
-                        if ( (unsigned __int16)string_index == 0xFFFF )
+                        int16_t string_index = datum->state_message.info[slot].text.string_index;
+                        if ( (uint16_t)string_index == 0xFFFF )
                         {
                             render_state_text(&line_bounds, &line_cursor, L"<unknown>", 0);
                         }
@@ -361,7 +361,7 @@ after_index_search:
             }
 
 next_element:
-            element = (__int16)(element + 1);
+            element = (int16_t)(element + 1);
             if ( element >= message->element_count )
                 break;
         }
@@ -440,16 +440,16 @@ finish_first_pass:
             {
                 int message_offset = (signed char)msg->message_offset;
                 if ( message_offset == -1 )
-                    message_offset = (unsigned __int8)(local_player_count() <= 1);   /* single-player -> 1 */
+                    message_offset = (uint8_t)(local_player_count() <= 1);   /* single-player -> 1 */
 
                 item_definition *item_data = TAG_GET(item_definition, msg->item_definition_index);
                 item_text = hud_get_item_string(
-                    (__int16)(item_data->item.hud_message_index + (char)message_offset));
+                    (int16_t)(item_data->item.hud_message_index + (char)message_offset));
 
-                if ( ((unsigned __int8)msg->message_offset == 255 && (char)message_offset)
+                if ( ((uint8_t)msg->message_offset == 255 && (char)message_offset)
                   || msg->quantity )
                 {
-                    __int16 divisor = item_data->item.hud_message_value_scale;
+                    int16_t divisor = item_data->item.hud_message_value_scale;
                     if ( divisor <= 1 )
                         divisor = 1;
                     usprintf(formatted, item_text, msg->quantity / divisor);
@@ -466,7 +466,7 @@ finish_first_pass:
             if ( !still_visible )
                 msg->time = -1;
 
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < max_lines );
     }

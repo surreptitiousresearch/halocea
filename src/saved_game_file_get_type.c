@@ -4,5 +4,5 @@
 
 uint16_t saved_game_file_get_type(int index)
 {
-    return (unsigned __int16)(index & 0xF);
+    return (uint16_t)(index & 0xF);
 }

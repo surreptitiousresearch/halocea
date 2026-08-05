@@ -26,7 +26,7 @@ void game_unload(void)
     {
         game_globals->map_load_in_progress = 1;
         ui_widget_load_progress_widget();
-        __int16 status;
+        int16_t status;
         do
         {
             status = cache_files_precache_map_status(&game_globals->loading_progress);

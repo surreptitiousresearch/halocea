@@ -43,7 +43,7 @@ void actor_freeze(uint16_t actor_index)
     }
 
     swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, swarm_index);
-    for ( int i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
     {
         int unit_index = swarm->unit_indices[i];
 

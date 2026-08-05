@@ -40,16 +40,16 @@ extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_
 
 void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position)
 {
-    __int16 evaluation_mode = evaluation_context->evaluation_mode;
+    int16_t evaluation_mode = evaluation_context->evaluation_mode;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int unit_index = actor->meta.unit_index;
 
     const real_point3d *line_of_sight_source;
-    __int16 source_cluster_index;
+    int16_t source_cluster_index;
     const real_point3d *line_of_sight_target;
-    __int16 target_cluster_index;
-    __int16 mode;
-    unsigned __int8 test_line_of_fire;
+    int16_t target_cluster_index;
+    int16_t mode;
+    uint8_t test_line_of_fire;
     int ignore_object_index;
     real_point3d estimated_position;
 
@@ -61,7 +61,7 @@ void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position
             return;
         }
 
-        __int16 estimate_mode = 1;
+        int16_t estimate_mode = 1;
         unit_estimate_position(unit_index, estimate_mode, &firing_position->definition->position, nullptr, nullptr,
                 &estimated_position);
 
@@ -75,7 +75,7 @@ void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position
     }
     else
     {
-        __int16 estimate_mode;
+        int16_t estimate_mode;
         real_vector3d *desired_facing;
         real_vector3d *desired_gun_offset;
         real_vector3d gun_offset_direction; /* only n[0]/n[1] are normalized; n[2] handled separately below */
@@ -118,7 +118,7 @@ void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position
         unit_estimate_position(unit_index, estimate_mode, &firing_position->definition->position, desired_facing,
                 desired_gun_offset, &estimated_position);
 
-        mode = (evaluation_context->evaluation_mode != _firing_point_evaluation_mode_fight && (unsigned __int16)evaluation_context->evaluation_mode <= _firing_point_evaluation_mode_uncover)
+        mode = (evaluation_context->evaluation_mode != _firing_point_evaluation_mode_fight && (uint16_t)evaluation_context->evaluation_mode <= _firing_point_evaluation_mode_uncover)
                 ? _ai_line_of_sight_expand_source : _ai_line_of_sight_normal;
         test_line_of_fire = 1;
         ignore_object_index = evaluation_context->target_vehicle_index;

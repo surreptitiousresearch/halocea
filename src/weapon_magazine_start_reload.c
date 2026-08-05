@@ -66,7 +66,7 @@ void weapon_magazine_start_reload(int weapon_index, int16_t magazine_index, uint
             {
                 if ( first_round == 1 )
                 {
-                    __int16 reserve = weapon->weapon.magazine_rounds_total_at_reload_start[magazine_index];
+                    int16_t reserve = weapon->weapon.magazine_rounds_total_at_reload_start[magazine_index];
                     magazine->rounds_total = reserve;
                     magazine->rounds_loaded =
                         weapon->weapon.magazine_rounds_loaded_at_reload_start[magazine_index];
@@ -82,7 +82,7 @@ void weapon_magazine_start_reload(int weapon_index, int16_t magazine_index, uint
             if ( magazine->rounds_total > 0
                  && magazine->rounds_loaded < magazine_definition->rounds_loaded_maximum )
             {
-                __int16 reload_variant = -1;
+                int16_t reload_variant = -1;
 
                 if ( first_round == 1 && !weapon->object.datum_role && game_connection() == _game_connection_network_server )
                     weapon_start_reload_to_network(weapon_index, magazine_index);
@@ -96,7 +96,7 @@ void weapon_magazine_start_reload(int weapon_index, int16_t magazine_index, uint
 
                 if ( definition->weapon.weapon_type == _weapon_type_shotgun )
                 {
-                    __int16 capacity = magazine_definition->rounds_loaded_maximum;
+                    int16_t capacity = magazine_definition->rounds_loaded_maximum;
                     if ( first_round )
                         reload_variant = (capacity - magazine->rounds_loaded != 1) ? 0 : 2;
                     else
@@ -104,7 +104,7 @@ void weapon_magazine_start_reload(int weapon_index, int16_t magazine_index, uint
                 }
 
                 magazine->state = _weapon_magazine_reloading;   /* reloading */
-                __int16 animation_time = weapon_get_first_person_animation_time(weapon_index, 0,
+                int16_t animation_time = weapon_get_first_person_animation_time(weapon_index, 0,
                                              _first_person_weapon_animation_reload_while_empty,
                                              reload_variant);
                 magazine->state_timer = animation_time;

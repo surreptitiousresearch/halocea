@@ -7,6 +7,7 @@
  * active scrFAMILY_BASE (the ws-engine scorch-decal manager) via Add(). The cdt (collision-detection)
  * query types, the scr scorch-family manager, and the m3d math library are ws-engine boundaries. */
 
+#include <stdint.h>
 #include "HCEX_DECAL.h"
 #include "hcex_ds_boundary.h"          /* dsTSTRING<char> (flat), dsTSTRING_assign-style helpers */
 #include "../ws/m3d/m3dV.h"
@@ -23,7 +24,7 @@ typedef struct cdtREFINE
 {
     cdtREFINE_vtbl              *__vftable;       /* 0x00 */
     ds::WEAK_PTR_BASE<struct cdtREFINE> base;     /* 0x04 (anonymous base slot) */
-    apSTATE_T<__int64>          stateObjUsrIncl;  /* 0x08 */
+    apSTATE_T<int64_t>          stateObjUsrIncl;  /* 0x08 */
     animINST                   *pInstSelf;        /* 0x10 */
     apSTATE_T<unsigned long>    state;            /* 0x14 */
     unsigned int                layerMask;        /* 0x18 */

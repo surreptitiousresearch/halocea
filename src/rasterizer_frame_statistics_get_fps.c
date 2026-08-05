@@ -19,20 +19,20 @@ extern uint32_t system_milliseconds(void);
 
 void rasterizer_frame_statistics_get_fps(rasterizer_frame_statistics_s *frame_statistics, uint8_t frame_dropped)
 {
-    __int16 new_sample_count = 0;
+    int16_t new_sample_count = 0;
 
     if ((rasterizer_debug_options.fps_accumulation || rasterizer_debug_options.statistics_mode) && frame_statistics)
     {
         unsigned int current_time = system_milliseconds();
-        __int16 dropped_count = 0;
-        __int16 count = fps_sample_count;
+        int16_t dropped_count = 0;
+        int16_t count = fps_sample_count;
 
         if (fps_sample_count)
         {
             unsigned int min_interval = current_time - time_samples[0];
             unsigned int max_interval = current_time - time_samples[0];
 
-            for (int i = (__int16)(fps_sample_count - 1); i > 0; i--)
+            for (int i = (int16_t)(fps_sample_count - 1); i > 0; i--)
             {
                 if (i > 1)
                 {

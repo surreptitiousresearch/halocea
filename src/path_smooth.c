@@ -53,16 +53,16 @@ void path_smooth(path_state *state, int16_t raw_step_count, const path_step *raw
 
     real_point2d current_position = *(const real_point2d *)&state->input.start_point;
     int current_surface_index = state->input.start_surface_index;
-    __int16 smoothed_count = 0;
+    int16_t smoothed_count = 0;
 
-    __int16 step_index = 1;
+    int16_t step_index = 1;
     while (1)
     {
-        __int16 collision_step_index = -1;
+        int16_t collision_step_index = -1;
         int collision_edge_index = -1;
-        unsigned __int8 collision_active = 0;
+        uint8_t collision_active = 0;
 
-        for (__int16 i = step_index; i < raw_step_count; i++)
+        for (int16_t i = step_index; i < raw_step_count; i++)
         {
             path_collision_result collision_result;
             if (structure_test_pill2d(state->structure, state->input.ignore_broken_surfaces, &current_position,
@@ -89,16 +89,16 @@ void path_smooth(path_state *state, int16_t raw_step_count, const path_step *raw
 
         real_point2d clockwise_turning_point;
         real_point2d counterclockwise_turning_point;
-        unsigned __int8 found_cw = find_turning_point(state->structure, &current_position, 0.30000001f,
+        uint8_t found_cw = find_turning_point(state->structure, &current_position, 0.30000001f,
                 collision_edge_index, 1, state->input.ignore_broken_surfaces, &clockwise_turning_point);
-        unsigned __int8 found_ccw = find_turning_point(state->structure, &current_position, 0.30000001f,
+        uint8_t found_ccw = find_turning_point(state->structure, &current_position, 0.30000001f,
                 collision_edge_index, 0, state->input.ignore_broken_surfaces, &counterclockwise_turning_point);
         if (!found_ccw || !found_cw)
             goto bail_out;
 
         const path_step *collision_step = &raw_steps[collision_step_index];
         real_point2d chosen_center;
-        unsigned __int8 chose_clockwise = choose_turning_point(&current_position, &clockwise_turning_point,
+        uint8_t chose_clockwise = choose_turning_point(&current_position, &clockwise_turning_point,
                 &counterclockwise_turning_point, (const real_point2d *)&collision_step[-1].point,
                 (const real_point2d *)&collision_step->point, &chosen_center);
 

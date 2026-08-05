@@ -71,7 +71,7 @@ uint8_t collision_test_point(unsigned int flags, const real_point3d *point, int 
                     if ( ((dy * dy) + ((dx * dx) + (dz * dz)))
                             <= (double)(radius * radius) )
                     {
-                        unsigned __int8 collided;
+                        uint8_t collided;
                         char tested = 1;
                         if ( ((1 << object_type) & object_mask_vehicle) != 0 && (flags & (1u << _collision_test_use_vehicle_physics_bit)) != 0 )
                         {

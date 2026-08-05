@@ -13,10 +13,10 @@
 extern void rasterizer_set_target(int16_t target, int16_t mipmap_index, uint32_t background_color, uint8_t clear, uint8_t zbuffer);
 extern void rasterizer_set_stencil_mode(int16_t stencil_mode);
 
-extern int            rasterizer_shadow_bounding_radius;       /* float bounding_radius stored as int bits */
+extern float          rasterizer_shadow_bounding_radius;       /* object bounding radius (float; matches _rasterizer_environment_shadow_draw.c) */
 
 /* DEVIATION: DB proto uses float object_bounding_radius; decompiler widens to double via FPR-shadow */
-unsigned __int8 _rasterizer_environment_shadow_begin(
+uint8_t _rasterizer_environment_shadow_begin(
         int                   object_index,
         const real_matrix4x3 *shadow_matrix,
         const real_rgb_color *shadow_color,
@@ -77,10 +77,9 @@ unsigned __int8 _rasterizer_environment_shadow_begin(
         local_shadow_color.n[1] = shadow_color->n[1];
         local_shadow_color.n[2] = shadow_color->n[2];
 
-        /* store float bounding_radius bits into rasterizer_shadow_bounding_radius */
-        int tmp_radius_bits;
-        *(float *)&tmp_radius_bits = object_bounding_radius;
-        rasterizer_shadow_bounding_radius = tmp_radius_bits;
+        /* DEVIATION: decompiler routed this plain float store through an int-bits temp; the global is a
+         * float (read as `1.0f / rasterizer_shadow_bounding_radius` in _rasterizer_environment_shadow_draw.c). */
+        rasterizer_shadow_bounding_radius = object_bounding_radius;
 
         if (shadow_volume_bounding_radius)
             *shadow_volume_bounding_radius = object_bounding_radius;

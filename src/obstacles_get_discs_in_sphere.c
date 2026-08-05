@@ -48,6 +48,7 @@
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
+#include "headers/device_datum.h"
 #include "headers/_object_definition.h"
 #include "headers/machine_definition.h"
 #include "headers/object_type.h"
@@ -74,9 +75,9 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
     const location *source_location = &source_object->object.location;
 
     int object_indices[256];
-    __int16 found_count = objects_in_sphere(1, object_mask_sightblocking | object_mask_biped,   /* 0xC3 */ source_location, center, radius, object_indices, 256);
+    int16_t found_count = objects_in_sphere(1, object_mask_sightblocking | object_mask_biped,   /* 0xC3 */ source_location, center, radius, object_indices, 256);
 
-    for (__int16 i = 0; i < found_count; i++)
+    for (int16_t i = 0; i < found_count; i++)
     {
         int candidate_index = object_indices[i];
         if (candidate_index == ignore_source_object_index || candidate_index == ignore_target_object_index)
@@ -88,7 +89,7 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
         if ((candidate_object->object.flags & (1u << _object_invisible_bit)) != 0)
             continue;
 
-        __int16 candidate_type = candidate_object->object.type;
+        int16_t candidate_type = candidate_object->object.type;
         if (candidate_type != 0 && (candidate_object->object.damage_flags & (1u << _object_dead_bit)) == 0)
             continue;
 
@@ -96,13 +97,13 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
         {
             /* machine-type candidates are additionally gated by the machine tag flags (machine_definition+658)
              * and, when bit 1 is set, an offset-520 float that must not equal 1.0 */
-            __int16 machine_flags = TAG_GET(machine_definition, candidate_object->definition_index)->machine.flags;
+            int16_t machine_flags = TAG_GET(machine_definition, candidate_object->definition_index)->machine.flags;
             if ((machine_flags & (1u << _machine_is_pathfinding_obstacle_bit)) == 0)
                 continue;
-            /* control_flags reinterpreted as float, per the binary */
-            /* fixed float-literal corruption: was '(1u << _unit_control_crouch_modifier_bit).0f', restored to 1.0f */
+            /* DEVIATION: decompiler punned this float read (offset 520) through unit.control_flags;
+             * on a machine object it is device_datum.device.position (float, DB-verified) — fully open. */
             if ((machine_flags & (1u << _machine_is_not_pathfinding_obstacle_when_open_bit)) != 0
-              && *(float *)&((unit_datum *)candidate_object)->unit.control_flags == 1.0f)
+              && ((device_datum *)candidate_object)->device.position == 1.0f)
                 continue;
         }
 
@@ -130,7 +131,7 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
         for (int marker_index = 0; marker_index < marker_count; marker_index++)
         {
             pathfinding_sphere *marker = &marker_data[marker_index];
-            __int16 marker_node_index = marker->node_index;
+            int16_t marker_node_index = marker->node_index;
 
             real_point3d marker_world_point;
             float scale;
@@ -148,7 +149,7 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
 
             float marker_radius = marker->radius * scale;
 
-            unsigned __int8 within_z_bounds =
+            uint8_t within_z_bounds =
                     (marker_world_point.n[2] + marker_radius + 0.5f >= center->n[2]
                             || movement_direction->n[2] <= -0.2f)
                     && (marker_world_point.n[2] - marker_radius - 0.5f <= center->n[2]
@@ -165,7 +166,7 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
                     > total_radius * total_radius)
                 continue;
 
-            unsigned __int8 optional = 0;
+            uint8_t optional = 0;
             if (candidate_type == 0
                     && (movement_direction->n[0] * marker_dx + movement_direction->n[1] * marker_dy
                             + movement_direction->n[2] * marker_dz) > 0.0f)

@@ -18,7 +18,7 @@ extern void flag_render_proper(flag_datum *flag, flag_definition *flag_definitio
 void flag_render(int object_index, int flag_index, const render_lighting *lighting, const render_animation *animation)
 {
     flag_datum *flag = DATA_ARRAY_ELEMENT(flag_data, flag_datum, flag_index);
-    __int16 updates_since_last_render = flag->updates_since_last_render;
+    int16_t updates_since_last_render = flag->updates_since_last_render;
     flag_definition *definition = TAG_GET(flag_definition, flag->definition_index);
 
     flag->object_index = object_index;
@@ -29,7 +29,7 @@ void flag_render(int object_index, int flag_index, const render_lighting *lighti
         flag->initialized = 1;
     }
 
-    unsigned __int8 noop = flag->__noop;
+    uint8_t noop = flag->__noop;
     flag->updates_since_last_render = 0;
 
     if ( !noop )

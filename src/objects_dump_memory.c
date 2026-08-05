@@ -31,13 +31,13 @@ extern int sort_dumps(const dump_datum *dump1, const dump_datum *dump2);
 void objects_dump_memory(void)
 {
     int definition_count = 0;
-    __int16 overflow_count = 0;
+    int16_t overflow_count = 0;
     dump_datum type_dumps[12];
     dump_datum definition_dumps[MAXIMUM_DUMPS];
 
     memset(definition_dumps, 0, sizeof(definition_dumps));
     memset(type_dumps, 0, sizeof(type_dumps));
-    for ( int type = 0; type < 12; type = (__int16)(type + 1) )
+    for ( int type = 0; type < 12; type = (int16_t)(type + 1) )
     {
         type_dumps[type].object_type = type;
         type_dumps[type].definition_index = -1;
@@ -49,7 +49,7 @@ void objects_dump_memory(void)
     {
         /* Locate (or create) this object's definition row. */
         int definition_row = -1;
-        for ( int row = 0; row < definition_count; row = (__int16)(row + 1) )
+        for ( int row = 0; row < definition_count; row = (int16_t)(row + 1) )
         {
             if ( definition_dumps[row].definition_index == *object )
             {
@@ -92,17 +92,17 @@ void objects_dump_memory(void)
 
     fprintf(file, "OBJECTS BY TYPE\n");
     fprintf(file, "number (active) [garbage/   dead/outside/at-rest] maxsize totsize\n");
-    for ( int i = 0; i < 12; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 12; i = (int16_t)(i + 1) )
         object_dump_write(file, &type_dumps[i]);
     fprintf(file, "\n");
 
     fprintf(file, "OBJECTS BY DEFINITION\n");
     fprintf(file, "number (active) [garbage/   dead/outside/at-rest] maxsize totsize\n");
-    for ( int i = 0; i < definition_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < definition_count; i = (int16_t)(i + 1) )
     {
         dump_datum *dump = &definition_dumps[i];
         const char *name = dump->definition_index == -1
-                         ? ((unsigned __int16)dump->object_type != 0xFFFF ? object_type_get_name(dump->object_type) : "")
+                         ? ((uint16_t)dump->object_type != 0xFFFF ? object_type_get_name(dump->object_type) : "")
                          : tag_get_name(dump->definition_index);
         fprintf(file, "% 6d (% 6d) [% 7d/% 7d/% 7d/% 7d] % 7d % 7d %s\r\n",
                 dump->count, dump->active_count, dump->garbage_count, dump->dead_count,

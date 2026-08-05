@@ -18,7 +18,7 @@ extern void cheat_objects(const game_globals_tag_reference *references, int16_t 
 void cheat_all_weapons(void)
 {
     const game_globals_tag_reference *references;
-    __int16 count;
+    int16_t count;
 
     if ( global_game_globals->weapon_list.count
       && (references = (const game_globals_tag_reference *)global_game_globals->weapon_list.address) != nullptr )
@@ -33,7 +33,7 @@ void cheat_all_weapons(void)
         tag_iterator_new(&iterator, 0x77656170u /* 'weap' */);
         for ( int tag_index = tag_iterator_next(&iterator); tag_index != -1; tag_index = tag_iterator_next(&iterator) )
         {
-            if ( (unsigned __int16)count >= WEAPON_LIST_NUM_WEAPONS )
+            if ( (uint16_t)count >= WEAPON_LIST_NUM_WEAPONS )
                 break;
             weapons[count++].reference.index = tag_index;
         }

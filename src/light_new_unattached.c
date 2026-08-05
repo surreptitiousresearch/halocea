@@ -24,7 +24,7 @@ int light_new_unattached(int definition_index, int object_index, int16_t node_in
 {
     int index = datum_new(light_data);
     light_datum *record;
-    __int16 flags;
+    int16_t flags;
 
     if ( index == -1 )
         return index;

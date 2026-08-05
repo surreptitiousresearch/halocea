@@ -1,3 +1,4 @@
+#include <stdint.h>
 /* hcex_sThumbRY @ 0x841C3704, 8 bytes (data-bss, zero-fill). */
 
-__int16 hcex_sThumbRY[4];
+int16_t hcex_sThumbRY[4];

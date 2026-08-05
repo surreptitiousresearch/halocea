@@ -69,13 +69,13 @@ void render_model_parts(
     /* records overlay the local scratch at byte +24 (== &sort_scratch[2], real_point3d is 12 bytes) */
     render_sort_filth *records = (render_sort_filth *)&sort_scratch[2];
 
-    for (int pass = 0; pass <= max_pass_index; pass = (__int16)(pass + 1))
+    for (int pass = 0; pass <= max_pass_index; pass = (int16_t)(pass + 1))
     {
         int transparent_link_count = 0;
 
         if (model->regions.count > 0)
         {
-            for (int region_index = 0; region_index < model->regions.count; region_index = (__int16)(region_index + 1))
+            for (int region_index = 0; region_index < model->regions.count; region_index = (int16_t)(region_index + 1))
             {
                 char permutation_index = region_permutation_indices[region_index];
                 if (permutation_index == -1)
@@ -84,7 +84,7 @@ void render_model_parts(
                 const model_region *region = (const model_region *)model->regions.address + region_index;
                 const model_region_permutation *permutation =
                         (const model_region_permutation *)region->permutations.address + permutation_index;
-                __int16 geometry_index = permutation->geometry_indices[geometry_detail_level_index];
+                int16_t geometry_index = permutation->geometry_indices[geometry_detail_level_index];
                 if (geometry_index == -1)
                     continue;
 
@@ -93,7 +93,7 @@ void render_model_parts(
                     continue;
 
                 const gbxmodel_geometry_part *parts = (const gbxmodel_geometry_part *)geometry->parts.address;
-                for (int part_index = 0; part_index < geometry->parts.count; part_index = (__int16)(part_index + 1))
+                for (int part_index = 0; part_index < geometry->parts.count; part_index = (int16_t)(part_index + 1))
                 {
                     const gbxmodel_geometry_part *part = &parts[part_index];
                     const model_shader_reference *shader_ref =
@@ -113,7 +113,7 @@ void render_model_parts(
                             matrix4x3_transform_point(&skinning->node_matrices[part->centroid_primary_node_index],
                                                        &part->centroid, sort_scratch);
 
-                            __int16 shader_permutation = forced_shader_permutation_index;
+                            int16_t shader_permutation = forced_shader_permutation_index;
                             if (!forced_shader_permutation_index)
                                 shader_permutation = shader_ref->permutation_index;
 
@@ -138,7 +138,7 @@ void render_model_parts(
                     {
                         if (pass == 1)
                         {
-                            __int16 shader_permutation = forced_shader_permutation_index;
+                            int16_t shader_permutation = forced_shader_permutation_index;
                             if (!forced_shader_permutation_index)
                                 shader_permutation = shader_ref->permutation_index;
                             rasterizer_model_draw(part_shader, shader_permutation, &part->triangle_buffer, -1,
@@ -147,7 +147,7 @@ void render_model_parts(
                     }
                     else if (pass == 0)
                     {
-                        __int16 shader_permutation = forced_shader_permutation_index;
+                        int16_t shader_permutation = forced_shader_permutation_index;
                         if (!forced_shader_permutation_index)
                             shader_permutation = shader_ref->permutation_index;
 
@@ -167,10 +167,10 @@ void render_model_parts(
             }
         }
 
-        for (int outer = 0; outer < transparent_link_count; outer = (__int16)(outer + 1))
+        for (int outer = 0; outer < transparent_link_count; outer = (int16_t)(outer + 1))
         {
             int inner;
-            for (inner = 0; inner < transparent_link_count; inner = (__int16)(inner + 1))
+            for (inner = 0; inner < transparent_link_count; inner = (int16_t)(inner + 1))
             {
                 if (records[outer].next_part_index == records[inner].part_index && records[outer].next_part_index > 0)
                     break;

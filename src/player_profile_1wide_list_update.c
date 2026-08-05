@@ -63,13 +63,13 @@ void player_profile_1wide_list_update(widget_instance *list_widget)
 rebuild_list:
         if ( !list_widget->parameters.list_parameters.number_of_items )
         {
-            unsigned __int16 *empty_name = ui_widget_realloc(
+            uint16_t *empty_name = ui_widget_realloc(
                 list_widget->parameters.list_parameters.item_text, 4u);
             list_widget->parameters.list_parameters.item_text = empty_name;
             if ( empty_name )
                 *empty_name = 0;
             children->animation_data.current_frame_index = 0;
-            unsigned __int16 *empty_desc = ui_widget_realloc(
+            uint16_t *empty_desc = ui_widget_realloc(
                 next->parameters.text_box_parameters.text, 4u);
             next->parameters.text_box_parameters.text = empty_desc;
             if ( empty_desc )
@@ -95,7 +95,7 @@ rebuild_list:
             while ( valid_count < old_number_of_items );
         }
 
-        __int16 selection = list_widget->parameters.text_box_parameters.string_list_index;
+        int16_t selection = list_widget->parameters.text_box_parameters.string_list_index;
         list_widget->parameters.list_parameters.number_of_items = valid_count;
         if ( selection >= 0 )
         {
@@ -111,7 +111,7 @@ rebuild_list:
     }
 
     /* Cache hit: populate the name field. */
-    unsigned __int16 *item_text = ui_widget_realloc(
+    uint16_t *item_text = ui_widget_realloc(
         list_widget->parameters.list_parameters.item_text, 0x18u);
     list_widget->parameters.list_parameters.item_text = item_text;
     if ( item_text )
@@ -135,8 +135,8 @@ rebuild_list:
         ustrncpy(item_text, name_string, 0xBu);
         list_widget->parameters.list_parameters.item_text[11] = 0;
 
-        __int16 color_frame;
-        if ( (unsigned __int16)profile->primary_color_index < 0x8000u )
+        int16_t color_frame;
+        if ( (uint16_t)profile->primary_color_index < 0x8000u )
         {
             int primary_color_index = profile->primary_color_index;
             if ( primary_color_index <= player_profile_number_of_available_primary_colors() - 1 )
@@ -151,7 +151,7 @@ rebuild_list:
         children->animation_data.current_frame_index = color_frame;
 
         /* Populate the sibling description field with the controller preset descriptions. */
-        unsigned __int16 *description = ui_widget_realloc(
+        uint16_t *description = ui_widget_realloc(
             next->parameters.text_box_parameters.text, 0x200u);
         next->parameters.text_box_parameters.text = description;
         if ( description )

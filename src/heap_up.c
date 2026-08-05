@@ -6,15 +6,15 @@
 
 void heap_up(obstacle_path *path, int16_t heap_index)
 {
-    __int16 child_index = heap_index;
+    int16_t child_index = heap_index;
 
     if ( heap_index > 0 )
     {
         do
         {
-            __int16 parent_index = (__int16)(child_index - 1) >> 1;
-            __int16 child_step_index = path->heap[child_index];
-            __int16 parent_step_index = path->heap[parent_index];
+            int16_t parent_index = (int16_t)(child_index - 1) >> 1;
+            int16_t child_step_index = path->heap[child_index];
+            int16_t parent_step_index = path->heap[parent_index];
 
             if ( path->steps[parent_step_index].total_distance <= path->steps[child_step_index].total_distance )
                 break;

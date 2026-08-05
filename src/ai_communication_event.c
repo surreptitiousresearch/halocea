@@ -23,6 +23,7 @@
  * temporaries (v73/v77) — reconstructed as plain float/scalar locals. */
 
 #include <stdint.h>
+#include "headers/ppc_intrinsics.h"
 #include "headers/ai_communication_candidate.h"
 #include "headers/dialogue_usage_flags.h"
 #include "headers/unit_datum.h"
@@ -60,12 +61,12 @@ extern float real_seed_random(uint32_t *seed);
 
 
 extern const dialogue_usage   global_dialogue_table[];
-extern const __int16          communication_protagonist_default_look_priorities[];
-extern const __int16          communication_recipient_default_look_priorities[];
+extern const int16_t          communication_protagonist_default_look_priorities[];
+extern const int16_t          communication_recipient_default_look_priorities[];
 extern const float            communication_notification_delays[];
 extern const float            communication_play_delays[];
-extern const __int16          communication_player_speaking_priorities[];
-extern const __int16          communication_speech_priorities[];
+extern const int16_t          communication_player_speaking_priorities[];
+extern const int16_t          communication_speech_priorities[];
 extern const float            communication_timer_tolerances[8][2][5];  /* [priority/dialogue][group][5] */
 
 extern int game_time_get(void);
@@ -104,23 +105,23 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
 {
     int event_time = game_time_get();
     int now = event_time;
-    __int16 candidate_count = 0;
+    int16_t candidate_count = 0;
     char any_interrupt = 0;
-    __int16 damage_index = damage_type == -1 ? 0 : damage_type;
-    __int16 hostility_level = hostility == -1 ? 0 : hostility;
+    int16_t damage_index = damage_type == -1 ? 0 : damage_type;
+    int16_t hostility_level = hostility == -1 ? 0 : hostility;
 
     actor_datum *subject_actor = nullptr;
     actor_datum *cause_actor = nullptr;
     encounter_datum *subject_encounter = nullptr;
     unit_datum *subject_object = 0;
     unit_datum *cause_object = 0;
-    __int16 subject_team = -1;
-    __int16 cause_team = -1;
+    int16_t subject_team = -1;
+    int16_t cause_team = -1;
     int subject_actor_index = -1;
     int cause_actor_index = -1;
     int subject_encounter_index = -1;
-    __int16 subject_race = 0;
-    __int16 cause_race = 0;
+    int16_t subject_race = 0;
+    int16_t cause_race = 0;
     float total_weight = 0.0f;
     int global_actor_to_talk = -1;
     char need_global_actor = 1;       /* v176 */
@@ -223,8 +224,8 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                 hostility_level = _comm_hostility_traitor;
             if ( want_incident )
             {
-                unsigned __int8 notify_state = 0;
-                unsigned __int8 broken = game_allegiance_incident(cause_team, subject_team,
+                uint8_t notify_state = 0;
+                uint8_t broken = game_allegiance_incident(cause_team, subject_team,
                                             escalate_allegiance != 0, &notify_state);
                 if ( notify_state )
                     ai_handle_allegiance_broken_notification(cause_team, subject_team, broken);
@@ -245,7 +246,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
             enemy_status_flags[0] = alive;
             enemy_status_flags[1] = !(encounter_age == -1 || subject_encounter->enemy_alive);
             enemy_status_flags[2] = !((encounter_age != -1 && encounter_age < 180) || !subject_encounter->enemy_alive);
-            __int16 enemies_seen = subject_actor->state.combat_status;
+            int16_t enemies_seen = subject_actor->state.combat_status;
             enemy_status_flags[3] = enemies_seen < _actor_combat_status_definite && (encounter_age == -1 || encounter_age >= 75)
                                     && (subject_encounter->enemy_alive || enemies_seen > _actor_combat_status_none);
             enemy_status_flags[4] = enemies_seen < _actor_combat_status_dangerous && (encounter_age == -1 || encounter_age >= 75);
@@ -262,7 +263,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
             int last_seen = subject_actor->target.target_prop_index;
             int last_seen_ticks = subject_actor->target.since_any_target_visible_timer;
             enemy_status_flags[2] = (last_seen == -1 || last_seen_ticks == -1 || last_seen_ticks >= 180);
-            __int16 enemies_seen = subject_actor->state.combat_status;
+            int16_t enemies_seen = subject_actor->state.combat_status;
             enemy_status_flags[3] = enemies_seen < _actor_combat_status_definite
                                     && (subject_actor->target.since_any_target_visible_timer == -1 || subject_actor->target.since_any_target_visible_timer >= 75)
                                     && (can_see_enemy || enemies_seen > _actor_combat_status_none);
@@ -290,55 +291,57 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
 
     /* ---- speech-throttle availability per team/dialogue/group ---- */
     unsigned char speech_available[32] = { 0 };  /* [2 teams][6 dialogue][2 groups] flattened */
-    unsigned char timer_scratch[72] = { 0 };
+    /* DEVIATION: was a fused `unsigned char timer_scratch[72]` slot with int16 entries at byte +8
+     * (first 8 bytes never referenced); untangled to a typed per-[team][dialogue][group] int16 array */
+    int16_t timer_scratch[32] = { 0 };
     ai_globals_t *globals = ai_globals;
-    for ( int team = 0; team < 2; team = (__int16)(team + 1) )
+    for ( int team = 0; team < 2; team = (int16_t)(team + 1) )
     {
         int since_shout   = now - globals->last_shout_time[team];
         int since_talk    = now - globals->last_talk_time[team];
         int since_chatter = now - globals->last_chatter_time[team];
-        /* clamp negatives (carry test) to 0 */
-        __int16 talk_age    = __CFADD__(since_talk, 0x80000000) ? 0 : since_talk;
-        __int16 shout_age   = __CFADD__(since_shout, 0x80000000) ? 0 : since_shout;
-        __int16 chatter_age = __CFADD__(since_chatter, 0x80000000) ? 0 : since_chatter;
+        /* clamp negatives to 0 (decompiler spelled the sign test as a __CFADD__ carry probe) */
+        int16_t talk_age    = since_talk < 0 ? 0 : since_talk;
+        int16_t shout_age   = since_shout < 0 ? 0 : since_shout;
+        int16_t chatter_age = since_chatter < 0 ? 0 : since_chatter;
 
-        for ( int dialogue = 0; dialogue <= 5; dialogue = (__int16)(dialogue + 1) )
+        for ( int dialogue = 0; dialogue <= 5; dialogue = (int16_t)(dialogue + 1) )
         {
-            for ( int group = 0; group < 2; group = (__int16)(group + 1) )
+            for ( int group = 0; group < 2; group = (int16_t)(group + 1) )
             {
                 char available = 0;
-                __int16 scratch_value = 0;
+                int16_t scratch_value = 0;
 
                 float shout_tol = communication_timer_tolerances[dialogue][group][0];
                 if ( shout_tol > 0.0f )
                 {
                     int remaining = (int)(shout_tol * 30.0f - (float)chatter_age);
-                    if ( (__int16)remaining > 0 )
+                    if ( (int16_t)remaining > 0 )
                     {
                         available = 1;
-                        scratch_value = __CFADD__(remaining, 0x80000000) ? 0 : (__int16)remaining;
+                        scratch_value = remaining < 0 ? 0 : (int16_t)remaining;
                     }
                 }
                 float talk_tol = communication_timer_tolerances[dialogue][group][1];
                 if ( talk_tol > 0.0f )
                 {
                     int remaining = (int)(talk_tol * 30.0f - (float)talk_age);
-                    if ( (__int16)remaining > 0 )
+                    if ( (int16_t)remaining > 0 )
                     {
                         available = 1;
-                        if ( scratch_value <= (__int16)remaining )
-                            scratch_value = (__int16)remaining;
+                        if ( scratch_value <= (int16_t)remaining )
+                            scratch_value = (int16_t)remaining;
                     }
                 }
                 float chatter_tol = communication_timer_tolerances[dialogue][group][3];
                 if ( chatter_tol > 0.0f )
                 {
                     int remaining = (int)(chatter_tol * 30.0f - (float)shout_age);
-                    if ( (__int16)remaining > 0 )
+                    if ( (int16_t)remaining > 0 )
                     {
                         available = 1;
-                        if ( scratch_value <= (__int16)remaining )
-                            scratch_value = (__int16)remaining;
+                        if ( scratch_value <= (int16_t)remaining )
+                            scratch_value = (int16_t)remaining;
                     }
                 }
                 if ( available )
@@ -346,15 +349,15 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                     float floor_tol = communication_timer_tolerances[dialogue][group][4];
                     if ( floor_tol > 0.0f )
                     {
-                        int slot = 2 * (2 * (8 * team + dialogue) + group);
-                        __int16 stored = *(__int16 *)&timer_scratch[slot + 8];
+                        int slot = 2 * (8 * team + dialogue) + group;
+                        int16_t stored = timer_scratch[slot];
                         if ( (float)stored < (floor_tol * 30.0f) )
                             available = 0;
                     }
                 }
                 int idx = 2 * (8 * team + dialogue) + group;
                 speech_available[idx] = available;
-                *(__int16 *)&timer_scratch[2 * idx + 8] = scratch_value;
+                timer_scratch[idx] = scratch_value;
             }
         }
     }
@@ -362,7 +365,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
     if ( !globals->dialogue_triggers_enabled )
         return;
 
-    __int16 table_row_index = global_communication_table_indices[communication_type];
+    int16_t table_row_index = global_communication_table_indices[communication_type];
     if ( table_row_index == -1 )
         return;
 
@@ -375,7 +378,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
 
     do
     {
-        __int16 priority = row->communication_priority;
+        int16_t priority = row->communication_priority;
 
         if ( row->required_hostility != -1 && !hostility_flags[row->required_hostility] )
             goto next_row;
@@ -385,24 +388,24 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
             goto next_row;
         if ( row->required_subject_race != -1
           && (subject_unit_index == -1
-           || ((unsigned __int16)subject_race & (unsigned __int16)row->required_subject_race) == 0) )
+           || ((uint16_t)subject_race & (uint16_t)row->required_subject_race) == 0) )
             goto next_row;
         if ( row->required_cause_race != -1
           && (cause_unit_index == -1
-           || ((unsigned __int16)cause_race & (unsigned __int16)row->required_cause_race) == 0) )
+           || ((uint16_t)cause_race & (uint16_t)row->required_cause_race) == 0) )
             goto next_row;
         if ( row->required_damage != -1 && row->required_damage != damage_index )
             goto next_row;
 
-        unsigned int protagonist_type = (unsigned __int16)row->protagonist_type;
-        __int16 candidate_scratch = 0;
+        unsigned int protagonist_type = (uint16_t)row->protagonist_type;
+        int16_t candidate_scratch = 0;
         float repeat_factor = 1.0f;       /* v98 */
         float reply_rating = 1.0f;        /* v211 */
         actor_datum *protagonist_actor = nullptr;
-        __int16 look_target_type = 0;     /* v100 */
-        __int16 recipient_look_priority = 0;
+        int16_t look_target_type = 0;     /* v100 */
+        int16_t recipient_look_priority = 0;
         char *protagonist_group_flags = nullptr;
-        __int16 speech_priority = communication_speech_priorities[priority];
+        int16_t speech_priority = communication_speech_priorities[priority];
         char is_reply = 0;                /* v104 */
         int protagonist_unit_index = -1;  /* v106 */
         int protagonist_actor_index = -1; /* v105 */
@@ -435,7 +438,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                         communication_type, priority, speech_priority, 0, 0);
                 else
                     actor_to_talk = ai_communication_find_specific_actor_to_talk(
-                        (unsigned __int16)subject_encounter_index, subject_unit_index, cause_unit_index, 10.0f,
+                        (uint16_t)subject_encounter_index, subject_unit_index, cause_unit_index, 10.0f,
                         cause_unit_index, communication_type, priority,
                         communication_speech_priorities[priority],
                         row->vocalization_type, 0);
@@ -544,13 +547,13 @@ resolve_done:
             if ( player_rating == 0.0f )
                 goto next_row;
             char close_in = player_rating < 2.0f;
-            __int16 comm_team = protagonist_actor_index == -1 ? -1 : actor_communication_team(protagonist_actor_index);
+            int16_t comm_team = protagonist_actor_index == -1 ? -1 : actor_communication_team(protagonist_actor_index);
             if ( comm_team != -1 )
             {
                 int slot = 2 * (8 * comm_team + priority) + close_in;
                 if ( speech_available[slot] )
                     goto next_row;
-                candidate_scratch = *(unsigned short *)&timer_scratch[2 * slot + 8];  /* _WORD->unsigned short */
+                candidate_scratch = timer_scratch[slot];
                 if ( priority < 7 )
                 {
                     dialogue_event_status *event = &global_dialogue_events[2 * table_row_index + comm_team];
@@ -583,11 +586,11 @@ resolve_done:
 
         {
             int play_delay = (int)(communication_play_delays[row->protagonist_type] * 30.0f);
-            __int16 ai_notification_delay = play_delay;
+            int16_t ai_notification_delay = play_delay;
             if ( subject_race == _race_player && !is_reply )
                 ai_notification_delay = play_delay + 30;
 
-            __int16 row_flags = row->flags;
+            int16_t row_flags = row->flags;
             float notify_delay_f;
             if ( (row->flags & (1u << _dialogue_usage_immediate_notify_bit)) != 0 )
                 notify_delay_f = 0.0f;
@@ -595,9 +598,9 @@ resolve_done:
                 notify_delay_f = communication_notification_delays[priority] * 30.0f;
             int notify_delay = (int)notify_delay_f;
 
-            int recipient_look_direction = (unsigned __int16)row->recipient_look_direction;
-            __int16 delay_time = ai_notification_delay + candidate_scratch;
-            __int16 ai_delay_time = notify_delay + candidate_scratch;
+            int recipient_look_direction = (uint16_t)row->recipient_look_direction;
+            int16_t delay_time = ai_notification_delay + candidate_scratch;
+            int16_t ai_delay_time = notify_delay + candidate_scratch;
 
             if ( recipient_look_direction >= _comm_look_direction_subject
               && recipient_look_direction <= _comm_look_direction_danger )
@@ -632,17 +635,17 @@ resolve_done:
                 if ( recipient_look_priority == -1 || recipient_look_priority == 1 )
                     recipient_look_priority = communication_recipient_default_look_priorities[priority];
             }
-            __int16 protagonist_look_priority = row->protagonist_look_priority;
+            int16_t protagonist_look_priority = row->protagonist_look_priority;
             if ( protagonist_look_priority == -1 || protagonist_look_priority == 1 )
                 protagonist_look_priority = communication_protagonist_default_look_priorities[priority];
 
-            __int16 vocalization_type = row->vocalization_type;
-            __int16 animation_type = row->animation_type;
+            int16_t vocalization_type = row->vocalization_type;
+            int16_t animation_type = row->animation_type;
             float consider_weight = 1.0f;   /* v205 */
             int sound_definition_index = -1;
             float animation_weight = 1.0f;  /* v134 */
-            __int16 resolved_vocalization = vocalization_type;
-            __int16 considered_vocalization = -1;  /* v199 */
+            int16_t resolved_vocalization = vocalization_type;
+            int16_t considered_vocalization = -1;  /* v199 */
 
             if ( !is_reply )
             {
@@ -653,7 +656,7 @@ resolve_done:
                     goto next_row;
                 if ( animation_type != -1 )
                 {
-                    unsigned __int8 impulse_ok = unit_test_animation_impulse(protagonist_unit_index, animation_type);
+                    uint8_t impulse_ok = unit_test_animation_impulse(protagonist_unit_index, animation_type);
                     if ( impulse_ok && protagonist_actor_index != -1 )
                     {
                         if ( actor_action_class(protagonist_actor_index) == 2 )
@@ -713,7 +716,7 @@ next_row:
     if ( any_interrupt )
     {
         total_weight = 0.0f;
-        for ( int i = 0; i < candidate_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < candidate_count; i = (int16_t)(i + 1) )
         {
             ai_communication_candidate *rec = &candidates[i];
             if ( !rec->interrupts )                 /* not flagged-interrupt: drop weight to 0; rec[4]->interrupts (off 0x04) */
@@ -727,8 +730,8 @@ next_row:
         float accumulated = 0.0f;
         unsigned int *seed = get_global_random_seed_address();
         float threshold = real_seed_random(seed) * total_weight;
-        __int16 selected = 0;
-        __int16 index = 0;
+        int16_t selected = 0;
+        int16_t index = 0;
         do
         {
             accumulated += candidates[index].weight;
@@ -741,9 +744,9 @@ next_row:
     }
 
     int target_unit_index = chosen->recipient_unit_index;
-    __int16 look_type = chosen->look_target_type;
+    int16_t look_type = chosen->look_target_type;
     int look_unit = chosen->look_unit_index;
-    __int16 dialogue_type_index = chosen->table_row_index;
+    int16_t dialogue_type_index = chosen->table_row_index;
 
     ai_information_packet packet;
     packet.look_priority = chosen->recipient_look_priority;
@@ -763,19 +766,19 @@ next_row:
 
     if ( chosen->is_reply )
     {
-        __int16 priority = chosen->priority;
+        int16_t priority = chosen->priority;
         int unit_index = chosen->protagonist_unit_index;
-        __int16 vocalization_type = chosen->vocalization_type;
+        int16_t vocalization_type = chosen->vocalization_type;
         ai_communication_notify(unit_index, priority, vocalization_type, &packet);
         ai_communication_finished(unit_index, priority, vocalization_type, 1u, chosen->reply_actor_index, &packet);
         return;
     }
 
     /* speak path */
-    __int16 priority = chosen->priority;
+    int16_t priority = chosen->priority;
     int sound_definition_index = chosen->sound_definition_index;
-    __int16 delay_time = chosen->delay_time;
-    __int16 ai_notification_delay = chosen->ai_delay_time;
+    int16_t delay_time = chosen->delay_time;
+    int16_t ai_notification_delay = chosen->ai_delay_time;
 
     unit_speech_item speech;
     speech.priority = priority;
@@ -790,7 +793,7 @@ next_row:
     int speaker_unit = chosen->protagonist_unit_index;
     unit_speak(speaker_unit, chosen->considered_vocalization, &speech);
 
-    __int16 animation_impulse = (unsigned __int16)chosen->animation_type;
+    int16_t animation_impulse = (uint16_t)chosen->animation_type;
     if ( animation_impulse != 0xFFFF )
     {
         unit_datum *speaker_object = (unit_datum *)object_from_index(speaker_unit);

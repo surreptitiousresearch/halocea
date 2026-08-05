@@ -6,8 +6,8 @@
 typedef struct actor_iterator
 {
     data_iterator   encounter_iterator;          /* 0x00 */
-    unsigned __int8 iterated_encounterless_list;  /* 0x10 */
-    unsigned __int8 active_only;                  /* 0x11 */
+    uint8_t iterated_encounterless_list;  /* 0x10 */
+    uint8_t active_only;                  /* 0x11 */
     unsigned char _pad0[2]; /* db-verified padding */
     int             index;                        /* 0x14 — current actor index */
     int             next_index;                   /* 0x18 */

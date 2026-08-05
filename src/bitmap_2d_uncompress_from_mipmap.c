@@ -20,17 +20,17 @@ extern void DecodeBlockAlpha3(S3TCBlockAlpha3 *pblockSrc, S3TC_COLOR *colorDst);
 void bitmap_2d_uncompress_from_mipmap(const bitmap_data *source_bitmap, bitmap_data *destination_bitmap, int16_t source_mipmap_index)
 {
     unsigned char *block = bitmap_mipmap_address(source_bitmap, source_mipmap_index);
-    __int16 height = bitmap_mipmap_get_height(source_bitmap, source_mipmap_index);
+    int16_t height = bitmap_mipmap_get_height(source_bitmap, source_mipmap_index);
 
-    for ( __int16 y = 0; y < height; y = (__int16)(y + 4) )
+    for ( int16_t y = 0; y < height; y = (int16_t)(y + 4) )
     {
-        __int16 width = bitmap_mipmap_get_width(source_bitmap, source_mipmap_index);
+        int16_t width = bitmap_mipmap_get_width(source_bitmap, source_mipmap_index);
 
-        for ( __int16 x = 0; x < width; x = (__int16)(x + 4) )
+        for ( int16_t x = 0; x < width; x = (int16_t)(x + 4) )
         {
             S3TC_COLOR decoded[16];
 
-            switch ( (unsigned __int16)source_bitmap->format )
+            switch ( (uint16_t)source_bitmap->format )
             {
                 case _bitmap_format_dxt1:
                     DecodeBlockRGB((S3TCBlockRGB *)block, decoded);
@@ -46,10 +46,10 @@ void bitmap_2d_uncompress_from_mipmap(const bitmap_data *source_bitmap, bitmap_d
                     break;
             }
 
-            __int16 pixel_index = 0;
-            for ( __int16 row = 0; row < 4; row = (__int16)(row + 1) )
+            int16_t pixel_index = 0;
+            for ( int16_t row = 0; row < 4; row = (int16_t)(row + 1) )
             {
-                for ( __int16 col = 0; col < 4; col = (__int16)(col + 1) )
+                for ( int16_t col = 0; col < 4; col = (int16_t)(col + 1) )
                 {
                     if ( col + x < destination_bitmap->width && row + y < destination_bitmap->height )
                     {

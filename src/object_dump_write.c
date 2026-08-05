@@ -18,7 +18,7 @@ void object_dump_write(struct _iobuf *stream, dump_datum *dump)
     const char *name = "unknown";
     if ( dump->definition_index == -1 )
     {
-        if ( (unsigned __int16)dump->object_type != 0xFFFF )
+        if ( (uint16_t)dump->object_type != 0xFFFF )
             name = object_type_get_name(dump->object_type);
     }
     else

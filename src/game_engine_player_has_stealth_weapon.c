@@ -26,7 +26,7 @@ uint8_t game_engine_player_has_stealth_weapon(int player_index)
     unit_datum *unit = (unit_datum *)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    __int16 selected_index = unit->unit.current_weapon_index;
+    int16_t selected_index = unit->unit.current_weapon_index;
     if ( selected_index == -1 )
         return 0;
 

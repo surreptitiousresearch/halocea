@@ -13,17 +13,17 @@ extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
 extern uint8_t file_exists(const file_reference *file);
 extern void *file_read_into_memory(file_reference *reference, unsigned int *size);
-extern unsigned __int8 file_delete(file_reference *file);
+extern uint8_t file_delete(file_reference *file);
 extern void dlFree(void *ptr);
 
 uint8_t datastore_read(const char *file_name, const char *field_name, int length, void *data)
 {
-    unsigned __int8 found = 0;
+    uint8_t found = 0;
 
     unsigned int file_size = 0;
     file_reference reference;
     memset(&reference, 0, sizeof(reference));
-    *(__int16 *)&reference.data[6] = -1;
+    *(int16_t *)&reference.data[6] = -1;
     *(int *)reference.data = 1718185071; /* file_reference location magic */
     file_reference_set_name(&reference, file_name);
 

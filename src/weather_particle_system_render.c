@@ -79,7 +79,7 @@ void weather_particle_system_render(int16_t system_index)
         float box_width = runtime_type->box_width;
 
         /* Gather weather exclusion polyhedra whose bounding sphere is near the camera. */
-        __int16 visible_polyhedra[8];
+        int16_t visible_polyhedra[8];
         int visible_polyhedra_count = 0;
         int polyhedron_count = bsp->weather_polyhedra.count;
         if ( polyhedron_count > 0 )
@@ -93,7 +93,7 @@ void weather_particle_system_render(int16_t system_index)
                 float dz = polyhedron->bounding_sphere_center.n[2] - render.camera.position.n[2];
                 float reach = polyhedron->bounding_sphere_radius + box_width;
                 if ( (dx * dx + (dz * dz + dy * dy)) < (double)(reach * reach) && visible_polyhedra_count < 8 )
-                    visible_polyhedra[visible_polyhedra_count++] = (__int16)i;
+                    visible_polyhedra[visible_polyhedra_count++] = (int16_t)i;
             }
         }
 
@@ -185,7 +185,7 @@ void weather_particle_system_render(int16_t system_index)
 
         do
         {
-            weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (unsigned __int16)particle_index;
+            weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (uint16_t)particle_index;
             float local_x = particle->position.n[0];
             float local_y = particle->position.n[1];
             float local_z = particle->position.n[2];
@@ -284,7 +284,7 @@ void weather_particle_system_render(int16_t system_index)
                         const real_vector3d *direction = &particle->acceleration;
                         if ( definition_type->direction_source != 1 )
                             direction = &particle->velocity;
-                        __int16 mode = definition_type->direction_render_type;
+                        int16_t mode = definition_type->direction_render_type;
                         if ( mode
                           && (direction->n[2] * direction->n[2]
                             + (direction->n[0] * direction->n[0] + direction->n[1] * direction->n[1])) == 0.0f )
@@ -294,7 +294,7 @@ void weather_particle_system_render(int16_t system_index)
                             sprite_batch,
                             mode,
                             particle->sequence_index,
-                            (__int16)(int)particle->sprite_index,
+                            (int16_t)(int)particle->sprite_index,
                             &world_position,
                             direction,
                             particle->rotation,

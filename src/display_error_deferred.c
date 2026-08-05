@@ -7,7 +7,7 @@
 void display_error_deferred(int16_t error_code, int16_t local_player_index, uint8_t modal, uint8_t pause_game_time)
 {
     int slot = local_player_index == -1 ? 0 : local_player_index;
-    if ( (unsigned __int16)widget_globals.deferred_error[slot].error_code == 0xFFFF )
+    if ( (uint16_t)widget_globals.deferred_error[slot].error_code == 0xFFFF )
     {
         widget_globals.deferred_error[slot].error_code = error_code;
         widget_globals.deferred_error[slot].local_player_index = local_player_index;

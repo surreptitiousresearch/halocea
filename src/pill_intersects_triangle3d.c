@@ -18,7 +18,7 @@
 
 extern uint8_t vector_intersects_pill3d(const real_point3d *point, const real_vector3d *vector, const real_point3d *base, const real_vector3d *height, float width);
 
-unsigned __int8 pill_intersects_triangle3d(const real_point3d *base, const real_vector3d *height, float width,
+uint8_t pill_intersects_triangle3d(const real_point3d *base, const real_vector3d *height, float width,
         const real_point3d *p0, const real_point3d *p1, const real_point3d *p2)
 {
     real_vector3d edge01;
@@ -50,7 +50,7 @@ unsigned __int8 pill_intersects_triangle3d(const real_point3d *base, const real_
     float py = height->n[1] * t_clamped + base->n[1];
     float pz = height->n[2] * t_clamped + base->n[2];
 
-    unsigned __int8 outside = 0;
+    uint8_t outside = 0;
 
     /* edge p0->p1 */
     float dx0 = px - p0->n[0];

@@ -2,6 +2,7 @@
  * the region record. Fetches the model definition via TAG_INSTANCE(model_index), then walks its region
  * block. The loop counter is truncated to 16 bits each step, matching the tag's short region index. */
 
+#include <stdint.h>
 #include "../headers/global_tag_instances.h"
 #include "../headers/model.h"
 #include "../headers/model_region.h"
@@ -20,7 +21,7 @@ extern "C" void hcex_enum_model_regions(int model_index, void (*cb)(void *mdl, c
     do
     {
         cb(mdl, (const char *)&((model_region *)model_definition->regions.address)[region_index]);
-        region_index = (__int16)(region_index + 1);
+        region_index = (int16_t)(region_index + 1);
     }
     while ( region_index < model_definition->regions.count );
 }

@@ -14,7 +14,7 @@ extern void ship_terminal_printf(const real_argb_color *color, const char *forma
 
 void hs_help(const char *function_name)
 {
-    __int16 function_index = hs_find_function_by_name(function_name);
+    int16_t function_index = hs_find_function_by_name(function_name);
     if ( function_index == -1 )
         return;
 

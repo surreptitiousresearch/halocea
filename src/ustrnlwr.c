@@ -3,11 +3,11 @@
  * direct `bl towupper` at this call site, so the naming/behavior mismatch is in the original binary, not a
  * decompiler misread. */
 
-extern unsigned __int16 towupper(unsigned __int16 c);
+extern uint16_t towupper(uint16_t c);
 
 uint16_t * ustrnlwr(uint16_t *string, unsigned int count)
 {
-    for ( unsigned __int16 *i = string; *i; i++ )
+    for ( uint16_t *i = string; *i; i++ )
         *i = towupper(*i);
     return string;
 }

@@ -1,11 +1,12 @@
 #pragma once
+#include <stdint.h>
 
 /* GPU_SURFACEINFO - Xbox 360 D3D/GPU SDK type (external library boundary). DB-verified (types_members GPU_SURFACEINFO). */
 typedef struct _1465ECF8D76A739C5C4E5810C498A572 { // DB types_members _1465ECF8D76A739C5C4E5810C498A572
-    unsigned __int32 SurfacePitch : 14;
-    unsigned __int32 : 2;
-    unsigned __int32 MsaaSamples : 2;
-    unsigned __int32 HiZPitch : 14;
+    uint32_t SurfacePitch : 14;
+    uint32_t : 2;
+    uint32_t MsaaSamples : 2;
+    uint32_t HiZPitch : 14;
 } _1465ECF8D76A739C5C4E5810C498A572;
 
 typedef union GPU_SURFACEINFO { // DB types_members GPU_SURFACEINFO

@@ -24,9 +24,9 @@ uint8_t widget_event_function_list_widget_goto_next_item(widget_instance *widget
 
     if ( widget->parameters.list_parameters.list_items && widget->parameters.list_parameters.number_of_items )
     {
-        __int16 widget_type = widget->widget_type;
+        int16_t widget_type = widget->widget_type;
         unsigned int next_index = widget->parameters.text_box_parameters.string_list_index + 1;
-        __int16 overflow = (__int16)(next_index - widget->parameters.list_parameters.number_of_items);
+        int16_t overflow = (int16_t)(next_index - widget->parameters.list_parameters.number_of_items);
         int wrapped = (next_index < widget->parameters.list_parameters.number_of_items) ? (int)next_index : 0;
 
         if ( widget_type == _ui_widget_type_column_list )
@@ -71,7 +71,7 @@ uint8_t widget_event_function_list_widget_goto_next_item(widget_instance *widget
     else if ( widget->widget_type == _ui_widget_type_spinner_list && (def->list_flags & (1u << _list_items_generated_from_string_list_tag)) && !def->child_widget_references.count )
     {
         int count = widget->parameters.list_parameters.number_of_items;
-        int next = (__int16)(widget->parameters.text_box_parameters.string_list_index + 1);
+        int next = (int16_t)(widget->parameters.text_box_parameters.string_list_index + 1);
         widget->parameters.text_box_parameters.string_list_index = next;
         if ( next == count )
             widget->parameters.text_box_parameters.string_list_index = 0;
@@ -81,7 +81,7 @@ uint8_t widget_event_function_list_widget_goto_next_item(widget_instance *widget
         widget_instance *focused = widget->focused_child;
         widget_instance *target;
         widget_instance *child;
-        __int16 index;
+        int16_t index;
 
         if ( !focused
           || (target = focused->next,

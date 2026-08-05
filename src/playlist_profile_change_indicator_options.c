@@ -32,7 +32,7 @@ uint8_t playlist_profile_change_indicator_options(widget_instance *widget, event
         if ( goal_radar_widget->widget_type == _ui_widget_type_spinner_list )
             break;
     }
-    unsigned int goal_radar_selection = (unsigned __int16)goal_radar_widget->parameters.text_box_parameters.string_list_index;
+    unsigned int goal_radar_selection = (uint16_t)goal_radar_widget->parameters.text_box_parameters.string_list_index;
     if ( goal_radar_selection == 0 )
         edit_playlist_profile->universal_variant.goal_radar = 0;
     else if ( goal_radar_selection == 1 )
@@ -49,7 +49,7 @@ uint8_t playlist_profile_change_indicator_options(widget_instance *widget, event
             break;
     }
     /* motion-tracker three-state: allow_motion_tracker (0x1) + motion_tracker_no_enemies (0x40) bits */
-    unsigned int flags_a_selection = (unsigned __int16)flags_a_widget->parameters.text_box_parameters.string_list_index;
+    unsigned int flags_a_selection = (uint16_t)flags_a_widget->parameters.text_box_parameters.string_list_index;
     if ( flags_a_selection )
     {
         if ( flags_a_selection == 1 )
@@ -72,7 +72,7 @@ uint8_t playlist_profile_change_indicator_options(widget_instance *widget, event
             break;
     }
     /* friendly-navpoints toggle: universal_variant.flags bit 0x2 (allow_friendly_navpoints) */
-    unsigned int flags_b_selection = (unsigned __int16)flags_b_widget->parameters.text_box_parameters.string_list_index;
+    unsigned int flags_b_selection = (uint16_t)flags_b_widget->parameters.text_box_parameters.string_list_index;
     if ( flags_b_selection )
     {
         if ( flags_b_selection == 1 )

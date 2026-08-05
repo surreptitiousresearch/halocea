@@ -22,7 +22,7 @@ extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_in
 extern int bitmap_mipmap_get_pixel_data_size(const bitmap_data *bitmap, int16_t mipmap_index);
 extern int16_t bitmap_mipmap_get_width(const bitmap_data *bitmap, int16_t mipmap_index);
 extern int16_t bitmap_mipmap_get_height(const bitmap_data *bitmap, int16_t mipmap_index);
-extern __int16 bitmap_mipmap_get_depth(const bitmap_data *bitmap, __int16 mipmap_index);
+extern int16_t bitmap_mipmap_get_depth(const bitmap_data *bitmap, int16_t mipmap_index);
 extern int16_t bitmap_format_get_bits_per_pixel(int16_t format);
 extern void compute_swizzle_masks(int16_t width, int16_t height, int16_t depth);
 extern void rasterizer_xbox_bitmap_swizzle2d_byte(uint8_t *dst, const uint8_t *src, int16_t width, int16_t height);
@@ -36,7 +36,7 @@ void rasterizer_xbox_bitmap_swizzle(bitmap_data *bitmap)
 {
     if ( (bitmap->flags & (1u << _bitmap_compressed_bit)) != 0 || (bitmap->flags & (1u << _bitmap_linear_bit)) != 0 )
         return;
-    if ( (unsigned __int16)bitmap->mipmap_count >= 0x8000u )
+    if ( (uint16_t)bitmap->mipmap_count >= 0x8000u )
         return;
 
     for ( int mipmap = 0; mipmap <= bitmap->mipmap_count; ++mipmap )
@@ -45,13 +45,13 @@ void rasterizer_xbox_bitmap_swizzle(bitmap_data *bitmap)
         char *pixels = bitmap_mipmap_address(bitmap, mipmap);
         char *scratch = dlMalloc(pixel_data_size,
                 "D:\\Projects\\code\\HCEX\\sources\\rasterizer\\rasterizer_swizzle.c", 0x15F);
-        __int16 width = bitmap_mipmap_get_width(bitmap, mipmap);
-        __int16 height = bitmap_mipmap_get_height(bitmap, mipmap);
-        __int16 depth = bitmap_mipmap_get_depth(bitmap, mipmap);
+        int16_t width = bitmap_mipmap_get_width(bitmap, mipmap);
+        int16_t height = bitmap_mipmap_get_height(bitmap, mipmap);
+        int16_t depth = bitmap_mipmap_get_depth(bitmap, mipmap);
         if ( !scratch )
             continue;
 
-        __int16 bits_per_pixel = bitmap_format_get_bits_per_pixel(bitmap->format);
+        int16_t bits_per_pixel = bitmap_format_get_bits_per_pixel(bitmap->format);
         int bytes_per_pixel = bits_per_pixel / 8;
         compute_swizzle_masks(width, height, depth);
 
@@ -66,7 +66,7 @@ void rasterizer_xbox_bitmap_swizzle(bitmap_data *bitmap)
                     case 4: rasterizer_xbox_bitmap_swizzle3d_long(scratch, pixels, width, height, depth); break;
                 }
             }
-            else if ( (unsigned __int16)bitmap->type < bitmap_type_white )
+            else if ( (uint16_t)bitmap->type < bitmap_type_white )
             {
                 int face_size = pixel_data_size / 6;
                 char *face_src = pixels;

@@ -23,13 +23,13 @@ uint8_t widget_instance_is_hot(widget_instance *widget)
     widget_instance_get_cumulative_offset(widget, &offset);
     widget_instance_expand_bounds_for_spinner(widget, &bounds);
 
-    if ( *(int *)&offset < (__int16)(bounds.n[1] + offset.n[0]) )
+    if ( *(int *)&offset < (int16_t)(bounds.n[1] + offset.n[0]) )
         return 0;
-    if ( *(int *)&offset > (__int16)(bounds.n[3] + offset.n[0]) )
+    if ( *(int *)&offset > (int16_t)(bounds.n[3] + offset.n[0]) )
         return 0;
-    if ( *(int *)&offset < (__int16)(bounds.n[0] + offset.n[1]) )
+    if ( *(int *)&offset < (int16_t)(bounds.n[0] + offset.n[1]) )
         return 0;
-    if ( *(int *)&offset > (__int16)(bounds.n[2] + offset.n[1]) )
+    if ( *(int *)&offset > (int16_t)(bounds.n[2] + offset.n[1]) )
         return 0;
     return 1;
 }

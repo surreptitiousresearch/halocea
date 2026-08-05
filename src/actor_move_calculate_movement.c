@@ -65,12 +65,12 @@ void actor_move_calculate_movement(int actor_index, uint8_t move_in_3d, int16_t 
     const actor_definition *character_tag = TAG_GET(const actor_definition, actor->meta.definition_index);
 
     float facing_dot_threshold = 0.86602539f;   /* cos(30 deg); raised to the character tag value for long moves */
-    __int16 aiming_facing_code = -1;             /* decompiler HIWORD(v128) init; output of the aiming path */
+    int16_t aiming_facing_code = -1;             /* decompiler HIWORD(v128) init; output of the aiming path */
 
     if ( actor->orders.move.move_face_exactly )
         actor->control.face_exactly = 1;
 
-    __int16 facing_code;                         /* v66 — facing direction code (0=fwd,1=back,2=left,3=right,4=free) */
+    int16_t facing_code;                         /* v66 — facing direction code (0=fwd,1=back,2=left,3=right,4=free) */
     real_vector3d facing_direction;              /* v130 */
     real_vector3d scratch;                       /* v131 */
     real_vector3d movement_direction;            /* v132 */
@@ -215,7 +215,7 @@ facing_ready:
         + ((actor->input.facing_vector.n[0] * facing_direction.n[0])
                 + (actor->input.facing_vector.n[2] * facing_direction.n[2]));
 
-    unsigned __int8 can_move;   /* v100 */
+    uint8_t can_move;   /* v100 */
     if ( allow_all_moving_turns || actor->output.movement_type == actor_movement_type_flaming )
     {
         can_move = 1;

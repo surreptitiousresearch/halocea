@@ -76,12 +76,12 @@ void actor_perception_refresh(int actor_index)
         char pvs_valid = 0;
         memset(pvs_buffer, 0, sizeof(pvs_buffer));
         swarm_datum *swarm = DATUM_GET(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
-        for ( int i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
         {
-            int cluster = (unsigned __int16)((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, swarm->unit_indices[i])->datum)->object.location.cluster_index;
+            int cluster = (uint16_t)((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, swarm->unit_indices[i])->datum)->object.location.cluster_index;
             if ( cluster != 0xFFFF )
             {
-                unsigned int *cluster_pvs = structure_bsp_get_cluster_pvs(bsp, (__int16)cluster);
+                unsigned int *cluster_pvs = structure_bsp_get_cluster_pvs(bsp, (int16_t)cluster);
                 bit_vector_or(bsp->clusters.count, cluster_pvs, pvs_buffer, pvs_buffer);
                 pvs_valid = 1;
             }
@@ -93,7 +93,7 @@ void actor_perception_refresh(int actor_index)
     {
         int cluster = actor->input.position.body_location.cluster_index;
         if ( cluster != 0xFFFF )
-            pvs = structure_bsp_get_cluster_pvs(global_structure_bsp, (__int16)cluster);
+            pvs = structure_bsp_get_cluster_pvs(global_structure_bsp, (int16_t)cluster);
     }
 
     object_marker_begin();
@@ -109,8 +109,8 @@ void actor_perception_refresh(int actor_index)
         if ( state >= _prop_state_uninspected_orphan && state <= _prop_state_inspected_orphan )
             continue;  /* prop is being deleted */
 
-        unsigned __int8 optional_reference = 0;
-        unsigned __int8 desired = actor_perception_desire_prop(
+        uint8_t optional_reference = 0;
+        uint8_t desired = actor_perception_desire_prop(
             actor_index, -1, prop->unit_index, prop->actor_index, prop->in_use, prop->player, prop->enemy,
             prop->dead, prop->dead_ticks, prop->suicide_radius, prop->distance * prop->distance,
             prop->required_ticks, &optional_reference);
@@ -161,7 +161,7 @@ void actor_perception_refresh(int actor_index)
                 if ( swarm->unit_count > 0 )
                 {
                     int marker = global_object_marker;
-                    for ( int i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+                    for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
                     {
                         unit_datum *object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, swarm->unit_indices[i])->datum);
                         if ( object->object.magic_number != marker )
@@ -205,7 +205,7 @@ void actor_perception_refresh(int actor_index)
     /* phase 3: test every object in each visible cluster as a new perception candidate */
     if ( pvs )
     {
-        for ( __int16 cluster = 0; cluster < bsp->clusters.count; cluster = (__int16)(cluster + 1) )
+        for ( int16_t cluster = 0; cluster < bsp->clusters.count; cluster = (int16_t)(cluster + 1) )
         {
             if ( BIT_VECTOR_TEST_FLAG(pvs, cluster) )
             {
@@ -239,7 +239,7 @@ void actor_perception_refresh(int actor_index)
                         if ( new_prop == -1 )
                         {
                             /* creation failed: advance without counting toward the cap */
-                            stop_index = (__int16)(i + 1);
+                            stop_index = (int16_t)(i + 1);
                             i = stop_index;
                             if ( stop_index >= enemies.optional_count )
                                 goto enemies_delete;
@@ -250,7 +250,7 @@ void actor_perception_refresh(int actor_index)
                     ++enemies.existing_count;
                     if ( enemies.existing_count >= 4 )
                         goto enemies_delete;
-                    stop_index = (__int16)(i + 1);
+                    stop_index = (int16_t)(i + 1);
                     i = stop_index;
                     if ( stop_index >= enemies.optional_count )
                         goto enemies_delete;
@@ -259,12 +259,12 @@ void actor_perception_refresh(int actor_index)
         }
 enemies_delete:
         /* delete the candidates that were not promoted */
-        for ( int i = (__int16)stop_index; i < enemies.optional_count; i = (__int16)(i + 1) )
+        for ( int i = (int16_t)stop_index; i < enemies.optional_count; i = (int16_t)(i + 1) )
         {
             if ( enemies.optional_props[i].prop_index != -1 )
             {
                 prop_datum *candidate = DATA_ARRAY_ELEMENT(prop_data, prop_datum, enemies.optional_props[i].prop_index);
-                __int16 candidate_state = candidate->state;   /* recovered: *((__int16 *)candidate + 18) */
+                int16_t candidate_state = candidate->state;   /* recovered: *((__int16 *)candidate + 18) */
                 if ( candidate_state < _prop_state_uninspected_orphan || candidate_state > _prop_state_inspected_orphan )
                 {
                     int orphan = candidate->___u3.orphan_prop_index;   /* recovered: *((int *)candidate + 3) */
@@ -287,8 +287,8 @@ enemies_delete:
         int limit = enemies.existing_count + 2;
         if ( limit <= 4 )
             limit = 4;
-        int promoted = (__int16)(friends.existing_count + enemies.existing_count);
-        if ( (__int16)(friends.existing_count + enemies.existing_count) < (__int16)limit )
+        int promoted = (int16_t)(friends.existing_count + enemies.existing_count);
+        if ( (int16_t)(friends.existing_count + enemies.existing_count) < (int16_t)limit )
         {
             qsort(friends.optional_props, friends.optional_count, sizeof(actor_optional_prop), actor_perception_qsort_compare_optional_props);
             if ( friends.optional_count > 0 )
@@ -301,7 +301,7 @@ enemies_delete:
                         int new_prop = prop_new_unacknowledged(actor_index, friends.optional_props[i].unit_index, 0);
                         if ( new_prop == -1 )
                         {
-                            stop_index = (__int16)(i + 1);
+                            stop_index = (int16_t)(i + 1);
                             i = stop_index;
                             if ( stop_index >= friends.optional_count )
                                 goto friends_delete;
@@ -309,11 +309,11 @@ enemies_delete:
                         }
                         prop_position_refresh(actor_index, new_prop, &sense_position, 0, 0);
                     }
-                    promoted = (__int16)(promoted + 1);
+                    promoted = (int16_t)(promoted + 1);
                     ++friends.existing_count;
-                    if ( promoted >= (__int16)limit )
+                    if ( promoted >= (int16_t)limit )
                         goto friends_delete;
-                    stop_index = (__int16)(i + 1);
+                    stop_index = (int16_t)(i + 1);
                     i = stop_index;
                     if ( stop_index >= friends.optional_count )
                         goto friends_delete;
@@ -321,12 +321,12 @@ enemies_delete:
             }
         }
 friends_delete:
-        for ( int i = (__int16)stop_index; i < friends.optional_count; i = (__int16)(i + 1) )
+        for ( int i = (int16_t)stop_index; i < friends.optional_count; i = (int16_t)(i + 1) )
         {
             if ( friends.optional_props[i].prop_index != -1 )
             {
                 prop_datum *candidate = DATA_ARRAY_ELEMENT(prop_data, prop_datum, friends.optional_props[i].prop_index);
-                __int16 candidate_state = candidate->state;   /* recovered: *((__int16 *)candidate + 18) */
+                int16_t candidate_state = candidate->state;   /* recovered: *((__int16 *)candidate + 18) */
                 if ( candidate_state < _prop_state_uninspected_orphan || candidate_state > _prop_state_inspected_orphan )
                 {
                     int orphan = candidate->___u3.orphan_prop_index;   /* recovered: *((int *)candidate + 3) */

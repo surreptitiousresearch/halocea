@@ -56,8 +56,8 @@ void player_examine_nearby_vehicle(int player_index, int vehicle_index)
                       + ((vv->n[0] * vv->n[0])
                               + (vv->n[1] * vv->n[1]))) < 0.0099999998f)
             {
-                __int16 parent_seat_index = -1;
-                __int16 seat_result = unit_find_nearby_seat(unit_index, vehicle_index, &parent_seat_index);
+                int16_t parent_seat_index = -1;
+                int16_t seat_result = unit_find_nearby_seat(unit_index, vehicle_index, &parent_seat_index);
                 if (seat_result == 1)
                     player_set_action_result(player_index, _player_action_result_evict_from_vehicle, vehicle_index, parent_seat_index);
                 else if (seat_result == 2)

@@ -48,10 +48,10 @@ void main_game_render(float time_delta_since_tick_sec, float time_delta_since_la
     hcex_pix_begin_event("main_game_render");
     lock_global_random_seed();
 
-    __int16 forced_player_index = -1;
+    int16_t forced_player_index = -1;
     unsigned char single_screen = game_engine_force_single_screen();
     char force_single_player = 0;
-    __int16 last_assigned_player = -1;
+    int16_t last_assigned_player = -1;
 
     int window_count;
     if ( local_player_count() >= 1 )
@@ -138,7 +138,7 @@ void main_game_render(float time_delta_since_tick_sec, float time_delta_since_la
 
     if ( EnabledScreenShot )
     {
-        __int16 shot_count;
+        int16_t shot_count;
         if ( input_abstraction_auxbutton_down(2) )
         {
             shot_count = 1;

@@ -32,7 +32,7 @@ int video_menu_update(widget_instance *widget)
     refresh_widget->parent->focused_child = refresh_widget;
 
     int resolution_index = resolution_widget->parameters.text_box_parameters.string_list_index;
-    unsigned __int16 *resolution_text =
+    uint16_t *resolution_text =
         ui_widget_realloc(resolution_widget->parameters.list_parameters.item_text, 0x20u);
     resolution_widget->parameters.list_parameters.item_text = resolution_text;
     if ( resolution_text )
@@ -51,12 +51,12 @@ int video_menu_update(widget_instance *widget)
     unsigned int refresh_count = video_resolutions[resolution_index].numRefreshes;
     if ( refresh_index >= refresh_count )
     {
-        __int16 clamped = refresh_count - 1;
+        int16_t clamped = refresh_count - 1;
         refresh_widget->parameters.text_box_parameters.string_list_index = clamped;
         refresh_index = clamped;
     }
 
-    unsigned __int16 *refresh_text =
+    uint16_t *refresh_text =
         ui_widget_realloc(refresh_widget->parameters.list_parameters.item_text, 0x20u);
     refresh_widget->parameters.list_parameters.item_text = refresh_text;
     if ( refresh_text )

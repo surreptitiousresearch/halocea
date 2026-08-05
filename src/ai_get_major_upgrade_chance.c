@@ -14,7 +14,7 @@ extern float game_difficulty_get_value(int16_t value_type);
 void ai_get_major_upgrade_chance(int16_t upgrade_type, uint8_t *force_major, uint8_t *is_random,
                                  float *random_chance)
 {
-    __int16 difficulty_value_index;
+    int16_t difficulty_value_index;
 
     if ( upgrade_type < _squad_major_upgrade_few || upgrade_type > _squad_major_upgrade_all )
     {

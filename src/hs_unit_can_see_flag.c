@@ -7,7 +7,7 @@
 
 extern uint8_t unit_can_see_point(int unit_index, const real_point3d *point, float theta);
 
-int hs_unit_can_see_flag(int unit_index, __int16 flag_index, float degrees)
+int hs_unit_can_see_flag(int unit_index, int16_t flag_index, float degrees)
 {
     if (!flag_index)
         return 0;

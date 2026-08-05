@@ -7,7 +7,7 @@
 extern char *main_get_map_name(void);
 extern char *strstr(const char *haystack, const char *needle);
 extern int16_t game_difficulty_level_get(void);
-extern __int16 halo_hud_get_timer_ticks(void);
+extern int16_t halo_hud_get_timer_ticks(void);
 extern void hcex_fire_plr_event(const char *eventName, int plr_idx);
 
 extern "C" void hcex_check_ach37(void)

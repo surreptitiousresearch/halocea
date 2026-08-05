@@ -37,7 +37,7 @@ extern int sort_statistic_buffer_ranking(const void *a, const void *b);
 
 int populate_statistic_buffer(statistic_buffer *statistic_buffer, enum postgame_statistic statistic, uint8_t inverse)
 {
-    unsigned __int8 apply_inverse = (statistic == _postgame_statistic_deaths) ? (inverse == 0) : inverse;
+    uint8_t apply_inverse = (statistic == _postgame_statistic_deaths) ? (inverse == 0) : inverse;
 
     int count = 0;
     data_iterator player_iterator;

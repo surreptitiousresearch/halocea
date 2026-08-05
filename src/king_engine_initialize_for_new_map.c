@@ -11,6 +11,7 @@
  * (disasm at 0x8382D400 sets up no argument registers, and find_hill's entry at 0x8382BB70 loads king_globals
  * directly). hill_id/hill_state are genuinely 0 (the accumulated hill count lives in a different register). */
 
+#include <stdint.h>
 #include "headers/king_globals.h"
 #include "headers/scenario.h"
 #include "headers/scenario_netgame_flag.h"
@@ -19,12 +20,12 @@
 #include "headers/real_rgb_color.h"
 #include "headers/blam_data_globals.h"
 
-extern __int16 king_engine_hill_count;
+extern int16_t king_engine_hill_count;
 
 extern void *memset(void *dst, int value, unsigned int size);
 extern void find_hill(void);
 
-unsigned __int8 king_engine_initialize_for_new_map(void)
+uint8_t king_engine_initialize_for_new_map(void)
 {
     scenario *current_scenario = global_scenario;
 
@@ -32,19 +33,19 @@ unsigned __int8 king_engine_initialize_for_new_map(void)
     memset(&king_globals_baseline, 0, sizeof(king_globals_baseline));
 
     king_engine_hill_count = 0;
-    __int16 unique_hill_count = 0;
+    int16_t unique_hill_count = 0;
 
     for ( int flag_index = 0; flag_index < current_scenario->netgame_flags.count;
-          flag_index = (__int16)(flag_index + 1) )
+          flag_index = (int16_t)(flag_index + 1) )
     {
         scenario_netgame_flag *netgame_flag =
             &((scenario_netgame_flag *)current_scenario->netgame_flags.address)[flag_index];
         if ( netgame_flag->type == _netgame_flag_hill )
         {
-            __int16 hill_identifier = netgame_flag->team_index; /* hill identifier reuses the team_index field */
+            int16_t hill_identifier = netgame_flag->team_index; /* hill identifier reuses the team_index field */
 
-            unsigned __int8 already_collected = 0;
-            for ( int i = 0; i < unique_hill_count; i = (__int16)(i + 1) )
+            uint8_t already_collected = 0;
+            for ( int i = 0; i < unique_hill_count; i = (int16_t)(i + 1) )
             {
                 if ( king_engine_hills[i] == hill_identifier )
                 {
@@ -56,7 +57,7 @@ unsigned __int8 king_engine_initialize_for_new_map(void)
             if ( !already_collected )
             {
                 king_engine_hills[unique_hill_count] = hill_identifier;
-                unique_hill_count = (__int16)(unique_hill_count + 1);
+                unique_hill_count = (int16_t)(unique_hill_count + 1);
             }
         }
     }

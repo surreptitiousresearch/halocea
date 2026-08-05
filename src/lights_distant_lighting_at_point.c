@@ -78,8 +78,8 @@ uint8_t lights_distant_lighting_at_point(int flags, const real_point3d *position
         return 0;
 
     real_point3d collision_point;
-    __int16 lightmap_index[3];
-    __int16 material_index;
+    int16_t lightmap_index[3];
+    int16_t material_index;
     int surface_index;
     float s, t;
 
@@ -87,7 +87,7 @@ uint8_t lights_distant_lighting_at_point(int flags, const real_point3d *position
     while ( !structure_test_vector(position, &raycasts[ray], &collision_point, lightmap_index,
                                    &material_index, &surface_index, &s, &t) )
     {
-        ray = (__int16)(ray + 1);
+        ray = (int16_t)(ray + 1);
         if ( ray >= raycast_count )
             return 0;
     }
@@ -104,7 +104,7 @@ uint8_t lights_distant_lighting_at_point(int flags, const real_point3d *position
     if ( lightmap_group_index == -1 )
         return 0;
 
-    unsigned __int16 lightmap_bitmap_index = (unsigned __int16)lightmap_record->bitmap_index;
+    uint16_t lightmap_bitmap_index = (uint16_t)lightmap_record->bitmap_index;
     int base_map_group = shader_tag->environment.diffuse.base_map.index;   /* +148 */
     if ( lightmap_bitmap_index == 0xFFFF || base_map_group == -1 )
         return 0;

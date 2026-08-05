@@ -15,7 +15,7 @@ void get_editable_playlist_profile_display_name(widget_instance *widget)
 
     if ( edit_playlist_profile )
     {
-        unsigned __int16 *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x30u);
+        uint16_t *text = ui_widget_realloc(widget->parameters.text_box_parameters.text, 0x30u);
 
         widget->parameters.text_box_parameters.text = text;
         if ( text )

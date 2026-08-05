@@ -6,6 +6,7 @@
  * The fog-plane record is structure_fog_plane (32 bytes): region_index @0, plane @4, vertices tag_block @20
  * (count @20, address @24). */
 
+#include <stdint.h>
 #include "headers/render_globals.h"
 #include "headers/structure_bsp.h"
 #include "headers/structure_cluster.h"
@@ -29,7 +30,7 @@ void render_debug_fog_planes(void)
         return;
 
     /* keep the original unsigned read: value feeds a 32*designator offset masked with 0xFFFE0 */
-    unsigned __int16 cluster_fog_plane_designator = (unsigned __int16)
+    uint16_t cluster_fog_plane_designator = (uint16_t)
         ((structure_cluster *)global_structure_bsp->clusters.address)[render.cluster_index].fog_designator;
     /* (32*d) & 0xFFFE0 == (d & 0x7FFF)*32: mask strips the 0x8000 designator flag; 32 = sizeof(structure_fog_plane) */
     structure_fog_plane *fog_plane = &((structure_fog_plane *)global_structure_bsp->fog_planes.address)
@@ -43,10 +44,10 @@ void render_debug_fog_planes(void)
     const real_point3d *vertices = (const real_point3d *)fog_plane->vertices.address;
     float offset = -render.fog.planar_maximum_distance;
 
-    for ( int i = 0; i < vertex_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < vertex_count; i = (int16_t)(i + 1) )
     {
         const real_point3d *p0 = &vertices[i];
-        const real_point3d *p1 = &vertices[(__int16)((i + 1) % vertex_count)];
+        const real_point3d *p1 = &vertices[(int16_t)((i + 1) % vertex_count)];
 
         real_point3d p0_offset, p1_offset;
         p0_offset.n[0] = normal[0] * offset + p0->n[0];

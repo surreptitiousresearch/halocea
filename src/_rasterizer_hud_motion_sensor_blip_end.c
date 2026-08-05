@@ -53,9 +53,9 @@ extern int16_t local_player_count(void);
 extern float hud_globals_get_scale(uint8_t in_multiplayer);
 extern void SetTextureStageStateSmart(unsigned int stage, _D3DTEXTURESTAGESTATETYPE State, unsigned int Value);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
         const void *vertex_data, unsigned int vertex_stride);
 extern void D3DDevice_SetSamplerState_AddressU_Inline(D3DDevice *device, unsigned int sampler, unsigned int value);
@@ -72,7 +72,7 @@ void _rasterizer_hud_motion_sensor_blip_end(const real_point2d *center_point, fl
     tag_get_name(interface_get_tag_index(_interface_bitmap_motion_sweep));
     tag_get_name(interface_get_tag_index(_interface_bitmap_motion_sweep_mask));
 
-    unsigned __int8 draw_hud_motion_sensor = rasterizer_debug_options.draw_hud_motion_sensor;
+    uint8_t draw_hud_motion_sensor = rasterizer_debug_options.draw_hud_motion_sensor;
     if ( draw_hud_motion_sensor && rasterizer_motion_sensor_begin_said_to_draw )
     {
         if ( _texture_cache_bitmap_get_hardware_format(sweep_bitmap, 0, 1)
@@ -120,6 +120,7 @@ void _rasterizer_hud_motion_sensor_blip_end(const real_point2d *center_point, fl
             {
                 float sweep_hi = ((theta * 0.5f) + 0.5f);
                 float sweep_lo = (0.5f - (theta * 0.5f));
+                /* Vertex stream: {x,y,z, packed ARGB dword in the float slot, u,v}; sweep tint = 0xFF74B9FF. */
                 float sweep[24];
                 sweep[0]  = -1.015625f; sweep[1]  =  1.046875f; sweep[2]  = 0.0f;
                 *(int *)&sweep[3]  = -9127425; sweep[4]  = sweep_hi; sweep[5]  = sweep_lo;
@@ -145,6 +146,7 @@ void _rasterizer_hud_motion_sensor_blip_end(const real_point2d *center_point, fl
             pixel_constant[3] = 1.0f; pixel_constant[4] = 1.0f; pixel_constant[5] = 0.0f;
             D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constant, 2, 1ULL << 63);
 
+            /* Vertex stream as above; ring tint = 0xFF66CC66. */
             float ring[24];
             ring[0]  = -1.015625f; ring[1]  =  1.046875f; ring[2]  = 0.0f;
             *(int *)&ring[3]  = -10040218; ring[4]  = 1.0f; ring[5]  = 0.0f;
@@ -178,9 +180,9 @@ void _rasterizer_hud_motion_sensor_blip_end(const real_point2d *center_point, fl
             D3DDevice_SetRenderState_ZEnable(global_d3d_device, 0);
 
             /* Screen→NDC projection built from the current viewport's width and height. */
-            float viewport_width  = (float)(__int16)(global_window_parameters.camera.viewport_bounds.n[3]
+            float viewport_width  = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.n[3]
                                                    - global_window_parameters.camera.viewport_bounds.n[1]);
-            float viewport_height = (float)(__int16)(global_window_parameters.camera.viewport_bounds.n[2]
+            float viewport_height = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.n[2]
                                                    - global_window_parameters.camera.viewport_bounds.n[0]);
             float screen_proj[20];
             screen_proj[0]  = (1.0f / viewport_width)  *  2.0f;
@@ -210,6 +212,7 @@ void _rasterizer_hud_motion_sensor_blip_end(const real_point2d *center_point, fl
             float scale = hud_globals_get_scale(local_player_count() > 1);
             float half = (scale * base_size);
 
+            /* Vertex stream as above; disc tint = opaque white 0xFFFFFFFF. */
             float disc[24];
             disc[0]  = center_point->n[0] - half; disc[1]  = center_point->n[1] - half; disc[2]  = 0.0f;
             *(int *)&disc[3]  = -1; disc[4]  = 0.0f; disc[5]  = 0.0f;

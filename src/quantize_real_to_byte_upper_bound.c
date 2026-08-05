@@ -11,7 +11,7 @@
 
 uint8_t quantize_real_to_byte_upper_bound(float min, float max, float value)
 {
-    unsigned __int8 result = (unsigned __int8)(int)((value - min) / (max - min) * 255.0f);
+    uint8_t result = (uint8_t)(int)((value - min) / (max - min) * 255.0f);
     int candidate = result;
 
     while ( result != 255 )
@@ -26,7 +26,7 @@ uint8_t quantize_real_to_byte_upper_bound(float min, float max, float value)
         if ( value <= reconstructed )
             break;
 
-        result = (unsigned __int8)(candidate + 1);
+        result = (uint8_t)(candidate + 1);
         candidate = result;
     }
 

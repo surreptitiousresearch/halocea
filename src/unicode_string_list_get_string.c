@@ -9,7 +9,7 @@
 #include "headers/unicode_string_list_group_header.h"
 #include "headers/unicode_string_list_string_reference.h"
 
-extern unsigned short *hcex_unicode_string_list_get_string(int tag_index, __int16 string_index);
+extern unsigned short *hcex_unicode_string_list_get_string(int tag_index, int16_t string_index);
 
 unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index)
 {

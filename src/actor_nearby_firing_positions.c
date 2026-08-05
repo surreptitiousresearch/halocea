@@ -55,7 +55,7 @@ uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point,
     if ( (use_bsp_path_test || test_surface_index != -1) && actor->meta.encounter_index != -1 )
     {
         encounter_definition *encounter =
-            &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)actor->meta.encounter_index];
+            &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)actor->meta.encounter_index];
         unsigned int firing_position_group = actor_get_firing_position_group(actor_index, 0, group_selection_mode);
 
         path_state state;
@@ -74,7 +74,7 @@ uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point,
         {
             firing_position_definition *firing_positions =
                 (firing_position_definition *)encounter->firing_positions.address;
-            for ( int i = 0; i < firing_position_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < firing_position_count; i = (int16_t)(i + 1) )
             {
                 firing_position_definition *firing_position = &firing_positions[i];
                 if ( ((1 << firing_position->group_index) & firing_position_group) != 0 )

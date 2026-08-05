@@ -64,7 +64,7 @@ int weapon_effect_new(int weapon_index, int effect_index, float effect_scale, fl
     {
         if ( group_tag == 0x736E6421u )           /* 'snd!' : impulse sound */
         {
-            unsigned __int8 is_local_player = 0;
+            uint8_t is_local_player = 0;
             effect_datum *effect = effect_try_and_get(effect_index);
             if ( effect )
             {

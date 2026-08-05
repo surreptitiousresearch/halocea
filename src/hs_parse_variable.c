@@ -19,7 +19,7 @@ extern int sprintf_0(char *string, const char *format, ...);
 uint8_t hs_parse_variable(int expression_index)
 {
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
-    __int16 designator = hs_find_global_by_name(&hs_compile_globals.compiled_source[node->source_offset]);
+    int16_t designator = hs_find_global_by_name(&hs_compile_globals.compiled_source[node->source_offset]);
     node->data = designator;
 
     if ( designator == -1 )
@@ -31,7 +31,7 @@ uint8_t hs_parse_variable(int expression_index)
         return 0;
     }
 
-    __int16 global_type = hs_global_get_type(designator);
+    int16_t global_type = hs_global_get_type(designator);
     if ( node->type && !hs_can_cast(global_type, node->type) )
     {
         const char *type_name = hs_type_names[global_type];

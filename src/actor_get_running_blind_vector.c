@@ -33,7 +33,7 @@ uint8_t actor_get_running_blind_vector(uint16_t actor_index, real_vector3d *run_
         }
     }
 
-    if ( !(unsigned __int8)have_vector )
+    if ( !(uint8_t)have_vector )
         return have_vector;
     if ( normalize3d(run_vector) != 0.0 )
         return have_vector;

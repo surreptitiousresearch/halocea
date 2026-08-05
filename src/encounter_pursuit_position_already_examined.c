@@ -16,9 +16,9 @@ extern int encounter_find_pursuit(uint16_t encounter_index, int16_t firing_posit
 uint8_t encounter_pursuit_position_already_examined(int encounter_index, int actor_index, int16_t firing_position_index, int history_start_time, int16_t *actor_count_reference, int *last_examined_time_reference)
 {
     int pursuit_index = encounter_find_pursuit(encounter_index, firing_position_index, history_start_time, 0);
-    __int16 actor_count = 0;
+    int16_t actor_count = 0;
     int last_examined_time = -1;
-    unsigned __int8 examined = 0;
+    uint8_t examined = 0;
 
     if ( pursuit_index != -1 )
     {
@@ -32,7 +32,7 @@ uint8_t encounter_pursuit_position_already_examined(int encounter_index, int act
         }
         else
         {
-            for ( __int16 i = 0; i < 6; i++ )
+            for ( int16_t i = 0; i < 6; i++ )
             {
                 if ( pursuit->actor_indices[i] == actor_index )
                 {

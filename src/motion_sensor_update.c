@@ -58,20 +58,20 @@ void *motion_sensor_update(void)
     motion_sensor_globals->update = 1;
     motion_sensor_globals->last_update_time = current_time;
 
-    __int16 new_active_index = (motion_sensor_globals->sensor_active_index + 1) % 10;
+    int16_t new_active_index = (motion_sensor_globals->sensor_active_index + 1) % 10;
     motion_sensor_globals->sensor_active_index = new_active_index;
 
     void *result = 0;
-    unsigned __int8 done = 0;
+    uint8_t done = 0;
 
     if (current_time % 15 && current_time)
     {
         /* shift tick: duplicate the previous slot's snapshot into the new slot for every active player */
-        __int16 old_active_index = (new_active_index + 9) % 10;
-        __int16 player_count = local_player_count();
-        __int16 next = local_player_get_next(-1);
+        int16_t old_active_index = (new_active_index + 9) % 10;
+        int16_t player_count = local_player_count();
+        int16_t next = local_player_get_next(-1);
 
-        for (__int16 i = 0; i < player_count; ++i)
+        for (int16_t i = 0; i < player_count; ++i)
         {
             /* recovered: (char*)&motion_sensors[next] + 132*idx -> .sensor_data[idx] (stride = sizeof(motion_sensor_datum)) */
             memcpy(&motion_sensor_globals->motion_sensors[next].sensor_data[new_active_index],
@@ -83,20 +83,20 @@ void *motion_sensor_update(void)
     else
     {
         /* rescan tick */
-        __int16 local_player_slots[4]; /* [0..1] = per-local-player blip count this pass, [2..3] = local
+        int16_t local_player_slots[4]; /* [0..1] = per-local-player blip count this pass, [2..3] = local
                                            player index found at each scan position */
         local_player_slots[0] = 0;
         local_player_slots[1] = 0;
 
-        __int16 player_count = local_player_count();
-        __int16 next = local_player_get_next(-1);
+        int16_t player_count = local_player_count();
+        int16_t next = local_player_get_next(-1);
 
         object_iterator iter;
         real_point3d camera_position[2];
 
         if (player_count > 0)
         {
-            for (__int16 i = 0; i < player_count; ++i)
+            for (int16_t i = 0; i < player_count; ++i)
             {
                 motion_sensor_datum *current_datum =
                     &motion_sensor_globals->motion_sensors[next].sensor_data[motion_sensor_globals->sensor_active_index];
@@ -128,7 +128,7 @@ void *motion_sensor_update(void)
                 break;
 
             object_datum *vehicle = object_try_and_get_and_verify_type(iter.index, object_mask_unit);
-            unsigned __int8 passes_flag_check = 0;
+            uint8_t passes_flag_check = 0;
             if (vehicle)
                 passes_flag_check = (vehicle->object.damage_flags & (1u << _object_dead_bit)) == 0;
 
@@ -146,13 +146,13 @@ void *motion_sensor_update(void)
                 {
                     for (int scan = 0; scan < player_count; ++scan)
                     {
-                        __int16 scan_player = local_player_slots[scan + 2];
+                        int16_t scan_player = local_player_slots[scan + 2];
 
                         if (local_player_get_player_index(scan_player) != -1
                             && DATA_ARRAY_ELEMENT(player_data, player_datum,
                                 local_player_get_player_index(scan_player))->unit_index != -1)
                         {
-                            __int16 blip_count = local_player_slots[scan_player];
+                            int16_t blip_count = local_player_slots[scan_player];
                             if (blip_count >= 16)
                             {
                                 ++players_full;
@@ -174,7 +174,7 @@ void *motion_sensor_update(void)
                                     motion_sensor_blip *blip = &sensor_datum->blips[blip_count];
                                     blip->type = blip_type;
 
-                                    unsigned __int8 blip_size;
+                                    uint8_t blip_size;
                                     if (iter.index == -1 || !object_try_and_get_and_verify_type(iter.index, object_mask_unit))
                                     {
                                         blip_size = 0;
@@ -184,7 +184,7 @@ void *motion_sensor_update(void)
                                         int vehicle_tag_index = object->definition_index;
                                         unit_definition *vehicle_definition = TAG_GET(unit_definition, vehicle_tag_index);
                                         /* original read was unsigned __int16 of the __int16 blip_type @+664 */
-                                        blip_size = (unsigned __int16)vehicle_definition->unit.blip_type; /* hud_blip_type */
+                                        blip_size = (uint16_t)vehicle_definition->unit.blip_type; /* hud_blip_type */
                                         if (blip_size >= NUMBER_OF_HUD_BLIP_TYPES)
                                             blip_size = _hud_blip_type_medium;
                                     }

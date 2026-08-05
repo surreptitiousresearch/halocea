@@ -62,7 +62,7 @@ extern int16_t game_connection(void);
 extern game_variant *game_engine_get_variant(void);
 extern int game_time_get(void);
 extern void object_reset(int object_index);
-extern const tag_block *scenario_get_object_type_scenario_datums(scenario *scn, __int16 object_type, int *element_size_out);
+extern const tag_block *scenario_get_object_type_scenario_datums(scenario *scn, int16_t object_type, int *element_size_out);
 extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern real_vector3d *vector3d_from_angle(real_vector3d *vector, float angle);
 extern void object_set_position(int object_index, const real_point3d *position, const real_vector3d *forward, const real_vector3d *up);
@@ -190,13 +190,13 @@ uint8_t vehicle_update(int vehicle_index)
         unit_driver_seat_is_filled(vehicle_index);
 
     /* airborne self-righting torque (_vehicle_upending_bit in +1228, active righting axis at +1233) */
-    __int16 vehicle_flags = vehicle->vehicle.flags;
+    int16_t vehicle_flags = vehicle->vehicle.flags;
     if ( (vehicle_flags & (1u << _vehicle_upending_bit)) != 0
         && vehicle->vehicle.upending_type
         && vehicle->vehicle.upending_ticks < 0x1Eu
         && vehicle->object.up.n[2] <= 0.89999998f )
     {
-        unsigned __int8 righting_axis = vehicle->vehicle.upending_type;
+        uint8_t righting_axis = vehicle->vehicle.upending_type;
         float torque_sign = (righting_axis == 2 || righting_axis == 4) ? 0.3f : -0.3f;
 
         /* torque components, stored to +140/+144/+148 respectively */
@@ -452,7 +452,7 @@ animate:
     }
 
     /* motion-blur region toggle keyed on yaw rate vs threshold */
-    unsigned __int8 blur = fabsf(vehicle->vehicle.speed) >= definition->vehicle.blur_speed;
+    uint8_t blur = fabsf(vehicle->vehicle.speed) >= definition->vehicle.blur_speed;
     if ( blur == (vehicle->vehicle.flags & (1u << _vehicle_blurred_bit)) )
         return 1;
     object_permute_region(vehicle_index, "~blur", -1, blur);

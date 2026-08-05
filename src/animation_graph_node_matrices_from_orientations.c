@@ -2,6 +2,7 @@
  * each node's local orientation into a world-space matrix. Same shape as the sibling
  * model_node_matrices_from_orientations, but walks animation_graph_node instead of model_node. */
 
+#include <stdint.h>
 #include "headers/animation_graph.h"
 #include "headers/animation_graph_node.h"
 #include "headers/global_tag_instances.h"
@@ -25,14 +26,14 @@ void animation_graph_node_matrices_from_orientations(int animation_graph_index, 
     if ( graph->nodes.count <= 0 )
         return;
 
-    unsigned __int16 node_stack[64];
-    __int16 head = 0;
-    __int16 tail = 1;
+    uint16_t node_stack[64];
+    int16_t head = 0;
+    int16_t tail = 1;
     node_stack[0] = 0;
 
     do
     {
-        __int16 current = node_stack[head++];
+        int16_t current = node_stack[head++];
         animation_graph_node *node = &((animation_graph_node *)graph->nodes.address)[current];
 
         const real_matrix4x3 *parent_matrix = current ? &node_matrices[node->parent_node_index] : &root_matrix;

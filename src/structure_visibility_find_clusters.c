@@ -46,7 +46,7 @@ void structure_visibility_find_clusters(void)
 
     structure_visibility_traverse_cluster(render.cluster_index, &screen_hull);
 
-    for (int cluster = 0; cluster < render.rendered_cluster_count; cluster = (__int16)(cluster + 1))
+    for (int cluster = 0; cluster < render.rendered_cluster_count; cluster = (int16_t)(cluster + 1))
     {
         real_rectangle2d frustum_bounds;
         render_camera_build_clipped_frustum_bounds(&render.camera, &render.rendered_clusters[cluster].clip_bounds,

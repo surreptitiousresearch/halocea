@@ -26,7 +26,7 @@ void decal_delete(uint16_t decal_index)
 
     if ( prev_decal_index == -1 )
     {
-        __int16 cluster_index = decal->cluster_index;
+        int16_t cluster_index = decal->cluster_index;
         if ( cluster_index == -1 )
             decal_globals->first_disconnected_decal_index = next_decal_index;
         else

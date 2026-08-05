@@ -36,14 +36,14 @@ int16_t effect_marker_list_get_markers_by_name(int object_index, const char *nam
 
     if (list->names && *name) /* has a name table and a non-empty query */
     {
-        for (__int16 i = 0; found < maximum_count; ++i)
+        for (int16_t i = 0; found < maximum_count; ++i)
         {
             if (i >= list->count)
                 break;
             if (strcmp(name, list->names[i]) == 0)
             {
                 effect_marker_list_get_marker(&results[found], list, i);
-                found = (__int16)(found + 1);
+                found = (int16_t)(found + 1);
                 list = global_effect_marker_list;
             }
         }

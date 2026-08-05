@@ -17,8 +17,8 @@
 #include "headers/error_type.h"
 #include "headers/blam_data_globals.h"
 
-extern unsigned __int16 new_campaign_entered_name[11];
-extern __int16 new_campaign_name_cursor;
+extern uint16_t new_campaign_entered_name[11];
+extern int16_t new_campaign_name_cursor;
 
 extern uint8_t virtual_keyboard_last_exit_saved_text(void);
 extern void player_ui_set_single_player_local_player_controller(int16_t local_player_index, int16_t controller_index);
@@ -38,7 +38,7 @@ uint8_t new_campaign_decision(widget_instance *widget, event_record *event, uint
 {
     int started = 0;
 
-    if ( (unsigned __int16)new_campaign_controller_index == 0xFFFF )
+    if ( (uint16_t)new_campaign_controller_index == 0xFFFF )
         return started;
 
     if ( !virtual_keyboard_last_exit_saved_text() )
@@ -54,7 +54,7 @@ uint8_t new_campaign_decision(widget_instance *widget, event_record *event, uint
 
         if ( profile_index == -1 )
         {
-            unsigned __int16 untitled_name[128];
+            uint16_t untitled_name[128];
             saved_game_file_get_useable_untitled_profile_name(untitled_name);
             ustrncpy(new_campaign_entered_name, (const wchar_t *)untitled_name, 0xBu);
             new_campaign_name_cursor = 0;
@@ -73,7 +73,7 @@ uint8_t new_campaign_decision(widget_instance *widget, event_record *event, uint
             }
         }
 
-        if ( (unsigned __int8)started == 1 )
+        if ( (uint8_t)started == 1 )
         {
             main_set_map_name(scenario_paths_0[0]);
             main_defer_map_map_change();

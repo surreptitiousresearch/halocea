@@ -57,14 +57,14 @@ extern void build_sprites_end(build_sprite_data *data);
 extern void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index, int16_t sprite_index, const real_point3d *untransformed_origin, const real_vector3d *untransformed_direction, float rotation, float scale, const real_argb_color *color, float fade, unsigned int flags);
 extern void build_sprite_rotational(build_sprite_data *data, unsigned int flags, int16_t first_sequence_index, int16_t sprite_index, const real_point3d *untransformed_origin, const real_vector3d *untransformed_axis_of_rotation, float rotation, float scale, const real_argb_color *color, float fade);
 
-static __int16 particle_system_render_sprite_count(int bitmap_group_index, __int16 sequence_range)
+static int16_t particle_system_render_sprite_count(int bitmap_group_index, int16_t sequence_range)
 {
     bitmap_group *bitmap_group_tag = TAG_GET(bitmap_group, bitmap_group_index);
     /* recovered: bitmap_group.sequences (tag_block @ +84) .address */
     bitmap_group_sequence *sequences_array = (bitmap_group_sequence *)bitmap_group_tag->sequences.address;
     /* DEVIATION: sprites.count is a dword read then narrowed to __int16 by the caller (per decompile);
      * reading it as a dword first (not `*(__int16 *)`) matters on this big-endian target. */
-    return (__int16)sequences_array[sequence_range].sprites.count;
+    return (int16_t)sequences_array[sequence_range].sprites.count;
 }
 
 void particle_system_render(uint16_t system_index)
@@ -89,7 +89,7 @@ void particle_system_render(uint16_t system_index)
         particle_system_particle_state_render_info *particle_state_defs =
                 (particle_system_particle_state_render_info *)type_def->particle_states.address;
 
-        int particle_index = (__int16)emitter_type->first_particle_index;
+        int particle_index = (int16_t)emitter_type->first_particle_index;
         while (particle_index != -1)
         {
             /* recovered: (char*)data + ((particle_index<<7)&0x7FFF80) -> typed element at datum absolute index (stride 128 == sizeof(ps_particle_datum), unchecked) */
@@ -102,7 +102,7 @@ void particle_system_render(uint16_t system_index)
             }
             if (!visible)
             {
-                particle_index = (__int16)particle->next_particle_index;
+                particle_index = (int16_t)particle->next_particle_index;
                 continue;
             }
 
@@ -179,23 +179,23 @@ void particle_system_render(uint16_t system_index)
                 }
             }
 
-            __int16 sequence_range = state->sequence_range;
+            int16_t sequence_range = state->sequence_range;
             if (type_def->complex_sprite_render_mode == 1)
                 sequence_range++;
 
-            __int16 sprite_count = particle_system_render_sprite_count(state->bitmap_group_index, sequence_range);
+            int16_t sprite_count = particle_system_render_sprite_count(state->bitmap_group_index, sequence_range);
 
-            __int16 sprite_index;
+            int16_t sprite_index;
             if (particle->sprite_index == -1.0f)
             {
                 unsigned int *seed = get_global_local_random_seed_address();
-                __int16 random_sprite = seed_random_range(seed, 0, sprite_count);
+                int16_t random_sprite = seed_random_range(seed, 0, sprite_count);
                 particle->sprite_index = (float)random_sprite;
                 sprite_index = random_sprite;
             }
             else
             {
-                __int16 remainder = (__int16)((int)particle->sprite_index % sprite_count);
+                int16_t remainder = (int16_t)((int)particle->sprite_index % sprite_count);
                 sprite_index = remainder;
                 if (remainder & 0x8000)
                     sprite_index = remainder + sprite_count;
@@ -269,7 +269,7 @@ void particle_system_render(uint16_t system_index)
                 build_sprites_end(&sprite_batch);
             }
 
-            particle_index = (__int16)particle->next_particle_index;
+            particle_index = (int16_t)particle->next_particle_index;
         }
     }
 }

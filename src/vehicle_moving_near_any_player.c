@@ -30,10 +30,10 @@ uint8_t vehicle_moving_near_any_player(void)
 {
     int player_unit_indices[4];
     real_point3d player_positions[4];
-    __int16 player_count = 0;
+    int16_t player_count = 0;
     char none_found = 1;
 
-    for (__int16 i = local_player_get_next(-1); i != -1; i = local_player_get_next(i))
+    for (int16_t i = local_player_get_next(-1); i != -1; i = local_player_get_next(i))
     {
         int player_index = local_player_get_player_index(i);
         if (player_index == -1)

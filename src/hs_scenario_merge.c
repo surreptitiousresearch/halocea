@@ -20,12 +20,12 @@ int hs_scenario_merge(scenario *master, const scenario *slave)
 {
     int success = 1;
 
-    for ( __int16 i = 0; i < slave->hs_source_files.count; i++ )
+    for ( int16_t i = 0; i < slave->hs_source_files.count; i++ )
     {
         const hs_source_file *slave_source =
             &((const hs_source_file *)slave->hs_source_files.address)[i];
 
-        __int16 j = 0;
+        int16_t j = 0;
         while ( j < master->hs_source_files.count
              && stricmp(slave_source->name,
                         ((const hs_source_file *)master->hs_source_files.address)[j].name) )
@@ -35,7 +35,7 @@ int hs_scenario_merge(scenario *master, const scenario *slave)
 
         if ( j == master->hs_source_files.count )
         {
-            __int16 new_index = tag_block_add_element(&master->hs_source_files);
+            int16_t new_index = tag_block_add_element(&master->hs_source_files);
             hs_source_file *new_source =
                 &((hs_source_file *)master->hs_source_files.address)[new_index];
             const tag_data *slave_data = &slave_source->source;

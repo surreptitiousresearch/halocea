@@ -2,6 +2,7 @@
 /* antenna_vertex — one antenna_definition vertex record (128 bytes). Layout verbatim from the database type.
  * Stored in antenna_definition.vertices (128-byte stride). */
 
+#include <stdint.h>
 #include "real_euler_angles2d.h"
 #include "real_argb_color.h"
 #include "real_vector3d.h"
@@ -12,8 +13,8 @@ typedef struct antenna_vertex
     int                  physics_unused[6];    /* 0x04 */
     real_euler_angles2d  angle_to_next;        /* 0x1C */
     float                length_to_next;       /* 0x24 */
-    __int16              sequence_index;       /* 0x28 */
-    unsigned __int16     pad;                  /* 0x2A */
+    int16_t              sequence_index;       /* 0x28 */
+    uint16_t     pad;                  /* 0x2A */
     real_argb_color      color;                /* 0x2C */
     real_argb_color      lod_color;            /* 0x3C */
     int                  unused[10];           /* 0x4C */

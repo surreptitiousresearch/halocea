@@ -56,18 +56,18 @@ int actor_place(int actor_variant_definition_index, int encounter_index, int16_t
     if ( unit_index == -1 )
         return -1;
 
-    unsigned __int8 swarm = (*(unsigned int *)unit_definition >> _actor_definition_swarm_actor_bit) & 1;
+    uint8_t swarm = (*(unsigned int *)unit_definition >> _actor_definition_swarm_actor_bit) & 1;
 
     actor_customize_unit(actor_variant_definition_index, unit_index);
 
     /* States default to the squad's, overridden by any positive value on the starting location. The deviation
      * from the decompiler (which dropped these computations) is recovered from the call-site disassembly. */
-    unsigned __int8 initially_braindead = 0;
-    __int16 initial_state = actor_default_state_none;
-    __int16 default_state = actor_default_state_none;
+    uint8_t initially_braindead = 0;
+    int16_t initial_state = actor_default_state_none;
+    int16_t default_state = actor_default_state_none;
     if ( encounter_index != -1 )
     {
-        encounter_definition *encounter_def = (encounter_definition *)global_scenario->ai_encounters.address + (unsigned __int16)encounter_index;
+        encounter_definition *encounter_def = (encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)encounter_index;
         /* disasm 83721708: *((_DWORD *)ai_encounters.address + 44*idx + 8) — record stride 44 dwords
          * (176 bytes), so flags is dword 8 = byte 32 = encounter_def->flags; braindead = bit 4 (0x10).
          * The prior byte-8 read (dword+2) was a mis-scale — the +8 is a dword offset, not a byte offset. */

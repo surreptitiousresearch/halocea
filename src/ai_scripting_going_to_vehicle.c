@@ -21,7 +21,7 @@ int ai_scripting_going_to_vehicle(int unit_index)
     {
         vehicle_state_data *vehicle_action = &actor->state.action_data.___u0.vehicle;
         if ( actor->state.action == actor_action_vehicle && vehicle_action->vehicle_index == unit_index )
-            count = (__int16)(count + 1);
+            count = (int16_t)(count + 1);
     }
     return count;
 }

@@ -43,11 +43,11 @@ void director_update(float dt)
 
     for ( local_player = 0; local_player < 2; local_player++ )
     {
-        int player_index = local_player_get_player_index((__int16)local_player);
+        int player_index = local_player_get_player_index((int16_t)local_player);
         director *dir;
         camera_control control;
         observer_command command_buffer;
-        unsigned __int8 updated;
+        uint8_t updated;
         void (__fastcall *camera_proc)(void *, const camera_control *, observer_command *);
         observer_command *p_command;
 

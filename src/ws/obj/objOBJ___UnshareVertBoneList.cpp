@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -18,7 +19,7 @@ void objOBJ::_UnshareVertBoneList()
         return;
 
     _UnshareGeom();
-    __int64 state = this->stateShare.state;
+    int64_t state = this->stateShare.state;
     bool ownIndices = (state & 0x80) == 0; // OBJ_ST_SHARED_SKIN_INDICES not set -> we own the buffer
     bool ownWeights = (state & 0x40) == 0; // OBJ_ST_SHARED_SKIN_WEIGHTS not set -> we own the buffer
     this->stateShare.state &= ~0xC0u;  // clear the two skin-shared flags

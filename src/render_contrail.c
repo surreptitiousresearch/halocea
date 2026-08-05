@@ -93,9 +93,9 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
         return;
     }
 
-    int segment_count = (__int16)(contrail->contrail_point_counts[instance_index] - 1);
-    int vertex_count = (__int16)(2 * segment_count + 2);
-    int triangle_handle = rasterizer_dynamic_triangles_new((__int16)(2 * segment_count));
+    int segment_count = (int16_t)(contrail->contrail_point_counts[instance_index] - 1);
+    int vertex_count = (int16_t)(2 * segment_count + 2);
+    int triangle_handle = rasterizer_dynamic_triangles_new((int16_t)(2 * segment_count));
     int vertex_handle = rasterizer_dynamic_vertices_new(_rasterizer_vertex_type_dynamic_unlit, vertex_count);
 
     if ( triangle_handle != -1 && vertex_handle != -1 )
@@ -104,9 +104,9 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
         float *vertex = rasterizer_dynamic_vertices_lock(vertex_handle);
 
         float texture_offset_u = contrail->texture_offset_u;
-        unsigned __int16 scale_flags = contrail_definition->scale_flags;
+        uint16_t scale_flags = contrail_definition->scale_flags;
         float texture_repeats_u = contrail_definition->texture_repeats_u;
-        __int16 framebuffer_fade_mode = contrail_definition->shader.effect.framebuffer_fade_mode;
+        int16_t framebuffer_fade_mode = contrail_definition->shader.effect.framebuffer_fade_mode;
         int apply_orientation = framebuffer_fade_mode != 0;
 
         real_point3d average_position;
@@ -131,7 +131,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
         {
             while ( 1 )
             {
-                contrail_point_datum *point = (contrail_point_datum *)contrail_point_data->data + (unsigned __int16)point_index;
+                contrail_point_datum *point = (contrail_point_datum *)contrail_point_data->data + (uint16_t)point_index;
                 contrail_point_state *state = (contrail_point_state *)contrail_definition->states.address + point->state_index;
                 int state_flags = state->scale_flags;
 
@@ -176,7 +176,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
                      * 1-based node index into the object's runtime node array (0 = none). */
                     object_attachment_definition *attachment =
                         &((object_attachment_definition *)object_def->attachments.address)[contrail->attachment_index];
-                    int node_index = (__int16)((unsigned __int16)attachment->change_color_reference - 1);
+                    int node_index = (int16_t)((uint16_t)attachment->change_color_reference - 1);
                     if ( node_index != -1 )
                     {
                         real_rgb_color *node = &object->object.outgoing_change_colors[node_index];
@@ -192,7 +192,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
                 float *point_position = point->position.n;
                 vertex[10] = texture_offset_u;
                 vertex[11] = contrail->texture_offset_v;
-                unsigned int render_type = (unsigned __int16)contrail_definition->render_type;
+                unsigned int render_type = (uint16_t)contrail_definition->render_type;
                 /* render_type values are $A95FA4AC... _contrail_render_type_* (vertical/horizontal/media/ground/viewer) */
                 average_position.n[0] = point->position.n[0] + average_position.n[0];
                 average_position.n[1] = point->position.n[1] + average_position.n[1];
@@ -217,7 +217,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
                     }
                     else
                     {
-                        contrail_point_datum *next = (contrail_point_datum *)contrail_point_data->data + (unsigned __int16)point->next_contrail_point_index;
+                        contrail_point_datum *next = (contrail_point_datum *)contrail_point_data->data + (uint16_t)point->next_contrail_point_index;
                         perp_a = point->position.n[1] - next->position.n[1];
                         perp_b = next->position.n[0] - *point_position;
                     }
@@ -259,7 +259,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
                     else
                     {
                         ax = *point_position;   ay = point->position.n[1]; az = point->position.n[2];
-                        contrail_point_datum *next = (contrail_point_datum *)contrail_point_data->data + (unsigned __int16)point->next_contrail_point_index;
+                        contrail_point_datum *next = (contrail_point_datum *)contrail_point_data->data + (uint16_t)point->next_contrail_point_index;
                         bx = next->position.n[0]; by = next->position.n[1]; bz = next->position.n[2];
                     }
                     float dx = bx - ax, dy = by - ay, dz = bz - az;
@@ -304,7 +304,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
                         }
                         else
                         {
-                            contrail_point_datum *next = (contrail_point_datum *)contrail_point_data->data + (unsigned __int16)point->next_contrail_point_index;
+                            contrail_point_datum *next = (contrail_point_datum *)contrail_point_data->data + (uint16_t)point->next_contrail_point_index;
                             orientation.n[2] = 0.0f;
                             orientation.n[0] = point->position.n[1] - next->position.n[1];
                             orientation.n[1] = next->position.n[0] - *point_position;
@@ -362,7 +362,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
             rasterizer_triangle *tri = triangle;
             for ( int s = 0; s < segment_count; ++s )
             {
-                tri[0].vertex_indices[0] = (__int16)(2 * s);
+                tri[0].vertex_indices[0] = (int16_t)(2 * s);
                 tri[0].vertex_indices[1] = 2 * s + 1;
                 tri[0].vertex_indices[2] = 2 * s + 2;
                 tri[1].vertex_indices[0] = 2 * s + 2;
@@ -377,7 +377,7 @@ void render_contrail(contrail_datum *contrail, contrail_definition *contrail_def
         average_position.n[2] = (1.0f / point_count) * average_position.n[2];
         rasterizer_dynamic_triangles_unlock(triangle_handle);
         rasterizer_dynamic_vertices_unlock(vertex_handle);
-        rasterizer_dynamic_unlit_geometry_draw((const shader *)&contrail_definition->shader, bitmap, 0, triangle_handle, vertex_handle, (__int16)(2 * segment_count), &average_position, 0);
+        rasterizer_dynamic_unlit_geometry_draw((const shader *)&contrail_definition->shader, bitmap, 0, triangle_handle, vertex_handle, (int16_t)(2 * segment_count), &average_position, 0);
         rasterizer_dynamic_triangles_delete(triangle_handle);
         rasterizer_dynamic_vertices_delete(vertex_handle);
     }

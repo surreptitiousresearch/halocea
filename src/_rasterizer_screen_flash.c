@@ -46,9 +46,9 @@ extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetRenderState_CullMode(D3DDevice *device, unsigned int value);
 extern void D3DDevice_SetRenderState_ColorWriteEnable(D3DDevice *device, unsigned int mask);
 extern void D3DDevice_SetRenderState_AlphaBlendEnable(D3DDevice *device, unsigned int enable);
@@ -164,9 +164,9 @@ void _rasterizer_screen_flash(void)
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_screen));
 
     /* Viewport-to-NDC transform (5 vector4 constants at c13). rectangle2d order is (y0, x0, y1, x1). */
-    float width = (float)(__int16)(global_window_parameters.camera.viewport_bounds.__s1.x1
+    float width = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.__s1.x1
             - global_window_parameters.camera.viewport_bounds.__s1.x0);
-    float height = (float)(__int16)(global_window_parameters.camera.viewport_bounds.__s1.y1
+    float height = (float)(int16_t)(global_window_parameters.camera.viewport_bounds.__s1.y1
             - global_window_parameters.camera.viewport_bounds.__s1.y0);
     float viewport_transform[20] = {
         2.0f / width,  0.0f,           0.0f, -1.0f - 1.0f / width,
@@ -175,14 +175,14 @@ void _rasterizer_screen_flash(void)
         0.0f,          0.0f,           0.0f,  1.0f,
         0.0f,          0.0f,           0.0f,  1.0f,
     };
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, viewport_transform, 5u, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, viewport_transform, 5u, (uint64_t)3 << 59);
 
     /* Flash color, straight and inverted (2 vector4 constants at c0).
      * DEVIATION: decompile shows `HIDWORD(v11) = __ROR4__(1, 1)` for the PendingMask0 argument — per the
      * same 32-bit-rotate-into-HIDWORD decompiler artifact documented in _rasterizer_decals_draw.c
      * (__ROR4__(1,N) in HIDWORD == (uint64)1 << (64-N) as a real 64-bit value), that's `(uint64)1 << 63`. */
     float pixel_constants[8] = { r, g, b, a, inv_r, inv_g, inv_b, a };
-    D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constants, 2u, (unsigned __int64)1 << 63);
+    D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constants, 2u, (uint64_t)1 << 63);
 
     /* Full-viewport quad in pixel space, opaque-white vertex color (modulated by the constants above). */
     screen_flash_vertex vertices[4] = {

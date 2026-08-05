@@ -11,7 +11,7 @@
 #include "headers/data_encoding_state.h"
 #include "headers/byte_swap_definition.h"
 
-extern unsigned __int64 data_decode_int64(data_encoding_state *state);
+extern uint64_t data_decode_int64(data_encoding_state *state);
 extern int data_decode_long(data_encoding_state *state);
 extern int16_t data_decode_short(data_encoding_state *state);
 extern uint8_t data_decode_byte(data_encoding_state *state);

@@ -39,7 +39,7 @@ uint8_t playlist_profile_change_racing_rules(widget_instance *widget, event_reco
 
     widget_instance *group = parent->children;
 
-    unsigned int laps_index = (unsigned __int16)first_text_box(group)->parameters.text_box_parameters.string_list_index;
+    unsigned int laps_index = (uint16_t)first_text_box(group)->parameters.text_box_parameters.string_list_index;
     if ( laps_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.single_flag_time = 0;
     else if ( laps_index == 1 )
@@ -48,7 +48,7 @@ uint8_t playlist_profile_change_racing_rules(widget_instance *widget, event_reco
         edit_playlist_profile->game_engine_variant.ctf.single_flag_time = 2;
 
     unsigned int ignored_index =
-            (unsigned __int16)first_text_box(group->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group->next)->parameters.text_box_parameters.string_list_index;
     if ( ignored_index == 0 )
         edit_playlist_profile->game_engine_variant.terminator.ignored = 0;
     else if ( ignored_index == 1 )
@@ -57,7 +57,7 @@ uint8_t playlist_profile_change_racing_rules(widget_instance *widget, event_reco
         edit_playlist_profile->game_engine_variant.terminator.ignored = 2;
 
     unsigned int score_index =
-            (unsigned __int16)first_text_box(group->next->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group->next->next)->parameters.text_box_parameters.string_list_index;
     if ( score_index <= 5 )
     {
         switch ( score_index )
@@ -72,13 +72,13 @@ uint8_t playlist_profile_change_racing_rules(widget_instance *widget, event_reco
     }
 
     unsigned int teams_index =
-            (unsigned __int16)first_text_box(group->next->next->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group->next->next->next)->parameters.text_box_parameters.string_list_index;
     if ( teams_index == 0 )
         edit_playlist_profile->universal_variant.teams = 1;
     else if ( teams_index == 1 )
         edit_playlist_profile->universal_variant.teams = 0;
 
-    unsigned int time_index = (unsigned __int16)first_text_box(group->next->next->next->next)
+    unsigned int time_index = (uint16_t)first_text_box(group->next->next->next->next)
             ->parameters.text_box_parameters.string_list_index;
     if ( time_index <= 6 )
     {

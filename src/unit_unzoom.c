@@ -3,6 +3,7 @@
  * current weapon/seat slot). Then clear both zoom level bytes (0xFF = not zoomed), zero the
  * integrated_night_vision_power float (doubles as zoom magnification here) and notify the player-control layer. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -21,8 +22,8 @@ void unit_unzoom(int unit_index)
 
     int player_index = player_index_from_unit_index(unit_index);
     if ( player_index != -1
-      && (unsigned __int16)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index != 0xFFFF
-      && (unsigned __int8)unit->unit.current_zoom_level != 0xFF )  /* casts: header fields are signed */
+      && (uint16_t)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index != 0xFFFF
+      && (uint8_t)unit->unit.current_zoom_level != 0xFF )  /* casts: header fields are signed */
     {
         int seat_weapon_index = unit->unit.current_weapon_index;
         if ( seat_weapon_index != -1 )

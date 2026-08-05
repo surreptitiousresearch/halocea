@@ -23,7 +23,7 @@
 #include "headers/blam_data_globals.h"
 
 extern const reply_usage     global_reply_table[];
-extern const __int16         communication_speech_priorities[];
+extern const int16_t         communication_speech_priorities[];
 
 extern int ai_communication_find_global_actor_to_talk(int16_t team_index, int16_t find_actor_mode, int subject_unit_index, int cause_unit_index, float max_distance, int16_t ai_communication_type, int16_t ai_communication_priority, int16_t unit_speech_priority, int16_t vocalization_type, int16_t animation_type, int16_t flags);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
@@ -42,13 +42,13 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
     if ( ai_globals->dialogue_triggers_enabled && vocalization_type != -1 )
     {
         const reply_usage *row = global_reply_table;
-        __int16 reply_row_index = 0;
+        int16_t reply_row_index = 0;
         while ( row->original_vocalization_type == vocalization_type )
         {
             if ( row->original_damage_category != -1 && row->original_damage_category != damage_category )
                 goto next_row;
 
-            __int16 speech_priority = communication_speech_priorities[row->communication_priority];
+            int16_t speech_priority = communication_speech_priorities[row->communication_priority];
             if ( sound_scripted_dialog_is_playing() && (row->flags & (1u << _dialogue_usage_lookup_bit)) == 0 )
                 goto next_row;
             if ( row->player_chance <= 0.0f )
@@ -60,7 +60,7 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
             int actor = -1;
             unit_datum *unit = (unit_datum *)
                 DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
-            switch ( (unsigned __int16)row->protagonist_type )
+            switch ( (uint16_t)row->protagonist_type )
             {
                 case _comm_protagonist_friend:
                     actor = ai_communication_find_global_actor_to_talk(
@@ -85,7 +85,7 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
 
             if ( actor != -1 )
             {
-                __int16 team = actor_communication_team(actor);
+                int16_t team = actor_communication_team(actor);
                 if ( team == -1 )
                     goto next_row;
                 dialogue_event_status *event = &global_reply_events[2 * reply_row_index + team];

@@ -18,7 +18,7 @@ extern void cheat_objects(const game_globals_tag_reference *references, int16_t 
 
 void cheat_by_model(const char *mdl_name)
 {
-    __int16 match_count = 0;
+    int16_t match_count = 0;
     tag_iterator iterator;
     game_globals_tag_reference references[64];
     int tag_index;
@@ -26,7 +26,7 @@ void cheat_by_model(const char *mdl_name)
     tag_iterator_new(&iterator, 0x6F626A65u);   /* 'obje' — object tag group */
     for ( tag_index = tag_iterator_next(&iterator); tag_index != -1; tag_index = tag_iterator_next(&iterator) )
     {
-        if ( (unsigned __int16)match_count >= 0x40u )
+        if ( (uint16_t)match_count >= 0x40u )
             break;
         if ( hcex_cmp_mdl_names(tag_get_name(tag_index), mdl_name) )
             references[match_count++].reference.index = tag_index;

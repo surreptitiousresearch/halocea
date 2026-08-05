@@ -5,6 +5,7 @@
  * single quantised byte in the low half of weights[0]. Layout confirmed against the database
  * type of the same name. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 
 typedef struct model_vertex_compressed
@@ -13,8 +14,8 @@ typedef struct model_vertex_compressed
     unsigned int  normal;      /* 0x0C */
     unsigned int  binormal;    /* 0x10 */
     unsigned int  tangent;     /* 0x14 */
-    __int16       texcoord_u;  /* 0x18 */
-    __int16       texcoord_v;  /* 0x1A */
-    unsigned __int8 nodes[2];  /* 0x1C */
-    __int16       weights[1];  /* 0x1E */
+    int16_t       texcoord_u;  /* 0x18 */
+    int16_t       texcoord_v;  /* 0x1A */
+    uint8_t nodes[2];  /* 0x1C */
+    int16_t       weights[1];  /* 0x1E */
 } model_vertex_compressed;     /* 0x20 = 32 bytes */

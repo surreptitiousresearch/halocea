@@ -24,7 +24,7 @@ uint8_t actor_action_handle_done_fleeing(int actor_index)
     {
         guard_state_data guard_state;
 
-        action_guard_setup_from_fleeing((unsigned __int16)actor_index, &actor->state.action_data.___u0.flee, &guard_state);
+        action_guard_setup_from_fleeing((uint16_t)actor_index, &actor->state.action_data.___u0.flee, &guard_state);
         actor_action_change(actor_index, actor_action_guard, (action_state_data *)&guard_state);
         return 1;
     }

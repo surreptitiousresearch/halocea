@@ -88,7 +88,7 @@ void render_object(object_render_data *data)
     {
         object_datum *object = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, data->object_index)->datum);
 
-        unsigned __int8 needs_lighting = 0;
+        uint8_t needs_lighting = 0;
         if ( (object->object.flags & (1u << _object_invisible_bit)) == 0
           || object->object.first_child_object_index != -1
           || widgets_need_lighting(object->object.first_widget_index) )
@@ -119,7 +119,7 @@ void render_object(object_render_data *data)
                 model_effect.type = 0;
                 memset(&model_effect.modifier_shader, 0, 12);
 
-                unsigned __int8 no_planar_fog = 0;
+                uint8_t no_planar_fog = 0;
                 if ( render.fog.planar_mode != _render_planar_fog_mode_normal
                   || ((object->object.bounding_sphere_center.n[0] * render.fog.plane.n.n[0])
                             + ((object->object.bounding_sphere_center.n[1] * render.fog.plane.n.n[1])

@@ -30,6 +30,7 @@
  * (driver_type 0/1 = not free-moving/turret driver), not a naming conflict. Byte 1196 (a "path
  * destination point", real_point3d) lands inside control.path (relative 0x40) — actor_path_control_data
  * is now fully modeled; rel 0x40 falls in its path_result region, consistent with the usage. */
+#include <stdint.h>
 #include "actor_meta_data.h"
 #include "actor_state_data.h"
 #include "actor_input_data.h"
@@ -46,8 +47,8 @@
 
 typedef struct actor_datum
 {
-    __int16                     identifier;        /* 0x00 */
-    __int16                     _pad02;            /* 0x02 */
+    int16_t                     identifier;        /* 0x00 */
+    int16_t                     _pad02;            /* 0x02 */
     actor_meta_data              meta;              /* 0x04 — ends exactly at 0x60 */
     actor_state_data             state;             /* 0x60 */
     actor_input_data             input;             /* 0x120 — per-tick sampled unit view (168 bytes) */

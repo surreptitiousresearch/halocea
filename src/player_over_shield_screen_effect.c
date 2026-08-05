@@ -3,6 +3,7 @@
  * parameters are pooled rodata constants (resolved and inlined here): a purple (R=B=0.8) full-screen
  * flash, priority 2, type 5, fade function 0, duration 2.0, max intensity 1.0. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/screen_flash_definition.h"
@@ -16,7 +17,7 @@ extern void player_effect_screen_flash(int player_index, const screen_flash_defi
 void player_over_shield_screen_effect(int player_index)
 {
     if (player_index == -1
-        || (unsigned __int16)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index == 0xFFFF)
+        || (uint16_t)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index == 0xFFFF)
         return;
 
     screen_flash_definition flash;

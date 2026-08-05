@@ -3,6 +3,7 @@
  * types — plus the apCOUNTER performance-profiler instrumentation that brackets the body — are declared
  * here as boundaries (bodies outside this re-source). */
 
+#include <stdint.h>
 #include "hcex_prepare_locations_boundary.h"   /* m3dV, m3dMATR, animINST */
 #include "hcex_create_effect_boundary.h"       /* dsTSTRING_flat, dsTSTRING_BUF_HEADER, entENTITY,
                                                            snd_BUFFER, dsSTRID */
@@ -23,9 +24,9 @@ typedef struct animCREATE_DATA
     psSECTION             ps;                /* 0x4C */
     dsAFFIX_STRING        affixes;           /* 0x50 */
     char                  name[128];         /* 0x54 */
-    __int16               animSeqNmb;        /* 0xD4 */
-    unsigned __int8       animSeqIsCycled;   /* 0xD6 */
-    unsigned __int8       isIgnorePS_Scale;  /* 0xD7 */
+    int16_t               animSeqNmb;        /* 0xD4 */
+    uint8_t       animSeqIsCycled;   /* 0xD6 */
+    uint8_t       isIgnorePS_Scale;  /* 0xD7 */
     rendSR_DATA          *srData;            /* 0xD8 */
     float                 scaleX;            /* 0xDC */
     float                 scaleY;            /* 0xE0 */

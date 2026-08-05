@@ -38,7 +38,7 @@ void game_engine_player_added(int player_index)
     {
         if (global_variant.universal_variant.teams)
         {
-            __int16 connection = game_connection();
+            int16_t connection = game_connection();
             if (connection == _game_connection_network_client || connection == _game_connection_network_server)
             {
                 player->team_index = player->network_player_data.team_index % 2;

@@ -69,13 +69,13 @@ void action_guard_control(int actor_index)
         actor->orders.move.moving_crouch = 1;
     }
 
-    unsigned __int8 active = actor->meta.timeslice;
+    uint8_t active = actor->meta.timeslice;
     actor->orders.move.panicked = 0;
     actor->orders.move.dive_into_cover = 0;
     actor->orders.move.emerge_from_cover = 0;
     if ( active && !actor->meta.swarm )
     {
-        unsigned int guard_mode = (unsigned __int16)actor->state.action_data.___u0.guard.guard_location_type;
+        unsigned int guard_mode = (uint16_t)actor->state.action_data.___u0.guard.guard_location_type;
         char arrived = 0;
         if ( guard_mode > _actor_guard_location_firing_position )
             goto arrived_check;
@@ -98,7 +98,7 @@ void action_guard_control(int actor_index)
 
             if ( actor->state.action_data.___u0.guard.guard_location_type )
             {
-                int firing_position = (unsigned __int16)actor->state.action_data.___u0.guard.___u17.guard_firing_position_index;
+                int firing_position = (uint16_t)actor->state.action_data.___u0.guard.___u17.guard_firing_position_index;
                 if ( firing_position != 0xFFFF )
                 {
                     actor->firing_positions.current_position_index = firing_position;
@@ -135,7 +135,7 @@ arrived_check:
         {
             if ( actor->state.action_data.___u0.guard.shout_about_dead_friend )
             {
-                int prop_index = (unsigned __int16)actor->state.action_data.___u0.guard.shout_dead_friend_prop_index;
+                int prop_index = (uint16_t)actor->state.action_data.___u0.guard.shout_dead_friend_prop_index;
                 prop_datum *prop = &((prop_datum *)prop_data->data)[prop_index];
                 actor->state.action_data.___u0.guard.shout_dead_friend_prop_index = -1;
                 actor->state.action_data.___u0.guard.shout_about_dead_friend = 0;
@@ -169,9 +169,9 @@ arrived_check:
         {
             actor->orders.look.primary_direction.type = _direction_specification_vector;
             actor->orders.look.primary_priority = actor->state.action_data.___u0.guard.aim_in_guard_direction == 0 ? _primary_priority_facing : _primary_priority_aiming;
-            actor->orders.look.primary_direction.___u1.prop_index = *(int *)&actor->state.action_data.___u0.guard.guard_direction.i;
-            *(int *)&actor->orders.look.primary_direction.___u1.point.y = *(int *)&actor->state.action_data.___u0.guard.guard_direction.j;
-            *(int *)&actor->orders.look.primary_direction.___u1.point.z = *(int *)&actor->state.action_data.___u0.guard.guard_direction.k;
+            /* DEVIATION: decompiler word-punned the 3x lwz/stw real_vector3d copy (0x838245A8..BC)
+             * across the union arms; plain assignment into the vector arm the type selects. */
+            actor->orders.look.primary_direction.___u1.vector = actor->state.action_data.___u0.guard.guard_direction;
         }
         else
         {
@@ -197,7 +197,7 @@ arrived_check:
 
     /* deviation: prior comment called this a "look speed" — it is the idle look type
      * (_idle_look_guarding vs _idle_look_combat). */
-    __int16 idle_look = _idle_look_combat;
+    int16_t idle_look = _idle_look_combat;
     if ( actor->state.combat_status < _actor_combat_status_certain )
         idle_look = _idle_look_guarding;
     actor->orders.look.idle_look_type = idle_look;

@@ -17,7 +17,7 @@ uint8_t playlist_profile_initialize_name(widget_instance *widget, event_record *
     if ( !edit_playlist_profile )
         return 0;
 
-    unsigned __int16 *text = ui_widget_realloc(
+    uint16_t *text = ui_widget_realloc(
         widget->parameters.text_box_parameters.text, 0x100);
     widget->parameters.text_box_parameters.text = text;
     if ( text )

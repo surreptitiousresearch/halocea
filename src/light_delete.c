@@ -2,6 +2,7 @@
  * (its connection link lives at light_data int[31*index + 4], i.e. byte +16 of the 124-byte light datum),
  * free the light datum, and tear down the HCEX-side GPU light backing it. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 
@@ -15,7 +16,7 @@ extern void hcex_destroy_light(int light_index);
 void light_delete(int light_index)
 {
     cluster_partition_disconnect(&light_cluster_partition, light_index,
-        (int *)light_data->data + 31 * (unsigned __int16)light_index + 4);
+        (int *)light_data->data + 31 * (uint16_t)light_index + 4);
     datum_delete(light_data, light_index);
     hcex_destroy_light(light_index);
 }

@@ -69,7 +69,7 @@ void ai_handle_deleted_object(int deleted_object_index)
 
     ai_conversation_unit_died(deleted_object_index, 1);
 
-    for (__int16 i = 0; i < ai_globals->mounted_weapon_unit_count; ++i)
+    for (int16_t i = 0; i < ai_globals->mounted_weapon_unit_count; ++i)
     {
         if (ai_globals->mounted_weapon_unit_indices[i] == deleted_object_index)
         {

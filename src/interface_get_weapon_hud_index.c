@@ -36,10 +36,10 @@ int interface_get_weapon_hud_index(float *flashlight_power)
     int hud_index;
     float flashlight;
     player_datum *player;
-    __int16 perspective;
+    int16_t perspective;
     int weapon_index;
     unit_datum *unit_object_data;
-    __int16 parent_seat_index;
+    int16_t parent_seat_index;
     data_array *objects;
     int weapon_hud_index;
     int player_unit_index;

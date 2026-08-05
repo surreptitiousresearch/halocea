@@ -48,7 +48,7 @@ int object_update(int object_index)
 
         if ( object->object.animation.interpolation_frame_count )
         {
-            __int16 elapsed = object->object.animation.interpolation_frame_index + 1;
+            int16_t elapsed = object->object.animation.interpolation_frame_index + 1;
             object->object.animation.interpolation_frame_index = elapsed;
             if ( elapsed >= object->object.animation.interpolation_frame_count )
                 object->object.animation.interpolation_frame_count = 0;

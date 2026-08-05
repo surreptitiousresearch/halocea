@@ -4,6 +4,7 @@
  * global or a debug variable (dbgVAR); those stay externs here. The os* perf/timer entry points
  * and m3dClamp / the STRONG_ASSERT machinery are reused from their own boundary headers. */
 
+#include <stdint.h>
 #include "../wb/dbgVAR_boundary.h"    // dbgVAR_IMPL<T,N> (.value)
 #include "../ds/ds_assert_boundary.h" // IGNORE_STRONG_ASSERT, STRONG_ASSERT_DUMMY, dsStrongAssertMessage
 #include "../m3d/m3d_boundary.h"      // m3dClamp
@@ -18,8 +19,8 @@ struct dbgVAR_BOOL_1 : dbgVAR_IMPL<bool, 1> {};
 extern vidDRIVER *vidDriver;
 
 extern "C" {
-    __int64      osGetPerfCounter(void);      // high-resolution tick count
-    __int64      osGetPerfFrequancy(void);    // tick rate [sic: engine's spelling]
+    int64_t      osGetPerfCounter(void);      // high-resolution tick count
+    int64_t      osGetPerfFrequancy(void);    // tick rate [sic: engine's spelling]
     unsigned int osGetTime(void);             // millisecond wall clock
     void         osSleep(int milliseconds);
     void         osPIXBeginEvent(const char *name);
@@ -29,7 +30,7 @@ extern "C" {
 
 // --- gs* per-frame timing globals (gm_sys/gs_msg.cpp module scope) --------------------------
 extern unsigned int gsTime;                     // this frame's osGetTime() sample
-extern __int64      gsPrevTimeLarge;            // previous frame's osGetPerfCounter() sample
+extern int64_t      gsPrevTimeLarge;            // previous frame's osGetPerfCounter() sample
 extern int          gsElapsedTimeModified;      // set when any override altered the raw dt
 
 extern dbgVAR_FLOAT  dbg_maxFpsVal;             // frame-rate cap (0 = uncapped)

@@ -12,6 +12,6 @@ int actor_path_get_destination_firing_position_index(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->control.path.destination_orders.destination_type == _destination_firing_position )
-        return (unsigned __int16)actor->control.path.destination_orders.___u3.firing_position_index;
+        return (uint16_t)actor->control.path.destination_orders.___u3.firing_position_index;
     return -1;
 }

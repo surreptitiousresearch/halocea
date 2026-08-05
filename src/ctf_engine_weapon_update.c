@@ -53,7 +53,7 @@ extern void create_the_flag(int team_index);
 extern void weapon_reset_flag(int weapon_index);
 extern void ctf_single_flag_what_is_up_message(int flag_team_index);
 extern uint8_t weapon_is_flag(int weapon_index);
-extern unsigned __int8 item_get_position_even_if_in_inventory(int item_index, real_point3d *position);
+extern uint8_t item_get_position_even_if_in_inventory(int item_index, real_point3d *position);
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
 extern uint8_t unit_has_weapon(int unit_index, int weapon_index);
@@ -68,7 +68,7 @@ void ctf_engine_weapon_update(int weapon_index, weapon_datum *weapon_ptr)
       && game_engine_get_variant()->game_engine_variant.ctf.single_flag_time > 0 )
     {
         int previous_timer = ctf_globals.flag_swap_timer;
-        unsigned __int8 expired = ctf_globals.flag_swap_timer == 0;
+        uint8_t expired = ctf_globals.flag_swap_timer == 0;
         if ( ctf_globals.flag_swap_timer > 0 )
         {
             --ctf_globals.flag_swap_timer;
@@ -120,7 +120,7 @@ void ctf_engine_weapon_update(int weapon_index, weapon_datum *weapon_ptr)
             game_engine_play_multiplayer_sound(owner_team_index == _multiplayer_team_red
                     ? _multiplayer_sound_ctf_red_returned_flag
                     : _multiplayer_sound_ctf_blue_returned_flag, 1u);
-            __int16 team = weapon->object.owner_team_index;
+            int16_t team = weapon->object.owner_team_index;
             ctf_globals.flag_warning[team] = 0;
             ctf_globals.flag_warning_time_in_ticks[team] = 0;
             game_show_score_team(owner_team_index, ctf_message_your_flag_was_returned, 1u);
@@ -145,10 +145,10 @@ void ctf_engine_weapon_update(int weapon_index, weapon_datum *weapon_ptr)
     }
 
     int owner_team_index = weapon->object.owner_team_index;
-    __int16 other_team_index = (owner_team_index + 1) % 2;
+    int16_t other_team_index = (owner_team_index + 1) % 2;
 
     real_point3d flag_position;
-    unsigned __int8 show_goal = item_get_position_even_if_in_inventory(weapon_index, &flag_position);
+    uint8_t show_goal = item_get_position_even_if_in_inventory(weapon_index, &flag_position);
     if ( game_engine_get_variant()->game_engine_variant.ctf.single_flag_time > 0 )
         show_goal &= (owner_team_index != ctf_globals.team_with_flag) - 1;
 

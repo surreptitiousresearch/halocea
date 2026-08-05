@@ -33,7 +33,7 @@ extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_t
                                      const void *vertex_data, unsigned int vertex_stride);
 
 void _rasterizer_hud_motion_sensor_blip_draw(const real_point2d *blip_position, float fade, float radius,
-                                             const real_rgb_color *blip_color, unsigned __int8 custom)
+                                             const real_rgb_color *blip_color, uint8_t custom)
 {
     /* Keep the motion-blip (12) and iface-map1 (13) interface bitmap tags referenced (results unused). */
     bitmap_group_try_and_get_bitmap(interface_get_tag_index(_interface_bitmap_motion_blip), 0);
@@ -56,14 +56,15 @@ void _rasterizer_hud_motion_sensor_blip_draw(const real_point2d *blip_position, 
     float blip_green = ((blip_color->n[1] * fade) * 255.0f);
     float blip_blue  = ((blip_color->n[2] * fade) * 255.0f);
     unsigned int packed_color =
-        ((((unsigned int)(__int64)blip_red << 8) & 0xFF00 | 0xFFFF0000 | (unsigned __int8)(__int64)blip_green) << 8)
-        | (unsigned __int8)(__int64)blip_blue;
+        ((((unsigned int)(int64_t)blip_red << 8) & 0xFF00 | 0xFFFF0000 | (uint8_t)(int64_t)blip_green) << 8)
+        | (uint8_t)(int64_t)blip_blue;
 
     float left   = (center_x - half);
     float right   = (center_x + half);
     float top    = (center_y + half);
     float bottom = (center_y - half);
 
+    /* Vertex stream: {x,y,z, packed ARGB dword written into the float slot, u,v}. */
     float quad[24];
     quad[0]  = left;  quad[1]  = top;    quad[2]  = 0.0f;
     *(unsigned int *)&quad[3]  = packed_color; quad[4]  = 0.0f; quad[5]  = 0.0f;

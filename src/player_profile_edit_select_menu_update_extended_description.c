@@ -2,12 +2,13 @@
  * position in the list (capped to 8, else -1) and push it as the extended-description text box's
  * string_list_index / animation frame (frame 6 when at the 9th/"more" entry). */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 
 void player_profile_edit_select_menu_update_extended_description(widget_instance *list_widget)
 {
     widget_instance *child = list_widget->children;
-    __int16 i;
+    int16_t i;
 
     for ( i = 0; child; ++i )
     {
@@ -19,7 +20,7 @@ void player_profile_edit_select_menu_update_extended_description(widget_instance
     if ( i > 8 )
         i = -1;
 
-    __int16 frame_index = i;
+    int16_t frame_index = i;
     if ( i != -1 )
     {
         widget_instance *text_box = list_widget->parameters.list_parameters.extended_description->children;

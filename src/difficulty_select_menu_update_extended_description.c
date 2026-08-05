@@ -13,7 +13,7 @@ extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
 
 void difficulty_select_menu_update_extended_description(widget_instance *list_widget)
 {
-    unsigned __int16 selected_list_item_index = list_widget->parameters.list_parameters.selected_list_item_index;
+    uint16_t selected_list_item_index = list_widget->parameters.list_parameters.selected_list_item_index;
     widget_instance *icon = list_widget->parameters.list_parameters.extended_description->children;
     widget_instance *title = icon->next;
 
@@ -28,7 +28,7 @@ void difficulty_select_menu_update_extended_description(widget_instance *list_wi
     set_profile_name(title->next, profile.player_name);
 
     widget_instance *child = list_widget->children;
-    for ( __int16 i = 0; i < 4; i++ )
+    for ( int16_t i = 0; i < 4; i++ )
     {
         child->animation_data.current_frame_index = (i == list_widget->parameters.list_parameters.selected_list_item_index);
         child = child->next;

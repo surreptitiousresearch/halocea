@@ -4,20 +4,21 @@
  * the split, then a "3" (mirrored) rectangle below it; shape 2 first tesselates a "3" wedge, then a plain
  * "2" rectangle; shapes 3/4 tesselate a single region ("3" or "2" respectively) spanning the whole split. */
 
+#include <stdint.h>
 #include "headers/flag_definition.h"
 #include "headers/flag_datum.h"
 #include "headers/trailing_edge_shape.h"
 
-extern void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, __int16 x, __int16 y,
-        __int16 size, __int16 tesselation);
+extern void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y,
+        int16_t size, int16_t tesselation);
 
 void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
 {
-    __int16 trailing_edge_shape = flag_definition->trailing_edge_shape;
+    int16_t trailing_edge_shape = flag_definition->trailing_edge_shape;
     if ( trailing_edge_shape == _trailing_edge_shape_flat )
         return;
 
-    __int16 split;
+    int16_t split;
     if ( trailing_edge_shape == _trailing_edge_shape_trapezoid_short_top
       || trailing_edge_shape == _trailing_edge_shape_trapezoid_short_bottom )
         split = flag_definition->height - 1;
@@ -25,9 +26,9 @@ void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
         split = flag_definition->height >> 1;
 
     int raw_x = flag_definition->width + flag_definition->trailing_edge_offset - split - 1;
-    __int16 x = raw_x < 0 ? 0 : (__int16)raw_x;
+    int16_t x = raw_x < 0 ? 0 : (int16_t)raw_x;
 
-    __int16 y, size, tesselation;
+    int16_t y, size, tesselation;
 
     switch ( trailing_edge_shape )
     {

@@ -35,18 +35,18 @@ BOOL action_flee_at_flee_position(int actor_index)
         return 0;
 
     /* recovered: raw word +952 -> firing_positions.current_position_index (assigned flee firing-position index). */
-    __int16 flee_firing_position_index = actor->firing_positions.current_position_index;
+    int16_t flee_firing_position_index = actor->firing_positions.current_position_index;
     if ( flee_firing_position_index == -1 )
         return 0;
 
     const firing_position_definition *firing_position =
         &((const firing_position_definition *)*(char *const *)((const char *)global_scenario->ai_encounters.address
-        + 176 * (unsigned __int16)actor->meta.encounter_index + 156))[flee_firing_position_index];
+        + 176 * (uint16_t)actor->meta.encounter_index + 156))[flee_firing_position_index];
 
     /* recovered: 1132 -> control.path.destination_orders.destination_type, 1136 -> its firing_position_index (union @0x4) */
     if ( actor_path_at_destination(actor_index)
       && actor->control.path.destination_orders.destination_type == _destination_firing_position
-      && (unsigned __int16)actor->control.path.destination_orders.___u3.firing_position_index == (unsigned __int16)actor->firing_positions.current_position_index )
+      && (uint16_t)actor->control.path.destination_orders.___u3.firing_position_index == (uint16_t)actor->firing_positions.current_position_index )
         return 1;
 
     float tolerance = actor_destination_tolerance(actor_index);
@@ -58,14 +58,14 @@ BOOL action_flee_at_flee_position(int actor_index)
     if ( dx * dx + dy * dy + dz * dz >= tolerance * tolerance )
         return 0;
 
-    unsigned __int8 line_of_sight_blocked = 0;
+    uint8_t line_of_sight_blocked = 0;
 
     /* actor+184 = state.action_data.___u0.flee.flee_prop_index (flee_state_data+28). */
     int prop_index = actor->state.action_data.___u0.flee.flee_prop_index;
     if ( prop_index != -1 )
     {
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-        __int16 line_of_sight = prop->line_of_sight;
+        int16_t line_of_sight = prop->line_of_sight;
 
         line_of_sight_blocked = (line_of_sight != _ai_line_of_sight_clear && line_of_sight != _ai_line_of_sight_occluded);
     }

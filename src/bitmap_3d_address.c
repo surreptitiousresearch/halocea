@@ -9,18 +9,18 @@
 
 extern const int8_t bitmap_format_bits_per_pixel_table[];  /* lbzx+extsb stride-1 byte table (all 15 binary access sites) */
 
-char *bitmap_3d_address(const bitmap_data *bitmap, __int16 x, __int16 y, __int16 z, __int16 mipmap_index)
+char *bitmap_3d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t z, int16_t mipmap_index)
 {
-    __int16 width = bitmap->width;
-    __int16 height = bitmap->height;
-    __int16 depth = bitmap->depth;
+    int16_t width = bitmap->width;
+    int16_t height = bitmap->height;
+    int16_t depth = bitmap->depth;
     int accumulated_pixels = 0;
 
     if ( mipmap_index > 0 )
     {
-        __int16 minimum_dimension = (bitmap->flags & (1 << _bitmap_compressed_bit)) == 0 ? 1 : 4;
+        int16_t minimum_dimension = (bitmap->flags & (1 << _bitmap_compressed_bit)) == 0 ? 1 : 4;
 
-        for ( __int16 level = 0; level < mipmap_index; level++ )
+        for ( int16_t level = 0; level < mipmap_index; level++ )
         {
             accumulated_pixels += width * height * depth;
 

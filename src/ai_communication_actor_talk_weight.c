@@ -93,15 +93,15 @@ float ai_communication_actor_talk_weight(int actor_index, int subject_unit_index
 
     if ( passes )
     {
-        if ( (unsigned __int16)animation_type != 0xFFFF
+        if ( (uint16_t)animation_type != 0xFFFF
           && unit_test_animation_impulse(actor_unit_index, animation_type) )
             weight = weight + 5.0f;
 
-        if ( passes && (unsigned __int16)vocalization_type != 0xFFFF )
+        if ( passes && (uint16_t)vocalization_type != 0xFFFF )
         {
             int16_t line_vocalization_type = vocalization_type;
             int sound_definition_index = -1;
-            __int16 allowed = ai_communication_consider_speech(actor_unit_index, ai_communication_priority,
+            int16_t allowed = ai_communication_consider_speech(actor_unit_index, ai_communication_priority,
                                   unit_speech_priority, 0, flags & 1, 1u, &line_vocalization_type, &weight,
                                   &sound_definition_index, 0);
             passes = allowed != 0;

@@ -25,7 +25,7 @@ int rasterizer_set_texture_bitmap_data(int16_t stage, bitmap_data *bitmap)
     if (!bitmap)
         return 0;
 
-    unsigned __int64 pending_mask = 1ULL << (31 - stage);
+    uint64_t pending_mask = 1ULL << (31 - stage);
 
     if (halo_use_white_tex)
     {

@@ -16,7 +16,7 @@ extern uint8_t player_profile_get(int player_profile_index, player_profile *prof
 
 void player_profile_update_cache_for_nwide_list(int *profile_index, int number_of_profile_indices)
 {
-    unsigned __int8 still_wanted[3] = { 0, 0, 0 };
+    uint8_t still_wanted[3] = { 0, 0, 0 };
 
     for ( int slot = 0; slot < 3; ++slot )
     {

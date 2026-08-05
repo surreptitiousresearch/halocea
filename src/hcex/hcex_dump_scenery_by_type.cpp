@@ -21,7 +21,7 @@
 #include "headers/scenario.h"
 extern scenario *global_scenario;
 
-extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, __int16 object_type, int *size);
+extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, int16_t object_type, int *size);
 extern tag_block * scenario_get_object_type_scenario_palette(scenario *scenario, int16_t object_type);
 extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern void vectors3d_from_euler_angles3d(real_vector3d *forward, real_vector3d *up, const real_euler_angles3d *angles);
@@ -35,7 +35,7 @@ extern "C" void hcex_dump_scenery_by_type(int type)
     const tag_block *scenario_datums = scenario_get_object_type_scenario_datums(global_scenario, type, &element_size);
     tag_block *scenario_palette = scenario_get_object_type_scenario_palette(global_scenario, type);
 
-    for ( int i = 0; i < scenario_datums->count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < scenario_datums->count; i = (int16_t)(i + 1) )
     {
         scenario_object_datum *placement =
             (scenario_object_datum *)tag_block_get_element_with_size(scenario_datums, i, element_size);

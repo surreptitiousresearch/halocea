@@ -56,7 +56,7 @@ void object_compute_node_matrices(int object_index)
 {
     object_datum *object =
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
-    __int16 object_type = object->object.type;
+    int16_t object_type = object->object.type;
     _object_definition *object_definition =
         TAG_GET(_object_definition, object->definition_index);
     real_matrix4x3 *node_matrices =
@@ -96,7 +96,7 @@ void object_compute_node_matrices(int object_index)
         /* Base node pose: from the model, or from the current animation frame. */
         unsigned char no_base_transform = 0;
         int  animation_graph_index = object->object.animation.animation_graph_index;
-        __int16 animation_index;
+        int16_t animation_index;
         if ( animation_graph_index == -1
           || (animation_index = object->object.animation.state.index) == -1 )
         {
@@ -106,7 +106,7 @@ void object_compute_node_matrices(int object_index)
         {
             animation_graph *graph = TAG_GET(animation_graph, animation_graph_index);
             const animation *anim = (const animation *)graph->animations.address + animation_index;
-            __int16 frame_index;
+            int16_t frame_index;
             if ( (object->object.flags & (1u << _object_animates_automatically_bit)) != 0 && anim->frame_count > 0 )
                 frame_index = (game_time_get() + object_index) % (unsigned int)anim->frame_count;
             else
@@ -124,18 +124,18 @@ void object_compute_node_matrices(int object_index)
             animation_graph *overlay_graph = TAG_GET(animation_graph, overlay_graph_index);
             if ( overlay_graph->object_overlays.count > 0 )
             {
-                __int16 i = 0;
+                int16_t i = 0;
                 do
                 {
                     animation_graph_object_overlay *overlay =
                         (animation_graph_object_overlay *)overlay_graph->object_overlays.address + i;
-                    __int16 overlay_anim_index = overlay->animation_index;
+                    int16_t overlay_anim_index = overlay->animation_index;
                     if ( overlay_anim_index != -1 )
                     {
-                        __int16 function_index = overlay->function_index;
+                        int16_t function_index = overlay->function_index;
                         if ( function_index < object_definition->functions.count )
                         {
-                            __int16 overlay_type = overlay->mode;   /* 0 = continuous (function->frame), 1 = scaled (time-driven, function scales amplitude) */
+                            int16_t overlay_type = overlay->mode;   /* 0 = continuous (function->frame), 1 = scaled (time-driven, function scales amplitude) */
                             const animation *overlay_anim =
                                 (const animation *)overlay_graph->animations.address + overlay_anim_index;
                             float function_value =
@@ -156,13 +156,13 @@ void object_compute_node_matrices(int object_index)
                                 unsigned int function_flags =
                                     ((object_function_definition *)object_definition->functions.address)
                                         [function_index].flags;
-                                __int16 frame_count = overlay_anim->frame_count;
+                                int16_t frame_count = overlay_anim->frame_count;
                                 float frame_span = (function_flags & (1u << _object_function_additive_bit)) ? frame_count : frame_count - 1;
                                 overlay_animation_apply_continuous(overlay_anim, frame_span * function_value, node_orientations);
                             }
                         }
                     }
-                    i = (__int16)(i + 1);
+                    i = (int16_t)(i + 1);
                 }
                 while ( i < overlay_graph->object_overlays.count );
             }
@@ -184,7 +184,7 @@ void object_compute_node_matrices(int object_index)
         /* Blend toward last frame's pose for smooth interpolation. */
         if ( debug_off_interpolating_object_index != object_index )
         {
-            __int16 interp_frame_count = object->object.animation.interpolation_frame_count;
+            int16_t interp_frame_count = object->object.animation.interpolation_frame_count;
             if ( interp_frame_count > 0 )
                 interpolate_node_orientations(model_tag->nodes.count,
                     (real_orientation *)((char *)object
@@ -195,12 +195,12 @@ void object_compute_node_matrices(int object_index)
 
         /* Walk the node tree, turning local orientations into world matrices. */
         unsigned short node_stack[64];
-        __int16 head = 0;
+        int16_t head = 0;
         node_stack[0] = 0;
-        __int16 tail = 1;
+        int16_t tail = 1;
         while ( 1 )
         {
-            __int16 current = node_stack[head++];
+            int16_t current = node_stack[head++];
             model_node *node = (model_node *)model_tag->nodes.address + current;
 
             if ( current == 0 )
@@ -287,10 +287,10 @@ void object_compute_node_matrices(int object_index)
                 matrix4x3_multiply(parent_node_matrix, node_matrix, node_matrix);
             }
 
-            int next_sibling = (unsigned __int16)node->next_sibling_node_index;
+            int next_sibling = (uint16_t)node->next_sibling_node_index;
             if ( next_sibling != 0xFFFF )
                 node_stack[tail++] = next_sibling;
-            int first_child = (unsigned __int16)node->first_child_node_index;
+            int first_child = (uint16_t)node->first_child_node_index;
             if ( first_child != 0xFFFF )
                 node_stack[tail++] = first_child;
             if ( head == tail )

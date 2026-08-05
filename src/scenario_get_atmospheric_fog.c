@@ -23,7 +23,7 @@
 #include "headers/global_tag_instances.h"
 extern float __fsqrts(float);
 
-extern sky *scenario_get_sky(__int16 sky_index);
+extern sky *scenario_get_sky(int16_t sky_index);
 
 static float ease_toward(float current, float target, float maximum_step)
 {

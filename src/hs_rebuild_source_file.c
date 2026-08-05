@@ -25,7 +25,7 @@ uint8_t hs_rebuild_source_file(file_reference *script_file)
     if ( !file_exists(script_file) )
         return 0;
 
-    __int16 element = tag_block_add_element(&scn->hs_source_files);
+    int16_t element = tag_block_add_element(&scn->hs_source_files);
     if ( element == -1 )
         return 0;
 

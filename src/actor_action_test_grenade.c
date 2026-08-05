@@ -44,7 +44,7 @@ uint8_t actor_action_test_grenade(int actor_index)
     if ( actor->input.vehicle_index != -1 )
         return 0;
 
-    unsigned __int8 blocked = 0;
+    uint8_t blocked = 0;
     if ( actor->meta.encounter_index != -1 )
     {
         float grenade_chance = variant_definition->grenade_combat.encounter_grenade_timeout;
@@ -58,7 +58,7 @@ uint8_t actor_action_test_grenade(int actor_index)
         /* recovered: *(int *)(encounter + 92) -> last_grenade_throw_time */
         int last_grenade_time = encounter->last_grenade_throw_time;
         blocked = 1;
-        if ( last_grenade_time == -1 || (__int16)(int)(throw_chance * 30.0f) + last_grenade_time <= current_time )
+        if ( last_grenade_time == -1 || (int16_t)(int)(throw_chance * 30.0f) + last_grenade_time <= current_time )
             blocked = 0;
     }
     if ( blocked )
@@ -71,7 +71,7 @@ uint8_t actor_action_test_grenade(int actor_index)
             &grenade_ignore_object_index) )
         return 0;
 
-    __int16 enemy_count;
+    int16_t enemy_count;
     if ( !actor_combat_check_collateral_damage(actor_index, variant_definition->grenade_combat.enemy_radius,
             variant_definition->grenade_combat.collateral_damage_radius, (const float *)&grenade_target, &enemy_count) )
         return 0;

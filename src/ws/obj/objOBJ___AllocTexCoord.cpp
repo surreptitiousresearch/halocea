@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -22,7 +23,7 @@ int objOBJ::_AllocTexCoord(unsigned int tcInd, int nVert)
     }
 
     int stride = 8;
-    if ((pGeom->pSharedGeom->stateCompr.state & ((unsigned __int64)0x100 << tcInd)) != 0)
+    if ((pGeom->pSharedGeom->stateCompr.state & ((uint64_t)0x100 << tcInd)) != 0)
         stride = 4;
 
     bool wasEmpty = (GetTexCoordList(tcInd) == nullptr);

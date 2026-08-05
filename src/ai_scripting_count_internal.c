@@ -26,7 +26,7 @@ int ai_scripting_count_internal(unsigned int ai_index, int16_t count_type, int *
     if ( !(ai_index >> 30) )
     {
         /* Encounter scope. */
-        if ( (unsigned __int16)ai_index >= global_scenario->ai_encounters.count )
+        if ( (uint16_t)ai_index >= global_scenario->ai_encounters.count )
             goto done;
         encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, ai_index);
         if ( count_type == _ai_count_living )
@@ -44,12 +44,12 @@ int ai_scripting_count_internal(unsigned int ai_index, int16_t count_type, int *
     else if ( ai_index >> 30 == 1 )
     {
         /* Platoon scope. */
-        if ( (unsigned __int16)ai_index < global_scenario->ai_encounters.count )
+        if ( (uint16_t)ai_index < global_scenario->ai_encounters.count )
         {
             encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, ai_index);
             if ( (int)((ai_index >> 8) & 0xFF) < encounter->platoon_count )
             {
-                platoon_datum *platoon = &platoon_array[(__int16)(encounter->platoon_base + ((ai_index >> 8) & 0xFF))];
+                platoon_datum *platoon = &platoon_array[(int16_t)(encounter->platoon_base + ((ai_index >> 8) & 0xFF))];
                 current_strength_fraction = platoon->current_strength_fraction;
                 original_count = platoon->original_count;
                 if ( count_type == _ai_count_living )
@@ -68,12 +68,12 @@ int ai_scripting_count_internal(unsigned int ai_index, int16_t count_type, int *
     else
     {
         /* Squad scope. */
-        if ( (unsigned __int16)ai_index < global_scenario->ai_encounters.count )
+        if ( (uint16_t)ai_index < global_scenario->ai_encounters.count )
         {
             encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, ai_index);
             if ( (int)((ai_index >> 8) & 0xFF) < encounter->squad_count )
             {
-                squad_datum *squad = &squad_array[(__int16)(encounter->squad_base + ((ai_index >> 8) & 0xFF))];
+                squad_datum *squad = &squad_array[(int16_t)(encounter->squad_base + ((ai_index >> 8) & 0xFF))];
                 current_strength_fraction = squad->current_strength_fraction;
                 original_count = squad->original_count;
                 if ( count_type == _ai_count_living )

@@ -34,15 +34,15 @@ void update_channel_for_impulse_sound(int16_t channel_index, float fade)
     float distance_t = datum->source.scale;
     float scale_upper_gain = def->scale_upper_bound.gain;
     float scale_lower_gain = def->scale_lower_bound.gain;
-    float master_gain = sound_manager_master_gain((unsigned __int16)def->class_index);
+    float master_gain = sound_manager_master_gain((uint16_t)def->class_index);
     /* distance-attenuated, scaled, faded gain factor shared by both branches */
     float distance_gain = (scale_upper_gain - scale_lower_gain) * distance_t + scale_lower_gain;
     float fade_factor = (master_gain * datum->source.gain) * fade * distance_gain;
 
-    __int16 owning_object_type = -1;
+    int16_t owning_object_type = -1;
     platform_sound_channel_properties properties;
 
-    if ( (unsigned __int16)datum->playing_channel_index == 0xFFFF )
+    if ( (uint16_t)datum->playing_channel_index == 0xFFFF )
     {
         float pitch_modifier = datum->pitch;
         sound_pitch_range *pitch_range =
@@ -57,10 +57,10 @@ void update_channel_for_impulse_sound(int16_t channel_index, float fade)
         properties.outer_cone_angle = def->outer_cone_angle;
         properties.outer_cone_gain = def->outer_cone_gain;
         properties.reverb_damping_factor =
-            sound_classes[(unsigned __int16)def->class_index].reverb_damping_factor;
+            sound_classes[(uint16_t)def->class_index].reverb_damping_factor;
         properties.maximum_distance = 3.4028235e38f; /* FLT_MAX */
 
-        channel_set_properties(channel_index, &properties, 0, (unsigned __int16)def->class_index);
+        channel_set_properties(channel_index, &properties, 0, (uint16_t)def->class_index);
 
         {
             int source_object = datum->source_identifier;
@@ -75,8 +75,8 @@ void update_channel_for_impulse_sound(int16_t channel_index, float fade)
         /* channel_queue_sound takes the permutation into non-const channel storage; this
            function only reads it, hence the const-boundary cast (matches the binary) */
         channel_queue_sound(channel_index, (sound_permutation *)permutation, owning_object_type,
-                            datum->is_local_player, (unsigned __int16)def->class_index, 0);
-        datum->playing_channel_index = (unsigned __int16)channel_index;
+                            datum->is_local_player, (uint16_t)def->class_index, 0);
+        datum->playing_channel_index = (uint16_t)channel_index;
     }
     else
     {
@@ -86,7 +86,7 @@ void update_channel_for_impulse_sound(int16_t channel_index, float fade)
         else
             properties.gain = def->gain * fade_factor;
 
-        channel_set_properties(channel_index, &properties, 1u, (unsigned __int16)def->class_index);
-        sound_manager_globals.platform->channel_update(channel_index, 0, (unsigned __int16)def->class_index);
+        channel_set_properties(channel_index, &properties, 1u, (uint16_t)def->class_index);
+        sound_manager_globals.platform->channel_update(channel_index, 0, (uint16_t)def->class_index);
     }
 }

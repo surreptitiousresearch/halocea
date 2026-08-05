@@ -40,7 +40,7 @@ uint8_t hs_compile_postprocess(const char **error_message_pointer, const char **
     *error_message_pointer = nullptr;
     *error_source_pointer = nullptr;
 
-    __int16 resolved_type = 0;
+    int16_t resolved_type = 0;
     hs_script *script = nullptr;  /* loop-carried; see DEVIATION note */
 
     for (int index = data_next_index(hs_syntax_data, -1); index != -1;
@@ -56,7 +56,7 @@ uint8_t hs_compile_postprocess(const char **error_message_pointer, const char **
                 if (node->type >= hs_type_string || (node->flags & (1u << _hs_syntax_node_variable_bit)))
                 {
                     int source_offset = node->source_offset;
-                    unsigned __int8 offset_ok = 1;
+                    uint8_t offset_ok = 1;
                     if (source_offset < 0 || source_offset >= hs_compile_globals.compiled_source_size)
                     {
                         offset_ok = 0;
@@ -75,7 +75,7 @@ uint8_t hs_compile_postprocess(const char **error_message_pointer, const char **
             else if (node->flags & (1u << _hs_syntax_node_script_bit))
             {
                 /* script reference */
-                __int16 script_index = node->___u1.script_index;
+                int16_t script_index = node->___u1.script_index;
                 if ((script_index >= 0 && script_index < global_scenario->hs_scripts.count
                      && (script = (hs_script *)global_scenario->hs_scripts.address + script_index,
                          script->script_type == _hs_script_static))
@@ -97,7 +97,7 @@ uint8_t hs_compile_postprocess(const char **error_message_pointer, const char **
                 /* function call: resolve the callee name node to a function index */
                 hs_syntax_node *function_name_node = &HS_SYNTAX_NODE(node->data);
                 int name_offset = function_name_node->source_offset;
-                unsigned __int8 offset_ok = 1;
+                uint8_t offset_ok = 1;
                 if (name_offset < 0 || name_offset >= hs_compile_globals.compiled_source_size)
                 {
                     offset_ok = 0;
@@ -105,7 +105,7 @@ uint8_t hs_compile_postprocess(const char **error_message_pointer, const char **
                 }
                 if (offset_ok)
                 {
-                    __int16 function_index = hs_find_function_by_name(
+                    int16_t function_index = hs_find_function_by_name(
                         &hs_compile_globals.compiled_source[function_name_node->source_offset]);
                     if (function_index != -1)
                     {

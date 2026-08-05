@@ -16,7 +16,7 @@ void director_script_camera(uint8_t enabled)
 {
     *director_camera_scripted = enabled;
 
-    for ( int local_player = 0; local_player < 2; local_player = (__int16)(local_player + 1) )
+    for ( int local_player = 0; local_player < 2; local_player = (int16_t)(local_player + 1) )
     {
         if ( enabled )
         {

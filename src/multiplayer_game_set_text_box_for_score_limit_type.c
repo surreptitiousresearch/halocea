@@ -2,6 +2,7 @@
  * of "score limit" the current game variant uses (points, time, kills, etc.), keyed off the variant's game
  * engine and, for king/oddball, sub-mode. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 #include "headers/game_engine_type.h"
@@ -16,7 +17,7 @@ void multiplayer_game_set_text_box_for_score_limit_type(widget_instance *widget)
         return;
 
     int game_engine_index = game->variant.game_engine_index;
-    __int16 string_list_index;
+    int16_t string_list_index;
 
     if ( game_engine_index >= first_usable_game_engine_index
       && game_engine_index <= last_usable_game_engine_index

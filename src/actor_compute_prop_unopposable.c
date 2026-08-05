@@ -15,7 +15,7 @@
 uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index)
 {
     prop_datum *prop = DATUM_GET(prop_data, prop_datum, prop_index);
-    __int16 state = prop->state;
+    int16_t state = prop->state;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int result = 0;
 

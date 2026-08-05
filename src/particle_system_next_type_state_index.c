@@ -4,6 +4,7 @@
  * to 0 (type_states_loop only), or deactivates the type. Looping only continues while the system has a
  * host object. */
 
+#include <stdint.h>
 #include "headers/particle_system_datum.h"
 #include "headers/particle_type.h"
 #include "headers/particle_system_type.h"
@@ -15,7 +16,7 @@ void particle_system_next_type_state_index(const particle_system_datum *system, 
     unsigned int states_moving_forward = type->states_moving_forward;
     int state_index = type->state_index;
     int step = states_moving_forward == 0 ? -1 : 1;
-    int next = (__int16)(step + state_index);
+    int next = (int16_t)(step + state_index);
 
     type->transition_state_index = next;
 

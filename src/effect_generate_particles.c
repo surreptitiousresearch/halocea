@@ -89,16 +89,16 @@ void effect_generate_particles(effect_datum *effect)
     if ( event_record->particles.count <= 0 )
         goto done;
 
-    for ( part_index = 0; part_index < event_record->particles.count; part_index = (__int16)(part_index + 1) )
+    for ( part_index = 0; part_index < event_record->particles.count; part_index = (int16_t)(part_index + 1) )
     {
         effect_particles_definition *part =
             &((effect_particles_definition *)event_record->particles.address)[part_index];
         int location_index = part->location_index;
         int disposition;
         float count_float;
-        __int16 count_function;
+        int16_t count_function;
         int16_t emit_count; /* was int: binary keeps the count 16-bit — lhz of the fctiwz low half @0x836E2C98/0x836E2CAC/0x836E2CD8, extsh at every read (decompiler: __int16 v19/r21) */
-        __int16 camera_mode;
+        int16_t camera_mode;
         int location_cursor;
         effect_location_datum *instance;
         int remaining;
@@ -126,7 +126,7 @@ void effect_generate_particles(effect_datum *effect)
 
         while ( instance )
         {
-            unsigned __int16 node_designator = (unsigned __int16)instance->node_designator;
+            uint16_t node_designator = (uint16_t)instance->node_designator;
 
             /* skip first-person emission locations when there is no first-person weapon shown */
             if ( node_designator == 0xFFFF || !EFFECT_NODE_IS_FIRST_PERSON_WEAPON(node_designator)
@@ -151,7 +151,7 @@ void effect_generate_particles(effect_datum *effect)
             real_point3d position;
             real_vector3d direction;
             real_vector3d velocity;
-            unsigned __int16 node_designator;
+            uint16_t node_designator;
             float color_fraction;
 
             --remaining;
@@ -173,7 +173,7 @@ void effect_generate_particles(effect_datum *effect)
             matrix4x3_transform_vector(&instance->matrix, &particle.velocity, &particle.velocity);
 
             /* transform position/direction/velocity into world space through the node, if any */
-            node_designator = (unsigned __int16)instance->node_designator;
+            node_designator = (uint16_t)instance->node_designator;
             if ( node_designator == 0xFFFF )
             {
                 position = particle.position;
@@ -187,7 +187,7 @@ void effect_generate_particles(effect_datum *effect)
                     node_matrix = first_person_weapon_get_node_matrix(effect->local_player_index, EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator));
                 else
                     node_matrix = object_get_node_matrix(effect->object_index,
-                                      ((__int16)node_designator == -1) ? -1 : EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator));
+                                      ((int16_t)node_designator == -1) ? -1 : EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator));
                 matrix4x3_transform_point(node_matrix, &particle.position, &position);
                 matrix4x3_transform_normal(node_matrix, &particle.direction, &direction);
                 matrix4x3_transform_vector(node_matrix, &particle.velocity, &velocity);
@@ -263,8 +263,8 @@ void effect_generate_particles(effect_datum *effect)
                 }
 
                 {
-                    unsigned __int16 nd = (unsigned __int16)instance->node_designator;
-                    __int16 location_filter = part->camera_mode;
+                    uint16_t nd = (uint16_t)instance->node_designator;
+                    int16_t location_filter = part->camera_mode;
                     particle.local_player_index = effect->local_player_index;
                     particle.attached_to_local_player = (nd != 0xFFFF && EFFECT_NODE_IS_FIRST_PERSON_WEAPON(nd));
                     particle.dont_draw_first_person = (location_filter == _effect_camera_mode_third_person_only);

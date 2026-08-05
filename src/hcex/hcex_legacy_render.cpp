@@ -17,7 +17,7 @@ extern "C" void hcex_legacy_render(void)
 {
     /* DEVIATION: the decompiler modeled the 64-bit system_clocks() result as an OVERLAPPED register pair
      * (>>32); the disasm keeps the full 64-bit value in r3 and later stores it whole to last_render_clocks. */
-    __int64 current_clocks = system_clocks();
+    int64_t current_clocks = system_clocks();
     float time_delta_since_tick_sec = game_time_get_since_tick();
     float time_delta_since_last_render_sec =
         system_clock_delta_seconds_real(current_clocks, main_globals.last_render_clocks);

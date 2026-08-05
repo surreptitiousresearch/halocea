@@ -44,7 +44,7 @@ void hud_render_weapon_interface(player_datum *player)
 
     /* recovered: *(__int16 *)(unit + 754) -> unit.current_weapon_index (500+254) */
     int weapon = unit_inventory_get_weapon(unit_index, ((unit_datum *)unit)->unit.current_weapon_index);
-    unsigned __int8 seat_disallows_hud = 0;
+    uint8_t seat_disallows_hud = 0;
 
     if ( weapon == -1 )
     {
@@ -53,7 +53,7 @@ void hud_render_weapon_interface(player_datum *player)
         if ( parent_object_index != -1 )
         {
             /* recovered: *(__int16 *)(unit + 752) -> unit.parent_seat_index (500+252) */
-            __int16 parent_seat_index = ((unit_datum *)unit)->unit.parent_seat_index;
+            int16_t parent_seat_index = ((unit_datum *)unit)->unit.parent_seat_index;
             if ( parent_seat_index != -1 )
             {
                 int parent = (int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_object_index)->datum;

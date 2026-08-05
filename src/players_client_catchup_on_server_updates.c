@@ -56,7 +56,7 @@ void players_client_catchup_on_server_updates(void)
         int number_of_queued_entries;
         int updates_applied = 0;
 
-        if ( (unsigned __int16)player->local_player_index != 0xFFFF )
+        if ( (uint16_t)player->local_player_index != 0xFFFF )
             continue;
 
         queue = &player->___u26.client_update_data.___u0.remote_player.action_queue;
@@ -113,7 +113,7 @@ void players_client_catchup_on_server_updates(void)
                 }
 
                 {
-                    unsigned __int8 is_driver = 0;
+                    uint8_t is_driver = 0;
                     player_datum *p = datum_try_and_get(player_data, iter.index);
                     if ( p )
                     {

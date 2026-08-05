@@ -33,7 +33,7 @@ void ai_update_team_status(void)
         prop_iterator_new(&props, actors.index);
         for ( prop_datum *prop = prop_iterator_next(&props); prop; prop = prop_iterator_next(&props) )
         {
-            __int16 team = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, prop->unit_index)->datum)->object.owner_team_index;
+            int16_t team = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, prop->unit_index)->datum)->object.owner_team_index;
             prop->team_index = team;
             prop->enemy = game_team_is_enemy(actor->meta.team_index, team);
             prop->ally = game_team_is_ally(actor->meta.team_index, prop->team_index);

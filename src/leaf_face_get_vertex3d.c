@@ -24,7 +24,7 @@ void leaf_face_get_vertex3d(const leaf_map *map, map_leaf_face *face, int16_t ve
     float abs_y = (float)__fabs(plane->n.n[1]);
     float abs_z = (float)__fabs(plane->n.n[2]);
 
-    __int16 projection;
+    int16_t projection;
     if ( abs_z < abs_y || abs_z < abs_x )
         projection = abs_y >= abs_x;
     else

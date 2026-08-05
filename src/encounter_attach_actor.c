@@ -34,11 +34,11 @@ void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_
 
     encounter_datum *encounter = DATUM_GET(encounter_data, encounter_datum, encounter_index);
     encounter_definition *scenario_encounter = (encounter_definition *)global_scenario->ai_encounters.address
-                             + (unsigned __int16)encounter_index;
-    __int16 squad_base = encounter->squad_base;
-    __int16 platoon_index = ((squad_definition *)scenario_encounter->squads.address + squad_index)->platoon_index;
+                             + (uint16_t)encounter_index;
+    int16_t squad_base = encounter->squad_base;
+    int16_t platoon_index = ((squad_definition *)scenario_encounter->squads.address + squad_index)->platoon_index;
     actor_datum *actor = DATUM_GET(actor_data, actor_datum, actor_index);
-    squad_datum *squad = &squad_array[(__int16)(squad_base + squad_index)];
+    squad_datum *squad = &squad_array[(int16_t)(squad_base + squad_index)];
 
     actor->meta.disconnected_encounter_index = -1;
     actor->meta.disconnected_squad_index = -1;
@@ -49,7 +49,7 @@ void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_
         platoon_index = -1;
 
     int active = actor->meta.active;
-    unsigned __int8 activated = 0;
+    uint8_t activated = 0;
     actor->meta.encounter_index = encounter_index;
     actor->meta.squad_index = squad_index;
     actor->meta.platoon_index = platoon_index;
@@ -70,8 +70,8 @@ void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_
     if ( unit_index != -1 )
         encounter_attach_unit(encounter_index, unit_index);
 
-    __int16 actor_team = actor->meta.team_index;
-    __int16 encounter_team = encounter->team_index;
+    int16_t actor_team = actor->meta.team_index;
+    int16_t encounter_team = encounter->team_index;
     if ( actor_team != encounter_team )
     {
         if ( !has_previous_team || encounter->current_count )
@@ -92,7 +92,7 @@ void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_
 
     if ( platoon_index != -1 )
     {
-        platoon_datum *platoon = &platoon_array[(__int16)(encounter->platoon_base + platoon_index)];
+        platoon_datum *platoon = &platoon_array[(int16_t)(encounter->platoon_base + platoon_index)];
         actor->external_orders.defending = platoon->defending;
         actor->emotions.currently_defending = platoon->defending;
         ++platoon->original_count;

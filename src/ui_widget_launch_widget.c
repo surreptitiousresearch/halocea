@@ -3,21 +3,22 @@
  * siblings) so it can be restored on back-navigation. The new widget's controller is taken
  * from its own player-count when it requests one (flag 0x1000), else inherited. */
 
+#include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/ui_widget_definition.h"
 #include "headers/global_tag_instances.h"
 #include "headers/widget_event_flags.h"
 
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 widget_instance *ui_widget_launch_widget(widget_instance *widget, int new_widget_tag_index)
 {
     ui_widget_definition *def = TAG_GET(ui_widget_definition, new_widget_tag_index);
     unsigned int player_count = def->controller_index;   /* field at +2 reused as player count */
-    __int16 controller;
+    int16_t controller;
     widget_instance *root, *p;
     int parent_tag;
-    __int16 sibling_index = -1;
+    int16_t sibling_index = -1;
     widget_instance *parent = widget->parent;
 
     /* pick the controller index from the player-count when the widget asks for it */
@@ -52,7 +53,7 @@ widget_instance *ui_widget_launch_widget(widget_instance *widget, int new_widget
 
         {
             widget_instance *child = parent->children;
-            __int16 index = 0;
+            int16_t index = 0;
             if ( child )
             {
                 while ( child != widget )

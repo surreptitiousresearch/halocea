@@ -56,7 +56,7 @@ void object_damage_body(int object_index, int16_t region_index, int16_t node_ind
                         float *body_damage_multiplier_reference, uint8_t should_do_actual_damage)
 {
     float body_damage = damage_material->body_damage_multiplier * total_damage;
-    unsigned __int8 harmless_to_vehicle = 0;
+    uint8_t harmless_to_vehicle = 0;
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
 
     /* parent vehicle with no driver and "ignores damage" resistance flag → no body damage */
@@ -124,7 +124,7 @@ void object_damage_body(int object_index, int16_t region_index, int16_t node_ind
         unsigned char prior = object->object.region_damage[region_index];
         const damage_region *region =
             &((const damage_region *)damage_resistance->regions.address)[region_index];
-        unsigned char accumulated = (__int64)((scaled_damage * 255.0f) + prior);
+        unsigned char accumulated = (int64_t)((scaled_damage * 255.0f) + prior);
         object->object.region_damage[region_index] = accumulated;
         float region_threshold = region->damage_threshold;
         if ( region_threshold > 0.0f && region_threshold < (accumulated * 0.0039215689f) )
@@ -146,7 +146,7 @@ void object_damage_body(int object_index, int16_t region_index, int16_t node_ind
 
     if ( cheat.deathless_player && object->object.body_vitality < 0.0f )
     {
-        __int16 object_type = object->object.type;
+        int16_t object_type = object->object.type;
         if ( ((1 << object_type) & object_mask_unit) != 0 )  /* biped or vehicle */
         {
             int controlling_player = ((unit_datum *)object)->unit.player_index;
@@ -175,7 +175,7 @@ void object_damage_body(int object_index, int16_t region_index, int16_t node_ind
     if ( should_do_actual_damage == 1 )
     {
         float body_vitality = object->object.body_vitality;
-        unsigned __int8 harmless = 0;
+        uint8_t harmless = 0;
         float maximum = object_get_maximum_body_vitality(object_index, harmless);
         float body_destroyed_threshold = damage_resistance->body_destroyed_threshold;
         float scaled_vitality = maximum * body_vitality;
@@ -194,7 +194,7 @@ void object_damage_body(int object_index, int16_t region_index, int16_t node_ind
             }
             else if ( (object->object.damage_flags & (1u << _object_dead_bit)) == 0 )
             {
-                for ( __int16 region = 0; region < damage_resistance->regions.count; ++region )
+                for ( int16_t region = 0; region < damage_resistance->regions.count; ++region )
                 {
                     if ( (((const damage_region *)damage_resistance->regions.address)[region].flags & (1u << _object_region_dies_when_object_dies_bit)) != 0 )
                         object_destroy_region(object_index, region);

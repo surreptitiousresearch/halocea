@@ -34,7 +34,7 @@ void render_debug_trigger_volumes(void)
 
     scenario *scn = global_scenario;
     for ( int volume_index = 0; volume_index < scn->trigger_volumes.count;
-            volume_index = (__int16)(volume_index + 1) )
+            volume_index = (int16_t)(volume_index + 1) )
     {
         scenario_trigger_volume *volume =
             &((scenario_trigger_volume *)scn->trigger_volumes.address)[volume_index];
@@ -67,16 +67,16 @@ void render_debug_trigger_volumes(void)
 
         /* 6 edge pairs (per axis, +/-): world-space edge vectors along the two other axes.
          * The transformed vectors are unused — the debug edge draws were compiled out. */
-        for ( int edge = 0; edge < 6; edge = (__int16)(edge + 1) )
+        for ( int edge = 0; edge < 6; edge = (int16_t)(edge + 1) )
         {
             real_vector3d edge_b;
             real_vector3d edge_c;
             memset(&edge_b, 0, sizeof(edge_b));
             memset(&edge_c, 0, sizeof(edge_c));
-            int axis = (__int16)(edge / 2);
+            int axis = (int16_t)(edge / 2);
             int axis_b = (axis + 1) % 3;
             int axis_c = (axis + 2) % 3;
-            if ( (unsigned __int16)(edge % 2) )
+            if ( (uint16_t)(edge % 2) )
             {
                 edge_b.n[axis_b] = -extents.n[axis_b];
                 edge_c.n[axis_c] = -extents.n[axis_c];

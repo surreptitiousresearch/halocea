@@ -61,19 +61,16 @@ void material_effect_new(int effects_definition_index, int16_t effect_index, int
         if ( sound_tag != -1 )
         {
             sound_location sound;
-            struct location game_location = *location;
 
-            sound.position = *&spawn_point; /* LHS is real_point3d; sound_point3d pun redundant */
-            sound.forward.n[0] = normal->n[0];
-            sound.forward.n[2] = normal->n[2];
-            /* decompiler stores location->leaf_index into forward.n[1] and a zero vector into the
-             * translational velocity / game location; reproduced as-is. */
-            *(int *)&sound.forward.n[1] = location->leaf_index;
-            game_location.leaf_index = *(int *)&global_zero_vector3d->n[1];
-            sound.translational_velocity.n[0] = global_zero_vector3d->n[0];
-            *(int *)&sound.translational_velocity.n[1] = game_location.leaf_index;
-            sound.translational_velocity.n[2] = global_zero_vector3d->n[2];
-            sound.game_location = game_location;
+            /* DEVIATION: the decompiler fused unrelated word moves into cross-assigned temps
+             * (location->leaf_index "into" forward.n[1], zero bits "into" game_location); disasm
+             * 0x836EAA18-0x836EAA78 is four plain copies: position = spawn_point, forward = *normal
+             * (lwz 0/4/8(r31)), velocity = *global_zero_vector3d, game_location = *location (the
+             * 8-byte ld/std of r29). The previous rendering was a real transcription defect. */
+            sound.position = spawn_point;
+            sound.forward = *normal;
+            sound.translational_velocity = *global_zero_vector3d;
+            sound.game_location = *location;
             unattached_impulse_sound_new(sound_tag, &sound, scale, 0);
         }
     }

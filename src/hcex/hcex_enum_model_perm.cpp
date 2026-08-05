@@ -4,6 +4,7 @@
  * walks that region's permutation block. The loop counter is truncated to 16 bits each step, matching the
  * tag's short permutation index. */
 
+#include <stdint.h>
 #include "../headers/global_tag_instances.h"
 #include "../headers/model.h"
 #include "../headers/model_region.h"
@@ -29,7 +30,7 @@ extern "C" void hcex_enum_model_perm(int model_index, int region_index,
     {
         cb(mdl, region_index,
            (const char *)&((model_region_permutation *)region->permutations.address)[permutation_index]);
-        permutation_index = (__int16)(permutation_index + 1);
+        permutation_index = (int16_t)(permutation_index + 1);
     }
     while ( permutation_index < region->permutations.count );
 }

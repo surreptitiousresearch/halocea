@@ -27,7 +27,7 @@ struct unit_definition;
 
 #include "headers/tag_block.h"
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern int  unit_definition_get_active_hud_index(const struct unit_definition *unit_definition, unsigned __int8 in_multiplayer);
+extern int  unit_definition_get_active_hud_index(const struct unit_definition *unit_definition, uint8_t in_multiplayer);
 extern int16_t local_player_count(void);
 extern uint8_t cinematic_in_progress(void);
 extern int local_player_get_player_index(int16_t local_player_index);
@@ -47,7 +47,7 @@ void hud_play_unit_sounds(const player_datum *player, uint8_t show_hud)
 
     const struct unit_definition *unit_definition =
         TAG_GET(const struct unit_definition, unit->definition_index);
-    __int16 player_count = local_player_count();
+    int16_t player_count = local_player_count();
     int active_hud_index = unit_definition_get_active_hud_index(unit_definition,
                                ((player_count >= 0) + ((unsigned int)player_count <= 1)) & 1);
     if (active_hud_index == -1)

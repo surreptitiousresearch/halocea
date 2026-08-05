@@ -42,8 +42,8 @@ uint8_t path_find(obstacle_path *path, uint8_t ignore_broken_surfaces, const obs
     path->goal = *goal;
     path->goal_surface_index = goal_surface_index;
 
-    __int16 goal_disc_index = obstacles_test_circle(obstacles, -1, goal, radius);
-    __int16 goal_obstacle_index = (goal_disc_index == -1) ? -1 : obstacles->discs[goal_disc_index].obstacle_index;
+    int16_t goal_disc_index = obstacles_test_circle(obstacles, -1, goal, radius);
+    int16_t goal_obstacle_index = (goal_disc_index == -1) ? -1 : obstacles->discs[goal_disc_index].obstacle_index;
 
     path->goal_step_index = -1;
     path->goal_obstacle_index = goal_obstacle_index;

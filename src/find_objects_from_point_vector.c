@@ -25,16 +25,16 @@ extern int16_t scenario_cluster_index_from_point(const real_point3d *point);
 extern unsigned int *structure_bsp_get_cluster_pvs(structure_bsp *structure_bsp, int16_t cluster_index);
 extern int cluster_partition_get_first_datum(const cluster_partition *partition, int *reference_index, int16_t cluster_index);
 extern int cluster_partition_get_next_datum(const cluster_partition *partition, int *reference_index);
-extern int recursive_object_adder(int object_index, unsigned __int8 (__fastcall *add_object_function)(int, void *),
+extern int recursive_object_adder(int object_index, uint8_t (__fastcall *add_object_function)(int, void *),
                                   void *custom_data, int object_count, int maximum_count, int *object_indices);
 
 int find_objects_from_point_vector(const real_point3d *position, const real_vector3d *direction,
-                                   unsigned __int8 (__fastcall *add_object_function)(int, void *),
+                                   uint8_t (__fastcall *add_object_function)(int, void *),
                                    void *custom_data, int maximum_object_count, int *object_indices)
 {
     int object_count = 0;
 
-    __int16 cluster_index = scenario_cluster_index_from_point(position);
+    int16_t cluster_index = scenario_cluster_index_from_point(position);
     if (cluster_index == -1)
         return object_count;
 
@@ -43,8 +43,8 @@ int find_objects_from_point_vector(const real_point3d *position, const real_vect
 
     unsigned int *cluster_pvs = structure_bsp_get_cluster_pvs(global_structure_bsp, cluster_index);
 
-    __int16 word_count = (__int16)BIT_VECTOR_SIZE_IN_LONGS(global_structure_bsp->clusters.count);
-    for (__int16 word_index = 0; word_index < word_count; ++word_index)
+    int16_t word_count = (int16_t)BIT_VECTOR_SIZE_IN_LONGS(global_structure_bsp->clusters.count);
+    for (int16_t word_index = 0; word_index < word_count; ++word_index)
     {
         if (!cluster_pvs[word_index])
             continue;

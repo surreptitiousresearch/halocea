@@ -26,7 +26,7 @@ void team_change_to_server(uint8_t new_team_choice)
         player_datum *player = data_iterator_next(&iterator);
         if ( player )
         {
-            while ( (unsigned __int16)player->local_player_index == 0xFFFF )   /* skip remote players */
+            while ( (uint16_t)player->local_player_index == 0xFFFF )   /* skip remote players */
             {
                 player = data_iterator_next(&iterator);
                 if ( !player )

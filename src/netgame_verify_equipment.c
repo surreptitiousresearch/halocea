@@ -9,6 +9,6 @@
 void netgame_verify_equipment(int16_t game_type, char *string)
 {
     int count = global_scenario->netgame_equipment.count;
-    for ( __int16 i = 0; i < count; ++i )
+    for ( int16_t i = 0; i < count; ++i )
         ;
 }

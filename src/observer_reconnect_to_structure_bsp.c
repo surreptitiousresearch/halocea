@@ -9,7 +9,7 @@ extern void scenario_location_from_point(location *location, const real_point3d 
 
 int observer_reconnect_to_structure_bsp(void)
 {
-    __int16 local_player_index;
+    int16_t local_player_index;
 
     for ( local_player_index = 0; local_player_index < 2; ++local_player_index )
     {

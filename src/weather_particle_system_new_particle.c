@@ -46,7 +46,7 @@ int weather_particle_system_new_particle(int16_t system_index, int16_t type_inde
     weather_particle_type_datum *type_state = &system->types[type_index];
     float box_width = type_state->box_width;
 
-    weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (unsigned __int16)particle_index;
+    weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (uint16_t)particle_index;
 
     weather_particle_system_definition *definition = TAG_GET(weather_particle_system_definition, system->definition_index);
     weather_particle_type_definition *type_def = (weather_particle_type_definition *)definition->particle_types.address + type_index;
@@ -91,9 +91,9 @@ int weather_particle_system_new_particle(int16_t system_index, int16_t type_inde
         particle->rotation = 0.0f;
     }
 
-    __int16 period_count = type_tag->sequences.count;
+    int16_t period_count = type_tag->sequences.count;
     seed = get_global_local_random_seed_address();
-    __int16 phase_index = seed_random_range(seed, 0, period_count);
+    int16_t phase_index = seed_random_range(seed, 0, period_count);
     particle->sequence_index = phase_index;
 
     /* period = sequence[phase_index].sprites.count (bitmap_group_sequence stride 64, sprites count@+52) */

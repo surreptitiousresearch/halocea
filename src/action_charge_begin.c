@@ -3,6 +3,7 @@
  * special_fire_situation is _actor_special_fire_situation_strafing.
  * `special_fire_situation` is reached through the typed actor_variant_definition->ranged_combat member. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/actor_variant_definition.h"
@@ -21,7 +22,7 @@ void action_charge_begin(int actor_index)
       /* recovered: *(__int16 *)((char *)variant + 342) -> ranged_combat.special_fire_situation */
       && actor_combat_get_firing_variant_definition(actor_index)->ranged_combat.special_fire_situation == _actor_special_fire_situation_strafing )
     {
-        __int16 charge_remaining = actor->control.special_fire_deny_attempts;
+        int16_t charge_remaining = actor->control.special_fire_deny_attempts;
 
         if ( charge_remaining > 0 )
             actor->control.special_fire_deny_attempts = charge_remaining - 1;

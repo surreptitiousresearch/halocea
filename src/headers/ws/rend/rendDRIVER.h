@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ap/apSTATE_T.h"
 #include "../m3d/m3dPLANE.h"
 #include "../m3d/m3dMATR.h"
@@ -55,7 +56,7 @@ typedef struct rendDRIVER {
     camCAMERA                *curCameraPtr;      // 0xB890
     float                     elapsedTime;       // 0xB894
     unsigned int              curFrameNmb;       // 0xB898 — incremented once per rendered frame
-    unsigned __int64          polyBatchFVF;        // 0xB8DC (0xB89C rel-region) poly-batch scratch
+    uint64_t          polyBatchFVF;        // 0xB8DC (0xB89C rel-region) poly-batch scratch
     int                       polyBatchVertOffset; // 0xB8E4
     int                       nPolyBatchVert;      // 0xB8E8
     int                       nPolyBatchFace;      // 0xB8EC
@@ -99,12 +100,12 @@ typedef struct rendDRIVER {
     // REND_PRIMTYPE_TRILIST and an index count of 3*nFace. `a6` is an opaque pass-through
     // (unused by this thunk); `callerID` is a FourCC debug tag. Reversed this batch.
     void DrawIndexedPrimitive(void *vertList, int nVert, unsigned short *indList,
-                              int nFace, int a6, unsigned __int64 fvf, unsigned int callerID);
+                              int nFace, int a6, uint64_t fvf, unsigned int callerID);
 
     // 0x827C91E8 — draw an unindexed triangle fan (a single convex polygon). Resets the
     // transform (SetTransform(nullptr)) then DynGeomDraw with REND_PRIMTYPE_TRIFAN. Reversed
     // this batch.
-    void DrawPoly(void *vertList, int nVert, int a4, unsigned __int64 fvf);
+    void DrawPoly(void *vertList, int nVert, int a4, uint64_t fvf);
 
     // 0x827CA218 — build a 4-vertex textured quad (two screen-space corners (x1,y1)-(x2,y2)
     // with texcoords (s1,t1)-(s2,t2) at depth z) and submit it via RenderPoly. Reversed this
@@ -115,7 +116,7 @@ typedef struct rendDRIVER {
 
     // 0x8273F0F0 — configure the driver for a render pass. Empty stub in this build (the body
     // is `;`), retained so the vtable/call sites resolve. Reversed this batch.
-    void Configure(int vidPassID, const void *vidPassDesc, int a4, unsigned __int64 fvf,
+    void Configure(int vidPassID, const void *vidPassDesc, int a4, uint64_t fvf,
                    int space, unsigned char rend_block, int nDynLights, int nSMLights);
 
     // rend immediate-mode helper used by the draw thunks above. Body lives in the rend
@@ -140,5 +141,5 @@ typedef struct rendDRIVER {
 
 // 0x827... rend immediate-mode geometry submission. boundary — rend subsystem.
 extern "C" void DynGeomDraw(REND_PRIMTYPE primType, void *vertList, int nVert,
-                            unsigned short *indList, int nInd, unsigned __int64 fvf,
+                            unsigned short *indList, int nInd, uint64_t fvf,
                             unsigned int callerID);

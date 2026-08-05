@@ -27,7 +27,7 @@ void object_type_process_update_delta(int object_index, message_delta_processor_
 
     object_type_definition *type_definition = object_type_definitions[object->object.type];
 
-    for ( __int16 i = 15; i >= 0; i-- )
+    for ( int16_t i = 15; i >= 0; i-- )
     {
         object_type_definition *part = type_definition->part_definitions[i];
         if ( part && part->process_update_delta )

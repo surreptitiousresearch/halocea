@@ -26,8 +26,8 @@
 
 extern int game_time_get(void);
 extern void hud_retrieve_bitmap_and_bounding_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame_index, const bitmap_data **bitmap, const real_rectangle2d **clip);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, unsigned __int8 block,
-        unsigned __int8 load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
+        uint8_t load);
 extern int16_t local_player_count(void);
 extern void hud_draw_bitmap_direct(const bitmap_data *bitmap, int16_t placement, const point2d *point, const real_rectangle2d *clip, float scale, float theta, unsigned int color, uint8_t is_interface_bitmap);
 
@@ -36,9 +36,9 @@ void render_state_bitmap(rectangle2d *bounds, unsigned int color, const icon_hud
 {
     int bitmap_group_index = hud_globals->messaging.messaging_icons.index;
 
-    __int16 frame_index;
+    int16_t frame_index;
     if ( icon->frame_rate )
-        frame_index = (__int16)(game_time_get() / icon->frame_rate);
+        frame_index = (int16_t)(game_time_get() / icon->frame_rate);
     else
         frame_index = 0;
 
@@ -50,22 +50,22 @@ void render_state_bitmap(rectangle2d *bounds, unsigned int color, const icon_hud
     if ( !bitmap || !_texture_cache_bitmap_get_hardware_format((bitmap_data *)bitmap, 0, 1) )
         return;
 
-    unsigned __int8 splitscreen_shrink = local_player_count() > 1 && hcex_coop_local_player_index < 0;
+    uint8_t splitscreen_shrink = local_player_count() > 1 && hcex_coop_local_player_index < 0;
     float shrink = splitscreen_shrink ? 0.75f : 1.0f;
     float scale = shrink * hcex_render_state_bitmap_scale;
 
     point2d point;
-    point.__s1.x = (__int16)(int)((float)icon->offset.__s1.x * scale + (float)bounds->__s1.x0);
-    point.__s1.y = (__int16)(int)-((float)icon->offset.__s1.y * scale - (float)bounds->__s1.y1);
+    point.__s1.x = (int16_t)(int)((float)icon->offset.__s1.x * scale + (float)bounds->__s1.x0);
+    point.__s1.y = (int16_t)(int)-((float)icon->offset.__s1.y * scale - (float)bounds->__s1.y1);
 
     unsigned int effective_color = (icon->flags & (1u << _hud_icon_use_color_bit)) ? icon->color : color;
     hud_draw_bitmap_direct(bitmap, 2, &point, clip, scale, 0.0f, effective_color, 0);
 
     if ( icon->flags & (1u << _hud_icon_absolute_width_bit) )
-        bounds->__s1.x0 = (__int16)(int)((float)icon->width_offset * scale + (float)point.__s1.x);
+        bounds->__s1.x0 = (int16_t)(int)((float)icon->width_offset * scale + (float)point.__s1.x);
     else if ( clip )
-        bounds->__s1.x0 = (__int16)(int)(((clip->__s1.x1 - clip->__s1.x0) * (float)bitmap->width
+        bounds->__s1.x0 = (int16_t)(int)(((clip->__s1.x1 - clip->__s1.x0) * (float)bitmap->width
                 + (float)icon->width_offset) * scale + (float)point.__s1.x);
     else
-        bounds->__s1.x0 = (__int16)(int)((float)(bitmap->width + icon->width_offset) * scale + (float)point.__s1.x);
+        bounds->__s1.x0 = (int16_t)(int)((float)(bitmap->width + icon->width_offset) * scale + (float)point.__s1.x);
 }

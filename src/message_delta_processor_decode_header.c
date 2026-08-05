@@ -24,7 +24,7 @@ uint8_t message_delta_processor_decode_header(message_delta_processor_header *co
     message_delta_processor_decoding_information *decoding_information = header->decoding_information;
     int bits = decode_message_dependent_header_iterated(header);
 
-    unsigned __int8 succeeded;
+    uint8_t succeeded;
     if ( bits <= 0
       && (bits
        || decoding_information->mode

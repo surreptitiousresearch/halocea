@@ -26,21 +26,21 @@ extern void bitmap_2d_smooth(bitmap_data *bitmap, int16_t filter_size, const int
 
 void bitmap_smooth(bitmap_data *bitmap, float filter_size)
 {
-    __int16 half_width = (__int16)(int)floor(filter_size);
+    int16_t half_width = (int16_t)(int)floor(filter_size);
     if ( half_width <= 0 )
         return;
 
     for ( int i = 0; i < 10; ++i )
         filter_coefficients[i] = 0;
 
-    for ( __int16 pass = (__int16)(2 * half_width); pass >= 0; --pass )
+    for ( int16_t pass = (int16_t)(2 * half_width); pass >= 0; --pass )
     {
         for ( int i = 9; i > 0; --i )
             filter_coefficients[i] += filter_coefficients[i - 1];
         filter_coefficients[0] = 1;
     }
 
-    unsigned __int16 type = (unsigned __int16)bitmap->type;
+    uint16_t type = (uint16_t)bitmap->type;
 
     if ( bitmap->type == bitmap_type_2d )
     {

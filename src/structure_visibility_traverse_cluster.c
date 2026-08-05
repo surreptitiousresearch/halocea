@@ -46,7 +46,7 @@ void structure_visibility_traverse_cluster(int16_t cluster_index, const portal_h
     }
     else
     {
-        __int16 slot = render.rendered_cluster_count;
+        int16_t slot = render.rendered_cluster_count;
         structure_visibility_globals.rendered_cluster_indices[cluster_index] = slot;
         render.rendered_cluster_count = slot + 1;
         entry = &render.rendered_clusters[slot];
@@ -59,7 +59,7 @@ void structure_visibility_traverse_cluster(int16_t cluster_index, const portal_h
 
     /* expand this cluster's clip bounds to enclose the incoming visible region */
     const real_point2d *vertices = visible_region->vertices;
-    for (int i = 0; i < visible_region->vertex_count; i = (__int16)(i + 1))
+    for (int i = 0; i < visible_region->vertex_count; i = (int16_t)(i + 1))
     {
         if (clip[0] > vertices->n[0]) clip[0] = vertices->n[0];
         if (clip[1] < vertices->n[0]) clip[1] = vertices->n[0];
@@ -74,12 +74,12 @@ void structure_visibility_traverse_cluster(int16_t cluster_index, const portal_h
         portal_hull projected_portal;
         portal_hull clipped_hull;
         int portal_iterator = 0;
-        __int16 neighbor;
+        int16_t neighbor;
 
         while (1)
         {
             /* portal_indices holds __int16 indices; the decompiler's <<6 is the 64-byte cluster_portal stride */
-            int portal_index = ((const __int16 *)cluster->portal_indices.address)[portal_iterator];
+            int portal_index = ((const int16_t *)cluster->portal_indices.address)[portal_iterator];
             cluster_portal *portal = &((cluster_portal *)bsp->cluster_portals.address)[portal_index];
             neighbor = portal->cluster_indices[cluster_index == portal->cluster_indices[0]];
 
@@ -100,7 +100,7 @@ void structure_visibility_traverse_cluster(int16_t cluster_index, const portal_h
                 const collision_bsp *collision = (const collision_bsp *)bsp->collision_bsp.address;
                 const real_plane3d *plane =
                     &((const real_plane3d *)collision->bsp3d.planes.address)[plane_index];
-                __int16 hull_result = portal_hull_from_points(&render.camera, &render.frustum, plane,
+                int16_t hull_result = portal_hull_from_points(&render.camera, &render.frustum, plane,
                     portal->vertices.count,
                     (const real_point3d *)portal->vertices.address,
                     (cluster_index != portal->cluster_indices[0]) ? 1 : -1, &projected_portal);
@@ -116,7 +116,7 @@ void structure_visibility_traverse_cluster(int16_t cluster_index, const portal_h
 
                 if (!render.visible_sky_model)
                 {
-                    __int16 portal_vertex_count = (__int16)portal->vertices.count;
+                    int16_t portal_vertex_count = (int16_t)portal->vertices.count;
                     unsigned char any_vertex_near = 0;
                     if (portal_vertex_count > 0)
                     {

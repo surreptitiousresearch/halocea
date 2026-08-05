@@ -17,6 +17,7 @@
  * `(_cntlzw(x) & 0x20) == 0` is the codebase's established "x != 0" boolean idiom.
  * GetInstId is dispatched through the typed inpDEVICE_vtbl (slot 0x38). */
 
+#include <stdint.h>
 #include "../headers/hcex/haloRAW_INPUT_X360.h"
 #include "../headers/ws/inp/inpDEVICE_GAMEPAD_XENON.h" /* typed inpDEVICE vtbl + gamepad state */
 
@@ -36,10 +37,10 @@ extern int    hcex_coop_local_player_index;
 extern haloRAW_INPUT_X360 hcex_coop_u1_inp_remote;
 
 extern char    hcex_gamepad_buttons[4][16];
-extern __int16 hcex_sThumbLX[4];
-extern __int16 hcex_sThumbLY[4];
-extern __int16 hcex_sThumbRX[4];
-extern __int16 hcex_sThumbRY[4];
+extern int16_t hcex_sThumbLX[4];
+extern int16_t hcex_sThumbLY[4];
+extern int16_t hcex_sThumbRX[4];
+extern int16_t hcex_sThumbRY[4];
 
 void hcex_update_gamepad_x360(void)
 {

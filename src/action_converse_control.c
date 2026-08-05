@@ -23,7 +23,7 @@ void action_converse_control(uint16_t actor_index)
 
     int conversation_index = actor->state.action_data.___u0.converse.conversation_index;
     if ( conversation_index != -1 )
-        conversation = &((conversation_datum *)conversation_data->data)[(unsigned __int16)conversation_index];
+        conversation = &((conversation_datum *)conversation_data->data)[(uint16_t)conversation_index];
 
     int override_unit_index = actor->state.action_data.___u0.converse.run_to_prop_index;
     if ( override_unit_index == -1 )

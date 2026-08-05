@@ -1,13 +1,14 @@
 #pragma once
 /* hs_thread — one running script thread (536 bytes; DB-verified). */
 
+#include <stdint.h>
 #include "hs_stack_frame.h"
 
 typedef struct hs_thread
 {
-    __int16         identifier;         /* 0x00 */
-    unsigned __int8 type;               /* 0x02 */
-    unsigned __int8 flags;              /* 0x03 */
+    int16_t         identifier;         /* 0x00 */
+    uint8_t type;               /* 0x02 */
+    uint8_t flags;              /* 0x03 */
     int             script_index;       /* 0x04 */
     int             sleep_until;        /* 0x08 */
     int             latent_sleep_until; /* 0x0C */

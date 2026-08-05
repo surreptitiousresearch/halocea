@@ -25,12 +25,12 @@ extern void player_ui_remember_player1_profile(uint8_t write_to_disk);
 
 uint8_t start_new_game(widget_instance *list_widget, event_record *event, uint8_t *widget_deleted)
 {
-    __int16 second_player_controller = -1;
+    int16_t second_player_controller = -1;
     int started = 1;
 
     if ( player_spawn_count > 1 )
     {
-        __int16 controller = 0;
+        int16_t controller = 0;
         while ( !input_has_gamepad(controller) || controller == event->controller_index )
         {
             if ( ++controller >= 2 )

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "hkaAnimation.h"
 
 /* hkaWaveletCompressedAnimation — wavelet-quantized skeletal animation.
@@ -55,8 +56,8 @@ typedef struct hkaWaveletCompressedAnimation_vtbl
     void (*sampleTracks)(hkaWaveletCompressedAnimation *self, float time, hkQsTransform *out, float *floatsOut, hkaChunkCache *cache);     /* +12 */
     void (*samplePartialTracks)(hkaWaveletCompressedAnimation *self, float time, unsigned int maxTransform, hkQsTransform *out, unsigned int maxFloat, float *floatsOut, hkaChunkCache *cache); /* +16 */
     void (*clearAllCacheKeys)(hkaWaveletCompressedAnimation *self, hkaChunkCache *cache);                                                  /* +20 */
-    void (*sampleIndividualTransformTracks)(hkaWaveletCompressedAnimation *self, float time, const __int16 *tracks, unsigned int numTracks, hkQsTransform *out); /* +24 */
-    void (*sampleIndividualFloatTracks)(hkaWaveletCompressedAnimation *self, float time, const __int16 *tracks, unsigned int numTracks, float *out); /* +28 */
+    void (*sampleIndividualTransformTracks)(hkaWaveletCompressedAnimation *self, float time, const int16_t *tracks, unsigned int numTracks, hkQsTransform *out); /* +24 */
+    void (*sampleIndividualFloatTracks)(hkaWaveletCompressedAnimation *self, float time, const int16_t *tracks, unsigned int numTracks, float *out); /* +28 */
     int (*getNumOriginalFrames)(hkaWaveletCompressedAnimation *self);                                                                      /* +32 */
     int (*getNumDataChunks)(hkaWaveletCompressedAnimation *self, float time);                                                              /* +36 */
     void (*getDataChunks)(hkaWaveletCompressedAnimation *self, float time, hkaAnimation_DataChunk *chunks, int numChunks);                 /* +40 */

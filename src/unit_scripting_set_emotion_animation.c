@@ -15,7 +15,7 @@ void unit_scripting_set_emotion_animation(int unit_index, const char *animation_
     if ( unit_index == -1 )
         return;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
-    __int16 animation_index = animation_graph_get_animation_by_name(unit->object.animation.animation_graph_index, animation_name);
+    int16_t animation_index = animation_graph_get_animation_by_name(unit->object.animation.animation_graph_index, animation_name);
     if ( animation_index == -1 )
         console_warning("couldn't find the emotion animation '%s'", animation_name);
     else

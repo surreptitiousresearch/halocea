@@ -17,5 +17,5 @@ void ai_scripting_erase(unsigned int ai_index)
     int platoon_index = (ai_index >> 8) & 0xFF;
     if ( ai_index >> 30 != 1 )
         platoon_index = -1;
-    ai_erase((unsigned __int16)ai_index, platoon_index, squad_index, 0);
+    ai_erase((uint16_t)ai_index, platoon_index, squad_index, 0);
 }

@@ -56,7 +56,7 @@ uint8_t ctf_weapon_pickup(int weapon_index, int player_index)
                     game_engine_play_multiplayer_sound(player->team_index == _multiplayer_team_red
                             ? _multiplayer_sound_ctf_red_took_flag
                             : _multiplayer_sound_ctf_blue_took_flag, 1u);
-                    __int16 flag_team = weapon->object.owner_team_index;
+                    int16_t flag_team = weapon->object.owner_team_index;
                     ctf_globals.flag_warning[flag_team] = 1;
                     ctf_globals.flag_warning_time_in_ticks[flag_team] = 0;
                     game_show_score_you_ally_enemy(player_index, -1, ctf_message_good_guys_have_the_flag, ctf_message_enemy_has_the_flag, player_index, 1u);
@@ -85,7 +85,7 @@ uint8_t ctf_weapon_pickup(int weapon_index, int player_index)
     {
         if ( game_engine_can_score() )
         {
-            __int16 flag_team = weapon->object.owner_team_index;
+            int16_t flag_team = weapon->object.owner_team_index;
             ctf_globals.flag_warning[flag_team] = 0;
             ctf_globals.flag_warning_time_in_ticks[flag_team] = 0;
             ++player->statistics.multiplayer_statistics.ctf_statistics.flag_returns;  /* returns */

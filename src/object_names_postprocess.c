@@ -18,20 +18,20 @@ void object_names_postprocess(scenario *scenario, uint8_t editing)
     if ( editing )
         return;
 
-    for ( __int16 object_type = object_type_biped; object_type < number_of_object_types; object_type++ )
+    for ( int16_t object_type = object_type_biped; object_type < number_of_object_types; object_type++ )
     {
         object_type_definition *type_definition = object_type_definitions[object_type];
 
-        if ( (unsigned __int16)type_definition->placement_tag_block_offset == 0xFFFF
-          || (unsigned __int16)type_definition->palette_tag_block_offset == 0xFFFF )
+        if ( (uint16_t)type_definition->placement_tag_block_offset == 0xFFFF
+          || (uint16_t)type_definition->palette_tag_block_offset == 0xFFFF )
             continue;
 
         int element_size = type_definition->placement_tag_block_element_size;
         const tag_block *placements = (const tag_block *)((char *)scenario + type_definition->placement_tag_block_offset);
 
-        for ( __int16 placement_index = 0; placement_index < placements->count; placement_index++ )
+        for ( int16_t placement_index = 0; placement_index < placements->count; placement_index++ )
         {
-            __int16 name_index = *((__int16 *)tag_block_get_element_with_size(placements, placement_index, element_size) + 1);
+            int16_t name_index = *((int16_t *)tag_block_get_element_with_size(placements, placement_index, element_size) + 1);
             if ( name_index != -1 )
             {
                 scenario_object_name *object_name = &((scenario_object_name *)scenario->object_names.address)[name_index];

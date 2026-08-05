@@ -99,7 +99,7 @@ void refresh_listener(void)
             properties.underwater = listener->underwater;
         }
 
-        index = (__int16)(local_player + 1);
+        index = (int16_t)(local_player + 1);
         if ( index >= 2 )
             break;
     }

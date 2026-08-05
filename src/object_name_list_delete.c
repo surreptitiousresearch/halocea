@@ -3,6 +3,7 @@
  * If the object currently holds a name index, clears it and scans the object-name list, resetting any
  * slot that still points at this object to -1. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
@@ -14,12 +15,12 @@ void object_name_list_delete(int object_index)
     object_datum *object =
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
 
-    if ( (unsigned __int16)object->object.name_index != 0xFFFF )
+    if ( (uint16_t)object->object.name_index != 0xFFFF )
     {
         object->object.name_index = -1;
 
         scenario *scenario = global_scenario;
-        for ( __int16 i = 0; i < scenario->object_names.count; i = (__int16)(i + 1) )
+        for ( int16_t i = 0; i < scenario->object_names.count; i = (int16_t)(i + 1) )
         {
             if ( object_name_list[i] == object_index )
                 object_name_list[i] = -1;

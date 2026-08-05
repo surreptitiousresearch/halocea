@@ -13,7 +13,7 @@ extern int game_time_get(void);
 void scripted_hud_pause_timer(uint8_t paused)
 {
     hud_timer_data_definition *timer = &hud_messaging_globals->timer;
-    __int16 ticks = timer->ticks;
+    int16_t ticks = timer->ticks;
     timer->paused = paused;
     if ( ticks > 0 )
     {

@@ -17,7 +17,7 @@ extern void player_ui_clear_multiplayer_variant(void);
 extern void network_game_accept_remote_connections(uint8_t accept);
 extern network_game_server *global_network_game_server_get(void);
 extern network_game_client *global_network_game_client_get(void);
-extern int game_engine_playlist_initialize(unsigned __int8 force_begin_playlist);
+extern int game_engine_playlist_initialize(uint8_t force_begin_playlist);
 extern int game_engine_playlist_begin(void);
 extern uint8_t create_global_network_game_server(void);
 extern uint8_t create_global_network_game_client(void);
@@ -25,7 +25,7 @@ extern void game_connection_set(int16_t new_connection);
 
 uint8_t network_game_start_new_server(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
-    unsigned __int8 success = 1;
+    uint8_t success = 1;
 
     dispose_global_network_game_client();
     player_ui_clear_multiplayer_variant();

@@ -3,6 +3,7 @@
  * Bit-trick faithfully reproduced from disasm_range(0x837EA108,0x837EA170) (`-timer & ~timer`, then the sign
  * bit tests "timer == 0"). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/garbage_datum.h"
@@ -10,10 +11,10 @@
 
 extern void object_delete(int object_index);
 
-unsigned __int8 garbage_update(int garbage_index)
+uint8_t garbage_update(int garbage_index)
 {
     garbage_datum *garbage = (garbage_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, garbage_index)->datum;
-    __int16 timer = garbage->garbage.destroy_timer - 1;
+    int16_t timer = garbage->garbage.destroy_timer - 1;
 
     garbage->garbage.destroy_timer = timer;
 

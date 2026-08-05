@@ -3,6 +3,7 @@
  * vehicle_update allocates arrays of these on the stack and hands them to the per-vehicle physics
  * updaters, physics_update_new (ground/water/air contact + collision response), and the effect routines. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "real_plane3d.h"
@@ -21,10 +22,10 @@ typedef struct mass_point_datum
     real_vector3d  velocity;                    /* 0x48 */
     real_vector3d  velocity_relative_to_ground; /* 0x54 */
     real_plane3d   ground_plane;                /* 0x60 */
-    __int16        ground_material_type;        /* 0x70 */
+    int16_t        ground_material_type;        /* 0x70 */
     unsigned char _pad0[2]; /* db-verified padding */
     float          ground_depth;                /* 0x74 */
-    __int16        water_material_type;         /* 0x78 */
+    int16_t        water_material_type;         /* 0x78 */
     unsigned char _pad1[2]; /* db-verified padding */
     float          water_depth;                 /* 0x7C */
     float          normal_force_magnitude;      /* 0x80 */

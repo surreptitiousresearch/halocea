@@ -30,11 +30,11 @@ extern uint8_t ai_handle_killing_spree(int unit_index, int16_t killing_spree_cou
 void unit_record_damage(int unit_index, float damage, int16_t damage_category, uint8_t died,
                         int owner_player_index, int16_t owner_team_index, int owner_object_index)
 {
-    unsigned __int8 found = 0;
+    uint8_t found = 0;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     int now = game_time_get();
 
-    for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
     {
         unit_attacker *slot = &unit->unit.attackers[i];
         if ( owner_player_index == -1 || slot->player_index != owner_player_index )
@@ -49,11 +49,11 @@ void unit_record_damage(int unit_index, float damage, int16_t damage_category, u
 
     if ( !found )
     {
-        __int16 evict = -1;
+        int16_t evict = -1;
         int free_slot = 0;
         while ( unit->unit.attackers[free_slot].game_time_stamp != -1 )
         {
-            free_slot = (__int16)(free_slot + 1);
+            free_slot = (int16_t)(free_slot + 1);
             if ( free_slot >= 4 )
                 goto have_slot;
         }
@@ -62,13 +62,13 @@ void unit_record_damage(int unit_index, float damage, int16_t damage_category, u
         if ( evict == -1 )
         {
             /* keep the highest-damage slot, evict the oldest of the rest */
-            __int16 highest_damage = 0;
-            for ( int i = 1; i < 4; i = (__int16)(i + 1) )
+            int16_t highest_damage = 0;
+            for ( int i = 1; i < 4; i = (int16_t)(i + 1) )
                 if ( unit->unit.attackers[i].damage_inflicted > unit->unit.attackers[highest_damage].damage_inflicted )
                     highest_damage = i;
 
             evict = -1;
-            for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+            for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
                 if ( i != highest_damage
                   && (evict == -1
                       || unit->unit.attackers[i].game_time_stamp < unit->unit.attackers[evict].game_time_stamp) )
@@ -119,7 +119,7 @@ void unit_record_damage(int unit_index, float damage, int16_t damage_category, u
             int last_kill_time = killer->unit.killing_spree_last_time;
             if ( last_kill_time == -1 || last_kill_time + 120 < time )
                 killer->unit.killing_spree_count = 0;  /* streak timed out */
-            __int16 spree = killer->unit.killing_spree_count;
+            int16_t spree = killer->unit.killing_spree_count;
             killer->unit.killing_spree_last_time = time;
             killer->unit.killing_spree_count = spree + 1;
             if ( ai_handle_killing_spree(killer_unit_index, spree + 1) )

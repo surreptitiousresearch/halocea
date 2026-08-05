@@ -41,7 +41,7 @@ extern "C" int hcex_obj_collect(void)
         light_datum *light = DATA_ARRAY_ELEMENT(light_data, light_datum, j);
         if (object_try_and_get_and_verify_type(light->object_index, object_mask_all))
         {
-            int attachment_index = (unsigned __int16)light->attachment_marker_index;
+            int attachment_index = (uint16_t)light->attachment_marker_index;
             if (attachment_index != 0xFFFF)
             {
                 const char *marker_name = object_get_attachment_marker_name(light->object_index, attachment_index);

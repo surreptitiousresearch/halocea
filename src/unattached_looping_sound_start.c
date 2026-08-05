@@ -8,7 +8,7 @@
 #include "headers/game_looping_sound_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern unsigned __int8 empty_string;
+extern uint8_t empty_string;
 
 /* def (src/game_looping_sound_new.c): arg3 is `const char *marker_name`, arg4 is `__int16 function_index`.
  * disasm (0x83713DE8) confirms the caller loads the ADDRESS of empty_string into r5 as marker_name. */

@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "apCOUNTER.h"
 // ws-engine ap: a named recurring time counter — an apCOUNTER (units "time") that supports
 // re-entrant/nested timing (each tmDATA slot tracks a recursion `depth`), optionally bound to
@@ -14,12 +15,12 @@ struct apCOUNTER_TIME_RECUR : apCOUNTER {
 
     // DB-verified (types_members apCOUNTER_TIME_RECUR::tmDATA): start@0, sum@8, depth@16 — size 20.
     struct tmDATA {
-        __int64 start; // 0x00 sample start timestamp
-        __int64 sum;   // 0x08 accumulated elapsed time
+        int64_t start; // 0x00 sample start timestamp
+        int64_t sum;   // 0x08 accumulated elapsed time
         int     depth; // 0x10 recursion depth (re-entrant timing)
     };
 
-    __int64 customFreq;  // 0x20 custom timer frequency override (0 = use default)
+    int64_t customFreq;  // 0x20 custom timer frequency override (0 = use default)
     tmDATA  tmData[8];   // 0x28 per frame-history-slot accumulation + recursion depth
     tmDATA  tmDataTotal;  // 0xC8 all-time accumulation
 

@@ -28,7 +28,7 @@ uint8_t check_is_local_player_by_loop(uint16_t looping_sound_index)
         return 0;
 
     /* local_player_index is signed __int16; keep the unsigned cast for the 0xFFFF sentinel compare */
-    if ( (unsigned __int16)player->local_player_index == 0xFFFF )
+    if ( (uint16_t)player->local_player_index == 0xFFFF )
         return 0;
     return 1;
 }

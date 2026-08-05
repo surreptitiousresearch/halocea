@@ -5,6 +5,7 @@
  *
  * Deviation: 0.333 is stored into a float alpha; reproduced as the literal. */
 
+#include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/blam_data_globals.h"
 
@@ -13,7 +14,7 @@ void main_menu_animation_fakery(widget_instance *widget)
 {
     widget_instance *extended = widget->parameters.list_parameters.extended_description;
     extended->animation_data.current_frame_index = widget->parameters.text_box_parameters.string_list_index;
-    if ( (unsigned __int16)extended->animation_data.current_frame_index >= 0x8000u )
+    if ( (uint16_t)extended->animation_data.current_frame_index >= 0x8000u )
         extended->animation_data.current_frame_index = 0;
 
     if ( optionNoNetwork )

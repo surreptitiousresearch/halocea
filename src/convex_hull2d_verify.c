@@ -22,10 +22,10 @@ BOOL convex_hull2d_verify(int16_t point_count, const real_point2d *points, int16
     if ( hull_count <= 0 )
         return __fabs(angle_sum - TWO_PI) < 0.001f;
 
-    for ( __int16 i = 0; i < hull_count; )
+    for ( int16_t i = 0; i < hull_count; )
     {
-        __int16 previous_index = (i - 1 < 0) ? (hull_count - 1) : (i - 1);
-        __int16 next_i = (i + 1 >= hull_count) ? 0 : (i + 1);
+        int16_t previous_index = (i - 1 < 0) ? (hull_count - 1) : (i - 1);
+        int16_t next_i = (i + 1 >= hull_count) ? 0 : (i + 1);
 
         const real_point2d *previous_point = &points[hull_indices[previous_index]];
         const real_point2d *current_point = &points[hull_indices[i]];

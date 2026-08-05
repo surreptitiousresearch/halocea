@@ -22,7 +22,7 @@ void motion_sensor_blip_set_type_and_size(motion_sensor_blip *blip, int unit_ind
 {
     blip->type = blip_type_get(unit_index, local_player_index);
 
-    __int16 blip_size = 0;
+    int16_t blip_size = 0;
     if ( unit_index != -1 && object_try_and_get_and_verify_type(unit_index, object_mask_unit) )
     {
         object_datum *unit = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;

@@ -31,17 +31,17 @@ void rasterize_in_game_score_draw_line(const wchar_t *text, uint8_t hilite, real
     real_argb_color color = *_color;
     rectangle2d window_bounds = render.camera.window_bounds;
 
-    unsigned __int8 split_screen = local_player_count() > 1;
+    uint8_t split_screen = local_player_count() > 1;
     int tag_index = interface_get_tag_index(_interface_font_terminal);
 
-    static const __int16 title_tab_stops[3] = {25, 90, 300};
-    static const __int16 header_tab_stops[3] = {300, 365, 515};
-    static const __int16 wide_tab_stops[3] = {130, 195, 315};
-    static const __int16 default_tab_stops[3] = {80, 125, 200};
+    static const int16_t title_tab_stops[3] = {25, 90, 300};
+    static const int16_t header_tab_stops[3] = {300, 365, 515};
+    static const int16_t wide_tab_stops[3] = {130, 195, 315};
+    static const int16_t default_tab_stops[3] = {80, 125, 200};
 
     /* rectangle2d is a union; named edges live under the __s1 view */
-    unsigned __int8 viewport_wide_enough = (window_bounds.__s1.x1 - window_bounds.__s1.x0) > 0x140;
-    const __int16 *tab_stops;
+    uint8_t viewport_wide_enough = (window_bounds.__s1.x1 - window_bounds.__s1.x0) > 0x140;
+    const int16_t *tab_stops;
 
     if (!tab_stop_index)
         tab_stops = title_tab_stops;
@@ -54,7 +54,7 @@ void rasterize_in_game_score_draw_line(const wchar_t *text, uint8_t hilite, real
     else
         tab_stops = default_tab_stops;
 
-    __int16 tab_stop_count = line ? 3 : 0;
+    int16_t tab_stop_count = line ? 3 : 0;
     if (!line)
         tab_stops = NULL;
 
@@ -65,7 +65,7 @@ void rasterize_in_game_score_draw_line(const wchar_t *text, uint8_t hilite, real
     if (tag_index != -1)
     {
         font_header *font = TAG_GET(font_header, tag_index);
-        __int16 line_height = split_screen ? (font->leading_height + font->ascending_height)
+        int16_t line_height = split_screen ? (font->leading_height + font->ascending_height)
                 : (font->leading_height + font->descending_height + font->ascending_height);
 
         if (hilite)

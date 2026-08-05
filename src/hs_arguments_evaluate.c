@@ -19,7 +19,7 @@ extern void hs_evaluate(int thread_index, int expression_index, int *destination
 
 int * hs_arguments_evaluate(int thread_index, int16_t formal_parameter_count, const int16_t *formal_parameters, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* slot 1: argument-value array (4-byte aligned, formal_parameter_count entries).
      * inlined hs_thread_stack_allocate: reserve at the frame data top, aligned up. The compiled
@@ -30,15 +30,15 @@ int * hs_arguments_evaluate(int thread_index, int16_t formal_parameter_count, co
     int *values = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
     if ( (unsigned int)(values - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --values;
-    frame->size = (__int16)((unsigned char *)values - frame->data + 4 * formal_parameter_count);
+    frame->size = (int16_t)((unsigned char *)values - frame->data + 4 * formal_parameter_count);
 
     /* slot 2: argument cursor (2-byte aligned, one int16) */
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    __int16 *argument_cursor = (__int16 *)(((unsigned int)stack_top + 1) & ~1u) /* align up to 2 */;
+    int16_t *argument_cursor = (int16_t *)(((unsigned int)stack_top + 1) & ~1u) /* align up to 2 */;
     if ( (unsigned int)(argument_cursor - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --argument_cursor;
-    frame->size = (__int16)((unsigned char *)argument_cursor - frame->data + 2);
+    frame->size = (int16_t)((unsigned char *)argument_cursor - frame->data + 2);
 
     /* slot 3: current-argument node index (4-byte aligned, one int) */
     frame = thread->stack;
@@ -46,7 +46,7 @@ int * hs_arguments_evaluate(int thread_index, int16_t formal_parameter_count, co
     int *current_argument = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
     if ( (unsigned int)(current_argument - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --current_argument;
-    frame->size = (__int16)((unsigned char *)current_argument - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)current_argument - frame->data + 4);
 
     if ( initialize )
     {
@@ -58,7 +58,7 @@ int * hs_arguments_evaluate(int thread_index, int16_t formal_parameter_count, co
 
     int index = *argument_cursor;
     if ( index < formal_parameter_count
-      && HS_SYNTAX_NODE(*current_argument).type == (unsigned __int16)formal_parameters[index] )
+      && HS_SYNTAX_NODE(*current_argument).type == (uint16_t)formal_parameters[index] )
     {
         hs_evaluate(thread_index, *current_argument, &values[index]);
         *current_argument = HS_SYNTAX_NODE(*current_argument).next_node_index;

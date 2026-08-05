@@ -56,7 +56,7 @@ void scripted_camera_update(dead_camera *camera, const camera_control *controls,
 
     double speed = game_time_get_speed();
     result->flags = (1 << _observer_command_force_time_bit);
-    unsigned __int8 paused = game_time_get_paused();
+    uint8_t paused = game_time_get_paused();
     if (paused)
         result->flags |= (1 << _observer_command_freeze_camera_bit);
     else
@@ -70,8 +70,8 @@ void scripted_camera_update(dead_camera *camera, const camera_control *controls,
             int *animation_graph = TAG_GET(int, camera_script_globals.animation_graph_index);
             const animation *camera_animation =
                 (const animation *)(animation_graph[30] + 180 * camera_script_globals.animation_index);
-            __int16 frame_count = camera_animation->frame_count;
-            __int16 frame = (__int16)(int)((float)frame_count - camera_script_globals.timer * 30.0f);
+            int16_t frame_count = camera_animation->frame_count;
+            int16_t frame = (int16_t)(int)((float)frame_count - camera_script_globals.timer * 30.0f);
             if (frame >= 0)
             {
                 if (frame > frame_count - 1)

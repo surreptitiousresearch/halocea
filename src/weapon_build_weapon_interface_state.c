@@ -4,6 +4,7 @@
  *
  * The magazine state is 0 when ready to fire and 1 or 3 while reloading. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/weapon_interface_state.h"
@@ -33,7 +34,7 @@ void weapon_build_weapon_interface_state(int weapon_index, weapon_interface_stat
         weapon_magazine *object_magazine = &weapon_object->weapon.magazines[i];
         weapon_interface_magazine_state *magazine = &state->magazines[i];
 
-        __int16 magazine_state = object_magazine->state; /* idle=ready; reloading/chambering = busy */
+        int16_t magazine_state = object_magazine->state; /* idle=ready; reloading/chambering = busy */
         magazine->reloading = (magazine_state == _weapon_magazine_reloading || magazine_state == _weapon_magazine_chambering);
         magazine->can_fire = (magazine_state == _weapon_magazine_idle);
         magazine->rounds_loaded = object_magazine->rounds_loaded;

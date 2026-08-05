@@ -41,9 +41,9 @@ void unit_animation_start_action(int unit_index, int16_t action)
     }
 
     unit_definition *definition = TAG_GET(unit_definition, unit_data->definition_index);
-    __int16 weapon_animation_type = -1;        /* resolved against the weapon class table */
-    __int16 weapon_type_animation_type = -1;   /* resolved against the weapon-type block */
-    __int16 animation_index = -1;
+    int16_t weapon_animation_type = -1;        /* resolved against the weapon class table */
+    int16_t weapon_type_animation_type = -1;   /* resolved against the weapon-type block */
+    int16_t animation_index = -1;
 
     animation_graph *graph = TAG_GET(animation_graph, definition->object.animation_graph.index);
     animation_graph_unit_seat *seat_entry =
@@ -76,7 +76,7 @@ void unit_animation_start_action(int unit_index, int16_t action)
         if ( weapon_animation_type != -1 )
         {
             if ( weapon_animation_type >= 0 && weapon_animation_type < weapon_entry->animations.count )
-                animation_index = ((__int16 *)weapon_entry->animations.address)[weapon_animation_type];
+                animation_index = ((int16_t *)weapon_entry->animations.address)[weapon_animation_type];
             else
                 animation_index = -1;
         }
@@ -86,10 +86,10 @@ void unit_animation_start_action(int unit_index, int16_t action)
         if ( weapon_type_animation_type < 0 || weapon_type_animation_type >= weapon_type_block->animations.count )
             animation_index = -1;
         else
-            animation_index = ((__int16 *)weapon_type_block->animations.address)[weapon_type_animation_type];
+            animation_index = ((int16_t *)weapon_type_block->animations.address)[weapon_type_animation_type];
     }
 
-    __int16 interpolation_frames = (action == _unit_animation_action_melee) ? 0 : 6;
+    int16_t interpolation_frames = (action == _unit_animation_action_melee) ? 0 : 6;
     if ( animation_index != -1 )
     {
         if ( interpolation_frames > 0 )

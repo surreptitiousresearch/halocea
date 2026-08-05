@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-extern void hs_object_iterate_names_containing(const char *name_string, void (*callback)(__int16));
+extern void hs_object_iterate_names_containing(const char *name_string, void (*callback)(int16_t));
 extern void hs_object_create_anew(int16_t object_name_index);
 
 void hs_object_create_anew_containing(const char *name_string)

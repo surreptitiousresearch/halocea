@@ -29,7 +29,7 @@ extern int local_player_get_player_index(int16_t local_player_index);
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *game_engine_get_goal_position(real_point3d *result, int16_t index);
-extern __int16 hud_get_nav_point_render_type(__int16 local_player_index, const real_point3d *head_position,
+extern int16_t hud_get_nav_point_render_type(int16_t local_player_index, const real_point3d *head_position,
         const real_point3d *target_position, int reference_index);
 
 void hud_update_nav_point_local_player(int16_t local_player_index)
@@ -41,10 +41,10 @@ void hud_update_nav_point_local_player(int16_t local_player_index)
         ? -1
         : DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->unit_index;
 
-    for ( int i = 0; i < MAXIMUM_ACTIVE_NAV_POINTS; i = (__int16)(i + 1) )
+    for ( int i = 0; i < MAXIMUM_ACTIVE_NAV_POINTS; i = (int16_t)(i + 1) )
     {
         hud_nav_point_datum *slot = &player_nav->nav_points[i];
-        if ( (unsigned __int16)slot->nav_index == 0xFFFF
+        if ( (uint16_t)slot->nav_index == 0xFFFF
           || slot->reference_index == -1
           /* recovered: (slot->packing & 0xF000) == 0xF000 -> slot->type == -1 (deactivated nibble 0xF) */
           || slot->type == -1 )

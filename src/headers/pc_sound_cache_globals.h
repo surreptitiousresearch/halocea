@@ -14,6 +14,6 @@ typedef struct pc_sound_cache_globals_t
 
 extern pc_sound_cache_globals_t pc_sound_cache_globals;
 extern unsigned int sound_cache_page_count; /* DB applied type: unsigned int */
-extern __int16 sound_cache_size;
+extern int16_t sound_cache_size;
 extern void sound_cache_delete_block_proc(int block_index);
 extern uint8_t sound_cache_locked_block_proc(int block_index);

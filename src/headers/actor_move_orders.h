@@ -2,6 +2,7 @@
 /* actor_move_orders — member of actor_orders at relative 0x18, 84 bytes (per the authoritative
  * actor_datum structure dump). Per structure dump from C:/halo/headers_ref/. */
 
+#include <stdint.h>
 #include "actor_destination_orders.h"
 #include "actor_animation_orders.h"
 #include "real_vector3d.h"
@@ -19,8 +20,8 @@ typedef struct actor_move_orders
     unsigned char flaming;                /* 0x29 */
     unsigned char move_face_exactly;      /* 0x2A */
     unsigned char _pad2B;                 /* 0x2B */
-    __int16 override_movement_type;       /* 0x2C */
-    __int16 override_movement_facing;     /* 0x2E */
+    int16_t override_movement_type;       /* 0x2C */
+    int16_t override_movement_facing;     /* 0x2E */
     unsigned char override_movement_direction; /* 0x30 */
     unsigned char _pad31[3];              /* 0x31 */
     real_vector3d override_movement_direction_vector; /* 0x34 (12 B) */

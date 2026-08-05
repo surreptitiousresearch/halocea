@@ -5,16 +5,16 @@
  * hcex-bridge code calling into the ws-engine job/lock layer; those primitives are declared as boundary externs.
  * Deviation: the debug-only STRONG_ASSERT (osGetCurThreadProcessor()==0) is elided. */
 
-extern struct osLOCK hcexHaloLogic;        /* has int lockDepth at its head */
+#include "../headers/ws/os/osLOCK.h"
+extern struct osLOCK hcexHaloLogic;
 extern struct jbmMANAGER gsJobManager;
 extern unsigned int gsAppState2;
-
 extern void osLOCK_Unlock(struct osLOCK *lock, void *site, int flag);
 extern void jbmMANAGER_WaitThreadsDone(struct jbmMANAGER *manager, void *state);
 
 void hcex_wait_jobs(void)
 {
-    if ( *(int *)&hcexHaloLogic > 0 )   /* lockDepth */
+    if ( hcexHaloLogic.lockDepth > 0 )   /* DEVIATION: was *(int*)& head-pun; binary reads osLOCK.lockDepth (+0x24) */
         osLOCK_Unlock(&hcexHaloLogic, 0, 0);
 
     gsAppState2 &= ~0x20000u;

@@ -43,13 +43,13 @@ float actor_compute_prop_target_weight(int actor_index, int prop_index)
         return 0.0f;
     }
 
-    __int16 continuity_bonus = 0;
-    __int16 acknowledged_bonus = 0;
+    int16_t continuity_bonus = 0;
+    int16_t acknowledged_bonus = 0;
     float current_target_bias = 0.0f;
     actor_definition *character = TAG_GET(actor_definition, actor->meta.definition_index);
     const actor_variant_definition *variant = TAG_GET(const actor_variant_definition, actor->meta.variant_definition_index);
 
-    __int16 range_band;
+    int16_t range_band;
     if ( actor->meta.swarm )  /* swarm */
     {
         range_band = 0;
@@ -99,7 +99,7 @@ float actor_compute_prop_target_weight(int actor_index, int prop_index)
         }
     }
 
-    __int16 threat_band;
+    int16_t threat_band;
     if ( prop->dead )  /* dead */
     {
         threat_band = 1;

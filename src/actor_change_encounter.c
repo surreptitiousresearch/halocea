@@ -19,7 +19,7 @@ extern void encounter_attach_actor(int actor_index, int encounter_index, int16_t
 void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 action_mode = actor->control.path.destination_orders.destination_type;   /* actor +0x46C */
+    int16_t action_mode = actor->control.path.destination_orders.destination_type;   /* actor +0x46C */
     actor->firing_positions.current_position_index = -1;                             /* actor +0x3B8 */
     if ( action_mode == _destination_firing_position || action_mode == _destination_move_position )
     {

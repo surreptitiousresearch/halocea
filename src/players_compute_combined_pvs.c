@@ -53,19 +53,19 @@ void players_compute_combined_pvs(unsigned int *combined_pvs, uint8_t local_only
     for (player_datum *player = data_iterator_next(&iterator); player;
          player = data_iterator_next(&iterator))
     {
-        if (local_only && (unsigned __int16)player->local_player_index == 0xFFFF)
+        if (local_only && (uint16_t)player->local_player_index == 0xFFFF)
             continue;
 
         int unit_index = player->unit_index;
         if (unit_index != -1)
         {
             int ultimate_parent = object_get_ultimate_parent(unit_index);
-            int cluster_index = (unsigned __int16)object_datum_get(ultimate_parent)->object.location.cluster_index;
+            int cluster_index = (uint16_t)object_datum_get(ultimate_parent)->object.location.cluster_index;
             if (cluster_index != 0xFFFF)
                 player->cluster_index = cluster_index;
         }
 
-        int cluster_index = (unsigned __int16)player->cluster_index;
+        int cluster_index = (uint16_t)player->cluster_index;
         if (cluster_index != 0xFFFF)
         {
             const unsigned int *pvs = structure_bsp_get_cluster_pvs(bsp, cluster_index);

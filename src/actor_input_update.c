@@ -61,10 +61,10 @@ void actor_input_update(int actor_index)
     if ( actor->meta.swarm )                                       /* meta.swarm */
     {
         swarm_datum *swarm = DATUM_GET(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
-        __int16 member_count = swarm->unit_count;
+        int16_t member_count = swarm->unit_count;
         swarm->swarm_center = *global_origin3d;                   /* zero the position accumulator */
 
-        for ( int member = 0; member < swarm->unit_count; member = (__int16)(member + 1) )
+        for ( int member = 0; member < swarm->unit_count; member = (int16_t)(member + 1) )
         {
             int object_index = swarm->unit_indices[member];
             swarm_component_datum *component = DATUM_GET(swarm_component_data, swarm_component_datum,
@@ -151,17 +151,17 @@ void actor_input_update(int actor_index)
 
         actor->input.vehicle_passenger = actor->input.vehicle_driver_type <= _actor_vehicle_driver_unknown;
 
-        __int16 vehicle_encounter = vehicle_object->unit.fake_encounter_index;
+        int16_t vehicle_encounter = vehicle_object->unit.fake_encounter_index;
         if ( vehicle_encounter != -1 )
         {
             int  actor_encounter = actor->meta.encounter_index;
             char migrate = 0;
-            if ( (unsigned __int16)actor_encounter == vehicle_encounter )
+            if ( (uint16_t)actor_encounter == vehicle_encounter )
             {
-                __int16 vehicle_squad = vehicle_object->unit.fake_squad_index;
+                int16_t vehicle_squad = vehicle_object->unit.fake_squad_index;
                 if ( vehicle_squad != -1 )
                 {
-                    __int16 actor_squad = actor->meta.disconnected_squad_index;
+                    int16_t actor_squad = actor->meta.disconnected_squad_index;
                     if ( actor_squad != vehicle_squad )
                     {
                         encounter_datum *encounter = DATUM_GET(encounter_data, encounter_datum,
@@ -169,9 +169,9 @@ void actor_input_update(int actor_index)
                         migrate = 1;
                         if ( encounter->follow_target_type > 0 )
                         {
-                            __int16 squad_base = encounter->squad_base;
-                            if ( squad_array[(__int16)(squad_base + actor_squad)].automatic_migration_target )
-                                migrate = squad_array[(__int16)(vehicle_squad + squad_base)].automatic_migration_target == 0;
+                            int16_t squad_base = encounter->squad_base;
+                            if ( squad_array[(int16_t)(squad_base + actor_squad)].automatic_migration_target )
+                                migrate = squad_array[(int16_t)(vehicle_squad + squad_base)].automatic_migration_target == 0;
                         }
                     }
                 }
@@ -185,7 +185,7 @@ void actor_input_update(int actor_index)
             {
                 if ( !actor->meta.stored_prevehicle_encounter )
                 {
-                    __int16 actor_squad = actor->meta.disconnected_squad_index;
+                    int16_t actor_squad = actor->meta.disconnected_squad_index;
                     actor->meta.prevehicle_encounter_index = actor_encounter;  /* remember original encounter */
                     actor->meta.stored_prevehicle_encounter = 1;
                     actor->meta.prevehicle_squad_index = actor_squad;          /* remember original squad */
@@ -224,7 +224,8 @@ void actor_input_update(int actor_index)
         {
             if ( threat_object->object.type == object_type_projectile
               && ((threat_object->projectile.flags & (1u << _projectile_will_super_explode_bit)) != 0
-                  || (actor->danger_zone.danger_type == actor_danger_zone_projectile && threat == *(int *)&actor->danger_zone.position.x)) )
+                  /* DEVIATION: disasm loads danger_zone+0xC (lwz 0x28C) = object_index, not position.x — decompiler punned the wrong member */
+                  || (actor->danger_zone.danger_type == actor_danger_zone_projectile && threat == actor->danger_zone.object_index)) )
                 actor->input.delayed_attached_projectile_index = threat;
         }
         else

@@ -34,11 +34,11 @@ int decode_message_dependent_header_iterated(message_delta_processor_header *con
     signed int field_count = definition->body_fields.count;
 
     int proceed;
-    unsigned __int8 established;
+    uint8_t established;
 
     if ( header->decoding_information->mode )
     {
-        unsigned __int8 has_bits = bitstream_has_bits(decoding_information->input_stream,
+        uint8_t has_bits = bitstream_has_bits(decoding_information->input_stream,
                                                       definition->header_size_in_bits);
         proceed = has_bits;
         established = has_bits;

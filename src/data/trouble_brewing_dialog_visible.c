@@ -1,1 +1,2 @@
-unsigned __int8 trouble_brewing_dialog_visible;
+#include <stdint.h>
+uint8_t trouble_brewing_dialog_visible;

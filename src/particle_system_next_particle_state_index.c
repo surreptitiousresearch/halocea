@@ -3,6 +3,7 @@
  * the particle_states block, either bounces (particle_states_loop_forward_backward: clamp and reverse
  * direction), wraps to 0 (particle_states_loop only), or kills the particle (no looping flag). */
 
+#include <stdint.h>
 #include "headers/ps_particle_datum.h"
 #include "headers/particle_system_type.h"
 #include "headers/particle_system_type_flags.h"
@@ -12,7 +13,7 @@ void particle_system_next_particle_state_index(ps_particle_datum *particle, cons
     unsigned int states_moving_forward = particle->states_moving_forward;
     int state_index = particle->state_index;
     int step = states_moving_forward == 0 ? -1 : 1;
-    int next = (__int16)(step + state_index);
+    int next = (int16_t)(step + state_index);
 
     particle->transition_state_index = next;
 

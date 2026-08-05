@@ -10,11 +10,11 @@ extern int16_t numeric_countdown_timer_get(int16_t digit_index);
 void numeric_countdown_timer_get_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result;
-    *((__int16 *)&result) = 0;
+    *((int16_t *)&result) = 0;
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((__int16 *)&result + 1) = numeric_countdown_timer_get(*(__int16 *)arguments);
+        *((int16_t *)&result + 1) = numeric_countdown_timer_get(*(int16_t *)arguments);
         hs_return(thread_index, result);
     }
 }

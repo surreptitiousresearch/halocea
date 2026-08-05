@@ -2,14 +2,15 @@
 /* _projectile_datum — the projectile-level runtime fields, embedded at offset 0x22C (556) inside the
  * composite projectile_datum object datum. Layout from the database (132 bytes). */
 
+#include <stdint.h>
 #include "real_vector3d.h"
 #include "projectile_datum_network_data.h"
 
 typedef struct _projectile_datum
 {
     unsigned int    flags;                          /* 0x00 — 0x40 = detonation timers randomized (grouped) */
-    __int16         action;                         /* 0x04 */
-    __int16         hit_material_type;              /* 0x06 */
+    int16_t         action;                         /* 0x04 */
+    int16_t         hit_material_type;              /* 0x06 */
     int             ignore_object_index;            /* 0x08 */
     int             target_object_index;            /* 0x0C */
     int             tracer_attachment_index_index;  /* 0x10 — slot into object.attachment_indices */
@@ -25,12 +26,12 @@ typedef struct _projectile_datum
     real_vector3d   rotation_axis;                  /* 0x38 */
     float           rotation_sine;                  /* 0x44 */
     float           rotation_cosine;                /* 0x48 */
-    unsigned __int8 replicate_detonation;           /* 0x4C */
-    unsigned __int8 baseline_valid;                 /* 0x4D */
-    unsigned __int8 baseline_index;                 /* 0x4E */
-    unsigned __int8 message_index;                  /* 0x4F */
+    uint8_t replicate_detonation;           /* 0x4C */
+    uint8_t baseline_valid;                 /* 0x4D */
+    uint8_t baseline_index;                 /* 0x4E */
+    uint8_t message_index;                  /* 0x4F */
     projectile_datum_network_data baseline;         /* 0x50 */
-    unsigned __int8 last_network_data_valid;        /* 0x68 */
+    uint8_t last_network_data_valid;        /* 0x68 */
     char            _pad69[3];                       /* 0x69 */
     projectile_datum_network_data last_network_data; /* 0x6C */
 } _projectile_datum;                                /* 132 bytes */

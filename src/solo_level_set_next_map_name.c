@@ -28,7 +28,7 @@ uint8_t solo_level_set_next_map_name(widget_instance *list_widget, event_record 
     if ( player_spawn_count == 1 )
     {
         player_profile profile;
-        __int16 highest_level, highest_difficulty[7];
+        int16_t highest_level, highest_difficulty[7];
 
         player_ui_get_active_player_profile(0, &profile);
         player_profile_get_highest_completed_solo_level(&profile, &highest_level, highest_difficulty);
@@ -40,10 +40,10 @@ uint8_t solo_level_set_next_map_name(widget_instance *list_widget, event_record 
     }
     else if ( player_spawn_count == 2 )
     {
-        for ( __int16 local_player_index = 0; ; local_player_index = (__int16)(local_player_index + 1) )
+        for ( int16_t local_player_index = 0; ; local_player_index = (int16_t)(local_player_index + 1) )
         {
             player_profile profile;
-            __int16 highest_level, highest_difficulty[7];
+            int16_t highest_level, highest_difficulty[7];
 
             player_ui_get_active_player_profile(local_player_index, &profile);
             player_profile_get_highest_completed_solo_level(&profile, &highest_level, highest_difficulty);
@@ -62,7 +62,7 @@ uint8_t solo_level_set_next_map_name(widget_instance *list_widget, event_record 
     if ( hcex_is_unlock_all_maps )
         unlocked = 1;
 
-    if ( (unsigned __int8)unlocked == 1 )
+    if ( (uint8_t)unlocked == 1 )
     {
         main_set_map_name(scenario_paths_0[list_index]);
         main_defer_map_map_change();

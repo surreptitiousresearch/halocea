@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include <stddef.h> /* wchar_t is not a builtin type in C */
 /* network_game_data — multiplayer game session state (1360 bytes, full DB layout). variant stays at 0xA4.
  * The trailing local_data block is the DB anonymous struct _3EBED399ABFF3B3434365580D6B300BF
@@ -11,8 +12,8 @@
 /* DB struct _3EBED399ABFF3B3434365580D6B300BF (4 bytes) — network_game_data member local_data. */
 typedef struct _3EBED399ABFF3B3434365580D6B300BF
 {
-    unsigned __int8 game_objects_loaded; /* 0x00 */
-    unsigned __int8 pad3[3];             /* 0x01 */
+    uint8_t game_objects_loaded; /* 0x00 */
+    uint8_t pad3[3];             /* 0x01 */
 } _3EBED399ABFF3B3434365580D6B300BF;
 
 typedef struct network_game_data
@@ -22,8 +23,8 @@ typedef struct network_game_data
     game_variant            variant;                  /* 0x0A4 */
     char                    _unused_game_engine;      /* 0x13C */
     char                    maximum_players;          /* 0x13D */
-    __int16                 difficulty_level;         /* 0x13E */
-    __int16                 player_count;             /* 0x140 */
+    int16_t                 difficulty_level;         /* 0x13E */
+    int16_t                 player_count;             /* 0x140 */
     network_player          players[32];              /* 0x142 */
     char                    _pad542[2];               /* 0x542 */
     unsigned int            network_game_random_seed; /* 0x544 */

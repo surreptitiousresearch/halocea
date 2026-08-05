@@ -42,7 +42,7 @@ uint8_t actor_combat_plan_grenade_trajectory(int actor_index, int16_t trajectory
 
     real_point3d grenade_origin = actor->input.position.head_position;
 
-    __int16 grenade_type = (variant_tag)->grenade_combat.grenade_type;
+    int16_t grenade_type = (variant_tag)->grenade_combat.grenade_type;
     float velocity_max = (variant_tag)->grenade_combat.grenade_maximum_velocity;
 
     real_vector3d aim_vector;
@@ -56,7 +56,7 @@ uint8_t actor_combat_plan_grenade_trajectory(int actor_index, int16_t trajectory
             &aim_vector, &aim_speed, &arc_time, &arc_initial_velocity, &arc_acceleration) )
         return 0;
 
-    unsigned __int8 ignore_vehicles = (actor->input.vehicle_index != -1);
+    uint8_t ignore_vehicles = (actor->input.vehicle_index != -1);
     if ( !ai_test_ballistic_line_of_fire(actor_index, &grenade_origin, arc_time, &arc_initial_velocity,
             arc_acceleration, grenade_ignore_object_index, ignore_vehicles) )
         return 0;

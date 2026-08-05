@@ -20,7 +20,7 @@ void structure_render_specular_lightmaps(void)
     if (!structure_render_globals.environment_geometry_valid)
         return;
 
-    __int16 saved_lightmap_mode = rasterizer_globals.lightmap_mode;
+    int16_t saved_lightmap_mode = rasterizer_globals.lightmap_mode;
     if (global_structure_bsp->lightmap_group.index == -1 && !rasterizer_globals.lightmap_mode)
         rasterizer_globals.lightmap_mode = 1;
 

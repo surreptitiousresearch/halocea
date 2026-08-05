@@ -17,7 +17,7 @@ extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 
 uint8_t playlist_profile_begin_editing(widget_instance *wrapper_widget, event_record *event, uint8_t *widget_deleted)
 {
-    __int16 selected = wrapper_widget->parameters.list_parameters.selected_list_item_index;
+    int16_t selected = wrapper_widget->parameters.list_parameters.selected_list_item_index;
     delete_profile_index = -1;
 
     int profile_index = ((int *)wrapper_widget->parameters.list_parameters.list_items)

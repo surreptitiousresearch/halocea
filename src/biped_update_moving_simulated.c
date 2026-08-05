@@ -32,7 +32,6 @@
 #include "headers/animation_graph.h"
 #include "headers/animation.h"
 #include "headers/player_datum.h"
-#include "headers/hexrays_defs.h"
 #include "headers/object_damage_flags.h"
 #include "headers/object_flags.h"
 #include "headers/biped_datum_flags.h"
@@ -45,12 +44,6 @@
 #include "headers/base_seat.h"
 #include "headers/game_difficulty_value.h"
 #include "headers/blam_data_globals.h"
-
-#ifndef HIBYTE
-#define BYTEn(x, n) (*((unsigned char *)&(x) + (n)))
-#define BYTE1(x)    BYTEn(x, 1)
-#define HIBYTE(x)   BYTEn(x, sizeof(x) - 1)
-#endif
 
 
 /* boundary helpers — not reversed here */
@@ -82,7 +75,7 @@ void biped_update_moving_simulated(
     real_vector3d rotated_forward;
     const biped_definition *definition;
     float movement_scale;
-    unsigned __int16 in_flags;
+    uint16_t in_flags;
 
     (void)unused_animation_update;
 
@@ -122,7 +115,7 @@ void biped_update_moving_simulated(
     physics.ground_tangential_angle = 0.0f;
     physics.existing_support_surface_index = biped_real->biped.support_surface_index;
 
-    if ( (unsigned __int16)biped_real->biped.landing == 1 )
+    if ( (uint16_t)biped_real->biped.landing == 1 )
     {
         physics.movement_desired.n[0] = 0.0f;
         physics.movement_desired.n[1] = 0.0f;
@@ -199,7 +192,7 @@ void biped_update_moving_simulated(
                 float desired_y = physics.movement_desired.n[1];
                 animation_graph *graph = TAG_GET(animation_graph, biped_real->object.animation.animation_graph_index);
                 animation *animation_def = (animation *)graph->animations.address + animation_index;
-                int frame_component_count = (unsigned __int16)animation_def->frame_info_type;
+                int frame_component_count = (uint16_t)animation_def->frame_info_type;
                 int frame_index = biped_real->object.animation.state.frame_index;
                 /* frame_base strides (8/12/16) are keyed by the runtime frame_info_type record size —
                  * variable-format stream, irreducible to a single struct (ledgered) */
@@ -359,7 +352,7 @@ void biped_update_moving_simulated(
                         side_speed = player_movement->run_forward_speed;
                     }
 
-                    base_seat_index = (unsigned __int8)biped_real->unit.animation.base_seat_index;
+                    base_seat_index = (uint8_t)biped_real->unit.animation.base_seat_index;
                     forward_velocity = (side_speed * uncrouch) + (forward_speed * crouch);
                     physics.movement_desired.n[0] = forward_velocity;
                     side_velocity = (player_movement->run_sideways_speed * uncrouch) + (player_movement->sneak_sideways_speed * crouch);
@@ -567,7 +560,7 @@ void biped_update_moving_simulated(
         biped_real->biped.support_surface_index = physics.support_surface_index;
 
         if ( !((unsigned char *)&biped_faux->definition_index)[1] && (out_flags & (1u << _biped_physics_out_cannot_stand_bit)) != 0 )
-            ((unsigned char *)&biped_faux->definition_index)[1] = 1; /* was BYTE1(...) l-value */
+            ((unsigned char *)&biped_faux->definition_index)[1] = 1;
 
         {
             unsigned int biped_flags = biped_real->biped.flags;

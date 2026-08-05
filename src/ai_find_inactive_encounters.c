@@ -29,19 +29,22 @@ void ai_find_inactive_encounters(uint8_t *working_memory, int16_t working_memory
     memory->cursor = 0;
 
     encounter_iterator iterator[2];
+    /* DEVIATION: the actor loop drives the same stack slot as an encounter_actor_iterator; the prior
+     * `*(int *)&iterator[0].encounter_iterator.absolute_index` was that view's `index` member (+0x4) */
+    encounter_actor_iterator *actor_iterator = (encounter_actor_iterator *)iterator;
 
-    encounter_actor_iterator_new((encounter_actor_iterator *)iterator, -1);
-    for ( actor_datum *actor = encounter_actor_iterator_next((encounter_actor_iterator *)iterator);
+    encounter_actor_iterator_new(actor_iterator, -1);
+    for ( actor_datum *actor = encounter_actor_iterator_next(actor_iterator);
           actor;
-          actor = encounter_actor_iterator_next((encounter_actor_iterator *)iterator) )
+          actor = encounter_actor_iterator_next(actor_iterator) )
     {
-        __int16 count = memory->count;
+        int16_t count = memory->count;
         if ( count >= 256 )
             break;
         if ( !actor->meta.active && actor->meta.last_active_time != -1 )
         {
             memory->records[count].is_actor = 1;
-            memory->records[count].entity_index = *(int *)&iterator[0].encounter_iterator.absolute_index;
+            memory->records[count].entity_index = actor_iterator->index;
             memory->records[count].last_active_time = actor->meta.last_active_time;
             memory->count = count + 1;
         }
@@ -52,7 +55,7 @@ void ai_find_inactive_encounters(uint8_t *working_memory, int16_t working_memory
           encounter;
           encounter = encounter_iterator_next(iterator) )
     {
-        __int16 count = memory->count;
+        int16_t count = memory->count;
         if ( count >= 256 )
             break;
         if ( !encounter->active && encounter->current_count > 0 && encounter->last_active_time != -1 )
@@ -64,7 +67,7 @@ void ai_find_inactive_encounters(uint8_t *working_memory, int16_t working_memory
         }
     }
 
-    __int16 record_count = memory->count;
+    int16_t record_count = memory->count;
     if ( record_count > 0 )
         qsort(memory->records, record_count, sizeof(ai_inactive_entity_record), compare_releasable_inactive_encounters);
 }

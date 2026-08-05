@@ -15,7 +15,7 @@ void encounter_modify_pursuit_desires(uint16_t encounter_index, int16_t squad_in
     encounter_definition *encounter = (encounter_definition *)global_scenario->ai_encounters.address + encounter_index;
     squad_definition *squads = (squad_definition *)encounter->squads.address;
 
-    __int16 pursuit_search = encounter->searching; /* recovered: *(__int16 *)((char *)encounter + 0x28) -> searching */
+    int16_t pursuit_search = encounter->searching; /* recovered: *(__int16 *)((char *)encounter + 0x28) -> searching */
     if ( (squads[squad_index].flags & (1u << _squad_never_search_bit)) != 0 )
         pursuit_search = 1;
 

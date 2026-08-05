@@ -8,9 +8,9 @@
 void cinematic_set_title_delayed(int16_t index, float delay)
 {
     int slot;
-    for ( slot = 0; slot < 4; slot = (__int16)(slot + 1) )
+    for ( slot = 0; slot < 4; slot = (int16_t)(slot + 1) )
     {
-        if ( (unsigned __int16)cinematic_globals->active_titles[slot].title_index == 0xFFFF )
+        if ( (uint16_t)cinematic_globals->active_titles[slot].title_index == 0xFFFF )
             break;
     }
 

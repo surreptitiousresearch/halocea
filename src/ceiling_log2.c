@@ -6,7 +6,7 @@
 
 int16_t ceiling_log2(unsigned int k)
 {
-    __int16 count = 0;
+    int16_t count = 0;
 
     if ( k != 0 )
     {
@@ -20,5 +20,5 @@ int16_t ceiling_log2(unsigned int k)
             } while ( value != 1 );
         }
     }
-    return (__int16)(count + 1);
+    return (int16_t)(count + 1);
 }

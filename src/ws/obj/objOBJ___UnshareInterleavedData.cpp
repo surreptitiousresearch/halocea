@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -24,8 +25,8 @@ void objOBJ::_UnshareInterleavedData()
         return;
 
     void            *sharedData      = pSharedGeom->pDataInterleaved;
-    unsigned __int8  interleavedSize = pSharedGeom->interleavedSize;
-    unsigned __int64 fvfInterleaved  = pSharedGeom->fvfInterleaved;
+    uint8_t  interleavedSize = pSharedGeom->interleavedSize;
+    uint64_t fvfInterleaved  = pSharedGeom->fvfInterleaved;
 
     SetInterleavedData(nullptr, 0, 0); // detach the shared buffer
     _AllocInterleavedData(this->nVert, interleavedSize, fvfInterleaved); // private copy

@@ -57,7 +57,7 @@ extern void *datum_try_and_get(const data_array *data, int index);
 uint8_t action_vehicle_evaluate_seat(int actor_index, int vehicle_index, int16_t seat_index, uint8_t allow_any_seat, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, float *seat_weight_reference, uint8_t *within_range_reference, uint8_t *correct_facing_reference, uint8_t *could_potentially_fake_reference)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 result = 0;
+    uint8_t result = 0;
 
     actor_definition *definition = TAG_GET(actor_definition, actor->meta.definition_index);
     actor_variant_definition *variant =
@@ -157,9 +157,9 @@ uint8_t action_vehicle_evaluate_seat(int actor_index, int vehicle_index, int16_t
     float facing_dot = actor->input.facing_vector.n[1] * to_seat_direction.n[1]
                       + actor->input.facing_vector.n[0] * to_seat_direction.n[0];
 
-    unsigned __int8 within_range = distance_to_seat < 0.7f;
-    unsigned __int8 correct_facing = facing_dot > 0.6f;
-    unsigned __int8 could_potentially_fake = distance_to_seat < 1.1f && facing_dot > 0.0f;
+    uint8_t within_range = distance_to_seat < 0.7f;
+    uint8_t correct_facing = facing_dot > 0.6f;
+    uint8_t could_potentially_fake = distance_to_seat < 1.1f && facing_dot > 0.0f;
 
     float seat_weight = 10.0f / (distance_to_seat + 1.0f);
     if ( (variant->flags & (1u << _actor_variant_definition_prefer_passenger_seat_bit)) != 0 )  /* gunner-affinity variant flag */

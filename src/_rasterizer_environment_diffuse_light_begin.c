@@ -88,7 +88,7 @@ void _rasterizer_environment_diffuse_light_begin(int light_index)
     vsh_constants[12] = -gel_up.n[0];
     vsh_constants[13] = -gel_up.n[1];
     vsh_constants[14] = -gel_up.n[2];
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vsh_constants, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vsh_constants, 5, (uint64_t)3 << 59);
 
     light_color[0] = light->color.n[0];
     light_color[3] = 1.0f;

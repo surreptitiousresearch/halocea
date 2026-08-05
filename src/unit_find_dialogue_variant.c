@@ -15,7 +15,7 @@ int unit_find_dialogue_variant(const unit_definition *definition, int16_t varian
     int count = definition->unit.dialogue_variants.count;
     dialogue_variant_definition *variants = (dialogue_variant_definition *)definition->unit.dialogue_variants.address;
 
-    __int16 matches[20];
+    int16_t matches[20];
     int match_count = 0;
     if ( count > 0 )
     {
@@ -24,14 +24,14 @@ int unit_find_dialogue_variant(const unit_definition *definition, int16_t varian
         {
             if ( variant_number == -1 || variants[index].variant_number == variant_number )
                 matches[match_count++] = index;
-            index = (__int16)(index + 1);
+            index = (int16_t)(index + 1);
         }
         while ( index < count );
     }
 
     if ( match_count > 0 )
     {
-        __int16 chosen;
+        int16_t chosen;
         if ( match_count == 1 )
         {
             chosen = matches[0];

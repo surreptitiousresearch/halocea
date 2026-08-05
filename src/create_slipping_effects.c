@@ -42,7 +42,7 @@ void create_slipping_effects(int vehicle_index, mass_point_datum *mass_points)
     if (effects_definition_index == -1 || mass_point_count <= 0)
         return;
 
-    for (int i = 0; i < mass_point_count; i = (__int16)(i + 1))
+    for (int i = 0; i < mass_point_count; i = (int16_t)(i + 1))
     {
         /* runtime mass-point record (see deviation note: base param is a DB mislabel) */
         mass_point_datum *mass_point = &mass_points[i];

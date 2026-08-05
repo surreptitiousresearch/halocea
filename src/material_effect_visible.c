@@ -12,12 +12,12 @@ extern const observer_result *observer_get_camera(int16_t local_player_index);
 
 uint8_t material_effect_visible(const real_point3d *origin)
 {
-    __int16 local_player_index;
+    int16_t local_player_index;
 
     if ( local_player_count() > 2 )
         return 1;
 
-    for ( local_player_index = 0; local_player_index < 2; local_player_index = (__int16)(local_player_index + 1) )
+    for ( local_player_index = 0; local_player_index < 2; local_player_index = (int16_t)(local_player_index + 1) )
     {
         if ( local_player_get_player_index(local_player_index) != -1 )
         {

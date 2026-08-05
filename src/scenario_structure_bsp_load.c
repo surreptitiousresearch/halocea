@@ -25,7 +25,7 @@ uint8_t scenario_structure_bsp_load(const scenario_structure_bsp_reference *refe
     int size = reference->size;
     int offset = reference->offset;
 
-    volatile unsigned __int8 finished = 0;
+    volatile uint8_t finished = 0;
     cache_file_read_request_params params;
     params.finished_func = nullptr;
     params.finished_flag = &finished;
@@ -40,7 +40,7 @@ uint8_t scenario_structure_bsp_load(const scenario_structure_bsp_reference *refe
     }
 
     cache_file_globals.structure_bsp_header = (cache_file_structure_bsp_header *)reference->address;
-    global_tag_instances[(__int16)reference->structure_bsp.index].base_address =
+    global_tag_instances[(int16_t)reference->structure_bsp.index].base_address =
         cache_file_globals.structure_bsp_header->structure_bsp;
     bsp_register_vbufs(cache_file_globals.structure_bsp_header);
     hcex_after_register_vertex_buffers();

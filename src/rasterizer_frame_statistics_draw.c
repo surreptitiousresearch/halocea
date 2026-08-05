@@ -85,7 +85,7 @@ void rasterizer_frame_statistics_draw(void)
         cursor[0].__s1.x = 0;
         cursor[0].__s1.y = 0;
 
-        __int16 tab_stops[8];
+        int16_t tab_stops[8];
         tab_stops[0] = 100;
         tab_stops[1] = 200;
         tab_stops[2] = 300;
@@ -111,12 +111,12 @@ void rasterizer_frame_statistics_draw(void)
         reset_color.n[2] = 1.0f;
         reset_color.n[3] = 1.0f;
 
-        __int64 frame_delta = rasterizer_globals.frame_index - rasterizer_fps_accumulation_frame_index;
-        __int16 left_edge = rasterizer_globals.frame_bounds.n[1];
-        __int64 elapsed_ms = system_milliseconds() - rasterizer_fps_accumulation_time;
+        int64_t frame_delta = rasterizer_globals.frame_index - rasterizer_fps_accumulation_frame_index;
+        int16_t left_edge = rasterizer_globals.frame_bounds.n[1];
+        int64_t elapsed_ms = system_milliseconds() - rasterizer_fps_accumulation_time;
 
         /* shift every column to the window's left edge */
-        for (int i = 0; i < 6; i = (__int16)(i + 1))
+        for (int i = 0; i < 6; i = (int16_t)(i + 1))
             tab_stops[i] += left_edge;
 
         rectangle2d bounds = rasterizer_globals.frame_bounds;

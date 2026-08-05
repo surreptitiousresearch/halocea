@@ -34,18 +34,18 @@ int bsp3d_clip_polygon_to_leaves_recursive(
         int                  node_index,
         int                  on_node_designator,
         const real_point3d  *vertices,
-        __int16              vertex_count,
+        int16_t              vertex_count,
         float                epsilon,
-        void (__fastcall    *handler)(const real_point3d *, __int16, int, int, void *),
+        void (__fastcall    *handler)(const real_point3d *, int16_t, int, int, void *),
         void                *user_data)
 {
     const bsp3d_node *node  = &((const bsp3d_node *)bsp->nodes.address)[node_index];
     const char       *planes_address = (const char *)bsp->planes.address;
     const real_plane3d *plane = (const real_plane3d *)&planes_address[16 * node->plane_index];
     /* FAITHFUL QUIRK source: this same pointer, truncated, is reused as keep_coplanar below. */
-    unsigned __int8 keep_coplanar = (unsigned __int8)(unsigned int)planes_address;
+    uint8_t keep_coplanar = (uint8_t)(unsigned int)planes_address;
 
-    __int16 i;
+    int16_t i;
     for (i = 0; i < vertex_count; ++i)
     {
         float dist = plane->n.n[0] * vertices[i].n[0]
@@ -56,7 +56,7 @@ int bsp3d_clip_polygon_to_leaves_recursive(
             break;
     }
 
-    __int16 side_count[2];
+    int16_t side_count[2];
     const real_point3d *side_vertices[2];
     real_point3d back_clipped[64];
     real_point3d front_clipped[64];

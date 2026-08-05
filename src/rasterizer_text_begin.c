@@ -44,10 +44,10 @@ extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclarati
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                const float *pConstantData, unsigned int Vector4fCount,
-                                               unsigned __int64 PendingMask1);
+                                               uint64_t PendingMask1);
 
 void rasterizer_text_begin(const rasterizer_dynamic_screen_geometry_parameters *parameters)
 {

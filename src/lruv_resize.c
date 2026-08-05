@@ -7,6 +7,7 @@
  * `cache` parameter (no explicit argument setup at the call site) — reproduced as-is, since no block index
  * has been computed yet at that point in the compiled code. */
 
+#include <stdint.h>
 #include "headers/lruv_cache.h"
 #include "headers/lruv_cache_block.h"
 #include "headers/data_iterator.h"
@@ -28,20 +29,20 @@ void lruv_resize(lruv_cache *cache, int new_page_count)
                 ((void (*)(int))cache->delete_block_proc)((int)cache);
 
             int index = iterator.index;
-            lruv_cache_block *record = &blocks[(unsigned __int16)iterator.index];
+            lruv_cache_block *record = &blocks[(uint16_t)iterator.index];
 
             /* decompiler local "next_index" is actually the previous link (record+4=+0x10) */
             int previous_index = record->previous_block_index;
             if ( previous_index == -1 )
                 cache->first_block_index = record->next_block_index;
             else
-                blocks[(unsigned __int16)previous_index].next_block_index = record->next_block_index;
+                blocks[(uint16_t)previous_index].next_block_index = record->next_block_index;
 
             int next_index = record->next_block_index;
             if ( next_index == -1 )
                 cache->last_block_index = record->previous_block_index;
             else
-                blocks[(unsigned __int16)next_index].previous_block_index = record->previous_block_index;
+                blocks[(uint16_t)next_index].previous_block_index = record->previous_block_index;
 
             datum_delete(cache->blocks, index);
         }

@@ -6,8 +6,9 @@
  * texture-transform constants (with animated u/v scroll offsets), sets the single diffuse light-colour constant
  * (c1), selects the vertex declaration/shader, then draws the dynamic triangles once per effect pass.
  *
- * Modeled on the specular sibling _rasterizer_environment_specular_light_draw. The shader is the decompiler's
- * 40-byte shader[N] type-pun (shader[6]=diffuse light colour fields, shader[7]=bump texture-transform fields).
+ * Modeled on the specular sibling _rasterizer_environment_specular_light_draw. The decompiler's 40-byte
+ * shader[N] type-puns are resolved to the shader_environment DB members (diffuse.material_color,
+ * diffuse.bump_map.index, diffuse.runtime_bump_map_scale).
  * DEVIATION (FPR-shadow, disasm 0x8378965C-0x837896C4): the texture-transform block is one contiguous 12-float
  * buffer the decompiler split into two arrays and lost the evaluate output pointers to — evaluate writes the
  * u/v scroll offsets into elements [7] and [11]; the SetVertexShaderConstantFN garble is reg 0xA, count 3, mask
@@ -16,6 +17,7 @@
 
 #include <stdint.h>
 #include "headers/shader.h"
+#include "headers/shader_environment.h"
 #include "headers/shader_environment_flags.h"
 #include "headers/vertex_buffer.h"
 #include "headers/rasterizer_debug_options_struct.h"
@@ -36,7 +38,7 @@ extern point2d *rasterizer_set_texture_for_effect(int16_t stage, int16_t type, i
 extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
@@ -45,6 +47,7 @@ extern void rasterizer_draw_dynamic_triangles_static_vertices(int dynamic_triang
 
 void rasterizer_environment_diffuse_light_draw_pp(const shader *shader, int16_t shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer)
 {
+    const shader_environment *env = (const shader_environment *)shader;
     if ( rasterizer_debug_options.drawing_mode || !rasterizer_debug_options.draw_environment_diffuse_lights )
         return;
 
@@ -52,17 +55,17 @@ void rasterizer_environment_diffuse_light_draw_pp(const shader *shader, int16_t 
     if ( !effect_shader || !effect_shader->effect )
         return;
 
-    int base_map_index = -1;
-    /* shader[1] type-puns the shader_environment.environment block; its flags word is the
-     * shader_environment flags enum (DB $D2D05304...). Bit 1 gates base-map binding here. */
-    if ( (shader[1].base.radiosity.flags & (1u << _shader_environment_bump_map_is_specular_mask_bit)) == 0 )
-        base_map_index = *(int *)&shader[7].base.radiosity.tint_color.n[2];
-    rasterizer_set_texture_for_effect(0, 0, 3, base_map_index, shader_permutation_index, effect_shader);
+    int bump_map_index = -1;
+    /* the environment flags word is the shader_environment flags enum (DB $D2D05304...); its
+     * bump_map_is_specular_mask bit gates the stage-0 bump-map binding here. */
+    if ( (env->environment.flags & (1u << _shader_environment_bump_map_is_specular_mask_bit)) == 0 )
+        bump_map_index = env->environment.diffuse.bump_map.index;
+    rasterizer_set_texture_for_effect(0, 0, 3, bump_map_index, shader_permutation_index, effect_shader);
 
     /* c10..c12 bump texture-transform block; [7]/[11] receive the animated u/v scroll offsets. */
     float texture_transform_constants[12];
-    texture_transform_constants[0] = *(float *)&shader[7].base.physics;
-    texture_transform_constants[1] = *(float *)&shader[7].base.type;
+    texture_transform_constants[0] = env->environment.diffuse.runtime_bump_map_scale.n[0];
+    texture_transform_constants[1] = env->environment.diffuse.runtime_bump_map_scale.n[1];
     texture_transform_constants[2] = 1.0f;
     texture_transform_constants[3] = 1.0f;
     texture_transform_constants[4] = 1.0f;
@@ -77,15 +80,15 @@ void rasterizer_environment_diffuse_light_draw_pp(const shader *shader, int16_t 
                                                   &texture_transform_constants[7],
                                                   &texture_transform_constants[11]);
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, texture_transform_constants, 3,
-                                        (unsigned __int64)3 << 60);
+                                        (uint64_t)3 << 60);
 
-    /* c1: diffuse light colour (tint_color[2], physics, type, 1). */
+    /* c1: diffuse material colour (r, g, b, 1). */
     ID3DXEffect *effect = effect_shader->effect;
     unsigned int *constants = effect_shader->constants;
     float vector[4];
-    vector[0] = shader[6].base.radiosity.tint_color.n[2];
-    vector[1] = *(float *)&shader[6].base.physics;
-    vector[2] = *(float *)&shader[6].base.type;
+    vector[0] = env->environment.diffuse.material_color.n[0];
+    vector[1] = env->environment.diffuse.material_color.n[1];
+    vector[2] = env->environment.diffuse.material_color.n[2];
     vector[3] = 1.0f;
     ID3DXEffect_SetVector(effect, constants[1], (const D3DXVECTOR4 *)vector);
 

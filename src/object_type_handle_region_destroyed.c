@@ -2,6 +2,7 @@
  * definition (super-type plus sub-types) registered for an object's type. The object's type code lives at
  * object datum +180. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
@@ -15,7 +16,7 @@ void object_type_handle_region_destroyed(int object_index, int region_index, uns
     object_type_definition *type = object_type_definitions[object->object.type];
     for ( int i = 0; type->part_definitions[i]; ++i )
     {
-        void (*handle_region_destroyed)(int, __int16, unsigned int) = type->part_definitions[i]->handle_region_destroyed;
+        void (*handle_region_destroyed)(int, int16_t, unsigned int) = type->part_definitions[i]->handle_region_destroyed;
         if ( handle_region_destroyed )
             handle_region_destroyed(object_index, region_index, damage_region_flags);
     }

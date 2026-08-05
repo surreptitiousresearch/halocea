@@ -38,7 +38,7 @@ uint8_t aim_assist(const aim_assist_parameters *parameters, const real_point3d *
     while (!aim_assist_clear_line_of_sight(position, &targets[i].position,
                                            ignore_object_index, targets[i].object_index))
     {
-        i = (__int16)(i + 1);
+        i = (int16_t)(i + 1);
         if (i >= count)
             return 0;
     }

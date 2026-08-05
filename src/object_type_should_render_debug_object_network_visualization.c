@@ -14,10 +14,10 @@ uint8_t object_type_should_render_debug_object_network_visualization(int object_
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     object_type_definition *type = object_type_definitions[object->object.type];
 
-    unsigned __int8 should_render = 0;
+    uint8_t should_render = 0;
     for ( object_type_definition **part = type->part_definitions; *part; part++ )
     {
-        unsigned __int8 (*callback)(int) = (*part)->should_render_debug_object_network_visualization;
+        uint8_t (*callback)(int) = (*part)->should_render_debug_object_network_visualization;
         if ( callback )
             should_render = should_render || callback(object_index);
     }

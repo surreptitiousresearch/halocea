@@ -19,7 +19,7 @@ extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int lis
     unsigned int data_len, char is_default);
 
 uint8_t multiplayer_level_list_initialize(widget_instance *list_widget, event_record *event,
-    unsigned __int8 *widget_deleted)
+    uint8_t *widget_deleted)
 {
     int count = map_list_get_count();
     list_widget->parameters.list_parameters.number_of_items = count;
@@ -34,7 +34,7 @@ uint8_t multiplayer_level_list_initialize(widget_instance *list_widget, event_re
         {
             while ( stricmp(last_used_map_name, multiplayer_maps[list_widget->parameters.text_box_parameters.string_list_index].name) )
             {
-                __int16 next_index = (__int16)(list_widget->parameters.text_box_parameters.string_list_index + 1);
+                int16_t next_index = (int16_t)(list_widget->parameters.text_box_parameters.string_list_index + 1);
                 list_widget->parameters.text_box_parameters.string_list_index = next_index;
                 if ( next_index >= count )
                     break;
@@ -45,7 +45,7 @@ uint8_t multiplayer_level_list_initialize(widget_instance *list_widget, event_re
             list_widget->parameters.text_box_parameters.string_list_index = 0;
     }
 
-    __int16 selected_index = list_widget->parameters.text_box_parameters.string_list_index;
+    int16_t selected_index = list_widget->parameters.text_box_parameters.string_list_index;
     list_widget->parameters.list_parameters.list_item_top_index = -1;
     list_widget->parameters.list_parameters.selected_list_item_index = selected_index;
 

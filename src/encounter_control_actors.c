@@ -33,7 +33,7 @@ void encounter_control_actors(int encounter_index)
 {
     encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
     encounter_definition *encounter_def =
-        (encounter_definition *)global_scenario->ai_encounters.address + (unsigned __int16)encounter_index;
+        (encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)encounter_index;
 
     if ( !ai_globals->ai_initialized_for_map )
         return;
@@ -57,13 +57,13 @@ void encounter_control_actors(int encounter_index)
             actor->external_orders.postcombat_prop_index = -1;
         }
 
-        __int16 platoon_local_index = actor->meta.platoon_index;
-        unsigned __int8 defending = 0;
-        unsigned __int8 maneuvering_active = 0;
+        int16_t platoon_local_index = actor->meta.platoon_index;
+        uint8_t defending = 0;
+        uint8_t maneuvering_active = 0;
         if ( platoon_local_index != -1 )
         {
             platoon_datum *platoon =
-                &platoon_array[(__int16)(encounter->platoon_base + platoon_local_index)]; /* recovered: *(__int16 *)(encounter + 8) */
+                &platoon_array[(int16_t)(encounter->platoon_base + platoon_local_index)]; /* recovered: *(__int16 *)(encounter + 8) */
             defending = platoon->defending;
             maneuvering_active = (platoon->maneuvering && !platoon->maneuver_disable) ? 1 : 0;
         }
@@ -72,7 +72,7 @@ void encounter_control_actors(int encounter_index)
         if ( maneuvering_active )
         {
             platoon_definition *platoon_def = (platoon_definition *)encounter_def->platoons.address + platoon_local_index;
-            __int16 squad_index = ((squad_definition *)encounter_def->squads.address
+            int16_t squad_index = ((squad_definition *)encounter_def->squads.address
                                    + actor->meta.squad_index)->maneuver_squad_index;
             if ( squad_index >= 0 && squad_index < encounter_def->squads.count )
             {

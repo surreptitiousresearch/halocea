@@ -22,7 +22,7 @@ extern float __fsqrts(float);
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t object_type_is_update_valid(int object_index, const message_delta_processor_mode mode, const int baseline_index_from_update, int message_index_from_update, const int latest_valid_baseline_index, int latest_valid_message_index, const int maximum_message_index);
-extern unsigned __int8 message_delta_processor_decode_incremental(real_point3d *decoded_state,
+extern uint8_t message_delta_processor_decode_incremental(real_point3d *decoded_state,
         int *baseline_state, message_delta_processor_header *header, int flags);
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
@@ -47,7 +47,7 @@ void weapon_process_update_delta(int object_index, message_delta_processor_heade
     real_point3d staging[8];
     memcpy(staging, &weapon->weapon.baseline, 0x2Cu);
 
-    unsigned __int8 decoded;
+    uint8_t decoded;
     if ( header->decoding_information->mode == _message_delta_mode_incremental )
         decoded = message_delta_processor_decode_incremental(staging,
                       (int *)&weapon->weapon.baseline, header, 0);
@@ -76,9 +76,9 @@ void weapon_process_update_delta(int object_index, message_delta_processor_heade
     weapon->object.last_server_translational_velocity.n[1] = staging[1].n[1];
     weapon->object.last_server_translational_velocity.n[2] = staging[1].n[2];
 
-    unsigned int packed = *(unsigned int *)&staging[3].n[0];
+    unsigned int packed = *(unsigned int *)&staging[3].n[0];  /* network encoding: two packed uint16 rounds totals in the float slot's bit image */
     weapon->weapon.magazines[0].rounds_total = packed >> 16;
-    weapon->weapon.magazines[1].rounds_total = (unsigned __int16)packed;
+    weapon->weapon.magazines[1].rounds_total = (uint16_t)packed;
     if ( header->decoding_information->mode == _message_delta_mode_stateless )
         weapon->weapon.age = staging[3].n[1];
 

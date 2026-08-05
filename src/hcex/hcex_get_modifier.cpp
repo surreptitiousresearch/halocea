@@ -7,6 +7,7 @@
 //
 // The decompiler shows spurious trailing register args (a3..a8) on GetModifier and on each
 // dsVECTOR::operator[]; the real signatures take a single index. Verified against disasm.
+#include <stdint.h>
 #include "../headers/fp_model_vector.h"
 #include "../headers/ws/ent/entENTITY.h"
 #include "../headers/ws/prop/propOBJ_MODIFIER_LIST.h"
@@ -15,7 +16,7 @@
 
 extern dsVECTOR<FP_MODEL, 8> fpModels;
 
-propOBJ_MODIFIER_LIST *GetModifier(int modelId, __int16 localPlayerIndex)
+propOBJ_MODIFIER_LIST *GetModifier(int modelId, int16_t localPlayerIndex)
 {
     int idx = 0;
     if (fpModels.nElem <= 0)

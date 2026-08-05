@@ -21,9 +21,9 @@ void text_bounds_draw_character(struct parse_string_state *parse_state, font_hea
         text_bounds_globals.bounds.n[1] = x0;
     if (y0 < text_bounds_globals.bounds.n[0])
         text_bounds_globals.bounds.n[0] = y0;
-    if ((__int16)(dx + x0) > text_bounds_globals.bounds.n[3])
+    if ((int16_t)(dx + x0) > text_bounds_globals.bounds.n[3])
         text_bounds_globals.bounds.n[3] = dx + x0;
     text_bounds_globals.last_font_header = font_header;
-    if ((__int16)(dy + y0) > text_bounds_globals.bounds.n[2])
+    if ((int16_t)(dy + y0) > text_bounds_globals.bounds.n[2])
         text_bounds_globals.bounds.n[2] = dy + y0;
 }

@@ -61,7 +61,7 @@ uint8_t recorded_animation_play_internal(int unit_index, int16_t animation_index
     thread->relative_ticks = 0;
     thread->ticks_left = record->ticks;
     thread->event_stream = (const char *)record->animation_data.address;
-    __int16 codec_version = record->version - 1;
+    int16_t codec_version = record->version - 1;
     thread->version = codec_version;
     thread->flags &= ~(1u << _recording_thread_finished_bit);
 

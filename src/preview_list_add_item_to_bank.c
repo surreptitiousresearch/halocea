@@ -3,6 +3,7 @@
  * `name` into a fresh allocation, and if `data`/`data_len` are given, copies that payload into a second
  * fresh allocation too. Sets preview_list_has_default when the new item is marked default. */
 
+#include <stdint.h>
 #include "headers/dynamic_array.h"
 #include "headers/bank_item_s.h"
 #include "headers/blam_data_globals.h"
@@ -24,7 +25,7 @@ void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index
     bank_item_s *item = &((bank_item_s *)preview_list_array_bank[bank].elements)[item_index];
 
     item->ptr = 0;
-    unsigned __int16 *name_copy = dlMalloc(2 * (name_length + 1),
+    uint16_t *name_copy = dlMalloc(2 * (name_length + 1),
         "D:\\Projects\\code\\HCEX\\sources\\interface\\ui_widget_game_data_input_functions.c", 0x1076u);
     item->list_index = list_index;
     item->name = name_copy;

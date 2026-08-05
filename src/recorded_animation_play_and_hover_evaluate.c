@@ -13,7 +13,7 @@ void recorded_animation_play_and_hover_evaluate(int16_t function_index, int thre
     if ( arguments )
     {
         /* HS argument block: packed wire, faithfully de-flagged */
-        *((unsigned char *)&result + 3) = recorded_animation_play_and_hover(arguments[0], ((__int16 *)arguments)[2]);
+        *((unsigned char *)&result + 3) = recorded_animation_play_and_hover(arguments[0], ((int16_t *)arguments)[2]);
         hs_return(thread_index, result);
     }
 }

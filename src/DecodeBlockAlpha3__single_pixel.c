@@ -23,9 +23,9 @@ void DecodeBlockAlpha3__single_pixel(const S3TCBlockAlpha3 *pblockSrc, S3TC_COLO
 
     unsigned int alpha0 = pblockSrc->alpha0;
     unsigned int alpha1 = pblockSrc->alpha1;
-    unsigned __int16 alpha_table[8];
-    alpha_table[0] = (unsigned __int16)alpha0;
-    alpha_table[1] = (unsigned __int16)alpha1;
+    uint16_t alpha_table[8];
+    alpha_table[0] = (uint16_t)alpha0;
+    alpha_table[1] = (uint16_t)alpha1;
 
     if (alpha0 <= alpha1)
     {

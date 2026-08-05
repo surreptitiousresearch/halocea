@@ -53,13 +53,13 @@ void _rasterizer_window_begin(const rasterizer_window_begin_parameters *paramete
     {
         /* recovered: (const float *)(global_window_parameters.fog + 4) -> fog.atmospheric_color */
         const real_rgb_color *atmospheric_color = &global_window_parameters.fog.atmospheric_color;
-        unsigned int red   = (unsigned __int8)(atmospheric_color->n[0] * 255.0f);
-        unsigned int green = (unsigned __int8)(atmospheric_color->n[1] * 255.0f);
-        unsigned int blue  = (unsigned __int8)(atmospheric_color->n[2] * 255.0f);
+        unsigned int red   = (uint8_t)(atmospheric_color->n[0] * 255.0f);
+        unsigned int green = (uint8_t)(atmospheric_color->n[1] * 255.0f);
+        unsigned int blue  = (uint8_t)(atmospheric_color->n[2] * 255.0f);
         clear_color = (red << 16) | (green << 8) | blue;
     }
 
-    __int16 rasterizer_target = parameters->rasterizer_target;
+    int16_t rasterizer_target = parameters->rasterizer_target;
     if (rasterizer_target == _rasterizer_target_render_primary || rasterizer_target == _rasterizer_target_render_secondary)
         rasterizer_set_target(rasterizer_target, 0, clear_color, parameters->suppress_clear == 0, 1u);
 

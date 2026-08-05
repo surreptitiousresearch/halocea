@@ -17,7 +17,7 @@ extern float __fsqrts(float);
 extern double __fabs(double x);
 extern int _isnan(double x);
 extern uint8_t valid_real_normal3d(const real_vector3d *n);
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 
 int16_t intersect_planes3d(const real_plane3d *plane, const real_plane3d *reference_plane, real_plane2d *result)
 {
@@ -25,7 +25,7 @@ int16_t intersect_planes3d(const real_plane3d *plane, const real_plane3d *refere
     float abs_z = (float)__fabs(reference_plane->n.n[2]);
     float abs_x = (float)__fabs(reference_plane->n.n[0]);
 
-    __int16 dominant_axis;
+    int16_t dominant_axis;
     if ( abs_z < abs_y || abs_z < abs_x )
         dominant_axis = abs_y >= abs_x;
     else
@@ -71,8 +71,8 @@ int16_t intersect_planes3d(const real_plane3d *plane, const real_plane3d *refere
     else
     {
         int table_index = 2 * axis + (reference_plane->n.n[axis] > 0.0f);
-        __int16 axis0 = global_projection3d_mappings[0][table_index][0];
-        __int16 axis1 = global_projection3d_mappings[0][table_index][1];
+        int16_t axis0 = global_projection3d_mappings[0][table_index][0];
+        int16_t axis1 = global_projection3d_mappings[0][table_index][1];
         result->d = ((float)1.0 / magnitude) * dir_d;
         float component1 = direction.n[axis1];
         result->n.n[0] = direction.n[axis0];

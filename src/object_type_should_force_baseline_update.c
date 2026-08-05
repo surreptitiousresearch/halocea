@@ -15,7 +15,7 @@ uint8_t object_type_should_force_baseline_update(int object_index)
 {
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
 
-    unsigned __int8 result = 0;
+    uint8_t result = 0;
     if ( object->object.flags & (1u << _object_force_baseline_update_bit) )
     {
         result = 1;

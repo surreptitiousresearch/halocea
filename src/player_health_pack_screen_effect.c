@@ -2,6 +2,7 @@
  * local player. No-op for an invalid player or one with no local-player slot (+2 == 0xFFFF). A near-
  * white (0.917647) flash, priority 2, type tint, fade function 1, duration 2.0, max intensity 0.5. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/screen_flash_definition.h"
@@ -15,7 +16,7 @@ extern void player_effect_screen_flash(int player_index, const screen_flash_defi
 void player_health_pack_screen_effect(int player_index)
 {
     if (player_index == -1
-        || (unsigned __int16)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index == 0xFFFF)
+        || (uint16_t)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index == 0xFFFF)
         return;
 
     screen_flash_definition flash;

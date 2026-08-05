@@ -33,10 +33,10 @@ void unit_control(int unit_index, const unit_control_data *control_data, int com
     unit->unit.primary_trigger = control_data->primary_trigger;
     unit->unit.aiming_speed = control_data->aiming_speed;
 
-    int weapon_index = (unsigned __int16)control_data->weapon_index;
+    int weapon_index = (uint16_t)control_data->weapon_index;
     if (weapon_index != 0xFFFF)
         unit->unit.desired_weapon_index = weapon_index;
-    int grenade_index = (unsigned __int16)control_data->grenade_index;
+    int grenade_index = (uint16_t)control_data->grenade_index;
     if (grenade_index != 0xFFFF)
         unit->unit.desired_grenade_index = grenade_index;
 

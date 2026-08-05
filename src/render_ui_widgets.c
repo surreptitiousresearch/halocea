@@ -55,17 +55,17 @@ void render_ui_widgets(int16_t local_player_index, const rectangle2d *window_bou
             }
             else
             {
-                __int16 widget_player = widget->local_player_index;
+                int16_t widget_player = widget->local_player_index;
                 if (widget->widget_is_error_dialog == 1)
                 {
-                    if (widget_player == (__int16)clamped_player_index
+                    if (widget_player == (int16_t)clamped_player_index
                         || widget_player == -1
-                        || (__int16)clamped_player_index == -1
+                        || (int16_t)clamped_player_index == -1
                         || we_are_at_the_main_menu)
                         eligible = 1;
                 }
                 else if ((widget_player == -1 && controller_pass == 0)
-                         || widget_player == (__int16)clamped_player_index)
+                         || widget_player == (int16_t)clamped_player_index)
                 {
                     eligible = 1;
                 }

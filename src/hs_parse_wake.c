@@ -23,8 +23,8 @@ int hs_parse_wake(int16_t function_index, int expression_index)
     {
         if ( hs_parse(script, hs_type_script) )
         {
-            __int16 script_index = (__int16)HS_SYNTAX_NODE(script).data;
-            __int16 script_type = ((hs_script *)global_scenario->hs_scripts.address)[script_index].script_type;
+            int16_t script_index = (int16_t)HS_SYNTAX_NODE(script).data;
+            int16_t script_type = ((hs_script *)global_scenario->hs_scripts.address)[script_index].script_type;
             if ( script_type != _hs_script_static && script_type != _hs_script_stub )
                 return 1;
             hs_compile_globals.__noop = "this static script cannot be awakened.";

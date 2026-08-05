@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <windows.h>
 #include "headers/file_reference.h"
-extern void *memset(void *dst, int c, unsigned __int64 n);
+extern void *memset(void *dst, int c, uint64_t n);
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
 uint8_t file_exists(const file_reference *file)
 {

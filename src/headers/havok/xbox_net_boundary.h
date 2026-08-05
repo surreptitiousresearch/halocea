@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* XDK secure-networking + Winsock boundary (platform APIs). */
 
 /* size 13 — all one-byte config knobs. */
@@ -23,12 +24,12 @@ typedef struct XNetStartupParams
    the WSAStartup output buffer. */
 typedef struct WSAData
 {
-    unsigned __int16 wVersion;     /* 0x000 */
-    unsigned __int16 wHighVersion; /* 0x002 */
+    uint16_t wVersion;     /* 0x000 */
+    uint16_t wHighVersion; /* 0x002 */
     char szDescription[257];       /* 0x004 */
     char szSystemStatus[129];      /* 0x105 */
-    unsigned __int16 iMaxSockets;  /* 0x186 */
-    unsigned __int16 iMaxUdpDg;    /* 0x188 */
+    uint16_t iMaxSockets;  /* 0x186 */
+    uint16_t iMaxUdpDg;    /* 0x188 */
     unsigned char _pad18A[2];      /* 0x18A */
     char *lpVendorInfo;            /* 0x18C -> 0x190 (400) */
 } WSAData;

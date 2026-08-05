@@ -29,8 +29,8 @@
 
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern __int16 choose_random_array_element(void *array, __int16 element_size, __int16 element_count,
-        __int16 weight_field_offset, unsigned int *used_bit_vector);
+extern int16_t choose_random_array_element(void *array, int16_t element_size, int16_t element_count,
+        int16_t weight_field_offset, unsigned int *used_bit_vector);
 extern int game_time_get(void);
 
 int16_t action_alert_next_position(int actor_index, int16_t move_position_order, int16_t current_position_index, uint8_t *direction_increasing)
@@ -45,7 +45,7 @@ int16_t action_alert_next_position(int actor_index, int16_t move_position_order,
         return -1;
 
     encounter_definition *encounter =
-        (encounter_definition *)global_scenario->ai_encounters.address + (unsigned __int16)actor->meta.encounter_index;
+        (encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)actor->meta.encounter_index;
     squad_definition *squad = (squad_definition *)encounter->squads.address + actor->meta.squad_index;
 
     if ( move_position_order == 1 && current_position_index != -1 )
@@ -60,7 +60,7 @@ int16_t action_alert_next_position(int actor_index, int16_t move_position_order,
 
     if ( position_count > 0 )
     {
-        for ( int i = 0; i < position_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < position_count; i = (int16_t)(i + 1) )
         {
             char available = (current_position_index != i);
             move_position_definition *firing_position = (move_position_definition *)squad->move_positions.address + i;
@@ -109,7 +109,7 @@ int16_t action_alert_next_position(int actor_index, int16_t move_position_order,
         if ( move_position_order == 5 )
             return choose_random_array_element(squad->move_positions.address, 80, position_count, 16, unavailable_mask);
 
-        __int16 index;
+        int16_t index;
         if ( current_position_index < 0 || current_position_index >= position_count )
             index = 0;
         else
@@ -117,7 +117,7 @@ int16_t action_alert_next_position(int actor_index, int16_t move_position_order,
 
         while ( 1 )
         {
-            unsigned __int8 increasing;
+            uint8_t increasing;
             if ( move_position_order == 3 && index != 0 )
             {
                 if ( index == position_count - 1 )
@@ -145,16 +145,16 @@ int16_t action_alert_next_position(int actor_index, int16_t move_position_order,
 
             if ( increasing )
             {
-                index = (__int16)(index + 1);
+                index = (int16_t)(index + 1);
                 if ( index >= position_count )
                     index = 0;
             }
             else
             {
-                __int16 previous = index - 1;
-                index = (__int16)(index - 1);
+                int16_t previous = index - 1;
+                index = (int16_t)(index - 1);
                 if ( previous < 0 )
-                    index = (__int16)(position_count - 1);
+                    index = (int16_t)(position_count - 1);
             }
 
             if ( !BIT_VECTOR_TEST_FLAG(unavailable_mask, index) )

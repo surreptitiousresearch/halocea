@@ -25,7 +25,7 @@ void oddball_add_score(int player_index)
 
     if ( game_connection() == _game_connection_network_server )
     {
-        ++oddball_globals.individual_score[(unsigned __int16)player_index];
+        ++oddball_globals.individual_score[(uint16_t)player_index];
         ++oddball_globals.team_score[team_index];
 
         if ( oddball_globals.score_to_win - oddball_globals.team_score[team_index] == 900 )   /* 30 s remaining @ 30 ticks/s */

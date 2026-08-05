@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-typedef void (*obey_individual_iterator)(int actor_index, int unit_index, __int16 command_list_index,
+typedef void (*obey_individual_iterator)(int actor_index, int unit_index, int16_t command_list_index,
                                          obey_individual_simple_control *simple_control,
                                          obey_individual_complex_control *complex_control, void *user_data);
 extern void action_obey_individual_end(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, void *user_data);

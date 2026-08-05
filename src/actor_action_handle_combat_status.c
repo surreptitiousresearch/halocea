@@ -31,7 +31,7 @@ uint8_t actor_action_handle_combat_status(int actor_index, uint8_t allow_initiat
     if ( force_decision )
         allow_initiative = 1;
 
-    __int16 action_class = global_action_functions[actor->state.action].action_class;
+    int16_t action_class = global_action_functions[actor->state.action].action_class;
     if ( (unsigned int)(action_class - _action_class_passive) <= 3 )   /* action_class in [passive, active] */
     {
         if ( action_class == _action_class_passive || action_class == _action_class_transitory )
@@ -67,7 +67,7 @@ uint8_t actor_action_handle_combat_status(int actor_index, uint8_t allow_initiat
                 if ( prop_index != -1 )
                 {
                     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-                    __int16 action = actor->state.action;
+                    int16_t action = actor->state.action;
                     /* uncover (action 5) shares the identical pursuit_location at this offset */
                     unsigned short action_submode = actor->state.action_data.___u0.search.pursuit_location.type;
                     char lost = 0;

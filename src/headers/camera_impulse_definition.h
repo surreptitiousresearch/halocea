@@ -1,12 +1,13 @@
 #pragma once
+#include <stdint.h>
 /* camera_impulse_definition — a directional camera kick (a transient "temporary" impulse that decays plus a
  * sustained "permanent" lean). Layout from the database (52 bytes). */
 
 typedef struct camera_impulse_definition
 {
     float            temporary_duration;            /* 0x00 */
-    __int16          temporary_transition;          /* 0x04 */
-    unsigned __int16 pad;                           /* 0x06 */
+    int16_t          temporary_transition;          /* 0x04 */
+    uint16_t pad;                           /* 0x06 */
     float            temporary_rotation;            /* 0x08 */
     float            temporary_translation;         /* 0x0C */
     float            temporary_jitter_lower_bound;  /* 0x10 */

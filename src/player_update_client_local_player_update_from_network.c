@@ -40,8 +40,8 @@ extern void player_update_history_play(player_update_history *history, int unit_
  * last_action_update_id/action_baseline_id/action_update_baseline[0..11] fields it's copied into. */
 typedef struct local_player_update_ack_network_data
 {
-    unsigned __int8 sequence_number;
-    unsigned __int8 acknowledged_sequence_number;
+    uint8_t sequence_number;
+    uint8_t acknowledged_sequence_number;
     int              baseline[3];
 } local_player_update_ack_network_data;
 
@@ -64,7 +64,7 @@ void player_update_client_local_player_update_from_network(message_delta_process
     if ( !player )
         return;
 
-    while ( player->local_player_index == (__int16)0xFFFF )
+    while ( player->local_player_index == (int16_t)0xFFFF )
     {
         player = data_iterator_next(&iterator);
         if ( !player )

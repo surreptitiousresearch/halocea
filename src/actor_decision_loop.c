@@ -29,7 +29,7 @@ void actor_decision_loop(uint16_t actor_index)
         actor_type_decide_action(actor_index);
         actor_stimulus_clear(actor_index);
 
-        unsigned __int8 done = (action_performed && !actor->state.action_changed) || pass_count >= 10;
+        uint8_t done = (action_performed && !actor->state.action_changed) || pass_count >= 10;
         if ( done )
             break;
 

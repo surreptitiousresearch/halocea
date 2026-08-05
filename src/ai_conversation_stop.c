@@ -41,7 +41,7 @@ void ai_conversation_stop(int16_t conversation_definition_index)
 
         /* Append to the recent-conversations ring (size 16). */
         int recent_index = ai_globals->recent_conversation_next_index;
-        __int16 recent_count = recent_index + 1;
+        int16_t recent_count = recent_index + 1;
         ai_globals->recent_conversation_next_index = recent_index + 1;
         ai_globals->recent_conversation_next_index -=
             16 * ((ai_globals->recent_conversation_next_index >> 4)
@@ -58,7 +58,7 @@ void ai_conversation_stop(int16_t conversation_definition_index)
         /* Release placed actors from the converse action. */
         if ( definition->participants.count > 0 )
         {
-            for ( int slot = 0; slot < definition->participants.count; slot = (__int16)(slot + 1) )
+            for ( int slot = 0; slot < definition->participants.count; slot = (int16_t)(slot + 1) )
             {
                 if ( ((1 << slot) & conversation_at->participant_bitmask) != 0
                   && conversation_at->actor_indices[slot] != -1 )

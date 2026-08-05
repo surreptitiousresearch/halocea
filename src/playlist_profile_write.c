@@ -10,10 +10,10 @@
 extern uint8_t thread_has_exited(const thread *thread_reference);
 extern void dispose_thread(thread *thread_reference);
 extern unsigned int playlist_profile_write_thread_proc(int *input);
-extern unsigned __int8 create_thread(unsigned __int16 flags, unsigned int (__fastcall *function)(void *),
+extern uint8_t create_thread(uint16_t flags, unsigned int (__fastcall *function)(void *),
     void *function_input, thread **thread_reference);
 
-unsigned __int8 playlist_profile_write(int index, game_variant *variant)
+uint8_t playlist_profile_write(int index, game_variant *variant)
 {
     while ( playlist_profile_globals.thread )
     {

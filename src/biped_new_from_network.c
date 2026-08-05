@@ -93,15 +93,18 @@ void biped_new_from_network(message_delta_processor_header *header, network_game
     biped->biped.baseline.body_vitality = message.body_vitality;
     biped->biped.baseline.shield_vitality = message.shield_vitality;
     biped->biped.baseline.shield_stun_ticks_greater_than_zero = message.shield_stun_ticks_greater_than_zero;
-    /* baseline.grenade_counts is char[2]; the message field is a 16-bit value written across both bytes */
-    *(__int16 *)&biped->biped.baseline.grenade_counts[0] = *(__int16 *)message.grenade_counts;
+    /* DEVIATION: was a 16-bit pun copy across both bytes of char[2]; element-wise copy is identical */
+    biped->biped.baseline.grenade_counts[0] = message.grenade_counts[0];
+    biped->biped.baseline.grenade_counts[1] = message.grenade_counts[1];
 
-    unsigned __int8 predicted_flag = biped->biped.baseline.shield_stun_ticks_greater_than_zero;
+    uint8_t predicted_flag = biped->biped.baseline.shield_stun_ticks_greater_than_zero;
     float predicted_value = biped->biped.baseline.body_vitality;
     char state_801 = biped->unit.desired_zoom_level;
     float movement_block0 = biped->unit.___u87.most_recent_control_data_for_network.facing_vector.n[0];
     float movement_block1 = biped->unit.___u87.most_recent_control_data_for_network.facing_vector.n[1];
-    __int16 predicted_short = *(__int16 *)&biped->biped.baseline.grenade_counts[0];
+    /* DEVIATION: 16-bit pun copy baseline→unit grenade_counts untangled to per-byte locals */
+    char predicted_grenades0 = biped->biped.baseline.grenade_counts[0];
+    char predicted_grenades1 = biped->biped.baseline.grenade_counts[1];
 
     biped->object.shield_vitality = biped->biped.baseline.shield_vitality * 3.0f;
     biped->biped.baseline_index = message.current_baseline_index;
@@ -114,7 +117,7 @@ void biped_new_from_network(message_delta_processor_header *header, network_game
     biped->unit.___u87.most_recent_control_data_for_network.looking_vector.n[0] = movement_block0;
     biped->unit.___u87.most_recent_control_data_for_network.looking_vector.n[1] = movement_block1;
     biped->unit.___u87.most_recent_control_data_for_network.looking_vector.n[2] = movement_block2;
-    /* unit.grenade_counts is char[2]; 16-bit value written across both bytes */
-    *(__int16 *)&biped->unit.grenade_counts[0] = predicted_short;
+    biped->unit.grenade_counts[0] = predicted_grenades0;
+    biped->unit.grenade_counts[1] = predicted_grenades1;
     biped->unit.is_from_network_data_valid = 1;
 }

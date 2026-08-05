@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ws/anim/animMNG.h"
 #include "hcex_inst_sync_data.h"
 // HCEX bridge: first-person-weapon animation manager — an animMNG subclass whose ApplyAnim
@@ -34,7 +35,7 @@ typedef struct HCEX_ANIM_MNG_FP_vtbl {
     const animOBJ_ANIM *(*GetObjAnim)(struct HCEX_ANIM_MNG_FP *self, objOBJ *obj, animSEQ *seq); // 0x2C
     void (*EvalTranData)(struct HCEX_ANIM_MNG_FP *self, const anim_blend::SEQ_ID_FULL *from, const anim_blend::SEQ_ID_FULL *to, animTRAN_INFO *tranInfo); // 0x30
     void (*UpdateAnim)(struct HCEX_ANIM_MNG_FP *self, const animMNG_UPDATE_INFO *updateInfo, animUPDATE_STATUS *status); // 0x34
-    void (*ApplyAnim)(struct HCEX_ANIM_MNG_FP *self, unsigned __int8 typeValidation); // 0x38
+    void (*ApplyAnim)(struct HCEX_ANIM_MNG_FP *self, uint8_t typeValidation); // 0x38
     void (*AddRefAnimSeq)(struct HCEX_ANIM_MNG_FP *self, const anim_blend::SEQ_ID_FULL *id); // 0x3C
     void (*RemoveRefAnimSeq)(struct HCEX_ANIM_MNG_FP *self, const anim_blend::SEQ_ID_FULL *id); // 0x40
     void (*EnableAnimLink)(struct HCEX_ANIM_MNG_FP *self);        // 0x44

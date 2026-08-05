@@ -49,7 +49,7 @@ int actor_perception_create_orphan_from_friend(int actor_index, int unit_index,
             if (friend_prop_index == -1)
             {
                 actor_position_data sense_positions[2];
-                unsigned __int8 forced_position_update = 0;
+                uint8_t forced_position_update = 0;
                 prop_position_refresh(actor_index, prop_index, sense_positions, forced_position_update, 0);
                 new_index = prop_orphan_transition(actor_index, prop_index);
             }
@@ -71,7 +71,7 @@ int actor_perception_create_orphan_from_friend(int actor_index, int unit_index,
         }
         else
         {
-            unsigned __int8 forced_position_update = 0;
+            uint8_t forced_position_update = 0;
             prop_datum *orphan = prop_from_index(orphan_index);
             if (friend_prop_index == -1)
             {

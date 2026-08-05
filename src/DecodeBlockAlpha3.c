@@ -11,6 +11,7 @@
  * identical. The index window assembles 3 bytes as byte[2]<<16|byte[1]<<8|byte[0] (the decompiler rendered the
  * byte[2]<<8 as __ROL4__(byte,8), equivalent since the operand is a single byte). */
 
+#include <stdint.h>
 #include "headers/s3tc_block.h"
 
 extern void DecodeBlockRGB(S3TCBlockRGB *pblockSrc, S3TC_COLOR *colorDst);
@@ -54,7 +55,7 @@ void DecodeBlockAlpha3(S3TCBlockAlpha3 *pblockSrc, S3TC_COLOR *colorDst)
                     | ((unsigned int)pblockSrc->alphabm[base + 1] << 8)
                     | pblockSrc->alphabm[base];
         }
-        colorDst[pixel].rgba[3] = (unsigned __int8)alpha_table[index_window & 7];
+        colorDst[pixel].rgba[3] = (uint8_t)alpha_table[index_window & 7];
         index_window >>= 3;
     }
 }

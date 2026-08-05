@@ -50,13 +50,13 @@ void create_crashing_effects(int vehicle_index, const real_vector3d *old_velocit
 
     /* def+140 is object.physics.index (a physics tag, not the collision model — earlier comment corrected) */
     int mass_point_count = TAG_GET(physics_definition, vehicle_def->object.physics.index)->mass_points.count;
-    unsigned __int8 found_ground_contact = 0;
+    uint8_t found_ground_contact = 0;
     if (mass_point_count > 0)
     {
         int i = 0;
         while ((mass_points[i].flags & 2) == 0)
         {
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             if (i >= mass_point_count)
                 goto done_scan;
         }

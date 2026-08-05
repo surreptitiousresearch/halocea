@@ -50,7 +50,7 @@ void _rasterizer_detail_objects_draw(const detail_object_view_data *detail_objec
     if (detail_object_view_data->layer_count <= 0)
         return;
 
-    for (__int16 layer_index = 0; layer_index < detail_object_view_data->layer_count; ++layer_index)
+    for (int16_t layer_index = 0; layer_index < detail_object_view_data->layer_count; ++layer_index)
     {
         detail_object_layer_data *layer = &detail_object_view_data->layers[layer_index];
 
@@ -79,8 +79,8 @@ void _rasterizer_detail_objects_draw(const detail_object_view_data *detail_objec
 
                 /* sequence_index selects the sprite-sheet sequence; first_bitmap_index of that sequence
                  * then selects the 48-byte bitmap_data whose width/height feed the two fields below. */
-                unsigned __int8 type_byte = record->sequence_index;
-                __int16 frame_index = ((const bitmap_group_sequence *)bitmap_group_def->sequences.address)[type_byte].first_bitmap_index;
+                uint8_t type_byte = record->sequence_index;
+                int16_t frame_index = ((const bitmap_group_sequence *)bitmap_group_def->sequences.address)[type_byte].first_bitmap_index;
                 const bitmap_data *frame_bitmap = &((const bitmap_data *)bitmap_group_def->bitmaps.address)[frame_index];
 
                 float *out = &sprite_type_constants[4 * i];
@@ -120,15 +120,15 @@ void _rasterizer_detail_objects_draw(const detail_object_view_data *detail_objec
         }
 
         /* dynamic PendingMask0: a run of set bits built from a signed shift of a single top bit */
-        __int64 mask_seed = (__int64)((unsigned __int64)1 << 63);
+        int64_t mask_seed = (int64_t)((uint64_t)1 << 63);
 
         unsigned int shift1 = ((unsigned int)(sprite_type_count + 18) >> 2) - 4;
-        unsigned __int64 pending_mask1 = (unsigned __int64)(mask_seed >> shift1) >> 4;
+        uint64_t pending_mask1 = (uint64_t)(mask_seed >> shift1) >> 4;
         D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x13, sprite_type_constants,
                                             sprite_type_count, pending_mask1);
 
         unsigned int shift2 = ((unsigned int)(sprite_instance_count + 28) >> 2) - 7;
-        unsigned __int64 pending_mask2 = (unsigned __int64)(mask_seed >> shift2) >> 7;
+        uint64_t pending_mask2 = (uint64_t)(mask_seed >> shift2) >> 7;
         D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x1D, sprite_instance_constants,
                                             sprite_instance_count, pending_mask2);
 
@@ -136,7 +136,7 @@ void _rasterizer_detail_objects_draw(const detail_object_view_data *detail_objec
         D3DDevice_SetVertexShader(global_d3d_device,
                 rasterizer_dx9_shaders_vshader9_get(collection_def->collection_type + 3));
 
-        for (__int16 cell_index = 0; cell_index < layer->cell_count; ++cell_index)
+        for (int16_t cell_index = 0; cell_index < layer->cell_count; ++cell_index)
         {
             detail_object_cell_data *cell = &layer->cells[cell_index];
             D3DDevice_DrawVertices(global_d3d_device, D3DPT_TRIANGLELIST,

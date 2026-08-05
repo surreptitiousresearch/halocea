@@ -17,18 +17,18 @@
  * return consumed via extsh r3 / sth r3 (int16_t). */
 int16_t unit_inventory_next_grenade(int unit_index, int16_t current_index, int16_t delta)
 {
-    __int16 start_type = (current_index == -1) ? 0 : current_index;
+    int16_t start_type = (current_index == -1) ? 0 : current_index;
     int type = start_type;
     int result = -1;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
     do
     {
-        __int16 current_type = (__int16)type;
-        if ( unit->unit.grenade_counts[(__int16)type] > 0 )
+        int16_t current_type = (int16_t)type;
+        if ( unit->unit.grenade_counts[(int16_t)type] > 0 )
         {
             result = type;
-            if ( (__int16)type != start_type || !delta )
+            if ( (int16_t)type != start_type || !delta )
                 break;
         }
 
@@ -37,7 +37,7 @@ int16_t unit_inventory_next_grenade(int unit_index, int16_t current_index, int16
         else
             type = (current_type == _unit_grenade_human_fragmentation) ? _unit_grenade_covenant_plasma : current_type - 1;
     }
-    while ( (__int16)type != start_type );
+    while ( (int16_t)type != start_type );
 
     return result;
 }

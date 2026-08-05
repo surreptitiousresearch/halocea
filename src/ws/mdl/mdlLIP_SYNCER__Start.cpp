@@ -6,6 +6,7 @@
 // Finally derive timeEnd from the closed slot's last keypoint arg scaled to seconds.
 //
 // The decompiler's __SPAIR64__ artifact on the divisor is just sampleRate; verified against disasm.
+#include <stdint.h>
 #include "../../headers/ws/mdl/mdlLIP_SYNCER.h"
 #include "../../headers/ws/mdl/mdl_lip_syncer_boundary.h"
 
@@ -54,7 +55,7 @@ void mdlLIP_SYNCER::Start(const dsTSTRING<char> &name, bool isExclamation)
                     break;
                 }
                 case 0x1E1: {  // unused 4-byte field
-                    __int64 scratch;
+                    int64_t scratch;
                     fioFILE_ReadData(file, &scratch, 4, 4);
                     break;
                 }

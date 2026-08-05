@@ -20,7 +20,7 @@ int16_t sound_definition_promote(int definition_index)
 {
     sound_definition *definition = TAG_GET(sound_definition, definition_index);
 
-    __int16 limit = definition->promotion_count;
+    int16_t limit = definition->promotion_count;
     if ( !limit )
         return _sound_promotion_dont;
 

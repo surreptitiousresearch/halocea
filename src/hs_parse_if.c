@@ -39,7 +39,7 @@ int hs_parse_if(int16_t function_index, int expression_index)
         if ( !hs_compile_globals.__noop && !group->type && else_branch != -1
           && hs_parse(else_branch, group->type) )
         {
-            __int16 inferred = HS_SYNTAX_NODE(else_branch).type;
+            int16_t inferred = HS_SYNTAX_NODE(else_branch).type;
             group->type = inferred;
             return hs_parse(then_branch, inferred);
         }

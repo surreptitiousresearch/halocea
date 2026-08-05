@@ -12,7 +12,7 @@ void game_allegiance_create(int16_t team1_index, uint8_t team1_suspicious, int16
 {
     struct_game_allegiance_globals *globals = game_allegiance_globals;
     game_allegiance *allegiance = globals->allegiances;
-    __int16 allegiance_count = globals->allegiance_count;
+    int16_t allegiance_count = globals->allegiance_count;
     int index = 0;
 
     if ( allegiance_count > 0 )
@@ -25,20 +25,20 @@ void game_allegiance_create(int16_t team1_index, uint8_t team1_suspicious, int16
             if ( allegiance->team2_index == team1_index && t1 == team2_index )
                 break;
             ++allegiance;
-            index = (__int16)(index + 1);
+            index = (int16_t)(index + 1);
         }
         while ( index < game_allegiance_globals->allegiance_count );
     }
 
-    if ( (__int16)index >= allegiance_count && allegiance_count < 8 )
+    if ( (int16_t)index >= allegiance_count && allegiance_count < 8 )
     {
         index = game_allegiance_globals->allegiance_count;
         game_allegiance_globals->allegiance_count = allegiance_count + 1;
     }
 
-    if ( (__int16)index < globals->allegiance_count )
+    if ( (int16_t)index < globals->allegiance_count )
     {
-        game_allegiance *target = &globals->allegiances[(__int16)index];
+        game_allegiance *target = &globals->allegiances[(int16_t)index];
         target->team1_index = team1_index;
         target->team1_suspicious = team1_suspicious;
         target->team2_index = team2_index;

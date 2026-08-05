@@ -84,12 +84,12 @@ void actor_combat_update(int actor_index)
     actor_variant_definition *firing_variant_definition = actor_combat_get_firing_variant_definition(actor_index);
     weapon_definition *weapon_definition_ = actor_get_weapon_definition(actor_index);
     int  burst_state = -1;
-    unsigned __int8 oversteer_unaligned = 0;
-    unsigned __int8 special_eval = 0;   /* decompiler v95: set when the special-fire branch ran (final_state != 4) */
+    uint8_t oversteer_unaligned = 0;
+    uint8_t special_eval = 0;   /* decompiler v95: set when the special-fire branch ran (final_state != 4) */
     int  weapon = actor_get_weapon(actor_index);
 
     /* age the combat timers */
-    __int16 t;
+    int16_t t;
     t = actor->control.fire_state_timer; if ( t > 0 ) actor->control.fire_state_timer = t - 1;
     t = actor->control.burst_disable_timer; if ( t > 0 ) actor->control.burst_disable_timer = t - 1;
     t = actor->control.trigger_delay_timer; if ( t > 0 ) actor->control.trigger_delay_timer = t - 1;
@@ -140,9 +140,8 @@ void actor_combat_update(int actor_index)
         }
         else if ( new_kind == actor_fire_target_manual_point )
         {
-            *(int *)&actor->control.___u58.current_fire_target_manual_point.x = *((int *)&actor->orders.combat.target_point.x);
-            *(int *)&actor->control.___u58.current_fire_target_manual_point.y = *((int *)&actor->orders.combat.target_point.y);
-            *(int *)&actor->control.___u58.current_fire_target_manual_point.z = *((int *)&actor->orders.combat.target_point.z);
+            /* DEVIATION: decompiler word-punned this 12-byte real_point3d copy (lwz/stw triple, 0x610..0x618); plain struct assignment */
+            actor->control.___u58.current_fire_target_manual_point = actor->orders.combat.target_point;
         }
     }
 
@@ -151,10 +150,10 @@ void actor_combat_update(int actor_index)
                                ? firing_variant_definition->ranged_combat.maximum_firing_range : 0.0f;
     actor->control.weapon_maximum_range = maximum_firing_range;
 
-    unsigned __int8 want_fire = 0;
+    uint8_t want_fire = 0;
     if ( actor->orders.combat.throw_grenade )                     /* throw grenade this frame */
     {
-        __int16 grenade_type = (unsigned __int16)unit_state->grenade_combat.grenade_type;
+        int16_t grenade_type = (uint16_t)unit_state->grenade_combat.grenade_type;
         if ( grenade_type != 0xFFFF && !unit_get_grenade_count(actor->meta.unit_index, grenade_type) )
             unit_add_grenade_type_to_inventory(actor->meta.unit_index, unit_state->grenade_combat.grenade_type, 1);
         actor_unit_control_throw_grenade(actor_index);
@@ -178,7 +177,7 @@ void actor_combat_update(int actor_index)
         special_eval = 1;
         if ( firing_variant_definition->ranged_combat.special_fire_mode > 0 )
         {
-            unsigned __int8 special_fire = 1;
+            uint8_t special_fire = 1;
             if ( actor->control.fire_state == actor_fire_state_bursting || actor->control.special_fire_delay > 0 || actor->control.special_fire_deny_attempts > 0 )
                 special_fire = 0;
             if ( special_fire )
@@ -187,7 +186,7 @@ void actor_combat_update(int actor_index)
                 /* recovered: raw weapon_tag+1276 = weapon.triggers.count (tag_block at _weapon_definition+0x1F4) */
                 weapon_definition *weapon_tag_def = TAG_GET(weapon_definition, *(int *)weapon_object);
                 game_difficulty_get_team_value(_game_difficulty_special_fire_delay_scale, actor->meta.team_index);
-                __int16 special_fire_mode = (unsigned __int16)firing_variant_definition->ranged_combat.special_fire_mode;
+                int16_t special_fire_mode = (uint16_t)firing_variant_definition->ranged_combat.special_fire_mode;
                 if ( special_fire_mode == _actor_special_fire_mode_overcharge )
                 {
                     game_difficulty_get_team_value(_game_difficulty_overcharge_chance_scale, actor->meta.team_index);
@@ -218,7 +217,7 @@ void actor_combat_update(int actor_index)
             {
                 if ( firing_variant_definition->ranged_combat.special_fire_situation == _actor_special_fire_situation_strafing )
                     actor->control.special_fire_deny_attempts = 3;
-                __int16 mode = (unsigned __int16)firing_variant_definition->ranged_combat.special_fire_mode;
+                int16_t mode = (uint16_t)firing_variant_definition->ranged_combat.special_fire_mode;
                 if ( mode == 1 )
                     actor->control.overcharging_weapon = 1;
                 else if ( mode == 2 )
@@ -226,7 +225,7 @@ void actor_combat_update(int actor_index)
             }
         }
 
-        __int16 target_kind = actor->control.current_fire_target_type;
+        int16_t target_kind = actor->control.current_fire_target_type;
         if ( target_kind > 0 )
         {
             if ( target_kind == 1 )
@@ -240,10 +239,10 @@ void actor_combat_update(int actor_index)
                 actor->control.current_fire_target_underwater = prop->underwater;
                 const unsigned int *combined_pvs = players_get_combined_pvs();
                 actor->control.current_fire_target_outside_active_area = 1;
-                unsigned __int16 cluster = prop->body_location.cluster_index;
+                uint16_t cluster = prop->body_location.cluster_index;
                 if ( cluster != 0xFFFF )
                     /* cntlzw test: visible iff PVS bit set; actor+1572 = "not in PVS" */
-                    actor->control.current_fire_target_outside_active_area = !BIT_VECTOR_TEST_FLAG(combined_pvs, (__int16)cluster);
+                    actor->control.current_fire_target_outside_active_area = !BIT_VECTOR_TEST_FLAG(combined_pvs, (int16_t)cluster);
             }
             else
             {
@@ -268,7 +267,7 @@ void actor_combat_update(int actor_index)
             float weapon_super_ballistic_range = firing_variant_definition->ranged_combat.weapon_super_ballistic_range;
             if ( weapon_super_ballistic_range > 0.0f && actor->control.current_fire_target_range > weapon_super_ballistic_range )
                 actor->control.current_fire_target_superballistic = 1;
-            unsigned __int8 bombardment = (actor->orders.combat.bombard_target && firing_variant_definition->ranged_combat.weapon_bombardment_range > 0.0f) ? 1 : 0;
+            uint8_t bombardment = (actor->orders.combat.bombard_target && firing_variant_definition->ranged_combat.weapon_bombardment_range > 0.0f) ? 1 : 0;
             actor->control.current_fire_target_bombardment = bombardment;
             if ( !weapon_aim(weapon, 0, &actor->input.position.head_position, &actor->control.current_fire_target_position,
                              actor->control.current_fire_target_superballistic, &actor->control.current_fire_target_aim_vector, NULL, &actor->control.current_fire_target_distance, NULL) )
@@ -287,7 +286,7 @@ void actor_combat_update(int actor_index)
             want_fire = 0;
             goto resolve_burst;
         }
-        unsigned __int8 firing_while_moving = actor->orders.combat.override_firing_restrictions;
+        uint8_t firing_while_moving = actor->orders.combat.override_firing_restrictions;
         if ( !actor->orders.combat.override_firing_restrictions
           && ((actor->input.in_midair && !actor->state.flying && (unit_state->flags & (1u << _actor_variant_definition_can_shoot_while_flying_bit)) == 0)
               || ((character->flags & (1u << _actor_definition_must_crouch_to_fire_bit)) != 0 && !actor->control.crouching)
@@ -320,7 +319,7 @@ void actor_combat_update(int actor_index)
         }
         else
         {
-            unsigned __int8 has_los = (!actor->control.current_fire_target_line_of_sight || actor->control.current_fire_target_line_of_sight == _ai_line_of_sight_occluded) ? 1 : 0;
+            uint8_t has_los = (!actor->control.current_fire_target_line_of_sight || actor->control.current_fire_target_line_of_sight == _ai_line_of_sight_occluded) ? 1 : 0;
             actor->control.aiming_at_fire_target = has_los;
             if ( (!has_los && !actor->control.current_fire_target_bombardment)
               || (!firing_while_moving && actor->control.current_fire_target_range >= actor->control.weapon_maximum_range) )
@@ -350,7 +349,7 @@ resolve_burst:
     if ( !want_fire )
         actor->control.fire_state = actor_fire_state_none;
     {
-        unsigned __int16 state = (unsigned __int16)actor->control.fire_state;
+        uint16_t state = (uint16_t)actor->control.fire_state;
         if ( state <= actor_fire_state_wild )
         {
             if ( actor->control.fire_state )
@@ -407,10 +406,10 @@ resolve_burst:
     }
 
     /* ---- aim solve + line-of-fire ---- */
-    __int16 final_state = actor->control.fire_state;
-    unsigned __int8 firing = 0;
+    int16_t final_state = actor->control.fire_state;
+    uint8_t firing = 0;
     actor->control.burst_aim_by_vector = 0;
-    unsigned __int8 fired_special = 0;
+    uint8_t fired_special = 0;
 
     if ( final_state == actor_fire_state_wild )
     {
@@ -420,11 +419,10 @@ resolve_burst:
     {
         float *aim_point = &actor->control.burst_origin.x;
         int   ignore_unit = -1;
-        *(int *)&actor->control.burst_origin.x = *(int *)&actor->control.burst_initial_position.x;
-        *(int *)&actor->control.burst_origin.y = *(int *)&actor->control.burst_initial_position.y;
-        *(int *)&actor->control.burst_origin.z = *(int *)&actor->control.burst_initial_position.z;
+        /* DEVIATION: decompiler word-punned this 12-byte real_point3d copy (lwz/stw triple, 0x64C..0x654 -> 0x658..0x660); plain struct assignment */
+        actor->control.burst_origin = actor->control.burst_initial_position;
 
-        if ( (unsigned __int16)actor->control.current_fire_target_type == actor_fire_target_prop )
+        if ( (uint16_t)actor->control.current_fire_target_type == actor_fire_target_prop )
         {
             prop_datum *prop = DATUM_GET(prop_data, prop_datum, actor->control.___u58.current_fire_target_prop_index);
             ignore_unit = prop->attached_to_unit_index;
@@ -536,7 +534,7 @@ aim_solve:
         }
         else
         {
-            __int16 no_lof = (__int16)(actor->control.blocked_communication_timer + 1);
+            int16_t no_lof = (int16_t)(actor->control.blocked_communication_timer + 1);
             ++actor->control.fire_state_timer;
             actor->control.blocked_communication_timer = no_lof;
             if ( no_lof >= 45 && actor->target.target_type >= actor_target_acknowledged_enemy )
@@ -552,8 +550,8 @@ aim_solve:
 
     /* ---- trigger output ---- */
     float analog = 0.0f;
-    unsigned __int8 primary = 0;
-    unsigned __int8 secondary = 0;
+    uint8_t primary = 0;
+    uint8_t secondary = 0;
     if ( !firing )
     {
         if ( fired_special )
@@ -589,7 +587,7 @@ aim_solve:
                                            &firing_pattern);
         if ( firing_pattern && firing_pattern->rate_of_fire_modifier > 0.0f )
             rate = firing_pattern->rate_of_fire_modifier * rate;
-        __int16 reload = (int)(30.0f / rate);
+        int16_t reload = (int)(30.0f / rate);
         if ( reload < 2 )
             reload = 2;
         actor->control.trigger_delay_timer = reload;

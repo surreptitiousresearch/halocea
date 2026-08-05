@@ -1,12 +1,13 @@
 #pragma once
 /* shader_environment_reflection_properties — cube-map reflection / mirror block (DB, 116 bytes). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 
 typedef struct shader_environment_reflection_properties
 {
-    unsigned __int16 flags;                          /* 0x00 */
-    __int16          type;                           /* 0x02 */
+    uint16_t flags;                          /* 0x00 */
+    int16_t          type;                           /* 0x02 */
     float            lightmap_brightness_scale;      /* 0x04 */
     int              unused1[7];                      /* 0x08 */
     float            view_perpendicular_brightness;  /* 0x24 */

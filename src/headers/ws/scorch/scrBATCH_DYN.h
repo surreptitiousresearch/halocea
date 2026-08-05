@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "scrBATCH_BASE.h"
 #include "scrTEXTURES.h"
 #include "../ds/dsSMART_PTR.h"
@@ -15,7 +16,7 @@ struct m3dMATR;       // ../m3d matrix           -- boundary (pointer only)
 typedef struct scrBATCH_DESC_BASE {
     scrTEXTURES     textures;  // 0x00 (20)
     txmTEXTURE     *pBaseTex;  // 0x14
-    unsigned __int8 blendType; // 0x18
+    uint8_t blendType; // 0x18
     int             isGlowing; // 0x1C
     dsSMART_PTR<rendLIGHT_SET, _dsSP_OWNER_PLC_REFCOUNT<dsREF_COUNT *> > lset; // 0x20
 } scrBATCH_DESC_BASE;

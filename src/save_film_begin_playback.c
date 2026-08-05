@@ -30,15 +30,15 @@ extern void ufclose(FILE *stream);
 
 uint8_t save_film_begin_playback(network_game_data *game)
 {
-    __int16 packet_version = SAVED_FILM_VERSION;
-    __int16 header_packet_type = _saved_film_header_packet;
-    __int16 game_packet_type[4];
+    int16_t packet_version = SAVED_FILM_VERSION;
+    int16_t header_packet_type = _saved_film_header_packet;
+    int16_t game_packet_type[4];
     game_packet_type[0] = _network_game_data_packet;
 
     global_saved_film.player_count = 0;
     memset(global_saved_film.action_updates, 0, sizeof(global_saved_film.action_updates));
 
-    __int16 header_size = saved_film_header_packet.size;
+    int16_t header_size = saved_film_header_packet.size;
     network_game_invalidate(game);
 
     unsigned char header_buffer[16];
@@ -60,7 +60,7 @@ uint8_t save_film_begin_playback(network_game_data *game)
     if (header.platform)
         return 0;
 
-    __int16 game_data_size = header.network_game_data_encoded_size;
+    int16_t game_data_size = header.network_game_data_encoded_size;
     unsigned char game_data_buffer[2096];
     if (game_data_size <= 0
         || !saved_film_read(game_data_buffer, &game_data_size)

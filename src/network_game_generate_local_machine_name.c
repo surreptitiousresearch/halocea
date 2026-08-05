@@ -5,9 +5,9 @@
 #include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 
-extern void *XFindFirstNicknameW(int flags, unsigned __int16 *name, unsigned int name_length);
+extern void *XFindFirstNicknameW(int flags, uint16_t *name, unsigned int name_length);
 extern void XFindClose(void *handle);
-extern void XSetNicknameW(unsigned __int16 *name, unsigned __int8 flags);
+extern void XSetNicknameW(uint16_t *name, uint8_t flags);
 extern uint16_t * network_game_get_random_player_name(void);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 

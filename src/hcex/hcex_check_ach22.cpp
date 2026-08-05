@@ -2,6 +2,7 @@
  * encounter (in iteration order, including inactive ones) whose scenario ai_encounters name is "covenant_area2", and if it currently has no living members and no enemy target, fire the
  * ACH22 player event. */
 
+#include <stdint.h>
 #include "../headers/scenario.h"
 #include "../headers/encounter_iterator.h"
 #include "../headers/encounter_datum.h"
@@ -29,7 +30,7 @@ extern "C" void hcex_check_ach22(void)
             {
                 /* typed encounter_definition walk (was a manual stride-176 byte cursor) */
                 const encounter_definition *enc_def =
-                    &((const encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)iterator.index];
+                    &((const encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)iterator.index];
                 if ( !strcmp(enc_def->name, "covenant_area2") )
                     break;
 

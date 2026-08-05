@@ -14,7 +14,7 @@ extern float real_seed_random(uint32_t *seed);
 uint8_t ai_consider_major_upgrade(int encounter_index, int16_t squad_index, float upgrade_chance)
 {
     /* Encounter datum (stride 108): word at offset 4 = first squad index in squad_array. */
-    squad_datum *squad = &squad_array[(__int16)(((__int16 *)encounter_data->data)[54 * (unsigned __int16)encounter_index + 2] + squad_index)];
+    squad_datum *squad = &squad_array[(int16_t)(((int16_t *)encounter_data->data)[54 * (uint16_t)encounter_index + 2] + squad_index)];
 
     float squad_error = squad->major_upgrade_error;
 
@@ -27,7 +27,7 @@ uint8_t ai_consider_major_upgrade(int encounter_index, int16_t squad_index, floa
         bias = global_bias;
 
     unsigned int *seed = get_global_random_seed_address();
-    unsigned __int8 result = real_seed_random(seed) < (bias + upgrade_chance);
+    uint8_t result = real_seed_random(seed) < (bias + upgrade_chance);
 
     float error = (float)result - upgrade_chance;
     squad->major_upgrade_error += error;

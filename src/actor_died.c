@@ -49,7 +49,7 @@ void actor_died(int actor_index)
     if (actor->state.mode == _actor_mode_combat && actor->state.combat_status >= _actor_combat_status_investigate)
     {
         if (unit_controllable(unit_index)
-            && unit_inventory_get_weapon(unit_index, (unsigned __int16)unit_object->unit.current_weapon_index) != -1
+            && unit_inventory_get_weapon(unit_index, (uint16_t)unit_object->unit.current_weapon_index) != -1
             && unit_object->unit.weapon_drop_delay_ticks > 0)
         {
             float death_grip_chance = definition->ranged_combat.death_wildfire_chance;
@@ -93,10 +93,10 @@ void actor_died(int actor_index)
     }
 
     float grenade_roll = real_seed_random(get_global_random_seed_address());
-    int weapon_index = unit_inventory_get_weapon(unit_index, (unsigned __int16)unit_object->unit.current_weapon_index);
+    int weapon_index = unit_inventory_get_weapon(unit_index, (uint16_t)unit_object->unit.current_weapon_index);
 
     if (!ai_globals->grenades_enabled || grenade_roll < definition->items.dont_drop_grenades_chance)
-        *(unsigned __int16 *)unit_object->unit.grenade_counts = 0;  /* zeroes both grenade counts */
+        *(uint16_t *)unit_object->unit.grenade_counts = 0;  /* zeroes both grenade counts */
 
     if (weapon_index != -1)
     {
@@ -108,11 +108,11 @@ void actor_died(int actor_index)
             weapon_set_current_amount(weapon_index, amount);
         }
 
-        __int16 rounds_minimum = definition->items.weapon_ammo_lower_bound;
+        int16_t rounds_minimum = definition->items.weapon_ammo_lower_bound;
         if (rounds_minimum > 0 || definition->items.weapon_ammo_upper_bound > 0)
         {
-            __int16 rounds_maximum = definition->items.weapon_ammo_upper_bound + 1;
-            __int16 rounds_array[2];
+            int16_t rounds_maximum = definition->items.weapon_ammo_upper_bound + 1;
+            int16_t rounds_array[2];
             rounds_array[1] = 0;
             rounds_array[0] = seed_random_range(get_global_random_seed_address(), rounds_minimum, rounds_maximum);
             weapon_set_total_rounds(weapon_index, rounds_array);

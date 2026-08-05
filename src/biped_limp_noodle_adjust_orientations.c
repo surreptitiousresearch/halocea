@@ -57,7 +57,7 @@ void biped_limp_noodle_adjust_orientations(int biped_index, real_matrix4x3 *node
         if (i == 0)
             continue;  /* skip the root node */
 
-        __int16 parent = nodes[i].parent_node_index;
+        int16_t parent = nodes[i].parent_node_index;
         if (nodes[parent].flags & (1u << _joint_type_no_movement))
             continue;  /* parent joint is no-movement */
 

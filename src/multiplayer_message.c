@@ -31,11 +31,11 @@ extern network_game_server *global_network_game_server_get(void);
 void multiplayer_message(int recipient_player_index, int subject_player_index, int message,
                          int message_data, uint8_t should_replicate)
 {
-    unsigned __int16 *recipient = datum_try_and_get(player_data, recipient_player_index);
+    uint16_t *recipient = datum_try_and_get(player_data, recipient_player_index);
     if (!recipient)
         return;
 
-    unsigned __int16 message_text[1048];
+    uint16_t message_text[1048];
     if (recipient[1] != 0xFFFF &&
         multiplayer_message_internal(subject_player_index, message, message_data, message_text, 1024))
     {

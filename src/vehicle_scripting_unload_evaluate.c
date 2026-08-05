@@ -10,11 +10,11 @@ extern int16_t vehicle_scripting_unload(int unit_index, const char *seat_substri
 void vehicle_scripting_unload_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result;
-    *((__int16 *)&result) = 0;
+    *((int16_t *)&result) = 0;
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((__int16 *)&result + 1) = vehicle_scripting_unload(arguments[0], (const char *)arguments[1]);
+        *((int16_t *)&result + 1) = vehicle_scripting_unload(arguments[0], (const char *)arguments[1]);
         hs_return(thread_index, result);
     }
 }

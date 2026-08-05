@@ -43,7 +43,7 @@ void antenna_render_proper(antenna_datum *antenna, antenna_definition *antenna_d
     build_sprite_data sprites;
     build_sprites_begin(&sprites, count, antenna_definition->texture.index, &global_shader_effect_alpha_blended, 0);
 
-    for ( __int16 i = 0; i < antenna_definition->vertices.count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < antenna_definition->vertices.count; i = (int16_t)(i + 1) )
     {
         /* recovered: (char*)antenna + 32*i -> &antenna->vertices[i]; float idx +15/16/17 = vertices[i+1].p */
         antenna_vertex_datum *vertex = &antenna->vertices[i];
@@ -55,10 +55,9 @@ void antenna_render_proper(antenna_datum *antenna, antenna_definition *antenna_d
         direction.n[1] = next_vertex->p.n[1] - vertex->p.n[1];
         direction.n[2] = next_vertex->p.n[2] - vertex->p.n[2];
 
-        real_argb_color color;
-        color.n[0] = definition_vertex->color.n[0]; /* alpha */
-        *(unsigned __int64 *)&color.n[1] = *(unsigned __int64 *)&definition_vertex->color.n[1]; /* red + green (8-byte copy) */
-        color.n[3] = definition_vertex->color.n[3]; /* blue */
+        /* DEVIATION: full 16-byte struct copy (lfs + fused ld/std pair over red+green); was a
+         * mixed float / uint64 word-pun copy of the same four members */
+        real_argb_color color = definition_vertex->color;
 
         float vertex_scale = vertex->sprite_scale;
 

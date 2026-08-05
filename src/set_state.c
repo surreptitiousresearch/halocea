@@ -17,12 +17,12 @@ extern void rasterizer_set_stencil_mode(int16_t stencil_mode);
 uint8_t set_state(widget_state *new_state)
 {
     int stage_index = new_state->stage_index;
-    unsigned __int8 succeeded = 1;
+    uint8_t succeeded = 1;
     if ( widget_state_current.stage_index != new_state->stage_index
       || widget_state_current.bitmap_group_index != new_state->bitmap_group_index
       || widget_state_current.sequence_index != new_state->sequence_index )
     {
-        unsigned __int8 stalled;
+        uint8_t stalled;
         if ( new_state->bitmap_group_index == -1 )
             stalled = rasterizer_set_texture_direct_non_blocking(stage_index, -1, new_state->sequence_index);
         else

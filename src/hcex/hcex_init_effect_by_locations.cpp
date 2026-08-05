@@ -18,11 +18,11 @@ extern data_array *effect_data;
 
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern void hcex_init_effect(int definition_index, int obj_follow, __int16 local_player_index,
+extern void hcex_init_effect(int definition_index, int obj_follow, int16_t local_player_index,
                              const real_point3d *positions, const real_vector3d *forwards,
                              const char **names, int count, double scale);
 
-extern "C" void hcex_init_effect_by_locations(unsigned __int16 effect_index, int obj_follow, float scale)
+extern "C" void hcex_init_effect_by_locations(uint16_t effect_index, int obj_follow, float scale)
 {
     effect_datum *effect = DATA_ARRAY_ELEMENT(effect_data, effect_datum, effect_index);
     int found = 0;
@@ -49,7 +49,7 @@ extern "C" void hcex_init_effect_by_locations(unsigned __int16 effect_index, int
             object_marker marker;
             int matched;
 
-            if ( (unsigned __int16)effect->local_player_index == 0xFFFF )
+            if ( (uint16_t)effect->local_player_index == 0xFFFF )
                 matched = object_get_marker_by_name(object_index, marker_name, &marker, 1);
             else
                 matched = first_person_weapon_get_marker_by_name(object_index, marker_name, &marker, 1);
@@ -67,7 +67,7 @@ extern "C" void hcex_init_effect_by_locations(unsigned __int16 effect_index, int
                 ++forward_out;
                 ++position_out;
             }
-            marker_index = (__int16)(marker_index + 1);
+            marker_index = (int16_t)(marker_index + 1);
         }
         while ( marker_index < definition->locations.count );
     }

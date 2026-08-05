@@ -38,16 +38,16 @@ extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern real_argb_color * get_ui_argb_white(real_argb_color *result);
 
 void single_preview_column_list_update(widget_instance *widget,
-        unsigned __int8 (__fastcall *func)(unsigned __int16 *, int, void *))
+        uint8_t (__fastcall *func)(uint16_t *, int, void *))
 {
     int list_item_top_index = widget->parameters.list_parameters.list_item_top_index;
     widget_instance *children = widget->children;
     ui_widget_definition *definition = TAG_GET(ui_widget_definition, widget->ui_widget_tag_index);
     int visible_count = definition->child_widget_references.count;
 
-    unsigned __int8 has_bank_spinner = children && children->children
+    uint8_t has_bank_spinner = children && children->children
             && children->children->widget_type == _ui_widget_type_spinner_list;
-    unsigned __int8 focus_is_live = widget->focused_child && widget->focused_child->next != nullptr;
+    uint8_t focus_is_live = widget->focused_child && widget->focused_child->next != nullptr;
 
     unsigned int bank = 0;
     int tab_forward = 0;
@@ -137,7 +137,7 @@ bank_resolved:
     if ( has_bank_spinner )
         --visible_count;
 
-    unsigned __int8 near_full = (definition->list_flags & (1u << _list_single_preview_box_no_scroll)) != 0
+    uint8_t near_full = (definition->list_flags & (1u << _list_single_preview_box_no_scroll)) != 0
             || widget->parameters.list_parameters.number_of_items <= visible_count - 1;
 
     int window = visible_count - (near_full ? 1 : 3);
@@ -276,7 +276,7 @@ enable_row:
 
         {
             widget_instance *label = row->children;
-            unsigned __int16 *text = ui_widget_realloc(
+            uint16_t *text = ui_widget_realloc(
                     label->parameters.text_box_parameters.text, 0x80u);
             label->parameters.text_box_parameters.text = text;
             if ( !text || !func(text, item_index, widget->parameters.list_parameters.list_items) )

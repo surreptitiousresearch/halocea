@@ -17,7 +17,7 @@ extern uint8_t game_engine_player_is_out_of_lives(int player_index);
 
 uint8_t race_team_can_win_game(int team_index)
 {
-    unsigned __int8 can_win = 1;
+    uint8_t can_win = 1;
 
     if ( game_engine_get_variant()->game_engine_variant.ctf.single_flag_time )
         return can_win;

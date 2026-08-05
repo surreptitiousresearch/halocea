@@ -12,7 +12,7 @@
 
 extern int unit_inventory_get_weapon(int unit_index, int16_t index);
 
-int player_control_get_desired_weapon(__int16 local_player_index, int unit_index)
+int player_control_get_desired_weapon(int16_t local_player_index, int unit_index)
 {
     player_control *control = &player_control_globals->players[local_player_index];
     unit_datum *unit = (unit_datum *)

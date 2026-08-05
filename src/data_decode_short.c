@@ -8,7 +8,7 @@ extern char *data_decode_memory(data_encoding_state *state, int16_t count, int c
 
 int16_t data_decode_short(data_encoding_state *state)
 {
-    __int16 *value = (__int16 *)data_decode_memory(state, 1, -2);
+    int16_t *value = (int16_t *)data_decode_memory(state, 1, -2);
 
     if (value)
         return *value;

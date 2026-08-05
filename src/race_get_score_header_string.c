@@ -13,7 +13,7 @@ extern const wchar_t empty_wide_string;
 
 uint16_t * race_get_score_header_string(uint16_t *buffer)
 {
-    __int16 string_index = game_engine_get_variant()->game_engine_variant.terminator.ignored != 2 ? 178 : 25;
+    int16_t string_index = game_engine_get_variant()->game_engine_variant.terminator.ignored != 2 ? 178 : 25;
 
     int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
     const wchar_t *string = (text_tag == -1) ? &empty_wide_string : unicode_string_list_get_string(text_tag, string_index);

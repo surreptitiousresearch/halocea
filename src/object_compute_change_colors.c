@@ -5,6 +5,7 @@
  * by the function value selected by darken_by, and clamps each channel to [0,1]. Results land in the
  * object's outgoing_change_colors. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_definition_runtime_flags.h"
 #include "headers/global_tag_instances.h"
@@ -34,7 +35,7 @@ void object_compute_change_colors(int object_index)
 
     if ( (object_definition->runtime_flags & (1u << _object_runtime_scaled_change_colors_bit)) != 0 && object_definition->change_colors.count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
             object_change_color_definition *change_color =
@@ -63,7 +64,7 @@ void object_compute_change_colors(int object_index)
             out_color->green = clamp_unit(out_color->green);
             out_color->blue = clamp_unit(out_color->blue);
 
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < object_definition->change_colors.count );
     }

@@ -30,18 +30,18 @@ extern void objects_garbage_collection(void); /* decompiler shows a spurious arg
 
 void object_types_place_objects(uint8_t place)
 {
-    if ( game_in_editor() || (unsigned __int16)global_structure_bsp_index == 0xFFFF )
+    if ( game_in_editor() || (uint16_t)global_structure_bsp_index == 0xFFFF )
         return;
 
     scenario *scenario_ptr = global_scenario;
-    for ( int object_type = object_type_biped; object_type < number_of_object_types; object_type = (__int16)(object_type + 1) )
+    for ( int object_type = object_type_biped; object_type < number_of_object_types; object_type = (int16_t)(object_type + 1) )
     {
         if ( ((1 << object_type) & object_mask_remove_on_bsp_switch) == 0 )
             continue;
 
         object_type_definition *type = object_type_definitions[object_type];
-        if ( (unsigned __int16)type->placement_tag_block_offset == 0xFFFF
-          || (unsigned __int16)type->palette_tag_block_offset == 0xFFFF )
+        if ( (uint16_t)type->placement_tag_block_offset == 0xFFFF
+          || (uint16_t)type->palette_tag_block_offset == 0xFFFF )
             continue;
 
         int placement_element_size = type->placement_tag_block_element_size;
@@ -51,7 +51,7 @@ void object_types_place_objects(uint8_t place)
         /* compute BSP membership once for this BSP */
         if ( ((1 << global_structure_bsp_index) & processed_bsp_flags) == 0 && placements->count > 0 )
         {
-            for ( int i = 0; i < placements->count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < placements->count; i = (int16_t)(i + 1) )
             {
                 scenario_object_datum *element = (scenario_object_datum *)tag_block_get_element_with_size(placements, i, placement_element_size);
                 int palette_index = element->palette_entry_index; /* recovered: *element -> palette_entry_index */
@@ -91,11 +91,11 @@ void object_types_place_objects(uint8_t place)
         if ( place )
         {
             objects_memory_compact();
-            for ( int i = 0; i < placements->count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < placements->count; i = (int16_t)(i + 1) )
             {
                 scenario_object_datum *datum =
                     (scenario_object_datum *)tag_block_get_element_with_size(placements, i, placement_element_size);
-                int name_index = (unsigned __int16)datum->name_index;
+                int name_index = (uint16_t)datum->name_index;
                 if ( (name_index == 0xFFFF || object_index_from_name_index(name_index) == -1)
                   && (datum->placement_flags & (1u << _scenario_object_placement_not_automatic_bit)) == 0
                   && ((1 << global_structure_bsp_index) & datum->on_bsp_flags) != 0 )

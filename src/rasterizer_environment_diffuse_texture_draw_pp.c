@@ -36,7 +36,7 @@ extern point2d *rasterizer_set_texture_for_effect(int16_t stage, int16_t type, i
 extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
@@ -52,11 +52,11 @@ void rasterizer_environment_diffuse_texture_draw_pp(const shader *shader, int16_
     const shader_environment_diffuse_properties *diffuse = &environment_shader->environment.diffuse;
 
     /* shader index = 3 * (3 * type + detail_map_function) + micro_detail_map_function + 5. */
-    __int16 shader_type = environment_shader->environment.type;
-    __int16 detail_map_function = diffuse->detail_map_function;
-    __int16 micro_detail_map_function = diffuse->micro_detail_map_function;
+    int16_t shader_type = environment_shader->environment.type;
+    int16_t detail_map_function = diffuse->detail_map_function;
+    int16_t micro_detail_map_function = diffuse->micro_detail_map_function;
     rasterizer_dx9_shader *effect_shader = rasterizer_shader_select(
-            (__int16)(3 * (3 * shader_type + detail_map_function) + micro_detail_map_function + 5));
+            (int16_t)(3 * (3 * shader_type + detail_map_function) + micro_detail_map_function + 5));
     if ( !effect_shader || !effect_shader->effect )
         return;
 
@@ -109,7 +109,7 @@ void rasterizer_environment_diffuse_texture_draw_pp(const shader *shader, int16_
                                                   &texture_transform_constants[7],
                                                   &texture_transform_constants[11]);
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, texture_transform_constants, 3,
-                                        (unsigned __int64)3 << 60);
+                                        (uint64_t)3 << 60);
 
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(0));
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(effect_shader->vshader9));

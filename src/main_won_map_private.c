@@ -15,11 +15,11 @@ void main_won_map_private(void)
     main_globals.want_to_be_at_main_menu = 1;
     main_globals.won_map = 0;
 
-    __int16 next_level = (__int16)(main_get_solo_level_from_name(main_globals.soloplayer_map_name) + 1);
+    int16_t next_level = (int16_t)(main_get_solo_level_from_name(main_globals.soloplayer_map_name) + 1);
     if ( next_level >= 10 )
         next_level = -1;
 
-    for ( __int16 player_index = 0; player_index < player_spawn_count; ++player_index )
+    for ( int16_t player_index = 0; player_index < player_spawn_count; ++player_index )
         player_profile_save_level_completed(player_index);
 
     ui_set_next_level(next_level);

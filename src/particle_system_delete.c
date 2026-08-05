@@ -1,6 +1,7 @@
 /* particle_system_delete @0x8373A250 — free a particle system and all particles owned by each of its
  * emitter types, then free the system datum itself. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/particle_system_datum.h"
@@ -22,7 +23,7 @@ void particle_system_delete(int system_index)
 
     if ( definition->types.count > 0 )
     {
-        for ( type = 0; type < definition->types.count; type = (__int16)(type + 1) )
+        for ( type = 0; type < definition->types.count; type = (int16_t)(type + 1) )
         {
             int particle = system->types[type].first_particle_index;
             while ( particle != -1 )

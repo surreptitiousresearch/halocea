@@ -40,7 +40,7 @@ void oddball_engine_update(void)
 {
     if ( game_time_get() == 60 )
     {
-        unsigned __int8 has_teams = game_engine_has_teams();
+        uint8_t has_teams = game_engine_has_teams();
         game_engine_play_multiplayer_sound(
             has_teams == 0 ? _multiplayer_sound_oddball : _multiplayer_sound_team_oddball, 0);
     }
@@ -63,7 +63,7 @@ void oddball_engine_update(void)
     }
 
     oddball_ball_type oddball_ball_type = game_engine_get_variant()->game_engine_variant.oddball.oddball_ball_type;
-    unsigned __int8 has_ball_markers = oddball_ball_type > _oddball_normal && oddball_ball_type <= _oddball_terminator;
+    uint8_t has_ball_markers = oddball_ball_type > _oddball_normal && oddball_ball_type <= _oddball_terminator;
 
     if ( has_ball_markers )
     {

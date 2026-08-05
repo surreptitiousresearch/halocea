@@ -2,6 +2,7 @@
 // ws-engine scorch/decal: the per-class scorch descriptor (ref-counted dsc product).
 // DB-verified full layout (types_members scrSCORCH_DESC, size 172 / 0xAC); previously kept
 // opaque in this corpus and read via raw offsets.
+#include <stdint.h>
 #include "../dsc/dscDESC.h"
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsSMART_PTR.h"
@@ -50,7 +51,7 @@ typedef struct scrSCORCH_DESC : dscDESC
     dsVECTOR<SCORCH_INI, 8>          cd;                      // 0x68 (20)
     dsSTRID                          classID;                 // 0x7C
     dsVECTOR<dsTSTRING<char>, 8>     textures;                // 0x80 (20)
-    unsigned __int8                  blend;                   // 0x94
+    uint8_t                  blend;                   // 0x94
     unsigned char                    _pad95[3];               // 0x95 db-verified padding
     float                            radiusMin;               // 0x98
     float                            radiusMax;               // 0x9C

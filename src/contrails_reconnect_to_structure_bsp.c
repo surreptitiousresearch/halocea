@@ -22,12 +22,12 @@ void contrails_reconnect_to_structure_bsp(void)
           contrail_index = data_next_index(contrail_data, contrail_index) )
     {
         contrail_datum *contrail = DATA_ARRAY_ELEMENT(contrail_data, contrail_datum, contrail_index);
-        for ( __int16 list_index = 0; list_index < 4; list_index++ )
+        for ( int16_t list_index = 0; list_index < 4; list_index++ )
         {
             for ( int point_index = contrail->first_contrail_point_indices[list_index]; point_index != -1; )
             {
                 contrail_point_datum *point = DATA_ARRAY_ELEMENT(contrail_point_data, contrail_point_datum, point_index);
-                if ( (unsigned __int16)point->location.cluster_index != 0xFFFF )
+                if ( (uint16_t)point->location.cluster_index != 0xFFFF )
                     scenario_location_from_point(&point->location, &point->position);
                 point_index = point->next_contrail_point_index;
             }

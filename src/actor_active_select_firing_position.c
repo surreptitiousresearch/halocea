@@ -29,14 +29,14 @@
 
 
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
-extern __int16 actor_select_firing_position(int actor_index,
+extern int16_t actor_select_firing_position(int actor_index,
         firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position,
-        int *current_owner, path_state *area_path_state, unsigned __int8 *area_path_state_valid);
+        int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
 extern uint8_t firing_position_forced_evaluation(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 
-__int16 actor_active_select_firing_position(int actor_index,
+int16_t actor_active_select_firing_position(int actor_index,
         firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position,
-        int *current_owner, path_state *area_path_state, unsigned __int8 *area_path_state_valid)
+        int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->meta.encounter_index == -1 )
@@ -59,28 +59,28 @@ __int16 actor_active_select_firing_position(int actor_index,
         evaluation_context->preferred_weight = 8.0f;
     }
     evaluation_context->allow_outside_range =
-            actor->firing_positions.current_position_index == (__int16)-1 || !actor->firing_positions.current_position_found_outside_range;
+            actor->firing_positions.current_position_index == (int16_t)-1 || !actor->firing_positions.current_position_found_outside_range;
     evaluation_context->allow_rejected_positions = 1;
 
     int result = actor_select_firing_position(actor_index, evaluation_context, best_firing_position,
             current_owner, area_path_state, area_path_state_valid);
-    if ( (__int16)result != -1 )
+    if ( (int16_t)result != -1 )
     {
         if ( ((1 << best_firing_position->definition->group_index) & default_group) == 0 )
-            actor->state.searching = (unsigned __int8)(actor->state.searching == 0);   /* cntlzw(x) & 0x20 != 0  <=>  x == 0 */
-        return (__int16)result;
+            actor->state.searching = (uint8_t)(actor->state.searching == 0);   /* cntlzw(x) & 0x20 != 0  <=>  x == 0 */
+        return (int16_t)result;
     }
 
     /* selection failed: fall back to the actor's remembered firing position, if it has one */
-    unsigned __int16 remembered_index = (unsigned __int16)actor->firing_positions.current_position_index;
+    uint16_t remembered_index = (uint16_t)actor->firing_positions.current_position_index;
     if ( remembered_index != 0xFFFF && actor->firing_positions.current_position_found_outside_range )
     {
-        unsigned __int16 encounter_index = (unsigned __int16)actor->meta.encounter_index;
+        uint16_t encounter_index = (uint16_t)actor->meta.encounter_index;
         firing_position_definition *firing_positions =
                 (firing_position_definition *)((encounter_definition *)global_scenario->ai_encounters.address)
                 [encounter_index].firing_positions.address;
-        firing_position_definition *definition = &firing_positions[(__int16)remembered_index];
-        __int16 final_index = remembered_index;
+        firing_position_definition *definition = &firing_positions[(int16_t)remembered_index];
+        int16_t final_index = remembered_index;
 
         best_firing_position->original_index = remembered_index;
         best_firing_position->path_distance_from_actor = 3.4028235e38f;
@@ -112,5 +112,5 @@ __int16 actor_active_select_firing_position(int actor_index,
         *area_path_state_valid = 0;
         return final_index;
     }
-    return (__int16)result;
+    return (int16_t)result;
 }

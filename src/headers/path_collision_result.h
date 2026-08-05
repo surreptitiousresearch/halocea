@@ -1,11 +1,12 @@
 #pragma once
 
+#include <stdint.h>
 #include "real_point3d.h"
 
 /* path_collision_result — output of structure_test_pill2d (28 bytes, types_members-confirmed layout). */
 typedef struct path_collision_result
 {
-    unsigned __int8 collision;      /* 0x00 */
+    uint8_t collision;      /* 0x00 */
     unsigned char   _pad1[3];       /* 0x01 */
     real_point3d    point;          /* 0x04 */
     int             surface_index;  /* 0x10 */

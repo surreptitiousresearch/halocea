@@ -45,26 +45,27 @@ int unit_start_animation_impulse(int unit_index, int16_t animation_impulse, real
         return 0;
 
     unit_definition *definition = (unit_definition *)tag_get_data(unit->definition_index);
-    /* u16 load at +0x44: the tag reference's .index word read halfword-wise (decompiler idiom, BE high half) */
-    int graph_index = *(unsigned __int16 *)&definition->object.animation_graph.index;
+    /* DEVIATION: disasm is a full lwz of the tag handle (+0x44) then clrlslwi (low-half mask ×32),
+     * i.e. exactly the TAG_GET resolve — the decompiler's halfword pun was a misrendering */
+    int graph_index = definition->object.animation_graph.index;
     animation_graph *graph = (animation_graph *)tag_get_data(graph_index);
     animation_graph_unit_seat *seat =
         &((animation_graph_unit_seat *)graph->unit_seats.address)[(signed char)unit->unit.animation.seat_index];
     animation_graph_weapon_class *weapon_class =
         &((animation_graph_weapon_class *)seat->weapon_classes.address)[(signed char)unit->unit.animation.weapon_index];
 
-    __int16 interpolation_frame_count;
-    __int16 index = unit_animation_impulse_get_index(animation_impulse, &interpolation_frame_count);
-    __int16 animation_index;
+    int16_t interpolation_frame_count;
+    int16_t index = unit_animation_impulse_get_index(animation_impulse, &interpolation_frame_count);
+    int16_t animation_index;
     if ( index < 0 || index >= weapon_class->animations.count )
         animation_index = -1;
     else
-        animation_index = ((__int16 *)weapon_class->animations.address)[index];
+        animation_index = ((int16_t *)weapon_class->animations.address)[index];
     if ( animation_index == -1 )
         return 0;
 
     object_start_interpolation(unit_index, interpolation_frame_count);
-    __int16 permutation = animation_choose_random_permutation_internal(
+    int16_t permutation = animation_choose_random_permutation_internal(
         animation_update_kind_affects_game_state, definition->object.animation_graph.index, animation_index);
 
     /* decompiler refetched the same object-header slot */
@@ -73,7 +74,7 @@ int unit_start_animation_impulse(int unit_index, int16_t animation_impulse, real
     unit2->object.animation.state.index = permutation;
     unit2->object.animation.state.frame_index = 0;
 
-    __int16 anim_flags = unit->unit.animation.flags;
+    int16_t anim_flags = unit->unit.animation.flags;
     unit->unit.animation.state = _unit_state_ai_impulse;
     unit->unit.animation.flags = anim_flags | (1u << _unit_animation_postpone_weapon_ik_until_interpolation_ends_bit);
 

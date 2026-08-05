@@ -5,6 +5,7 @@
  * DEVIATION: the shield-stun flag is `shield_stun_ticks < 0` (`(-v2 & ~v2) < 0` is true iff the sign bit
  * is set), reproduced per the decompiler's arithmetic. */
 
+#include <stdint.h>
 #include "headers/biped_datum.h"
 #include "headers/object_type.h"
 
@@ -16,10 +17,10 @@ void biped_update_baseline(int object_index)
 
     if ( object )
     {
-        __int16 shield_stun_ticks = object->object.shield_stun_ticks;
+        int16_t shield_stun_ticks = object->object.shield_stun_ticks;
         float shield_vitality = object->object.shield_vitality;
-        __int16 grenade_counts = object->unit.grenade_counts[0];
-        unsigned __int8 next_generation = object->biped.baseline_index + 1;
+        int16_t grenade_counts = object->unit.grenade_counts[0];
+        uint8_t next_generation = object->biped.baseline_index + 1;
 
         object->biped.baseline.body_vitality = object->object.body_vitality;
         object->biped.baseline.shield_vitality = shield_vitality * 0.33333334f;

@@ -2,6 +2,7 @@
 /* index_resolution_table — maps externally-visible "local" indices to translated network/global indices via
  * a slot table backed by a pooled free list (used by the field-properties index-translation layer). */
 
+#include <stdint.h>
 #include "index_slot.h"
 #include "index_entry.h"
 
@@ -9,7 +10,7 @@ struct index_entry_pool;
 
 typedef struct index_resolution_table
 {
-    unsigned __int8          is_initialized;            /* 0x00 */
+    uint8_t          is_initialized;            /* 0x00 */
     unsigned char _pad0[3]; /* db-verified padding */
     int                      number_of_slots;           /* 0x04 */
     index_slot              *slots;                     /* 0x08 */

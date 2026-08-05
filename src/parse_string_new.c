@@ -15,7 +15,7 @@ void parse_string_new(parse_string_state *state, const char *string, int base_fo
 {
     state->style = style;
     state->justification = justification;
-    state->string = (unsigned __int8 *)string;
+    state->string = (uint8_t *)string;
     state->string_index = 0;
     state->base_font_index = base_font_index;
 

@@ -18,7 +18,7 @@ extern void player_ui_set_active_player_profile(int16_t local_player_index, int 
 
 uint8_t player_profile_set_for_game_1wide(widget_instance *list_widgets_parent, event_record *event, uint8_t *widget_deleted)
 {
-    __int16 local_player_index = event->controller_index;
+    int16_t local_player_index = event->controller_index;
 
     widget_instance *list_child = list_widgets_parent->children;
     for ( ; list_child; list_child = list_child->next )

@@ -23,7 +23,7 @@ extern void update_client_handle_server_update(game_update *new_update, int upda
 
 extern "C" void hcex_coop_try_to_apply_player_actions(void)
 {
-    __int16 local_player_index;
+    int16_t local_player_index;
 
     if ( hcex_coop_online_test_local )
         return;

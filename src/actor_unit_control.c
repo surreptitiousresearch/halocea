@@ -62,11 +62,11 @@ void actor_unit_control(int actor_index)
         }
         unit_control(unit_index, &control, -1);
 
-        unsigned __int16 animation_impulse = actor->output.animation.impulse;
+        uint16_t animation_impulse = actor->output.animation.impulse;
         if ( animation_impulse != 0xFFFF )
             unit_start_animation_impulse(unit_index, animation_impulse, &actor->output.animation.alignment_vector);
 
-        __int16 persistent_control_timer = actor->output.persistent_control_ticks;
+        int16_t persistent_control_timer = actor->output.persistent_control_ticks;
         if ( persistent_control_timer > 0 )
             unit_persistent_control(unit_index, persistent_control_timer, actor->output.persistent_control_flags);
     }

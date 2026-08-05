@@ -26,7 +26,7 @@ extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
 void multiplayer_type_menu_update_extended_description(widget_instance *list_widget)
 {
     widget_instance *child = list_widget->children;
-    __int16 focused_position = 0;
+    int16_t focused_position = 0;
     for ( ; child; ++focused_position )
     {
         if ( child == list_widget->focused_child )
@@ -35,7 +35,7 @@ void multiplayer_type_menu_update_extended_description(widget_instance *list_wid
     }
 
     widget_instance *description_icon = list_widget->parameters.list_parameters.extended_description->children;
-    __int16 title_string_index;
+    int16_t title_string_index;
 
     switch ( (uint16_t)(focused_position - 1) )
     {
@@ -63,7 +63,7 @@ void multiplayer_type_menu_update_extended_description(widget_instance *list_wid
     if ( title_string_index != -1 )
         description_icon->next->parameters.text_box_parameters.string_list_index = title_string_index;
 
-    __int16 index = 0;
+    int16_t index = 0;
     for ( widget_instance *w = list_widget->children; w; w = w->next, ++index )
     {
         if ( index == 0 || index == 4 )

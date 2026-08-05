@@ -6,6 +6,7 @@
  *
  * The ".sav" append after truncating the extension is an inlined strcat (byte-copy including the terminator). */
 
+#include <stdint.h>
 #include "headers/win32_find_data.h"
 
 extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);
@@ -45,7 +46,7 @@ int delete_files_for_player_profile(const char *profile)
             int character;
             do
             {
-                character = *(unsigned __int8 *)append++;
+                character = *(uint8_t *)append++;
                 *end++ = character;
             }
             while ( character );

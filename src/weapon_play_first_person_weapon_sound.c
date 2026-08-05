@@ -48,10 +48,10 @@ void weapon_play_first_person_weapon_sound(int weapon_index, int16_t message_typ
     if ( weapon_def->weapon.interface_definition.first_person_animations.index == -1 )
         return;
 
-    __int16 state = first_person_weapon_state_from_weapon_message(message_type);
+    int16_t state = first_person_weapon_state_from_weapon_message(message_type);
     if ( state == -1 )
         return;
-    __int16 animation_type = first_person_animation_type_from_weapon_state(state);
+    int16_t animation_type = first_person_animation_type_from_weapon_state(state);
     if ( animation_type == -1 )
         return;
 
@@ -61,16 +61,16 @@ void weapon_play_first_person_weapon_sound(int weapon_index, int16_t message_typ
         animation_mode = (animation_graph_first_person_weapon_animations *)
             graph->first_person_weapon_animations.address;
 
-    __int16 animation_index;
+    int16_t animation_index;
     if ( animation_type < 0 || !animation_mode
       || animation_type >= animation_mode->animations.count )
         animation_index = -1;
     else
-        animation_index = ((__int16 *)animation_mode->animations.address)[animation_type];
+        animation_index = ((int16_t *)animation_mode->animations.address)[animation_type];
     if ( animation_index == -1 )
         return;
 
-    __int16 graph_animation =
+    int16_t graph_animation =
         ((animation *)graph->animations.address)[animation_index].sound_index;
     if ( graph_animation == -1 )
         return;
@@ -80,7 +80,7 @@ void weapon_play_first_person_weapon_sound(int weapon_index, int16_t message_typ
     if ( sound_index == -1 )
         return;
 
-    unsigned __int8 is_local_player = 0;
+    uint8_t is_local_player = 0;
     int player_index = weapon_data->object.owner_player_index;
     if ( player_index != -1 )
     {

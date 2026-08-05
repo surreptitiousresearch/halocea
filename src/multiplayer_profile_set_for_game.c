@@ -29,7 +29,7 @@ extern uint8_t saved_game_file_get_path_to_enclosing_directory(int index, char *
 extern void saved_game_file_remember_last_used_multiplayer_variant_directory(char *directory_path);
 extern void player_ui_set_game_variant(game_variant *variant);
 extern int16_t game_connection(void);
-extern void game_engine_playlist_initialize(unsigned __int8 force_begin_playlist);
+extern void game_engine_playlist_initialize(uint8_t force_begin_playlist);
 extern void ui_widgets_close_all(void);
 extern void game_engine_end_game(void);
 

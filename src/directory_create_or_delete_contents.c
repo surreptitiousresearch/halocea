@@ -19,7 +19,7 @@ void directory_create_or_delete_contents(const char *directory_name)
 {
     file_reference directory;
     memset(&directory, 0, sizeof(directory));
-    *(__int16 *)&directory.data[6] = -1;
+    *(int16_t *)&directory.data[6] = -1;
     *(int *)directory.data = 0x66696C6F;   /* file_reference location magic 'filo' */
     file_path_add_name(&directory.data[8], directory_name);
 

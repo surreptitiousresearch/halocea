@@ -7,5 +7,5 @@
 
 int16_t file_reference_get_location(const file_reference *reference)
 {
-    return *(const __int16 *)(reference->data + 6);
+    return *(const int16_t *)(reference->data + 6);
 }

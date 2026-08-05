@@ -44,12 +44,12 @@ void bitmap_2d_alpha_bleed(bitmap_data *bitmap, int16_t passes)
                             int pixel = source_row[x];
                             if ( (pixel & 0xFF000000) == 0 )
                             {
-                                unsigned __int8 found = 0;
-                                for ( __int16 dy = -1; dy <= 1 && !found; ++dy )
+                                uint8_t found = 0;
+                                for ( int16_t dy = -1; dy <= 1 && !found; ++dy )
                                 {
-                                    for ( __int16 dx = -1; dx <= 1 && !found; ++dx )
+                                    for ( int16_t dx = -1; dx <= 1 && !found; ++dx )
                                     {
-                                        int nx = (__int16)(dx + x);
+                                        int nx = (int16_t)(dx + x);
                                         int ny = dy + y;
                                         if ( nx >= 0 && ny >= 0 && nx < bitmap->width && ny < bitmap->height )
                                         {
@@ -64,16 +64,16 @@ void bitmap_2d_alpha_bleed(bitmap_data *bitmap, int16_t passes)
                                 }
                             }
                             *(int *)&dest_row[4 * x] = pixel;
-                            x = (__int16)(x + 1);
+                            x = (int16_t)(x + 1);
                         }
                         while ( x < bitmap->width );
                     }
-                    y = (__int16)(y + 1);
+                    y = (int16_t)(y + 1);
                 }
                 while ( y < bitmap->height );
             }
             memcpy(bitmap_mipmap_address(bitmap, 0), scratch, pixel_data_size);
-            pass = (__int16)(pass + 1);
+            pass = (int16_t)(pass + 1);
         }
         while ( pass < pass_count );
     }

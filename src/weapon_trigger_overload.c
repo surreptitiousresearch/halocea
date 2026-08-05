@@ -30,7 +30,7 @@ void weapon_trigger_overload(int weapon_index, int trigger_index)
 
     /* re-fetch: weapon_trigger_fire can move object data (matches compiled reload of the header slot) */
     weapon = (weapon_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
-    weapon_trigger *trigger = &weapon->weapon.triggers[(__int16)trigger_index];
+    weapon_trigger *trigger = &weapon->weapon.triggers[(int16_t)trigger_index];
     trigger->state = _weapon_trigger_firing;
-    trigger->state_timer = (__int16)(int)(trigger_definition->overloading_time * 30.0f);
+    trigger->state_timer = (int16_t)(int)(trigger_definition->overloading_time * 30.0f);
 }

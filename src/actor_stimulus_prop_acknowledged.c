@@ -50,7 +50,7 @@ void actor_stimulus_prop_acknowledged(int actor_index, int prop_index, uint8_t r
         if ( prop->enemy )
         {
             int surprise = 0;
-            __int16 awareness = actor->state.combat_status;
+            int16_t awareness = actor->state.combat_status;
             /* dot of the actor's aiming vector (actor+0x174..) with the prop->actor direction */
             float aim_dot = (actor->input.facing_vector.n[0] * prop->actor_to_prop.n[0])
                           + ((prop->actor_to_prop.n[2] * actor->input.facing_vector.n[2])
@@ -68,8 +68,8 @@ void actor_stimulus_prop_acknowledged(int actor_index, int prop_index, uint8_t r
                     surprise = prop->shooting != 0;   /* 0 or _actor_surprise_unprepared_enemy_shooting(1) */
                     if ( prop->distance < (double)character->panic.surprise_distance )
                     {
-                        __int16 level = prop->shooting != 0;
-                        if ( (unsigned __int8)(prop->shooting != 0) <= _actor_surprise_unprepared_enemy_close )
+                        int16_t level = prop->shooting != 0;
+                        if ( (uint8_t)(prop->shooting != 0) <= _actor_surprise_unprepared_enemy_close )
                             level = _actor_surprise_unprepared_enemy_close;
                         surprise = level;
                     }
@@ -78,7 +78,7 @@ void actor_stimulus_prop_acknowledged(int actor_index, int prop_index, uint8_t r
 
             if ( !expected && prop->shooting && prop->distance < (double)character->panic.surprise_distance )
             {
-                __int16 level = surprise;
+                int16_t level = surprise;
                 if ( aim_dot >= 0.5f )
                 {
                     if ( surprise <= _actor_surprise_unexpected_enemy_close_shooting )

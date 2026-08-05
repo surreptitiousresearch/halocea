@@ -10,6 +10,7 @@
  * prototype (field_properties_definition) is ground truth — "a2" is just decompiler noise around the
  * (also discarded) _isnan(min_value)/_isnan(max_value) validation calls. */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/field_type_smart_vector_parameters.h"
 
@@ -17,7 +18,7 @@
 extern int _isnan(double x);
 extern void convert_to_quantized_smart(const real_vector3d *const in, quantized_smart_vector *const out, const _field_type_smart_vector_parameters *const parameters);
 
-unsigned __int8 _field_type_smart_vector_parameter_verifier(
+uint8_t _field_type_smart_vector_parameter_verifier(
     const _field_properties_definition *const field_properties_definition)
 {
     _field_type_smart_vector_parameters *parameters =

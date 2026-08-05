@@ -47,8 +47,8 @@ void rasterizer_lights_begin_for_new_frame(void)
                 new_visibility = 255;
         }
 
-        unsigned int latest = (unsigned __int8)new_visibility;
-        if ((unsigned __int8)new_visibility)
+        unsigned int latest = (uint8_t)new_visibility;
+        if ((uint8_t)new_visibility)
         {
             unsigned int previous = *visibility;
             if (latest <= previous)
@@ -66,7 +66,7 @@ void rasterizer_lights_begin_for_new_frame(void)
             *visibility = 0;
         }
 
-        i = (__int16)(i + 1);
+        i = (int16_t)(i + 1);
     } while (i < local_lens_flare_count);
 
     local_lens_flare_count = 0;

@@ -7,14 +7,15 @@
  * Fields resolved to named actor_datum members (investigate level +110, order-time-remaining +156,
  * suppress-secondary flag +161, cowering flag +164, secondary timer +484; see ai_scripting_assess_status.c). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/actor_postcombat_type.h"
 #include "headers/blam_data_globals.h"
 
 
-unsigned __int8 actor_action_can_stop_guarding(unsigned __int16 actor_index, __int16 guard_investigate_threshold,
-    __int16 cower_investigate_threshold)
+uint8_t actor_action_can_stop_guarding(uint16_t actor_index, int16_t guard_investigate_threshold,
+    int16_t cower_investigate_threshold)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

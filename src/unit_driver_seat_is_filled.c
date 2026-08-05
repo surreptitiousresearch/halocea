@@ -26,7 +26,7 @@ uint8_t unit_driver_seat_is_filled(int unit_index)
     if ( seat_count <= 0 )
         return 0;
 
-    __int16 seat_index = 0;
+    int16_t seat_index = 0;
     while ( 1 )
     {
         if ( (((unit_seat *)definition->unit.seats.address)[seat_index].flags & (1u << _unit_seat_is_driver_bit)) != 0 )
@@ -50,7 +50,7 @@ uint8_t unit_driver_seat_is_filled(int unit_index)
             if ( occupied == 1 )
                 return 1;
         }
-        seat_index = (__int16)(seat_index + 1);
+        seat_index = (int16_t)(seat_index + 1);
         if ( seat_index >= definition->unit.seats.count )
             return 0;
     }

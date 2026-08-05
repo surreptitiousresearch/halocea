@@ -27,7 +27,7 @@
 
 
 extern void *memset(void *dest, int value, unsigned int count);
-extern long double cos(long double x);
+extern double cos(double x);
 extern void ui_widget_game_data_function_invoke(widget_instance *widget, uint16_t function);
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);
 extern void draw_bitmap_in_rect(bitmap_data *bitmap, rectangle2d *rect, rectangle2d *bitmap_rect, rectangle2d *clip_rect, unsigned int argb, rasterizer_dynamic_screen_geometry_parameters *multitexture_params, uint8_t no_plasma);
@@ -45,19 +45,19 @@ void widget_instance_render_recursive(widget_instance *widget, rectangle2d *clip
 
     ui_widget_definition *definition = TAG_GET(ui_widget_definition, widget->ui_widget_tag_index);
 
-    unsigned __int8 nifty_plasma_fx = use_nifty_plasma_fx;
+    uint8_t nifty_plasma_fx = use_nifty_plasma_fx;
     if (!use_nifty_plasma_fx && (definition->flags & (1u << _widget_always_render_with_nifty_fx_bit)) != 0)
         nifty_plasma_fx = 1;
 
-    __int16 widget_offset_x = widget->horizontal_offset + offset.n[0];
-    __int16 widget_offset_y = widget->vertical_offset   + offset.n[1];
+    int16_t widget_offset_x = widget->horizontal_offset + offset.n[0];
+    int16_t widget_offset_y = widget->vertical_offset   + offset.n[1];
     point2d child_offset;
     child_offset.n[0] = widget_offset_x;
     child_offset.n[1] = widget_offset_y;
 
     for (int i = 0; i < definition->game_data_input_references.count; i++)
     {
-        __int16 function = ((game_data_input_reference *)definition->game_data_input_references.address)[i].function;
+        int16_t function = ((game_data_input_reference *)definition->game_data_input_references.address)[i].function;
         ui_widget_game_data_function_invoke(widget, function);
     }
 
@@ -117,12 +117,12 @@ void widget_instance_render_recursive(widget_instance *widget, rectangle2d *clip
         }
     }
 
-    unsigned __int8 should_recurse_children = 1;
-    switch ((unsigned __int16)widget->widget_type)
+    uint8_t should_recurse_children = 1;
+    switch ((uint16_t)widget->widget_type)
     {
     case _ui_widget_type_text_box:
     {
-        unsigned __int8 text_box_focus;
+        uint8_t text_box_focus;
         if ((definition->text_box_flags & (1u << _text_box_no_weird_focus_test)) != 0)
         {
             text_box_focus = focus;
@@ -133,7 +133,7 @@ void widget_instance_render_recursive(widget_instance *widget, rectangle2d *clip
              * whose parent doesn't treat it as the focused child) sits under a spinner/column list
              * ancestor that currently has it focused. */
             widget_instance *ancestor = widget->parent;
-            unsigned __int8 inherited_focus;
+            uint8_t inherited_focus;
             if (ancestor)
                 inherited_focus = (widget == ancestor->focused_child);
             else
@@ -185,7 +185,7 @@ void widget_instance_render_recursive(widget_instance *widget, rectangle2d *clip
     {
         for (widget_instance *child = widget->children; child; child = child->next)
         {
-            unsigned __int8 child_focus = 0;
+            uint8_t child_focus = 0;
             if (widget->focused_child == child)
             {
                 int widget_type = widget->widget_type;

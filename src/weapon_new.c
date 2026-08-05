@@ -36,9 +36,9 @@ uint8_t weapon_new(int weapon_index)
             &((weapon_magazine_definition *)definition->weapon.magazines.address)[i];
         weapon_magazine *magazine = &weapon->weapon.magazines[i];
 
-        __int16 default_rounds_loaded = magazine_definition->rounds_total_initial;
-        __int16 total_capacity = magazine_definition->rounds_loaded_maximum;
-        __int16 loaded_rounds = default_rounds_loaded <= total_capacity ? default_rounds_loaded : total_capacity;
+        int16_t default_rounds_loaded = magazine_definition->rounds_total_initial;
+        int16_t total_capacity = magazine_definition->rounds_loaded_maximum;
+        int16_t loaded_rounds = default_rounds_loaded <= total_capacity ? default_rounds_loaded : total_capacity;
 
         magazine->rounds_loaded = loaded_rounds;
         magazine->rounds_total = default_rounds_loaded - loaded_rounds;
@@ -53,7 +53,7 @@ uint8_t weapon_new(int weapon_index)
         trigger->delay_ticks_before_empty_clip_auto_reload = 0;
     }
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if ( connection == _game_connection_network_client || connection == _game_connection_network_server )
     {
         weapon->weapon.baseline_valid = 0;

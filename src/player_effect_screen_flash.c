@@ -8,6 +8,7 @@
  * `scale` (f1). The tail call sets only r3 = effect_state and f2 = 1.0, forwarding the caller's r4
  * (screen_flash) and f1 (scale) — confirmed by disasm. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/player_effect_globals.h"
@@ -21,7 +22,7 @@ void player_effect_screen_flash(int player_index, const screen_flash_definition 
     if (player_index == -1)
         return;
 
-    __int16 local_player_index =
+    int16_t local_player_index =
         DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
     if (local_player_index == -1)
         return;

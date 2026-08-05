@@ -35,7 +35,7 @@ extern void widget_instance_go_back_to_previous(widget_instance *widget);
 extern void draw_string_set_draw_mode(int font_index, int16_t style, int16_t justification, unsigned int flags, const real_argb_color *color);
 extern void rasterizer_draw_unicode_string(const rectangle2d *bounds, const rectangle2d *clip, point2d *cursor_reference, int16_t height_adjust, const wchar_t *string);
 
-unsigned __int8 credits_post_render(widget_instance *widget, event_record *event, unsigned __int8 *widget_deleted)
+uint8_t credits_post_render(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     ui_widget_definition *widget_definition = TAG_GET(ui_widget_definition, widget->ui_widget_tag_index);
     int string_list_tag = widget_definition->text_label_unicode_string_list_tag.index;

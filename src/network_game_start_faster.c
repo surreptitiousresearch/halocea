@@ -27,8 +27,8 @@ uint8_t network_game_start_faster(widget_instance *widget, event_record *event, 
         {
             network_player *player = (network_player *)(slot_cursor - 0x1C);
             if ( network_player_is_valid(player)
-                && !(unsigned __int8)player->machine_index
-                && (unsigned __int8)player->controller_index == (unsigned __int8)event->controller_index )
+                && !(uint8_t)player->machine_index
+                && (uint8_t)player->controller_index == (uint8_t)event->controller_index )
             {
                 break;
             }

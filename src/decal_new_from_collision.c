@@ -102,8 +102,8 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
     real_rectangle2d projection_extent;                  /* arg_130 — sprite bounds fed to projection_create */
     real_rectangle2d texcoord_extent;                    /* arg_E0  — texture-space rect for the vertices */
     float radius = 0.0f;                                 /* arg_8C */
-    __int16 sequence_index = 0;                          /* arg_74 / r18 */
-    __int16 decal_bitmap_index = 0;                      /* r19 */
+    int16_t sequence_index = 0;                          /* arg_74 / r18 */
+    int16_t decal_bitmap_index = 0;                      /* r19 */
     unsigned char chain_reuses_basis = 0;                /* r31 low byte at loop top */
 
     (void)editor_geometry; /* passed through by decal_new; unused in this build */
@@ -142,7 +142,7 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
                 if (definition->flags & (1u << _decal_definition_SAPIEN_ONLY_snap_to_axis_bit))
                 {
                     /* Snap velocity to its dominant axis, then build a tangent frame (0x83741B14). */
-                    __int16 axis = projection_from_vector3d(velocity);
+                    int16_t axis = projection_from_vector3d(velocity);
                     float sign = (velocity->n[axis] > 0.0f) ? 1.0f : -1.0f;
                     real_vector3d axis_unit = { { 0.0f, 0.0f, 0.0f } };
                     axis_unit.n[axis] = sign;
@@ -184,7 +184,7 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
                         projected.j = velocity->j - normal.j * dot_normal_velocity;
                         projected.k = velocity->k - normal.k * dot_normal_velocity;
 
-                        __int16 axis2 = projection_from_vector3d(&projected);
+                        int16_t axis2 = projection_from_vector3d(&projected);
                         float sign2 = (projected.n[axis2] > 0.0f) ? 1.0f : -1.0f;
                         real_vector3d axis_unit2 = { { 0.0f, 0.0f, 0.0f } };
                         axis_unit2.n[axis2] = sign2;
@@ -312,7 +312,7 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
             else
             {
                 unsigned int *seed = get_global_local_random_seed_address();
-                __int16 count = (__int16)bitmap_group_def->sequences.count;
+                int16_t count = (int16_t)bitmap_group_def->sequences.count;
                 sequence_index = seed_random_range(seed, 0, count);
                 if (sequence_index >= count)
                     sequence_index = count - 1;
@@ -383,9 +383,9 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
         decal_projection_create(&basis, &projection_extent, &projection);
 
         int surface_queue[1024];
-        __int16 surface_queue_count = 1;
+        int16_t surface_queue_count = 1;
         int deviant_surface_list[1024];
-        __int16 deviant_surface_count = 0;
+        int16_t deviant_surface_count = 0;
         surface_queue[0] = collision->surface_index;
 
         for (int queue_index = 0; queue_index < surface_queue_count; queue_index++)
@@ -566,10 +566,10 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
         }
 
         /* ---- emit the clipped geometry, if any survived ---- */
-        __int16 surface_count = geometry.decal_surface_count;
+        int16_t surface_count = geometry.decal_surface_count;
         if (surface_count <= 0)
             return;
-        __int16 vertex_count = geometry.decal_vertex_count;
+        int16_t vertex_count = geometry.decal_vertex_count;
         if (vertex_count <= 0)
             return;
 
@@ -590,7 +590,7 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
         }
 
         /* one quad per two fan triangles: floor((vertex_count_of_surface - 1) / 2), summed */
-        __int16 quad_count = 0;
+        int16_t quad_count = 0;
         for (int s = 0; s < surface_count; s++)
             quad_count += (geometry.decal_surface_vertex_counts[s] - 1) >> 1;
 
@@ -678,10 +678,10 @@ void decal_new_from_collision(int decal_definition_index, const collision_result
         }
         decal->intensity = 0xFF;
         {
-            unsigned int alpha = (unsigned __int8)(long long)(intensity_scalar * k_255);
-            unsigned int red = (unsigned __int8)(long long)(color.red * k_255);
-            unsigned int green = (unsigned __int8)(long long)(color.green * k_255);
-            unsigned int blue = (unsigned __int8)(long long)(color.blue * k_255);
+            unsigned int alpha = (uint8_t)(long long)(intensity_scalar * k_255);
+            unsigned int red = (uint8_t)(long long)(color.red * k_255);
+            unsigned int green = (uint8_t)(long long)(color.green * k_255);
+            unsigned int blue = (uint8_t)(long long)(color.blue * k_255);
             decal->color = (alpha << 24) | (red << 16) | (green << 8) | blue;
         }
 

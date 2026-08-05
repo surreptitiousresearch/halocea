@@ -70,7 +70,7 @@ void sound_stop(int sound_index)
     {
         if ( (datum->flags & (1u << _sound_cached_bit)) != 0 )
         {
-            __int16 class_index;
+            int16_t class_index;
             sound_cache_sound_finished(
                 (sound_permutation *)((sound_pitch_range *)definition->pitch_ranges.address
                                       + datum->pitch_range_index)->permutations.address
@@ -92,8 +92,8 @@ void sound_stop(int sound_index)
         int channel_index;
 
         sound_channels[assigned_channel].sound_index = -1;
-        channel_index = (unsigned __int16)datum->playing_channel_index;
-        channel = &sound_channels[(__int16)channel_index];
+        channel_index = (uint16_t)datum->playing_channel_index;
+        channel = &sound_channels[(int16_t)channel_index];
         if ( channel )
         {
             if ( channel->queued_permutation )
@@ -117,7 +117,7 @@ void sound_stop(int sound_index)
               && class_index != _sound_class_scripted_dialog_to_other && class_index != _sound_class_scripted_dialog_force_unspatialized) )
             {
                 /* music outro: drop the entire backing looping-sound definition from the cache */
-                if ( (unsigned __int16)datum->type == _sound_stop_track && definition->class_index == _sound_class_music )
+                if ( (uint16_t)datum->type == _sound_stop_track && definition->class_index == _sound_class_music )
                 {
                     int looping_def_index =
                         DATA_ARRAY_ELEMENT(looping_sound_data, looping_sound_datum,
@@ -151,7 +151,7 @@ void sound_stop(int sound_index)
             sound_cache_sound_delete(permutation);
     }
 
-    if ( (unsigned __int16)datum->type )
+    if ( (uint16_t)datum->type )
     {
         looping_sound_datum *looping = datum_try_and_get(looping_sound_data, datum->source_identifier);
         if ( looping )
@@ -164,7 +164,7 @@ void sound_stop(int sound_index)
 
     if ( definition->runtime_scripting_sound_index == sound_index )
     {
-        __int16 class_index = definition->class_index;
+        int16_t class_index = definition->class_index;
         definition->runtime_scripting_sound_index = -1;
         if ( class_index == _sound_class_scripted_dialog_to_player || class_index == _sound_class_scripted_other
           || class_index == _sound_class_scripted_dialog_to_other || class_index == _sound_class_scripted_dialog_force_unspatialized )

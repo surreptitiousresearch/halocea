@@ -30,7 +30,7 @@ int action_guard_speak_post_combat(uint16_t actor_index)
     if ( actor->state.action_data.___u0.guard.post_combat_vocalized ) /* post_combat_vocalized */
         return 0;
 
-    __int16 speech_id = -1;
+    int16_t speech_id = -1;
     switch ( actor->external_orders.postcombat_type )
     {
         case actor_postcombat_speak_alone: speech_id = _ai_communication_postcombat_alone; break;
@@ -49,7 +49,7 @@ int action_guard_speak_post_combat(uint16_t actor_index)
     if ( speech_id != -1 )
     {
         int target_unit_index = -1;
-        __int16 tone = -1;
+        int16_t tone = -1;
 
         int guard_look_prop_index = actor->state.action_data.___u0.guard.guard_look_prop_index;
         if ( guard_look_prop_index != -1 )

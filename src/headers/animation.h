@@ -3,28 +3,29 @@
  * from the database. The three per-node channel bitflag arrays (rotation/translation/scale) are unsigned int[2],
  * i.e. up to 64 nodes; bit N selects whether node N is animated (data in the frame stream) vs. default. */
 
+#include <stdint.h>
 #include "tag_data.h"
 
 typedef struct animation
 {
     char             name[0x20];                    /* 0x00 */
-    __int16          type;                           /* 0x20 */
-    __int16          frame_count;                    /* 0x22 */
-    __int16          frame_size;                     /* 0x24 */
-    __int16          frame_info_type;                /* 0x26 */
+    int16_t          type;                           /* 0x20 */
+    int16_t          frame_count;                    /* 0x22 */
+    int16_t          frame_size;                     /* 0x24 */
+    int16_t          frame_info_type;                /* 0x26 */
     unsigned int     node_list_checksum;             /* 0x28 */
-    __int16          node_count;                     /* 0x2C */
-    __int16          private_loop_frame_index;       /* 0x2E */
+    int16_t          node_count;                     /* 0x2C */
+    int16_t          private_loop_frame_index;       /* 0x2E */
     float            weight;                          /* 0x30 */
-    __int16          private_key_frame_index;         /* 0x34 */
-    __int16          private_second_key_frame_index;  /* 0x36 */
-    __int16          next_animation_index;            /* 0x38 */
-    unsigned __int16 flags;                           /* 0x3A — bit0 (0x1) = compressed-data present */
-    __int16          sound_index;                     /* 0x3C */
-    __int16          private_sound_frame_index;       /* 0x3E */
-    unsigned __int8  private_left_foot_frame_index;   /* 0x40 */
-    unsigned __int8  private_right_foot_frame_index;  /* 0x41 */
-    __int16          runtime_parent_animation_index;  /* 0x42 */
+    int16_t          private_key_frame_index;         /* 0x34 */
+    int16_t          private_second_key_frame_index;  /* 0x36 */
+    int16_t          next_animation_index;            /* 0x38 */
+    uint16_t flags;                           /* 0x3A — bit0 (0x1) = compressed-data present */
+    int16_t          sound_index;                     /* 0x3C */
+    int16_t          private_sound_frame_index;       /* 0x3E */
+    uint8_t  private_left_foot_frame_index;   /* 0x40 */
+    uint8_t  private_right_foot_frame_index;  /* 0x41 */
+    int16_t          runtime_parent_animation_index;  /* 0x42 */
     float            runtime_normalized_weight;       /* 0x44 */
     tag_data         frame_info;                      /* 0x48 — per-frame movement (dx/dy/dyaw/...) */
     unsigned int     nodes_with_translation_flags[2]; /* 0x5C */

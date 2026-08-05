@@ -96,7 +96,7 @@ uint8_t sound_refresh_looping(int definition_index, int identifier, sound_source
                           int16_t refresh_state, uint8_t alternate, float force_stop_time)
 {
     int stopped_result = (refresh_state == _looping_sound_refresh_stop); /* BOOL undefined in C TU */
-    unsigned __int8 newly_created = 0;
+    uint8_t newly_created = 0;
     int index;
     looping_sound_datum *datum;
     looping_sound_definition *definition;
@@ -135,7 +135,7 @@ uint8_t sound_refresh_looping(int definition_index, int identifier, sound_source
     {
         if ( (definition->flags & (1u << _looping_sound_fake_impulse_sound_bit)) != 0 && definition->tracks.count > 0 )
         {
-            for ( track = 0; track < definition->tracks.count; track = (__int16)(track + 1) )
+            for ( track = 0; track < definition->tracks.count; track = (int16_t)(track + 1) )
             {
                 looping_sound_track *record = (looping_sound_track *)definition->tracks.address + track;
                 int layer_sounds[5] = TRACK_CACHE_LAYER_SOUNDS(record);
@@ -205,7 +205,7 @@ begin_stop:
                     else if ( *voice != -1 )
                     {
                         sound_datum *playing = DATA_ARRAY_ELEMENT(sound_data, sound_datum, *voice);
-                        if ( playing->playing_channel_index != (__int16)0xFFFF )
+                        if ( playing->playing_channel_index != (int16_t)0xFFFF )
                         {
                             if ( playing->definition_index != sound_index )
                                 playing->next_definition_index = sound_index;
@@ -256,7 +256,7 @@ begin_stop:
     }
 
 next_track:
-    track = (__int16)(track + 1);
+    track = (int16_t)(track + 1);
     if ( track >= definition->tracks.count )
         goto check_audibility;
     goto track_loop;
@@ -285,7 +285,7 @@ check_audibility:
     {
         if ( definition->tracks.count > 0 )
         {
-            for ( track = 0; track < definition->tracks.count; track = (__int16)(track + 1) )
+            for ( track = 0; track < definition->tracks.count; track = (int16_t)(track + 1) )
             {
                 looping_sound_track *record = (looping_sound_track *)definition->tracks.address + track;
                 int layer_sounds[5] = TRACK_CACHE_LAYER_SOUNDS(record);

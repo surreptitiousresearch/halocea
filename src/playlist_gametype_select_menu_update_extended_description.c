@@ -1,9 +1,10 @@
+#include <stdint.h>
 #include "headers/widget_globals.h"
 
 void playlist_gametype_select_menu_update_extended_description(widget_instance *list_widget)
 {
     widget_instance *children = list_widget->children;
-    __int16 index = 0;
+    int16_t index = 0;
 
     while ( children )
     {

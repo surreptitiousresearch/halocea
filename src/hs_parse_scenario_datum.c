@@ -22,12 +22,12 @@ int hs_parse_scenario_datum(int expression_index, int16_t offset, tag_block *blo
     if ( block->count > 0 )
     {
         const char *token = &hs_compile_globals.compiled_source[node->source_offset];
-        for ( __int16 i = 0; i < block->count; i = (__int16)(i + 1) )
+        for ( int16_t i = 0; i < block->count; i = (int16_t)(i + 1) )
         {
             const char *element = (const char *)tag_block_get_element_with_size(block, i, element_size);
             if ( !stricmp(&element[offset], token) )
             {
-                *(__int16 *)&node->data = i;
+                *(int16_t *)&node->data = i;
                 found = 1;
                 break;
             }

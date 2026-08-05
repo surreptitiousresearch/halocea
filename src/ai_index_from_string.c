@@ -35,7 +35,7 @@ uint8_t ai_index_from_string(scenario *scenario, const char *ai_string, unsigned
     {
         int encounter = scenario_get_encounter_by_name(scenario, ai_string);
         if ( encounter != -1 )
-            packed = (unsigned __int16)encounter;
+            packed = (uint16_t)encounter;
     }
     else
     {
@@ -49,7 +49,7 @@ uint8_t ai_index_from_string(scenario *scenario, const char *ai_string, unsigned
             int encounter = scenario_get_encounter_by_name(scenario, encounter_name);
             if ( encounter != -1 )
             {
-                unsigned __int16 encounter_index = encounter;
+                uint16_t encounter_index = encounter;
                 encounter_definition *definition =
                     &((encounter_definition *)scenario->ai_encounters.address)[encounter];
 

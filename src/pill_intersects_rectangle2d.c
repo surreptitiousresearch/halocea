@@ -16,7 +16,7 @@ extern uint8_t vector_intersects_pill2d(const real_point2d *point, const real_ve
 
 uint8_t pill_intersects_rectangle2d(const real_point2d *base, const real_vector2d *height, float width, const real_rectangle2d *bounds)
 {
-    unsigned __int8 result = 1;
+    uint8_t result = 1;
 
     if ( base->n[0] < bounds->x0 )
     {

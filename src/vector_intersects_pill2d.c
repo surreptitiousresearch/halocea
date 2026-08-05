@@ -107,8 +107,8 @@ uint8_t vector_intersects_pill2d(const real_point2d *point, const real_vector2d 
     float t_on_height = (((vector->n[1] * (base->n[0] - point->n[0]))
                     - (vector->n[0] * (base->n[1] - point->n[1]))) * inv_cross);
 
-    unsigned __int8 vector_param_out_of_range = t_on_vector < 0.0f || t_on_vector > 1.0f;
-    unsigned __int8 height_param_out_of_range = t_on_height < 0.0f || t_on_height > 1.0f;
+    uint8_t vector_param_out_of_range = t_on_vector < 0.0f || t_on_vector > 1.0f;
+    uint8_t height_param_out_of_range = t_on_height < 0.0f || t_on_height > 1.0f;
 
     real_point2d clamped_on_vector;
     real_point2d clamped_on_height;

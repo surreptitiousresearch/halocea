@@ -1,1 +1,2 @@
-__int16 assertion_count;
+#include <stdint.h>
+int16_t assertion_count;

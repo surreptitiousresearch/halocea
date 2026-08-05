@@ -39,7 +39,7 @@ void hs_compile_finish(void)
     hs_compile_globals.string_constant_buffer_offset = 0;
     hs_compile_globals.string_constant_buffer_size = hs_compile_globals.compiled_source_size;
 
-    for ( int g = 0; g < scn->hs_globals.count; g = (__int16)(g + 1) )
+    for ( int g = 0; g < scn->hs_globals.count; g = (int16_t)(g + 1) )
     {
         int node_index = HS_GLOBAL_INITIALIZER(global_scenario, g);
         hs_syntax_node *node = &HS_SYNTAX_NODE(node_index);
@@ -65,7 +65,7 @@ void hs_compile_finish(void)
         }
     }
 
-    for ( int s = 0; s < scn->hs_scripts.count; s = (__int16)(s + 1) )
+    for ( int s = 0; s < scn->hs_scripts.count; s = (int16_t)(s + 1) )
         hs_concatenate_expression(HS_SCRIPT_ROOT(scn, s));
 
     hs_node_gc();

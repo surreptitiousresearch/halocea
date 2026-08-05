@@ -49,7 +49,7 @@ int lights_reconnect_to_structure_bsp(void)
     for ( int i = result; result != -1; i = result )
     {
         light_datum *light = DATA_ARRAY_ELEMENT(light_data, light_datum, i);
-        __int16 flags = light->flags;
+        int16_t flags = light->flags;
         if ( (flags & (1u << _point_light_connected_to_map_bit)) != 0 )
         {
             light->flags = flags & ~(1u << _point_light_connected_to_map_bit);
@@ -58,7 +58,7 @@ int lights_reconnect_to_structure_bsp(void)
             if ( light->parent_light_index == -1 )   /* marker-attached (vs node-attached) discriminator */
             {
                 const char *marker_name = object_get_attachment_marker_name(host_object,
-                        (unsigned __int16)light->attachment_marker_index);
+                        (uint16_t)light->attachment_marker_index);
                 object_marker marker;
                 object_get_marker_by_name(light->object_index, marker_name, &marker, 1);
                 light->position.n[0] = marker.matrix.n[3][0];
@@ -74,7 +74,7 @@ int lights_reconnect_to_structure_bsp(void)
             else if ( object_try_and_get_and_verify_type(host_object, object_mask_all) )
             {
                 const real_matrix4x3 *node_matrix = object_get_node_matrix(light->object_index,
-                        (unsigned __int16)light->attachment_marker_index);
+                        (uint16_t)light->attachment_marker_index);
                 matrix4x3_transform_point(node_matrix, &light->relative_position, &light->position);
                 matrix4x3_transform_normal(node_matrix, &light->relative_forward, &light->forward);
                 perpendicular3d(&light->forward, &light->up);

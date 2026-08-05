@@ -12,7 +12,7 @@ extern int16_t hs_find_script_by_name(const char *name);
 int hs_parse_script(int expression_index)
 {
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
-    __int16 script_index = hs_find_script_by_name(&hs_compile_globals.compiled_source[node->source_offset]);
+    int16_t script_index = hs_find_script_by_name(&hs_compile_globals.compiled_source[node->source_offset]);
 
     if ( script_index == -1 )
     {
@@ -20,6 +20,6 @@ int hs_parse_script(int expression_index)
         hs_compile_globals.error_offset = node->source_offset;
         return 0;
     }
-    *(__int16 *)&node->data = script_index;
+    *(int16_t *)&node->data = script_index;
     return 1;
 }

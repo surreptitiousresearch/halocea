@@ -17,7 +17,7 @@ uint8_t reply_filter_searching(int original_unit_index, ai_information_packet *c
         return 0;
 
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, reply_actor_index);
-    __int16 status = actor->state.action;
+    int16_t status = actor->state.action;
 
     if (status == actor_action_uncover)
         return actor->state.action_data.___u0.alert.pending_move_position_index == 1;

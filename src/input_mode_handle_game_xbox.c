@@ -158,11 +158,11 @@ void input_mode_handle_game_xbox(void)
                                  0.17453292f, &look_x, &look_y);
             }
 
-            unsigned __int8 invert_pitch = prefs->invert_look;
+            uint8_t invert_pitch = prefs->invert_look;
             if (!invert_pitch && prefs->invert_look_aircraft_control)
-                invert_pitch = local_player_is_piloting_aircraft((__int16)controller);
+                invert_pitch = local_player_is_piloting_aircraft((int16_t)controller);
 
-            unsigned int control_mode = (unsigned __int16)prefs->joystick_controls;
+            unsigned int control_mode = (uint16_t)prefs->joystick_controls;
             if (control_mode <= 3)
             {
                 if (control_mode == _joystick_preset_standard)
@@ -253,10 +253,10 @@ void input_mode_handle_game_xbox(void)
         else if (input_abstraction_globals.controller_available[controller])
         {
             /* controller was present last frame but its gamepad is gone: raise a disconnect error */
-            __int16 error_local_player = (__int16)controller;
-            unsigned __int8 modal = 0;
-            __int16 error_code = _error_controller_unplugged;
-            unsigned __int8 show_error = 1;
+            int16_t error_local_player = (int16_t)controller;
+            uint8_t modal = 0;
+            int16_t error_code = _error_controller_unplugged;
+            uint8_t show_error = 1;
 
             if (main_menu_is_active())
             {
@@ -265,12 +265,12 @@ void input_mode_handle_game_xbox(void)
                     if (input_abstraction_globals.controller_available[other])
                         ++available_count;
 
-                unsigned __int8 controls_no_single_player =
+                uint8_t controls_no_single_player =
                     player_ui_get_single_player_local_player_controller(0) != controller
                     && player_ui_get_single_player_local_player_controller(1) != controller
                     && player_ui_get_single_player_local_player_controller(2) != controller
                     && player_ui_get_single_player_local_player_controller(3) != controller
-                    && !player_ui_local_player_wants_to_play_multiplayer((__int16)controller);
+                    && !player_ui_local_player_wants_to_play_multiplayer((int16_t)controller);
 
                 if (available_count < 2)
                 {

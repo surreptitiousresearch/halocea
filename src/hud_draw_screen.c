@@ -32,13 +32,13 @@ extern void hud_show_action_response(int player_index);
 extern void hud_play_unit_sounds(const player_datum *player, uint8_t show_hud);
 extern void hud_render_unit_interface(player_datum *player);
 extern void hud_render_nav_points(int16_t local_player_index);
-extern void hud_render_damage_indicators(__int16 local_player_index);
+extern void hud_render_damage_indicators(int16_t local_player_index);
 extern void hud_messaging_update(int16_t local_player_index);
 
 int hud_draw_screen()
 {
     int player_index = local_player_get_player_index(render.local_player_index);
-    __int16 perspective = director_get_perspective(render.local_player_index);
+    int16_t perspective = director_get_perspective(render.local_player_index);
     rasterizer_hud_begin();
     if ( player_index == -1 )
         return rasterizer_hud_end();
@@ -52,7 +52,7 @@ int hud_draw_screen()
       && (render.local_player_index == local_player_get_next(-1) || hcex_coop_local_player_index >= 0) )
         motion_sensor_tick();
 
-    unsigned __int8 show_hud;
+    uint8_t show_hud;
     if ( hud_scripted_globals->show_hud )
     {
         if ( perspective != _director_perspective_neutral && perspective != _director_perspective_scripted

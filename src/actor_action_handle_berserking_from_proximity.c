@@ -30,7 +30,7 @@ uint8_t actor_action_handle_berserking_from_proximity(uint16_t actor_index)
     if ( prop->distance >= definition->berserk.proximity_berserk_distance )
         return 0;
 
-    __int16 berserk_timer = actor->stimuli.berserk_type;
+    int16_t berserk_timer = actor->stimuli.berserk_type;
     if ( berserk_timer <= 2 )
         berserk_timer = 2;
     actor->stimuli.berserk_type = berserk_timer;

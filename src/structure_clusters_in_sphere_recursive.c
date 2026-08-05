@@ -27,8 +27,8 @@ int16_t structure_clusters_in_sphere_recursive(int16_t cluster_index, const real
 {
     structure_bsp *bsp = global_structure_bsp;
     structure_cluster *cluster = &((structure_cluster *)bsp->clusters.address)[cluster_index];
-    __int16 *out = intersected_indices;
-    __int16 remaining = (__int16)(maximum_count - 1);
+    int16_t *out = intersected_indices;
+    int16_t remaining = (int16_t)(maximum_count - 1);
     int count;
     int portal_count;
 
@@ -45,23 +45,23 @@ int16_t structure_clusters_in_sphere_recursive(int16_t cluster_index, const real
     portal_count = cluster->portal_indices.count;
     if ( portal_count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
-            __int16 portal_index = ((const __int16 *)cluster->portal_indices.address)[i];
+            int16_t portal_index = ((const int16_t *)cluster->portal_indices.address)[i];
             const cluster_portal *portal = &((const cluster_portal *)bsp->cluster_portals.address)[portal_index];
             int neighbor = portal->cluster_indices[0];
             if ( neighbor == cluster_index )
                 neighbor = portal->cluster_indices[1];
 
             /* DEVIATION: inlined copy of structure_cluster_unmarked@0x83744610 (zero-xref donor); collapses directly, arg = (__int16)neighbor, no constant-folding required since both donor params/return already match host types. */
-            if ( structure_cluster_unmarked((__int16)neighbor)
+            if ( structure_cluster_unmarked((int16_t)neighbor)
                  && sphere_intersects_cluster_portal(bsp, portal_index, position, radius) )
             {
-                __int16 added = structure_clusters_in_sphere_recursive((__int16)neighbor, position,
+                int16_t added = structure_clusters_in_sphere_recursive((int16_t)neighbor, position,
                         radius, remaining, out);
-                count = (__int16)(count + added);
-                remaining = (__int16)(remaining - added);
+                count = (int16_t)(count + added);
+                remaining = (int16_t)(remaining - added);
                 out += added;
             }
             ++i;

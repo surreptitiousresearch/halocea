@@ -2,6 +2,7 @@
  * held. Each non-held, valid inventory entry is deleted and cleared, and the current/desired weapon slot
  * fields are reset when they referenced a deleted slot. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -14,7 +15,7 @@ void unit_delete_all_weapons(int unit_index)
 {
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
 
-    for (int slot = 0; slot < MAXIMUM_WEAPONS_PER_UNIT; slot = (__int16)(slot + 1))
+    for (int slot = 0; slot < MAXIMUM_WEAPONS_PER_UNIT; slot = (int16_t)(slot + 1))
     {
         int weapon_object_index = unit->unit.weapon_object_indices[slot];
         if (weapon_object_index != -1 && slot != unit->unit.current_weapon_index)

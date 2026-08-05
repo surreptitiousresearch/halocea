@@ -9,6 +9,6 @@
 void netgame_flag_verify_team_range(int16_t type, int16_t min, int16_t max, char *string)
 {
     int count = global_scenario->netgame_flags.count;
-    for ( __int16 i = 0; i < count; ++i )
+    for ( int16_t i = 0; i < count; ++i )
         ;
 }

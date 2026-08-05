@@ -42,12 +42,12 @@ void player_handle_powerup_equipment(int player_index, int equipment_index)
     equipment_definition *equip_definition =
         TAG_GET(equipment_definition, equipment_object->definition_index);
 
-    __int16 duration_in_ticks = (int)(equip_definition->equipment.powerup_duration * 30.0f);
+    int16_t duration_in_ticks = (int)(equip_definition->equipment.powerup_duration * 30.0f);
     if (duration_in_ticks <= 0)
         return;
 
-    unsigned __int8 applied = 0;
-    __int16 powerup_kind = equip_definition->equipment.powerup_type;
+    uint8_t applied = 0;
+    int16_t powerup_kind = equip_definition->equipment.powerup_type;
     switch (powerup_kind)
     {
         case _powerup_type_double_speed:
@@ -67,7 +67,7 @@ void player_handle_powerup_equipment(int player_index, int equipment_index)
             break;
         default:
         {
-            __int16 timed_powerup_type = _player_powerup_active_camouflage;
+            int16_t timed_powerup_type = _player_powerup_active_camouflage;
             if (equip_definition->equipment.powerup_type == _powerup_type_active_camouflage)
                 timed_powerup_type = _player_powerup_active_camouflage;
             else if (equip_definition->equipment.powerup_type == _powerup_type_full_spectrum_vision)

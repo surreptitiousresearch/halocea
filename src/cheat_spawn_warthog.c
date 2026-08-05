@@ -4,6 +4,7 @@
  * The original contains a single-iteration spawn loop (the fan-out machinery used by cheat_objects, here
  * fixed at one instance); reproduced faithfully. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/game_globals_multiplayer_information.h"
 #include "headers/player_datum.h"
@@ -54,7 +55,7 @@ void cheat_spawn_warthog(void)
     object_get_origin(unit_index, &origin);
     object_get_orientation(unit_index, &forward, &up);
 
-    for ( int i = 0; i < 1; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 1; i = (int16_t)(i + 1) )
     {
         int tag_index = vehicle_list[warthog_index + i].reference.index;
         if ( tag_index == -1 )

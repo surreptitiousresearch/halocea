@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -14,7 +15,7 @@ int objOBJ::_AllocVertList(int nVert)
     if (!pGeom)
         return 0;
 
-    __int64 compr = pGeom->pSharedGeom->stateCompr.state;
+    int64_t compr = pGeom->pSharedGeom->stateCompr.state;
     int elemSize = 12; // m3dV
     if (compr & 1)
         elemSize = (compr & 2) == 0 ? 6 : 8;

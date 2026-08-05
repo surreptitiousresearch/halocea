@@ -45,8 +45,8 @@ void lights_illumination_at_point(const real_point3d *point, const location *loc
     *color = *global_real_rgb_black;
 
     real_point3d collision_point;
-    __int16 lightmap_index;
-    __int16 material_index;
+    int16_t lightmap_index;
+    int16_t material_index;
     int surface_index;
     float s, t;
     if (structure_test_vector(point, &lightmap_sample_raycast_down, &collision_point, &lightmap_index,
@@ -59,8 +59,8 @@ void lights_illumination_at_point(const real_point3d *point, const location *loc
             &((const structure_material *)lightmap->materials.address)[material_index];
         if (bitmap_group_index != -1)
         {
-            __int16 bitmap_index = lightmap->bitmap_index;
-            if ((unsigned __int16)bitmap_index != 0xFFFF)
+            int16_t bitmap_index = lightmap->bitmap_index;
+            if ((uint16_t)bitmap_index != 0xFFFF)
             {
                 bitmap_data *bitmap = bitmap_group_try_and_get_bitmap(bitmap_group_index, bitmap_index);
                 const structure_surface *surface =
@@ -71,7 +71,7 @@ void lights_illumination_at_point(const real_point3d *point, const location *loc
         }
     }
 
-    if ((unsigned __int16)location->cluster_index != 0xFFFF)
+    if ((uint16_t)location->cluster_index != 0xFFFF)
     {
         /* DEVIATION: inlined body of light_marker_begin@0x836F84D8 collapsed to call (donor takes no args, nothing to fold) */
         light_marker_begin();
@@ -79,7 +79,7 @@ void lights_illumination_at_point(const real_point3d *point, const location *loc
         int light_indices[2];
         float light_brightness[2];
         float light_attenuations[2];
-        __int16 light_count = 0;
+        int16_t light_count = 0;
         find_point_lights_for_object_in_cluster(-1, location->cluster_index, point, 0.0f,
                                                 0, /* vestigial_unused (r7) — caller recon had dropped it */
                                                 light_indices, light_brightness, light_attenuations,

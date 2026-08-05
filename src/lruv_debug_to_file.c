@@ -8,6 +8,7 @@
  * DEVIATION: the "(#%d pages)" summary argument is ceil(failed_allocation_size / page_size); the decompiler lost
  * the store that computes it (rendered as an uninitialized local) — recovered from disasm. */
 
+#include <stdint.h>
 #include "headers/lruv_cache.h"
 #include "headers/lruv_cache_block.h"
 
@@ -57,7 +58,7 @@ void lruv_debug_to_file(const char *path, const char *failed_allocation_name, in
         }
         else
         {
-            lruv_cache_block *block = &((lruv_cache_block *)cache->blocks->data)[(unsigned __int16)block_index];
+            lruv_cache_block *block = &((lruv_cache_block *)cache->blocks->data)[(uint16_t)block_index];
             if ( page == block->first_page_index )
             {
                 span = block->page_count;

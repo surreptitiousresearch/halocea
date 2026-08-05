@@ -80,7 +80,7 @@ void game_engine_post_rasterize_post_game(void)
     const wchar_t *empty_string = &empty_wide_string;
 
     /* Column tab stops shared by the header and player rows. */
-    __int16 tab_stops[6] = { 50, 125, 250, 350, 410, 500 };
+    int16_t tab_stops[6] = { 50, 125, 250, 350, 410, 500 };
 
     /* DEVIATION: inlined copy of get_postgame_hilite_colors@0x83746628 (zero-xref, fully inlined here) collapsed to a call; the three by-ref out-params map 1:1 to local_color/remote_color/good_rating_color, no folded scalar args. */
     /* Local-player highlight color (light blue) and the two "good rating" grays. */
@@ -112,7 +112,7 @@ void game_engine_post_rasterize_post_game(void)
 
     if (global_variant.universal_variant.teams)
     {
-        __int16 team_tab_stops[6] = { 50, 200, 300, 350, 410, 500 };
+        int16_t team_tab_stops[6] = { 50, 200, 300, 350, 410, 500 };
 
         /* format_index picks which of the two team-message strings each row uses; row order is
          * swapped so the winning team is drawn first. */
@@ -211,7 +211,7 @@ after_winner:;
 
             /* Local (split-screen) players get the highlight color, remote players white. */
             const real_argb_color *row_color = (const real_argb_color *)&remote_color;
-            if (player->local_player_index == (__int16)0xFFFF)
+            if (player->local_player_index == (int16_t)0xFFFF)
                 row_color = &local_color;
             draw_string_set_color(row_color);
             draw_string_set_tab_stops(tab_stops, 6);

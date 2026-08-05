@@ -13,6 +13,7 @@
  * definition's +4/+140 fields are read positionally — kept as raw offsets. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/object_header_datum.h"
@@ -44,8 +45,8 @@ uint8_t vehicle_new(int vehicle_index)
     vehicle->vehicle.thrust = 0.0f;
     vehicle->vehicle.on_ground_ticks = 0;
     vehicle->vehicle.hover = 0.0f;
-    *(int *)&vehicle->vehicle.suspension[0] = 0;
-    *(int *)&vehicle->vehicle.suspension[4] = 0;
+    /* DEVIATION: binary zeroes suspension (uint8_t[8]) as two dword stores */
+    memset(vehicle->vehicle.suspension, 0, sizeof(vehicle->vehicle.suspension));
     vehicle->vehicle.collision_force.n[0] = 0.0f;
     vehicle->vehicle.collision_force.n[1] = 0.0f;
     vehicle->vehicle.collision_force.n[2] = 0.0f;
@@ -63,7 +64,7 @@ uint8_t vehicle_new(int vehicle_index)
     if ( definition->object.physics.index != -1 )
         vehicle->object.position.n[2] += definition->object.bounding_radius * 0.5f;
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if ( connection == 1 || connection == 2 )
     {
         vehicle->vehicle.baseline_valid = 0;

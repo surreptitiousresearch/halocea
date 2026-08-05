@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "headers/bit_vector.h"
 #include "headers/location.h"
 #include "headers/blam_data_globals.h"
@@ -5,7 +6,7 @@
 
 int location_potentially_audible(location *location)
 {
-    unsigned __int16 cluster_index = (unsigned __int16)location->cluster_index;
+    uint16_t cluster_index = (uint16_t)location->cluster_index;
 
     if (cluster_index == 0xFFFF)
         return 0;

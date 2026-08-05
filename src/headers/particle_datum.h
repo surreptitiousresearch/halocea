@@ -1,6 +1,7 @@
 #pragma once
 /* particle_datum — one live particle (112 bytes). Layout from the database. */
 
+#include <stdint.h>
 #include "location.h"
 #include "real_point3d.h"
 #include "real_vector3d.h"
@@ -8,20 +9,20 @@
 
 typedef struct particle_datum
 {
-    __int16          identifier;                /* 0x00 */
-    unsigned __int16 flags;                     /* 0x02 */
+    int16_t          identifier;                /* 0x00 */
+    uint16_t flags;                     /* 0x02 */
     int              definition_index;          /* 0x04 */
     int              object_index;              /* 0x08 */
-    __int16          node_index;                /* 0x0C */
-    unsigned __int8  state;                     /* 0x0E */
-    unsigned __int8  local_player_index;        /* 0x0F */
+    int16_t          node_index;                /* 0x0C */
+    uint8_t  state;                     /* 0x0E */
+    uint8_t  local_player_index;        /* 0x0F */
     int              last_rendered_frame_index; /* 0x10 */
     float            life_time;                 /* 0x14 */
     float            life_span;                 /* 0x18 */
     float            frame_time;                /* 0x1C */
     float            frame_span;                /* 0x20 */
-    __int16          sequence_index;            /* 0x24 */
-    __int16          frame_index;               /* 0x26 */
+    int16_t          sequence_index;            /* 0x24 */
+    int16_t          frame_index;               /* 0x26 */
     location         location;                  /* 0x28 */
     real_point3d     position;                  /* 0x30 */
     real_vector3d    direction;                 /* 0x3C */

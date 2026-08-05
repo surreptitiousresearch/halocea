@@ -45,7 +45,7 @@
 #include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern void hcex_kill_breakable_surface(int bsp, int idx);
 extern uint32_t *get_global_local_random_seed_address(void);
@@ -62,14 +62,14 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
 {
     collision_bsp *collision = global_collision_bsp;
     structure_bsp *structure = global_structure_bsp;
-    extern __int16 global_structure_bsp_index;
+    extern int16_t global_structure_bsp_index;
 
     hcex_kill_breakable_surface(global_structure_bsp_index, breakable_surface_index);
     if ( !breakable_surface_effect_enabled )
         return;
 
     {
-    const __int16 *collision_materials = (const __int16 *)structure->collision_materials.address;
+    const int16_t *collision_materials = (const int16_t *)structure->collision_materials.address;
     const collision_surface *seed_surface =
         &((const collision_surface *)collision->surfaces.address)[seed_surface_index];
     int material_global_index = collision_materials[10 * seed_surface->material_index + 9];
@@ -77,8 +77,8 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         &((material_definition *)global_game_globals->materials.address)[material_global_index].breakable_surface;
 
     int surface_worklist[76];
-    __int16 worklist_count = 1;
-    __int16 worklist_index = 0;
+    int16_t worklist_count = 1;
+    int16_t worklist_index = 0;
     int seeded_index = seed_surface_index;
 
     /* 2D outline / bounds accumulators across the whole surface group */
@@ -100,7 +100,7 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
     {
         const char *surfaces = (const char *)collision->surfaces.address;
         const char *planes   = (const char *)collision->bsp3d.planes.address;
-        __int16 hull_count = 0;
+        int16_t hull_count = 0;
         int surface_index = surface_worklist[worklist_index];
         const int *surface = (const int *)&surfaces[12 * surface_index];
         int current_edge = surface[1];
@@ -111,7 +111,7 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         int proj_sign_slot;
         int keep0, keep1;
 
-        worklist_index = (__int16)(worklist_index + 1);
+        worklist_index = (int16_t)(worklist_index + 1);
 
         /* signed plane: flip when the surface references the back side of its plane */
         if ( *surface >= 0 )
@@ -253,15 +253,15 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
                 {
                     const char *neighbor = &surfaces[12 * neighbor_surface];
                     if ( (unsigned char)neighbor[9] == breakable_surface_index
-                         && *(const unsigned __int16 *)&neighbor[10] == (unsigned __int16)seed_surface->material_index )
+                         && *(const uint16_t *)&neighbor[10] == (uint16_t)seed_surface->material_index )
                     {
                         surface_worklist[worklist_count] = neighbor_surface;
-                        worklist_count = (__int16)(worklist_count + 1);
+                        worklist_count = (int16_t)(worklist_count + 1);
                     }
                 }
             }
 
-            hull_count = (__int16)(this_hull + 1);
+            hull_count = (int16_t)(this_hull + 1);
             current_edge = (&edge->edge_indices[0])[on_surface_b];
             if ( current_edge == surface[1] )
                 break;

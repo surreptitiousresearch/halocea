@@ -11,7 +11,7 @@
 
 int unit_definition_get_active_hud_index(const unit_definition *unit_definition, uint8_t in_multiplayer)
 {
-    __int16 hud_slot;
+    int16_t hud_slot;
     if (!in_multiplayer || hcex_coop_local_player_index >= 0)
         hud_slot = 0;
     else
@@ -21,7 +21,7 @@ int unit_definition_get_active_hud_index(const unit_definition *unit_definition,
     if (hud_slot <= slot)
         slot = hud_slot;
 
-    if ((__int16)slot < 0)   /* no HUD slot available (huds.count was 0 -> slot -1); &0x8000 is the int16 sign bit */
+    if ((int16_t)slot < 0)   /* no HUD slot available (huds.count was 0 -> slot -1); &0x8000 is the int16 sign bit */
         return -1;
-    return ((unit_hud_reference *)unit_definition->unit.huds.address)[(__int16)slot].hud.index;
+    return ((unit_hud_reference *)unit_definition->unit.huds.address)[(int16_t)slot].hud.index;
 }

@@ -32,7 +32,7 @@ int player_handle_weapon_swap_client(int player_index, int weapon_to_drop_as_res
 {
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
     int unit_index = player->unit_index;
-    __int16 action_type = player->action_result;
+    int16_t action_type = player->action_result;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     int pickup_weapon_index = player->action_object_index;
 

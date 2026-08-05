@@ -51,7 +51,7 @@ extern int actor_action_handle_panic_from_attached_melee_attackers(uint16_t acto
 extern int actor_action_handle_panic_transition(int actor_index, int16_t minimum_panic_level, uint8_t enforced_calm, int16_t force_panic_level);
 extern uint8_t actor_action_handle_combat_transition(int actor_index);
 extern int actor_action_handle_active_cover_seeking(int actor_index, uint8_t allow_panicking, uint8_t force_panicking);
-extern unsigned __int8 actor_action_handle_vehicle_entry(int actor_index);
+extern uint8_t actor_action_handle_vehicle_entry(int actor_index);
 extern int actor_action_handle_vehicle_exit(uint16_t actor_index);
 extern uint8_t actor_action_handle_grenade_throwing(int actor_index);
 extern int actor_action_handle_danger_avoidance(int actor_index);
@@ -60,9 +60,9 @@ extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_evasion(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern unsigned __int8 actor_action_can_stop_guarding(int actor_index, __int16 guard_investigate_threshold,
-        __int16 cower_investigate_threshold);
-extern unsigned __int8 actor_action_can_stop_conversing(int actor_index);
+extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold,
+        int16_t cower_investigate_threshold);
+extern uint8_t actor_action_can_stop_conversing(int actor_index);
 
 void elite_decide_action(int actor_index)
 {
@@ -99,8 +99,8 @@ void elite_decide_action(int actor_index)
         case actor_action_fight:
         case actor_action_charge:
         {
-            unsigned __int8 allow_initiative = 1;
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = 1;
+            uint8_t force_decision = 0;
             if ( !actor_action_handle_combat_status(actor_index, allow_initiative, force_decision)
               && !actor_action_handle_combat_failure(actor_index) )
                 actor_action_handle_evasion(actor_index);
@@ -110,8 +110,8 @@ void elite_decide_action(int actor_index)
         case actor_action_flee:
             if ( actor->state.action_data.___u0.flee.unable_to_flee )
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             else
@@ -122,8 +122,8 @@ void elite_decide_action(int actor_index)
         case actor_action_search:
         case actor_action_wait:
         {
-            unsigned __int8 allow_initiative = 1;
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = 1;
+            uint8_t force_decision = 0;
             if ( !actor_action_handle_combat_status(actor_index, allow_initiative, force_decision) )
                 actor_action_handle_exit_pursuit(actor_index);
             break;
@@ -152,8 +152,8 @@ void elite_decide_action(int actor_index)
                 actor->state.action_data.___u0.guard.cower = keep_guarding;
             }
             {
-                unsigned __int8 can_stop_guarding = actor_action_can_stop_guarding(actor_index, _actor_combat_status_definite, _actor_combat_status_dangerous);
-                unsigned __int8 force_decision = 0;
+                uint8_t can_stop_guarding = actor_action_can_stop_guarding(actor_index, _actor_combat_status_definite, _actor_combat_status_dangerous);
+                uint8_t force_decision = 0;
                 actor_action_handle_combat_status(actor_index, can_stop_guarding, force_decision);
             }
             break;
@@ -161,8 +161,8 @@ void elite_decide_action(int actor_index)
         case actor_action_vehicle:
             if ( actor->state.action_data.___u0.vehicle.vehicle_entry_done || actor->state.action_data.___u0.vehicle.vehicle_entry_failed )
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             break;
@@ -173,10 +173,10 @@ void elite_decide_action(int actor_index)
 
         case actor_action_converse:
         {
-            unsigned __int8 force_decision = 0;
+            uint8_t force_decision = 0;
             if ( actor->state.action_data.___u0.converse.failed || actor->external_orders.conversation_index == -1 )
                 force_decision = 1;
-            unsigned __int8 can_stop_conversing = actor_action_can_stop_conversing(actor_index);
+            uint8_t can_stop_conversing = actor_action_can_stop_conversing(actor_index);
             actor_action_handle_combat_status(actor_index, can_stop_conversing, force_decision);
             break;
         }
@@ -186,8 +186,8 @@ void elite_decide_action(int actor_index)
              * type left to avoid, so force a combat-status decision. */
             if ( !actor->danger_zone.danger_type )
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             break;

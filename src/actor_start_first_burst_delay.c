@@ -10,6 +10,7 @@
  * resolved to actor_variant_definition.ranged_combat.first_burst_delay_lower/upper_bound @+0x80/+0x84. */
 
 #include <stdint.h>
+#include "headers/actor_fire_target_type.h"
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/prop_datum.h"
@@ -23,11 +24,13 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 uint8_t actor_start_first_burst_delay(uint16_t actor_index, const actor_variant_definition *firing_variant_definition)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 immediate = actor->orders.combat.override_firing_restrictions;
+    uint8_t immediate = actor->orders.combat.override_firing_restrictions;
 
-    if ( *(unsigned __int16 *)&actor->control.weapon_maximum_range == 1 )
+    /* DEVIATION: disasm lhz control+0x1A0 / lwz control+0x1A4 = current_fire_target_type / union prop index;
+     * prior source read weapon_maximum_range / current_fire_target_type (each one member early) */
+    if ( actor->control.current_fire_target_type == actor_fire_target_prop )
     {
-        __int16 prop_state = (DATA_ARRAY_ELEMENT(prop_data, prop_datum, *(int *)&actor->control.current_fire_target_type))->state;
+        int16_t prop_state = (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->control.___u58.current_fire_target_prop_index))->state;
         if ( prop_state >= _prop_state_uninspected_orphan && prop_state <= _prop_state_inspected_orphan )
         {
             immediate = 1;

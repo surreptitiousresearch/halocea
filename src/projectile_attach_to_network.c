@@ -24,7 +24,7 @@ void projectile_attach_to_network(int projectile_index, int parent_index, int16_
     {
         int     projectile_network_index;
         int     parent_network_index;
-        __int16 parent_node_index;
+        int16_t parent_node_index;
     } body;
 
     body.projectile_network_index = field_translated_index_translate_index(&field_properties_object_index_definition, projectile_index);

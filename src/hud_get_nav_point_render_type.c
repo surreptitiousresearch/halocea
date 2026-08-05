@@ -19,7 +19,7 @@
 extern int local_player_get_player_index(int16_t local_player_index);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 
-int hud_get_nav_point_render_type(__int16 local_player_index, const real_point3d *head,
+int hud_get_nav_point_render_type(int16_t local_player_index, const real_point3d *head,
                                   const real_point3d *position, int reference_object_index)
 {
     int unit_index;

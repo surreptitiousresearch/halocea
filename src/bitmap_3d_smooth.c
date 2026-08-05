@@ -47,18 +47,18 @@ void bitmap_3d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
     int shift = 2 * filter_size;
 
     /* horizontal pass: pixels -> scratch, wrapping in x */
-    for ( int z = 0; z < bitmap->depth; z = (__int16)(z + 1) )
+    for ( int z = 0; z < bitmap->depth; z = (int16_t)(z + 1) )
     {
-        for ( int y = 0; y < bitmap->height; y = (__int16)(y + 1) )
+        for ( int y = 0; y < bitmap->height; y = (int16_t)(y + 1) )
         {
             int width = bitmap->width;
-            for ( int x = 0; x < width; x = (__int16)(x + 1) )
+            for ( int x = 0; x < width; x = (int16_t)(x + 1) )
             {
                 int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
-                for ( int tap = -filter_size; tap <= filter_size; tap = (__int16)(tap + 1) )
+                for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
                 {
                     int source_width = bitmap->width;
-                    int wrapped = (__int16)((source_width + tap + x) % source_width);
+                    int wrapped = (int16_t)((source_width + tap + x) % source_width);
                     int coefficient = filter_coefficients[tap + filter_size];
                     unsigned int texel = pixels[wrapped + (bitmap->height * z + y) * source_width];
                     sum3 += (texel >> 24) * coefficient;
@@ -76,18 +76,18 @@ void bitmap_3d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
     }
 
     /* vertical pass: scratch -> pixels, wrapping in y */
-    for ( int z = 0; z < bitmap->depth; z = (__int16)(z + 1) )
+    for ( int z = 0; z < bitmap->depth; z = (int16_t)(z + 1) )
     {
-        for ( int y = 0; y < bitmap->height; y = (__int16)(y + 1) )
+        for ( int y = 0; y < bitmap->height; y = (int16_t)(y + 1) )
         {
             int width = bitmap->width;
-            for ( int x = 0; x < width; x = (__int16)(x + 1) )
+            for ( int x = 0; x < width; x = (int16_t)(x + 1) )
             {
                 int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
-                for ( int tap = -filter_size; tap <= filter_size; tap = (__int16)(tap + 1) )
+                for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
                 {
                     int source_height = bitmap->height;
-                    int wrapped = (__int16)((source_height + tap + y) % source_height);
+                    int wrapped = (int16_t)((source_height + tap + y) % source_height);
                     int coefficient = filter_coefficients[tap + filter_size];
                     unsigned int texel = scratch[(wrapped + source_height * z) * width + x];
                     sum3 += (texel >> 24) * coefficient;
@@ -105,18 +105,18 @@ void bitmap_3d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
     }
 
     /* depth pass: pixels -> scratch, wrapping in z */
-    for ( int z = 0; z < bitmap->depth; z = (__int16)(z + 1) )
+    for ( int z = 0; z < bitmap->depth; z = (int16_t)(z + 1) )
     {
-        for ( int y = 0; y < bitmap->height; y = (__int16)(y + 1) )
+        for ( int y = 0; y < bitmap->height; y = (int16_t)(y + 1) )
         {
             int width = bitmap->width;
-            for ( int x = 0; x < width; x = (__int16)(x + 1) )
+            for ( int x = 0; x < width; x = (int16_t)(x + 1) )
             {
                 int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
-                for ( int tap = -filter_size; tap <= filter_size; tap = (__int16)(tap + 1) )
+                for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
                 {
                     int source_depth = bitmap->depth;
-                    int wrapped = (__int16)((source_depth + tap + z) % source_depth);
+                    int wrapped = (int16_t)((source_depth + tap + z) % source_depth);
                     int coefficient = filter_coefficients[tap + filter_size];
                     unsigned int texel = pixels[(wrapped * bitmap->height + y) * width + x];
                     sum3 += (texel >> 24) * coefficient;

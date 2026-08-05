@@ -60,7 +60,7 @@ void lights_prepare_for_object_static(int object_index, render_lighting *lightin
     if ( (object->object.flags & (1u << _object_static_lighting_recompute_bit)) != 0 )
         return;   /* dynamically lit objects only get the single center sample */
 
-    __int16 sample_count;
+    int16_t sample_count;
     render_lighting sample;
     if ( center_ok )
     {
@@ -73,7 +73,7 @@ void lights_prepare_for_object_static(int object_index, render_lighting *lightin
         lighting->distant_light_count = 2;
     }
 
-    for ( __int16 corner = 0; corner < 4; corner++ )
+    for ( int16_t corner = 0; corner < 4; corner++ )
     {
         float x_sign = (corner & 1) ? INV_SQRT2 : -INV_SQRT2;
         float y_sign = (corner & 2) ? INV_SQRT2 : -INV_SQRT2;

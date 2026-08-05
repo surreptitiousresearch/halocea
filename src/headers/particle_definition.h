@@ -1,6 +1,7 @@
 #pragma once
 /* particle_definition — a particle type's tag data (356 bytes, DB layout). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "shader_effect.h"
 
@@ -28,13 +29,13 @@ typedef struct particle_definition
     float         lod_falloff;                                            /* 0x8C */
     float         lod_cutoff;                                              /* 0x90 */
     int           unused4[1];                                               /* 0x94 */
-    __int16       first_sequence_index;                                     /* 0x98 */
-    __int16       initial_sequence_count;                                    /* 0x9A */
-    __int16       looping_sequence_count;                                     /* 0x9C */
-    __int16       final_sequence_count;                                       /* 0x9E */
+    int16_t       first_sequence_index;                                     /* 0x98 */
+    int16_t       initial_sequence_count;                                    /* 0x9A */
+    int16_t       looping_sequence_count;                                     /* 0x9C */
+    int16_t       final_sequence_count;                                       /* 0x9E */
     int           unused5[2];                                                   /* 0xA0 */
     float         runtime_oo_width;                                              /* 0xA8 */
-    __int16       sprite_orientation;                                            /* 0xAC */
-    unsigned __int16 pad;                                                         /* 0xAE */
+    int16_t       sprite_orientation;                                            /* 0xAC */
+    uint16_t pad;                                                         /* 0xAE */
     shader_effect shader;                                                          /* 0xB0 */
 } particle_definition;                                                              /* 356 bytes */

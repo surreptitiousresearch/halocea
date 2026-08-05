@@ -19,7 +19,7 @@ extern void effect_delete(int effect_index);
 void effect_stop(int effect_index, uint8_t and_delete)
 {
     effect_datum *effect = datum_try_and_get(effect_data, effect_index);
-    __int16 flags;
+    int16_t flags;
     effect_definition *definition;
     int stop_event;
 

@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -19,11 +20,11 @@ void objOBJ::SetTexCoordList(unsigned int tcInd, m3dVTX *ptr)
 
     this->pGeom->pSharedGeom->texCoordList[tcInd] = ptr;
 
-    unsigned __int64 presentBit    = (unsigned __int64)1 << (36 + tcInd);
-    unsigned __int64 compressedBit = (unsigned __int64)1 << (41 + tcInd);
-    unsigned __int64 fmtBitB       = (unsigned __int64)1 << (46 + tcInd);
-    unsigned __int64 fmtBitC       = (unsigned __int64)1 << (51 + tcInd);
-    unsigned __int64 comprSrcBit   = (unsigned __int64)0x100 << tcInd; // stateCompr texcoord-compressed
+    uint64_t presentBit    = (uint64_t)1 << (36 + tcInd);
+    uint64_t compressedBit = (uint64_t)1 << (41 + tcInd);
+    uint64_t fmtBitB       = (uint64_t)1 << (46 + tcInd);
+    uint64_t fmtBitC       = (uint64_t)1 << (51 + tcInd);
+    uint64_t comprSrcBit   = (uint64_t)0x100 << tcInd; // stateCompr texcoord-compressed
 
     objGEOM_SHARED *pSharedGeom;
     if (ptr) {

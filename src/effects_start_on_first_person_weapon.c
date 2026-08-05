@@ -56,7 +56,7 @@ void effects_start_on_first_person_weapon(int16_t local_player_index, int object
                     if ( new_location == -1 )
                         break;
 
-                    __int16 node_index = marker->node_index;
+                    int16_t node_index = marker->node_index;
                     effect_location_datum *location =
                         DATA_ARRAY_ELEMENT(effect_location_data, effect_location_datum, new_location);
                     if ( marker->node_index != -1 )
@@ -64,14 +64,14 @@ void effects_start_on_first_person_weapon(int16_t local_player_index, int object
                     location->node_designator = node_index;
                     memcpy(&location->matrix, &marker->node_matrix, 0x34u);
 
-                    m = (__int16)(m + 1);
+                    m = (int16_t)(m + 1);
                     location->next_instance_location_index =
                         effect->location_datum_indices[location_index];      /* next = old head */
                     effect->location_datum_indices[location_index] = new_location; /* head = new */
                 }
                 while ( m < marker_count );
             }
-            location_index = (__int16)(location_index + 1);
+            location_index = (int16_t)(location_index + 1);
         }
         while ( location_index < definition->locations.count );
     }

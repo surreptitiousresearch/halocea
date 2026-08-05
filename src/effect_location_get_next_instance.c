@@ -18,7 +18,7 @@ effect_location_datum *effect_location_get_next_instance(const effect_datum *eff
         int16_t camera_mode)
 {
     effect_location_datum *location;
-    __int16 node_designator;
+    int16_t node_designator;
 
     if ( *location_datum_index == -1 )
         return NULL;
@@ -29,16 +29,16 @@ effect_location_datum *effect_location_get_next_instance(const effect_datum *eff
 
     node_designator = location->node_designator;
     if ( camera_mode == _effect_camera_mode_first_person_only
-      || (camera_mode == _effect_camera_mode_both && (unsigned __int16)effect->local_player_index != 0xFFFF && local_player_count() == 1) )
+      || (camera_mode == _effect_camera_mode_both && (uint16_t)effect->local_player_index != 0xFFFF && local_player_count() == 1) )
     {
         /* first-person view: skip non-first-person locations */
-        if ( (unsigned __int16)node_designator == 0xFFFF || (node_designator & 0x8000) == 0 )
+        if ( (uint16_t)node_designator == 0xFFFF || (node_designator & 0x8000) == 0 )
             return effect_location_get_next_instance(effect, location_datum_index, camera_mode);
     }
     else
     {
         /* third-person view: skip first-person locations */
-        if ( (unsigned __int16)node_designator != 0xFFFF && (node_designator & 0x8000) != 0 )
+        if ( (uint16_t)node_designator != 0xFFFF && (node_designator & 0x8000) != 0 )
             return effect_location_get_next_instance(effect, location_datum_index, camera_mode);
     }
     return location;

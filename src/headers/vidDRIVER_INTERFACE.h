@@ -3,6 +3,7 @@
  * (types_members vidDRIVER_INTERFACE, total size 296 / 0x128). Split out of
  * vidDRIVER_DYNGEOM_BUFFER.h, which previously modeled it as an opaque[0x124]+dynGeomBuffer slice. */
 
+#include <stdint.h>
 #include "ws/ap/apSTATE_T.h"   /* apSTATE_T<unsigned long> texStageState[19] (embedded by value) */
 #include "ws/txm/txmTEXTURE.h" /* txmTEXTURE *texStage[19] (typed pointee) */
 
@@ -75,12 +76,12 @@ typedef struct vidDRIVER_INTERFACE_vtbl
     void  (*ObjDrawIndexedPrimitive)(struct vidDRIVER_INTERFACE *self, const vidOBJ_DIP *);             /* 0xAC */
     void  (*EnsureRenderState)(struct vidDRIVER_INTERFACE *self, const vidPASS_RENDERSTATE *);          /* 0xB0 */
     void  (*EnsureStreamSetup)(struct vidDRIVER_INTERFACE *self, vidSTREAM_CACHE *);                    /* 0xB4 */
-    void  (*SetFVFPackParams)(struct vidDRIVER_INTERFACE *self, __int16 *, __int16 *, float *);         /* 0xB8 */
-    void  (*SetTexCompressionOffset)(struct vidDRIVER_INTERFACE *self, objOBJ *, unsigned __int16 *);   /* 0xBC */
+    void  (*SetFVFPackParams)(struct vidDRIVER_INTERFACE *self, int16_t *, int16_t *, float *);         /* 0xB8 */
+    void  (*SetTexCompressionOffset)(struct vidDRIVER_INTERFACE *self, objOBJ *, uint16_t *);   /* 0xBC */
     void  (*SetTransform)(struct vidDRIVER_INTERFACE *self, const m3dMATR *);                           /* 0xC0 */
-    void  (*SetTransformSkinBoneIndex)(struct vidDRIVER_INTERFACE *self, objBONES_INFO *, unsigned __int16, int); /* 0xC4 */
+    void  (*SetTransformSkinBoneIndex)(struct vidDRIVER_INTERFACE *self, objBONES_INFO *, uint16_t, int); /* 0xC4 */
     void  (*SetTransformSkinData)(struct vidDRIVER_INTERFACE *self, m3dMATR34 *, instSKIN_BONE_INFO *, objBONES_INFO *, int); /* 0xC8 */
-    void  (*ConfigureAlphaTestValue)(struct vidDRIVER_INTERFACE *self, unsigned __int8);                /* 0xCC */
+    void  (*ConfigureAlphaTestValue)(struct vidDRIVER_INTERFACE *self, uint8_t);                /* 0xCC */
     void  (*ClearSource)(struct vidDRIVER_INTERFACE *self);                                             /* 0xD0 */
     const vidCMD_BUF_ENV *(*GetCmdBufEnv)(struct vidDRIVER_INTERFACE *self);                            /* 0xD4 */
     vidCMD_BUF_ENV *(*GetCmdBufEnv_2)(struct vidDRIVER_INTERFACE *self);                                /* 0xD8 */
@@ -95,7 +96,7 @@ typedef struct vidDRIVER_INTERFACE
     vidDRIVER_INTERFACE_vtbl   *__vftable;                /* 0x000 */
     txmTEXTURE                 *texStage[19];             /* 0x004 */
     apSTATE_T<unsigned long>    texStageState[19];        /* 0x050 */
-    unsigned __int16            texStageSwizzle[19];      /* 0x09C */
+    uint16_t            texStageSwizzle[19];      /* 0x09C */
     unsigned char _pad0[2]; /* db-verified padding */
     int                         texStageGamma[19];        /* 0x0C4 */
     bool                        shaderGamma;              /* 0x110 */

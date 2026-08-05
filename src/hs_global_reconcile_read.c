@@ -20,25 +20,25 @@
 extern int16_t hs_global_get_type(int16_t designator);
 
 extern unsigned char hs_type_boolean_default;
-extern __int16 hs_type_short_integer_default;
-extern __int16 hs_type_script_default;
-extern __int16 hs_type_trigger_volume_default;
-extern __int16 hs_type_cutscene_flag_default;
-extern __int16 hs_type_cutscene_camera_point_default;
-extern __int16 hs_type_cutscene_title_default;
-extern __int16 hs_type_cutscene_recording_default;
-extern __int16 hs_type_device_group_default;
-extern __int16 hs_type_ai_command_list_default;
-extern __int16 hs_type_starting_profile_default;
-extern __int16 hs_type_conversation_default;
-extern __int16 hs_type_navpoint_default;
-extern __int16 hs_type_hud_message_default;
-extern __int16 hs_type_enum_game_difficulty_default;
-extern __int16 hs_type_enum_team_default;
-extern __int16 hs_type_enum_ai_default_state_default;
-extern __int16 hs_type_enum_actor_type_default;
-extern __int16 hs_type_enum_hud_corner_default;
-extern __int16 hs_type_object_name_default;
+extern int16_t hs_type_short_integer_default;
+extern int16_t hs_type_script_default;
+extern int16_t hs_type_trigger_volume_default;
+extern int16_t hs_type_cutscene_flag_default;
+extern int16_t hs_type_cutscene_camera_point_default;
+extern int16_t hs_type_cutscene_title_default;
+extern int16_t hs_type_cutscene_recording_default;
+extern int16_t hs_type_device_group_default;
+extern int16_t hs_type_ai_command_list_default;
+extern int16_t hs_type_starting_profile_default;
+extern int16_t hs_type_conversation_default;
+extern int16_t hs_type_navpoint_default;
+extern int16_t hs_type_hud_message_default;
+extern int16_t hs_type_enum_game_difficulty_default;
+extern int16_t hs_type_enum_team_default;
+extern int16_t hs_type_enum_ai_default_state_default;
+extern int16_t hs_type_enum_actor_type_default;
+extern int16_t hs_type_enum_hud_corner_default;
+extern int16_t hs_type_object_name_default;
 
 void hs_global_reconcile_read(int16_t global_designator)
 {
@@ -49,7 +49,7 @@ void hs_global_reconcile_read(int16_t global_designator)
     hs_global_datum *slot = DATA_ARRAY_ELEMENT(hs_global_data, hs_global_datum, global_designator);
     void *backing = descriptor->pointer; /* recovered: descriptor->address -> pointer (member at 0x08) */
 
-    __int16 word_default;
+    int16_t word_default;
     switch ( hs_global_get_type(global_designator) )
     {
         case hs_type_boolean:
@@ -59,7 +59,7 @@ void hs_global_reconcile_read(int16_t global_designator)
             slot->value.real = backing ? *(float *)backing : 0.0f;
             return;
         case hs_type_short_integer:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_short_integer_default; break;
         case hs_type_long_integer:     /* long integer (read as real in the original) */
             slot->value.real = backing ? *(float *)backing : 0.0f;
@@ -69,43 +69,43 @@ void hs_global_reconcile_read(int16_t global_designator)
             else slot->value.long_value = (int)hs_type_string_default;
             return;
         case hs_type_script:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_script_default; break;
         case hs_type_trigger_volume:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_trigger_volume_default; break;
         case hs_type_cutscene_flag:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_cutscene_flag_default; break;
         case hs_type_cutscene_camera_point:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_cutscene_camera_point_default; break;
         case hs_type_cutscene_title:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_cutscene_title_default; break;
         case hs_type_cutscene_recording:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_cutscene_recording_default; break;
         case hs_type_device_group:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_device_group_default; break;
         case hs_type_ai:    /* real (NAN default) */
             slot->value.real = backing ? *(float *)backing : NAN;
             return;
         case hs_type_ai_command_list:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_ai_command_list_default; break;
         case hs_type_starting_profile:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_starting_profile_default; break;
         case hs_type_conversation:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_conversation_default; break;
         case hs_type_navpoint:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_navpoint_default; break;
         case hs_type_hud_message:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_hud_message_default; break;
         case hs_type_object_list: case hs_type_sound: case hs_type_effect: case hs_type_damage:
         case hs_type_looping_sound: case hs_type_animation_graph: case hs_type_actor_variant:
@@ -115,22 +115,22 @@ void hs_global_reconcile_read(int16_t global_designator)
             slot->value.real = backing ? *(float *)backing : NAN;
             return;
         case hs_type_enum_game_difficulty:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_enum_game_difficulty_default; break;
         case hs_type_enum_team:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_enum_team_default; break;
         case hs_type_enum_ai_default_state:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_enum_ai_default_state_default; break;
         case hs_type_enum_actor_type:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_enum_actor_type_default; break;
         case hs_type_enum_hud_corner:
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_enum_hud_corner_default; break;
         case hs_type_object_name:    /* object name */
-            if ( backing ) { slot->value.short_value = *(__int16 *)backing; return; }
+            if ( backing ) { slot->value.short_value = *(int16_t *)backing; return; }
             word_default = hs_type_object_name_default; break;
         default:
             return;

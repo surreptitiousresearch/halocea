@@ -41,7 +41,7 @@ void hud_calculate_point(int16_t local_player_index, const hud_absolute_placemen
     if (hud_calculate_point_no_safearea_fit)
         scale = 1.0f;
 
-    __int16 corner = absolute_placement->corner;
+    int16_t corner = absolute_placement->corner;
     float point_x, point_y;
 
     if (corner < _hud_corner_center)
@@ -100,6 +100,6 @@ void hud_calculate_point(int16_t local_player_index, const hud_absolute_placemen
         }
     }
 
-    result->__s1.x = (__int16)point_x;
-    result->__s1.y = (__int16)point_y;
+    result->__s1.x = (int16_t)point_x;
+    result->__s1.y = (int16_t)point_y;
 }

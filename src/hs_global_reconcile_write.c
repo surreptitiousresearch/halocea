@@ -46,7 +46,7 @@ void hs_global_reconcile_write(int16_t global_designator)
         case hs_type_enum_actor_type: case hs_type_enum_hud_corner:
         case hs_type_object_name:   /* word index / enum / object-name types */
             if ( backing )
-                *(__int16 *)backing = slot->value.short_value;
+                *(int16_t *)backing = slot->value.short_value;
             break;
         case hs_type_long_integer: case hs_type_string: case hs_type_ai:
         case hs_type_object_list: case hs_type_sound: case hs_type_effect: case hs_type_damage:

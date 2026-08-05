@@ -19,10 +19,10 @@ int file_delete(file_reference *file)
     int succeeded = 0;
     char full_path[264];
     memset(full_path, 0, 256);
-    file_location_get_full_path(*(__int16 *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(*(int16_t *)&file->data[6], &file->data[8], full_path);
 
     int result;
-    if ( (*(__int16 *)&file->data[4] & 1) != 0 )
+    if ( (*(int16_t *)&file->data[4] & 1) != 0 )   /* name-set flag word at data[4] */
     {
         if ( !SetFileAttributesA(full_path, 0x80u) )
             goto failed;

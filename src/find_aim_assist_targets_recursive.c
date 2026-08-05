@@ -36,11 +36,11 @@ extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern uint8_t aim_assist_compute_target(const aim_assist_parameters *parameters, int object_index, const real_point3d *position, const real_vector3d *direction, aim_assist_target *target);
 extern void *memcpy(void *destination, const void *source, unsigned int count);
 
-__int16 find_aim_assist_targets_recursive(const aim_assist_parameters *parameters, int object_index,
+int16_t find_aim_assist_targets_recursive(const aim_assist_parameters *parameters, int object_index,
                                           const real_point3d *position, const real_vector3d *direction,
                                           float distance, float angle_sine, float angle_cosine,
-                                          int ignore_object_index, __int16 ignore_team_index,
-                                          __int16 maximum_target_count, aim_assist_target *targets)
+                                          int ignore_object_index, int16_t ignore_team_index,
+                                          int16_t maximum_target_count, aim_assist_target *targets)
 {
     int found = 0;
     do
@@ -66,17 +66,17 @@ __int16 find_aim_assist_targets_recursive(const aim_assist_parameters *parameter
                     aim_assist_target candidate;
                     if ((object_definition_flags & (1u << _unit_ignored_by_autoaiming)) == 0
                         && aim_assist_compute_target(parameters, object_index, position, direction, &candidate)
-                        && (__int16)found < maximum_target_count)
+                        && (int16_t)found < maximum_target_count)
                     {
-                        memcpy(&targets[(__int16)found], &candidate, sizeof(aim_assist_target));
-                        found = (__int16)(found + 1);
+                        memcpy(&targets[(int16_t)found], &candidate, sizeof(aim_assist_target));
+                        found = (int16_t)(found + 1);
                     }
                 }
             }
 
             int child_object = object->object.first_child_object_index;
-            if (child_object != -1 && (__int16)found < maximum_target_count)
-                found = (__int16)(find_aim_assist_targets_recursive(
+            if (child_object != -1 && (int16_t)found < maximum_target_count)
+                found = (int16_t)(find_aim_assist_targets_recursive(
                                       parameters, child_object, position, direction,
                                       distance, angle_sine, angle_cosine,
                                       ignore_object_index, ignore_team_index,
@@ -84,7 +84,7 @@ __int16 find_aim_assist_targets_recursive(const aim_assist_parameters *parameter
                                   + found);
         }
         object_index = object->object.next_object_index;
-    } while (object_index != -1 && (__int16)found < maximum_target_count);
+    } while (object_index != -1 && (int16_t)found < maximum_target_count);
 
     return found;
 }

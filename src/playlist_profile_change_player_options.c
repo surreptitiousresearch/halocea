@@ -31,7 +31,7 @@ uint8_t playlist_profile_change_player_options(widget_instance *widget, event_re
         return 0;
 
     widget_instance *lives_group = widget->parent->parent->children;
-    unsigned int lives_index = (unsigned __int16)first_text_box(lives_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int lives_index = (uint16_t)first_text_box(lives_group)->parameters.text_box_parameters.string_list_index;
     if ( lives_index <= 3 )
     {
         int lives;
@@ -46,7 +46,7 @@ uint8_t playlist_profile_change_player_options(widget_instance *widget, event_re
     }
 
     widget_instance *health_group = lives_group->next;
-    unsigned int health_index = (unsigned __int16)first_text_box(health_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int health_index = (uint16_t)first_text_box(health_group)->parameters.text_box_parameters.string_list_index;
     if ( health_index <= 5 )
     {
         float health;
@@ -62,14 +62,14 @@ uint8_t playlist_profile_change_player_options(widget_instance *widget, event_re
     }
 
     widget_instance *flag8_group = health_group->next;
-    unsigned int flag8_index = (unsigned __int16)first_text_box(flag8_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int flag8_index = (uint16_t)first_text_box(flag8_group)->parameters.text_box_parameters.string_list_index;
     if ( flag8_index == 0 )
         edit_playlist_profile->universal_variant.flags &= ~(1u << _no_shields_bit);
     else if ( flag8_index == 1 )
         edit_playlist_profile->universal_variant.flags |= (1u << _no_shields_bit);
 
     widget_instance *respawn_group = flag8_group->next;
-    unsigned int respawn_index = (unsigned __int16)first_text_box(respawn_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int respawn_index = (uint16_t)first_text_box(respawn_group)->parameters.text_box_parameters.string_list_index;
     if ( respawn_index <= 3 )
     {
         if ( respawn_index == 1 )
@@ -83,7 +83,7 @@ uint8_t playlist_profile_change_player_options(widget_instance *widget, event_re
     }
 
     widget_instance *growth_group = respawn_group->next;
-    unsigned int growth_index = (unsigned __int16)first_text_box(growth_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int growth_index = (uint16_t)first_text_box(growth_group)->parameters.text_box_parameters.string_list_index;
     if ( growth_index <= 3 )
     {
         if ( growth_index == 1 )
@@ -97,14 +97,14 @@ uint8_t playlist_profile_change_player_options(widget_instance *widget, event_re
     }
 
     widget_instance *odd_man_group = growth_group->next;
-    unsigned int odd_man_index = (unsigned __int16)first_text_box(odd_man_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int odd_man_index = (uint16_t)first_text_box(odd_man_group)->parameters.text_box_parameters.string_list_index;
     if ( odd_man_index == 0 )
         edit_playlist_profile->universal_variant.odd_man_out = 1;
     else if ( odd_man_index == 1 )
         edit_playlist_profile->universal_variant.odd_man_out = 0;
 
     widget_instance *flag10_group = odd_man_group->next;
-    unsigned int flag10_index = (unsigned __int16)first_text_box(flag10_group)->parameters.text_box_parameters.string_list_index;
+    unsigned int flag10_index = (uint16_t)first_text_box(flag10_group)->parameters.text_box_parameters.string_list_index;
     if ( flag10_index == 0 )
         edit_playlist_profile->universal_variant.flags |= (1u << _always_invisible_bit);
     else if ( flag10_index == 1 )
@@ -113,7 +113,7 @@ uint8_t playlist_profile_change_player_options(widget_instance *widget, event_re
     widget_instance *suicide_group = flag10_group->next;
     if ( suicide_group )
     {
-        unsigned int suicide_index = (unsigned __int16)first_text_box(suicide_group)->parameters.text_box_parameters.string_list_index;
+        unsigned int suicide_index = (uint16_t)first_text_box(suicide_group)->parameters.text_box_parameters.string_list_index;
         if ( suicide_index <= 3 )
         {
             if ( suicide_index == 1 )

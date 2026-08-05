@@ -21,12 +21,12 @@ extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t 
 void ai_communication_handle_received_looking(int actor_index, uint16_t prop_index,
                                               ai_information_packet *information)
 {
-    __int16 look_type = information->look_type;
+    int16_t look_type = information->look_type;
     if ( look_type <= 0 )
         return;
 
     int look_target = information->look_data.___u0.unit.unit_index;  /* recovered: *(int *)information->look_data.raw -> look_data.___u0.unit.unit_index */
-    __int16 type = 9;
+    int16_t type = 9;
     if ( look_type == 1 && look_target == (DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index))->unit_index )
         type = 8;
 
@@ -37,7 +37,7 @@ void ai_communication_handle_received_looking(int actor_index, uint16_t prop_ind
     else if ( information->look_type == _ai_information_look_object )
     {
         int unit_index = look_target;
-        __int16 look_priority = information->look_priority;
+        int16_t look_priority = information->look_priority;
         if ( actor_index != -1 && look_priority > 0 && unit_index != -1
           && object_try_and_get_and_verify_type(look_target, object_mask_all) )
         {

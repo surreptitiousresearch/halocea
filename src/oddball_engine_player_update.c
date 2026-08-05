@@ -39,7 +39,7 @@ extern void game_engine_play_multiplayer_sound(int index, uint8_t should_replica
 
 void oddball_engine_player_update(int player_index)
 {
-    unsigned __int16 player_slot = (unsigned __int16)player_index;
+    uint16_t player_slot = (uint16_t)player_index;
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
     game_engine_state_message(player_index, -1, -1);
@@ -91,7 +91,7 @@ void oddball_engine_player_update(int player_index)
     if ( player->unit_index != -1 )
     {
         unit_datum *unit = (unit_datum *)(DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->unit_index)->datum);
-        __int16 weapon_slot = unit->unit.current_weapon_index;
+        int16_t weapon_slot = unit->unit.current_weapon_index;
         if ( weapon_slot != -1 )
         {
             int flag_object_index = unit->unit.weapon_object_indices[weapon_slot];
@@ -101,7 +101,7 @@ void oddball_engine_player_update(int player_index)
                 int score = oddball_globals.individual_score[player_slot];
                 if ( score > 0 && !(score % 150) && score < oddball_globals.score_to_win )
                     game_engine_play_multiplayer_sound(_multiplayer_sound_countdown_timer_end, 0);
-                flag_object->weapon.magazines[0].rounds_loaded = (unsigned __int16)(score / 30);
+                flag_object->weapon.magazines[0].rounds_loaded = (uint16_t)(score / 30);
             }
         }
     }

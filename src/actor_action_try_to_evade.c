@@ -78,15 +78,15 @@ uint8_t actor_action_try_to_evade(int actor_index)
     }
 
     real_vector2d alignment_vector = *(real_vector2d *)&prop->actor_to_prop;
-    __int16 evade_direction = _actor_evade_random_side;
+    int16_t evade_direction = _actor_evade_random_side;
     normalize2d(&alignment_vector);
 
-    unsigned __int8 evasion_is_ledge;
+    uint8_t evasion_is_ledge;
     path_collision_result collision_result;
     if ( actor_move_try_evasion_direction(actor_index, &alignment_vector, evade_distance,
             &evade_direction, 0.0f, (path_collision_result *)&evasion_is_ledge, &collision_result) )
     {
-        __int16 impulse = (evade_direction == _actor_evade_right) + 6;
+        int16_t impulse = (evade_direction == _actor_evade_right) + 6;
         if ( unit_test_animation_impulse(actor->meta.unit_index, impulse) )
             return actor_move_animation_impulse(actor_index, impulse, &alignment_vector);
     }

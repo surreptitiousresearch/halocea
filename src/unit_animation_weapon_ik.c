@@ -2,12 +2,13 @@
  * unit's current animation state? True only when no action/overlay ping is playing and the state is not
  * one of the states that suppress weapon IK. Pure predicate over unit_animation. */
 
+#include <stdint.h>
 #include "headers/unit_animation.h"
 #include "headers/unit_animation_state.h"
 
 int unit_animation_weapon_ik(unit_animation *animation)
 {
-    unsigned int state = (unsigned __int8)animation->state;
+    unsigned int state = (uint8_t)animation->state;
     int result = animation->action == 0 && animation->soft_ping_animation.index == -1;
 
     /* suppressed for: every state from hard_ping through resurrect_back, the seat-driven

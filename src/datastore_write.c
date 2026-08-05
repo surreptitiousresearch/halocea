@@ -32,7 +32,7 @@ int datastore_write(const char *file_name, const char *field_name, unsigned int 
 
     file_reference reference;
     memset(&reference, 0, sizeof(reference));
-    *(__int16 *)&reference.data[6] = -1;
+    *(int16_t *)&reference.data[6] = -1;
     *(int *)reference.data = 1718185071; /* file_reference location magic */
     file_reference_set_name(&reference, file_name);
 
@@ -61,16 +61,16 @@ int datastore_write(const char *file_name, const char *field_name, unsigned int 
 
 have_buffer:;
     int record_index = 0;
-    unsigned __int8 *record = (unsigned __int8 *)buffer;
+    uint8_t *record = (uint8_t *)buffer;
     while ( *record )
     {
         const char *key = field_name;
-        unsigned __int8 *record_char = record;
+        uint8_t *record_char = record;
         int diff;
         do
         {
             int record_byte = *record_char;
-            diff = record_byte - *(unsigned __int8 *)key;
+            diff = record_byte - *(uint8_t *)key;
             if ( record_byte == 0 )
                 break;
             ++record_char;

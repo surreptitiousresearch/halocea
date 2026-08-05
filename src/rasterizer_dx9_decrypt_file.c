@@ -53,7 +53,7 @@ int rasterizer_dx9_decrypt_file(char *filename, uint8_t **resultBuffer, unsigned
         return 0;
     }
 
-    *resultBuffer = (unsigned __int8 *)buffer;
+    *resultBuffer = (uint8_t *)buffer;
     *resultSize = fileSize;
     return 1;
 }

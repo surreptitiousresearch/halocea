@@ -1,6 +1,7 @@
 #pragma once
 /* sound_permutation — one playable sample variant within a pitch range (sound.c). 124 bytes. */
 
+#include <stdint.h>
 #include "tag_data.h"
 
 typedef struct sound_permutation
@@ -8,8 +9,8 @@ typedef struct sound_permutation
     char          name[32];               /* 0x00 */
     float         skip_fraction;          /* 0x20 */
     float         gain;                   /* 0x24 */
-    __int16       duplicate_compression;  /* 0x28 */
-    __int16       next_permutation_index; /* 0x2A */
+    int16_t       duplicate_compression;  /* 0x28 */
+    int16_t       next_permutation_index; /* 0x2A */
     int           cache_block_index;      /* 0x2C — -1 when not cached */
     void         *cache_base_address;     /* 0x30 */
     int           cache_tag_index;        /* 0x34 */

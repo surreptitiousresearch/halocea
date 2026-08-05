@@ -3,6 +3,7 @@
  * authoritative reference; the LOD/node-count and unused header fields that were
  * previously opaque padding are named at their true offsets. */
 
+#include <stdint.h>
 #include "tag_block.h"
 #include "real_vector2d.h"
 
@@ -11,8 +12,8 @@ typedef struct model
     unsigned int    flags;                   /* 0x00 */
     unsigned int    node_list_checksum;      /* 0x04 — must equal 124371095 for the Cortana shader hack */
     float           detail_cutoff_pixels[5]; /* 0x08 — LOD pixel-size thresholds (superhigh..superlow) */
-    __int16         node_counts[5];          /* 0x1C — node count per detail level */
-    unsigned __int16 pad;                    /* 0x26 */
+    int16_t         node_counts[5];          /* 0x1C — node count per detail level */
+    uint16_t pad;                    /* 0x26 */
     int             unused1[2];              /* 0x28 */
     real_vector2d   base_map_scale;          /* 0x30 */
     int             unused2[29];             /* 0x38 */

@@ -34,7 +34,7 @@ extern int ui_check_for_pause_game(void);
 extern uint8_t get_next_event(event_record *event, int16_t local_player_index);
 extern void widget_instance_process_one_event_recursive(widget_instance *widget, ui_widget_definition *definition, event_record *event, uint8_t *return_widget_deleted);
 extern void dispose_pointer(stack_memory_pool *pool, void *p);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 extern void widget_instance_set_focused_child_by_index(widget_instance *widget, int focused_child_parent_widget_tag, int16_t focused_child_index);
 extern uint8_t network_game_is_active(void);
 extern int game_time_get(void);
@@ -87,7 +87,7 @@ void process_ui_widgets(void)
     }
 
     /* a queued dashboard error takes priority over everything else */
-    if ( (unsigned __int16)widget_globals.deferred_dashboard_error.error_code != 0xFFFF )
+    if ( (uint16_t)widget_globals.deferred_dashboard_error.error_code != 0xFFFF )
     {
         display_error(widget_globals.deferred_dashboard_error.error_code, -1, 1u, 0);
         widget_globals.deferred_dashboard_error.error_code = -1;
@@ -96,16 +96,16 @@ void process_ui_widgets(void)
 
     /* if any generic/cinematic deferred error is pending, surface those instead of
      * pumping the widgets this frame */
-    if ( (unsigned __int16)widget_globals.deferred_error[0].error_code != 0xFFFF
-      || (unsigned __int16)widget_globals.deferred_error[1].error_code != 0xFFFF
-      || (unsigned __int16)widget_globals.deferred_cinematic_error[0].error_code != 0xFFFF )
+    if ( (uint16_t)widget_globals.deferred_error[0].error_code != 0xFFFF
+      || (uint16_t)widget_globals.deferred_error[1].error_code != 0xFFFF
+      || (uint16_t)widget_globals.deferred_cinematic_error[0].error_code != 0xFFFF )
     {
         _deferred_error *deferred_error;
         for ( deferred_error = widget_globals.deferred_error;
               deferred_error < &widget_globals.deferred_error[2];
               ++deferred_error )
         {
-            if ( (unsigned __int16)deferred_error->error_code != 0xFFFF
+            if ( (uint16_t)deferred_error->error_code != 0xFFFF
               && (we_are_at_the_main_menu || network_game_is_active() || game_time_get() >= 30) )
             {
                 display_error(deferred_error->error_code, deferred_error->local_player_index,
@@ -189,7 +189,11 @@ void process_ui_widgets(void)
                     widget_stack_node *node = widget_globals.widget_stack[tree_index];
                     int previous_widget_tag = popped->previous_widget_tag;
                     int focused_parent_tag  = popped->focused_child_parent_widget_tag;
-                    int focused_child_index = *(int *)&popped->focused_child_index; /* index+player packed */
+                    /* DEVIATION: decompiler fused the two adjacent int16s into one packed int
+                     * (high half = focused_child_index, low half = local_player_index on BE);
+                     * untangled into the real members. */
+                    int16_t focused_child_index = popped->focused_child_index;
+                    int16_t stacked_local_player_index = popped->local_player_index;
 
                     widget_globals.widget_stack[tree_index] = node->next;
                     dispose_pointer(widget_memory_pool, node);
@@ -197,10 +201,10 @@ void process_ui_widgets(void)
                     if ( previous_widget_tag != -1 )
                     {
                         widget_instance *restored = ui_widget_load_by_name_or_tag(
-                            0, previous_widget_tag, 0, focused_child_index, -1, -1, -1);
+                            0, previous_widget_tag, 0, stacked_local_player_index, -1, -1, -1);
                         if ( restored )
                             widget_instance_set_focused_child_by_index(
-                                restored, focused_parent_tag, (short)(focused_child_index >> 16));
+                                restored, focused_parent_tag, focused_child_index);
                     }
                 }
             }

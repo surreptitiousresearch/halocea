@@ -28,7 +28,7 @@ uint8_t player_profile_change_controller_settings(widget_instance *widget, event
         if ( joystick_widget->widget_type == _ui_widget_type_spinner_list )
             break;
     }
-    unsigned int joystick_index = (unsigned __int16)joystick_widget->parameters.text_box_parameters.string_list_index;
+    unsigned int joystick_index = (uint16_t)joystick_widget->parameters.text_box_parameters.string_list_index;
     if ( joystick_index <= 3 )
     {
         if ( joystick_index == 1 )
@@ -47,7 +47,7 @@ uint8_t player_profile_change_controller_settings(widget_instance *widget, event
         if ( button_widget->widget_type == _ui_widget_type_spinner_list )
             break;
     }
-    unsigned int button_index = (unsigned __int16)button_widget->parameters.text_box_parameters.string_list_index;
+    unsigned int button_index = (uint16_t)button_widget->parameters.text_box_parameters.string_list_index;
     if ( button_index <= 7 )
     {
         /* button_preset names DB-verified via button_preset_flags (types_enum_values

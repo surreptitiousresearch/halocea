@@ -48,9 +48,9 @@ void player_spawn_at_location_index(int player_index, int starting_location_inde
     if ( player_information->player_unit.index != -1 )
     {
         scenario_player *starting_location = nullptr;
-        if ( (__int16)starting_location_index >= 0
-          && (__int16)starting_location_index < global_scenario->players.count )
-            starting_location = &((scenario_player *)global_scenario->players.address)[(__int16)starting_location_index];
+        if ( (int16_t)starting_location_index >= 0
+          && (int16_t)starting_location_index < global_scenario->players.count )
+            starting_location = &((scenario_player *)global_scenario->players.address)[(int16_t)starting_location_index];
 
         int definition_index;
         if ( game_engine_running() )
@@ -82,19 +82,19 @@ void player_spawn_at_location_index(int player_index, int starting_location_inde
             if ( unit )
             {
                 unit->object.owner_player_index = player_index;
-                unit->object.owner_team_index = (__int16)player->team_index;
+                unit->object.owner_team_index = (int16_t)player->team_index;
                 unit->unit.player_index = player_index;             /* controlling player index */
                 player->unit_index = new_unit_index;
                 unit_set_actively_controlled(new_unit_index, 1);
 
-                int local_player_index = (unsigned __int16)player->local_player_index;
+                int local_player_index = (uint16_t)player->local_player_index;
                 if ( local_player_index != 0xFFFF )
                     player_control_new_unit(local_player_index, new_unit_index);
 
                 if ( !game_engine_running() )
                 {
                     int starting_profile_count = global_scenario->starting_profiles.count;
-                    __int16 starting_profile_index;
+                    int16_t starting_profile_index;
                     if ( starting_profile_count <= 1 || player->statistics.deaths <= 0 )
                     {
                         if ( !starting_profile_count )
@@ -112,11 +112,12 @@ void player_spawn_at_location_index(int player_index, int starting_location_inde
     }
 
 cleanup:
-    /* 4-byte clear spans both powerup_durations[0] and [1] */
-    *(int *)&player->powerup_durations[0] = 0;
+    /* single 4-byte store in the binary clears both halfwords */
+    player->powerup_durations[0] = 0;
+    player->powerup_durations[1] = 0;
     player->action_result = 0;
     player->action_object_index = -1;
-    int local_player_index_final = (unsigned __int16)player->local_player_index;
+    int local_player_index_final = (uint16_t)player->local_player_index;
     if ( local_player_index_final != 0xFFFF )
         observer_obsolete_position(local_player_index_final);
 }

@@ -53,7 +53,7 @@ void damage_dealt_to_network(int owner_player_index, damage_dealt_network_data d
       || object->unit.player_index == owner_player_index )    /* controlled by the attacker */
         return;
 
-    if ( (unsigned __int16)player->local_player_index == 0xFFFF )
+    if ( (uint16_t)player->local_player_index == 0xFFFF )
     {
         damage_dealt_network_data payload = data;
         payload.damaged_object_index = field_translated_index_translate_index_no_default(

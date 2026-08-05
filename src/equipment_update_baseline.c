@@ -6,6 +6,7 @@
  * Fields resolved to the DB equipment_datum struct (equipment.baseline position/velocities,
  * baseline_valid/baseline_index/message_index), matching biped_update_baseline.c's generation-byte idiom. */
 
+#include <stdint.h>
 #include "headers/equipment_datum.h"
 #include "headers/object_type.h"
 
@@ -17,7 +18,7 @@ void equipment_update_baseline(int object_index)
 
     if ( object )
     {
-        unsigned __int8 next_generation = object->equipment.baseline_index + 1;
+        uint8_t next_generation = object->equipment.baseline_index + 1;
 
         /* snapshot current motion state into the baseline block (indices 146-154 = +584..+616) */
         object->equipment.baseline.position = object->object.position;

@@ -19,6 +19,7 @@
 #include "headers/projectile_definition_flags.h"
 #include "headers/game_difficulty_value.h"
 #include "headers/blam_data_globals.h"
+#include "headers/networked_datum_role.h"
 #include "headers/projectile_action.h"
 #include "headers/periodic_function.h"
 #include "headers/game_time_constants.h"
@@ -69,7 +70,7 @@ uint8_t projectile_update(int projectile_index)
     projectile_definition *projectile_def =
         TAG_GET(projectile_definition, projectile->definition_index);
 
-    __int16 collision_count = 0;
+    int16_t collision_count = 0;
     char flyby_sound_played = 0;
     double time_remaining = 1.0;
 
@@ -206,10 +207,10 @@ uint8_t projectile_update(int projectile_index)
 
                 unit_get_center_of_mass(projectile->projectile.target_object_index, &aim_point);
 
-                azimuth_seed = (unsigned __int16)(game_time_get() + 7 * (unsigned __int16)DATUM_INDEX_TO_IDENTIFIER(projectile_index));
+                azimuth_seed = (uint16_t)(game_time_get() + 7 * (uint16_t)DATUM_INDEX_TO_IDENTIFIER(projectile_index));
                 wander_angles.n[0] = (periodic_function_evaluate(_periodic_function_wander, ((float)azimuth_seed * 0.011111111f))
                                              * 6.2831855f);
-                elevation_seed = (unsigned __int16)(game_time_get() + 3 * (unsigned __int16)DATUM_INDEX_TO_IDENTIFIER(projectile_index));
+                elevation_seed = (uint16_t)(game_time_get() + 3 * (uint16_t)DATUM_INDEX_TO_IDENTIFIER(projectile_index));
                 wander_angles.n[1] = -((periodic_function_evaluate(_periodic_function_wander, ((float)elevation_seed * 0.011111111f))
                                                       * 1.5707964f) - 3.1415927f);
                 vector3d_from_euler_angles2d(&wander_direction, &wander_angles);
@@ -422,7 +423,7 @@ after_motion:
                 /* --- flyby sound for nearby local players --- */
                 if (!flyby_sound_played && projectile_def->projectile.flyby_sound.index != -1)
                 {
-                    __int16 local_player;
+                    int16_t local_player;
                     for (local_player = 0; local_player < 2; ++local_player)
                     {
                         if (local_player_get_player_index(local_player) != -1)
@@ -464,17 +465,16 @@ after_motion:
                                     flyby.forward = displacement;
                                     normalize3d(&flyby.forward);
                                     /* CAVEAT: overlapped register packing in the decompile — the emitter
-                                       velocity is set to the zero vector and the game_location's cluster
-                                       is copied from the collision result while leaf_index and is_player
-                                       both come from the (zero) x-component bits, hence is_player == 0. */
-                                    /* recovered: *(int*)&...cluster_index (4-byte copy) -> cluster_index + bonus members */
+                                       velocity is the zero vector and the game_location's cluster is copied
+                                       from the collision result; leaf_index takes the zero vector's x bits,
+                                       i.e. 0 (and is_player == 0). */
+                                    /* DEVIATION: untangled from the word-punned zero-bit shuffle — the zero
+                                       vector's float 0.0 dwords are integer 0 */
                                     game_location.cluster_index = collision[0].location.cluster_index;
                                     game_location.bonus         = collision[0].location.bonus;
-                                    game_location.leaf_index = *(int *)&global_zero_vector3d->n[0];
-                                    flyby.translational_velocity.n[2] = global_zero_vector3d->n[2];
+                                    game_location.leaf_index    = 0;
+                                    flyby.translational_velocity = *global_zero_vector3d;
                                     flyby.game_location = game_location;
-                                    *(int *)&flyby.translational_velocity.n[0] = game_location.leaf_index;
-                                    flyby.translational_velocity.n[1] = global_zero_vector3d->n[1];
                                     unattached_impulse_sound_new(projectile_def->projectile.flyby_sound.index, &flyby, 1.0f, 0);
                                     flyby_sound_played = 1;
                                 }
@@ -599,11 +599,10 @@ after_motion:
         {
             if (projectile->projectile.arming_time_delta == 0.0 || projectile->projectile.arming_time >= 1.0)
             {
-                /* datum_role is a 4-byte opaque NetworkedDatumRole; read exact bytes */
-                int network_role = *(int *)&projectile->object.datum_role;
-                if (network_role != 1)
+                NetworkedDatumRole network_role = projectile->object.datum_role;
+                if (network_role != _networked_datum_puppet)
                 {
-                    if (!network_role && projectile->projectile.replicate_detonation == 1)
+                    if (network_role == _networked_datum_master && projectile->projectile.replicate_detonation == 1)
                         projectile_detonate_to_network(projectile_index);
                     projectile_detonate(projectile_index, collision_count == 0, (float)time_remaining);
                     object_delete(projectile_index);

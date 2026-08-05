@@ -14,7 +14,7 @@
 
 extern uint8_t convex_hull2d_test_point(int16_t count, const real_point2d *points, const real_point2d *point, float epsilon);
 
-unsigned __int8 player_inside_hill(int player_index)
+uint8_t player_inside_hill(int player_index)
 {
     if ( player_index == -1 )
         return 0;

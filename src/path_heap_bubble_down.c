@@ -8,20 +8,20 @@
 
 void path_heap_bubble_down(path_state *state, int16_t heap_location)
 {
-    __int16 node_index = state->heap[heap_location].node_index;
-    __int16 cost = state->heap[heap_location].quantized_cost_estimate;
+    int16_t node_index = state->heap[heap_location].node_index;
+    int16_t cost = state->heap[heap_location].quantized_cost_estimate;
 
-    __int16 target_location;
+    int16_t target_location;
     while ( 1 )
     {
         target_location = heap_location;
-        __int16 target_node_index = node_index;
-        __int16 target_cost = cost;
+        int16_t target_node_index = node_index;
+        int16_t target_cost = cost;
 
-        __int16 first_child = 2 * heap_location;
-        for ( __int16 child_offset = 0; child_offset < 2; child_offset++ )
+        int16_t first_child = 2 * heap_location;
+        for ( int16_t child_offset = 0; child_offset < 2; child_offset++ )
         {
-            __int16 child = (__int16)(first_child + child_offset);
+            int16_t child = (int16_t)(first_child + child_offset);
             if ( child >= state->heap_count )
                 break;
 

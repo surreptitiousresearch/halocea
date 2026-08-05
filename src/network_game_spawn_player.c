@@ -11,7 +11,7 @@ extern int player_new(int machine_index, int player_index, uint16_t local_player
 
 uint8_t network_game_spawn_player(network_player *player)
 {
-    __int16 controller_index;
+    int16_t controller_index;
     if (network_game_player_is_local(player))
         controller_index = player->controller_index;
     else

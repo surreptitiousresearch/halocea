@@ -3,6 +3,7 @@
  * collision_fix_pill reads plane.normal.n[2] (the ground-normal up component). */
 #pragma once
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_plane3d.h"
 
@@ -15,5 +16,5 @@ typedef struct collision_plane
     int           surface_index;           /* 0x24 */
     unsigned char flags;                   /* 0x28 */
     unsigned char breakable_surface_index; /* 0x29 */
-    __int16       material_index;          /* 0x2A */
+    int16_t       material_index;          /* 0x2A */
 } collision_plane;

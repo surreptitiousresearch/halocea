@@ -40,7 +40,7 @@ void first_person_weapon_message(int16_t local_player_index, int16_t message_typ
     if ( local_player_index == -1 )
         return;
 
-    __int16 state_to_apply = -1;
+    int16_t state_to_apply = -1;
     first_person_weapon *fp_weapon = &first_person_weapons[local_player_index];
 
     switch ( message_type )
@@ -75,23 +75,23 @@ void first_person_weapon_message(int16_t local_player_index, int16_t message_typ
                 weapon_magazine_definition *magazine_definition =
                     (weapon_magazine_definition *)definition->weapon.magazines.address;
                 int weapon_state = fp_weapon->state;
-                __int16 rounds_loaded = weapon->weapon.magazines[0].rounds_loaded;
-                __int16 rounds_total = weapon->weapon.magazines[0].rounds_total;
-                __int16 capacity = magazine_definition->rounds_loaded_maximum;
+                int16_t rounds_loaded = weapon->weapon.magazines[0].rounds_loaded;
+                int16_t rounds_total = weapon->weapon.magazines[0].rounds_total;
+                int16_t capacity = magazine_definition->rounds_loaded_maximum;
 
                 /* mid-animation (one of the active reload/fire states) vs. a fresh reload */
                 if ( weapon_state == _first_person_weapon_state_shotgun_enter_reload || weapon_state == _first_person_weapon_state_overheated_exit
                      || weapon_state == _first_person_weapon_state_shotgun_exit_reload_empty || weapon_state == _first_person_weapon_state_shotgun_exit_reload_full
                      || weapon_state == _first_person_weapon_state_reload_while_empty || weapon_state == _first_person_weapon_state_reload_while_full || weapon->weapon.magazines[0].state )
                 {
-                    __int16 shells_remaining = rounds_total;
+                    int16_t shells_remaining = rounds_total;
                     if ( capacity - rounds_loaded <= rounds_total )
                         shells_remaining = capacity - rounds_loaded;
                     fp_weapon->shotgun_reload_type = (shells_remaining == 1) ? _shotgun_reload_type_last_round : -1;
                 }
                 else
                 {
-                    __int16 shells_to_reload = weapon->weapon.magazines[0].rounds_total;
+                    int16_t shells_to_reload = weapon->weapon.magazines[0].rounds_total;
                     if ( capacity - rounds_loaded <= rounds_total )
                         shells_to_reload = capacity - rounds_loaded;
                     fp_weapon->shotgun_shells_to_reload = shells_to_reload;
@@ -100,7 +100,7 @@ void first_person_weapon_message(int16_t local_player_index, int16_t message_typ
                                                                              : _shotgun_reload_type_first_and_last_round;
                 }
 
-                __int16 reload_type = fp_weapon->shotgun_reload_type;
+                int16_t reload_type = fp_weapon->shotgun_reload_type;
                 if ( reload_type == -1 )
                     state_to_apply = _first_person_weapon_state_reload_while_empty;
                 else if ( !fp_weapon->shotgun_reload_type || reload_type == _shotgun_reload_type_first_and_last_round )

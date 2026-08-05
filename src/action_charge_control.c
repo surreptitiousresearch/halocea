@@ -39,12 +39,12 @@ void action_charge_control(int actor_index)
     else
     {
         short charge_look_priority = _primary_priority_locked_aiming;
-        if ( actor->state.combat_status < _actor_combat_status_clear_los || (unsigned __int16)charge_state->goal == charge_goal_stalking )
+        if ( actor->state.combat_status < _actor_combat_status_clear_los || (uint16_t)charge_state->goal == charge_goal_stalking )
             charge_look_priority = _primary_priority_aiming;
         actor->orders.look.primary_priority = charge_look_priority;
     }
 
-    if ( (unsigned __int16)charge_state->goal == charge_goal_stalking )
+    if ( (uint16_t)charge_state->goal == charge_goal_stalking )
     {
         char at_rest = charge_state->stalking_catch_target == 0;
         actor->orders.move.stationary_crouch = at_rest;
@@ -69,8 +69,8 @@ void action_charge_control(int actor_index)
                 < (charge_state->leap_horizontal_velocity * 0.69999999f);
         actor->orders.move.jump_targeted = 1;
         actor->orders.move.jump_leap = target_close;
-        *(int *)&actor->orders.move.jump_alignment_vector.__s1.i = *(int *)&charge_state->leap_alignment_vector.__s1.i;
-        *(int *)&actor->orders.move.jump_alignment_vector.__s1.j = *(int *)&charge_state->leap_alignment_vector.__s1.j;
+        /* DEVIATION: decompiler word-punned the two-word real_vector2d copy (lwz/stw pairs 0x14/0x18 -> 0x444/0x448); plain struct assignment */
+        actor->orders.move.jump_alignment_vector = charge_state->leap_alignment_vector;
         actor->orders.move.jump_target_horizontal_vel = charge_state->leap_horizontal_velocity;
         actor->orders.move.jump_target_vertical_vel = charge_state->leap_vertical_velocity;
         charge_state->launched_leap = 1;
@@ -94,7 +94,7 @@ void action_charge_control(int actor_index)
     actor->orders.move.move_face_exactly = 1;
     actor->orders.move.emerge_from_cover = 0;
     actor->orders.move.dive_into_cover = 0;
-    /* action_state[4] was a byte read of goal's first byte (big-endian high byte); preserved as *(char *)&goal */
-    actor->orders.combat.shoot_at_target = (char)(charge_state->goal - 1
-            - (*(char *)&charge_state->goal - 2 + (charge_state->goal == charge_goal_stalking)));
+    /* DEVIATION: decompiler mangled the addic/subfe carry idiom (goal-1 != 0) into byte-pun
+     * arithmetic; disasm computes CA of (goal-1)+(-1), i.e. goal != charge_goal_stalking (1). */
+    actor->orders.combat.shoot_at_target = charge_state->goal != charge_goal_stalking;
 }

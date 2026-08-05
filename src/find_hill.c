@@ -31,7 +31,7 @@ void find_hill(void)
     scenario *current_scenario = global_scenario;
 
     int flag_indices[12];
-    int flag_count = find_netgame_flags(nullptr, 0.0f, 0.0f, _netgame_flag_hill, (__int16)king_globals.hill_id, 12, flag_indices);
+    int flag_count = find_netgame_flags(nullptr, 0.0f, 0.0f, _netgame_flag_hill, (int16_t)king_globals.hill_id, 12, flag_indices);
     king_globals.hill_point_count = flag_count;
 
     if ( flag_count == 0 )
@@ -83,8 +83,8 @@ void find_hill(void)
         hull_input_points[i].n[1] = local_points[i].n[1];
     }
 
-    __int16 hull_vertex_indices[16];
-    __int16 hull_count = convex_hull2d((__int16)point_count, hull_input_points, hull_vertex_indices);
+    int16_t hull_vertex_indices[16];
+    int16_t hull_count = convex_hull2d((int16_t)point_count, hull_input_points, hull_vertex_indices);
 
     if ( hull_count > 0 )
     {

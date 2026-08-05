@@ -6,6 +6,7 @@
  * shuffles and returned the leftover fcfid magic (0x82000000); the function is logically void. Restored to
  * plain float math. */
 
+#include <stdint.h>
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/blam_data_globals.h"
 
@@ -13,8 +14,8 @@
 void rasterizer_text_handle_mode_change(void)
 {
     rectangle2d *viewport = &global_window_parameters.camera.viewport_bounds;
-    float width = (__int16)(viewport->n[3] - viewport->n[1]);
-    float height = (__int16)(viewport->n[2] - viewport->n[0]);
+    float width = (int16_t)(viewport->n[3] - viewport->n[1]);
+    float height = (int16_t)(viewport->n[2] - viewport->n[0]);
 
     local_matrix_projection[0][0] = 2.0f / width;
     local_matrix_projection[0][1] = 0.0f;

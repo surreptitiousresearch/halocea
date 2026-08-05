@@ -34,7 +34,7 @@ uint8_t widget_event_function_list_widget_goto_previous_item(widget_instance *wi
 {
     int moved = 1;
     ui_widget_definition *def = TAG_GET(ui_widget_definition, widget->ui_widget_tag_index);
-    __int16 index;
+    int16_t index;
 
     if ( widget->parameters.list_parameters.list_items && widget->parameters.list_parameters.number_of_items )
     {
@@ -96,7 +96,7 @@ uint8_t widget_event_function_list_widget_goto_previous_item(widget_instance *wi
 
     if ( widget->widget_type == _ui_widget_type_spinner_list && (def->list_flags & (1u << _list_items_generated_from_string_list_tag)) && !def->child_widget_references.count )
     {
-        int prev = (__int16)(widget->parameters.text_box_parameters.string_list_index - 1);
+        int prev = (int16_t)(widget->parameters.text_box_parameters.string_list_index - 1);
         widget->parameters.text_box_parameters.string_list_index = prev;
         if ( prev >= 0 )
             goto finish;

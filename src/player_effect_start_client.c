@@ -53,7 +53,7 @@ extern float __fabs(float x);
 void player_effect_start_client(int player_index, const damage_data *damage, const real_vector3d *direction,
                                 float scale, float total_damage)
 {
-    __int16 local_player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
+    int16_t local_player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
     lock_global_random_seed(); /* attested void(void): decompiler threaded a phantom seed handle */
 
     if (local_player != -1)

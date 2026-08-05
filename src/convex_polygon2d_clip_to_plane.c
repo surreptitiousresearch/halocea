@@ -71,7 +71,7 @@ int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points
             if ((current_distance >= 0.0f) != previous_in_front)
             {
                 char emitted_bit_index = output_count;
-                if ((__int16)output_count == maximum_count)
+                if ((int16_t)output_count == maximum_count)
                     goto overflow;
                 if (clipped)
                     *clipped = 1;
@@ -93,9 +93,9 @@ int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points
                     else             t = 0.0f;
                 }
 
-                real_point2d *emitted = &result[(__int16)output_count];
+                real_point2d *emitted = &result[(int16_t)output_count];
                 emitted->n[0] = t * (previous_vertex->n[0] - current_vertex->n[0]) + current_vertex->n[0];
-                output_count = (__int16)(output_count + 1);
+                output_count = (int16_t)(output_count + 1);
                 output_clip_flags |= 1 << emitted_bit_index;
                 emitted->n[1] = t * edge_delta_y + current_vertex->n[1];
 
@@ -107,52 +107,52 @@ int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points
                          && __fabs(tail[-1].n[1] - result->n[1]) < epsilon)
                         || (__fabs(tail[-1].n[0] - result[output_count - 2].n[0]) < epsilon
                             && __fabs(tail[-1].n[1] - tail[-2].n[1]) < epsilon))
-                        output_count = (__int16)(output_count - 1);
+                        output_count = (int16_t)(output_count - 1);
                 }
             }
 
             /* keep the current vertex when it is in front of (or on) the plane */
             if (current_in_front)
             {
-                if ((__int16)output_count == maximum_count)
+                if ((int16_t)output_count == maximum_count)
                 {
                 overflow:
                     output_count = -1;
                     break;
                 }
-                real_point2d *kept = &result[(__int16)output_count];
+                real_point2d *kept = &result[(int16_t)output_count];
                 kept->n[0] = current_vertex->n[0];
                 kept->n[1] = current_vertex->n[1];
                 if (!clip_flags || ((1 << i) & *clip_flags) == 0)
                     output_clip_flags &= ~(1 << output_count);
                 else
                     output_clip_flags |= 1 << output_count;
-                output_count = (__int16)(output_count + 1);
+                output_count = (int16_t)(output_count + 1);
 
-                if ((__int16)output_count != 1)
+                if ((int16_t)output_count != 1)
                 {
-                    real_point2d *tail = &result[(__int16)output_count];
+                    real_point2d *tail = &result[(int16_t)output_count];
                     if ((__fabs(tail[-1].n[0] - result->n[0]) < epsilon
                          && __fabs(tail[-1].n[1] - result->n[1]) < epsilon)
-                        || (__fabs(tail[-1].n[0] - result[(__int16)output_count - 2].n[0]) < epsilon
+                        || (__fabs(tail[-1].n[0] - result[(int16_t)output_count - 2].n[0]) < epsilon
                             && __fabs(tail[-1].n[1] - tail[-2].n[1]) < epsilon))
-                        output_count = (__int16)(output_count - 1);
+                        output_count = (int16_t)(output_count - 1);
                 }
             }
 
             previous_vertex = &points[i];
             previous_in_front = current_in_front;
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         } while (i < count);
     }
 
-    if ((__int16)output_count == -1)
+    if ((int16_t)output_count == -1)
     {
         memcpy(result, points, vertex_count * 8);
     }
     else
     {
-        output_count = ((__int16)output_count < 3) ? 0 : output_count;   /* a valid polygon needs >= 3 verts */
+        output_count = ((int16_t)output_count < 3) ? 0 : output_count;   /* a valid polygon needs >= 3 verts */
         if (any_in_front)
         {
             if (!any_behind)

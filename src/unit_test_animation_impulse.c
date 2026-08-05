@@ -34,17 +34,17 @@ uint8_t unit_test_animation_impulse(int unit_index, int16_t animation_impulse)
         return 0;
 
     unit_definition *definition = (unit_definition *)tag_get_data(unit->definition_index);
-    /* u16 load at +0x44: the tag reference's .index word read halfword-wise (decompiler idiom, BE high half) */
-    int graph_index = *(unsigned __int16 *)&definition->object.animation_graph.index;
+    /* DEVIATION: full tag handle read; TAG_GET applies the low-half mask (see unit_start_animation_impulse) */
+    int graph_index = definition->object.animation_graph.index;
     animation_graph *graph = (animation_graph *)tag_get_data(graph_index);
     animation_graph_unit_seat *seat =
         &((animation_graph_unit_seat *)graph->unit_seats.address)[(signed char)unit->unit.animation.seat_index];
     animation_graph_weapon_class *weapon_class =
         &((animation_graph_weapon_class *)seat->weapon_classes.address)[(signed char)unit->unit.animation.weapon_index];
 
-    __int16 interpolation_frame_count;
-    __int16 index = unit_animation_impulse_get_index(animation_impulse, &interpolation_frame_count);
+    int16_t interpolation_frame_count;
+    int16_t index = unit_animation_impulse_get_index(animation_impulse, &interpolation_frame_count);
     return index >= 0
         && index < weapon_class->animations.count
-        && ((__int16 *)weapon_class->animations.address)[index] != -1;
+        && ((int16_t *)weapon_class->animations.address)[index] != -1;
 }

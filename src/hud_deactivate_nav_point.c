@@ -14,11 +14,11 @@ void hud_deactivate_nav_point(int player_index, int16_t type, int reference_inde
 {
     if ( player_index != -1 )
     {
-        __int16 local_player_index = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
+        int16_t local_player_index = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
         if ( local_player_index >= 0 && local_player_index < 2 && reference_index != -1 )
         {
             hud_nav_point_player_datum *player_nav = &nav_point_data[local_player_index];
-            for ( int i = 0; i < MAXIMUM_ACTIVE_NAV_POINTS; i = (__int16)(i + 1) )
+            for ( int i = 0; i < MAXIMUM_ACTIVE_NAV_POINTS; i = (int16_t)(i + 1) )
             {
                 hud_nav_point_datum *nav = &player_nav->nav_points[i];
                 /* recovered: (__int16 packing = nav->packing; packing >> 12) -> nav->type */

@@ -18,6 +18,6 @@ char * hs_stack_allocate(uint16_t thread_index, int16_t size, int alignment)
     if ( &result[-alignment] > top )
         result -= alignment;
 
-    frame->size = (__int16)((result - (char *)frame->data) + size);
+    frame->size = (int16_t)((result - (char *)frame->data) + size);
     return result;
 }

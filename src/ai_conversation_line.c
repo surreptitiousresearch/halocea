@@ -20,7 +20,7 @@ int ai_conversation_line(int16_t conversation_definition_index)
           conversation = data_iterator_next(&iterator) )
     {
         if ( conversation->conversation_definition_index == conversation_definition_index )
-            return (unsigned __int16)conversation->line_index;
+            return (uint16_t)conversation->line_index;
     }
     return 999;
 }

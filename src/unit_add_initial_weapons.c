@@ -36,7 +36,7 @@ void unit_add_initial_weapons(int unit_index)
 
     unit_initial_weapon *initial_weapons = (unit_initial_weapon *)definition->unit.initial_weapons.address;
 
-    for ( __int16 i = 0; i < initial_weapon_count; i++ )
+    for ( int16_t i = 0; i < initial_weapon_count; i++ )
     {
         int weapon_definition_index = initial_weapons[i].reference.index;
         if ( weapon_definition_index == -1 )

@@ -32,7 +32,7 @@ extern void scenario_location_from_point(location *location, const real_point3d 
 void flag_update_attachment(flag_datum *flag, flag_definition *flag_definition, location *attachment_location, real_point3d *attachment_points, real_point3d *attachment_force_points, int16_t *attachment_y, int16_t *y_attachments)
 {
     /* Resolve each attachment marker's object-space position. */
-    for ( int i = 0; i < flag_definition->attachment_points.count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < flag_definition->attachment_points.count; i = (int16_t)(i + 1) )
     {
         object_marker marker;
         object_get_marker_by_name(flag->object_index,
@@ -48,12 +48,12 @@ void flag_update_attachment(flag_datum *flag, flag_definition *flag_definition, 
         return;
 
     /* Reset the row→attachment map. */
-    for ( int row = 0; row < flag_definition->height; row = (__int16)(row + 1) )
+    for ( int row = 0; row < flag_definition->height; row = (int16_t)(row + 1) )
         y_attachments[row] = -1;
 
     /* Build the row maps and interpolate the per-row force anchors. */
-    __int16 attachment_index = 0;
-    __int16 row_y = 0;
+    int16_t attachment_index = 0;
+    int16_t row_y = 0;
     while ( attachment_index < flag_definition->attachment_points.count )
     {
         if ( row_y >= flag_definition->height )
@@ -65,13 +65,13 @@ void flag_update_attachment(flag_datum *flag, flag_definition *flag_definition, 
         else if ( span > flag_definition->height - row_y )
             span = flag_definition->height - row_y;
 
-        __int16 end_y = (__int16)((span & ~0x1u) + row_y);   /* span rounded down to even */
+        int16_t end_y = (int16_t)((span & ~0x1u) + row_y);   /* span rounded down to even */
         attachment_y[attachment_index] = row_y;
         y_attachments[row_y] = attachment_index;
 
         if ( row_y <= end_y )
         {
-            for ( __int16 cur_y = row_y; cur_y <= end_y; cur_y = (__int16)(cur_y + 1) )
+            for ( int16_t cur_y = row_y; cur_y <= end_y; cur_y = (int16_t)(cur_y + 1) )
             {
                 if ( end_y != row_y )
                 {
@@ -86,7 +86,7 @@ void flag_update_attachment(flag_datum *flag, flag_definition *flag_definition, 
             }
         }
 
-        attachment_index = (__int16)(attachment_index + 1);
+        attachment_index = (int16_t)(attachment_index + 1);
         row_y = end_y;   /* post-loop cur_y (end_y+1) minus 1 */
     }
 
@@ -104,9 +104,9 @@ void flag_update_attachment(flag_datum *flag, flag_definition *flag_definition, 
 
     if ( (float)moved_x > 1.0f || (float)moved_y > 1.0f || (float)moved_z > 1.0f )
     {
-        for ( __int16 col = 0; col < flag_definition->width; col = (__int16)(col + 1) )
+        for ( int16_t col = 0; col < flag_definition->width; col = (int16_t)(col + 1) )
         {
-            for ( __int16 row = 0; row < flag_definition->height; row = (__int16)(row + 1) )
+            for ( int16_t row = 0; row < flag_definition->height; row = (int16_t)(row + 1) )
             {
                 int index = col * flag_definition->height + row;
                 /* recovered: (char *)&flag->identifier + 24*index + 28 -> flag->vertices[index].p */

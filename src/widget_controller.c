@@ -5,7 +5,7 @@
 
 uint16_t * widget_controller(widget_instance *widget)
 {
-    unsigned __int16 letter;
+    uint16_t letter;
 
     if ( (unsigned int)(widget->local_player_index + 1) > 4 )
     {

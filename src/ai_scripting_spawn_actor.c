@@ -19,20 +19,20 @@ void ai_scripting_spawn_actor(unsigned int ai_index)
     if ( !ai_globals->ai_initialized_for_map || ai_index == -1 )
         return;
 
-    __int16 squad_index = (ai_index >> 8) & 0xFF;
+    int16_t squad_index = (ai_index >> 8) & 0xFF;
     if ( ai_index >> 30 != _ai_index_squad )
         squad_index = -1;
 
-    __int16 chosen_squad = squad_index;
+    int16_t chosen_squad = squad_index;
     if ( squad_index == -1 && ai_index >> 30 == _ai_index_platoon )
     {
         /* Platoon-scoped: find the first squad belonging to the requested platoon (squad def +0x22). */
-        encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)ai_index];
+        encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)ai_index];
         int squad_count = encounter_def->squads.count;
         if ( squad_count > 0 )
         {
             squad_definition *squads = (squad_definition *)encounter_def->squads.address;
-            for ( int i = 0; i < squad_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < squad_count; i = (int16_t)(i + 1) )
             {
                 if ( squads[i].platoon_index == ((ai_index >> 8) & 0xFF) )
                 {
@@ -44,5 +44,5 @@ void ai_scripting_spawn_actor(unsigned int ai_index)
     }
 
     if ( chosen_squad != -1 )
-        encounter_spawn_actor((unsigned __int16)ai_index, chosen_squad);
+        encounter_spawn_actor((uint16_t)ai_index, chosen_squad);
 }

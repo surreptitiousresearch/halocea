@@ -24,11 +24,11 @@ unsigned int playlist_profile_write_thread_proc(int *input)
     if ( saved_game_files_take_mutex() )
     {
         int index = *input;
-        unsigned __int8 failed = 0;
+        uint8_t failed = 0;
         char *variant_data = (char *)(input + 1);
 
         file_reference reference;
-        unsigned __int8 result = saved_game_file_open(&reference, index);
+        uint8_t result = saved_game_file_open(&reference, index);
 
         if ( result )
         {
@@ -41,7 +41,7 @@ unsigned int playlist_profile_write_thread_proc(int *input)
 
             result = saved_game_file_close(&reference, index);
             if ( result )
-                result = synchronize_metadata_display_name_with_profile_name(index, (unsigned __int16 *)variant_data);
+                result = synchronize_metadata_display_name_with_profile_name(index, (uint16_t *)variant_data);
         }
 
         if ( failed )

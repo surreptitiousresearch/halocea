@@ -33,7 +33,7 @@ typedef union _LARGE_INTEGER
 {
     _BD17ED5EF6FA8CE7398C97BF41535960 __s0; /* 0x0 — anonymous struct in the original source */
     _LARGE_INTEGER_u u;                     /* 0x0 */
-    __int64 QuadPart;                       /* 0x0 */
+    int64_t QuadPart;                       /* 0x0 */
 } _LARGE_INTEGER; /* 8 bytes */
 
 #endif /* _LARGE_INTEGER_H */

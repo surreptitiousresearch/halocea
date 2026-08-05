@@ -8,7 +8,7 @@ int umemcmp(uint8_t *buffer1, uint8_t *buffer2, unsigned int count)
 
     if ( count )
     {
-        unsigned __int8 *end = buffer1 + count;
+        uint8_t *end = buffer1 + count;
         do
         {
             int a = *buffer1;

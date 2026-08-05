@@ -19,6 +19,8 @@ void initialize_player_multiplayer_data(int player_index)
     player->multiplayer.state_message_data = -1;
     player->multiplayer.teleporter_index = -1;
     player->multiplayer.player_display_index = -1;
-    /* faithful 4-byte clear (stat[0]+stat[1]) — raw stw of the score block */
-    *(int *)&player->statistics.multiplayer_statistics.ctf_statistics.flag_grabs = 0;
+    /* DEVIATION: the binary's single stw clears the first two int16 stats in one word;
+     * transcribed as the two member clears it performs */
+    player->statistics.multiplayer_statistics.ctf_statistics.flag_grabs = 0;
+    player->statistics.multiplayer_statistics.ctf_statistics.flag_returns = 0;
 }

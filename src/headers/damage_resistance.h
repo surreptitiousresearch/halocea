@@ -3,6 +3,7 @@
  * holds body/shield vitality, friendly-fire resistance, damage-effect references, and the per-material
  * and per-region damage tables. Layout from the database (600 bytes). */
 
+#include <stdint.h>
 #include "tag_block.h"
 #include "tag_reference.h"
 
@@ -11,8 +12,8 @@ typedef struct damage_resistance
     unsigned int     flags;                            /* 0x00 — 0x1 = takes-area-damage,
                                                         *        0x2 = takes-damage-when-shield-depleted,
                                                         *        0x20 = headshot/special-resistant */
-    __int16          indirect_damage_material_index;   /* 0x04 */
-    unsigned __int16 pad2;                              /* 0x06 */
+    int16_t          indirect_damage_material_index;   /* 0x04 */
+    uint16_t pad2;                              /* 0x06 */
     float            maximum_body_vitality;             /* 0x08 */
     float            body_system_shock;                 /* 0x0C */
     int              body_vitality_unused[6];           /* 0x10 */
@@ -29,11 +30,11 @@ typedef struct damage_resistance
     float            body_destroyed_threshold;          /* 0xB8 */
     tag_reference    body_destroyed_effect;             /* 0xBC */
     float            maximum_shield_vitality;           /* 0xCC */
-    unsigned __int16 pad0;                              /* 0xD0 */
-    __int16          shield_material_type;              /* 0xD2 */
+    uint16_t pad0;                              /* 0xD0 */
+    int16_t          shield_material_type;              /* 0xD2 */
     int              shield_vitality_unused[6];         /* 0xD4 */
-    __int16          shield_failure_function;           /* 0xEC */
-    unsigned __int16 pad1;                              /* 0xEE */
+    int16_t          shield_failure_function;           /* 0xEC */
+    uint16_t pad1;                              /* 0xEE */
     float            shield_failure_threshold;          /* 0xF0 */
     float            maximum_shield_failure;            /* 0xF4 */
     int              shield_failure_unused[4];          /* 0xF8 */

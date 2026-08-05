@@ -78,7 +78,7 @@ void widget_instance_render_spinner_list(widget_instance *widget, ui_widget_defi
     for (widget_instance *parent = widget->parent; parent; parent = parent->parent)
         alpha = (parent->alpha_modifier * alpha);
 
-    unsigned __int8 is_hot = widget_instance_is_hot(widget);
+    uint8_t is_hot = widget_instance_is_hot(widget);
     int mouse_over_arrow = mouse_over_spinner_arrow(widget);
 
     if (!widget->visible)
@@ -96,7 +96,7 @@ void widget_instance_render_spinner_list(widget_instance *widget, ui_widget_defi
 
     int header_frame_state = 0;
     int footer_frame_state = 0;
-    __int16 last_list_tab_direction = widget->parameters.list_parameters.last_list_tab_direction;
+    int16_t last_list_tab_direction = widget->parameters.list_parameters.last_list_tab_direction;
     if (last_list_tab_direction)
     {
         if (last_list_tab_direction < 0)
@@ -155,16 +155,16 @@ void widget_instance_render_spinner_list(widget_instance *widget, ui_widget_defi
 
     /* Resolve the item text: either a fresh unicode-string-list lookup (with search-and-replace), or the
      * cached selected-item text the list logic already produced. */
-    unsigned __int16 *item_text;
-    unsigned __int8 built_dynamic_text = definition->text_label_unicode_string_list_tag.index != -1;
+    uint16_t *item_text;
+    uint8_t built_dynamic_text = definition->text_label_unicode_string_list_tag.index != -1;
 
     if (built_dynamic_text)
     {
-        __int16 string_index = widget->parameters.list_parameters.current_list_item_index;
-        const unsigned __int16 *string = unicode_string_list_get_string(
+        int16_t string_index = widget->parameters.list_parameters.current_list_item_index;
+        const uint16_t *string = unicode_string_list_get_string(
                 definition->text_label_unicode_string_list_tag.index, string_index);
         unsigned int byte_length = 2 * ustrlen(string);
-        unsigned __int16 *new_text = pool_new_pointer(widget_memory_pool, byte_length + 2);
+        uint16_t *new_text = pool_new_pointer(widget_memory_pool, byte_length + 2);
         item_text = new_text;
 
         if (new_text)
@@ -178,9 +178,9 @@ void widget_instance_render_spinner_list(widget_instance *widget, ui_widget_defi
                     &((search_and_replace_reference *)definition->search_and_replace_references.address)[i];
                 if (entry && entry->search_string[0])
                 {
-                    unsigned __int16 *replacement = ui_widget_search_and_replace_invoke(widget, entry->replace_function);
-                    unsigned __int16 wide_buffer[32];
-                    unsigned __int16 *find_string = ascii_to_wide(entry->search_string, wide_buffer, 0x40);
+                    uint16_t *replacement = ui_widget_search_and_replace_invoke(widget, entry->replace_function);
+                    uint16_t wide_buffer[32];
+                    uint16_t *find_string = ascii_to_wide(entry->search_string, wide_buffer, 0x40);
                     search_and_replace(find_string, replacement, &item_text);
                 }
             }

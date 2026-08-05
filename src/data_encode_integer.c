@@ -22,7 +22,7 @@ int data_encode_integer(data_encoding_state *state, int value, int maximum_value
         }
         else
         {
-            *(__int16 *)&encoded = value; /* HIWORD on big-endian = leading 2 bytes */
+            *(int16_t *)&encoded = value; /* HIWORD on big-endian = leading 2 bytes */
             code = -2;
         }
     }

@@ -53,13 +53,13 @@ void replacement_animation_apply(const animation *animation, int16_t frame_index
     unsigned int translation_flags = 0;
     unsigned int scale_flags = 0;
 
-    for ( int node_index = 0; node_index < animation->node_count; node_index = (__int16)(node_index + 1) )
+    for ( int node_index = 0; node_index < animation->node_count; node_index = (int16_t)(node_index + 1) )
     {
         real_orientation *orientation = &node_orientations[node_index];
 
         if ( (node_index & 0x1F) == 0 )
         {
-            int flag_dword = (__int16)node_index >> 5;
+            int flag_dword = (int16_t)node_index >> 5;
             translation_flags = animation->nodes_with_translation_flags[flag_dword];
             rotation_flags = animation->nodes_with_rotation_flags[flag_dword];
             scale_flags = animation->nodes_with_scale_flags[flag_dword];

@@ -37,7 +37,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_point3d.h"
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern real_plane3d *bsp3d_get_plane_from_designator(const bsp3d *bsp, int plane_designator, real_plane3d *result);
 extern float angle_between_normals3d(const real_vector3d *a, const real_vector3d *b);
@@ -58,8 +58,8 @@ void decal_clip_to_surface(const decal_projection *projection, decal_geometry *g
     collision_bsp *bsp = global_collision_bsp;
     collision_surface *surface = &((collision_surface *)bsp->surfaces.address)[surface_index];
 
-    __int16 queue_count;   /* var_10E — only live when update_queue is set (all reads are gated) */
-    __int16 deviant_count; /* var_10C */
+    int16_t queue_count;   /* var_10E — only live when update_queue is set (all reads are gated) */
+    int16_t deviant_count; /* var_10C */
     if (update_queue)
     {
         queue_count = *surface_queue_write_index;
@@ -96,7 +96,7 @@ void decal_clip_to_surface(const decal_projection *projection, decal_geometry *g
                     int neighbor_surface = is_right ? edge->surface_indices[0] : edge->surface_indices[1];
                     if (neighbor_surface != -1)
                     {
-                        for (__int16 i = 0; i < queue_count; i++)
+                        for (int16_t i = 0; i < queue_count; i++)
                         {
                             if (surface_queue[i] == neighbor_surface)
                                 goto next_edge; /* already queued */
@@ -119,11 +119,11 @@ next_edge:
     {
         /* flat-clip mode: clip the projected decal quad against every edge of the surface */
         int edge_index = surface->first_edge_index;
-        __int16 edge_counter = 0;
+        int16_t edge_counter = 0;
         unsigned int clip_flags = 0; /* per-output-vertex "emitted by a clip" bits */
         const real_point2d *input_points = projection->decal_points2d;
         real_point2d *output_points = 0; /* always set — the edge loop runs at least once */
-        __int16 vertex_count = 4;
+        int16_t vertex_count = 4;
         real_point2d previous_point;
         real_point2d current_point;
 
@@ -150,7 +150,7 @@ next_edge:
             real_plane2d clip_plane;
             if (plane2d_from_points(&clip_plane, &current_point, &previous_point))
             {
-                unsigned __int8 clipped;
+                uint8_t clipped;
                 vertex_count = convex_polygon2d_clip_to_plane(vertex_count, input_points, &clip_plane, 12,
                                                               output_points, &clip_flags, &clipped, 0.0f);
                 if (update_queue && clipped && queue_count < 1024)
@@ -168,7 +168,7 @@ next_edge:
                         int neighbor_surface = is_right ? edge->surface_indices[0] : edge->surface_indices[1];
                         if (neighbor_surface != -1)
                         {
-                            for (__int16 i = 0; i < queue_count; i++)
+                            for (int16_t i = 0; i < queue_count; i++)
                             {
                                 if (surface_queue[i] == neighbor_surface)
                                     goto advance_edge; /* already queued */
@@ -197,7 +197,7 @@ advance_edge:
             && (surface->flags & (1u << _collision_surface_breakable_bit)) == 0)
         {
             geometry->decal_surface_vertex_counts[geometry->decal_surface_count++] = vertex_count;
-            for (__int16 i = 0; i < vertex_count; i++)
+            for (int16_t i = 0; i < vertex_count; i++)
             {
                 const real_point2d *point = &output_points[i];
                 float du = point->n[0] - projection->decal_points2d[0].n[0];

@@ -14,10 +14,10 @@
  * inlined named accessors (D3DDevice boundary type). Differences from the non-extended sibling, all verified:
  *   1. Uses the *_0 globals: _translation_table_0, bitmap_address_table_0 (int[4]={0,2,2,2} @0x8212A07C),
  *      bitmap_type_table_0 (u16[4]={0,2,2,2} @0x8212A074), and shader_transparent_chicago_extended_create.
- *   2. The chicago flags dword is at shader+0x6C (shader_tag[2].base.radiosity.tint_color.n[2]), NOT +0x60 —
+ *   2. The extra_flags dword is at shader+0x6C (after the extended body's extra maps_ff block), NOT +0x60 —
  *      disasm 0x8382F21C (`&2` anim gate) and 0x8382F770 (`&1` effect gate). All other tag offsets match the
- *      non-extended sibling (flags@0x28, detail_level@0x2A, blend_fn@0x2C, alpha-anim-idx@0x30, extra count@
- *      0x48/table@0x4C, stage_count@0x54, stage_array@0x58; per-stage stride 220).
+ *      non-extended sibling; fields are read through the DB-typed _shader_transparent_chicago_extended body
+ *      at shader+0x28 (per-stage stride 220).
  *   3. A pre-loop first materialises the per-stage pointer array (stage_ptrs[i] = stage_array + 220*i,
  *      disasm 0x8382F374-F3A0); the main stage loop then iterates only stage_count times (not a fixed 4),
  *      so the sampler setup always runs.
@@ -26,6 +26,7 @@
  *      reinterpret / stale read; disasm 0x8382F7F0 `lwz r31, var_210`), otherwise it is 1 with the alpha calc. */
 
 #include <stdint.h>
+#include "headers/shader_transparent_chicago_extra_flags.h"
 #include "headers/bitmap_group.h"
 #include "headers/transparent_geometry_group.h"
 #include "headers/shader.h"
@@ -52,7 +53,7 @@
 #include "headers/shader_texture_animation.h"
 #include "headers/point2d.h"
 extern const int bitmap_address_table_0[4];             /* {0,2,2,2} @0x8212A07C */
-extern const unsigned __int16 bitmap_type_table_0[4];   /* {0,2,2,2} @0x8212A074 */
+extern const uint16_t bitmap_type_table_0[4];   /* {0,2,2,2} @0x8212A074 */
 
 extern void D3DDevice_SetRenderState_CullMode(D3DDevice *device, unsigned int value);
 extern void D3DDevice_SetRenderState_ColorWriteEnable(D3DDevice *device, unsigned int value);
@@ -70,7 +71,7 @@ extern void D3DDevice_SetSamplerState_MagFilter(D3DDevice *device, unsigned int 
 extern void D3DDevice_SetSamplerState_MinFilter(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetSamplerState_SeparateZFilterEnable(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 
 extern int16_t shader_get_vertex_shader_permutation(const shader *shader);
 extern int16_t rasterizer_transparent_geometry_get_primary_vertex_type(const transparent_geometry_group *group);
@@ -88,10 +89,13 @@ extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry_group *group, uint8_t dirty)
 {
-    __int16 vertex_shader_permutation = shader_get_vertex_shader_permutation(group->shader);
-    __int16 primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
+    int16_t vertex_shader_permutation = shader_get_vertex_shader_permutation(group->shader);
+    int16_t primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
     const shader *shader_tag = group->shader;   /* renamed from 'shader' to avoid shadowing the shader type */
-    __int16 animation_frame_index = group->shader_permutation_index;
+    /* typed view of the extended-chicago body at shader+0x28 */
+    const _shader_transparent_chicago_extended *ce =
+        &((const shader_transparent_chicago_extended *)shader_tag)->chicago_extended;
+    int16_t animation_frame_index = group->shader_permutation_index;
     int use_additional_op = 1;
 
     float color_constants[12] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
@@ -99,7 +103,7 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
     float uv_scale_scratch[2];   /* v68: last stage's {u_scale, v_scale}; also reinterpreted below */
 
     shader_transparent_chicago_map *stage_array =
-        (shader_transparent_chicago_map *)*(int *)&shader_tag[2].base.radiosity.color.n[0];
+        (shader_transparent_chicago_map *)ce->maps.address;
     if ( !stage_array || !stage_array->map.name )
         return;
 
@@ -109,72 +113,72 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(primary_vertex_type));
     D3DDevice_SetPixelShader(global_d3d_device, nullptr);
 
-    int extra_layer_count = *(int *)&shader_tag[1].base.physics;   /* shader+0x48 */
+    int extra_layer_count = ce->extra_layers.count;
     if ( extra_layer_count > 0 )
     {
-        char *extra_layer_table = *(char **)&shader_tag[1].base.type;   /* shader+0x4C */
-        for ( int i = 0; i < extra_layer_count; i = (__int16)(i + 1) )
+        tag_reference *extra_layer_table = (tag_reference *)ce->extra_layers.address;
+        for ( int i = 0; i < extra_layer_count; i = (int16_t)(i + 1) )
         {
             transparent_geometry_group sub_group;
             memcpy(&sub_group, group, sizeof(sub_group));
             sub_group.sorted_index = -1;
             /* extra-layer block is a tag_reference[]; .index (@+0xC) selects the sub-shader tag */
-            sub_group.shader = TAG_GET(const shader, ((tag_reference *)extra_layer_table)[i].index);
+            sub_group.shader = TAG_GET(const shader, extra_layer_table[i].index);
             rasterizer_transparent_geometry_group_draw(&sub_group, dirty);
         }
     }
 
     D3DDevice_SetRenderState_CullMode(global_d3d_device,
-        (shader_tag[1].base.radiosity.flags & (1u << _shader_transparent_chicago_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
+        (ce->flags & (1u << _shader_transparent_chicago_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-    D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, shader_tag[1].base.radiosity.flags & 1);
+    D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, ce->flags & (1u << _shader_transparent_chicago_alpha_tested_bit));
     D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0x7F);
-    rasterizer_set_framebuffer_blend_function((unsigned __int16)(*(unsigned int *)&shader_tag[1].base.radiosity.power >> 16));   /* shader+0x2C high halfword (BE) */
+    rasterizer_set_framebuffer_blend_function(ce->framebuffer_blend_function);
 
-    if ( (shader_tag[1].base.radiosity.flags & (1u << _shader_transparent_chicago_numeric_bit)) != 0 && group->animation && *(int *)&shader_tag[2].base.radiosity.power > 0 )
+    if ( (ce->flags & (1u << _shader_transparent_chicago_numeric_bit)) != 0 && group->animation && ce->maps.count > 0 )
     {
         int bitmap_frame_count = TAG_GET(bitmap_group, stage_array->map.index)->bitmaps.count;
-        if ( (*(int *)&shader_tag[2].base.radiosity.tint_color.n[2] & 2) != 0 )   /* chicago_flags@0x6C & 2 */
+        if ( (ce->extra_flags & (1u << _shader_transparent_chicago_numeric_countdown_timer_bit)) != 0 )
         {
             animation_frame_index = numeric_countdown_timer_get(group->shader_permutation_index);
         }
         else
         {
-            int frame_count = (__int16)bitmap_frame_count;
+            int frame_count = (int16_t)bitmap_frame_count;
             int values_index = (bitmap_frame_count != 8) ? 0 : 3;
-            /* typed: chicago_extended.numeric_counter_limit @ shader+0x28 (DB-verified) */
-            float scale = (float)((const shader_transparent_chicago_extended *)shader_tag)->chicago_extended.numeric_counter_limit;
+            /* numeric_counter_limit doubles as the animation scale and the frame clamp ceiling */
+            float scale = (float)ce->numeric_counter_limit;
             int frame = (int)(float)floor((group->animation->values[values_index] * scale) + 0.5f);
             if ( frame < 0 )
                 frame = 0;
             else if ( frame > (int)scale )
                 frame = (int)scale;
-            for ( int i = 0; i < group->shader_permutation_index; i = (__int16)(i + 1) )
+            for ( int i = 0; i < group->shader_permutation_index; i = (int16_t)(i + 1) )
                 frame /= frame_count;
             animation_frame_index = frame % frame_count;
         }
     }
 
-    int stage_count = (__int16)*(int *)&shader_tag[2].base.radiosity.power;
+    int stage_count = (int16_t)ce->maps.count;
 
     /* materialise the per-stage pointer array before the main loop */
     shader_transparent_chicago_map *stage_ptrs[4];
-    for ( int i = 0; i < stage_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < stage_count; i = (int16_t)(i + 1) )
         stage_ptrs[i] = &stage_array[i];
 
-    for ( int stage = 0; stage < stage_count; stage = (__int16)(stage + 1) )
+    for ( int stage = 0; stage < stage_count; stage = (int16_t)(stage + 1) )
     {
-        __int16 detail_level = shader_tag[1].base.radiosity.detail_level;
+        int16_t first_map_type = ce->type;
         shader_transparent_chicago_map *stage_ptr = stage_ptrs[stage];
-        __int16 bitmap_type = stage ? 0 : bitmap_type_table_0[detail_level];
+        int16_t bitmap_type = stage ? 0 : bitmap_type_table_0[first_map_type];
         rasterizer_set_texture(stage, bitmap_type, 0, stage_ptr->map.index, animation_frame_index);
 
         unsigned int address_u = (bitmap_type || (stage_ptr->flags & (1u << _shader_transparent_chicago_map_u_clamped_bit)) == 0)
-                                     ? (stage ? 0 : bitmap_address_table_0[detail_level]) : 2;
+                                     ? (stage ? 0 : bitmap_address_table_0[first_map_type]) : 2;
         unsigned int address_v = (bitmap_type || (stage_ptr->flags & (1u << _shader_transparent_chicago_map_v_clamped_bit)) == 0)
-                                     ? (stage ? 0 : bitmap_address_table_0[detail_level]) : 2;
-        unsigned int address_w = stage ? 0 : bitmap_address_table_0[detail_level];
+                                     ? (stage ? 0 : bitmap_address_table_0[first_map_type]) : 2;
+        unsigned int address_w = stage ? 0 : bitmap_address_table_0[first_map_type];
         unsigned int filter_flag = (stage_ptr->flags & (1u << _shader_transparent_chicago_map_point_sampled_bit)) == 0;
 
         D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, address_u);
@@ -184,10 +188,10 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
         D3DDevice_SetSamplerState_MinFilter(global_d3d_device, stage, filter_flag);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, stage, filter_flag);
 
-        if ( stage == 0 && shader_tag[1].base.radiosity.detail_level )
+        if ( stage == 0 && ce->type )
         {
-            /* first stage of a detail shader: pack env-map basis vectors, or the identity default */
-            if ( (shader_tag[1].base.radiosity.flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0 )
+            /* first stage of a non-2d first-map-type shader: pack env-map basis vectors, or the identity default */
+            if ( (ce->flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0 )
             {
                 const real_matrix4x3 *view_to_world = &global_window_parameters.frustum.view_to_world;
                 texture_transform_constants[8 * stage + 0] = view_to_world->n[0][0];
@@ -209,17 +213,20 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
         }
         else
         {
-            /* texture-animation path */
-            *(long long *)uv_scale_scratch = *(long long *)&stage_ptr->scale; /* {u_scale, v_scale} */
+            /* texture-animation path; the scratch's float bits are re-read below (deviation 4).
+               DEVIATION: the decompiler's 64-bit punned {u,v} copy (ld/std @0x8382F5B4) is a plain
+               real_vector2d read */
+            uv_scale_scratch[0] = stage_ptr->scale.n[0];
+            uv_scale_scratch[1] = stage_ptr->scale.n[1];
             float scale_u = uv_scale_scratch[0];
             float scale_v = uv_scale_scratch[1];
             int apply_base_map_scale = 1;
-            if ( !stage && (shader_tag[1].base.radiosity.flags & (1u << _shader_transparent_chicago_scale_first_map_with_distance_bit)) != 0 )
+            if ( !stage && (ce->flags & (1u << _shader_transparent_chicago_scale_first_map_with_distance_bit)) != 0 )
             {
                 scale_u = -(group->z_sort * uv_scale_scratch[0]);
                 scale_v = -(group->z_sort * uv_scale_scratch[1]);
             }
-            if ( (shader_tag[1].base.radiosity.flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0 )
+            if ( (ce->flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0 )
                 apply_base_map_scale = 0;
             if ( apply_base_map_scale )
             {
@@ -230,7 +237,7 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
                 &stage_ptr->animation,
                 group->animation, scale_u, scale_v,
                 stage_ptr->offset.n[0], stage_ptr->offset.n[1], stage_ptr->rotation,
-                (float)*(double *)&global_frame_parameters.game_time_sec,
+                (float)global_frame_parameters.game_time_sec,
                 (real_vector4d *)&texture_transform_constants[8 * stage],
                 (real_vector4d *)&texture_transform_constants[8 * stage + 4]);
         }
@@ -238,9 +245,9 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
         texture_transform_constants[8 * stage + 3] = 0.0f;
     }
 
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, texture_transform_constants, 8, (unsigned __int64)7 << 58);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, texture_transform_constants, 8, (uint64_t)7 << 58);
 
-    if ( (group->geometry_flags & (1u << _rasterizer_geometry_sky_bit)) != 0 && !(unsigned __int16)(*(unsigned int *)&shader_tag[1].base.radiosity.power >> 16) )   /* shader+0x2C high halfword (BE) */
+    if ( (group->geometry_flags & (1u << _rasterizer_geometry_sky_bit)) != 0 && !ce->framebuffer_blend_function )
     {
         /* DEVIATION: shipped reinterpret — use_additional_op takes the u-scale scratch's float bits (v68[0]);
          * when stage_count==0 the scratch is never written, so this is a stale/uninitialized read. */
@@ -249,9 +256,9 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
     else
     {
         use_additional_op = 1;
-        __int16 alpha_animation_index = (unsigned __int16)(*(unsigned int *)&shader_tag[1].base.radiosity.color.n[0] >> 16);   /* shader+0x30 high halfword (BE) */
+        int16_t alpha_animation_index = ce->framebuffer_fade_source;
 
-        if ( group->effect.type == _render_model_effect_type_active_camouflage && (*(int *)&shader_tag[2].base.radiosity.tint_color.n[2] & 1) == 0 )   /* @0x6C & 1 */
+        if ( group->effect.type == _render_model_effect_type_active_camouflage && (ce->extra_flags & (1u << _shader_transparent_chicago_dont_fade_active_camouflage_bit)) == 0 )
         {
             float intensity = ((float)1.0 - group->effect.intensity);
             if ( intensity < 0.0f )
@@ -268,7 +275,7 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
         }
     }
 
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, color_constants, 3, (unsigned __int64)3 << 60);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, color_constants, 3, (uint64_t)3 << 60);
     shader_transparent_chicago_extended_create(group->shader, use_additional_op);
     rasterizer_transparent_geometry_group_draw_internal(group, 0);
     D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0 /* D3DBLENDOP_ADD */);

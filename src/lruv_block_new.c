@@ -26,8 +26,8 @@ int lruv_block_new(lruv_cache *cache, int size)
     int cur_block;
     char found = 0;
     int victim = -1;
-    __int16 window_head = 0;
-    __int16 window_tail = 0;
+    int16_t window_head = 0;
+    int16_t window_tail = 0;
     int prev_block = -1;
     int page_cursor = 0;
     unsigned int best_victim_frame = 0;
@@ -59,7 +59,7 @@ int lruv_block_new(lruv_cache *cache, int size)
 
             /* open a new candidate window at the current position (if the ring isn't full) */
             {
-                __int16 next_tail = (window_tail != 255) ? (__int16)(window_tail + 1) : 0;
+                int16_t next_tail = (window_tail != 255) ? (int16_t)(window_tail + 1) : 0;
                 if ( next_tail != window_head )
                 {
                     lruv_window *w = &windows[window_tail];
@@ -67,7 +67,7 @@ int lruv_block_new(lruv_cache *cache, int size)
                     w->page_offset = page_cursor;
                     w->max_frame = 0;
                     w->accumulated_pages = 0;
-                    window_tail = (window_tail != 255) ? (__int16)(window_tail + 1) : 0;
+                    window_tail = (window_tail != 255) ? (int16_t)(window_tail + 1) : 0;
                 }
             }
 
@@ -77,7 +77,7 @@ int lruv_block_new(lruv_cache *cache, int size)
             }
             else
             {
-                block = &blocks[(unsigned __int16)cur_block];
+                block = &blocks[(uint16_t)cur_block];
                 if ( page_cursor == block->first_page_index )   /* adjacent allocated block (no gap) */
                 {
                     unsigned char (*locked_proc)(int) = cache->locked_block_proc;
@@ -131,9 +131,9 @@ int lruv_block_new(lruv_cache *cache, int size)
                             chosen_accumulated = w->accumulated_pages;
                             best_frame = w->max_frame;
                         }
-                        window_head = (window_head != 255) ? (__int16)(window_head + 1) : 0;
+                        window_head = (window_head != 255) ? (int16_t)(window_head + 1) : 0;
                     }
-                    k = (k != 255) ? (__int16)(k + 1) : 0;
+                    k = (k != 255) ? (int16_t)(k + 1) : 0;
                 }
                 while ( k != window_tail );
             }
@@ -161,7 +161,7 @@ int lruv_block_new(lruv_cache *cache, int size)
         if ( block_array->actual_count == block_array->maximum_count && victim != -1 )
         {
             if ( chosen_start_block == victim )
-                insert_after = blocks[(unsigned __int16)victim].previous_block_index; /* victim's prev */
+                insert_after = blocks[(uint16_t)victim].previous_block_index; /* victim's prev */
             lruv_block_delete(cache, victim);
         }
     }
@@ -170,7 +170,7 @@ int lruv_block_new(lruv_cache *cache, int size)
     result = datum_new(cache->blocks);
     if ( result != -1 )
     {
-        lruv_cache_block *nb = &blocks[(unsigned __int16)result];
+        lruv_cache_block *nb = &blocks[(uint16_t)result];
         if ( insert_after == -1 )
         {
             int first = cache->first_block_index;
@@ -178,13 +178,13 @@ int lruv_block_new(lruv_cache *cache, int size)
             if ( first == -1 )
                 cache->last_block_index = result;
             else
-                blocks[(unsigned __int16)first].previous_block_index = result;
+                blocks[(uint16_t)first].previous_block_index = result;
             nb->next_block_index = cache->first_block_index;
             cache->first_block_index = result;
         }
         else
         {
-            lruv_cache_block *after = &blocks[(unsigned __int16)insert_after];
+            lruv_cache_block *after = &blocks[(uint16_t)insert_after];
             if ( after->next_block_index == -1 )
             {
                 nb->previous_block_index = cache->last_block_index;
@@ -192,7 +192,7 @@ int lruv_block_new(lruv_cache *cache, int size)
             }
             else
             {
-                lruv_cache_block *next = &blocks[(unsigned __int16)after->next_block_index];
+                lruv_cache_block *next = &blocks[(uint16_t)after->next_block_index];
                 nb->previous_block_index = next->previous_block_index;
                 next->previous_block_index = result;
             }

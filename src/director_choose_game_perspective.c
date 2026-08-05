@@ -24,8 +24,8 @@ void director_choose_game_perspective(int16_t local_player_index, uint8_t force)
     director *dir = &director_globals.local_players[local_player_index];
     int unit_index = player_control_get_unit_index(local_player_index);
 
-    __int16 desired_seat;
-    __int16 perspective = director_desired_perspective(unit_index, &desired_seat);
+    int16_t desired_seat;
+    int16_t perspective = director_desired_perspective(unit_index, &desired_seat);
 
     if (force || dir->seat_state != desired_seat)
     {

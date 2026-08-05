@@ -37,7 +37,7 @@ extern int16_t convex_hull2d_intersect(int16_t p_count, const real_point2d *p, i
 uint8_t structure_visibility_find_mirror(const render_camera *camera, const render_frustum *frustum, render_mirror *result)
 {
     structure_bsp *structure = global_structure_bsp;
-    unsigned __int8 found = 0;
+    uint8_t found = 0;
 
     if (render.cluster_index == -1)
         return 0;
@@ -59,7 +59,7 @@ uint8_t structure_visibility_find_mirror(const render_camera *camera, const rend
     portal_hull hull;
     real_point2d clipped_hull[257];
 
-    for (__int16 cluster_index = 0; cluster_index < structure->clusters.count; ++cluster_pvs)
+    for (int16_t cluster_index = 0; cluster_index < structure->clusters.count; ++cluster_pvs)
     {
         unsigned int pvs_word = *cluster_pvs;
         if (pvs_word == 0)
@@ -84,7 +84,7 @@ uint8_t structure_visibility_find_mirror(const render_camera *camera, const rend
                     do
                     {
                         structure_mirror *mirror = (structure_mirror *)cluster->mirrors.address + mirror_index;
-                        __int16 hull_result = portal_hull_from_points(
+                        int16_t hull_result = portal_hull_from_points(
                             camera, frustum, &mirror->plane, mirror->points.count,
                             (const real_point3d *)mirror->points.address, 1, &hull);
 
@@ -111,7 +111,7 @@ uint8_t structure_visibility_find_mirror(const render_camera *camera, const rend
                             result->plane.d = mirror->plane.d;
                             result->cluster_index = cluster_index;
                         }
-                        mirror_index = (__int16)(mirror_index + 1);
+                        mirror_index = (int16_t)(mirror_index + 1);
                     }
                     while (mirror_index < cluster->mirrors.count);
                 }

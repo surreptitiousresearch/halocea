@@ -24,7 +24,7 @@ void actor_swarm_cache_delete(uint16_t actor_index)
         do
         {
             datum_delete(swarm_component_data, swarm->component_indices[i]);
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < swarm->unit_count );
         array = swarm_data;

@@ -20,14 +20,14 @@
 extern unsigned int compress_real_vector3d_to_int32_clamp(const real_vector3d *v);
 extern double floor(double x);
 
-static __int16 pack_unit_int16(float value)
+static int16_t pack_unit_int16(float value)
 {
     float clamped;
     if ( value >= -1.0f )
         clamped = value > 1.0f ? 1.0f : value;
     else
         clamped = -1.0f;
-    return (__int16)(int)(float)floor((clamped * 32767.5f));
+    return (int16_t)(int)(float)floor((clamped * 32767.5f));
 }
 
 void rasterizer_geometry_compress_vertices(int16_t type, int count, char *compressed, int compressed_size, char *uncompressed, int uncompressed_size)
@@ -42,12 +42,12 @@ void rasterizer_geometry_compress_vertices(int16_t type, int count, char *compre
         {
             /* dst/src are raw packed GPU vertex buffers (no struct) — faithful de-flagged writes */
             ((int *)(dst + 2))[0] = compress_real_vector3d_to_int32_clamp((const real_vector3d *)(src - 4)); /* RAW (irreducible): raw packed GPU vertex, no tag struct */
-            ((__int16 *)dst)[3] = pack_unit_int16(src[-1]);
+            ((int16_t *)dst)[3] = pack_unit_int16(src[-1]);
             int packed = (int)(float)floor(((src[0] >= -1.0f ? (src[0] > 1.0f ? 1.0f : src[0]) : -1.0f)
                     * 32767.5f));
             src += 5;
             dst += 8;
-            *(__int16 *)dst = (unsigned int)packed >> 16;
+            *(int16_t *)dst = (unsigned int)packed >> 16;
         }
     }
     else if ( type == _rasterizer_vertex_type_model_uncompressed )
@@ -64,14 +64,14 @@ void rasterizer_geometry_compress_vertices(int16_t type, int count, char *compre
             *((int *)dst - 1) = compress_real_vector3d_to_int32_clamp((const real_vector3d *)src - 1);
             *(int *)dst = compress_real_vector3d_to_int32_clamp((const real_vector3d *)src);
             ((int *)dst)[1] = compress_real_vector3d_to_int32_clamp((const real_vector3d *)src + 1);
-            ((__int16 *)dst)[4] = pack_unit_int16(((float *)src)[6]);
-            ((__int16 *)dst)[5] = pack_unit_int16(((float *)src)[7]);
-            dst[12] = 3 * ((__int16 *)src)[16];
-            dst[13] = 3 * ((__int16 *)src)[17];
+            ((int16_t *)dst)[4] = pack_unit_int16(((float *)src)[6]);
+            ((int16_t *)dst)[5] = pack_unit_int16(((float *)src)[7]);
+            dst[12] = 3 * ((int16_t *)src)[16];
+            dst[13] = 3 * ((int16_t *)src)[17];
             int packed = (int)(float)floor(((((float *)src)[9] >= -1.0f
                     ? (((float *)src)[9] > 1.0f ? 1.0f : ((float *)src)[9]) : -1.0f) * 32767.5f));
             src += 68;
-            ((__int16 *)dst)[7] = (unsigned int)packed >> 16;
+            ((int16_t *)dst)[7] = (unsigned int)packed >> 16;
             dst += 32;
         }
     }

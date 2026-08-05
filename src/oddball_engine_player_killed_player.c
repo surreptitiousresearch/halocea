@@ -43,7 +43,7 @@ void oddball_engine_player_killed_player(int killing_player_index, int killing_o
     if ( killing_player_index != -1 && !friendly_fire )
     {
         player_datum *killer = DATA_ARRAY_ELEMENT(player_data, player_datum, killing_player_index);
-        unsigned __int8 can_score = 0;
+        uint8_t can_score = 0;
         bool run_scoring = true;
 
         if ( player_has_ball(dead_player_index) )

@@ -11,8 +11,8 @@
  * Effect definition (v6): flags dword[0] (0x1 _effect_deleted_when_inactive, 0x4 _effect_must_be_deterministic), event count @52, event block
  * @56 (68-byte records: probability @4, duration random range @16/@20, part count @56, part block @60),
  * special end event index @4 / trigger event index @6. Effect part record (232 bytes): particle count
- * random range @108/@110 (words), scale-flag fields @224/@228. Parent object datum: flags dword[4]
- * (0x800 has-location), location @152/@156 (dword[38]/[39]), velocity dword[26..28]. */
+ * random range @108/@110 (words), scale-flag fields @224/@228. Parent object datum: object.flags
+ * (_object_connected_to_map_bit), object.location, object.translational_velocity. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -31,6 +31,7 @@
 #include "headers/effect_definition_flags.h"
 #include "headers/object_type.h"
 #include "headers/object_datum.h"
+#include "headers/object_flags.h"
 #include "headers/real_rgb_color.h"
 #include "headers/blam_data_globals.h"
 
@@ -65,14 +66,14 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
     effect_datum *effect = datum_get(effect_data, effect_index);
     int object_index = effect->object_index;
     effect_definition *definition = TAG_GET(effect_definition, effect->definition_index);
-    unsigned __int8 visible;
-    __int16 i;
+    uint8_t visible;
+    int16_t i;
 
     if ( object_index != -1 )
     {
         object_datum *object = object_try_and_get_and_verify_type(object_index, object_mask_all);
         int ultimate_parent;
-        unsigned int *parent;
+        object_datum *parent;
 
         if ( !object )
         {
@@ -80,14 +81,13 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
             return;
         }
         ultimate_parent = object_get_ultimate_parent(effect->object_index);
-        parent = ((unsigned int *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, ultimate_parent)->datum);
-        if ( (parent[4] & 0x800) != 0 )
+        parent = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, ultimate_parent)->datum;
+        /* DEVIATION: decompiler's raw dword view untangled to object_datum members; its (float)parent[26..28]
+         * int->float conversions were wrong — the binary does plain word copies (lwz/stw @0x836E3944) */
+        if ( (parent->object.flags & (1u << _object_connected_to_map_bit)) != 0 )
         {
-            effect->location.leaf_index = parent[38];
-            *(unsigned int *)&effect->location.cluster_index = parent[39];
-            effect->velocity.n[0] = (float)parent[26];
-            effect->velocity.n[1] = (float)parent[27];
-            effect->velocity.n[2] = (float)parent[28];
+            effect->location = parent->object.location;
+            effect->velocity = parent->object.translational_velocity;
         }
         else
         {
@@ -98,7 +98,7 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
         {
             if ( object_get_function_value(effect->object_index, effect->scale_a_function_index, &effect->scale_a) )
             {
-                unsigned __int16 flags = effect->flags;
+                uint16_t flags = effect->flags;
                 if ( (flags & (1u << _effect_stopped_bit)) != 0 )
                 {
                     if ( (flags & (1u << _effect_delete_on_stop_bit)) != 0 )
@@ -122,7 +122,7 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
                     int slot = 0;
                     while ( object->object.attachment_indices[slot] != effect_index )
                     {
-                        slot = (__int16)(slot + 1);
+                        slot = (int16_t)(slot + 1);
                         if ( slot >= marker_count )
                         {
                             effect_delete(effect_index);
@@ -136,7 +136,7 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
             }
             else
             {
-                unsigned __int16 flags = effect->flags;
+                uint16_t flags = effect->flags;
                 if ( (flags & (1u << _effect_stopped_bit)) == 0 && (flags & (1u << _effect_stopping_bit)) == 0 )
                     effect_stop(effect_index, 0);
             }
@@ -155,7 +155,7 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
     }
 
     visible = 0;
-    if ( (unsigned __int16)effect->location.cluster_index != 0xFFFF )
+    if ( (uint16_t)effect->location.cluster_index != 0xFFFF )
     {
         if ( (definition->flags & (1u << _effect_must_be_deterministic_bit)) != 0 )
             visible = scenario_location_potentially_visible(&effect->location);
@@ -165,7 +165,7 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
 
     if ( !visible )
     {
-        unsigned __int16 flags = effect->flags;
+        uint16_t flags = effect->flags;
         if ( (flags & (1u << _effect_invisible_bit)) != 0 )
             goto run_timeline;
         if ( (flags & (1u << _effect_loop_bit)) != 0 )
@@ -178,15 +178,15 @@ void effect_update(int effect_index, float dt) /* was: double dt — DB prototyp
     }
 
     {
-        unsigned __int16 flags = effect->flags;
+        uint16_t flags = effect->flags;
         if ( (flags & (1u << _effect_invisible_bit)) != 0 )
             effect->flags = flags & ~(1u << _effect_invisible_bit);
     }
 
 run_timeline:
-    for ( i = 0; dt >= 0.0; i = (__int16)(i + 1) )
+    for ( i = 0; dt >= 0.0; i = (int16_t)(i + 1) )
     {
-        unsigned __int16 flags = effect->flags;
+        uint16_t flags = effect->flags;
         char event_completed;
         float new_event_time;
 
@@ -216,30 +216,30 @@ run_timeline:
                 continue;
 
             if ( (effect->flags & (1u << _effect_loop_bit)) != 0
-              && (unsigned __int16)effect->event_index == (unsigned __int16)definition->loop_stop_index
-              && (unsigned __int16)definition->loop_start_index != 0xFFFF )
+              && (uint16_t)effect->event_index == (uint16_t)definition->loop_stop_index
+              && (uint16_t)definition->loop_start_index != 0xFFFF )
                 next_event = definition->loop_start_index;
             else
                 next_event = effect->event_index + 1;
 
             /* skip events whose probability roll fails */
-            if ( (__int16)next_event < definition->events.count )
+            if ( (int16_t)next_event < definition->events.count )
             {
                 do
                 {
                     unsigned int *seed = (*TAG_GET(unsigned int, effect->definition_index) & (1u << _effect_must_be_deterministic_bit)) != 0
                         ? get_global_random_seed_address()
                         : get_global_local_random_seed_address();
-                    if ( real_seed_random(seed) >= (double)((effect_event_definition *)definition->events.address)[(__int16)next_event].skip_fraction )
+                    if ( real_seed_random(seed) >= (double)((effect_event_definition *)definition->events.address)[(int16_t)next_event].skip_fraction )
                         break;
-                    next_event = (__int16)((__int16)next_event + 1);
+                    next_event = (int16_t)((int16_t)next_event + 1);
                 }
-                while ( (__int16)next_event < definition->events.count );
+                while ( (int16_t)next_event < definition->events.count );
             }
 
-            if ( (__int16)next_event >= definition->events.count )
+            if ( (int16_t)next_event >= definition->events.count )
             {
-                unsigned __int16 end_flags = effect->flags;
+                uint16_t end_flags = effect->flags;
                 if ( (end_flags & (1u << _effect_loop_bit)) == 0 )
                 {
                     effect_delete(effect_index);
@@ -253,7 +253,7 @@ run_timeline:
         else if ( event_completed )
         {
             effect_event_definition *event_block = (effect_event_definition *)definition->events.address;
-            __int16 event_index = effect->event_index;
+            int16_t event_index = effect->event_index;
             effect_event_definition *event_record;
             unsigned int *seed;
             int part;
@@ -268,7 +268,7 @@ run_timeline:
                 : get_global_local_random_seed_address();
             effect->event_duration = real_seed_random_range(seed, event_record->duration_lower_bound, event_record->duration_upper_bound);
 
-            for ( part = 0; part < event_record->particles.count; part = (__int16)(part + 1) )
+            for ( part = 0; part < event_record->particles.count; part = (int16_t)(part + 1) )
             {
                 effect_particles_definition *part_record =
                     &((effect_particles_definition *)event_record->particles.address)[part];
@@ -277,7 +277,7 @@ run_timeline:
                 int count;
                 /* part record: scale_a flag mask @224, scale_b flag mask @228, bit index 5 (the two
                  * leading flag params of effect_real_random_range are unused). */
-                count = (unsigned __int8)(int)effect_real_random_range(get_global_local_random_seed_address(),
+                count = (uint8_t)(int)effect_real_random_range(get_global_local_random_seed_address(),
                             effect, lower, upper, part_record->a_scales, part_record->b_scales, 5);
                 effect->particles_counts[part] = count;
                 if ( count > 6 )
@@ -302,11 +302,11 @@ run_timeline:
         instance = effect_location_get_next_instance(effect, &location_index, 0);
         if ( instance )
         {
-            unsigned __int16 node_designator = (unsigned __int16)instance->node_designator;
+            uint16_t node_designator = (uint16_t)instance->node_designator;
             if ( node_designator != 0xFFFF )
             {
                 const real_matrix4x3 *node_matrix;
-                __int16 node_index;
+                int16_t node_index;
                 real_point3d transformed;
 
                 if ( EFFECT_NODE_IS_FIRST_PERSON_WEAPON(node_designator) )
@@ -315,7 +315,7 @@ run_timeline:
                 }
                 else
                 {
-                    node_index = ((__int16)node_designator == -1) ? -1 : EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator);
+                    node_index = ((int16_t)node_designator == -1) ? -1 : EFFECT_NODE_DESIGNATOR_TO_INDEX(node_designator);
                     node_matrix = object_get_node_matrix(effect->object_index, node_index);
                 }
                 /* recovered: (char *)instance + 48 -> &instance->matrix.___u1.__s1.position (offset 0x30) */

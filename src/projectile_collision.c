@@ -1,5 +1,6 @@
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
 #include <stdint.h>
+#include "headers/ppc_intrinsics.h"
 #include "headers/collision_result.h"
 #include "headers/collision_surface_flags.h"
 #include "headers/damage_data.h"
@@ -25,6 +26,7 @@
 #include "headers/damage_data_flags.h"
 #include "headers/object_damage_flags.h"
 #include "headers/object_type.h"
+#include "headers/projectile_attach_message.h"
 
 /* NOTE: the projectile object-datum tail (flags/material/detonation fields at
    raw byte offsets on `po`) and the projectile definition (`pdef`) are kept as
@@ -66,7 +68,7 @@ extern int16_t game_connection(void);
 void projectile_collision(int projectile_index, collision_result *collision, real_point3d *new_position,
                           real_vector3d *new_velocity, float time_left)
 {
-    __int16 material_type = collision->material_type;
+    int16_t material_type = collision->material_type;
     float material_effect_scale = 0.0f;
     float damage_scale = 1.0f;
     projectile_datum *po = (projectile_datum *)
@@ -77,7 +79,7 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
     real_plane3d *p_plane;
     float speed;
     float velocity_delta, incidence_angle;
-    __int16 the_response;
+    int16_t the_response;
     int effect_index;
     damage_data object_damage;
     damage_data surface_damage;
@@ -140,7 +142,7 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
             normalize3d(&object_damage.direction);
             object_cause_damage(&object_damage, collision->object_index, collision->node_index,
                                 collision->region_index, collision->material_index, (const real_vector3d *)&collision->plane);
-            if ((unsigned __int16)object_damage.material_type != 0xFFFF)
+            if ((uint16_t)object_damage.material_type != 0xFFFF)
                 material_type = object_damage.material_type;
             material_effect_scale = object_damage.material_effect_scale;
         }
@@ -348,11 +350,11 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
         *(float *)&effect_block.owner_team_index = unit_velocity.n[1] * -1.0f;
         /* union-style repack: the whole 8-byte location slot (leaf_index+cluster_index+bonus) holds a
          * packed velocity pair, then the float below overwrites location.cluster_index (0x18) */
-        *(__int64 *)&effect_block.location = *(__int64 *)unit_velocity.n;
+        *(int64_t *)&effect_block.location = *(int64_t *)unit_velocity.n;
         *(float *)&effect_block.location.cluster_index = unit_velocity.n[2] * -1.0f;
         effect_block.origin.n[1] = unit_velocity.n[2];
         effect_block.epicenter.n[2] = global_down3d->n[0];
-        *(__int64 *)effect_block.direction.n = *(__int64 *)&global_down3d->__s1.j;
+        *(int64_t *)effect_block.direction.n = *(int64_t *)&global_down3d->__s1.j;
         reflect_vector3d(&unit_velocity, &collision->plane.n, (real_vector3d *)&effect_block.epicenter);
 
         for (i = 0; i < 5; ++i)
@@ -390,7 +392,7 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
             }
             if (collision->type == collision_result_object)
             {
-                if (*(int *)&po->object.datum_role == _networked_datum_puppet)
+                if (po->object.datum_role == _networked_datum_puppet)
                     return;
                 if ((pdef->projectile.flags & (1u << _projectile_super_combining_explosion_bit)) != 0)
                 {
@@ -446,19 +448,22 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
             }
 
 attach_network:
-            if (collision->type == collision_result_object && !*(int *)&po->object.datum_role)
+            if (collision->type == collision_result_object && po->object.datum_role == _networked_datum_master)
             {
                 int object_index = collision->object_index;
                 object_datum *target_datum = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
-                if (!*(int *)&target_datum->object.datum_role)
+                if (target_datum->object.datum_role == _networked_datum_master)
                 {
-                    real_vector3d msg;
+                    /* DEVIATION: the decompiler's real_vector3d word-punned payload is the DB-typed
+                       projectile_attach_network_data message (decoded by projectile_attach_from_network).
+                       The previous `*((uint16_t *)&msg.n[2] + 1)` spelling put the node index at +0xA;
+                       disasm 0x8375BE1C stores it at +0x8 (parent_node_index) — defect fixed. */
+                    projectile_attach_message msg;
                     int size;
                     void *server;
-                    /* explicit lvalue form: local LODWORD/HIWORD macros expand to non-lvalue casts */
-                    *(int *)&msg.n[0] = field_translated_index_translate_index(&field_properties_object_index_definition, projectile_index);
-                    *(int *)&msg.n[1] = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
-                    *((unsigned __int16 *)&msg.n[2] + 1) = collision->node_index;
+                    msg.projectile_index = field_translated_index_translate_index(&field_properties_object_index_definition, projectile_index);
+                    msg.parent_index = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
+                    msg.parent_node_index = collision->node_index;
                     size = message_delta_processor_encode_stateless(_message_projectile_attach, 0, &msg, g_message_encode_buffer, 32760);
                     server = global_network_game_server_get();
                     network_game_server_send_message_to_all_loaded_machines(server, network_message_type_message_delta,

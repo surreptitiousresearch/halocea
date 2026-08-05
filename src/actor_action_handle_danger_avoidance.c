@@ -83,8 +83,8 @@ int actor_action_handle_danger_avoidance(int actor_index)
     bool within_escape_radius = false;
     bool path_re_enters_danger = false;
 
-    unsigned __int8 escape_is_ledge[2];
-    unsigned __int16 escape_direction[3];
+    uint8_t escape_is_ledge[2];
+    uint16_t escape_direction[3];
     real_vector3d danger_line_delta;
     float escape_distance;
     real_vector3d path_direction_scaled;
@@ -148,7 +148,7 @@ int actor_action_handle_danger_avoidance(int actor_index)
 
     if ( destination_within_danger || (path_re_enters_danger && !body_within_danger) )
     {
-        int firing_position = (unsigned __int16)actor->firing_positions.current_position_index;
+        int firing_position = (uint16_t)actor->firing_positions.current_position_index;
         if ( firing_position != 0xFFFF )
             actor_discard_firing_position(actor_index, firing_position, 1u);
     }
@@ -163,7 +163,7 @@ int actor_action_handle_danger_avoidance(int actor_index)
     if ( intersection < 3.4028235e38f )
         urgency = (intersection * 45.0f);
 
-    int danger_state = (unsigned __int16)actor->danger_zone.danger_type;
+    int danger_state = (uint16_t)actor->danger_zone.danger_type;
     bool state_reaction_urgent;
     switch ( danger_state )
     {
@@ -171,7 +171,7 @@ int actor_action_handle_danger_avoidance(int actor_index)
             if ( urgency != 0.0f )
                 goto after_urgency;
             {
-                __int16 acknowledge_timer = actor->danger_zone.___u19.suicide.time_until_death;
+                int16_t acknowledge_timer = actor->danger_zone.___u19.suicide.time_until_death;
                 if ( acknowledge_timer == -1 )
                     goto after_urgency;
                 state_reaction_urgent = acknowledge_timer < 30;
@@ -181,7 +181,7 @@ int actor_action_handle_danger_avoidance(int actor_index)
             if ( urgency != 0.0f )
                 goto after_urgency;
             {
-                __int16 acknowledge_timer = actor->danger_zone.___u19.projectile.time_until_explosion;
+                int16_t acknowledge_timer = actor->danger_zone.___u19.projectile.time_until_explosion;
                 if ( acknowledge_timer == -1 )
                     goto after_urgency;
                 state_reaction_urgent = acknowledge_timer < 20;
@@ -199,8 +199,8 @@ int actor_action_handle_danger_avoidance(int actor_index)
 after_urgency:
     if ( (!actor->danger_zone.hostility || reaction_is_urgent) && !actor->danger_zone.communicated )
     {
-        unsigned int danger_source = (unsigned __int16)actor->danger_zone.hostility;
-        __int16 hostility = -1;
+        unsigned int danger_source = (uint16_t)actor->danger_zone.hostility;
+        int16_t hostility = -1;
         if ( actor->danger_zone.hostility )
         {
             if ( danger_source == 1 )
@@ -212,16 +212,16 @@ after_urgency:
         {
             hostility = _comm_hostility_enemy;
         }
-        if ( (__int16)danger_state == actor_danger_zone_projectile )
+        if ( (int16_t)danger_state == actor_danger_zone_projectile )
             ai_communication_event(_ai_communication_grenade_danger, actor->meta.unit_index, -1, hostility, -1, -1, nullptr);
         actor->danger_zone.communicated = 1;
     }
 
-    unsigned __int8 escape_found = actor_action_find_escape_from_danger(actor_index, (__int16 *)escape_direction,
+    uint8_t escape_found = actor_action_find_escape_from_danger(actor_index, (int16_t *)escape_direction,
             &escape_distance, &alignment_vector, escape_is_ledge);
     if ( escape_direction[0] != 0xFFFF && actor->danger_zone.allow_dive_evasion && actor->input.vehicle_index == -1 )
     {
-        int dive_state = (unsigned __int16)actor->danger_zone.danger_type;
+        int dive_state = (uint16_t)actor->danger_zone.danger_type;
         char should_dive = 0;
         switch ( dive_state )
         {
@@ -257,13 +257,13 @@ after_dive_decision:
     }
 
 try_avoid_action:
-    if ( (unsigned __int8)action_result || !within_escape_radius
+    if ( (uint8_t)action_result || !within_escape_radius
             || (!actor_path_at_destination(actor_index) && actor->control.moving && !path_re_enters_danger) )
         return action_result;
     if ( actor->emotions.forced_to_charge )
         return action_result;
 
-    __int16 action_class = global_action_functions[actor->state.action].action_class;
+    int16_t action_class = global_action_functions[actor->state.action].action_class;
     if ( action_class != _action_class_passive && action_class != _action_class_pursuit )
         return action_result;
     if ( !action_avoid_setup(actor_index, &action_data.___u0.avoid) )

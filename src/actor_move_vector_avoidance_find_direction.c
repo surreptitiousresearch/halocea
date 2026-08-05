@@ -27,12 +27,12 @@ uint8_t actor_move_vector_avoidance_find_direction(int16_t direction_count,
     if ( direction_count <= 0 )
         return 0;
 
-    __int16 wrap_index = (__int16)(direction_count - 1);
+    int16_t wrap_index = (int16_t)(direction_count - 1);
     float cross_prev = avoidance_directions[wrap_index].n[1] * direction_vector->n[2]
                       - avoidance_directions[wrap_index].n[2] * direction_vector->n[1];
 
-    __int16 previous_index;
-    __int16 index = 0;
+    int16_t previous_index;
+    int16_t index = 0;
     float cross_curr;
 
     while ( 1 )
@@ -48,12 +48,12 @@ uint8_t actor_move_vector_avoidance_find_direction(int16_t direction_count,
 
         cross_prev = cross_curr;
         previous_index = index;
-        index = (__int16)(index + 1);
+        index = (int16_t)(index + 1);
         if ( index >= direction_count )
             return 0;
     }
 
-    __int16 interpolation_index = index ? index : direction_count;
+    int16_t interpolation_index = index ? index : direction_count;
 
     *approximate_direction_reference =
         ((float)previous_index * cross_curr - (float)interpolation_index * cross_prev) / (cross_curr - cross_prev);

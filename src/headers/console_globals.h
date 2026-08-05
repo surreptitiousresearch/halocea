@@ -1,6 +1,7 @@
 #pragma once
 /* console_globals @ console_globals — in-game console / terminal input state (console.c) */
 
+#include <stdint.h>
 #include "key_stroke.h"
 #include "edit_text.h"
 #include "terminal_gets_state.h"
@@ -14,9 +15,9 @@ typedef struct console_globals_t
     char                _pad02[2];                       /* 0x002 */
     terminal_gets_state input_state;                     /* 0x004 */
     char                previous_commands[8][255];       /* 0x1C4 */
-    __int16             previous_command_count;          /* 0x9BC */
-    __int16             newest_previous_command_index;   /* 0x9BE */
-    __int16             selected_previous_command_index; /* 0x9C0 */
+    int16_t             previous_command_count;          /* 0x9BC */
+    int16_t             newest_previous_command_index;   /* 0x9BE */
+    int16_t             selected_previous_command_index; /* 0x9C0 */
 } console_globals_t;
 
 extern console_globals_t console_globals;

@@ -39,7 +39,7 @@
 
 
 #include "headers/point2d.h"
-extern __int16 rasterizer_decal_cached_bitmap_index;       /* cached decal bitmap_index */
+extern int16_t rasterizer_decal_cached_bitmap_index;       /* cached decal bitmap_index */
 extern int rasterizer_decal_cached_bitmap_group_index;          /* cached decal bitmap_group_index */
 
 extern int decal_get_first_decal_index(int16_t cluster_index, int16_t layer);
@@ -75,7 +75,7 @@ void _rasterizer_decals_draw(int16_t cluster_index)
     {
         decal_datum *decal = DATA_ARRAY_ELEMENT(global_decal_data, decal_datum, decal_index);
         decal_definition *definition = TAG_GET(decal_definition, decal->definition_index);
-        __int16 blend_function = definition->shader.decal.framebuffer_blend_function;
+        int16_t blend_function = definition->shader.decal.framebuffer_blend_function;
 
         /* reprogram framebuffer blend + color-write mask when the blend function changes */
         if ( local_framebuffer_blend_function != blend_function )
@@ -88,7 +88,7 @@ void _rasterizer_decals_draw(int16_t cluster_index)
         }
 
         int bitmap_group_index = definition->shader.decal.map.index;
-        __int16 bitmap_index = (signed char)decal->bitmap_index;
+        int16_t bitmap_index = (signed char)decal->bitmap_index;
         unsigned int decal_color = decal->color;
         unsigned int decal_fade = decal->intensity;
         int triangle_count = 2 * decal->quad_count;
@@ -110,7 +110,7 @@ void _rasterizer_decals_draw(int16_t cluster_index)
         decal_color_constant[2] = (float)(decal_color & 0xFF) * 0.00392156862745098;
         decal_color_constant[3] = (float)(255 - modulated_alpha) * 0.00392156862745098;
         D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, decal_color_constant, 1,
-                                            (unsigned __int64)1 << 61);
+                                            (uint64_t)1 << 61);
 
         D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_decal));
         D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_decal));

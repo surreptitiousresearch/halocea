@@ -35,9 +35,11 @@ int actor_aim_projectile(int actor_index, const real_point3d *origin, real_vecto
     if ( actor->control.fire_state != actor_fire_state_bursting )
         return target_unit_index;
 
-    if ( actor->control.current_fire_target_type == actor_fire_target_prop && *(int *)&actor->control.current_fire_target_type != -1 )
+    /* DEVIATION: decompiler punned the prop-index read through &current_fire_target_type; disasm loads the full
+     * word at +0x610 = ___u58.current_fire_target_prop_index (union at 0x1A4, after the int16 type at 0x1A0). */
+    if ( actor->control.current_fire_target_type == actor_fire_target_prop && actor->control.___u58.current_fire_target_prop_index != -1 )
     {
-        prop_datum *prop = DATUM_GET(prop_data, prop_datum, *(int *)&actor->control.current_fire_target_type);
+        prop_datum *prop = DATUM_GET(prop_data, prop_datum, actor->control.___u58.current_fire_target_prop_index);
         if ( prop->state >= _prop_state_becoming_unacknowledged && prop->state <= _prop_state_acknowledged )
             target_unit_index = prop->unit_index;
     }

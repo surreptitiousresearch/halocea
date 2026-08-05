@@ -23,7 +23,7 @@ void hud_activate_nav_point(int16_t nav_index, int player_index, int16_t type, i
 
     hud_nav_point_player_datum *player_navs = &nav_point_data[local_player];
 
-    __int16 free_slot = -1;
+    int16_t free_slot = -1;
     int slot = 0;
     do
     {
@@ -37,8 +37,8 @@ void hud_activate_nav_point(int16_t nav_index, int player_index, int16_t type, i
             return;
         }
         if (slot_type == -1)
-            free_slot = (__int16)slot;
-        slot = (__int16)(slot + 1);
+            free_slot = (int16_t)slot;
+        slot = (int16_t)(slot + 1);
     } while (slot < MAXIMUM_ACTIVE_NAV_POINTS);
 
     if (free_slot != -1)

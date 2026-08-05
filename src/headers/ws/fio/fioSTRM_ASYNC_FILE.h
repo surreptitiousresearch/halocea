@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "fioFILE.h"
 #include "osASYNC_INFO.h"
 #include "../ds/dsVECTOR.h"
@@ -20,12 +21,12 @@ struct fioSTRM_ASYNC_FILE : fioFILE {
     int                rawOffset;             /* 0x028 */
     int                dataOffset;            /* 0x02C */
     osASYNC_INFO       asyncInfo;             /* 0x030 */
-    unsigned __int64   asyncReadStart;        /* 0x074 */
+    uint64_t   asyncReadStart;        /* 0x074 */
     struct BUFFER     *buffer1;               /* 0x07C */
     struct BUFFER     *buffer2;               /* 0x080 */
     struct BUFFER     *data;                  /* 0x084 */
-    unsigned __int8   *restBuf;               /* 0x088 */
+    uint8_t   *restBuf;               /* 0x088 */
     dsVECTOR<int, 8>   table;                 /* 0x08C */
     int                compressionType;       /* 0x0A0 DB <unnamed_type_compressionType> enum */
-    unsigned __int8    comprData[384];        /* 0x0A4 */
+    uint8_t    comprData[384];        /* 0x0A4 */
 }; /* 548 bytes */

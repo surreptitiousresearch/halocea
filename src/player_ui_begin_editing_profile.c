@@ -17,7 +17,7 @@ extern void *memcpy(void *dest, const void *src, unsigned int count);
 
 void player_ui_begin_editing_profile(int profile_index)
 {
-    unsigned __int16 type;
+    uint16_t type;
 
     player_ui_globals.edit_profile_data.profile_index = -1;
     type = saved_game_file_get_type(profile_index);

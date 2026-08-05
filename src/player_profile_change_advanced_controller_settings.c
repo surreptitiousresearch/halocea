@@ -16,7 +16,7 @@
 
 extern player_profile * player_ui_get_edit_player_profile(void);
 
-static unsigned __int16 row_selection(widget_instance *row)
+static uint16_t row_selection(widget_instance *row)
 {
     widget_instance *text_box;
     for ( text_box = row->children; text_box; text_box = text_box->next )
@@ -35,7 +35,7 @@ uint8_t player_profile_change_advanced_controller_settings(widget_instance *widg
 
     widget_instance *row = widget->children;
 
-    unsigned __int16 selection = row_selection(row);
+    uint16_t selection = row_selection(row);
     if ( selection == 0 )
         edit_player_profile->controller_settings.invert_look = 1;
     else if ( selection == 1 )

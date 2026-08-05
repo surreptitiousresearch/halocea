@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -24,7 +25,7 @@ void objOBJ::SetVertColorList(unsigned int vcInd, unsigned int *list)
     objGEOM_SHARED *pSharedGeom = this->pGeom->pSharedGeom;
     pSharedGeom->colorVertList[vcInd] = list;
 
-    unsigned __int64 presentBit = (unsigned __int64)0x40000000 << vcInd; // channel-present flag
+    uint64_t presentBit = (uint64_t)0x40000000 << vcInd; // channel-present flag
     if (list)
         pSharedGeom->fvf |= presentBit;
     else

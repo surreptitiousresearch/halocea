@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* widget_type_definition — vtable/descriptor for an object widget type (antenna, fluid, mesh,
  * contrail, light-volume). widget_type_definitions[5] indexes these by widget type code. Layout
  * from the database. Render argument types are left opaque (forward-declared). */
@@ -9,7 +10,7 @@ struct render_animation;
 typedef struct widget_type_definition
 {
     unsigned int    group_tag;              /* 0x00 */
-    unsigned __int8 needs_lighting;         /* 0x04 */
+    uint8_t needs_lighting;         /* 0x04 */
     char            _pad05[3];              /* 0x05 */
     void          (*initialize)(void);              /* 0x08 */
     void          (*initialize_for_new_map)(void);  /* 0x0C */

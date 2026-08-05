@@ -39,7 +39,7 @@ extern void first_person_weapon_start_interpolation(int16_t local_player_index, 
 void first_person_weapon_set_state(int16_t local_player_index, int16_t new_state, uint8_t reset_sounds)
 {
     first_person_weapon *fp_weapon = &first_person_weapons[local_player_index];
-    __int16 target_state = new_state;
+    int16_t target_state = new_state;
     int weapon_index = first_person_weapons[local_player_index].weapon_index;
 
     if ( weapon_index != -1 )
@@ -83,9 +83,9 @@ void first_person_weapon_set_state(int16_t local_player_index, int16_t new_state
     if ( definition->weapon.weapon_type == _weapon_type_plasma_pistol && target_state == _first_person_weapon_state_overheated )
         target_state = (weapon->weapon.flags & (1u << _weapon_overheated_bit)) == 0 ? _first_person_weapon_state_idle : target_state;
 
-    __int16 animation_type = first_person_animation_type_from_weapon_state(target_state);
+    int16_t animation_type = first_person_animation_type_from_weapon_state(target_state);
 
-    __int16 interpolation_frames;
+    int16_t interpolation_frames;
     if ( animation_type == _first_person_weapon_animation_posing && fp_weapon->state == _first_person_weapon_state_shotgun_exit_reload_empty )
     {
         interpolation_frames = 0;
@@ -123,11 +123,11 @@ void first_person_weapon_set_state(int16_t local_player_index, int16_t new_state
     if ( !animation_set )
         return;
 
-    __int16 animation_index;
+    int16_t animation_index;
     if ( animation_type < 0 || animation_type >= animation_set->animations.count )
         animation_index = -1;
     else
-        animation_index = ((__int16 *)animation_set->animations.address)[animation_type];
+        animation_index = ((int16_t *)animation_set->animations.address)[animation_type];
     if ( animation_index == -1 )
         return;
 

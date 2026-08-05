@@ -3,6 +3,7 @@
  * Full top-level layout is DB types_members-confirmed (see hud_render_nav_points.c /
  * find_nav_point.c consumers). */
 
+#include <stdint.h>
 #include "hud_messaging_parameters_definition.h"
 #include "hud_waypoint_definition.h"
 #include "hud_multiplayer_parameters_definition.h"
@@ -20,10 +21,10 @@ typedef struct hud_globals_definition
     hud_damage_indicators_definition      damage_indicators; /* 0x310 (784) */
     hud_timer_definition                  timer_definition;  /* 0x360 (864) */
     tag_reference                         carnage_report_bitmap; /* 0x3C8 (968) */
-    __int16       loading_begin_index;             /* 0x3D8 (984) */
-    __int16       loading_end_index;               /* 0x3DA (986) */
-    __int16       checkpoint_begin_index;          /* 0x3DC (988) */
-    __int16       checkpoint_end_index;            /* 0x3DE (990) */
+    int16_t       loading_begin_index;             /* 0x3D8 (984) */
+    int16_t       loading_end_index;               /* 0x3DA (986) */
+    int16_t       checkpoint_begin_index;          /* 0x3DC (988) */
+    int16_t       checkpoint_end_index;            /* 0x3DE (990) */
     tag_reference checkpoint_sound;                /* 0x3E0 (992) */
     int           unused2[24];                     /* 0x3F0 (1008) */
 } hud_globals_definition;                          /* 1104 bytes */

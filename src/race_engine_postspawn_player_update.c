@@ -14,7 +14,7 @@
 extern int16_t game_connection(void);
 extern void create_race_vehicle(int player_index);
 
-unsigned __int8 race_engine_postspawn_player_update(int player_index)
+uint8_t race_engine_postspawn_player_update(int player_index)
 {
     if ( game_connection() == _game_connection_network_server
         && !DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->statistics.deaths

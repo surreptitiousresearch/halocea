@@ -71,7 +71,7 @@ extern void rasterizer_debug_draw(void);
 
 static void render_window_draw_cluster_decals(void)
 {
-    for (int cluster = 0; cluster < render.rendered_cluster_count; cluster = (__int16)(cluster + 1))
+    for (int cluster = 0; cluster < render.rendered_cluster_count; cluster = (int16_t)(cluster + 1))
         rasterizer_decals_draw(render.rendered_clusters[cluster].cluster_index);
 }
 

@@ -10,6 +10,7 @@
  *   - The "FPS" label is written as one inlined 4-byte word store (0x46505300), not a strcpy.
  *   - All int<->float conversions are fcfid/fctiwz round-trips; restored as plain casts. */
 
+#include <stdint.h>
 #include "headers/fg_graph.h"
 #include "headers/rasterizer_globals.h"
 #include "headers/blam_data_globals.h"
@@ -36,7 +37,7 @@ void fg_init(void)
     graph->extents.n[0] = 30;
     graph->extents.n[1] = 64;
     graph->extents.n[2] = 150;
-    graph->extents.n[3] = (__int16)(int)plot_right;
+    graph->extents.n[3] = (int16_t)(int)plot_right;
 
     float virtual_x_scale = 640.0f / (float)screen_width;
     float virtual_y_scale = 480.0f / (float)screen_height;
@@ -77,17 +78,17 @@ void fg_init(void)
     *(unsigned int *)graph->label = 0x46505300;  /* "FPS\0", inlined word store */
 
     /* label rectangles in virtual 640x480 space; n[2]/n[3] span the whole screen so text is never clipped */
-    graph->label_extents.n[0] = (__int16)(int)(30.0f * virtual_y_scale);
-    graph->label_extents.n[1] = (__int16)(int)(64.0f * virtual_x_scale);
+    graph->label_extents.n[0] = (int16_t)(int)(30.0f * virtual_y_scale);
+    graph->label_extents.n[1] = (int16_t)(int)(64.0f * virtual_x_scale);
     graph->label_extents.n[2] = 480;
     graph->label_extents.n[3] = 640;
 
     graph->label_max_extents.n[0] = graph->label_extents.n[0];
-    graph->label_max_extents.n[1] = (__int16)(int)(plot_right * virtual_x_scale);
+    graph->label_max_extents.n[1] = (int16_t)(int)(plot_right * virtual_x_scale);
     graph->label_max_extents.n[2] = 480;
     graph->label_max_extents.n[3] = 640;
 
-    graph->label_avg_extents.n[0] = (__int16)(int)((30.0f + 60.0f) * virtual_y_scale);
+    graph->label_avg_extents.n[0] = (int16_t)(int)((30.0f + 60.0f) * virtual_y_scale);
     graph->label_avg_extents.n[1] = graph->label_max_extents.n[1];
     graph->label_avg_extents.n[2] = 480;
     graph->label_avg_extents.n[3] = 640;

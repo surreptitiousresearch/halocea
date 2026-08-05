@@ -40,6 +40,11 @@ float sense_ray_avoidance_weights[9][8] =
  * Recovered @0x82126788; the second (offset) ray of the pair counts 1.5x the first. */
 float avoid_ray_avoidance_weights[2] = { 0.8f, 1.2f };
 
+/* Fractions of a direction's avoid-weight spread onto its +-1 and +-2 ring neighbours
+ * (also scales the 0.4 re-seed of the previously chosen direction).
+ * Recovered @0x82126790 (dwords 0x3F4CCCCD, 0x3F000000). */
+float avoid_ray_adjacent_fractions[2] = { 0.8f, 0.5f };
+
 /* Escape-ring pair geometry: each direction's two probe rays sit at these offsets along the
  * direction (x0.7 scaled in code) with these divergences (30 and 55 degrees).
  * Recovered @0x82126654 / @0x8212665C. */

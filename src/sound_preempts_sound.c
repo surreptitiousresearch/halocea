@@ -23,7 +23,7 @@ uint8_t sound_preempts_sound(uint16_t challenger_sound_index, uint16_t champion_
     sound_datum *champion = DATA_ARRAY_ELEMENT(sound_data, sound_datum, champion_sound_index);
     sound_datum *challenger = DATA_ARRAY_ELEMENT(sound_data, sound_datum, challenger_sound_index);
 
-    __int16 challenger_priority = sound_classes[
+    int16_t challenger_priority = sound_classes[
         TAG_GET(sound_definition, challenger->definition_index)->class_index].priority;
     int champion_priority = sound_classes[
         TAG_GET(sound_definition, champion->definition_index)->class_index].priority;
@@ -34,7 +34,7 @@ uint8_t sound_preempts_sound(uint16_t challenger_sound_index, uint16_t champion_
             return 0;                                /* strictly lower priority: no preempt */
         {
             float champion_distance =
-                source_distance_squared((unsigned __int16)champion->listener_index, &champion->source);
+                source_distance_squared((uint16_t)champion->listener_index, &champion->source);
             if ( challenger_distance_squared >= champion_distance )
                 return 0;                            /* equal priority, not closer: no preempt */
         }

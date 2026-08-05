@@ -18,7 +18,7 @@ extern uint8_t point_in_pill2d(const real_point2d *point, const real_point2d *ba
 
 uint8_t circle_intersects_triangle2d(const real_point2d *center, float radius, const real_point2d *p0, const real_point2d *p1, const real_point2d *p2)
 {
-    unsigned __int8 result = 1;
+    uint8_t result = 1;
     real_vector2d edge;
 
     edge.n[0] = p2->n[0] - p1->n[0];

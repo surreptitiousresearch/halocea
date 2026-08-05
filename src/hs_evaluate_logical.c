@@ -18,7 +18,7 @@ extern void hs_return(uint16_t thread_index, int value);
 
 void hs_evaluate_logical(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate x3: reserve slots at the frame data top, aligned up.
      * The compiled `if (slot - elem > top) slot -= elem` correction can never fire (align-up
@@ -28,21 +28,21 @@ void hs_evaluate_logical(int16_t function_index, int thread_index, uint8_t initi
     int *iterator = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
     if ( (unsigned int)(iterator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --iterator;
-    frame->size = (__int16)((unsigned char *)iterator - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)iterator - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *operand = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
     if ( (unsigned int)(operand - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --operand;
-    frame->size = (__int16)((unsigned char *)operand - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)operand - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     char *accumulator = (char *)stack_top;
     if ( (unsigned int)(stack_top - 1) > (unsigned int)accumulator )   /* dead branch (shipped) */
         accumulator = (char *)stack_top - 1;
-    frame->size = (__int16)((unsigned char *)accumulator - frame->data + 1);
+    frame->size = (int16_t)((unsigned char *)accumulator - frame->data + 1);
 
     if ( initialize )
     {

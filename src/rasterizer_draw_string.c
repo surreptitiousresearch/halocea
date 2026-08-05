@@ -79,13 +79,13 @@ void rasterizer_draw_string(const rectangle2d *bounds, const rectangle2d *clip, 
     rectangle2d viewport_bounds;
     if (clip)
     {
-        __int16 clip_bottom = clip->__s1.y1;
-        __int16 viewport_height = render.camera.viewport_bounds.__s1.y1 - render.camera.viewport_bounds.__s1.y0;
+        int16_t clip_bottom = clip->__s1.y1;
+        int16_t viewport_height = render.camera.viewport_bounds.__s1.y1 - render.camera.viewport_bounds.__s1.y0;
         if (viewport_height <= clip_bottom)
             clip_bottom = viewport_height;
 
-        __int16 clip_right = clip->__s1.x1;
-        __int16 viewport_width = render.camera.viewport_bounds.__s1.x1 - render.camera.viewport_bounds.__s1.x0;
+        int16_t clip_right = clip->__s1.x1;
+        int16_t viewport_width = render.camera.viewport_bounds.__s1.x1 - render.camera.viewport_bounds.__s1.x0;
         if (viewport_width <= clip_right)
             clip_right = viewport_width;
 

@@ -37,7 +37,7 @@
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
 
 
-extern const __int16 global_acknowledgement_speeds[4][4];
+extern const int16_t global_acknowledgement_speeds[4][4];
 
 extern void actor_perception_refresh(int actor_index);
 extern void actor_perception_refresh_danger_zone(int actor_index);
@@ -69,13 +69,13 @@ extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 void actor_perception_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 dormant = actor->meta.dormant;
+    uint8_t dormant = actor->meta.dormant;
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);
 
     double closest_orphan_distance = 3.4028235e38;
     int    best_orphan_index = -1;
     char   serviced_a_prop = 0;
-    __int16 highest_timer = 1;
+    int16_t highest_timer = 1;
     int    nearest_index = -1;
 
     if ( !dormant )
@@ -84,10 +84,10 @@ void actor_perception_update(int actor_index)
             actor_perception_refresh(actor_index);
         actor_perception_refresh_danger_zone(actor_index);
 
-        __int16 danger_type = actor->danger_zone.danger_type;
+        int16_t danger_type = actor->danger_zone.danger_type;
         if ( danger_type != actor_danger_zone_none )
         {
-            unsigned __int8 danger_acknowledge = 0;
+            uint8_t danger_acknowledge = 0;
             if ( actor->danger_zone.attached_to_us || actor->danger_zone.hostility )
             {
                 actor->danger_zone.noticed_danger = 1;
@@ -96,13 +96,13 @@ void actor_perception_update(int actor_index)
             }
             else
             {
-                __int16 timer = actor->danger_zone.acknowledgement_timer;
+                int16_t timer = actor->danger_zone.acknowledgement_timer;
                 if ( timer > 0 && actor->danger_zone.currently_perceived )
                 {
                     int last_danger_time = actor->state.uncertain_combat_timer;
                     if ( last_danger_time == -1 || last_danger_time >= 60 )
                     {
-                        __int16 next = (__int16)(timer - 1);
+                        int16_t next = (int16_t)(timer - 1);
                         actor->danger_zone.acknowledgement_timer = next;
                         danger_acknowledge = (next == 0);
                     }
@@ -155,7 +155,7 @@ void actor_perception_update(int actor_index)
             {
                 if ( actor->control.secondary_look_type == _secondary_look_dangerous_object )
                 {
-                    __int16 priority = actor->control.secondary_look_priority;
+                    int16_t priority = actor->control.secondary_look_priority;
                     if ( priority > 5 )
                         priority = 5;
                     actor->control.secondary_look_priority = priority;
@@ -175,31 +175,31 @@ void actor_perception_update(int actor_index)
 
     for ( prop_datum *prop = prop_iterator_next(&iterator); prop; prop = prop_iterator_next(&iterator) )
     {
-        __int16 new_state = -1;
-        unsigned __int8 acknowledged_expected[2] = { 0, 0 };
+        int16_t new_state = -1;
+        uint8_t acknowledged_expected[2] = { 0, 0 };
         char expired_orphan = 0;
         char needs_position_refresh = 0;
-        unsigned __int8 serviced = 0;
-        unsigned __int8 became_acknowledged = 0;
+        uint8_t serviced = 0;
+        uint8_t became_acknowledged = 0;
 
         /* ---- age the per-prop timers ---- */
         if ( prop->unit_effect_decay_ticks > 0 )
         {
-            __int16 d = prop->unit_effect_decay_ticks - 1;
+            int16_t d = prop->unit_effect_decay_ticks - 1;
             prop->unit_effect_decay_ticks = d;
             if ( !d )
                 prop->unit_effect = -1;
         }
         if ( prop->ticks_since_damage != -1 )
         {
-            __int16 d = prop->ticks_since_damage + 1;
+            int16_t d = prop->ticks_since_damage + 1;
             prop->ticks_since_damage = d;
             if ( d >= 45 )
                 prop->currently_damaging_me = 0;
         }
         if ( prop->ticks_since_definitely_located != -1 )
         {
-            __int16 d = prop->ticks_since_definitely_located + 1;
+            int16_t d = prop->ticks_since_definitely_located + 1;
             prop->ticks_since_definitely_located = d;
             if ( d >= 60 )
             {
@@ -219,11 +219,11 @@ void actor_perception_update(int actor_index)
             prop->unreachable_ticks = prop->unreachable_ticks + 1;
         if ( prop->unopposable_casualty_decay_timer > 0 )
         {
-            __int16 d = prop->unopposable_casualty_decay_timer - 1;
+            int16_t d = prop->unopposable_casualty_decay_timer - 1;
             prop->unopposable_casualty_decay_timer = d;
             if ( !d )
             {
-                __int16 c = (__int16)(prop->unopposable_casualties_inflicted - 1);
+                int16_t c = (int16_t)(prop->unopposable_casualties_inflicted - 1);
                 prop->unopposable_casualties_inflicted = c;
                 if ( c > 0 )
                     prop->unopposable_casualty_decay_timer = 750;
@@ -242,8 +242,8 @@ void actor_perception_update(int actor_index)
         }
         else
         {
-            unsigned __int8 enemy = prop->enemy;
-            __int16 weighted = ++prop->timer;
+            uint8_t enemy = prop->enemy;
+            int16_t weighted = ++prop->timer;
             if ( !enemy )
                 weighted >>= 3;
             if ( prop->quantized_distance >= 3 )
@@ -268,7 +268,7 @@ void actor_perception_update(int actor_index)
                 }
                 else
                 {
-                    unsigned __int8 in_use =
+                    uint8_t in_use =
                            actor->target.target_prop_index == iterator.index
                         || actor->meta.interesting_orphan_index  == iterator.index
                         || actor->emotions.unopposable_retreat_prop_index == iterator.index
@@ -291,7 +291,7 @@ void actor_perception_update(int actor_index)
         }
 
         /* ---- perception/awareness state machine ---- */
-        unsigned __int16 state = (unsigned __int16)prop->state;
+        uint16_t state = (uint16_t)prop->state;
         if ( state <= _prop_state_inspected_orphan )
         {
             if ( state == _prop_state_becoming_acknowledged )
@@ -311,7 +311,7 @@ void actor_perception_update(int actor_index)
                                                           prop->distance * prop->distance, prop->required_ticks,
                                                           NULL) )
                         {
-                            unsigned __int8 orphan_serviced = 0;  /* orphan-transition refresh is never the serviced prop */
+                            uint8_t orphan_serviced = 0;  /* orphan-transition refresh is never the serviced prop */
                             prop_position_refresh(actor_index, iterator.index, &sense_position, 0, orphan_serviced);
                             actor_perception_find_prop_pathfinding_location(actor_index, iterator.index);
                             replacement = prop_orphan_transition(actor_index, iterator.index);
@@ -355,8 +355,8 @@ void actor_perception_update(int actor_index)
 accumulate_awareness:
                     if ( prop->perception )
                     {
-                        __int16 knowledge = actor_get_perception_knowledge(actor_index, iterator.index);
-                        __int16 speed = global_acknowledgement_speeds[knowledge][prop->perception];
+                        int16_t knowledge = actor_get_perception_knowledge(actor_index, iterator.index);
+                        int16_t speed = global_acknowledgement_speeds[knowledge][prop->perception];
                         float gain;
                         if ( speed == 1 )      gain = actor_def->perception.runtime_awareness_delta_non_combat;
                         else if ( speed == 2 ) gain = actor_def->perception.runtime_awareness_delta_guard;
@@ -379,18 +379,18 @@ accumulate_awareness:
                 if ( state == _prop_state_uninspected_orphan )
                 {
                     char inspecting = 0;
-                    __int16 inspection_threshold = actor->input.vehicle_gunner_bombardment ? 300 : 45;
+                    int16_t inspection_threshold = actor->input.vehicle_gunner_bombardment ? 300 : 45;
                     /* Both reads are faithful decompiler type-puns over the DB control layout:
                      * weapon_maximum_range (float @412) read as __int16, current_fire_target_type
                      * (__int16 @416) read as int. Kept byte-exact — the reinterpretation is the
                      * decompiler's; do not "simplify" to a float/short compare. */
                     if ( prop->visibility >= 2
-                      || (*((__int16 *)&actor->control.weapon_maximum_range) == 1 && *((int *)&actor->control.current_fire_target_type) == iterator.index
+                      || (*((int16_t *)&actor->control.weapon_maximum_range) == 1 && *((int *)&actor->control.current_fire_target_type) == iterator.index
                           && game_time_get() % 3 == 0) )
                         inspecting = 1;
                     if ( inspecting )
                     {
-                        __int16 ticks = (__int16)(prop->orphan_inspection_ticks + 1);
+                        int16_t ticks = (int16_t)(prop->orphan_inspection_ticks + 1);
                         prop->orphan_inspection_ticks = ticks;
                         if ( ticks >= inspection_threshold )
                             new_state = _prop_state_inspected_orphan;
@@ -398,7 +398,7 @@ accumulate_awareness:
                 }
 
                 /* orphan lifespan decay, rate depends on how the prop is referenced */
-                __int16 decay;
+                int16_t decay;
                 if ( iterator.index == actor->emotions.unopposable_retreat_prop_index
                   || (actor->state.action == actor_action_flee && actor->state.action_data.___u0.flee.flee_prop_index == iterator.index) )
                     decay = 0;
@@ -408,7 +408,7 @@ accumulate_awareness:
                     decay = (actor->state.combat_status < _actor_combat_status_certain) ? 1 : 6;
                 else
                     decay = 10;
-                __int16 lifespan = (__int16)(prop->orphan_lifespan_ticks - decay);
+                int16_t lifespan = (int16_t)(prop->orphan_lifespan_ticks - decay);
                 prop->orphan_lifespan_ticks = lifespan;
                 if ( lifespan < 0 )
                     expired_orphan = 1;
@@ -426,7 +426,7 @@ apply_state:
                 {
                     if ( new_state == _prop_state_becoming_unacknowledged )
                     {
-                        __int16 t = (prop->visibility < 2) ? 10 : 60;
+                        int16_t t = (prop->visibility < 2) ? 10 : 60;
                         prop->ticks_until_orphan = t;
                     }
                     else if ( new_state == _prop_state_acknowledged )
@@ -464,23 +464,23 @@ clear_definite:
             }
             if ( prop->just_became_visible || (became_acknowledged && prop->visibility > 0) )
             {
-                unsigned __int8 new_enemy = (became_acknowledged && !acknowledged_expected[0]) ? 1 : 0;
+                uint8_t new_enemy = (became_acknowledged && !acknowledged_expected[0]) ? 1 : 0;
                 actor_stimulus_prop_sighted(actor_index, iterator.index, new_enemy);
                 prop->just_became_visible = 0;
             }
             if ( !actor->emotions.sighted_friendly_player && !prop->enemy && prop->player && prop->visibility >= 2
               && prop->quantized_facing <= 2 && prop->distance < 7.0f )
             {
-                unsigned __int8 new_enemy = 0;  /* friendly player sighting — never a new enemy */
+                uint8_t new_enemy = 0;  /* friendly player sighting — never a new enemy */
                 actor->emotions.sighted_friendly_player = 1;
                 ai_communication_event(_ai_communication_sighted_friend_player, actor->meta.unit_index, prop->unit_index, _comm_hostility_friend, -1, -1, NULL);
                 actor_stimulus_prop_sighted(actor_index, iterator.index, new_enemy);
             }
             if ( actor->meta.unit_index != -1 && !prop->dead && prop->ally && prop->ally_status_changed )
             {
-                unsigned __int8 is_enemy = game_team_is_enemy(actor->meta.team_index, prop->team_index);
+                uint8_t is_enemy = game_team_is_enemy(actor->meta.team_index, prop->team_index);
                 float radius = is_enemy ? 15.0f : (prop->quantized_facing > 2 ? 3.0f : 10.0f);
-                unsigned __int8 in_radius = prop->distance < radius;
+                uint8_t in_radius = prop->distance < radius;
                 if ( is_enemy && prop->currently_damaging_me )
                     in_radius = 1;
                 if ( in_radius )
@@ -548,12 +548,12 @@ clear_definite:
     best_orphan_index = nearest_index;
     if ( actor->target.target_prop_index != -1 )
     {
-        __int16 active_state = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index)->state;
+        int16_t active_state = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index)->state;
         if ( active_state >= _prop_state_uninspected_orphan && active_state <= _prop_state_inspected_orphan )
             best_orphan_index = -1;
     }
 
-    __int16 target_marker = actor->target.target_type;
+    int16_t target_marker = actor->target.target_type;
     if ( target_marker >= actor_target_definite_orphan )
         actor->target.any_target_ever = 1;
     if ( target_marker < actor_target_visible_enemy )

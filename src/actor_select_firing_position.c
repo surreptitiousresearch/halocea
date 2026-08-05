@@ -114,7 +114,7 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 
 int actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
                                  firing_position *best_firing_position, int *current_owner,
-                                 path_state *area_path_state, unsigned __int8 *area_path_state_valid)
+                                 path_state *area_path_state, uint8_t *area_path_state_valid)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     double best_evaluation = 0.0;
@@ -125,7 +125,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
         return -1;
 
     encounter_definition *encounter =
-        &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)encounter_index];
+        &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)encounter_index];
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);
     actor_variant_definition *variant_def = TAG_GET(actor_variant_definition, actor->meta.variant_definition_index);
 
@@ -138,7 +138,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
 
     encounter_build_firing_position_owner_actor_indices(encounter_index, owner_actor_indices);
 
-    __int16 self_owner_slot = actor->firing_positions.current_position_index;
+    int16_t self_owner_slot = actor->firing_positions.current_position_index;
     if ( self_owner_slot != -1 )
         owner_actor_indices[self_owner_slot] = -1;
 
@@ -149,7 +149,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
         evaluation_context->maximum_search_range = allowable_range;
 
     unsigned char specific_target_enable = evaluation_context->specific_target_enable;
-    __int16 evaluation_mode = evaluation_context->evaluation_mode;
+    int16_t evaluation_mode = evaluation_context->evaluation_mode;
     evaluation_context->has_target = 0;
     evaluation_context->find_path_distance_to_target = (evaluation_mode == _firing_point_evaluation_mode_pursue);
 
@@ -159,7 +159,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
         float target_y = evaluation_context->specific_target_point.n[1];
         float target_z = evaluation_context->specific_target_point.n[2];
         int target_surface = evaluation_context->specific_target_surface_index;
-        __int16 target_cluster = evaluation_context->specific_target_cluster_index;
+        int16_t target_cluster = evaluation_context->specific_target_cluster_index;
         evaluation_context->target_point.n[0] = target_x;
         evaluation_context->target_point.n[1] = target_y;
         evaluation_context->target_point.n[2] = target_z;
@@ -314,8 +314,8 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
 
     if ( actor_def->firing_position.friend_avoidance_radius > 0.0f )
     {
-        __int16 mode = evaluation_context->evaluation_mode;
-        if ( !mode || (unsigned __int16)mode == _firing_point_evaluation_mode_uncover || (unsigned __int16)mode == _firing_point_evaluation_mode_avoid )
+        int16_t mode = evaluation_context->evaluation_mode;
+        if ( !mode || (uint16_t)mode == _firing_point_evaluation_mode_uncover || (uint16_t)mode == _firing_point_evaluation_mode_avoid )
         {
             prop_iterator avoid_iterator;
             prop_iterator_new(&avoid_iterator, actor_index);
@@ -346,7 +346,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
         build_attack_vectors = actor->situation.known_enemies > 0;
     if ( (actor_def->flags2 & (1u << _actor_definition_flags2_avoid_all_enemy_attack_vectors_bit)) != 0 && actor->state.combat_status >= _actor_combat_status_definite )
         build_attack_vectors = 1;
-    unsigned int mode = (unsigned __int16)evaluation_context->evaluation_mode;
+    unsigned int mode = (uint16_t)evaluation_context->evaluation_mode;
     if ( mode > _firing_point_evaluation_mode_avoid
          || (evaluation_context->evaluation_mode
              && (mode == _firing_point_evaluation_mode_panic
@@ -475,7 +475,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
                     }
                 }
             }
-            index = (__int16)(index + 1);
+            index = (int16_t)(index + 1);
         }
         while ( index < firing_position_count );
     }
@@ -491,7 +491,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
     {
         if ( evaluation_context->flying )
         {
-            for ( int i = 0; i < candidate_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < candidate_count; i = (int16_t)(i + 1) )
             {
                 firing_position_definition *definition = candidates[i].definition;
                 real_vector3d to_target;
@@ -529,7 +529,7 @@ int actor_select_firing_position(int actor_index, firing_position_evaluation_con
             path_state target_path;
             path_state_new(&target_input, &target_path, nullptr);
             path_state_find(&target_path);
-            for ( int i = 0; i < candidate_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < candidate_count; i = (int16_t)(i + 1) )
             {
                 real_vector3d *direction = &candidates[i].path_direction_from_target;
                 if ( !evaluation_context->find_path_direction_from_target )
@@ -575,7 +575,7 @@ have_actor_path:
 
     if ( candidate_count > 0 )
     {
-        for ( int i = 0; i < candidate_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < candidate_count; i = (int16_t)(i + 1) )
         {
             firing_position *candidate = &candidates[i];
             if ( evaluation_context->has_target )
@@ -648,7 +648,7 @@ have_actor_path:
         actor_clear_discarded_firing_positions(actor_index, 0);
         best_index = chosen;
         if ( !firing_position_forced_evaluation(actor_index, evaluation_context,
-                                                &candidates[(__int16)best_index]) )
+                                                &candidates[(int16_t)best_index]) )
             best_index = -1;
         goto select_result;
     }
@@ -660,7 +660,7 @@ have_actor_path:
         do
         {
             sort_indices[i] = i;
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < candidate_count );
     }
@@ -683,9 +683,9 @@ have_actor_path:
 
     if ( candidate_count > 0 )
     {
-        for ( int i = 0; i < candidate_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < candidate_count; i = (int16_t)(i + 1) )
         {
-            firing_position *candidate = &candidates[(__int16)sort_indices[i]];
+            firing_position *candidate = &candidates[(int16_t)sort_indices[i]];
             if ( !candidate->valid
                  || (evaluation_context->post_evaluation_bounded
                      && (candidate->evaluation + evaluation_context->post_evaluation_bound) <= best_evaluation) )
@@ -694,13 +694,13 @@ have_actor_path:
             }
             if ( evaluation_context->has_target )
                 firing_position_compute_line_of_sight(actor_index, evaluation_context,
-                                                      &candidates[(__int16)sort_indices[i]]);
+                                                      &candidates[(int16_t)sort_indices[i]]);
             candidate->pre_evaluation = candidate->evaluation;
             if ( firing_position_post_evaluate(actor_index, evaluation_context,
-                                               &candidates[(__int16)sort_indices[i]])
+                                               &candidates[(int16_t)sort_indices[i]])
                  && candidate->evaluation > best_evaluation )
             {
-                best_index = (__int16)sort_indices[i];
+                best_index = (int16_t)sort_indices[i];
                 best_evaluation = candidate->evaluation;
             }
         }
@@ -710,12 +710,12 @@ have_actor_path:
 select_default:
     best_index = -1;
 select_result:
-    if ( (__int16)best_index == -1 )
+    if ( (int16_t)best_index == -1 )
         return best_index;
     if ( best_firing_position )
-        memcpy(best_firing_position, &candidates[(__int16)best_index], sizeof(firing_position));
-    int result = (unsigned __int16)candidates[(__int16)best_index].original_index;
+        memcpy(best_firing_position, &candidates[(int16_t)best_index], sizeof(firing_position));
+    int result = (uint16_t)candidates[(int16_t)best_index].original_index;
     if ( current_owner )
-        *current_owner = owner_actor_indices[(__int16)result];
+        *current_owner = owner_actor_indices[(int16_t)result];
     return result;
 }

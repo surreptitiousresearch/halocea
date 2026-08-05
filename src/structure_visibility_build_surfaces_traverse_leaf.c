@@ -30,18 +30,18 @@ int structure_visibility_build_surfaces_traverse_leaf(int leaf_index, const real
     real_rectangle3d leaf_bounds;
     dequantize_byte_to_real_rectangle3d(parent_bounds, &leaf->bounds, &leaf_bounds);
 
-    __int16 leaf_intersection = intersection;
+    int16_t leaf_intersection = intersection;
     if (intersection != 2)
     {
-        __int16 rectangle_hit = bounding_rectangles_intersect(&leaf_bounds, cull_bounds);
-        __int16 plane_hit = planes_intersect_rectangle(&leaf_bounds, cull_plane_count, cull_planes);
+        int16_t rectangle_hit = bounding_rectangles_intersect(&leaf_bounds, cull_bounds);
+        int16_t plane_hit = planes_intersect_rectangle(&leaf_bounds, cull_plane_count, cull_planes);
         leaf_intersection = (rectangle_hit > plane_hit) ? plane_hit : rectangle_hit;
     }
 
     if (leaf_intersection)
     {
         int first_reference = leaf->first_surface_reference_index;
-        __int16 surface_count = leaf->surface_reference_count;
+        int16_t surface_count = leaf->surface_reference_count;
         for (int reference = first_reference; reference < surface_count + first_reference; ++reference)
         {
             int surface_index =
@@ -50,11 +50,11 @@ int structure_visibility_build_surfaces_traverse_leaf(int leaf_index, const real
             unsigned int bit = 1 << (surface_index & 0x1F);
             if ((render.environment_surface_flags[word] & bit) != 0 && (surface_flags[word] & bit) == 0)
             {
-                if ((__int16)found >= maximum_count)
+                if ((int16_t)found >= maximum_count)
                     return found;
                 surface_flags[word] |= bit;
                 surface_indices[found] = surface_index;
-                found = (__int16)(found + 1);
+                found = (int16_t)(found + 1);
             }
         }
     }

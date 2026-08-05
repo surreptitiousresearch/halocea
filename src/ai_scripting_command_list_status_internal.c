@@ -15,7 +15,7 @@
 
 unsigned int ai_scripting_command_list_status_internal(int16_t actor_index, uint8_t *unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control)
 {
-    unsigned __int8 index = *unit_index;
+    uint8_t index = *unit_index;
     ai_command_list_definition *command_list = (ai_command_list_definition *)global_scenario->ai_command_lists.address + actor_index;
 
     if ( index < command_list->commands.count && (int)command_list->commands.address + 32 * index )

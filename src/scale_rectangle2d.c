@@ -7,21 +7,21 @@
 
 rectangle2d * scale_rectangle2d(const rectangle2d *bounds, const rectangle2d *source, rectangle2d *destination, int16_t scale)
 {
-    __int16 bounds_width = bounds->x1 - bounds->x0;
-    __int16 bounds_height = bounds->y1 - bounds->y0;
-    __int16 source_width = source->x1 - source->x0;
-    __int16 source_height = source->y1 - source->y0;
+    int16_t bounds_width = bounds->x1 - bounds->x0;
+    int16_t bounds_height = bounds->y1 - bounds->y0;
+    int16_t source_width = source->x1 - source->x0;
+    int16_t source_height = source->y1 - source->y0;
 
-    __int16 original_bounds_width = bounds_width;
-    __int16 original_bounds_height = bounds_height;
+    int16_t original_bounds_width = bounds_width;
+    int16_t original_bounds_height = bounds_height;
 
     if ( bounds_height * source_width <= bounds_width * source_height )
         bounds_width = bounds_height * source_width / source_height;
     else
         bounds_height = bounds_width * source_height / source_width;
 
-    __int16 scaled_width = (__int16)(bounds_width * scale) >> 8;
-    __int16 scaled_height = (__int16)(bounds_height * scale) >> 8;
+    int16_t scaled_width = (int16_t)(bounds_width * scale) >> 8;
+    int16_t scaled_height = (int16_t)(bounds_height * scale) >> 8;
 
     rectangle2d result;
     result.x0 = (original_bounds_width - scaled_width) / 2 + bounds->x0;

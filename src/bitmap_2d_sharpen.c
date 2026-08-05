@@ -38,12 +38,12 @@ void bitmap_2d_sharpen(bitmap_data *bitmap, const int16_t *positive_table, const
         return;
 
     int height = bitmap->height;
-    for ( int y = 0; y < height; y = (__int16)(y + 1) )
+    for ( int y = 0; y < height; y = (int16_t)(y + 1) )
     {
-        __int16 prev_y = (__int16)(y - 1);
+        int16_t prev_y = (int16_t)(y - 1);
         if ( y <= 0 )
             prev_y = height - 1;
-        __int16 next_y = (__int16)(y + 1);
+        int16_t next_y = (int16_t)(y + 1);
         if ( y >= height - 1 )
             next_y = 0;
 
@@ -58,7 +58,7 @@ void bitmap_2d_sharpen(bitmap_data *bitmap, const int16_t *positive_table, const
         /* left-edge column: the left neighbour wraps to the opposite end of the row */
         do
         {
-            int wrapped_left = (__int16)(row_stride + x);
+            int wrapped_left = (int16_t)(row_stride + x);
             int result = positive_table[cur_row[x]]
                     - negative_table[next_row[wrapped_left - 4]]
                     - negative_table[cur_row[wrapped_left - 4]]
@@ -73,12 +73,12 @@ void bitmap_2d_sharpen(bitmap_data *bitmap, const int16_t *positive_table, const
             else
                 result = 0;
             dest_row[x] = (unsigned char)result;
-            x = (__int16)(x + 1);
+            x = (int16_t)(x + 1);
         }
         while ( x < 4 );
 
         /* interior columns: no wrap */
-        for ( int last_interior = (__int16)(4 * bitmap->width - 4); x < last_interior; x = (__int16)(x + 1) )
+        for ( int last_interior = (int16_t)(4 * bitmap->width - 4); x < last_interior; x = (int16_t)(x + 1) )
         {
             int result = positive_table[cur_row[x]]
                     - negative_table[prev_row[x - 4]]
@@ -97,9 +97,9 @@ void bitmap_2d_sharpen(bitmap_data *bitmap, const int16_t *positive_table, const
         }
 
         /* right-edge column: the right neighbour wraps to the start of the row */
-        for ( int row_end = (__int16)((__int16)(4 * bitmap->width - 4) + 4); x < row_end; x = (__int16)(x + 1) )
+        for ( int row_end = (int16_t)((int16_t)(4 * bitmap->width - 4) + 4); x < row_end; x = (int16_t)(x + 1) )
         {
-            int wrapped_right = (__int16)(x - 4 * bitmap->width);
+            int wrapped_right = (int16_t)(x - 4 * bitmap->width);
             int result = positive_table[cur_row[x]]
                     - negative_table[next_row[wrapped_right + 4]]
                     - negative_table[cur_row[wrapped_right + 4]]

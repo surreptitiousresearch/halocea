@@ -29,7 +29,7 @@ void effect_build_locations(effect_datum *effect,
     if ( definition->locations.count <= 0 )
         return;
 
-    for ( event = 0; event < definition->locations.count; event = (__int16)(event + 1) )
+    for ( event = 0; event < definition->locations.count; event = (int16_t)(event + 1) )
     {
         int marker_count = get_markers_by_name(effect->object_index,
                 ((effect_location_definition *)definition->locations.address)[event].marker_name, markers, 16);
@@ -38,11 +38,11 @@ void effect_build_locations(effect_datum *effect,
         if ( marker_count <= 0 )
             continue;
 
-        for ( i = 0; i < marker_count; i = (__int16)(i + 1) )
+        for ( i = 0; i < marker_count; i = (int16_t)(i + 1) )
         {
             object_marker *marker = &markers[i];   /* recovered: (__int16 *)&markers[27 * i] */
             int location_index = datum_new(effect_location_data);
-            __int16 node_index = marker->node_index;
+            int16_t node_index = marker->node_index;
             effect_location_datum *location;
 
             if ( location_index == -1 )

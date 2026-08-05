@@ -2,6 +2,7 @@
  * baseline (3 bits, same packing as encode_weapon_index.c — confirmed inlined, not a call, via disasm,
  * so the helper is duplicated per that file's established convention). */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"
 
@@ -22,8 +23,8 @@ static unsigned int ppc_cntlzw(unsigned int x)
 unsigned int default_fixed_width_weapon_index_encoder(const _field_properties_definition *const field_properties,
     const void *const baseline_data, const void *const source_data, bitstream_t *const output_stream)
 {
-    const __int16 *source = source_data;
-    const __int16 *baseline = baseline_data;
+    const int16_t *source = source_data;
+    const int16_t *baseline = baseline_data;
     unsigned int encoded = (ppc_cntlzw((unsigned int)(*source + 1)) >> 3) & 4 | *source & 3;
 
     if ( !baseline || encoded != ((ppc_cntlzw((unsigned int)(*baseline + 1)) >> 3) & 4 | *baseline & 3) )

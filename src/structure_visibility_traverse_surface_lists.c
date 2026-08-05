@@ -21,7 +21,7 @@ extern uint8_t render_frustum_triangle_visible(const render_frustum *frustum, co
 
 void structure_visibility_traverse_surface_lists(structure_bsp *structure)
 {
-    for (int rc = 0; rc < render.rendered_cluster_count; rc = (__int16)(rc + 1))
+    for (int rc = 0; rc < render.rendered_cluster_count; rc = (int16_t)(rc + 1))
     {
         structure_cluster *cluster =
             (structure_cluster *)structure->clusters.address + render.rendered_clusters[rc].cluster_index;
@@ -61,7 +61,7 @@ void structure_visibility_traverse_surface_lists(structure_bsp *structure)
                 {
                     /* the 6-byte surface holds its three vertex indices; each lightmap vertex is 32 bytes
                      * (vertex_index << 5) past the group's vertex buffer */
-                    unsigned __int16 *triangle =
+                    uint16_t *triangle =
                         ((structure_surface *)structure->surfaces.address)[surface_index].vertex_indices;
                     if (render_frustum_triangle_visible(frustum,
                             (const real_point3d *)((triangle[0] << 5) + vertex_buffer),

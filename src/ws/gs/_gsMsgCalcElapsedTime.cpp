@@ -10,14 +10,15 @@
  * locals are dropped. The PPC 64-bit timer reads (shown as `>> 32` register-pair splits) are
  * normalized to plain __int64 arithmetic. */
 
+#include <stdint.h>
 #include "../../headers/ws/gs/_gsMsgCalcElapsedTime_boundary.h"
 
 extern "C" float fabsf(float x); // __fabs intrinsic -> CRT boundary
 
 void _gsMsgCalcElapsedTime()
 {
-    __int64 perfNow  = osGetPerfCounter();
-    __int64 perfFreq = osGetPerfFrequancy();
+    int64_t perfNow  = osGetPerfCounter();
+    int64_t perfFreq = osGetPerfFrequancy();
     gsTime = osGetTime();
 
     float elapsed = (float)(perfNow - gsPrevTimeLarge) / (float)perfFreq;

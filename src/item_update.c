@@ -66,7 +66,7 @@ extern void item_adjust_for_angular_velocity_change(int object_index);
 extern uint8_t game_engine_running(void);
 extern int16_t game_connection(void);
 extern void object_set_garbage(int object_index, uint8_t garbage);
-extern __int16 global_structure_bsp_index_get(void);
+extern int16_t global_structure_bsp_index_get(void);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_point3d *matrix4x3_inverse_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
@@ -80,7 +80,7 @@ extern int effect_new_from_object(int definition_index, int owner_object_index, 
 extern void object_delete(int object_index);
 extern int game_time_get(void);
 
-unsigned __int8 item_update(int item_index)
+uint8_t item_update(int item_index)
 {
     char *object = (char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, item_index)->datum;
     _object_datum *od = &((object_datum *)object)->object;
@@ -122,9 +122,7 @@ unsigned __int8 item_update(int item_index)
         od->forward.k = (up_y * cross_zy) - term_up_x;
         if ( normalize3d(&od->forward) == 0.0 )
         {
-            od->forward.i = global_forward3d->n[0];
-            *(int *)&od->forward.j = *(const int *)&global_forward3d->n[1];
-            *(int *)&od->forward.k = *(const int *)&global_forward3d->n[2];
+            od->forward = *global_forward3d;    /* DEVIATION: decompiler split this 3-word vector copy into int-punned word moves */
         }
     }
 
@@ -198,20 +196,19 @@ unsigned __int8 item_update(int item_index)
             int impulse_sound = item_def->item.collision_sound.index;
             if ( impulse_sound != -1 )
             {
-                /* build an ad-hoc sound_location in work_matrix: position, surface normal, object velocity */
-                *(real_point3d *)&work_matrix.scale = candidate;
-                *(long long *)&work_matrix.forward.k = *(long long *)&collision.plane.normal.n[0];
-                work_matrix.n[1][1] = collision.plane.normal.n[2];
-                long long object_velocity = *(long long *)&od->location;  /* recovered: object+152 -> location (8 bytes) */
-                float zero_z = global_zero_vector3d->n[2];
-                *(float *)&object_velocity = global_zero_vector3d->n[1];
-                work_matrix.n[1][2] = global_zero_vector3d->n[0];
-                work_matrix.n[2][0] = *(float *)&object_velocity;
-                work_matrix.n[2][1] = zero_z;
-                *(long long *)&work_matrix.up.k = object_velocity;
+                /* DEVIATION: the decompiler rendered these four plain copies through the work_matrix
+                 * stack slot with fused 64-bit ld/std temps ("local variable allocation has failed"
+                 * residue); disasm 0x83758960-0x837589C0 is word-for-word this struct build:
+                 * position = candidate, forward = surface normal, velocity = zero, game_location =
+                 * od->location (the 8-byte std from object+0x98). */
+                sound_location impact_location;
+                impact_location.position = candidate;
+                impact_location.forward = collision.plane.normal;
+                impact_location.translational_velocity = *global_zero_vector3d;
+                impact_location.game_location = od->location;
                 /* is_player = 0 (li r6,0); decompiler's LOBYTE(up.k) 4th arg is the reserved GPR slot the
                  * float scale skips over */
-                unattached_impulse_sound_new(impulse_sound, (const sound_location *)&work_matrix, impact_scale, 0);
+                unattached_impulse_sound_new(impulse_sound, &impact_location, impact_scale, 0);
                 surface_normal_z = collision.plane.normal.n[2];
             }
 
@@ -252,11 +249,11 @@ unsigned __int8 item_update(int item_index)
                     if ( !game_engine_running() && od->owner_player_index == -1 )
                         object_set_garbage(item_index, 1u);
                     int physics_flags = item->item.flags;
-                    unsigned __int8 rests_on_surface = collision.type == collision_result_structure;
+                    uint8_t rests_on_surface = collision.type == collision_result_structure;
                     od->flags |= (1u << _object_at_rest_bit);
                     if ( rests_on_surface )
                     {
-                        __int16 surface_index = (__int16)collision.surface_index;
+                        int16_t surface_index = (int16_t)collision.surface_index;
                         item->item.flags = physics_flags | (1u << _item_on_structure_bit);
                         item->item.rested_surface_index = surface_index;
                         item->item.bsp_index = global_structure_bsp_index_get();
@@ -317,7 +314,7 @@ post_move:
         /* settled item: verify its resting surface / supporting object is still valid, else fall */
         object_get_marker_by_name(item_index, "ground point", &marker, 1);
         if ( (item->item.flags & (1u << _item_on_structure_bit)) != 0
-          && (unsigned __int16)item->item.rested_surface_index != 0xFFFF
+          && (uint16_t)item->item.rested_surface_index != 0xFFFF
           && item->item.bsp_index == global_structure_bsp_index_get() )
         {
             collision_surface *rest_surface =
@@ -422,10 +419,10 @@ spin:
     }
 
 despawn_and_touch:;
-    __int16 despawn_timer = item->item.detonation_ticks;
+    int16_t despawn_timer = item->item.detonation_ticks;
     if ( despawn_timer > 0 )
     {
-        __int16 remaining = despawn_timer - 1;
+        int16_t remaining = despawn_timer - 1;
         item->item.detonation_ticks = remaining;
         if ( !remaining )
         {

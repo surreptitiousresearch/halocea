@@ -3,7 +3,7 @@
  * unit that doesn't fit in a byte. Fails (returns null) if the source doesn't fit in the destination
  * (including the NUL). Returns the destination on success. */
 
-extern unsigned int wcslen(const unsigned __int16 *string);
+extern unsigned int wcslen(const uint16_t *string);
 
 char * wide_to_ascii(uint16_t *unicode, char *ascii, unsigned int ascii_length_bytes)
 {

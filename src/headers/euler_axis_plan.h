@@ -6,7 +6,7 @@
 
 typedef struct euler_axis_plan
 {
-    unsigned __int8 stopped;   /* 0x00 — plan already at rest / not running */
+    uint8_t stopped;   /* 0x00 — plan already at rest / not running */
     char            _pad1[3];  /* 0x01 */
     float           initial_p; /* 0x04 — starting position */
     float           initial_v; /* 0x08 — starting velocity */

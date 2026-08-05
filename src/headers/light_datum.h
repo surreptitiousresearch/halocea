@@ -5,14 +5,15 @@
  * record is left opaque. Not a DB-registered type (no types_members rows) — every field here is derived
  * from byte-offset usage across hcex_get_light_params.c and lights_preprocess_scene.c. */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "real_rgb_color.h"
 
 typedef struct light_datum
 {
-    __int16       identifier;               /* 0x00 */
-    unsigned __int16 flags;                 /* 0x02 — bit0: already submitted this frame; bit3: flashlight
+    int16_t       identifier;               /* 0x00 */
+    uint16_t flags;                 /* 0x02 — bit0: already submitted this frame; bit3: flashlight
                                               * position/orientation override applied */
     int           definition_index;         /* 0x04 — tag index into global_tag_instances */
     int           rasterizer_light_index;   /* 0x08 — reset to -1 every lights_preprocess_scene pass;
@@ -35,11 +36,11 @@ typedef struct light_datum
     int           parent_light_index;       /* 0x58 — when != -1 the light is suppressed (radius forced to
                                               * 0); dual-purposed as a game_time timestamp for the active
                                               * flicker/transition-function start time */
-    __int16       attachment_marker_index;  /* 0x5C */
-    __int16       function_index;           /* 0x5E — object function driving the light's intensity */
+    int16_t       attachment_marker_index;  /* 0x5C */
+    int16_t       function_index;           /* 0x5E — object function driving the light's intensity */
     union                                   /* 0x60 — dual-purposed region (both arms byte-offset-evidenced): */
     {
-        __int16       color_function_index; /* 0x60 — index into the gel color-function table, or -1 for
+        int16_t       color_function_index; /* 0x60 — index into the gel color-function table, or -1 for
                                               * global_real_rgb_white (lights_preprocess_scene.c, light_new.c) */
         struct                              /* object-space attachment transform, valid while attached to a
                                               * node (light_new_unattached.c stores it; the reconnect passes

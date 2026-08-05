@@ -32,13 +32,13 @@ uint8_t vehicle_stuck(int vehicle_index, real_vector3d *approximate_direction)
     if (!contact_flags || !physics_instance_new(&instance, vehicle_index))
         return 0;
 
-    __int16 contact_count = 0;
+    int16_t contact_count = 0;
     real_point3d centroid;
     centroid.n[0] = global_origin3d->n[0];
     centroid.n[1] = global_origin3d->n[1];
     centroid.n[2] = global_origin3d->n[2];
 
-    for (int i = 0; i < instance.physics->mass_points.count; i = (__int16)(i + 1))
+    for (int i = 0; i < instance.physics->mass_points.count; i = (int16_t)(i + 1))
     {
         if (((1 << i) & contact_flags) != 0)
         {

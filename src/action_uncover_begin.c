@@ -40,7 +40,7 @@ void action_uncover_begin(uint16_t actor_index)
     }
 
     float duration_seconds = real_seed_random_range(get_global_random_seed_address(), min_duration, max_duration);
-    unsigned __int16 notify_suppressed = (unsigned __int16)actor->state.action_data.___u0.uncover.pursuit_location.type;
+    uint16_t notify_suppressed = (uint16_t)actor->state.action_data.___u0.uncover.pursuit_location.type;
 
     int duration_ticks = (int)(duration_seconds * 30.0f);
     actor->state.action_data.___u0.uncover.uncover_desired_time = duration_ticks;

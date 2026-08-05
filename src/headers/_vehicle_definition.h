@@ -5,6 +5,7 @@
  * 900), ai_pathfinding_radius (abs 908), ai_charge_repeat_time (abs 912), ai_strafing_stop_range (abs
  * 916), and the oversteer/steering-angle floats (abs 920/924/928). */
 
+#include <stdint.h>
 #include "physics_variable_speed.h"
 #include "physics_variable_position.h"
 #include "tag_reference.h"
@@ -12,14 +13,14 @@
 typedef struct _vehicle_definition
 {
     unsigned int              flags;                          /* 0x00 */
-    __int16                   type;                           /* 0x04 */
-    __int16                   pad;                            /* 0x06 */
+    int16_t                   type;                           /* 0x04 */
+    int16_t                   pad;                            /* 0x06 */
     physics_variable_speed    speed;                          /* 0x08 */
     physics_variable_position turn;                           /* 0x18 */
     float                     wheel_circumference;            /* 0x20 */
     float                     turn_rate;                      /* 0x24 */
     float                     blur_speed;                     /* 0x28 */
-    __int16                   function_modes[4];              /* 0x2C */
+    int16_t                   function_modes[4];              /* 0x2C */
     float                     unused0[3];                     /* 0x34 */
     physics_variable_speed    slide;                          /* 0x40 */
     float                     flipping_angular_velocity_min;  /* 0x50 */

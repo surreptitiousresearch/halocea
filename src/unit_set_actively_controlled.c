@@ -31,7 +31,7 @@ void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled)
 
     unsigned int flags = unit->unit.flags;
     /* not_destroyed: 0xFF when the destroyed bit is clear, 0x00 when set */
-    unsigned __int8 not_destroyed = ((unit->object.damage_flags & (1u << _object_dead_bit)) != 0) - 1;
+    uint8_t not_destroyed = ((unit->object.damage_flags & (1u << _object_dead_bit)) != 0) - 1;
     unsigned int with_bit0 = flags | (1u << _unit_actively_controlled_bit);
     if ( (not_destroyed & actively_controlled) == 0 )
         with_bit0 = flags & ~(1u << _unit_actively_controlled_bit);
@@ -41,7 +41,7 @@ void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled)
         with_bit40 = with_bit0 & ~(1u << _unit_controllable_bit);
     unit->unit.flags = with_bit40;
 
-    for ( int i = 0; i < 4; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 4; i = (int16_t)(i + 1) )
     {
         int weapon = unit->unit.weapon_object_indices[i];
         if ( weapon != -1 )

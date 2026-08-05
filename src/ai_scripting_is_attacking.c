@@ -22,8 +22,8 @@ uint8_t ai_scripting_is_attacking(int ai_index)
     {
         if ( platoon_index > iterator.last_platoon_index )
             break;
-        __int16 base_platoon_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, iterator.encounter_index)->platoon_base;
-        platoon_datum *platoon = &platoon_array[(__int16)(base_platoon_index + platoon_index++)];
+        int16_t base_platoon_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, iterator.encounter_index)->platoon_base;
+        platoon_datum *platoon = &platoon_array[(int16_t)(base_platoon_index + platoon_index++)];
         if ( !platoon )
             break;
         if ( !platoon->defending )

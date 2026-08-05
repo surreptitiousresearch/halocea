@@ -48,7 +48,7 @@ void oddball_engine_weapon_update(int weapon_index, weapon_datum *weapon)
         return;
 
     /* recovered: *(__int16 *)(weapon_bytes + 184) -> weapon->object.owner_team_index */
-    __int16 owner_team_index = weapon->object.owner_team_index;
+    int16_t owner_team_index = weapon->object.owner_team_index;
     game_engine_set_goal_position(owner_team_index, &position, 0.0f, "ball_blue", -1, -1,
                                   oddball_globals.current_ball_owner[owner_team_index]);
 

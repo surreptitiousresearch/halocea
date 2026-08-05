@@ -6,12 +6,13 @@
  * (0x23/0x21/0x17/0x1A/0x1F ...); reproduced here as an equivalent switch over the named states
  * (verified state-by-state against the original branch structure). */
 
+#include <stdint.h>
 #include "headers/unit_animation.h"
 #include "headers/unit_animation_state.h"
 
 int unit_animation_state_loops(unit_animation *animation)
 {
-    unsigned int state = (unsigned __int8)animation->state;
+    unsigned int state = (uint8_t)animation->state;
 
     switch ( state )
     {

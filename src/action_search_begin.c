@@ -19,7 +19,7 @@ void action_search_begin(uint16_t actor_index)
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);
 
     float lower_bound, upper_bound;
-    if ( (unsigned __int16)actor->state.action_data.___u0.search.pursuit_location.type )
+    if ( (uint16_t)actor->state.action_data.___u0.search.pursuit_location.type )
     {
         lower_bound = actor_def->pursuit.pursuit_position_time_lower_bound;
         upper_bound = actor_def->pursuit.pursuit_position_time_upper_bound;

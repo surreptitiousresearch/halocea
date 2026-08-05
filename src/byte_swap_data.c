@@ -14,6 +14,7 @@
  * ("local variable allocation has failed"); reconstructed as bswap64 (the -4 pile is the equivalent bswap32).
  * Undefined opcodes <= -8 loop without advancing — a shipped assumption that only valid streams occur. */
 
+#include <stdint.h>
 #include "headers/byte_swap_definition.h"
 
 extern void _byte_swap_data(byte_swap_definition *definition, void *data, int *codes,
@@ -72,8 +73,8 @@ void byte_swap_data(byte_swap_definition *definition, void *data, int data_count
 
                 if ( code == -8 )
                 {
-                    unsigned __int64 qw = *(unsigned __int64 *)&element_data[offset];
-                    *(unsigned __int64 *)&element_data[offset] =
+                    uint64_t qw = *(uint64_t *)&element_data[offset];
+                    *(uint64_t *)&element_data[offset] =
                           ((qw & 0x00000000000000FFull) << 56) | ((qw & 0x000000000000FF00ull) << 40)
                         | ((qw & 0x0000000000FF0000ull) << 24) | ((qw & 0x00000000FF000000ull) << 8)
                         | ((qw & 0x000000FF00000000ull) >> 8)  | ((qw & 0x0000FF0000000000ull) >> 24)

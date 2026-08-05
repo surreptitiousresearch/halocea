@@ -7,6 +7,7 @@
  * that is float-division noise — the fraction is simply ticks_elapsed / ticks (the original
  * remaining count). */
 
+#include <stdint.h>
 #include "headers/sound_class_datum.h"
 #include "headers/sound_class.h"
 
@@ -17,10 +18,10 @@ void sound_classes_update(int ticks_elapsed)
     if ( ticks_elapsed <= 0 )
         return;
 
-    for ( i = 0; i < NUMBER_OF_SOUND_CLASSES; i = (__int16)(i + 1) )
+    for ( i = 0; i < NUMBER_OF_SOUND_CLASSES; i = (int16_t)(i + 1) )
     {
         sound_class_datum *sound_class = &sound_class_data[i];
-        __int16 ticks = sound_class->ticks;
+        int16_t ticks = sound_class->ticks;
 
         if ( ticks <= ticks_elapsed )
         {

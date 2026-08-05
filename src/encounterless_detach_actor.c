@@ -3,6 +3,7 @@
  * Clears the actor's meta.encounterless flag (+0x09) and meta.force_active flag (+0x0A) — the latter
  * was previously mislabeled "active flag"; DB says force_active. No-op if AI isn't initialised. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/ai_globals.h"
 #include "headers/actor_datum.h"
@@ -17,13 +18,13 @@ void encounterless_detach_actor(int actor_index)
     int *link = &ai_globals->first_encounterless_actor_index;
     int current = ai_globals->first_encounterless_actor_index;
     actor_datum *data = (actor_datum *)actor_data->data;
-    actor_datum *actor = &data[(unsigned __int16)actor_index];
+    actor_datum *actor = &data[(uint16_t)actor_index];
 
     if ( current != actor_index )
     {
         do
         {
-            link = &data[(unsigned __int16)current].meta.next_actor_index;  /* actor +0x2C next */
+            link = &data[(uint16_t)current].meta.next_actor_index;  /* actor +0x2C next */
             current = *link;
         }
         while ( *link != actor_index );

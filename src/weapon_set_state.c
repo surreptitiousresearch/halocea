@@ -64,7 +64,7 @@ uint8_t weapon_set_state(int weapon_index, int16_t new_state, uint8_t immediate)
                 (animation_graph_weapon_animations *)graph->weapon_animations.address;
             if ( animation_mode )
             {
-                __int16 animation_type = -1;
+                int16_t animation_type = -1;
                 switch ( new_state )
                 {
                     case weapon_state_idle:              animation_type = _weapon_animation_idle;      break;
@@ -83,11 +83,11 @@ uint8_t weapon_set_state(int weapon_index, int16_t new_state, uint8_t immediate)
 
                 if ( animation_type != -1 )
                 {
-                    __int16 animation_index;
+                    int16_t animation_index;
                     if ( animation_type < 0 || animation_type >= animation_mode->animations.count )
                         animation_index = -1;
                     else
-                        animation_index = ((__int16 *)animation_mode->animations.address)[animation_type];
+                        animation_index = ((int16_t *)animation_mode->animations.address)[animation_type];
 
                     if ( animation_index != -1 || !new_state )
                     {

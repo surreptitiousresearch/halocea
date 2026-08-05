@@ -95,7 +95,7 @@ void unit_cause_continuous_melee_damage(int unit_index)
     damage.owner_player_index = unit_data->unit.player_index;
 
     real_plane3d *plane;
-    __int16 node_index, region_index, material_index;
+    int16_t node_index, region_index, material_index;
     if ( hit )
     {
         unit_data->unit.melee_continuous_damage_effect_timer = 10;

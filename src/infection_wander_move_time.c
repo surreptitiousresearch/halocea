@@ -9,7 +9,7 @@
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-unsigned __int8 infection_wander_move_time(__int16 movement_type)
+uint8_t infection_wander_move_time(int16_t movement_type)
 {
     float scale = 1.0f;
 
@@ -26,5 +26,5 @@ unsigned __int8 infection_wander_move_time(__int16 movement_type)
     if ( ticks > 255 )
         ticks = -1;
 
-    return (unsigned __int8)ticks;
+    return (uint8_t)ticks;
 }

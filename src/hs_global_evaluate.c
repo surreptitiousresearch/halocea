@@ -11,7 +11,7 @@
 #include "headers/blam_data_globals.h"
 
 extern void hs_global_reconcile_read(int16_t global_designator);
-extern __int16 hs_external_global_count;
+extern int16_t hs_external_global_count;
 
 int hs_global_evaluate(int16_t global_designator)
 {

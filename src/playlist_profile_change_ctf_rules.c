@@ -39,14 +39,14 @@ uint8_t playlist_profile_change_ctf_rules(widget_instance *widget, event_record 
 
     widget_instance *group = parent->children;
 
-    int assault_index = (unsigned __int16)first_text_box(group)->parameters.text_box_parameters.string_list_index;
+    int assault_index = (uint16_t)first_text_box(group)->parameters.text_box_parameters.string_list_index;
     if ( assault_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.assault = 1;
     else if ( assault_index == 1 )
         edit_playlist_profile->game_engine_variant.ctf.assault = 0;
 
     unsigned int flag_time_index =
-            (unsigned __int16)first_text_box(group->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group->next)->parameters.text_box_parameters.string_list_index;
     if ( flag_time_index <= 5 )
     {
         switch ( flag_time_index )
@@ -61,7 +61,7 @@ uint8_t playlist_profile_change_ctf_rules(widget_instance *widget, event_record 
     }
 
     widget_instance *reset_group = group->next->next;
-    int reset_index = (unsigned __int16)first_text_box(reset_group)->parameters.text_box_parameters.string_list_index;
+    int reset_index = (uint16_t)first_text_box(reset_group)->parameters.text_box_parameters.string_list_index;
     if ( reset_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.flag_must_reset = 1;
     else if ( reset_index == 1 )
@@ -69,7 +69,7 @@ uint8_t playlist_profile_change_ctf_rules(widget_instance *widget, event_record 
 
     widget_instance *at_home_group = reset_group->next;
     int at_home_index =
-            (unsigned __int16)first_text_box(at_home_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(at_home_group)->parameters.text_box_parameters.string_list_index;
     if ( at_home_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.flag_at_home_to_score = 1;
     else if ( at_home_index == 1 )
@@ -77,7 +77,7 @@ uint8_t playlist_profile_change_ctf_rules(widget_instance *widget, event_record 
 
     widget_instance *score_group = at_home_group->next;
     unsigned int score_index =
-            (unsigned __int16)first_text_box(score_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(score_group)->parameters.text_box_parameters.string_list_index;
     if ( score_index <= 4 )
     {
         switch ( score_index )
@@ -91,7 +91,7 @@ uint8_t playlist_profile_change_ctf_rules(widget_instance *widget, event_record 
     }
 
     unsigned int time_index =
-            (unsigned __int16)first_text_box(score_group->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(score_group->next)->parameters.text_box_parameters.string_list_index;
     if ( time_index <= 6 )
     {
         switch ( time_index )

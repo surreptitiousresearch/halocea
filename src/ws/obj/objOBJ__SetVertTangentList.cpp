@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -18,9 +19,9 @@ void objOBJ::SetVertTangentList(unsigned int tcInd, void *tangentList)
     objGEOM_SHARED *pSharedGeom = this->pGeom->pSharedGeom;
     pSharedGeom->tangentList[tcInd] = (m4dV *)tangentList;
 
-    unsigned __int64 presentBit    = (unsigned __int64)0x10000 << tcInd;   // FVF tangent-present
-    unsigned __int64 compressedBit = (unsigned __int64)0x200000 << tcInd;  // FVF tangent-compressed
-    unsigned __int64 comprSrcBit   = (unsigned __int64)0x2000 << tcInd;    // stateCompr tangent-compressed
+    uint64_t presentBit    = (uint64_t)0x10000 << tcInd;   // FVF tangent-present
+    uint64_t compressedBit = (uint64_t)0x200000 << tcInd;  // FVF tangent-compressed
+    uint64_t comprSrcBit   = (uint64_t)0x2000 << tcInd;    // stateCompr tangent-compressed
 
     if (tangentList) {
         pSharedGeom = this->pGeom->pSharedGeom;

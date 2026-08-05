@@ -36,7 +36,7 @@ int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index,
                           int16_t mode, uint8_t test_line_of_fire,
                           int ignore_object_index, uint8_t ignore_vehicles)
 {
-    unsigned __int8 blocked = 0;
+    uint8_t blocked = 0;
 
     if ( p0_cluster_index != -1 && p1_cluster_index != -1 && !scenario_test_pvs(p0_cluster_index, p1_cluster_index) )
         return _ai_line_of_sight_obstructed;
@@ -124,7 +124,7 @@ int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index,
 
         if ( !reached_endpoint )
         {
-            unsigned __int8 right_hit = collision_test_line(mask, &right, p1, ignore_object_index, &result);
+            uint8_t right_hit = collision_test_line(mask, &right, p1, ignore_object_index, &result);
             blocked = (right_hit == 0);
             if ( right_hit )
                 blocked = collision_test_line(mask, &left, p1, ignore_object_index, &result) == 0;

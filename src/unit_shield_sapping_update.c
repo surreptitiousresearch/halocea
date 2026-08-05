@@ -45,7 +45,7 @@ void unit_shield_sapping_update(int unit_index)
 
         if (unit->object.animation.state.index >= animation_record->private_loop_frame_index)
         {
-            unsigned __int8 dealt_damage = 0;
+            uint8_t dealt_damage = 0;
             data_iterator player_iterator;
 
             data_iterator_new(&player_iterator, player_data);

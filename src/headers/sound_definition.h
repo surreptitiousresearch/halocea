@@ -1,6 +1,7 @@
 #pragma once
 /* sound_definition — the 'snd!' sound tag definition (sound.c). Layout verbatim from the DB. */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 #include "sound_scale_modifiers.h"
@@ -8,8 +9,8 @@
 typedef struct sound_definition
 {
     int                   flags;                         /* 0x00 */
-    __int16               class_index;                   /* 0x04 */
-    __int16               sample_rate;                   /* 0x06 */
+    int16_t               class_index;                   /* 0x04 */
+    int16_t               sample_rate;                   /* 0x06 */
     float                 minimum_distance;              /* 0x08 */
     float                 maximum_distance;              /* 0x0C */
     float                 skip_fraction;                 /* 0x10 */
@@ -23,11 +24,11 @@ typedef struct sound_definition
     int                   unused[3];                     /* 0x30 */
     sound_scale_modifiers scale_lower_bound;             /* 0x3C */
     sound_scale_modifiers scale_upper_bound;             /* 0x54 */
-    __int16               encoding;                      /* 0x6C */
-    __int16               compression;                   /* 0x6E */
+    int16_t               encoding;                      /* 0x6C */
+    int16_t               compression;                   /* 0x6E */
     tag_reference         promotion_sound;               /* 0x70 */
-    __int16               promotion_count;               /* 0x80 */
-    unsigned __int16      pad2;                          /* 0x82 */
+    int16_t               promotion_count;               /* 0x80 */
+    uint16_t      pad2;                          /* 0x82 */
     int                   runtime_maximum_play_time;     /* 0x84 */
     int                   runtime_promotion_counter;     /* 0x88 */
     int                   runtime_promotion_time;        /* 0x8C */

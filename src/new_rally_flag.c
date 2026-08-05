@@ -17,7 +17,7 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 
 int new_rally_flag(int old_flag)
 {
-    __int16 candidate_count = 0;
+    int16_t candidate_count = 0;
     for ( int bit = 0; bit < 32; bit++ )
     {
         if ( (race_globals.lap_completed_value & (1 << bit)) != 0 )
@@ -26,7 +26,7 @@ int new_rally_flag(int old_flag)
     if ( old_flag != -1 )
         --candidate_count;
 
-    __int16 pick = seed_random_range(get_global_random_seed_address(), 0, candidate_count);
+    int16_t pick = seed_random_range(get_global_random_seed_address(), 0, candidate_count);
 
     scenario *scnr = global_scenario;
     scenario_netgame_flag *netgame_flag = (scenario_netgame_flag *)scnr->netgame_flags.address;

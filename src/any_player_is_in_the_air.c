@@ -48,13 +48,13 @@ uint8_t any_player_is_in_the_air(void)
         int parent_index = unit->object.parent_object_index;
         if (parent_index == -1)
         {
-            if (!(unsigned __int16)unit->object.type)   /* on-foot biped */
+            if (!(uint16_t)unit->object.type)   /* on-foot biped */
             {
                 if (biped_flying_through_air(unit_index))
                     return 1;
                 continue;
             }
-            if ((unsigned __int16)unit->object.type != object_type_vehicle)   /* not a vehicle */
+            if ((uint16_t)unit->object.type != object_type_vehicle)   /* not a vehicle */
                 continue;
             airborne_ticks = unit->vehicle.airborne_ticks;
         }

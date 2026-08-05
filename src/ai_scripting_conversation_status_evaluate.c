@@ -6,15 +6,15 @@
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
 extern void hs_return(uint16_t thread_index, int value);
-extern int ai_scripting_conversation_status(__int16 conversation_index);
+extern int ai_scripting_conversation_status(int16_t conversation_index);
 
 void ai_scripting_conversation_status_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
         int result = 0;   /* LOWORD = 0 */
-        *((__int16 *)&result + 1) = ai_scripting_conversation_status(arguments[0]);
+        *((int16_t *)&result + 1) = ai_scripting_conversation_status(arguments[0]);
         hs_return(thread_index, result);
     }
 }

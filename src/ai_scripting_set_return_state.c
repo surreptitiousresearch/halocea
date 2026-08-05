@@ -24,8 +24,8 @@ void ai_scripting_set_return_state(int ai_index, int16_t default_state)
               actor;
               actor = ai_index_actor_iterator_next(&iterator) )
         {
-            __int16 action_class = actor_action_class(iterator.iterator.index);
-            int combat_status = (unsigned __int16)actor->state.combat_status;
+            int16_t action_class = actor_action_class(iterator.iterator.index);
+            int combat_status = (uint16_t)actor->state.combat_status;
             actor->state.default_state = default_state;
             if ( !combat_status && (action_class == _action_class_noncombat
                                     || action_class == _action_class_passive

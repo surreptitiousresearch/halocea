@@ -10,9 +10,10 @@
  * (Add<double>), matching the disassembly. The ws modifier / ref-type / parameter-list types are extern
  * boundaries. */
 
+#include <stdint.h>
 #include "../headers/hcex/hcex_modifier_boundary.h"
 
-extern "C" float hcex_update_compass(int modelId, __int16 local_player_index, float compass_magnitude)
+extern "C" float hcex_update_compass(int modelId, int16_t local_player_index, float compass_magnitude)
 {
     propOBJ_MODIFIER_LIST *modifier = GetModifier(modelId, local_player_index);
     if ( !modifier )

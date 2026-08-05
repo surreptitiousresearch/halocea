@@ -30,14 +30,14 @@ uint8_t particle_next_sequence(int particle_index)
 
     if ( !state )   /* birth phase */
     {
-        __int16 birth_count = definition->initial_sequence_count;
+        int16_t birth_count = definition->initial_sequence_count;
         if ( birth_count > 0 )
             particle->sequence_index = definition->first_sequence_index
                                      + seed_random_range(get_global_local_random_seed_address(), 0, birth_count);
         ++particle->state;
     }
 
-    if ( (unsigned __int16)particle->sequence_index == 0xFFFF && particle->state == 1 )
+    if ( (uint16_t)particle->sequence_index == 0xFFFF && particle->state == 1 )
     {
         particle->state = 2;
     }
@@ -54,15 +54,15 @@ uint8_t particle_next_sequence(int particle_index)
     }
     else
     {
-        __int16 loop_count = definition->looping_sequence_count;
+        int16_t loop_count = definition->looping_sequence_count;
         particle->sequence_index = definition->initial_sequence_count + definition->first_sequence_index
                                  + seed_random_range(get_global_local_random_seed_address(), 0, loop_count);
     }
 
 check_death:
-    if ( (unsigned __int16)particle->sequence_index == 0xFFFF && particle->state == 3 )
+    if ( (uint16_t)particle->sequence_index == 0xFFFF && particle->state == 3 )
     {
-        __int16 death_count = definition->final_sequence_count;
+        int16_t death_count = definition->final_sequence_count;
         if ( death_count > 0 )
             particle->sequence_index = definition->looping_sequence_count
                                      + definition->initial_sequence_count

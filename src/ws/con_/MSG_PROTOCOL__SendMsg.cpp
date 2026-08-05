@@ -1,9 +1,10 @@
+#include <stdint.h>
 #include "MSG_PROTOCOL.h"
 #include "../ds/ds_assert_boundary.h"
 
 // os primitives -- boundary (inline extern, matching sibling ws/* convention).
-extern "C" unsigned __int64 osGetPerfCounter(void);     // boundary
-extern "C" unsigned __int64 osGetPerfFrequancy(void);   // boundary
+extern "C" uint64_t osGetPerfCounter(void);     // boundary
+extern "C" uint64_t osGetPerfFrequancy(void);   // boundary
 extern "C" int strcmp(const char *a, const char *b);    // boundary — CRT
 
 namespace con {

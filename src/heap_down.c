@@ -13,11 +13,11 @@ void heap_down(obstacle_path *path, int16_t heap_index)
 {
     while (heap_index < path->heap_count)
     {
-        __int16 parent_index = heap_index;
+        int16_t parent_index = heap_index;
         int heap_count = path->heap_count;
 
-        __int16 left_index = 2 * heap_index + 1;
-        __int16 right_index = 2 * heap_index + 2;
+        int16_t left_index = 2 * heap_index + 1;
+        int16_t right_index = 2 * heap_index + 2;
 
         if (left_index < heap_count
                 && path->steps[path->heap[heap_index]].total_distance > path->steps[path->heap[left_index]].total_distance)
@@ -30,7 +30,7 @@ void heap_down(obstacle_path *path, int16_t heap_index)
         if (heap_index == parent_index)
             break;
 
-        __int16 swap_temp = path->heap[heap_index];
+        int16_t swap_temp = path->heap[heap_index];
         path->heap[heap_index] = path->heap[parent_index];
         path->heap[parent_index] = swap_temp;
     }

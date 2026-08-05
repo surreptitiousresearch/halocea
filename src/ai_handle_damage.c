@@ -57,7 +57,7 @@ void ai_handle_damage(int unit_index, int shooter_object_index, int16_t damage_c
             actor_handle_damage(actor_index, responsible_unit_index, fraction, damage_velocity);
     }
 
-    __int16 event_subtype = _comm_hostility_none;
+    int16_t event_subtype = _comm_hostility_none;
     if ( unit_index == responsible_unit_index )
     {
         event_subtype = _comm_hostility_self;
@@ -68,7 +68,7 @@ void ai_handle_damage(int unit_index, int shooter_object_index, int16_t damage_c
                                            responsible_object_data->object.owner_team_index) ? _comm_hostility_enemy : _comm_hostility_friend;
     }
 
-    __int16 event_type;
+    int16_t event_type;
     if ( delayed || event_subtype != _comm_hostility_friend )
     {
         if ( fraction < 0.30000001f )

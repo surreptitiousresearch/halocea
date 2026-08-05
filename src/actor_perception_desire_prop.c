@@ -29,8 +29,8 @@ uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_targe
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_datum *unit_actor = (unit_actor_index == -1) ? 0 : DATUM_GET(actor_data, actor_datum, unit_actor_index);
     int enemy_flag = enemy;
-    unsigned __int8 secondary = 0;
-    unsigned __int8 desire;
+    uint8_t secondary = 0;
+    uint8_t desire;
 
     if ( (!enemy || dead) && desired_target_state >= _prop_state_uninspected_orphan
                          && desired_target_state <= _prop_state_inspected_orphan )   /* an orphan (remembered) state */

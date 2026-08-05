@@ -60,18 +60,18 @@ void glow_update(glow_datum *glow, int object_index)
     if ( !definition )
         return;
 
-    __int16 found_marker_count = object_get_marker_by_name(object_index, (const char *)definition, glow->markers, 5);
+    int16_t found_marker_count = object_get_marker_by_name(object_index, (const char *)definition, glow->markers, 5);
     glow->number_of_markers = found_marker_count;
 
     if ( !glow->initialized && found_marker_count > 1 )
     {
         /* first-time setup: build the marker visitation order */
-        __int16 candidate_best_index[5];
-        for ( __int16 marker_index = 0; marker_index < found_marker_count; ++marker_index )
+        int16_t candidate_best_index[5];
+        for ( int16_t marker_index = 0; marker_index < found_marker_count; ++marker_index )
         {
-            __int16 best_index = -1;
+            int16_t best_index = -1;
             float best_dot = 0.0f;
-            for ( __int16 candidate_index = 0; candidate_index < found_marker_count; ++candidate_index )
+            for ( int16_t candidate_index = 0; candidate_index < found_marker_count; ++candidate_index )
             {
                 if ( marker_index == candidate_index )
                     continue;
@@ -103,10 +103,10 @@ void glow_update(glow_datum *glow, int object_index)
             candidate_best_index[marker_index] = best_index;
         }
 
-        __int16 previous_best = -1;
-        for ( __int16 order_slot = (__int16)(found_marker_count - 1); order_slot >= 0; --order_slot )
+        int16_t previous_best = -1;
+        for ( int16_t order_slot = (int16_t)(found_marker_count - 1); order_slot >= 0; --order_slot )
         {
-            __int16 search_index = (__int16)(glow->number_of_markers - 1);
+            int16_t search_index = (int16_t)(glow->number_of_markers - 1);
             for ( ; search_index >= 0; --search_index )
             {
                 if ( candidate_best_index[search_index] == previous_best )
@@ -120,7 +120,7 @@ void glow_update(glow_datum *glow, int object_index)
 
         glow->marker_time_index[0] = 0.0f;
         glow->total_time = 0.0f;
-        for ( __int16 order_index = 0; order_index < glow->number_of_markers - 1; ++order_index )
+        for ( int16_t order_index = 0; order_index < glow->number_of_markers - 1; ++order_index )
         {
             object_marker *from_marker = &glow->markers[glow->marker_order[order_index]];
             object_marker *to_marker = &glow->markers[glow->marker_order[order_index + 1]];
@@ -163,7 +163,7 @@ void glow_update(glow_datum *glow, int object_index)
     }
     float rotation_per_unit_t = effect_rotational_velocity / effect_translational_velocity;
 
-    __int16 elapsed = game_time_get_elapsed();
+    int16_t elapsed = game_time_get_elapsed();
     glow->accumulated_trailing_particle_generation_ticks += elapsed;
 
     if ( glow->number_of_markers > 1 )
@@ -265,7 +265,7 @@ void glow_update(glow_datum *glow, int object_index)
                 glow->head_particle = new_particle;
             }
             glow->tail_particle = new_particle;
-            glow->accumulated_trailing_particle_generation_ticks -= (__int16)ticks_per_particle;
+            glow->accumulated_trailing_particle_generation_ticks -= (int16_t)ticks_per_particle;
         }
     }
 }

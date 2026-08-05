@@ -1,6 +1,7 @@
 /* get_upper_bound_cell @0x8371193C — std::upper_bound counterpart of get_lower_bound_cell.c: returns the
  * first element strictly greater than `key`, over the same (cell_x, cell_y, cell_z) ordering. */
 
+#include <stdint.h>
 #include "headers/detail_object_cell_definition.h"
 #include "headers/detail_object_cell_coord.h"
 
@@ -13,7 +14,7 @@ detail_object_cell_definition * get_upper_bound_cell(detail_object_cell_definiti
         int half = count / 2;
         detail_object_cell_definition *mid = &begin[half];
 
-        unsigned __int8 mid_is_greater = mid->cell_x > key->x
+        uint8_t mid_is_greater = mid->cell_x > key->x
             || (mid->cell_x == key->x && (mid->cell_y > key->y
                 || (mid->cell_y == key->y && mid->cell_z > key->z)));
 

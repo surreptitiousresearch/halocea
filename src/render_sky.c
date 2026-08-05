@@ -51,7 +51,7 @@
 
 
 #include "headers/real_rgb_color.h"
-extern sky *scenario_get_sky(__int16 sky_index);
+extern sky *scenario_get_sky(int16_t sky_index);
 extern void model_get_node_orientations(const model *model, real_orientation *node_orientations);
 extern void overlay_animation_apply_continuous(const animation *animation, float real_frame_index, real_orientation *node_orientations);
 extern void model_node_matrices_from_orientations(const model *model, real_matrix4x3 *node_matrices, const real_orientation *node_orientations, const real_point3d *origin, const real_vector3d *forward, const real_vector3d *up);
@@ -92,7 +92,7 @@ void render_sky(void)
             for (int state_index = 0; state_index < active_sky->animations.count; state_index++)
             {
                 sky_animation *state = &((sky_animation *)active_sky->animations.address)[state_index];
-                __int16 anim_index = state->animation_index;
+                int16_t anim_index = state->animation_index;
                 float speed = state->period;
 
                 if (anim_index >= 0 && anim_index < graph->animations.count && speed != 0.0f)
@@ -134,7 +134,7 @@ void render_sky(void)
         if (light->lens_flare.index != -1)
         {
             const char *marker_name = light->lens_flare_marker_name;
-            unsigned __int8 have_direction = 1;
+            uint8_t have_direction = 1;
             real_vector3d direction;
 
             if (marker_name[0] == '\0')
@@ -220,7 +220,7 @@ void render_sky(void)
         for (int i = 0; i < 14; i++)
         {
             fill_cursor += 8;
-            *(__int64 *)fill_cursor = 0;
+            *(int64_t *)fill_cursor = 0;
         }
     }
 

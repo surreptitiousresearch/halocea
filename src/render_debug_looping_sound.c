@@ -3,6 +3,7 @@
  * valid track start sound / detail sound and queries its min/max distances (the actual on-screen drawing
  * is compiled out in this build, leaving the distance queries as the observable behavior). */
 
+#include <stdint.h>
 #include "headers/global_tag_instances.h"
 #include "headers/sound_source.h"
 #include "headers/looping_sound_definition.h"
@@ -19,7 +20,7 @@ void render_debug_looping_sound(int definition_index, const sound_source *source
 {
     looping_sound_definition *definition;
     int count;
-    __int16 i;
+    int16_t i;
 
     if ( !debug_looping_sound || source->spatialization_mode != _sound_spatialization_mode_absolute )
         return;
@@ -33,7 +34,7 @@ void render_debug_looping_sound(int definition_index, const sound_source *source
         looping_sound_track *track = (looping_sound_track *)definition->tracks.address;
         for ( i = 0; track->loop_sound.index == -1; )
         {
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             if ( i >= count )
                 goto detail_tracks;
         }
@@ -53,7 +54,7 @@ detail_tracks:
         looping_sound_detail *detail = (looping_sound_detail *)definition->details.address;
         for ( i = 0; detail->sound.index == -1; )
         {
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             if ( i >= count )
                 return;
         }

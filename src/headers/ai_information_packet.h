@@ -6,6 +6,7 @@
  * ai_information_data.h) — do not re-typedef it locally. $-name kept verbatim (MSVC extension),
  * matching the mtlPARAM.h convention. */
 
+#include <stdint.h>
 #include "ai_information_data.h"
 #include "ai_unit_information_look_data.h"
 #include "ai_object_information_look_data.h"
@@ -23,15 +24,15 @@ typedef struct ai_information_look_data {
 
 typedef struct ai_information_packet {
     int target_unit_index;                 /* 0x00 */
-    __int16 communication_type;            /* 0x04 */
-    __int16 dialogue_type_index;            /* 0x06 */
-    __int16 damage_category;                /* 0x08 */
-    unsigned __int8 updated_dialogue_timers; /* 0x0A */
-    unsigned __int8 pad_b;                  /* 0x0B */
-    __int16 look_priority;                  /* 0x0C */
-    __int16 look_type;                      /* 0x0E */
+    int16_t communication_type;            /* 0x04 */
+    int16_t dialogue_type_index;            /* 0x06 */
+    int16_t damage_category;                /* 0x08 */
+    uint8_t updated_dialogue_timers; /* 0x0A */
+    uint8_t pad_b;                  /* 0x0B */
+    int16_t look_priority;                  /* 0x0C */
+    int16_t look_type;                      /* 0x0E */
     ai_information_look_data look_data;     /* 0x10 */
-    __int16 information_type;               /* 0x14 */
-    __int16 pad_16;                         /* 0x16 */
+    int16_t information_type;               /* 0x14 */
+    int16_t pad_16;                         /* 0x16 */
     ai_information_data information_data;    /* 0x18 (8 bytes, ends at 0x20 = 32) */
 } ai_information_packet;

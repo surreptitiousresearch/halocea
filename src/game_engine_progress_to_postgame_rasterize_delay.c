@@ -27,7 +27,7 @@ void game_engine_progress_to_postgame_rasterize_delay(void)
         int unit_index = player->unit_index;
         if ( unit_index != -1 )
             unit_kill(unit_index);
-        unsigned __int16 player_index = (unsigned __int16)player->local_player_index;
+        uint16_t player_index = (uint16_t)player->local_player_index;
         if ( player_index != 0xFFFF )
             vibrate_player_clear(player_index);
     }

@@ -13,7 +13,7 @@ extern void ustrcpy(wchar_t *dest, const wchar_t *src);
 
 uint16_t * oddball_get_score_header_string(uint16_t *buffer)
 {
-    __int16 string_index =
+    int16_t string_index =
         game_engine_get_variant()->game_engine_variant.oddball.oddball_ball_type != _oddball_terminator ? 158 : 154;
 
     int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");

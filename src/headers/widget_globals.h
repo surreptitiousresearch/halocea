@@ -3,6 +3,7 @@
 
 typedef struct thread thread;
 
+#include <stdint.h>
 #include "real_argb_color.h"
 #include "_text_box_parameters.h"
 #include "_list_parameters.h"
@@ -27,14 +28,14 @@ typedef struct _widget_globals
     widget_stack_node        *widget_stack[2];            /* 0x08 */
     unsigned int              current_system_milliseconds;/* 0x10 */
     int                       pause_disabled_ticks;       /* 0x14 */
-    __int16                   main_menu_deferred_error_code;/* 0x18 */
-    __int16                   pause_game_time_count;       /* 0x1A */
+    int16_t                   main_menu_deferred_error_code;/* 0x18 */
+    int16_t                   pause_game_time_count;       /* 0x1A */
     float                     fade_to_black;               /* 0x1C */
     _deferred_error           deferred_error[2];           /* 0x20 (12 bytes) */
     _deferred_dashboard_error deferred_dashboard_error;    /* 0x2C */
     _deferred_cinematic_error deferred_cinematic_error[2]; /* 0x30 */
     thread                   *initialization_thread;       /* 0x38 */
-    __int16                   filesystem_check_result;      /* 0x3C */
+    int16_t                   filesystem_check_result;      /* 0x3C */
     unsigned char             initialized;                  /* 0x3E */
     unsigned char             dont_load_children_recursive; /* 0x3F */
     unsigned char             debug_show_path;              /* 0x40 */

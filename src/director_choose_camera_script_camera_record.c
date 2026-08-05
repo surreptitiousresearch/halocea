@@ -9,7 +9,7 @@
 #include "headers/camera_control.h"
 #include "headers/blam_data_globals.h"
 
-extern const __int16 director_script_camera_record_camera_modes[];
+extern const int16_t director_script_camera_record_camera_modes[];
 
 extern void first_person_camera_new(first_person_camera *camera);
 extern void first_person_camera_update(first_person_camera *camera, const camera_control *controls, observer_command *result);

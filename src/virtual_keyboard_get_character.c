@@ -5,36 +5,39 @@
  *
  * DEVIATION: the decompiler rendered the per-key record stride as two separate additive terms
  * (`16*(u16)keycode + 16*((4*keycode)&0x3FFFC)`); disasm shows these combine to a single 80-byte stride
- * (`(u16)keycode + 4*(u16)keycode) * 16 = 80*keycode`), not the 16-byte stride a naive reading suggests. */
+ * (`(u16)keycode + 4*(u16)keycode) * 16 = 80*keycode`), not the 16-byte stride a naive reading suggests.
+ * That stride is sizeof(virtual_key), so the record is indexed as a typed array below. */
 
+#include <stdint.h>
 #include "headers/virtual_keyboard_globals_t.h"
+#include "headers/virtual_key.h"
 
-wchar_t virtual_keyboard_get_character(unsigned __int16 keycode)
+wchar_t virtual_keyboard_get_character(uint16_t keycode)
 {
-    unsigned __int16 *key = (unsigned __int16 *)((char *)virtual_keyboard_globals.keyboard->virtual_keys.address
-        + 80 * keycode);
+    const virtual_key *key =
+        (const virtual_key *)virtual_keyboard_globals.keyboard->virtual_keys.address + keycode;
 
-    unsigned __int16 character;
+    wchar_t character;
     if ( virtual_keyboard_globals.shift_active )
     {
         if ( virtual_keyboard_globals.caps_active )
-            character = key[5];
+            character = key->shift_caps_character;
         else if ( virtual_keyboard_globals.symbols_active )
-            character = key[6];
+            character = key->shift_symbols_character;
         else
-            character = key[2];
+            character = key->shift_character;
     }
     else if ( virtual_keyboard_globals.caps_active )
     {
-        character = virtual_keyboard_globals.symbols_active ? key[7] : key[3];
+        character = virtual_keyboard_globals.symbols_active ? key->caps_symbols_character : key->caps_character;
     }
     else if ( virtual_keyboard_globals.symbols_active )
     {
-        character = key[4];
+        character = key->symbols_character;
     }
     else
     {
-        character = key[1];
+        character = key->lowercase_character;
     }
 
     return character ? character : 127;

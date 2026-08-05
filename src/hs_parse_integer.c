@@ -6,6 +6,7 @@
  * message reads "[-32767, 32768]" verbatim from the binary even though the implemented bounds are
  * (> 0x7FFF || < -32768). */
 
+#include <stdint.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_compile_globals.h"
 #include "headers/data_array.h"
@@ -46,7 +47,7 @@ parse:
         if ( node->type == hs_type_long_integer )
             node->data = value;
         else
-            *(__int16 *)&node->data = value;
+            *(int16_t *)&node->data = value;
         return valid;
     }
 }

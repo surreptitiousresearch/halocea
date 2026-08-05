@@ -43,14 +43,14 @@ int unit_make_damage_sound(int unit_index, damage_data *damage_data, uint8_t die
         return spoke;
 
     float body_damage_taken = unit->object.recent_body_damage;
-    __int16 vocalization = -1;
-    __int16 damage_vocalization_category = 0;
-    __int16 chosen_vocalization = -1;        /* byref into unit_test_speech */
-    unsigned __int8 took_body_damage = body_damage_taken > 0.0f;
-    unsigned __int8 heavy_damage = body_damage_taken >= 0.60000002f;
+    int16_t vocalization = -1;
+    int16_t damage_vocalization_category = 0;
+    int16_t chosen_vocalization = -1;        /* byref into unit_test_speech */
+    uint8_t took_body_damage = body_damage_taken > 0.0f;
+    uint8_t heavy_damage = body_damage_taken >= 0.60000002f;
     char is_pain_or_death = 0;
-    __int16 effect_type = -1;
-    __int16 effect_param = 0;
+    int16_t effect_type = -1;
+    int16_t effect_param = 0;
     int died_flag = died;
 
     if ( damage_data && damage_data->definition_index != -1 )
@@ -62,15 +62,15 @@ int unit_make_damage_sound(int unit_index, damage_data *damage_data, uint8_t die
         if ( actor_index == -1 )
             actor_index = unit->unit.actor_index;
 
-        unsigned __int8 severe = 0;
-        unsigned __int8 instant_kill = 0;
+        uint8_t severe = 0;
+        uint8_t instant_kill = 0;
         if ( damage_data->definition_index != -1 )
             instant_kill = TAG_GET(damage_effect_definition, damage_data->definition_index)->damage.instantaneous_acceleration >= 2.0f;   /* +500 */
 
         if ( actor_index == -1 )
             severe = body_damage_taken > body_damage + 0.2f;
         else
-            severe = *((__int16 *)actor_data->data + 914 * (unsigned __int16)actor_index + 55) >= 3;
+            severe = *((int16_t *)actor_data->data + 914 * (uint16_t)actor_index + 55) >= 3;
 
         if ( damage_vocalization_category == _damage_category_falling )
             vocalization = _vocalization_death_falling;
@@ -119,9 +119,9 @@ int unit_make_damage_sound(int unit_index, damage_data *damage_data, uint8_t die
     if ( vocalization != -1 )
     {
         int sound_definition_index = -1;
-        __int16 speech_category = died_flag ? _unit_speech_death
+        int16_t speech_category = died_flag ? _unit_speech_death
                                             : (is_pain_or_death == 0 ? _unit_speech_pain : _unit_speech_involuntary);
-        __int16 speech_handle = unit_test_speech(unit_index, speech_category, 1u, 0, 0,
+        int16_t speech_handle = unit_test_speech(unit_index, speech_category, 1u, 0, 0,
                                                  &chosen_vocalization, &sound_definition_index);
         if ( speech_handle > 0 )
         {
@@ -146,7 +146,7 @@ int unit_make_damage_sound(int unit_index, damage_data *damage_data, uint8_t die
         }
         else
         {
-            __int16 pain_count = unit->unit.speech.damage_minor_sounds;
+            int16_t pain_count = unit->unit.speech.damage_minor_sounds;
             unit->unit.speech.damage_minor_timer = 30;
             unit->unit.speech.damage_minor_decay_timer = 22;
             unit->unit.speech.damage_minor_sounds = pain_count + 1;

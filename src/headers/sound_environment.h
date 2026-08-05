@@ -1,11 +1,12 @@
+#include <stdint.h>
 /* sound_environment — EAX-style reverb parameter set for a sound environment tag (sound_environments.c). */
 #pragma once
 
 typedef struct sound_environment
 {
     int              pad1;                  /* 0x00 */
-    __int16          priority;              /* 0x04 — higher wins when multiple environments apply */
-    unsigned __int16 pad2;                  /* 0x06 */
+    int16_t          priority;              /* 0x04 — higher wins when multiple environments apply */
+    uint16_t pad2;                  /* 0x06 */
     float            room_intensity;        /* 0x08 */
     float            room_intensity_hf;     /* 0x0C */
     float            room_rolloff_factor;   /* 0x10 */

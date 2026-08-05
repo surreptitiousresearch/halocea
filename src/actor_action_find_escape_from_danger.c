@@ -45,8 +45,8 @@ int actor_action_find_escape_from_danger(int actor_index, int16_t *escape_direct
     int unit_index = actor->meta.unit_index;
 
     int result = 0;
-    unsigned __int8 escape_is_ledge = 0;
-    __int16 escape_direction = -1;
+    uint8_t escape_is_ledge = 0;
+    int16_t escape_direction = -1;
 
     /* Escape distance from the unit's definition tag (float @0x238). */
     float escape_distance =
@@ -111,21 +111,21 @@ int actor_action_find_escape_from_danger(int actor_index, int16_t *escape_direct
         probe_right.n[1] = (perp_right.n[1] * escape_distance) + actor->input.position.body_position.n[1];
         probe_right.n[2] = (escape_distance * 0.0f) + actor->input.position.body_position.n[2];
 
-        unsigned __int8 ledge_left = 0;
-        unsigned __int8 ledge_right = 0;
+        uint8_t ledge_left = 0;
+        uint8_t ledge_right = 0;
         path_collision_result probe_result;
 
-        unsigned __int8 found_left = actor_move_try_evasion_vector(actor_index, &perp_left, escape_distance,
+        uint8_t found_left = actor_move_try_evasion_vector(actor_index, &perp_left, escape_distance,
                 max_ledge_height, &ledge_left, &probe_result);
         float dist_left = __fsqrts(point_to_line_distance_squared3d(&probe_left,
                 &actor->danger_zone.position, &danger_movement));
-        unsigned __int8 left_ok = (found_left && dist_left > actor->danger_zone.danger_radius) ? 1 : 0;
+        uint8_t left_ok = (found_left && dist_left > actor->danger_zone.danger_radius) ? 1 : 0;
 
-        unsigned __int8 found_right = actor_move_try_evasion_vector(actor_index, &perp_right, escape_distance,
+        uint8_t found_right = actor_move_try_evasion_vector(actor_index, &perp_right, escape_distance,
                 max_ledge_height, &ledge_right, &probe_result);
         float dist_right = __fsqrts(point_to_line_distance_squared3d(&probe_right,
                 &actor->danger_zone.position, &danger_movement));
-        unsigned __int8 right_ok = (found_right && dist_right > actor->danger_zone.danger_radius) ? 1 : 0;
+        uint8_t right_ok = (found_right && dist_right > actor->danger_zone.danger_radius) ? 1 : 0;
 
         if ( found_left )
         {

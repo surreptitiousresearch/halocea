@@ -14,7 +14,7 @@ int hs_find_thread_by_script(int16_t script_index)
     if ( index == -1 )
         return -1;
 
-    while ( ((int *)hs_thread_data->data)[134 * (unsigned __int16)index + 1] != script_index )
+    while ( ((int *)hs_thread_data->data)[134 * (uint16_t)index + 1] != script_index )
     {
         index = data_next_index(hs_thread_data, index);
         if ( index == -1 )

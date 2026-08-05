@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-extern void hs_object_iterate_names_containing(const char *name_string, void (*callback)(__int16));
+extern void hs_object_iterate_names_containing(const char *name_string, void (*callback)(int16_t));
 extern void hs_object_destroy_by_name(int16_t object_name_index);
 
 void hs_object_destroy_containing(const char *name_string)

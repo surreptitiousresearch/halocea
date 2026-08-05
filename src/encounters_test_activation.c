@@ -46,8 +46,8 @@ void encounters_test_activation(void)
     actor_datum *actor;
     data_iterator encounter_iter;
     unsigned int activation_bits[44];
-    __int16 *result;
-    __int16 *encounter;
+    int16_t *result;
+    int16_t *encounter;
 
     bsp = global_structure_bsp;
     combined_pvs = players_get_combined_pvs();
@@ -56,7 +56,7 @@ void encounters_test_activation(void)
          actor_index != -1;
          actor_index = actor->meta.next_actor_index)
     {
-        unsigned __int8 active;
+        uint8_t active;
         char swarm_flag;
         actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
@@ -74,7 +74,7 @@ void encounters_test_activation(void)
                     {
                         unit_datum *object_data = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
                         int parent = object_get_ultimate_parent(object_index);
-                        int cluster = (unsigned __int16)((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum)->object.location.cluster_index;
+                        int cluster = (uint16_t)((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum)->object.location.cluster_index;
                         /* decompiler spelled the word index (__int16)cluster>>5; same value (cluster index < 0x8000) */
                         if (cluster != 0xFFFF && BIT_VECTOR_TEST_FLAG(combined_pvs, cluster))
                             break;
@@ -94,11 +94,11 @@ void encounters_test_activation(void)
                     while (1)
                     {
                         int parent = object_get_ultimate_parent(swarm->unit_indices[unit]);
-                        int cluster = (unsigned __int16)(((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum))->object.location.cluster_index;
+                        int cluster = (uint16_t)(((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum))->object.location.cluster_index;
                         /* decompiler spelled the word index (__int16)cluster>>5; same value (cluster index < 0x8000) */
                         if (cluster != 0xFFFF && BIT_VECTOR_TEST_FLAG(combined_pvs, cluster))
                             break;
-                        unit = (__int16)(unit + 1);
+                        unit = (int16_t)(unit + 1);
                         if (unit >= swarm->unit_count)
                             goto resolve_actor;
                     }
@@ -109,7 +109,7 @@ void encounters_test_activation(void)
         else
         {
             int parent = object_get_ultimate_parent(actor->meta.unit_index);
-            __int16 cluster = (((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum))->object.location.cluster_index;
+            int16_t cluster = (((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent)->datum))->object.location.cluster_index;
             /* (_cntlzw(x) & 0x20) != 0  ==  (x == 0) */
             actor->meta.dormant_desire = cluster == -1 || !BIT_VECTOR_TEST_FLAG(combined_pvs, cluster);
         }
@@ -150,9 +150,9 @@ resolve_actor:
     {
         encounter_datum *enc = (encounter_datum *)encounter;
         char force_active = enc->force_active;
-        encounter_definition *encounter_def = (encounter_definition *)global_scenario->ai_encounters.address + (unsigned __int16)encounter_iter.index;
-        unsigned __int8 in_editor = game_in_editor();
-        __int16 def_bsp = encounter_def->runtime_structure_bsp_reference_index;
+        encounter_definition *encounter_def = (encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)encounter_iter.index;
+        uint8_t in_editor = game_in_editor();
+        int16_t def_bsp = encounter_def->runtime_structure_bsp_reference_index;
         /* (-x & ~x) < 0  ==  (x > 0) */
         char forced = in_editor | force_active | (enc->respawn_delay_ticks > 0);
         char visible;
@@ -187,7 +187,7 @@ resolve_actor:
                     if (DATUM_GET(encounter_data, encounter_datum,
                             enc->link_encounter_indices[n])->remain_active_timer > 0)
                         linked_active = 1;
-                    n = (__int16)(n + 1);
+                    n = (int16_t)(n + 1);
                 } while (n < enc->link_encounter_count);
             }
             enc->remain_active_timer = 0;

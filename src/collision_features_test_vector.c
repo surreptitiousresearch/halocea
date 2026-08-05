@@ -18,17 +18,17 @@ uint8_t collision_features_test_vector(const collision_feature_list *features, c
                                        const real_vector3d *vector, collision_plane *collision)
 {
     float best_t = 3.4028235e38;
-    __int16 best_kind = -1;
-    __int16 best_index = -1;
+    int16_t best_kind = -1;
+    int16_t best_index = -1;
     real_plane3d best_plane;
 
-    for ( int kind = 0; kind < 3; kind = (__int16)(kind + 1) )
+    for ( int kind = 0; kind < 3; kind = (int16_t)(kind + 1) )
     {
-        for ( __int16 index = 0; index < features->count[kind]; index = (__int16)(index + 1) )
+        for ( int16_t index = 0; index < features->count[kind]; index = (int16_t)(index + 1) )
         {
             float fraction[4];
             real_plane3d plane;
-            unsigned __int8 hit;
+            uint8_t hit;
             if ( kind == 0 )
                 hit = collision_sphere_test_vector(&features->spheres[index], point, vector, fraction, &plane);
             else if ( kind == 1 )

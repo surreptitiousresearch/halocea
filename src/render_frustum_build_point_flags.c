@@ -8,11 +8,11 @@
 
 int16_t render_frustum_build_point_flags(const render_frustum *frustum, const real_point3d *point)
 {
-    __int16 plane1_flag;
-    __int16 plane01_flags;
-    __int16 plane2_flag;
-    __int16 plane012_flags;
-    __int16 plane3_flag;
+    int16_t plane1_flag;
+    int16_t plane01_flags;
+    int16_t plane2_flag;
+    int16_t plane012_flags;
+    int16_t plane3_flag;
 
     plane1_flag = 2;
     if ( (((frustum->world_planes[1].normal.n[0] * point->n[0])
@@ -43,5 +43,5 @@ int16_t render_frustum_build_point_flags(const render_frustum *frustum, const re
                - frustum->world_planes[3].distance) <= 0.0 )
         plane3_flag = 0;
 
-    return plane012_flags | (unsigned __int16)plane3_flag;
+    return plane012_flags | (uint16_t)plane3_flag;
 }

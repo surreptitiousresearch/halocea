@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ds/dsVECTOR.h"
 #include "../mtl/mtlTBL.h"
 // ws-engine obj: geometry "split" — the list of render batches (material + vertex/face range)
@@ -13,24 +14,24 @@ struct objSPLIT;           // self-reference
 
 // Per-split bone range info. DB-verified layout (types_members objBONES_INFO) — size 6.
 typedef struct objBONES_INFO {
-    unsigned __int16 start1; // 0x00
-    unsigned __int16 start2; // 0x02
-    unsigned __int8  num1;   // 0x04
-    unsigned __int8  num2;   // 0x05
+    uint16_t start1; // 0x00
+    uint16_t start2; // 0x02
+    uint8_t  num1;   // 0x04
+    uint8_t  num2;   // 0x05
 } objBONES_INFO;
 
 // One render batch of a split. DB-verified layout (types_members objSPLIT_ENTRY) — size 92.
 typedef struct objSPLIT_ENTRY {
     mtlTBL           mtlTbl;         // 0x00 materials for this batch
-    unsigned __int16 __dummy__;      // 0x3C
-    unsigned __int16 startVert;      // 0x3E
-    unsigned __int16 nVert;          // 0x40
-    unsigned __int16 startFace;      // 0x42
-    unsigned __int16 nFace;          // 0x44
+    uint16_t __dummy__;      // 0x3C
+    uint16_t startVert;      // 0x3E
+    uint16_t nVert;          // 0x40
+    uint16_t startFace;      // 0x42
+    uint16_t nFace;          // 0x44
     unsigned char _pad0[2]; /* db-verified padding */
     objSPU_CONFIG   *spuConfig;      // 0x48
     objBONES_INFO    bonesInfo;      // 0x4C
-    __int16          skinCompoundId; // 0x52
+    int16_t          skinCompoundId; // 0x52
     int              maxVSLength;    // 0x54
     int              maxPSLength;    // 0x58
 
@@ -40,7 +41,7 @@ typedef struct objSPLIT_ENTRY {
 
 // DB-verified layout (types_members objSPLIT) — size 8 (nEntry@0, entryList@4; 2 bytes pad).
 typedef struct objSPLIT {
-    unsigned __int16  nEntry;    // 0x00 number of live entries
+    uint16_t  nEntry;    // 0x00 number of live entries
     unsigned char _pad0[2]; /* db-verified padding */
     objSPLIT_ENTRY   *entryList; // 0x04 array of split entries
 

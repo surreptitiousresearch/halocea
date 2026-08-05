@@ -58,7 +58,7 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
     object_datum *vehicle = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum);
     vehicle_definition *vehicle_def = TAG_GET(vehicle_definition, vehicle->definition_index);
 
-    unsigned __int8 use_entry_point = hint_point ? *(unsigned char *)hint_point : 0;
+    uint8_t use_entry_point = hint_point ? *(unsigned char *)hint_point : 0;
 
     real_point3d chosen_point;
 
@@ -112,7 +112,7 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
 
         if ( entry_direction.n[1] * entry_direction.n[1] + entry_direction.n[0] * entry_direction.n[0] > 0.0f )
         {
-            unsigned __int8 refined = 0;
+            uint8_t refined = 0;
             real_vector2d perp;
 
             float dot = entry_direction.n[1] * (marker.n[1] - actor->input.position.body_position.n[1])

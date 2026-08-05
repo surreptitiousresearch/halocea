@@ -3,6 +3,7 @@
  * drives it down: any object within 0.25 units zeroes it; enemies (in team games) additionally require a
  * 2..5 unit gap and fade the rating in linearly across that band. */
 
+#include <stdint.h>
 #include "headers/scenario_player.h"
 #include "headers/real_point3d.h"
 #include "headers/data_array.h"
@@ -19,7 +20,7 @@ extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 
 float game_engine_get_distance_rating_for_spawn(int player_index, const scenario_player *starting_location)
 {
-    unsigned __int8 teams = (game_engine != 0) ? global_variant.universal_variant.teams : 0;
+    uint8_t teams = (game_engine != 0) ? global_variant.universal_variant.teams : 0;
     float rating = 1.0f;
     player_datum *spawning_player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
@@ -41,7 +42,7 @@ float game_engine_get_distance_rating_for_spawn(int player_index, const scenario
         float dz = starting_location->position.n[2] - origin.n[2];
         float distance = __fsqrts(dy * dy + (dx * dx + dz * dz));
 
-        unsigned __int8 enemy = (other_player->team_index != spawning_player->team_index);   /* differing team_index (+32) */
+        uint8_t enemy = (other_player->team_index != spawning_player->team_index);   /* differing team_index (+32) */
         if (!teams || enemy || distance <= 0.25f)
         {
             if (distance >= 0.25f)

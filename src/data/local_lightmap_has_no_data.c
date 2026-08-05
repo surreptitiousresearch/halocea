@@ -1,1 +1,2 @@
-unsigned __int8 local_lightmap_has_no_data;
+#include <stdint.h>
+uint8_t local_lightmap_has_no_data;

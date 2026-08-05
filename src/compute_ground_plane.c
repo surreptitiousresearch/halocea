@@ -72,10 +72,10 @@ void compute_ground_plane(int object_index, mass_point_datum *mass_point,
     *ground_plane = collision.plane;
 
     int reference_object = collision.object_index;
-    __int16 material_index = collision.material_index;
+    int16_t material_index = collision.material_index;
 
     /* DEVIATION: donor get_material_type@0x837BE090's full body (all three branches) was inlined verbatim here with reference_object/material_index as the runtime args; collapsed to a call. */
-    __int16 material_sound = get_material_type(reference_object, material_index);
+    int16_t material_sound = get_material_type(reference_object, material_index);
     mass_point->ground_material_type = material_sound;
 
     unsigned char contact_flags = collision.flags;

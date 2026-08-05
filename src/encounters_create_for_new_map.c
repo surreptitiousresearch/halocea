@@ -31,7 +31,7 @@ void encounters_create_for_new_map(void)
     /* bit 0 (_encounter_not_initially_placed) is the "manual start" flag: skip those at map load. */
     for ( encounter = encounter_iterator_next(&iterator); encounter; encounter = encounter_iterator_next(&iterator) )
     {
-        if ( (encounters[(unsigned __int16)iterator.index].flags & (1u << _encounter_not_initially_placed_bit)) == 0 )
+        if ( (encounters[(uint16_t)iterator.index].flags & (1u << _encounter_not_initially_placed_bit)) == 0 )
             encounter_create(iterator.index, -1, -1);
     }
     /* Returns nothing: r3 at blr is residue (NULL from the loop-exiting encounter_iterator_next); 0 callers. */

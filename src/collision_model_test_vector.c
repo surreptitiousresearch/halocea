@@ -32,18 +32,18 @@ uint8_t collision_model_test_vector(const collision_model_instance *instance, un
     for ( node_index = 0; node_index < model->nodes.count; ++node_index )
     {
         const collision_node *node = &((const collision_node *)model->nodes.address)[node_index];
-        __int16 region_index = node->region_index;
+        int16_t region_index = node->region_index;
         int bsp_count;
 
         if ( region_index != -1 && (bsp_count = node->bsps.count) > 0 )
         {
             int permutation = instance->region_permutation_indices[region_index];
-            __int16 bsp_index;
+            int16_t bsp_index;
             const collision_bsp *bsp;
 
             if ( permutation > bsp_count - 1 )
                 permutation = bsp_count - 1;
-            bsp_index = (__int16)permutation;
+            bsp_index = (int16_t)permutation;
             bsp = &((const collision_bsp *)node->bsps.address)[bsp_index];
 
             if ( bsp->bsp3d.nodes.count > 0 )
@@ -59,7 +59,7 @@ uint8_t collision_model_test_vector(const collision_model_instance *instance, un
                 if ( collision_bsp_test_vector(flags, bsp, 0, 0, &local_point, &local_vector,
                                                result->bsp_result.t, &result->bsp_result) )
                 {
-                    result->node_index = (__int16)node_index;
+                    result->node_index = (int16_t)node_index;
                     found = 1;
                     result->region_index = node->region_index;
                     result->bsp_index = bsp_index;

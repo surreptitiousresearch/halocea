@@ -7,14 +7,14 @@
 
 void bit_vector_or(int16_t count, const unsigned int *a, const unsigned int *b, unsigned int *result)
 {
-    int word_index = (__int16)(BIT_VECTOR_SIZE_IN_LONGS(count) - 1);
-    if ((__int16)word_index < 0)
+    int word_index = (int16_t)(BIT_VECTOR_SIZE_IN_LONGS(count) - 1);
+    if ((int16_t)word_index < 0)
         return;
 
     do
     {
         result[word_index] = a[word_index] | b[word_index];
-        word_index = (__int16)(word_index - 1);
+        word_index = (int16_t)(word_index - 1);
     }
     while (word_index >= 0);
 }

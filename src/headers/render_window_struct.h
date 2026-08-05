@@ -6,11 +6,12 @@
  * render_window.h includes this and adds the `render_window` typedef for the
  * many consumers that reference the type by its plain name. */
 
+#include <stdint.h>
 #include "render_camera.h"
 
 struct render_window
 {
-    __int16        local_player_index;  /* 0x00 */
+    int16_t        local_player_index;  /* 0x00 */
     unsigned char  console_window;      /* 0x02 */
     unsigned char _pad0[1]; /* db-verified padding */
     struct render_camera  render_camera;       /* 0x04 — elaborated type: member name matches type */

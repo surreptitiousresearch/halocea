@@ -20,7 +20,7 @@ void actor_handle_communication(int actor_index, int prop_index, ai_information_
     if ( !ai_information )
         return;
 
-    switch ( (unsigned __int16)ai_information->information_type )
+    switch ( (uint16_t)ai_information->information_type )
     {
         case _ai_information_combat_stimulus:
             actor_stimulus_enter_combat_friend_in_combat(actor_index, prop_index);

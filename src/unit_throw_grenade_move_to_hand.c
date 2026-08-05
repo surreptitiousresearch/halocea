@@ -53,11 +53,11 @@ void unit_throw_grenade_move_to_hand(int unit_index)
             /* +4 is object.datum_role (network ownership), not an object type */
             int datum_role = unit_object->object.datum_role;
             if (datum_role == _networked_datum_autonomous || datum_role == _networked_datum_master)
-                --*(unsigned char *)&unit_object->unit.grenade_counts[unit_object->unit.current_grenade_index];
+                --unit_object->unit.grenade_counts[unit_object->unit.current_grenade_index];
         }
     }
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if (connection != _game_connection_network_server
         && connection != _game_connection_local
         && connection != _game_connection_film_playback)

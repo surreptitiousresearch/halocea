@@ -56,7 +56,7 @@ void players_remember_last_completed_client_update(void)
             player->___u26.server_update_data.position_as_of_last_completed_update = parent->object.position;
         }
 
-        if ( (unsigned __int16)player->local_player_index == 0xFFFF )
+        if ( (uint16_t)player->local_player_index == 0xFFFF )
         {
             unsigned int tick_count = GetTickCount();
             int sim_time = game_time_get();

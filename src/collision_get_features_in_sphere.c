@@ -72,13 +72,13 @@ uint8_t collision_get_features_in_sphere(unsigned int flags, const real_point3d 
 
             if ( result.leaf_count > 0 )
             {
-                __int16 leaf_iter = 0;
+                int16_t leaf_iter = 0;
                 int leaf_index = 0;
                 do
                 {
                     const structure_leaf *leaf =
                         &((const structure_leaf *)structure->leaves.address)[result.leaf_indices[leaf_index]];
-                    __int16 cluster_index = leaf->cluster_index;
+                    int16_t cluster_index = leaf->cluster_index;
                     if ( structure_cluster_mark(cluster_index) )
                     {
                         int reference[4];
@@ -98,7 +98,7 @@ uint8_t collision_get_features_in_sphere(unsigned int flags, const real_point3d 
                             }
                         }
                     }
-                    leaf_iter = (__int16)(leaf_iter + 1);
+                    leaf_iter = (int16_t)(leaf_iter + 1);
                     leaf_index = leaf_iter;
                 }
                 while ( leaf_iter < result.leaf_count );

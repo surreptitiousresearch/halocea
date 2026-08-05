@@ -8,6 +8,7 @@
  * they are self's read_buffers[]/write_buffers[] slots (dword offsets 602/610 == 0x968/0x988) — written
  * through global_self exactly as compiled (global_self aliases `self` here). */
 
+#include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 #include <string.h>
 #include "headers/blam_data_globals.h"
@@ -19,12 +20,12 @@ void cache_copy_initialize_and_fill_with_garbage(simple_decompressor_definition 
 {
     char *cursor = (char *)self->allocated_buffer;
 
-    for ( __int16 i = 0; i < 8; i++ )
+    for ( int16_t i = 0; i < 8; i++ )
     {
         global_self->read_buffers[i] = cursor;
         cursor += 0x20000;
     }
-    for ( __int16 i = 0; i < 1; i++ )
+    for ( int16_t i = 0; i < 1; i++ )
     {
         global_self->write_buffers[i] = cursor;
         cursor += 0x400000;

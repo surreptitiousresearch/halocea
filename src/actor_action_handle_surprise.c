@@ -44,7 +44,7 @@ int actor_action_handle_surprise(int actor_index, int16_t minimum_surprise_level
     if ( !actor->input.vehicle_passenger && actor->stimuli.surprise_level >= minimum_surprise_level )
     {
         real_vector2d flinch_direction;
-        __int16 animation_impulse;
+        int16_t animation_impulse;
 
         if ( !actor->stimuli.surprise_has_vector )
         {
@@ -72,7 +72,7 @@ int actor_action_handle_surprise(int actor_index, int16_t minimum_surprise_level
         actor_move_animation_impulse(actor_index, animation_impulse, &flinch_direction);
 
         int cause_unit_index = -1;
-        __int16 cause_hostility = _comm_hostility_none;
+        int16_t cause_hostility = _comm_hostility_none;
         if ( actor->stimuli.surprise_prop_index != -1 )
         {
             prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->stimuli.surprise_prop_index);

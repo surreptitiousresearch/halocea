@@ -2,6 +2,7 @@
  * encounter; when exhausted, moves to the next (optionally active) encounter, and finally the encounterless list.
  * With active_only set, skips inactive encounters and inactive actors. Returns the next matching actor, or null. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/ai_globals.h"
 #include "headers/actor_iterator.h"
@@ -41,7 +42,7 @@ walk_chain:
         iterator->index = next_index;
         if ( next_index == -1 )
             break;
-        unsigned __int8 active_only = iterator->active_only;
+        uint8_t active_only = iterator->active_only;
         actor_datum *result = DATA_ARRAY_ELEMENT(actor_data, actor_datum, next_index);
         iterator->next_index = result->meta.next_actor_index;
         if ( !active_only || result->meta.active )

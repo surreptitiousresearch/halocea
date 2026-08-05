@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "animINST.h"
 #include "anim_boundary.h"
 #include <string.h>
@@ -25,7 +26,7 @@ void animINST::FillLinearList()
         memset(this->ppObjList, 0, 4 * this->nObj);
         objMakePtrListID(this->pObj, this->ppObjList, this->nObj);
 
-        this->pObjCamMask = (__int64 *)dlRealloc(
+        this->pObjCamMask = (int64_t *)dlRealloc(
             this->pObjCamMask,
             8 * this->nObj,
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",

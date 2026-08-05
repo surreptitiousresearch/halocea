@@ -3,6 +3,7 @@
  * DB-verified). Nested burst-geometry/firing-pattern blocks aren't needed by any reconstructed function yet
  * and are left as opaque, correctly-sized placeholders. */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "real_vector3d.h"
 #include "actor_burst_geometry.h"
@@ -38,8 +39,8 @@ typedef struct actor_ranged_combat_properties
     float          weapon_super_ballistic_range;             /* 0xE4 */
     float          weapon_bombardment_range;                 /* 0xE8 */
     float          modified_vision_range;                    /* 0xEC */
-    __int16        special_fire_mode;                        /* 0xF0 */
-    __int16        special_fire_situation;                   /* 0xF2 */
+    int16_t        special_fire_mode;                        /* 0xF0 */
+    int16_t        special_fire_situation;                   /* 0xF2 */
     float          special_fire_chance;                      /* 0xF4 */
     float          special_fire_delay;                       /* 0xF8 */
     float          melee_range;                              /* 0xFC */

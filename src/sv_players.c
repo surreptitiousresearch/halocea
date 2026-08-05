@@ -30,7 +30,7 @@ void sv_players(void)
             {
                 network_player *player_record = (network_player *)address;
                 char name[16];
-                wide_to_ascii((unsigned __int16 *)address, name, 0xCu);
+                wide_to_ascii((uint16_t *)address, name, 0xCu);
                 sprintf_0(line, "%-3d     %-1d     %-32s", player_record->machine_index + 1, player_record->team_index, name);
                 ship_terminal_printf(global_real_argb_green, line);
             }

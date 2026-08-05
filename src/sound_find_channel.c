@@ -25,7 +25,7 @@ int16_t sound_find_channel(uint16_t sound_index)
 {
     char *data = (char *)sound_data->data;
     sound_datum *datum = (sound_datum *)&data[176 * sound_index];
-    int assigned = (unsigned __int16)datum->playing_channel_index;
+    int assigned = (uint16_t)datum->playing_channel_index;
     int source_identifier;
 
     if ( assigned != 0xFFFF )
@@ -43,7 +43,7 @@ int16_t sound_find_channel(uint16_t sound_index)
         {
             if ( sound_channels[channel].sound_index != -1 )
             {
-                sound_datum *other = (sound_datum *)&data[176 * (unsigned __int16)sound_channels[channel].sound_index];
+                sound_datum *other = (sound_datum *)&data[176 * (uint16_t)sound_channels[channel].sound_index];
                 if ( other->source_identifier == source_identifier
                   && sound_classes[TAG_GET(sound_definition, other->definition_index)->class_index].speech )
                 {

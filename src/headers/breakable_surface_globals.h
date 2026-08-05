@@ -1,6 +1,7 @@
 /* breakable_surface_globals — per-BSP breakable-surface state. Per-BSP destroyed-surface flag
  * bitsets (one 32-byte bitset per structure BSP, up to 16) plus per-surface vitality data. */
 #pragma once
+#include <stdint.h>
 #include "breakable_surface_datum.h"
 
 typedef struct breakable_surface_globals
@@ -12,4 +13,4 @@ typedef struct breakable_surface_globals
 } breakable_surface_globals; /* 16900 bytes */
 
 extern struct breakable_surface_globals *globals;
-extern __int16 global_structure_bsp_index;
+extern int16_t global_structure_bsp_index;

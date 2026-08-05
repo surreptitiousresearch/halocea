@@ -8,7 +8,7 @@ extern object_type_definition object_data_definition;
 extern void control_delete(int control_index);
 extern uint8_t control_new(int control_index);
 extern void control_place(int control_index, scenario_control_datum *scenario_control);
-extern unsigned __int8 control_update(int control_index);
+extern uint8_t control_update(int control_index);
 extern void controls_dispose(void);
 extern void controls_dispose_from_old_map(void);
 extern void controls_initialize(void);

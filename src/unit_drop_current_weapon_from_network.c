@@ -57,7 +57,7 @@ void unit_drop_current_weapon_from_network(message_delta_processor_header *heade
 
     if ( current_weapon_object_index != weapon_index )
     {
-        unsigned __int8 found = 0;
+        uint8_t found = 0;
         int slot;
 
         for ( slot = 0; unit->unit.weapon_object_indices[slot] != weapon_index; ++slot )

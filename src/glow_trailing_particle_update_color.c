@@ -8,6 +8,7 @@
  * (0x8380B614-0x8380B694) confirms particle+0x50/+0x52/+0x58 are read/written directly, matching
  * ticks_in_existence/lifetime/fade in glow_particle.h exactly. */
 
+#include <stdint.h>
 #include "headers/glow_datum.h"
 #include "headers/glow_particle.h"
 #include "headers/glow_definition.h"
@@ -17,7 +18,7 @@
 void glow_trailing_particle_update_color(glow_datum *glow, glow_particle *particle)
 {
     glow_definition *definition = TAG_GET(glow_definition, glow->definition_index);
-    unsigned __int8 fades_over_lifetime = (definition->flags & (1u << _glow_trailing_particles_fade_over_time_bit)) != 0;
+    uint8_t fades_over_lifetime = (definition->flags & (1u << _glow_trailing_particles_fade_over_time_bit)) != 0;
 
     if ( !fades_over_lifetime )
     {

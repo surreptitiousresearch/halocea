@@ -45,9 +45,9 @@ void _rasterizer_model_setupnodeparts(int num_nodes, const uint8_t *node_table,
 
     /* PendingMask0: a run of (shift_amount+1) set bits built via a signed right-shift of the top bit,
      * then repositioned 7 bits down — reproduces the disasm's extldi/srad/srdi sequence verbatim. */
-    __int64      mask_seed    = (__int64)((unsigned __int64)1 << 63);
+    int64_t      mask_seed    = (int64_t)((uint64_t)1 << 63);
     unsigned int shift_amount = ((unsigned int)(3 * num_nodes + 28) >> 2) - 7;
-    unsigned __int64 pending_mask = (unsigned __int64)(mask_seed >> shift_amount) >> 7;
+    uint64_t pending_mask = (uint64_t)(mask_seed >> shift_amount) >> 7;
 
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x1D, node_constants, 3 * num_nodes, pending_mask);
 }

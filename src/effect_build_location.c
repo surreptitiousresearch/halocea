@@ -17,7 +17,7 @@ extern int datum_new(data_array *data);
 int effect_build_location(effect_datum *effect, const object_marker *marker, int16_t location_index, uint8_t first_person_weapon)
 {
     int datum_index = datum_new(effect_location_data);
-    __int16 node_index = marker->node_index;
+    int16_t node_index = marker->node_index;
     effect_location_datum *location;
 
     if ( datum_index == -1 )

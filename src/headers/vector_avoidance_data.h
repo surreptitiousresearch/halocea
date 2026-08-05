@@ -3,6 +3,7 @@
  * being tested, the mover's local frame (origin/forward/left/up), the collected obstacle cylinders, and
  * the avoidance envelope. */
 
+#include <stdint.h>
 #include "structure_bsp.h"
 #include "collision_bsp.h"
 #include "real_point3d.h"
@@ -18,7 +19,7 @@ typedef struct vector_avoidance_data
     real_vector3d               forward;                    /* 0x18 */
     real_vector3d               left;                       /* 0x24 */
     real_vector3d               up;                         /* 0x30 */
-    __int16                     avoidance_object_count;     /* 0x3C (2 bytes pad) */
+    int16_t                     avoidance_object_count;     /* 0x3C (2 bytes pad) */
     unsigned char _pad0[2]; /* db-verified padding */
     vehicle_avoidance_cylinder  avoidance_objects[1024];    /* 0x40 */
     float                       avoid_width;                /* 0x6040 */

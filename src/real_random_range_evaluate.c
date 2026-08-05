@@ -15,6 +15,7 @@ void real_random_range_evaluate(int16_t function_index, int thread_index, uint8_
         float upper = arguments[1];
         float lower = arguments[0];
         int result;
+        /* bit-image reinterpret: the float result is passed to hs_return as the raw 32-bit hs value word */
         *(float *)&result = real_seed_random_range(get_global_random_seed_address(), lower, upper);
         hs_return(thread_index, result);
     }

@@ -55,7 +55,7 @@ void pre_evaluator_global(int actor_index, firing_position_evaluation_context *e
         if ( !position->valid )
             continue;
 
-        unsigned __int8 proceed;
+        uint8_t proceed;
         if ( !actor_firing_position_discarded(actor_index, position->original_index) )
         {
             proceed = 1;

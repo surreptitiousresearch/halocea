@@ -10,13 +10,13 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 void random_range_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result;
-    *((__int16 *)&result) = 0;
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    *((int16_t *)&result) = 0;
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        __int16 upper = arguments[2];
-        __int16 lower = arguments[0];
-        *((__int16 *)&result + 1) = seed_random_range(get_global_random_seed_address(), lower, upper);
+        int16_t upper = arguments[2];
+        int16_t lower = arguments[0];
+        *((int16_t *)&result + 1) = seed_random_range(get_global_random_seed_address(), lower, upper);
         hs_return(thread_index, result);
     }
 }

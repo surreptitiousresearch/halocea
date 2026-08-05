@@ -43,7 +43,7 @@ void actor_find_pathfinding_location(uint16_t actor_index)
         return;
     }
 
-    unsigned __int16 vehicle_driver_type = (unsigned __int16)actor->input.vehicle_driver_type;
+    uint16_t vehicle_driver_type = (uint16_t)actor->input.vehicle_driver_type;
     if (vehicle_driver_type >= _actor_vehicle_driver_hovering_ground
         && vehicle_driver_type <= _actor_vehicle_driver_nondirectional_ground)
     {

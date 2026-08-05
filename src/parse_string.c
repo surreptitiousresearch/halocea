@@ -23,8 +23,8 @@ extern uint8_t character_in_pattern(uint16_t character, char *pattern);
 
 int16_t parse_string(parse_string_state *state)
 {
-    __int16 *string_index = &state->string_index;
-    unsigned __int16 next_character;
+    int16_t *string_index = &state->string_index;
+    uint16_t next_character;
     int result;
 
     do
@@ -34,7 +34,7 @@ int16_t parse_string(parse_string_state *state)
 
         if ((next_character & 0xFF00) == 0x7C00)   /* "|x" markup escape */
         {
-            switch (tolower((unsigned __int8)next_character))
+            switch (tolower((uint8_t)next_character))
             {
                 case 'b': result = 7; state->style = 0;  break;
                 case 'c': result = 4; state->justification = _text_justification_center; break;
@@ -50,7 +50,7 @@ int16_t parse_string(parse_string_state *state)
             }
         }
 
-        if ((__int16)result == -1)
+        if ((int16_t)result == -1)
         {
             switch (next_character)
             {
@@ -59,9 +59,9 @@ int16_t parse_string(parse_string_state *state)
                 case '\r': result = 1; continue;   /* carriage return / newline */
             }
 
-            unsigned __int8 *string = state->string;
-            __int16 peek_index = *string_index;
-            unsigned __int16 following_character = get_next_character(string, &peek_index);
+            uint8_t *string = state->string;
+            int16_t peek_index = *string_index;
+            uint16_t following_character = get_next_character(string, &peek_index);
             char *whitespace_pattern = string_list_get_string(font_drawing_globals.string_list_index, 4);
             char *break_before_pattern = string_list_get_string(font_drawing_globals.string_list_index, 5);
             char *break_after_pattern = string_list_get_string(font_drawing_globals.string_list_index, 6);
@@ -89,7 +89,7 @@ int16_t parse_string(parse_string_state *state)
             }
             result = 2;   /* ordinary printable character */
         }
-        else if ((__int16)result == 7)
+        else if ((int16_t)result == 7)
         {
             int style = state->style;
             int font_index;
@@ -102,7 +102,7 @@ int16_t parse_string(parse_string_state *state)
             state->font_header = TAG_GET(font_header, font_index);
         }
     }
-    while ((__int16)result == 7 || (__int16)result == 5);
+    while ((int16_t)result == 7 || (int16_t)result == 5);
 
     state->character = next_character;
     state->result = result;

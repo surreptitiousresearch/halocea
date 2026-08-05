@@ -43,7 +43,7 @@ void player_profile_update_item(widget_instance *item, player_profile *profile)
         invert_look_label->visible = 1;
         invert_look_value->visible = 1;
 
-        unsigned __int16 *text = ui_widget_realloc(
+        uint16_t *text = ui_widget_realloc(
             name_field->parameters.text_box_parameters.text, 0x18u);
         name_field->parameters.text_box_parameters.text = text;
         if ( text )
@@ -69,8 +69,8 @@ void player_profile_update_item(widget_instance *item, player_profile *profile)
             name_field->parameters.text_box_parameters.text[11] = 0;
         }
 
-        __int16 color_frame;
-        if ( (unsigned __int16)profile->primary_color_index < 0x8000u )
+        int16_t color_frame;
+        if ( (uint16_t)profile->primary_color_index < 0x8000u )
         {
             int primary_color_index = profile->primary_color_index;
             int maximum = player_profile_number_of_available_primary_colors() - 1;
@@ -92,8 +92,8 @@ void player_profile_update_item(widget_instance *item, player_profile *profile)
         }
         else
         {
-            __int16 highest_level;
-            __int16 difficulty;
+            int16_t highest_level;
+            int16_t difficulty;
             player_profile_get_highest_completed_solo_level(profile, &highest_level, &difficulty);
             int level_index = highest_level + 1;
             if ( level_index > 9 )

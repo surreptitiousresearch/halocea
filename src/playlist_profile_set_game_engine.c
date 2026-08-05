@@ -20,7 +20,7 @@ uint8_t playlist_profile_set_game_engine(widget_instance *widget, event_record *
         return 0;
 
     int game_engine_index = game_engine_ctf;
-    unsigned int row = (unsigned __int16)widget->parent->parameters.text_box_parameters.string_list_index;
+    unsigned int row = (uint16_t)widget->parent->parameters.text_box_parameters.string_list_index;
     if ( row > 4 )
         game_engine_index = profile->game_engine_index;
     else if ( row == 1 )

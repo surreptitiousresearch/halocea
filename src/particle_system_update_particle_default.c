@@ -34,7 +34,7 @@ extern unsigned int point_physics_update(unsigned int flags, const point_physics
 
 void particle_system_update_particle_default(const particle_system_datum *system, int16_t type_index, float dtime, ps_particle_datum *particle)
 {
-    __int16 next_state_index = particle->transition_state_index; /* recovered: *(__int16*)((char*)particle+10) -> transition_state_index */
+    int16_t next_state_index = particle->transition_state_index; /* recovered: *(__int16*)((char*)particle+10) -> transition_state_index */
 
     particle_system_type *type_runtime = (particle_system_type *)(TAG_GET(particle_system_definition, system->definition_index))->types.address + type_index;   /* def+96 */
     particle_system_type_particle_state *state_records = (particle_system_type_particle_state *)type_runtime->particle_states.address;

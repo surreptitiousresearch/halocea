@@ -37,7 +37,7 @@ int vehicle_find_pathfinding_surface_index(int vehicle_index, real_point3d *path
      * 0=human_tank 1=human_jeep 2=human_boat 3=human_plane 4=alien_scout 5=alien_fighter 6=turret.
      * This (faithfully reproduced, redundancy-laden) decompiler boolean passes the ground-based types
      * (tank/jeep/scout/turret) and rejects boat/plane/alien_fighter (water + _vehicle_mask_flying). */
-    unsigned int motion_type = (unsigned __int16)definition->vehicle.type;
+    unsigned int motion_type = (uint16_t)definition->vehicle.type;
     if (motion_type <= _vehicle_type_turret
         && (motion_type == _vehicle_type_human_jeep
             || (motion_type != _vehicle_type_human_boat

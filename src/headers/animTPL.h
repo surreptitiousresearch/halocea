@@ -3,6 +3,7 @@
  * animINST). Boundary type; full 280-byte (0x118) layout DB-verified against types_members animTPL.
  * Pointer members carry forward-declared typed pointees. */
 
+#include <stdint.h>
 #include "ws/anim/animTPL_COLL.h"
 #include "ws/ld/ldMOPPCode.h"
 #include "ws/ds/dsVECTOR.h"
@@ -30,9 +31,9 @@ typedef struct animTPL
     unsigned int  id;                /* 0x70 */
     char          nameClass[64];     /* 0x74 */
     int           state;             /* 0xB4 */
-    unsigned __int8 _reserved0 : 6;  /* 0xB8 padding bits .0-.5 (unnamed in DB) */
-    unsigned __int8 isSpecMesh : 1;  /* 0xB8 bit .6 */
-    unsigned __int8 isMtlListInited : 1; /* 0xB8 bit .7 */
+    uint8_t _reserved0 : 6;  /* 0xB8 padding bits .0-.5 (unnamed in DB) */
+    uint8_t isSpecMesh : 1;  /* 0xB8 bit .6 */
+    uint8_t isMtlListInited : 1; /* 0xB8 bit .7 */
     unsigned char _padB9[3];         /* 0xB9 */
     objOBJ       *pObj;              /* 0xBC */
     m3dBOX        bbox;              /* 0xC0 default axis-aligned bounding box */

@@ -62,7 +62,7 @@ void handle_one_player_input(int16_t local_player_index, float seconds_elapsed,
                              int ticks_to_apply_action_to)
 {
     player_control *control = &player_control_globals->players[local_player_index];
-    __int16 *player_control_tag = (__int16 *)global_game_globals->player_control.address;
+    int16_t *player_control_tag = (int16_t *)global_game_globals->player_control.address;
     player_action action;
     unsigned int control_flags_out;
     float primary_trigger_out;
@@ -83,12 +83,12 @@ void handle_one_player_input(int16_t local_player_index, float seconds_elapsed,
 
     if ( hcex_always_shoot )
     {
-        control_flags_out = *(unsigned int *)&action.desired_weapon_index | (1u << _unit_control_weapon_primary_trigger_bit);
+        control_flags_out = *(unsigned int *)&action.desired_weapon_index | (1u << _unit_control_weapon_primary_trigger_bit);   /* raw control-flags dword of the input blob overlaying desired_weapon_index */
         primary_trigger_out = 1.0f;
     }
     else
     {
-        control_flags_out = *(unsigned int *)&action.desired_weapon_index;
+        control_flags_out = *(unsigned int *)&action.desired_weapon_index;   /* raw control-flags dword of the input blob */
         primary_trigger_out = action.desired_facing.n[1];
     }
 
@@ -114,7 +114,7 @@ void handle_one_player_input(int16_t local_player_index, float seconds_elapsed,
         unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, control->unit_index)->datum);
         int current_weapon = unit_inventory_get_weapon(control->unit_index, unit->unit.current_weapon_index);
         int desired_weapon = current_weapon;
-        int desired_weapon_index = (unsigned __int16)control->desired_weapon_index;
+        int desired_weapon_index = (uint16_t)control->desired_weapon_index;
 
         if ( desired_weapon_index == 0xFFFF
           || unit_inventory_get_weapon(control->unit_index, desired_weapon_index) == -1 )
@@ -122,7 +122,7 @@ void handle_one_player_input(int16_t local_player_index, float seconds_elapsed,
 
         if ( (buttons & 1) != 0
           || unit_inventory_get_weapon(control->unit_index, control->desired_weapon_index) == -1
-          || (unsigned __int16)control->desired_weapon_index == 0xFFFF )
+          || (uint16_t)control->desired_weapon_index == 0xFFFF )
         {
             control->desired_weapon_index =
                 unit_inventory_next_weapon(control->unit_index, control->desired_weapon_index, buttons & 1);
@@ -130,7 +130,7 @@ void handle_one_player_input(int16_t local_player_index, float seconds_elapsed,
         }
 
         {
-            __int16 must_be_readied = unit_inventory_get_must_be_readied_weapon(control->unit_index);
+            int16_t must_be_readied = unit_inventory_get_must_be_readied_weapon(control->unit_index);
             if ( must_be_readied != -1 && control->desired_weapon_index != must_be_readied )
             {
                 control->desired_weapon_index = must_be_readied;
@@ -138,13 +138,13 @@ void handle_one_player_input(int16_t local_player_index, float seconds_elapsed,
             }
         }
 
-        if ( (unsigned __int16)control->desired_grenade_index == 0xFFFF
+        if ( (uint16_t)control->desired_grenade_index == 0xFFFF
           || !unit_get_grenade_count(control->unit_index, control->desired_grenade_index) )
             control->desired_grenade_index = unit->unit.desired_grenade_index;
 
         if ( (buttons & 2) != 0
           || !unit_get_grenade_count(control->unit_index, control->desired_grenade_index)
-          || (unsigned __int16)control->desired_grenade_index == 0xFFFF )
+          || (uint16_t)control->desired_grenade_index == 0xFFFF )
             control->desired_grenade_index =
                 unit_inventory_next_grenade(control->unit_index, control->desired_grenade_index, 1);
 
@@ -189,10 +189,10 @@ commit:
     {
         /* repack player_control into a player_action for the client queue */
         real_euler_angles2d facing = control->desired_angles;
-        *(unsigned int *)&facing.n[0] = control->control_flags;
+        *(unsigned int *)&facing.n[0] = control->control_flags;   /* pack control_flags bit-image into the facing float slot (wire format) */
         action.primary_trigger = control->primary_trigger;
         action.desired_facing = facing;
-        action.control_flags = *(unsigned int *)&facing.n[0];
+        action.control_flags = *(unsigned int *)&facing.n[0];   /* same bit-image back out */
         action.desired_weapon_index = control->desired_weapon_index;
         action.desired_grenade_index = control->desired_grenade_index;
         action.desired_zoom_level = control->desired_zoom_level;

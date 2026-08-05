@@ -14,19 +14,19 @@
 extern int16_t game_difficulty_level_get(void);
 extern uint8_t game_engine_running(void);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
-extern __int16 global_difficulty_friend_settings[];
+extern int16_t global_difficulty_friend_settings[];
 
 extern float game_difficulty_get_value_by_difficulty(int16_t value_type, int16_t difficulty);
 float game_difficulty_get_team_value(int16_t value_type, int16_t team_index)
 {
-    __int16 difficulty_level = game_difficulty_level_get();
+    int16_t difficulty_level = game_difficulty_level_get();
     if ( game_engine_running() )
     {
         difficulty_level = game_difficulty_level_normal;
     }
     else if ( !game_team_is_enemy(1, team_index) )  /* friendly to team 1 */
     {
-        if ( (unsigned __int16)global_difficulty_friend_settings[value_type] == 0xFFFF )
+        if ( (uint16_t)global_difficulty_friend_settings[value_type] == 0xFFFF )
             difficulty_level = game_difficulty_level_normal;
         else
             value_type = global_difficulty_friend_settings[value_type];

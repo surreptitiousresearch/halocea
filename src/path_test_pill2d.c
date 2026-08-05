@@ -117,7 +117,7 @@ uint8_t path_test_pill2d(const structure_bsp *structure, uint8_t ignore_broken_s
     }
 
     uint8_t hit_anything;
-    if (result->edge_index == -1 && (unsigned __int16)result->disc_index == 0xFFFF)
+    if (result->edge_index == -1 && (uint16_t)result->disc_index == 0xFFFF)
     {
         result->distance = distance;
         hit_anything = 0;

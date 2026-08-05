@@ -50,7 +50,7 @@ void unit_place(int unit_index, scenario_unit_datum *scenario_unit)
     if ( (scenario_unit->flags & (1u << _scenario_unit_dead_bit)) == 0 )
         return;
 
-    unit_ping_animation(unit_index, 1u, 0, 0, 0, 0, 0.0f, (__int16)(12 * unit_index), (real_vector2d *)0xFFFFFFFF, 1u);
+    unit_ping_animation(unit_index, 1u, 0, 0, 0, 0, 0.0f, (int16_t)(12 * unit_index), (real_vector2d *)0xFFFFFFFF, 1u);
 
     if ( (unsigned char)unit->unit.animation.state != _unit_state_dying )
         return;
@@ -65,11 +65,11 @@ void unit_place(int unit_index, scenario_unit_datum *scenario_unit)
         unit->unit.equipment_object_index = -1;
     }
 
-    unsigned __int16 new_damage_flags = unit->object.damage_flags | (1u << _object_dead_bit);
+    uint16_t new_damage_flags = unit->object.damage_flags | (1u << _object_dead_bit);
     unsigned int new_flags = unit->object.flags | (1u << _object_cannot_be_garbage_bit);
 
     animation_graph *graph = TAG_GET(animation_graph, unit_definition->animation_graph.index);
-    __int16 frame_count =
+    int16_t frame_count =
         ((animation *)graph->animations.address)[unit->object.animation.state.index].frame_count;
 
     unit->unit.flags |= (1u << _unit_placed_here_dead_bit);

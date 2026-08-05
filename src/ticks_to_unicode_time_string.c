@@ -7,16 +7,17 @@
  * setting the branch-condition flags) that the decompiler failed to recognize as a live call argument.
  * Restored to pass the value explicitly, matching ticks_to_time_string.c's identical structure. */
 
+#include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 
 extern void usnprintf(wchar_t *string, unsigned int size, const wchar_t *format, ...);
 
-void ticks_to_unicode_time_string(int ticks, unsigned int count, unsigned __int16 *buffer)
+void ticks_to_unicode_time_string(int ticks, unsigned int count, uint16_t *buffer)
 {
     int minutes = ticks / 30 % 60;
     int hours = ticks / 30 / 60;
-    unsigned __int16 hours_string[64];
-    unsigned __int16 minutes_string[64];
+    uint16_t hours_string[64];
+    uint16_t minutes_string[64];
 
     if ( hours )
         usnprintf(hours_string, 0x40u, L"%d", hours);

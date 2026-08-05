@@ -40,11 +40,11 @@ void structure_decals_update(const uint32_t *old_combined_pvs, const uint32_t *n
         return;
     }
 
-    for ( __int16 cluster_index = 0; cluster_index < cluster_count; ++cluster_index )
+    for ( int16_t cluster_index = 0; cluster_index < cluster_count; ++cluster_index )
     {
         structure_cluster *cluster = (structure_cluster *)bsp->clusters.address + cluster_index;
         unsigned char has_decals =
-            ((unsigned __int16)cluster->first_runtime_decal_index != 0xFFFF && cluster->runtime_decal_count) ? 1 : 0;
+            ((uint16_t)cluster->first_runtime_decal_index != 0xFFFF && cluster->runtime_decal_count) ? 1 : 0;
 
         int word = cluster_index >> 5;
         int bit = 1 << (cluster_index & 0x1F);
@@ -69,7 +69,7 @@ void structure_decals_update(const uint32_t *old_combined_pvs, const uint32_t *n
                     + cluster->first_runtime_decal_index + i;
                 scenario_decal_palette_entry *decal_palette =
                     (scenario_decal_palette_entry *)global_scenario->decal_palette.address;
-                unsigned __int8 palette_index = decal->palette_index;
+                uint8_t palette_index = decal->palette_index;
                 int definition_index = decal_palette[palette_index].reference.index;
 
                 real_euler_angles2d angles;

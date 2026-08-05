@@ -38,7 +38,7 @@ void unit_scripting_enter_vehicle(int unit_index, int parent_unit_index, const c
     if ( (unit->object.damage_flags & (1u << _object_dead_bit)) != 0 )
         return;
 
-    if ( unit->object.parent_object_index != -1 && (unsigned __int16)unit->unit.parent_seat_index != 0xFFFF )
+    if ( unit->object.parent_object_index != -1 && (uint16_t)unit->unit.parent_seat_index != 0xFFFF )
         unit_exit_seat_end(unit_index, 0, 0, 1u);
 
     if ( unit->object.parent_object_index != -1 )
@@ -51,7 +51,7 @@ void unit_scripting_enter_vehicle(int unit_index, int parent_unit_index, const c
     if ( seat_count <= 0 )
         return;
 
-    for ( __int16 seat = 0; seat < seat_count; seat = (__int16)(seat + 1) )
+    for ( int16_t seat = 0; seat < seat_count; seat = (int16_t)(seat + 1) )
     {
         const char *seat_definition_name = ((unit_seat *)vehicle_definition->unit.seats.address)[seat].label;
         if ( !stricmp(seat_name, seat_definition_name)

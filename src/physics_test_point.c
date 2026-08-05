@@ -3,6 +3,7 @@
  * bounding sphere (position at +56, radius at +104 within each 128-byte mass point). Returns 1 on first
  * containment. */
 
+#include <stdint.h>
 #include "headers/real_point3d.h"
 #include "headers/physics_instance.h"
 #include "headers/physics_definition.h"
@@ -21,7 +22,7 @@ int physics_test_point(const physics_instance *instance, const real_point3d *poi
         return 0;
 
     char *mass_points = (char *)physics->mass_points.address;
-    for ( int i = 0; ; i = (__int16)(i + 1) )
+    for ( int i = 0; ; i = (int16_t)(i + 1) )
     {
         float *mass_point = (float *)&mass_points[128 * i];
         float dx = mass_point[14] - local.n[0];
@@ -31,7 +32,7 @@ int physics_test_point(const physics_instance *instance, const real_point3d *poi
         if ( ((dy * dy) + ((dx * dx) + (dz * dz)))
                 <= (double)(radius * radius) )
             return 1;
-        if ( (__int16)(i + 1) >= count )
+        if ( (int16_t)(i + 1) >= count )
             return 0;
     }
 }

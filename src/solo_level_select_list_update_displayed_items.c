@@ -18,8 +18,8 @@ extern void solo_level_select_list_update_item(widget_instance *item, int index)
 void solo_level_select_list_update_displayed_items(widget_instance *list_widget)
 {
     player_profile profile;
-    __int16 difficulty;
-    __int16 map_ids[3];
+    int16_t difficulty;
+    int16_t map_ids[3];
     int displayed_indices[6];
 
     player_ui_get_active_player_profile(0, &profile);

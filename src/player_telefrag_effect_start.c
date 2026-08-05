@@ -33,7 +33,7 @@ void player_telefrag_effect_start(int player_index, float scale)
     memset(&screen_flash, 0, sizeof(screen_flash));
     memset(&camera_shake, 0, sizeof(camera_shake));
 
-    __int16 local_player_index =
+    int16_t local_player_index =
         DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)->local_player_index;
     if (local_player_index == -1)
         return;

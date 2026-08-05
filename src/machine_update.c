@@ -52,7 +52,7 @@ extern uint8_t device_group_set_desired_value(int16_t group_index, float desired
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);
 
-unsigned __int8 machine_update(int machine_index)
+uint8_t machine_update(int machine_index)
 {
     machine_datum *machine = (machine_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, machine_index)->datum;
     machine_definition *definition = TAG_GET(machine_definition, machine->definition_index);
@@ -71,7 +71,7 @@ unsigned __int8 machine_update(int machine_index)
 
         unsigned int object_flags = machine->device.flags;
         machine->device.position_velocity = 0.0f;
-        unsigned __int16 group_index = (unsigned __int16)machine->device.position_group_index;
+        uint16_t group_index = (uint16_t)machine->device.position_group_index;
         machine->device.flags = object_flags | (1u << _device_animation_changed_bit);
         if ( group_index != 0xFFFF )
             groups[group_index].desired_value = machine->device.position;
@@ -83,19 +83,19 @@ unsigned __int8 machine_update(int machine_index)
       && ((game_time_get() + machine_index) & 3) == 0 )
     {
         float activation_radius = definition->device.automatic_activation_radius;
-        unsigned __int8 blocked = 0;
+        uint8_t blocked = 0;
         if ( activation_radius < 0.0001f )
             activation_radius = machine->object.bounding_sphere_radius;
 
         int nearby_objects[16];
-        __int16 nearby_count = objects_in_sphere(1u, object_mask_biped, &machine->object.location,
+        int16_t nearby_count = objects_in_sphere(1u, object_mask_biped, &machine->object.location,
                 &machine->object.bounding_sphere_center, activation_radius, nearby_objects, 16);
         if ( nearby_count > 0 )
         {
-            for ( __int16 i = 0; i < nearby_count; i = (__int16)(i + 1) )
+            for ( int16_t i = 0; i < nearby_count; i = (int16_t)(i + 1) )
             {
                 object_datum *found_object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, nearby_objects[i])->datum;
-                unsigned __int8 counts_as_blocking = 1;
+                uint8_t counts_as_blocking = 1;
                 /* unit_definition.unit (_unit_definition) @ +380, .flags @ +0 — dword index 95 in the raw form */
                 if ( (found_object->object.damage_flags & (1u << _object_dead_bit)) != 0
                   || (TAG_GET(unit_definition, found_object->definition_index)->unit.flags
@@ -123,7 +123,7 @@ unsigned __int8 machine_update(int machine_index)
 
         if ( blocked )
         {
-            unsigned __int16 group_index = (unsigned __int16)machine->device.position_group_index;
+            uint16_t group_index = (uint16_t)machine->device.position_group_index;
             if ( group_index != 0xFFFF )
                 device_group_set_desired_value(group_index, 1.0f);
             machine->machine.door_open_ticks = -3;
@@ -139,7 +139,7 @@ unsigned __int8 machine_update(int machine_index)
             machine->machine.door_open_ticks = open_timer;
             if ( open_timer > definition->machine.runtime_door_open_ticks )
             {
-                unsigned __int16 group_index = (unsigned __int16)machine->device.position_group_index;
+                uint16_t group_index = (uint16_t)machine->device.position_group_index;
                 if ( group_index != 0xFFFF )
                     device_group_set_desired_value(group_index, 0.0f);
             }
@@ -155,7 +155,7 @@ unsigned __int8 machine_update(int machine_index)
      * machine_datum_flags; bit 2 there is the elevator flag (both enums share bit index 2). */
     if ( (definition->machine.flags & (1u << _machine_is_elevator_bit)) != 0 )
     {
-        unsigned __int16 node_index = (unsigned __int16)definition->machine.elevator_node_index;
+        uint16_t node_index = (uint16_t)definition->machine.elevator_node_index;
         if ( node_index != 0xFFFF )
         {
             real_matrix4x3 *node_matrix = object_get_node_matrix(machine_index, node_index);
@@ -165,11 +165,11 @@ unsigned __int8 machine_update(int machine_index)
             if ( delta_x != 0.0f || delta_y != 0.0f || delta_z != 0.0f )
             {
                 int rider_objects[2048];
-                __int16 rider_count = objects_in_sphere(1u, object_mask_biped, &machine->object.location,
+                int16_t rider_count = objects_in_sphere(1u, object_mask_biped, &machine->object.location,
                         &machine->object.bounding_sphere_center, machine->object.bounding_sphere_radius, rider_objects, 2048);
                 if ( rider_count > 0 )
                 {
-                    for ( __int16 i = 0; i < rider_count; i = (__int16)(i + 1) )
+                    for ( int16_t i = 0; i < rider_count; i = (int16_t)(i + 1) )
                     {
                         int rider_index = rider_objects[i];
                         biped_datum *rider = (biped_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, rider_index)->datum;

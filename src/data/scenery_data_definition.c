@@ -11,7 +11,7 @@ extern void scenery_initialize(void);
 extern void scenery_initialize_for_new_map(void);
 extern uint8_t scenery_new(int object_index);
 extern void scenery_place(int scenery_index, scenario_scenery_datum *scenario_scenery);
-extern unsigned __int8 scenery_update(int scenery_index);
+extern uint8_t scenery_update(int scenery_index);
 
 object_type_definition scenery_data_definition = {
     .name = "scenery",

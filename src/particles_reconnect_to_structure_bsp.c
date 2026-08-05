@@ -50,7 +50,7 @@ void particles_reconnect_to_structure_bsp(void)
         {
             scenario_location_from_point(&particle->location, position);
             /* cluster_index (BE __int16) sentinel compare kept unsigned */
-            if ( (unsigned __int16)particle->location.cluster_index != 0xFFFF )
+            if ( (uint16_t)particle->location.cluster_index != 0xFFFF )
                 continue;
         }
         datum_delete(particle_data, particle_index);

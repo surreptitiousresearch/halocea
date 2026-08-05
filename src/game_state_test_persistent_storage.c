@@ -15,7 +15,7 @@ uint8_t game_state_test_persistent_storage(char *map_name, int16_t *difficulty, 
     unsigned int  content_id[4];
 
     const char    *header_map_name   = (const char *)&header[0x04];
-    const __int16 *header_difficulty = (const __int16 *)&header[0x126];
+    const int16_t *header_difficulty = (const int16_t *)&header[0x126];
 
     if (game_state_read_header_from_persistent_storage(header, content_id, 332, 4489216, corrupted))
     {

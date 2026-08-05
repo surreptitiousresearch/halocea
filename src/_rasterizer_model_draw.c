@@ -2,6 +2,7 @@
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/rasterizer_model_begin_parameters.h"
 #include "headers/shader.h"
+#include "headers/shader_transparent_plasma.h"
 #include "headers/triangle_buffer.h"
 #include "headers/vertex_buffer.h"
 #include "headers/transparent_geometry_group.h"
@@ -43,12 +44,14 @@ void _rasterizer_model_draw(
         int should_submit = 1;
         if (modifier_shader->base.type == _shader_type_transparent_plasma)
         {
-            short power_high = (short)(*(unsigned int *)&modifier_shader[1].base.radiosity.power >> 16);
-            if (power_high >= 1 && power_high <= 4)
+            /* DEVIATION: decompiler punned the lhz+extsh at shader+0x2C as float-bits>>16; disasm
+             * reads the int16 shader_transparent_plasma.plasma.intensity_source (DB-verified). */
+            int16_t intensity_source = ((const shader_transparent_plasma *)modifier_shader)->plasma.intensity_source;
+            if (intensity_source >= 1 && intensity_source <= 4)
             {
                 const float *values = local_parameters->effect.modifier_animation.values;
                 if (values)
-                    should_submit = values[power_high - 1] != 0.0f;
+                    should_submit = values[intensity_source - 1] != 0.0f;
             }
         }
         if (should_submit)

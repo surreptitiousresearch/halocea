@@ -44,9 +44,9 @@ int structure_render_build_dynamic_triangles(int *surface_indices, int16_t surfa
     if (triangles)
     {
         qsort_4byte(surface_indices, surface_count, compare_surface_indices);
-        for (int i = 0; i < surface_count; i = (__int16)(i + 1))
+        for (int i = 0; i < surface_count; i = (int16_t)(i + 1))
         {
-            unsigned __int16 *surface = ((structure_surface *)bsp->surfaces.address)[surface_indices[i]].vertex_indices;
+            uint16_t *surface = ((structure_surface *)bsp->surfaces.address)[surface_indices[i]].vertex_indices;
             triangles[i].vertex_indices[0] = surface[0];
             triangles[i].vertex_indices[1] = surface[1];
             triangles[i].vertex_indices[2] = surface[2];

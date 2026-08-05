@@ -12,7 +12,7 @@ void rasterizer_script_screen_effect_set_value_evaluate(int16_t function_index, 
     if ( arguments )
     {
         /* HS argument block: packed 4-byte slots (short arg in slot 0, real in slot 1) */
-        rasterizer_script_screen_effect_set_value(*(__int16 *)arguments, ((float *)arguments)[1]);
+        rasterizer_script_screen_effect_set_value(*(int16_t *)arguments, ((float *)arguments)[1]);
         hs_return(thread_index, 0);
     }
 }

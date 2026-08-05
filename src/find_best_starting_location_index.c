@@ -14,11 +14,11 @@ extern double pow(double base, double exponent);
 
 int16_t find_best_starting_location_index(int player_index)
 {
-    __int16 best_index = -1;
-    __int16 index = 0;
+    int16_t best_index = -1;
+    int16_t index = 0;
     float best_score = 0.0f;
 
-    int count = (__int16)global_scenario->players.count;
+    int count = (int16_t)global_scenario->players.count;
     if (count <= 0)
         return best_index;
 
@@ -40,7 +40,7 @@ int16_t find_best_starting_location_index(int player_index)
             best_score = score;
         }
 
-        index = (__int16)(i + 1);
+        index = (int16_t)(i + 1);
         i = index;
         if (index >= count)
             break;

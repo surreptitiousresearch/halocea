@@ -2,12 +2,13 @@
  * atmospheric fog each frame. Layout from the database (scenario_fog_interpolator). */
 #pragma once
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_rgb_color.h"
 
 typedef struct scenario_fog_interpolator
 {
-    unsigned __int8 valid;                            /* 0x00 */
+    uint8_t valid;                            /* 0x00 */
     char            _pad01[3];                         /* 0x01 */
     real_point3d    point;                             /* 0x04 — last camera point the state was eased toward */
     float           atmospheric_fog_z_near;            /* 0x10 */

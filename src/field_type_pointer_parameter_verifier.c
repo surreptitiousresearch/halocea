@@ -8,12 +8,13 @@
  * matching field_type_definition.h's field_parameters_verifier(const _field_properties_definition *)
  * signature (same shape as field_type_pointer_size_calculator.c). */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/field_type_definition.h"
 #include "headers/blam_data_globals.h"
 
 
-unsigned __int8 field_type_pointer_parameter_verifier(const _field_properties_definition *const field_properties_definition)
+uint8_t field_type_pointer_parameter_verifier(const _field_properties_definition *const field_properties_definition)
 {
     const _field_properties_definition *inner = *(const _field_properties_definition **)field_properties_definition->parameters;
 

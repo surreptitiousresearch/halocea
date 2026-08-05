@@ -171,7 +171,7 @@ void antenna_update(antenna_datum *antenna, antenna_definition *antenna_definiti
         vertex->v.n[1] = (velocity_y * inverse_dt);
         vertex->v.n[2] = (velocity_z * inverse_dt);
 
-        vertex_index = (__int16)(vertex_index + 1);
+        vertex_index = (int16_t)(vertex_index + 1);
         count = antenna_definition->vertices.count;
     }
     while ( vertex_index < count + 1 );

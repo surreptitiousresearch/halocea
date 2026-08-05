@@ -2,6 +2,7 @@
  * skipping any flag index listed in `ignore_these`. If `point` is NULL, returns the index of the first
  * unignored vehicle-spawn flag found. Returns -1 if none qualify. */
 
+#include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/scenario_netgame_flag.h"
 #include "headers/netgame_flag_type.h"
@@ -22,7 +23,7 @@ int find_closest_vehicle(const real_point3d *point, int *ignore_these, int ignor
         {
             if ( flag->type == _netgame_flag_race_vehicle )
             {
-                unsigned __int8 ignored = 0;
+                uint8_t ignored = 0;
                 for ( int i = 0; i < ignore_these_count; i++ )
                 {
                     if ( ignore_these[i] == index )

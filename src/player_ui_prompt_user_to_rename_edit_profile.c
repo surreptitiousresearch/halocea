@@ -17,7 +17,7 @@ extern void virtual_keyboard_set_validation(int validate_mode);
 
 int player_ui_prompt_user_to_rename_edit_profile(void)
 {
-    unsigned __int16 saved_game_type;
+    uint16_t saved_game_type;
     uint8_t launched;
 
     if ( player_ui_globals.edit_profile_data.profile_index == -1 )

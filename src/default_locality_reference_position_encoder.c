@@ -13,6 +13,7 @@
  * `LODWORD(v27)=v27-1` are that max-value computation). Each quantized value is written through a temporary the
  * decompiler placed in HIDWORD(v37); reproduced as a plain unsigned int (big-endian, so &value is the field). */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"
 #include "headers/message_delta_encoding_class.h"
@@ -33,7 +34,7 @@ unsigned int default_locality_reference_position_encoder(
     const float *baseline = (const float *)baseline_data;
 
     unsigned int bits_written = 0;
-    unsigned __int8 use_full_encoding = 1;
+    uint8_t use_full_encoding = 1;
 
     if ( baseline )
     {
@@ -49,7 +50,7 @@ unsigned int default_locality_reference_position_encoder(
         }
         else
         {
-            unsigned __int8 sign[3];
+            uint8_t sign[3];
             char exceeds_cutoff = 0;
             for ( int i = 0; i < 3; ++i )
             {

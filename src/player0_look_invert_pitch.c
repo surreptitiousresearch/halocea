@@ -34,7 +34,7 @@ void player0_look_invert_pitch(uint8_t invert)
         for ( player_datum *player = data_iterator_next(&iterator); player; player = data_iterator_next(&iterator) )
         {
             /* sentinel: original read was unsigned __int16; keep the cast so -1 compares as 0xFFFF */
-            int hud_player_index = (unsigned __int16)player->local_player_index;
+            int hud_player_index = (uint16_t)player->local_player_index;
             if ( hud_player_index != 0xFFFF )
                 hud_print_message(hud_player_index, message);
         }

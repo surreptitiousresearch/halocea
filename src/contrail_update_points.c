@@ -37,12 +37,12 @@ void contrail_update_points(uint16_t contrail_index, float dt)
     contrail_definition *definition =
         TAG_GET(contrail_definition, contrail->definition_index);
     int list;
-    __int16 *collision_material_type;   /* decompiler reads this output pointer uninitialized */
+    int16_t *collision_material_type;   /* decompiler reads this output pointer uninitialized */
     _BYTE visited[144];                 /* indices of points visited this pass, in list order */
 
-    for ( list = 0; list < 4; list = (__int16)(list + 1) )
+    for ( list = 0; list < 4; list = (int16_t)(list + 1) )
     {
-        __int16 visited_count = 0;
+        int16_t visited_count = 0;
         int point_index;
         contrail_point_datum *point = NULL;
         int visited_cursor;
@@ -140,7 +140,7 @@ void contrail_update_points(uint16_t contrail_index, float dt)
         }
 
         /* unlink/free dead points from the tail inward */
-        visited_cursor = (unsigned __int16)visited_count;
+        visited_cursor = (uint16_t)visited_count;
         if ( visited_count > 1 )
         {
             do
@@ -151,10 +151,10 @@ void contrail_update_points(uint16_t contrail_index, float dt)
                 contrail_point_datum *this_point;
                 contrail_point_datum *prev_point;
 
-                visited_cursor = (__int16)(visited_cursor - 1);
+                visited_cursor = (int16_t)(visited_cursor - 1);
                 entry = (int *)&visited[4 * visited_cursor];
                 this_index = *entry;
-                prev_index = (unsigned __int16)*(entry - 1);
+                prev_index = (uint16_t)*(entry - 1);
                 this_point = DATA_ARRAY_ELEMENT(contrail_point_data, contrail_point_datum, *entry);
                 prev_point = DATA_ARRAY_ELEMENT(contrail_point_data, contrail_point_datum, prev_index);
                 if ( (this_point->flags & (1u << _contrail_point_living_dead_bit)) == 0 )

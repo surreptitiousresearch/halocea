@@ -7,6 +7,7 @@
  * counter only ever increments from 0, so it can't reach -1 short of a 32768-entry list wraparound;
  * reproduced faithfully rather than "fixed" since disasm shows this really is what the compiled code does. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 
 void settings_menu_update_extended_description(widget_instance *list_widget)
@@ -15,7 +16,7 @@ void settings_menu_update_extended_description(widget_instance *list_widget)
     widget_instance *description_text = description->children;
     widget_instance *description_text_next = description_text->next;
 
-    __int16 index = 0;
+    int16_t index = 0;
     widget_instance *child = list_widget->children;
     while (child)
     {

@@ -1,1 +1,2 @@
-unsigned __int8 g_protocol_changeover_message_flag;
+#include <stdint.h>
+uint8_t g_protocol_changeover_message_flag;

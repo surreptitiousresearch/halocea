@@ -57,7 +57,7 @@ void object_get_features_in_sphere(unsigned int flags, int object_index, const r
                     char object_type = (char)object->object.type;
                     if ( (1 << (object_type + 8)) & flags )
                     {
-                        unsigned int type = (unsigned __int16)object->object.type;
+                        unsigned int type = (uint16_t)object->object.type;
                         if ( type <= 8 )
                         {
                             if ( type == 1 )
@@ -68,7 +68,7 @@ void object_get_features_in_sphere(unsigned int flags, int object_index, const r
                                 {
                                     if ( ((flags & 0x200000) == 0 || (biped->biped.flags & (1u << _biped_movement_passes_through_bipeds_bit)) == 0)
                                       && (object->object.parent_object_index == -1
-                                          || (unsigned __int16)biped->unit.parent_seat_index == 0xFFFF) )
+                                          || (uint16_t)biped->unit.parent_seat_index == 0xFFFF) )
                                     {
                                         real_point3d base;
                                         float pill_height;

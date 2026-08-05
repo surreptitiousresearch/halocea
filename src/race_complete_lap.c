@@ -30,18 +30,18 @@ void race_complete_lap(int player_index)
      * best_lap_time@+200 (DB: race_statistics {last_lap_time@0, laps@2, best_lap_time@4}) */
     race_statistics *race_stats = &player->statistics.multiplayer_statistics.race_statistics;
 
-    unsigned __int8 new_best_lap = 0;
+    uint8_t new_best_lap = 0;
     int lap_time = game_time_get() - player->multiplayer.special;
 
     race_globals.lap_bit_vector[player_index] = 0;
     game_engine_play_multiplayer_sound_to_specific_player(player_index, _multiplayer_sound_countdown_timer_end, 1u);
 
-    __int16 previous_lap_count = race_stats->laps;
-    race_stats->last_lap_time = (__int16)lap_time;
+    int16_t previous_lap_count = race_stats->laps;
+    race_stats->last_lap_time = (int16_t)lap_time;
 
     if ( !previous_lap_count || lap_time < race_stats->best_lap_time )
     {
-        race_stats->best_lap_time = (__int16)lap_time;
+        race_stats->best_lap_time = (int16_t)lap_time;
         if ( previous_lap_count )
             new_best_lap = 1;
     }

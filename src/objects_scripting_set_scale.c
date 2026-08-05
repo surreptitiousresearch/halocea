@@ -19,7 +19,7 @@ void objects_scripting_set_scale(int object_index, float scale, int16_t frame_co
     if ( object_index == -1 )
         return;
     object_datum *object_data = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
-    __int16 object_type = object_data->object.type;
+    int16_t object_type = object_data->object.type;
     object_data->object.scale = scale;
     /* object_mask_cannot_interpolate == 0xFE0 covers projectile..sound_scenery (object_type.h) */
     if ( ((1 << object_type) & object_mask_cannot_interpolate) == 0 )

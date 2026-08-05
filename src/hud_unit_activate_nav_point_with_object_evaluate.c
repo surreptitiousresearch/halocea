@@ -12,7 +12,7 @@ void hud_unit_activate_nav_point_with_object_evaluate(int16_t function_index, in
     if ( arguments )
     {
         /* HS argument block: 4-byte slots — unit_nav@0, unit@4, object@8, radius@12. */
-        hud_unit_activate_nav_point_with_object(*(__int16 *)arguments, arguments[1], arguments[2], ((float *)arguments)[3]);
+        hud_unit_activate_nav_point_with_object(*(int16_t *)arguments, arguments[1], arguments[2], ((float *)arguments)[3]);
         hs_return(thread_index, 0);
     }
 }

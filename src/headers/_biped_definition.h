@@ -1,6 +1,7 @@
 #pragma once
 /* _biped_definition — biped-specific tag definition block (DB types_members-confirmed, 516 bytes). */
 
+#include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
 
@@ -10,7 +11,7 @@ typedef struct _biped_definition
     unsigned int flags;                                         /* 0x004 */
     float        stationary_turning_threshold;                  /* 0x008 */
     float        turning_unused[4];                             /* 0x00C */
-    __int16      function_modes[4];                             /* 0x01C */
+    int16_t      function_modes[4];                             /* 0x01C */
     tag_reference melee_damage;                                 /* 0x024 */
     float        flying_bank_amount;                            /* 0x034 */
     float        flying_bank_apply_time;                        /* 0x038 */
@@ -60,7 +61,7 @@ typedef struct _biped_definition
     float        runtime_downhill_k1;                           /* 0x1E8 */
     float        runtime_uphill_k0;                             /* 0x1EC */
     float        runtime_uphill_k1;                             /* 0x1F0 */
-    __int16      runtime_pelvis_node_index;                     /* 0x1F4 */
-    __int16      runtime_head_node_index;                       /* 0x1F6 */
+    int16_t      runtime_pelvis_node_index;                     /* 0x1F4 */
+    int16_t      runtime_head_node_index;                       /* 0x1F6 */
     tag_block    contact_points;                                /* 0x1F8 */
 } _biped_definition;                     /* 516 bytes */

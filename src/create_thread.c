@@ -3,6 +3,7 @@
  * thread with a 16 KB stack, then applies a priority derived from the flags (bit1 -> lowest, bit2 -> above
  * normal, else normal) and resumes it. On any failure the handle is closed and 0 is returned. */
 
+#include <stdint.h>
 #include "headers/thread.h"
 #include "headers/thread_attribute_flags.h"
 #include "headers/blam_data_globals.h"
@@ -19,13 +20,13 @@ extern int   ResumeThread(void *handle);
 extern int   CloseHandle(void *handle);
 
 int create_thread(
-        unsigned __int16 flags,
+        uint16_t flags,
         unsigned int (*function)(void *),
         void        *function_input,
         thread     **thread_reference)
 {
-    unsigned __int8 saved_flags = (unsigned __int8)flags;
-    unsigned __int8 *p_in_use = &thread_pool[0].in_use;
+    uint8_t saved_flags = (uint8_t)flags;
+    uint8_t *p_in_use = &thread_pool[0].in_use;
     int slot = 0;
     unsigned int thread_id;
 

@@ -10,7 +10,7 @@
 extern uint8_t _banlist_player_is_banned(const char *hash);
 extern char *strncpy(char *destination, const char *source, unsigned int count);
 
-unsigned __int8 banlist_add_player(const char *name, const char *hash)
+uint8_t banlist_add_player(const char *name, const char *hash)
 {
     if ( _banlist_player_is_banned(hash) )
         return 0;

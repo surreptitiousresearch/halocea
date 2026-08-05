@@ -84,7 +84,7 @@ void process_looping_sounds(void)
             {
                 int detail_index;
                 for ( detail_index = 0; detail_index < def->details.count;
-                      detail_index = (__int16)(detail_index + 1) )
+                      detail_index = (int16_t)(detail_index + 1) )
                 {
                     int *next_time = &loop_datum->details[detail_index].next_play_time;
                     looping_sound_detail *detail =
@@ -102,7 +102,7 @@ void process_looping_sounds(void)
                             if ( ((flags & (1u << _detail_dont_play_with_alternate_bit)) == 0 || !loop_datum->alternate)
                               && ((flags & (1u << _detail_dont_play_without_alternate_bit)) == 0 || loop_datum->alternate) )
                             {
-                                int spatialization = (unsigned __int16)loop_datum->source.spatialization_mode;
+                                int spatialization = (uint16_t)loop_datum->source.spatialization_mode;
                                 loop_impulse_sound_tracking_data tracking;
                                 sound_source source;
 
@@ -145,7 +145,7 @@ void process_looping_sounds(void)
             {
                 int track_index;
                 for ( track_index = 0; track_index < def->tracks.count;
-                      track_index = (__int16)(track_index + 1) )
+                      track_index = (int16_t)(track_index + 1) )
                 {
                     looping_sound_track *track = (looping_sound_track *)def->tracks.address + track_index;
                     if ( !release_track_music_cache(track->start_sound.index) )

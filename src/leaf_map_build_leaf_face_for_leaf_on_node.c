@@ -50,7 +50,7 @@ void leaf_map_build_leaf_face_for_leaf_on_node(leaf_map *leaf_map, int leaf_inde
     convex_polygon2d face;
     memcpy(&face, &default_face, sizeof(face));
 
-    __int16 point_count = face.point_count;
+    int16_t point_count = face.point_count;
     int stack_count = leaf_map_globals.node_stack_count;
     if ( stack_count > 0 )
     {
@@ -59,7 +59,7 @@ void leaf_map_build_leaf_face_for_leaf_on_node(leaf_map *leaf_map, int leaf_inde
         {
             if ( !point_count )
                 break;
-            int stack_node = leaf_map_globals.node_stack[stack_count - (__int16)i - 1];
+            int stack_node = leaf_map_globals.node_stack[stack_count - (int16_t)i - 1];
             if ( stack_node != node )
             {
                 real_plane3d clip_plane = *leaf_map_node_plane(leaf_map, stack_node);
@@ -72,7 +72,7 @@ void leaf_map_build_leaf_face_for_leaf_on_node(leaf_map *leaf_map, int leaf_inde
                 }
 
                 real_plane2d clip_line;
-                __int16 result = intersect_planes3d(&clip_plane, leaf_plane, &clip_line);
+                int16_t result = intersect_planes3d(&clip_plane, leaf_plane, &clip_line);
                 if ( result == 1 )
                     point_count = convex_polygon2d_clip_to_plane(face.point_count, face.points, &clip_line,
                             64, face.points, nullptr, nullptr, 0.00024414062f);
@@ -80,7 +80,7 @@ void leaf_map_build_leaf_face_for_leaf_on_node(leaf_map *leaf_map, int leaf_inde
                     point_count = (result == 0) ? 0 : face.point_count;
                 face.point_count = point_count;
             }
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             stack_count = leaf_map_globals.node_stack_count;
         }
         while ( i < leaf_map_globals.node_stack_count );
@@ -91,7 +91,7 @@ void leaf_map_build_leaf_face_for_leaf_on_node(leaf_map *leaf_map, int leaf_inde
         /* leaf element stride is 24 bytes (map_leaf); the subscript expression
          * 16*leaf_index + 8*(leaf_index & 0x7FFFFFFF) is 24*leaf_index for non-negative indices. */
         tag_block *faces = &((map_leaf *)leaf_map->leaves.address)[leaf_index].faces;
-        __int16 face_element = tag_block_add_element(faces);
+        int16_t face_element = tag_block_add_element(faces);
         if ( face_element == -1 )
         {
             if ( !leaf_map_globals.__noop )

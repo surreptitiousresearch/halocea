@@ -81,9 +81,9 @@ void actor_emotion_update(int actor_index)
     }
 
     /* 3. aggression target from the highest occupied threat-histogram bucket (actor+494..+503) */
-    __int16 bucket = 9;
+    int16_t bucket = 9;
     while ( bucket > 0 && actor->situation.specific_threats[bucket] <= 0 )
-        bucket = (__int16)(bucket - 1);
+        bucket = (int16_t)(bucket - 1);
 
     if ( bucket >= 8 )       actor->emotions.instantaneous_danger = 2.0f;
     else if ( bucket >= 7 )  actor->emotions.instantaneous_danger = 1.8f;
@@ -93,8 +93,9 @@ void actor_emotion_update(int actor_index)
     else                     actor->emotions.instantaneous_danger = 0.0f;
 
     /* low-pass current aggression (actor+852) toward the target (actor+848) */
-    double smoothing_exponent;
-    *(unsigned long long *)&smoothing_exponent = 0xBFA7A8D000000000ULL;
+    /* DEVIATION: decompiler spelled the lfd of __real_bfa7a8d000000000 as a 64-bit bit-image store;
+     * the literal below round-trips to those exact bits. */
+    double smoothing_exponent = -0.04620981216430664;
     double decay = exp(smoothing_exponent);
     actor->emotions.perceived_danger += (actor->emotions.instantaneous_danger - actor->emotions.perceived_danger)
                              * (float)(1.0 - decay);
@@ -107,7 +108,7 @@ void actor_emotion_update(int actor_index)
     {
         if ( actor->input.vehicle_index == -1 && actor->state.combat_status >= _actor_combat_status_definite )
         {
-            __int16 target_marker = actor->target.target_type;
+            int16_t target_marker = actor->target.target_type;
             actor->emotions.crouch_blocking_player_line_of_fire = 0;
             actor->emotions.crouch_blocking_line_of_fire = 0;
             actor->emotions.crouch_friends_in_line_of_fire = 0;
@@ -136,7 +137,7 @@ void actor_emotion_update(int actor_index)
                 if ( actor_perception_friend_prop_is_attacking(actor_index, iterator.index, &friend_prop_attack_vector) )
                 {
                     real_vector3d friend_prop_dir_to_aim;
-                    __int16 blockage = actor_perception_aiming_vector_test_blockage(
+                    int16_t blockage = actor_perception_aiming_vector_test_blockage(
                                            &friend_prop->body_position, &friend_prop_attack_vector,
                                            &actor->input.position.body_position, &friend_prop_dir_to_aim);
                     if ( blockage >= 1 )
@@ -163,7 +164,7 @@ void actor_emotion_update(int actor_index)
                                 probe.n[0] = move_dir.n[0] * 0.40000001f + actor->input.position.body_position.x;
                                 probe.n[1] = move_dir.n[1] * 0.40000001f + actor->input.position.body_position.y;
                                 probe.n[2] = move_dir.n[2] * 0.40000001f + actor->input.position.body_position.z;
-                                __int16 probe_blockage = actor_perception_aiming_vector_test_blockage(
+                                int16_t probe_blockage = actor_perception_aiming_vector_test_blockage(
                                                              &friend_prop->body_position, &friend_prop_attack_vector,
                                                              &probe, NULL);
                                 if ( probe_blockage <= blockage )
@@ -205,13 +206,13 @@ void actor_emotion_update(int actor_index)
     }
     else
     {
-        __int16 suppress_timer = actor->emotions.moving_into_fire_timer;
+        int16_t suppress_timer = actor->emotions.moving_into_fire_timer;
         if ( suppress_timer > 0 )
             actor->emotions.moving_into_fire_timer = suppress_timer - 1;
     }
 
     /* 5. suppression desire with on/off-delay hysteresis */
-    __int16 desire_timer = actor->emotions.defensive_crouch_timer;
+    int16_t desire_timer = actor->emotions.defensive_crouch_timer;
     if ( desire_timer > 0 )
     {
         actor->emotions.defensive_crouch_timer = desire_timer - 1;
@@ -220,8 +221,8 @@ void actor_emotion_update(int actor_index)
 
     float desire_threshold = (!actor->emotions.currently_defending || actor->emotions.berserk) ? character->defensive.defensive_threshold_attacking
                                                          : character->defensive.defensive_threshold_defending;
-    unsigned __int8 desire;
-    unsigned __int16 desire_mode = (unsigned __int16)character->defensive.defensive_crouch_type;
+    uint8_t desire;
+    uint16_t desire_mode = (uint16_t)character->defensive.defensive_crouch_type;
 
     if ( desire_mode < _defensive_crouch_danger || desire_mode > _defensive_crouch_flood_shamble )   /* _defensive_crouch_none or out of range */
     {
@@ -288,7 +289,7 @@ void actor_emotion_update(int actor_index)
 
 retreat:
     {
-        __int16 retreat_timer = actor->emotions.evasion_delay_timer;
+        int16_t retreat_timer = actor->emotions.evasion_delay_timer;
         if ( retreat_timer > 0 )
             actor->emotions.evasion_delay_timer = retreat_timer - 1;
     }

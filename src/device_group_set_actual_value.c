@@ -25,7 +25,7 @@ void device_group_set_actual_value(int16_t group_index, float value)
 
     object_iterator iterator;
     object_iterator_new(&iterator, object_mask_device, 0);
-    for ( __int16 *object = object_iterator_next(&iterator);
+    for ( int16_t *object = object_iterator_next(&iterator);
           object;
           object = object_iterator_next(&iterator) )
     {

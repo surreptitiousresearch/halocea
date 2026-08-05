@@ -1,1 +1,2 @@
-unsigned __int8 video_test_save_confirmed;
+#include <stdint.h>
+uint8_t video_test_save_confirmed;

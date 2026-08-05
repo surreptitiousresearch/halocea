@@ -29,9 +29,9 @@ void bitmap_2d_vector_map(bitmap_data *bitmap)
     if ( !converted )
         return;
 
-    for ( int y = 0; y < bitmap->height; y = (__int16)(y + 1) )
+    for ( int y = 0; y < bitmap->height; y = (int16_t)(y + 1) )
     {
-        for ( int x = 0; x < bitmap->width; x = (__int16)(x + 1) )
+        for ( int x = 0; x < bitmap->width; x = (int16_t)(x + 1) )
         {
             int pixel = *(int *)bitmap_2d_address(bitmap, x, y, 0);
             int channel0 = pixel & 0xFF;

@@ -14,7 +14,7 @@ void player_effect_screen_fade_in_evaluate(int16_t function_index, int thread_in
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        player_effect_screen_fade_in(*(float *)arguments, ((float *)arguments)[1], ((float *)arguments)[2], ((__int16 *)arguments)[6]);
+        player_effect_screen_fade_in(*(float *)arguments, ((float *)arguments)[1], ((float *)arguments)[2], ((int16_t *)arguments)[6]);
         hs_return(thread_index, 0);
     }
 }

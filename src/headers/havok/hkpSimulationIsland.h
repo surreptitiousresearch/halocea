@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "hkArray.h"
 #include "hkReferencedObject.h"
 #include "hkInplaceArray.h"
@@ -39,17 +40,17 @@ struct hkpSimulationIsland : hkpConstraintOwner
 {
     hkpWorld *m_world;                          /* 0x18 */
     int m_numConstraints;                       /* 0x1C */
-    unsigned __int16 m_storageIndex;            /* 0x20 */
-    unsigned __int16 m_dirtyListIndex;          /* 0x22 */
-    unsigned __int8 m_splitCheckFrameCounter;   /* 0x24 */
-    __int8 m_allowIslandLocking : 2;            /* 0x25 */
-    __int8 m_actionListCleanupNeeded : 2;
-    __int8 m_sparseEnabled : 2;
-    __int8 m_splitCheckRequested : 2;
-    unsigned __int8 _reserved_bits : 2;         /* 0x26 (anonymous in DB) */
-    __int8 m_inIntegrateJob : 2;
-    __int8 m_activeMark : 2;
-    __int8 m_isInActiveIslandsArray : 2;
+    uint16_t m_storageIndex;            /* 0x20 */
+    uint16_t m_dirtyListIndex;          /* 0x22 */
+    uint8_t m_splitCheckFrameCounter;   /* 0x24 */
+    int8_t m_allowIslandLocking : 2;            /* 0x25 */
+    int8_t m_actionListCleanupNeeded : 2;
+    int8_t m_sparseEnabled : 2;
+    int8_t m_splitCheckRequested : 2;
+    uint8_t _reserved_bits : 2;         /* 0x26 (anonymous in DB) */
+    int8_t m_inIntegrateJob : 2;
+    int8_t m_activeMark : 2;
+    int8_t m_isInActiveIslandsArray : 2;
     unsigned char _pad27;                       /* 0x27 */
     hkMultiThreadCheck m_multiThreadCheck;      /* 0x28 */
     float m_timeSinceLastHighFrequencyCheck;    /* 0x30 */

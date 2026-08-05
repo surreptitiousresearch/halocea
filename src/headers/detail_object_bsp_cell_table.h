@@ -12,6 +12,7 @@
  * .address, 0x24/0x28 = detail_object_z_reference_vectors.count/.address, 0x30 = valid). The old
  * typedef names are kept as aliases for existing consumers. */
 
+#include <stdint.h>
 #include "tag_block.h"
 #include "detail_object_cell_definition.h"
 
@@ -21,8 +22,8 @@ typedef struct structure_detail_object_data
     tag_block       detail_objects;                         /* 0x0C */
     tag_block       detail_objects_counts;                  /* 0x18 — unsigned __int16[] per-(layer,cell) counts */
     tag_block       detail_object_z_reference_vectors;      /* 0x24 — real_vector4d[] (count nonzero => per-cell vectors) */
-    unsigned __int8 valid;                                  /* 0x30 — bit0: view built; bit1: force rebuild */
-    unsigned __int8 pad[3];                                 /* 0x31 */
+    uint8_t valid;                                  /* 0x30 — bit0: view built; bit1: force rebuild */
+    uint8_t pad[3];                                 /* 0x31 */
     int             unused[3];                              /* 0x34 */
 } structure_detail_object_data;                             /* 64 bytes */
 

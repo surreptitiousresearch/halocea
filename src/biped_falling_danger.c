@@ -44,7 +44,7 @@ void biped_falling_danger(int biped_index)
         || (biped->unit.flags & (1u << _unit_no_falling_damage_bit)) != 0
         || (definition_flags & (1u << _biped_immune_to_falling_damage_bit)) != 0
         || biped->unit.actor_index == -1
-        || (unsigned __int8)biped->unit.animation.state == _unit_state_ai_impulse)
+        || (uint8_t)biped->unit.animation.state == _unit_state_ai_impulse)
         return;
 
     int now = game_time_get();

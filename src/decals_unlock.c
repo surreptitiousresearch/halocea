@@ -19,7 +19,7 @@ void decals_unlock(uint8_t permanent)
         data_iterator_new(&iterator, global_decal_data);
         for ( decal_datum *decal = data_iterator_next(&iterator); decal; decal = data_iterator_next(&iterator) )
         {
-            __int16 flags = decal->flags;
+            int16_t flags = decal->flags;
             struct decal_globals *globals = decal_globals; /* decal_globals is a bare struct tag */
             if ( (flags & (1u << _decal_locked_bit)) != 0 )
             {
@@ -28,7 +28,7 @@ void decals_unlock(uint8_t permanent)
             }
             if ( permanent )
             {
-                __int16 flags2 = decal->flags;
+                int16_t flags2 = decal->flags;
                 if ( (flags2 & (1u << _decal_permanent_bit)) != 0 )
                 {
                     decal->flags = flags2 & ~(1u << _decal_permanent_bit);

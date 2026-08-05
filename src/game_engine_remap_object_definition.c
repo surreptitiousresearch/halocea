@@ -4,6 +4,7 @@
  * through unchanged. The object type is the first word of the tag definition (1=object/unit base,
  * 2=weapon, 3=equipment). */
 
+#include <stdint.h>
 #include "headers/global_tag_instances.h"
 #include "headers/object_type.h"
 
@@ -15,7 +16,7 @@ int game_engine_remap_object_definition(int definition_index)
 {
     if ( game_engine && definition_index != -1 )
     {
-        __int16 object_type = *TAG_GET(__int16, definition_index);
+        int16_t object_type = *TAG_GET(int16_t, definition_index);
         if ( object_type == object_type_weapon )
             return game_engine_remap_weapon(definition_index);
         if ( object_type == object_type_equipment )

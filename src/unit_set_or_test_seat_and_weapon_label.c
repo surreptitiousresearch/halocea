@@ -37,7 +37,7 @@ uint8_t unit_set_or_test_seat_and_weapon_label(int object_index, const char *sea
     animation_graph *graph = TAG_GET(animation_graph, object_definition->object.animation_graph.index);
 
     int seat_count = graph->unit_seats.count;
-    for ( int seat_loop = 0; seat_loop < seat_count; seat_loop = (__int16)(seat_loop + 1) )
+    for ( int seat_loop = 0; seat_loop < seat_count; seat_loop = (int16_t)(seat_loop + 1) )
     {
         seat_index = seat_loop;
         animation_graph_unit_seat *seat =
@@ -47,7 +47,7 @@ uint8_t unit_set_or_test_seat_and_weapon_label(int object_index, const char *sea
 
         int weapon_index = 0;
         int weapon_count = seat->weapon_classes.count;
-        for ( int weapon_loop = 0; weapon_loop < weapon_count; weapon_loop = (__int16)(weapon_loop + 1) )
+        for ( int weapon_loop = 0; weapon_loop < weapon_count; weapon_loop = (int16_t)(weapon_loop + 1) )
         {
             weapon_index = weapon_loop;
             animation_graph_weapon_class *weapon =
@@ -76,7 +76,7 @@ uint8_t unit_set_or_test_seat_and_weapon_label(int object_index, const char *sea
                     matched = 1;
                     break;
                 }
-                label_loop = (__int16)(label_loop + 1);
+                label_loop = (int16_t)(label_loop + 1);
                 if ( label_loop >= weapon->weapon_types.count )
                     break;
             }
@@ -87,13 +87,13 @@ uint8_t unit_set_or_test_seat_and_weapon_label(int object_index, const char *sea
             if ( change_flag )
             {
                 int seat_animation_count = seat->animations.count;
-                unsigned __int16 *seat_animations = (unsigned __int16 *)seat->animations.address;
+                uint16_t *seat_animations = (uint16_t *)seat->animations.address;
                 int has_extra_occupants =
                        (seat_animation_count > 2 && seat_animations[2] != 0xFFFF)
                     || (seat_animation_count > 3 && seat_animations[3] != 0xFFFF)
                     || (seat_animation_count > 4 && seat_animations[4] != 0xFFFF);
 
-                if ( (unsigned __int8)object_data->unit.animation.state != _unit_state_user_animation )
+                if ( (uint8_t)object_data->unit.animation.state != _unit_state_user_animation )
                     object_data->unit.animation.state = -1;
                 object_data->unit.animation.seat_index = seat_index;
                 object_data->unit.animation.base_seat_index = seat_label_to_base_seat_index(seat_label);

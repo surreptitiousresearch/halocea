@@ -2,14 +2,15 @@
 /* effect_part_definition — one spawnable part within an effect event (effects.c). 104 bytes; layout from
  * the database. */
 
+#include <stdint.h>
 #include "tag_reference.h"
 
 typedef struct effect_part_definition
 {
-    __int16          environment;                          /* 0x00 */
-    __int16          disposition;                           /* 0x02 — 1 = violent, 2 = normal */
-    __int16          location_index;                         /* 0x04 */
-    unsigned __int16 flags;                                  /* 0x06 — 0x1 = face away from gravity */
+    int16_t          environment;                          /* 0x00 */
+    int16_t          disposition;                           /* 0x02 — 1 = violent, 2 = normal */
+    int16_t          location_index;                         /* 0x04 */
+    uint16_t flags;                                  /* 0x06 — 0x1 = face away from gravity */
     int              unused0[3];                             /* 0x08 */
     unsigned int     runtime_tag_reference_base_class_tag;   /* 0x14 */
     tag_reference    reference;                              /* 0x18 — the spawned part tag */

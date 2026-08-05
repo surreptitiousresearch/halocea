@@ -1,11 +1,12 @@
 #pragma once
+#include <stdint.h>
 /* damage_definition — the damage block embedded in a damage_effect (jpt!) tag at tag offset +452.
  * Layout from the database (220 bytes). */
 
 typedef struct damage_definition
 {
-    __int16      side_effect;                       /* 0x00 — 2 = harmless/lulling */
-    __int16      category;                           /* 0x02 */
+    int16_t      side_effect;                       /* 0x00 — 2 = harmless/lulling */
+    int16_t      category;                           /* 0x02 */
     unsigned int flags;                              /* 0x04 — 0x20 = does-not-hurt-owner-team, 0x40 = skip body,
                                                       *        0x200 = skip shield */
     float        area_of_effect_core_radius;         /* 0x08 */

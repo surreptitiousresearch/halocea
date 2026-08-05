@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 // 0x82BCC900  ?SetVertBoneWeightList@objOBJ@@QAAXPAX@Z  (mangle PAX = void*; stored as float*)
 // Make the geometry private, attach a per-vertex bone-weight stream, and update the shared
@@ -14,7 +15,7 @@ void objOBJ::SetVertBoneWeightList(float *weightList)
     _UnshareGeom();
 
     objGEOM_SHARED *sharedGeom = pGeom->pSharedGeom;
-    unsigned __int64 fvf = sharedGeom->fvf;
+    uint64_t fvf = sharedGeom->fvf;
     sharedGeom->vertBoneWeightList = weightList;
 
     if (weightList) {

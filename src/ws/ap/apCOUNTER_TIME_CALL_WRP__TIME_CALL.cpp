@@ -5,6 +5,7 @@
 // record tmData[curProcessor].start; unit1 enabled -> bump callsTotal. On either unit having a
 // bound apPROFILER, poke Start()/Stop(). On destruction, unit0 accumulates elapsed time into
 // tmData[curProcessor].sum.
+#include <stdint.h>
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL_WRP.h"
 #include "../../headers/ws/os/osLOCK.h" // osGetCurThreadProcessor/osGetPerfCounter decls (os globals)
 
@@ -46,7 +47,7 @@ apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_CALL>::~apCOUNTER_TIME_CALL_WRP()
     if (s0 & 0x02) {
         unsigned int proc = osGetCurThreadProcessor();
         unsigned int now  = osGetPerfCounter();
-        counter->tmData[proc].sum += (__int64)now - counter->tmData[proc].start;
+        counter->tmData[proc].sum += (int64_t)now - counter->tmData[proc].start;
     }
 
     if (unit0.myProfiler) unit0.myProfiler->Stop();

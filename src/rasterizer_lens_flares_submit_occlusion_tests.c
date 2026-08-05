@@ -5,6 +5,7 @@
  * along the flare direction by radius*sqrt(2), 2 uses the position unchanged. Skipped while taking a multi-
  * tile screenshot, off the main render target, or with no flares. */
 
+#include <stdint.h>
 #include "headers/render_widget_type.h"
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/rasterizer_window_begin_parameters.h"
@@ -17,7 +18,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void rasterizer_widget_begin(__int16 type, unsigned __int16 flags);
+extern void rasterizer_widget_begin(int16_t type, uint16_t flags);
 extern void rasterizer_widget_end(void);
 /* DB prototype declares void; the call site stores r3 back into the flare, so it returns the pixel count. */
 extern int rasterizer_widget_submit_occlusion_test(const real_point3d *point, float radius, int index);
@@ -35,7 +36,7 @@ void rasterizer_lens_flares_submit_occlusion_tests(void)
 
     rasterizer_widget_begin(_widget_type_internal_occlusion_test, 1);
 
-    for (int i = 0; i < local_lens_flare_count; i = (__int16)(i + 1))
+    for (int i = 0; i < local_lens_flare_count; i = (int16_t)(i + 1))
     {
         rasterizer_lens_flare_submit_parameters *params = &local_lens_flare_parameters[i];
         lens_flare_definition *definition = params->definition;
@@ -46,7 +47,7 @@ void rasterizer_lens_flares_submit_occlusion_tests(void)
         if ((params->compressed_window_index & 0x7F) != global_window_parameters.window_index)
             continue;
 
-        __int16 offset_direction = definition->occlusion_offset_direction;
+        int16_t offset_direction = definition->occlusion_offset_direction;
         float occlusion_radius = definition->occlusion_radius;
 
         real_point3d occlusion_point;

@@ -16,7 +16,7 @@ int random_item(int item_collection_index)
 {
     item_collection_definition *collection = TAG_GET(item_collection_definition, item_collection_index);
     int count = collection->permutations.count;
-    __int16 total_weight = item_collection_get_total(collection);
+    int16_t total_weight = item_collection_get_total(collection);
     int running = seed_random_range(get_global_random_seed_address(), 0, total_weight);
 
     if (count <= 0)

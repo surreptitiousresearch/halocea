@@ -23,13 +23,13 @@ extern void hud_fix_unit_data(int16_t old_local_player_index, int16_t new_local_
 
 void player_control_fix_for_loaded_game_state(void)
 {
-    __int16 requested_controller = player_ui_get_single_player_local_player_controller(0);
-    __int16 controller = requested_controller == -1 ? 0 : requested_controller;
+    int16_t requested_controller = player_ui_get_single_player_local_player_controller(0);
+    int16_t controller = requested_controller == -1 ? 0 : requested_controller;
 
     if ( (controller == -1 || players_globals->local_player_indices[controller] == -1)
       && player_spawn_count == 1 )
     {
-        __int16 scan_index = 0;
+        int16_t scan_index = 0;
         int player_index;
 
         while ( 1 )
@@ -41,7 +41,7 @@ void player_control_fix_for_loaded_game_state(void)
             if ( player_index != -1 )
                 break;
 
-            scan_index = (__int16)(scan_index + 1);
+            scan_index = (int16_t)(scan_index + 1);
             if ( scan_index >= 4 )
                 return;
         }

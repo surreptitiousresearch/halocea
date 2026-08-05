@@ -39,27 +39,27 @@ uint8_t playlist_profile_change_slayer_rules(widget_instance *widget, event_reco
 
     widget_instance *group = parent->children;
 
-    int assault_index = (unsigned __int16)first_text_box(group)->parameters.text_box_parameters.string_list_index;
+    int assault_index = (uint16_t)first_text_box(group)->parameters.text_box_parameters.string_list_index;
     if ( assault_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.assault = 0;
     else if ( assault_index == 1 )
         edit_playlist_profile->game_engine_variant.ctf.assault = 1;
 
-    int reset_index = (unsigned __int16)first_text_box(group->next)->parameters.text_box_parameters.string_list_index;
+    int reset_index = (uint16_t)first_text_box(group->next)->parameters.text_box_parameters.string_list_index;
     if ( reset_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.flag_must_reset = 1;
     else if ( reset_index == 1 )
         edit_playlist_profile->game_engine_variant.ctf.flag_must_reset = 0;
 
     int capture_index =
-            (unsigned __int16)first_text_box(group->next->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group->next->next)->parameters.text_box_parameters.string_list_index;
     if ( capture_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.reset_on_capture = 0;
     else if ( capture_index == 1 )
         edit_playlist_profile->game_engine_variant.ctf.reset_on_capture = 1;
 
     unsigned int score_index =
-            (unsigned __int16)first_text_box(group->next->next->next)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group->next->next->next)->parameters.text_box_parameters.string_list_index;
     if ( score_index <= 4 )
     {
         switch ( score_index )
@@ -72,14 +72,14 @@ uint8_t playlist_profile_change_slayer_rules(widget_instance *widget, event_reco
         }
     }
 
-    int teams_index = (unsigned __int16)first_text_box(group->next->next->next->next)
+    int teams_index = (uint16_t)first_text_box(group->next->next->next->next)
             ->parameters.text_box_parameters.string_list_index;
     if ( teams_index == 0 )
         edit_playlist_profile->universal_variant.teams = 1;
     else if ( teams_index == 1 )
         edit_playlist_profile->universal_variant.teams = 0;
 
-    unsigned int time_index = (unsigned __int16)first_text_box(group->next->next->next->next->next)
+    unsigned int time_index = (uint16_t)first_text_box(group->next->next->next->next->next)
             ->parameters.text_box_parameters.string_list_index;
     if ( time_index <= 6 )
     {

@@ -12,7 +12,7 @@ extern int datum_new(data_array *data);
 
 int16_t device_group_new(float desired_value, int16_t flags)
 {
-    __int16 index = (__int16)datum_new(device_groups_data);
+    int16_t index = (int16_t)datum_new(device_groups_data);
 
     if ( index != -1 )
     {

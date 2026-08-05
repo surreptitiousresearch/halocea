@@ -1,11 +1,12 @@
 #pragma once
 /* data_iterator — cursor over a data_array (data.c) */
+#include <stdint.h>
 #include "data_array.h"
 
 typedef struct data_iterator
 {
     data_array  *data;            /* 0x0 */
-    __int16      absolute_index;  /* 0x4 */
+    int16_t      absolute_index;  /* 0x4 */
     unsigned char _pad0[2]; /* db-verified padding */
     int          index;           /* 0x8 — current datum index */
     unsigned int signature;       /* 0xC */

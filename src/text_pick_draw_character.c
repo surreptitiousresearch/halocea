@@ -21,20 +21,20 @@
 #include "headers/blam_data_globals.h"
 
 
-extern __int16 abs16(__int16 value);
+extern int16_t abs16(int16_t value);
 
 void text_pick_draw_character(parse_string_state *parse_state, font_header *font_header, font_character *font_character, unsigned int color, int16_t x0, int16_t y0, int16_t x, int16_t y, int16_t dx, int16_t dy)
 {
-    __int16 x1 = x0 + dx;
-    __int16 y1 = y0 + dy;
+    int16_t x1 = x0 + dx;
+    int16_t y1 = y0 + dy;
 
-    __int16 dist_x0 = abs16(x0 - text_pick_globals.pick_point.n[0]);
-    __int16 dist_x1 = abs16(x1 - text_pick_globals.pick_point.n[0]);
-    __int16 dist_y0 = abs16(y0 - text_pick_globals.pick_point.n[1]);
-    __int16 dist_y1 = abs16((__int16)(y1 - text_pick_globals.pick_point.n[1]));
+    int16_t dist_x0 = abs16(x0 - text_pick_globals.pick_point.n[0]);
+    int16_t dist_x1 = abs16(x1 - text_pick_globals.pick_point.n[0]);
+    int16_t dist_y0 = abs16(y0 - text_pick_globals.pick_point.n[1]);
+    int16_t dist_y1 = abs16((int16_t)(y1 - text_pick_globals.pick_point.n[1]));
 
-    __int16 max_x_distance = (dist_x0 > dist_x1) ? dist_x0 : dist_x1;
-    __int16 distance = (max_x_distance <= dist_y0) ? dist_y0 : max_x_distance;
+    int16_t max_x_distance = (dist_x0 > dist_x1) ? dist_x0 : dist_x1;
+    int16_t distance = (max_x_distance <= dist_y0) ? dist_y0 : max_x_distance;
     distance = (distance <= dist_y1) ? dist_y1 : distance;
 
     if ( distance < text_pick_globals.best_pick_distance )

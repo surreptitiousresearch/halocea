@@ -37,7 +37,7 @@
 extern void biped_blend_client_and_server(int biped_index);
 extern void biped_vehicle_speech(int biped_index);
 extern uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients);
-extern __int16 halo_hud_get_timer_enabled(void);
+extern int16_t halo_hud_get_timer_enabled(void);
 extern void hcex_fire_plr_event(const char *eventName, int plr_idx);
 extern void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit, uint8_t should_allow_clients, uint8_t should_replicate_if_appropriate);
 extern void biped_snap_facing(biped_datum *biped, const biped_definition *biped_definition);
@@ -84,7 +84,7 @@ uint8_t biped_update(int biped_index)
     {
         /* seated: behaviour depends on the parent object type */
         unit_datum *parent = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, biped->object.parent_object_index)->datum;
-        __int16 parent_type = parent->object.type;
+        int16_t parent_type = parent->object.type;
         if ( parent_type == 1 )
         {
             /* riding a vehicle */
@@ -94,7 +94,7 @@ uint8_t biped_update(int biped_index)
             if ( rider_ejection && parent->object.up.n[2] < 0.0f && (parent->object.flags & (1u << _object_on_ground_bit)) != 0 )
             {
                 /* DEVIATION: halo_hud_get_timer_enabled takes no argument at the call site (stale r3). */
-                if ( biped->object.owner_player_index != -1 && (unsigned __int16)halo_hud_get_timer_enabled() )
+                if ( biped->object.owner_player_index != -1 && (uint16_t)halo_hud_get_timer_enabled() )
                     hcex_fire_plr_event("player_ejected_ride", -1);
                 unit_exit_seat_end(biped_index, 0, 0, 1u);
             }
@@ -118,7 +118,7 @@ uint8_t biped_update(int biped_index)
         }
 
         /* classify unit.animation.state into biped.state (0 idle, 1 moving, 2 airborne) */
-        unsigned __int8 state = (unsigned __int8)biped->unit.animation.state;
+        uint8_t state = (uint8_t)biped->unit.animation.state;
         char animation_class;
         if ( state > _unit_state_move_right || state == _unit_state_gesture )
             animation_class = 2;
@@ -173,7 +173,7 @@ uint8_t biped_update(int biped_index)
             {
                 biped_update_airborne(biped_index, &animation);
             }
-            else if ( (unsigned __int16)biped->biped.landing == 0xFFFF )
+            else if ( (uint16_t)biped->biped.landing == 0xFFFF )
             {
                 if ( (state_flags & (1u << _biped_slipping_bit)) != 0 )
                 {
@@ -207,7 +207,7 @@ uint8_t biped_update(int biped_index)
             else if ( biped->unit.player_index != -1 && (biped->unit.control_flags & (1u << _unit_control_use_equipment_bit)) != 0 )
             {
                 int weapon = unit_inventory_get_weapon(biped_index, biped->unit.current_weapon_index);
-                if ( !weapon_prevents_melee_attack(weapon) && (unsigned __int8)biped->unit.current_zoom_level == 255 )
+                if ( !weapon_prevents_melee_attack(weapon) && (uint8_t)biped->unit.current_zoom_level == 255 )
                 {
                     unit_animation_start_action(biped_index, _unit_animation_action_melee);
                     weapon_stop_reload(weapon);
@@ -232,7 +232,7 @@ uint8_t biped_update(int biped_index)
              * (location+4); 0xFFFF means "not in world") */
             if ( !game_engine_running()
                 && ((biped->object.flags & (1u << _object_outside_of_map_bit)) != 0
-                    || (unsigned __int16)biped->object.location.cluster_index == 0xFFFF)
+                    || (uint16_t)biped->object.location.cluster_index == 0xFFFF)
                 && biped->object.position.n[2] < -2000.0f )
             {
                 object_delete(biped_index);

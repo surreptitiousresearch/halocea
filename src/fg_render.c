@@ -31,7 +31,7 @@ extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclarati
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 extern void D3DDevice_SetPixelShader(D3DDevice *device, D3DPixelShader *shader);
 extern void rasterizer_set_stencil_mode(int16_t stencil_mode);
 extern void D3DDevice_SetRenderState_CullMode(D3DDevice *device, unsigned int mode);
@@ -92,7 +92,7 @@ void fg_render(uint8_t render_graph, uint8_t render_infos)
     projection[18] = 0.0f;
     projection[19] = 1.0f;
 
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, projection, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, projection, 5, (uint64_t)3 << 59);
     D3DDevice_SetPixelShader(global_d3d_device, nullptr);
     rasterizer_set_stencil_mode(0);
     D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);

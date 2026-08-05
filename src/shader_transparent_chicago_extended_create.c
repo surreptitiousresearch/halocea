@@ -19,6 +19,7 @@
  * DEVIATION: the stage-count load is a full 32-bit lwz truncated by extsh to a signed 16-bit value, i.e.
  * (__int16)maps.count — reproduced with the cast (a bare *(__int16*) would read the HIGH halfword on BE). */
 
+#include <stdint.h>
 #include "headers/shader.h"
 #include "headers/shader_transparent_chicago_extended.h"
 #include "headers/chicago_shaders.h"
@@ -30,7 +31,7 @@ int shader_transparent_chicago_extended_create(const shader *shader, int use_add
 {
     const shader_transparent_chicago_extended *chicago =
         (const shader_transparent_chicago_extended *)shader;
-    int stage_count = (__int16)chicago->chicago_extended.maps.count;
+    int stage_count = (int16_t)chicago->chicago_extended.maps.count;
     if ( stage_count <= 0 )
         return 0;
 
@@ -63,7 +64,7 @@ int shader_transparent_chicago_extended_create(const shader *shader, int use_add
     }
     else
     {
-        unsigned __int16 selector = (unsigned __int16)chicago->chicago_extended.framebuffer_blend_function;
+        uint16_t selector = (uint16_t)chicago->chicago_extended.framebuffer_blend_function;
         additional_op_arg = chicago->chicago_extended.framebuffer_fade_mode;
         int uninitialized_op;   /* DEVIATION: shipped uninitialized-stack read for selector > 7 */
         switch ( selector )
@@ -80,7 +81,7 @@ int shader_transparent_chicago_extended_create(const shader *shader, int use_add
         }
     }
 
-    int detail_level = (unsigned __int16)chicago->chicago_extended.type;
+    int detail_level = (uint16_t)chicago->chicago_extended.type;
     set_chicago_shader(detail_level != 0, stages[0], stages[1], stages[2], additional_op_arg, additional_op);
     return 1;
 }

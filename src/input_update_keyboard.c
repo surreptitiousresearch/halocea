@@ -7,6 +7,7 @@
  * Flag bits follow XINPUT_KEYSTROKE: KEYUP=0x2, SHIFT=0x8, CTRL=0x10, ALT=0x20. modifier_flags packs
  * shift(bit0) | ctrl(bit1) | alt(bit2). */
 
+#include <stdint.h>
 #include "headers/input_globals.h"
 #include "headers/key_stroke.h"
 #include "headers/key_modifier_flags.h"
@@ -14,14 +15,14 @@
 #include "headers/blam_data_globals.h"
 #include "headers/key_code.h"
 
-extern const __int16 ascii_to_key_table[128];
-extern const __int16 virtual_to_key_table[256];
+extern const int16_t ascii_to_key_table[128];
+extern const int16_t virtual_to_key_table[256];
 extern unsigned int XInputGetKeystrokeEx(unsigned int *pdwUserIndex, unsigned int dwFlags,
                                          _XINPUT_KEYSTROKE *pKeystroke);
 
 unsigned int input_update_keyboard()
 {
-    for (int i = 0; i < 109; i = (__int16)(i + 1))
+    for (int i = 0; i < 109; i = (int16_t)(i + 1))
     {
         int ticks;
         if (input_globals.key_latches[i])
@@ -46,7 +47,7 @@ unsigned int input_update_keyboard()
     for (result = XInputGetKeystrokeEx(&user_index, 2u, keystroke); !result;
          result = XInputGetKeystrokeEx(&user_index, 2u, keystroke))
     {
-        unsigned __int16 flags = keystroke[0].Flags;
+        uint16_t flags = keystroke[0].Flags;
 
         unsigned char modifiers;
         if ((flags & 0x10) != 0) /* ctrl */
@@ -63,7 +64,7 @@ unsigned int input_update_keyboard()
         unsigned char ascii_code = (unsigned char)keystroke[0].Unicode;
         if (keystroke[0].Unicode < 0x80u)
         {
-            if ((unsigned __int16)ascii_to_key_table[keystroke[0].Unicode] == 0xFFFF)
+            if ((uint16_t)ascii_to_key_table[keystroke[0].Unicode] == 0xFFFF)
                 ascii_code = (unsigned char)-1;
             stroke.ascii_code = ascii_code;
             stroke.key_code = virtual_to_key_table[keystroke[0].VirtualKey];

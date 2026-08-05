@@ -11,6 +11,7 @@
  * reload the low 32-bit half) followed by a plain `stb` of that integer's low byte — no shift is actually
  * applied; the decompiler misread the stack-reload sequence. Restored as a plain truncating cast. */
 
+#include <stdint.h>
 #include "headers/biped_datum.h"
 #include "headers/biped_definition.h"
 #include "headers/game_time_constants.h"
@@ -22,7 +23,7 @@ void biped_start_landing(biped_datum *biped, const biped_definition *biped_defin
     if ( landing_velocity < biped_definition->biped.minimum_soft_landing_velocity * ticks_per_second_scale )
         return;
 
-    __int16 landing_type;
+    int16_t landing_type;
     float velocity_range;
     float recovery_time_scale;
 

@@ -21,7 +21,7 @@ uint16_t * get_place_string(statistic_buffer *buffer)
 
     int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
     if (text_tag == -1)
-        return (unsigned __int16 *)&empty_wide_string;
+        return (uint16_t *)&empty_wide_string;
 
     return unicode_string_list_get_string(text_tag, place + 36);
 }

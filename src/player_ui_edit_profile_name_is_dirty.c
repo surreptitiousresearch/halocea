@@ -16,7 +16,7 @@ uint8_t player_ui_edit_profile_name_is_dirty(void)
 {
     if ( player_ui_globals.edit_profile_data.profile_index != -1 )
     {
-        unsigned __int16 saved_game_type = saved_game_file_get_type(player_ui_globals.edit_profile_data.profile_index);
+        uint16_t saved_game_type = saved_game_file_get_type(player_ui_globals.edit_profile_data.profile_index);
         if ( saved_game_type )
         {
             if ( saved_game_type == 1

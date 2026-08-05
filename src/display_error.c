@@ -18,20 +18,20 @@ extern void game_time_set_paused(uint8_t paused);
 extern void sound_pause(uint8_t paused);
 extern void ui_start_main_menu_music(void);
 extern void main_defer_map_map_change(void);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 void display_error(int16_t error_code, int16_t local_player_index,
                    uint8_t modal, uint8_t pause_game_time)
 {
     int target_is_first = 1;
-    __int16 local_player_count;
-    __int16 matched_controller;
+    int16_t local_player_count;
+    int16_t matched_controller;
     const char *widget_name;
 
     if ( cinematic_in_progress() )
     {
         int slot = (local_player_index == -1) ? 0 : local_player_index;
-        if ( (unsigned __int16)widget_globals.deferred_cinematic_error[slot].error_code == 0xFFFF )
+        if ( (uint16_t)widget_globals.deferred_cinematic_error[slot].error_code == 0xFFFF )
         {
             widget_globals.deferred_cinematic_error[slot].error_code = error_code;
             widget_globals.deferred_cinematic_error[slot].modal = modal;
@@ -48,7 +48,7 @@ void display_error(int16_t error_code, int16_t local_player_index,
     }
     else
     {
-        __int16 player;
+        int16_t player;
         local_player_count = 0;
         matched_controller = -1;
         for ( player = local_player_get_next(-1); player != -1; player = local_player_get_next(player) )
@@ -127,7 +127,7 @@ void display_error(int16_t error_code, int16_t local_player_index,
             return;
 
         {
-            __int16 string_index;
+            int16_t string_index;
             if ( error_code >= 0 )
                 string_index = (error_code <= NUMBER_OF_ERROR_CODES - 1) ? error_code : NUMBER_OF_ERROR_CODES - 1;
             else

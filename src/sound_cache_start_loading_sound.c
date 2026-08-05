@@ -41,7 +41,7 @@ void sound_cache_start_loading_sound(sound_permutation *sound, uint8_t blocking)
         datum_new_at_index(pc_sound_cache_globals.cache_sounds, block_index);
         cache_sound_datum *cache_sounds = (cache_sound_datum *)pc_sound_cache_globals.cache_sounds->data;
         sound->cache_block_index = block_index;
-        cache_sound_datum *block = &cache_sounds[(unsigned __int16)block_index];
+        cache_sound_datum *block = &cache_sounds[(uint16_t)block_index];
         sound->cache_base_address = 0;
         block->sound = sound;
         block->request_index = 0;

@@ -1,8 +1,9 @@
+#include <stdint.h>
 #include "MSG_PROCESSOR_BASE.h"
 #include "../ap/apProfileTimer.h"
 
 // os primitives -- boundary (inline extern, matching sibling ws/* convention).
-extern "C" unsigned __int64 osGetPerfCounter(void); // boundary
+extern "C" uint64_t osGetPerfCounter(void); // boundary
 extern "C" void             osSleep(int ms);        // boundary
 
 namespace con {

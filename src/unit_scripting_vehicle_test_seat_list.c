@@ -34,7 +34,7 @@ uint8_t unit_scripting_vehicle_test_seat_list(int unit_index, const char *seat_n
         return 0;
 
     unit_seat *seats = (unit_seat *)definition->unit.seats.address;
-    for ( int seat = 0; seat < seat_count; seat = (__int16)(seat + 1) )
+    for ( int seat = 0; seat < seat_count; seat = (int16_t)(seat + 1) )
     {
         const char *seat_definition_name = seats[seat].label;
         if ( stricmp(seat_name, seat_definition_name) )

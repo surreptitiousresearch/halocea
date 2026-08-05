@@ -22,7 +22,7 @@ void antenna_render(int object_index, int antenna_index, const render_lighting *
     if ( antenna->__noop )
         return;
 
-    __int16 updates_since_last_render = antenna->updates_since_last_render;
+    int16_t updates_since_last_render = antenna->updates_since_last_render;
     antenna->object_index = object_index;
     if ( updates_since_last_render > 5 )
     {

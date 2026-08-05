@@ -36,7 +36,7 @@ void action_uncover_update(int actor_index)
     if ( actor->state.action_data.___u0.uncover.uncover_done )   /* already finished */
         return;
 
-    __int16 uncover_mode = actor->state.action_data.___u0.uncover.pursuit_location.type;
+    int16_t uncover_mode = actor->state.action_data.___u0.uncover.pursuit_location.type;
     actor_definition *character_definition = TAG_GET(actor_definition, actor->meta.definition_index);
     uncover_state->sneaking = 0;
 
@@ -100,7 +100,7 @@ void action_uncover_update(int actor_index)
     }
     else if ( actor->target.target_prop_index != -1 )
     {
-        __int16 prop_threat = (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index))->visibility;
+        int16_t prop_threat = (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index))->visibility;
         prop_threat_positive = (unsigned int)(-prop_threat & ~prop_threat) >> 31;   /* branchless (prop_threat > 0) */
         char hold = 0;
         if ( prop_threat <= 0 || actor->target.target_type >= actor_target_uninspected_orphan )   /* -v&~v >= 0  <=>  v <= 0 */
@@ -109,14 +109,14 @@ void action_uncover_update(int actor_index)
     }
 
     char keep_uncovering = 1;
-    if ( (unsigned __int16)actor->firing_positions.current_position_index == 0xFFFF )
+    if ( (uint16_t)actor->firing_positions.current_position_index == 0xFFFF )
     {
         keep_uncovering = 0;
         actor->state.action_data.___u0.uncover.uncover_exit_failure = 1;
     }
     else if ( should_hold )
     {
-        if ( !actor->input.vehicle_gunner_bombardment && !(unsigned __int8)prop_threat_positive )
+        if ( !actor->input.vehicle_gunner_bombardment && !(uint8_t)prop_threat_positive )
             keep_uncovering = actor->control.moving != 0;
     }
     else

@@ -19,7 +19,7 @@ uint8_t pill_intersects_triangle2d(const real_point2d *base, const real_vector2d
 {
     (void)p0; /* loaded but never dereferenced in the shipped code */
 
-    unsigned __int8 result = 1;
+    uint8_t result = 1;
 
     real_vector2d edge0;
     edge0.n[0] = p2->n[0] - p1->n[0];

@@ -44,7 +44,7 @@ void light_reconnect_to_map(uint16_t light_index)
     if ( light->parent_light_index == -1 )
     {
         const char *attachment_marker_name =
-            object_get_attachment_marker_name(owner_object_index, (unsigned __int16)light->attachment_marker_index);
+            object_get_attachment_marker_name(owner_object_index, (uint16_t)light->attachment_marker_index);
         object_marker marker;
         object_get_marker_by_name(light->object_index, attachment_marker_name, &marker, 1);
 
@@ -61,7 +61,7 @@ void light_reconnect_to_map(uint16_t light_index)
     else if ( object_try_and_get_and_verify_type(owner_object_index, object_mask_all) )
     {
         const real_matrix4x3 *node_matrix =
-            object_get_node_matrix(light->object_index, (unsigned __int16)light->attachment_marker_index);
+            object_get_node_matrix(light->object_index, (uint16_t)light->attachment_marker_index);
         /* BUGFIX vs prior source: the decompiler's (real_point3d*)v2+8 etc. are 12-byte scaled
          * (bytes 0x60/0x6C in, 0x30/0x3C/0x48 out); the old transcription int-scaled them (0x20...). */
         matrix4x3_transform_point(node_matrix, &light->relative_position, &light->position);

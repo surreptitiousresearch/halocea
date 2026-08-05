@@ -42,7 +42,7 @@ extern int actor_action_handle_panic_from_attached_melee_attackers(uint16_t acto
 extern uint8_t actor_action_handle_panic_from_burning_to_death(int actor_index);
 extern int actor_action_handle_panic_transition(int actor_index, int16_t minimum_panic_level, uint8_t enforced_calm, int16_t force_panic_level);
 extern uint8_t actor_action_handle_combat_transition(int actor_index);
-extern unsigned __int8 actor_action_handle_vehicle_entry(int actor_index);
+extern uint8_t actor_action_handle_vehicle_entry(int actor_index);
 extern int actor_action_handle_vehicle_exit(uint16_t actor_index);
 extern uint8_t actor_action_handle_grenade_throwing(int actor_index);
 extern int actor_action_handle_danger_avoidance(int actor_index);
@@ -51,11 +51,11 @@ extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_evasion(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern unsigned __int8 actor_action_can_stop_guarding(int actor_index, __int16 guard_investigate_threshold,
-        __int16 cower_investigate_threshold);
-extern unsigned __int8 actor_action_can_stop_conversing(int actor_index);
+extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold,
+        int16_t cower_investigate_threshold);
+extern uint8_t actor_action_can_stop_conversing(int actor_index);
 extern uint8_t action_flee_blind_panic(int16_t panic_type);
-extern unsigned __int8 actor_action_consider_grenade(int actor_index);
+extern uint8_t actor_action_consider_grenade(int actor_index);
 
 void grunt_decide_action(int actor_index)
 {
@@ -63,8 +63,8 @@ void grunt_decide_action(int actor_index)
 
     /* leader-proximity counters from actor_situation_update: +515 = nearby allies of type 0,
      * +583 = very-close allies of type 0 */
-    unsigned __int8 leader_nearby = (signed char)actor->situation.area_friends_by_type[0] > 0;
-    unsigned __int8 leader_very_close = (signed char)actor->situation.close_friends_by_type[0] > 0;
+    uint8_t leader_nearby = (signed char)actor->situation.area_friends_by_type[0] > 0;
+    uint8_t leader_very_close = (signed char)actor->situation.close_friends_by_type[0] > 0;
 
     actor_action_handle_initial_action(actor_index);
     actor_action_handle_pending_command_list(actor_index);
@@ -90,8 +90,8 @@ void grunt_decide_action(int actor_index)
         case actor_action_fight:
         case actor_action_charge:
         {
-            unsigned __int8 allow_initiative = 1;
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = 1;
+            uint8_t force_decision = 0;
             if ( !actor_action_handle_combat_status(actor_index, allow_initiative, force_decision)
               && !actor_action_handle_combat_failure(actor_index) )
                 actor_action_handle_evasion(actor_index);
@@ -101,14 +101,14 @@ void grunt_decide_action(int actor_index)
         case actor_action_flee:
             if ( leader_very_close )
             {
-                __int16 panic_type = actor->state.action_data.___u0.flee.panic_type;
+                int16_t panic_type = actor->state.action_data.___u0.flee.panic_type;
                 if ( panic_type > _actor_panic_none && !action_flee_blind_panic(panic_type) )
                     actor->state.action_data.___u0.flee.done_fleeing = 1;
             }
             if ( actor->state.action_data.___u0.flee.unable_to_flee )
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
                 break;
             }
@@ -122,8 +122,8 @@ void grunt_decide_action(int actor_index)
         case actor_action_search:
         case actor_action_wait:
         {
-            unsigned __int8 allow_initiative = 1;
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = 1;
+            uint8_t force_decision = 0;
             if ( !actor_action_handle_combat_status(actor_index, allow_initiative, force_decision) )
                 actor_action_handle_exit_pursuit(actor_index);
             break;
@@ -131,8 +131,8 @@ void grunt_decide_action(int actor_index)
 
         case actor_action_guard:
         {
-            unsigned __int8 allow_initiative = actor_action_can_stop_guarding(actor_index, _actor_combat_status_definite, _actor_combat_status_dangerous);
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = actor_action_can_stop_guarding(actor_index, _actor_combat_status_definite, _actor_combat_status_dangerous);
+            uint8_t force_decision = 0;
             actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             break;
         }
@@ -140,8 +140,8 @@ void grunt_decide_action(int actor_index)
         case actor_action_vehicle:
             if ( actor->state.action_data.___u0.vehicle.vehicle_entry_done || actor->state.action_data.___u0.vehicle.vehicle_entry_failed )
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             break;
@@ -153,10 +153,10 @@ void grunt_decide_action(int actor_index)
         case actor_action_converse:
         {
             /* +476 = conversation index (-1 = none). */
-            unsigned __int8 force_decision = 0;
+            uint8_t force_decision = 0;
             if ( actor->state.action_data.___u0.converse.failed || actor->external_orders.conversation_index == -1 )
                 force_decision = 1;
-            unsigned __int8 can_stop_conversing = actor_action_can_stop_conversing(actor_index);
+            uint8_t can_stop_conversing = actor_action_can_stop_conversing(actor_index);
             actor_action_handle_combat_status(actor_index, can_stop_conversing, force_decision);
             break;
         }
@@ -166,8 +166,8 @@ void grunt_decide_action(int actor_index)
              * avoid, so force a combat-status decision. */
             if ( !actor->danger_zone.danger_type )
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             break;

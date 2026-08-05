@@ -8,6 +8,7 @@
  * the resulting absolute offsets (confirmed row i writes colorDst[4*i..4*i+3]) and restored the equivalent
  * direct row/column indexing. */
 
+#include <stdint.h>
 #include "headers/s3tc_block.h"
 
 extern void DecodeBlockRGB(S3TCBlockRGB *pblockSrc, S3TC_COLOR *colorDst);
@@ -18,12 +19,12 @@ void DecodeBlockAlpha4(S3TCBlockAlpha4 *pblockSrc, S3TC_COLOR *colorDst)
 
     for (int row = 0; row < 4; row++)
     {
-        unsigned __int16 packed = pblockSrc->alphabm[row];
+        uint16_t packed = pblockSrc->alphabm[row];
         S3TC_COLOR *pixel = &colorDst[row * 4];
 
-        pixel[0].rgba[3] = (unsigned __int8)((16 * (packed & 0xF)) | (packed & 0xF));
-        pixel[1].rgba[3] = (unsigned __int8)((16 * ((packed >> 4) & 0xF)) | ((packed >> 4) & 0xF));
-        pixel[2].rgba[3] = (unsigned __int8)((16 * ((packed >> 8) & 0xF)) | ((packed >> 8) & 0xF));
-        pixel[3].rgba[3] = (unsigned __int8)((16 * (packed >> 12)) | (packed >> 12));
+        pixel[0].rgba[3] = (uint8_t)((16 * (packed & 0xF)) | (packed & 0xF));
+        pixel[1].rgba[3] = (uint8_t)((16 * ((packed >> 4) & 0xF)) | ((packed >> 4) & 0xF));
+        pixel[2].rgba[3] = (uint8_t)((16 * ((packed >> 8) & 0xF)) | ((packed >> 8) & 0xF));
+        pixel[3].rgba[3] = (uint8_t)((16 * (packed >> 12)) | (packed >> 12));
     }
 }

@@ -12,6 +12,7 @@
  * tests the decompiler renders as goto spaghetti with a leading-zero-count (-1) test are folded into plain
  * comparisons here (cntlzw(x+1)&0x20 != 0 == (x == -1)). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -49,7 +50,7 @@ void unit_postprocess_node_matrices(int object_index, real_matrix4x3 *node_matri
     if ( unit->object.parent_object_index != -1 )   /* seated */
     {
         int pose_state = (unsigned char)unit->unit.animation.state;
-        unsigned __int8 apply_seat_ik = 1;
+        uint8_t apply_seat_ik = 1;
         switch ( pose_state )
         {
             case _unit_state_hard_ping: case _unit_state_dying_airborne: case _unit_state_dying:
@@ -65,7 +66,7 @@ void unit_postprocess_node_matrices(int object_index, real_matrix4x3 *node_matri
         if ( apply_seat_ik && seat_ik_count > 0 )
         {
             char *seat_ik_markers = (char *)seat_block->ik_points.address;
-            for ( int i = 0; i < seat_ik_count; i = (__int16)(i + 1) )
+            for ( int i = 0; i < seat_ik_count; i = (int16_t)(i + 1) )
             {
                 object_inverse_kinematics(object_index, seat_ik_markers + (i << 6), unit->object.parent_object_index,
                         seat_ik_markers + (i << 6) + 32, node_matrices);
@@ -73,11 +74,11 @@ void unit_postprocess_node_matrices(int object_index, real_matrix4x3 *node_matri
         }
     }
 
-    if ( (unsigned __int16)unit->unit.current_weapon_index == 0xFFFF )   /* no current weapon */
+    if ( (uint16_t)unit->unit.current_weapon_index == 0xFFFF )   /* no current weapon */
         return;
 
     unsigned int pose_state = (unsigned char)unit->unit.animation.state;
-    unsigned __int8 apply_weapon_ik = (unsigned char)unit->unit.animation.action == 0 && unit->unit.animation.soft_ping_animation.index == -1;
+    uint8_t apply_weapon_ik = (unsigned char)unit->unit.animation.action == 0 && unit->unit.animation.soft_ping_animation.index == -1;
     /* suppress weapon IK for: the leap states, every state from hard_ping up through
      * resurrect_back, and the seat-driven flying states */
     if ( pose_state > _unit_state_resurrect_back )
@@ -98,11 +99,11 @@ void unit_postprocess_node_matrices(int object_index, real_matrix4x3 *node_matri
     if ( weapon_ik_count > 0 )
     {
         char *weapon_ik_markers = (char *)weapon_ik_block->ik_points.address;
-        for ( int i = 0; i < weapon_ik_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < weapon_ik_count; i = (int16_t)(i + 1) )
         {
             int weapon_object_index = -1;
             unit_datum *current = (unit_datum *)(DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);
-            __int16 slot = current->unit.current_weapon_index;
+            int16_t slot = current->unit.current_weapon_index;
             if ( slot != -1 )
                 weapon_object_index = current->unit.weapon_object_indices[slot];
             object_inverse_kinematics(object_index, weapon_ik_markers + (i << 6), weapon_object_index,

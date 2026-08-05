@@ -26,17 +26,17 @@ uint8_t encounter_place_actor(int encounter_index, int16_t squad_index, int16_t 
                               uint8_t spawn)
 {
     squad_definition *squad =
-        &((squad_definition *)((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)encounter_index].squads.address)[squad_index];
+        &((squad_definition *)((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)encounter_index].squads.address)[squad_index];
 
-    __int16 starting_location_index = encounter_get_actor_starting_location(encounter_index, squad_index, spawn);
+    int16_t starting_location_index = encounter_get_actor_starting_location(encounter_index, squad_index, spawn);
     if ( starting_location_index == -1 )
         return 0;
 
-    __int16 actor_palette_index = squad->actor_palette_index;
+    int16_t actor_palette_index = squad->actor_palette_index;
     actor_starting_location_definition *starting_locations =
         (actor_starting_location_definition *)squad->starting_locations.address;
     actor_starting_location_definition *starting_location = &starting_locations[starting_location_index];
-    if ( (unsigned __int16)starting_location->actor_palette_index != 0xFFFF )
+    if ( (uint16_t)starting_location->actor_palette_index != 0xFFFF )
         actor_palette_index = starting_location->actor_palette_index;
     if ( actor_palette_index < 0 )
         return 0;
@@ -50,11 +50,11 @@ uint8_t encounter_place_actor(int encounter_index, int16_t squad_index, int16_t 
         return 0;
 
     actor_definition *actor_def = TAG_GET(actor_definition, actor_definition_index);
-    unsigned __int8 upgrade_major = 0;
+    uint8_t upgrade_major = 0;
     if ( actor_def->perception.unused4 != -1 )  /* byte 48: an unused perception slot doubling as the has-major-upgrade sentinel */
     {
-        unsigned __int8 is_random = 0;
-        __int16 upgrade_type = squad->major_upgrade;
+        uint8_t is_random = 0;
+        int16_t upgrade_type = squad->major_upgrade;
         float random_chance = 0.0f;
         ai_get_major_upgrade_chance(upgrade_type, &upgrade_major, &is_random, &random_chance);
         if ( is_random )

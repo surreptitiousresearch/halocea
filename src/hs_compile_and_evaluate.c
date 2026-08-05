@@ -21,7 +21,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/data_array.h"
-extern char *strncpy(char *, const char *, unsigned __int64);
+extern char *strncpy(char *, const char *, uint64_t);
 extern int sprintf_0(char *string, const char *format, ...);
 extern void hs_compile_initialize(uint8_t permanent);
 extern int16_t hs_find_global_by_name(const char *name);
@@ -69,7 +69,7 @@ int hs_compile_and_evaluate(const char *expression)
 check_blank:
     if ( !is_blank )
     {
-        __int16 wrap_mode = 0;
+        int16_t wrap_mode = 0;
         hs_compile_initialize(0);
         if ( line[0] != '(' )
         {

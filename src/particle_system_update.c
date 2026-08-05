@@ -52,7 +52,7 @@ extern void datum_delete(data_array *data, int index);
 void particle_system_update(float dtime, int particle_system_index)
 {
     particle_system_datum *system = DATA_ARRAY_ELEMENT(particle_systems, particle_system_datum, particle_system_index);
-    __int16 live_type_count = 0;
+    int16_t live_type_count = 0;
     int object_index = system->object_index;
     /* DEVIATION: decompiler typed this as int; it is dereferenced as a pointer below, so it is the
      * loaded particle_system_definition tag pointer. */
@@ -89,16 +89,16 @@ void particle_system_update(float dtime, int particle_system_index)
         {
             type->time_left_in_state = type->time_left_in_state - dtime;
 
-            if ( (unsigned __int16)type->state_index != 0xFFFF )
+            if ( (uint16_t)type->state_index != 0xFFFF )
             {
                 particle_system_type_state *current_state = NULL;
-                __int16 transition_state_index;
+                int16_t transition_state_index;
 
                 /* advance the type state machine until time remains in the current state */
                 while ( 1 )
                 {
                     current_state = &((particle_system_type_state *)type_definition->type_states.address)[type->state_index];
-                    transition_state_index = (unsigned __int16)type->transition_state_index;
+                    transition_state_index = (uint16_t)type->transition_state_index;
                     if ( type->time_left_in_state >= 0.0 )
                         break;
 
@@ -123,7 +123,7 @@ void particle_system_update(float dtime, int particle_system_index)
                         type->time_left_in_state = type->time_left_in_state + span;
                         type->state_length = span;
                     }
-                    if ( (unsigned __int16)type->state_index == 0xFFFF )
+                    if ( (uint16_t)type->state_index == 0xFFFF )
                         goto type_state_done;
                 }
 
@@ -172,7 +172,7 @@ void particle_system_update(float dtime, int particle_system_index)
             }
 
 type_state_done:
-            if ( (unsigned __int16)type->state_index != 0xFFFF )
+            if ( (uint16_t)type->state_index != 0xFFFF )
             {
                 ps_particle_datum *previous = NULL;
                 int particle_index;
@@ -180,7 +180,7 @@ type_state_done:
                 if ( (system->flags & (1u << _particle_system_active_bit)) != 0 )
                     particle_system_new_particles(system, type_index, dtime);
 
-                particle_index = (__int16)type->first_particle_index;
+                particle_index = (int16_t)type->first_particle_index;
                 if ( particle_index != -1 )
                 {
                     int current_index = particle_index;
@@ -190,7 +190,7 @@ type_state_done:
                         ps_particle_datum *particle = DATA_ARRAY_ELEMENT(system_particles, ps_particle_datum, particle_index);
 
                         particle->time_left_in_state = particle->time_left_in_state - dtime;
-                        if ( (unsigned __int16)particle->state_index == 0xFFFF && type_definition->particle_states.count > 0 )
+                        if ( (uint16_t)particle->state_index == 0xFFFF && type_definition->particle_states.count > 0 )
                         {
                             particle_system_type_particle_state *first_state = (particle_system_type_particle_state *)type_definition->particle_states.address;
                             float span = real_seed_random_range(get_global_local_random_seed_address(),
@@ -204,16 +204,16 @@ type_state_done:
                             particle->state_index = -1;
 
                         /* advance the per-particle state machine */
-                        while ( (unsigned __int16)particle->state_index != 0xFFFF )
+                        while ( (uint16_t)particle->state_index != 0xFFFF )
                         {
                             particle_system_type_particle_state *particle_state = &((particle_system_type_particle_state *)type_definition->particle_states.address)[particle->state_index];
-                            __int16 particle_transition;
+                            int16_t particle_transition;
                             float lower, upper, span;
 
                             if ( particle->time_left_in_state >= 0.0 )
                                 break;
 
-                            if ( (unsigned __int16)particle->transition_state_index == 0xFFFF )
+                            if ( (uint16_t)particle->transition_state_index == 0xFFFF )
                             {
                                 particle_system_next_particle_state_index(particle, type_definition);
                                 upper = particle_state->transition_time_upper_bound;
@@ -221,7 +221,7 @@ type_state_done:
                             }
                             else
                             {
-                                __int16 next = particle->transition_state_index;
+                                int16_t next = particle->transition_state_index;
                                 particle_system_type_particle_state *next_state;
                                 particle->state_index = next;
                                 particle->transition_state_index = -1;
@@ -229,7 +229,7 @@ type_state_done:
                                 upper = next_state->duration_upper_bound;
                                 lower = next_state->duration_lower_bound;
                             }
-                            particle_transition = (unsigned __int16)particle->transition_state_index;
+                            particle_transition = (uint16_t)particle->transition_state_index;
                             span = real_seed_random_range(get_global_local_random_seed_address(), lower, upper);
                             particle->time_left_in_state = span + particle->time_left_in_state;
                             particle->state_length = span;
@@ -239,7 +239,7 @@ type_state_done:
                                 randomize_particle_variables(type_definition, &particle->transition_randomized_variables, particle_transition);
                         }
 
-                        if ( (unsigned __int16)particle->state_index == 0xFFFF )
+                        if ( (uint16_t)particle->state_index == 0xFFFF )
                         {
                             /* particle died: unlink and free */
                             int next = particle->next_particle_index;
@@ -248,14 +248,14 @@ type_state_done:
                             else
                                 type->first_particle_index = next;
                             datum_delete(system_particles, current_index);
-                            particle_index = (__int16)particle->next_particle_index;
+                            particle_index = (int16_t)particle->next_particle_index;
                             --type->particle_count;
                         }
                         else
                         {
                             /* animate sprite + rotation, then run the per-state physics update */
                             particle_system_type_state *type_state = &((particle_system_type_state *)type_definition->type_states.address)[type->state_index];
-                            if ( (unsigned __int16)particle->transition_state_index == 0xFFFF )
+                            if ( (uint16_t)particle->transition_state_index == 0xFFFF )
                             {
                                 particle->rotation = ((particle->randomized_variables.rotation_rate
                                                 * type->variables.particle_state_randomized_multipliers.rotation_rate) * dtime) + particle->rotation;
@@ -280,17 +280,17 @@ type_state_done:
                             }
                             particle_update_functions[type_state->particle_update_physics](system, type_index, dtime);
                             previous = particle;
-                            particle_index = (__int16)particle->next_particle_index;
+                            particle_index = (int16_t)particle->next_particle_index;
                         }
-                        current_index = (__int16)particle_index;
+                        current_index = (int16_t)particle_index;
                     }
-                    while ( (__int16)particle_index != -1 );
+                    while ( (int16_t)particle_index != -1 );
                 }
                 ++live_type_count;
             }
         }
 
-        type_index = (__int16)(type_index + 1);
+        type_index = (int16_t)(type_index + 1);
     }
 
     system->flags &= ~(1u << _particle_system_initializing_bit);

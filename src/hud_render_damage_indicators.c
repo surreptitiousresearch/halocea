@@ -45,17 +45,17 @@ void hud_render_damage_indicators(int16_t local_player_index)
     }
 
     hud_globals_definition *globals = hud_globals;
-    __int16 player_count = local_player_count();
+    int16_t player_count = local_player_count();
     float scale = (hud_globals_get_scale(((player_count >= 0) + ((unsigned int)player_count <= 1)) & 1)
                           * hcex_damage_indicators_scale);
 
-    unsigned __int8 indicators[4];
+    uint8_t indicators[4];
     player_effect_get_damage_indicators(local_player_index, indicators);
 
     rectangle2d *viewport = &render.camera.viewport_bounds;
     rectangle2d *window = &render.camera.window_bounds;
 
-    for ( __int16 direction = 0; (unsigned __int16)direction < 4u; ++direction )
+    for ( int16_t direction = 0; (uint16_t)direction < 4u; ++direction )
     {
         unsigned int timer = indicators[direction];
         if ( !timer || timer >= 0x1E )
@@ -94,7 +94,7 @@ void hud_render_damage_indicators(int16_t local_player_index)
         float y_relative = ((float)y - (float)viewport->n[0]);
 
         int bitmap_index = globals->damage_indicators.indicator_bitmap.index;
-        __int16 sequence_index = local_player_count() <= 1
+        int16_t sequence_index = local_player_count() <= 1
                                      ? globals->damage_indicators.sequence_index
                                      : globals->damage_indicators.multiplayer_sequence_index;
 

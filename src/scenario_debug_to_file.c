@@ -64,7 +64,7 @@ void scenario_debug_to_file(_iobuf *stream)
             /* DEVIATION: object.location is now a typed `location` struct (location.h), not a
              * raw byte array — read the leaf/cluster fields directly (same widths/offsets). */
             int leaf_id = unit->object.location.leaf_index;
-            __int16 cluster_id = unit->object.location.cluster_index;
+            int16_t cluster_id = unit->object.location.cluster_index;
 
             fprintf(stream, " at (%.2f,%.2f,%.2f) (leaf#%d,cluster#%d)\n",
                 unit->object.bounding_sphere_center.n[0],

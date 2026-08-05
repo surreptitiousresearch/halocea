@@ -31,7 +31,7 @@
 extern void ai_index_squad_iterator_new(unsigned int ai_index, ai_index_squad_iterator *iterator);
 extern squad_datum *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator);
 extern uint32_t tag_get_group_tag(int16_t tag_index);
-extern int ai_scripting_migrate_find_target_squad(__int16 source_squad_index, actor_variant_definition *source_variant,
+extern int ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant,
                                                   actor_definition *source_actor, int match_by_squad_index,
                                                   int target_encounter_index, int unused_target_ai_index,
                                                   const char *unused_debug_description);
@@ -52,8 +52,8 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
     if ( source_index == -1 || target_index == -1 )
         return;
 
-    int source = (unsigned __int16)source_index;
-    int target = (unsigned __int16)target_index;
+    int source = (uint16_t)source_index;
+    int target = (uint16_t)target_index;
     if ( source == 0xFFFF )
         return;
 
@@ -64,7 +64,7 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
     encounter_definition *source_def = &((encounter_definition *)encounter_defs)[source];
     encounter_definition *target_def = &((encounter_definition *)encounter_defs)[target];
 
-    __int16 squad_mapping[64];
+    int16_t squad_mapping[64];
     for ( int i = 0; i < 64; ++i )
         squad_mapping[i] = -1;
 
@@ -82,7 +82,7 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
         actor_definition *source_actor = nullptr;
         actor_variant_definition *source_variant = nullptr;  /* was int holding the pointer bits */
 
-        __int16 palette_index =
+        int16_t palette_index =
             ((squad_definition *)source_def->squads.address)[squad_index].actor_palette_index;
         if ( palette_index >= 0 && palette_index < scenario_globals->ai_actor_palette.count )
         {
@@ -99,7 +99,7 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
         }
 
         squad_mapping[squad_index] = ai_scripting_migrate_find_target_squad(
-            (__int16)squad_index, source_variant, source_actor,
+            (int16_t)squad_index, source_variant, source_actor,
             target == source, target_index, 0, nullptr);
     }
 
@@ -111,7 +111,7 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
           actor = encounter_actor_iterator_next(&actor_iterator_state) )
     {
         int squad_index = actor->meta.squad_index;
-        __int16 target_squad = squad_mapping[squad_index];
+        int16_t target_squad = squad_mapping[squad_index];
         if ( target_squad != -1 && (target != source || target_squad != squad_index) )
         {
             actor_change_encounter(actor_iterator_state.index, target, target_squad);
@@ -129,10 +129,10 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
               actor;
               actor = actor_iterator_next(&all_actors) )
         {
-            if ( (unsigned __int16)actor->meta.prevehicle_encounter_index == source )
+            if ( (uint16_t)actor->meta.prevehicle_encounter_index == source )
             {
-                __int16 prevehicle_squad_index = actor->meta.prevehicle_squad_index;
-                __int16 target_squad = squad_mapping[prevehicle_squad_index];
+                int16_t prevehicle_squad_index = actor->meta.prevehicle_squad_index;
+                int16_t target_squad = squad_mapping[prevehicle_squad_index];
                 if ( target_squad != -1 && (target != source || target_squad != prevehicle_squad_index) )
                 {
                     actor->meta.prevehicle_encounter_index = target;
@@ -154,10 +154,10 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
           actor;
           actor = encounter_actor_iterator_next(&disconnected_iterator) )
     {
-        if ( (unsigned __int16)actor->meta.disconnected_encounter_index == source )
+        if ( (uint16_t)actor->meta.disconnected_encounter_index == source )
         {
-            __int16 disconnected_squad_index = actor->meta.disconnected_squad_index;
-            __int16 target_squad = squad_mapping[disconnected_squad_index];
+            int16_t disconnected_squad_index = actor->meta.disconnected_squad_index;
+            int16_t target_squad = squad_mapping[disconnected_squad_index];
             if ( target_squad != -1 && (target != source || target_squad != disconnected_squad_index) )
             {
                 actor->meta.disconnected_encounter_index = target;

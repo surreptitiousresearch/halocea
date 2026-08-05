@@ -8,7 +8,7 @@
 #include "headers/real_point3d.h"
 #include <stdint.h>
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float x);
 
 real_point3d *project_point2d(const real_point2d *p2d, const real_plane3d *plane, int16_t projection,

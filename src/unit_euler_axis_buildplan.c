@@ -12,6 +12,7 @@
  * 0x836C765C where the same register is the `velocity_limit <= 0` comparand). euler_axis_plan fields use the DB
  * names (accel_a/accel_t/coast_t/decel_a/decel_t). */
 
+#include <stdint.h>
 #include "headers/euler_axis_plan.h"
 
 extern double __fabs(double value);
@@ -23,7 +24,7 @@ void unit_euler_axis_buildplan(float current_location, float current_velocity, f
     plan->initial_p = current_location;
     plan->initial_v = current_velocity;
 
-    unsigned __int8 stopped = !(__fabs(current_location) >= 0.001f || __fabs(current_velocity) >= 0.001f);
+    uint8_t stopped = !(__fabs(current_location) >= 0.001f || __fabs(current_velocity) >= 0.001f);
     plan->stopped = stopped;
     if ( stopped )
     {

@@ -16,6 +16,7 @@
  * The DB types *playback_stream as const char **, but the stored advance is
  * event + sizeof(vector_char_difference_data) (2 bytes), so the element type is vector_char_difference_data. */
 
+#include <stdint.h>
 #include "headers/animation_playback_controller.h"
 #include "headers/animation_event_header.h"
 #include "headers/unit_control_data.h"
@@ -33,8 +34,8 @@ void apply_vector_char_difference(animation_playback_controller *animation_state
     const vector_char_difference_data *event = (const vector_char_difference_data *)*playback_stream;
 
     /* recovered: *(const unsigned char *)header >> 2 -> header->event_type */
-    unsigned __int8 event_type = header->event_type - _playback_vector_char_difference_set;
-    unsigned __int8 update_facing = event_type & (1u << _control_vector_facing_bit);
+    uint8_t event_type = header->event_type - _playback_vector_char_difference_set;
+    uint8_t update_facing = event_type & (1u << _control_vector_facing_bit);
 
     if ( update_facing )
     {

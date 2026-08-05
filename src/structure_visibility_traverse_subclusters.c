@@ -20,7 +20,7 @@ extern int16_t render_frustum_cube_visible(const render_frustum *frustum, const 
 
 void structure_visibility_traverse_subclusters(structure_bsp *structure)
 {
-    for (int rc = 0; rc < render.rendered_cluster_count; rc = (__int16)(rc + 1))
+    for (int rc = 0; rc < render.rendered_cluster_count; rc = (int16_t)(rc + 1))
     {
         if (render.environment_surface_count >= MAXIMUM_RENDERED_ENVIRONMENT_SURFACES)
             break;
@@ -32,7 +32,7 @@ void structure_visibility_traverse_subclusters(structure_bsp *structure)
             : &entry->frustum;
 
         int subcluster_count = cluster->subclusters.count;
-        for (int sci = 0; sci < subcluster_count; sci = (__int16)(sci + 1))
+        for (int sci = 0; sci < subcluster_count; sci = (int16_t)(sci + 1))
         {
             if (render.environment_surface_count >= MAXIMUM_RENDERED_ENVIRONMENT_SURFACES)
                 break;

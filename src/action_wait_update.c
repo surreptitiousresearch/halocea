@@ -24,7 +24,7 @@ void action_wait_update(uint16_t actor_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     wait_state_data *wait = &actor->state.action_data.___u0.wait;
 
-    __int16 reseed_timer = wait->query_timer;
+    int16_t reseed_timer = wait->query_timer;
     if ( reseed_timer > 0 )
     {
         wait->query_timer = reseed_timer - 1;
@@ -38,10 +38,10 @@ void action_wait_update(uint16_t actor_index)
         }
     }
 
-    __int16 finish_timer = wait->exit_timer;
+    int16_t finish_timer = wait->exit_timer;
     if ( finish_timer > 0 )
     {
-        __int16 remaining = finish_timer - 1;
+        int16_t remaining = finish_timer - 1;
         wait->exit_timer = remaining;
         if ( !remaining )
         {
@@ -57,7 +57,7 @@ void action_wait_update(uint16_t actor_index)
 
     if ( !wait->desire_move )
     {
-        __int16 skip_timer = wait->look_timer;
+        int16_t skip_timer = wait->look_timer;
         if ( skip_timer > 0 )
             wait->look_timer = skip_timer - 1;
     }

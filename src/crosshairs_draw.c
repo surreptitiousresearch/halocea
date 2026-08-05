@@ -61,8 +61,8 @@ extern int16_t local_player_count(void);
 extern int game_time_get(void);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 extern int get_flash_duration(const hud_color_definition *hud_color);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, unsigned __int8 block,
-        unsigned __int8 load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
+        uint8_t load);
 extern float hud_globals_get_scale(uint8_t in_multiplayer);
 extern void hud_draw_bitmap(const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
 
@@ -76,15 +76,15 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
     const weapon_hud_interface_definition *root_definition =
             TAG_GET(const weapon_hud_interface_definition, hud_index);
 
-    unsigned __int8 splitscreen = 0;
+    uint8_t splitscreen = 0;
     if ( local_player_count() > 1 && hcex_coop_local_player_index < 0 )
         splitscreen = 1;
 
-    __int16 game_mode_mask;
+    int16_t game_mode_mask;
     if ( splitscreen )
-        game_mode_mask = (__int16)((global_scenario->type != _scenario_type_main_menu) | 4);
+        game_mode_mask = (int16_t)((global_scenario->type != _scenario_type_main_menu) | 4);
     else
-        game_mode_mask = (__int16)((global_scenario->type != _scenario_type_main_menu) | 2);
+        game_mode_mask = (int16_t)((global_scenario->type != _scenario_type_main_menu) | 2);
 
     if ( unit_index == -1 )
         return;
@@ -106,7 +106,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
             break;
         hud_definitions[definition_count] =
                 TAG_GET(const weapon_hud_interface_definition, child_index);
-        definition_count = (__int16)(definition_count + 1);
+        definition_count = (int16_t)(definition_count + 1);
     }
     while ( definition_count < 16 );
 
@@ -114,9 +114,9 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
         return;
 
     /* Carried across items/crosshairs/definitions — only the type-8/9/18 gates assign it (see header). */
-    unsigned __int8 firing_active = 0;
+    uint8_t firing_active = 0;
 
-    for ( int hud_slot = 0; hud_slot < definition_count; hud_slot = (__int16)(hud_slot + 1) )
+    for ( int hud_slot = 0; hud_slot < definition_count; hud_slot = (int16_t)(hud_slot + 1) )
     {
         const weapon_hud_interface_definition *definition = hud_definitions[hud_slot];
 
@@ -132,7 +132,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
             continue;
 
         for ( int crosshair_index = 0; crosshair_index < definition->crosshairs.count;
-              crosshair_index = (__int16)(crosshair_index + 1) )
+              crosshair_index = (int16_t)(crosshair_index + 1) )
         {
             const weapon_hud_crosshairs_element *element =
                 &((const weapon_hud_crosshairs_element *)definition->crosshairs.address)[crosshair_index];
@@ -142,10 +142,10 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
             if ( ((1 << element->use_on_map_type) & game_mode_mask) == 0 )
                 continue;
 
-            __int16 state_index = element->crosshair_type;
+            int16_t state_index = element->crosshair_type;
 
             for ( int item_index = 0; item_index < element->crosshairs.items.count;
-                  item_index = (__int16)(item_index + 1) )
+                  item_index = (int16_t)(item_index + 1) )
             {
                 const weapon_hud_crosshair_item *item =
                     &((const weapon_hud_crosshair_item *)element->crosshairs.items.address)[item_index];
@@ -178,7 +178,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                 }
 
                 float scale = scale_base * scale_crosshair;
-                __int16 frame_index = 0;
+                int16_t frame_index = 0;
                 unsigned int color;
 
                 switch ( element->crosshair_type )
@@ -195,7 +195,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                         }
                         else
                         {
-                            frame_index = (__int16)crosshair->states[state_index].___u0.reference_data;
+                            frame_index = (int16_t)crosshair->states[state_index].___u0.reference_data;
                         }
                         goto flat_color;
 
@@ -210,7 +210,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                         }
                         else
                         {
-                            frame_index = (__int16)(zoom_level - ((item_flags >> _hud_crosshair_not_on_default_zoom_bit) & 1));
+                            frame_index = (int16_t)(zoom_level - ((item_flags >> _hud_crosshair_not_on_default_zoom_bit) & 1));
                         }
                         if ( (item_flags & (1u << _hud_crosshair_flashes_bit)) && crosshair->states[0].___u0.reference_data > 0 )
                         {
@@ -241,9 +241,9 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
 
                     case _weapon_crosshair_flash_when_throwing_and_no_grenade:
                     {
-                        unsigned __int8 no_grenades = 1;
+                        uint8_t no_grenades = 1;
                         for ( int grenade_type = 0; grenade_type < 2;
-                              grenade_type = (__int16)(grenade_type + 1) )
+                              grenade_type = (int16_t)(grenade_type + 1) )
                         {
                             if ( no_grenades && !unit->unit.grenade_counts[grenade_type] )
                                 continue;
@@ -281,7 +281,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                         {
                             /* NULL sequence here (flags bit 0x2 with a positive frame rate) would fault —
                              * shipped code has no guard. */
-                            frame_index = (__int16)((game_time_get()
+                            frame_index = (int16_t)((game_time_get()
                                     - crosshair->states[state_index].___u0.reference_data)
                                     / item->frame_rate / 30 % sequence->sprites.count);
                         }
@@ -305,7 +305,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                                 ? (const bitmap_group_sprite *)sequence->sprites.address
                                 : 0;
 
-                        __int16 bitmap_index;
+                        int16_t bitmap_index;
                         if ( sequence )
                             bitmap_index = sprites[frame_index].bitmap_index;
                         else
@@ -316,11 +316,11 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                         if ( !_texture_cache_bitmap_get_hardware_format(bitmap, 0, 1) )
                             goto next_item;
 
-                        unsigned __int8 is_interface_bitmap = group->type == _bitmap_group_type_interface_bitmaps;
+                        uint8_t is_interface_bitmap = group->type == _bitmap_group_type_interface_bitmaps;
 
                         hud_absolute_placement_definition absolute_placement = absolute_placement_template;
                         hud_placement_definition placement = item->placement;
-                        placement.offset.__s1.x = (__int16)(placement.offset.__s1.x
+                        placement.offset.__s1.x = (int16_t)(placement.offset.__s1.x
                                 + (int)(crosshairOffsetX * 640.0f / hud_globals_get_scale(0)));
 
                         if ( item_flags & (1u << _hud_crosshair_hide_outside_area_bit) )   /* hide area outside reticle: expand the clip to the viewport */

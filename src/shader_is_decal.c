@@ -10,7 +10,7 @@
 
 uint8_t shader_is_decal(const shader *shader)
 {
-    if ( shader && (unsigned int)(unsigned __int16)(shader->base.type - _shader_type_transparent_generic) <= 5 )
+    if ( shader && (unsigned int)(uint16_t)(shader->base.type - _shader_type_transparent_generic) <= 5 )
     {
         switch ( shader->base.type )
         {

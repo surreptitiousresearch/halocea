@@ -24,7 +24,7 @@ void object_set_automatic_deactivation(int object_index, uint8_t automatic_deact
     if ( automatic_deactivation )
     {
         if ( object->object.parent_object_index == -1
-          && (unsigned __int16)object->object.location.cluster_index == 0xFFFF )
+          && (uint16_t)object->object.location.cluster_index == 0xFFFF )
         {
             if ( (header->flags & (1u << _object_header_active_bit)) != 0 )
                 header->flags &= ~(1u << _object_header_active_bit);

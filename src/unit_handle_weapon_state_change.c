@@ -15,8 +15,8 @@ extern void unit_animation_start_overlay_action(int unit_index, int16_t overlay_
 
 void unit_handle_weapon_state_change(int unit_index, int16_t new_weapon_state)
 {
-    __int16 action = -1;
-    __int16 overlay_action = -1;
+    int16_t action = -1;
+    int16_t overlay_action = -1;
     unsigned int state = new_weapon_state - 1;
 
     if ( state <= weapon_state_secondary_charged - 1 )

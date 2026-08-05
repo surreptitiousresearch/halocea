@@ -6,12 +6,13 @@
  * `&state->input.pathfinding_radius` (that field happens to sit at path_state offset 0, and the byte
  * offset it adds lands exactly on hash_table); rewritten here using the modeled hash_table/nodes fields. */
 
+#include <stdint.h>
 #include "headers/path_state.h"
 
 int path_node_from_hash_table(path_state *state, int surface_index)
 {
-    __int16 slot = (8 * surface_index) & 0xFF8;
-    __int16 node_index;
+    int16_t slot = (8 * surface_index) & 0xFF8;
+    int16_t node_index;
 
     do
     {

@@ -27,7 +27,7 @@ void update_client_local_ticks(int16_t ticks_elapsed)
 
         int update_number[4];
         game_update update;
-        __int16 remaining = ticks_elapsed;
+        int16_t remaining = ticks_elapsed;
         do
         {
             update_server_next_update();

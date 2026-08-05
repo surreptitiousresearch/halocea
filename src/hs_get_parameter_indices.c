@@ -13,7 +13,7 @@ extern int sprintf_0(char *string, const char *format, ...);
 uint8_t hs_get_parameter_indices(const char *function_name, int16_t count, int *result_indices, int expression_index)
 {
     hs_syntax_node *group = &HS_SYNTAX_NODE(expression_index);
-    __int16 collected = 0;
+    int16_t collected = 0;
 
     int argument = HS_SYNTAX_NODE(group->data).next_node_index;
     for ( ; argument != -1; argument = HS_SYNTAX_NODE(argument).next_node_index )

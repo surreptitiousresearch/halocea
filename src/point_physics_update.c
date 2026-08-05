@@ -47,7 +47,7 @@ unsigned int point_physics_update(unsigned int flags, const point_physics_defini
     float mass;
     float damping;
     unsigned int collision_flags;
-    __int16 bounce;
+    int16_t bounce;
     real_vector3d current;
     real_vector3d displacement;
     real_vector3d parallel;

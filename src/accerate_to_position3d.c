@@ -19,7 +19,7 @@ extern float __fsqrts(float x);
 extern float __fabs(float x);
 extern uint8_t accelerate_to_velocity3d(real_vector3d *velocity, const real_vector3d *velocity_desired, float acceleration_maximum);
 
-unsigned __int8 accerate_to_position3d(real_point3d *position, real_vector3d *velocity,
+uint8_t accerate_to_position3d(real_point3d *position, real_vector3d *velocity,
     real_point3d *position_desired, float velocity_maximum, float acceleration_maximum)
 {
     (void)velocity_maximum; /* confirmed unused: accelerate_to_velocity3d has no such parameter */

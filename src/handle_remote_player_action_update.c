@@ -33,7 +33,7 @@ extern int game_time_get(void);
 
 void handle_remote_player_action_update(remote_player_action_update_header *player_update_header, remote_player_action_update_network_data *update_data, uint8_t is_stateless)
 {
-    unsigned __int8 accept = 0;
+    uint8_t accept = 0;
     player_datum *player = datum_try_and_get(player_data, player_update_header->player_index);
 
     if ( player )

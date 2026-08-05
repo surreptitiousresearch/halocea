@@ -16,7 +16,7 @@ uint8_t write_bit(bitstream_t *const stream, const unsigned int value)
     if ( bit_position < stream->first_bit || bit_position > stream->last_bit )
         return 0;
 
-    unsigned __int8 mask = 1 << stream->current_bit_in_byte;
+    uint8_t mask = 1 << stream->current_bit_in_byte;
     if ( value == 1 )
         stream->buffer[stream->current_byte] |= mask;
     else

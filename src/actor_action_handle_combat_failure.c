@@ -15,7 +15,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern unsigned __int8 actor_action_handle_combat_selection(int actor_index);
+extern uint8_t actor_action_handle_combat_selection(int actor_index);
 
 uint8_t actor_action_handle_combat_failure(int actor_index)
 {
@@ -26,8 +26,8 @@ uint8_t actor_action_handle_combat_failure(int actor_index)
      * below. Corrected member + named literal. */
     if ( actor->state.action == actor_action_charge )
     {
-        unsigned __int8 failed = 0;
-        __int16 combat_sub_state = actor->state.action_data.___u0.charge.goal;
+        uint8_t failed = 0;
+        int16_t combat_sub_state = actor->state.action_data.___u0.charge.goal;
 
         if ( combat_sub_state == charge_goal_melee || combat_sub_state == charge_goal_melee_leaping )
         {

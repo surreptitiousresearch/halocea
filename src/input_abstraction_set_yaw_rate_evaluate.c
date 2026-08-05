@@ -12,7 +12,7 @@ void input_abstraction_set_yaw_rate_evaluate(int16_t function_index, int thread_
     if ( arguments )
     {
         /* HS argument block: packed wire, faithfully de-flagged */
-        input_abstraction_set_yaw_rate(*(__int16 *)arguments, ((float *)arguments)[1]);
+        input_abstraction_set_yaw_rate(*(int16_t *)arguments, ((float *)arguments)[1]);
         hs_return(thread_index, 0);
     }
 }

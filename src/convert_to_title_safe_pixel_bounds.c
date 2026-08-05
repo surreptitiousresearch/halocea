@@ -5,6 +5,7 @@
  * as a hidden __return_ptr that aliases the input; the disassembly returns the packed rectangle2d in r3. Single
  * pointer parameter. All int<->float conversions are fcfid/fctiwz artifacts restored as casts. */
 
+#include <stdint.h>
 #include "headers/rectangle2d.h"
 
 rectangle2d convert_to_title_safe_pixel_bounds(rectangle2d *bounds)
@@ -17,9 +18,9 @@ rectangle2d convert_to_title_safe_pixel_bounds(rectangle2d *bounds)
     int height = bottom - top;
 
     rectangle2d result;
-    result.x0 = (__int16)(int)((float)width * 0.05f + (float)left);
-    result.y0 = (__int16)(int)((float)height * 0.05f + (float)top);
-    result.x1 = (__int16)(int)((float)width * 0.95f + (float)left);
-    result.y1 = (__int16)(int)((float)height * 0.95f + (float)top);
+    result.x0 = (int16_t)(int)((float)width * 0.05f + (float)left);
+    result.y0 = (int16_t)(int)((float)height * 0.05f + (float)top);
+    result.x1 = (int16_t)(int)((float)width * 0.95f + (float)left);
+    result.y1 = (int16_t)(int)((float)height * 0.95f + (float)top);
     return result;
 }

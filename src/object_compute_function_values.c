@@ -39,12 +39,12 @@ void object_compute_function_values(int object_index)
     /* incoming_function_values[-1] base: the tag's function indices are 1-based */
     float *incoming_values = object->object.incoming_function_values - 1;
 
-    int   time_ticks = game_time_get() + 57 * (unsigned __int16)object_index;
+    int   time_ticks = game_time_get() + 57 * (uint16_t)object_index;
     float time_seconds = (float)time_ticks * SECONDS_PER_TICK;
 
     if ( object_definition->functions.count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
             object_function_definition *function =
@@ -55,7 +55,7 @@ void object_compute_function_values(int object_index)
             float period_scale = function->runtime_one_over_period;
             if ( function->scale_period_by_function_index )
             {
-                __int16 input_value_index = function->scale_period_by_function_index;
+                int16_t input_value_index = function->scale_period_by_function_index;
                 if ( incoming_values[input_value_index] > 0.0f )
                     period_scale = function->runtime_one_over_period / incoming_values[input_value_index];
             }
@@ -98,7 +98,7 @@ void object_compute_function_values(int object_index)
             if ( function->scale_by > 0.0f )
                 output = function->scale_by * output;
 
-            __int16 bounds_mode = function->bounds_mode;
+            int16_t bounds_mode = function->bounds_mode;
             if ( bounds_mode == _object_function_scale_to_fit_bounds )
             {
                 output = (function->upper_bound - function->lower_bound) * output + function->lower_bound;
@@ -118,7 +118,7 @@ void object_compute_function_values(int object_index)
                     output = (output - function->lower_bound) * function->runtime_reciprocal_bounds_range;
             }
 
-            __int16 active_gate_bit = function->turn_off_with_function_index;
+            int16_t active_gate_bit = function->turn_off_with_function_index;
             if ( active_gate_bit != -1 )
                 active = ((1 << active_gate_bit) & object->object.functions_active_flags) == 0 ? 0 : active;
 
@@ -134,7 +134,7 @@ void object_compute_function_values(int object_index)
             else
                 object->object.functions_active_flags = active_bits & ~bit;
 
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < object_definition->functions.count );
     }

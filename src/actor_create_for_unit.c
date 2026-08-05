@@ -92,14 +92,14 @@ resolved:
                     unsigned int encounter_identifier =
                         (unsigned int)DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->identifier;
                     encounter_index = ((encounter_identifier << 16) | (encounter_identifier >> 16))
-                        | (unsigned __int16)encounter_index;
+                        | (uint16_t)encounter_index;
                 }
                 encounter_attach_actor(index, encounter_index, squad_index, 0);
             }
 
             if ( initially_braindead )
             {
-                unsigned __int8 dormant_on_create = actor->meta.active;
+                uint8_t dormant_on_create = actor->meta.active;
                 actor->state.mode = _actor_mode_braindead;
                 if ( dormant_on_create )
                     actor_set_dormant(index, 0);
@@ -115,7 +115,7 @@ resolved:
                 actor->state.default_state = actor_action_get_default_state(initial_state);
             actor->state.command_list_immediate = 0;
             actor->state.command_list_delay_timer = 2;
-            __int16 actor_type = actor->meta.type;
+            int16_t actor_type = actor->meta.type;
             actor->state.command_list_index = initial_command_list_index;
             actor->state.noncombat_sequence_id = noncombat_sequence_id;
             if ( actor->meta.swarm != actor_type_get_swarm(actor_type) )

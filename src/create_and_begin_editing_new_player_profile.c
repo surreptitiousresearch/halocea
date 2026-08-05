@@ -24,7 +24,7 @@ extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 uint8_t create_and_begin_editing_new_player_profile(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     int keyboard_launched = 0;
-    __int16 controller_index = event->controller_index == -1 ? 0 : event->controller_index;
+    int16_t controller_index = event->controller_index == -1 ? 0 : event->controller_index;
     unsigned short generated_name[144];
 
     saved_game_file_get_useable_untitled_profile_name(generated_name);
@@ -49,7 +49,7 @@ uint8_t create_and_begin_editing_new_player_profile(widget_instance *widget, eve
         }
     }
 
-    if ( !(unsigned __int8)keyboard_launched )
+    if ( !(uint8_t)keyboard_launched )
     {
         display_error_deferred(_error_unable_to_create_player_profile, -1, 1u, 0);
         ui_play_audio_feedback_sound(_ui_audio_feedback_flag_failure);

@@ -18,7 +18,7 @@ uint8_t post_evaluator_hide(int actor_index, firing_position_evaluation_context 
             return 1;
         }
 
-        unsigned int line_of_sight = (unsigned __int16)firing_position->line_of_sight;
+        unsigned int line_of_sight = (uint16_t)firing_position->line_of_sight;
         float cost = 0.0f;
         if ( line_of_sight > _ai_line_of_sight_obstructed )
         {

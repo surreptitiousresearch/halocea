@@ -10,5 +10,5 @@ extern const wchar_t empty_wide_string; /* .short 0 — empty wide string */
 
 uint16_t * widget_replace_function_null(widget_instance *widget)
 {
-    return (unsigned __int16 *)&empty_wide_string;
+    return (uint16_t *)&empty_wide_string;
 }

@@ -3,6 +3,7 @@
  * ragdoll nodes onto the environment. Once settled it requests either the "dead" (24) or "dead settled"
  * (25) animation state depending on whether the body has come to rest, snapping its facing when it has. */
 
+#include <stdint.h>
 #include "headers/biped_datum.h"
 #include "headers/biped_definition.h"
 #include "headers/unit_animation_update_data.h"
@@ -39,7 +40,7 @@ void biped_update_dead(int biped_index, unit_animation_update_data *animation)
         char state_desired;
         if (biped->biped.airborne_ticks < 3 || (definition->biped.flags & (1u << _biped_has_no_dying_airborne_bit)) != 0)
         {
-            if ((unsigned __int8)biped->unit.animation.state == _unit_state_dying_airborne)
+            if ((uint8_t)biped->unit.animation.state == _unit_state_dying_airborne)
             {
                 biped->biped.bank = 0.0f;
                 biped_snap_facing(biped, definition);
@@ -48,7 +49,7 @@ void biped_update_dead(int biped_index, unit_animation_update_data *animation)
         }
         else
         {
-            if ((unsigned __int8)biped->unit.animation.state == _unit_state_dying_airborne)
+            if ((uint8_t)biped->unit.animation.state == _unit_state_dying_airborne)
                 biped_apply_rotation(biped_index);
             state_desired = _unit_state_dying_airborne;
         }

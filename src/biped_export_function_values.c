@@ -3,6 +3,7 @@
  * export slots (floats +292..+304): function 1 = clamped-to-[0,1] speed ratio, computed as the object's
  * velocity magnitude (floats +104/+108/+112) divided by (definition's max forward speed * 1/30 tick). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/biped_datum.h"
@@ -23,7 +24,7 @@ void biped_export_function_values(int biped_index)
     int export_index = 0;
     do
     {
-        __int16 function_selector = definition->biped.function_modes[export_index];
+        int16_t function_selector = definition->biped.function_modes[export_index];
         if ( function_selector )
         {
             float value = 0.0f;
@@ -42,7 +43,7 @@ void biped_export_function_values(int biped_index)
             }
             biped->object.incoming_function_values[export_index] = value;
         }
-        export_index = (__int16)(export_index + 1);
+        export_index = (int16_t)(export_index + 1);
     }
     while ( export_index < 4 );
 }

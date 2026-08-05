@@ -20,7 +20,7 @@ extern void hs_return(uint16_t thread_index, int value);
 
 void hs_evaluate_object_cast_up(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
     hs_stack_frame *frame = thread->stack;
 
     /* inlined hs_thread_stack_allocate(thread, sizeof(int)): reserve the result slot at the
@@ -30,7 +30,7 @@ void hs_evaluate_object_cast_up(int16_t function_index, int thread_index, uint8_
     int *reference_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
     if ( (unsigned int)reference_slot - 4 > (unsigned int)stack_top )   /* dead branch (shipped) */
         --reference_slot;
-    frame->size = (__int16)((unsigned char *)reference_slot - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)reference_slot - frame->data + 4);
 
     if ( initialize )
     {
@@ -48,8 +48,8 @@ void hs_evaluate_object_cast_up(int16_t function_index, int thread_index, uint8_
     else
     {
         object_datum *object_datum_ptr = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, reference)->datum;
-        __int16 object_type = object_datum_ptr->object.type;
-        if ( ((1 << object_type) & hs_object_type_masks[(__int16)(function_index - _hs_function_inspect)]) == 0 )
+        int16_t object_type = object_datum_ptr->object.type;
+        if ( ((1 << object_type) & hs_object_type_masks[(int16_t)(function_index - _hs_function_inspect)]) == 0 )
             reference = -1;
     }
     hs_return(thread_index, reference);

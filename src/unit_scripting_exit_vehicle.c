@@ -15,6 +15,6 @@ void unit_scripting_exit_vehicle(int unit_index)
         return;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     if ( unit->object.parent_object_index != -1
-         && (unsigned __int16)unit->unit.parent_seat_index != 0xFFFF )
+         && (uint16_t)unit->unit.parent_seat_index != 0xFFFF )
         unit_try_and_exit_seat(unit_index, 0);
 }

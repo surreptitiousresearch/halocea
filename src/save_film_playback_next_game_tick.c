@@ -29,19 +29,19 @@ extern void *memcpy(void *, const void *, unsigned int);
 
 uint8_t save_film_playback_next_game_tick(void)
 {
-    __int16 packet_type_body = _message_server_game_update_packet;
-    __int16 packet_type_header = _saved_film_frame_header_packet;
-    __int16 packet_version = SAVED_FILM_VERSION;
-    __int16 body_size;
-    __int16 header_size;
-    __int16 decoded_body_size;
+    int16_t packet_type_body = _message_server_game_update_packet;
+    int16_t packet_type_header = _saved_film_frame_header_packet;
+    int16_t packet_version = SAVED_FILM_VERSION;
+    int16_t body_size;
+    int16_t header_size;
+    int16_t decoded_body_size;
     unsigned char header_buf[8];
     unsigned char body_buf[400];
     server_update_packet decoded;
     real_vector3d facing;
     game_update update;
-    unsigned __int16 action_count;
-    __int16 applied_count;
+    uint16_t action_count;
+    int16_t applied_count;
     int k;
 
     header_size = saved_film_frame_header_packet.size;
@@ -53,7 +53,7 @@ uint8_t save_film_playback_next_game_tick(void)
         return 0;
 
     body_size = decoded_body_size;
-    if ( decoded_body_size <= 0 || (unsigned __int16)decoded_body_size > 0x190
+    if ( decoded_body_size <= 0 || (uint16_t)decoded_body_size > 0x190
       || !saved_film_read(body_buf, &body_size)
       || !data_packet_group_decode_packet(&saved_film_group, &decoded, body_buf,
                                           &body_size, &packet_type_body, &packet_version,

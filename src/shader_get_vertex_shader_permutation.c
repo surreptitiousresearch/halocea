@@ -30,7 +30,7 @@ int16_t shader_get_vertex_shader_permutation(const shader *shader)
     {
         case _shader_type_effect:
             if ( *(int *)&shader[2].base.radiosity.color.n[0] != -1 )
-                return (__int16)((unsigned __int16)(*(unsigned int *)&shader[2].base.radiosity.color.green >> 16) + 1);
+                return (int16_t)((uint16_t)(*(unsigned int *)&shader[2].base.radiosity.color.green >> 16) + 1);
             return 0;
 
         case _shader_type_decal:
@@ -41,7 +41,7 @@ int16_t shader_get_vertex_shader_permutation(const shader *shader)
             return shader[1].base.radiosity.color.n[2] > 0.0;
 
         case _shader_type_transparent_generic:
-            permutation = (__int16)(shader[1].base.radiosity.detail_level + 1);
+            permutation = (int16_t)(shader[1].base.radiosity.detail_level + 1);
             if ( permutation == 1 )
                 permutation = (shader[1].base.radiosity.flags & (1u << _shader_transparent_generic_first_map_is_in_screenspace_bit)) != 0;
             if ( (shader->base.radiosity.flags & (1u << _shader_radiosity_FILTHY_transparent_lit_bit)) != 0 )
@@ -49,7 +49,7 @@ int16_t shader_get_vertex_shader_permutation(const shader *shader)
             break;
 
         case _shader_type_transparent_chicago:
-            permutation = (__int16)(shader[1].base.radiosity.detail_level + 1);
+            permutation = (int16_t)(shader[1].base.radiosity.detail_level + 1);
             if ( permutation == 1 )
                 permutation = (shader[1].base.radiosity.flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0;
             if ( (shader->base.radiosity.flags & (1u << _shader_radiosity_FILTHY_transparent_lit_bit)) != 0 )
@@ -58,7 +58,7 @@ int16_t shader_get_vertex_shader_permutation(const shader *shader)
 
         default:
             /* chicago_extended shares the chicago flags layout */
-            permutation = (__int16)(shader[1].base.radiosity.detail_level + 1);
+            permutation = (int16_t)(shader[1].base.radiosity.detail_level + 1);
             if ( permutation == 1 )
                 permutation = (shader[1].base.radiosity.flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0;
             if ( (shader->base.radiosity.flags & (1u << _shader_radiosity_FILTHY_transparent_lit_bit)) != 0 )

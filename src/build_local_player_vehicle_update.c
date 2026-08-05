@@ -44,9 +44,9 @@ int build_local_player_vehicle_update(player_datum *source_player, int player_in
 
     local_player_vehicle_update_network_data body;
     body.sequence_number =
-        (unsigned __int8)source_player->___u26.server_update_data.next_local_player_update_sequence_number;
+        (uint8_t)source_player->___u26.server_update_data.next_local_player_update_sequence_number;
     body.last_completed_update_id =
-        (unsigned __int8)source_player->___u26.server_update_data.last_completed_update_id;
+        (uint8_t)source_player->___u26.server_update_data.last_completed_update_id;
     body.vehicle_index =
         field_translated_index_translate_index(&field_properties_object_index_definition, vehicle_index);
     body.position = source_player->___u26.server_update_data.position_as_of_last_completed_update;

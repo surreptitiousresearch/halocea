@@ -17,7 +17,7 @@ uint8_t message_delta_processor_decode_stateless(void *const destination_data, c
 
     decoding_information->state += bits_consumed;
 
-    unsigned __int8 body_decoded;
+    uint8_t body_decoded;
     if ( bits_consumed )
     {
         body_decoded = 1;

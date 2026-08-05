@@ -41,10 +41,10 @@ void encounter_determine_pursuit_availability(int encounter_index, int actor_ind
             current_actor = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->first_actor_index;
     }
 
-    __int16 combat_count = 0;
-    __int16 fleeing_count = 0;
-    __int16 pursuing_count = 0;
-    __int16 searching_count = 0;
+    int16_t combat_count = 0;
+    int16_t fleeing_count = 0;
+    int16_t pursuing_count = 0;
+    int16_t searching_count = 0;
 
     while ( ai_globals->ai_initialized_for_map && current_actor != -1 )
     {
@@ -54,7 +54,7 @@ void encounter_determine_pursuit_availability(int encounter_index, int actor_ind
 
         if ( !is_self && actor->external_orders.pursuit_is_coordinator == is_pursuit_controller )
         {
-            __int16 action = actor->state.action;
+            int16_t action = actor->state.action;
             if ( action == actor_action_uncover )
             {
                 if ( actor->state.action_data.___u0.uncover.pursuit_location.type )
@@ -71,11 +71,11 @@ void encounter_determine_pursuit_availability(int encounter_index, int actor_ind
             }
         }
 
-        if ( (unsigned __int16)actor->state.mode == _actor_mode_combat )
+        if ( (uint16_t)actor->state.mode == _actor_mode_combat )
             ++combat_count;
     }
 
-    __int16 pursuit_limit;
+    int16_t pursuit_limit;
     if ( group_pursuit_restriction == _group_pursuit_nobody )
     {
         pursuit_limit = 0;
@@ -102,8 +102,9 @@ void encounter_determine_pursuit_availability(int encounter_index, int actor_ind
     else
     {
         actor_pursuit_find_nearby_actors(actor_index, 0);
-        *controlled_by_group_pursuit = *(unsigned __int8 *)&actor->external_orders.pursuit_group_prop_index + 1
-                - (actor->external_orders.pursuit_group_prop_index + (actor->external_orders.pursuit_group_prop_index == -1));
+        /* DEVIATION: decompiler garbled the branchless (x+1)!=0 idiom (lwz/addi/addic/subfe @0x8370A11C)
+         * into a high-byte pun; the binary computes pursuit_group_prop_index != -1 */
+        *controlled_by_group_pursuit = actor->external_orders.pursuit_group_prop_index != -1;
         actor->external_orders.pursuit_is_coordinator = 0;
     }
 

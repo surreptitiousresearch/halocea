@@ -85,7 +85,7 @@ void unit_died(int unit_index, uint8_t feigned)
     }
 
     int flags = unit->unit.flags;
-    int active_slot = (unsigned __int16)unit->unit.current_weapon_index;
+    int active_slot = (uint16_t)unit->unit.current_weapon_index;
     unit->unit.control_flags = 0;
     unit->unit.flags = flags & ~((1u << _unit_actively_controlled_bit) | (1u << _unit_active_camouflaged_bit));
     if ( active_slot != 0xFFFF )
@@ -103,7 +103,7 @@ void unit_died(int unit_index, uint8_t feigned)
 
     if ( unit->object.parent_object_index != -1 )
     {
-        if ( (unsigned __int16)unit->unit.parent_seat_index == 0xFFFF )
+        if ( (uint16_t)unit->unit.parent_seat_index == 0xFFFF )
             unit_detach_from_parent(unit_index);
         else
             unit_exit_seat_end(unit_index, 0, 0, 0);
@@ -124,7 +124,7 @@ void unit_died(int unit_index, uint8_t feigned)
     if ( !unit->unit.weapon_drop_delay_ticks )
         unit_drop_current_weapon(unit_index, 1u);
 
-    unsigned __int8 throw_state = unit->unit.grenade_throw_state;
+    uint8_t throw_state = unit->unit.grenade_throw_state;
     unit->unit.animation.overlay_action_animation.index = -1;
     unit->unit.animation.action_animation.index = -1;
     unit->unit.melee_attack_state = _unit_melee_attack_none;

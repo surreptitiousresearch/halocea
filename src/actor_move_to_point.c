@@ -37,9 +37,8 @@ uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surf
     {
         actor->orders.move.destination.destination_type = _destination_raw_location;
         actor->orders.move.destination.keep_moving = 0;
-        actor->orders.move.destination.___u3.prop.prop_index = *(int *)&destination->n[0];
-        *(int *)&actor->orders.move.destination.___u3.raw.point.y = *(int *)&destination->n[1];
-        *(int *)&actor->orders.move.destination.___u3.raw.point.z = *(int *)&destination->n[2];
+        /* DEVIATION: decompiler word-punned this 12-byte real_point3d copy through the prop_index union arm; plain struct assignment */
+        actor->orders.move.destination.___u3.raw.point = *destination;
         actor->orders.move.destination.___u3.raw.surface_index = surface_index;
         actor->orders.move.destination.ignore_target_object_index = ignore_target_object_index;
 

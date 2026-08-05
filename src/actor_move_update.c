@@ -70,10 +70,10 @@ void actor_move_update(int actor_index)
 
     float steering_maximum_angle = 0.0f, oversteer_minimum_angle = 0.0f, oversteer_maximum_angle = 0.0f;
     float rotation_emergency_amount = 0.0f, maximum_throttle = 1.0f, free_movement_dist_sq = 0.0f;
-    unsigned __int8 move_in_3d = 0, free_movement = 0;
+    uint8_t move_in_3d = 0, free_movement = 0;
     uint8_t allow_all_moving_turns = 0;
     char allow_jump = 0, is_busy_anim = 0, force_throttle_facing = 0;
-    __int16 override_facing;
+    int16_t override_facing;
 
     float *throttle = &actor->control.desired_facing_vector.n[0];
     actor->control.face_exactly = 0;
@@ -187,14 +187,14 @@ void actor_move_update(int actor_index)
     actor->output.movement_type = movement_animation;
 
     override_facing = actor->orders.move.override_movement_facing;
-    unsigned __int8 crouch;
+    uint8_t crouch;
     if ( actor->control.path.path.valid                                /* path active — opaque path block offset */
       && actor->control.path.destination_distance >= (double)character_def->moving.stationary_moving_distance )
         crouch = actor->orders.move.moving_crouch;
     else
         crouch = actor->orders.move.stationary_crouch;
 
-    __int16 seat_role = actor->input.vehicle_driver_type;
+    int16_t seat_role = actor->input.vehicle_driver_type;
     if ( seat_role > 0 )                                       /* in a vehicle seat */
     {
         int   vehicle_index = actor->input.vehicle_index;
@@ -203,7 +203,7 @@ void actor_move_update(int actor_index)
         steering_maximum_angle = vehicle_def->vehicle.ai_steering_max_angle;
         if ( vehicle_def->vehicle.ai_steering_max_throttle > 0.0f )
             maximum_throttle = vehicle_def->vehicle.ai_steering_max_throttle;
-        int role = (unsigned __int16)actor->input.vehicle_driver_type;
+        int role = (uint16_t)actor->input.vehicle_driver_type;
         oversteer_minimum_angle = vehicle_def->vehicle.ai_oversteer_angle_lower_bound;
         oversteer_maximum_angle = vehicle_def->vehicle.ai_oversteer_angle_upper_bound;
 
@@ -267,7 +267,7 @@ void actor_move_update(int actor_index)
             }
             else                                               /* grounded driver */
             {
-                int action_class = (unsigned __int16)actor->meta.type;
+                int action_class = (uint16_t)actor->meta.type;
                 actor->control.moving = 0;
                 actor->control.moving_facing_direction = 0;
                 actor->control.free_facing_vector = (action_class == _actor_type_mounted_weapon || actor->input.vehicle_gunner) ? 1 : 0;
@@ -285,7 +285,7 @@ void actor_move_update(int actor_index)
 
     if ( actor->input.vehicle_passenger )                      /* seat role <= 1 marker */
     {
-        int action_class = (unsigned __int16)actor->meta.type;
+        int action_class = (uint16_t)actor->meta.type;
         actor->control.moving = 0;
         actor->control.moving_facing_direction = 0;
         actor->control.optional_facing_vector = 0;
@@ -294,7 +294,7 @@ void actor_move_update(int actor_index)
         goto resolve_movement;
     }
 
-    if ( (unsigned __int16)actor->orders.move.animation.impulse != 0xFFFF )   /* mounted / fixed */
+    if ( (uint16_t)actor->orders.move.animation.impulse != 0xFFFF )   /* mounted / fixed */
     {
         actor->control.moving = 0;
         crouch = 0;
@@ -393,7 +393,7 @@ resolve_movement:
             actor->control.moving = 0;
     }
 
-    unsigned __int8 committed = actor->control.moving;
+    uint8_t committed = actor->control.moving;
     if ( actor->control.moving )
     {
         actor->control.optional_facing_vector = 0;
@@ -436,17 +436,24 @@ resolve_movement:
     {
         int cause_unit = -1;
         int target_prop = actor->target.target_prop_index;
-        real_vector3d alignment;
-        *(long long *)alignment.n = *(long long *)&actor->input.facing_vector;
+        /* DEVIATION: decompiler spelled these 8-byte xy copies (ld/std pairs) as long-long puns into a
+         * real_vector3d; the alignment scratch is only ever used as a real_vector2d (i/j of the 3d sources). */
+        real_vector2d alignment;
+        alignment.i = actor->input.facing_vector.i;
+        alignment.j = actor->input.facing_vector.j;
         if ( target_prop != -1 )
         {
             prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, target_prop);
             cause_unit = prop->unit_index;
-            *(long long *)alignment.n = *(long long *)&prop->actor_to_prop;   /* actor_to_prop xy */
-            if ( normalize2d((real_vector2d *)&alignment) == 0.0f )
-                *(long long *)alignment.n = *(long long *)&actor->input.facing_vector;
+            alignment.i = prop->actor_to_prop.i;   /* actor_to_prop xy */
+            alignment.j = prop->actor_to_prop.j;
+            if ( normalize2d(&alignment) == 0.0f )
+            {
+                alignment.i = actor->input.facing_vector.i;
+                alignment.j = actor->input.facing_vector.j;
+            }
         }
-        actor_move_animation_impulse(actor_index, 0, (const real_vector2d *)&alignment);
+        actor_move_animation_impulse(actor_index, 0, &alignment);
         ai_communication_event(_ai_communication_berserk, actor->meta.unit_index, cause_unit, _comm_hostility_enemy, -1, -1, NULL);
         actor->emotions.played_berserk_sound = 1;
     }
@@ -461,21 +468,23 @@ resolve_movement:
     }
     else if ( !actor_move_animation_busy(actor_index) && actor->orders.move.jump )   /* leap desire */
     {
-        unsigned __int8 leaped = 0;
+        uint8_t leaped = 0;
         if ( actor->orders.move.jump_leap )
         {
-            real_vector3d alignment;
+            /* DEVIATION: same ld/std xy-pair pun as the berserk block above; scratch is a real_vector2d. */
+            real_vector2d alignment;
             if ( actor->orders.move.jump_targeted )
             {
-                *(long long *)alignment.n = *(long long *)&actor->orders.move.jump_alignment_vector;
+                alignment = actor->orders.move.jump_alignment_vector;
             }
             else
             {
-                *(long long *)alignment.n = *(long long *)&actor->input.facing_vector;
-                if ( normalize2d((real_vector2d *)&alignment) == 0.0f )
-                    *(real_vector2d *)alignment.n = *global_forward2d;
+                alignment.i = actor->input.facing_vector.i;
+                alignment.j = actor->input.facing_vector.j;
+                if ( normalize2d(&alignment) == 0.0f )
+                    alignment = *global_forward2d;
             }
-            leaped = unit_leap_begin(actor->meta.unit_index, (const real_vector2d *)&alignment);
+            leaped = unit_leap_begin(actor->meta.unit_index, &alignment);
         }
         if ( leaped )
             ai_communication_event(_ai_communication_leap, actor->meta.unit_index, -1, -1, -1, -1, NULL);

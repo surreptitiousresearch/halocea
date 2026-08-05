@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* structure_render_pass @0x837C65B0 — shared prototype for the BSP environment render dispatcher and the
  * callback signatures it invokes. The structure_render_* entry points each call this with a different
  * draw_triangles / draw_transparent_triangles callback for their pass. Forward declarations only; the
@@ -15,10 +16,10 @@ union real_point3d;   /* real_point3d is a union tag, not a struct */
 
 extern void structure_render_pass(
     int *surface_indices,
-    __int16 surface_count,
+    int16_t surface_count,
     int dynamic_triangles_index,
     void (*begin_lightmap)(struct bitmap_data *),
-    void (*draw_triangles)(const struct shader *, __int16, int, int, int, const struct vertex_buffer *),
+    void (*draw_triangles)(const struct shader *, int16_t, int, int, int, const struct vertex_buffer *),
     void (*end_lightmap)(void),
-    void (*draw_transparent_triangles)(const struct shader *, __int16, struct bitmap_data *, int, int,
+    void (*draw_transparent_triangles)(const struct shader *, int16_t, struct bitmap_data *, int, int,
                                        int, const struct vertex_buffer *, const union real_point3d *));

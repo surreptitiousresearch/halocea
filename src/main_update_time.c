@@ -18,7 +18,7 @@ extern void hcex_correct_time_elapsed(float *);
 
 void main_update_time(void)
 {
-    __int64 now_clocks;
+    int64_t now_clocks;
     float dt;
 
     if ( !timeDemo && !global_frame_rate_throttle )

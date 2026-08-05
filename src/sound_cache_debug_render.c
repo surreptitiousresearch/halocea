@@ -31,7 +31,7 @@ void sound_cache_debug_render(void)
 {
     if ( debug_sound_cache_graph )
     {
-        unsigned __int8 *page_usage = dlMalloc(sound_cache_page_count,
+        uint8_t *page_usage = dlMalloc(sound_cache_page_count,
                 "D:\\Projects\\code\\HCEX\\sources\\cache\\pc_sound_cache.c", 0x28C);
         lruv_cache_get_page_usage(pc_sound_cache_globals.cache, page_usage);
 
@@ -50,7 +50,7 @@ void sound_cache_debug_render(void)
     if ( !debug_sound_cache )
         return;
 
-    __int16 tab_stops[3];
+    int16_t tab_stops[3];
     tab_stops[0] = 280;
     tab_stops[1] = 0;
     tab_stops[2] = 0;
@@ -60,7 +60,7 @@ void sound_cache_debug_render(void)
     unsigned int pages_old = 0;
     unsigned int pages_locked = 0;
 
-    unsigned __int8 *page_usage = dlMalloc(sound_cache_page_count,
+    uint8_t *page_usage = dlMalloc(sound_cache_page_count,
             "D:\\Projects\\code\\HCEX\\sources\\cache\\pc_sound_cache.c", 0x2C0);
 
     draw_string_set_tab_stops(tab_stops, 1);
@@ -75,7 +75,7 @@ void sound_cache_debug_render(void)
         unsigned int mask = 1 << state;
         for ( int page = 0; page < sound_cache_page_count; ++page )
         {
-            if ( (page_usage[(__int16)page] & mask) != 0 )
+            if ( (page_usage[(int16_t)page] & mask) != 0 )
             {
                 if ( state == 0 )
                     ++pages_allocated;

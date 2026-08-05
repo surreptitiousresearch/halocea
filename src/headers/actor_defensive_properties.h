@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* actor_defensive_properties — actor_definition.defensive (108 bytes, DB types_members-confirmed layout). */
 
 typedef struct actor_defensive_properties
@@ -10,8 +11,8 @@ typedef struct actor_defensive_properties
     float             shield_fraction_emerge_attack;           /* 0x10 */
     float             shield_fraction_emerge_pursue;           /* 0x14 */
     unsigned int      unused[4];                                /* 0x18 */
-    __int16           defensive_crouch_type;                    /* 0x28 */
-    unsigned __int16  pad;                                        /* 0x2A */
+    int16_t           defensive_crouch_type;                    /* 0x28 */
+    uint16_t  pad;                                        /* 0x2A */
     float             defensive_threshold_attacking;              /* 0x2C */
     float             defensive_threshold_defending;              /* 0x30 */
     float             defensive_crouch_min_stand_time;             /* 0x34 */

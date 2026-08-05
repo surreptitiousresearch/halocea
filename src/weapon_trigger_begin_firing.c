@@ -42,9 +42,9 @@ void weapon_trigger_begin_firing(int weapon_index, int16_t trigger_index, uint8_
         &((weapon_trigger_definition *)definition->weapon.triggers.address)[trigger_index];
 
     /* a trigger with an assigned magazine can only begin firing while that magazine is idle */
-    unsigned __int8 magazine_idle = 1;
-    __int16 magazine_index = trigger_definition->magazine_index;
-    if ( (unsigned __int16)magazine_index != 0xFFFF )
+    uint8_t magazine_idle = 1;
+    int16_t magazine_index = trigger_definition->magazine_index;
+    if ( (uint16_t)magazine_index != 0xFFFF )
         magazine_idle = weapon->weapon.magazines[magazine_index].state == _weapon_magazine_idle;
 
     bool can_fire = (weapon->weapon.flags & (1u << _weapon_overheated_bit)) == 0 && magazine_idle;
@@ -62,7 +62,7 @@ void weapon_trigger_begin_firing(int weapon_index, int16_t trigger_index, uint8_
             if ( trigger_definition->overloading_time > 0.0f )
             {
                 trigger->state = _weapon_trigger_firing;
-                trigger->state_timer = (__int16)(trigger_definition->overloading_time * 30.0f);
+                trigger->state_timer = (int16_t)(trigger_definition->overloading_time * 30.0f);
                 return;
             }
         }
@@ -87,7 +87,7 @@ void weapon_trigger_begin_firing(int weapon_index, int16_t trigger_index, uint8_
                         trigger_definition->charging_effect.index, 0.0f, 0.0f);
             }
             trigger->state = _weapon_trigger_charging;
-            trigger->state_timer = (__int16)(trigger_definition->charging_time * 30.0f);
+            trigger->state_timer = (int16_t)(trigger_definition->charging_time * 30.0f);
             hcex_obj_set_state(weapon_index, "charging_start");
             return;
         }

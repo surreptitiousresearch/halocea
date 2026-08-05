@@ -27,7 +27,7 @@ uint8_t encode_iterated_body_field(iterated_message *message, int field_index, c
                                          &message->iteration_data_stream);
 
     if ( message->mode == _message_delta_mode_incremental )
-        changed = (unsigned __int8)bitstream_write_bit(&message->iteration_field_map_stream, bits != 0);
+        changed = (uint8_t)bitstream_write_bit(&message->iteration_field_map_stream, bits != 0);
     else if ( bits > 0 )
         changed = 1;
 

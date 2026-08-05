@@ -36,8 +36,8 @@ int player_set_action_result_from_network(message_delta_processor_header *header
         int translated_player_index;
         int is_weapon_swap;
         int translated_object_index;
-        __int16 action_result;
-        __int16 action_seat_index;
+        int16_t action_result;
+        int16_t action_seat_index;
         int translated_weapon_to_drop_index;
     } payload;
 

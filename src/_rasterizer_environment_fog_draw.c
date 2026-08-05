@@ -48,7 +48,7 @@ void _rasterizer_environment_fog_draw(const shader *shader, int16_t shader_permu
         return;
 
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(vertex_buffer->type));
-    __int16 vertex_shader_permutation = shader_get_vertex_shader_permutation(shader);
+    int16_t vertex_shader_permutation = shader_get_vertex_shader_permutation(shader);
     D3DDevice_SetVertexShader(global_d3d_device,
                               rasterizer_dx9_shaders_vshader9_get(vertex_shader_permutation + _vs_environment_fog));
 

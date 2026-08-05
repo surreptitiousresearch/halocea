@@ -17,7 +17,7 @@ extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int1
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern int rasterizer_set_texture_bitmap_data(int16_t stage, bitmap_data *bitmap);
 
-extern __int16 rasterizer_last_bound_texture_height;    /* 0x844209A2 — last-bound texture height */
+extern int16_t rasterizer_last_bound_texture_height;    /* 0x844209A2 — last-bound texture height */
 
 int rasterizer_set_texture_non_blocking(int16_t stage, int16_t type, int16_t usage, int bitmap_group_index, int16_t bitmap_index)
 {

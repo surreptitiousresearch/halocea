@@ -1,11 +1,12 @@
 #pragma once
+#include <stdint.h>
 /* _single_player_level_data — one campaign level's completion record (single_player_level_data[10]).
  * DB layout via types_members. */
 
 typedef struct _single_player_level_data
 {
     char            *scenario_tag_path;  /* 0x00 */
-    unsigned __int8  level_completed[4]; /* 0x04 — per-difficulty completion flags */
+    uint8_t  level_completed[4]; /* 0x04 — per-difficulty completion flags */
 } _single_player_level_data;
 
 extern _single_player_level_data single_player_level_data[10];

@@ -4,6 +4,7 @@
  * index and, for every bsp2d_reference whose plane is on the stack, projects the sphere centre into that plane's
  * dominant axis and runs bsp2d_test_sphere_recursive. Faithful transcription. */
 
+#include <stdint.h>
 #include "headers/test_sphere_data.h"
 #include "headers/collision_leaf.h"
 #include "headers/bsp2d_reference.h"
@@ -11,7 +12,7 @@
 #include "headers/real_plane3d.h"
 #include "headers/real_point2d.h"
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float);
 extern void bsp2d_test_sphere_recursive(test_sphere_data *data, int child_index);
 
@@ -79,7 +80,7 @@ leaf:
                 int stack_pos = 0;
                 while ( data->plane_stack[stack_pos] != reference_plane )
                 {
-                    stack_pos = (__int16)(stack_pos + 1);
+                    stack_pos = (int16_t)(stack_pos + 1);
                     if ( stack_pos >= data->stack_depth )
                         goto next_reference;
                 }
@@ -97,7 +98,7 @@ leaf:
                 projected[1] = (plane[1] * pushed) + center->n[1];
                 projected[2] = (plane[2] * pushed) + center->n[2];
 
-                __int16 axis;
+                int16_t axis;
                 if ( az < ay || az < ax )
                     axis = (ay >= ax);
                 else
@@ -105,7 +106,7 @@ leaf:
                 data->projection_axis = axis;
                 BOOL plane_positive = plane[axis] > 0.0;
                 int sign_intermediate = (reference_entry->plane_index < 0) - plane_positive;
-                unsigned __int8 sign =
+                uint8_t sign =
                     sign_intermediate - (-(reference_entry->plane_index >= 0) - plane_positive + (sign_intermediate == 0));
                 data->projection_sign = sign;
                 int map = 2 * axis + sign;

@@ -31,7 +31,7 @@ uint8_t hs_parse_nonprimitive(int expression_index)
 {
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
     hs_syntax_node *head = &HS_SYNTAX_NODE(node->data);   /* first child: the name */
-    __int16 expected_type = node->type;
+    int16_t expected_type = node->type;
 
     if ( (head->flags & (1u << _hs_syntax_node_primitive_bit)) == 0 )
     {
@@ -67,7 +67,7 @@ uint8_t hs_parse_nonprimitive(int expression_index)
     if ( (node->flags & (1u << _hs_syntax_node_script_bit)) != 0 )       /* script call */
     {
         hs_script *script = &((hs_script *)global_scenario->hs_scripts.address)[function_index];
-        __int16 script_type = script->script_type;
+        int16_t script_type = script->script_type;
         if ( script_type != _hs_script_static && script_type != _hs_script_stub )
         {
             hs_compile_globals.__noop = "this is not a static script.";
@@ -116,7 +116,7 @@ uint8_t hs_parse_nonprimitive(int expression_index)
     }
     if ( !node->type )
     {
-        __int16 return_type = function->return_type;
+        int16_t return_type = function->return_type;
         if ( return_type != hs_passthrough )    /* leave <passthrough> slots untyped */
             node->type = return_type;
     }

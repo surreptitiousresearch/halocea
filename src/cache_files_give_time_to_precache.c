@@ -30,7 +30,7 @@ int cache_files_give_time_to_precache(const char *map_name, uint8_t fatal)
     if ( cache_files_precache_in_progress() )
     {
         float status;
-        __int16 precache_status = cache_files_precache_map_status(&status);
+        int16_t precache_status = cache_files_precache_map_status(&status);
         if ( precache_status == _cached_map_file_failed )
         {
             if ( fatal )

@@ -3,6 +3,7 @@
  * -1 -> 0x8000 so the high bit stays clear), and updates the free index and counts. Returns the
  * packed handle (identifier in the high word, absolute index in the low word) or -1 if full. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/datum_index.h"
 
@@ -11,20 +12,20 @@ extern void *memset(void *dst, int value, unsigned int n);
 int datum_new(data_array *data)
 {
     int size = data->size;
-    __int16 maximum_count = data->maximum_count;
+    int16_t maximum_count = data->maximum_count;
     int first_free_absolute_index = data->first_free_absolute_index;
-    __int16 *slot = (__int16 *)((char *)data->data + first_free_absolute_index * size);
+    int16_t *slot = (int16_t *)((char *)data->data + first_free_absolute_index * size);
 
     if ( first_free_absolute_index < maximum_count )
     {
-        __int16 next_identifier;
-        __int16 actual_count;
+        int16_t next_identifier;
+        int16_t actual_count;
         int count;
 
         while ( *slot )
         {
-            slot = (__int16 *)((char *)slot + size);
-            first_free_absolute_index = (__int16)(first_free_absolute_index + 1);
+            slot = (int16_t *)((char *)slot + size);
+            first_free_absolute_index = (int16_t)(first_free_absolute_index + 1);
             if ( first_free_absolute_index >= data->maximum_count )
                 return -1;
         }

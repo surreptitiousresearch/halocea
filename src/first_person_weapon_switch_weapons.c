@@ -67,11 +67,11 @@ void first_person_weapon_switch_weapons(int16_t local_player_index)
         goto predict;
 
     fp_weapon->overlay_animation_index = -1;
-    __int16 overlay_animation;
+    int16_t overlay_animation;
     if ( animation_set->animations.count <= _first_person_weapon_animation_overlays )
         overlay_animation = -1;
     else
-        overlay_animation = ((__int16 *)animation_set->animations.address)[_first_person_weapon_animation_overlays];
+        overlay_animation = ((int16_t *)animation_set->animations.address)[_first_person_weapon_animation_overlays];
     if ( overlay_animation != -1
       && ((animation *)graph->animations.address)[overlay_animation].frame_count >= 9 )
         fp_weapon->overlay_animation_index = overlay_animation;
@@ -81,7 +81,7 @@ void first_person_weapon_switch_weapons(int16_t local_player_index)
         fp_weapon->hands_node_remapping_table_valid = model_build_remapping_table_for_animation_graph(
             hands_model, first_person_animation_graph, fp_weapon->hands_node_remapping_table);
 
-    unsigned __int8 weapon_table_valid = model_build_remapping_table_for_animation_graph(
+    uint8_t weapon_table_valid = model_build_remapping_table_for_animation_graph(
         definition->weapon.interface_definition.first_person_model.index, first_person_animation_graph,
         fp_weapon->weapon_node_remapping_table);
     fp_weapon->weapon_node_remapping_table_valid = weapon_table_valid;

@@ -45,7 +45,7 @@ extern detail_object_cell_definition *get_lower_bound_cell(detail_object_cell_de
 extern detail_object_cell_definition * get_upper_bound_cell(detail_object_cell_definition *begin, detail_object_cell_definition *end, detail_object_cell_coord *key);
 int structure_render_detail_objects(void)
 {
-    __int16 result = local_player_count();
+    int16_t result = local_player_count();
     if (result != 1 || render.local_player_index == 0xFFFF)
         return result;
 
@@ -54,9 +54,9 @@ int structure_render_detail_objects(void)
             : nullptr;
     struct detail_object_global_runtime_data *runtime_data = detail_object_global_runtime_data;
 
-    __int16 camera_cell_x = (__int16)(render.camera.position.n[0] * 0.125f - 0.5f);
-    __int16 camera_cell_y = (__int16)(render.camera.position.n[1] * 0.125f - 0.5f);
-    __int16 camera_cell_z = (__int16)(render.camera.position.n[2] * 0.125f - 0.5f);
+    int16_t camera_cell_x = (int16_t)(render.camera.position.n[0] * 0.125f - 0.5f);
+    int16_t camera_cell_y = (int16_t)(render.camera.position.n[1] * 0.125f - 0.5f);
+    int16_t camera_cell_z = (int16_t)(render.camera.position.n[2] * 0.125f - 0.5f);
 
     if (!table->valid)
         return result;
@@ -70,7 +70,7 @@ int structure_render_detail_objects(void)
             || !player0->last_cell_coord.initialized
             || (table->valid & 2) != 0)
     {
-        unsigned __int16 layer_object_counts[32];
+        uint16_t layer_object_counts[32];
         memset(layer_object_counts, 0, sizeof(layer_object_counts));
         unsigned int layer_mask_union = 0;
 
@@ -80,14 +80,14 @@ int structure_render_detail_objects(void)
         player0->last_cell_coord.z = camera_cell_z;
         player0->last_cell_coord.initialized = 1;
 
-        for (__int16 x_delta = -1; x_delta <= 1; x_delta++)
+        for (int16_t x_delta = -1; x_delta <= 1; x_delta++)
         {
-            for (__int16 y_delta = -1; y_delta <= 1; y_delta++)
+            for (int16_t y_delta = -1; y_delta <= 1; y_delta++)
             {
-                __int16 query_x = camera_cell_x - x_delta;
-                __int16 query_y = camera_cell_y - y_delta;
-                __int16 query_z_lo = camera_cell_z - 1;
-                __int16 query_z_hi = query_z_lo + 3;
+                int16_t query_x = camera_cell_x - x_delta;
+                int16_t query_y = camera_cell_y - y_delta;
+                int16_t query_z_lo = camera_cell_z - 1;
+                int16_t query_z_hi = query_z_lo + 3;
 
                 detail_object_bsp_cell_index *cell_indices = (detail_object_bsp_cell_index *)table->cells.address;
                 int cell_count = table->cells.count;
@@ -118,7 +118,7 @@ int structure_render_detail_objects(void)
                         if (z_diff <= 1)
                         {
                             int first_object_index = 0;
-                            __int16 vertex_table_index = 0;
+                            int16_t vertex_table_index = 0;
                             layer_mask_union |= entry->valid_layers;
 
                             for (int layer = 0; layer < 32; layer++)
@@ -131,13 +131,13 @@ int structure_render_detail_objects(void)
                                     detail_object_cell_data *cell = &player0->cells[layer][slot];
                                     cell->cell_x = entry->cell_x;
                                     cell->cell_y = entry->cell_y;
-                                    cell->cell_z = ((unsigned __int16)entry->offset_z * 0.0039215689f)
+                                    cell->cell_z = ((uint16_t)entry->offset_z * 0.0039215689f)
                                             + (float)entry->cell_z;
                                     cell->first_detail_object_index = entry->start_index
                                             + first_object_index;
 
                                     int vertex_index = entry->count_index + vertex_table_index;
-                                    unsigned __int16 detail_object_count = ((unsigned __int16 *)table->detail_objects_counts.address)[vertex_index];
+                                    uint16_t detail_object_count = ((uint16_t *)table->detail_objects_counts.address)[vertex_index];
                                     cell->detail_object_count = detail_object_count;
 
                                     cell->z_reference_vector = table->detail_object_z_reference_vectors.count

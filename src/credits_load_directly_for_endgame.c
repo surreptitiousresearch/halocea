@@ -6,7 +6,7 @@
 typedef struct widget_instance widget_instance;
 
 extern int tag_loaded(uint32_t group_tag, const char *name);
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 widget_instance *credits_load_directly_for_endgame(void)
 {

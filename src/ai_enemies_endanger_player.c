@@ -54,7 +54,7 @@ uint8_t ai_enemies_endanger_player(uint8_t must_be_attacking)
                 actor_datum *actor = DATUM_GET(actor_data, actor_datum, prop->owner_actor_index);
                 int object_index = actor->meta.swarm ? actor->meta.swarm_unit_index : actor->meta.unit_index;
 
-                unsigned __int8 engaging = 0;
+                uint8_t engaging = 0;
                 /* the unit's definition tag: unit-block flag 0x80000 marks "can endanger the player" */
                 unit_datum *object_data = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);
                 unit_definition *object_tag = TAG_GET(unit_definition, object_data->definition_index);
@@ -69,7 +69,7 @@ uint8_t ai_enemies_endanger_player(uint8_t must_be_attacking)
 
                 if ( !engaging )
                 {
-                    __int16 state = prop->state;
+                    int16_t state = prop->state;
 
                     if ( state < _prop_state_uninspected_orphan || state > _prop_state_inspected_orphan )
                     {

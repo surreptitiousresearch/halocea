@@ -30,7 +30,7 @@ void unit_drop_current_weapon_to_network(int unit_index, uint8_t immediate)
     message.weapon_to_drop = -1;
 
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-    __int16 weapon_slot = unit->unit.current_weapon_index;
+    int16_t weapon_slot = unit->unit.current_weapon_index;
     int weapon_object_index = -1;
     if ( weapon_slot != -1 )
         weapon_object_index = unit->unit.weapon_object_indices[weapon_slot];

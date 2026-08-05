@@ -10,7 +10,7 @@ extern void stub_engine_game_ending(void); /* prototype not in DB */
 extern void stub_engine_game_starting(void); /* prototype not in DB */
 extern void stub_engine_handle_client_message(int player_index, void *encoded_message, int16_t encoded_message_size);
 extern void stub_engine_handle_server_message(void *encoded_message, int16_t encoded_message_size);
-extern unsigned __int8 stub_engine_initialize_for_new_map(void);
+extern uint8_t stub_engine_initialize_for_new_map(void);
 extern void stub_engine_player_added(int player_index);
 extern void stub_engine_player_damaged_player(int killing_player_index, int dead_player_index, uint8_t friendly_fire);
 extern void stub_engine_player_killed_player(int killing_player_index, int killing_object_index, int dead_player_index, uint8_t friendly_fire);

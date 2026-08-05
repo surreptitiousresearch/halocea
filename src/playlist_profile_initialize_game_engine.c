@@ -18,7 +18,7 @@ uint8_t playlist_profile_initialize_game_engine(widget_instance *widget, event_r
     if ( !edit_playlist_profile )
         return 0;
 
-    __int16 chooser_index;
+    int16_t chooser_index;
     if ( (unsigned int)(edit_playlist_profile->game_engine_index - 1) > 4
         || edit_playlist_profile->game_engine_index == game_engine_ctf )
     {

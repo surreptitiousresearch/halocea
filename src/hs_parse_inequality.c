@@ -26,7 +26,7 @@ int hs_parse_inequality(int16_t function_index, int expression_index)
 
     int left = operands[0];
     int right = operands[1];
-    __int16 comparison_type;
+    int16_t comparison_type;
     int other;
 
     if ( hs_parse(left, hs_unparsed) && (comparison_type = HS_SYNTAX_NODE(left).type, HS_TYPE_IS_ORDERABLE(comparison_type)) )

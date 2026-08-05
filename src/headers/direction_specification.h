@@ -4,6 +4,7 @@
  * the payload as anonymous-union member ___u1 of type _0CF8C33058599A7874B328E992B5BEAC ($-name kept
  * verbatim; $ in identifiers is an MSVC extension — argb_color.h convention). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 
@@ -18,7 +19,7 @@ typedef union _0CF8C33058599A7874B328E992B5BEAC
 
 typedef struct direction_specification
 {
-    __int16 type;                              /* 0x00 */
-    __int16 _pad02;                            /* 0x02 */
+    int16_t type;                              /* 0x00 */
+    int16_t _pad02;                            /* 0x02 */
     _0CF8C33058599A7874B328E992B5BEAC ___u1;   /* 0x04 (12 bytes) */
 } direction_specification;                     /* 16 bytes */

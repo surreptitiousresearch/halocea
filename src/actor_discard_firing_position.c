@@ -24,7 +24,7 @@ void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position
         actor->firing_positions.discarded_firing_positions[ring_index].index = firing_position_index;
 
         encounter_definition *encounter =
-            &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)actor->meta.encounter_index];
+            &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)actor->meta.encounter_index];
         actor->firing_positions.next_discarded_firing_positions_entry =
             (actor->firing_positions.next_discarded_firing_positions_entry + 1) % 4;
 

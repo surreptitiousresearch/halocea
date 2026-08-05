@@ -30,7 +30,7 @@ void actor_kill(int actor_index, uint8_t silent, uint8_t delayed)
             {
                 unit_datum *object = (unit_datum *)
                     DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit)->datum;
-                __int16 flags = object->object.damage_flags;
+                int16_t flags = object->object.damage_flags;
                 object->object.damage_flags = flags | (silent ? (1 << _object_die_act_of_god_silent_bit)
                                                        : (1 << _object_die_act_of_god_bit));
                 if ( !delayed )
@@ -44,7 +44,7 @@ void actor_kill(int actor_index, uint8_t silent, uint8_t delayed)
     {
         object_datum *object =
             DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, actor->meta.unit_index)->datum;
-        __int16 flags = object->object.damage_flags;
+        int16_t flags = object->object.damage_flags;
         object->object.damage_flags = flags | (silent ? (1 << _object_die_act_of_god_silent_bit)
                                                        : (1 << _object_die_act_of_god_bit));
         if ( !delayed )

@@ -8,6 +8,7 @@
  * child_widget_reference is accessed by raw offset (80-byte stride; flags@48, controller@52,
  * tag index@12, h-offset@56, v-offset@54) — its struct was not reconstructed. */
 
+#include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/child_widget_reference.h"
 #include "headers/ui_widget_definition.h"
@@ -17,7 +18,7 @@
 #include "headers/child_widget_flags.h"
 #include "headers/ui_widget_type.h"
 
-extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, __int16 local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, __int16 focused_child_index);
+extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 
 /* append `child` to the end of widget's children list */
 static void append_child(widget_instance *widget, widget_instance *child)
@@ -80,7 +81,7 @@ int ui_widget_load_children_recursive(widget_instance *widget, ui_widget_definit
     {
         child_widget_reference *ref =
             &((child_widget_reference *)widget_definition->child_widget_references.address)[i];
-        __int16 controller = widget->local_player_index;
+        int16_t controller = widget->local_player_index;
         int child_tag;
         widget_instance *child;
 

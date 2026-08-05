@@ -21,7 +21,7 @@
 #include "headers/ui_widget_list_flags.h"
 #include "headers/standard_repeat_delay.h"
 
-extern unsigned __int8 has_spinner_as_first_child(widget_instance *widget);
+extern uint8_t has_spinner_as_first_child(widget_instance *widget);
 extern uint32_t system_milliseconds(void);
 extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 extern void event_manager_queue_custom_activation_event(int16_t player_number);
@@ -30,12 +30,12 @@ int single_preview_column_list_item_activated(widget_instance *widget, event_rec
 {
     widget_instance *parent = widget->parent;
     widget_instance *child_iter = parent->children;
-    __int16 list_item_top_index = parent->parameters.list_parameters.list_item_top_index;
+    int16_t list_item_top_index = parent->parameters.list_parameters.list_item_top_index;
     ui_widget_definition *list_widget_definition =
         TAG_GET(ui_widget_definition, parent->ui_widget_tag_index);
     int item_slot_count = list_widget_definition->child_widget_references.count;
     int has_spinner = has_spinner_as_first_child(parent);
-    __int16 selected_list_item_index = parent->parameters.list_parameters.selected_list_item_index;
+    int16_t selected_list_item_index = parent->parameters.list_parameters.selected_list_item_index;
 
     /* an activation is a button press of the accept/back buttons, held for >250 ms since creation */
     char activated = event->type == event_type_button
@@ -78,7 +78,7 @@ scroll_from_last:
                     int new_top = visible_rows + list_item_top_index - 1;
                     if ( new_top >= number_of_items - visible_rows )
                         new_top = number_of_items - visible_rows;
-                    parent->parameters.list_parameters.list_item_top_index = (__int16)new_top;
+                    parent->parameters.list_parameters.list_item_top_index = (int16_t)new_top;
                     ui_play_audio_feedback_sound(_ui_audio_feedback_forward);
                     return 1;
                 }
@@ -90,14 +90,14 @@ scroll_from_last:
                 /* DEVIATION: original clamps via the branchless ((x>>31)-1)&x == max(0, x) */
                 int candidate = list_item_top_index - visible_rows + 1;
                 parent->parameters.list_parameters.list_item_top_index =
-                    (__int16)(candidate < 0 ? 0 : candidate);
+                    (int16_t)(candidate < 0 ? 0 : candidate);
                 ui_play_audio_feedback_sound(_ui_audio_feedback_forward);
                 return 1;
             }
 
 select_item:
             ui_play_audio_feedback_sound(_ui_audio_feedback_forward);
-            parent->parameters.list_parameters.selected_list_item_index = (__int16)running_item_index;
+            parent->parameters.list_parameters.selected_list_item_index = (int16_t)running_item_index;
             if ( activated && selected_list_item_index == running_item_index )
                 event_manager_queue_custom_activation_event(0);
             return 1;

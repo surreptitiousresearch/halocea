@@ -8,6 +8,7 @@
  * disasm_range(0x83702A58,0x83702AE0) confirms r3 (object_index) is never reassigned before the `bctr` —
  * the classic bctr-tail-call arg-loss pattern. Called with `object_index` restored. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
@@ -20,7 +21,7 @@ void object_type_incremental_sent(int object_index)
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     object_type_definition *type = object_type_definitions[object->object.type];
 
-    for ( __int16 i = 15; i >= 0; --i )
+    for ( int16_t i = 15; i >= 0; --i )
     {
         object_type_definition *part = type->part_definitions[i];
 

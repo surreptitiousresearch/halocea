@@ -11,6 +11,7 @@
  * rendered the 64-bit pending mask (3 << 61) as two dwords; restored as one array and one mask. The fcfid-free
  * float math is reproduced directly. */
 
+#include <stdint.h>
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/fog_definition_flags.h"
 #include "headers/render_planar_fog_mode.h"
@@ -25,7 +26,7 @@
 extern void *memcpy(void *destination, const void *source, unsigned int count);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 
 static float clamp_unit(float value)
 {
@@ -125,5 +126,5 @@ void _rasterizer_window_set_fog(const render_fog *fog)
     fog_constants[14] = clamp_unit(planar_maximum_density);
     fog_constants[15] = 3.0f;
 
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 6, fog_constants, 4, (unsigned __int64)3 << 61);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 6, fog_constants, 4, (uint64_t)3 << 61);
 }

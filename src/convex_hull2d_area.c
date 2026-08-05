@@ -9,7 +9,7 @@ float convex_hull2d_area(int16_t count, const real_point2d *points)
 {
     float area = 0.0f;
 
-    for ( __int16 i = 2; i < count; ++i )
+    for ( int16_t i = 2; i < count; ++i )
     {
         const real_point2d *previous = &points[i - 1];
         const real_point2d *current = &points[i];

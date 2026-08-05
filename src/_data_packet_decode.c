@@ -25,9 +25,9 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
                          int16_t version, int16_t *original_buffer, int16_t *byte_count_reference,
                          data_packet_field *first_field, int16_t *field_count_reference)
 {
-    __int16 buffer_start = (__int16)(int)original_buffer;
+    int16_t buffer_start = (int16_t)(int)original_buffer;
     data_packet_field *field = first_field;
-    __int16 *cursor = original_buffer;
+    int16_t *cursor = original_buffer;
 
     if ( first_field->type != __pack_end )
     {
@@ -83,7 +83,7 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
                     }
                     case __pack_data:
                     {
-                        __int16 array_count = data_decode_integer(decode_state, field->count);
+                        int16_t array_count = data_decode_integer(decode_state, field->count);
                         *cursor = array_count;
                         void *source = data_decode_memory(decode_state, array_count, 1);
                         if ( source )
@@ -92,18 +92,18 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
                     }
                     case __pack_array:
                     {
-                        __int16 array_count = data_decode_integer(decode_state, field->count);
-                        __int16 subfield_count = 0;
+                        int16_t array_count = data_decode_integer(decode_state, field->count);
+                        int16_t subfield_count = 0;
                         _data_packet_verify(packet_definition, 0, field + 1, &subfield_count);
                         if ( array_count < 0 || array_count > field->count )
                             array_count = 0;
                         *cursor = array_count;
                         char *element = (char *)(cursor + 1);
-                        for ( __int16 e = 0; e < array_count; e = (__int16)(e + 1) )
+                        for ( int16_t e = 0; e < array_count; e = (int16_t)(e + 1) )
                         {
-                            __int16 element_bytes = 0;
+                            int16_t element_bytes = 0;
                             _data_packet_decode(packet_definition, decode_state, version,
-                                                (__int16 *)element, &element_bytes, field + 1, 0);
+                                                (int16_t *)element, &element_bytes, field + 1, 0);
                             element += element_bytes;
                         }
                         field += subfield_count;
@@ -119,9 +119,9 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
                 }
             }
 
-            __int16 stride = field->size;
+            int16_t stride = field->size;
             ++field;
-            cursor = (__int16 *)((char *)cursor + stride);
+            cursor = (int16_t *)((char *)cursor + stride);
         }
         while ( field->type != __pack_end );
     }
@@ -129,5 +129,5 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
     if ( field_count_reference )
         *field_count_reference = field - first_field + 1;
     if ( byte_count_reference )
-        *byte_count_reference = (__int16)(int)cursor - buffer_start;
+        *byte_count_reference = (int16_t)(int)cursor - buffer_start;
 }

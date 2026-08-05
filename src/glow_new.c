@@ -43,7 +43,7 @@ int glow_new(int glow_definition_index)
                                                                         sprite->bitmap_index);
             glow->definition_index = glow_definition_index;
             glow->number_of_particles = definition->number_of_particles;
-            glow->bitmap_dimension = (__int16)(int)((sprite->bounds.n[1] - sprite->bounds.n[0])
+            glow->bitmap_dimension = (int16_t)(int)((sprite->bounds.n[1] - sprite->bounds.n[0])
                                                   * (float)bitmap->width);
         }
     }

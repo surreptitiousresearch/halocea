@@ -17,15 +17,15 @@ int16_t model_find_marker(int model_index, const char *name)
     if ( !*name )
         return -1;
 
-    __int16 low = 0;
+    int16_t low = 0;
     model *model_definition = TAG_GET(model, model_index);
-    __int16 high = (unsigned __int16)model_definition->markers.count - 1;
+    int16_t high = (uint16_t)model_definition->markers.count - 1;
     if ( high < 0 )
         return -1;
 
     while ( 1 )
     {
-        int mid = (__int16)((low + high) / 2);
+        int mid = (int16_t)((low + high) / 2);
         int cmp = stricmp(name, ((model_marker *)model_definition->markers.address)[mid].name);
         if ( !cmp )
             return mid;

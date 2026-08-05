@@ -12,7 +12,7 @@ void device_group_change_only_once_more_set_evaluate(int16_t function_index, int
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        device_group_change_only_once_more_set(*(__int16 *)arguments, ((unsigned char *)arguments)[4]);
+        device_group_change_only_once_more_set(*(int16_t *)arguments, ((unsigned char *)arguments)[4]);
         hs_return(thread_index, 0);
     }
 }

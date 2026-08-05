@@ -7,7 +7,7 @@
 
 extern game_variant *game_engine_get_variant(void);
 extern void usprintf(wchar_t *string, const wchar_t *format, ...);
-extern void ticks_to_unicode_time_string(int ticks, unsigned int count, unsigned __int16 *buffer);
+extern void ticks_to_unicode_time_string(int ticks, unsigned int count, uint16_t *buffer);
 
 uint16_t * oddball_get_team_score_string(int team_index, uint16_t *buffer)
 {

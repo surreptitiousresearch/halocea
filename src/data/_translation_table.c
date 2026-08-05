@@ -1,6 +1,7 @@
 /* .data init @0x84186DC8 (__int16[108]; consumers use unsigned __int16).
  * Behavior-index translation table; 0xFFFF = unused slot. */
-const unsigned __int16 _translation_table[108] =
+#include <stdint.h>
+const uint16_t _translation_table[108] =
 {
     37, 44, 42, 40, 46, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,

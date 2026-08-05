@@ -31,16 +31,16 @@ extern int unit_inventory_get_weapon(int unit_index, int16_t index);
 extern int16_t unit_get_weapon_count(int unit_index);
 extern void weapon_build_weapon_interface_state(int weapon_index, weapon_interface_state *state);
 extern float hcex_calculate_compass(int object_index);
-extern void hcex_update_weapon_state(__int16 local_player_index, const weapon_definition *w,
-                                     const weapon_interface_state *weapon_state, const __int16 *state_flags,
-                                     const __int16 *overlay_flags, const __int16 *numbers,
+extern void hcex_update_weapon_state(int16_t local_player_index, const weapon_definition *w,
+                                     const weapon_interface_state *weapon_state, const int16_t *state_flags,
+                                     const int16_t *overlay_flags, const int16_t *numbers,
                                      const float *numbers_real, float compass_magnitude, weapon_datum *wpn);
 extern void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index, int hud_index, weapon_interface_state *weapon_state);
 extern void *memset(void *dst, int value, unsigned int count);
 
 void hud_update_weapon(void)
 {
-    __int16 local_player_index = local_player_get_next(-1);
+    int16_t local_player_index = local_player_get_next(-1);
 
     while (local_player_index != -1)
     {
@@ -66,7 +66,7 @@ void hud_update_weapon(void)
         if (weapon == -1)
         {
             int parent_unit_index = unit_object->object.parent_object_index;
-            __int16 parent_seat_index = (parent_unit_index != -1) ? unit_object->unit.parent_seat_index : -1;
+            int16_t parent_seat_index = (parent_unit_index != -1) ? unit_object->unit.parent_seat_index : -1;
             if (parent_unit_index != -1 && parent_seat_index != -1)
             {
                 unit_datum *parent_object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_unit_index)->datum;

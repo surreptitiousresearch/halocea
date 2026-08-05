@@ -14,22 +14,22 @@ extern int16_t local_player_count(void);
 
 int render_debug_detail_objects(void)
 {
-    __int16 result = local_player_count();
+    int16_t result = local_player_count();
 
-    if ( result == 1 && (unsigned __int16)render.local_player_index != 0xFFFF && debug_detail_objects )
+    if ( result == 1 && (uint16_t)render.local_player_index != 0xFFFF && debug_detail_objects )
     {
         detail_object_runtime_data *view = &detail_object_global_runtime_data->local_player_data[0];
 
         if ( view->view_data.layer_count > 0 )
         {
-            unsigned __int8 pulse_active = fudge_vector;
+            uint8_t pulse_active = fudge_vector;
             float offset = fudge_offset;
 
-            for ( __int16 layer_index = 0; layer_index < view->view_data.layer_count; layer_index++ )
+            for ( int16_t layer_index = 0; layer_index < view->view_data.layer_count; layer_index++ )
             {
                 detail_object_layer_data *layer = &view->layers[layer_index];
 
-                for ( __int16 cell_index = 0; cell_index < layer->cell_count; cell_index++ )
+                for ( int16_t cell_index = 0; cell_index < layer->cell_count; cell_index++ )
                 {
                     if ( pulse_active )
                     {

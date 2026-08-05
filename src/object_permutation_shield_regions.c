@@ -24,14 +24,14 @@ void object_permutation_shield_regions(int object_index, uint8_t active)
 
     if ( collision->resistance.regions.count > 0 )
     {
-        __int16 i = 0;
+        int16_t i = 0;
         do
         {
             damage_region *region = &((damage_region *)collision->resistance.regions.address)[i];
             if ( (region->flags & (1u << _object_region_missing_when_shield_is_zero_bit)) != 0 && region->permutations.count > 1 )
                 /* cntlzw(active)&0x20 is non-zero exactly when active == 0 */
                 object->object.region_permutations[i] = (active == 0);
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
         }
         while ( i < collision->resistance.regions.count );
     }

@@ -14,7 +14,7 @@ extern uint8_t create_global_network_game_client(void);
 extern void game_connection_set(int16_t new_connection);
 
 uint8_t network_game_server_list_initialize(widget_instance *widget, event_record *event,
-        unsigned __int8 *widget_deleted)
+        uint8_t *widget_deleted)
 {
     dispose_global_network_game_client();
     dispose_global_network_game_server();

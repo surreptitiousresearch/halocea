@@ -41,7 +41,7 @@ uint8_t particle_system_initialize(int new_system_index)
     if ( emitter_count > 0 )
     {
         int i;
-        for ( i = 0; i < emitter_count; i = (__int16)(i + 1) )
+        for ( i = 0; i < emitter_count; i = (int16_t)(i + 1) )
         {
             particle_system_type *emitter =
                 &((particle_system_type *)definition->types.address)[i];

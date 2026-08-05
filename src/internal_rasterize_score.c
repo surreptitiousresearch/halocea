@@ -17,7 +17,7 @@ extern void usnprintf(wchar_t *string, unsigned int size, const wchar_t *format,
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 extern void ustrncat(wchar_t *dest, const wchar_t *source, unsigned int count);
 extern unsigned int ustrlen(const wchar_t *string);
-extern void ticks_to_unicode_time_string(int ticks, unsigned int count, unsigned __int16 *buffer);
+extern void ticks_to_unicode_time_string(int ticks, unsigned int count, uint16_t *buffer);
 extern void game_engine_play_multiplayer_sound(int index, uint8_t should_replicate);
 extern const wchar_t empty_wide_string; /* empty-string sentinel */
 

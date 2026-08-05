@@ -78,7 +78,7 @@ extern void D3DDevice_SetRenderState_DestBlend(D3DDevice *device, unsigned int b
 extern void D3DDevice_SetRenderState_BlendOp(D3DDevice *device, unsigned int op);
 extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-    const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+    const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 
 void _rasterizer_psuedo_dynamic_screen_quad_draw(
     const rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices)
@@ -128,7 +128,7 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
     vs_screen_transform[17] = parameters->map_texture_scale[0].n[1];
     vs_screen_transform[18] = 0.0f;
     vs_screen_transform[19] = 1.0f;
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vs_screen_transform, 5u, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, vs_screen_transform, 5u, (uint64_t)3 << 59);
 
     /* c18..c23 (6 vec4): map1/map2 UV scale, per-map screen anchor flags, per-map UV offset, per-map scale. */
     float vs_map_params[24];
@@ -156,7 +156,7 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
     vs_map_params[21] = parameters->map_scale[2].n[1];
     vs_map_params[22] = 0.0f;
     vs_map_params[23] = 0.0f;
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x12, vs_map_params, 6u, (unsigned __int64)3 << 58);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0x12, vs_map_params, 6u, (uint64_t)3 << 58);
 
     /* Bind up to three texture stages, stopping at the first unset map. Wrap state pokes match the
      * established AddressU/V_Inline idiom: wrapped != 0 -> 0 (hardware default/wrap), wrapped == 0 -> the
@@ -182,8 +182,8 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
     {
         /* "Meter" path: a two-color-bar effect. meter_parameters is only ever indexed as raw bytes in the
          * binary (alpha ref + two RGBA colors quantized to [0,255]); its pointee layout is not resolved. */
-        const unsigned __int8 *meter = (const unsigned __int8 *)parameters->meter_parameters;
-        unsigned __int8 meter_alpha_reference = meter[0];   /* byte 0: alpha ref, doubles as pass-1 alpha */
+        const uint8_t *meter = (const uint8_t *)parameters->meter_parameters;
+        uint8_t meter_alpha_reference = meter[0];   /* byte 0: alpha ref, doubles as pass-1 alpha */
 
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
         D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, 3u);
@@ -203,7 +203,7 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
         pixel_shader_constants[5] = 0.0f;
 
         rasterizer_dx9_shader *meter_shader = rasterizer_shader_select(_dxshader_dyn_geom);
-        unsigned __int8 first_pass_ok =
+        uint8_t first_pass_ok =
             _rasterizer_psuedo_dynamic_screen_quad_draw_fx(parameters, vertices, meter_shader, pixel_shader_constants) != 0;
 
         D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, 4u);
@@ -231,7 +231,7 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
      * (r,g,b,alpha) into c3 (real_argb_color is {alpha,r,g,b}, so n[1],n[2],n[3],n[0]). */
     const real_rgb_color *tint0 = parameters->map_tint[0] ? parameters->map_tint[0] : global_real_rgb_white;
     float fade0 = parameters->map_fade[0] ? *parameters->map_fade[0] : 1.0f;
-    __int16 shader_index;
+    int16_t shader_index;
     rasterizer_dx9_shader *tint_shader;
 
     if ( parameters->map[1] || parameters->map[2] )

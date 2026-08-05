@@ -41,7 +41,7 @@ extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask1);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask1);
 extern void D3DDevice_SetSamplerState_AddressU_Inline(D3DDevice *device, unsigned int sampler, unsigned int value);
 extern void D3DDevice_SetSamplerState_AddressV_Inline(D3DDevice *device, unsigned int sampler, unsigned int value);
 extern void D3DDevice_SetSamplerState_MagFilter(D3DDevice *device, unsigned int sampler, unsigned int value);
@@ -54,7 +54,7 @@ extern void D3DDevice_SetRenderState_AlphaBlendEnable(D3DDevice *device, unsigne
 extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, _D3DPRIMITIVETYPE primitive_type, unsigned int vertex_count,
         const void *vertex_data, unsigned int stride);
 
@@ -73,7 +73,7 @@ void rasterizer_render_target_test_target(int16_t target, const rectangle2d *bou
     ID3DXEffect_BeginPass(shader->effect, 0);
 
     float pixel_constants[8] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
-    D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constants, 2, (unsigned __int64)1 << 63);
+    D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, pixel_constants, 2, (uint64_t)1 << 63);
 
     D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
     D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
@@ -120,7 +120,7 @@ void rasterizer_render_target_test_target(int16_t target, const rectangle2d *bou
         0.0f, 0.0f, 0.0f, 1.0f,
         1.0f, 1.0f, 0.0f, 0.0f,
     };
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, view_constants, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, view_constants, 5, (uint64_t)3 << 59);
 
     D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4, vertices, sizeof(dynamic_screen_vertex));
 

@@ -11,7 +11,7 @@
 void AllSame(S3TC_COLOR *pcolor, S3TCBlockRGB *pblock, uint16_t wAlpha)
 {
     S3TC_COLOR color = *pcolor;
-    unsigned __int16 rgb565 = (unsigned __int16)(((8 * (((32 * pcolor->rgba[2]) & 0xFF00) | pcolor->rgba[1])) & 0xFFE0)
+    uint16_t rgb565 = (uint16_t)(((8 * (((32 * pcolor->rgba[2]) & 0xFF00) | pcolor->rgba[1])) & 0xFFE0)
         | (pcolor->rgba[0] >> 3));
 
     pblock->pixbm = 0;
@@ -29,7 +29,7 @@ void AllSame(S3TC_COLOR *pcolor, S3TCBlockRGB *pblock, uint16_t wAlpha)
             pblock->pixbm |= (3u << (2 * i));
     }
 
-    rgb565 = (unsigned __int16)(((8 * (((32 * color.rgba[2]) & 0xFF00) | color.rgba[1])) & 0xFFE0)
+    rgb565 = (uint16_t)(((8 * (((32 * color.rgba[2]) & 0xFF00) | color.rgba[1])) & 0xFFE0)
         | (color.rgba[0] >> 3));
     pblock->rgb0 = rgb565;
     pblock->rgb1 = rgb565;

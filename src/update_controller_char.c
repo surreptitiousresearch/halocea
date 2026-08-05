@@ -1,9 +1,10 @@
+#include <stdint.h>
 #include "headers/vector_char_difference_data.h"
 #include "headers/direction_playback_controller.h"
 
 void update_controller_char(const vector_char_difference_data *event_data, direction_playback_controller *control)
 {
-    __int16 yaw = event_data->delta_yaw + control->yaw;
+    int16_t yaw = event_data->delta_yaw + control->yaw;
 
     control->yaw = yaw;
     if ( yaw <= 1000 )

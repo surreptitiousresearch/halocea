@@ -4,6 +4,7 @@
  * vector by player index; reproduced as compiled. The compiled 4x-unrolled rotate-mask popcount is written
  * as a plain 32-bit bit count. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/race_globals.h"
 #include "headers/get_score_type.h"
@@ -18,7 +19,7 @@ int race_engine_get_score(int player_index, get_score_type get_score_type)
     if ( get_score_type == _get_score_team )
         return race_globals.team_laps[player->team_index];
 
-    __int16 laps = player->statistics.multiplayer_statistics.ctf_statistics.flag_returns;
+    int16_t laps = player->statistics.multiplayer_statistics.ctf_statistics.flag_returns;
     int checkpoint_bits = race_globals.lap_bit_vector[player->team_index];
     int checkpoints = 0;
     for ( int bit = 0; bit < 32; bit++ )

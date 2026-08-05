@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -16,7 +17,7 @@ int objOBJ::_UnshareTexCoord(unsigned int tcInd)
     if (!this->pGeom || tcInd > 4)
         return 0;
 
-    unsigned __int64 shareBit = (unsigned __int64)0x800 << tcInd; // OBJ_ST_SHARED_TEXCOORD<tcInd>
+    uint64_t shareBit = (uint64_t)0x800 << tcInd; // OBJ_ST_SHARED_TEXCOORD<tcInd>
     if ((this->stateShare.state & shareBit) == 0)
         return 1; // already private
 
@@ -33,7 +34,7 @@ int objOBJ::_UnshareTexCoord(unsigned int tcInd)
 
     int stride = 8;
     objGEOM_UNSHARED *pGeom = this->pGeom;
-    if (pGeom && (pGeom->pSharedGeom->stateCompr.state & ((unsigned __int64)0x100 << tcInd)) != 0)
+    if (pGeom && (pGeom->pSharedGeom->stateCompr.state & ((uint64_t)0x100 << tcInd)) != 0)
         stride = 4;
 
     memcpy(GetTexCoordList(tcInd), oldList, (size_t)this->nVert * stride);

@@ -50,7 +50,7 @@ void actor_move_calculate_controlled_by_aiming(uint8_t move_in_3d,
     candidates[3].n[1] = -candidates[2].n[1];
     candidates[3].n[2] = -candidates[2].n[2];
 
-    __int16 best_index = -1;
+    int16_t best_index = -1;
     float best_aim_dot = 0.0f;
     float best_facing_dot = 0.0f;
     for ( int index = 0; index < 4; ++index )
@@ -84,7 +84,7 @@ void actor_move_calculate_controlled_by_aiming(uint8_t move_in_3d,
 
         if ( accept )
         {
-            best_index = (__int16)index;
+            best_index = (int16_t)index;
             best_aim_dot = aim_dot;
             best_facing_dot = facing_dot;
         }

@@ -19,7 +19,7 @@ void input_abstraction_update(void) /* attested void: tail restgprlr, 0/1 caller
     short *m;
     int i;
     int result = 0;
-    __int16 mode_code;
+    int16_t mode_code;
 
     input_abstraction_globals.all_idle = 1;
     input_key_debounce_update();

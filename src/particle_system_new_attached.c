@@ -2,8 +2,8 @@
  * global render_particle_systems_enabled. Allocates a particle-system datum (344-byte stride), records
  * definition/object/attachment and the per-attachment function index (object definition dword 81 =
  * attachments block, 72-byte records: function word @+48, change-color node word @+52, marker name
- * @+16). When a change-color node is present it samples that node's color (object_data node block at
- * +110/+111/+112) with full alpha, else uses ARGB white. Resolves the marker position, samples object
+ * @+16). When a change-color node is present it samples the object's outgoing_change_colors entry
+ * with full alpha, else uses ARGB white. Resolves the marker position, samples object
  * velocity (scaled to per-second by *30), seeds the tint to RGB white, evaluates the density function
  * into the flags, and initializes the system. Returns the index, or -1 (deleting the datum on
  * initialize failure). */
@@ -42,7 +42,6 @@ int particle_system_new_attached(int definition_index, int object_index, int16_t
     particle_system_datum *ps =
         DATA_ARRAY_ELEMENT(particle_systems, particle_system_datum, particle_system_index);
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
-    int *object_data = (int *)object;
     object_attachment_definition *attachments = (object_attachment_definition *)
         TAG_GET(_object_definition, object->definition_index)->attachments.address;
 
@@ -52,14 +51,16 @@ int particle_system_new_attached(int definition_index, int object_index, int16_t
     ps->attachment_index = attachment_index;
     ps->function_index = attachment_ref->primary_scale_function_reference - 1;
 
-    __int16 change_color_node = attachment_ref->change_color_reference;
+    int16_t change_color_node = attachment_ref->change_color_reference;
     if ( change_color_node )
     {
-        int *node_color = &object_data[3 * change_color_node];
-        *(int *)&ps->color.n[1] = node_color[110];
-        *(int *)&ps->color.n[2] = node_color[111];
+        /* DEVIATION: decompiler word-punned this rgb copy through a flat int view of the object;
+         * base 0x1B8 from the datum = _object_datum+0x1B4 = outgoing_change_colors[change_color_node]. */
+        const real_rgb_color *node_color = &object->object.outgoing_change_colors[change_color_node];
+        ps->color.n[1] = node_color->n[0];
+        ps->color.n[2] = node_color->n[1];
         ps->color.n[0] = 1.0;
-        *(int *)&ps->color.n[3] = node_color[112];
+        ps->color.n[3] = node_color->n[2];
     }
     else
     {

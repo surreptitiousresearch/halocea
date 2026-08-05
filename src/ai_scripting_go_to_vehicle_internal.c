@@ -14,9 +14,9 @@
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
-extern __int16 vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
-                                                      __int16 seat_desire_type, __int16 *seat_indices,
-                                                      __int16 seat_max_indices);
+extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
+                                                      int16_t seat_desire_type, int16_t *seat_indices,
+                                                      int16_t seat_max_indices);
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
 extern void qsort(void *base, unsigned int count, unsigned int size,
@@ -30,12 +30,12 @@ void ai_scripting_go_to_vehicle_internal(int ai_index, int unit_index, const cha
     if ( ai_index == -1 || !vehicle )
         return;
 
-    __int16 candidate_count = 0;
+    int16_t candidate_count = 0;
     real_point3d vehicle_origin;
     object_get_origin(unit_index, &vehicle_origin);
 
-    __int16 seat_indices[16];
-    __int16 available_seats = vehicle_scripting_find_available_seats(unit_index, seat_substring_name, -1, seat_indices, 16);
+    int16_t seat_indices[16];
+    int16_t available_seats = vehicle_scripting_find_available_seats(unit_index, seat_substring_name, -1, seat_indices, 16);
     if ( available_seats <= 0 )
         return;
 
@@ -60,7 +60,7 @@ void ai_scripting_go_to_vehicle_internal(int ai_index, int unit_index, const cha
 
     int total = candidate_count;
     qsort(candidates, candidate_count, sizeof(vehicle_scripting_candidate), ai_scripting_vehicle_candidate_qsort);
-    for ( int i = 0; i < total; i = (__int16)(i + 1) )
+    for ( int i = 0; i < total; i = (int16_t)(i + 1) )
     {
         if ( candidates[i].already_going_to_vehicle && !override_previous_vehicles )
             break;

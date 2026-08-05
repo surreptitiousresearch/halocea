@@ -19,7 +19,7 @@ extern "C" int hcex_plr_is_act_camo(int idx)
     if ( idx >= local_player_count() )
         return 0;
 
-    int player_index = local_player_get_player_index((__int16)idx);
+    int player_index = local_player_get_player_index((int16_t)idx);
     if ( player_index == -1 )
         return 0;
 

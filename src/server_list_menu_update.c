@@ -44,8 +44,8 @@ extern char *strstr(const char *haystack, const char *needle);
 void server_list_menu_update(widget_instance *widget)
 {
     advertised_game_data **server_slot;
-    unsigned __int16 *text;
-    __int16 string_list_index;
+    uint16_t *text;
+    int16_t string_list_index;
     widget_instance *children;
 
     /* re-zero the whole displayed_servers[9] array every update, regardless of the network state below */
@@ -94,7 +94,7 @@ void server_list_menu_update(widget_instance *widget)
     }
 
     unsigned int current_time = system_milliseconds();
-    __int16 selected_index = widget->parameters.text_box_parameters.string_list_index;
+    int16_t selected_index = widget->parameters.text_box_parameters.string_list_index;
     unsigned int elapsed_since_creation = current_time - widget->creation_time;
 
     widget_instance *game_type_icon = widget->parameters.list_parameters.extended_description->children;
@@ -130,7 +130,7 @@ void server_list_menu_update(widget_instance *widget)
             }
         }
 
-        __int16 map_icon_frame;
+        int16_t map_icon_frame;
         if ( strstr(selected_server->map.name, "beavercreek") )
         {
             map_icon_frame = 0;
@@ -198,7 +198,7 @@ void server_list_menu_update(widget_instance *widget)
         map_icon->animation_data.current_frame_index = map_icon_frame;
 
 map_icon_set:
-        __int16 status_string_index = 20;
+        int16_t status_string_index = 20;
         if ( selected_server->open != 1 )
             status_string_index = 21;
         status_text->parameters.text_box_parameters.string_list_index = status_string_index;
@@ -223,7 +223,7 @@ map_icon_set:
 
         teams_text->parameters.text_box_parameters.string_list_index = (selected_server->teams_enabled == 1) ? _string_team_game : _string_free_for_all;
 
-        unsigned __int16 *player_count_buffer =
+        uint16_t *player_count_buffer =
                 ui_widget_realloc(player_count_text->parameters.text_box_parameters.text, 8u);
         player_count_text->parameters.text_box_parameters.text = player_count_buffer;
         if ( player_count_buffer )
@@ -232,7 +232,7 @@ map_icon_set:
             player_count_text->parameters.text_box_parameters.text[3] = 0;
         }
 
-        unsigned __int16 *score_buffer =
+        uint16_t *score_buffer =
                 ui_widget_realloc(score_text->parameters.text_box_parameters.text, 8u);
         score_text->parameters.text_box_parameters.text = score_buffer;
         if ( score_buffer )
@@ -290,13 +290,13 @@ map_icon_set:
     gametype_text->parameters.text_box_parameters.string_list_index = 1;
     teams_text->parameters.text_box_parameters.string_list_index = 1;
 
-    unsigned __int16 *player_count_buffer =
+    uint16_t *player_count_buffer =
             ui_widget_realloc(player_count_text->parameters.text_box_parameters.text, 8u);
     player_count_text->parameters.text_box_parameters.text = player_count_buffer;
     if ( player_count_buffer )
         *player_count_buffer = 0;
 
-    unsigned __int16 *score_buffer =
+    uint16_t *score_buffer =
             ui_widget_realloc(score_text->parameters.text_box_parameters.text, 8u);
     score_text->parameters.text_box_parameters.text = score_buffer;
     if ( score_buffer )

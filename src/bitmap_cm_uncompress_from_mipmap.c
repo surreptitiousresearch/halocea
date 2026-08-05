@@ -21,7 +21,7 @@ void bitmap_cm_uncompress_from_mipmap(const bitmap_data *source_bitmap, bitmap_d
 
     if ( source_face && source_face->base_address && destination_face && destination_face->base_address )
     {
-        for ( __int16 face_index = 0; face_index < 6; face_index++ )
+        for ( int16_t face_index = 0; face_index < 6; face_index++ )
         {
             bitmap_cube_map_face_extract(source_bitmap, source_mipmap_index, face_index, source_face);
             bitmap_2d_uncompress_from_mipmap(source_face, destination_face, 0);

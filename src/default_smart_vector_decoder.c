@@ -47,7 +47,7 @@ unsigned int default_smart_vector_decoder(const _field_properties_definition *co
     else
     {
         int common_vector_index = -1;
-        unsigned __int8 more_bit = 1;
+        uint8_t more_bit = 1;
         unsigned int unary_bits_read = 0;
 
         do

@@ -10,7 +10,7 @@
 extern _message_definition *message_delta_global_message_list[];
 extern uint8_t bitstream_initialize(bitstream_t *bit_stream, uint8_t *buffer, unsigned int first_bit, unsigned int bit_count, bitstream_mode mode);
 
-unsigned __int8 iterated_message_initialize(iterated_message *const message, void *const buffer,
+uint8_t iterated_message_initialize(iterated_message *const message, void *const buffer,
     const int buffer_size_in_bits, const message_delta_processor_mode mode,
     const message_delta_processor_message_definition_type definition_type)
 {
@@ -26,7 +26,7 @@ unsigned __int8 iterated_message_initialize(iterated_message *const message, voi
     message->bits_left = buffer_size_in_bits - iteration_independent_size_in_bits;
     message->iterations_written = 0;
 
-    unsigned __int8 result = bitstream_initialize(&message->iteration_independent_stream, buffer, 0,
+    uint8_t result = bitstream_initialize(&message->iteration_independent_stream, buffer, 0,
         iteration_independent_size_in_bits, _bitstream_mode_write) != 0;
 
     if ( result )

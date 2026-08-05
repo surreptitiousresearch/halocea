@@ -6,6 +6,7 @@
  * Typed via DB machine_definition: .device (_device_definition) @ +380, .function_modes __int16[4] @ +28
  * (380+28 = 408 = the word index 204 the decompiler showed). */
 
+#include <stdint.h>
 #include "../headers/data_array.h"
 #include "../headers/object_header_datum.h"
 #include "../headers/machine_datum.h"
@@ -29,7 +30,7 @@ extern "C" int hcex_machine_is_locked(int id)
     int slot = 0;
     while ( definition->device.function_modes[slot] != _device_function_locked )
     {
-        slot = (__int16)(slot + 1);
+        slot = (int16_t)(slot + 1);
         if ( slot >= 4 )   /* 4 == countof(function_modes) */
             return 0;
     }

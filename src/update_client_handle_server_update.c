@@ -56,7 +56,7 @@ void update_client_handle_server_update(game_update *new_update, int update_numb
 
     if ((unsigned int)game_connection() < _game_connection_film_playback && !main_menu_is_active())
     {
-        unsigned __int16 number_of_actions = new_update->number_of_actions;
+        uint16_t number_of_actions = new_update->number_of_actions;
         unsigned int random_seed = get_random_seed();
         if (!save_film_record_one_game_tick(update_number, random_seed, number_of_actions,
                                             new_update->actions))

@@ -1,8 +1,9 @@
 #pragma once
+#include <stdint.h>
 
 /* GPU_VERTEXREUSEBLOCKCONTROL - Xbox 360 D3D/GPU SDK type (external library boundary). DB-verified (types_members GPU_VERTEXREUSEBLOCKCONTROL). */
 typedef struct _CDEB2FA28DF011752353CC10A56290F0 { // DB types_members _CDEB2FA28DF011752353CC10A56290F0
-    unsigned __int32 VtxReuseDepth : 8;
+    uint32_t VtxReuseDepth : 8;
 } _CDEB2FA28DF011752353CC10A56290F0;
 
 typedef union GPU_VERTEXREUSEBLOCKCONTROL { // DB types_members GPU_VERTEXREUSEBLOCKCONTROL

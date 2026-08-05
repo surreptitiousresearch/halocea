@@ -16,7 +16,7 @@
 #include "headers/blam_data_globals.h"
 
 extern char *strtok(char *str, const char *delim);
-extern char *strncpy(char *, const char *, unsigned __int64);
+extern char *strncpy(char *, const char *, uint64_t);
 extern uint16_t get_console_test_flags(uint16_t extra_flags);
 extern int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **results, int16_t maximum_count, uint16_t console_flags_to_test);
 extern int stricmp(const char *a, const char *b);
@@ -59,7 +59,7 @@ uint8_t console_exec(char *filename)
         /* 0x2000: an extra hs symbol-category bit ORed into the enumeration mask; no DB enum
          * found for the hs_tokens_enumerate category flags (searched types_enum_values for
          * value 8192 / hs* token/script enums, src/headers/hs_*). Left raw. */
-        unsigned __int16 test_flags = get_console_test_flags(0x2000u);
+        uint16_t test_flags = get_console_test_flags(0x2000u);
         char is_known_function = 0;
         const char *tokens[256];
         int token_count = hs_tokens_enumerate(command, '(', tokens, 256, test_flags);
@@ -67,7 +67,7 @@ uint8_t console_exec(char *filename)
         {
             while ( stricmp(command, tokens[token_count - 1]) )
             {
-                token_count = (__int16)(token_count - 1);
+                token_count = (int16_t)(token_count - 1);
                 if ( token_count <= 0 )
                     break;
             }

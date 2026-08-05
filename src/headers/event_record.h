@@ -6,13 +6,14 @@
  * below to event_record_value / event_record_button_value with the layout kept byte-identical
  * (types_members event_record::<unnamed_type_value>). */
 
+#include <stdint.h>
 #include "point2d.h"
 
 /* DB struct event_record::<unnamed_type_value>::_button_value — button id + pressed flag (2 bytes). */
 typedef struct event_record_button_value
 {
-    unsigned __int8 button; /* 0x0 */
-    unsigned __int8 value;  /* 0x1 */
+    uint8_t button; /* 0x0 */
+    uint8_t value;  /* 0x1 */
 } event_record_button_value;
 
 /* DB union event_record::<unnamed_type_value> — the event payload overlay (4 bytes). */
@@ -25,7 +26,7 @@ typedef union event_record_value
 
 typedef struct event_record
 {
-    __int16 type;             /* 0x0 — 1=axis0, 2=axis1, 3=button, 4=char */
-    __int16 controller_index; /* 0x2 */
+    int16_t type;             /* 0x0 — 1=axis0, 2=axis1, 3=button, 4=char */
+    int16_t controller_index; /* 0x2 */
     event_record_value value; /* 0x4 */
 } event_record;               /* 8 bytes */

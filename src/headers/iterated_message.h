@@ -3,13 +3,14 @@
  * bit budget, the iteration-independent header bitstream, and per-iteration header/field-map/data bitstreams.
  * Driven by encode_iterations. */
 
+#include <stdint.h>
 #include "bitstream_t.h"
 #include "message_definition.h"
 #include "message_delta_processor_mode.h"  /* was duplicated inline; use the sibling definition */
 
 typedef struct iterated_message
 {
-    unsigned __int8                                 initialized;                   /* 0x00 */
+    uint8_t                                 initialized;                   /* 0x00 */
     unsigned char _pad0[3]; /* db-verified padding */
     message_delta_processor_message_definition_type definition_type;               /* 0x04 */
     message_delta_processor_mode                    mode;                          /* 0x08 */

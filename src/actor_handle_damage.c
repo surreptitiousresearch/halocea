@@ -42,7 +42,7 @@ void actor_handle_damage(int actor_index, int aggressor_unit_index, float damage
             linked_prop->currently_damaging_me = 1;
         }
 
-        __int16 prop_type = prop->state;
+        int16_t prop_type = prop->state;
         if ( prop_type < _prop_state_becoming_unacknowledged || prop_type > _prop_state_acknowledged )
             stimulus_prop_index = -1;
     }

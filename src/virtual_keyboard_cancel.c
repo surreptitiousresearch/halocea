@@ -18,8 +18,8 @@ uint8_t virtual_keyboard_cancel(void)
     {
         ustrncpy(virtual_keyboard_globals.text_buffer, virtual_keyboard_globals.original_buffer,
                  virtual_keyboard_globals.buffer_size >> 1);
-        *(unsigned __int16 *)((char *)virtual_keyboard_globals.text_buffer
-                               + (virtual_keyboard_globals.buffer_size & ~0x1u)  /* even byte count: wchar terminator slot */ - 2) = 0;
+        /* even byte count: zero the last whole-wchar terminator slot */
+        virtual_keyboard_globals.text_buffer[(virtual_keyboard_globals.buffer_size >> 1) - 1] = 0;
     }
     virtual_keyboard_globals.text_buffer = 0;
     virtual_keyboard_globals.original_buffer[0] = 0;

@@ -73,13 +73,13 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
     weapon_hud_interface_definition *hud_def = TAG_GET(weapon_hud_interface_definition, hud_index);
     weapon_hud_state *hud_state = &weapon_hud_globals->hud_state[local_player_index];
 
-    __int16 state_flags[8];
-    __int16 overlay_flags[8];
-    __int16 number_values[8];
+    int16_t state_flags[8];
+    int16_t overlay_flags[8];
+    int16_t number_values[8];
     float   number_fractions[8];
     int     state_index;
     int     element_index;
-    __int16 flags;
+    int16_t flags;
     int     split_screen;
 
     for (state_index = 0; state_index < 8; state_index++)
@@ -258,7 +258,7 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
             }
             else
             {
-                __int16 player_index = local_player_get_player_index(local_player_index);
+                int16_t player_index = local_player_get_player_index(local_player_index);
                 int unit_index;
                 real_point3d camera_position;
                 real_point3d target_position;
@@ -289,7 +289,7 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
     /* map-type mask: bit0 = in gameplay (scenario is not the main menu), bit1 = single view, bit2 = split view */
     {
         scenario *current_scenario = global_scenario;
-        __int16 in_gameplay;
+        int16_t in_gameplay;
         int map_type_flags;
 
         if (local_player_count() <= 1 || hcex_coop_local_player_index >= 0)
@@ -299,14 +299,14 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
 
         in_gameplay = (current_scenario->type != _scenario_type_main_menu) ? 1 : 0;
         if (split_screen)
-            map_type_flags = (__int16)(in_gameplay | 4);
+            map_type_flags = (int16_t)(in_gameplay | 4);
         else
-            map_type_flags = (__int16)(in_gameplay | 2);
+            map_type_flags = (int16_t)(in_gameplay | 2);
 
         /* static elements */
         if (hud_def->statics.count > 0)
         {
-            for (element_index = 0; element_index < hud_def->statics.count; element_index = (__int16)(element_index + 1))
+            for (element_index = 0; element_index < hud_def->statics.count; element_index = (int16_t)(element_index + 1))
             {
                 weapon_hud_static_element *element = (weapon_hud_static_element *)hud_def->statics.address + element_index;
 
@@ -320,7 +320,7 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
                 if ((element->header.runtime_flags & (1u << _hud_element_runtime_invalid_bit)) == 0
                     && ((1 << element->header.use_on_map_type) & map_type_flags) != 0)
                 {
-                    __int16 state = element->header.state_type;
+                    int16_t state = element->header.state_type;
                     hud_draw_static_element(local_player_index, &hud_def->absolute_placement,
                         &element->static_element, state_flags[state], hud_state->last_weapon_flash_time[state]);
                 }
@@ -330,15 +330,15 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
         /* meter elements */
         if (hud_def->meters.count > 0)
         {
-            for (element_index = 0; element_index < hud_def->meters.count; element_index = (__int16)(element_index + 1))
+            for (element_index = 0; element_index < hud_def->meters.count; element_index = (int16_t)(element_index + 1))
             {
                 weapon_hud_meter_element *element = (weapon_hud_meter_element *)hud_def->meters.address + element_index;
 
                 if ((element->header.runtime_flags & (1u << _hud_element_runtime_invalid_bit)) == 0
                     && ((1 << element->header.use_on_map_type) & map_type_flags) != 0)
                 {
-                    __int16 state = element->header.state_type;
-                    unsigned __int8 value = (unsigned __int8)number_values[state];
+                    int16_t state = element->header.state_type;
+                    uint8_t value = (uint8_t)number_values[state];
                     hud_draw_meter(local_player_index, &hud_def->absolute_placement, &element->meter_element,
                         value, value, state_flags[state],
                         (float)hud_state->last_weapon_flash_time[state], 0.0f);
@@ -349,13 +349,13 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
         /* number elements */
         if (hud_def->numbers.count > 0)
         {
-            for (element_index = 0; element_index < hud_def->numbers.count; element_index = (__int16)(element_index + 1))
+            for (element_index = 0; element_index < hud_def->numbers.count; element_index = (int16_t)(element_index + 1))
             {
                 weapon_hud_number_element *element = (weapon_hud_number_element *)hud_def->numbers.address + element_index;
-                __int16 state;
-                __int16 magazine_size;
-                __int16 value;
-                __int16 decimal_value;
+                int16_t state;
+                int16_t magazine_size;
+                int16_t value;
+                int16_t decimal_value;
 
                 if ((element->header.runtime_flags & (1u << _hud_element_runtime_invalid_bit)) != 0
                     || ((1 << element->header.use_on_map_type) & map_type_flags) == 0)
@@ -364,7 +364,7 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
                 magazine_size = 1;
                 if (element->weapon_flags & (1u << _weapon_number_divide_by_clip_size_bit))
                     /* recovered: *(void**)((char*)weapon_def+0x4F4) -> weapon.magazines.address; [5] = +0xA rounds per magazine (magazine block is a separate ledger) */
-                    magazine_size = ((const __int16 *)weapon_def->weapon.magazines.address)[5];
+                    magazine_size = ((const int16_t *)weapon_def->weapon.magazines.address)[5];
 
                 state = element->header.state_type;
                 if (element->number_element.fractional_digits)
@@ -373,8 +373,8 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
                     if (*(unsigned int *)&number_fractions[state] == 0xFFC00000u) /* NaN sentinel: skip */
                         continue;
                     scale = (float)pow(10.0, 4.0);
-                    decimal_value = (__int16)(float)fmod(__fabs((number_fractions[state] * scale)), (double)scale);
-                    value = (__int16)(number_fractions[state] / (float)magazine_size);
+                    decimal_value = (int16_t)(float)fmod(__fabs((number_fractions[state] * scale)), (double)scale);
+                    value = (int16_t)(number_fractions[state] / (float)magazine_size);
                 }
                 else
                 {
@@ -390,17 +390,17 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
         /* overlay elements */
         if (hud_def->overlays.count > 0)
         {
-            for (element_index = 0; element_index < hud_def->overlays.count; element_index = (__int16)(element_index + 1))
+            for (element_index = 0; element_index < hud_def->overlays.count; element_index = (int16_t)(element_index + 1))
             {
                 weapon_hud_overlays_element *element = (weapon_hud_overlays_element *)hud_def->overlays.address + element_index;
 
                 if ((element->runtime_flags & (1u << _hud_element_runtime_invalid_bit)) == 0
                     && ((1 << element->use_on_map_type) & map_type_flags) != 0)
                 {
-                    __int16 state = element->state_type;
+                    int16_t state = element->state_type;
                     hud_draw_weapon_overlays(local_player_index, &hud_def->absolute_placement, &element->overlays,
                         overlay_flags[state], hud_state->last_weapon_flash_time[state],
-                        state_flags[state], (unsigned __int8)split_screen);
+                        state_flags[state], (uint8_t)split_screen);
                 }
             }
         }

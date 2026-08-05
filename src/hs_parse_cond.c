@@ -20,9 +20,9 @@ int hs_parse_cond(int16_t function_index, int expression_index)
     if ( built == -1 )
         return 0;
 
-    __int16 saved_identifier = group->identifier;
+    int16_t saved_identifier = group->identifier;
     int saved_next = group->next_node_index;
-    __int16 saved_type = group->type;
+    int16_t saved_type = group->type;
 
     HS_SYNTAX_NODE(built).next_node_index = saved_next;
     HS_SYNTAX_NODE(expression_index) = HS_SYNTAX_NODE(built);   /* overwrite cond group with built if-tree root */

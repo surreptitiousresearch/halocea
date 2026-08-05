@@ -53,8 +53,8 @@ void player_examine_nearby_item_client(int player_index, int item_index)
         /* DEVIATION: field 0x308 (equipment.powerup_type) is compared against itself, so this never
          * fires in this build. */
         if (unit_get_current_equipment(unit) != -1
-            && (unsigned __int16)equip_definition->equipment.powerup_type
-               != (unsigned __int16)equip_definition->equipment.powerup_type)
+            && (uint16_t)equip_definition->equipment.powerup_type
+               != (uint16_t)equip_definition->equipment.powerup_type)
         {
             player_set_action_result(player_index, _player_action_result_swap_for_powerup, item_index, -1);
         }
@@ -86,7 +86,7 @@ void player_examine_nearby_item_client(int player_index, int item_index)
             && unit_approve_weapon_swap(unit, item_index))
         {
             item_datum *current_weapon_obj = object_try_and_get_and_verify_type(current_weapon, object_mask_weapon);
-            __int16 action = _player_action_result_swap_for_weapon;
+            int16_t action = _player_action_result_swap_for_weapon;
             if (weapon_count == 1 && current_weapon_obj
                 && current_weapon_obj->definition_index != weapon_obj->definition_index)
                 action = _player_action_result_add_weapon_to_inventory;

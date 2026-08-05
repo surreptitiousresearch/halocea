@@ -32,8 +32,8 @@ uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius
 {
     int acceptable = 1;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 threat_count = 0;
-    unsigned __int16 enemy_actor_count = 0;
+    int16_t threat_count = 0;
+    uint16_t enemy_actor_count = 0;
     int enemy_actor_indices[32];
 
     /* --- pass 1: the actor's own props (units it is aware of) --- */
@@ -105,13 +105,13 @@ uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius
                       encounter_actor = encounter_actor_iterator_next(&iterator) )
                 {
                     char already_counted = 0;
-                    if ( (__int16)enemy_actor_count > 0 )
+                    if ( (int16_t)enemy_actor_count > 0 )
                     {
-                        __int16 i = 0;
+                        int16_t i = 0;
                         while ( enemy_actor_indices[i] != iterator.index )
                         {
                             ++i;
-                            if ( i >= (__int16)enemy_actor_count )
+                            if ( i >= (int16_t)enemy_actor_count )
                                 goto checked;
                         }
                         already_counted = 1;

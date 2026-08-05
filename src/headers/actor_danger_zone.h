@@ -36,6 +36,7 @@
  *   actor_danger_vehicle{pad}, actor_danger_suicide{time_until_death} — reproduced verbatim below
  *   ($ in identifiers is an MSVC extension, matching the mtlPARAM.h convention). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "actor_danger_zone_type.h"
@@ -54,15 +55,15 @@ typedef union _F6CEC85A0D4B3331078E024E2EDFE4AE
 
 typedef struct actor_danger_zone
 {
-    __int16          danger_type;                 /* 0x00 — actor_danger_zone_type: 0 none, 1 suicide, 2 projectile, 3 vehicle */
-    __int16          hostility;                  /* 0x02 — hostility classifier: 0 unclassified/enemy,
+    int16_t          danger_type;                 /* 0x00 — actor_danger_zone_type: 0 none, 1 suicide, 2 projectile, 3 vehicle */
+    int16_t          hostility;                  /* 0x02 — hostility classifier: 0 unclassified/enemy,
                                                      *        1 friendly non-target thrower, 2 thrown by current target */
-    __int16          acknowledgement_timer;      /* 0x04 — counts toward 0; >0 gates the acknowledge/dive rolls */
-    unsigned __int8  currently_perceived;        /* 0x06 — actor has perceived/reacted to this danger */
-    unsigned __int8  noticed_danger;             /* 0x07 — danger noticed (latched; gates dive + stimulus firing) */
-    unsigned __int8  allow_dive_evasion;         /* 0x08 — permits actor_action_try_to_dive this tick */
-    unsigned __int8  communicated;               /* 0x09 — one-shot latch: the hostility/communication decision ran */
-    unsigned __int8  attached_to_us;             /* 0x0A — danger reassigned to the actor's own team; suppresses avoidance */
+    int16_t          acknowledgement_timer;      /* 0x04 — counts toward 0; >0 gates the acknowledge/dive rolls */
+    uint8_t  currently_perceived;        /* 0x06 — actor has perceived/reacted to this danger */
+    uint8_t  noticed_danger;             /* 0x07 — danger noticed (latched; gates dive + stimulus firing) */
+    uint8_t  allow_dive_evasion;         /* 0x08 — permits actor_action_try_to_dive this tick */
+    uint8_t  communicated;               /* 0x09 — one-shot latch: the hostility/communication decision ran */
+    uint8_t  attached_to_us;             /* 0x0A — danger reassigned to the actor's own team; suppresses avoidance */
     unsigned char    _pad0B;                     /* 0x0B */
     int              object_index;               /* 0x0C — the tracked danger object's datum index */
     int              owner_unit_index;           /* 0x10 — CORRECTION: was _pad10[4], now identified as owner_unit_index */

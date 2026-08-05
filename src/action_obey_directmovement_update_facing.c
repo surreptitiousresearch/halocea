@@ -39,7 +39,7 @@ void action_obey_directmovement_update_facing(uint16_t actor_index, int unit_ind
         unit_get_facing_vector(unit_index, &base_facing);
     }
 
-    unsigned int facing_mode = (unsigned __int16)simple_control->___u5.directmovement.facing;
+    unsigned int facing_mode = (uint16_t)simple_control->___u5.directmovement.facing;
     if ( facing_mode > 3 )
         return;
 

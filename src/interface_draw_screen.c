@@ -43,7 +43,7 @@ void interface_draw_screen(void)
     int applied_effect;
     int weapon_hud_index;
 
-    if ( (unsigned __int16)render.local_player_index == 0xFFFF )
+    if ( (uint16_t)render.local_player_index == 0xFFFF )
         return;
 
     weapon_hud_index = interface_get_weapon_hud_index(&flashlight_power);
@@ -54,7 +54,7 @@ void interface_draw_screen(void)
         if ( hud_definition->screen_effects.count > 0 )
         {
             hud_screen_effect_definition *zoom_def = (hud_screen_effect_definition *)hud_definition->screen_effects.address;
-            __int16 zoom_level = player_control_get_zoom_level(render.local_player_index);
+            int16_t zoom_level = player_control_get_zoom_level(render.local_player_index);
             int zoomed = zoom_level != -1;
 
             memset(&params, 0, sizeof(params));

@@ -26,7 +26,7 @@ uint8_t physics_get_features_in_sphere(const physics_instance *instance, const r
     if ( physics->mass_points.count > 0 )
     {
         const real_matrix4x3 *world_matrix = &instance->world_matrix;
-        for ( int i = 0; i < physics->mass_points.count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < physics->mass_points.count; i = (int16_t)(i + 1) )
         {
             const mass_point_definition *mass_point =
                 &((const mass_point_definition *)physics->mass_points.address)[i];

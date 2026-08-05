@@ -11,11 +11,11 @@ void ai_scripting_place(unsigned int ai_index)
     if ( ai_index == -1 )
         return;
 
-    __int16 squad_index = (ai_index >> 8) & 0xFF;
+    int16_t squad_index = (ai_index >> 8) & 0xFF;
     if ( ai_index >> 30 != 2 )
         squad_index = -1;
-    __int16 platoon_index = (ai_index >> 8) & 0xFF;
+    int16_t platoon_index = (ai_index >> 8) & 0xFF;
     if ( ai_index >> 30 != 1 )
         platoon_index = -1;
-    encounter_create((unsigned __int16)ai_index, platoon_index, squad_index);
+    encounter_create((uint16_t)ai_index, platoon_index, squad_index);
 }

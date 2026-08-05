@@ -7,13 +7,14 @@
  * (`subfic`/`subfe`/`and`) is an identity on the already-clamped result (`x==0 ? 0 : x`, i.e. just `x`) and
  * is omitted. */
 
+#include <stdint.h>
 #include <math.h>
 
 unsigned int map_to_fixed_width(float input, float lowerBound, float upperBound, unsigned int range)
 {
     float t = (input - lowerBound) / (upperBound - lowerBound);
     float scaled = t * (float)range + 0.5f;
-    unsigned int result = (unsigned int)(__int64)floor(scaled);
+    unsigned int result = (unsigned int)(int64_t)floor(scaled);
 
     if ( result > range )
         result = range;

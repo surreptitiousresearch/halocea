@@ -19,12 +19,12 @@
 typedef struct bitmap_data bitmap_data;
 extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t mipmap_index);
 extern void rasterizer_bitmap_changed(bitmap_data *bitmap);
-extern void _byte_swap_memory(char *memory, int count, unsigned __int64 code);
+extern void _byte_swap_memory(char *memory, int count, uint64_t code);
 extern void flush_hardware_character(hardware_character *hardware_character);
 
 void cache_hardware_format_character(font_header *font_header, font_character *font_character)
 {
-    if ((unsigned __int16)font_character->hardware_character_index != 0xFFFF)
+    if ((uint16_t)font_character->hardware_character_index != 0xFFFF)
         return;
 
     int bitmap_width = font_character->bitmap_width;
@@ -38,8 +38,8 @@ void cache_hardware_format_character(font_header *font_header, font_character *f
         hardware_character_cache.maximum_character_height = 0;
     }
 
-    __int16 write_index = hardware_character_cache.write_index;
-    __int16 read_index = hardware_character_cache.read_index;
+    int16_t write_index = hardware_character_cache.write_index;
+    int16_t read_index = hardware_character_cache.read_index;
 
     /* wrap back to the top if it would overflow the bottom, evicting the still-pending tail */
     if (font_character->bitmap_height + hardware_character_cache.y0 + 2 >= 512)
@@ -69,10 +69,10 @@ void cache_hardware_format_character(font_header *font_header, font_character *f
     if (bitmap_height + 2 >= hardware_character_cache.maximum_character_height)
     {
         int slot_index = read_index;
-        __int16 band_bottom = bitmap_height + hardware_character_cache.y0 + 2;
+        int16_t band_bottom = bitmap_height + hardware_character_cache.y0 + 2;
         if (read_index != write_index)
         {
-            int band_top = (__int16)(hardware_character_cache.maximum_character_height + hardware_character_cache.y0);
+            int band_top = (int16_t)(hardware_character_cache.maximum_character_height + hardware_character_cache.y0);
             do
             {
                 hardware_character *slot = &hardware_character_cache.characters[slot_index];
@@ -121,18 +121,18 @@ void cache_hardware_format_character(font_header *font_header, font_character *f
                         || col < 1 || col > font_character->bitmap_width)
                         *dest = 0xFFFFFF;
                     else
-                        *dest = ((unsigned __int8)*++source << 24) | 0xFFFFFF;
+                        *dest = ((uint8_t)*++source << 24) | 0xFFFFFF;
                     _byte_swap_memory((char *)dest, 1, _4byte);
                     ++dest;
-                    col = (__int16)(col + 1);
+                    col = (int16_t)(col + 1);
                 } while (col < font_character->bitmap_width + 2);
             }
-            row = (__int16)(row + 1);
+            row = (int16_t)(row + 1);
         } while (row < font_character->bitmap_height + 2);
     }
 
     /* inset the slot origin by the border, mark the atlas dirty, and advance the cache cursor */
-    __int16 slot_y0 = slot->y0;
+    int16_t slot_y0 = slot->y0;
     ++slot->x0;
     slot->y0 = slot_y0 + 1;
     rasterizer_bitmap_changed(hardware_character_cache.bitmap);

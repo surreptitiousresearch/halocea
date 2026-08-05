@@ -36,46 +36,46 @@ unsigned int bitmap_2d_get_pixel(const bitmap_data *bitmap, const real_point2d *
     if (!bitmap->base_address)
         return -1;
 
-    __int16 mip_level;
+    int16_t mip_level;
     if (lod >= 1.0f || bitmap->mipmap_count <= 0)
         mip_level = 0;
     else
-        mip_level = (__int16)(int)(((1.0f - lod) * (float)bitmap->mipmap_count));
+        mip_level = (int16_t)(int)(((1.0f - lod) * (float)bitmap->mipmap_count));
 
-    unsigned __int16 flags = bitmap->flags;
+    uint16_t flags = bitmap->flags;
 
-    __int16 width = bitmap->width >> mip_level;
+    int16_t width = bitmap->width >> mip_level;
     if (width <= 1)
         width = 1;
     if (flags & (1u << _bitmap_compressed_bit))
-        width = (__int16)(((-width) & 3) + width);   /* compressed: pad to a multiple of 4 */
+        width = (int16_t)(((-width) & 3) + width);   /* compressed: pad to a multiple of 4 */
 
-    __int16 height = bitmap->height >> mip_level;
+    int16_t height = bitmap->height >> mip_level;
     if (height <= 1)
         height = 1;
     if (flags & (1u << _bitmap_compressed_bit))
-        height = (__int16)(((-height) & 3) + height);
+        height = (int16_t)(((-height) & 3) + height);
 
     int raw_u = (int)(((float)width * point->n[0]) - 0.5f);
-    __int16 u = ((width - 1) & width) ? (__int16)(((raw_u % width) + width) % width)
-                                      : (__int16)(raw_u & (width - 1));
+    int16_t u = ((width - 1) & width) ? (int16_t)(((raw_u % width) + width) % width)
+                                      : (int16_t)(raw_u & (width - 1));
 
     int raw_v = (int)(((float)height * point->n[1]) - 0.5f);
-    __int16 v = ((height - 1) & height) ? (__int16)(((raw_v % height) + height) % height)
-                                        : (__int16)(raw_v & (height - 1));
+    int16_t v = ((height - 1) & height) ? (int16_t)(((raw_v % height) + height) % height)
+                                        : (int16_t)(raw_v & (height - 1));
 
     char *base = bitmap_mipmap_address(bitmap, mip_level);
 
     if (flags & (1u << _bitmap_compressed_bit))
     {
         /* compressed (S3TC): locate the 4x4 block, then decode the single texel within it */
-        __int16 block_u = u & 3;
-        __int16 block_v = v & 3;
-        __int16 block_size = (__int16)((16 * bitmap_format_bits_per_pixel_table[bitmap->format]) >> 3);
+        int16_t block_u = u & 3;
+        int16_t block_v = v & 3;
+        int16_t block_size = (int16_t)((16 * bitmap_format_bits_per_pixel_table[bitmap->format]) >> 3);
         const void *block = &base[(v / 4 * width / 4 + u / 4) * block_size];
 
         unsigned int pixel;   /* FAITHFUL QUIRK: uninitialized for formats other than 14/15/16 */
-        switch ((unsigned __int16)bitmap->format)
+        switch ((uint16_t)bitmap->format)
         {
             case _bitmap_format_dxt1:
                 DecodeBlockRGB__single_pixel((const S3TCBlockRGB *)block, (S3TC_COLOR *)&pixel, block_u, block_v);

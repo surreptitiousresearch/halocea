@@ -40,14 +40,14 @@ void encounter_detach_actor(int actor_index, uint8_t died)
 
     if ( !died )
     {
-        __int16 squad_index = actor->meta.disconnected_squad_index + encounter->squad_base;
+        int16_t squad_index = actor->meta.disconnected_squad_index + encounter->squad_base;
         --encounter->original_count;
         if ( actor->meta.unique_leader )
             --encounter->unique_leader_count;
         --squad_array[squad_index].original_count;
-        int platoon_index = (unsigned __int16)actor->meta.platoon_index;
+        int platoon_index = (uint16_t)actor->meta.platoon_index;
         if ( platoon_index != 0xFFFF )
-            --platoon_array[(__int16)(encounter->platoon_base + platoon_index)].original_count;
+            --platoon_array[(int16_t)(encounter->platoon_base + platoon_index)].original_count;
     }
 
     actor->meta.next_actor_index = -1;

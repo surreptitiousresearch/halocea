@@ -31,11 +31,11 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
     char *glyph_pixels = (char *)font_header->pixels.address + character->pixels_offset;
     int format = bitmap->format;
 
-    unsigned __int16 destination_color_16;
+    uint16_t destination_color_16;
     /* ARGB8888 -> R5G6B5 channel pack: 0xFF00/0xFC/>>3 are pixel-format channel extracts, not flag masks. */
     if ( format == _bitmap_format_r5g6b5 )
         destination_color_16 = (8 * ((color >> 11) & 0xFF00 | (color >> 8) & 0xFC))
-                | ((unsigned __int8)color >> 3);
+                | ((uint8_t)color >> 3);
     else
         destination_color_16 = 0; /* dead: only read on the r5g6b5 path (was uninitialized stack) */
 
@@ -44,7 +44,7 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
 
     for ( int row = dy; row > 0; --row, ++y, ++y0 )
     {
-        __int16 bits_per_pixel = bitmap_format_get_bits_per_pixel(format);
+        int16_t bits_per_pixel = bitmap_format_get_bits_per_pixel(format);
         char *source_pixel = &glyph_pixels[character->bitmap_width * y + x];
         unsigned char *destination_pixel = (unsigned char *)bitmap->base_address
                 + (x0 << draw_character_software_globals.encoding_shift)
@@ -60,8 +60,8 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
                     if ( *source_pixel )
                     {
                         unsigned char destination_value = *destination_pixel;
-                        __int16 coverage = (__int16)(((__int16)coverage_scale
-                                * (unsigned __int8)*source_pixel) >> 8);
+                        int16_t coverage = (int16_t)(((int16_t)coverage_scale
+                                * (uint8_t)*source_pixel) >> 8);
                         if ( coverage <= destination_value )
                             destination_value = (unsigned char)coverage;
                         *destination_pixel = destination_value;
@@ -74,11 +74,11 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
                 {
                     if ( *source_pixel )
                     {
-                        __int16 coverage = (__int16)(((__int16)coverage_scale
-                                * (unsigned __int8)*source_pixel) >> 8);
-                        __int16 inverse = (__int16)(255 - coverage);
-                        unsigned __int16 destination = *(unsigned __int16 *)destination_pixel;
-                        *(unsigned __int16 *)destination_pixel =
+                        int16_t coverage = (int16_t)(((int16_t)coverage_scale
+                                * (uint8_t)*source_pixel) >> 8);
+                        int16_t inverse = (int16_t)(255 - coverage);
+                        uint16_t destination = *(uint16_t *)destination_pixel;
+                        *(uint16_t *)destination_pixel =
                               ((destination * inverse + destination_color_16 * coverage) >> 8) & 0xF800
                             | (((destination & 0x1F) * inverse + (destination_color_16 & 0x1F) * coverage) >> 8) & 0x1F
                             | (((destination & 0x7FF) * inverse + (destination_color_16 & 0x7FF) * coverage) >> 8) & 0x7E0;
@@ -92,9 +92,9 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
                     if ( *source_pixel )
                     {
                         unsigned int destination = *(unsigned int *)destination_pixel;
-                        __int16 coverage = (__int16)(((__int16)coverage_scale
-                                * (unsigned __int8)*source_pixel) >> 8);
-                        __int16 inverse = (__int16)(255 - coverage);
+                        int16_t coverage = (int16_t)(((int16_t)coverage_scale
+                                * (uint8_t)*source_pixel) >> 8);
+                        int16_t inverse = (int16_t)(255 - coverage);
                         unsigned int destination_alpha = destination >> 24;
                         if ( coverage > destination_alpha )
                             destination_alpha = coverage;

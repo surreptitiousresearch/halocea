@@ -85,7 +85,7 @@ int16_t actor_move_test_avoidance_vector(vector_avoidance_data *avoidance_data,
         hit_kind = _actor_vector_avoidance_obstructed_structure;
     }
 
-    for ( int i = 0; i < avoidance_data->avoidance_object_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < avoidance_data->avoidance_object_count; i = (int16_t)(i + 1) )
     {
         float pill_t;
         real_vector3d pill_normal;

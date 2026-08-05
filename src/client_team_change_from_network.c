@@ -31,9 +31,9 @@ void client_team_change_from_network(message_delta_processor_header *header, net
 
     struct
     {
-        unsigned __int8 player_index;
-        unsigned __int8 team_index;
-    } payload = { (unsigned __int8)-1, (unsigned __int8)-1 };
+        uint8_t player_index;
+        uint8_t team_index;
+    } payload = { (uint8_t)-1, (uint8_t)-1 };
 
     if ( !message_delta_processor_decode_stateless(&payload, header) || game_connection() != _game_connection_network_client )
         return;

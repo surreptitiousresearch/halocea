@@ -55,7 +55,7 @@ extern void D3DDevice_SetRenderState_AlphaBlendEnable(D3DDevice *device, unsigne
 extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int enable);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern D3DVertexDeclaration *rasterizer_dx9_shaders_vdecl9_get(unsigned int index);
 extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
@@ -89,7 +89,7 @@ void rasterizer_shadow_convolve(void)
     if (!shader || !shader->effect)
         return;
 
-    for (__int16 stage = 0; stage < 4; stage++)
+    for (int16_t stage = 0; stage < 4; stage++)
     {
         rasterizer_set_target_as_texture_for_effect(stage, 3, 0, shader);
         D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, 1);
@@ -116,7 +116,7 @@ void rasterizer_shadow_convolve(void)
         1.0f, 0.0f, 0.0f, 0.00390625f,
         0.0f, 1.0f, 0.0f, -0.00390625f,
     };
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, sample_taps, 8, (unsigned __int64)7 << 58);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, sample_taps, 8, (uint64_t)7 << 58);
 
     rasterizer_set_target(4, 0, 0, 0, 0);
 
@@ -158,7 +158,7 @@ void rasterizer_shadow_convolve(void)
         0.0f,      0.0f,        0.0f, 1.0f,
         1.0f,      1.0f,        0.0f, 0.0f,
     };
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, grid_transform, 5, (unsigned __int64)3 << 59);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, grid_transform, 5, (uint64_t)3 << 59);
 
     ID3DXEffect_Begin(shader->effect, pass_count, 3);
     ID3DXEffect_BeginPass(shader->effect, 1);

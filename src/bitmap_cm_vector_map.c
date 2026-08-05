@@ -31,7 +31,7 @@ void bitmap_cm_vector_map(bitmap_data *bitmap)
     bitmap_data *face = bitmap_2d_new(bitmap->width, bitmap->height, 0, bitmap->format);
     if ( face && face->base_address )
     {
-        for ( __int16 face_index = 0; face_index < 6; ++face_index )
+        for ( int16_t face_index = 0; face_index < 6; ++face_index )
         {
             bitmap_cube_map_face_extract(bitmap, 0, face_index, face);
             unsigned int pixel_data_size = bitmap_get_pixel_data_size(face);

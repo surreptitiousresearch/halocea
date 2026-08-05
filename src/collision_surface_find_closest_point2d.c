@@ -20,7 +20,7 @@
 #include "headers/collision_bsp.h"
 #include "headers/real_point2d.h"
 
-extern const __int16 global_projection3d_mappings[][2];
+extern const int16_t global_projection3d_mappings[][2];
 
 int collision_surface_find_closest_point2d(const collision_bsp *bsp, int surface_index,
                                            int16_t projection_axis, uint8_t projection_sign,

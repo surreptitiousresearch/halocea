@@ -2,6 +2,7 @@
  * de-duplicating against strings already present. Returns the buffer offset of the (existing or newly added)
  * copy, or -1 if it doesn't fit. */
 
+#include <stdint.h>
 #include "headers/hs_compile_globals.h"
 
 extern void *memcpy(void *dst, const void *src, unsigned int n);
@@ -19,7 +20,7 @@ int hs_concatenate_string_constant(const char *string)
     const char *scan = string;
     while ( *scan++ )
         ;
-    int length = (__int16)((unsigned __int16)(scan - string));
+    int length = (int16_t)((uint16_t)(scan - string));
     if ( length < hs_compile_globals.string_constant_buffer_size )
     {
         int offset = hs_compile_globals.string_constant_buffer_offset;

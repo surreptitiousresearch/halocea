@@ -40,11 +40,11 @@ void structure_visibility_compute(void)
         unsigned int *cluster_pvs = structure_bsp_get_cluster_pvs(bsp, render.cluster_index);
         memcpy(render.visible_cluster_flags, cluster_pvs, 4 * pvs_word_count);
 
-        for (int cluster = 0; cluster < bsp->clusters.count; cluster = (__int16)(cluster + 1))
+        for (int cluster = 0; cluster < bsp->clusters.count; cluster = (int16_t)(cluster + 1))
         {
             if (BIT_VECTOR_TEST_FLAG(render.visible_cluster_flags, cluster))
             {
-                __int16 slot = render.rendered_cluster_count;
+                int16_t slot = render.rendered_cluster_count;
                 structure_visibility_globals.rendered_cluster_indices[cluster] = slot;
                 render.rendered_cluster_count = slot + 1;
                 rendered_cluster *entry = &render.rendered_clusters[slot];

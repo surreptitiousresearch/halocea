@@ -34,7 +34,7 @@ static void replace_extension_with_sav(char *path)
     int character;
     do
     {
-        character = *(unsigned __int8 *)append++;
+        character = *(uint8_t *)append++;
         *end++ = character;
     }
     while ( character );
@@ -52,7 +52,7 @@ uint8_t copy_files_for_player_profile(const char *src_profile, const char *dst_p
     src_path[255] = 0;
     dst_path[255] = 0;
 
-    int copied = (unsigned __int8)CopyFileA(src_path, dst_path, 0);
+    int copied = (uint8_t)CopyFileA(src_path, dst_path, 0);
     int variant_copied = 0;
     if ( copied )
     {
@@ -63,7 +63,7 @@ uint8_t copy_files_for_player_profile(const char *src_profile, const char *dst_p
         src_path[255] = 0;
         dst_path[255] = 0;
 
-        copied = (unsigned __int8)CopyFileA(src_path, dst_path, 0);
+        copied = (uint8_t)CopyFileA(src_path, dst_path, 0);
         if ( copied )
         {
             replace_extension_with_sav(dst_path);
@@ -72,7 +72,7 @@ uint8_t copy_files_for_player_profile(const char *src_profile, const char *dst_p
         }
     }
 
-    variant_copied = (unsigned __int8)variant_copied;
+    variant_copied = (uint8_t)variant_copied;
     if ( variant_copied )
     {
         _snprintf_0(pattern, 0xFFu, "%scheckpoints\\*.sav", src_profile);
@@ -83,7 +83,7 @@ uint8_t copy_files_for_player_profile(const char *src_profile, const char *dst_p
             {
                 _snprintf_0(dst_path, 0xFFu, "%scheckpoints\\%s", dst_profile, find_data.cFileName);
                 _snprintf_0(src_path, 0xFFu, "%scheckpoints\\%s", src_profile, find_data.cFileName);
-                variant_copied = (unsigned __int8)CopyFileA(src_path, dst_path, 0);
+                variant_copied = (uint8_t)CopyFileA(src_path, dst_path, 0);
             }
             while ( variant_copied && FindNextFileA(find_handle, &find_data) );
             CloseHandle(find_handle);
@@ -100,7 +100,7 @@ uint8_t copy_files_for_player_profile(const char *src_profile, const char *dst_p
                     _snprintf_0(dst_path, 0xFFu, "%scheckpoints\\%s", dst_profile, find_data.cFileName);
                     _snprintf_0(src_path, 0xFFu, "%scheckpoints\\%s", src_profile, find_data.cFileName);
                 }
-                while ( (unsigned __int8)CopyFileA(src_path, dst_path, 0) && FindNextFileA(bin_handle, &find_data) );
+                while ( (uint8_t)CopyFileA(src_path, dst_path, 0) && FindNextFileA(bin_handle, &find_data) );
                 CloseHandle(bin_handle);
             }
         }

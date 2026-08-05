@@ -95,7 +95,7 @@ void draw_bitmap_in_rect(bitmap_data *bitmap, rectangle2d *rect, rectangle2d *bi
     corner[3].n[0] = left;   corner[3].n[1] = bottom;
 
     dynamic_screen_vertex vertices[4];
-    for (int i = 0; i < 4; i = (__int16)(i + 1))
+    for (int i = 0; i < 4; i = (int16_t)(i + 1))
     {
         vertices[i].color = argb;
         vertices[i].texcoord.n[0] = (i % 3 == 0) ? 0.0f : u_max;  /* u: 0 on the left corners (0,3) */

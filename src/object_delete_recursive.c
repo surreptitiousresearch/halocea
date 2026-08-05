@@ -48,7 +48,7 @@ void object_delete_recursive(int object_index, uint8_t delete_siblings)
     if ( (object_header->flags & (1u << _object_header_active_bit)) != 0 )
         object_header->flags &= ~(1u << _object_header_active_bit);
 
-    object_type_definition_get((unsigned __int16)object_header->datum->object.type);
+    object_type_definition_get((uint16_t)object_header->datum->object.type);
     widgets_delete(object_index);
     attachments_delete(object_index);
     if ( (object_data->object.flags & (1u << _object_connected_to_map_bit)) != 0 )

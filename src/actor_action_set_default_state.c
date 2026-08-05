@@ -27,7 +27,7 @@ typedef struct alert_state_data alert_state_data;
 typedef struct guard_state_data guard_state_data;
 typedef struct flee_state_data flee_state_data;
 
-extern __int16 global_state_move_position_orders[];
+extern int16_t global_state_move_position_orders[];
 extern action_specification global_action_functions[];
 
 extern int game_time_get(void);
@@ -43,9 +43,9 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int game_time = game_time_get();
     int state = override_state;
-    unsigned __int8 changed = 0;
+    uint8_t changed = 0;
 
-    if ((__int16)state == -1)
+    if ((int16_t)state == -1)
     {
         int last_time = actor->state.last_default_state_time; /* +100 */
         if (last_time != -1 && last_time + 45 >= game_time)
@@ -53,11 +53,11 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
     }
     actor->state.last_default_state_time = game_time;
 
-    if ((__int16)state == -1)
+    if ((int16_t)state == -1)
     {
-        unsigned __int16 pending = (unsigned __int16)actor->state.initial_state; /* +96 */
+        uint16_t pending = (uint16_t)actor->state.initial_state; /* +96 */
         if (pending == 0xFFFF)
-            state = (actor->state.default_state == -1) ? 0 : (unsigned __int16)actor->state.default_state; /* +98 */
+            state = (actor->state.default_state == -1) ? 0 : (uint16_t)actor->state.default_state; /* +98 */
         else
         {
             actor->state.initial_state = -1;
@@ -67,7 +67,7 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
 
     action_state_data action_data;
 
-    switch ((__int16)state)
+    switch ((int16_t)state)
     {
     case actor_default_state_none:
     case actor_default_state_alert:
@@ -77,9 +77,9 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
     case actor_default_state_moving_loop_randomly:
     case actor_default_state_moving_randomly:
         /* recovered: *(u16*)&action_data -> alert.move_position_order (action 2 == alert) */
-        if (((unsigned __int16)actor->state.action != actor_action_alert /* current action state +108 */
-              || (unsigned __int16)actor->state.action_data.___u0.alert.move_position_order != (unsigned __int16)global_state_move_position_orders[(__int16)state])
-            && action_alert_setup(actor_index, global_state_move_position_orders[(__int16)state], -1,
+        if (((uint16_t)actor->state.action != actor_action_alert /* current action state +108 */
+              || (uint16_t)actor->state.action_data.___u0.alert.move_position_order != (uint16_t)global_state_move_position_orders[(int16_t)state])
+            && action_alert_setup(actor_index, global_state_move_position_orders[(int16_t)state], -1,
                                   &action_data.___u0.alert))
         {
             actor_action_change(actor_index, actor_action_alert, &action_data);
@@ -87,7 +87,7 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
         }
         break;
     case actor_default_state_asleep:
-        if ((unsigned __int16)actor->state.mode != _actor_mode_asleep)
+        if ((uint16_t)actor->state.mode != _actor_mode_asleep)
         {
             actor->state.mode = _actor_mode_asleep;
             actor_action_change(actor_index, actor_action_sleep, nullptr);
@@ -96,7 +96,7 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
         break;
     case actor_default_state_guarding:
         /* recovered: *(u16*)((char*)&action_data + 36) -> guard.guard_location_type (action 6 == guard) */
-        if (((unsigned __int16)actor->state.action != actor_action_guard || (unsigned __int16)actor->state.action_data.___u0.guard.guard_location_type != _actor_guard_location_current)
+        if (((uint16_t)actor->state.action != actor_action_guard || (uint16_t)actor->state.action_data.___u0.guard.guard_location_type != _actor_guard_location_current)
             && action_guard_setup_current_position(actor_index, &action_data.___u0.guard))
         {
             actor_action_change(actor_index, actor_action_guard, &action_data);
@@ -104,10 +104,10 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
         }
         break;
     case actor_default_state_guarding_at_guard_point:
-        if ((unsigned __int16)actor->state.action == actor_action_guard)
+        if ((uint16_t)actor->state.action == actor_action_guard)
         {
             /* recovered: +36 -> guard.guard_location_type, [14] -> guard.find_new_guard_position (action 6 == guard) */
-            if ((unsigned __int16)actor->state.action_data.___u0.guard.guard_location_type != _actor_guard_location_firing_position)
+            if ((uint16_t)actor->state.action_data.___u0.guard.guard_location_type != _actor_guard_location_firing_position)
                 actor->state.action_data.___u0.guard.find_new_guard_position = 1;
         }
         else if (action_guard_setup_find_position(actor_index, 0, &action_data.___u0.guard))
@@ -131,14 +131,14 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
         }
         break;
     case actor_default_state_fleeing:
-        if ((unsigned __int16)actor->state.action != actor_action_flee)
+        if ((uint16_t)actor->state.action != actor_action_flee)
         {
             if (action_flee_setup(actor_index, _actor_panic_scripted, -1, 1, 0, 0, &action_data.___u0.flee))
             {
                 actor_action_change(actor_index, actor_action_flee, &action_data);
                 changed = 1;
             }
-            else if ((unsigned __int16)actor->state.action != actor_action_guard
+            else if ((uint16_t)actor->state.action != actor_action_guard
                      && action_guard_setup_current_position(actor_index, &action_data.___u0.guard))
             {
                 actor_action_change(actor_index, actor_action_guard, &action_data);
@@ -150,7 +150,7 @@ uint8_t actor_action_set_default_state(int actor_index, int16_t override_state)
         break;
     }
 
-    if (!changed && (unsigned __int16)actor->state.action == actor_action_none
+    if (!changed && (uint16_t)actor->state.action == actor_action_none
         && action_alert_setup(actor_index, 0, -1, &action_data.___u0.alert))
     {
         actor_action_change(actor_index, actor_action_alert, &action_data);

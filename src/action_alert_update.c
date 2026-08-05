@@ -33,7 +33,7 @@ void action_alert_update(uint16_t actor_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     alert_state_data *alert = &actor->state.action_data.___u0.alert;
 
-    if ( actor->meta.dormant || (unsigned __int16)alert->target_move_position_index == 0xFFFF )
+    if ( actor->meta.dormant || (uint16_t)alert->target_move_position_index == 0xFFFF )
         return;
 
     float dx = alert->target_position_definition.position.x - actor->input.position.body_position.n[0];
@@ -43,13 +43,13 @@ void action_alert_update(uint16_t actor_index)
     if ( !actor_path_at_destination(actor_index) && dx * dx + dy * dy + dz * dz >= 0.25f )
         return;
 
-    __int16 countdown = alert->wait_ticks;
+    int16_t countdown = alert->wait_ticks;
     if ( countdown > 0 )
         alert->wait_ticks = countdown - 1;
 
     if ( alert->must_play_animation )
     {
-        __int16 animation_reference_index = alert->target_position_definition.animation_reference_index;
+        int16_t animation_reference_index = alert->target_position_definition.animation_reference_index;
         if ( animation_reference_index != -1 )
         {
             ai_animation_reference_definition *animation_reference =

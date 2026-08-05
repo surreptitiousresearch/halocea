@@ -44,8 +44,8 @@ void rasterizer_lens_flare_submit_for_cluster(int16_t cluster_index)
     const structure_bsp *bsp = global_structure_bsp;
     const structure_cluster *cluster = (const structure_cluster *)bsp->clusters.address + cluster_index;
 
-    unsigned __int16 marker_count = cluster->lens_flare_marker_count;
-    unsigned __int16 first_marker = cluster->first_lens_flare_marker_index;
+    uint16_t marker_count = cluster->lens_flare_marker_count;
+    uint16_t first_marker = cluster->first_lens_flare_marker_index;
 
     for ( int i = 0; i < marker_count; ++i )
     {
@@ -91,8 +91,8 @@ void rasterizer_lens_flare_submit_for_cluster(int16_t cluster_index)
         params.compressed_light_scale = 0;
         params.light_identifier = -1;
         params.definition = TAG_GET(lens_flare_definition, lens_flare->lens_flare.index);
-        params.light_index = (__int16)DATUM_INDEX_TO_IDENTIFIER(marker_index);
-        params.lens_flare_index = (__int16)marker_index;
+        params.light_index = (int16_t)DATUM_INDEX_TO_IDENTIFIER(marker_index);
+        params.lens_flare_index = (int16_t)marker_index;
         params.compressed_window_index = (unsigned char)render.window_index;
         rasterizer_lens_flare_submit(&params);
     }

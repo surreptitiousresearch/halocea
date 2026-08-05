@@ -24,7 +24,7 @@ extern int game_time_get(void);
 uint8_t actor_action_allow_cover_seeking(int actor_index, uint8_t unopposable)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 allow = 1;
+    uint8_t allow = 1;
 
     actor_definition *unit_definition = TAG_GET(actor_definition, actor->meta.definition_index);
 

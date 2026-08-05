@@ -2,6 +2,7 @@
  * EOL) and block comments (";*" ... "*;"). Stops at the first significant character (leaving *c on it) or at
  * end of string. An unterminated block comment sets hs_compile_globals.__noop. */
 
+#include <stdint.h>
 #include "headers/hs_compile_globals.h"
 
 extern const char whitespace_characters[];   /* 2 entries */
@@ -12,7 +13,7 @@ enum { SCAN_NORMAL = 0, SCAN_LINE_COMMENT = 1, SCAN_BLOCK_COMMENT = 2, SCAN_DONE
 
 static int char_in_pair(int ch, const char *pair)
 {
-    for ( int i = 0; i < 2; i = (__int16)(i + 1) )
+    for ( int i = 0; i < 2; i = (int16_t)(i + 1) )
         if ( ch == pair[i] )
             return 1;
     return 0;

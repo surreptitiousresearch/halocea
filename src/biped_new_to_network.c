@@ -3,6 +3,7 @@
  * object if it has none yet), copies the biped's placement and replicated state into a message body, and
  * stateless-encodes it into the supplied buffer. Returns the number of bits written. */
 
+#include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/message_biped_new.h"
 #include "headers/data_array.h"
@@ -46,7 +47,7 @@ int biped_new_to_network(int object_index, void *buffer, int buffer_size_in_bits
     message.change_colors[2] = object->object.base_change_colors[2];
     message.change_colors[3] = object->object.base_change_colors[3];
     message.current_baseline_index = object->biped.baseline_index;
-    *(__int16 *)message.grenade_counts = *(__int16 *)object->biped.baseline.grenade_counts;
+    *(int16_t *)message.grenade_counts = *(int16_t *)object->biped.baseline.grenade_counts;
     message.body_vitality = object->biped.baseline.body_vitality;
     message.shield_vitality = object->biped.baseline.shield_vitality;
     message.shield_stun_ticks_greater_than_zero = object->biped.baseline.shield_stun_ticks_greater_than_zero;

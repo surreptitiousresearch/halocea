@@ -29,7 +29,7 @@ void projectile_distribute(real_vector3d *forward, real_vector3d *up, int16_t di
         }
         else
         {
-            __int16 offset = (index - 1) >> 1;
+            int16_t offset = (index - 1) >> 1;
             steps = ((index - 1) & 1) == 0 ? -(float)offset : (float)offset;
         }
     }

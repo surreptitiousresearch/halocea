@@ -2,11 +2,12 @@
  * parameter (an artifact of tracking leftover FPR state across the _isnan calls); the DB's own funcs.prototype
  * confirms the true signature takes only `p`. */
 
+#include <stdint.h>
 #include "headers/real_point3d.h"
 
 extern int _isnan(double x);
 
-unsigned __int8 valid_real_point3d(const real_point3d *p)
+uint8_t valid_real_point3d(const real_point3d *p)
 {
     if ( _isnan(p->n[0]) )
         return 0;

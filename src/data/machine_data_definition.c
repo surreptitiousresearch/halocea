@@ -8,7 +8,7 @@ extern object_type_definition object_data_definition;
 extern void machine_delete(int machine_index);
 extern uint8_t machine_new(int machine_index);
 extern void machine_place(int machine_index, scenario_machine_datum *scenario_machine);
-extern unsigned __int8 machine_update(int machine_index);
+extern uint8_t machine_update(int machine_index);
 extern void machines_dispose(void);
 extern void machines_dispose_from_old_map(void);
 extern void machines_initialize(void);

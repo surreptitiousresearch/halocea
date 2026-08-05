@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -16,7 +17,7 @@ void objOBJ::SetVertNormalList(m3dV *list)
 
     objGEOM_SHARED *pSharedGeom = this->pGeom->pSharedGeom;
     pSharedGeom->normalVertList = list;
-    unsigned __int64 fvf = pSharedGeom->fvf;
+    uint64_t fvf = pSharedGeom->fvf;
 
     if (list) {
         pSharedGeom->fvf = fvf | 0x1000;              // FVF: normal present

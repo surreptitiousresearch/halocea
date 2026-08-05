@@ -13,9 +13,9 @@
 int unit_definition_get_seat_active_hud_index(const unit_definition *unit_definition, int16_t seat_index, uint8_t in_multiplayer)
 {
     const unit_seat *seat = &((const unit_seat *)unit_definition->unit.seats.address)[seat_index];
-    __int16 preferred_hud = (in_multiplayer && hcex_coop_local_player_index < 0) ? 1 : 0;
-    __int16 hud_count_minus_one = seat->seat_huds.count - 1;
-    __int16 active_hud_index = (preferred_hud <= hud_count_minus_one) ? preferred_hud : hud_count_minus_one;
+    int16_t preferred_hud = (in_multiplayer && hcex_coop_local_player_index < 0) ? 1 : 0;
+    int16_t hud_count_minus_one = seat->seat_huds.count - 1;
+    int16_t active_hud_index = (preferred_hud <= hud_count_minus_one) ? preferred_hud : hud_count_minus_one;
 
     if ( active_hud_index < 0 )
         return -1;

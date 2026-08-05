@@ -21,7 +21,7 @@ uint8_t actor_action_handle_berserking_from_damage(uint16_t actor_index)
         && actor->input.recent_body_damage > definition->berserk.damage_berserk_amount
         && actor->input.body_vitality < definition->berserk.damage_berserk_threshold )
     {
-        __int16 berserk_timer = actor->stimuli.berserk_type;
+        int16_t berserk_timer = actor->stimuli.berserk_type;
 
         if ( berserk_timer <= 3 )
             berserk_timer = 3;

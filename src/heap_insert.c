@@ -7,7 +7,7 @@
 
 uint8_t heap_insert(obstacle_path *path, int16_t step_index)
 {
-    __int16 child_index = path->heap_count;
+    int16_t child_index = path->heap_count;
     if ( child_index >= 128 )
         return 0;
 
@@ -16,9 +16,9 @@ uint8_t heap_insert(obstacle_path *path, int16_t step_index)
 
     while ( child_index > 0 )
     {
-        __int16 parent_index = (__int16)(child_index - 1) >> 1;
-        __int16 child_step_index = path->heap[child_index];
-        __int16 parent_step_index = path->heap[parent_index];
+        int16_t parent_index = (int16_t)(child_index - 1) >> 1;
+        int16_t child_step_index = path->heap[child_index];
+        int16_t parent_step_index = path->heap[parent_index];
 
         if ( path->steps[parent_step_index].total_distance <= path->steps[child_step_index].total_distance )
             break;

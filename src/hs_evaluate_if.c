@@ -16,7 +16,7 @@ extern void hs_return(uint16_t thread_index, int value);
 
 void hs_evaluate_if(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
 
     /* inlined hs_thread_stack_allocate x3: reserve slots at the frame data top, 4-aligned up.
      * The compiled `if (slot - 1 > top) --slot` correction can never fire (align-up advances at
@@ -26,21 +26,21 @@ void hs_evaluate_if(int16_t function_index, int thread_index, uint8_t initialize
     int *condition_result = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
     if ( (unsigned int)(condition_result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --condition_result;
-    frame->size = (__int16)((unsigned char *)condition_result - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)condition_result - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *chosen_branch = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
     if ( (unsigned int)(chosen_branch - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --chosen_branch;
-    frame->size = (__int16)((unsigned char *)chosen_branch - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)chosen_branch - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     int *branch_result = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
     if ( (unsigned int)(branch_result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --branch_result;
-    frame->size = (__int16)((unsigned char *)branch_result - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)branch_result - frame->data + 4);
 
     if ( initialize )
     {

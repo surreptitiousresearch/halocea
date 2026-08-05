@@ -33,7 +33,7 @@ int ai_conversation_status(int16_t conversation_definition_index)
         if ( conversation->conversation_definition_index != conversation_definition_index )
             continue;
 
-        __int16 conversation_status;
+        int16_t conversation_status;
         if ( conversation->begun )
         {
             if ( conversation->any_line_spoken )
@@ -45,19 +45,19 @@ int ai_conversation_status(int16_t conversation_definition_index)
         {
             conversation_status = 1;
         }
-        if ( (__int16)status > conversation_status )
+        if ( (int16_t)status > conversation_status )
             conversation_status = status;
         status = conversation_status;
     }
 
-    if ( (__int16)status )
+    if ( (int16_t)status )
         return status;
 
     /* No live conversation — look up the most recent finished instance. */
     int latest_finish_time = -1;
-    __int16 latest_index = -1;
+    int16_t latest_index = -1;
     int count = ai_globals->recent_conversation_count;
-    for ( int i = 0; i < count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < count; i = (int16_t)(i + 1) )
     {
         if ( ai_globals->recent_conversations[i].definition_index == conversation_definition_index
           && ai_globals->recent_conversations[i].finish_time > latest_finish_time )

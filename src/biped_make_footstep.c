@@ -28,9 +28,9 @@ void biped_make_footstep(int biped_index, int16_t event_index, int16_t contact_p
     biped_datum *biped = ((biped_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, biped_index)->datum);
     biped_definition *definition = TAG_GET(biped_definition, biped->definition_index);
 
-    unsigned __int8 is_player = 0;
+    uint8_t is_player = 0;
     player_datum *player = datum_try_and_get(player_data, biped->unit.player_index);
-    if ( player && (unsigned __int16)player->local_player_index != 0xFFFF )
+    if ( player && (uint16_t)player->local_player_index != 0xFFFF )
         is_player = 1;
 
     if ( contact_point_index < definition->biped.contact_points.count && definition->biped.material_effects.index != -1

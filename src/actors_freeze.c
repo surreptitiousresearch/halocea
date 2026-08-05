@@ -6,6 +6,7 @@
  * (0x8371E71C / 0x8371E744) sets only r3 at both call sites — the second argument is a stale register,
  * never initialized in this function. Reconstructed as a single-argument call accordingly. */
 
+#include <stdint.h>
 #include "headers/actor_iterator.h"
 #include "headers/actor_datum.h"
 #include "headers/swarm_datum.h"
@@ -29,7 +30,7 @@ void actors_freeze(void)
             if ( current->meta.swarm_cache_index != -1 )
             {
                 swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, current->meta.swarm_cache_index);
-                for ( int i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+                for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
                     actor_freeze_unit(swarm->unit_indices[i]);
             }
         }

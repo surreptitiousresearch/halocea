@@ -12,7 +12,7 @@ void ai_scripting_command_list_by_unit_evaluate(int16_t function_index, int thre
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        ai_scripting_command_list_by_unit(arguments[0], ((__int16 *)arguments)[2]);
+        ai_scripting_command_list_by_unit(arguments[0], ((int16_t *)arguments)[2]);
         hs_return(thread_index, 0);
     }
 }

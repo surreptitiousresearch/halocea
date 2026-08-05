@@ -13,7 +13,7 @@ void rasterizer_screen_effect_set_convolution_evaluate(int16_t function_index, i
     if ( arguments )
     {
         /* arguments is a raw HS argument block (packed wire) — faithful de-flagged reads */
-        rasterizer_screen_effect_set_convolution(*(__int16 *)arguments, ((__int16 *)arguments)[2],
+        rasterizer_screen_effect_set_convolution(*(int16_t *)arguments, ((int16_t *)arguments)[2],
                                                  ((float *)arguments)[2], ((float *)arguments)[3],
                                                  ((float *)arguments)[4]);
         hs_return(thread_index, 0);

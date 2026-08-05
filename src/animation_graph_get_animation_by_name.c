@@ -19,10 +19,10 @@ int16_t animation_graph_get_animation_by_name(int animation_graph_index, const c
         return -1;
 
     const animation *animations = (const animation *)graph->animations.address;
-    __int16 index = 0;
+    int16_t index = 0;
     while ( stricmp(animation_name, animations[index].name) != 0 )
     {
-        index = (__int16)(index + 1);
+        index = (int16_t)(index + 1);
         if ( index >= animation_count )
             return -1;
     }

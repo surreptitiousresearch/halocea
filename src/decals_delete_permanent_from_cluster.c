@@ -39,7 +39,7 @@ void decals_delete_permanent_from_cluster(int16_t cluster_index)
         while ( decal_index != -1 )
         {
             decal_datum *decal = DATUM_GET(global_decal_data, decal_datum, decal_index);
-            __int16 flags = decal->flags;
+            int16_t flags = decal->flags;
             int next_decal_index = decal->next_decal_index;
             if ( (flags & (1u << _decal_permanent_bit)) != 0 )
             {

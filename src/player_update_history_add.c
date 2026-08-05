@@ -37,7 +37,7 @@ extern void get_history_list_length_stats(const player_update_history *history, 
 uint8_t player_update_history_add(player_update_history *history, int ticks, player_action action, int player_unit_index, int *update_id)
 {
     /* count the queue; it is full at 64 entries */
-    unsigned __int8 is_full = 0;
+    uint8_t is_full = 0;
     int count = 0;
     for ( player_update *node = history->update_history_head; node; node = node->next )
         ++count;

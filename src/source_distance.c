@@ -26,7 +26,7 @@ float source_distance(int16_t listener_index, sound_source *source)
         return __fsqrts(dx * dx + dy * dy + dz * dz);
     }
 
-    if ( (unsigned __int16)source->spatialization_mode >= NUMBER_OF_SOUND_SPATIALIZATION_MODES )
+    if ( (uint16_t)source->spatialization_mode >= NUMBER_OF_SOUND_SPATIALIZATION_MODES )
     {
         /* Deviation: reproduces a read of uninitialized stack memory (the caller's back-chain slot), verified
          * via disasm — not a real field of anything. */

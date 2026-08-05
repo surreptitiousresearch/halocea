@@ -35,7 +35,7 @@ void action_flee_control(int actor_index)
 
     if ( flee_state->panic_type <= _actor_panic_none )
     {
-        unsigned __int8 target_visible = 0;
+        uint8_t target_visible = 0;
         if ( actor->target.target_prop_index != -1 )
         {
             prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
@@ -69,7 +69,7 @@ void action_flee_control(int actor_index)
     actor->orders.look.idle_look_type = _idle_look_combat;
     actor->orders.move.panicked = flee_state->panic_type > _actor_panic_none; /* source emits the (-x & ~x) < 0 signed-positive idiom */
 
-    int panic_type = (unsigned __int16)flee_state->panic_type;
+    int panic_type = (uint16_t)flee_state->panic_type;
     char in_dangerous_range =
         (panic_type >= _actor_panic_grenade_attached_to_us && panic_type <= _actor_panic_burning_to_death) ? 1 : 0;
     actor->orders.move.dive_into_cover = 1;
@@ -78,7 +78,7 @@ void action_flee_control(int actor_index)
     actor->orders.move.flaming = in_dangerous_range;
     actor->orders.move.stationary_crouch = 1;
 
-    int firing_position_index = (unsigned __int16)flee_state->flee_firing_position_index;
+    int firing_position_index = (uint16_t)flee_state->flee_firing_position_index;
     if ( firing_position_index == 0xFFFF )
     {
         actor_move_halt(actor_index);
@@ -87,12 +87,12 @@ void action_flee_control(int actor_index)
     {
         if ( actor_move_to_firing_position(actor_index, firing_position_index, 0) )
         {
-            actor->firing_positions.current_position_index = (unsigned __int16)flee_state->flee_firing_position_index;
+            actor->firing_positions.current_position_index = (uint16_t)flee_state->flee_firing_position_index;
             actor->firing_positions.current_position_found_outside_range = flee_state->flee_firing_position_found_randomly;
         }
         else
         {
-            int cached_firing_position = *(unsigned __int16 *)&actor->firing_positions.current_position_index;
+            int cached_firing_position = (uint16_t)actor->firing_positions.current_position_index; /* DEVIATION: zero-extending lhz, not a pointer pun */
             if ( cached_firing_position != 0xFFFF )
             {
                 actor_discard_firing_position(actor_index, cached_firing_position, 0);

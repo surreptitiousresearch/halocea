@@ -42,7 +42,7 @@ Saber's entire engine code (Halo CEA doesn't use the full engine) is statically 
 As of Aug 2026, there are a few in-progress campaigns aiming for byte level accuracy for the original Xbox Halo NTCS and PAL releases of Halo CE:
 
 https://github.com/stianeklund/halo/
-https://github.com/bnunu/halo/
+https://github.com/bnunu/halo/tree/jonas/exact-pilots
 
 Which are forks of:
 https://github.com/halo-re/halo (join the Discord of this project, all of the project contributors of various halo decomp projects are in here)

@@ -24,7 +24,7 @@ int16_t model_get_marker_by_name(int model_index, const char *name, const uint8_
         uint8_t mirrored_flag, object_marker *markers, int16_t maximum_marker_count)
 {
     int count = 0;
-    __int16 marker_index = model_find_marker(model_index, name);
+    int16_t marker_index = model_find_marker(model_index, name);
     const model_marker *marker_record;
     int instance;
 
@@ -35,7 +35,7 @@ int16_t model_get_marker_by_name(int model_index, const char *name, const uint8_
     if ( marker_record->instances.count <= 0 )
         return 0;
 
-    for ( instance = 0; instance < marker_record->instances.count; instance = (__int16)(instance + 1) )
+    for ( instance = 0; instance < marker_record->instances.count; instance = (int16_t)(instance + 1) )
     {
         const model_marker_instance *record =
             &((const model_marker_instance *)marker_record->instances.address)[instance];
@@ -44,10 +44,10 @@ int16_t model_get_marker_by_name(int model_index, const char *name, const uint8_
         if ( region_permutations && region_permutations[record->region_index] != record->permutation_index )
             continue;
 
-        if ( (__int16)count >= maximum_marker_count )
+        if ( (int16_t)count >= maximum_marker_count )
             return count;
-        out = &markers[(__int16)count];
-        count = (__int16)(count + 1);
+        out = &markers[(int16_t)count];
+        count = (int16_t)(count + 1);
 
         out->node_index = node_remapping_table ? node_remapping_table[record->node_index] : record->node_index;
         matrix4x3_from_point_and_quaternion(&out->node_matrix, &record->translation, &record->rotation);

@@ -31,7 +31,7 @@ void actor_stimulus_enter_combat_friend_in_combat(uint16_t actor_index, uint16_t
     if (prop->actor_index != -1)
     {
         actor_datum *referenced = DATA_ARRAY_ELEMENT(actor_data, actor_datum, prop->actor_index);
-        __int16 referenced_level = referenced->stimuli.suspicion_combat_status;
+        int16_t referenced_level = referenced->stimuli.suspicion_combat_status;
         if (referenced_level > 0)
         {
             int current_level = actor->stimuli.suspicion_combat_status;

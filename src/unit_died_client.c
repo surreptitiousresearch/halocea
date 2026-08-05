@@ -67,7 +67,7 @@ void unit_died_client(int unit_index, uint8_t feigned)
         if ( actor_index != -1 )
         {
             actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-            unit->unit.fake_encounter_index = (__int16)actor->meta.encounter_index;
+            unit->unit.fake_encounter_index = (int16_t)actor->meta.encounter_index;
             unit->unit.fake_squad_index = actor->meta.squad_index;
             actor_died(actor_index);
             unit->unit.actor_index = -1;
@@ -77,7 +77,7 @@ void unit_died_client(int unit_index, uint8_t feigned)
         if ( swarm_actor_index != -1 )
         {
             actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, swarm_actor_index);
-            unit->unit.fake_encounter_index = (__int16)actor->meta.encounter_index;
+            unit->unit.fake_encounter_index = (int16_t)actor->meta.encounter_index;
             unit->unit.fake_squad_index = actor->meta.squad_index;
             actor_swarm_unit_died(swarm_actor_index, unit_index);
             unit->unit.swarm_actor_index = -1;
@@ -86,11 +86,11 @@ void unit_died_client(int unit_index, uint8_t feigned)
         unit->unit.time_of_death = game_time_get();
     }
 
-    __int16 current_weapon_slot = unit->unit.current_weapon_index;
+    int16_t current_weapon_slot = unit->unit.current_weapon_index;
     unit->unit.control_flags = 0;
     /* corrected: 0x11 = bits 0 and 4; DB $C43855A4... = actively_controlled + active_camouflaged (not "primary-weapon/dual-wield") */
     unit->unit.flags &= ~((1u << _unit_actively_controlled_bit) | (1u << _unit_active_camouflaged_bit));
-    if ( (unsigned __int16)current_weapon_slot != 0xFFFF )
+    if ( (uint16_t)current_weapon_slot != 0xFFFF )
     {
         int weapon_object_index = -1;
         if ( current_weapon_slot != -1 )
@@ -102,7 +102,7 @@ void unit_died_client(int unit_index, uint8_t feigned)
 
     if ( unit->object.parent_object_index != -1 )   /* object.parent_object_index */
     {
-        if ( (unsigned __int16)unit->unit.parent_seat_index == 0xFFFF )
+        if ( (uint16_t)unit->unit.parent_seat_index == 0xFFFF )
             unit_detach_from_parent(unit_index);
         else
             unit_exit_seat_end(unit_index, 0, 1, 0);
@@ -121,7 +121,7 @@ void unit_died_client(int unit_index, uint8_t feigned)
     if ( !unit->unit.weapon_drop_delay_ticks )
         unit_drop_current_weapon(unit_index, 1);
 
-    unsigned __int8 pending_seat_reset = unit->unit.grenade_throw_state;
+    uint8_t pending_seat_reset = unit->unit.grenade_throw_state;
     unit->unit.animation.overlay_action_animation.index = -1;
     unit->unit.animation.action_animation.index = -1;
     unit->unit.melee_attack_state = _unit_melee_attack_none;

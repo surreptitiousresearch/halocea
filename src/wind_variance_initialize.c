@@ -17,17 +17,17 @@ extern void uniform_cubic_spline_vector3d(real_vector3d *result, const real_vect
 
 void wind_variance_initialize(void)
 {
-    for ( __int16 keyframe = 0; keyframe < 8; keyframe = (__int16)(keyframe + 1) )
-        for ( __int16 axis = 0; axis < 3; axis = (__int16)(axis + 1) )
+    for ( int16_t keyframe = 0; keyframe < 8; keyframe = (int16_t)(keyframe + 1) )
+        for ( int16_t axis = 0; axis < 3; axis = (int16_t)(axis + 1) )
             seed_random_direction3d(get_global_random_seed_address(),
                                     &wind_globals.variance[axis][8 * keyframe]);
 
-    for ( int keyframe = 0; keyframe < 8; keyframe = (__int16)(keyframe + 1) )
+    for ( int keyframe = 0; keyframe < 8; keyframe = (int16_t)(keyframe + 1) )
     {
-        int kf = (unsigned __int16)keyframe;
-        for ( __int16 substep = 1; substep < 8; substep = (__int16)(substep + 1) )
+        int kf = (uint16_t)keyframe;
+        for ( int16_t substep = 1; substep < 8; substep = (int16_t)(substep + 1) )
         {
-            for ( int axis = 0; axis < 3; axis = (__int16)(axis + 1) )
+            for ( int axis = 0; axis < 3; axis = (int16_t)(axis + 1) )
             {
                 uniform_cubic_spline_vector3d(
                     &wind_globals.variance[axis][8 * keyframe + substep],

@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ap/apSTATE_T.h"
 #include "../ds/dsAFFIX_STRING.h"
 #include "../ds/dsARRAY.h"
@@ -25,24 +26,24 @@ struct objOBJ;           // defined below (self/geometry back-pointers)
 
 // Per-split bone range info. DB-verified layout (types_members objBONES_INFO) — size 6.
 typedef struct objBONES_INFO {
-    unsigned __int16 start1; // 0x00
-    unsigned __int16 start2; // 0x02
-    unsigned __int8  num1;   // 0x04
-    unsigned __int8  num2;   // 0x05
+    uint16_t start1; // 0x00
+    uint16_t start2; // 0x02
+    uint8_t  num1;   // 0x04
+    uint8_t  num2;   // 0x05
 } objBONES_INFO;
 
 // Per-material draw split entry — DB objSPLIT_ENTRY size 92 (0x5C).
 typedef struct objSPLIT_ENTRY {
     mtlTBL           mtlTbl;         // 0x00 materials for this batch
-    unsigned __int16 __dummy__;      // 0x3C
-    unsigned __int16 startVert;      // 0x3E
-    unsigned __int16 nVert;          // 0x40
-    unsigned __int16 startFace;      // 0x42
-    unsigned __int16 nFace;          // 0x44
+    uint16_t __dummy__;      // 0x3C
+    uint16_t startVert;      // 0x3E
+    uint16_t nVert;          // 0x40
+    uint16_t startFace;      // 0x42
+    uint16_t nFace;          // 0x44
     unsigned char    _pad46[2];      // 0x46 db-verified padding
     objSPU_CONFIG   *spuConfig;      // 0x48
     objBONES_INFO    bonesInfo;      // 0x4C
-    __int16          skinCompoundId; // 0x52 skin-compound object id
+    int16_t          skinCompoundId; // 0x52 skin-compound object id
     int              maxVSLength;    // 0x54
     int              maxPSLength;    // 0x58
 } objSPLIT_ENTRY;
@@ -62,10 +63,10 @@ typedef struct objSPLIT {
 #ifndef objGEOM_SHARED_DEFINED
 #define objGEOM_SHARED_DEFINED
 typedef struct objGEOM_SHARED {
-    apSTATE_T<__int64> stateCompr;                  // 0x00 compression/format state bits
-    unsigned __int64   fvf;                         // 0x08 flexible vertex format flags
-    unsigned __int64   fvfInterleaved;              // 0x10
-    unsigned __int64   fvfInstanced;                // 0x18
+    apSTATE_T<int64_t> stateCompr;                  // 0x00 compression/format state bits
+    uint64_t   fvf;                         // 0x08 flexible vertex format flags
+    uint64_t   fvfInterleaved;              // 0x10
+    uint64_t   fvfInstanced;                // 0x18
     objSPLIT          *pSplit;                      // 0x20 draw-split table
     objFACE           *faceList;                    // 0x24
     m3dVTX            *texCoordList[5];             // 0x28
@@ -73,9 +74,9 @@ typedef struct objGEOM_SHARED {
     m3dV              *vertList;                    // 0x48
     m3dV              *normalVertList;              // 0x4C
     m4dV              *tangentList[5];              // 0x50
-    unsigned __int16   vertBoneIdxFirst;            // 0x64 first skin-compound object index
-    unsigned __int16   vertBoneIdxCount;            // 0x66 skin-compound object count
-    unsigned __int8   *vertBoneIdxList;             // 0x68
+    uint16_t   vertBoneIdxFirst;            // 0x64 first skin-compound object index
+    uint16_t   vertBoneIdxCount;            // 0x66 skin-compound object count
+    uint8_t   *vertBoneIdxList;             // 0x68
     float             *vertBoneWeightList;          // 0x6C
     m3dBOX             bbox;                        // 0x70
     void              *pDataInst;                   // 0x88
@@ -84,9 +85,9 @@ typedef struct objGEOM_SHARED {
     ds::ARRAY<unsigned short, 5> texCoordMaxTile;   // 0x9A
     ds::ARRAY<short, 3>          vertOffset;        // 0xA4
     ds::ARRAY<short, 3>          vertScale;         // 0xAA
-    unsigned __int16   instNum;                     // 0xB0
-    unsigned __int8    instSize;                    // 0xB2
-    unsigned __int8    interleavedSize;             // 0xB3
+    uint16_t   instNum;                     // 0xB0
+    uint8_t    instSize;                    // 0xB2
+    uint8_t    interleavedSize;             // 0xB3
 } objGEOM_SHARED;
 #endif
 
@@ -94,7 +95,7 @@ typedef struct objGEOM_SHARED {
 #ifndef objGEOM_UNSHARED_DEFINED
 #define objGEOM_UNSHARED_DEFINED
 typedef struct objGEOM_UNSHARED {
-    apSTATE_T<__int64> stateDyn;           // 0x00
+    apSTATE_T<int64_t> stateDyn;           // 0x00
     objOBJ            *pSharingHostObj;    // 0x08
     objGEOM_SHARED    *pSharedGeom;        // 0x0C shared geometry
     int                sharingOfsVtx;      // 0x10
@@ -106,12 +107,12 @@ typedef struct objGEOM_UNSHARED {
     objMODIFIER      **modList;            // 0x34
     float              transp;             // 0x38
     float              lodTransp;          // 0x3C
-    __int16            nModifiers;         // 0x40 number of modifiers
-    unsigned __int8    alphaKillValue;     // 0x42
-    unsigned __int8    zBiasValue;         // 0x43
+    int16_t            nModifiers;         // 0x40 number of modifiers
+    uint8_t    alphaKillValue;     // 0x42
+    uint8_t    zBiasValue;         // 0x43
     char               renderPassId;       // 0x44
-    unsigned __int8    blendRend;          // 0x45
-    unsigned __int8    transpRendPriority; // 0x46
+    uint8_t    blendRend;          // 0x45
+    uint8_t    transpRendPriority; // 0x46
     unsigned char      _pad47[1];          // 0x47 db-verified tail padding
 } objGEOM_UNSHARED;
 #endif
@@ -121,7 +122,7 @@ typedef struct objGEOM_UNSHARED {
 #define objOBJ_DEFINED
 typedef struct objOBJ {
     char                    *name;             // 0x00
-    __int16                  id;               // 0x04
+    int16_t                  id;               // 0x04
     unsigned char            _pad6[2];         // 0x06
     objGEOM_UNSHARED        *pGeom;            // 0x08
     int                      nFace;            // 0x0C
@@ -129,8 +130,8 @@ typedef struct objOBJ {
     animINST                *pInst;            // 0x14
     int                      state;            // 0x18
     int                      stateProc;        // 0x1C
-    apSTATE_T<__int64>       stateUsr64;       // 0x20
-    apSTATE_T<__int64>       stateShare;       // 0x28
+    apSTATE_T<int64_t>       stateUsr64;       // 0x20
+    apSTATE_T<int64_t>       stateShare;       // 0x28
     apSTATE_T<unsigned char> stateVis;         // 0x30
     unsigned char            _pad31[3];        // 0x31 db-verified padding
     dsAFFIX_STRING           affixes;          // 0x34
@@ -143,8 +144,8 @@ typedef struct objOBJ {
     m3dMATR                  matrModel;        // 0x8C model transform (matrLT * parent^-1)
     m3dMATR                 *pMatrLTPrev;      // 0xCC
     psSECTION                ps;               // 0xD0
-    __int16                  animNmb;          // 0xD4
-    unsigned __int16         stateRend;        // 0xD6
+    int16_t                  animNmb;          // 0xD4
+    uint16_t         stateRend;        // 0xD6
     int                      dbgRenderRefCount;// 0xD8
 
     static void Delete(objOBJ *obj);          // 0x82A7EB40  boundary

@@ -51,7 +51,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
     widget_instance *group = parent->children;
 
     unsigned int trait_with_ball_index =
-            (unsigned __int16)first_text_box(group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(group)->parameters.text_box_parameters.string_list_index;
     if ( trait_with_ball_index <= 3 )
     {
         switch ( trait_with_ball_index )
@@ -65,7 +65,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *trait_without_ball_group = group->next;
     unsigned int trait_without_ball_index =
-            (unsigned __int16)first_text_box(trait_without_ball_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(trait_without_ball_group)->parameters.text_box_parameters.string_list_index;
     if ( trait_without_ball_index <= 3 )
     {
         switch ( trait_without_ball_index )
@@ -79,7 +79,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *single_flag_group = trait_without_ball_group->next;
     unsigned int single_flag_index =
-            (unsigned __int16)first_text_box(single_flag_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(single_flag_group)->parameters.text_box_parameters.string_list_index;
     /* deviation: decompiler wrote ctf.single_flag_time; the union arm in play is oddball.speed_with_ball
      * (same bytes at 0x4). */
     if ( single_flag_index == 0 )
@@ -91,7 +91,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *ball_type_group = single_flag_group->next;
     unsigned int ball_type_index =
-            (unsigned __int16)first_text_box(ball_type_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(ball_type_group)->parameters.text_box_parameters.string_list_index;
     if ( ball_type_index == 0 )
         edit_playlist_profile->game_engine_variant.oddball.oddball_ball_type = _oddball_normal;
     else if ( ball_type_index == 1 )
@@ -101,7 +101,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *assault_group = ball_type_group->next;
     unsigned int assault_index =
-            (unsigned __int16)first_text_box(assault_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(assault_group)->parameters.text_box_parameters.string_list_index;
     if ( assault_index == 0 )
         edit_playlist_profile->game_engine_variant.ctf.assault = 1;
     else if ( assault_index == 1 )
@@ -109,13 +109,13 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *ball_spawn_count_group = assault_group->next;
     unsigned int ball_spawn_count_index =
-            (unsigned __int16)first_text_box(ball_spawn_count_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(ball_spawn_count_group)->parameters.text_box_parameters.string_list_index;
     if ( ball_spawn_count_index < 16 )
-        edit_playlist_profile->game_engine_variant.oddball.ball_spawn_count = (__int16)ball_spawn_count_index + 1;
+        edit_playlist_profile->game_engine_variant.oddball.ball_spawn_count = (int16_t)ball_spawn_count_index + 1;
 
     widget_instance *score_group = ball_spawn_count_group->next;
     unsigned int score_index =
-            (unsigned __int16)first_text_box(score_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(score_group)->parameters.text_box_parameters.string_list_index;
     if ( score_index <= 4 )
     {
         switch ( score_index )
@@ -130,7 +130,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *teams_group = score_group->next;
     unsigned int teams_index =
-            (unsigned __int16)first_text_box(teams_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(teams_group)->parameters.text_box_parameters.string_list_index;
     if ( teams_index == 0 )
         edit_playlist_profile->universal_variant.teams = 1;
     else if ( teams_index == 1 )
@@ -138,7 +138,7 @@ uint8_t playlist_profile_change_oddball_rules(widget_instance *widget, event_rec
 
     widget_instance *time_group = teams_group->next;
     unsigned int time_index =
-            (unsigned __int16)first_text_box(time_group)->parameters.text_box_parameters.string_list_index;
+            (uint16_t)first_text_box(time_group)->parameters.text_box_parameters.string_list_index;
     if ( time_index <= 6 )
     {
         switch ( time_index )

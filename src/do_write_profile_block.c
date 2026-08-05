@@ -18,7 +18,7 @@ extern int delete_enumerated_saved_game_file(int index);
 
 void do_write_profile_block(int index, player_profile *profile)
 {
-    unsigned __int8 write_failed = 0;
+    uint8_t write_failed = 0;
     file_reference file;
 
     if ( saved_game_file_open(&file, index) )

@@ -28,7 +28,7 @@ uint8_t nearby_vehicle(const real_point3d *center)
     if (object_count <= 0)
         return 0;
 
-    for (int i = 0; i < object_count; i = (__int16)(i + 1))
+    for (int i = 0; i < object_count; i = (int16_t)(i + 1))
     {
         object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum,
                                                   object_indices[i])->datum;

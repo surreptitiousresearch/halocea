@@ -45,13 +45,13 @@ int decode_iteration_independent_header(bitstream_t *const input_stream,
     decoding_information->definition_type = _message_object_deletion;
     decoding_information->iteration_count = 0;
 
-    unsigned __int8 protocol_flag = 0;
+    uint8_t protocol_flag = 0;
     int received_protocol = 0;
 
     /* recovered: (unsigned char *)decoding_information -> &decoding_information->mode (offset 0x00) */
     int mode_read = bitstream_read_bit(input_stream, (unsigned char *)&decoding_information->mode);
     decoding_information->message_mode_bits = 1;
-    unsigned __int8 ok =
+    uint8_t ok =
             (unsigned int)decoding_information->mode <= _message_delta_mode_incremental && mode_read;
 
     int type_read = bitstream_read_bits(input_stream,

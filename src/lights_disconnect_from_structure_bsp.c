@@ -24,7 +24,7 @@ int lights_disconnect_from_structure_bsp(void)
     for ( int i = result; result != -1; i = result )
     {
         light_datum *light = DATA_ARRAY_ELEMENT(light_data, light_datum, i);
-        __int16 flags = light->flags;
+        int16_t flags = light->flags;
         if ( (flags & (1u << _point_light_connected_to_map_bit)) != 0 )
         {
             if ( (flags & (1u << _point_light_connects_to_map_bit)) != 0 )

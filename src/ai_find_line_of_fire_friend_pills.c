@@ -30,10 +30,10 @@ extern void ai_generate_line_of_fire_pill(int unit_index, int prop_index, line_o
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
-__int16 ai_find_line_of_fire_friend_pills(int actor_index, __int16 max_pill_count, line_of_fire_pill *pills)
+int16_t ai_find_line_of_fire_friend_pills(int actor_index, int16_t max_pill_count, line_of_fire_pill *pills)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 pill_count = 0;
+    int16_t pill_count = 0;
 
     int encounter_index = actor->meta.encounter_index;
     if (encounter_index != -1)
@@ -51,7 +51,7 @@ __int16 ai_find_line_of_fire_friend_pills(int actor_index, __int16 max_pill_coun
                 {
                     int prop_index = prop_get_active_by_unit_index(actor_index, unit_index);
                     ai_generate_line_of_fire_pill(other->meta.unit_index, prop_index, &pills[pill_count]);
-                    pill_count = (__int16)(pill_count + 1);
+                    pill_count = (int16_t)(pill_count + 1);
                 }
             }
         }
@@ -77,7 +77,7 @@ __int16 ai_find_line_of_fire_friend_pills(int actor_index, __int16 max_pill_coun
                     && pill_count < max_pill_count)
                 {
                     ai_generate_line_of_fire_pill(prop->unit_index, prop_cursor.index, &pills[pill_count]);
-                    pill_count = (__int16)(pill_count + 1);
+                    pill_count = (int16_t)(pill_count + 1);
                 }
             }
         }

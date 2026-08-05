@@ -11,6 +11,7 @@
  * since the single_flag_time-dependent branches interleave in a way that's easy to get subtly wrong by
  * "cleaning up" — faithfulness over readability here. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/data_iterator.h"
 #include "headers/player_datum.h"
@@ -38,7 +39,7 @@ game_variant *race_update_team_score(void)
 
         int accumulated = 0;
         int count = 0;
-        __int16 single_flag_time = 0;
+        int16_t single_flag_time = 0;
         int player_value = 0;
 
         player_datum *player = data_iterator_next(&iterator);

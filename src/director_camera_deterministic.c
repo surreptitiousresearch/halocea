@@ -12,9 +12,9 @@ extern void first_person_camera_deterministic(int unit_index, real_point3d *posi
 
 int director_camera_deterministic(int unit_index, real_point3d *position, real_vector3d *forward)
 {
-    __int16 perspective;
+    int16_t perspective;
     int result = director_desired_perspective(unit_index, &perspective);
-    if ((__int16)result)
+    if ((int16_t)result)
         following_camera_deterministic(unit_index, position, forward);
     else
         first_person_camera_deterministic(unit_index, position, forward);

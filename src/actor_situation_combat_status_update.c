@@ -16,16 +16,16 @@
 #include "headers/actor_mode.h"
 #include "headers/blam_data_globals.h"
 
-extern const __int16   global_combat_status_table[12];
+extern const int16_t   global_combat_status_table[12];
 
 void actor_situation_combat_status_update(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    __int16 pending = actor->stimuli.suspicion_combat_status;
+    int16_t pending = actor->stimuli.suspicion_combat_status;
     if (pending > 0)
     {
-        __int16 running = actor->state.suspicion_combat_status;
+        int16_t running = actor->state.suspicion_combat_status;
         if (running < pending)
         {
             actor->state.suspicion_combat_status = pending;
@@ -41,14 +41,14 @@ void actor_situation_combat_status_update(uint16_t actor_index)
         actor->stimuli.suspicion_combat_status = _actor_combat_status_none;
     }
 
-    __int16 alertness = actor->state.artificial_combat_status;
-    __int16 status_floor = global_combat_status_table[actor->target.target_type];
-    __int16 peak = alertness;
+    int16_t alertness = actor->state.artificial_combat_status;
+    int16_t status_floor = global_combat_status_table[actor->target.target_type];
+    int16_t peak = alertness;
     if (alertness <= status_floor)
         peak = status_floor;
 
-    __int16 running = actor->state.suspicion_combat_status;
-    __int16 status = peak;
+    int16_t running = actor->state.suspicion_combat_status;
+    int16_t status = peak;
     if (running > peak)
         status = running;
 

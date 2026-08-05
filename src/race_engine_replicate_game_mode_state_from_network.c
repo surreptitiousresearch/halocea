@@ -20,8 +20,8 @@
 
 
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
-extern unsigned __int8 message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
-        const message_delta_processor_header *header, unsigned __int8 allow_empty_body);
+extern uint8_t message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
+        const message_delta_processor_header *header, uint8_t allow_empty_body);
 extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 static void resync(race_globals_type *destination, const race_globals_type *source)
@@ -38,7 +38,7 @@ static void resync(race_globals_type *destination, const race_globals_type *sour
 void race_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header,
         network_game_client *client)
 {
-    unsigned __int8 decoded;
+    uint8_t decoded;
 
     if ( header->decoding_information->mode )
     {

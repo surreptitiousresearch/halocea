@@ -6,6 +6,7 @@
  * DEVIATION: the binary writes relative_object_index/animation_graph_index as one 64-bit store, placing the
  * graph index in relative_object_index and -1 in animation_graph_index; reproduced as written. */
 
+#include <stdint.h>
 #include "headers/camera_script_globals.h"
 #include "headers/global_tag_instances.h"
 #include "headers/animation.h"
@@ -34,7 +35,7 @@ void scripted_camera_set_animation(unsigned int animation_graph_index, const cha
         anim = &((animation *)graph[30])[found];
         if ( !stricmp(animation_name, anim->name) )
             break;
-        found = (__int16)(found + 1);
+        found = (int16_t)(found + 1);
         if ( found >= graph[29] )
             return;
     }

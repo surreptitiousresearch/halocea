@@ -46,7 +46,7 @@ void recorded_animations_update(void)
           thread = data_iterator_next(&iter) )
     {
         int unit_index = thread->unit_index;
-        __int16 flags;
+        int16_t flags;
 
         if ( !object_try_and_get_and_verify_type(unit_index, object_mask_unit) )
             continue;

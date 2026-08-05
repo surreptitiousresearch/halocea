@@ -17,9 +17,9 @@ void ai_scripting_allegiance(int16_t team1_index, int16_t team2_index)
     if ( team1_index == -1 || team2_index == -1 )
         return;
 
-    __int16 special_team = -1;
-    __int16 incident_decay_time = -1;
-    __int16 incident_threshold = -1;
+    int16_t special_team = -1;
+    int16_t incident_decay_time = -1;
+    int16_t incident_threshold = -1;
     unsigned char requires_communication = 0;
     char suspicious_pairing = 0;
 
@@ -30,7 +30,7 @@ void ai_scripting_allegiance(int16_t team1_index, int16_t team2_index)
 
     if ( special_team == _game_team_human || special_team == _game_team_sentinel )
     {
-        static const __int16 decay_times_by_difficulty[4] = { 300, 450, 1200, 2700 };
+        static const int16_t decay_times_by_difficulty[4] = { 300, 450, 1200, 2700 };
         suspicious_pairing = 1;
         incident_threshold = 5;
         incident_decay_time = decay_times_by_difficulty[game_difficulty_level_get()];

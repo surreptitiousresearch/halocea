@@ -49,10 +49,10 @@ int actor_aim_grenade(int actor_index, const real_point3d *origin, real_vector3d
     if ( prop_index != -1 )
     {
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-        __int16 prop_state = prop->state;
+        int16_t prop_state = prop->state;
         if ( prop_state >= _prop_state_becoming_unacknowledged && prop_state <= _prop_state_acknowledged )
             target_unit_index = prop->unit_index;
-        if ( (unsigned __int16)prop_state >= _prop_state_becoming_unacknowledged )
+        if ( (uint16_t)prop_state >= _prop_state_becoming_unacknowledged )
         {
             float aim_point_x = prop->body_position.n[0];
             float aim_point_y = prop->body_position.n[1];

@@ -42,7 +42,7 @@ int16_t action_vehicle_find_impromptu_seat(int actor_index, int vehicle_index, r
     vehicle_definition *vehicle_def = TAG_GET(vehicle_definition, vehicle->definition_index);
     int seat_count = vehicle_def->unit.seats.count; /* unit.seats.count, abs +0x2E4 */
 
-    for ( __int16 seat_index = 0; seat_index < seat_count; seat_index = (__int16)(seat_index + 1) )
+    for ( int16_t seat_index = 0; seat_index < seat_count; seat_index = (int16_t)(seat_index + 1) )
     {
         float seat_weight;
         real_point3d candidate_entry_point;

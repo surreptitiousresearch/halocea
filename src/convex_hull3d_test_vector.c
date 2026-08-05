@@ -27,9 +27,9 @@ uint8_t convex_hull3d_test_vector(int16_t point_count, const real_point3d *point
 {
     float t_in = -3.4028235e38f;
     float t_out = 3.4028235e38f;
-    unsigned __int8 result = 1;
+    uint8_t result = 1;
 
-    for ( __int16 i = 0; i < surface_count; i++ )
+    for ( int16_t i = 0; i < surface_count; i++ )
     {
         const surface3d *surface = &surfaces[i];
         if ( !surface->extant )

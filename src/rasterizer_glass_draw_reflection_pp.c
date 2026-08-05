@@ -25,14 +25,16 @@
  *     sets AddressU/V/W and SeparateZFilterEnable=1 (disasm 0x8378E230-E36C).
  *   - Several texture-bind / MagFilter args the decompiler rendered as HIDWORD/DWORD1 shadows are the effect
  *     shader / constant 1 (verified: 0x8378E090 r8=r29, 0x8378E0CC r5=1, 0x8378E240 r5=1, 0x8378E2D4 r5=1).
- *   - shader-tag fields use the decompiler's shader[N].base.radiosity.* byte-offset puns (40-byte [N] stride;
- *     names past 0x2A are wrong but offsets are right — same convention as the chicago/environment siblings).
+ *   - shader-tag fields: the decompiler's shader[N].base.radiosity.* byte-offset puns (40-byte [N] stride)
+ *     are resolved to the shader_transparent_glass DB members (reflection colours, bump/reflection map
+ *     indices + scale, glass flags).
  * FAITHFUL QUIRK: for a primary vertex type other than 0/2/4 the vertex-shader sub-index is read from the
  * still-uninitialized effect pass-count buffer (reproduced verbatim). */
 
 #include <stdint.h>
 #include "headers/transparent_geometry_group.h"
 #include "headers/shader.h"
+#include "headers/shader_transparent_glass.h"
 #include "headers/shader_transparent_glass_flags.h"
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/rasterizer_dx9_shader_table.h"
@@ -60,7 +62,7 @@ extern D3DVertexShader *rasterizer_dx9_shaders_vshader9_get(unsigned int index);
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-        const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+        const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_SetSamplerState_AddressU_Inline(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetSamplerState_AddressV_Inline(D3DDevice *device, unsigned int Sampler, unsigned int Value);
 extern void D3DDevice_SetSamplerState_AddressW_Inline(D3DDevice *device, unsigned int Sampler, unsigned int Value);
@@ -73,8 +75,8 @@ extern void D3DDevice_SetRenderState_AlphaTestEnable(D3DDevice *device, unsigned
 
 void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group, int16_t reflection_mode)
 {
-    const shader *shader = group->shader;
-    __int16 primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
+    const shader_transparent_glass *glass = (const shader_transparent_glass *)group->shader;
+    int16_t primary_vertex_type = rasterizer_transparent_geometry_get_primary_vertex_type(group);
 
     /* c0: camera forward remapped to [0,1] then to [-1,1] per axis, w = 1. */
     float camera_forward[4];
@@ -89,18 +91,18 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
     camera_forward[2] = forward_z * 2.0f - 1.0f;
     camera_forward[3] = 1.0f;
 
-    /* c1/c2: glass tint / reflection blocks (shader[3]/shader[4] byte-offset puns). */
+    /* c1/c2: reflection view-perpendicular / view-parallel colour blocks (r,g,b,a). */
     float tint_constants[4];
-    tint_constants[0] = shader[3].base.radiosity.tint_color.n[1];
-    tint_constants[1] = shader[3].base.radiosity.tint_color.n[2];
-    tint_constants[2] = *(float *)&shader[3].base.physics;
-    tint_constants[3] = shader[3].base.radiosity.tint_color.n[0];
+    tint_constants[0] = glass->glass.reflection_view_perpendicular_color.__s2.red;
+    tint_constants[1] = glass->glass.reflection_view_perpendicular_color.__s2.green;
+    tint_constants[2] = glass->glass.reflection_view_perpendicular_color.__s2.blue;
+    tint_constants[3] = glass->glass.reflection_view_perpendicular_color.__s1.alpha;
 
     float reflection_constants[4];
-    reflection_constants[0] = *(float *)&shader[4].base.radiosity.flags;
-    reflection_constants[1] = shader[4].base.radiosity.power;
-    reflection_constants[2] = shader[4].base.radiosity.color.n[0];
-    reflection_constants[3] = *(float *)&shader[3].base.type;
+    reflection_constants[0] = glass->glass.reflection_view_parallel_color.__s2.red;
+    reflection_constants[1] = glass->glass.reflection_view_parallel_color.__s2.green;
+    reflection_constants[2] = glass->glass.reflection_view_parallel_color.__s2.blue;
+    reflection_constants[3] = glass->glass.reflection_view_parallel_color.__s1.alpha;
 
     /* c3: reflection intensity replicated to all four channels. */
     float reflection_intensity = (group->effect.type == _render_model_effect_type_active_camouflage) ? 1.0f - group->effect.intensity : 1.0f;
@@ -112,24 +114,24 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
 
     /* Promote mode 0 to 1 when this glass surface forces the flat-reflection path. */
     if (!reflection_mode)
-        reflection_mode = (shader[1].base.radiosity.flags & (1u << _shader_transparent_glass_bump_map_is_specular_mask_bit)) != 0;
+        reflection_mode = (glass->glass.flags & (1u << _shader_transparent_glass_bump_map_is_specular_mask_bit)) != 0;
     if (!reflection_mode)
-        reflection_mode = *(int *)&shader[5].base.radiosity.power == -1;
+        reflection_mode = glass->glass.reflection_bump_map.index == -1;
 
     /* vertex-shader sub-index by primary vertex type; the else path reads the uninitialized pass-count buffer. */
     unsigned int effect_pass_count[2]; /* Begin() out-param */
-    __int16 vshader_subindex;
+    int16_t vshader_subindex;
     if (primary_vertex_type == _rasterizer_vertex_type_environment_uncompressed
         || primary_vertex_type == _rasterizer_vertex_type_environment_lightmap_uncompressed)
         vshader_subindex = 0;
     else if (primary_vertex_type == _rasterizer_vertex_type_model_uncompressed)
         vshader_subindex = 1;
     else
-        vshader_subindex = (__int16)effect_pass_count[0]; /* FAITHFUL QUIRK: uninitialized read */
+        vshader_subindex = (int16_t)effect_pass_count[0]; /* FAITHFUL QUIRK: uninitialized read */
 
     /* the bumped-mode shader is selected unconditionally; modes 1/2 replace it. */
     rasterizer_dx9_shader *effect_shader = rasterizer_shader_select(_dxshader_transparent_glass_reflection_bumped);
-    __int16 vshader_base = 0;
+    int16_t vshader_base = 0;
     if (reflection_mode == _shader_transparent_glass_reflection_type_bumped)
     {
         vshader_base = 50;
@@ -173,7 +175,7 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
     }
     /* reflection_mode >= 3: no effect uploads; keeps the mode-0 shader and vshader_base 0. */
 
-    int reflection_pass = (shader[1].base.radiosity.flags >> 3) & 1;
+    int reflection_pass = (glass->glass.flags >> _shader_transparent_glass_bump_map_is_specular_mask_bit) & 1;
     D3DDevice_SetVertexDeclaration(global_d3d_device,
                                    rasterizer_dx9_shaders_vdecl9_get((unsigned int)primary_vertex_type));
     D3DDevice_SetVertexShader(global_d3d_device,
@@ -183,8 +185,8 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
     {
         /* Vertex-shader constants c10..c12: projection scale + screen half-extents. */
         float vs_constants[12];
-        vs_constants[0] = group->model_base_map_scale.n[0] * shader[4].base.radiosity.tint_color.n[2];
-        vs_constants[1] = group->model_base_map_scale.n[1] * shader[4].base.radiosity.tint_color.n[2];
+        vs_constants[0] = group->model_base_map_scale.n[0] * glass->glass.reflection_bump_map_scale;
+        vs_constants[1] = group->model_base_map_scale.n[1] * glass->glass.reflection_bump_map_scale;
         vs_constants[2] = (float)(global_window_parameters.camera.viewport_bounds.__s1.x1
                                   - global_window_parameters.camera.viewport_bounds.__s1.x0) * 0.5f; /* width/2 */
         vs_constants[3] = (float)(global_window_parameters.camera.viewport_bounds.__s1.y1
@@ -197,10 +199,10 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
         vs_constants[9] = 1.0f;
         vs_constants[10] = 0.0f;
         vs_constants[11] = 0.0f;
-        D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, vs_constants, 3, (unsigned __int64)3 << 60);
+        D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, vs_constants, 3, (uint64_t)3 << 60);
 
         /* stage 0: bump map. */
-        rasterizer_set_texture_for_effect(0, 0, 3, *(int *)&shader[5].base.radiosity.power,
+        rasterizer_set_texture_for_effect(0, 0, 3, glass->glass.reflection_bump_map.index,
                                           group->shader_permutation_index, effect_shader);
 
         /* stage 1: normalization cube map. */
@@ -235,7 +237,7 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
         }
         else
         {
-            rasterizer_set_texture_for_effect(3, 2, 0, *(int *)&shader[4].base.radiosity.tint_color.n[1],
+            rasterizer_set_texture_for_effect(3, 2, 0, glass->glass.reflection_map.index,
                                               group->shader_permutation_index, effect_shader);
             D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, 1);
             D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, 1);

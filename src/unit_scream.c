@@ -28,7 +28,7 @@ int unit_scream(int unit_index, int16_t scream_type)
 {
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
 
-    __int16 vocalization;
+    int16_t vocalization;
     /* The dialogue-tag vocalization index is an ai_vocalization_type (same domain unit_make_damage_sound
      * feeds to unit_speak). scream_type is a unit_scream_type (DB enum _67894A93...; callers pass
      * _unit_scream_falling / _unit_scream_resurrection etc.). */
@@ -50,11 +50,11 @@ int unit_scream(int unit_index, int16_t scream_type)
     int dialogue_tag = unit->unit.dialogue_index;
     if ( dialogue_tag != -1 )
     {
-        __int16 vocalization_arg = vocalization;
+        int16_t vocalization_arg = vocalization;
         int sound_definition_index = TAG_GET(int, dialogue_tag)[4 * vocalization + 7];
         if ( sound_definition_index != -1 )
         {
-            __int16 speech_handle = unit_test_speech(unit_index, _unit_speech_scream, 1u, 0, nullptr,
+            int16_t speech_handle = unit_test_speech(unit_index, _unit_speech_scream, 1u, 0, nullptr,
                 &vocalization_arg, &sound_definition_index);
             if ( speech_handle > 0 )
             {

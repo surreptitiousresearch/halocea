@@ -19,7 +19,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int game_time_get(void);
-extern __int16 dialogue_vocalization_lookup[];
+extern int16_t dialogue_vocalization_lookup[];
 extern int  global_speech_override_priorities[];
 extern float global_speech_queue_times[];
 
@@ -31,14 +31,14 @@ int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursi
     game_time_get();
     int sound_index = *sound_definition_index_reference;
     int result = 0;
-    __int16 vocalization_type = *vocalization_type_reference;
+    int16_t vocalization_type = *vocalization_type_reference;
 
     if ( *sound_definition_index_reference == -1 )
     {
         int dialogue_tag = unit->unit.dialogue_index;
         if ( dialogue_tag != -1 )
         {
-            for ( __int16 type = vocalization_type; vocalization_type != -1; type = vocalization_type )
+            for ( int16_t type = vocalization_type; vocalization_type != -1; type = vocalization_type )
             {
                 sound_index = TAG_GET(int, dialogue_tag)[4 * type + 7];
                 if ( !allow_recursive_lookup )
@@ -52,11 +52,11 @@ int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursi
 
     if ( ((unit->object.damage_flags & (1u << _object_dead_bit)) == 0 || priority == _unit_speech_death) && sound_index != -1 )
     {
-        __int16 current_priority = unit->unit.speech.current.priority;
-        __int16 effective_priority = current_priority;
+        int16_t current_priority = unit->unit.speech.current.priority;
+        int16_t effective_priority = current_priority;
         if ( current_priority )
         {
-            __int16 queued_priority = unit->unit.speech.queued.priority;
+            int16_t queued_priority = unit->unit.speech.queued.priority;
             if ( current_priority <= queued_priority )
                 effective_priority = unit->unit.speech.queued.priority;
 
@@ -90,7 +90,7 @@ int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursi
                                                  + unit->unit.speech.sound_timer;
                             int queue_ticks = (int)(global_speech_queue_times[priority] * 30.0f);
                             /* branchless-signed XOR idiom == signed ((__int16)queue_ticks > elapsed) */
-                            can_queue = (__int16)queue_ticks > (int)elapsed;
+                            can_queue = (int16_t)queue_ticks > (int)elapsed;
                         }
 
                         if ( can_queue )

@@ -12,7 +12,7 @@ void input_abstraction_get_yaw_rate_evaluate(int16_t function_index, int thread_
     if ( arguments )
     {
         int result;
-        *(float *)&result = input_abstraction_get_yaw_rate(*(__int16 *)arguments);
+        *(float *)&result = input_abstraction_get_yaw_rate(*(int16_t *)arguments);
         hs_return(thread_index, result);
     }
 }

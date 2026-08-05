@@ -12,5 +12,5 @@ void stack_walk(int16_t levels_to_ignore)
     unsigned int frames[64];
 
     memset(frames, 0, sizeof(frames));
-    walk_stack(frames, 0x40u, (__int16)(levels_to_ignore + 1), frame_count);
+    walk_stack(frames, 0x40u, (int16_t)(levels_to_ignore + 1), frame_count);
 }

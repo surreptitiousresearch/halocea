@@ -14,7 +14,7 @@ extern uint8_t rasterizer_dx9_shaders_vshader9_load_vso_file(int index);
 
 uint8_t rasterizer_dx9_shaders_vshader9_load_vso_files(void)
 {
-    unsigned __int8 result = 1;
+    uint8_t result = 1;
 
     for ( int i = 0; i < 65 && result; ++i )
     {

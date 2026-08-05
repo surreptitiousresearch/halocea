@@ -12,7 +12,7 @@ extern void hs_enumerate_block_data(tag_block *block, int16_t element_offset, in
 
 void hs_enumerate_variable_names(void)
 {
-    for ( __int16 i = 0; i < hs_external_global_count; ++i )
+    for ( int16_t i = 0; i < hs_external_global_count; ++i )
         hs_tokens_enumerate_add_string(hs_external_globals[i]->name);
 
     if ( global_scenario_index != -1 )

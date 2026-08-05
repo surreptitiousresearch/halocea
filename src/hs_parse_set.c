@@ -47,7 +47,7 @@ int hs_parse_set(int16_t function_index, int expression_index)
         return 0;
     }
 
-    __int16 global = hs_find_global_by_name(&hs_compile_globals.compiled_source[variable_node->source_offset]);
+    int16_t global = hs_find_global_by_name(&hs_compile_globals.compiled_source[variable_node->source_offset]);
     if ( global == -1 )
     {
         hs_compile_globals.__noop = "this is not a valid global variable.";
@@ -55,7 +55,7 @@ int hs_parse_set(int16_t function_index, int expression_index)
         return 0;
     }
 
-    __int16 global_type = hs_global_get_type(global);
+    int16_t global_type = hs_global_get_type(global);
     variable_node->type = global_type;
     if ( group->type && !hs_can_cast(global_type, group->type) )
     {

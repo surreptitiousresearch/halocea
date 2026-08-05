@@ -16,6 +16,6 @@ void action_charge_update(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    if ((unsigned __int16)actor->state.action_data.___u0.charge.goal == charge_goal_melee_leaping && actor->state.action_data.___u0.charge.launched_leap && !actor->state.action_data.___u0.charge.launched_melee_attack && !actor->input.in_midair)
+    if ((uint16_t)actor->state.action_data.___u0.charge.goal == charge_goal_melee_leaping && actor->state.action_data.___u0.charge.launched_leap && !actor->state.action_data.___u0.charge.launched_melee_attack && !actor->input.in_midair)
         ++actor->state.action_data.___u0.charge.leap_failure_timer;
 }

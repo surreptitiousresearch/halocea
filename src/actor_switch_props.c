@@ -84,7 +84,7 @@ void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_pr
             swarm_datum *swarm = DATUM_GET(swarm_data, swarm_datum, swarm_cache_index);
             if ( swarm->unit_count > 0 )
             {
-                for ( int i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+                for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
                 {
                     swarm_component_datum *component = DATUM_GET(swarm_component_data, swarm_component_datum,
                                     swarm->component_indices[i]);

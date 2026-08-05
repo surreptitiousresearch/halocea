@@ -32,13 +32,13 @@
 
 extern void *memset(void *dst, int value, unsigned int n);
 
-extern __int16 actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *context,
+extern int16_t actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *context,
         firing_position *best_firing_position, int *current_owner, path_state *area_path_state,
-        unsigned __int8 *cached_path_available);
+        uint8_t *cached_path_available);
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern float actor_destination_tolerance(uint16_t actor_index);
 
-unsigned __int8 action_uncover_perform(int actor_index)
+uint8_t action_uncover_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     uncover_state_data *action_data = &actor->state.action_data.___u0.uncover;
@@ -50,7 +50,7 @@ unsigned __int8 action_uncover_perform(int actor_index)
     firing_position best_firing_position;
     path_state area_path_state;
     int current_owner;
-    unsigned __int8 cached_path_available;
+    uint8_t cached_path_available;
 
     memset(&evaluation_context, 0, sizeof(evaluation_context));
     evaluation_context.evaluation_mode = _firing_point_evaluation_mode_uncover;
@@ -69,7 +69,7 @@ unsigned __int8 action_uncover_perform(int actor_index)
         evaluation_context.use_last_visible_target_position = action_data->no_target_sight_available;
     }
 
-    __int16 firing_position_index = actor_active_select_firing_position(actor_index, &evaluation_context,
+    int16_t firing_position_index = actor_active_select_firing_position(actor_index, &evaluation_context,
             &best_firing_position, &current_owner, &area_path_state, &cached_path_available);
 
     if ( firing_position_index != -1 )
@@ -86,7 +86,7 @@ unsigned __int8 action_uncover_perform(int actor_index)
         }
     }
 
-    __int16 change_result = actor_change_firing_position(actor_index, firing_position_index, &best_firing_position,
+    int16_t change_result = actor_change_firing_position(actor_index, firing_position_index, &best_firing_position,
             current_owner, &area_path_state, cached_path_available);
     if ( change_result != -1 )
         action_data->uncover_exit_failure = 1;

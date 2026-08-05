@@ -3,6 +3,7 @@
  * shipped, no validation): closes the file handle, frees the names/items heap blocks if present, logs
  * hit/miss stats, and zeroes the header. Always returns 1. */
 
+#include <stdint.h>
 #include "headers/data_file_s.h"
 #include "headers/win32_boundary.h"
 #include "headers/blam_data_globals.h"
@@ -11,7 +12,7 @@
 extern void dlFree(void *ptr);
 extern int printf(const char *format, ...);
 
-unsigned __int8 data_file_close(unsigned int data_file_id)
+uint8_t data_file_close(unsigned int data_file_id)
 {
     data_file_s *data_file = 0;
 

@@ -17,7 +17,7 @@ extern uint8_t memory_pool_block_reallocate(memory_pool *pool, void **reference,
 uint8_t object_header_block_allocate(int object_index, int16_t block_reference_offset, int16_t size)
 {
     object_header_datum *header = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index);
-    __int16 prior_total;
+    int16_t prior_total;
     object_header_block_reference *reference;
 
     if ( !memory_pool_block_reallocate(object_memory_pool, &header->datum,
@@ -25,7 +25,7 @@ uint8_t object_header_block_allocate(int object_index, int16_t block_reference_o
         return 0;
 
     prior_total = header->data_size;
-    header->data_size = (__int16)(size + prior_total);
+    header->data_size = (int16_t)(size + prior_total);
 
     reference = (object_header_block_reference *)((char *)header->datum + block_reference_offset);
     reference->offset = prior_total;

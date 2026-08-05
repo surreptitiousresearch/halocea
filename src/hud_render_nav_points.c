@@ -37,12 +37,12 @@ void hud_render_nav_points(int16_t local_player_index)
          && hud_globals->waypoint.arrow_bitmap.index != -1 )
     {
         hud_nav_point_player_datum *player_nav = &nav_point_data[local_player_index];
-        for ( int slot = 0; slot < MAXIMUM_ACTIVE_NAV_POINTS; slot = (__int16)(slot + 1) )
+        for ( int slot = 0; slot < MAXIMUM_ACTIVE_NAV_POINTS; slot = (int16_t)(slot + 1) )
         {
             hud_nav_point_datum *nav = &player_nav->nav_points[slot];
             int reference_index;
             int type;
-            if ( (unsigned __int16)nav->nav_index == 0xFFFF
+            if ( (uint16_t)nav->nav_index == 0xFFFF
                  || (reference_index = nav->reference_index) == -1
                  /* recovered: (int)((unsigned)nav->packing << 16) >> 28 -> nav->type (signed 4-bit) */
                  || (type = nav->type) == -1 )

@@ -5,6 +5,7 @@
  * widget list head (object_data dword 91 / +364). Failed new_proc results free the datum; a type with
  * no new_proc is linked with a -1 payload. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/_object_definition.h"
@@ -32,7 +33,7 @@ void widgets_new(int object_index)
     int widget_index = 0;
     do
     {
-        __int16 widget_type = -1;
+        int16_t widget_type = -1;
         object_definition_widget *widget_ref =
             &((object_definition_widget *)object_definition->widgets.address)[widget_index];
 
@@ -77,7 +78,7 @@ void widgets_new(int object_index)
             }
         }
 
-        widget_index = (__int16)(widget_index + 1);
+        widget_index = (int16_t)(widget_index + 1);
     }
     while ( widget_index < object_definition->widgets.count );
 }

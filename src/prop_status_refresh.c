@@ -104,7 +104,7 @@ void prop_status_refresh(int actor_index, int prop_index, actor_position_data *s
     if ( is_enemy )
     {
         prop->preferred_target = (unit_object->unit.flags & (1u << _unit_preferred_target_bit)) != 0;
-        int targeting_mode = (int)(unsigned __int16)actor->external_orders.desired_target_type;
+        int targeting_mode = (int)(uint16_t)actor->external_orders.desired_target_type;
         if ( targeting_mode == _desired_target_ai )
         {
             if ( prop->actor_index != -1 )
@@ -114,11 +114,11 @@ void prop_status_refresh(int actor_index, int prop_index, actor_position_data *s
                 {
                     actor_datum *target_actor = DATUM_GET(actor_data, actor_datum,
                                                                    prop->actor_index);
-                    if ( (unsigned __int16)target_actor->meta.encounter_index == (unsigned __int16)target )
+                    if ( (uint16_t)target_actor->meta.encounter_index == (uint16_t)target )
                     {
                         if ( target >> 30 )
                         {
-                            __int16 expected_role;
+                            int16_t expected_role;
                             if ( target >> 30 == 1 )
                             {
                                 expected_role = target_actor->meta.squad_index;
@@ -129,7 +129,7 @@ void prop_status_refresh(int actor_index, int prop_index, actor_position_data *s
                                     goto done_target;
                                 expected_role = target_actor->meta.platoon_index;
                             }
-                            if ( ((unsigned __int8 *)&actor->external_orders.desired_target_ai_index)[1] != expected_role )
+                            if ( ((uint8_t *)&actor->external_orders.desired_target_ai_index)[1] != expected_role )
                                 goto done_target;
                         }
                         prop->preferred_target = 1;  /* LABEL_23 */
@@ -144,7 +144,7 @@ void prop_status_refresh(int actor_index, int prop_index, actor_position_data *s
     }
 done_target:;
 
-    __int16 prev_speed = prop->quantized_speed;
+    int16_t prev_speed = prop->quantized_speed;
     real_vector3d velocity;
     object_get_velocities(prop->unit_index, &velocity, 0);
     float speed = __fsqrts((velocity.n[0] * velocity.n[0])
@@ -261,12 +261,12 @@ done_target:;
 
     int current_state = prop->state;
     /* cntlzw(x-1) & 0x20 <=> x == 1: unit effect 1 is "shooting" */
-    prop->shooting = (_cntlzw((unsigned __int16)prop->unit_effect - 1) & 0x20) != 0;
+    prop->shooting = (_cntlzw((uint16_t)prop->unit_effect - 1) & 0x20) != 0;
 
     if ( current_state < _prop_state_uninspected_orphan || current_state > _prop_state_inspected_orphan )
     {
         char noticed = 0;
-        __int16 los_mode;
+        int16_t los_mode;
         if ( !prop->player || (los_mode = 2, !prop->enemy) )
             los_mode = 0;
         prop->line_of_sight = ai_test_line_of_sight(
@@ -333,7 +333,7 @@ done_target:;
             }
         }
 
-        unsigned __int8 is_noncombat, is_in_combat, is_fighting;
+        uint8_t is_noncombat, is_in_combat, is_fighting;
         if ( unit_actor == -1 )
         {
             is_noncombat = 0;
@@ -354,15 +354,15 @@ done_target:;
 
         if ( noticed )
         {
-            __int16 visibility = 0;
+            int16_t visibility = 0;
             if ( !standdown )
             {
-                __int16 knowledge = actor_get_perception_knowledge(actor_index, prop_index);
+                int16_t knowledge = actor_get_perception_knowledge(actor_index, prop_index);
                 /* lighting re-derived from disasm 0x837DAC0C-24: flashlight forces full-bright (2),
                  * else the prop's cached lighting byte (was a bogus uninitialized local). */
                 char lighting = prop->flashlight ? 2 : prop->lighting;
-                unsigned __int8 use_frustum = 1;
-                unsigned __int8 store_debugging_information = 0;
+                uint8_t use_frustum = 1;
+                uint8_t store_debugging_information = 0;
                 visibility = actor_visibility_at_point(actor_index, sense_position,
                                                        &prop->head_position, lighting,
                                                        prop->line_of_sight, use_frustum,
@@ -405,7 +405,7 @@ done_target:;
                  * frustum test is dropped while its perception state sits in the becoming/acknowledged
                  * band (2..3, subfc/subfe mask); for a non-enemy prop it applies only pre-combat and
                  * only when the prop is dead or fighting. */
-                unsigned __int8 use_frustum = 1;
+                uint8_t use_frustum = 1;
                 if ( actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying )
                     use_frustum = 0;
                 else if ( actor->meta.type == _actor_type_mounted_weapon )
@@ -420,8 +420,8 @@ done_target:;
                     use_frustum = actor->state.mode < _actor_mode_combat && (prop->dead || prop->in_combat);
                 }
                 char lighting2 = prop->flashlight ? 2 : prop->lighting;
-                __int16 knowledge = actor_get_perception_knowledge(actor_index, prop_index);
-                __int16 vis = actor_visibility_at_point(actor_index, sense_position,
+                int16_t knowledge = actor_get_perception_knowledge(actor_index, prop_index);
+                int16_t vis = actor_visibility_at_point(actor_index, sense_position,
                                                         &prop->head_position, lighting2,
                                                         prop->line_of_sight, use_frustum, prop->player,
                                                         knowledge);
@@ -463,7 +463,7 @@ done_target:;
                 }
             }
 
-            int sound_class2 = (unsigned __int16)prop->unit_effect;
+            int sound_class2 = (uint16_t)prop->unit_effect;
             prop->ineffability = 0;
             if ( !sound_class2 )
                 prop->ineffability = 3;
@@ -476,7 +476,7 @@ done_target:;
                 prop->ineffability = extrasensory;
             }
 
-            __int16 audibility = prop->audibility;
+            int16_t audibility = prop->audibility;
             int extrasensory = prop->ineffability;
             int best = audibility;
             if ( audibility <= extrasensory )
@@ -491,7 +491,7 @@ done_target:;
                 best = prop->visibility;
             }
             prop->perception = best;
-            if ( (__int16)best == 1 )
+            if ( (int16_t)best == 1 )
             {
                 int s = prop->state;
                 if ( s >= _prop_state_becoming_unacknowledged && s <= _prop_state_acknowledged )
@@ -531,10 +531,10 @@ done_target:;
     }
     else  /* corpse / state 4..5: cheaper visibility-only path */
     {
-        __int16 los_mode;
+        int16_t los_mode;
         if ( !prop->player || (los_mode = 2, !prop->enemy) )
             los_mode = 0;
-        __int16 los = ai_test_line_of_sight(
+        int16_t los = ai_test_line_of_sight(
             &sense_position->head_position,
             sense_position->body_location.cluster_index,
             &prop->head_position,
@@ -554,9 +554,9 @@ done_target:;
         }
         else
         {
-            unsigned __int8 use_frustum = 1;
-            unsigned __int8 store_debugging_information = 0;
-            __int16 vis = actor_visibility_at_point(actor_index, sense_position,
+            uint8_t use_frustum = 1;
+            uint8_t store_debugging_information = 0;
+            int16_t vis = actor_visibility_at_point(actor_index, sense_position,
                                                     &prop->head_position, prop->lighting, los,
                                                     use_frustum, store_debugging_information, 2);
             prop->visibility = vis;

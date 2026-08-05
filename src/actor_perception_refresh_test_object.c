@@ -73,7 +73,7 @@ void actor_perception_refresh_test_object(int actor_index, int object_index, act
         if ( object->object.magic_number != global_object_marker )
         {
             object->object.magic_number = global_object_marker;
-            __int16 object_type = object->object.type;
+            int16_t object_type = object->object.type;
             if ( object_type )
             {
                 if ( object_type == object_type_vehicle )
@@ -105,7 +105,7 @@ void actor_perception_refresh_test_object(int actor_index, int object_index, act
                                                     * (grenade_origin.n[1] - sense_position.body_position.n[1])))));
                             if ( distance < (definition->projectile.danger_radius + 10.0f) )
                             {
-                                __int16 danger_state = actor->danger_zone.danger_type;
+                                int16_t danger_state = actor->danger_zone.danger_type;
                                 if ( danger_state < actor_danger_zone_projectile
                                         || danger_state == actor_danger_zone_projectile && actor->danger_zone.object_index != current_object
                                                 && distance < actor->danger_zone.current_distance_from_actor )
@@ -184,9 +184,9 @@ void actor_perception_refresh_test_object(int actor_index, int object_index, act
             {
                 int player = unit->unit.player_index != -1;
                 unit_definition *tag = TAG_GET(unit_definition, unit->definition_index);
-                unsigned __int8 enemy = game_team_is_enemy(actor->meta.team_index, unit->object.owner_team_index);
+                uint8_t enemy = game_team_is_enemy(actor->meta.team_index, unit->object.owner_team_index);
 
-                unsigned __int8 dead = 0;
+                uint8_t dead = 0;
                 if ( (unit->object.damage_flags & (1u << _object_dead_bit)) != 0 && unit->unit.feign_death_timer == 0 )
                     dead = 1;
 
@@ -202,7 +202,7 @@ void actor_perception_refresh_test_object(int actor_index, int object_index, act
                     actor_perception_assess_suicide_danger(actor_index, current_object, suicide_radius,
                             __fsqrts(distance_squared), enemy, 0);
 
-                __int16 dead_ticks;
+                int16_t dead_ticks;
                 if ( !dead )
                 {
                     dead_ticks = 0;
@@ -213,10 +213,10 @@ void actor_perception_refresh_test_object(int actor_index, int object_index, act
                     if ( acknowledge_time == -1 )
                         dead_ticks = 0x7FFF;
                     else
-                        dead_ticks = (__int16)(game_time_get() - acknowledge_time);
+                        dead_ticks = (int16_t)(game_time_get() - acknowledge_time);
                 }
 
-                unsigned __int8 optional_reference = 0;
+                uint8_t optional_reference = 0;
                 if ( actor_perception_desire_prop(actor_index, 0, current_object, swarm_root, 0, player, enemy,
                         dead, dead_ticks, suicide_radius, distance_squared, 0, &optional_reference) )
                 {

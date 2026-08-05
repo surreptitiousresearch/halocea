@@ -11,6 +11,7 @@
  * also reused one register (cell_height's slot) to hold gutter*row_index and copied the pre-gutter rect
  * into pixel_bounds via a fused dword store — reproduced here as explicit field assignments. */
 
+#include <stdint.h>
 #include "headers/rectangle2d.h"
 #include "headers/rasterizer_globals.h"
 
@@ -20,8 +21,8 @@ void compute_window_bounds(int player_index, int num_players,
     int rows = 1;
     int cols = 1;
     /* 4-pixel safe-frame gutter between viewports (0 for a single player) */
-    __int16 gutter = ((num_players >> 31) - (num_players > 1)) & 4;
-    unsigned __int8 odd_player_gets_full = 0;
+    int16_t gutter = ((num_players >> 31) - (num_players > 1)) & 4;
+    uint8_t odd_player_gets_full = 0;
 
     /* smallest rows*cols grid that holds all players, balancing columns first */
     if (num_players > 1)
@@ -51,8 +52,8 @@ void compute_window_bounds(int player_index, int num_players,
     int col_index = player_index % cols;
     int full_span = odd_player_gets_full ? 2 : 1;
 
-    __int16 frame_top = rasterizer_globals.frame_bounds.n[0];
-    __int16 frame_bottom = rasterizer_globals.frame_bounds.n[2];
+    int16_t frame_top = rasterizer_globals.frame_bounds.n[0];
+    int16_t frame_bottom = rasterizer_globals.frame_bounds.n[2];
 
     int cell_width = (rasterizer_globals.frame_bounds.n[3] - rasterizer_globals.frame_bounds.n[1]) / cols * full_span;
     int cell_height = (frame_bottom - frame_top) / rows;

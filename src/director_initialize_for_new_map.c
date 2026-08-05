@@ -21,7 +21,7 @@ void director_initialize_for_new_map(void)
     director_globals.initialize_camera = 0;
     director_globals.game_mode = game_in_editor() == 0 ? _director_mode_game : _director_mode_editor;
 
-    for ( __int16 player = 0; player < 2; player = (__int16)(player + 1) )
+    for ( int16_t player = 0; player < 2; player = (int16_t)(player + 1) )
     {
         director *d = &director_globals.local_players[player];
         d->camera_change_pause = 0.0f;

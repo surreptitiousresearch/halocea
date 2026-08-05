@@ -44,10 +44,10 @@ void prop_position_refresh(int actor_index, int prop_index, actor_position_data 
         return;
 
     prop_datum *prop = DATUM_GET(prop_data, prop_datum, prop_index);
-    unsigned __int8 do_update = 0;
+    uint8_t do_update = 0;
     unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, prop->unit_index)->datum);
 
-    __int16 state = prop->state;
+    int16_t state = prop->state;
     if ( forced_position_update || state < _prop_state_uninspected_orphan || state > _prop_state_inspected_orphan )
     {
         do_update = 1;

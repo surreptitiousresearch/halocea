@@ -21,7 +21,7 @@ void input_abstraction_set_enabled_mode_configuration(uint8_t enabled)
         input_abstraction_globals.active_modes |= (1u << _input_abstraction_mode_configuration_bit);
 
         gamepad_state *snapshot = input_abstraction_globals.configuration_gamepad_snapshot;
-        for ( __int16 i = 0; i < 4; i++ )
+        for ( int16_t i = 0; i < 4; i++ )
         {
             const gamepad_state *state = input_get_gamepad_state(i);
             if ( state )

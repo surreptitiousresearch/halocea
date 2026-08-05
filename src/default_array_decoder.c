@@ -37,7 +37,7 @@ int default_array_decoder(const _field_properties_definition *const field_proper
             char *destination_element = &destination_data[element_offset];
 
             unsigned int saved_position = bitstream_tell(input_stream);
-            unsigned __int8 changed = 0;
+            uint8_t changed = 0;
             bitstream_seek(input_stream, array_start_bit + i, _bitstream_seek_beginning);
             bitstream_read_bit(input_stream, &changed);
             bitstream_seek(input_stream, saved_position, _bitstream_seek_beginning);

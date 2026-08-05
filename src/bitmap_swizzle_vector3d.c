@@ -9,10 +9,10 @@ void bitmap_swizzle_vector3d(int16_t dim_x, int16_t dim_y, int16_t dim_z, int16_
     int swizzled_x = 0;
     int swizzled_y = 0;
     int swizzled_z = 0;
-    __int16 bit_position = 0;
-    __int16 previous_bit_position;
+    int16_t bit_position = 0;
+    int16_t previous_bit_position;
 
-    for ( __int16 axis_bit = 1; ; axis_bit *= 2 )
+    for ( int16_t axis_bit = 1; ; axis_bit *= 2 )
     {
         previous_bit_position = bit_position;
         if ( axis_bit < dim_x )

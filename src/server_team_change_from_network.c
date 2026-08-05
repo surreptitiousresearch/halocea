@@ -54,15 +54,15 @@ void server_team_change_from_network(message_delta_processor_header *const heade
 
     struct
     {
-        unsigned __int8 player_index;
-        unsigned __int8 team_index;
-    } payload = { (unsigned __int8)-1, (unsigned __int8)-1 };
+        uint8_t player_index;
+        uint8_t team_index;
+    } payload = { (uint8_t)-1, (uint8_t)-1 };
 
     if ( !message_delta_processor_decode_stateless(&payload, header) )
         return;
 
     game_variant *variant = game_engine_get_variant();
-    unsigned __int8 new_team = payload.team_index;
+    uint8_t new_team = payload.team_index;
     if ( payload.team_index == _multiplayer_team_red || payload.team_index == _multiplayer_team_blue )
     {
         if ( variant->universal_variant.team_autobalance
@@ -77,18 +77,18 @@ void server_team_change_from_network(message_delta_processor_header *const heade
         new_team = find_new_team_for_player_to_join(payload.player_index);
     }
 
-    if ( new_team == (unsigned __int8)-1 )   /* disasm 0x83802DE8 */
+    if ( new_team == (uint8_t)-1 )   /* disasm 0x83802DE8 */
         return;
 
     global_network_game_server_get();        /* discarded; loop walks the fixed 0x142 table */
 
-    unsigned __int8 team_changed = 0;
+    uint8_t team_changed = 0;
     for ( network_player *record = (network_player *)0x142; (char *)record < (char *)0x542;
           ++record )   /* stride 32 == sizeof(network_player); typed element advance */
     {
         if ( record->player_list_index == payload.player_index )
         {
-            unsigned __int8 old_team = record->team_index;
+            uint8_t old_team = record->team_index;
             record->team_index = new_team;
             team_changed = new_team != old_team;
             break;

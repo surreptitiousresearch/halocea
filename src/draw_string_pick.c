@@ -29,5 +29,5 @@ int16_t draw_string_pick(const rectangle2d *bounds, const char *string, const po
     text_pick_globals.last_string_index = 0;
 
     draw_string(text_pick_draw_character, bounds, 0, 0, 0, string);
-    return (unsigned __int16)text_pick_globals.best_pick_string_index;
+    return (uint16_t)text_pick_globals.best_pick_string_index;
 }

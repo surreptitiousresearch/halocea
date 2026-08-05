@@ -44,6 +44,6 @@ int object_impulse_sound_new(int object_index, int definition_index, int16_t nod
      * is the concrete implementation over sound_attachment_data. Faithful to the original generic-callback
      * registration (not a masked mismatch); the callee stays generic for other track procs. */
     return sound_new_impulse(definition_index, &source, object_index,
-            (unsigned __int8 (*)(int, const void *, sound_source *))track_object_impulse_sound,
+            (uint8_t (*)(int, const void *, sound_source *))track_object_impulse_sound,
             &attachment, 28, is_local_player);
 }

@@ -24,7 +24,7 @@ extern int bitstream_read_bits(bitstream_t *const bit_stream, void *value, int b
 int default_locality_reference_position_decoder(const _field_properties_definition *field_properties, const float *baseline_data, float *destination_data, bitstream_t *input_stream)
 {
     unsigned int bits_read = 0;
-    unsigned __int8 full_update = 0;
+    uint8_t full_update = 0;
 
     if ( baseline_data )
     {
@@ -35,7 +35,7 @@ int default_locality_reference_position_decoder(const _field_properties_definiti
             for ( int i = 0; i < 3; i++ )
             {
                 unsigned int magnitude = 0;
-                unsigned __int8 sign;
+                uint8_t sign;
                 bits_read += bitstream_read_bit(input_stream, &sign);
                 bits_read += bitstream_read_bits(input_stream, &magnitude, gLOCALITY_BITS_PER_COMPONENT_DELTA_INTERNET);
                 float value = (float)magnitude / (float)((1 << gLOCALITY_BITS_PER_COMPONENT_DELTA_INTERNET) - 1)

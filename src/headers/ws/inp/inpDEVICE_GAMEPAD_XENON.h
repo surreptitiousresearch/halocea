@@ -3,31 +3,32 @@
 // (types_members inpDEVICE_GAMEPAD_XENON / inpGAMEPAD / _XINPUT_GAMEPAD /
 // _XINPUT_CAPABILITIES / _XINPUT_VIBRATION).
 
+#include <stdint.h>
 #include "inpDEVICE.h"
 
 // XInput raw pad state (12 bytes).
 typedef struct _XINPUT_GAMEPAD
 {
-    unsigned __int16 wButtons;      /* 0x00 */
-    unsigned __int8  bLeftTrigger;  /* 0x02 */
-    unsigned __int8  bRightTrigger; /* 0x03 */
-    __int16          sThumbLX;      /* 0x04 */
-    __int16          sThumbLY;      /* 0x06 */
-    __int16          sThumbRX;      /* 0x08 */
-    __int16          sThumbRY;      /* 0x0A */
+    uint16_t wButtons;      /* 0x00 */
+    uint8_t  bLeftTrigger;  /* 0x02 */
+    uint8_t  bRightTrigger; /* 0x03 */
+    int16_t          sThumbLX;      /* 0x04 */
+    int16_t          sThumbLY;      /* 0x06 */
+    int16_t          sThumbRX;      /* 0x08 */
+    int16_t          sThumbRY;      /* 0x0A */
 } _XINPUT_GAMEPAD;
 
 typedef struct _XINPUT_VIBRATION
 {
-    unsigned __int16 wLeftMotorSpeed;  /* 0x00 */
-    unsigned __int16 wRightMotorSpeed; /* 0x02 */
+    uint16_t wLeftMotorSpeed;  /* 0x00 */
+    uint16_t wRightMotorSpeed; /* 0x02 */
 } _XINPUT_VIBRATION;
 
 typedef struct _XINPUT_CAPABILITIES
 {
-    unsigned __int8   Type;      /* 0x00 */
-    unsigned __int8   SubType;   /* 0x01 */
-    unsigned __int16  Flags;     /* 0x02 */
+    uint8_t   Type;      /* 0x00 */
+    uint8_t   SubType;   /* 0x01 */
+    uint16_t  Flags;     /* 0x02 */
     _XINPUT_GAMEPAD   Gamepad;   /* 0x04 */
     _XINPUT_VIBRATION Vibration; /* 0x10 */
 } _XINPUT_CAPABILITIES;
@@ -36,10 +37,10 @@ typedef struct _XINPUT_CAPABILITIES
 typedef struct inpGAMEPAD
 {
     _XINPUT_GAMEPAD      base;                    /* 0x00 (unnamed _XINPUT_GAMEPAD base) */
-    unsigned __int16     wLastButtons;            /* 0x0C */
+    uint16_t     wLastButtons;            /* 0x0C */
     unsigned char        _pad0E[2];               /* 0x0E */
     int                  bLastAnalogButtons[8];   /* 0x10 */
-    unsigned __int16     wPressedButtons;         /* 0x30 */
+    uint16_t     wPressedButtons;         /* 0x30 */
     unsigned char        _pad32[2];               /* 0x32 */
     int                  bPressedAnalogButtons[8];/* 0x34 */
     _XINPUT_CAPABILITIES caps;                    /* 0x54 */

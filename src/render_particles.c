@@ -67,33 +67,33 @@ void render_particles(void)
      * Both arrays are genuine stack locals in the original (matches the function's large observed frame
      * size), not persistent/static state. */
     rendered_particle_datum rendered_particles[1024];
-    __int16 group_particle_counts[512];
+    int16_t group_particle_counts[512];
 
     int rendered_particles_count = 0;
-    __int16 local_player_index;
+    int16_t local_player_index;
 
     if (render_particles_enabled)
     {
         local_player_index = render.local_player_index;
-        if ((unsigned __int16)local_player_index == 0xFFFF || !local_player_is_first_person(local_player_index))
+        if ((uint16_t)local_player_index == 0xFFFF || !local_player_is_first_person(local_player_index))
             local_player_index = 2;
 
         for (int i = data_next_index(particle_data, -1); i != -1; i = data_next_index(particle_data, i))
         {
             particle_datum *particle = datum_get(particle_data, i);
-            unsigned __int8 owned_by_local_player = (local_player_index == (__int16)particle->local_player_index);
+            uint8_t owned_by_local_player = (local_player_index == (int16_t)particle->local_player_index);
             int cluster_index = particle->location.cluster_index;
 
             if (BIT_VECTOR_TEST_FLAG(render.visible_cluster_flags, cluster_index))
             {
-                unsigned __int16 flags = particle->flags;
+                uint16_t flags = particle->flags;
                 if (((flags & (1u << _particle_dont_draw_first_person_bit)) == 0 || !owned_by_local_player)
                     && ((flags & (1u << _particle_dont_draw_third_person_bit)) == 0 || owned_by_local_player))
                 {
                     rendered_particle_datum *rendered = &rendered_particles[rendered_particles_count++];
-                    rendered->particle_index = (__int16)i;
-                    rendered->definition_index = (__int16)particle->definition_index;
-                    rendered->cluster_index = (__int16)cluster_index;
+                    rendered->particle_index = (int16_t)i;
+                    rendered->definition_index = (int16_t)particle->definition_index;
+                    rendered->cluster_index = (int16_t)cluster_index;
                     rendered->attached_to_first_person_weapon =
                         (owned_by_local_player && (flags & (1u << _particle_dont_draw_third_person_bit))) ? 1 : 0;
                 }
@@ -108,9 +108,9 @@ void render_particles(void)
 
     /* collapse consecutive runs sharing (definition_index, cluster_index, attached flag) into groups */
     int group_count = 0;
-    __int16 previous_definition_index = -1;
-    __int16 previous_cluster_index = -1;
-    unsigned __int8 previous_attached_flag = 0;
+    int16_t previous_definition_index = -1;
+    int16_t previous_cluster_index = -1;
+    uint8_t previous_attached_flag = 0;
 
     for (int i = 0; i < rendered_particles_count; i++)
     {
@@ -138,13 +138,13 @@ void render_particles(void)
     int particle_cursor = 0;
     for (int group_index = 0; group_index < group_count; group_index++)
     {
-        __int16 group_size = group_particle_counts[group_index];
+        int16_t group_size = group_particle_counts[group_index];
         int sprites_built = 0;
         float total_built_radius = 0.0f;
 
         rendered_particle_datum *group_start = &rendered_particles[particle_cursor];
         particle_definition *definition =
-            TAG_GET(particle_definition, (unsigned __int16)group_start->definition_index);
+            TAG_GET(particle_definition, (uint16_t)group_start->definition_index);
 
         build_sprite_data sprite_batch;
         build_sprites_begin(&sprite_batch, group_size, definition->bitmap.index, &definition->shader,
@@ -152,7 +152,7 @@ void render_particles(void)
 
         for (int n = 0; n < group_size; n++, particle_cursor++)
         {
-            __int16 particle_index = rendered_particles[particle_cursor].particle_index;
+            int16_t particle_index = rendered_particles[particle_cursor].particle_index;
             particle_datum *particle =
                 datum_get(particle_data, particle_index);
             float radius = particle_get_radius(particle_index);

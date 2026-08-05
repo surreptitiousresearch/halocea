@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "headers/video_resolution_s.h"
 
-extern unsigned __int16 empty_wide_string;
+extern uint16_t empty_wide_string;
 
 uint16_t * video_get_resolution_text(int mode_index)
 {

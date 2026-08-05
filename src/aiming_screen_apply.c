@@ -38,8 +38,8 @@ extern int animation_is_compressed(const animation *animation);
 void aiming_screen_apply(const animation *animation, const animation_aiming_screen_bounds *aiming_screen,
                          float direction, float elevation, real_orientation *node_orientations)
 {
-    __int16 grid_width = aiming_screen->positive_yaw_frame_count + aiming_screen->negative_yaw_frame_count + 1;
-    __int16 grid_height = aiming_screen->positive_pitch_frame_count + aiming_screen->negative_pitch_frame_count + 1;
+    int16_t grid_width = aiming_screen->positive_yaw_frame_count + aiming_screen->negative_yaw_frame_count + 1;
+    int16_t grid_height = aiming_screen->positive_pitch_frame_count + aiming_screen->negative_pitch_frame_count + 1;
 
     if ( animation->type != animation_overlay )
         return;
@@ -47,13 +47,13 @@ void aiming_screen_apply(const animation *animation, const animation_aiming_scre
         return;
 
     /* DEVIATION: collapsed inlined copy of animation_is_compressed@0x837956E0 (zero-xref donor; sole arg is the local `animation` pointer, no folding needed). */
-    unsigned __int8 use_keyframe_accessors = animation_is_compressed(animation);
+    uint8_t use_keyframe_accessors = animation_is_compressed(animation);
 
     /* direction -> yaw cell index + fraction */
     float yaw_delta = direction >= 0.0f ? aiming_screen->positive_yaw_delta
                                         : aiming_screen->negative_yaw_delta;
     float yaw_t = yaw_delta == 0.0f ? 0.0f : direction / yaw_delta;
-    __int16 yaw_index = (__int16)yaw_t;
+    int16_t yaw_index = (int16_t)yaw_t;
     float yaw_fraction = (float)fmod(yaw_t, 1.0);
     if ( yaw_fraction < 0.0f )
     {
@@ -70,13 +70,13 @@ void aiming_screen_apply(const animation *animation, const animation_aiming_scre
         yaw_index = -aiming_screen->negative_yaw_frame_count;
         yaw_fraction = 0.0f;
     }
-    __int16 yaw_cell = yaw_index + aiming_screen->negative_yaw_frame_count;
+    int16_t yaw_cell = yaw_index + aiming_screen->negative_yaw_frame_count;
 
     /* elevation -> pitch cell index + fraction */
     float pitch_delta = elevation >= 0.0f ? aiming_screen->positive_pitch_delta
                                           : aiming_screen->negative_pitch_delta;
     float pitch_t = pitch_delta == 0.0f ? 0.0f : elevation / pitch_delta;
-    __int16 pitch_index = (__int16)pitch_t;
+    int16_t pitch_index = (int16_t)pitch_t;
     float pitch_fraction = (float)fmod(pitch_t, 1.0);
     if ( pitch_fraction < 0.0f )
     {
@@ -93,29 +93,29 @@ void aiming_screen_apply(const animation *animation, const animation_aiming_scre
         pitch_index = -aiming_screen->negative_pitch_frame_count;
         pitch_fraction = 0.0f;
     }
-    __int16 pitch_cell = pitch_index + aiming_screen->negative_pitch_frame_count;
+    int16_t pitch_cell = pitch_index + aiming_screen->negative_pitch_frame_count;
 
     if ( pitch_cell < 0 || pitch_cell >= grid_height || yaw_cell < 0 || yaw_cell >= grid_width )
         return;
 
     /* the four surrounding corner frames (clamped at the grid edge) */
-    __int16 yaw_next = yaw_cell + 1 == grid_width ? yaw_cell : yaw_cell + 1;
-    __int16 pitch_next = pitch_cell + 1 == grid_height ? pitch_cell : pitch_cell + 1;
-    __int16 frame_index_00 = yaw_cell + pitch_cell * grid_width;
-    __int16 frame_index_10 = yaw_next + pitch_cell * grid_width;
-    __int16 frame_index_01 = yaw_cell + pitch_next * grid_width;
-    __int16 frame_index_11 = yaw_next + pitch_next * grid_width;
+    int16_t yaw_next = yaw_cell + 1 == grid_width ? yaw_cell : yaw_cell + 1;
+    int16_t pitch_next = pitch_cell + 1 == grid_height ? pitch_cell : pitch_cell + 1;
+    int16_t frame_index_00 = yaw_cell + pitch_cell * grid_width;
+    int16_t frame_index_10 = yaw_next + pitch_cell * grid_width;
+    int16_t frame_index_01 = yaw_cell + pitch_next * grid_width;
+    int16_t frame_index_11 = yaw_next + pitch_next * grid_width;
     const char *frame_cursor_00 = animation_get_frame_data(animation, frame_index_00);
     const char *frame_cursor_10 = animation_get_frame_data(animation, frame_index_10);
     const char *frame_cursor_01 = animation_get_frame_data(animation, frame_index_01);
     const char *frame_cursor_11 = animation_get_frame_data(animation, frame_index_11);
 
-    __int16 rotation_adjusted_index = 0;
-    __int16 translation_adjusted_index = 0;
+    int16_t rotation_adjusted_index = 0;
+    int16_t translation_adjusted_index = 0;
     unsigned int rotation_flags = 0;
     unsigned int translation_flags = 0;
 
-    for ( __int16 node_index = 0; node_index < animation->node_count; node_index = (__int16)(node_index + 1) )
+    for ( int16_t node_index = 0; node_index < animation->node_count; node_index = (int16_t)(node_index + 1) )
     {
         real_orientation *node_orientation = &node_orientations[node_index];
 

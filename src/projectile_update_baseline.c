@@ -4,6 +4,7 @@
  * projectile_new_to_network.c reads back out), bump the baseline index (wrapping byte), and mark the
  * baseline valid with its age reset (message_index). */
 
+#include <stdint.h>
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/projectile_datum.h"
@@ -19,7 +20,7 @@ void projectile_update_baseline(int object_index)
     {
         real_point3d position = object->object.position;
         real_vector3d translational_velocity = object->object.translational_velocity;
-        unsigned __int8 next_baseline_index = object->projectile.baseline_index + 1;
+        uint8_t next_baseline_index = object->projectile.baseline_index + 1;
 
         object->projectile.baseline_valid = 1;
         object->projectile.baseline_index = next_baseline_index;

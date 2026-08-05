@@ -8,12 +8,12 @@
 
 int hs_syntax_nth(int expression_index, int16_t n)
 {
-    __int16 remaining = n;
+    int16_t remaining = n;
     if ( n > 0 )
     {
         do
         {
-            remaining = (__int16)(remaining - 1);
+            remaining = (int16_t)(remaining - 1);
             expression_index = HS_SYNTAX_NODE(expression_index).next_node_index;
         }
         while ( remaining > 0 );

@@ -26,7 +26,7 @@ void object_pvs_set_camera_point(int16_t camera_point_index)
     scenario_location_from_point(&point_location,
         &((scenario_cutscene_camera_point *)global_scenario->cutscene_camera_points.address)[camera_point_index].position);
 
-    if ( (unsigned __int16)point_location.cluster_index == 0xFFFF )
+    if ( (uint16_t)point_location.cluster_index == 0xFFFF )
     {
         object_globals->pvs_activation_type = _pvs_activation_normal;
     }

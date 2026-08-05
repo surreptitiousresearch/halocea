@@ -34,7 +34,7 @@ uint8_t actor_action_handle_panic_from_burning_to_death(int actor_index)
     }
 
     /* floor is a panic_type priority, not a tick count */
-    __int16 panic_type = actor->stimuli.panic_type;
+    int16_t panic_type = actor->stimuli.panic_type;
     if ( !actor->stimuli.panic_type || actor->stimuli.panic_prop_index == -1 )
         actor->stimuli.panic_prop_index = panic_prop_index;
     if ( panic_type <= _actor_panic_burning_to_death )

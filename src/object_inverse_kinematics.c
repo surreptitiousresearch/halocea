@@ -38,9 +38,9 @@ void object_inverse_kinematics(int hand_object_index, char *hand_marker_name, in
     }
 
     model_node *nodes = (model_node *)hand_model_definition->nodes.address;
-    __int16 node_index = hand_marker.node_index;
-    __int16 parent_node_index = nodes[node_index].parent_node_index;
-    __int16 grandparent_node_index = (parent_node_index == -1) ? -1
+    int16_t node_index = hand_marker.node_index;
+    int16_t parent_node_index = nodes[node_index].parent_node_index;
+    int16_t grandparent_node_index = (parent_node_index == -1) ? -1
         : nodes[parent_node_index].parent_node_index;
 
     if ( grandparent_node_index == -1 )

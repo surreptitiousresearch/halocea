@@ -12,7 +12,7 @@ void hud_unit_activate_nav_point_with_flag_evaluate(int16_t function_index, int 
     if ( arguments )
     {
         /* HS argument block: 4-byte slots — unit_nav@0, unit@4, flag_index@8, radius@12. */
-        hud_unit_activate_nav_point_with_flag(*(__int16 *)arguments, arguments[1], ((__int16 *)arguments)[4], ((float *)arguments)[3]);
+        hud_unit_activate_nav_point_with_flag(*(int16_t *)arguments, arguments[1], ((int16_t *)arguments)[4], ((float *)arguments)[3]);
         hs_return(thread_index, 0);
     }
 }

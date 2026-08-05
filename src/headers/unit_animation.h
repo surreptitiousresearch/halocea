@@ -3,15 +3,16 @@
  * screens/states are active, the current locomotion/action/overlay states, and the aiming/looking screen
  * setup. Layout from the database. */
 
+#include <stdint.h>
 #include "animation_state.h"
 #include "real_rectangle2d.h"
 
 typedef struct unit_animation
 {
-    unsigned __int16 flags;                       /* 0x00 */
-    __int16          aiming_screen_index;         /* 0x02 */
-    __int16          looking_screen_index;        /* 0x04 */
-    __int16          last_ping_animation_index;   /* 0x06 */
+    uint16_t flags;                       /* 0x00 */
+    int16_t          aiming_screen_index;         /* 0x02 */
+    int16_t          looking_screen_index;        /* 0x04 */
+    int16_t          last_ping_animation_index;   /* 0x06 */
     char             seat_index;                  /* 0x08 */
     char             weapon_index;                /* 0x09 */
     char             weapon_type_index;           /* 0x0A */
@@ -25,8 +26,8 @@ typedef struct unit_animation
     animation_state  action_animation;            /* 0x12 */
     animation_state  overlay_action_animation;    /* 0x16 */
     animation_state  soft_ping_animation;         /* 0x1A */
-    unsigned __int8  aiming_with_euler_screen;    /* 0x1E */
-    unsigned __int8  looking_with_euler_screen;   /* 0x1F */
+    uint8_t  aiming_with_euler_screen;    /* 0x1E */
+    uint8_t  looking_with_euler_screen;   /* 0x1F */
     real_rectangle2d aiming_screen_bounds;        /* 0x20 */
     real_rectangle2d looking_screen_bounds;       /* 0x30 */
     int              external_animation_graph_index; /* 0x40 */

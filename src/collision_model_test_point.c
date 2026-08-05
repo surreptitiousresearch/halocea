@@ -19,10 +19,10 @@ uint8_t collision_model_test_point(const collision_model_instance *instance, con
     if ( model->nodes.count <= 0 )
         return 0;
 
-    for ( int node = 0; ; node = (__int16)(node + 1) )
+    for ( int node = 0; ; node = (int16_t)(node + 1) )
     {
         const collision_node *node_def = &((const collision_node *)model->nodes.address)[node];
-        __int16 region = node_def->region_index;
+        int16_t region = node_def->region_index;
         if ( region != -1 )
         {
             int permutation = instance->region_permutation_indices[region];
@@ -31,7 +31,7 @@ uint8_t collision_model_test_point(const collision_model_instance *instance, con
             {
                 if ( permutation > permutation_count - 1 )
                     permutation = permutation_count - 1;
-                const bsp3d *bsp = &((const collision_bsp *)node_def->bsps.address)[(__int16)permutation].bsp3d;
+                const bsp3d *bsp = &((const collision_bsp *)node_def->bsps.address)[(int16_t)permutation].bsp3d;
                 if ( bsp->nodes.count > 0 )
                 {
                     real_point3d local;
@@ -42,7 +42,7 @@ uint8_t collision_model_test_point(const collision_model_instance *instance, con
             }
         }
         model = instance->model;
-        if ( (__int16)(node + 1) >= model->nodes.count )
+        if ( (int16_t)(node + 1) >= model->nodes.count )
             return 0;
     }
 }

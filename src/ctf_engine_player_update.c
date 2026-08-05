@@ -57,7 +57,7 @@ void ctf_engine_player_update(int player_index)
         return;
 
     unit_datum *unit = (unit_datum *)(DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->unit_index)->datum);
-    __int16 weapon_slot = unit->unit.current_weapon_index;
+    int16_t weapon_slot = unit->unit.current_weapon_index;
     if ( weapon_slot == -1 )
         return;
 
@@ -66,7 +66,7 @@ void ctf_engine_player_update(int player_index)
         return;
 
     int team = player->team_index;
-    unsigned __int8 at_capture_point = 0;
+    uint8_t at_capture_point = 0;
     if ( (char *)unit != (char *)-92 )  /* vestigial addic. guard (unit+92 != 0) */
     {
         scenario_netgame_flag *flag = ctf_globals.flags[team];

@@ -29,7 +29,7 @@ void weapon_trigger_fully_charged(int weapon_index, int16_t trigger_index)
     float charged_time =
         ((weapon_trigger_definition *)definition->weapon.triggers.address)[trigger_index].charged_time;
     trigger->state = _weapon_trigger_charged;
-    trigger->state_timer = (__int16)(int)(charged_time * 30.0f);
+    trigger->state_timer = (int16_t)(int)(charged_time * 30.0f);
 
     weapon_set_state(weapon_index, trigger_index + 7, 1u);
     first_person_weapon_message_from_weapon(weapon_index, _first_person_weapon_message_charged);

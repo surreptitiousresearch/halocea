@@ -7,6 +7,6 @@ extern void hs_return(uint16_t thread_index, int value);
 extern void object_pvs_set_camera_point(int16_t camera_point_index);
 void object_pvs_set_camera_point_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments ) { object_pvs_set_camera_point(*arguments); hs_return(thread_index, 0); }
 }

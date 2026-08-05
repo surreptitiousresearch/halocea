@@ -43,7 +43,7 @@ void ui_widget_delete(widget_instance *widget)
     if ( widget->delete_recursion_lock )
         return;
 
-    local_player_index = (unsigned __int16)widget->local_player_index;
+    local_player_index = (uint16_t)widget->local_player_index;
     widget->delete_recursion_lock = 1;
 
     if ( local_player_index != 0xFFFF && !widget->parent )
@@ -115,16 +115,16 @@ void ui_widget_delete(widget_instance *widget)
         parent->children = widget->next;
 
     /* free type-specific payload */
-    widget_type = (unsigned __int16)widget->widget_type;
+    widget_type = (uint16_t)widget->widget_type;
     if ( widget_type == _ui_widget_type_text_box )
     {
-        unsigned __int16 *text = widget->parameters.text_box_parameters.text;
+        uint16_t *text = widget->parameters.text_box_parameters.text;
         if ( text )
             dispose_pointer(widget_memory_pool, text);
     }
     else if ( widget_type > _ui_widget_type_text_box && widget_type <= _ui_widget_type_column_list )
     {
-        unsigned __int16 *item_text = widget->parameters.list_parameters.item_text;
+        uint16_t *item_text = widget->parameters.list_parameters.item_text;
         widget_instance *extended_description;
         if ( item_text )
             dispose_pointer(widget_memory_pool, item_text);

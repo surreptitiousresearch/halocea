@@ -6,6 +6,6 @@
 
 void ColorToRGB(S3TC_COLOR *pcolor, uint16_t *prgb)
 {
-    *prgb = (unsigned __int16)((8 * ((32 * pcolor->rgba[2]) & 0xFF00 | pcolor->rgba[1])) & 0xFFE0
+    *prgb = (uint16_t)((8 * ((32 * pcolor->rgba[2]) & 0xFF00 | pcolor->rgba[1])) & 0xFFE0
                                | (pcolor->rgba[0] >> 3));
 }

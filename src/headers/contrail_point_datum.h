@@ -1,14 +1,15 @@
 #pragma once
 /* contrail_point_datum — one live contrail point (56 bytes; DB-verified, matches headers_ref). */
 
+#include <stdint.h>
 #include "location.h"
 #include "real_point3d.h"
 #include "real_vector3d.h"
 
 typedef struct contrail_point_datum
 {
-    __int16         identifier;                 /* 0x00 */
-    unsigned __int8 flags;                      /* 0x02 */
+    int16_t         identifier;                 /* 0x00 */
+    uint8_t flags;                      /* 0x02 */
     char            state_index;                /* 0x03 */
     float           time;                       /* 0x04 */
     float           delta;                      /* 0x08 */

@@ -5,6 +5,7 @@
  *
  * Deviation: the decompiler inlines the name compare as a byte loop; reproduced with strcmp. */
 
+#include <stdint.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_compile_globals.h"
 #include "headers/hs_tag_reference.h"
@@ -25,7 +26,7 @@ int hs_parse_tag_reference(int expression_index)
     const char *token = &hs_compile_globals.compiled_source[node->source_offset];
     hs_tag_reference *references = (hs_tag_reference *)global_scenario->hs_references.address;
 
-    for ( __int16 i = 0; i < count; i = (__int16)(i + 1) )
+    for ( int16_t i = 0; i < count; i = (int16_t)(i + 1) )
     {
         hs_tag_reference *entry = &references[i];
         if ( !strcmp(entry->reference.name, token)

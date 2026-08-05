@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 #include "../ap/apSTATE_T.h"
 // ws-engine anim: blend-layer sequence bookkeeping (namespace anim_blend).
 // DB-verified layouts (types_members anim_blend::SEQ_ID_FULL / anim_blend::SEQ_INFO).
@@ -10,7 +11,7 @@ namespace anim_blend {
     // Fully-qualified sequence identifier. DB size 8 (0x08).
     struct SEQ_ID_FULL {
         int     seqID;  // 0x00  sequence index (-1 = none)
-        __int16 extID;  // 0x04  external/bank id
+        int16_t extID;  // 0x04  external/bank id
     };
 
     // Per-instance state of a playing sequence on a blend layer. DB size 40 (0x28).

@@ -14,9 +14,9 @@ extern void hud_print_message(int16_t local_player_index, const wchar_t *text);
 
 void hud_autosave(uint8_t begin)
 {
-    __int16 caption_index = begin ? hud_globals->checkpoint_begin_index
+    int16_t caption_index = begin ? hud_globals->checkpoint_begin_index
                                   : hud_globals->checkpoint_end_index;
-    __int16 i;
+    int16_t i;
 
     scripted_hud_messages_clear();
 

@@ -26,13 +26,13 @@ extern void D3DDevice_SetRenderState_StencilWriteMask(D3DDevice *device, int mas
 void rasterizer_set_stencil_mode(int16_t stencil_mode)
 {
     /* mask == 0xFFFF when the debug option is on, 0 when off → forces mode 0 in that case. */
-    __int16 mask = rasterizer_debug_options.stencil_mask_enabled ? -1 : 0;
-    __int16 mode = mask & stencil_mode;
+    int16_t mask = rasterizer_debug_options.stencil_mask_enabled ? -1 : 0;
+    int16_t mode = mask & stencil_mode;
 
-    if ((unsigned __int16)mode == (unsigned __int16)previous_stencil_mode)
+    if ((uint16_t)mode == (uint16_t)previous_stencil_mode)
         return;
 
-    if ((unsigned __int16)mode <= _rasterizer_stencil_mode_reject_alpha_tested_decal)
+    if ((uint16_t)mode <= _rasterizer_stencil_mode_reject_alpha_tested_decal)
     {
         if (mode == _rasterizer_stencil_mode_write)
         {

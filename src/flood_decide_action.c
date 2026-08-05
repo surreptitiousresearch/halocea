@@ -38,8 +38,8 @@ extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_evasion(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern unsigned __int8 actor_action_can_stop_guarding(int actor_index, __int16 guard_investigate_threshold,
-    __int16 cower_investigate_threshold);
+extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold,
+    int16_t cower_investigate_threshold);
 
 void flood_decide_action(int actor_index)
 {
@@ -61,8 +61,8 @@ void flood_decide_action(int actor_index)
         case actor_action_fight:
         case actor_action_charge:
         {
-            unsigned __int8 allow_initiative = 1;
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = 1;
+            uint8_t force_decision = 0;
             if ( !actor_action_handle_combat_status(actor_index, allow_initiative, force_decision)
               && !actor_action_handle_combat_failure(actor_index) )
                 actor_action_handle_evasion(actor_index);
@@ -76,8 +76,8 @@ void flood_decide_action(int actor_index)
                 return;
             }
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             return;
@@ -86,8 +86,8 @@ void flood_decide_action(int actor_index)
         case actor_action_search:
         case actor_action_wait:
         {
-            unsigned __int8 allow_initiative = 1;
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = 1;
+            uint8_t force_decision = 0;
             if ( !actor_action_handle_combat_status(actor_index, allow_initiative, force_decision) )
                 actor_action_handle_exit_pursuit(actor_index);
             return;
@@ -95,8 +95,8 @@ void flood_decide_action(int actor_index)
 
         case actor_action_guard:
         {
-            unsigned __int8 allow_initiative = actor_action_can_stop_guarding(actor_index, _actor_combat_status_definite, _actor_combat_status_dangerous);
-            unsigned __int8 force_decision = 0;
+            uint8_t allow_initiative = actor_action_can_stop_guarding(actor_index, _actor_combat_status_definite, _actor_combat_status_dangerous);
+            uint8_t force_decision = 0;
             actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             return;
         }
@@ -109,8 +109,8 @@ void flood_decide_action(int actor_index)
             if ( actor->danger_zone.danger_type )
                 return;
             {
-                unsigned __int8 allow_initiative = 1;
-                unsigned __int8 force_decision = 1;
+                uint8_t allow_initiative = 1;
+                uint8_t force_decision = 1;
                 actor_action_handle_combat_status(actor_index, allow_initiative, force_decision);
             }
             return;

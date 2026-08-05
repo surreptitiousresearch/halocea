@@ -18,11 +18,11 @@ void rasterizer_xbox_bitmap_swizzle2d_word(void *dst, const void *src, int16_t w
 
     compute_swizzle_masks(width, height, 1);
 
-    for ( __int16 row = 0; row < height; ++row )
+    for ( int16_t row = 0; row < height; ++row )
     {
-        for ( __int16 col = 0; col < width; ++col )
+        for ( int16_t col = 0; col < width; ++col )
         {
-            ((unsigned __int16 *)dst)[y_swizzle | x_swizzle] = ((const unsigned __int16 *)src)[src_index];
+            ((uint16_t *)dst)[y_swizzle | x_swizzle] = ((const uint16_t *)src)[src_index];
             ++src_index;
             x_swizzle = (x_swizzle - rasterizer_swizzle_x_mask) & rasterizer_swizzle_x_mask;
         }

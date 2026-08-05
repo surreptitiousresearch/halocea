@@ -3,6 +3,7 @@
  * OVERLAPPED slots and in-use/completed masks, reset the 8 read-request and 1 write-request sequence
  * indices to NONE, and zero the sequence counters. */
 
+#include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 
 /* Win32 boundary */
@@ -26,9 +27,9 @@ void cache_copy_initialize_read_data(simple_decompressor_definition *self)
     self->overlapped_in_use_flags[0] = 0;
     self->overlapped_completed_flags[0] = 0;
 
-    for ( int request_index = 0; request_index < 8; request_index = (__int16)(request_index + 1) )
+    for ( int request_index = 0; request_index < 8; request_index = (int16_t)(request_index + 1) )
         self->read_requests[request_index].read_sequence_index = -1;
-    for ( int request_index = 0; request_index < 1; request_index = (__int16)(request_index + 1) )
+    for ( int request_index = 0; request_index < 1; request_index = (int16_t)(request_index + 1) )
         self->write_requests[request_index].write_sequence_index = -1;
 
     self->current_write_buffer_index = -1;

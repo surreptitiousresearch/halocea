@@ -46,7 +46,7 @@ uint16_t looping_sound_new(int definition_index, int identifier, const sound_sou
     datum->state = _looping_sound_refresh_start;
     datum->ordered_permutations_finished = 0;
 
-    for ( track = 0; track < definition->details.count; track = (__int16)(track + 1) )
+    for ( track = 0; track < definition->details.count; track = (int16_t)(track + 1) )
     {
         float scale = source->scale;
         float scale_high = definition->scale_upper_bound.detail_period;

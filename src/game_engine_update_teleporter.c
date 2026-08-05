@@ -117,7 +117,7 @@ void game_engine_update_teleporter(int player_index)
     biped_get_physics_pill(player->unit_index, &pill_base, &pill_height, &pill_width);
 
     collision_feature_list features;
-    unsigned __int8 any_features = collision_get_features_in_sphere(
+    uint8_t any_features = collision_get_features_in_sphere(
         (1u << _collision_test_objects_bit) | (1u << _collision_test_objects_bipeds_bit)
       | (1u << _collision_test_objects_vehicles_bit) | (1u << _collision_test_skip_passthrough_bipeds_bit), &destination_flag->position, pill_width * 2.0f + pill_height, pill_height, pill_width, -1,
         &features);
@@ -149,13 +149,13 @@ void game_engine_update_teleporter(int player_index)
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             if (text_tag == -1)
             {
-                __int16 local_player_index = unit_get_local_player_index(player->unit_index);
+                int16_t local_player_index = unit_get_local_player_index(player->unit_index);
                 hud_print_message(local_player_index, L""); /* empty_wide_string — fallback empty message */
             }
             else
             {
                 const wchar_t *string = unicode_string_list_get_string(text_tag, _string_teleporter_is_blocked);
-                __int16 local_player_index = unit_get_local_player_index(player->unit_index);
+                int16_t local_player_index = unit_get_local_player_index(player->unit_index);
                 hud_print_message(local_player_index, string);
             }
         }
@@ -167,17 +167,17 @@ void game_engine_update_teleporter(int player_index)
     else
     {
         /* destination is clear — teleport the unit there */
-        if (player->local_player_index != (__int16)0xFFFF)
+        if (player->local_player_index != (int16_t)0xFFFF)
             game_engine_play_multiplayer_sound(_multiplayer_sound_teleporter_activate, 0);
 
-        if (player->local_player_index != (__int16)0xFFFF)
+        if (player->local_player_index != (int16_t)0xFFFF)
         {
             screen_flash_definition screen_flash;
             memset((char *)&screen_flash + 2, 0, 0x36);
             screen_flash.type = screen_flash_type_1;
             screen_flash.priority = _screen_flash_high_priority;
             screen_flash.duration = duration_1;
-            screen_flash.fade_function = (__int16)fade_function_1;
+            screen_flash.fade_function = (int16_t)fade_function_1;
             screen_flash.max_intensity = max_intensity_1;
             screen_flash.zero_scale_factor = 0.0f;
             screen_flash.screen_flash_color.__s1.alpha = alpha;
@@ -204,7 +204,7 @@ void game_engine_update_teleporter(int player_index)
 
         object_set_position(player->unit_index, &destination_flag->position, &new_forward, 0);
 
-        if (player->local_player_index != (__int16)0xFFFF)
+        if (player->local_player_index != (int16_t)0xFFFF)
             player_control_set_facing(player->local_player_index, &new_forward);
 
         *cached_from_flag_index = -1;

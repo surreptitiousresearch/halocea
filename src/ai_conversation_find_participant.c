@@ -61,11 +61,11 @@ uint8_t ai_conversation_find_participant(
     int assigned = 0;
     char better_player_rating_seen = 0;
     int assigned_actor_index = -1;
-    __int16 assigned_line_index = -1;
+    int16_t assigned_line_index = -1;
 
     ai_conversation_participant *participant =
         &((ai_conversation_participant *)definition->participants.address)[participant_index];
-    __int16 selection_type = participant->selection_type;
+    int16_t selection_type = participant->selection_type;
 
     if ( selection_type == _ai_conversation_selection_disembodied )
     {
@@ -78,7 +78,7 @@ uint8_t ai_conversation_find_participant(
     {
         char is_player_selection = 0;          /* radio / radio_sargeant */
         char using_ai_index_iterator = 0;
-        unsigned __int8 use_object_directly = 0;
+        uint8_t use_object_directly = 0;
         int candidate_object_index = -1;
         float best_score = 0.0f;
 
@@ -93,7 +93,7 @@ uint8_t ai_conversation_find_participant(
          *  buffer; reproduced here as a dedicated array of the same 12-byte stride.) */
         float placed_positions[8][3];
         int placed_count = 0;
-        for ( int slot = 0; slot < participant_count; slot = (__int16)(slot + 1) )
+        for ( int slot = 0; slot < participant_count; slot = (int16_t)(slot + 1) )
         {
             if ( conversation->actor_indices[slot] != -1 )
             {
@@ -106,13 +106,13 @@ uint8_t ai_conversation_find_participant(
             }
         }
 
-        unsigned __int8 first_participant = placed_count == 0;
+        uint8_t first_participant = placed_count == 0;
 
         actor_iterator all_actor_iterator;
         ai_index_actor_iterator ai_actor_iterator;
 
-        __int16 preexisting_name = participant->preexisting_object_name_index;
-        if ( (unsigned __int16)preexisting_name == 0xFFFF )
+        int16_t preexisting_name = participant->preexisting_object_name_index;
+        if ( (uint16_t)preexisting_name == 0xFFFF )
         {
             int runtime_ai_index = participant->runtime_ai_index;
             if ( runtime_ai_index == -1 )
@@ -167,20 +167,20 @@ uint8_t ai_conversation_find_participant(
 
             int candidate_unit_index = candidate->meta.unit_index;
             if ( candidate_unit_index == -1
-              || (unsigned __int16)candidate->meta.type != (unsigned __int16)participant->actor_type )
+              || (uint16_t)candidate->meta.type != (uint16_t)participant->actor_type )
                 continue;
 
             /* Skip if this candidate is already bound to another participant slot. */
             int placed_slot = 0;
             if ( participant_count > 0 )
             {
-                for ( placed_slot = 0; placed_slot < participant_count; placed_slot = (__int16)(placed_slot + 1) )
+                for ( placed_slot = 0; placed_slot < participant_count; placed_slot = (int16_t)(placed_slot + 1) )
                 {
                     if ( candidate_index == conversation->actor_indices[placed_slot] )
                         break;
                 }
             }
-            if ( (__int16)placed_slot < participant_count )
+            if ( (int16_t)placed_slot < participant_count )
                 continue;
 
             int rating_target_unit_index;
@@ -202,7 +202,7 @@ uint8_t ai_conversation_find_participant(
             }
 
             unsigned int valid = 1;
-            unsigned int selection = (unsigned __int16)participant->selection_type;
+            unsigned int selection = (uint16_t)participant->selection_type;
             if ( selection > _ai_conversation_selection_radio_sargeant || selection == _ai_conversation_selection_disembodied )
                 goto evaluate_dialogue;
             if ( selection == _ai_conversation_selection_in_player_vehicle )
@@ -262,7 +262,7 @@ uint8_t ai_conversation_find_participant(
             if ( placed_count > 0 )
             {
                 float nearest = 3.4028235e38f;
-                for ( int i = 0; i < placed_count; i = (__int16)(i + 1) )
+                for ( int i = 0; i < placed_count; i = (int16_t)(i + 1) )
                 {
                     float dx = placed_positions[i][0] - candidate->input.position.body_position.n[0];
                     float dy = placed_positions[i][1] - candidate->input.position.body_position.n[1];
@@ -278,17 +278,17 @@ uint8_t ai_conversation_find_participant(
 
             /* Pick a dialogue variant: prefer one matching the unit's current variant (or the empty
              * variant), otherwise choose at random from the matching set. */
-            __int16 matching_variants[8];
-            __int16 matching_count = 0;
-            __int16 exact_variant_slot = -1;
+            int16_t matching_variants[8];
+            int16_t matching_count = 0;
+            int16_t exact_variant_slot = -1;
             char have_exact_variant = 0;
-            __int16 candidate_current_variant =
+            int16_t candidate_current_variant =
                 (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, candidate->meta.unit_index)->datum)->object.variant_number;
 
             int variant_slot = 0;
             for ( ;; )
             {
-                __int16 variant = participant->dialogue_variants[variant_slot];
+                int16_t variant = participant->dialogue_variants[variant_slot];
                 if ( variant != -1 )
                 {
                     if ( variant == candidate_current_variant )
@@ -308,12 +308,12 @@ uint8_t ai_conversation_find_participant(
                         have_exact_variant = 1;
                     }
                 }
-                variant_slot = (__int16)(variant_slot + 1);
+                variant_slot = (int16_t)(variant_slot + 1);
                 if ( variant_slot >= 6 )
                     break;
             }
 
-            __int16 chosen_variant_slot;
+            int16_t chosen_variant_slot;
             if ( have_exact_variant )
             {
                 candidate_score = candidate_score + 0.7f;

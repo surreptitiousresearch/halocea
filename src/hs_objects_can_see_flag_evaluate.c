@@ -12,7 +12,7 @@ void hs_objects_can_see_flag_evaluate(int16_t function_index, int thread_index, 
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = hs_objects_can_see_flag(arguments[0], ((__int16 *)arguments)[2] /* +4: flag index */, ((float *)arguments)[2] /* +8: degrees (packed HS arg buffer) */);
+        *((unsigned char *)&result + 3) = hs_objects_can_see_flag(arguments[0], ((int16_t *)arguments)[2] /* +4: flag index */, ((float *)arguments)[2] /* +8: degrees (packed HS arg buffer) */);
         hs_return(thread_index, result);
     }
 }

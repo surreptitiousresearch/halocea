@@ -20,9 +20,9 @@
 #include "headers/blam_data_globals.h"
 
 
-extern __int16 vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
-                                                      __int16 seat_desire_type, __int16 *seat_indices,
-                                                      __int16 seat_max_indices);
+extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
+                                                      int16_t seat_desire_type, int16_t *seat_indices,
+                                                      int16_t seat_max_indices);
 extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern uint8_t unit_set_or_test_seat_and_weapon_label(int object_index, const char *seat_label, const char *weapon_label, uint8_t change_flag);
@@ -38,8 +38,8 @@ int vehicle_scripting_load_magic(int unit_index, const char *seat_substring_name
     unit_datum *vehicle = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
     vehicle_definition *vehicle_def = TAG_GET(vehicle_definition, vehicle->definition_index);
 
-    __int16 available_seat_indices[16];
-    __int16 available_seats = vehicle_scripting_find_available_seats(unit_index, seat_substring_name, -1,
+    int16_t available_seat_indices[16];
+    int16_t available_seats = vehicle_scripting_find_available_seats(unit_index, seat_substring_name, -1,
                                                                      available_seat_indices, 16);
 
     int object_list_reference[4];
@@ -54,10 +54,10 @@ int vehicle_scripting_load_magic(int unit_index, const char *seat_substring_name
             continue;
 
         int seat_slot = 0;
-        unsigned __int8 entered = 0;
+        uint8_t entered = 0;
         while (1)
         {
-            __int16 seat_index = available_seat_indices[seat_slot];
+            int16_t seat_index = available_seat_indices[seat_slot];
             const char *seat_label = ((unit_seat *)vehicle_def->unit.seats.address + seat_index)->label;
             if (seat_index != -1
                 && (rider->object.type == object_type_vehicle
@@ -72,7 +72,7 @@ int vehicle_scripting_load_magic(int unit_index, const char *seat_substring_name
                 }
             }
 
-            seat_slot = (__int16)(seat_slot + 1);
+            seat_slot = (int16_t)(seat_slot + 1);
             if (seat_slot >= available_seats)
                 break;
         }
@@ -80,7 +80,7 @@ int vehicle_scripting_load_magic(int unit_index, const char *seat_substring_name
         if (entered)
         {
             available_seat_indices[seat_slot] = -1;
-            loaded_count = (__int16)(loaded_count + 1);
+            loaded_count = (int16_t)(loaded_count + 1);
         }
     }
 

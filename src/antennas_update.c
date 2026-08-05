@@ -24,7 +24,7 @@ void antennas_update(float dt)
         if ( antenna->__noop )
             continue;
 
-        __int16 updates_since_last_render = antenna->updates_since_last_render + 1;
+        int16_t updates_since_last_render = antenna->updates_since_last_render + 1;
         antenna->updates_since_last_render = updates_since_last_render;
         if ( antenna->object_index != -1 && updates_since_last_render < 5 )
         {

@@ -15,13 +15,13 @@
 #include "headers/collision_bsp.h"
 #include "headers/real_point2d.h"
 
-extern const __int16 global_projection3d_mappings[3][2][2];
+extern const int16_t global_projection3d_mappings[3][2][2];
 
 uint8_t collision_surface_test_point2d(const collision_bsp *bsp, int surface_index, int16_t projection_axis, uint8_t projection_sign, const real_point2d *point)
 {
     const collision_edge *edges = (const collision_edge *)bsp->edges.address;
     const float *vertices = (const float *)bsp->vertices.address;
-    const __int16 *map    = global_projection3d_mappings[projection_axis][projection_sign];
+    const int16_t *map    = global_projection3d_mappings[projection_axis][projection_sign];
 
     int first_edge = ((const collision_surface *)bsp->surfaces.address)[surface_index].first_edge_index;
     int edge_index = first_edge;

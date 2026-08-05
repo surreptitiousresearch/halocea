@@ -10,7 +10,7 @@
 #include "headers/real_point2d.h"
 #include "headers/collision_prism.h"
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 
 uint8_t collision_prism_test_vector(const collision_prism *prism, const real_point3d *point,
                                     const real_vector3d *vector, float *t, real_plane3d *plane)
@@ -56,8 +56,8 @@ uint8_t collision_prism_test_vector(const collision_prism *prism, const real_poi
 
     int point_count = prism->point_count;
     int map = 2 * prism->projection_axis + prism->projection_sign;
-    __int16 ia = global_projection3d_mappings[0][map][0];
-    __int16 ib = global_projection3d_mappings[0][map][1];
+    int16_t ia = global_projection3d_mappings[0][map][0];
+    int16_t ib = global_projection3d_mappings[0][map][1];
 
     /* projected point (onto the face plane) and projected direction */
     float point_proj[3];

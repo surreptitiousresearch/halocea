@@ -12,7 +12,7 @@
 #include "headers/collision_vertex.h"
 #include "headers/real_vector3d.h" /* real_vector3d used by fast_vector_intersects_sphere + edge_vector */
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern uint8_t fast_vector_intersects_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
 extern void add_feature(int *count, int *indices, int index);
 
@@ -96,8 +96,8 @@ void collision_surface_test_sphere(test_sphere_data *data, int surface_index)
             BOOL forward = (surface_index == edge->surface_indices[1]);
             int far_vertex = edge->vertex_indices[!forward];
             const float *near_vertex = &vertices[4 * edge->vertex_indices[forward]];
-            __int16 ia = global_projection3d_mappings[0][map][0];
-            __int16 ib = global_projection3d_mappings[0][map][1];
+            int16_t ia = global_projection3d_mappings[0][map][0];
+            int16_t ib = global_projection3d_mappings[0][map][1];
 
             float cross = (((vertices[4 * far_vertex + ib] - data->center2d.n[1])
                                         * (near_vertex[ia] - data->center2d.n[0]))

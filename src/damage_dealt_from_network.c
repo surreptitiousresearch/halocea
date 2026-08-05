@@ -49,7 +49,7 @@ void damage_dealt_from_network(message_delta_processor_header *header)
 
     int object_index = field_translated_index_get_local_index(&field_properties_object_index_definition,
         data.damaged_object_index);
-    unsigned __int16 damage_flags = 0;
+    uint16_t damage_flags = 0;
 
     if ( object_index != -1 )
     {

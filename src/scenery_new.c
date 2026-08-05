@@ -26,7 +26,7 @@ uint8_t scenery_new(int object_index)
     if ( animation_graph_index != -1
       && TAG_GET(animation_graph, animation_graph_index)->animations.count > 0 )
     {
-        __int16 animation_index = animation_choose_random_permutation_internal(
+        int16_t animation_index = animation_choose_random_permutation_internal(
                                       animation_update_kind_affects_game_state, animation_graph_index, 0);
         if ( animation_index != -1 )
         {

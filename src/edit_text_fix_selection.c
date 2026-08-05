@@ -11,13 +11,13 @@ void edit_text_fix_selection(edit_text *edit)
 {
     const unsigned char *buffer = (const unsigned char *)edit->buffer;
     const unsigned char *end = buffer;
-    __int16 length;
-    __int16 caret;
-    __int16 anchor;
+    int16_t length;
+    int16_t caret;
+    int16_t anchor;
 
     while ( *end++ )
         ;
-    length = (__int16)(end - buffer - 1);
+    length = (int16_t)(end - buffer - 1);
 
     caret = edit->insertion_point_index;
     if ( caret >= 0 )
@@ -47,6 +47,6 @@ void edit_text_fix_selection(edit_text *edit)
         edit->selection_start_index = -1;
 
     align_to_character(buffer, &edit->insertion_point_index);
-    if ( (unsigned __int16)edit->selection_start_index != 0xFFFF )
+    if ( (uint16_t)edit->selection_start_index != 0xFFFF )
         align_to_character((const unsigned char *)edit->buffer, &edit->selection_start_index);
 }

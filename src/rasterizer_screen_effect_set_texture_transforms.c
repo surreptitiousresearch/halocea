@@ -239,5 +239,5 @@ void rasterizer_screen_effect_set_texture_transforms(const rasterizer_screen_eff
             constants[slot] = constants[slot + 8];
     }
 
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, constants, 8, (unsigned __int64)7 << 58);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, constants, 8, (uint64_t)7 << 58);
 }

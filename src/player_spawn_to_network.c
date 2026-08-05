@@ -45,7 +45,7 @@ void player_spawn_to_network(int player_index, int unit_index, int team_index, i
     network_game_server *server;
     int priority_to_machine;
     int spawn_header[4];
-    __int16 spawn_body[48];
+    int16_t spawn_body[48];
 
     unit_object_data = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
 
@@ -59,7 +59,7 @@ void player_spawn_to_network(int player_index, int unit_index, int team_index, i
     primary_weapon_type = unit_object_data->unit.current_weapon_index;
     if ( primary_weapon_type == -1 )
         /* set low 16 bits only, preserving the high word (0xFFFF here) — was LOWORD(...) lvalue */
-        primary_weapon_type = (primary_weapon_type & ~0xFFFF) | (unsigned __int16)unit_object_data->unit.desired_weapon_index;
+        primary_weapon_type = (primary_weapon_type & ~0xFFFF) | (uint16_t)unit_object_data->unit.desired_weapon_index;
     /* int cursor anchored at desired_weapon_index (+756); pre-increment lands on weapon_object_indices[0..3] */
     weapon_slot_cursor = (const int *)&unit_object_data->unit.desired_weapon_index;
     spawn_body[10] = primary_weapon_type;

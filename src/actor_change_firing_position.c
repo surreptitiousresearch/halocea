@@ -29,7 +29,7 @@ int16_t actor_change_firing_position(int actor_index, int16_t firing_position_in
         return -1;
     }
 
-    __int16 current_claim = actor->firing_positions.current_position_index;
+    int16_t current_claim = actor->firing_positions.current_position_index;
     if ( current_claim != -1 && current_claim != firing_position_index )
         actor_discard_firing_position(actor_index, current_claim, 1u);
 

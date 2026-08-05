@@ -18,7 +18,7 @@ uint8_t surface_is_broken(const structure_bsp *structure, int surface_index)
 
     if ( surface->flags & (1u << _collision_surface_breakable_bit) )
     {
-        unsigned __int8 breakable_surface_index = surface->breakable_surface_index;
+        uint8_t breakable_surface_index = surface->breakable_surface_index;
         const char *flags = (const char *)breakable_surface_flags_get();
         unsigned int dword = *(const unsigned int *)(flags + (breakable_surface_index >> 3 & 0x1FFFFFFC));
 

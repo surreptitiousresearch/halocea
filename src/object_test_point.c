@@ -37,7 +37,7 @@ uint8_t object_test_point(int object_index, unsigned int flags, const real_point
                 if ( ((dy * dy) + ((dx * dx) + (dz * dz)))
                         <= (double)(radius * radius) )
                 {
-                    unsigned __int8 collided;
+                    uint8_t collided;
                     char tested = 1;
                     if ( ((1 << object_type) & object_mask_vehicle) != 0 && (flags & 0x400000) != 0 )
                     {

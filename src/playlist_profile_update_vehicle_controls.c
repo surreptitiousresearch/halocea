@@ -21,7 +21,7 @@ extern uint32_t game_variant_build_vehicle_set(unsigned int preset);
 void playlist_profile_update_vehicle_controls(widget_instance *widget, vehicle_options_s vehicle_set)
 {
     unsigned int set = vehicle_set.value;
-    unsigned __int8 enabled;
+    uint8_t enabled;
     if ( vehicle_set.__s1.preset < _game_engine_vehicles_custom )   /* a read-only built-in preset */
     {
         enabled = 0;
@@ -44,7 +44,7 @@ void playlist_profile_update_vehicle_controls(widget_instance *widget, vehicle_o
 
         unsigned int vehicle_type = (set >> (25 - 3 * i)) & 7;
         text_box->parameters.text_box_parameters.string_list_index =
-                vehicle_type >= 5 ? 0 : (__int16)vehicle_type;
+                vehicle_type >= 5 ? 0 : (int16_t)vehicle_type;
 
         if ( enabled )
         {

@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
@@ -16,7 +17,7 @@ int objOBJ::_UnshareColorList(unsigned int vcInd)
     if (!this->pGeom || vcInd > 2)
         return 0;
 
-    unsigned __int64 shareBit = (unsigned __int64)0x100 << vcInd; // OBJ_ST_SHARED_COLOR<vcInd>
+    uint64_t shareBit = (uint64_t)0x100 << vcInd; // OBJ_ST_SHARED_COLOR<vcInd>
     if ((this->stateShare.state & shareBit) == 0)
         return 1; // already private
 

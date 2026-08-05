@@ -6,6 +6,7 @@
  * old head's prev becomes the tail, and the disconnected-list head becomes this chain's original head.
  * Decal record layout (56-byte stride, prev@0x30, next@0x34, cluster_index@4) per decal_reinsert.c. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/decal_globals.h"
 #include "headers/decal_datum.h"
@@ -17,9 +18,9 @@ void decals_disconnect_from_structure_bsp(void)
     if ( !global_decal_data->valid )
         return;
 
-    for ( int cluster = 0; cluster < 512; cluster = (__int16)(cluster + 1) )
+    for ( int cluster = 0; cluster < 512; cluster = (int16_t)(cluster + 1) )
     {
-        for ( int layer = 0; layer < 5; layer = (__int16)(layer + 1) )
+        for ( int layer = 0; layer < 5; layer = (int16_t)(layer + 1) )
         {
             int chain_head = decal_globals->first_decal_indices[layer][cluster];
             int decal_index = chain_head;

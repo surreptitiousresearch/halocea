@@ -15,8 +15,8 @@
 
 
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
-extern unsigned __int8 message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
-        const message_delta_processor_header *header, unsigned __int8 allow_empty_body);
+extern uint8_t message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
+        const message_delta_processor_header *header, uint8_t allow_empty_body);
 extern char * wide_to_ascii(uint16_t *unicode, char *ascii, unsigned int ascii_length_bytes);
 extern uint8_t game_engine_has_teams(void);
 extern void *memcpy(void *destination, const void *source, unsigned int size);
@@ -24,7 +24,7 @@ extern void *memcpy(void *destination, const void *source, unsigned int size);
 void slayer_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header,
         network_game_client *client)
 {
-    unsigned __int8 decoded;
+    uint8_t decoded;
 
     if ( header->decoding_information->mode )
         decoded = message_delta_processor_decode_incremental(&slayer_globals, &slayer_globals_baseline, header, 0);

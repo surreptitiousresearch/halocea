@@ -93,7 +93,7 @@ void cinematic_render(void)
     for (int slot = 0; slot < 4; slot++)
     {
         cinematic_title_datum *active_title = &cinematic_globals->active_titles[slot];
-        __int16 title_index = active_title->title_index;
+        int16_t title_index = active_title->title_index;
         if (title_index == -1)
             continue;
 
@@ -186,7 +186,7 @@ void cinematic_render(void)
         rasterizer_draw_unicode_string(&scaled_bounds, 0, 0, 0, string);
         rasterizer_text_set_shadow_color(0);
 
-        __int16 elapsed = game_time_get_paused() ? 0 : game_time_get_elapsed();
+        int16_t elapsed = game_time_get_paused() ? 0 : game_time_get_elapsed();
         active_title->title_timer += elapsed;
 
         if (!game_in_editor())

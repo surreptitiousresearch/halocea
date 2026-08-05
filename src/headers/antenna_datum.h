@@ -1,6 +1,7 @@
 #pragma once
 /* antenna_datum — one live antenna (springy aerial) instance (700 bytes). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "antenna_vertex_datum.h"
 
@@ -8,11 +9,11 @@ typedef struct antenna_definition antenna_definition;   /* tag definition; acces
 
 typedef struct antenna_datum
 {
-    __int16              identifier;                /* 0x00 */
-    unsigned __int16     pad;                       /* 0x02 */
-    unsigned __int8      initialized;               /* 0x04 */
-    unsigned __int8      __noop;                    /* 0x05 — set = skip render (DB name kept) */
-    __int16              updates_since_last_render; /* 0x06 */
+    int16_t              identifier;                /* 0x00 */
+    uint16_t     pad;                       /* 0x02 */
+    uint8_t      initialized;               /* 0x04 */
+    uint8_t      __noop;                    /* 0x05 — set = skip render (DB name kept) */
+    int16_t              updates_since_last_render; /* 0x06 */
     int                  definition_index;          /* 0x08 */
     int                  object_index;              /* 0x0C */
     real_point3d         last_attachment_location;  /* 0x10 */

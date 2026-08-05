@@ -32,7 +32,7 @@ uint8_t track_object_impulse_sound(int object_index, const sound_attachment_data
         return 0;
 
     object_get_location(object_index, &object_location);
-    if ( (unsigned __int16)object_location.cluster_index == 0xFFFF )
+    if ( (uint16_t)object_location.cluster_index == 0xFFFF )
         return 0;
 
     node_matrix = object_get_node_matrix(object_index,

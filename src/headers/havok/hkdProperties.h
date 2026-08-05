@@ -1,11 +1,12 @@
 #pragma once
+#include <stdint.h>
 #include "hkArray.h"
 
 /* hkpPropertyValue — an 8-byte tagged scalar/pointer union carried by a property
    (DB types_members hkpPropertyValue, single 8-byte m_data). */
 typedef struct hkpPropertyValue
 {
-    unsigned __int64 m_data; /* 0 */
+    uint64_t m_data; /* 0 */
 } hkpPropertyValue;
 
 /* hkpProperty — a key/value pair in the property array (16 bytes, DB

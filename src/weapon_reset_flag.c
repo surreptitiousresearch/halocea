@@ -4,6 +4,7 @@
  *
  * Object header lookup matches the established salted object-header idiom (see vehicle_reset.c). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/weapon_datum.h"
@@ -19,7 +20,7 @@ void weapon_reset_flag(int weapon_index)
 {
     weapon_datum *weapon = (weapon_datum *)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
-    __int16 team_index = weapon->object.owner_team_index;
+    int16_t team_index = weapon->object.owner_team_index;
 
     ctf_globals.flag_warning[team_index] = 0;
     ctf_globals.flag_warning_time_in_ticks[team_index] = 0;

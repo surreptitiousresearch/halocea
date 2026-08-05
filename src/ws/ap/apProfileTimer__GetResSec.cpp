@@ -1,8 +1,9 @@
 // apProfileTimer::GetResSec @ 0x823CDEA0
 // Convert accumulated ticks to seconds and reset the accumulator.
+#include <stdint.h>
 #include "apProfileTimer.h"
 
-extern "C" unsigned __int64 osGetPerfFrequancy(void); // boundary — os perf-counter tick rate
+extern "C" uint64_t osGetPerfFrequancy(void); // boundary — os perf-counter tick rate
 
 float apProfileTimer::GetResSec()
 {

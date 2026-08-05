@@ -32,9 +32,9 @@ extern uint8_t actor_move_try_evasion_vector(int actor_index, real_vector2d *eva
 
 uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignment_vector, float evade_distance, int16_t *evade_direction_reference, float maximum_ledge_height, path_collision_result *evasion_is_ledge, path_collision_result *result)
 {
-    __int16 direction_code = *evade_direction_reference;
+    int16_t direction_code = *evade_direction_reference;
     int evasion_succeeded = 0;
-    __int16 attempt_limit = 1;
+    int16_t attempt_limit = 1;
     real_vector2d evasion_vector;
     float evasion_i, evasion_j;
 
@@ -96,17 +96,17 @@ uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignme
     }
 
     int attempt_total = attempt_limit;
-    __int16 attempt_index = 0;
+    int16_t attempt_index = 0;
     if ( attempt_limit > 0 )
     {
         while ( !actor_move_try_evasion_vector(actor_index, &evasion_vector, evade_distance,
-                    maximum_ledge_height, (unsigned __int8 *)evasion_is_ledge, result) )
+                    maximum_ledge_height, (uint8_t *)evasion_is_ledge, result) )
         {
             evasion_i = -evasion_i;
             evasion_j = -evasion_j;
             evasion_vector.n[0] = evasion_i;
             evasion_vector.n[1] = evasion_j;
-            attempt_index = (__int16)(attempt_index + 1);
+            attempt_index = (int16_t)(attempt_index + 1);
             direction_code ^= 1;
             if ( attempt_index >= attempt_total )
                 goto write_back;
@@ -115,8 +115,8 @@ uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignme
     }
 
 write_back:;
-    __int16 result_direction_code = direction_code;
-    if ( !(unsigned __int8)evasion_succeeded )
+    int16_t result_direction_code = direction_code;
+    if ( !(uint8_t)evasion_succeeded )
         result_direction_code = -1;
     *evade_direction_reference = result_direction_code;
     return evasion_succeeded;

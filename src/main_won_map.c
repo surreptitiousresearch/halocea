@@ -39,7 +39,7 @@ extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...)
 
 void main_won_map(void)
 {
-    __int16 solo_level = main_get_solo_level_from_name(main_globals.soloplayer_map_name);
+    int16_t solo_level = main_get_solo_level_from_name(main_globals.soloplayer_map_name);
     hcex_stop_cine();
     if ( hcex_is_anitec_render_mode() )
         return;
@@ -51,7 +51,7 @@ void main_won_map(void)
     if ( solo_level == _single_player_map_a50 )  /* the sniper-rifle mission */
     {
         _DWORD *object_data = 0;
-        for ( __int16 local_player = local_player_get_next(-1);
+        for ( int16_t local_player = local_player_get_next(-1);
               local_player != -1;
               local_player = local_player_get_next(local_player) )
         {
@@ -67,7 +67,7 @@ void main_won_map(void)
 
             weapon_datum *weapon_object = 0;   /* set within the slot loop */
             int found_sniper = 0;
-            for ( int slot = 0; slot < 4; slot = (__int16)(slot + 1) )
+            for ( int slot = 0; slot < 4; slot = (int16_t)(slot + 1) )
             {
                 /* DEVIATION: raw dword 190+slot is unit.weapon_object_indices[slot] (unit@500 + 260 + 4*slot) */
                 int weapon_index = unit_object->unit.weapon_object_indices[slot];

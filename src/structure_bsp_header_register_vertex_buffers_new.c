@@ -41,12 +41,12 @@ void structure_bsp_header_register_vertex_buffers_new(cache_file_structure_bsp_h
         Sleep(0);
 
     for (int lightmap_index = 0; lightmap_index < structure_bsp->lightmaps.count;
-         lightmap_index = (__int16)(lightmap_index + 1))
+         lightmap_index = (int16_t)(lightmap_index + 1))
     {
         structure_lightmap *lightmap = &((structure_lightmap *)structure_bsp->lightmaps.address)[lightmap_index];
         int material_count = lightmap->materials.count;
         for (int material_index = 0; material_index < material_count;
-             material_index = (__int16)(material_index + 1))
+             material_index = (int16_t)(material_index + 1))
         {
             structure_material *material = &((structure_material *)lightmap->materials.address)[material_index];
             int vertex_offset = material->vertices.offset;

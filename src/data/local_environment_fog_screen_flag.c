@@ -1,1 +1,2 @@
-unsigned __int8 local_environment_fog_screen_flag;
+#include <stdint.h>
+uint8_t local_environment_fog_screen_flag;

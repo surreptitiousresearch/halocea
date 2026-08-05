@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* data_reference — a generic 12-byte data_array reference-datum used by cluster
  * partitions and reference lists. No named type exists in the DB; the field layout
  * is reconstructed from the observed accesses (salt datum-header at +0, a payload
@@ -7,8 +8,8 @@
 
 typedef struct data_reference
 {
-    __int16 identifier;          /* 0x00: data_array datum salt */
-    unsigned __int16 pad;        /* 0x02 */
+    int16_t identifier;          /* 0x00: data_array datum salt */
+    uint16_t pad;        /* 0x02 */
     int datum_index;             /* 0x04: cluster/datum index (DB name) */
     int next_reference_index;    /* 0x08: -1 terminates the chain */
 } data_reference;

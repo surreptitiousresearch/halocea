@@ -111,19 +111,19 @@ static float clamp_unit_fraction(float value)
     return value;
 }
 
-static unsigned __int8 clamp_meter_byte(int value)
+static uint8_t clamp_meter_byte(int value)
 {
     if (value < 0)
         return 0;
     if (value > 255)
         return 255;
-    return (unsigned __int8)value;
+    return (uint8_t)value;
 }
 
 extern void initialize_hud_state(unit_hud_state *hud_state);
 void hud_render_unit_interface(player_datum *player)
 {
-    __int16 local_player_index = player->local_player_index;
+    int16_t local_player_index = player->local_player_index;
     if (local_player_index != render.local_player_index || player->unit_index == -1)
         return;
 
@@ -143,7 +143,7 @@ void hud_render_unit_interface(player_datum *player)
     memset(&hud_layer_interface_indices[1], 0, 0x44u);
 
     int hud_layer_count = 1;
-    unsigned __int8 allow_integrated_lights = game_engine_allow_integrated_lights(player->unit_index);
+    uint8_t allow_integrated_lights = game_engine_allow_integrated_lights(player->unit_index);
 
     if (hud_state->last_unit_index == -1)
     {
@@ -156,7 +156,7 @@ void hud_render_unit_interface(player_datum *player)
     int parent_object_index = unit_object->object.parent_object_index;
     if (parent_object_index != -1)
     {
-        __int16 parent_seat_index = unit_object->unit.parent_seat_index;
+        int16_t parent_seat_index = unit_object->unit.parent_seat_index;
         if (parent_seat_index != -1)
         {
             unit_datum *parent_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_object_index)->datum);
@@ -188,7 +188,7 @@ void hud_render_unit_interface(player_datum *player)
                             object_try_and_get_and_verify_type(seated_unit_index, object_mask_unit);
                         if (seated_unit
                             && seated_unit->object.parent_object_index == parent_object_index
-                            && seated_unit->unit.parent_seat_index != (__int16)0xFFFF)
+                            && seated_unit->unit.parent_seat_index != (int16_t)0xFFFF)
                         {
                             hud_layer_unit_indices[layer_slot] = seated_unit_index;
                             ++hud_layer_count;
@@ -248,7 +248,7 @@ void hud_render_unit_interface(player_datum *player)
                 /* background panel */
                 if (hud_def->background.interface_bitmap.index != -1)
                 {
-                    __int16 draw_flags = (__int16)((layer_object->object.damage_flags >> 1) & 2);
+                    int16_t draw_flags = (int16_t)((layer_object->object.damage_flags >> 1) & 2);
                     if (local_player_count() <= 1)
                         draw_flags &= ~(1u << _hud_draw_in_multiplayer_bit);
                     else
@@ -261,7 +261,7 @@ void hud_render_unit_interface(player_datum *player)
                 if (hcex_off_hud_element && game_engine_has_shield(player_index)
                     && (unit_hud_globals->script_flags & (1u << _hud_panel_shield_dont_show_bit)) == 0)
                 {
-                    __int16 shield_flags = 0;
+                    int16_t shield_flags = 0;
                     if (layer_object->object.shield_vitality < 0.25f
                         || (unit_hud_globals->script_flags & (1u << _hud_panel_shield_blink_bit)) != 0)
                         shield_flags = 1;
@@ -294,7 +294,7 @@ void hud_render_unit_interface(player_datum *player)
                             ? layer_object->object.shield_vitality
                             : hud_state->last_shield_vitality;
 
-                        __int16 max_alpha = hud_def->shield_meter.meter.value_scale;
+                        int16_t max_alpha = hud_def->shield_meter.meter.value_scale;
                         if (!max_alpha)
                             max_alpha = 255;
 
@@ -307,12 +307,12 @@ void hud_render_unit_interface(player_datum *player)
 
                         for (int segment = 0; segment <= overcharge_count; ++segment)
                         {
-                            unsigned __int8 is_first_segment = (segment == 0);
+                            uint8_t is_first_segment = (segment == 0);
                             float shield_fraction =
                                 clamp_unit_fraction(layer_object->object.shield_vitality - (float)segment);
                             float reference_fraction =
                                 clamp_unit_fraction(reference_shield - (float)segment);
-                            unsigned __int8 increasing = reference_fraction > shield_fraction;
+                            uint8_t increasing = reference_fraction > shield_fraction;
                             float peak_fraction = reference_fraction > shield_fraction
                                 ? reference_fraction : shield_fraction;
                             if (shield_fraction <= 0.0f && peak_fraction <= 0.0f)
@@ -322,9 +322,9 @@ void hud_render_unit_interface(player_datum *player)
                             segment_meter.min_color = overcharge_colors[segment];
 
                             float reference_time = increasing ? hud_state->fade_time : -1.0f;
-                            unsigned __int8 peak_value =
+                            uint8_t peak_value =
                                 clamp_meter_byte((int)((float)max_alpha * peak_fraction));
-                            unsigned __int8 current_value =
+                            uint8_t current_value =
                                 clamp_meter_byte((int)((float)max_alpha * shield_fraction));
 
                             const meter_hud_element_definition *draw_meter = is_first_segment
@@ -340,11 +340,11 @@ void hud_render_unit_interface(player_datum *player)
                 }
 
                 /* health panel — unless suppressed, else fall through to motion sensor / aux / team icon */
-                __int16 health_flags = 0;
+                int16_t health_flags = 0;
                 int draw_health = (hcex_off_hud_element != 1 && (unit_hud_globals->script_flags & (1u << _hud_panel_health_dont_show_bit)) == 0);
                 if (draw_health)
                 {
-                    __int16 damage_flags = layer_object->object.damage_flags;
+                    int16_t damage_flags = layer_object->object.damage_flags;
                     if ((damage_flags & (1u << _object_shield_depleted_bit)) != 0 || (unit_hud_globals->script_flags & (1u << _hud_panel_health_blink_bit)) != 0)
                         health_flags = 1;
                     if ((damage_flags & (1u << _object_dead_bit)) != 0)
@@ -371,7 +371,7 @@ void hud_render_unit_interface(player_datum *player)
 
                     if (hud_def->health_meter.meter.meter_bitmap.index != -1)
                     {
-                        __int16 health_scale = hud_def->health_meter.meter.value_scale;
+                        int16_t health_scale = hud_def->health_meter.meter.value_scale;
                         if (!health_scale)
                             health_scale = 8;
 
@@ -388,7 +388,7 @@ void hud_render_unit_interface(player_datum *player)
                         }
                         /* if body >= max_cutoff the meter's own colors are kept unchanged */
 
-                        unsigned __int8 body_value =
+                        uint8_t body_value =
                             clamp_meter_byte((int)((float)health_scale * body));
                         hud_draw_meter(local_player_index, &hud_def->absolute_placement, &health_meter,
                             body_value, body_value, health_flags, -1.0f, body);
@@ -409,8 +409,8 @@ void hud_render_unit_interface(player_datum *player)
                 {
                     motion_sensor_placement.corner = _hud_corner_bottom_left;
                     int split_bit = local_player_count() > 1 ? (1u << _hud_draw_in_multiplayer_bit) : 0;
-                    __int16 motion_flags = (unit_hud_globals->script_flags & (1u << _hud_panel_motion_sensor_blink_bit)) != 0
-                        ? (__int16)(split_bit | (1u << _hud_draw_flashing_bit)) : (__int16)split_bit;
+                    int16_t motion_flags = (unit_hud_globals->script_flags & (1u << _hud_panel_motion_sensor_blink_bit)) != 0
+                        ? (int16_t)(split_bit | (1u << _hud_draw_flashing_bit)) : (int16_t)split_bit;
 
                     if ((motion_flags & 1) != 0)
                     {
@@ -430,29 +430,29 @@ void hud_render_unit_interface(player_datum *player)
                             &hud_def->motion_sensor.foreground, motion_flags, -1);
 
                     point2d blip_screen_point;
-                    unsigned __int8 blip_in_multiplayer =
+                    uint8_t blip_in_multiplayer =
                         (local_player_count() <= 1 || hcex_coop_local_player_index >= 0) ? 0 : 1;
                     hud_calculate_point(local_player_index, &motion_sensor_placement,
                         &hud_def->blip_placement, NULL, blip_in_multiplayer, 0.0f, &blip_screen_point);
 
-                    unsigned __int8 sensor_in_multiplayer =
+                    uint8_t sensor_in_multiplayer =
                         (local_player_count() <= 1 || hcex_coop_local_player_index >= 0) ? 0 : 1;
                     motion_sensor_draw_screen(local_player_index, sensor_in_multiplayer, &blip_screen_point);
                 }
 
                 /* auxilary team-color overlays */
-                unsigned __int8 has_teams = game_engine_has_teams() != 0;
+                uint8_t has_teams = game_engine_has_teams() != 0;
                 int overlay_split_bit = local_player_count() > 1 ? 4 : 0;
                 if (hud_def->auxilary_panel.auxilary_overlays.count > 0)
                 {
-                    for (__int16 overlay_index = 0;
+                    for (int16_t overlay_index = 0;
                          overlay_index < hud_def->auxilary_panel.auxilary_overlays.count;
-                         overlay_index = (__int16)(overlay_index + 1))
+                         overlay_index = (int16_t)(overlay_index + 1))
                     {
                         auxilary_overlay_definition *overlay =
                             (auxilary_overlay_definition *)hud_def->auxilary_panel.auxilary_overlays.address
                             + overlay_index;
-                        if (((1 << (unsigned __int8)overlay->type) & has_teams) != 0)
+                        if (((1 << (uint8_t)overlay->type) & has_teams) != 0)
                         {
                             if ((overlay->flags & (1u << _auxilary_overlay_use_team_color_bit)) != 0)
                             {
@@ -462,12 +462,12 @@ void hud_render_unit_interface(player_datum *player)
                                 int green = (int)(change_colors[0].n[1] * 255.0f);
                                 int blue  = (int)(change_colors[0].n[2] * 255.0f);
                                 overlay->static_element.colors.color =
-                                    0xFF000000u | ((unsigned __int8)red << 16)
-                                    | ((unsigned __int8)green << 8) | (unsigned __int8)blue;
+                                    0xFF000000u | ((uint8_t)red << 16)
+                                    | ((uint8_t)green << 8) | (uint8_t)blue;
                             }
                             hud_draw_static_element(local_player_index,
                                 &hud_def->auxilary_panel.absolute_placement,
-                                &overlay->static_element, (__int16)overlay_split_bit, -1);
+                                &overlay->static_element, (int16_t)overlay_split_bit, -1);
                         }
                     }
                 }
@@ -475,9 +475,9 @@ void hud_render_unit_interface(player_datum *player)
                 /* auxilary meters (e.g. integrated-light battery) */
                 if (hud_def->auxilary_meters.count > 0)
                 {
-                    for (__int16 meter_index = 0;
+                    for (int16_t meter_index = 0;
                          meter_index < hud_def->auxilary_meters.count;
-                         meter_index = (__int16)(meter_index + 1))
+                         meter_index = (int16_t)(meter_index + 1))
                     {
                         auxilary_meter_definition *aux_meter =
                             (auxilary_meter_definition *)hud_def->auxilary_meters.address + meter_index;
@@ -493,9 +493,9 @@ void hud_render_unit_interface(player_datum *player)
                             int meter_bitmap_index = aux_meter->panel.meter.meter_bitmap.index;
 
                             int split_bit = local_player_count() > 1 ? 4 : 0;
-                            __int16 aux_flags = aux_meter_values[aux_type]
+                            int16_t aux_flags = aux_meter_values[aux_type]
                                     > (double)aux_meter->panel.___u2.aux_extras.min_cutoff
-                                ? (__int16)split_bit : (__int16)(split_bit | 1);
+                                ? (int16_t)split_bit : (int16_t)(split_bit | 1);
 
                             hud_state->auxilary_flash_time[aux_type] += game_time_get_elapsed();
                             hud_state->auxilary_flash_time[aux_type] %=
@@ -512,14 +512,14 @@ void hud_render_unit_interface(player_datum *player)
                             {
                                 int scale = aux_meter->panel.meter.value_scale;
                                 float value = aux_meter_values[aux_type];
-                                unsigned __int8 meter_value =
+                                uint8_t meter_value =
                                     clamp_meter_byte((int)((float)scale * value));
                                 hud_draw_meter(local_player_index, &hud_def->absolute_placement,
                                     &aux_meter->panel.meter, meter_value, meter_value, aux_flags, -1.0f, value);
                             }
                         }
                         else if (((1 << aux_type) & aux_flash_mask) != 0
-                            || (hud_state->auxilary_flash_time[aux_type] != (__int16)0xFFFF
+                            || (hud_state->auxilary_flash_time[aux_type] != (int16_t)0xFFFF
                                 && hud_state->auxilary_flash_time[aux_type]
                                     < get_flash_duration(&aux_meter->panel.background.colors)))
                         {
@@ -530,7 +530,7 @@ void hud_render_unit_interface(player_datum *player)
                             {
                                 int now = game_time_get();
                                 hud_draw_static_element(local_player_index, &hud_def->absolute_placement,
-                                    &aux_meter->panel.background, (__int16)(split_bit | 1),
+                                    &aux_meter->panel.background, (int16_t)(split_bit | 1),
                                     now - hud_state->auxilary_flash_time[aux_type]);
                             }
                         }
@@ -558,8 +558,8 @@ void hud_render_unit_interface(player_datum *player)
                             int red   = (int)(change_color->n[0] * 255.0f);
                             int green = (int)(change_color->n[1] * 255.0f);
                             int blue  = (int)(change_color->n[2] * 255.0f);
-                            icon_color = 0xFF000000u | ((unsigned __int8)red << 16)
-                                | ((unsigned __int8)green << 8) | (unsigned __int8)blue;
+                            icon_color = 0xFF000000u | ((uint8_t)red << 16)
+                                | ((uint8_t)green << 8) | (uint8_t)blue;
                         }
 
                         int icon_bitmap_group;

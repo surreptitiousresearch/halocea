@@ -6,7 +6,7 @@
 extern int object_index_from_name_index(int16_t name_index);
 extern uint8_t object_is_or_contains_player(int object_index);
 extern void object_delete(int object_index);
-extern void object_new_by_name(__int16 object_name_index);
+extern void object_new_by_name(int16_t object_name_index);
 
 void hs_object_create_anew(int16_t object_name_index)
 {

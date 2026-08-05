@@ -28,6 +28,7 @@
 #include "headers/prop_iterator.h"
 #include "headers/prop_datum.h"
 #include "headers/object_iterator.h"
+#include "headers/vehicle_possibility.h"
 #include "headers/object_datum.h"
 #include "headers/player_datum.h"
 #include "headers/unit_datum.h"
@@ -106,7 +107,7 @@ extern uint8_t actor_action_try_to_enter_vehicle(int actor_index, int vehicle_in
 extern int hs_wake_by_name(const char *script_name);
 extern uint8_t unit_start_user_animation(int unit_index, int animation_graph_index, const char *animation_name, uint8_t interpolate);
 extern int16_t scenario_get_animation_by_name(scenario *scenario, const char *animation_name);
-extern unsigned __int8 recorded_animation_play(int unit_index, __int16 animation_index);
+extern uint8_t recorded_animation_play(int unit_index, int16_t animation_index);
 extern int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursive_lookup, uint8_t allow_queue, int *unit_last_speech_time, int16_t *vocalization_type_reference, int *sound_definition_index_reference);
 extern void ai_communication_packet_new(ai_information_packet *information);
 extern void unit_speak(int unit_index, int16_t play_type, const unit_speech_item *speech_item);
@@ -117,10 +118,10 @@ extern void object_reset(int object_index);
 extern void object_compute_node_matrices_recursive(int object_index);
 extern void actor_input_sample_position(int actor_index, int unit_index, actor_position_data *position);
 
-unsigned __int8 __fastcall action_obey_command_begin(
+uint8_t __fastcall action_obey_command_begin(
         int actor_index,
         int unit_index,
-        __int16 command_list_index,
+        int16_t command_list_index,
         obey_individual_simple_control *simple_control,
         obey_individual_complex_control *complex_control)
 {
@@ -142,9 +143,9 @@ unsigned __int8 __fastcall action_obey_command_begin(
     ai_command_definition *command =
         &((ai_command_definition *)command_list->commands.address)[current_command_index];
     ai_command_point_definition *points = (ai_command_point_definition *)command_list->points.address;
-    __int16 atom_type = command->atom_type;
+    int16_t atom_type = command->atom_type;
 
-    switch ( (unsigned __int16)command->atom_type )
+    switch ( (uint16_t)command->atom_type )
     {
         case _ai_atom_pause:   /* pause */
             simple_control->pause_timer = (int)(command->parameter1 * (float)30.0);
@@ -169,11 +170,11 @@ unsigned __int8 __fastcall action_obey_command_begin(
             complex_control->destination_surface_index = destination_point->surface_index;
             command_result = actor_move_to_point(actor_index, &complex_control->destination_point,
                                                  destination_point->surface_index, -1);
-            if ( !(unsigned __int8)command_result )
+            if ( !(uint8_t)command_result )
                 return command_result;
             if ( complex_control->destination_keep_moving )
                 actor_move_keep_moving_past_destination(actor_index);
-            if ( (unsigned __int16)command->atom_type != _ai_atom_go_to_and_face )
+            if ( (uint16_t)command->atom_type != _ai_atom_go_to_and_face )
                 return command_result;
             int facing_point_index = command->point2_index;
             if ( facing_point_index < 0 || facing_point_index >= command_list->points.count )
@@ -220,9 +221,9 @@ unsigned __int8 __fastcall action_obey_command_begin(
                     direction_point->position.n[2] - simple_control->___u5.directmovement.start_position.n[2];
                 command_result = normalize3d(&simple_control->___u5.directmovement.vector) > 0.0;
             }
-            if ( !(unsigned __int8)command_result )
+            if ( !(uint8_t)command_result )
                 return command_result;
-            __int16 facing = command->atom_modifier;
+            int16_t facing = command->atom_modifier;
             if ( (unsigned int)facing >= 4 )
                 facing = -1;
             simple_control->___u5.directmovement.facing = facing;
@@ -245,30 +246,30 @@ unsigned __int8 __fastcall action_obey_command_begin(
             if ( !complex_control )
                 return command_result;
             float look_duration = command->parameter1;
-            __int16 look_point_index = -1;
+            int16_t look_point_index = -1;
             int look_prop_index = -1;
             int look_unit_index = -1;
             switch ( atom_type )
             {
                 case _ai_atom_look:
                 {
-                    __int16 point_index = command->point1_index;
+                    int16_t point_index = command->point1_index;
                     if ( point_index >= 0 && point_index < command_list->points.count )
                         look_point_index = command->point1_index;
                     break;
                 }
                 case _ai_atom_look_random:   /* look at a random one of a point range */
                 {
-                    __int16 range_low = command->point1_index;
+                    int16_t range_low = command->point1_index;
                     if ( range_low >= 0 )
                     {
                         int point_count = command_list->points.count;
                         if ( range_low < point_count )
                         {
-                            __int16 range_high = command->point2_index;
+                            int16_t range_high = command->point2_index;
                             if ( range_high >= 0 && range_high < point_count )
                             {
-                                __int16 range_high_inclusive = range_high + 1;
+                                int16_t range_high_inclusive = range_high + 1;
                                 unsigned int *seed = get_global_random_seed_address();
                                 look_point_index = seed_random_range(seed, range_low, range_high_inclusive);
                                 if ( command->parameter1 == 0.0 && command->parameter2 == 0.0 )
@@ -338,7 +339,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
                 }
                 case _ai_atom_look_object:   /* look at a named scenario object */
                 {
-                    __int16 object_name_index = command->object_name_index;
+                    int16_t object_name_index = command->object_name_index;
                     if ( object_name_index >= 0 && object_name_index < global_scenario->object_names.count )
                     {
                         int object_index = object_index_from_name_index(object_name_index);
@@ -359,8 +360,8 @@ unsigned __int8 __fastcall action_obey_command_begin(
             direction_specification look_direction;
             /* attested 1-param: the extra args were live-register decompiler artifacts */
             direction_get_empty(&look_direction);
-            __int16 aim_priority = _secondary_look_priority_default;
-            switch ( (unsigned __int16)command->atom_modifier )
+            int16_t aim_priority = _secondary_look_priority_default;
+            switch ( (uint16_t)command->atom_modifier )
             {
                 case _ai_atom_look_modifier_idle_turn_around: aim_priority = _secondary_look_priority_turn_and_aim; break;
                 case _ai_atom_look_modifier_idle_look:        aim_priority = _secondary_look_priority_idle_look; break;
@@ -398,7 +399,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
         {
             if ( !complex_control )
                 return command_result;
-            __int16 movement_type = command->atom_modifier;
+            int16_t movement_type = command->atom_modifier;
             if ( (unsigned int)movement_type >= 4 )
                 return command_result;
             complex_control->override_movement_type = movement_type;
@@ -434,7 +435,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
         {
             if ( !complex_control )
                 return command_result;
-            int grenade_type = (unsigned __int16)variant_definition_data->grenade_combat.grenade_type;
+            int grenade_type = (uint16_t)variant_definition_data->grenade_combat.grenade_type;
             if ( grenade_type == 0xFFFF )
                 return command_result;
             int grenade_point_index = command->point1_index;
@@ -449,7 +450,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
             float grenade_target_z = grenade_point->position.n[2];
             complex_control->grenade_throw_trajectory_type = 0;
             complex_control->grenade_target.n[2] = grenade_target_z;
-            __int16 trajectory_type = command->atom_modifier;
+            int16_t trajectory_type = command->atom_modifier;
             if ( (unsigned int)trajectory_type <= 2 )
                 complex_control->grenade_throw_trajectory_type = trajectory_type;
             simple_control->pause_timer = 60;
@@ -461,9 +462,12 @@ unsigned __int8 __fastcall action_obey_command_begin(
         {
             if ( unit_index != actor->meta.unit_index )
                 return command_result;
-            __int16 seat_desire_type = -1;
-            unsigned __int16 candidate_count = 0;
-            char vehicle_candidates[160];   /* up to 16 entries of {float distance_sq; int vehicle_index} */
+            int16_t seat_desire_type = -1;
+            uint16_t candidate_count = 0;
+            /* DEVIATION: decompiler flattened the 16x 8-byte candidate records into a punned char[160];
+             * untangled into the typed record array (see vehicle_possibility.h). Extra 32 bytes of the
+             * original frame slot were never written. */
+            vehicle_possibility vehicle_candidates[16];
             object_iterator vehicle_cursor;
             object_iterator_new(&vehicle_cursor, object_mask_vehicle, 0);
             if ( object_iterator_next(&vehicle_cursor) )
@@ -480,35 +484,32 @@ unsigned __int8 __fastcall action_obey_command_begin(
                     float search_radius = command->parameter1;
                     if ( search_radius == 0.0 || distance_sq < (double)(search_radius * search_radius) )
                     {
-                        int vehicle_index = vehicle_cursor.index;
-                        int slot = 8 * (__int16)candidate_count++;
-                        *(float *)&vehicle_candidates[slot] = distance_sq;
-                        *(int *)&vehicle_candidates[slot + 4] = vehicle_index;
+                        int slot = (int16_t)candidate_count++;
+                        vehicle_candidates[slot].distance_sq = distance_sq;
+                        vehicle_candidates[slot].vehicle_index = vehicle_cursor.index;
                         if ( candidate_count >= 0x10u )
                             break;
                     }
                 }
                 while ( object_iterator_next(&vehicle_cursor) );
             }
-            int candidate_total = (__int16)candidate_count;
-            if ( (__int16)candidate_count > 1 )
-                qsort(vehicle_candidates, (__int16)candidate_count, 8u, vehicle_possibility_qsort);
+            int candidate_total = (int16_t)candidate_count;
+            if ( (int16_t)candidate_count > 1 )
+                qsort(vehicle_candidates, (int16_t)candidate_count, sizeof(vehicle_possibility), vehicle_possibility_qsort);
             if ( (unsigned int)command->atom_modifier <= 4 )
                 seat_desire_type = command->atom_modifier;
-            if ( (__int16)candidate_count <= 0 )
+            if ( (int16_t)candidate_count <= 0 )
                 return command_result;
             int candidate_index = 0;
-            int candidate_offset = 0;
             while ( !actor_action_try_to_enter_vehicle(
                         actor_index,
-                        *(int *)&vehicle_candidates[candidate_offset + 4],
+                        vehicle_candidates[candidate_index].vehicle_index,
                         &ai_vehicle_any_seat_name,
                         seat_desire_type,
                         0,
                         nullptr) )
             {
-                candidate_index = (__int16)(candidate_index + 1);
-                candidate_offset = 8 * candidate_index;
+                candidate_index = (int16_t)(candidate_index + 1);
                 if ( candidate_index >= candidate_total )
                     return 0;
             }
@@ -594,7 +595,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
             unsigned char loop_animation = 0;
             unsigned char force_sync = 0;
             unsigned char interpolate = 1;
-            switch ( (unsigned __int16)command->atom_modifier )
+            switch ( (uint16_t)command->atom_modifier )
             {
                 case _ai_atom_animate_modifier_absolute_movement: loop_animation = 1; break;
                 case _ai_atom_animate_modifier_absolute_movement_no_collision: loop_animation = 1; force_sync = 1; break;
@@ -635,7 +636,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
                 return command_result;
             if ( recording_reference_index >= global_scenario->ai_recording_references.count )
                 return command_result;
-            __int16 recorded_animation = scenario_get_animation_by_name(
+            int16_t recorded_animation = scenario_get_animation_by_name(
                 global_scenario,
                 ((ai_recording_reference_definition *)global_scenario->ai_recording_references.address)[recording_reference_index].recording_name);
             if ( recorded_animation == -1 )
@@ -648,9 +649,9 @@ unsigned __int8 __fastcall action_obey_command_begin(
             if ( !complex_control )
                 return command_result;
             complex_control->play_action = 0;
-            __int16 action_animation_impulse;
-            __int16 action_communication_type;
-            switch ( (unsigned __int16)command->atom_modifier )
+            int16_t action_animation_impulse;
+            int16_t action_communication_type;
+            switch ( (uint16_t)command->atom_modifier )
             {
                 case _ai_atom_action_modifier_berserk:
                     complex_control->action_animation_impulse = 0;
@@ -677,10 +678,10 @@ unsigned __int8 __fastcall action_obey_command_begin(
 
         case _ai_atom_vocalize:   /* speak a vocalization */
         {
-            __int16 vocalization_type_reference[4];
+            int16_t vocalization_type_reference[4];
             int sound_definition_index_reference = -1;
             vocalization_type_reference[0] = command->atom_modifier;
-            __int16 speech_result = unit_test_speech(unit_index, _unit_speech_scripted, 1u, 1u, nullptr,
+            int16_t speech_result = unit_test_speech(unit_index, _unit_speech_scripted, 1u, 1u, nullptr,
                                                      vocalization_type_reference, &sound_definition_index_reference);
             if ( speech_result <= 0 )
                 return command_result;
@@ -696,7 +697,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
         }
 
         case _ai_atom_targeting:   /* set / clear a metadata flag */
-            if ( (unsigned __int16)command->atom_modifier )
+            if ( (uint16_t)command->atom_modifier )
                 simple_control->metadata_flags &= ~1u;
             else
                 simple_control->metadata_flags |= 1u;
@@ -727,8 +728,8 @@ unsigned __int8 __fastcall action_obey_command_begin(
         case _ai_atom_die:   /* set a unit flag word (object_datum.object.damage_flags bits 0x20/0x40) */
         {
             object_datum *unit_object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
-            unsigned __int16 new_unit_flags = unit_object->object.damage_flags | (1u << _object_die_act_of_god_silent_bit);
-            if ( (unsigned __int16)command->atom_modifier != 1 )
+            uint16_t new_unit_flags = unit_object->object.damage_flags | (1u << _object_die_act_of_god_silent_bit);
+            if ( (uint16_t)command->atom_modifier != 1 )
                 new_unit_flags = unit_object->object.damage_flags | (1u << _object_die_act_of_god_bit);
             unit_object->object.damage_flags = new_unit_flags;
             command_result = 1;
@@ -737,7 +738,7 @@ unsigned __int8 __fastcall action_obey_command_begin(
 
         case _ai_atom_move_immediate:   /* set facing */
         {
-            __int16 facing = command->atom_modifier;
+            int16_t facing = command->atom_modifier;
             if ( (unsigned int)facing >= 4 )
                 simple_control->___u5.directmovement.facing = 0;
             else

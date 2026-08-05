@@ -14,12 +14,13 @@
  * Rodrigues rotation math — reproduced here in its closed form after verifying the z-component term by term
  * against the raw decompile's expanded form. */
 
+#include <stdint.h>
 #include "headers/real_vector3d.h"
 
 extern float normalize3d(real_vector3d *v);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
 
-unsigned __int8 pin_normal_to_cone3d(const real_vector3d *normal, const real_vector3d *direction, float sine,
+uint8_t pin_normal_to_cone3d(const real_vector3d *normal, const real_vector3d *direction, float sine,
         float cosine, real_vector3d *result)
 {
     float dot = direction->n[0] * normal->n[0] + normal->n[1] * direction->n[1] + direction->n[2] * normal->n[2];

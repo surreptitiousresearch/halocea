@@ -57,7 +57,7 @@ void contrails_update(float dt)
                 contrail->flags &= ~(1u << _contrail_active_bit);
             if ( emitting )
             {
-                __int16 new_points = contrail_compute_new_point_count(i, dt);
+                int16_t new_points = contrail_compute_new_point_count(i, dt);
                 contrail_add_points(i, new_points, 1u);
             }
         }
@@ -105,7 +105,7 @@ void contrails_update(float dt)
 
         {
             int j;
-            for ( j = 0; j < 4; j = (__int16)(j + 1) )
+            for ( j = 0; j < 4; j = (int16_t)(j + 1) )
             {
                 if ( contrail->first_contrail_point_indices[j] != -1 )
                     break;

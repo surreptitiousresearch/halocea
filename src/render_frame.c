@@ -57,7 +57,7 @@ void render_frame(const struct render_window *windoze, int16_t window_count, con
     if (!rasterizer_windows_begin())
         return;
 
-    for (int i = 0; i < window_count; i = (__int16)(i + 1))
+    for (int i = 0; i < window_count; i = (int16_t)(i + 1))
     {
         render.window_index = i;
         const struct render_window *window = &windoze[i];
@@ -78,7 +78,7 @@ void render_frame(const struct render_window *windoze, int16_t window_count, con
             interface_draw_fullscreen_overlays();
             rasterizer_debug_draw();
         }
-        else if ((unsigned __int16)window->local_player_index != 0xFFFF)
+        else if ((uint16_t)window->local_player_index != 0xFFFF)
         {
             /* Player window: full player view, optionally tagged with a screenshot tile index. */
             if (screenshot_index)

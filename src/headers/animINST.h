@@ -3,6 +3,7 @@
  * (0x218) layout DB-verified against types_members animINST. Pointer members carry
  * forward-declared typed pointees. */
 
+#include <stdint.h>
 #include "animTPL.h"
 #include "ws/m3d/m3dV.h"
 #include "ws/m3d/m3dMATR.h"
@@ -45,7 +46,7 @@ typedef struct animINST
     int           state;     /* 0x004 */
     int           state2;    /* 0x008 */
     entENTITY    *pEnt;      /* 0x00C */
-    unsigned __int8 stateVis;/* 0x010 */
+    uint8_t stateVis;/* 0x010 */
     unsigned char _pad11[3]; /* 0x011 */
     m3dV          prevPosVis;/* 0x014 */
     int           stateVld;  /* 0x020 validity-flag word */
@@ -73,7 +74,7 @@ typedef struct animINST
     int           lastFameVisible; /* 0x118 */
     int           nObjRend;  /* 0x11C */
     objOBJ      **ppObjListRend;   /* 0x120 */
-    __int64      *pObjCamMask;     /* 0x124 */
+    int64_t      *pObjCamMask;     /* 0x124 */
     bool          isObjRendVis;    /* 0x128 */
     unsigned char _pad129[3];      /* 0x129 */
     m3dV          prevPos;   /* 0x12C */
@@ -89,15 +90,15 @@ typedef struct animINST
     scnSCENE     *pScn;      /* 0x164 owning scene */
     void         *pAuxData;  /* 0x168 */
     osLOCK        perInstLock; /* 0x16C */
-    __int16       idxLoaded; /* 0x1A0 */
+    int16_t       idxLoaded; /* 0x1A0 */
     unsigned char _pad1A2[2];/* 0x1A2 */
     animTRACKER  *followTracker;   /* 0x1A4 */
     int           nCallsClacLTM;   /* 0x1A8 */
     int           nCallsApplyAnim; /* 0x1AC */
     int           isCheckNeed;     /* 0x1B0 */
     int           isCheckReady;    /* 0x1B4 */
-    unsigned __int16 nLTMLogged;   /* 0x1B8 */
-    unsigned __int16 nAnimLogged;  /* 0x1BA */
+    uint16_t nLTMLogged;   /* 0x1B8 */
+    uint16_t nAnimLogged;  /* 0x1BA */
     animCULL_INFO cullInfo;  /* 0x1BC */
     enum objMOD_CACHE_STATE_e objMOD_CACHE_STATE; /* 0x1F0 */
     dsVECTOR<short, 8> objectsWithModifiersCache; /* 0x1F4 */

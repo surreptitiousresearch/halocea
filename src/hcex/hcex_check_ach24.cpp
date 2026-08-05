@@ -33,7 +33,7 @@ extern "C" void hcex_check_ach24(void)
             {
                 /* typed encounter_definition walk (was a manual stride-176 byte cursor) */
                 const encounter_definition *enc_def =
-                    &((const encounter_definition *)global_scenario->ai_encounters.address)[(unsigned __int16)iterator.index];
+                    &((const encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)iterator.index];
                 if ( !strcmp(enc_def->name, "beach_lz_marine") )
                     break;
 

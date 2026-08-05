@@ -64,7 +64,7 @@ void players_update_before_game_server(void)
     int            machine_indices[32];
     data_iterator  iter;
     player_datum  *player;
-    __int16        action_slot = 0;
+    int16_t        action_slot = 0;
 
     memset(actions, 0, sizeof(actions));
     machine_indices[0] = -1;
@@ -218,7 +218,7 @@ void players_update_before_game_server(void)
     players_compute_combined_pvs(players_globals->combined_pvs, 0);
 
     {
-        __int16 local_count = 0;
+        int16_t local_count = 0;
         int j;
         for ( j = 0; j < 2; j++ )
         {

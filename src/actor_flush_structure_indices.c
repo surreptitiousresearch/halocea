@@ -20,7 +20,7 @@ void actor_flush_structure_indices(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    unsigned __int16 movement_state = (unsigned __int16)actor->orders.move.destination.destination_type;
+    uint16_t movement_state = (uint16_t)actor->orders.move.destination.destination_type;
     /* recovered: *((_WORD*)(actor+328)) -> input.position.body_location.cluster_index; *((_DWORD*)(actor+324)) -> input.position.body_location.leaf_index */
     actor->input.position.body_location.cluster_index = -1;
     actor->input.position.body_location.leaf_index = -1;
@@ -28,7 +28,7 @@ void actor_flush_structure_indices(uint16_t actor_index)
     actor->stimuli.combat_transition_guard_point_surface_index = -1;
     if ( movement_state == _destination_raw_location )
         actor->orders.move.destination.___u3.raw.surface_index = -1;
-    if ( (unsigned __int16)actor->control.path.destination_orders.destination_type == _destination_raw_location )
+    if ( (uint16_t)actor->control.path.destination_orders.destination_type == _destination_raw_location )
         actor->control.path.destination_orders.___u3.raw.surface_index = -1;
     actor->control.path.destination.surface_index = -1;
 
@@ -38,7 +38,7 @@ void actor_flush_structure_indices(uint16_t actor_index)
         if ( swarm_index != -1 )
         {
             swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, swarm_index);
-            for ( __int16 i = 0; i < swarm->unit_count; i++ )
+            for ( int16_t i = 0; i < swarm->unit_count; i++ )
             {
                 int component_index = swarm->component_indices[i];
                 DATA_ARRAY_ELEMENT(swarm_component_data, swarm_component_datum, component_index)->surface_index = -1;

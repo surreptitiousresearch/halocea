@@ -86,8 +86,8 @@ extern void unit_animation_start_action(int unit_index, int16_t action);
 int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
 {
     int16_t just_died = 0;
-    __int16 state_desired = data->state_desired;
-    unsigned __int8 force_transition = 0;
+    int16_t state_desired = data->state_desired;
+    uint8_t force_transition = 0;
 
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
     unit_definition *unit_def = TAG_GET(unit_definition, unit->definition_index);
@@ -99,7 +99,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
         /* desired_state domain is unit_desired_animation_state (DB $5D851471DC20289CC8EC295C9C6E643D);
          * supersedes the earlier BLOCKED adjudication — names are now authoritative. */
         unsigned int desired_state = unit->unit.animation.desired_state;
-        __int16 new_base_seat = -1;
+        int16_t new_base_seat = -1;
         if (desired_state <= _unit_animation_state_flaming)
         {
             switch (desired_state)
@@ -114,7 +114,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
             }
         }
 
-        unsigned __int8 magic_seat_index = unit->unit.magic_seat_index;
+        uint8_t magic_seat_index = unit->unit.magic_seat_index;
         if (magic_seat_index != 0xFF)
             new_base_seat = (char)magic_seat_index;
         if ((unit->unit.control_flags & (1u << _unit_control_force_alert_bit)) != 0)
@@ -148,7 +148,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
     /* Base animation. */
     if (unit->object.animation.state.index != -1)
     {
-        __int16 result = unit_animation_update(unit_index, unit->object.animation.animation_graph_index,
+        int16_t result = unit_animation_update(unit_index, unit->object.animation.animation_graph_index,
                 &unit->object.animation.state);
 
         if (result == 1)
@@ -215,7 +215,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
             case _unit_state_entering_seat: /* parented / vehicle-seat visibility handoff */
             {
                 int parent_object_index = unit->object.parent_object_index;
-                __int16 parent_seat_index = unit->unit.parent_seat_index;
+                int16_t parent_seat_index = unit->unit.parent_seat_index;
 
                 unit_datum *parent_object_data = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_object_index)->datum);
                 unit_definition *parent_def = TAG_GET(unit_definition, parent_object_data->definition_index);
@@ -268,7 +268,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
              * the normal interruptability gate below (disasm-verified ladder, matches the decompiler's own
              * rendering exactly). */
             unsigned int state = unit->unit.animation.state;
-            unsigned __int8 interruptable = 1;
+            uint8_t interruptable = 1;
             if (state > _unit_state_resurrect_back)
             {
                 if (state == _unit_state_leap_start || state == _unit_state_leap_melee)
@@ -305,12 +305,12 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
      * turn/move (states _unit_state_turn_right(3)..._unit_state_move_front(4)), where the overlay is kept. */
     if (unit->unit.animation.overlay_action_animation.index != -1)
     {
-        __int16 result = unit_animation_update(unit_index, overlay_animation_graph_index,
+        int16_t result = unit_animation_update(unit_index, overlay_animation_graph_index,
                 &unit->unit.animation.overlay_action_animation);
         if (result == 2 || result == 4)
         {
             unsigned int state = unit->unit.animation.state;
-            unsigned __int8 keep = state >= _unit_state_turn_right && state <= _unit_state_move_front;
+            uint8_t keep = state >= _unit_state_turn_right && state <= _unit_state_move_front;
             if (!keep)
             {
                 unit->unit.animation.overlay_action_animation.index = -1;

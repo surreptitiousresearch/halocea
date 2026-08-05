@@ -33,12 +33,12 @@ int16_t structure_visibility_build_surfaces_traverse_node(int node_index, const 
     dequantize_byte_to_real_rectangle3d(parent_bounds,
         &((const byte_rectangle3d *)bsp->nodes.address)[node_index], &node_bounds);
 
-    __int16 child_cull_plane_count = cull_plane_count;
-    __int16 node_intersection = intersection;
+    int16_t child_cull_plane_count = cull_plane_count;
+    int16_t node_intersection = intersection;
     if (intersection != 2)
     {
-        __int16 rectangle_hit = bounding_rectangles_intersect(&node_bounds, cull_bounds);
-        __int16 plane_hit = rectangle_hit
+        int16_t rectangle_hit = bounding_rectangles_intersect(&node_bounds, cull_bounds);
+        int16_t plane_hit = rectangle_hit
             ? planes_intersect_rectangle(&node_bounds, cull_plane_count, cull_planes)
             : 0;
         if (plane_hit == 2)
@@ -58,7 +58,7 @@ int16_t structure_visibility_build_surfaces_traverse_node(int node_index, const 
         descend_side[0] = distance < cull_sphere_radius;
         descend_side[1] = distance > -cull_sphere_radius;
 
-        for (int side = 0; side < 2; side = (__int16)(side + 1))
+        for (int side = 0; side < 2; side = (int16_t)(side + 1))
         {
             if (!descend_side[side])
                 continue;
@@ -67,14 +67,14 @@ int16_t structure_visibility_build_surfaces_traverse_node(int node_index, const 
             if (child < 0)
             {
                 if (child != -1)
-                    found = (__int16)(structure_visibility_build_surfaces_traverse_leaf(child, &node_bounds,
-                        surface_flags, &surface_indices[(__int16)found], maximum_count - found, cull_bounds,
+                    found = (int16_t)(structure_visibility_build_surfaces_traverse_leaf(child, &node_bounds,
+                        surface_flags, &surface_indices[(int16_t)found], maximum_count - found, cull_bounds,
                         child_cull_plane_count, cull_planes, node_intersection) + found);
             }
             else
             {
-                found = (__int16)(structure_visibility_build_surfaces_traverse_node(child, &node_bounds,
-                    surface_flags, &surface_indices[(__int16)found], maximum_count - found, cull_sphere_center,
+                found = (int16_t)(structure_visibility_build_surfaces_traverse_node(child, &node_bounds,
+                    surface_flags, &surface_indices[(int16_t)found], maximum_count - found, cull_sphere_center,
                     cull_sphere_radius, cull_bounds, child_cull_plane_count, cull_planes, node_intersection)
                     + found);
             }

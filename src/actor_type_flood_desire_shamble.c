@@ -79,8 +79,8 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
     actor_variant_definition *variant = TAG_GET(actor_variant_definition, actor->meta.variant_definition_index);
     actor_variant_definition *firing_variant = actor_combat_get_firing_variant_definition(actor_index);
 
-    unsigned __int8 veto_result = 0;
-    unsigned __int8 is_candidate = 0;
+    uint8_t veto_result = 0;
+    uint8_t is_candidate = 0;
 
     if (!unit_is_busy(actor->meta.unit_index) && !actor_path_has_path(actor_index))
     {
@@ -112,7 +112,7 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
             else
             {
                 /* Resolved: gated on state.action == actor_action_charge (charge), so union +4 is charge_state_data.goal. */
-                __int16 charge_goal = actor->state.action_data.___u0.charge.goal;
+                int16_t charge_goal = actor->state.action_data.___u0.charge.goal;
 
                 if (!(actor->emotions.berserk
                         || (actor->state.action == actor_action_charge && (charge_goal == charge_goal_melee || charge_goal == charge_goal_melee_leaping))
@@ -135,7 +135,7 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
         return veto_result;
     }
 
-    unsigned __int8 just_decided = 0;
+    uint8_t just_decided = 0;
 
     if (!actor->emotions.crouch_switching_active)
     {
@@ -143,8 +143,8 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
 
         if (actor->situation.area_friends > 0)
         {
-            __int16 crouching_count = 0;
-            __int16 standing_count = 0;
+            int16_t crouching_count = 0;
+            int16_t standing_count = 0;
             prop_iterator iterator;
             prop_iterator_new(&iterator, actor_index);
             for (prop_datum *p = prop_iterator_next(&iterator); p; p = prop_iterator_next(&iterator))
@@ -172,7 +172,7 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
     }
     else
     {
-        unsigned __int8 should_switch = 0;
+        uint8_t should_switch = 0;
 
         if (actor->emotions.crouch_switching_change_timer > 0)
         {
@@ -180,7 +180,7 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
         }
         else if ((variant->flags & (1u << _actor_variant_definition_movement_switching_try_to_stay_with_friends_bit)) != 0 && actor->situation.close_friends > 0)
         {
-            __int16 far_count = 0, near_same_side_count = 0, near_other_side_count = 0;
+            int16_t far_count = 0, near_same_side_count = 0, near_other_side_count = 0;
             const prop_datum *target_prop_axis = actor->target.target_prop_index == -1
                     ? (const prop_datum *)0
                     : (const prop_datum *)DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
@@ -235,7 +235,7 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
 
         if (should_switch)
         {
-            actor->emotions.crouch_switching_current_value = (unsigned __int8)!actor->emotions.crouch_switching_current_value;
+            actor->emotions.crouch_switching_current_value = (uint8_t)!actor->emotions.crouch_switching_current_value;
             just_decided = 1;
         }
     }
@@ -260,7 +260,7 @@ uint8_t actor_type_flood_desire_shamble(int actor_index)
             stay_ticks = 31.0f;
 
         actor->emotions.crouch_switching_change_timer = 30;
-        actor->emotions.crouch_switching_stay_timer = (__int16)(int)stay_ticks;
+        actor->emotions.crouch_switching_stay_timer = (int16_t)(int)stay_ticks;
     }
 
     return actor->emotions.crouch_switching_current_value;

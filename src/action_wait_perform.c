@@ -21,7 +21,7 @@ extern int game_time_get(void);
 extern uint8_t actor_move_halt(uint16_t actor_index);
 extern uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, float accept_radius);
 
-unsigned __int8 action_wait_perform(int actor_index)
+uint8_t action_wait_perform(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     wait_state_data *wait = &actor->state.action_data.___u0.wait;
@@ -49,7 +49,7 @@ unsigned __int8 action_wait_perform(int actor_index)
                 }
                 else
                 {
-                    unsigned __int8 desire_move = 1;
+                    uint8_t desire_move = 1;
                     if ( wait->move_failed || prop->distance <= 3.5f )
                         desire_move = 0;
                     wait->wait_done = 0;
@@ -87,8 +87,8 @@ unsigned __int8 action_wait_perform(int actor_index)
         return wait->wait_done;
     }
 
-    unsigned __int8 made_progress = actor_move_to_prop(actor_index, prop_index, 8.0f) != 0;
-    unsigned __int8 result = wait->wait_done;
+    uint8_t made_progress = actor_move_to_prop(actor_index, prop_index, 8.0f) != 0;
+    uint8_t result = wait->wait_done;
     if ( !made_progress )
         wait->move_failed = 1;
     return result;

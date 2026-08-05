@@ -3,14 +3,15 @@
  * icon-vs-text bit. No-op unless the state message is valid, a source definition is bound, and
  * scripted HUD help text is not showing. */
 
+#include <stdint.h>
 #include "headers/hud_messaging_globals.h"
 #include "headers/hud_scripted_globals.h"
 #include "headers/hud_messaging_datum.h"
 
 void hud_set_state_message_text(
-        __int16 local_player_index,
-        __int16 custom_icon_index,
-        __int16 icon_string_index,
+        int16_t local_player_index,
+        int16_t custom_icon_index,
+        int16_t icon_string_index,
         char uses_scenario_names)
 {
     hud_messaging_datum *datum = &hud_messaging_globals->message_data[local_player_index];

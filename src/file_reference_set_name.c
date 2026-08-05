@@ -5,9 +5,9 @@ extern void file_path_remove_name(char *path);
 extern void file_path_add_name(char *path, const char *name);
 file_reference *file_reference_set_name(file_reference *reference, const char *name)
 {
-    if ( (*(unsigned short *)&reference->data[4] & 1) != 0 )
+    if ( (*(unsigned short *)&reference->data[4] & 1) != 0 )   /* name-set flag word at data[4] */
         file_path_remove_name(&reference->data[8]);
     file_path_add_name(&reference->data[8], name);
-    *(unsigned short *)&reference->data[4] |= 1u;
+    *(unsigned short *)&reference->data[4] |= 1u;   /* mark name set */
     return reference;
 }

@@ -35,8 +35,8 @@ void player_teleport_on_bsp_switch(int player_index, int source_unit_index, cons
     if ( !unit )
         return;
 
-    __int16 bsp_switch_trigger_index = players_globals->bsp_switch_trigger_index;
-    unsigned __int8 needs_teleport;
+    int16_t bsp_switch_trigger_index = players_globals->bsp_switch_trigger_index;
+    uint8_t needs_teleport;
 
     if ( bsp_switch_trigger_index == -1 )
     {
@@ -60,7 +60,7 @@ void player_teleport_on_bsp_switch(int player_index, int source_unit_index, cons
                 unit_exit_seat_end(unit_index, 0, 0, 1u);
         }
 
-        unsigned __int8 teleported;
+        uint8_t teleported;
         if ( unit->object.parent_object_index == -1 )
             teleported = player_teleport_internal(player_index, source_unit_index, position);
         else

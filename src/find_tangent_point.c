@@ -69,7 +69,7 @@ void find_tangent_point(const real_point2d *point, const real_point2d *center, f
     candidate1.n[0] = (dx * radius - dy * h) * inv_scale + center->n[0];
     candidate1.n[1] = (dx * h + dy * radius) * inv_scale + center->n[1];
 
-    unsigned __int8 cross_positive =
+    uint8_t cross_positive =
             (candidate1.n[1] - point->n[1]) * (candidate0.n[0] - point->n[0])
                     - (candidate1.n[0] - point->n[0]) * (candidate0.n[1] - point->n[1])
             > 0.0f;

@@ -1,6 +1,7 @@
 #pragma once
 /* weather_particle_type_definition — per-type sub-block of a weather tag (604 bytes; DB-verified). */
 
+#include <stdint.h>
 #include "real_argb_color.h"
 #include "tag_reference.h"
 #include "shader_effect.h"
@@ -39,7 +40,7 @@ typedef struct weather_particle_type_definition
     float           runtime_oo_width;               /* 0x154 */
     int             unused5[15];                     /* 0x158 */
     tag_reference   bitmap;                         /* 0x194 */
-    __int16         direction_render_type;          /* 0x1A4 */
-    __int16         direction_source;               /* 0x1A6 */
+    int16_t         direction_render_type;          /* 0x1A4 */
+    int16_t         direction_source;               /* 0x1A6 */
     shader_effect   shader;                         /* 0x1A8 */
 } weather_particle_type_definition;                 /* 604 bytes */

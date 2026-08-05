@@ -26,7 +26,7 @@ void object_choose_random_region_permutations(int object_index)
     if ( model_index == -1 )
         return;
 
-    __int16 requested_variant = object->object.variant_number;
+    int16_t requested_variant = object->object.variant_number;
     unsigned char matched = 0;
     model *model_tag = TAG_GET(model, model_index);
 

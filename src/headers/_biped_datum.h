@@ -2,6 +2,7 @@
 /* _biped_datum — the biped-class extension of a biped object datum (the tail of the full
  * biped_datum record). DB types_members-confirmed, 132 bytes (0x84). */
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_plane3d.h"
 #include "biped_datum_network_data.h"
@@ -30,19 +31,19 @@ typedef struct _biped_datum
     char                       player_melee_ticks;                       /* 0x39 */
     char                       player_melee_attack_tick;                 /* 0x3A */
     char                       _pad3B;                                   /* 0x3B */
-    __int16                    landing;                                  /* 0x3C */
+    int16_t                    landing;                                  /* 0x3C */
     char                       _pad3E[2];                                /* 0x3E */
     float                      crouch;                                    /* 0x40 */
     float                      bank;                                      /* 0x44 */
     real_plane3d               ground_plane;                              /* 0x48 */
-    unsigned __int8            limp_body_current_relaxation_iterations;   /* 0x58 */
-    unsigned __int8            limp_body_max_relaxation_iterations;       /* 0x59 */
-    unsigned __int8            baseline_valid;                            /* 0x5A */
-    unsigned __int8            baseline_index;                            /* 0x5B */
-    unsigned __int8            message_index;                             /* 0x5C */
+    uint8_t            limp_body_current_relaxation_iterations;   /* 0x58 */
+    uint8_t            limp_body_max_relaxation_iterations;       /* 0x59 */
+    uint8_t            baseline_valid;                            /* 0x5A */
+    uint8_t            baseline_index;                            /* 0x5B */
+    uint8_t            message_index;                             /* 0x5C */
     char                       _pad5D[3];                                 /* 0x5D */
     biped_datum_network_data   baseline;                                  /* 0x60 */
-    unsigned __int8            last_network_data_valid;                   /* 0x70 */
+    uint8_t            last_network_data_valid;                   /* 0x70 */
     char                       _pad71[3];                                 /* 0x71 */
     biped_datum_network_data   last_network_data;                        /* 0x74 */
 } _biped_datum;                                                          /* 132 bytes */

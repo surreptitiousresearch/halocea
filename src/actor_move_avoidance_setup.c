@@ -78,7 +78,7 @@ void actor_move_avoidance_setup(vector_avoidance_data *avoidance_data)
         for ( int s = 0; s < sphere_count; ++s )
         {
             const pathfinding_sphere *sphere = &spheres[s];
-            unsigned __int16 node_index = (unsigned __int16)sphere->node_index;
+            uint16_t node_index = (uint16_t)sphere->node_index;
 
             real_point3d center;
             float scale;
@@ -101,7 +101,7 @@ void actor_move_avoidance_setup(vector_avoidance_data *avoidance_data)
                 max_radius = radius;
         }
 
-        __int16 count = avoidance_data->avoidance_object_count;
+        int16_t count = avoidance_data->avoidance_object_count;
         if ( count < 1024 )
         {
             avoidance_data->avoidance_object_count = count + 1;

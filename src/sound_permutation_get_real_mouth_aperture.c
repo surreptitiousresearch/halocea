@@ -8,7 +8,7 @@
 float sound_permutation_get_real_mouth_aperture(const sound_permutation *permutation, int16_t estimated_tick_index)
 {
     int size = permutation->mouth_data.size;
-    __int16 tick;
+    int16_t tick;
 
     if ( !size )
         return 0.0f;
@@ -17,7 +17,7 @@ float sound_permutation_get_real_mouth_aperture(const sound_permutation *permuta
     if ( estimated_tick_index >= 0 )
     {
         if ( estimated_tick_index > size - 1 )
-            tick = (__int16)(size - 1);
+            tick = (int16_t)(size - 1);
     }
     else
     {

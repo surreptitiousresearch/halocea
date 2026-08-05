@@ -19,7 +19,7 @@ uint8_t device_can_change_position(int device_index)
     device_datum *device = (device_datum *)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, device_index)->datum;
 
-    unsigned __int16 device_group_index = (unsigned __int16)device->device.position_group_index;
+    uint16_t device_group_index = (uint16_t)device->device.position_group_index;
     if (device_group_index != 0xFFFF)
     {
         int change_allowed = 1;
@@ -27,7 +27,7 @@ uint8_t device_can_change_position(int device_index)
             DATA_ARRAY_ELEMENT(device_groups_data, device_group_datum, device_group_index);
         device_group_datum *power_group = DATA_ARRAY_ELEMENT(device_groups_data, device_group_datum,
                                                              device->device.power_group_index);
-        __int16 group_flags = position_group->flags;
+        int16_t group_flags = position_group->flags;
         if ((group_flags & (1 << _device_group_can_change_only_once_bit)) != 0)
             change_allowed = (group_flags & (1 << _device_group_changed_once_bit)) == 0;
         result = (device->device.flags & (1u << _device_not_usable_bit)) == 0 && change_allowed;

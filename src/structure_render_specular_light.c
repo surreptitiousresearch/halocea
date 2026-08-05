@@ -23,7 +23,7 @@ void structure_render_specular_light(int rasterizer_light_index, const real_poin
 {
     int local_surface_buffer[4096];
     int *environment_surface_indices = local_surface_buffer;
-    __int16 environment_surface_count;
+    int16_t environment_surface_count;
     int environment_triangles_index;
 
     if (cluster_indices)

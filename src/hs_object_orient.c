@@ -91,8 +91,8 @@ void hs_object_orient(int object_index, int16_t flag_index, uint8_t position, ui
                 player_teleport(local_player_index, -1, &flag->position);
             if (facing)
             {
-                __int16 player_control_index = player_datum_ptr->local_player_index;
-                if ((unsigned __int16)player_control_index != 0xFFFF)
+                int16_t player_control_index = player_datum_ptr->local_player_index;
+                if ((uint16_t)player_control_index != 0xFFFF)
                     player_control_set_facing(player_control_index, &node_local_facing);
             }
         }

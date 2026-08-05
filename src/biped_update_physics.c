@@ -66,7 +66,7 @@ extern double __fabs(double x);
 
 void biped_update_physics(biped_physics *physics)
 {
-    unsigned __int16 in_flags = physics->in_flags;
+    uint16_t in_flags = physics->in_flags;
     int              grounded = (in_flags >> _biped_physics_in_climb_anything_bit) & 1;   /* bit 9 */
     float            horizontal_x = 0.0f;              /* facing direction the pick-loop later uses */
     float            horizontal_y = 0.0f;
@@ -385,7 +385,7 @@ void biped_update_physics(biped_physics *physics)
 
             /* small (1/128) push along the ground normal keeps the pill seated on the surface */
             ground_nudge = -((ground_normal->n[0] * 0.0078125f) - clamped_x);
-            physics->out_flags = ((unsigned __int8)airborne == 0) ? 0 : (1u << _biped_physics_out_slipping_bit);
+            physics->out_flags = ((uint8_t)airborne == 0) ? 0 : (1u << _biped_physics_out_slipping_bit);
             physics->new_velocity.__s1.i = ground_nudge + physics->velocity.__s1.i;
             physics->new_velocity.__s1.j = physics->velocity.__s1.j
                 - ((ground_normal->n[1] * 0.0078125f) - clamped_y);
@@ -416,7 +416,7 @@ void biped_update_physics(biped_physics *physics)
 
         /* DB carries these composite query words verbatim ($7278357605E8DB656D8B016C81954930);
          * the previous comment mislabeled 0xC2A0 as "adds vehicles" — it is the passthrough-living mask. */
-        unsigned __int16 flags = physics->in_flags;
+        uint16_t flags = physics->in_flags;
         if ((flags & (1u << _biped_physics_in_no_collision_bit)) != 0)
             collision_flags = 0;
         else if ((flags & (1u << _biped_physics_in_dead_bit)) != 0)
@@ -762,7 +762,7 @@ void biped_update_physics(biped_physics *physics)
         if (collision_count > 0)
         {
             float   best_bump_sq = 2.0f;
-            __int16 best_bump_type = 0;  /* +0xB4 is object.type (DB rel 176), not owner_team_index: vehicles preferred */
+            int16_t best_bump_type = 0;  /* +0xB4 is object.type (DB rel 176), not owner_team_index: vehicles preferred */
             short   i = 0;
             int     index = 0;
             for (;;)
@@ -819,7 +819,7 @@ void biped_update_physics(biped_physics *physics)
                         machine_definition *elevator_definition =
                             TAG_GET(machine_definition, elevator_datum->definition_index);
                         if ((elevator_definition->machine.flags & (1u << _machine_never_appears_locked_bit)) != 0
-                            && (unsigned __int16)elevator_definition->machine.elevator_node_index != 0xFFFF)
+                            && (uint16_t)elevator_definition->machine.elevator_node_index != 0xFFFF)
                             physics->elevator_object_index = object_index;
                     }
                 }
@@ -847,7 +847,7 @@ void biped_update_physics(biped_physics *physics)
 
         /* ---- final ledge/step feature test for climbable geometry ---- */
         {
-            unsigned __int16 flags3 = physics->in_flags;
+            uint16_t flags3 = physics->in_flags;
             if ((flags3 & (1u << _biped_physics_in_crouched_bit)) != 0 && (flags3 & (1u << _biped_physics_in_trying_to_stand_bit)) != 0)
             {
                 biped_datum *biped_object = (biped_datum *)DATA_ARRAY_ELEMENT(object_header_data,

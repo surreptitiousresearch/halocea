@@ -10,8 +10,8 @@
  *
  * Special case: the "burning_flame/effects/burning" scenery effect suppresses its decal ('deca') part.
  *
- * NOTE: the 'snd!' unattached path and the 'jpt!' path reuse the object_placement_data stack buffer as a
- * sound_location / damage_data respectively, hence the type-punned writes below (mirroring the database).
+ * NOTE: the compiler reused one stack slot for the object_placement_data / sound_location / damage_data
+ * locals; reconstructed as three properly typed locals (disasm-verified field maps at each call site).
  * NOTE: in the attached 'snd!' path the decompiler lost the is_local_player computation (it is derived from
  * the controlling player datum looked up via datum_try_and_get); reconstructed as 0 with the lookup kept. */
 
@@ -79,7 +79,7 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
             {
                 if ( !*name )
                     break;
-                delta = (unsigned __int8)*name - (unsigned __int8)*match;
+                delta = (uint8_t)*name - (uint8_t)*match;
                 if ( delta )
                     break;
                 ++name;
@@ -113,27 +113,21 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
         {
             if ( effect->object_index == -1 )
             {
-                /* Build an unattached sound_location over the placement buffer (type-punned, per the DB). */
-                location effect_location = effect->location;
-                placement.owner_object_definition_index = *(const int *)&world_forward->n[1];
-                placement.owner_player_index            = *(const int *)&world_point->n[2];
-                *(float *)&placement.owner_team_index   = world_forward->n[2];
-                placement.definition_index              = *(const int *)&world_point->n[0];
-                placement.flags                         = *(const int *)&world_point->n[1];
-                placement.owner_object_index            = *(const int *)&world_forward->n[0];
-                placement.position.n[0] = global_zero_vector3d->n[0];
-                placement.position.n[1] = global_zero_vector3d->n[1];
-                placement.position.n[2] = global_zero_vector3d->n[2];
-                effect_location.leaf_index = *(const int *)&placement.position.n[0];
-                *(location *)&placement.height = effect_location;
-                unattached_impulse_sound_new(part_definition->reference.index,
-                        (const struct sound_location *)&placement, scale,
-                        (unsigned __int8)placement.owner_object_index);
+                /* DEVIATION: the decompiler rendered this as puns over the reused placement stack slot;
+                 * the binary (0x836E1D84-0x836E1DEC) builds a plain sound_location: position/forward from
+                 * the marker, zero velocity, and the effect's location copied whole (no leaf zeroing). */
+                sound_location snd;
+                snd.position = *world_point;
+                snd.forward = *world_forward;
+                snd.translational_velocity = *global_zero_vector3d;
+                snd.game_location = effect->location;
+                unattached_impulse_sound_new(part_definition->reference.index, &snd, scale,
+                        (uint8_t)*(const unsigned int *)&world_forward->n[0]); /* shipped: forward.x bit-image passed in the is_player arg (r5 @0x836E1DAC) */
             }
             else
             {
-                unsigned __int8 is_local_player = 0;   /* see header note: original derives this from the player datum */
-                __int16 node_index;
+                uint8_t is_local_player = 0;   /* see header note: original derives this from the player datum */
+                int16_t node_index;
                 unit_datum *object = object_try_and_get_and_verify_type(effect->owner_object_index, object_mask_unit);
                 if ( object )
                     datum_try_and_get(player_data, object->unit.player_index);  /* unit+536 */
@@ -208,30 +202,24 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
 
         case 0x6A707421u:   /* 'jpt!' — damage / jolt */
         {
-            location effect_location = effect->location;
+            /* DEVIATION: the decompiler rendered this as puns over the reused placement stack slot; the
+             * binary (0x836E1A14-0x836E1AAC) fills a plain damage_data: owner ids/team, the effect's
+             * location copied whole, origin+epicenter = marker point, direction = marker forward, scale. */
+            damage_data damage;
             object_datum *owner = object_try_and_get_and_verify_type(effect->owner_object_index, object_mask_all);
-            damage_data_new((damage_data *)&placement, part_definition->reference.index);
+            damage_data_new(&damage, part_definition->reference.index);
             if ( owner )
             {
-                placement.owner_player_index = owner->object.owner_player_index;
-                placement.owner_object_index = effect->owner_object_index;
-                /* high word carries the owner object's team index */
-                placement.owner_object_definition_index =
-                        (placement.owner_object_definition_index & 0xFFFF) | ((unsigned __int16)owner->object.owner_team_index << 16);
+                damage.owner_player_index = owner->object.owner_player_index;
+                damage.owner_object_index = effect->owner_object_index;
+                damage.owner_team_index = owner->object.owner_team_index;
             }
-            placement.up.n[0] = scale;
-            /* damage_data overlay: epicenter/origin built from the marker location + world point/forward */
-            *(int *)&placement.translational_velocity.n[0] = effect_location.leaf_index;
-            placement.translational_velocity.n[1] = world_point->n[1];
-            placement.translational_velocity.n[2] = world_point->n[2];
-            *(int *)&placement.position.n[1] = effect_location.leaf_index;
-            placement.position.n[2] = world_point->n[1];
-            placement.height = world_point->n[2];
-            placement.forward.n[0] = world_forward->n[0];
-            placement.forward.n[1] = world_forward->n[1];
-            placement.forward.n[2] = world_forward->n[2];
-            *(location *)&placement.owner_team_index = effect_location;
-            area_of_effect_cause_damage((damage_data *)&placement, -1);
+            damage.scale = scale;
+            damage.location = effect->location;
+            damage.origin = *world_point;
+            damage.epicenter = *world_point;
+            damage.direction = *world_forward;
+            area_of_effect_cause_damage(&damage, -1);
             break;
         }
 
@@ -239,7 +227,7 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
             if ( base_class_tag == 0x6C696768u /* 'ligh' */
                     && rasterizer_debug_options.rasterizer_effects_level > 0 )
             {
-                __int16 node_index = location_instance->node_designator;
+                int16_t node_index = location_instance->node_designator;
                 if ( node_index != -1 )
                     node_index &= 0x7FFF;
                 light_new_unattached(part_definition->reference.index, effect->object_index, node_index,

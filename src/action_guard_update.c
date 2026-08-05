@@ -34,7 +34,7 @@ void action_guard_update(int actor_index)
 
     if ( !actor->meta.dormant && actor->control.path.at_destination )
     {
-        __int16 timer = guard->wait_ticks;
+        int16_t timer = guard->wait_ticks;
         if ( timer > 0 )
         {
             guard->wait_ticks = timer - 1;
@@ -57,7 +57,7 @@ void action_guard_update(int actor_index)
     int secondary_timer = guard->look_ticks;
     if ( secondary_timer > 0 && (!guard->guard_look_until_reached_point || actor->control.path.at_destination) )
     {
-        __int16 remaining = secondary_timer - 1;
+        int16_t remaining = secondary_timer - 1;
         guard->look_ticks = remaining;
         if ( !remaining )
             guard->guard_look_prop_index = -1;
@@ -78,7 +78,7 @@ void action_guard_update(int actor_index)
             int dormancy_timer = guard->cower_ticks;
             if ( dormancy_timer > 0 )
             {
-                __int16 remaining = (__int16)(dormancy_timer - 1);
+                int16_t remaining = (int16_t)(dormancy_timer - 1);
                 guard->cower_ticks = remaining;
                 expired = remaining == 0;
             }

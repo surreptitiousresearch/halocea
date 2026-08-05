@@ -44,12 +44,12 @@ uint8_t unit_animation_set_state(int unit_index, int16_t new_state)
     const animation_graph_weapon_class *weapon_block =
         (const animation_graph_weapon_class *)units_block->weapon_classes.address + unit->unit.animation.weapon_index;
 
-    __int16 interpolation_frames = 6;
+    int16_t interpolation_frames = 6;
 
     if ( !(current_state != -1 && new_state == current_state) )
     {
-        __int16 base_index = -1;
-        __int16 overlay_index = -1;
+        int16_t base_index = -1;
+        int16_t overlay_index = -1;
 
         if ( current_state == _unit_state_throw_grenade )
             unit_throw_grenade_release(unit_index, 1u);
@@ -97,13 +97,13 @@ uint8_t unit_animation_set_state(int unit_index, int16_t new_state)
             default: break;
         }
 
-        __int16 animation_index;
+        int16_t animation_index;
         if ( base_index == -1 )
         {
             if ( overlay_index == -1 )
                 animation_index = -1;
             else if ( overlay_index >= 0 && overlay_index < units_block->animations.count )
-                animation_index = ((const __int16 *)units_block->animations.address)[overlay_index];
+                animation_index = ((const int16_t *)units_block->animations.address)[overlay_index];
             else
                 animation_index = -1;
         }
@@ -112,7 +112,7 @@ uint8_t unit_animation_set_state(int unit_index, int16_t new_state)
             if ( base_index < 0 || base_index >= weapon_block->animations.count )
                 animation_index = -1;
             else
-                animation_index = ((const __int16 *)weapon_block->animations.address)[base_index];
+                animation_index = ((const int16_t *)weapon_block->animations.address)[base_index];
         }
 
         int proceed = 1;
@@ -136,7 +136,7 @@ uint8_t unit_animation_set_state(int unit_index, int16_t new_state)
 
         if ( proceed )
         {
-            __int16 permutation = animation_choose_random_permutation_internal(
+            int16_t permutation = animation_choose_random_permutation_internal(
                 animation_update_kind_affects_game_state, animation_graph_index, animation_index);
             unit_datum *unit_data = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
             unit_data->object.animation.animation_graph_index = animation_graph_index;
@@ -154,15 +154,15 @@ uint8_t unit_animation_set_state(int unit_index, int16_t new_state)
 
     if ( result )
     {
-        __int16 aiming_screen_index = unit_animation_state_get_aiming_screen_index(new_state);
+        int16_t aiming_screen_index = unit_animation_state_get_aiming_screen_index(new_state);
         if ( had_no_state
             || aiming_screen_index != unit_animation_state_get_aiming_screen_index(unit->unit.animation.state) )
         {
-            __int16 aiming_animation;
+            int16_t aiming_animation;
             if ( aiming_screen_index < 0 || aiming_screen_index >= weapon_block->animations.count )
                 aiming_animation = -1;
             else
-                aiming_animation = ((const __int16 *)weapon_block->animations.address)[aiming_screen_index];
+                aiming_animation = ((const int16_t *)weapon_block->animations.address)[aiming_screen_index];
             unit->unit.animation.aiming_screen_index = animation_choose_random_permutation_internal(
                 animation_update_kind_affects_game_state, animation_graph_index, aiming_animation);
             interpolation_frames = 6;
@@ -171,11 +171,11 @@ uint8_t unit_animation_set_state(int unit_index, int16_t new_state)
 
         if ( had_no_state )
         {
-            __int16 looking_animation;
+            int16_t looking_animation;
             if ( units_block->animations.count <= _unit_seat_animation_looking )
                 looking_animation = -1;
             else
-                looking_animation = ((const __int16 *)units_block->animations.address)[_unit_seat_animation_looking];
+                looking_animation = ((const int16_t *)units_block->animations.address)[_unit_seat_animation_looking];
             unit->unit.animation.looking_screen_index = animation_choose_random_permutation_internal(
                 animation_update_kind_affects_game_state, animation_graph_index, looking_animation);
         }

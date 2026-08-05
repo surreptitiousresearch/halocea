@@ -116,7 +116,7 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
         {
             const real_plane3d *plane = bsp_result.plane;
             int plane_designator = bsp_result.plane_designator;
-            __int16 material_type;
+            int16_t material_type;
 
             collision->type = collision_result_structure;
             collision->t = bsp_result.t;
@@ -148,9 +148,9 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
         if ( bsp_result.leaf_count > 0 )
         {
             int first_leaf = bsp_result.leaf_indices[0];
-            __int16 start_cluster;
+            int16_t start_cluster;
             int last_leaf;
-            __int16 end_cluster;
+            int16_t end_cluster;
 
             collision->start_location.leaf_index = first_leaf;
             if ( first_leaf == -1 )
@@ -171,22 +171,22 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
         /* fog plane test: intersect the ray with the impact cluster's fog plane if it is closer */
         if ( (effective_flags & (1u << _collision_test_media_bit)) != 0 )
         {
-            __int16 cluster_index = collision->location.cluster_index;
+            int16_t cluster_index = collision->location.cluster_index;
             if ( cluster_index != -1 )
             {
-                __int16 fog_plane_index = ((structure_cluster *)bsp->clusters.address)[cluster_index].fog_designator;
+                int16_t fog_plane_index = ((structure_cluster *)bsp->clusters.address)[cluster_index].fog_designator;
                 if ( fog_plane_index != -1
                   && (((structure_cluster *)bsp->clusters.address)[cluster_index].fog_designator & 0x8000) != 0 )
                 {
                     structure_fog_plane *fog_plane =
                         &((structure_fog_plane *)bsp->fog_planes.address)[fog_plane_index];
-                    if ( (unsigned __int16)fog_plane->runtime_material_type != 0xFFFF )
+                    if ( (uint16_t)fog_plane->runtime_material_type != 0xFFFF )
                     {
                         float nx = fog_plane->plane.normal.n[0];
                         float ny = fog_plane->plane.normal.n[1];
                         float nz = fog_plane->plane.normal.n[2];
                         float plane_d = fog_plane->plane.d;
-                        __int16 fog_region = fog_plane->region_index;
+                        int16_t fog_region = fog_plane->region_index;
                         /* lower the plane height by the region's fog-palette base offset */
                         int palette_index = ((structure_fog_region *)bsp->fog_regions.address)[fog_region].fog_palette_index;
                         fog_definition *fog_tag =
@@ -203,7 +203,7 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
                             float fog_t = -(point_dist / vector_dot);
                             if ( collision->t > fog_t )
                             {
-                                __int16 fog_material;
+                                int16_t fog_material;
                                 collision->t = fog_t;
                                 collision->type = collision_result_media;
                                 collision->plane.normal.n[0] = nx;
@@ -243,7 +243,7 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
                 int *leaf_ptr = bsp_result.leaf_indices;
                 do
                 {
-                    __int16 cluster;
+                    int16_t cluster;
                     if ( *leaf_ptr == -1 )
                         cluster = -1;
                     else

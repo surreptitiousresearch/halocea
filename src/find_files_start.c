@@ -3,6 +3,7 @@
  * flags, location id, and path. The path copy is an inline strcpy from the file_reference payload
  * (directory->data+8) into find_files_globals.path (same relative offset). */
 
+#include <stdint.h>
 #include "headers/find_files_globals.h"
 #include "headers/file_reference.h"
 
@@ -21,13 +22,13 @@ void find_files_start(unsigned int flags, const file_reference *directory)
                 CloseHandle(handle);
                 find_files_globals.handles[depth] = (void *)-1;
             }
-            depth = (__int16)(depth - 1);
+            depth = (int16_t)(depth - 1);
         }
         while ( depth >= 0 );
     }
     find_files_globals.flags = flags;
     find_files_globals.depth = 0;
-    find_files_globals.location = *(__int16 *)&directory->data[6];
+    find_files_globals.location = *(int16_t *)&directory->data[6];
 
     const char *src = &directory->data[8];
     char *dst = find_files_globals.path;

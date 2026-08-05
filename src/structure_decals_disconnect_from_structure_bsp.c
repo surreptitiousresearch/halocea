@@ -15,12 +15,12 @@ void structure_decals_disconnect_from_structure_bsp(void)
     if ( !bsp->runtime_decals.count )
         return;
 
-    __int16 cluster_count = (__int16)bsp->clusters.count;
-    for ( __int16 cluster_index = 0; cluster_index < cluster_count; ++cluster_index )
+    int16_t cluster_count = (int16_t)bsp->clusters.count;
+    for ( int16_t cluster_index = 0; cluster_index < cluster_count; ++cluster_index )
     {
         structure_cluster *cluster = (structure_cluster *)bsp->clusters.address + cluster_index;
         unsigned char has_decals =
-            ((unsigned __int16)cluster->first_runtime_decal_index != 0xFFFF && cluster->runtime_decal_count)
+            ((uint16_t)cluster->first_runtime_decal_index != 0xFFFF && cluster->runtime_decal_count)
                 ? 1 : 0;
 
         if ( has_decals )

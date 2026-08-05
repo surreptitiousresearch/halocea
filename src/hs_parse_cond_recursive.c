@@ -13,6 +13,7 @@
  * expression is NOT rejected by the retail build. The intended predicate was next_node_index == -1. We
  * reproduce the binary's actual (always-false) guard below to stay faithful to shipped behavior. */
 
+#include <stdint.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_syntax_node_flags.h"
 #include "headers/hs_compile_globals.h"
@@ -40,7 +41,7 @@ int hs_parse_cond_recursive(int root_expression_index, int expression_index)
 
     if ( expression_index == -1 )
     {
-        __int16 root_type = HS_SYNTAX_NODE(root_expression_index).type;
+        int16_t root_type = HS_SYNTAX_NODE(root_expression_index).type;
         HS_SYNTAX_NODE(new_index).flags = (1u << _hs_syntax_node_primitive_bit);
         HS_SYNTAX_NODE(new_index).data = 0;
         HS_SYNTAX_NODE(new_index).___u1.constant_type = root_type;

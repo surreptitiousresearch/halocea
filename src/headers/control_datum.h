@@ -1,13 +1,14 @@
 #pragma once
 /* _control_datum + control_datum — the live control (device) object payload (DB-verified). */
 
+#include <stdint.h>
 #include "device_datum.h"
 
 typedef struct _control_datum
 {
     unsigned int flags;              /* 0x00 */
-    __int16      hud_override_index; /* 0x04 */
-    __int16      pad;                /* 0x06 */
+    int16_t      hud_override_index; /* 0x04 */
+    int16_t      pad;                /* 0x06 */
 } _control_datum;                    /* 8 bytes */
 
 typedef struct control_datum

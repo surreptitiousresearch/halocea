@@ -61,7 +61,7 @@ uint8_t actor_swarm_attach_unit(int actor_index, int unit_index)
     if ( swarm_index != -1 )
         actor_swarm_component_setup(swarm_index, unit_index, component_index);
 
-    __int16 controlled_unit_count = actor->meta.swarm_original_unit_count;
+    int16_t controlled_unit_count = actor->meta.swarm_original_unit_count;
     int encounter_index = actor->meta.encounter_index;
     ++actor->meta.swarm_unit_count;
     actor->meta.swarm_original_unit_count = controlled_unit_count + 1;

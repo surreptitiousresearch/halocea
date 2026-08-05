@@ -10,6 +10,7 @@
  * stamps tmData[proc].start with the sample and adds it into tmData[proc].sum, and stamps the
  * shared timer frequency into customFreq. */
 
+#include <stdint.h>
 #include "headers/UpdateGPUCounters_boundary.h"
 
 namespace {
@@ -63,9 +64,9 @@ const GpuCounterSlot kPipe1[VID_TQ_LAST] = {
 inline void accumulate(apCOUNTER_TIME &counter, unsigned long long freq, unsigned long long sample)
 {
     int proc = osGetCurThreadProcessor();
-    counter.customFreq         = (__int64)freq;
-    counter.tmData[proc].start = (__int64)sample;
-    counter.tmData[proc].sum  += (__int64)sample;
+    counter.customFreq         = (int64_t)freq;
+    counter.tmData[proc].start = (int64_t)sample;
+    counter.tmData[proc].sum  += (int64_t)sample;
 }
 
 // High 32 bits of a packed query result = that pass's duration in timer ticks.
@@ -109,7 +110,7 @@ void UpdateGPUCounters()
 
     const unsigned int aggregateDuration = totalDuration - shadowDuration;
     {
-        gsRendCnt_GPU.customFreq = (__int64)freq;
+        gsRendCnt_GPU.customFreq = (int64_t)freq;
         int proc = osGetCurThreadProcessor();
         gsRendCnt_GPU.tmData[proc].start = aggregateDuration;
         gsRendCnt_GPU.tmData[proc].sum  += aggregateDuration;

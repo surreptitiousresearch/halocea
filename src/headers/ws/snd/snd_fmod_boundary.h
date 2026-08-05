@@ -7,6 +7,7 @@
 // snd::SystemFMod) belong to the separate low-level snd:: driver layer (see src/ws/snd/),
 // not to HALO_SOUND_SYSTEM itself.
 
+#include <stdint.h>
 #include "../ds/dsTSTRING.h"
 #include "SYSTEM.h" // canonical snd::SYSTEM home for the shared `snd::System` global (2026-07-31)
 
@@ -154,7 +155,7 @@ typedef struct DSP {
 typedef struct FMOD_DSP_STATE {
     FMOD::DSP        *instance;    // 0x0
     void             *plugindata;  // 0x4
-    unsigned __int16  speakermask; // 0x8
+    uint16_t  speakermask; // 0x8
 } FMOD_DSP_STATE;
 
 // FMOD_DSP_PARAMETERDESC -- referenced only by pointer (paramdesc); not reversed.

@@ -59,19 +59,19 @@ void actors_handle_unit_effect(int owner_unit_index, int16_t effect_type, int16_
     unsigned int audible_clusters[18];
     memset(audible_clusters, 0, 4 * BIT_VECTOR_SIZE_IN_LONGS(cluster_count));
 
-    if ( (unsigned __int16)emitter_location->cluster_index != 0xFFFF && cluster_count > 0 )
+    if ( (uint16_t)emitter_location->cluster_index != 0xFFFF && cluster_count > 0 )
     {
-        __int16 to_cluster = 0;
+        int16_t to_cluster = 0;
         do
         {
-            unsigned __int8 encoded = structure_bsp_get_cluster_encoded_sound_distance(
+            uint8_t encoded = structure_bsp_get_cluster_encoded_sound_distance(
                                           bsp, emitter_location->cluster_index, to_cluster);
             if ( !ENCODED_SOUND_DISTANCE_HAS_NO_PATH(encoded) )
             {
                 if ( (float)ENCODED_SOUND_DISTANCE_STEPS(encoded) * ENCODED_SOUND_DISTANCE_WORLD_UNITS_PER_STEP < 40.0f )
                     BIT_VECTOR_SET_FLAG(audible_clusters, to_cluster);
             }
-            to_cluster = (__int16)(to_cluster + 1);
+            to_cluster = (int16_t)(to_cluster + 1);
         }
         while ( to_cluster < bsp->clusters.count );
     }
@@ -87,9 +87,9 @@ void actors_handle_unit_effect(int owner_unit_index, int16_t effect_type, int16_
             continue;
 
         /* recovered: raw actor+0x148 -> input.position.body_location.cluster_index */
-        unsigned __int16 actor_cluster = (unsigned __int16)actor->input.position.body_location.cluster_index;
+        uint16_t actor_cluster = (uint16_t)actor->input.position.body_location.cluster_index;
         if ( actor_cluster == 0xFFFF
-          || !BIT_VECTOR_TEST_FLAG(audible_clusters, (__int16)actor_cluster) )
+          || !BIT_VECTOR_TEST_FLAG(audible_clusters, (int16_t)actor_cluster) )
             continue;
 
         actor_position_data sense_position;

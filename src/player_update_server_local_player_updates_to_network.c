@@ -12,7 +12,7 @@
 
 #include "headers/data_array.h"
 #include "headers/network_game_server.h"
-extern __int16          network_message_type_message_delta;
+extern int16_t          network_message_type_message_delta;
 
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
@@ -27,7 +27,7 @@ void player_update_server_local_player_updates_to_network(void)
 {
     data_iterator iter;
     player_datum *player;
-    unsigned __int8 update_scratch[16];
+    uint8_t update_scratch[16];
     int message_out[4];
     _BYTE message_buffer[48];
 
@@ -35,7 +35,7 @@ void player_update_server_local_player_updates_to_network(void)
     for ( player = data_iterator_next(&iter); player;
           player = data_iterator_next(&iter) )
     {
-        if ( (unsigned __int16)player->local_player_index == 0xFFFF && player->unit_index != -1 )
+        if ( (uint16_t)player->local_player_index == 0xFFFF && player->unit_index != -1 )
         {
             int length;
             initialize_message_buffer(message_buffer, 4095, message_out);

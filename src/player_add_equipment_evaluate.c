@@ -11,7 +11,7 @@ void player_add_equipment_evaluate(int16_t function_index, int thread_index, uin
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        player_add_equipment(arguments[0], ((__int16 *)arguments)[2], ((unsigned char *)arguments)[8]);
+        player_add_equipment(arguments[0], ((int16_t *)arguments)[2], ((unsigned char *)arguments)[8]);
         hs_return(thread_index, 0);
     }
 }

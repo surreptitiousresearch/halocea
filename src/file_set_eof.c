@@ -12,7 +12,7 @@ extern void SetLastError(unsigned int code);
 
 uint8_t file_set_eof(const file_reference *file, unsigned int position)
 {
-    unsigned __int8 success = 1;
+    uint8_t success = 1;
     unsigned int new_position = SetFilePointer(*(void **)&file->data[264], position, nullptr, 0);
 
     if ( new_position == (unsigned int)-1 )

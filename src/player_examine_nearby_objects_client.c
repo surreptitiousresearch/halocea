@@ -41,12 +41,12 @@ void player_examine_nearby_objects_client(int player_index)
     if (count <= 0)
         return;
 
-    for (int i = 0; i < count; i = (__int16)(i + 1))
+    for (int i = 0; i < count; i = (int16_t)(i + 1))
     {
         int object_index = nearby_objects[i];
         object_datum *object =
             DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
-        unsigned int type = (unsigned __int16)object->object.type;
+        unsigned int type = (uint16_t)object->object.type;
         if (type > object_type_control || type == object_type_biped)
             continue;
 

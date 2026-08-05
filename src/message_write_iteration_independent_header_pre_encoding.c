@@ -6,6 +6,7 @@
  * DEVIATION: the decompiler's (vN = 1, !ok) comma idioms are reconstructed here as plain `&&` of the write
  * result with the running success flag, which is equivalent. */
 
+#include <stdint.h>
 #include "headers/iterated_message.h"
 #include "headers/blam_data_globals.h"
 
@@ -27,7 +28,7 @@ int message_write_iteration_independent_header_pre_encoding(iterated_message *me
     message->message_mode_bits = 1;
     message->message_id_bits = message_id_bits;
 
-    unsigned __int8 ok = (bitstream_write_bits(&message->iteration_independent_stream,
+    uint8_t ok = (bitstream_write_bits(&message->iteration_independent_stream,
                                                &message->definition_type, message_id_bits)
                           && wrote_mode) ? 1 : 0;
 
@@ -36,10 +37,10 @@ int message_write_iteration_independent_header_pre_encoding(iterated_message *me
 
     message->protocol_bits = message_delta_parameters_protocol_get_packet_bit_size();
 
-    unsigned __int8 ok2 = (bitstream_write_bit(&message->iteration_independent_stream,
+    uint8_t ok2 = (bitstream_write_bit(&message->iteration_independent_stream,
                                                g_protocol_changeover_message_flag)
                            && ok) ? 1 : 0;
-    unsigned __int8 ok3 = (bitstream_write_bits(&message->iteration_independent_stream, &protocol,
+    uint8_t ok3 = (bitstream_write_bits(&message->iteration_independent_stream, &protocol,
                                                 message->protocol_bits)
                            && ok2) ? 1 : 0;
     ++message->protocol_bits;

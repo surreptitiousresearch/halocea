@@ -30,7 +30,7 @@ int post_evaluator_pursuit(int actor_index, firing_position_evaluation_context *
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int current_time = game_time_get();
 
-    __int16 examining_actor_count = 0;
+    int16_t examining_actor_count = 0;
     int last_examined_time = -1;
 
     if ( !firing_position )
@@ -38,11 +38,11 @@ int post_evaluator_pursuit(int actor_index, firing_position_evaluation_context *
 
     int encounter_index = actor->meta.encounter_index;
     int candidate_time;
-    unsigned __int8 fresh;
+    uint8_t fresh;
 
     if ( firing_position->line_of_sight || firing_position->path_distance_from_actor >= 6.0f )
     {
-        unsigned __int8 already_examined = encounter_pursuit_position_already_examined(
+        uint8_t already_examined = encounter_pursuit_position_already_examined(
             encounter_index, actor_index, firing_position->original_index,
             evaluation_context->evaluation_data.___u0.pursue.last_perceived_time,
             &examining_actor_count, &last_examined_time);

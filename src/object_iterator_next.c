@@ -6,6 +6,7 @@
  * (matched against iterator->flags), byte[3] = object type (1<<type matched against type_flags), and
  * dword[2] = the object data pointer. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_iterator.h"
@@ -15,7 +16,7 @@
 
 void *object_iterator_next(object_iterator *iterator)
 {
-    __int16 absolute_index = iterator->absolute_index;
+    int16_t absolute_index = iterator->absolute_index;
     int scan_index = absolute_index;
     void *result = 0;
     int count = object_header_data->count;
@@ -29,7 +30,7 @@ void *object_iterator_next(object_iterator *iterator)
             absolute_index = scan_index + 1;
             datum_handle = BUILD_DATUM_INDEX(record->identifier, scan_index);
             if ( record->identifier
-              && (unsigned __int8)(record->flags & iterator->flags) == iterator->flags
+              && (uint8_t)(record->flags & iterator->flags) == iterator->flags
               && ((1 << record->type) & iterator->type_flags) != 0 )
                 break;
 

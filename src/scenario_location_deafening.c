@@ -14,7 +14,7 @@
 /* attested: uint8_t return — clrlwi r3,r6,31 at 0x83703574; both callers byte-normalize (clrlwi r11,r3,24) */
 uint8_t scenario_location_deafening(const location *location)
 {
-    __int16 cluster_index = location->cluster_index;
+    int16_t cluster_index = location->cluster_index;
     int palette_index = ((structure_cluster *)global_structure_bsp->clusters.address)[cluster_index].background_sound_palette_index;
     if ( palette_index != -1 && palette_index < global_structure_bsp->background_sound_palette.count )
     {

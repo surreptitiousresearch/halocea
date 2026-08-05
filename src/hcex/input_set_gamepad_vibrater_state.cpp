@@ -28,7 +28,7 @@ extern uint8_t game_time_get_paused(void);
 extern int           hcex_coop_local_player_index;
 extern unsigned char hcex_off_vibration;
 
-extern "C" void input_set_gamepad_vibrater_state(int ctrl_idx, unsigned __int16 left, unsigned __int16 right)
+extern "C" void input_set_gamepad_vibrater_state(int ctrl_idx, uint16_t left, uint16_t right)
 {
     float scale = dbg_hcex_inp_vibration_scale.value;
     if ( game_time_get_paused() )

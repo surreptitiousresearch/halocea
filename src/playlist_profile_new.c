@@ -42,11 +42,11 @@ int playlist_profile_new(int16_t local_player_index, uint16_t *name)
     game_variant variant;
     game_variant *default_variant = build_game_variant_slayer(&variant);
     memcpy(record, default_variant, sizeof(game_variant));
-    ((game_variant *)record)->flags = default_variant->flags & (unsigned __int16)~(1u << _variant_is_system_default_bit);
+    ((game_variant *)record)->flags = default_variant->flags & (uint16_t)~(1u << _variant_is_system_default_bit);
 
     game_engine_variant_cleanup((game_variant *)record);
-    ustrncpy((unsigned __int16 *)record, name, 0x17u);
-    *(unsigned __int16 *)&record[46] = 0;
+    ustrncpy((uint16_t *)record, name, 0x17u);
+    ((game_variant *)record)->human_readable_game_description[23] = 0;  /* terminate the 24-wchar name */
 
     saved_game_file_generate_checksum(record, sizeof(game_variant), &record[152]);
 

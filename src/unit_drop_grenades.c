@@ -49,7 +49,7 @@ void unit_drop_grenades(int unit_index)
 {
     unit_datum *unit_object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    for (int grenade_type = 0; grenade_type < NUMBER_OF_UNIT_GRENADE_TYPES; grenade_type = (__int16)(grenade_type + 1))
+    for (int grenade_type = 0; grenade_type < NUMBER_OF_UNIT_GRENADE_TYPES; grenade_type = (int16_t)(grenade_type + 1))
     {
         char *count_address = &unit_object->unit.grenade_counts[grenade_type];
         game_globals_grenade *grenade_definition =

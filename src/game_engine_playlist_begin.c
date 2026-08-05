@@ -23,7 +23,7 @@ int game_engine_playlist_begin(void)
     game_set_game_variant(&global_stage.game_variant);
 
     int active = network_game_is_active();
-    if (!(unsigned __int8)active)
+    if (!(uint8_t)active)
         main_reset_map();   /* void; active is 0 on this branch */
     return active;
 }

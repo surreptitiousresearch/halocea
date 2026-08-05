@@ -7,6 +7,7 @@
  * store) is the second variadic argument — the compiler reused the register without an explicit move,
  * which the decompiler failed to recognize as a live call argument. */
 
+#include <stdint.h>
 #include "headers/video_resolution_s.h"
 
 extern int video_resolution_find(unsigned int width, unsigned int height);
@@ -29,7 +30,7 @@ void video_resolution_add(unsigned int width, unsigned int height, unsigned int 
     video_resolutions[index].name[15] = 0;
 
     unsigned int refresh_count = video_resolutions[index].numRefreshes;
-    unsigned __int8 already_present = 0;
+    uint8_t already_present = 0;
 
     if ( refresh_count )
     {

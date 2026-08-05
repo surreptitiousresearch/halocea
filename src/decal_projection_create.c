@@ -9,11 +9,12 @@
  * The corner→2D mapping selects, for each (axis, sign) pair, which two of the three world coordinates form
  * the 2D point — reproduced via global_projection3d_mappings[0][2*axis+sign][0..1] indexing a world[3]. */
 
+#include <stdint.h>
 #include "headers/real_matrix4x3.h"
 #include "headers/real_rectangle2d.h"
 #include "headers/decal_projection.h"
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern void *memcpy(void *dest, const void *src, unsigned int count);
 extern float __fabs(float x);
@@ -36,7 +37,7 @@ void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d
     float abs_x = __fabs(basis->n[2][0]);
     float abs_y = __fabs(basis->n[2][1]);
     float abs_z = __fabs(basis->n[2][2]);
-    __int16 axis;
+    int16_t axis;
     if ( abs_z < abs_y || abs_z < abs_x )
         axis = abs_y >= abs_x;   /* y-dominant → 1, else x-dominant → 0 */
     else

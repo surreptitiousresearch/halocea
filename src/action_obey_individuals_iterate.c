@@ -19,7 +19,7 @@
 
 extern void *memset(void *dest, int value, unsigned int count);
 
-typedef void (*obey_individual_iterator)(int actor_index, int unit_index, __int16 command_list_index,
+typedef void (*obey_individual_iterator)(int actor_index, int unit_index, int16_t command_list_index,
                                          obey_individual_simple_control *simple_control,
                                          obey_individual_complex_control *complex_control, void *user_data);
 
@@ -35,7 +35,7 @@ void action_obey_individuals_iterate(int actor_index, uint8_t initialize_structu
     }
 
     swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, actor->meta.swarm_cache_index);
-    for ( int i = 0; i < swarm->unit_count; i = (__int16)(i + 1) )
+    for ( int i = 0; i < swarm->unit_count; i = (int16_t)(i + 1) )
     {
         /* recovered: (char*)swarm_component_data->data + ((idx<<6)&0x3FFFC0) -> DATA_ARRAY_ELEMENT (stride 64 = swarm_component datum_size) */
         swarm_component_datum *component =

@@ -23,8 +23,8 @@ void biped_get_autoaim_pill(int biped_index, real_point3d *base, real_vector3d *
 {
     biped_definition *definition = TAG_GET(biped_definition, DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, biped_index)->datum->definition_index);
 
-    unsigned __int16 aiming_node_a = definition->biped.runtime_pelvis_node_index;
-    unsigned __int16 aiming_node_b = definition->biped.runtime_head_node_index;
+    uint16_t aiming_node_a = definition->biped.runtime_pelvis_node_index;
+    uint16_t aiming_node_b = definition->biped.runtime_head_node_index;
 
     if (aiming_node_a == 0xFFFF || aiming_node_b == 0xFFFF)
     {

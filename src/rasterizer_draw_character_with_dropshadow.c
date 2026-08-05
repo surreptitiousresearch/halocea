@@ -26,7 +26,7 @@ extern void rasterizer_text_draw_character(const dynamic_screen_vertex *vertices
 void rasterizer_draw_character_with_dropshadow(struct parse_string_state *parse_state, font_header *font, font_character *character, unsigned int color, int16_t x0, int16_t y0, int16_t x, int16_t y, int16_t dx, int16_t dy)
 {
     cache_hardware_format_character(font, character);
-    if ((unsigned __int16)character->hardware_character_index == 0xFFFF)
+    if ((uint16_t)character->hardware_character_index == 0xFFFF)
         return;
 
     unsigned int shadow_color = global_shadow_color ? global_shadow_color : (color & 0xFF000000);
@@ -37,8 +37,8 @@ void rasterizer_draw_character_with_dropshadow(struct parse_string_state *parse_
         unsigned int vertex_color = shadow_pass ? shadow_color : color;
 
         hardware_character *slot = &hardware_character_cache.characters[character->hardware_character_index];
-        __int16 u = slot->x0 + x;
-        __int16 v = slot->y0 + y;
+        int16_t u = slot->x0 + x;
+        int16_t v = slot->y0 + y;
 
         dynamic_screen_vertex vertices[4];
 

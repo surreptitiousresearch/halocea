@@ -21,22 +21,22 @@ void action_flee_update(uint16_t actor_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     flee_state_data *flee_state = &actor->state.action_data.___u0.flee;
 
-    __int16 recently_started_cooldown = flee_state->forced_flee_ticks;
+    int16_t recently_started_cooldown = flee_state->forced_flee_ticks;
     ++flee_state->flee_timer;   /* flee-duration tick counter */
     if ( recently_started_cooldown > 0 )
         flee_state->forced_flee_ticks = recently_started_cooldown - 1;
 
-    __int16 blind_sprint_countdown = flee_state->flee_stationary_ticks;
+    int16_t blind_sprint_countdown = flee_state->flee_stationary_ticks;
     if ( blind_sprint_countdown > 0 )
     {
-        __int16 next_countdown = blind_sprint_countdown - 1;
+        int16_t next_countdown = blind_sprint_countdown - 1;
         flee_state->flee_stationary_ticks = next_countdown;
         if ( !next_countdown )
         {
             int flee_target = actor->meta.unit_index;
             if ( flee_target != -1 )
             {
-                __int16 flee_mode_value = flee_state->panic_type;
+                int16_t flee_mode_value = flee_state->panic_type;
                 if ( flee_mode_value >= _actor_panic_grenade_attached_to_us && flee_mode_value <= _actor_panic_burning_to_death )
                     unit_start_running_blindly(flee_target);
             }

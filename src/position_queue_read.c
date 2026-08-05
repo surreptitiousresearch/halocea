@@ -16,7 +16,7 @@ uint8_t position_queue_read(position_queue *queue, int client_update_id, real_po
 {
     void *entry[12];
     int result = simple_circular_queue_peek(&queue->queue, entry);
-    if ((unsigned __int8)result == 1)
+    if ((uint8_t)result == 1)
     {
         float *position_entry = (float *)entry[0];
         int queued_update_id = *(int *)entry[0];

@@ -29,7 +29,7 @@ void scenery_animation_start_private(int scenery_index, int animation_graph_inde
     animation_graph *graph_definition = TAG_GET(animation_graph, animation_graph_index);
     scenery_datum *scenery = (scenery_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, scenery_index)->datum;
 
-    __int16 animation_index = animation_graph_get_animation_by_name(animation_graph_index, animation_name);
+    int16_t animation_index = animation_graph_get_animation_by_name(animation_graph_index, animation_name);
     if ( animation_index == -1 )
     {
         console_warning("the animation '%s' doesn't exist in the graph '%s'",
@@ -45,8 +45,8 @@ void scenery_animation_start_private(int scenery_index, int animation_graph_inde
 
     if ( frame_index >= 0 )
     {
-        __int16 frame_count = graph_animations[animation_index].frame_count;
-        __int16 clamped_frame = frame_index;
+        int16_t frame_count = graph_animations[animation_index].frame_count;
+        int16_t clamped_frame = frame_index;
         if ( frame_index > frame_count - 1 )
             clamped_frame = frame_count - 1;
         scenery->object.animation.animation_graph_index = animation_graph_index;

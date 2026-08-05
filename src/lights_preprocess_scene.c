@@ -64,9 +64,9 @@ extern void light_reconnect_to_map(uint16_t light_index);
 extern void   hcex_destroy_light(int light_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
-extern __int16 structure_visibility_find_objects(
-    int *result_indices, __int16 maximum_count,
-    int (*cluster_get_first)(int *, __int16),
+extern int16_t structure_visibility_find_objects(
+    int *result_indices, int16_t maximum_count,
+    int (*cluster_get_first)(int *, int16_t),
     int (*cluster_get_next)(int *),
     void (*get_bounding_sphere)(int, real_point3d *, float *),
     int (*unmarked)(uint16_t),
@@ -195,7 +195,7 @@ void lights_preprocess_scene(void)
 
         if ( attached_object )
         {
-            __int16 ultimate_parent = object_get_ultimate_parent(light->object_index);
+            int16_t ultimate_parent = object_get_ultimate_parent(light->object_index);
             unit_datum *parent = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, ultimate_parent)->datum);
 
             if ( (1 << parent->object.type) & object_mask_unit )   /* biped (0) or vehicle (1): the only types with unit data */
@@ -232,7 +232,7 @@ void lights_preprocess_scene(void)
 
                 if ( light->parent_light_index == -1 )
                 {
-                    unsigned __int8 adjusted = 0;
+                    uint8_t adjusted = 0;
 
                     if ( definition->flags & (1u << _light_is_first_person_flashlight_bit) )
                     {
@@ -267,7 +267,7 @@ void lights_preprocess_scene(void)
 
         /* pack the flare's identity/window fields; the light-handle's low/high halves are its persistent
          * datum index / generation salt (generation -1, meaning "no salt in use", collapses to 0) */
-        __int16 handle_generation = (__int16)DATUM_INDEX_TO_IDENTIFIER(light_handle);
+        int16_t handle_generation = (int16_t)DATUM_INDEX_TO_IDENTIFIER(light_handle);
 
         rasterizer_lens_flare_submit_parameters flare_parameters;
         flare_parameters.definition = TAG_GET(struct lens_flare_definition, definition->lens_flare.reference.index);
@@ -276,8 +276,8 @@ void lights_preprocess_scene(void)
           | ((unsigned char)(int)(light->current_color.red * 255.0f) << 16)
           | ((unsigned char)(int)(light->current_color.green * 255.0f) << 8)
           |  (unsigned char)(int)(light->current_color.blue * 255.0f);
-        flare_parameters.light_identifier = (__int16)light_handle;
-        flare_parameters.light_index = (handle_generation == -1) ? 0 : (unsigned __int16)DATUM_INDEX_TO_IDENTIFIER(light_handle);
+        flare_parameters.light_identifier = (int16_t)light_handle;
+        flare_parameters.light_index = (handle_generation == -1) ? 0 : (uint16_t)DATUM_INDEX_TO_IDENTIFIER(light_handle);
         flare_parameters.compressed_window_index = (unsigned char)render.window_index;
         flare_parameters.compressed_light_scale = (unsigned char)compress_real_to_int8(blend_factor);
 
@@ -288,7 +288,7 @@ void lights_preprocess_scene(void)
             const char *marker_name = object_get_attachment_marker_name(light->object_index,
                 light->attachment_marker_index);
             object_marker markers[8];
-            __int16 marker_count = 0;
+            int16_t marker_count = 0;
 
             if ( attached_object && attached_object->object.type == object_type_weapon && attached_object->object.parent_object_index != -1 )
             {
@@ -304,7 +304,7 @@ void lights_preprocess_scene(void)
             /* DEVIATION: disasm shows each marker copy overwrites compressed_window_index/compressed_light_scale
              * with (marker_index, 0) rather than keeping the values set above (the |=0x80 flag included) — a
              * genuine quirk of the original code, reproduced faithfully rather than "fixed". */
-            for ( __int16 marker_index = 0; marker_index < marker_count; ++marker_index )
+            for ( int16_t marker_index = 0; marker_index < marker_count; ++marker_index )
             {
                 flare_parameters.position = markers[marker_index].matrix.position;
                 flare_parameters.compressed_direction = compress_real_vector3d_to_int32_clamp(&markers[marker_index].matrix.left);
@@ -325,7 +325,7 @@ void lights_preprocess_scene(void)
         }
     }
 
-    for ( __int16 queued_index = 0; queued_index < lights_globals.queued_lens_flare_count; ++queued_index )
+    for ( int16_t queued_index = 0; queued_index < lights_globals.queued_lens_flare_count; ++queued_index )
         rasterizer_lens_flare_submit(&lights_globals.queued_lens_flares[queued_index]);
     lights_globals.queued_lens_flare_count = 0;
 }

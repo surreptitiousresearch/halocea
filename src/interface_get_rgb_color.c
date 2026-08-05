@@ -16,9 +16,9 @@ argb_color * interface_get_rgb_color(int16_t interface_color_table_index, int16_
     real_argb_color real_color;
     interface_get_real_argb_color(interface_color_table_index, color_index, &real_color);
 
-    color->n[0] = (unsigned __int16)(__int64)(real_color.n[0] * (float)65535.0);
-    color->n[1] = (unsigned __int16)(__int64)(real_color.n[1] * (float)65535.0);
-    color->n[2] = (unsigned __int16)(__int64)(real_color.n[2] * (float)65535.0);
-    color->n[3] = (unsigned __int16)(__int64)(real_color.n[3] * (float)65535.0);
+    color->n[0] = (uint16_t)(int64_t)(real_color.n[0] * (float)65535.0);
+    color->n[1] = (uint16_t)(int64_t)(real_color.n[1] * (float)65535.0);
+    color->n[2] = (uint16_t)(int64_t)(real_color.n[2] * (float)65535.0);
+    color->n[3] = (uint16_t)(int64_t)(real_color.n[3] * (float)65535.0);
     return color;
 }

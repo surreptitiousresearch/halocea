@@ -8,6 +8,7 @@
 // 64-bit `ld` once they're stored contiguously) rather than reproducing the raw carry-flag
 // juggling instruction-for-instruction -- semantically identical, since a hi:lo GPR pair IS a
 // 64-bit value on this ABI, just verified independently for each of the three code paths below.
+#include <stdint.h>
 #include "../../headers/hcex/HALO_PERM_SOUND.h"
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
@@ -105,11 +106,11 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
             }
 
             unsigned int remainingPcm = lengthPcm - positionPcm;
-            __int64 remainingAtOutputRate =
-                (__int64)((float)((float)haloSoundSystem->outputRate / previousFrequency) * (float)remainingPcm + 0.5f);
+            int64_t remainingAtOutputRate =
+                (int64_t)((float)((float)haloSoundSystem->outputRate / previousFrequency) * (float)remainingPcm + 0.5f);
 
-            unsigned __int64 dspClock = ((unsigned __int64)dspClockHi << 32) | dspClockLo;
-            unsigned __int64 delay = dspClock + (unsigned int)remainingAtOutputRate;
+            uint64_t dspClock = ((uint64_t)dspClockHi << 32) | dspClockLo;
+            uint64_t delay = dspClock + (unsigned int)remainingAtOutputRate;
             delayHi = (unsigned int)(delay >> 32);
             delayLo = (unsigned int)delay;
         }
@@ -161,8 +162,8 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                                     1836, res, FModErrorDesc(res, false));
             }
 
-            __int64 lengthAtOutputRate =
-                (__int64)((float)((float)haloSoundSystem->outputRate / previousFrequency) * (float)lengthPcm + 0.5f);
+            int64_t lengthAtOutputRate =
+                (int64_t)((float)((float)haloSoundSystem->outputRate / previousFrequency) * (float)lengthPcm + 0.5f);
 
             if (!IGNORE_STRONG_ASSERT && (unsigned int)lengthAtOutputRate <= (unsigned int)CROSSFADE_TIME.value)
                 STRONG_ASSERT_DUMMY().Crash(
@@ -171,8 +172,8 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                     1841,
                     dsStrongAssertMessage);
 
-            unsigned __int64 existingDelay = ((unsigned __int64)existingDelayHi << 32) | existingDelayLo;
-            unsigned __int64 stitchDelay = existingDelay + ((unsigned int)lengthAtOutputRate - (unsigned int)CROSSFADE_TIME.value);
+            uint64_t existingDelay = ((uint64_t)existingDelayHi << 32) | existingDelayLo;
+            uint64_t stitchDelay = existingDelay + ((unsigned int)lengthAtOutputRate - (unsigned int)CROSSFADE_TIME.value);
             delayHi = (unsigned int)(stitchDelay >> 32);
             delayLo = (unsigned int)stitchDelay;
         }
@@ -213,8 +214,8 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                                 1818, res, FModErrorDesc(res, false));
         }
 
-        unsigned __int64 dspClock = ((unsigned __int64)dspClockHi << 32) | dspClockLo;
-        unsigned __int64 delay = dspClock + haloSoundSystem->minDelay;
+        uint64_t dspClock = ((uint64_t)dspClockHi << 32) | dspClockLo;
+        uint64_t delay = dspClock + haloSoundSystem->minDelay;
         delayHi = (unsigned int)(delay >> 32);
         delayLo = (unsigned int)delay;
     }
@@ -225,7 +226,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
     // let the two DSPs start processing.
     if (fadeIn && !isRecalc)
     {
-        unsigned __int64 delay64 = ((unsigned __int64)delayHi << 32) | delayLo;
+        uint64_t delay64 = ((uint64_t)delayHi << 32) | delayLo;
 
         prevFadeOut->startTime = delay64;
         prevFadeOut->isFadeIn = false;

@@ -23,13 +23,13 @@ void render_contrails(unsigned int render_type_flags)
         contrail_definition *definition =
             TAG_GET(contrail_definition, contrail->definition_index);
 
-        __int16 point_list = 0;
+        int16_t point_list = 0;
         do
         {
             if (((1 << definition->render_type) & render_type_flags) != 0
                 && contrail->contrail_point_counts[point_list] >= 2)
                 render_contrail(contrail, definition, point_list);
-            point_list = (__int16)(point_list + 1);
+            point_list = (int16_t)(point_list + 1);
         } while (point_list < 4);
     }
 }

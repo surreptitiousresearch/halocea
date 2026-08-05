@@ -11,7 +11,7 @@ void scenery_animation_start_at_frame_evaluate(int16_t function_index, int threa
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        scenery_animation_start_at_frame(arguments[0], arguments[1], (const char *)arguments[2], ((__int16 *)arguments)[6]);
+        scenery_animation_start_at_frame(arguments[0], arguments[1], (const char *)arguments[2], ((int16_t *)arguments)[6]);
         hs_return(thread_index, 0);
     }
 }

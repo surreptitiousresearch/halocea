@@ -63,13 +63,13 @@ int16_t structure_visibility_build_surfaces(int *surface_indices, int16_t maximu
 
     location center_location;
     scenario_location_from_point(&center_location, bounding_sphere_center);
-    if ((unsigned __int16)center_location.cluster_index == 0xFFFF)
+    if ((uint16_t)center_location.cluster_index == 0xFFFF)
         return structure_visibility_build_surfaces_traverse_node(0, &bsp->world_bounds, surface_flags,
             surface_indices, maximum_count, bounding_sphere_center, bounding_sphere_radius, bounding_box,
             bounding_surface_count, bounding_surfaces, 1);
 
-    __int16 found_cluster_indices[512];
-    __int16 found_cluster_count = structure_clusters_in_sphere(center_location.cluster_index,
+    int16_t found_cluster_indices[512];
+    int16_t found_cluster_count = structure_clusters_in_sphere(center_location.cluster_index,
         bounding_sphere_center, bounding_sphere_radius, 512, found_cluster_indices);
     return structure_visibility_build_surfaces_traverse_clusters(surface_indices, maximum_count, bounding_box,
         bounding_surface_count, bounding_surfaces, surface_flags, found_cluster_count,

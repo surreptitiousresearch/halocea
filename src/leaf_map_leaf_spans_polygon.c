@@ -19,7 +19,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point2d.h"
 
-extern const __int16 global_projection3d_mappings[1][6][2];
+extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float x);
 extern uint8_t convex_hull2d_test_point(int16_t count, const real_point2d *points, const real_point2d *point, float epsilon);
 
@@ -35,7 +35,7 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
     const int *nodes = (const int *)leaf_map->bsp->nodes.address;
     const char *planes = (const char *)leaf_map->bsp->planes.address;
 
-    for ( int face_index = 0; face_index < leaf->faces.count; face_index = (__int16)(face_index + 1) )
+    for ( int face_index = 0; face_index < leaf->faces.count; face_index = (int16_t)(face_index + 1) )
     {
         const map_leaf_face *face = &faces[face_index];
         const real_plane3d *face_plane =
@@ -122,7 +122,7 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
             }
 
             vertex_count_face = face->vertices.count;
-            vertex = (__int16)(vertex + 1);
+            vertex = (int16_t)(vertex + 1);
         }
     }
 

@@ -12,7 +12,7 @@
 void actor_action_update(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 action = actor->state.action;
+    int16_t action = actor->state.action;
     void (__fastcall *update)(int) = global_action_functions[action].update;
     if ( update )
         update(actor_index);

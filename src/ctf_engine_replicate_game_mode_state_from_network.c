@@ -14,18 +14,18 @@
 
 
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
-extern unsigned __int8 message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
-        const message_delta_processor_header *header, unsigned __int8 allow_empty_body);
+extern uint8_t message_delta_processor_decode_incremental(void *destination_data, void *baseline_data,
+        const message_delta_processor_header *header, uint8_t allow_empty_body);
 extern game_variant *game_engine_get_variant(void);
 extern void game_engine_clear_goal_position(int16_t index);
 
 void ctf_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header,
         network_game_client *client)
 {
-    unsigned __int8 decoded;
+    uint8_t decoded;
     int score0;
     int score1;
-    unsigned __int8 team_with_flag;
+    uint8_t team_with_flag;
 
     if ( header->decoding_information->mode )
     {

@@ -2,6 +2,7 @@
 #include "headers/collision_bsp.h"
 #include "headers/collision_surface.h"
 #include "headers/PATHFINDING_SURFACE_flags.h"
+#include "headers/bit_vector.h"
 
 BOOL surface_is_walkable(const collision_bsp *bsp, const uint8_t *pathfinding_surface_data, uint8_t ignore_broken_surfaces, const uint8_t *breakable_surface_flags, int surface_index)
 {
@@ -15,7 +16,9 @@ BOOL surface_is_walkable(const collision_bsp *bsp, const uint8_t *pathfinding_su
         unsigned int breakable_surface_index =
             ((const collision_surface *)bsp->surfaces.address)[surface_index].breakable_surface_index;
 
-        return ((1 << (breakable_surface_index & 0x1F)) & *(int *)&breakable_surface_flags[(breakable_surface_index >> 3) & 0x1FFFFFFC]) != 0;
+        /* DEVIATION: decompiler's byte-offset word pun ((i >> 3) & ~3) rewritten as the cseries
+         * 32-bit-word bit-vector test (identical word/bit split). */
+        return BIT_VECTOR_TEST_FLAG((const uint32_t *)breakable_surface_flags, breakable_surface_index);
     }
     return walkable;
 }

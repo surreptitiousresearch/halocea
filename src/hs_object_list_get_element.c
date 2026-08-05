@@ -15,7 +15,7 @@ int hs_object_list_get_element(int object_list_index, int16_t element_index)
         if ( object_index == -1 )
             break;
         object_index = object_list_get_next(object_list_index, iterator);
-        remaining = (__int16)(remaining - 1);
+        remaining = (int16_t)(remaining - 1);
     }
     return object_index;
 }

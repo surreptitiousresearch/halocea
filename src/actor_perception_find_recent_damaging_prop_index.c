@@ -48,7 +48,7 @@ int actor_perception_find_recent_damaging_prop_index(int actor_index, uint8_t sk
             continue;
 
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
-        __int16 perception_state = prop->state;
+        int16_t perception_state = prop->state;
         if ( perception_state >= _prop_state_becoming_unacknowledged && perception_state <= _prop_state_acknowledged
           && (prop->enemy || !skip_friendlies)
           && attacker->game_time_stamp > best_damage )

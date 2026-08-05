@@ -6,6 +6,7 @@
 // 4..108 (each dsVECTOR is 20B, dsTSTRING<wchar_t> head is 4B — trailing bytes of the
 // dsTSTRING body are not expanded here, not touched by the four methods in this batch).
 
+#include <stdint.h>
 #include "apL10N.h"
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsTSTRING.h"
@@ -36,7 +37,7 @@ struct gsSTRINGS : public apL10N {
         // are read/written by the four methods reconstructed in this batch.
         union {
             int            v_int;
-            long double    v_double;
+            double    v_double;
             const char    *v_astr;
             const wchar_t *v_wstr;
             int            v_strid;

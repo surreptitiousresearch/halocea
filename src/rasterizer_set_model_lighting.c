@@ -20,7 +20,7 @@ extern void rasterizer_set_model_lighting_point_light(int light_index, int16_t l
 extern void *memset(void *dest, int value, unsigned int size);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
-                                                unsigned __int64 PendingMask0);
+                                                uint64_t PendingMask0);
 
 void rasterizer_set_model_lighting(const render_lighting *lighting)
 {
@@ -35,13 +35,13 @@ void rasterizer_set_model_lighting(const render_lighting *lighting)
     }
     else
     {
-        for ( __int16 light_num = 0; light_num < 2; light_num++ )
+        for ( int16_t light_num = 0; light_num < 2; light_num++ )
         {
             int light_index = light_num < lighting->point_light_count ? lighting->point_light_indices[light_num] : -1;
             rasterizer_set_model_lighting_point_light(light_index, light_num, &constants);
         }
 
-        for ( __int16 light_index = 0; light_index < 2; light_index++ )
+        for ( int16_t light_index = 0; light_index < 2; light_index++ )
         {
             if ( light_index >= lighting->distant_light_count
               || (unsigned int)((const char *)&lighting->distant_lights[light_index]) == 0 )
@@ -65,5 +65,5 @@ void rasterizer_set_model_lighting(const render_lighting *lighting)
         constants.ambient = lighting->ambient_color;
     }
 
-    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xF, (const float *)&constants, 11, (unsigned __int64)15 << 57);
+    D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xF, (const float *)&constants, 11, (uint64_t)15 << 57);
 }

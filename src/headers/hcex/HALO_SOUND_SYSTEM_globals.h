@@ -4,6 +4,7 @@
 // sound-list table. None of these are reversed here (boundary / other-subsystem globals);
 // declared only far enough to type HALO_SOUND_SYSTEM's call sites.
 
+#include <stdint.h>
 #include "../ws/ds/dsTSTRING.h"
 
 // ---- os-layer (real bodies already exist in src/ws/os/, declared via os_boundary.h normally;
@@ -64,9 +65,9 @@ typedef struct sound_manager_globals_t {
     float music_gain;                                           // 0xA8
     float master_gain;                                          // 0xAC
     float effects_gain;                                         // 0xB0
-    __int16 channel_count;                                      // 0xB4
+    int16_t channel_count;                                      // 0xB4
     unsigned char disable_from_commandline;                     // 0xB6
     unsigned char _padB7;                                       // 0xB7
-    __int16 sound_variety;                                      // 0xB8
+    int16_t sound_variety;                                      // 0xB8
 } sound_manager_globals_t;
 extern sound_manager_globals_t sound_manager_globals;

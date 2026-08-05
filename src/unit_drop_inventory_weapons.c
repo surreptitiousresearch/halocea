@@ -46,7 +46,7 @@ void unit_drop_inventory_weapons(int unit_index)
 {
     unit_datum *unit_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
 
-    for (int slot = 0; slot < MAXIMUM_WEAPONS_PER_UNIT; slot = (__int16)(slot + 1))
+    for (int slot = 0; slot < MAXIMUM_WEAPONS_PER_UNIT; slot = (int16_t)(slot + 1))
     {
         int *weapon_slot = &unit_object->unit.weapon_object_indices[slot];
         int weapon = *weapon_slot;

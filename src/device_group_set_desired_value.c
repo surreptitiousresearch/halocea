@@ -48,7 +48,7 @@ uint8_t device_group_set_desired_value(int16_t group_index, float desired_value)
             DATA_ARRAY_ELEMENT(device_groups_data, device_group_datum, group_index);
         if ( group_datum->desired_value != clamped )
         {
-            __int16 flags = group_datum->flags;
+            int16_t flags = group_datum->flags;
             /* a "change only once" group that has already changed once is locked */
             if ( (flags & (1u << _device_group_can_change_only_once_bit)) == 0
               || (flags & (1u << _device_group_changed_once_bit)) == 0 )
@@ -64,7 +64,7 @@ uint8_t device_group_set_desired_value(int16_t group_index, float desired_value)
     {
         object_iterator iterator;
         object_iterator_new(&iterator, object_mask_device, 0);
-        for ( __int16 *object = object_iterator_next(&iterator);
+        for ( int16_t *object = object_iterator_next(&iterator);
               object;
               object = object_iterator_next(&iterator) )
         {

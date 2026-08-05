@@ -61,7 +61,7 @@ extern void biped_accelerate(int biped_index, real_vector3d *acceleration);
 extern void item_accelerate(int item_index, const real_vector3d *acceleration, uint8_t detonates_explosives);
 extern void projectile_accelerate(int projectile_index, const real_vector3d *acceleration);
 extern int player_index_from_unit_index(int unit_index);
-extern void  hcex_fire_plr_event(const char *event_name, __int16 player_identifier);
+extern void  hcex_fire_plr_event(const char *event_name, int16_t player_identifier);
 extern void *datum_try_and_get(const data_array *data, int index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern int field_translated_index_translate_index_no_default(const _field_properties_definition *const field_properties_definition, int local_index);
@@ -105,7 +105,7 @@ void object_damage_aftermath(int object_index, damage_data *damage_data, unsigne
         acceleration_vector.n[1] = accel_direction.n[1] * acceleration_magnitude;
         acceleration_vector.n[2] = acceleration_magnitude * accel_direction.n[2];
 
-        unsigned int object_type = (unsigned __int16)object->object.type;
+        unsigned int object_type = (uint16_t)object->object.type;
         if ( object_type <= object_type_projectile )
         {
             if ( !object->object.type || object_type == object_type_vehicle )  /* biped or vehicle */
@@ -113,9 +113,9 @@ void object_damage_aftermath(int object_index, damage_data *damage_data, unsigne
                 if ( damage_def->instantaneous_acceleration > 0.000099999997f
                   && (((unit_datum *)object)->unit.flags & (1u << _unit_impervious_bit)) == 0 )
                 {
-                    if ( (__int16)object_type )
+                    if ( (int16_t)object_type )
                     {
-                        if ( (__int16)object_type == object_type_vehicle )  /* vehicle */
+                        if ( (int16_t)object_type == object_type_vehicle )  /* vehicle */
                         {
                             if ( (damage_def->flags & (1u << _damage_detonates_explosives_bit)) != 0 )  /* double impulse */
                             {
@@ -172,7 +172,7 @@ void object_damage_aftermath(int object_index, damage_data *damage_data, unsigne
                 int network_role = object->object.datum_role;
                 if ( !network_role || network_role == 3 || !accelerate_item )
                 {
-                    unsigned __int8 large_item = 0;
+                    uint8_t large_item = 0;
                     if ( damage_data->scale > 0.5 && (damage_def->flags & (1u << _damage_detonates_explosives_bit)) != 0 )
                         large_item = 1;
                     item_accelerate(object_index, &acceleration_vector, large_item);
@@ -188,7 +188,7 @@ void object_damage_aftermath(int object_index, damage_data *damage_data, unsigne
     if ( should_do_actual_damage == 1 )
     {
         data_array *players = player_data;
-        __int16 damaged_player_identifier;
+        int16_t damaged_player_identifier;
         if ( player_index_from_unit_index(object_index) == -1 )
         {
             damaged_player_identifier = -1;
@@ -212,7 +212,7 @@ void object_damage_aftermath(int object_index, damage_data *damage_data, unsigne
             if ( killed_tag_name )
             {
                 int owner_player_index = damage_data->owner_player_index;
-                __int16 owner_player_identifier =
+                int16_t owner_player_identifier =
                     DATA_ARRAY_ELEMENT(players, player_datum, owner_player_index)->local_player_index;
                 const char *event_name = "kill_wraith_with_scorpion";  /* default when all checks fall through */
                 /* Deviation: the following byte-compare chains are inlined strcmp. */

@@ -2,10 +2,11 @@
  * screen widget's tree (their owning list widgets are about to be torn down); `event`/`widget_deleted` are
  * unused. Always reports success. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
 
-int video_screen_dispose(widget_instance *widget, event_record *event, unsigned __int8 *widget_deleted)
+int video_screen_dispose(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     widget_instance *children = widget->children;
     widget_instance *next = children->next->children->next;

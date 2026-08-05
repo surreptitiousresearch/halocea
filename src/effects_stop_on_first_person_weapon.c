@@ -42,7 +42,7 @@ void effects_stop_on_first_person_weapon(int16_t local_player_index)
                     {
                         effect_location_datum *location =
                             DATA_ARRAY_ELEMENT(effect_location_data, effect_location_datum, *list_node);
-                        unsigned int designator = (unsigned __int16)location->node_designator;
+                        unsigned int designator = (uint16_t)location->node_designator;
                         if ( designator == 0xFFFF || (designator & 0x8000) == 0 )
                         {
                             list_node = &location->next_instance_location_index; /* keep: advance */
@@ -53,7 +53,7 @@ void effects_stop_on_first_person_weapon(int16_t local_player_index)
                             *list_node = location->next_instance_location_index; /* unlink */
                         }
                     }
-                    location_index = (__int16)(location_index + 1);
+                    location_index = (int16_t)(location_index + 1);
                 }
                 while ( location_index < definition->locations.count );
             }

@@ -6,8 +6,11 @@
 void apply_throttle(unit_control_data *control, const animation_event_v1 *anim_event_v1, const char **playback_stream)
 {
     const char *next = *playback_stream + 12;
-    control->throttle.n[0] = *(float *)&anim_event_v1[1];
-    control->throttle.n[1] = *(float *)&anim_event_v1[2];
+    /* DEVIATION: payload floats follow the 4-byte event header in the stream; was
+     * *(float *)&anim_event_v1[1]/[2] struct-index puns over the same bytes */
+    const float *payload = (const float *)(anim_event_v1 + 1);
+    control->throttle.n[0] = payload[0];
+    control->throttle.n[1] = payload[1];
     *playback_stream = next;
     control->throttle.n[2] = 0.0f;
 }

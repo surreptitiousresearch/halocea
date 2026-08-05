@@ -11,6 +11,7 @@
 // XDK sampler setters they inline from (see d3d_ensure_texture_boundary.h).
 // Source: D:\Projects\code\common\src.sys\drv\video\d3d_8\d3d_txm_8.cpp
 
+#include <stdint.h>
 #include "headers/d3dDRIVER_INTERFACE.h"
 #include "headers/ws/txm/txmD3D_TEX.h"
 #include "headers/ws/txm/txmMANAGER.h"      /* txmManager->whiteTex */
@@ -73,7 +74,7 @@ void d3dDRIVER_INTERFACE::EnsureTexture(txmTEXTURE *pTex, int stage, unsigned lo
 
     // Per-stage GPU pending-register mask bit (XDK GPU fence bookkeeping); passed through the
     // D3DDevice_SetTexture / sampler setters. Value verbatim from the origin's SetTexture call.
-    const unsigned __int64 stagePendingMask = 0x80000000ull;
+    const uint64_t stagePendingMask = 0x80000000ull;
 
     if (!pTex) {
         D3DDevice_SetTexture(this->pDevice, stage, nullptr, stagePendingMask);

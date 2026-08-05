@@ -42,7 +42,7 @@ typedef struct _netgame_equipment_spawn_message
 {
     int     translated_object_index;
     int     definition_index;
-    __int16 equipment_list_index;
+    int16_t equipment_list_index;
 } _netgame_equipment_spawn_message;
 
 void netgame_equipment_new_from_network(message_delta_processor_header *header, network_game_client *client)

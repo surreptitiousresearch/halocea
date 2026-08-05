@@ -19,15 +19,15 @@
 
 void adjust_rectangle2d(const rectangle2d *bounds, const rectangle2d *source, rectangle2d *destination, int16_t mode)
 {
-    __int16 bounds_width = bounds->x1 - bounds->x0;
-    __int16 bounds_height = bounds->y1 - bounds->y0;
-    __int16 source_width = source->x1 - source->x0;
-    __int16 source_height = source->y1 - source->y0;
+    int16_t bounds_width = bounds->x1 - bounds->x0;
+    int16_t bounds_height = bounds->y1 - bounds->y0;
+    int16_t source_width = source->x1 - source->x0;
+    int16_t source_height = source->y1 - source->y0;
 
     if ( mode == 0 )
     {
-        __int16 delta_x = bounds_width / 2 - source_width / 2;
-        __int16 delta_y = bounds_height / 2 - source_height / 2;
+        int16_t delta_x = bounds_width / 2 - source_width / 2;
+        int16_t delta_y = bounds_height / 2 - source_height / 2;
 
         destination->x0 = bounds->x0 + delta_x;
         destination->x1 = bounds->x0 + delta_x + source_width;
@@ -36,8 +36,8 @@ void adjust_rectangle2d(const rectangle2d *bounds, const rectangle2d *source, re
     }
     else if ( mode == 1 )
     {
-        __int16 delta_x = (bounds_width - source_width) / 2;
-        __int16 delta_y = (bounds_height - source_height) / 3;
+        int16_t delta_x = (bounds_width - source_width) / 2;
+        int16_t delta_y = (bounds_height - source_height) / 3;
 
         destination->x0 = bounds->x0 + delta_x;
         destination->x1 = bounds->x0 + delta_x + source_width;

@@ -2,6 +2,7 @@
 /* ui_widget_definition — the 'DeLa' tag definition backing a widget_instance (ui_widget.c).
  * Layout taken verbatim from the database. */
 
+#include <stdint.h>
 #include "tag_block.h"
 #include "tag_reference.h"
 #include "rectangle2d.h"
@@ -9,8 +10,8 @@
 
 typedef struct ui_widget_definition
 {
-    __int16         type;                              /* 0x000 */
-    __int16         controller_index;                  /* 0x002 */
+    int16_t         type;                              /* 0x000 */
+    int16_t         controller_index;                  /* 0x002 */
     char            name[32];                          /* 0x004 */
     rectangle2d     bounds;                            /* 0x024 */
     unsigned int    flags;                             /* 0x02C */
@@ -24,15 +25,15 @@ typedef struct ui_widget_definition
     tag_reference   text_label_unicode_string_list_tag;/* 0x0EC */
     tag_reference   font_tag;                          /* 0x0FC */
     real_argb_color text_color;                        /* 0x10C */
-    __int16         justification;                     /* 0x11C */
-    __int16         text_box_flags;                    /* 0x11E */
+    int16_t         justification;                     /* 0x11C */
+    int16_t         text_box_flags;                    /* 0x11E */
     tag_block       unused_tag_block;                  /* 0x120 */
-    __int16         pad1;                              /* 0x12C */
-    __int16         string_list_index;                 /* 0x12E */
-    __int16         hoffset;                           /* 0x130 */
-    __int16         voffset;                           /* 0x132 */
+    int16_t         pad1;                              /* 0x12C */
+    int16_t         string_list_index;                 /* 0x12E */
+    int16_t         hoffset;                           /* 0x130 */
+    int16_t         voffset;                           /* 0x132 */
     int             widget_type_text_box_unused[6];    /* 0x134 */
-    __int16         pad2;                              /* 0x14C */
+    int16_t         pad2;                              /* 0x14C */
     unsigned char _pad0[2]; /* db-verified padding */
     unsigned int    list_flags;                        /* 0x150 */
     tag_reference   list_header_bitmap;                /* 0x154 */

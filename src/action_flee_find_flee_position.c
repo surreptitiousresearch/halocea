@@ -35,9 +35,9 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
-extern __int16 actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
+extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
         firing_position *best_firing_position, int *current_owner, path_state *area_path_state,
-        unsigned __int8 *area_path_state_valid);
+        uint8_t *area_path_state_valid);
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);
@@ -85,9 +85,9 @@ void action_flee_find_flee_position(int actor_index, flee_state_data *state_data
     firing_position   best_firing_position;
     int               current_owner;
     path_state        area_path_state;
-    unsigned __int8   area_path_state_valid;
+    uint8_t   area_path_state_valid;
 
-    __int16 firing_position_index = actor_select_firing_position(actor_index, &context, &best_firing_position,
+    int16_t firing_position_index = actor_select_firing_position(actor_index, &context, &best_firing_position,
             &current_owner, &area_path_state, &area_path_state_valid);
     state_data->flee_firing_position_index = firing_position_index;
 
@@ -120,7 +120,7 @@ void action_flee_find_flee_position(int actor_index, flee_state_data *state_data
 
         if (path_state_find(&state))
         {
-            unsigned __int8 straight_line;
+            uint8_t straight_line;
             state_data->has_approach_point = path_state_approach_point(&state,
                     (const real_point2d *)&best_firing_position.definition->position,
                     best_firing_position.definition->surface_index,

@@ -12,7 +12,7 @@
 void actor_stimulus_suspicion(uint16_t actor_index, int16_t suspicion_combat_status, int suspicion_timer)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 current_status = actor->stimuli.suspicion_combat_status;
+    int16_t current_status = actor->stimuli.suspicion_combat_status;
 
     if (current_status < suspicion_combat_status)
     {

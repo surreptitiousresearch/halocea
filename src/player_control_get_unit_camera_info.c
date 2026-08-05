@@ -40,7 +40,7 @@ void player_control_get_unit_camera_info(int16_t local_player_index, unit_camera
         unit_datum *parent = object_try_and_get_and_verify_type(parent_index, object_mask_vehicle);
         if (parent)
         {
-            __int16 seat_index = unit->unit.parent_seat_index;
+            int16_t seat_index = unit->unit.parent_seat_index;
             int parent_index2 = unit->object.parent_object_index;
             unit_definition *parent_definition = TAG_GET(unit_definition, parent->definition_index);
             unit_seat *seats = (unit_seat *)parent_definition->unit.seats.address;
@@ -51,7 +51,7 @@ void player_control_get_unit_camera_info(int16_t local_player_index, unit_camera
         }
     }
 
-    if ((unsigned __int16)camera_info->seat_index == 0xFFFF)
+    if ((uint16_t)camera_info->seat_index == 0xFFFF)
     {
         unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
         camera_info->unit_camera = &definition->unit.camera;

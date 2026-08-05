@@ -56,6 +56,6 @@ void apply_dead_zones(point2d *stick)
         clamped = magnitude;
 
     float radius = (clamped - 4095.0f) * 1.1428223f;
-    set_point2d(stick, (__int16)(int)((float)cos(angle) * radius),
-                       (__int16)(int)((float)sin(angle) * radius));
+    set_point2d(stick, (int16_t)(int)((float)cos(angle) * radius),
+                       (int16_t)(int)((float)sin(angle) * radius));
 }

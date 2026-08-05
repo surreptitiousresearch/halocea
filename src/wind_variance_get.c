@@ -6,6 +6,7 @@
  * NOTE: the decompiler modeled the output pointer as a packed __int64 (`wind`); reconstructed here as the
  * real `real_vector3d *out` parameter. */
 
+#include <stdint.h>
 #include "headers/wind_globals.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
@@ -27,7 +28,7 @@ void wind_variance_get(const real_point3d *position, real_vector3d *out, float w
         float time = (float)wind_globals.time;
         float key = fabs((((axis_scale[axis] * time) * wind_local_variation_rate)
                                  + position->n[axis]) * 8.0f) + 8388608.0f;
-        int index = (axis << 6) + ((unsigned __int8)key & 0x3F);
+        int index = (axis << 6) + ((uint8_t)key & 0x3F);
         const real_vector3d *sample = &wind_globals.variance[0][index];
 
         out->n[0] = sample->n[0] + out->n[0];

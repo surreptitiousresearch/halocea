@@ -59,9 +59,9 @@ void cache_copy_update_write_buffers(simple_decompressor_definition *self)
     }
 
     /* (3) claim the free write-request slot for the next sequence when idle. */
-    if ( (unsigned __int16)self->current_write_buffer_index == 0xFFFF && self->write_requests_pending < 1 )
+    if ( (uint16_t)self->current_write_buffer_index == 0xFFFF && self->write_requests_pending < 1 )
     {
-        if ( (unsigned __int16)self->write_requests[0].write_sequence_index != 0xFFFF )
+        if ( (uint16_t)self->write_requests[0].write_sequence_index != 0xFFFF )
             return;
         self->write_requests[0].write_sequence_index = self->next_write_sequence_index;
         self->current_write_buffer_index = 0;

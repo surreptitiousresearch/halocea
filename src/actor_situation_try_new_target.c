@@ -20,12 +20,12 @@ uint8_t actor_situation_try_new_target(int actor_index, int prop_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *props = (prop_datum *)prop_data->data;
 
-    prop_datum *candidate_prop = &props[(unsigned __int16)prop_index];
+    prop_datum *candidate_prop = &props[(uint16_t)prop_index];
 
     int current_target_prop_index = actor->target.target_prop_index;
     prop_datum *current_target_prop = (current_target_prop_index == -1)
             ? 0
-            : &props[(unsigned __int16)current_target_prop_index];
+            : &props[(uint16_t)current_target_prop_index];
 
     float weight = actor_compute_prop_target_weight(actor_index, prop_index);
     candidate_prop->target_weight = weight;   /* +80, DB prop_datum.target_weight */

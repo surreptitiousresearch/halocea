@@ -34,7 +34,7 @@ extern int prop_get_base_by_unit_index(int actor_index, int unit_index, uint8_t 
 int actor_pursuit_find_nearby_actors(int actor_index, int pursuit_coordinator)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    unsigned __int8 is_coordinator = (unsigned __int8)pursuit_coordinator;
+    uint8_t is_coordinator = (uint8_t)pursuit_coordinator;
     int required_count = (is_coordinator != 0) + 1;   /* 2 when coordinating, else 1 */
     int found_count = 0;
     float nearest_distance = 3.4028235e38f;
@@ -52,7 +52,7 @@ int actor_pursuit_find_nearby_actors(int actor_index, int pursuit_coordinator)
             continue;
         if ( is_coordinator )
         {
-            __int16 state = prop->state;
+            int16_t state = prop->state;
             if ( state < _prop_state_becoming_unacknowledged || state > _prop_state_acknowledged )
                 continue;
         }

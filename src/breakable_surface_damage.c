@@ -25,14 +25,14 @@ void breakable_surface_damage(int16_t breakable_surface_index, const damage_data
         return;
     if ( breakable_surface_index == -1 || damage_data->definition_index == -1 )
         return;
-    if ( (unsigned __int16)damage_data->material_type == 0xFFFF )
+    if ( (uint16_t)damage_data->material_type == 0xFFFF )
         return;
 
     float *vitality = &globals->breakable_surfaces[global_structure_bsp_index][breakable_surface_index].vitality;
     if ( *vitality <= 0.0f )
         return;
 
-    material_definition *material = scenario_material_definition_get((unsigned __int16)damage_data->material_type);
+    material_definition *material = scenario_material_definition_get((uint16_t)damage_data->material_type);
     if ( !material || material->breakable_surface.maximum_vitality <= 0.0f )
         return;
 

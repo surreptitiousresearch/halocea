@@ -9,7 +9,7 @@
 
 uint8_t quantize_real_to_byte_lower_bound(float min, float max, float value)
 {
-    unsigned __int8 result = (unsigned __int8)(int)((value - min) / (max - min) * 255.0f);
+    uint8_t result = (uint8_t)(int)((value - min) / (max - min) * 255.0f);
     int candidate = result;
     if (result != 0)
     {
@@ -22,7 +22,7 @@ uint8_t quantize_real_to_byte_lower_bound(float min, float max, float value)
                 reconstructed = (float)candidate * 0.0039215689f * (max - min) + min;
             if (value >= reconstructed)
                 break;
-            result = (unsigned __int8)(candidate - 1);
+            result = (uint8_t)(candidate - 1);
             candidate = result;
         }
         while (result);

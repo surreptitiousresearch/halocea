@@ -2,6 +2,7 @@
  * game's map by mapping the loaded map's file name to a fixed string-list index (0..13 for the stock Halo CE
  * multiplayer maps, 19 for anything unrecognized). No-op when no network game is active. */
 
+#include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 
@@ -15,7 +16,7 @@ void multiplayer_game_set_text_box_for_map_name(widget_instance *widget)
         return;
 
     const char *name = game->map.name;
-    __int16 map_index;
+    int16_t map_index;
     if ( strstr(name, "beavercreek") )        map_index = 0;
     else if ( strstr(name, "sidewinder") )    map_index = 1;
     else if ( strstr(name, "damnation") )     map_index = 2;

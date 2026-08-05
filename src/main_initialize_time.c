@@ -11,7 +11,7 @@ extern uint32_t system_clocks_to_milliseconds(int64_t clocks);
 
 unsigned int main_initialize_time(void)
 {
-    __int64 clocks = system_clocks();
+    int64_t clocks = system_clocks();
     main_globals.last_time_clocks = clocks;
     main_globals.last_render_clocks = clocks;
     main_globals.last_time_msec = system_clocks_to_milliseconds(clocks);

@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* byte_swap_definition — describes how to byte-swap one structure type during endian-safe
  * serialization: element size, the per-field swap-code array, and a verification signature. */
 
@@ -8,8 +9,8 @@ typedef struct byte_swap_definition
     int               size;      /* 0x04 */
     int              *codes;     /* 0x08 */
     unsigned int      signature; /* 0x0C */
-    unsigned __int8   verified;  /* 0x10 */
-    unsigned __int8   pad[3];    /* 0x11 */
+    uint8_t   verified;  /* 0x10 */
+    uint8_t   pad[3];    /* 0x11 */
 } byte_swap_definition; /* 20 bytes */
 
 /* Per-field swap opcodes in byte_swap_definition::codes.

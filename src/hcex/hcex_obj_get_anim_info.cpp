@@ -4,6 +4,7 @@
  * and returns the current frame, the animation's frame count and a pointer to the animation element. Returns 0
  * when the object has no active animation. */
 
+#include <stdint.h>
 #include "../headers/data_array.h"
 #include "../headers/object_header_datum.h"
 #include "../headers/animation_graph.h"
@@ -21,11 +22,11 @@ extern "C" int hcex_obj_get_anim_info(int id, int *frameCur, int *frameCount, ch
         return 0;
 
     int animation_index = object->object.animation.state.index;
-    if ( (__int16)animation_index == -1 )
+    if ( (int16_t)animation_index == -1 )
         return 0;
 
     animation_graph *graph_definition = *(animation_graph **)TAG_INSTANCE(animation_graph_index);
-    animation *anim = &((animation *)graph_definition->animations.address)[(__int16)animation_index];
+    animation *anim = &((animation *)graph_definition->animations.address)[(int16_t)animation_index];
 
     *frameCur   = object->object.animation.state.frame_index;
     *frameCount = anim->frame_count;

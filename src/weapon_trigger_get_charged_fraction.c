@@ -25,7 +25,7 @@ float weapon_trigger_get_charged_fraction(int weapon_index, int16_t trigger_inde
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
     weapon_trigger *trigger = &weapon->weapon.triggers[trigger_index];
 
-    int trigger_state = (unsigned __int8)trigger->state;
+    int trigger_state = (uint8_t)trigger->state;
     if ( trigger_state == _weapon_trigger_charged )
         return 1.0f;
     if ( trigger_state != _weapon_trigger_charging )
@@ -34,6 +34,6 @@ float weapon_trigger_get_charged_fraction(int weapon_index, int16_t trigger_inde
     weapon_definition *definition = TAG_GET(weapon_definition, weapon->definition_index);
     float charging_time =
         ((weapon_trigger_definition *)definition->weapon.triggers.address)[trigger_index].charging_time;
-    __int16 ticks_remaining = trigger->state_timer;
+    int16_t ticks_remaining = trigger->state_timer;
     return 1.0f - ((float)ticks_remaining * SECONDS_PER_TICK) / charging_time;
 }

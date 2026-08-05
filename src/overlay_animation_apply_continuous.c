@@ -54,11 +54,11 @@ void overlay_animation_apply_continuous(const animation *animation, float real_f
     float fraction = (float)fmod((double)real_frame_index, 1.0);
     float real_frame = real_frame_index;
     int frame_count = animation->frame_count;
-    __int16 frame_index = (__int16)(int)(float)floor((double)__fabs(real_frame_index));
+    int16_t frame_index = (int16_t)(int)(float)floor((double)__fabs(real_frame_index));
 
     if (frame_index >= frame_count)
     {
-        frame_index = (__int16)(frame_count - 1);
+        frame_index = (int16_t)(frame_count - 1);
         fraction = 1.0f;
         real_frame = (float)(frame_count - 1);
     }
@@ -67,24 +67,24 @@ void overlay_animation_apply_continuous(const animation *animation, float real_f
         return;
 
     /* DEVIATION: collapsed inlined copy of animation_is_compressed@0x837956E0 (zero-xref donor; sole arg is the local `animation` pointer, no folding needed). */
-    unsigned __int8 use_keyframe_accessors = animation_is_compressed(animation);
+    uint8_t use_keyframe_accessors = animation_is_compressed(animation);
 
-    __int16 next_index = 0;
+    int16_t next_index = 0;
     if (frame_index != frame_count - 1)
-        next_index = (__int16)(frame_index + 1);
+        next_index = (int16_t)(frame_index + 1);
 
     const char *frame_cursor = animation_get_frame_data(animation, frame_index);
     const char *next_cursor = animation_get_frame_data(animation, next_index);
 
-    __int16 rotation_adjusted_index = 0;
-    __int16 translation_adjusted_index = 0;
-    __int16 scale_adjusted_index = 0;
+    int16_t rotation_adjusted_index = 0;
+    int16_t translation_adjusted_index = 0;
+    int16_t scale_adjusted_index = 0;
 
     unsigned int rotation_flags = 0;
     unsigned int translation_flags = 0;
     unsigned int scale_flags = 0;
 
-    for (__int16 node_index = 0; node_index < animation->node_count; node_index = (__int16)(node_index + 1))
+    for (int16_t node_index = 0; node_index < animation->node_count; node_index = (int16_t)(node_index + 1))
     {
         real_orientation *node_orientation = &node_orientations[node_index];
 

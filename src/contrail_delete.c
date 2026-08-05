@@ -2,6 +2,7 @@
  * singly-linked chain through contrail_point_data (next_contrail_point_index); every point is freed, then
  * the contrail datum itself. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/contrail_datum.h"
 #include "headers/contrail_point_datum.h"
@@ -15,7 +16,7 @@ void contrail_delete(int contrail_index)
     contrail_datum *contrail = DATA_ARRAY_ELEMENT(contrail_data, contrail_datum, contrail_index);
     int list;
 
-    for ( list = 0; list < 4; list = (__int16)(list + 1) )
+    for ( list = 0; list < 4; list = (int16_t)(list + 1) )
     {
         int point = contrail->first_contrail_point_indices[list];
         while ( point != -1 )

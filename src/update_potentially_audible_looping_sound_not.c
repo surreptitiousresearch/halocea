@@ -24,7 +24,7 @@ void update_potentially_audible_looping_sound_not(int sound_index)
     char serviced_last_frame = (last_frame == -1 || last_frame == game_sound_globals->frame_index - 1);
     int flags = sound->flags;
 
-    unsigned __int8 audible;
+    uint8_t audible;
     float function_value;
     if ( (flags & (1u << _game_looping_sound_unattached_bit)) != 0 )
         audible = (~flags >> _game_looping_sound_unattached_stop_bit) & 1;  /* unattached: audible unless stop bit set */

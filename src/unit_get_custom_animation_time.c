@@ -25,7 +25,7 @@ int16_t unit_get_custom_animation_time(int unit_index)
 
     animation_graph *graph = TAG_GET(animation_graph, unit->object.animation.animation_graph_index);
     animation *anim = &((animation *)graph->animations.address)[unit->object.animation.state.index];
-    __int16 frame_count = anim->frame_count;
+    int16_t frame_count = anim->frame_count;
 
     int remaining = frame_count - unit->object.animation.state.frame_index - 2;
     return remaining < 0 ? 0 : remaining;   /* PPC saturate idiom => max(0, remaining) */

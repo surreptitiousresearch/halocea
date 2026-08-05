@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"
@@ -11,7 +12,7 @@
 // decompiler fabricated a phantom int arg and lost `fvf` (passed uninitialised to
 // SetInterleavedData); restored per the mangle and the disasm.
 
-void objOBJ::_AllocInterleavedData(int nVert, unsigned char size, unsigned __int64 fvf)
+void objOBJ::_AllocInterleavedData(int nVert, unsigned char size, uint64_t fvf)
 {
     if (!this->pGeom)
         return;

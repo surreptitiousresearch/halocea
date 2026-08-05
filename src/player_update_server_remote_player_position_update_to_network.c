@@ -21,13 +21,13 @@
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t player_is_vehicle_driver(int player_index);
 extern int   build_remote_player_position_update(player_datum *player, int player_index,
-                                                 unsigned __int8 *body);
+                                                 uint8_t *body);
 extern int build_remote_player_vehicle_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send);
 extern network_game_server *global_network_game_server_get(void);
 
 void player_update_server_remote_player_position_update_to_network(int player_index)
 {
-    unsigned __int8 update_body[16];
+    uint8_t update_body[16];
     update_body[0] = 0;
 
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);

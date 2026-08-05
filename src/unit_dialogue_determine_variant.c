@@ -4,6 +4,7 @@
  * candidate weight word at +0 of each record) for up to 16 candidates whose weight is below 100, then
  * round-robins through the collected candidates via a global sequential counter (rather than randomly). */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -22,15 +23,15 @@ void unit_dialogue_determine_variant(int unit_index)
         return;   /* already has a dialogue variant */
 
     int candidate_count = definition->unit.dialogue_variants.count;
-    __int16 candidates[16];
-    unsigned __int16 collected = 0;
+    int16_t candidates[16];
+    uint16_t collected = 0;
 
     if ( candidate_count > 0 )
     {
         dialogue_variant_definition *records = (dialogue_variant_definition *)definition->unit.dialogue_variants.address;
         for ( int i = 0; i < candidate_count; i++ )
         {
-            __int16 variant_number = records[i].variant_number;
+            int16_t variant_number = records[i].variant_number;
             if ( variant_number < 100 )
             {
                 if ( collected >= 16 )
@@ -40,9 +41,9 @@ void unit_dialogue_determine_variant(int unit_index)
         }
     }
 
-    if ( (__int16)collected > 0 )
+    if ( (int16_t)collected > 0 )
     {
-        __int16 chosen = candidates[sequential_counter % (__int16)collected];
+        int16_t chosen = candidates[sequential_counter % (int16_t)collected];
         ++sequential_counter;
         unit->object.variant_number = chosen;
     }

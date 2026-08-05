@@ -8,7 +8,7 @@ extern void path_heap_bubble_up(path_state *state, int16_t heap_index);
 
 void path_heap_insert(path_state *state, int16_t node_index, int16_t quantized_cost_estimate)
 {
-    __int16 heap_index = state->heap_count;
+    int16_t heap_index = state->heap_count;
     if (heap_index < 1024)
     {
         state->heap_count = heap_index + 1;

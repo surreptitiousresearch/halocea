@@ -109,7 +109,7 @@ void _rasterizer_model_begin(const rasterizer_model_begin_parameters *parameters
     }
     else
     {
-        model_effect_type = (unsigned __int16)parameters->effect.type;
+        model_effect_type = (uint16_t)parameters->effect.type;
         if (model_effect_type != _render_model_effect_type_transparent_zbuffered)
         {
             /* uploadconstants: skip re-uploading skinning constants for rigid (single-node) models */

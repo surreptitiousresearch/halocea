@@ -31,7 +31,7 @@ void object_permute_region(int object_index, const char *permutation_name,
     if (region_count <= 0)
         return;
 
-    for (int region_index = 0; region_index < region_count; region_index = (__int16)(region_index + 1))
+    for (int region_index = 0; region_index < region_count; region_index = (int16_t)(region_index + 1))
     {
         if (desired_region_index != -1 && desired_region_index != region_index)
             continue;
@@ -43,7 +43,7 @@ void object_permute_region(int object_index, const char *permutation_name,
 
         model_region_permutation *permutations =
             (model_region_permutation *)region->permutations.address;
-        for (int permutation_index = 0; ; permutation_index = (__int16)(permutation_index + 1))
+        for (int permutation_index = 0; ; permutation_index = (int16_t)(permutation_index + 1))
         {
             if (!stricmp(permutations[permutation_index].name, permutation_name))
             {
@@ -51,7 +51,7 @@ void object_permute_region(int object_index, const char *permutation_name,
                     active_flag == 0 ? 0 : (uint8_t)permutation_index;
                 break;
             }
-            if ((__int16)(permutation_index + 1) >= permutation_count)
+            if ((int16_t)(permutation_index + 1) >= permutation_count)
                 break;
         }
     }

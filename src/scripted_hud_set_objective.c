@@ -35,8 +35,8 @@ void scripted_hud_set_objective(int16_t message_index)
         hud_messaging_globals->objective.message = message;
         /* recovered: *(__int16 *)((char *)hud_globals + 0x11C/0x11E) ->
          * messaging.objective_color.custom.objective.up_ticks/fade_ticks */
-        __int16 up_ticks = hud_globals->messaging.objective_color.custom.objective.up_ticks;
-        __int16 fade_ticks = hud_globals->messaging.objective_color.custom.objective.fade_ticks;
+        int16_t up_ticks = hud_globals->messaging.objective_color.custom.objective.up_ticks;
+        int16_t fade_ticks = hud_globals->messaging.objective_color.custom.objective.fade_ticks;
         hud_messaging_globals->objective.uptime = fade_ticks + up_ticks;
     }
 }

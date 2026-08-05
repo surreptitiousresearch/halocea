@@ -39,7 +39,7 @@ extern uint16_t *ui_widget_search_and_replace_invoke(widget_instance *widget, in
 extern wchar_t *ascii_to_wide(const char *ascii, wchar_t *unicode, unsigned int unicode_length_bytes);
 extern int search_and_replace(const wchar_t *search, const wchar_t *replace, uint16_t **in_buffer);
 extern void draw_string_set_draw_mode(int font_index, int16_t style, int16_t justification, unsigned int flags, const real_argb_color *color);
-extern unsigned __int16 *wcschr(const wchar_t *string, wchar_t ch);
+extern uint16_t *wcschr(const wchar_t *string, wchar_t ch);
 extern int16_t get_icon_type(const wchar_t *string);
 extern void draw_string_and_hack_in_icons(rectangle2d *bounds, rectangle2d *clip, point2d *cursor_reference, int16_t height_adjust, const wchar_t *instring, uint8_t ignore_icon_color);
 extern void rasterizer_draw_unicode_string(const rectangle2d *bounds, const rectangle2d *clip, point2d *cursor_reference, int16_t height_adjust, const wchar_t *string);
@@ -49,14 +49,14 @@ void widget_instance_render_text_box(widget_instance *widget, ui_widget_definiti
 {
     if (definition->text_label_unicode_string_list_tag.index != -1)
     {
-        __int16 string_list_index = widget->parameters.text_box_parameters.string_list_index;
+        int16_t string_list_index = widget->parameters.text_box_parameters.string_list_index;
         if (string_list_index == -1)
             string_list_index = definition->string_list_index;
 
-        const unsigned __int16 *string = unicode_string_list_get_string(
+        const uint16_t *string = unicode_string_list_get_string(
             definition->text_label_unicode_string_list_tag.index, string_list_index);
         unsigned int byte_length = 2 * ustrlen(string);
-        unsigned __int16 *new_text = pool_resize_pointer(
+        uint16_t *new_text = pool_resize_pointer(
             widget_memory_pool, widget->parameters.text_box_parameters.text, byte_length + 2);
         widget->parameters.text_box_parameters.text = new_text;
 
@@ -71,8 +71,8 @@ void widget_instance_render_text_box(widget_instance *widget, ui_widget_definiti
         }
     }
 
-    unsigned __int16 **text_field = &widget->parameters.text_box_parameters.text;
-    unsigned __int16 *text = *text_field;
+    uint16_t **text_field = &widget->parameters.text_box_parameters.text;
+    uint16_t *text = *text_field;
     if (!text || !*text)
         return;
 
@@ -84,9 +84,9 @@ void widget_instance_render_text_box(widget_instance *widget, ui_widget_definiti
         {
             if (entry && entry->search_string[0])
             {
-                unsigned __int16 *replacement = ui_widget_search_and_replace_invoke(widget, entry->replace_function);
-                unsigned __int16 wide_buffer[32];
-                unsigned __int16 *find_string = ascii_to_wide(entry->search_string, wide_buffer, 0x40);
+                uint16_t *replacement = ui_widget_search_and_replace_invoke(widget, entry->replace_function);
+                uint16_t wide_buffer[32];
+                uint16_t *find_string = ascii_to_wide(entry->search_string, wide_buffer, 0x40);
                 search_and_replace(find_string, replacement, text_field);
             }
         }
@@ -102,8 +102,8 @@ void widget_instance_render_text_box(widget_instance *widget, ui_widget_definiti
     rectangle2d bounds = definition->bounds;
     rectangle2d clip = clip_rect ? *clip_rect : definition->bounds;
 
-    __int16 hoffset = definition->hoffset;
-    __int16 voffset = definition->voffset;
+    int16_t hoffset = definition->hoffset;
+    int16_t voffset = definition->voffset;
     bounds.x1 += offset.x;
     bounds.y1 += offset.y;
     bounds.x0 += hoffset + offset.x;
@@ -155,10 +155,10 @@ void widget_instance_render_text_box(widget_instance *widget, ui_widget_definiti
     draw_string_set_draw_mode(definition->font_tag.index, -1, definition->justification, 0, &color);
 
     unsigned char has_icon = 0;
-    unsigned __int16 *scan = *text_field;
+    uint16_t *scan = *text_field;
     while (scan)
     {
-        unsigned __int16 *percent = wcschr(scan, '%');
+        uint16_t *percent = wcschr(scan, '%');
         if (!percent)
             break;
         if (get_icon_type(percent + 1) != -1)
@@ -169,7 +169,7 @@ void widget_instance_render_text_box(widget_instance *widget, ui_widget_definiti
         scan = percent + 1;
     }
 
-    unsigned __int16 *final_text = *text_field;
+    uint16_t *final_text = *text_field;
     if (has_icon)
         draw_string_and_hack_in_icons(&bounds, &clip, 0, 0, final_text, 0);
     else

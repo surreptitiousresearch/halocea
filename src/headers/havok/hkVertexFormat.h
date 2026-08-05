@@ -3,6 +3,7 @@
    stack footprints round it to 272). Layout from types_members hkVertexFormat /
    hkVertexFormat::Element. */
 
+#include <stdint.h>
 #include "hkEnum.h"
 #include "hkFlags.h"
 
@@ -47,11 +48,11 @@ enum HintFlags
 typedef struct hkVertexFormat_Element
 {
     hkEnum<DataType, unsigned char> m_dataType;   /* 0x00 */
-    unsigned __int8 m_numValues;                  /* 0x01 */
+    uint8_t m_numValues;                  /* 0x01 */
     hkEnum<DataUsage, unsigned char> m_usage;     /* 0x02 */
-    unsigned __int8 m_subUsage;                   /* 0x03 */
+    uint8_t m_subUsage;                   /* 0x03 */
     hkFlags<HintFlags, unsigned char> m_flags;    /* 0x04 */
-    unsigned __int8 m_pad[3];                     /* 0x05 */
+    uint8_t m_pad[3];                     /* 0x05 */
 } hkVertexFormat_Element;
 
 /* Local alias so member spellings match the DB's nested-qualified type

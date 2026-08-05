@@ -25,7 +25,7 @@ void device_add_scenario_information(unsigned int device_index, scenario_device_
     device_datum *device = (device_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, device_index)->datum;
     device_group_datum *groups = (device_group_datum *)device_groups_data->data;
 
-    __int16 power_group_index = scenario_device->power_group_index;
+    int16_t power_group_index = scenario_device->power_group_index;
     if ( power_group_index == -1 )
     {
         float desired_value = (scenario_device->flags & (1u << _scenario_device_initially_off_bit)) ? 0.0f : 1.0f;
@@ -33,7 +33,7 @@ void device_add_scenario_information(unsigned int device_index, scenario_device_
     }
     device->device.power_group_index = power_group_index;
 
-    __int16 position_group_index = scenario_device->position_group_index;
+    int16_t position_group_index = scenario_device->position_group_index;
     if ( position_group_index == -1 )
     {
         float desired_value = (scenario_device->flags & (1u << _scenario_device_initially_open_bit)) ? 1.0f : 0.0f;
@@ -41,8 +41,8 @@ void device_add_scenario_information(unsigned int device_index, scenario_device_
     }
     device->device.position_group_index = position_group_index;
 
-    device->device.power = groups[(unsigned __int16)power_group_index].desired_value;
-    device->device.position = groups[(unsigned __int16)position_group_index].desired_value;
+    device->device.power = groups[(uint16_t)power_group_index].desired_value;
+    device->device.position = groups[(uint16_t)position_group_index].desired_value;
 
     if ( scenario_device->flags & (1u << _scenario_device_position_reversed_bit) )
         device->device.flags |= (1u << _device_position_reversed_bit);

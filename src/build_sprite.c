@@ -75,7 +75,7 @@ void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index,
                 build_sprite_group *sprite_group = &data->groups[group_index];
                 if (sprite_group->sprite_count < data->maximum_sprite_count)
                 {
-                    __int16 corner_index = 4 * sprite_group->sprite_count;
+                    int16_t corner_index = 4 * sprite_group->sprite_count;
                     float rotation_sin = 0.0f;
                     float rotation_cos = 1.0f;
                     real_rectangle3d view_bounds = *global_null_rectangle3d;
@@ -115,23 +115,23 @@ void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index,
                     }
 
                     unsigned int packed_color =
-                            ((unsigned int)(unsigned __int8)(__int64)(color->n[0] * 255.0f) << 24)
-                          | ((unsigned int)(unsigned __int8)(__int64)(color->n[1] * 255.0f) << 16)
-                          | ((unsigned int)(unsigned __int8)(__int64)(color->n[2] * 255.0f) << 8)
-                          | (unsigned __int8)(__int64)(color->n[3] * 255.0f);
-                    unsigned __int8 alpha_byte;
+                            ((unsigned int)(uint8_t)(int64_t)(color->n[0] * 255.0f) << 24)
+                          | ((unsigned int)(uint8_t)(int64_t)(color->n[1] * 255.0f) << 16)
+                          | ((unsigned int)(uint8_t)(int64_t)(color->n[2] * 255.0f) << 8)
+                          | (uint8_t)(int64_t)(color->n[3] * 255.0f);
+                    uint8_t alpha_byte;
                     if (shader && shader->effect.framebuffer_blend_function
                         && (shader->effect.flags & (1u << _shader_effect_uses_nonlinear_tint_bit)) == 0)
                     {
-                        alpha_byte = (unsigned __int8)(__int64)(fade * 255.0f);
+                        alpha_byte = (uint8_t)(int64_t)(fade * 255.0f);
                     }
                     else
                     {
-                        alpha_byte = (unsigned __int8)(__int64)((float)(packed_color >> 24) * fade);
+                        alpha_byte = (uint8_t)(int64_t)((float)(packed_color >> 24) * fade);
                     }
                     unsigned int vertex_color = ((unsigned int)alpha_byte << 24) | (packed_color & 0xFFFFFF);
 
-                    for (__int16 corner = 0; ; )
+                    for (int16_t corner = 0; ; )
                     {
                         float corner_u = (((corner >> 1) ^ corner) & 1) ? sprite->bounds.__s1.x1
                                                                         : sprite->bounds.__s1.x0;
@@ -187,7 +187,7 @@ void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index,
                         vertex->texcoord.n[0] = corner_u;
 
                         ++corner_index;
-                        corner = (__int16)(corner + 1);
+                        corner = (int16_t)(corner + 1);
                         if (corner >= 4)
                             break;
                     }

@@ -23,8 +23,8 @@ extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 uint8_t actor_emotion_flee_with_friends(int actor_index, float *flee_chance)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    __int16 fleeing_friends = 0;
-    __int16 combat_friends = 0;
+    int16_t fleeing_friends = 0;
+    int16_t combat_friends = 0;
 
     prop_iterator iterator;
     prop_iterator_new(&iterator, actor_index);
@@ -32,7 +32,7 @@ uint8_t actor_emotion_flee_with_friends(int actor_index, float *flee_chance)
     {
         int state = prop->state;
         if (state >= _prop_state_becoming_unacknowledged && state <= _prop_state_acknowledged && !prop->enemy
-            && (unsigned __int16)prop->type == (unsigned __int16)actor->meta.type
+            && (uint16_t)prop->type == (uint16_t)actor->meta.type
             && prop->actor_index != -1)
         {
             actor_datum *friend = DATA_ARRAY_ELEMENT(actor_data, actor_datum, prop->actor_index);

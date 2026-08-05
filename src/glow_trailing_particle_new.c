@@ -56,7 +56,7 @@ glow_particle * glow_trailing_particle_new(glow_datum *glow)
         get_particle_world_position(glow, particle, 0.0f);
     }
 
-    unsigned __int16 velocity_mode = definition->trailing_particle_distribution;
+    uint16_t velocity_mode = definition->trailing_particle_distribution;
     if ( velocity_mode )
     {
         if ( velocity_mode == 1 )

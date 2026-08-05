@@ -14,7 +14,7 @@
 
 void actor_action_flush_structure_indices(uint16_t actor_index)
 {
-    __int16 action = ((__int16 *)actor_data->data)[914 * actor_index + 54];
+    int16_t action = ((int16_t *)actor_data->data)[914 * actor_index + 54];
     void (__fastcall *flush_structure_indices)(int actor_index) = global_action_functions[action].flush_structure_indices;
 
     if (flush_structure_indices)

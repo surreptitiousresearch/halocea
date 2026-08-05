@@ -58,7 +58,7 @@ static void announce_kill_hud_message(int recipient_player_index, int message, i
                 continue;
 
             /* local_player_index; -1 (0xFFFF) => not a local player, no local chat line */
-            if ((unsigned __int16)player->local_player_index != 0xFFFF
+            if ((uint16_t)player->local_player_index != 0xFFFF
                 && multiplayer_message_internal(index, message, dead_player_index, text, 1024))
             {
                 text[1023] = 0;
@@ -83,7 +83,7 @@ static void announce_kill_hud_message(int recipient_player_index, int message, i
         if (!player)
             return;
 
-        if ((unsigned __int16)player->local_player_index != 0xFFFF
+        if ((uint16_t)player->local_player_index != 0xFFFF
             && multiplayer_message_internal(recipient_player_index, message, dead_player_index,
                                             text, 1024))
         {

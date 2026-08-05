@@ -13,7 +13,8 @@ void device_group_get_value_evaluate(int16_t function_index, int thread_index, u
     if ( arguments )
     {
         int result;
-        *(float *)&result = device_group_get_value(*(__int16 *)arguments);
+        /* DEVIATION: lhz (zero-extend) @+0x24 — uint16_t, not the decompiler's signed int16_t read */
+        *(float *)&result = device_group_get_value(*(uint16_t *)arguments);
         hs_return(thread_index, result);
     }
 }

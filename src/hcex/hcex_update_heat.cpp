@@ -8,9 +8,10 @@
  * FPR-arg convention. Prototype matches the caller (hcex_update_weapon_state) which passes a float. The ws
  * modifier / ref-type / parameter-list types are extern boundaries. */
 
+#include <stdint.h>
 #include "../headers/hcex/hcex_modifier_boundary.h"
 
-extern "C" float hcex_update_heat(int modelId, __int16 local_player_index, float heat_level)
+extern "C" float hcex_update_heat(int modelId, int16_t local_player_index, float heat_level)
 {
     propOBJ_MODIFIER_LIST *modifier = GetModifier(modelId, local_player_index);
     if ( !modifier )

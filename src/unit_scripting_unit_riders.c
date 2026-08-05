@@ -3,6 +3,7 @@
  * biped or vehicle (object types 0/1) currently occupying a seat (seat index +0x2F0 != 0xFFFF). Returns the
  * new object list, or -1 for an invalid unit or list-allocation failure. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -26,7 +27,7 @@ int unit_scripting_unit_riders(int unit_index)
     {
         unit_datum *child_data = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, child)->datum;
         if ( ((1 << child_data->object.type) & object_mask_unit) != 0
-             && (unsigned __int16)child_data->unit.parent_seat_index != 0xFFFF )
+             && (uint16_t)child_data->unit.parent_seat_index != 0xFFFF )
             object_list_add(object_list, child);
         child = child_data->object.next_object_index;
     }

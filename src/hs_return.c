@@ -23,7 +23,7 @@ void hs_return(uint16_t thread_index, int value)
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
     hs_syntax_node *syntax_node = &HS_SYNTAX_NODE(thread->stack->expression_index);
 
-    __int16 return_type;
+    int16_t return_type;
     if ( (syntax_node->flags & (1u << _hs_syntax_node_script_bit)) != 0 )
         return_type = ((hs_script *)global_scenario->hs_scripts.address)[syntax_node->___u1.script_index].return_type;
     else

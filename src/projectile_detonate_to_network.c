@@ -13,6 +13,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/projectile_datum.h"
 #include "headers/object_header_flags.h"
+#include "headers/projectile_detonate_network_data.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -30,14 +31,13 @@ void projectile_detonate_to_network(int object_index)
     object_header_datum *header_entry = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index);
     projectile_datum *projectile = (projectile_datum *)header_entry->datum;
 
-    int payload[4];
-    payload[0] = field_translated_index_translate_index_no_default(&field_properties_object_index_definition, object_index);
-    /* raw float position dwords copied bit-exact into the int payload */
-    payload[1] = *(int *)&projectile->object.position.n[0];
-    payload[2] = *(int *)&projectile->object.position.n[1];
-    payload[3] = *(int *)&projectile->object.position.n[2];
+    /* DEVIATION: the decompiler's int[4] payload with word-punned position dwords is the DB-typed
+       projectile_detonate_network_data message (decoded by projectile_detonate_from_network) */
+    projectile_detonate_network_data payload;
+    payload.object_index = field_translated_index_translate_index_no_default(&field_properties_object_index_definition, object_index);
+    payload.position = projectile->object.position;
 
-    int encoded_size = message_delta_processor_encode_stateless(_message_projectile_detonate, 0, payload,
+    int encoded_size = message_delta_processor_encode_stateless(_message_projectile_detonate, 0, &payload,
                             g_message_encode_buffer, 32760);
 
     network_game_server *server = global_network_game_server_get();

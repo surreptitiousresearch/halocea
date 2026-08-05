@@ -63,9 +63,9 @@ void weather_particle_system_update(int16_t system_index)
         int i = system->types[type_index].first_particle_index;
         while ( i != -1 )
         {
-            weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (unsigned __int16)i;
+            weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (uint16_t)i;
 
-            __int16 phase_index = particle->sequence_index;
+            int16_t phase_index = particle->sequence_index;
             float new_phase = particle->animation_rate * system->time_delta_sec + particle->sprite_index;
             /* period = sequence[phase_index].sprites.count (bitmap_group_sequence stride 64, sprites count@+52) */
             int period = ((bitmap_group_sequence *)type_tag->sequences.address)[phase_index].sprites.count;

@@ -30,7 +30,7 @@ void bitmap_height_map(bitmap_data *bitmap, float bump_height)
         return;
     }
 
-    unsigned __int16 type = (unsigned __int16)bitmap->type;
+    uint16_t type = (uint16_t)bitmap->type;
 
     if ( bitmap->type == bitmap_type_2d )
     {
@@ -51,7 +51,7 @@ void bitmap_height_map(bitmap_data *bitmap, float bump_height)
     bitmap_data *slice = bitmap_2d_new(bitmap->width, bitmap->height, 0, bitmap->format);
     if ( slice && slice->base_address )
     {
-        for ( __int16 depth = 0; depth < bitmap->depth; ++depth )
+        for ( int16_t depth = 0; depth < bitmap->depth; ++depth )
         {
             bitmap_3d_slice_extract(bitmap, 0, depth, slice);
             bitmap_2d_height_map(slice, bump_height);

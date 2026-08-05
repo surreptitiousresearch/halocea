@@ -12,6 +12,7 @@
  * marker paths; and (c) the 3-marker interval-1 path reads knot1 from the never-written knot scratch.
  * These only bite when a glow has fewer than four markers. */
 
+#include <stdint.h>
 #include "headers/glow_datum.h"
 #include "headers/glow_particle.h"
 #include "headers/object_marker.h"
@@ -47,7 +48,7 @@ void get_particle_world_position(glow_datum *glow, glow_particle *particle, floa
             {
                 if (glow->marker_time_index[i] <= t && glow->marker_time_index[i + 1] > t)
                     break;
-                marker_index = (__int16)(i + 1);
+                marker_index = (int16_t)(i + 1);
                 i = marker_index;
             } while (marker_index < last);
         }
@@ -56,9 +57,9 @@ void get_particle_world_position(glow_datum *glow, glow_particle *particle, floa
         else if (marker_index > last)
             marker_index = glow->number_of_markers - 1;
     }
-    particle->parent_marker_index = (__int16)marker_index;
+    particle->parent_marker_index = (int16_t)marker_index;
 
-    number_of_markers = (unsigned __int16)glow->number_of_markers;
+    number_of_markers = (uint16_t)glow->number_of_markers;
 
     if (number_of_markers == 2)
     {
@@ -199,7 +200,7 @@ void get_particle_world_position(glow_datum *glow, glow_particle *particle, floa
     {
         /* general path: build a 4-marker window around the active interval */
         int center = 0;
-        int last = (__int16)number_of_markers - 1;
+        int last = (int16_t)number_of_markers - 1;
         if (last > 0)
         {
             float tt = particle->t;
@@ -208,7 +209,7 @@ void get_particle_world_position(glow_datum *glow, glow_particle *particle, floa
             {
                 if (glow->marker_time_index[i] <= tt && tt <= glow->marker_time_index[i + 1])
                     break;
-                center = (__int16)(i + 1);
+                center = (int16_t)(i + 1);
                 i = center;
             } while (center < last);
         }
@@ -219,7 +220,7 @@ void get_particle_world_position(glow_datum *glow, glow_particle *particle, floa
 
         /* widen [left, right] outward until it spans four knots (clamped at the marker ends) */
         int left = center;
-        int right = (__int16)(center + 1);
+        int right = (int16_t)(center + 1);
         if ((right - center) + 1 < 4)
         {
             do
@@ -227,7 +228,7 @@ void get_particle_world_position(glow_datum *glow, glow_particle *particle, floa
                 if (left > 0)
                     left = left - 1;
                 if (right < last)
-                    right = (__int16)(right + 1);
+                    right = (int16_t)(right + 1);
             } while ((right - left) + 1 < 4);
         }
 

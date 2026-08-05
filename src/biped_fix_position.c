@@ -135,10 +135,10 @@ uint8_t biped_fix_position(int biped_index, int line_of_site_object_index, const
 
     int fudge_count = fix_below_new_position ? 27 : 18;
 
-    __int16 i = 0;
+    int16_t i = 0;
     do
     {
-        __int16 current = i;
+        int16_t current = i;
         if ( current >= fudge_count )
             break;
 
@@ -200,7 +200,7 @@ uint8_t biped_fix_position(int biped_index, int line_of_site_object_index, const
             found = 1;
         }
 
-        i = (__int16)(current + 1);
+        i = (int16_t)(current + 1);
     }
     while ( !(char)found );
 

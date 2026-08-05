@@ -26,12 +26,12 @@ uint8_t actors_searching_same_position(int actor_index, int friend_actor_index)
     actor_datum *friend_actor = DATUM_GET(actor_data, actor_datum, friend_actor_index);
 
     pursuit_location *actor_pursuit = 0;
-    __int16 actor_action = actor->state.action;
+    int16_t actor_action = actor->state.action;
     if ( actor_action == actor_action_search || actor_action == actor_action_uncover )
         actor_pursuit = &actor->state.action_data.___u0.search.pursuit_location;        /* actor+164 */
 
     pursuit_location *friend_pursuit = 0;
-    __int16 friend_action = friend_actor->state.action;
+    int16_t friend_action = friend_actor->state.action;
     if ( friend_action == actor_action_search || friend_action == actor_action_uncover )
         friend_pursuit = &friend_actor->state.action_data.___u0.search.pursuit_location; /* friend+164 */
 

@@ -30,8 +30,8 @@ extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_evasion(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern unsigned __int8 actor_action_can_stop_guarding(int actor_index, int arg2, int arg3);
-extern unsigned __int8 actor_action_can_stop_conversing(int actor_index);
+extern uint8_t actor_action_can_stop_guarding(int actor_index, int arg2, int arg3);
+extern uint8_t actor_action_can_stop_conversing(int actor_index);
 
 void sentinel_decide_action(int actor_index)
 {
@@ -46,8 +46,8 @@ void sentinel_decide_action(int actor_index)
         actor_action_handle_danger_avoidance(actor_index);
     }
 
-    unsigned __int8 can_stop;
-    unsigned __int8 no_partner;
+    uint8_t can_stop;
+    uint8_t no_partner;
 
     switch ( actor->state.action )
     {

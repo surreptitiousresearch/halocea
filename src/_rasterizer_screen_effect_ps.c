@@ -97,7 +97,7 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
     if ( global_window_parameters.rasterizer_target != _rasterizer_target_render_primary )
         return;
 
-    __int16 total_passes = 2 * (cinematic_parameters->convolution_extra_passes + 1);
+    int16_t total_passes = 2 * (cinematic_parameters->convolution_extra_passes + 1);
     rasterizer_dx9_shader *shader = rasterizer_shader_select(_dxshader_screen_effect);
 
     /* full-screen NDC quad, opaque white */
@@ -114,10 +114,10 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_screen));
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_convolution));
 
-    for ( __int16 pass_index = 0; pass_index < total_passes; ++pass_index )
+    for ( int16_t pass_index = 0; pass_index < total_passes; ++pass_index )
     {
         /* ping-pong render targets by pass parity (single pass -> back buffer) */
-        __int16 source_rt, target_rt;
+        int16_t source_rt, target_rt;
         if ( total_passes == 1 )      { source_rt = -1; target_rt = -1; }
         else if ( pass_index & 1 )    { source_rt =  2; target_rt =  1; }
         else                          { source_rt =  1; target_rt =  2; }
@@ -137,8 +137,8 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
         if ( total_passes > 1 && !(pass_index & 1) )
         {
             /* even multi-pass: remap the vertical texcoords to this viewport's y-sub-region (720 rows) */
-            __int16 viewport_top    = global_window_parameters.camera.viewport_bounds.n[0];
-            __int16 viewport_bottom = global_window_parameters.camera.viewport_bounds.n[2];
+            int16_t viewport_top    = global_window_parameters.camera.viewport_bounds.n[0];
+            int16_t viewport_bottom = global_window_parameters.camera.viewport_bounds.n[2];
             vertex_data[2].texcoord.n[1] = ((float)height * (float)viewport_top) * (float)0.0013888889;
             vertex_data[3].texcoord.n[1] = vertex_data[2].texcoord.n[1];
             vertex_data[0].texcoord.n[1] = ((float)height * (float)viewport_bottom) * (float)0.0013888889;
@@ -185,7 +185,7 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
                             rasterizer_set_texture_bitmap_data_for_effect(0, cinematic_parameters->convolution_mask,
                                     shader);
                         else if ( stage <= 3 )
-                            rasterizer_set_target_as_texture_for_effect((__int16)stage, source_rt, 0, shader);
+                            rasterizer_set_target_as_texture_for_effect((int16_t)stage, source_rt, 0, shader);
                         else
                             goto render;
                         goto stage_samplers;
@@ -231,7 +231,7 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
                 if ( stage == 0 )
                     rasterizer_set_texture_bitmap_data_for_effect(0, cinematic_parameters->convolution_mask, shader);
                 else if ( stage <= 3 )
-                    rasterizer_set_target_as_texture_for_effect((__int16)stage, source_rt, 0, shader);
+                    rasterizer_set_target_as_texture_for_effect((int16_t)stage, source_rt, 0, shader);
                 else
                     goto next_stage;
 
@@ -306,7 +306,7 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
             if ( cinematic_parameters->convolution_type )
             {
                 subpass = 0;
-                __int16 last_pass = total_passes - 1;
+                int16_t last_pass = total_passes - 1;
 
                 if ( !cinematic_parameters->convolution_mask )
                 {

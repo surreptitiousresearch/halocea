@@ -42,7 +42,7 @@ int postprocess_bitmap_group(int bitmap_group_index, uint8_t editing)
                 texture_cache_bitmap_new(bitmap_group_index, bitmap);
             else
                 result = 0;
-            bitmap_index = (__int16)(bitmap_index + 1);
+            bitmap_index = (int16_t)(bitmap_index + 1);
         }
         while ( bitmap_index < bitmap_group_def->bitmaps.count );
     }
@@ -62,7 +62,7 @@ int postprocess_bitmap_group(int bitmap_group_index, uint8_t editing)
                 sequence->bitmap_count = 0;
             }
             sequence_count = bitmap_group_def->sequences.count;
-            sequence_index = (__int16)(sequence_index + 1);
+            sequence_index = (int16_t)(sequence_index + 1);
         }
         while ( sequence_index < sequence_count );
 

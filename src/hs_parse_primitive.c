@@ -19,7 +19,7 @@ uint8_t hs_parse_primitive(int expression_index)
 {
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
     int result = 0;
-    __int16 type = node->type;
+    int16_t type = node->type;
 
     if ( type == hs_special_form )
     {
@@ -43,7 +43,7 @@ uint8_t hs_parse_primitive(int expression_index)
     if ( (unsigned char)result )
         return result;
 
-    __int16 resolved_type = node->type;
+    int16_t resolved_type = node->type;
     if ( resolved_type
       && !hs_compile_globals.__noop
       && (!variables_predetermined || (node->flags & (1u << _hs_syntax_node_variable_bit)) == 0) )

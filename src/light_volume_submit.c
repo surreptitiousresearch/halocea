@@ -39,7 +39,7 @@ void light_volume_submit(int object_index, int widget_index, const render_lighti
     if ( definition->count <= 0 || definition->frames.count <= 0 )
         return;
 
-    __int16 animation_value_index = definition->brightness_scale_source;
+    int16_t animation_value_index = definition->brightness_scale_source;
     if ( animation_value_index && animation && animation->values[animation_value_index - 1] <= 0.0f )
         return;
 

@@ -21,7 +21,7 @@ extern void encounters_update_dirty_status(void);
 void ai_scripting_free_units(int object_list_index)
 {
     int iterator[12];
-    __int16 freed_count = 0;
+    int16_t freed_count = 0;
     for ( int object_index = object_list_get_first(object_list_index, iterator);
           object_index != -1;
           object_index = object_list_get_next(object_list_index, iterator) )

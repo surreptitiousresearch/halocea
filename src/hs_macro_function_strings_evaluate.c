@@ -21,7 +21,7 @@ extern void hs_evaluate(int thread_index, int expression_index, int *destination
 
 uint8_t hs_macro_function_strings_evaluate(int thread_index, uint8_t initialize, int *count_out, const char ***strings_out)
 {
-    hs_thread *thread = (hs_thread *)hs_thread_data->data + (unsigned __int16)thread_index;
+    hs_thread *thread = (hs_thread *)hs_thread_data->data + (uint16_t)thread_index;
     int done = 1;
 
     /* slot 1: collected-value count (4-byte aligned int).
@@ -33,7 +33,7 @@ uint8_t hs_macro_function_strings_evaluate(int thread_index, uint8_t initialize,
     int *count = (int *)(((unsigned int)stack_top + 3) & ~0x3u); /* align up to 4 */
     if ( (unsigned int)(count - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --count;
-    frame->size = (__int16)((unsigned char *)count - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)count - frame->data + 4);
 
     /* slot 2: 32-entry value array (128 bytes) */
     frame = thread->stack;
@@ -41,15 +41,15 @@ uint8_t hs_macro_function_strings_evaluate(int thread_index, uint8_t initialize,
     char *values = (char *)(((unsigned int)stack_top + 3) & ~0x3u); /* align up to 4 */
     if ( (unsigned int)(values - 4) > (unsigned int)stack_top )   /* dead branch (shipped) */
         values -= 4;
-    frame->size = (__int16)((unsigned char *)values - frame->data + 128);
+    frame->size = (int16_t)((unsigned char *)values - frame->data + 128);
 
     /* slot 3: argument cursor (2-byte aligned int16) */
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    __int16 *cursor = (__int16 *)(((unsigned int)stack_top + 1) & ~0x1u); /* align up to 2 */
+    int16_t *cursor = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u); /* align up to 2 */
     if ( (unsigned int)(cursor - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --cursor;
-    frame->size = (__int16)((unsigned char *)cursor - frame->data + 2);
+    frame->size = (int16_t)((unsigned char *)cursor - frame->data + 2);
 
     /* slot 4: current-argument node index (4-byte aligned int) */
     frame = thread->stack;
@@ -57,7 +57,7 @@ uint8_t hs_macro_function_strings_evaluate(int thread_index, uint8_t initialize,
     int *current_argument = (int *)(((unsigned int)stack_top + 3) & ~0x3u); /* align up to 4 */
     if ( (unsigned int)(current_argument - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
         --current_argument;
-    frame->size = (__int16)((unsigned char *)current_argument - frame->data + 4);
+    frame->size = (int16_t)((unsigned char *)current_argument - frame->data + 4);
 
     if ( initialize )
     {
@@ -74,7 +74,7 @@ uint8_t hs_macro_function_strings_evaluate(int thread_index, uint8_t initialize,
         hs_evaluate(thread_index, *current_argument, &value);
         done = 0;
         *current_argument = HS_SYNTAX_NODE(*current_argument).next_node_index;
-        *(int *)&values[4 * *count] = value;
+        ((int *)values)[*count] = value;   /* 4-byte slots in the 4-aligned frame array */
         ++*cursor;
         ++*count;
     }

@@ -40,7 +40,7 @@ void game_statistics_record_kill(int object_index, int owner_player_index, int o
     int victim_player_index = player_index_from_unit_index(object_index);
     int victim_team = -1;
     int victim_flag;
-    __int16 killer_own_record_index = -1;
+    int16_t killer_own_record_index = -1;
 
     if (victim_player_index == -1)
     {
@@ -53,7 +53,7 @@ void game_statistics_record_kill(int object_index, int owner_player_index, int o
         victim_team = victim->team_index;
         if (owner_player_index == victim_player_index)
             ++victim->statistics.suicides;
-        __int16 deaths = victim->statistics.deaths;
+        int16_t deaths = victim->statistics.deaths;
         victim->statistics.kills_in_a_row = 0;               /* reset on death */
         victim->statistics.last_kill_time = -1;
         victim->statistics.multiple_kills = 0;
@@ -64,7 +64,7 @@ void game_statistics_record_kill(int object_index, int owner_player_index, int o
         return;
 
     /* a kill counts toward assists/credit when there is no legitimate enemy killer */
-    unsigned __int8 no_legit_killer = (owner_player_index == -1
+    uint8_t no_legit_killer = (owner_player_index == -1
                                        || !game_team_is_enemy(victim_team, owner_team_index));
 
     int multikill_window = game_time_get() - 120;   /* ~4s: streak/multikill reset window */
@@ -110,7 +110,7 @@ void game_statistics_record_kill(int object_index, int owner_player_index, int o
         }
     }
 
-    unsigned __int8 betrayal = 0;
+    uint8_t betrayal = 0;
     if (best_record_index == -1)
         best_record_index = killer_own_record_index;
 
@@ -135,7 +135,7 @@ void game_statistics_record_kill(int object_index, int owner_player_index, int o
             ++killer->statistics.kills[victim_flag];
             if (!victim_flag)
             {
-                __int16 last_kill_time = killer->statistics.last_kill_time;
+                int16_t last_kill_time = killer->statistics.last_kill_time;
                 ++killer->statistics.kills_in_a_row;
                 if (last_kill_time < multikill_window)
                     killer->statistics.multiple_kills = 1;

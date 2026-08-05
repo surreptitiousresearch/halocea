@@ -4,6 +4,7 @@
  * every location datum, then frees the effect datum itself. No-op if the effect handle is already
  * stale. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/effect_datum.h"
@@ -22,7 +23,7 @@ void effect_delete(int effect_index)
         effect_definition *definition = TAG_GET(effect_definition, effect->definition_index);
         if ( definition->locations.count > 0 )
         {
-            __int16 location_slot = 0;
+            int16_t location_slot = 0;
             do
             {
                 for ( int location_index = effect->location_datum_indices[location_slot]; location_index != -1; )
@@ -35,7 +36,7 @@ void effect_delete(int effect_index)
                     datum_delete(effect_location_data, location_index);
                     location_index = next_location_index;
                 }
-                location_slot = (__int16)(location_slot + 1);
+                location_slot = (int16_t)(location_slot + 1);
             }
             while ( location_slot < definition->locations.count );
         }

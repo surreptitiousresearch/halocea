@@ -21,7 +21,7 @@ uint8_t unit_custom_animation_at_frame(int unit_index, int animation_graph_index
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     animation_graph *graph = TAG_GET(animation_graph, unit->object.animation.animation_graph_index);
     animation *animation_record = &((animation *)graph->animations.address)[unit->object.animation.state.index];
-    __int16 frame_count = animation_record->frame_count;
+    int16_t frame_count = animation_record->frame_count;
     if ( frame_index < 0 || frame_index >= frame_count )
         return 0;
 

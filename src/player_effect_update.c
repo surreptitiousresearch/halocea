@@ -19,7 +19,7 @@ extern void vibrate_player_clear(int16_t local_player_index);
 
 void player_effect_update(void)
 {
-    __int16 local_player;
+    int16_t local_player;
 
     for ( local_player = local_player_get_next(-1); local_player != -1;
           local_player = local_player_get_next(local_player) )

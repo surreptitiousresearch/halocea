@@ -14,7 +14,7 @@ void ai_scripting_force_active(int ai_index, uint8_t active)
 {
     if ( ai_globals->ai_initialized_for_map
       && ai_index != -1
-      && (unsigned __int16)ai_index < global_scenario->ai_encounters.count )
+      && (uint16_t)ai_index < global_scenario->ai_encounters.count )
     {
         DATUM_GET(encounter_data, encounter_datum, ai_index)->force_active = active;
     }

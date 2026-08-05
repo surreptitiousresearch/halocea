@@ -58,8 +58,8 @@ void actor_customize_unit(int actor_variant_definition_index, int unit_index)
 
     if ( variant->change_colors.count > 0 )
     {
-        for ( __int16 color_index = 0; color_index < variant->change_colors.count;
-              color_index = (__int16)(color_index + 1) )
+        for ( int16_t color_index = 0; color_index < variant->change_colors.count;
+              color_index = (int16_t)(color_index + 1) )
         {
             /* change-color element: 32 bytes, a lower/upper real_rgb_color pair (+ unused) */
             const actor_variant_change_colors *change_color =
@@ -71,9 +71,9 @@ void actor_customize_unit(int actor_variant_definition_index, int unit_index)
                 rgb_colors_interpolate(&color, 1u, &change_color->color_lower_bound,
                                        &change_color->color_upper_bound, u);
 
-                int red   = (unsigned __int8)(int)(color.n[0] * 255.0f);
-                int green = (unsigned __int8)(int)(color.n[1] * 255.0f);
-                int blue  = (unsigned __int8)(int)(color.n[2] * 255.0f);
+                int red   = (uint8_t)(int)(color.n[0] * 255.0f);
+                int green = (uint8_t)(int)(color.n[1] * 255.0f);
+                int blue  = (uint8_t)(int)(color.n[2] * 255.0f);
                 hcex_obj_colorize(unit_index, ((red << 8 | green) << 8) | blue);
 
                 unit->object.base_change_colors[color_index].n[0] = color.n[0];
@@ -96,9 +96,9 @@ void actor_customize_unit(int actor_variant_definition_index, int unit_index)
             object_delete(weapon_object);
     }
 
-    if ( (unsigned __int16)variant->grenade_combat.grenade_type != 0xFFFF )
+    if ( (uint16_t)variant->grenade_combat.grenade_type != 0xFFFF )
     {
-        __int16 grenade_count = seed_random_range(get_global_random_seed_address(),
+        int16_t grenade_count = seed_random_range(get_global_random_seed_address(),
                                     variant->items.grenades_lower_bound,
                                     variant->items.grenades_upper_bound + 1);
         unit_add_grenade_type_to_inventory(unit_index, variant->grenade_combat.grenade_type, grenade_count);
@@ -107,7 +107,7 @@ void actor_customize_unit(int actor_variant_definition_index, int unit_index)
     int equipment_index = variant->items.equipment_reference.index;
     if ( equipment_index != -1 )
     {
-        __int16 equipment_type =
+        int16_t equipment_type =
             TAG_GET(equipment_definition, equipment_index)->equipment.powerup_type;
         if ( equipment_type != _powerup_type_none && equipment_type != _powerup_type_grenade )
         {

@@ -9,6 +9,6 @@
 
 uint8_t * structure_bsp_get_cluster_encoded_sound_data(structure_bsp *structure_bsp, int16_t row_index, int16_t column_index)
 {
-    return (unsigned __int8 *)structure_bsp->sound_cluster_data.address
-         + (__int16)((structure_bsp->clusters.count - 1) * row_index - (row_index + 1) * row_index / 2 + column_index - 1);
+    return (uint8_t *)structure_bsp->sound_cluster_data.address
+         + (int16_t)((structure_bsp->clusters.count - 1) * row_index - (row_index + 1) * row_index / 2 + column_index - 1);
 }

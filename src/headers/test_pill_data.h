@@ -3,6 +3,7 @@
  * verbatim from the database type of the same name. */
 #pragma once
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "real_point2d.h"
@@ -19,7 +20,7 @@ typedef struct test_pill_data
     collision_bsp_test_pill_result *result;          /* 0x010 */
     int                             stack_depth;     /* 0x014 */
     int                             plane_stack[128]; /* 0x018 */
-    __int16                         projection_axis; /* 0x218 */
+    int16_t                         projection_axis; /* 0x218 */
     unsigned char                   projection_sign; /* 0x21A */
     unsigned char _pad0[1]; /* db-verified padding */
     real_point2d                    p2d;             /* 0x21C */

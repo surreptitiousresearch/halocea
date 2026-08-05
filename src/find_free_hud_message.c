@@ -2,15 +2,16 @@
  * slot or one already showing the same (item, offset); failing that, evicts the oldest valid slot. Scans the
  * fixed 4-slot ring. An item_definition_index of -1 matches any slot. */
 
+#include <stdint.h>
 #include "headers/hud_messaging_datum.h"
 
 hud_message *find_free_hud_message(hud_messaging_datum *datum, int item_definition_index, char message_offset)
 {
     hud_message *result = nullptr;
     int oldest_time = 0x7FFFFFFF;
-    __int16 oldest_index = 0;
+    int16_t oldest_index = 0;
 
-    __int16 i = 0;
+    int16_t i = 0;
     do
     {
         hud_message *message = &datum->messages[i];
@@ -34,7 +35,7 @@ hud_message *find_free_hud_message(hud_messaging_datum *datum, int item_definiti
                 break;
         }
         ++i;
-    } while ((unsigned __int16)i < 4);
+    } while ((uint16_t)i < 4);
 
     if (!result)
         return &datum->messages[oldest_index];

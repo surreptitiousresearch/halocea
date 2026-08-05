@@ -67,13 +67,13 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
                          uint8_t force_hard_pings, float angle, int16_t body_part,
                          const real_vector2d *alignment_vector, uint8_t gate)
 {
-    unsigned __int8 feign_death_local = feign_death;
+    uint8_t feign_death_local = feign_death;
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     unit_animation *anim = &unit->unit.animation;  /* renamed: avoided shadowing the animation struct type */
     unit_definition *definition = TAG_GET(unit_definition, unit->definition_index);
 
     char should_animate;
-    unsigned __int8 hard_ping = 0;
+    uint8_t hard_ping = 0;
     float threshold;
     float accumulator;
 
@@ -125,9 +125,9 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
         should_animate = 1;
     }
 
-    signed __int16 region = body_part == -1 ? 0 : (unsigned __int16)body_part;
+    int16_t region = body_part == -1 ? 0 : (uint16_t)body_part;
 
-    __int16 direction_bucket;  /* 0 back, 1 right, 2 left, 3 front */
+    int16_t direction_bucket;  /* 0 back, 1 right, 2 left, 3 front */
     if ( __fabs(angle) >= 0.78539819f )
     {
         if ( __fabs(angle) <= 2.159845009446144 )
@@ -154,21 +154,21 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
     if ( !(should_animate || is_dead) )
         return;
 
-    unsigned __int8 hard_ping_or_dead_for_align = hard_ping;
+    uint8_t hard_ping_or_dead_for_align = hard_ping;
     int animation_graph_index = definition->object.animation_graph.index;
     animation_graph *graph = TAG_GET(animation_graph, animation_graph_index);
-    __int16 *damage_animation_indices = (__int16 *)graph->unit_damage_animations.address;
+    int16_t *damage_animation_indices = (int16_t *)graph->unit_damage_animations.address;
 
     if ( !(hard_ping || is_dead) )
     {
         /* soft ping overlay, only if not already overlaying / overlay expired */
-        if ( (unsigned __int16)anim->soft_ping_animation.index == 0xFFFF
+        if ( (uint16_t)anim->soft_ping_animation.index == 0xFFFF
           || anim->soft_ping_animation.frame_index > definition->unit.runtime_soft_ping_minimum_interrupt_ticks )
         {
-            int index = (__int16)(11 * direction_bucket + region);
-            __int16 animation_index = (index < 0 || index >= graph->unit_damage_animations.count)
+            int index = (int16_t)(11 * direction_bucket + region);
+            int16_t animation_index = (index < 0 || index >= graph->unit_damage_animations.count)
                 ? -1 : damage_animation_indices[index];
-            __int16 permutation = animation_choose_random_permutation_internal(
+            int16_t permutation = animation_choose_random_permutation_internal(
                 animation_update_kind_affects_game_state, animation_graph_index, animation_index);
             if ( permutation != -1 )
             {
@@ -181,15 +181,15 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
 
     /* hard ping / death animation */
     char forced_special = 0;
-    __int16 animation_state_id = is_dead == 0 ? _unit_state_hard_ping : _unit_state_dying;
-    __int16 ping_type = is_dead ? (hard_ping ? 3 : 2) : 1;
+    int16_t animation_state_id = is_dead == 0 ? _unit_state_hard_ping : _unit_state_dying;
+    int16_t ping_type = is_dead ? (hard_ping ? 3 : 2) : 1;
 
     char may_animate;
     if ( is_dead || unit_animation_state_interruptable(anim, animation_state_id) )
         may_animate = 1;
     else
         may_animate = 0;
-    if ( (unsigned __int8)anim->state == _unit_state_hard_ping
+    if ( (uint8_t)anim->state == _unit_state_hard_ping
       && unit->object.animation.state.frame_index > definition->unit.runtime_hard_ping_minimum_interrupt_ticks )
         may_animate = 1;
     if ( !is_dead )
@@ -220,10 +220,10 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
     if ( !forced_special || !unit_animation_set_state(unit_index, animation_state_id) )
     {
         int ping_type_for_table = ping_type;
-        int index = (__int16)(11 * (4 * ping_type + direction_bucket) + region);
-        __int16 animation_index = (index < 0 || index >= graph->unit_damage_animations.count)
+        int index = (int16_t)(11 * (4 * ping_type + direction_bucket) + region);
+        int16_t animation_index = (index < 0 || index >= graph->unit_damage_animations.count)
             ? -1 : damage_animation_indices[index];
-        __int16 permutation = animation_choose_random_permutation_internal(
+        int16_t permutation = animation_choose_random_permutation_internal(
             animation_update_kind_affects_game_state, definition->object.animation_graph.index, animation_index);
 
         if ( permutation == -1 )
@@ -242,7 +242,7 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
         }
         else
         {
-            if ( (unsigned __int8)anim->state == _unit_state_throw_grenade )
+            if ( (uint8_t)anim->state == _unit_state_throw_grenade )
                 unit_throw_grenade_release(unit_index, 1u);
             object_start_interpolation(unit_index, 3);
             anim->state = animation_state_id;
@@ -275,7 +275,7 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
                     }
                     if ( seed_twitch == 1 )
                     {
-                        __int16 base = ((animation *)graph->animations.address)[ping_type_for_table].frame_count;
+                        int16_t base = ((animation *)graph->animations.address)[ping_type_for_table].frame_count;
                         int low = base >> 2;
                         int high = (base >> 1) + low;
                         char twitch = seed_random_range(get_global_random_seed_address(), low, high);
@@ -290,7 +290,7 @@ void unit_ping_animation(int unit_index, uint8_t died, uint8_t feign_death,
             if ( direction_bucket )
             {
                 int index2 = 44 * ping_type_for_table + region;
-                __int16 mapped = (index2 < 0 || index2 >= graph->unit_damage_animations.count)
+                int16_t mapped = (index2 < 0 || index2 >= graph->unit_damage_animations.count)
                     ? -1 : damage_animation_indices[index2];
                 direction_bucket = mapped == ((animation *)graph->animations.address)[ping_type_for_table].runtime_parent_animation_index
                     ? 0 : direction_bucket;

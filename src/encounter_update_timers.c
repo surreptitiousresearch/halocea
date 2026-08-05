@@ -41,7 +41,7 @@ void encounter_update_timers(uint16_t encounter_index)
 
     if ( encounter->post_combat && encounter->post_combat_delay )
     {
-        __int16 decay_timer = encounter->post_combat_delay_timer;
+        int16_t decay_timer = encounter->post_combat_delay_timer;
         encounter->post_combat_delay_timer = decay_timer <= 15 ? 0 : decay_timer - 15;
     }
 }

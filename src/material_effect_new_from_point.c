@@ -37,7 +37,7 @@ void material_effect_new_from_point(int effects_definition_index, int16_t effect
     collision_result collision;
     if (collision_test_vector(_collision_test_for_bipeds_passthrough_living_flags /* 0xC2A0 */, &ray_origin, &ray_delta, -1, &collision))
     {
-        __int16 material_type = _material_water;
+        int16_t material_type = _material_water;
         if (!scenario_location_underwater(&collision.location, &collision.point, nullptr))
             material_type = collision.material_type;
 

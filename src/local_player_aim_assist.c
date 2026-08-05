@@ -34,7 +34,7 @@ int local_player_aim_assist(int16_t local_player_index, float *autoaim_level, fl
                             real_euler_angles2d *target_angular_position,
                             real_euler_angles2d *target_angular_velocity)
 {
-    __int16 perspective = director_get_perspective(local_player_index);
+    int16_t perspective = director_get_perspective(local_player_index);
     *autoaim_level = 0.0f;
     *magnetism_level = 0.0f;
     target_angular_position->n[1] = 0.0f;
@@ -48,7 +48,7 @@ int local_player_aim_assist(int16_t local_player_index, float *autoaim_level, fl
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum,
                  local_player_get_player_index(local_player_index));
     int aiming_unit_index = unit_get_aiming_unit_index(player->unit_index);
-    __int16 zoom_level = player_control_get_zoom_level(local_player_index);
+    int16_t zoom_level = player_control_get_zoom_level(local_player_index);
 
     aim_assist_parameters parameters;
     if (!unit_get_aim_assist_parameters(aiming_unit_index, zoom_level, &parameters))

@@ -57,7 +57,7 @@ uint8_t slayer_engine_display_score(int player_index, int message, int message_d
     if ( game_engine_get_variant()->universal_variant.teams )
     {
         game_engine_place place = game_engine_get_place(player_index, _get_score_team);
-        unsigned __int16 *place_name = get_place_name(place);
+        uint16_t *place_name = get_place_name(place);
         int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
         const wchar_t *format = (text_tag != -1)
             ? unicode_string_list_get_string(text_tag, _string_name_kills_score_n_team_score_of_max)
@@ -72,7 +72,7 @@ uint8_t slayer_engine_display_score(int player_index, int message, int message_d
     else
     {
         game_engine_place place = game_engine_get_place(player_index, _get_score_team);
-        unsigned __int16 *place_name = get_place_name(place);
+        uint16_t *place_name = get_place_name(place);
         int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
         const wchar_t *format = (text_tag != -1)
             ? unicode_string_list_get_string(text_tag, _string_name_kills_score_of_max)

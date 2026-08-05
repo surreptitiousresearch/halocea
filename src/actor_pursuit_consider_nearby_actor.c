@@ -28,18 +28,18 @@ uint8_t actor_pursuit_consider_nearby_actor(uint8_t actor_index, int pursuit_coo
     if ( !friend_actor )
         return 0;
 
-    __int16 combat_status = friend_actor->state.combat_status;
+    int16_t combat_status = friend_actor->state.combat_status;
     if ( combat_status < _actor_combat_status_investigate || combat_status >= _actor_combat_status_certain )
         return 0;
 
-    __int16 action = friend_actor->state.action;
+    int16_t action = friend_actor->state.action;
     if ( action != actor_action_search && action != actor_action_uncover
       && (actor_index || action != actor_action_wait)
       /* faithful: byte read at +164 = big-endian HIGH byte of search.pursuit_location.type; and a 16-bit
        * read at +156 spanning the search_done/search_failed u8 pair — exact widths preserved */
       && (action != actor_action_guard
-          || ((unsigned __int8 *)&friend_actor->state.action_data.___u0.search.pursuit_location.type)[0]
-          || *(__int16 *)&friend_actor->state.action_data.___u0.search.search_done <= 0) )
+          || ((uint8_t *)&friend_actor->state.action_data.___u0.search.pursuit_location.type)[0]
+          || *(int16_t *)&friend_actor->state.action_data.___u0.search.search_done <= 0) )
     {
         return 0;
     }

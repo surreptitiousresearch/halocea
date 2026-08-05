@@ -31,7 +31,7 @@ int projectile_build_update_delta(int object_index, void *buffer, int buffer_siz
         return 0;
 
     int translated_index = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
-    __int16 object_type = object->object.type;
+    int16_t object_type = object->object.type;
 
     _projectile_update_header header;
     header.translated_object_index = translated_index;
@@ -44,14 +44,14 @@ int projectile_build_update_delta(int object_index, void *buffer, int buffer_siz
     int result;
     if ( mode == _message_delta_mode_incremental )
     {
-        /* position + translational_velocity as raw float bits */
-        int source_data[6];
-        source_data[0] = *(int *)&object->object.position.n[0];
-        source_data[1] = *(int *)&object->object.position.n[1];
-        source_data[2] = *(int *)&object->object.position.n[2];
-        source_data[3] = *(int *)&object->object.translational_velocity.n[0];
-        source_data[4] = *(int *)&object->object.translational_velocity.n[1];
-        source_data[5] = *(int *)&object->object.translational_velocity.n[2];
+        /* payload gather: position + translational_velocity (binary word-copies the floats) */
+        float source_data[6];
+        source_data[0] = object->object.position.n[0];
+        source_data[1] = object->object.position.n[1];
+        source_data[2] = object->object.position.n[2];
+        source_data[3] = object->object.translational_velocity.n[0];
+        source_data[4] = object->object.translational_velocity.n[1];
+        source_data[5] = object->object.translational_velocity.n[2];
 
         result = message_delta_processor_encode_incremental(update_message_type, &header, source_data,
             &object->projectile.baseline, buffer, buffer_size_in_bits, 0);
@@ -65,7 +65,7 @@ int projectile_build_update_delta(int object_index, void *buffer, int buffer_siz
     if ( result > 0 )
     {
         unsigned int next_sequence_number = (unsigned char)(object->projectile.message_index + 1);
-        object->projectile.message_index = (unsigned __int8)next_sequence_number;
+        object->projectile.message_index = (uint8_t)next_sequence_number;
         if ( next_sequence_number >= 0xFF )
             object->projectile.message_index = 0;
     }

@@ -13,7 +13,7 @@ extern uint8_t data_encode_structures(data_encoding_state *state, void *source_s
 
 uint8_t data_encode_array(data_encoding_state *state, int element_count_size, void *source_array, int element_count, byte_swap_definition *bs_definition)
 {
-    __int16 count = element_count;
+    int16_t count = element_count;
     unsigned char staged[8];
 
     switch ( element_count_size )
@@ -28,7 +28,7 @@ uint8_t data_encode_array(data_encoding_state *state, int element_count_size, vo
         data_encode_memory(state, staged, 1, -4);
         break;
     case -2:
-        *(__int16 *)&staged[2] = count;
+        *(int16_t *)&staged[2] = count;
         data_encode_memory(state, staged, 1, -2);
         break;
     case 1:

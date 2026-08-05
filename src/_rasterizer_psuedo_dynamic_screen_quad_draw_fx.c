@@ -18,7 +18,7 @@
 #include "headers/bitmap_data.h"
 extern int rasterizer_set_texture_bitmap_data_for_effect(int16_t stage, bitmap_data *bitmap, rasterizer_dx9_shader *dxeffect_shader);
 extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
-    const float *pConstantData, unsigned int Vector4fCount, unsigned __int64 PendingMask0);
+    const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
     const void *vertex_data, unsigned int stride);
 
@@ -40,7 +40,7 @@ uint8_t _rasterizer_psuedo_dynamic_screen_quad_draw_fx(
     {
         ok = (((unsigned int)dxeffect_shader->effect->lpVtbl->BeginPass(dxeffect_shader->effect, pass) >> 31) - 1) & ok;
 
-        D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, psh_constants, 6u, (unsigned __int64)3 << 62);
+        D3DDevice_SetPixelShaderConstantFN(global_d3d_device, 0, psh_constants, 6u, (uint64_t)3 << 62);
         D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4u, verts, 0x18u);
 
         ok = (((unsigned int)dxeffect_shader->effect->lpVtbl->EndPass(dxeffect_shader->effect) >> 31) - 1) & ok;

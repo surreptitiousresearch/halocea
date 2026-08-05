@@ -11,14 +11,14 @@ extern const int8_t bitmap_format_bits_per_pixel_table[];  /* lbzx+extsb stride-
 
 void * bitmap_cube_map_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t face_index, int16_t mipmap_index)
 {
-    __int16 width = bitmap->width;
+    int16_t width = bitmap->width;
     int pixel_offset = 0;
 
-    for ( __int16 level = 0; level < mipmap_index; level++ )
+    for ( int16_t level = 0; level < mipmap_index; level++ )
     {
         pixel_offset += 6 * width * width;
-        __int16 minimum = (bitmap->flags & (1u << _bitmap_compressed_bit)) == 0 ? 1 : 4;
-        __int16 halved = width >> 1;
+        int16_t minimum = (bitmap->flags & (1u << _bitmap_compressed_bit)) == 0 ? 1 : 4;
+        int16_t halved = width >> 1;
         if ( minimum > halved )
             halved = minimum;
         width = halved;

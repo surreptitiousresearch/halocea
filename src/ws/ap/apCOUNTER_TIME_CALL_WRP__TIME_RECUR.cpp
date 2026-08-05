@@ -2,6 +2,7 @@
 // ::~apCOUNTER_TIME_CALL_WRP @0x82A3B67C — re-entrant variant: only records the start timestamp
 // on the outermost entry (depth<=0) and only accumulates elapsed time once depth unwinds back to
 // 0 on exit; every other (de)activation just adjusts the per-processor `depth` counter.
+#include <stdint.h>
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL_WRP.h"
 
 extern "C" unsigned int osGetCurThreadProcessor();
@@ -38,7 +39,7 @@ apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_RECUR>::~apCOUNTER_TIME_CALL_WRP()
         apCOUNTER_TIME_RECUR::tmDATA &slot = counter->tmData[proc];
         if (slot.depth <= 1) {
             unsigned int now = osGetPerfCounter();
-            slot.sum += (__int64)now - slot.start;
+            slot.sum += (int64_t)now - slot.start;
             --slot.depth;
         } else {
             --slot.depth;

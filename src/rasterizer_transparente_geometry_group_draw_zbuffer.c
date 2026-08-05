@@ -44,7 +44,7 @@ void rasterizer_transparente_geometry_group_draw_zbuffer(const transparent_geome
             skinning.node_matrices = (real_matrix4x3 *)global_identity4x3;
         }
 
-        rasterizer_set_model_skinning(&skinning, (~(unsigned __int16)group->geometry_flags >> 8) & 1);
+        rasterizer_set_model_skinning(&skinning, (~(uint16_t)group->geometry_flags >> 8) & 1);
 
         if ( group->geometry_flags & (1u << _rasterizer_geometry_parts_define_local_nodes_bit) )
             _rasterizer_model_setupnodeparts(group->local_node_remap_table_size, group->local_node_remap_table,
@@ -54,7 +54,7 @@ void rasterizer_transparente_geometry_group_draw_zbuffer(const transparent_geome
             rasterizer_set_model_lighting(group->lighting);
     }
 
-    unsigned __int8 is_first_person_effect = (group->geometry_flags & (1u << _rasterizer_geometry_first_person_bit)) != 0 && group->effect.type == _render_model_effect_type_active_camouflage;
+    uint8_t is_first_person_effect = (group->geometry_flags & (1u << _rasterizer_geometry_first_person_bit)) != 0 && group->effect.type == _render_model_effect_type_active_camouflage;
     if ( is_first_person_effect )
         rasterizer_set_frustum_z(rasterizer_globals.z_near_first_person, rasterizer_globals.z_far_first_person);
 

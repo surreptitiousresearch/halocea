@@ -10,6 +10,7 @@
  * disassembly exactly. The i > 5 branch is unreachable for a normalized hue and the binary simply reads
  * uninitialized stack there. */
 
+#include <stdint.h>
 #include "headers/hsv_color.h"
 #include "headers/rgb_color.h"
 
@@ -56,8 +57,8 @@ rgb_color * hsv_color_to_rgb_color(const hsv_color *hsv, rgb_color *rgb)
         }
     }
 
-    rgb->__s1.red   = (unsigned __int16)(red * 65535.0f);   /* union view: red/green/blue live in __s1 */
-    rgb->__s1.green = (unsigned __int16)(green * 65535.0f);
-    rgb->__s1.blue  = (unsigned __int16)(blue * 65535.0f);
+    rgb->__s1.red   = (uint16_t)(red * 65535.0f);   /* union view: red/green/blue live in __s1 */
+    rgb->__s1.green = (uint16_t)(green * 65535.0f);
+    rgb->__s1.blue  = (uint16_t)(blue * 65535.0f);
     return rgb;
 }

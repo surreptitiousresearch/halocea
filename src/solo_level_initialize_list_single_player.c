@@ -35,7 +35,7 @@ extern void preview_list_create(void);
 extern int16_t player_ui_get_last_single_player_level_played(int16_t local_player_index);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data,
-        int data_len, unsigned __int8 is_selected);
+        int data_len, uint8_t is_selected);
 extern int stricmp(const char *a, const char *b);
 extern void display_error_deferred(int16_t error_code, int16_t local_player_index, uint8_t modal, uint8_t pause_game_time);
 
@@ -55,7 +55,7 @@ uint8_t solo_level_initialize_list_single_player(widget_instance *list_widget, e
     if ( active_player_profile_index != last_player1_profile_index )
     {
         memset(&persistant_game_data_info, 0, sizeof(persistant_game_data_info));
-        unsigned __int8 valid = game_state_test_persistent_storage(persistant_game_data_info.map_name,
+        uint8_t valid = game_state_test_persistent_storage(persistant_game_data_info.map_name,
                 &persistant_game_data_info.difficulty, &persistant_game_data_info.corrupted);
         last_player1_profile_index = active_player_profile_index;
         persistant_game_data_info.valid = valid;
@@ -63,13 +63,13 @@ uint8_t solo_level_initialize_list_single_player(widget_instance *list_widget, e
 
     player_profile profile;
     player_ui_get_active_player_profile(0, &profile);
-    __int16 highest_completed_level;
-    __int16 highest_completed_difficulty[7];
+    int16_t highest_completed_level;
+    int16_t highest_completed_difficulty[7];
     player_profile_get_highest_completed_solo_level(&profile, &highest_completed_level,
             highest_completed_difficulty);
     preview_list_create();
 
-    __int16 initial_selection;
+    int16_t initial_selection;
     if ( player_ui_get_last_single_player_level_played(0) >= 0 )
     {
         if ( player_ui_get_last_single_player_level_played(0) <= 9 )
@@ -100,14 +100,14 @@ uint8_t solo_level_initialize_list_single_player(widget_instance *list_widget, e
         }
 
         int is_selected = list_widget->parameters.text_box_parameters.string_list_index - level_index;
-        unsigned __int16 *name = unicode_string_list_get_string(string_list_tag, level_index);
+        uint16_t *name = unicode_string_list_get_string(string_list_tag, level_index);
         preview_list_add_item_to_bank(0, (const wchar_t *)name, level_index, nullptr, 0, is_selected == 0);
         ++scenario_path;
         ++level_index;
     }
     while ( scenario_path < (const char **)&demo_scenario_0 );
 
-    __int16 selection = list_widget->parameters.text_box_parameters.string_list_index;
+    int16_t selection = list_widget->parameters.text_box_parameters.string_list_index;
     list_widget->parameters.list_parameters.list_items = single_player_level_data;
     list_widget->parameters.list_parameters.number_of_items = 10;
     list_widget->parameters.list_parameters.list_item_top_index = -1;
@@ -126,7 +126,7 @@ uint8_t solo_level_initialize_list_single_player(widget_instance *list_widget, e
                 goto resolved;
         }
         persistant_game_data_info.map_index = map_index;
-        __int16 difficulty = persistant_game_data_info.difficulty;
+        int16_t difficulty = persistant_game_data_info.difficulty;
         if ( difficulty >= game_difficulty_level_easy )
         {
             if ( difficulty > game_difficulty_level_impossible )

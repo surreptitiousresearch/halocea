@@ -23,7 +23,7 @@ void player_delete(int machine_index, int player_index)
     char processed = 0;
     game_engine_player_removed(player_index);
 
-    __int16 connection = game_connection();
+    int16_t connection = game_connection();
     if ( connection == 1 )
     {
         player_datum *player = datum_try_and_get(player_data, player_index);

@@ -63,7 +63,7 @@ uint8_t blip_type_get(int object_index, int local_player_index)
             return _blip_type_vehicle_friend;
         }
 
-        __int16 seat_team = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, seat_unit_index)->datum)->object.owner_team_index;
+        int16_t seat_team = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, seat_unit_index)->datum)->object.owner_team_index;
         return (game_team_is_enemy(seat_team, local_player_team) != 0) + _blip_type_vehicle_friend;
     }
 

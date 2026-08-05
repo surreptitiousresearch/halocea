@@ -22,7 +22,7 @@ uint8_t actor_action_handle_berserking_from_attacking_mode(uint16_t actor_index)
         && !actor->external_orders.defending
         && actor->state.combat_status >= _actor_combat_status_clear_los )
     {
-        __int16 berserk_timer = actor->stimuli.berserk_type;
+        int16_t berserk_timer = actor->stimuli.berserk_type;
 
         if ( berserk_timer <= 1 )
             berserk_timer = 1;

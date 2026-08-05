@@ -19,8 +19,8 @@ void virtual_keyboard_backspace(void)
         if ( remaining_bytes >= 0 )
         {
             memmove(virtual_keyboard_globals.insertion_point - 1, virtual_keyboard_globals.insertion_point, remaining_bytes);
-            *(unsigned __int16 *)((char *)virtual_keyboard_globals.text_buffer
-                                   + (virtual_keyboard_globals.buffer_size & ~1u) - 2) = 0; /* align byte size down to a whole wchar, zero the last slot */
+            /* align the byte size down to a whole wchar, then zero the last slot */
+            virtual_keyboard_globals.text_buffer[(virtual_keyboard_globals.buffer_size >> 1) - 1] = 0;
             --virtual_keyboard_globals.insertion_point;
         }
     }

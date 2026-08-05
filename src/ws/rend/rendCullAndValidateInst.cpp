@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "../../headers/ws/rend/rendCAM_LIST.h"
 #include "../../headers/ws/rend/rendCAM.h"
 #include "../../headers/ws/rend/rendLIGHT_SET.h"
@@ -185,14 +186,14 @@ void rendCullAndValidateInst(const rendCAM_LIST *camList, unsigned int curFrameN
     // ---- Per-object qualification for skinned/composite instances ----
     if ((pInst->state2 & 0x10000) != 0) {
         osPIXBeginEvent("QualifyObjects");
-        __int64 *pObjCamMask = pInst->pObjCamMask;
+        int64_t *pObjCamMask = pInst->pObjCamMask;
         objOBJ **objList = pInst->ppObjListRend;
         int nObjRend = pInst->nObjRend;
         memset(pObjCamMask, 0, 8 * pInst->nObj);
 
         for (int oi = 0; oi < nObjRend; ++oi) {
             objOBJ *obj = objList[oi];
-            __int64 objMask = cull->camMask;
+            int64_t objMask = cull->camMask;
             float objDist[12]; // per-object per-camera distance scratch (v59)
 
             unsigned int bit = 1;
@@ -206,11 +207,11 @@ void rendCullAndValidateInst(const rendCAM_LIST *camList, unsigned int curFrameN
                 int rejectByProc = ((camState >> 4) & 1) != 0 ? (obj->stateProc & 0x100)
                                                               : (obj->stateProc & 0x200);
                 if (rejectByProc)
-                    objMask &= ~(__int64)bit;
+                    objMask &= ~(int64_t)bit;
                 if (((camState >> 8) & 1) != 0 && (obj->stateVis.state & 2) == 0)
-                    objMask &= ~(__int64)bit;
+                    objMask &= ~(int64_t)bit;
                 if (((camState >> 9) & 1) != 0 && (obj->stateVis.state & 4) == 0)
-                    objMask &= ~(__int64)bit;
+                    objMask &= ~(int64_t)bit;
 
                 if ((bit & (unsigned int)objMask) == 0)
                     continue;
@@ -247,7 +248,7 @@ void rendCullAndValidateInst(const rendCAM_LIST *camList, unsigned int curFrameN
                                 || objDist[(int)cam->originID] > (double)cam->maxDistExt));
                 }
                 if (cullObject)
-                    objMask &= ~(__int64)bit;
+                    objMask &= ~(int64_t)bit;
             }
 
             // (v58) clamp the primary/secondary camera distances into the shared range — the

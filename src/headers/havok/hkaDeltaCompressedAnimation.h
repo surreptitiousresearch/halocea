@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "hkaAnimation.h"
 
 /* hkaDeltaCompressedAnimation — delta-quantized skeletal animation. All
@@ -57,8 +58,8 @@ typedef struct hkaDeltaCompressedAnimation_vtbl
     void (*sampleTracks)(hkaDeltaCompressedAnimation *self, float time, hkQsTransform *out, float *floatsOut, hkaChunkCache *cache);     /* +12 */
     void (*samplePartialTracks)(hkaDeltaCompressedAnimation *self, float time, unsigned int maxTransform, hkQsTransform *out, unsigned int maxFloat, float *floatsOut, hkaChunkCache *cache); /* +16 */
     void (*clearAllCacheKeys)(hkaDeltaCompressedAnimation *self, hkaChunkCache *cache);                                                  /* +20 */
-    void (*sampleIndividualTransformTracks)(hkaDeltaCompressedAnimation *self, float time, const __int16 *tracks, unsigned int numTracks, hkQsTransform *out); /* +24 */
-    void (*sampleIndividualFloatTracks)(hkaDeltaCompressedAnimation *self, float time, const __int16 *tracks, unsigned int numTracks, float *out); /* +28 */
+    void (*sampleIndividualTransformTracks)(hkaDeltaCompressedAnimation *self, float time, const int16_t *tracks, unsigned int numTracks, hkQsTransform *out); /* +24 */
+    void (*sampleIndividualFloatTracks)(hkaDeltaCompressedAnimation *self, float time, const int16_t *tracks, unsigned int numTracks, float *out); /* +28 */
     int (*getNumOriginalFrames)(hkaDeltaCompressedAnimation *self);                                                                      /* +32 */
     int (*getNumDataChunks)(hkaDeltaCompressedAnimation *self, float time);                                                              /* +36 */
     void (*getDataChunks)(hkaDeltaCompressedAnimation *self, float time, hkaAnimation_DataChunk *chunks, int numChunks);                 /* +40 */

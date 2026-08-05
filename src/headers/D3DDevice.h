@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "_D3DTAGCOLLECTION.h"
 #include "_D3DConstants.h"
 #include "GPU_DESTINATIONPACKET.h"
@@ -18,7 +19,7 @@
    (m_SetRenderStateCall). */
 typedef struct D3DDevice {
     _D3DTAGCOLLECTION m_Pending;                                                     /* 0x00 */
-    unsigned __int64  m_Predicated_PendingMask2;                                     /* 0x28 */
+    uint64_t  m_Predicated_PendingMask2;                                     /* 0x28 */
     unsigned int     *m_pRing;                                                       /* 0x30 */
     unsigned int     *m_pRingLimit;                                                  /* 0x34 */
     unsigned int     *m_pRingGuarantee;                                              /* 0x38 */

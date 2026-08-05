@@ -38,7 +38,7 @@ int build_remote_player_vehicle_update(player_datum *source_player, int player_i
     header.player_index = field_translated_index_translate_index(&field_properties_player_index_definition, player_index);
     header.sequence_number = source_player->___u26.server_update_data.next_remote_player_update_sequence_number;
 
-    int unit_index = (unsigned __int16)source_player->unit_index;
+    int unit_index = (uint16_t)source_player->unit_index;
     unit_datum *unit_object = (unit_datum *)DATA_ARRAY_ELEMENT(
         object_header_data, object_header_datum, unit_index)->datum;
     int vehicle_index = unit_object->object.parent_object_index;

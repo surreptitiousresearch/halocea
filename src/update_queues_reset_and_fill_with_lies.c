@@ -13,6 +13,7 @@
  * plain field write. `__CFADD__(game_time - 128, 0x80000000) ? 0 : ...` is the standard "saturating
  * subtract, clamp to 0" idiom, simplified to a plain comparison. */
 
+#include <stdint.h>
 #include "headers/update_server_globals.h"
 #include "headers/update_client_globals.h"
 #include "headers/update_server_queue_datum.h"
@@ -35,7 +36,7 @@ void *update_queues_reset_and_fill_with_lies(void *result)
         result = memset(update_server_globals.updates, 0, sizeof(update_server_globals.updates));
     }
 
-    unsigned __int8 client_was_initialized = update_client_globals.initialized;
+    uint8_t client_was_initialized = update_client_globals.initialized;
 
     if ( update_client_globals.initialized )
     {

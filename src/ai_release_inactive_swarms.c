@@ -13,7 +13,7 @@ extern void actor_erase(int actor_index, uint8_t immediate);
 
 unsigned int ai_release_inactive_swarms(char *result_description, uint8_t *more_to_release, uint8_t *working_memory, int16_t working_memory_size)
 {
-    __int16 released_unit_count = 0;
+    int16_t released_unit_count = 0;
     actor_iterator iterator;
     actor_datum *actor;
 

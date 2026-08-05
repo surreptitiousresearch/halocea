@@ -23,17 +23,17 @@ uint8_t bitmap_verify(const bitmap_data *bitmap, uint8_t import)
     if ( type >= number_of_bitmap_types || (unsigned int)bitmap->format > _bitmap_format_p8_bump )
         return 0;
 
-    __int16 width = bitmap->width;
+    int16_t width = bitmap->width;
     if ( width <= 0 || width > 30000 )
         return 0;
 
-    __int16 height = bitmap->height;
+    int16_t height = bitmap->height;
     if ( height <= 0 || height > 30000 )
         return 0;
 
-    __int16 depth = bitmap->depth;
+    int16_t depth = bitmap->depth;
     if ( !(depth > 0 && depth <= 256 && (depth == 1 || type == bitmap_type_3d))
-         || (unsigned __int16)bitmap->mipmap_count >= 0x8000u )
+         || (uint16_t)bitmap->mipmap_count >= 0x8000u )
         return 0;
 
     int largest_dimension = width;

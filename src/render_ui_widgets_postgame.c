@@ -25,7 +25,7 @@ extern void widget_instance_render_recursive(widget_instance *widget, rectangle2
 void render_ui_widgets_postgame(int16_t local_player_index, rectangle2d *window_bounds)
 {
     /* Per [player-count][slot] screen offset table (16B/player-count row, 4B/slot point2d entries). */
-    __int16 split_screen_offsets[32];
+    int16_t split_screen_offsets[32];
     memset(split_screen_offsets, 0, sizeof(split_screen_offsets));
     split_screen_offsets[11] = 240;
     split_screen_offsets[19] = 240;
@@ -39,7 +39,7 @@ void render_ui_widgets_postgame(int16_t local_player_index, rectangle2d *window_
     if (virtual_keyboard_active())
         return;
 
-    __int16 slot = local_player_index;
+    int16_t slot = local_player_index;
     if (local_player_index >= 0)
     {
         if (local_player_index > 1)
@@ -62,13 +62,13 @@ void render_ui_widgets_postgame(int16_t local_player_index, rectangle2d *window_
             }
             else if (widget->widget_is_error_dialog != 1)
             {
-                __int16 widget_player = widget->local_player_index;
+                int16_t widget_player = widget->local_player_index;
                 if (!((widget_player != -1 || i) && widget_player != slot))
                     should_render = 1;
             }
             else
             {
-                __int16 widget_player = widget->local_player_index;
+                int16_t widget_player = widget->local_player_index;
                 if (widget_player == slot || widget_player == -1 || slot == -1 || we_are_at_the_main_menu)
                     should_render = 1;
             }
@@ -76,15 +76,15 @@ void render_ui_widgets_postgame(int16_t local_player_index, rectangle2d *window_
 
         if (should_render == 1)
         {
-            __int16 width  = window_bounds->n[3] - window_bounds->n[1];
-            __int16 height = window_bounds->n[2] - window_bounds->n[0];
+            int16_t width  = window_bounds->n[3] - window_bounds->n[1];
+            int16_t height = window_bounds->n[2] - window_bounds->n[0];
             rectangle2d clip;
             clip.n[0] = 0;
             clip.n[1] = 0;
-            clip.n[2] = (unsigned __int16)height;
+            clip.n[2] = (uint16_t)height;
             clip.n[3] = width;
 
-            __int16 player_count = local_player_count();
+            int16_t player_count = local_player_count();
             /* point2d table indexed by [player-count row (4 slots each)][slot], zero-based rows. */
             point2d offset = ((point2d *)split_screen_offsets)[4 * player_count + slot - 4];
             widget_instance_render_recursive(widget_globals.active_widgets[i], &clip, offset, 1u, 0);

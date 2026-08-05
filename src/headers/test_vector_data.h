@@ -3,6 +3,7 @@
  * leaf/contents/plane crossed (40 bytes). */
 #pragma once
 
+#include <stdint.h>
 #include "real_point3d.h"
 #include "real_vector3d.h"
 #include "collision_bsp_test_vector_result.h"
@@ -13,7 +14,7 @@ typedef struct test_vector_data
 {
     unsigned int                       flags;                   /* 0x00 */
     const struct collision_bsp        *bsp;                     /* 0x04 */
-    __int16                            breakable_surface_count; /* 0x08 */
+    int16_t                            breakable_surface_count; /* 0x08 */
     unsigned char _pad0[2]; /* db-verified padding */
     const unsigned char               *breakable_surface_flags; /* 0x0C */
     const real_point3d                *point;                   /* 0x10 */

@@ -28,7 +28,7 @@ uint8_t action_uncover_setup_pursuit(uint16_t actor_index, int16_t firing_positi
 
     firing_position_definition *firing_positions =
         (firing_position_definition *)((encounter_definition *)global_scenario->ai_encounters.address)
-        [(unsigned __int16)actor->meta.encounter_index].firing_positions.address;
+        [(uint16_t)actor->meta.encounter_index].firing_positions.address;
     firing_position_definition *firing_position = &firing_positions[firing_position_index];
 
     state_data->pursuit_location.type = _pursuit_location_position;

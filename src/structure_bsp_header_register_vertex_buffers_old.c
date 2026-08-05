@@ -21,12 +21,12 @@ void structure_bsp_header_register_vertex_buffers_old(cache_file_structure_bsp_h
 {
     structure_bsp *structure_bsp = structure_bsp_header->structure_bsp;
 
-    for ( int lightmap_index = 0; lightmap_index < structure_bsp->lightmaps.count; lightmap_index = (__int16)(lightmap_index + 1) )
+    for ( int lightmap_index = 0; lightmap_index < structure_bsp->lightmaps.count; lightmap_index = (int16_t)(lightmap_index + 1) )
     {
         structure_lightmap *lightmap = (structure_lightmap *)structure_bsp->lightmaps.address + lightmap_index;
         int material_count = lightmap->materials.count;
 
-        for ( int material_index = 0; material_index < material_count; material_index = (__int16)(material_index + 1) )
+        for ( int material_index = 0; material_index < material_count; material_index = (int16_t)(material_index + 1) )
         {
             structure_material *material = (structure_material *)lightmap->materials.address + material_index;
 
@@ -41,15 +41,15 @@ void structure_bsp_header_register_vertex_buffers_old(cache_file_structure_bsp_h
             char *lightmap_vertex_data = &vertex_data[56 * vertex_count];
 
             int primary_vertex_size = rasterizer_geometry_get_vertex_size(_rasterizer_vertex_type_environment_uncompressed);
-            rasterizer_vertex_buffer_new(primary_vertices, _rasterizer_vertex_type_environment_uncompressed, (__int16)vertex_count,
-                vertex_data, 0, primary_vertex_size * (__int16)vertex_count);
+            rasterizer_vertex_buffer_new(primary_vertices, _rasterizer_vertex_type_environment_uncompressed, (int16_t)vertex_count,
+                vertex_data, 0, primary_vertex_size * (int16_t)vertex_count);
 
             int lightmap_vertex_count = lightmap_vertices->count; /* recovered: *(int *)(material + 200) -> lightmap_vertices.count */
             if ( lightmap_vertex_count )
             {
                 int lightmap_vertex_size = rasterizer_geometry_get_vertex_size(_rasterizer_vertex_type_environment_lightmap_uncompressed);
-                rasterizer_vertex_buffer_new(lightmap_vertices, _rasterizer_vertex_type_environment_lightmap_uncompressed, (__int16)lightmap_vertex_count,
-                    lightmap_vertex_data, 0, lightmap_vertex_size * (__int16)lightmap_vertex_count);
+                rasterizer_vertex_buffer_new(lightmap_vertices, _rasterizer_vertex_type_environment_lightmap_uncompressed, (int16_t)lightmap_vertex_count,
+                    lightmap_vertex_data, 0, lightmap_vertex_size * (int16_t)lightmap_vertex_count);
             }
         }
     }

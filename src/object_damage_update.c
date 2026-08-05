@@ -54,7 +54,7 @@ void object_damage_update(int object_index)
 
     /* HCEX "recharge on melee" gate: shields only regen while the player's melee-recharge budget lasts. */
     unsigned char allow_recharge = 1;
-    __int16 player_index;
+    int16_t player_index;
     if ( player_index_from_unit_index(object_index) == -1 )
         player_index = -1;
     else
@@ -78,7 +78,7 @@ void object_damage_update(int object_index)
 
     if ( collision )
     {
-        __int16 damage_flags = unit->object.damage_flags;
+        int16_t damage_flags = unit->object.damage_flags;
         if ( (damage_flags & (1u << _object_die_act_of_god_no_statistics_bit)) != 0 || (damage_flags & (1u << _object_die_act_of_god_bit)) != 0 || (damage_flags & (1u << _object_die_act_of_god_silent_bit)) != 0 )
         {
             if ( (damage_flags & (1u << _object_dead_bit)) == 0 )
@@ -123,7 +123,7 @@ void object_damage_update(int object_index)
         }
 
         float max_shield = unit->object.maximum_shield_vitality;
-        __int16 cleared_flags = unit->object.damage_flags & ~(1u << _object_shield_charging_bit);
+        int16_t cleared_flags = unit->object.damage_flags & ~(1u << _object_shield_charging_bit);
         unit->object.damage_flags = cleared_flags;
         if ( max_shield > 0.0f && (cleared_flags & (1u << _object_dead_bit)) == 0 )
         {
@@ -164,7 +164,7 @@ void object_damage_update(int object_index)
             else if ( unit->object.shield_vitality < 1.0f )
             {
                 /* Below full: wait out the recharge delay, then regenerate. */
-                __int16 recharge_delay = unit->object.shield_stun_ticks;
+                int16_t recharge_delay = unit->object.shield_stun_ticks;
                 if ( recharge_delay )
                 {
                     int network_sim = unit->object.datum_role;
@@ -186,10 +186,10 @@ void object_damage_update(int object_index)
                     }
                     if ( allow_recharge )
                     {
-                        __int16 flags = unit->object.damage_flags;
+                        int16_t flags = unit->object.damage_flags;
                         float new_shield = unit->object.shield_vitality + regen;
                         unit->object.shield_vitality = unit->object.shield_vitality + regen;
-                        __int16 recharging = flags | (1u << _object_shield_charging_bit);
+                        int16_t recharging = flags | (1u << _object_shield_charging_bit);
                         unit->object.damage_flags = recharging;
                         if ( new_shield > 1.0f )
                         {
@@ -246,7 +246,7 @@ void object_damage_update(int object_index)
     if ( !unit->object.type && !unit->object.datum_role )
     {
         biped_datum *biped = (biped_datum *)unit;
-        __int16 stun = biped->object.shield_stun_ticks;
+        int16_t stun = biped->object.shield_stun_ticks;
         if ( (unsigned int)((-stun & ~stun) >> 31)
                 != biped->biped.baseline.shield_stun_ticks_greater_than_zero )
             biped->object.flags |= (1u << _object_force_baseline_update_bit);

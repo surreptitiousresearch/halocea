@@ -16,7 +16,7 @@ extern void bitmap_delete(bitmap_data *bitmap);
 
 bitmap_data * bitmap_cm_shrink(const bitmap_data *source_bitmap, int16_t scale, int16_t alpha_bias, uint8_t ignore_zero_alpha)
 {
-    __int16 divisor = scale;
+    int16_t divisor = scale;
     if ( scale > source_bitmap->width )
         divisor = source_bitmap->width;
 
@@ -26,7 +26,7 @@ bitmap_data * bitmap_cm_shrink(const bitmap_data *source_bitmap, int16_t scale, 
         bitmap_data *face_scratch = bitmap_2d_new(source_bitmap->width, source_bitmap->height, 0, _bitmap_format_a8r8g8b8);
         if ( face_scratch && face_scratch->base_address )
         {
-            for ( __int16 face_index = 0; face_index < 6; face_index++ )
+            for ( int16_t face_index = 0; face_index < 6; face_index++ )
             {
                 bitmap_cube_map_face_extract(source_bitmap, 0, face_index, face_scratch);
                 bitmap_data *shrunk_face = bitmap_2d_shrink(face_scratch, scale, alpha_bias, ignore_zero_alpha);

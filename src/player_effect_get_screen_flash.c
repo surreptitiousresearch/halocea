@@ -32,7 +32,7 @@ void player_effect_get_screen_flash(int16_t local_player_index, render_screen_fl
 
     globals = player_effect_globals;
 
-    if ( (unsigned __int16)globals->screen_fade.ticks == 0xFFFF
+    if ( (uint16_t)globals->screen_fade.ticks == 0xFFFF
       || (!globals->screen_fade.fading_out
           && game_time_get() - globals->screen_fade.start_time > globals->screen_fade.ticks) )
     {

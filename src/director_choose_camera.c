@@ -27,7 +27,7 @@ extern void editor_camera_update(flying_camera *camera, const camera_control *co
 extern void first_person_camera_new(first_person_camera *camera);
 extern void first_person_camera_update(first_person_camera *camera, const camera_control *controls, observer_command *result);
 extern void director_rotate_cameras(int16_t local_player_index, const int16_t *cameras, int16_t camera_count);
-extern const __int16 director_script_camera_record_camera_modes[];
+extern const int16_t director_script_camera_record_camera_modes[];
 
 void director_choose_camera(int16_t local_player_index, uint8_t initialize, uint8_t key)
 {

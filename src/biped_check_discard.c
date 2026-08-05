@@ -21,7 +21,7 @@ uint8_t biped_check_discard(int biped_index)
 
     if ( !game_engine_running()
       && ((biped->object.flags & (1u << _object_outside_of_map_bit)) != 0
-          || (unsigned __int16)biped->object.location.cluster_index == 0xFFFF)
+          || (uint16_t)biped->object.location.cluster_index == 0xFFFF)
       && biped->object.position.n[2] < -2000.0f )
     {
         object_delete(biped_index);

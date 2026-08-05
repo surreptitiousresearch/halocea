@@ -18,7 +18,7 @@
 
 
 extern game_variant *game_engine_get_variant(void);
-extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, __int16 type, __int16 team);
+extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type, int16_t team);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 
@@ -29,7 +29,7 @@ real_point3d * find_position_for_ball(real_point3d *result, int ball_index)
     int chosen_flag_index = -1;
 
     if ( !game_engine_get_variant()->game_engine_variant.ctf.assault )
-        chosen_flag_index = find_netgame_flag(0, 0.0f, 0.0f, _netgame_flag_oddball_ball_spawn, (__int16)ball_index);
+        chosen_flag_index = find_netgame_flag(0, 0.0f, 0.0f, _netgame_flag_oddball_ball_spawn, (int16_t)ball_index);
 
     if ( chosen_flag_index == -1 )
     {
@@ -38,7 +38,7 @@ real_point3d * find_position_for_ball(real_point3d *result, int ball_index)
             return result;
 
         int ball_flag_count = 0;
-        for ( int i = 0; i < flag_count; i = (__int16)(i + 1) )
+        for ( int i = 0; i < flag_count; i = (int16_t)(i + 1) )
         {
             if ( flags[i].type == _netgame_flag_oddball_ball_spawn )
                 ++ball_flag_count;
@@ -48,18 +48,18 @@ real_point3d * find_position_for_ball(real_point3d *result, int ball_index)
             return result;
 
         unsigned int *random_seed = get_global_random_seed_address();
-        __int16 skip_count = seed_random_range(random_seed, 0, ball_flag_count);
+        int16_t skip_count = seed_random_range(random_seed, 0, ball_flag_count);
 
         flag_count = scenario->netgame_flags.count;
         if ( flag_count <= 0 )
             return result;
 
-        __int16 i = 0;
+        int16_t i = 0;
         while ( 1 )
         {
             while ( flags[i].type != _netgame_flag_oddball_ball_spawn )
             {
-                i = (__int16)(i + 1);
+                i = (int16_t)(i + 1);
                 if ( i >= flag_count )
                     return result;
             }
@@ -67,7 +67,7 @@ real_point3d * find_position_for_ball(real_point3d *result, int ball_index)
             if ( !skip_count )
                 break;
             --skip_count;
-            i = (__int16)(i + 1);
+            i = (int16_t)(i + 1);
             if ( i >= flag_count )
                 return result;
         }

@@ -34,7 +34,7 @@ int game_replicate_object(int object_index, message_delta_processor_mode mode, i
     if ( encoded_size <= 0 )
         return 0;
 
-    unsigned __int8 reliable = effective_mode == _message_delta_mode_stateless;
+    uint8_t reliable = effective_mode == _message_delta_mode_stateless;
     network_game_server *server = global_network_game_server_get();
 
     if ( machine_index == -1 )

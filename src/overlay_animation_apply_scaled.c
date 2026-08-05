@@ -49,13 +49,13 @@ void overlay_animation_apply_scaled(const animation *animation, int16_t frame_in
         return;
 
     /* DEVIATION: collapsed inlined copy of animation_is_compressed@0x837956E0 (zero-xref donor; sole arg is the local `animation` pointer, no folding needed). */
-    unsigned __int8 use_keyframe_accessors = animation_is_compressed(animation);
+    uint8_t use_keyframe_accessors = animation_is_compressed(animation);
 
     const char *frame_cursor = animation_get_frame_data(animation, frame_index);
 
-    __int16 rotation_adjusted_index = 0;
-    __int16 translation_adjusted_index = 0;
-    __int16 scale_adjusted_index = 0;
+    int16_t rotation_adjusted_index = 0;
+    int16_t translation_adjusted_index = 0;
+    int16_t scale_adjusted_index = 0;
 
     if (animation->node_count <= 0)
         return;
@@ -64,7 +64,7 @@ void overlay_animation_apply_scaled(const animation *animation, int16_t frame_in
     unsigned int translation_flags = 0;
     unsigned int scale_flags = 0;
 
-    for (__int16 node_index = 0; node_index < animation->node_count; node_index = (__int16)(node_index + 1))
+    for (int16_t node_index = 0; node_index < animation->node_count; node_index = (int16_t)(node_index + 1))
     {
         real_orientation *node_orientation = &node_orientations[node_index];
 

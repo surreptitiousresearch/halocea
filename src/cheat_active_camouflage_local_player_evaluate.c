@@ -10,7 +10,7 @@ extern void cheat_active_camouflage_local_player(int16_t local_player_index);
 
 void cheat_active_camouflage_local_player_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    __int16 *arguments = (__int16 *)hs_macro_function_evaluate(function_index, thread_index, initialize);
+    int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
         cheat_active_camouflage_local_player(*arguments);

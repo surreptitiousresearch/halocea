@@ -28,7 +28,7 @@ void hud_update(void)
 
     if ( game_engine_force_single_screen() )
     {
-        __int16 local_player;
+        int16_t local_player;
         for ( local_player = 0; local_player < 2; local_player++ )
         {
             int player_index = local_player_get_player_index(local_player);

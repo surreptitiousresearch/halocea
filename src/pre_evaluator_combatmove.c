@@ -55,8 +55,8 @@ void pre_evaluator_combatmove(int actor_index, firing_position_evaluation_contex
             if ( !position->valid )
                 continue;
 
-            __int16 worst_friendly_blockage = 0;
-            __int16 worst_enemy_blockage = 0;
+            int16_t worst_friendly_blockage = 0;
+            int16_t worst_enemy_blockage = 0;
             for ( int j = 0; j < evaluation_context->attack_vector_count; ++j )
             {
                 firing_position_attack_vector *attack_vector = &evaluation_context->attack_vectors[j];
@@ -64,7 +64,7 @@ void pre_evaluator_combatmove(int actor_index, firing_position_evaluation_contex
                   && attack_vector->type != _firing_position_attack_vector_friend_player )
                     continue;
 
-                __int16 blockage = actor_perception_aiming_vector_test_blockage(&attack_vector->point,
+                int16_t blockage = actor_perception_aiming_vector_test_blockage(&attack_vector->point,
                         &attack_vector->vector, (const real_point3d *)position->definition, nullptr);
                 if ( attack_vector->type )
                 {

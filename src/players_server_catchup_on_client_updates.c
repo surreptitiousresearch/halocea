@@ -58,7 +58,7 @@ void players_server_catchup_on_client_updates(void)
           player = data_iterator_next(&iter) )
     {
         action_queue *queue;
-        if ( (unsigned __int16)player->local_player_index != 0xFFFF )
+        if ( (uint16_t)player->local_player_index != 0xFFFF )
             continue;
         queue = update_server_get_player_action_queue(iter.index);
         /* binary re-queries the count twice at entry; first result is discarded server-side
@@ -124,7 +124,7 @@ void players_server_catchup_on_client_updates(void)
 
 advance:
             {
-                unsigned __int8 is_driver = 0;
+                uint8_t is_driver = 0;
                 player_datum *p = datum_try_and_get(player_data, iter.index);
                 if ( p )
                 {

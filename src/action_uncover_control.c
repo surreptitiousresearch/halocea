@@ -34,10 +34,10 @@ void action_uncover_control(uint16_t actor_index)
     int target_prop_index = actor->target.target_prop_index;
     if ( target_prop_index != -1 )
     {
-        unsigned __int8 reached = 0;
+        uint8_t reached = 0;
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, target_prop_index);
 
-        __int16 uncover_mode = actor->state.action_data.___u0.uncover.pursuit_location.type;
+        int16_t uncover_mode = actor->state.action_data.___u0.uncover.pursuit_location.type;
         if ( !uncover_mode )
         {
             if ( actor->input.vehicle_gunner_bombardment )
@@ -48,7 +48,7 @@ void action_uncover_control(uint16_t actor_index)
             }
             else
             {
-                __int16 threshold = actor_target_uninspected_orphan;
+                int16_t threshold = actor_target_uninspected_orphan;
                 /* actor ('actr') definition flags@0x00; bit 4 = shoot at target's last location */
                 if ( (*TAG_GET(int, actor->meta.definition_index) & (1u << _actor_definition_shoot_at_targets_last_location_bit)) == 0 )
                     threshold = actor_target_definite_orphan;
@@ -65,7 +65,7 @@ void action_uncover_control(uint16_t actor_index)
         }
         else if ( actor->target.target_type >= actor_target_uninspected_orphan )
         {
-            __int16 line_of_sight = prop->line_of_sight;
+            int16_t line_of_sight = prop->line_of_sight;
             if ( line_of_sight == _ai_line_of_sight_from_cover || line_of_sight == _ai_line_of_sight_obstructed )
                 actor->orders.look.primary_priority = _primary_priority_opportunity_aiming;
             else
@@ -81,9 +81,8 @@ void action_uncover_control(uint16_t actor_index)
             if ( uncover_mode == 1 )
             {
                 actor->orders.look.primary_direction.type = _direction_specification_point;
-                actor->orders.look.primary_direction.___u1.prop_index = *(int *)&actor->state.action_data.___u0.uncover.pursuit_location.position.x;
-                *(int *)&actor->orders.look.primary_direction.___u1.point.y = *(int *)&actor->state.action_data.___u0.uncover.pursuit_location.position.y;
-                *(int *)&actor->orders.look.primary_direction.___u1.point.z = *(int *)&actor->state.action_data.___u0.uncover.pursuit_location.position.z;
+                /* DEVIATION: decompiler word-punned this 12-byte real_point3d copy (lwz/stw triple, 0x3F0..0x3F8) through the prop_index union arm; plain struct assignment */
+                actor->orders.look.primary_direction.___u1.point = actor->state.action_data.___u0.uncover.pursuit_location.position;
             }
         }
         else

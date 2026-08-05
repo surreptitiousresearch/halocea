@@ -8,6 +8,7 @@
  * (object_definition.model.name); this one returns the scenario-editor object name
  * (scenario.object_names[name_index].name). Not duplicates. */
 
+#include <stdint.h>
 #include "../headers/data_array.h"
 #include "../headers/object_header_datum.h"
 #include "../headers/object_datum.h"
@@ -20,7 +21,7 @@ extern scenario *global_scenario;
 extern "C" const char *hcex_obj_get_name(int id)
 {
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, id)->datum;
-    __int16 name_index = object->object.name_index;
+    int16_t name_index = object->object.name_index;
 
     if ( name_index == -1 )
         return 0;

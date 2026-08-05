@@ -12,7 +12,7 @@ void unit_set_emotion_evaluate(int16_t function_index, int thread_index, uint8_t
     if ( arguments )
     {
         /* HS packed arg block: __int16 slot +2 (byte +4) is the emotion second argument */
-        unit_set_emotion(arguments[0], ((__int16 *)arguments)[2]);
+        unit_set_emotion(arguments[0], ((int16_t *)arguments)[2]);
         hs_return(thread_index, 0);
     }
 }

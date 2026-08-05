@@ -19,6 +19,7 @@
 #include "../headers/object_type.h"
 
 #include "headers/scenario.h"
+#include "../headers/scenario_object_palette_entry.h"
 extern scenario *global_scenario;
 
 extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, int16_t object_type, int *size);
@@ -43,7 +44,11 @@ extern "C" void hcex_dump_scenery_by_type(int type)
         if ( placement->palette_entry_index == -1 )
             continue;
 
-        int tag_index = *((int *)scenario_palette->address + 12 * placement->palette_entry_index + 3);
+        /* the folded int slot `12*idx + 3` is byte 48*idx + 12, i.e.
+         * sizeof(scenario_object_palette_entry) with tag_reference.index 12 bytes in */
+        const scenario_object_palette_entry *palette =
+            (const scenario_object_palette_entry *)scenario_palette->address;
+        int tag_index = palette[placement->palette_entry_index].reference.index;
         int tag_definition = *(int *)TAG_INSTANCE(tag_index);
 
         hcex_float3 position;

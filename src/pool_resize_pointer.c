@@ -11,7 +11,8 @@ extern memory_block *stack_memory_pool_resize_block(stack_memory_pool *pool, mem
  * never as a memory_block*. It is the user pointer one past the block header. */
 void *pool_resize_pointer(stack_memory_pool *pool, void *p, unsigned int new_size)
 {
-    memory_block *block = p ? (memory_block *)((char *)p - 16) : nullptr;
+    /* p is the user pointer one past the header, so the header is one memory_block back */
+    memory_block *block = p ? (memory_block *)p - 1 : nullptr;
     unsigned int old_size = block ? MEMORY_BLOCK_SIZE(block->bits) : 0;
 
     memory_block *new_block = stack_memory_pool_resize_block(pool, block, new_size);

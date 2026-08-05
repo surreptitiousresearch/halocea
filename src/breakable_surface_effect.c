@@ -98,13 +98,16 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
 
     while ( 1 )
     {
-        const char *surfaces = (const char *)collision->surfaces.address;
-        const char *planes   = (const char *)collision->bsp3d.planes.address;
+        /* the folded 12 / 16 strides were sizeof(collision_surface) / sizeof(real_plane3d) */
+        const collision_surface *surfaces = (const collision_surface *)collision->surfaces.address;
+        const real_plane3d      *planes   = (const real_plane3d *)collision->bsp3d.planes.address;
         int16_t hull_count = 0;
         int surface_index = surface_worklist[worklist_index];
-        const int *surface = (const int *)&surfaces[12 * surface_index];
-        int current_edge = surface[1];
-        const float *plane = (const float *)&planes[16 * *surface];
+        const collision_surface *surface = &surfaces[surface_index];
+        int current_edge = surface->first_edge_index;
+        /* designator indexes the plane table UNMASKED; its sign selects orientation below —
+         * the same convention as bsp3d_get_plane_from_designator */
+        const float *plane = (const float *)&planes[surface->plane_designator];
         float plane_signed[4];   /* indexed by projection axis */
         float pn_x, pn_y, pn_z, pd;
         int projection_axis;
@@ -114,7 +117,7 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         worklist_index = (int16_t)(worklist_index + 1);
 
         /* signed plane: flip when the surface references the back side of its plane */
-        if ( *surface >= 0 )
+        if ( surface->plane_designator >= 0 )
         {
             pn_x = plane[0]; pn_y = plane[1]; pn_z = plane[2]; pd = plane[3];
         }
@@ -140,11 +143,12 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         while ( 1 )
         {
             const collision_edge *edge = &((const collision_edge *)collision->edges.address)[current_edge];
-            const char *verts = (const char *)collision->vertices.address;
+            const collision_vertex *verts = (const collision_vertex *)collision->vertices.address;
             int on_surface_b = (surface_index == edge->surface_indices[1]);
             /* pick left/right surface and start/end vertex by which side of the winged edge we are on */
             int neighbor_surface = (&edge->surface_indices[0])[surface_index != edge->surface_indices[1]];
-            const float *from_vertex = (const float *)&verts[16 * (&edge->vertex_indices[0])[surface_index != edge->surface_indices[1]]];
+            const float *from_vertex =
+                verts[(&edge->vertex_indices[0])[surface_index != edge->surface_indices[1]]].point.n;
             int this_hull = hull_count;
 
             if ( hull_count != 0 )
@@ -160,7 +164,7 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
             else
             {
                 /* first edge: establish the 2D frame for this surface */
-                const float *to_vertex = (const float *)&verts[16 * (&edge->vertex_indices[0])[on_surface_b]];
+                const float *to_vertex = verts[(&edge->vertex_indices[0])[on_surface_b]].point.n;
                 float edge_dx, edge_dy, edge_dz, edge_len;
 
                 if ( surface_index == seeded_index )
@@ -251,9 +255,9 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
                 }
                 if ( neighbor_surface != -1 )
                 {
-                    const char *neighbor = &surfaces[12 * neighbor_surface];
-                    if ( (unsigned char)neighbor[9] == breakable_surface_index
-                         && *(const uint16_t *)&neighbor[10] == (uint16_t)seed_surface->material_index )
+                    const collision_surface *neighbor = &surfaces[neighbor_surface];
+                    if ( neighbor->breakable_surface_index == breakable_surface_index
+                         && neighbor->material_index == seed_surface->material_index )
                     {
                         surface_worklist[worklist_count] = neighbor_surface;
                         worklist_count = (int16_t)(worklist_count + 1);
@@ -263,7 +267,7 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
 
             hull_count = (int16_t)(this_hull + 1);
             current_edge = (&edge->edge_indices[0])[on_surface_b];
-            if ( current_edge == surface[1] )
+            if ( current_edge == surface->first_edge_index )
                 break;
         }
 

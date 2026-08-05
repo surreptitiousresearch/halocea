@@ -29,9 +29,9 @@ uint8_t memory_pool_block_reallocate(memory_pool *pool, void **reference, int ne
         void *new_payload;
         if ( !memory_pool_block_allocate(pool, &new_payload, new_size) )
             return 0;
-        memcpy(new_payload, *reference, block->size - 24);
+        memcpy(new_payload, *reference, block->size - sizeof(memory_pool_block));
         memory_pool_block_free(pool, reference);
-        ((memory_pool_block *)((char *)new_payload - 24))->reference = reference;
+        ((memory_pool_block *)new_payload - 1)->reference = reference;
         *reference = new_payload;
         return 1;
     }

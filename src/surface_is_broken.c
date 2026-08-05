@@ -8,6 +8,7 @@
 #include "headers/collision_bsp.h"
 #include "headers/collision_surface.h"
 #include "headers/collision_surface_flags.h"
+#include "headers/bit_vector.h"
 
 extern const uint8_t *breakable_surface_flags_get(void);
 
@@ -19,10 +20,12 @@ uint8_t surface_is_broken(const structure_bsp *structure, int surface_index)
     if ( surface->flags & (1u << _collision_surface_breakable_bit) )
     {
         uint8_t breakable_surface_index = surface->breakable_surface_index;
-        const char *flags = (const char *)breakable_surface_flags_get();
-        unsigned int dword = *(const unsigned int *)(flags + (breakable_surface_index >> 3 & 0x1FFFFFFC));
+        const unsigned int *flags = (const unsigned int *)breakable_surface_flags_get();
 
-        return ((1 << (breakable_surface_index & 0x1F)) & dword) == 0;
+        /* DEVIATION: the decompiler byte-addressed the word as `*(unsigned int *)(flags +
+         * (i >> 3 & 0x1FFFFFFC))`; `(i >> 3) & ~3` IS `(i >> 5) * 4`, i.e. the plain cseries
+         * bit-vector word index. A surface is broken when its flag is CLEAR. */
+        return !BIT_VECTOR_TEST_FLAG(flags, breakable_surface_index);
     }
     return 0;
 }

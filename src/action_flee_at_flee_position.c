@@ -19,6 +19,7 @@
 #include "headers/prop_datum.h"
 #include "headers/scenario.h"
 #include "headers/firing_position_definition.h"
+#include "headers/encounter_definition.h"
 #include "headers/destination_type.h"
 #include "headers/ai_line_of_sight.h"
 #include "headers/blam_data_globals.h"
@@ -39,9 +40,14 @@ uint8_t action_flee_at_flee_position(int actor_index)
     if ( flee_firing_position_index == -1 )
         return 0;
 
-    const firing_position_definition *firing_position =
-        &((const firing_position_definition *)*(char *const *)((const char *)global_scenario->ai_encounters.address
-        + 176 * (uint16_t)actor->meta.encounter_index + 156))[flee_firing_position_index];
+    /* recovered: the folded 176 was sizeof(encounter_definition) and +156 is firing_positions.address
+     * (the tag_block starts at 0x98, its address field 4 bytes in). */
+    const encounter_definition *encounters =
+        (const encounter_definition *)global_scenario->ai_encounters.address;
+    const firing_position_definition *firing_positions =
+        (const firing_position_definition *)
+            encounters[(uint16_t)actor->meta.encounter_index].firing_positions.address;
+    const firing_position_definition *firing_position = &firing_positions[flee_firing_position_index];
 
     /* recovered: 1132 -> control.path.destination_orders.destination_type, 1136 -> its firing_position_index (union @0x4) */
     if ( actor_path_at_destination(actor_index)

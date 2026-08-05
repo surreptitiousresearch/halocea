@@ -24,7 +24,7 @@ int object_list_get_first(int object_list_index, int *reference_index)
         return -1;
 
     /* recovered: raw 4*(u16)i + 4*((2i)&0x1FFFE) is 12*(u16)i, i.e. the data_reference element index */
-    data_reference *reference = &((data_reference *)object_list_data->data)[(unsigned short)first_reference];
+    data_reference *reference = DATA_ARRAY_ELEMENT(object_list_data, data_reference, first_reference);
     *reference_index = reference->next_reference_index;   /* advance cursor to next reference */
     return reference->datum_index;                        /* object index */
 }

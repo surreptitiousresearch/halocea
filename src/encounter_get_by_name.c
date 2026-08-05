@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include "headers/scenario.h"
+#include "headers/encounter_definition.h"
 
 int encounter_get_by_name(const char *encounter_name)
 {
@@ -12,9 +13,12 @@ int encounter_get_by_name(const char *encounter_name)
     if ( global_scenario->ai_encounters.count <= 0 )
         return -1;
 
+    /* the folded 176 was sizeof(encounter_definition); `name` is its leading 32-byte field */
+    const encounter_definition *encounters =
+        (const encounter_definition *)global_scenario->ai_encounters.address;
     int index = 0;
 
-    while ( strncmp((const char *)global_scenario->ai_encounters.address + index * 176, encounter_name, 0x20) != 0 )
+    while ( strncmp(encounters[index].name, encounter_name, sizeof(encounters[index].name)) != 0 )
     {
         if ( ++index >= global_scenario->ai_encounters.count )
             return -1;

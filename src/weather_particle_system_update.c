@@ -63,7 +63,7 @@ void weather_particle_system_update(int16_t system_index)
         int i = system->types[type_index].first_particle_index;
         while ( i != -1 )
         {
-            weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (uint16_t)i;
+            weather_particle_datum *particle = DATA_ARRAY_ELEMENT(weather_particle_data, weather_particle_datum, i);
 
             int16_t phase_index = particle->sequence_index;
             float new_phase = particle->animation_rate * system->time_delta_sec + particle->sprite_index;

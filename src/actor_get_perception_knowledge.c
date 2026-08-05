@@ -22,8 +22,7 @@ int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index)
 
     if ( prop_index != -1 )
     {
-        char *prop_pool = (char *)prop_data->data;
-        prop_datum *prop = (prop_datum *)&prop_pool[312 * (uint16_t)prop_index];
+        prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
         int16_t state = prop->state;
         int sound_class = prop->unit_effect;
         if ( (state >= _prop_state_becoming_unacknowledged && state <= _prop_state_acknowledged)
@@ -34,8 +33,11 @@ int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index)
             result = _actor_knowledge_definite;
         }
         if ( (int16_t)result == -1 && prop->___u3.orphan_prop_index != -1 )
-            /* orphan latch byte -> _actor_knowledge_definite when set, else _actor_knowledge_searching */
-            result = (prop_pool[312 * (uint16_t)prop->___u3.orphan_prop_index + 184] != 0) + _actor_knowledge_searching;
+            /* recovered: prop_pool[312*idx + 184] -> prop_datum.definitely_located (312 = sizeof(prop_datum)).
+             * Latch -> _actor_knowledge_definite when set, else _actor_knowledge_searching. */
+            result = (DATA_ARRAY_ELEMENT(prop_data, prop_datum,
+                                         prop->___u3.orphan_prop_index)->definitely_located != 0)
+                     + _actor_knowledge_searching;
     }
 
     if ( (int16_t)result == -1 )

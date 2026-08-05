@@ -60,9 +60,9 @@ uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *star
     if (hit_result_out)
     {
         /* raw dword bit-copies into the caller's float[3] — no numeric conversion */
-        ((_DWORD *)hit_result_out)[0] = *(const _DWORD *)&destination_reference->t;
-        ((_DWORD *)hit_result_out)[1] = *(const _DWORD *)&destination_reference->plane;
-        ((_DWORD *)hit_result_out)[2] = *(const _DWORD *)&destination_reference->surface_index;
+        ((uint32_t *)hit_result_out)[0] = *(const uint32_t *)&destination_reference->t;
+        ((uint32_t *)hit_result_out)[1] = *(const uint32_t *)&destination_reference->plane;
+        ((uint32_t *)hit_result_out)[2] = *(const uint32_t *)&destination_reference->surface_index;
     }
 
     return available;

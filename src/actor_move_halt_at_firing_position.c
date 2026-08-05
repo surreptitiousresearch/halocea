@@ -38,8 +38,8 @@ uint8_t actor_move_halt_at_firing_position(uint16_t actor_index)
     {
         actor->orders.move.destination.destination_type = _destination_halt;
 
-        _DWORD *source = (_DWORD *)&actor->orders.look.idle_look_type;
-        _DWORD *dest = (_DWORD *)&actor->orders.combat.target_point.z;
+        uint32_t *source = (uint32_t *)&actor->orders.look.idle_look_type;
+        uint32_t *dest = (uint32_t *)&actor->orders.combat.target_point.z;
         for ( int count = 6; count; --count )
             *++dest = *++source;
     }

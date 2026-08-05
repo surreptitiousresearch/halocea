@@ -35,9 +35,10 @@ void ai_conversation_stop(int16_t conversation_definition_index)
         if ( index == -1 )
             continue;
 
-        char *conversations_base = (char *)global_scenario->ai_conversations.address;
+        /* the folded 116 was sizeof(ai_conversation) */
+        ai_conversation *conversations = (ai_conversation *)global_scenario->ai_conversations.address;
         conversation_datum *conversation_at = DATA_ARRAY_ELEMENT(conversation_data, conversation_datum, index);
-        ai_conversation *definition = (ai_conversation *)&conversations_base[116 * conversation_at->conversation_definition_index];
+        ai_conversation *definition = &conversations[conversation_at->conversation_definition_index];
 
         /* Append to the recent-conversations ring (size 16). */
         int recent_index = ai_globals->recent_conversation_next_index;

@@ -50,9 +50,10 @@ void biped_try_to_make_footsteps(int biped_index)
     int animation_index = biped->object.animation.state.index;
     if (animation_index != -1)
     {
-        animation *animation_record = (animation *)((char *)
-            (TAG_GET(animation_graph, biped->object.animation.animation_graph_index))->animations.address
-            + 180 * animation_index);
+        /* the folded 180 was sizeof(animation) */
+        animation *animations = (animation *)
+            (TAG_GET(animation_graph, biped->object.animation.animation_graph_index))->animations.address;
+        animation *animation_record = &animations[animation_index];
 
         if (air_contact)
         {

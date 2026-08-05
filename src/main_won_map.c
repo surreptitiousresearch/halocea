@@ -50,7 +50,7 @@ void main_won_map(void)
 
     if ( solo_level == _single_player_map_a50 )  /* the sniper-rifle mission */
     {
-        _DWORD *object_data = 0;
+        uint32_t *object_data = 0;
         for ( int16_t local_player = local_player_get_next(-1);
               local_player != -1;
               local_player = local_player_get_next(local_player) )
@@ -75,7 +75,7 @@ void main_won_map(void)
                     continue;
 
                 weapon_object = (weapon_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
-                int weapon_tag_index = *(_DWORD *)weapon_object;
+                int weapon_tag_index = *(uint32_t *)weapon_object;
                 /* DEVIATION FIX: restored missing deref — DB reads (*(_DWORD **)slot)[11] = definition
                  * dword 11 = _object_definition.model.name (weapon's model tag path) */
                 char *weapon_name = TAG_GET(_object_definition, weapon_tag_index)->model.name;

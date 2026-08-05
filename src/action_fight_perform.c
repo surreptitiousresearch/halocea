@@ -89,9 +89,11 @@ uint8_t action_fight_perform(int actor_index)
         {
             firing_position_ok = 1;
             if ( actor->target.target_prop_index != -1 )
-                /* recovered: *(float *)((char *)variant + 0xA0) -> ranged_combat.combat_range_upper_bound */
-                firing_position_ok = *((float *)prop_data->data
-                                + 78 * (uint16_t)actor->target.target_prop_index + 71)
+                /* recovered: *(float *)((char *)variant + 0xA0) -> ranged_combat.combat_range_upper_bound
+                 * recovered: (float *)prop_data->data + 78*idx + 71 -> prop_datum.distance
+                 * (78*4 = 312 = sizeof(prop_datum), +71*4 = +284). */
+                firing_position_ok =
+                    DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index)->distance
                         >= (double)firing_variant_definition->ranged_combat.combat_range_upper_bound;
         }
         if ( !firing_position_ok )

@@ -24,6 +24,7 @@
 #include "headers/dead_camera.h"
 #include "headers/camera_control.h"
 #include "headers/animation.h"
+#include "headers/animation_graph.h"
 #include "headers/model.h"
 #include "headers/real_matrix4x3.h"
 #include "headers/real_point3d.h"
@@ -67,9 +68,12 @@ void scripted_camera_update(dead_camera *camera, const camera_control *controls,
         if (camera_script_globals.mode == _camera_script_mode_animation)
         {
             /* animated camera: sample the root matrix at the current frame */
-            int *animation_graph = TAG_GET(int, camera_script_globals.animation_graph_index);
-            const animation *camera_animation =
-                (const animation *)(animation_graph[30] + 180 * camera_script_globals.animation_index);
+            /* DEVIATION: decompiled as `TAG_GET(int, ...)[30] + 180 * index` — int slot 30 is byte
+             * 0x78, which is animations.address (the tag_block starts at 0x74), and the folded 180
+             * is sizeof(animation). */
+            animation_graph *graph = TAG_GET(animation_graph, camera_script_globals.animation_graph_index);
+            const animation *animations = (const animation *)graph->animations.address;
+            const animation *camera_animation = &animations[camera_script_globals.animation_index];
             int16_t frame_count = camera_animation->frame_count;
             int16_t frame = (int16_t)(int)((float)frame_count - camera_script_globals.timer * 30.0f);
             if (frame >= 0)

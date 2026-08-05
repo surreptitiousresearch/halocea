@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/cluster_partition.h"
+#include "headers/light_datum.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -17,8 +18,11 @@ int light_build_cluster_array(uint16_t light_index, int16_t maximum_count, int16
     int count = 0;
     int reference_index[12];
 
-    for (int16_t cluster = cluster_partition_get_first_cluster(&light_cluster_partition, reference_index,
-                                                               *((int *)light_data->data + 31 * light_index + 4));
+    /* recovered: (int *)light_data->data + 31*idx + 4 -> light_datum.cluster_reference
+     * (31*4 = 124 = sizeof(light_datum), +4*4 = +0x10). */
+    for (int16_t cluster = cluster_partition_get_first_cluster(
+             &light_cluster_partition, reference_index,
+             DATA_ARRAY_ELEMENT(light_data, light_datum, light_index)->cluster_reference);
          count < maximum_count;
          cluster = cluster_partition_get_next_cluster(&light_cluster_partition, reference_index))
     {

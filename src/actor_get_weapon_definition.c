@@ -15,5 +15,5 @@ weapon_definition *actor_get_weapon_definition(int actor_index)
     int weapon = actor_get_weapon(actor_index);
     if ( weapon == -1 )
         return 0;
-    return TAG_GET(weapon_definition, *((_DWORD *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon)->datum));
+    return TAG_GET(weapon_definition, *((uint32_t *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon)->datum));
 }

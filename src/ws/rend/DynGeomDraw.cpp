@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "../../headers/ws/rend/rendDRIVER.h"      // REND_PRIMTYPE + extern "C" DynGeomDraw decl
 #include "../../headers/vidDRIVER_DYNGEOM_BUFFER.h" // buffer + vidDriver->drvInterface->dynGeomBuffer chain
+#include "../../headers/ws/vid/vidFVF_DESCR.h"      // full layout — sizeOfFVF@0x92 (the fwd decl above is opaque)
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
 // DynGeomDraw @ 0x827C9028  (D:\Projects\code\common\src.sys\render\rend_vis.cpp)
@@ -41,8 +42,7 @@ void DynGeomDraw(REND_PRIMTYPE primType, void *vertList, int nVert,
             "D:\\Projects\\code\\common\\src.sys\\render\\rend_vis.cpp", 37,
             dsStrongAssertMessage); // instance-call, 4 args (dropped stray leading this)
 
-    // vidFVF_DESCR::sizeOfFVF @0x92 (DB types_members; the struct is otherwise opaque/boundary).
-    unsigned char sizeOfFVF = *((const unsigned char *)descr + 146);
+    unsigned char sizeOfFVF = descr->sizeOfFVF;   /* 0x92 */
 
     // Begin() takes the caller's FourCC debug/allocation tag (the decompiler mislabels r25 as
     // HIDWORD(fvf); the disasm shows it is callerID, arg r9).

@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include "headers/scenario.h"
+#include "headers/scenario_object_name.h"
 
 extern int strcmp(const char *a, const char *b);
 
@@ -14,9 +15,11 @@ int16_t scenario_object_name_index_from_string(scenario *scenario, const char *n
     if ( count <= 0 )
         return -1;
 
-    const char *address = (const char *)scenario->object_names.address;
+    /* the folded 36 was sizeof(scenario_object_name), whose `name` is at offset 0 */
+    const scenario_object_name *object_names =
+        (const scenario_object_name *)scenario->object_names.address;
     for ( int16_t i = 0; i < count; i = (int16_t)(i + 1) )
-        if ( !strcmp(&address[36 * i], name) )
+        if ( !strcmp(object_names[i].name, name) )
             return i;
     return -1;
 }

@@ -30,7 +30,7 @@ int actor_get_weapon(uint16_t actor_index)
           result == -1) )
     {
         if ( actor->meta.unit_index != -1
-          && (*TAG_GET(_DWORD, actor->meta.variant_definition_index) & (1u << _actor_variant_definition_cannot_use_ranged_weapons_bit)) == 0 )
+          && (*TAG_GET(uint32_t, actor->meta.variant_definition_index) & (1u << _actor_variant_definition_cannot_use_ranged_weapons_bit)) == 0 )
         {
             return unit_inventory_get_weapon(
                 actor->meta.unit_index,

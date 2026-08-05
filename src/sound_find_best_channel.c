@@ -23,8 +23,7 @@ extern uint8_t sound_preempts_sound(uint16_t challenger_sound_index, uint16_t ch
 
 int16_t sound_find_best_channel(uint16_t sound_index)
 {
-    char *data = (char *)sound_data->data;
-    sound_datum *datum = (sound_datum *)&data[176 * sound_index];
+    sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     sound_definition *def = TAG_GET(sound_definition, datum->definition_index);
     const sound_source *source = &datum->source;
     int best_channel = -1;
@@ -54,7 +53,7 @@ int16_t sound_find_best_channel(uint16_t sound_index)
             {
                 best_channel = channel;
                 best_sound = other_sound;
-                sound_datum *other = (sound_datum *)&data[176 * (uint16_t)other_sound];
+                sound_datum *other = DATA_ARRAY_ELEMENT(sound_data, sound_datum, other_sound);
                 best_distance = source_distance_squared(other->listener_index, &other->source);
             }
         }

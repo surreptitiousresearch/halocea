@@ -7,11 +7,8 @@
 #include "headers/actor_datum.h"
 #include "headers/obey_state_data.h"
 #include "headers/blam_data_globals.h"
+#include "headers/obey_individual_iterator.h"
 
-
-typedef void (*obey_individual_iterator)(int actor_index, int unit_index, int16_t command_list_index,
-                                         obey_individual_simple_control *simple_control,
-                                         obey_individual_complex_control *complex_control, void *user_data);
 extern void action_obey_individual_advance(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, void *user_data);
 extern void action_obey_individuals_iterate(int actor_index, uint8_t initialize_structures, obey_state_data *state_data, obey_individual_iterator iterator, void *user_data);
 

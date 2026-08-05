@@ -45,7 +45,7 @@ void objects_dump_memory(void)
 
     object_iterator iterator;
     object_iterator_new(&iterator, object_mask_all, 0);
-    for ( _DWORD *object = object_iterator_next(&iterator); object; object = object_iterator_next(&iterator) )
+    for ( uint32_t *object = object_iterator_next(&iterator); object; object = object_iterator_next(&iterator) )
     {
         /* Locate (or create) this object's definition row. */
         int definition_row = -1;

@@ -19,7 +19,10 @@ extern int   SetThreadPriority(void *handle, int priority);
 extern int   ResumeThread(void *handle);
 extern int   CloseHandle(void *handle);
 
-int create_thread(
+/* DEVIATION: declared return is 8-bit, not int — the DB prototype says `unsigned __int8` and
+ * perform_filesystem_initialization byte-normalizes the result (clrlwi r8, r3, 24 @0x837342D8)
+ * before testing it. The two other callers ignore r3. */
+uint8_t create_thread(
         uint16_t flags,
         unsigned int (*function)(void *),
         void        *function_input,

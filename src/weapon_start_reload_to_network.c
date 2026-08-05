@@ -42,6 +42,10 @@ void weapon_start_reload_to_network(int weapon_index, int16_t magazine_index)
                                                                 g_message_encode_buffer, 32760);
 
     struct network_game_server *server = global_network_game_server_get();
+    /* trailing args per the DB prototype: reliable=1, immediate=0, including_local_client=0,
+     * priority=3. The first three are plain booleans, not enum members; `priority` has no DB
+     * enum (enum_oracle: nothing above noise). Every sibling caller in the corpus spells this
+     * same `1u, 0, 0, 3` tail — see ctf_engine_replicate_game_mode_state_to_network.c. */
     network_game_server_send_message_to_all_loaded_machines(server, network_message_type_message_delta, g_message_encode_buffer, size_in_bits,
                                                             1u, 0u, 0u, 3);
 }

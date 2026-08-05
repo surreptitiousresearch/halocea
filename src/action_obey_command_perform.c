@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include "headers/unit_datum.h"
+#include "headers/unit_grenade_throw_state.h"
 #include "headers/object_datum.h"
 #include "headers/obey_simple_control_flags.h"
 #include "headers/obey_metadata_flags.h"
@@ -195,10 +196,13 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
                 return 1;
             if ( complex_control->grenade_throw_started )
             {
-                /* still throwing: hold while the unit reports the grenade is in hand (unit +653) */
-                uint8_t in_hand = ((unsigned char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum)[653];
-                simple_control->pause_timer = in_hand ? 0x1E : 0;
-                return (in_hand ? 0x1E : 0) == 0;
+                /* recovered: unit datum byte +653 -> unit.grenade_throw_state (unit_datum.unit is at
+                 * +500, member at +153/0x99). Not a flag word: it is the 4-state throw ladder, and
+                 * 0x1E is a 30-tick (1 s) hold, not a mask. Any state but _none = throw underway. */
+                uint8_t throw_state = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum)
+                                          ->unit.grenade_throw_state;
+                simple_control->pause_timer = (throw_state != _grenade_throw_state_none) ? 30 : 0;
+                return simple_control->pause_timer == 0;
             }
             else
             {

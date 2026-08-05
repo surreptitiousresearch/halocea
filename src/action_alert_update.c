@@ -62,9 +62,12 @@ void action_alert_update(uint16_t actor_index)
                 _object_definition *unit_definition = TAG_GET(_object_definition, unit_object->definition_index);  /* DEVIATION: restored missing *(T**) deref */
                 animation_graph_index = unit_definition->animation_graph.index;
             }
-
+            /* recovered: the (const char *) cast was punning the whole record — animation_name is
+             * ai_animation_reference_definition's first member (char[32] @ +0), which is what the
+             * DB prototype's `const char *animation_name` parameter actually wants.
+             * The trailing 1 is the `interpolate` bool, not an enum (enum_oracle: no candidate). */
             unit_start_user_animation(actor->meta.unit_index, animation_graph_index,
-                (const char *)animation_reference, 1u);
+                animation_reference->animation_name, 1u);
         }
 
         alert->must_play_animation = 0;

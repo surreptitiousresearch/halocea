@@ -17,14 +17,9 @@ typedef int BOOL;
 #define __noreturn __declspec(noreturn)
 #endif
 
-/* IDA fixed-width integer spellings emitted by the decompiler. */
-#ifndef BLAM_IDA_INTS_DEFINED
-#define BLAM_IDA_INTS_DEFINED
-typedef unsigned char      _BYTE;
-typedef uint16_t   _WORD;
-typedef uint32_t   _DWORD;
-typedef uint64_t   _QWORD;
-#endif
+/* The IDA fixed-width spellings (_BYTE/_WORD/_DWORD/_QWORD) that used to be typedef'd here were
+ * removed 2026-08-05: every consumer now uses the canonical stdint spelling, and a decompiler
+ * artifact shim is not Bungie-authentic (same call as the deleted hexrays_defs.h). */
 
 /* PPC floating-point intrinsics the Hex-Rays PPC decompiler emits inline. On the Xbox 360
  * target these are single-instruction ops; modeled here as their exact scalar equivalents so

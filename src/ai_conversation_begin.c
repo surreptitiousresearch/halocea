@@ -50,8 +50,9 @@ uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_try
 {
     conversation_datum *conversation =
         DATA_ARRAY_ELEMENT(conversation_data, conversation_datum, conversation_index);
-    char *conversations_base = (char *)global_scenario->ai_conversations.address;
-    ai_conversation *definition = (ai_conversation *)&conversations_base[116 * conversation->conversation_definition_index];
+    /* the folded 116 was sizeof(ai_conversation) */
+    ai_conversation *conversations = (ai_conversation *)global_scenario->ai_conversations.address;
+    ai_conversation *definition = &conversations[conversation->conversation_definition_index];
 
     float best_distance = 3.4028235e38f;
     uint8_t try_alternate = 0;

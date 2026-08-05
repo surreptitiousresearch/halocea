@@ -13,6 +13,7 @@
 #include "headers/structure_material.h"
 #include "headers/vertex_buffer.h"
 #include "headers/rasterizer_vertex_type.h"
+#include "headers/environment_vertex_uncompressed.h"
 
 extern int16_t rasterizer_geometry_get_vertex_size(int16_t type);
 extern uint8_t rasterizer_vertex_buffer_new(vertex_buffer *vertex_buffer, int16_t type, int count, const void *vertices, const void *vertices2, int buffer_size);
@@ -38,7 +39,10 @@ void structure_bsp_header_register_vertex_buffers_old(cache_file_structure_bsp_h
 
             int vertex_count = primary_vertices->count;
             char *vertex_data = (char *)material->uncompressed_vertex_data.address;
-            char *lightmap_vertex_data = &vertex_data[56 * vertex_count];
+            /* the folded 56 was sizeof(environment_vertex_uncompressed); the lightmap vertices
+             * follow the render vertices in the same stream */
+            char *lightmap_vertex_data =
+                (char *)((environment_vertex_uncompressed *)vertex_data + vertex_count);
 
             int primary_vertex_size = rasterizer_geometry_get_vertex_size(_rasterizer_vertex_type_environment_uncompressed);
             rasterizer_vertex_buffer_new(primary_vertices, _rasterizer_vertex_type_environment_uncompressed, (int16_t)vertex_count,

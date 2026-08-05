@@ -46,7 +46,7 @@ int weather_particle_system_new_particle(int16_t system_index, int16_t type_inde
     weather_particle_type_datum *type_state = &system->types[type_index];
     float box_width = type_state->box_width;
 
-    weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (uint16_t)particle_index;
+    weather_particle_datum *particle = DATA_ARRAY_ELEMENT(weather_particle_data, weather_particle_datum, particle_index);
 
     weather_particle_system_definition *definition = TAG_GET(weather_particle_system_definition, system->definition_index);
     weather_particle_type_definition *type_def = (weather_particle_type_definition *)definition->particle_types.address + type_index;

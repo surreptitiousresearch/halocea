@@ -29,7 +29,7 @@ void player_update_server_local_player_updates_to_network(void)
     player_datum *player;
     uint8_t update_scratch[16];
     int message_out[4];
-    _BYTE message_buffer[48];
+    uint8_t message_buffer[48];
 
     data_iterator_new(&iter, player_data);
     for ( player = data_iterator_next(&iter); player;

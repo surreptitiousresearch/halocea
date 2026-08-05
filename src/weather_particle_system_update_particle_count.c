@@ -37,7 +37,7 @@ void weather_particle_system_update_particle_count(int16_t system_index, int16_t
     while ( type->particle_count > target_count )
     {
         weather_particle_datum *particle =
-            (weather_particle_datum *)weather_particle_data->data + (uint16_t)type->first_particle_index;
+            DATA_ARRAY_ELEMENT(weather_particle_data, weather_particle_datum, type->first_particle_index);
         int next_free_particle_index = particle->next_particle_index;
         datum_delete(weather_particle_data, type->first_particle_index);
         type->first_particle_index = next_free_particle_index;

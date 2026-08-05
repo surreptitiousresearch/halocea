@@ -14,6 +14,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
 #include "headers/unit_datum.h"
+#include "headers/dialogue_definition.h"
 #include "headers/object_damage_flags.h"
 #include "headers/unit_speech_priority.h"
 #include "headers/blam_data_globals.h"
@@ -40,7 +41,10 @@ int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursi
         {
             for ( int16_t type = vocalization_type; vocalization_type != -1; type = vocalization_type )
             {
-                sound_index = TAG_GET(int, dialogue_tag)[4 * type + 7];
+                /* recovered: TAG_GET(int, ...)[4*type + 7] -> dialogue_definition.vocalizations[type].index
+                 * (int units: 16 header + 16*type + 12; vocalizations is tag_reference[209] @ +0x10,
+                 * 209 == NUMBER_OF_VOCALIZATION_TYPES, which pins the index domain). */
+                sound_index = TAG_GET(dialogue_definition, dialogue_tag)->vocalizations[type].index;
                 if ( !allow_recursive_lookup )
                     break;
                 if ( sound_index != -1 )

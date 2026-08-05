@@ -13,6 +13,7 @@
 #include "headers/encounter_definition.h"
 #include "headers/ai_globals.h"
 #include "headers/data_array.h"
+#include "headers/encounter_datum.h"
 #include "headers/actor_datum.h"
 #include "headers/blam_data_globals.h"
 
@@ -31,8 +32,10 @@ void encounter_build_firing_position_owner_actor_indices(int encounter_index,
         if ( encounter_index == -1 )
             actor_index = ai_globals->first_encounterless_actor_index;
         else
-            actor_index = *((unsigned int *)encounter_data->data
-                          + 27 * (uint16_t)encounter_index + 5);
+            /* recovered: (unsigned int *)encounter_data->data + 27*idx + 5
+             * -> encounter_datum.first_actor_index (27*4 = 108 = sizeof(encounter_datum), +5*4 = +20). */
+            actor_index = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum,
+                                             encounter_index)->first_actor_index;
     }
 
     while ( ai_globals->ai_initialized_for_map && actor_index != -1 )

@@ -438,8 +438,9 @@ tail:
                 {
                     unsigned char unreachable = 0;
                     int st = charge->goal;
-                    char range_exceeded =
-                        *((float *)prop_data->data + 78 * (uint16_t)actor->target.target_prop_index + 71) > charge->acceptable_target_range;
+                    /* recovered: (float *)prop_data->data + 78*idx + 71 -> prop_datum.distance
+                     * (78*4 = 312 = sizeof(prop_datum), +71*4 = +284); same element `prop` already holds. */
+                    char range_exceeded = prop->distance > charge->acceptable_target_range;
                     if ((st == charge_goal_melee || st == charge_goal_melee_leaping) && (charge->launched_leap || charge->leap_pending || charge->launched_melee_attack))
                         range_exceeded = 0;
                     if (range_exceeded

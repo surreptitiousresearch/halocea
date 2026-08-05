@@ -29,7 +29,7 @@ void weather_particle_system_delete(int16_t system_index)
             {
                 int particle_index = type_datum->first_particle_index;
                 weather_particle_datum *particle =
-                    (weather_particle_datum *)weather_particle_data->data + (uint16_t)particle_index;
+                    DATA_ARRAY_ELEMENT(weather_particle_data, weather_particle_datum, particle_index);
                 next = particle->next_particle_index;
                 datum_delete(weather_particle_data, particle_index);
                 int16_t particle_count = type_datum->particle_count;

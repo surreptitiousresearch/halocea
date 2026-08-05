@@ -505,9 +505,11 @@ void biped_update_physics(biped_physics *physics)
                                > (double)(physics->width * -0.5f))
                         {
                             /* clamp the probe onto the neighbour edge segment, keep the closest surface */
-                            char  *vertex_table = (char *)bsp->vertices.address;
-                            float *edge_start = (float *)&vertex_table[16 * edge->vertex_indices[0]];
-                            float *edge_end   = (float *)&vertex_table[16 * edge->vertex_indices[1]];
+                            /* the folded 16 was sizeof(collision_vertex) */
+                            const collision_vertex *vertex_table =
+                                (const collision_vertex *)bsp->vertices.address;
+                            const float *edge_start = vertex_table[edge->vertex_indices[0]].point.n;
+                            const float *edge_end   = vertex_table[edge->vertex_indices[1]].point.n;
                             float edge_dy = (edge_end[1] - edge_start[1]);
                             float edge_dz = (edge_end[2] - edge_start[2]);
                             float start_x = *edge_start;

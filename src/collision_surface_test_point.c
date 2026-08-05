@@ -13,6 +13,8 @@
 #include <stdint.h>
 #include "headers/collision_bsp.h"
 #include "headers/collision_surface.h"
+#include "headers/collision_edge.h"
+#include "headers/collision_vertex.h"
 #include "headers/collision_surface_flags.h"
 #include "headers/real_point2d.h"
 
@@ -34,8 +36,9 @@ uint8_t collision_surface_test_point(const collision_bsp *bsp, int16_t breakable
           & *(int *)&breakable_surface_flags[(surface->breakable_surface_index >> 3) & 0x1FFFFFFC]) != 0 )
     {
         int first_edge = surface->first_edge_index;
-        char *edges = (char *)bsp->edges.address;
-        float *vertices = (float *)bsp->vertices.address;
+        /* the folded 24 / 4-float strides were sizeof(collision_edge) / sizeof(collision_vertex) */
+        const collision_edge *edges = (const collision_edge *)bsp->edges.address;
+        const collision_vertex *vertices = (const collision_vertex *)bsp->vertices.address;
         int map_index = 2 * projection_axis + projection_sign;
         int map_x = global_projection3d_mappings[0][map_index][0];
         int map_y = global_projection3d_mappings[0][map_index][1];
@@ -45,18 +48,19 @@ uint8_t collision_surface_test_point(const collision_bsp *bsp, int16_t breakable
 
         while ( 1 )
         {
-            int *edge = (int *)&edges[24 * edge_index];
-            int forward = (surface_index == edge[5]);            /* this surface is the edge's forward side */
-            int from_vertex = forward ? edge[0] : edge[1];
-            float *to_vertex = &vertices[4 * (forward ? edge[1] : edge[0])];
-            float *from = &vertices[4 * from_vertex];
+            const collision_edge *edge = &edges[edge_index];
+            int forward = (surface_index == edge->surface_indices[1]); /* this surface is the edge's forward side */
+            int from_index = forward ? edge->vertex_indices[0] : edge->vertex_indices[1];
+            int to_index   = forward ? edge->vertex_indices[1] : edge->vertex_indices[0];
+            const float *to_vertex = vertices[to_index].point.n;
+            const float *from      = vertices[from_index].point.n;
 
             float cross = (from[map_y] - to_vertex[map_y]) * (px - to_vertex[map_x])
                         - (from[map_x] - to_vertex[map_x]) * (py - to_vertex[map_y]);
             if ( cross > 0.0f )
                 break;                                           /* point is outside this edge */
 
-            edge_index = forward ? edge[3] : edge[2];            /* next edge around the loop */
+            edge_index = forward ? edge->edge_indices[1] : edge->edge_indices[0]; /* next edge around the loop */
             if ( edge_index == first_edge )
                 return 1;                                        /* closed the loop: inside */
         }

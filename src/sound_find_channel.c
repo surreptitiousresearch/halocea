@@ -23,8 +23,7 @@ extern int16_t sound_find_best_channel(uint16_t sound_index);
 
 int16_t sound_find_channel(uint16_t sound_index)
 {
-    char *data = (char *)sound_data->data;
-    sound_datum *datum = (sound_datum *)&data[176 * sound_index];
+    sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     int assigned = (uint16_t)datum->playing_channel_index;
     int source_identifier;
 
@@ -43,7 +42,8 @@ int16_t sound_find_channel(uint16_t sound_index)
         {
             if ( sound_channels[channel].sound_index != -1 )
             {
-                sound_datum *other = (sound_datum *)&data[176 * (uint16_t)sound_channels[channel].sound_index];
+                sound_datum *other = DATA_ARRAY_ELEMENT(sound_data, sound_datum,
+                                                       sound_channels[channel].sound_index);
                 if ( other->source_identifier == source_identifier
                   && sound_classes[TAG_GET(sound_definition, other->definition_index)->class_index].speech )
                 {

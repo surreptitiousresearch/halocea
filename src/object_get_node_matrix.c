@@ -13,5 +13,7 @@ real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index)
     object_header_datum *object_header = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index);
     object_datum *object = object_header->datum;
     /* node matrices live in the header block region at the object's node_matrices block offset */
-    return (real_matrix4x3 *)((char *)object + object->object.node_matrices.offset + 52 * node_index);
+    real_matrix4x3 *node_matrices =
+        (real_matrix4x3 *)((char *)object + object->object.node_matrices.offset);
+    return &node_matrices[node_index];   /* the folded 52 was sizeof(real_matrix4x3) */
 }

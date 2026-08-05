@@ -19,6 +19,9 @@
 
 #include <stdint.h>
 #include "headers/ai_animation_reference_definition.h"
+#include "headers/biped_definition.h"
+#include "headers/biped_definition_flags.h"
+#include "headers/unit_animation_impulse.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_vector2d.h"
@@ -522,7 +525,13 @@ uint8_t action_obey_command_begin(
         {
             if ( unit_index == actor->meta.unit_index && actor->input.vehicle_index != -1 )
                 return command_result;
-            simple_control->simple_control_flags = simple_control->simple_control_flags & 0xE3 | 4;
+            /* 0xE3 = ~0x1C: clear the three jump-state bits, then latch an UNtargeted jump */
+            simple_control->simple_control_flags =
+                (simple_control->simple_control_flags
+                 & ~((1u << _obey_simple_jump_bit)
+                   | (1u << _obey_simple_jump_jumped_bit)
+                   | (1u << _obey_simple_jump_targeted_bit)))
+                | (1u << _obey_simple_jump_bit);
             unsigned char face_forward;
             if ( unit_index == actor->meta.unit_index )
             {
@@ -549,6 +558,11 @@ uint8_t action_obey_command_begin(
                 }
             }
             simple_control->pause_timer = 60;
+            /* not a flag word: directmovement.facing is the facing-MODE code (0 = base facing,
+             * 1 = reversed, 2/3 = perpendicular; see action_obey_directmovement_update_facing).
+             * Any value > 3 means "no facing override" — 0xA is that out-of-domain sentinel.
+             * No DB enum names this domain (enum_oracle: no candidate above noise; the same
+             * domain is adjudicated BLOCKED in actor_move_calculate_movement.c). */
             simple_control->___u5.directmovement.facing = face_forward != 0 ? 0 : 0xA;
             command_result = 1;
             break;
@@ -560,7 +574,15 @@ uint8_t action_obey_command_begin(
                 return command_result;
             unsigned char control_flags = simple_control->simple_control_flags;
             simple_control->___u5.directmovement.facing = 0;
-            simple_control->simple_control_flags = control_flags & 0xE3 | 0x14;
+            /* 0xE3 = ~0x1C: clear the three jump-state bits, then latch a TARGETED jump
+             * (this atom carries explicit velocity parameters — see obey_simple_control_flags.h). */
+            simple_control->simple_control_flags =
+                (control_flags
+                 & ~((1u << _obey_simple_jump_bit)
+                   | (1u << _obey_simple_jump_jumped_bit)
+                   | (1u << _obey_simple_jump_targeted_bit)))
+                | (1u << _obey_simple_jump_bit)
+                | (1u << _obey_simple_jump_targeted_bit);
             simple_control->___u5.directmovement.vector.n[0] = command->parameter1;
             float jump_vertical = command->parameter2;
             simple_control->pause_timer = 60;
@@ -654,18 +676,21 @@ uint8_t action_obey_command_begin(
             switch ( (uint16_t)command->atom_modifier )
             {
                 case _ai_atom_action_modifier_berserk:
-                    complex_control->action_animation_impulse = 0;
+                    complex_control->action_animation_impulse = _unit_animation_impulse_berserk;
                     complex_control->play_action = 1;
                     complex_control->action_communication_type = _ai_communication_berserk;
                     return 1;
-                case _ai_atom_action_modifier_surprise_front: action_animation_impulse = 4;  action_communication_type = _ai_communication_surprise; break;
-                case _ai_atom_action_modifier_surprise_back:  action_animation_impulse = 5;  action_communication_type = _ai_communication_surprise; break;
-                case _ai_atom_action_modifier_evade_left:     action_animation_impulse = 6;  action_communication_type = -1; break;
-                case _ai_atom_action_modifier_evade_right:    action_animation_impulse = 7;  action_communication_type = -1; break;
-                case _ai_atom_action_modifier_dive_forward:   action_animation_impulse = 8;  action_communication_type = _ai_communication_dive; break;
-                case _ai_atom_action_modifier_dive_back:      action_animation_impulse = 9;  action_communication_type = _ai_communication_dive; break;
-                case _ai_atom_action_modifier_dive_left:      action_animation_impulse = 10; action_communication_type = _ai_communication_dive; break;
-                case _ai_atom_action_modifier_dive_right:     action_animation_impulse = 11; action_communication_type = _ai_communication_dive; break;
+                /* recovered: these are unit_animation_impulse ids (DB enum
+                 * _E1348C23B6F79F01EF2735D5453AE34B), the argument of actor_move_animation_impulse —
+                 * each modifier maps to the impulse of the same name. */
+                case _ai_atom_action_modifier_surprise_front: action_animation_impulse = _unit_animation_impulse_surprise_front; action_communication_type = _ai_communication_surprise; break;
+                case _ai_atom_action_modifier_surprise_back:  action_animation_impulse = _unit_animation_impulse_surprise_back;  action_communication_type = _ai_communication_surprise; break;
+                case _ai_atom_action_modifier_evade_left:     action_animation_impulse = _unit_animation_impulse_evade_left;    action_communication_type = -1; break;
+                case _ai_atom_action_modifier_evade_right:    action_animation_impulse = _unit_animation_impulse_evade_right;   action_communication_type = -1; break;
+                case _ai_atom_action_modifier_dive_forward:   action_animation_impulse = _unit_animation_impulse_dive_front;    action_communication_type = _ai_communication_dive; break;
+                case _ai_atom_action_modifier_dive_back:      action_animation_impulse = _unit_animation_impulse_dive_back;     action_communication_type = _ai_communication_dive; break;
+                case _ai_atom_action_modifier_dive_left:      action_animation_impulse = _unit_animation_impulse_dive_left;     action_communication_type = _ai_communication_dive; break;
+                case _ai_atom_action_modifier_dive_right:     action_animation_impulse = _unit_animation_impulse_dive_right;    action_communication_type = _ai_communication_dive; break;
                 case _ai_atom_action_modifier_vehicle_woohoo: action_animation_impulse = -1; action_communication_type = _ai_communication_vehicle_woohoo; break;
                 case _ai_atom_action_modifier_vehicle_scared: action_animation_impulse = -1; action_communication_type = _ai_communication_vehicle_scared; break;
                 default: return complex_control->play_action;
@@ -772,16 +797,18 @@ uint8_t action_obey_command_begin(
             {
                 ai_command_point_definition *facing_point = &points[facing_point_index];
                 int *unit_object = object_try_and_get_and_verify_type(unit_index, object_mask_biped);
-                /* byte 756 of the unit's tag: for a biped_definition this is biped.flags (bits 0x4/0x40);
-                 * for a vehicle_definition the same byte instead lands inside _vehicle_definition.type —
-                 * a different field entirely. Left as a raw offset rather than typing it as one or the
-                 * other, since this command atom can target either kind of unit. */
-                int *unit_tag = unit_object ? TAG_GET(int, *unit_object) : nullptr;
+                /* recovered: offset 756 (word 189) of the unit's tag -> biped_definition.biped.flags,
+                 * bits 0x4/0x40 = _biped_flying_bit / _biped_climbs_anything_bit. The earlier
+                 * "could be a vehicle_definition" hedge was wrong: object_try_and_get_and_verify_type
+                 * above filters on object_mask_biped, so the tag here is always a biped_definition. */
+                biped_definition *unit_tag = unit_object ? TAG_GET(biped_definition, *unit_object) : nullptr;
                 facing_vector.n[0] = facing_point->position.n[0] - position->n[0];
                 facing_vector.n[1] = facing_point->position.n[1] - position->n[1];
                 facing_vector.n[2] = facing_point->position.n[2] - position->n[2];
                 int degenerate;
-                if ( unit_tag && ((unit_tag[189] & 4) != 0 || (unit_tag[189] & 0x40) != 0) )
+                /* flying or climb-anything bipeds may legitimately face up/down, so keep Z */
+                if ( unit_tag && (unit_tag->biped.flags & ((1u << _biped_flying_bit)
+                                                         | (1u << _biped_climbs_anything_bit))) != 0 )
                 {
                     degenerate = normalize3d(&facing_vector) == 0.0;
                 }

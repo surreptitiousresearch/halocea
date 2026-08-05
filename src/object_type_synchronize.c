@@ -7,13 +7,12 @@
  * has no palette entry, any existing object is deleted. Finally the scenario name table is pointed at the
  * resulting object. Returns the object index (or -1).
  *
- * The palette entry (48-byte stride) and the object datum are read at raw offsets (definition tag index at
- * entry+12; object definition tag index at object+0; object height field at object+172; object name index slot
- * at object+186). The goto-based control flow is reflowed into structured conditionals. */
+ * The goto-based control flow is reflowed into structured conditionals. */
 
 #include <stdint.h>
 #include "headers/scenario_object_datum.h"
 #include "headers/scenario_object_name.h"
+#include "headers/scenario_object_palette_entry.h"
 #include "headers/tag_block.h"
 #include "headers/object_placement_data.h"
 #include "headers/real_matrix4x3.h"
@@ -49,18 +48,20 @@ int object_type_synchronize(int object_index, scenario_object_datum *scenario_ob
 
     if ( scenario_object->palette_entry_index != -1 )
     {
-        char *palette_entry = (char *)palette->address + 48 * scenario_object->palette_entry_index;
+        /* the folded 48 was sizeof(scenario_object_palette_entry) */
+        scenario_object_palette_entry *palette_entry =
+            &((scenario_object_palette_entry *)palette->address)[scenario_object->palette_entry_index];
         int definition_index = -1;
         int need_new = 1;
 
         if ( object_index == -1 )
         {
-            definition_index = ((tag_reference *)palette_entry)->index;
+            definition_index = palette_entry->reference.index;
         }
         else
         {
             int *existing = object_try_and_get_and_verify_type(object_index, object_mask_all);
-            if ( existing && *existing == ((tag_reference *)palette_entry)->index )
+            if ( existing && *existing == palette_entry->reference.index )
             {
                 need_new = 0;
             }
@@ -68,7 +69,7 @@ int object_type_synchronize(int object_index, scenario_object_datum *scenario_ob
             {
                 if ( existing )
                     object_delete(result_object);
-                definition_index = ((tag_reference *)palette_entry)->index;
+                definition_index = palette_entry->reference.index;
                 result_object = -1;
             }
         }

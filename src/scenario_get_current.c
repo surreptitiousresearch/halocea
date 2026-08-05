@@ -47,7 +47,7 @@ uint8_t scenario_get_current(const location *location, const real_point3d *posit
                 int fog_tag = ((structure_fog_palette_entry *)bsp->fog_palette.address)[fog_palette_index].fog.index;
                 if ( fog_tag != -1 )
                 {
-                    if ( (*TAG_GET(_DWORD, fog_tag) & (1u << _fog_definition_is_water_bit)) != 0 )
+                    if ( (*TAG_GET(uint32_t, fog_tag) & (1u << _fog_definition_is_water_bit)) != 0 )
                     {
                         if ( (flags & 8) == 0 )
                         {

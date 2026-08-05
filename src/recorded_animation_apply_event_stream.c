@@ -45,7 +45,10 @@ uint8_t recorded_animation_apply_event_stream(animation_playback_controller *ani
             header_size = 1;
             break;
         default: /* _time_delta_word */
-            delta = *(const uint16_t *)(event + 1);
+            /* DEVIATION: decompiled as `*(const uint16_t *)(event + 1)`. The event stream is
+             * serialized big-endian, so that spelling only yields the right value on PPC — and it
+             * is an unaligned 16-bit load at an odd byte offset. Combine the bytes explicitly. */
+            delta = (uint16_t)((event[1] << 8) | event[2]);
             header_size = 3;
             break;
         }

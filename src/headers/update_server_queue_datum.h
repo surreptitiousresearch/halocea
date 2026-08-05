@@ -1,19 +1,13 @@
 #pragma once
 /* update_server_queue_datum — one per-machine element of update_server_globals.queues (100-byte
- * stride). Rebound to the DB type update_server_queue: the former opaque[92] tail is the machine's
- * current_action + action_queue; the former update_number field is the DB's next_update_number. */
+ * stride), spelled with the `_datum` suffix most call sites prefer.
+ *
+ * This header used to carry its OWN copy of `struct update_server_queue`, byte-identical to the
+ * one in update_server_queue.h. Two headers defining the same struct tag is a redefinition error
+ * waiting for the first translation unit that includes both — it only stayed quiet because no TU
+ * did. The DB attests the name `update_server_queue` (types_members, 100 bytes), so that header
+ * is canonical and this one is now purely the alias. */
 
-#include <stdint.h>
-#include "player_action.h"
-#include "action_queue.h"
-
-typedef struct update_server_queue
-{
-    int16_t       identifier;         /* 0x00 — data_array datum identifier */
-    uint16_t pad;             /* 0x02 */
-    int           next_update_number; /* 0x04 — next update number to send this machine */
-    player_action current_action;     /* 0x08 */
-    action_queue  queue;              /* 0x28 */
-} update_server_queue;                /* 100 bytes */
+#include "update_server_queue.h"
 
 typedef update_server_queue update_server_queue_datum;

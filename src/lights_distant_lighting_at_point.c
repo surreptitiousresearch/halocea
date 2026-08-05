@@ -33,6 +33,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/real_point3d.h"
 #include "headers/rasterizer_vertex_type.h"
+#include "headers/environment_vertex_uncompressed.h"
 #include "headers/blam_data_globals.h"
 
 extern render_lighting default_object_lighting;
@@ -139,13 +140,13 @@ uint8_t lights_distant_lighting_at_point(int flags, const real_point3d *position
     }
     else if ( material->vertices.type == _rasterizer_vertex_type_environment_uncompressed || material->vertices.type == _rasterizer_vertex_type_environment_uncompressed_ff )
     {
-        char *vertices = (char *)material->uncompressed_vertex_data.address;
-        char *vertex0 = vertices + 56 * surface->vertex_indices[0];
-        char *vertex1 = vertices + 56 * surface->vertex_indices[1];
-        char *vertex2 = vertices + 56 * surface->vertex_indices[2];
-        normal0.n[0] = ((float *)vertex0)[3]; normal0.n[1] = ((float *)vertex0)[4]; normal0.n[2] = ((float *)vertex0)[5];
-        normal1.n[0] = ((float *)vertex1)[3]; normal1.n[1] = ((float *)vertex1)[4]; normal1.n[2] = ((float *)vertex1)[5];
-        normal2.n[0] = ((float *)vertex2)[3]; normal2.n[1] = ((float *)vertex2)[4]; normal2.n[2] = ((float *)vertex2)[5];
+        /* the folded 56 was sizeof(environment_vertex_uncompressed); float slots 3..5 are its
+         * `normal` member (bytes 0x0C..0x14) */
+        const environment_vertex_uncompressed *render_vertices =
+            (const environment_vertex_uncompressed *)material->uncompressed_vertex_data.address;
+        normal0 = render_vertices[surface->vertex_indices[0]].normal;
+        normal1 = render_vertices[surface->vertex_indices[1]].normal;
+        normal2 = render_vertices[surface->vertex_indices[2]].normal;
     }
 
     real_vector3d surface_normal;
@@ -170,10 +171,11 @@ uint8_t lights_distant_lighting_at_point(int flags, const real_point3d *position
     }
     else if ( material->vertices.type == _rasterizer_vertex_type_environment_uncompressed || material->vertices.type == _rasterizer_vertex_type_environment_uncompressed_ff )
     {
-        /* lightmap vertices follow the 56-byte render vertices in the uncompressed stream */
+        /* lightmap vertices follow the render vertices in the uncompressed stream */
         const environment_lightmap_vertex_uncompressed *lightmap_vertices =
-            (const environment_lightmap_vertex_uncompressed *)((char *)material->uncompressed_vertex_data.address
-                                                               + 56 * material->vertices.count);
+            (const environment_lightmap_vertex_uncompressed *)
+                ((const environment_vertex_uncompressed *)material->uncompressed_vertex_data.address
+                 + material->vertices.count);
         radiosity0 = lightmap_vertices[surface->vertex_indices[0]].incident_radiosity;
         radiosity1 = lightmap_vertices[surface->vertex_indices[1]].incident_radiosity;
         radiosity2 = lightmap_vertices[surface->vertex_indices[2]].incident_radiosity;

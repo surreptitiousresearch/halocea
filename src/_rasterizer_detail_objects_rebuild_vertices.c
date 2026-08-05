@@ -6,6 +6,7 @@
 #include "headers/global_tag_instances.h"
 #include "headers/detail_object_global_runtime_data.h"
 #include "headers/detail_object_collection_definition.h"
+#include "headers/scenario_detail_object_collection_palette_entry.h"
 #include "headers/detail_object.h"
 #include "headers/detail_object_vertex.h"
 #include "headers/blam_data_globals.h"
@@ -45,9 +46,16 @@ void _rasterizer_detail_objects_rebuild_vertices(const detail_object_view_data *
             {
                 detail_object_layer_data *layer = &detail_object_view_data->layers[layer_index];
 
-                /* palette entry datum → tag instance → collection definition pointer */
+                /* palette entry → tag instance → collection definition pointer. The folded int
+                 * slot `12*idx + 3` is byte 48*idx + 12, i.e.
+                 * sizeof(scenario_detail_object_collection_palette_entry) with tag_reference.index
+                 * 12 bytes into the entry. */
+                const scenario_detail_object_collection_palette_entry *collection_palette =
+                    (const scenario_detail_object_collection_palette_entry *)
+                        scen->detail_object_collection_palette.address;
                 const detail_object_collection_definition *coll_def =
-                    TAG_GET(const detail_object_collection_definition, *((int *)scen->detail_object_collection_palette.address + 12 * layer->collection_definition_index + 3));
+                    TAG_GET(const detail_object_collection_definition,
+                            collection_palette[layer->collection_definition_index].reference.index);
 
                 if (layer->cell_count > 0)
                 {

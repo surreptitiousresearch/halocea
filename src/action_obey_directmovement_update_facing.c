@@ -44,6 +44,11 @@ void action_obey_directmovement_update_facing(uint16_t actor_index, int unit_ind
         return;
 
     real_vector3d result;
+    /* No DB enum names this domain: enum_oracle --lookup over "directmovement facing"/
+     * "override_movement_facing" returns nothing above noise, and the same codes are already
+     * adjudicated BLOCKED where actor_move_calculate_movement.c consumes them as
+     * actor_move_orders.override_movement_facing. Domain (from this function's own branches):
+     * 0 = base facing, 1 = reversed, 2/3 = perpendicular, >3 = no facing override. */
     if ( facing_mode == 1 )
     {
         result = base_facing;   /* negated at the end */

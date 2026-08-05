@@ -185,7 +185,7 @@ void weather_particle_system_render(int16_t system_index)
 
         do
         {
-            weather_particle_datum *particle = (weather_particle_datum *)weather_particle_data->data + (uint16_t)particle_index;
+            weather_particle_datum *particle = DATA_ARRAY_ELEMENT(weather_particle_data, weather_particle_datum, particle_index);
             float local_x = particle->position.n[0];
             float local_y = particle->position.n[1];
             float local_z = particle->position.n[2];

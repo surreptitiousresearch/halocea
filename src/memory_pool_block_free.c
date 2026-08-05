@@ -6,7 +6,8 @@
 
 void memory_pool_block_free(memory_pool *pool, void **reference)
 {
-    memory_pool_block *block = (memory_pool_block *)((char *)*reference - 24);
+    /* the payload follows its header, so the header is one memory_pool_block back */
+    memory_pool_block *block = (memory_pool_block *)*reference - 1;
 
     pool->free_size += block->size;
 

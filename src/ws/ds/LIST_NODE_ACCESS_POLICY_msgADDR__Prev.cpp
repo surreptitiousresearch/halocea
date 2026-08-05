@@ -1,3 +1,4 @@
+#include <cstddef>
 #include "PTR_LIST.h"
 #include "../msg/msgADDR.h"
 
@@ -11,5 +12,5 @@ msgADDR *ds::LIST_NODE_ACCESS_POLICY<msgADDR>::Prev(msgADDR *pNode)
     ds::PTR_LIST_NODE *storedPrev = pNode->listNode.pPrev;
     if (!storedPrev)
         return nullptr;
-    return (msgADDR *)((char *)storedPrev - 4);
+    return (msgADDR *)((char *)storedPrev - offsetof(msgADDR, listNode));
 }

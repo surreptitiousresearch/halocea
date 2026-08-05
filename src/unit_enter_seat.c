@@ -122,9 +122,11 @@ uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_inde
     /* play the seat-entry animation, if the unit's animation graph defines one */
     unit_definition *definition = TAG_GET(unit_definition, unit_object->definition_index);
     int animation_graph_index = definition->object.animation_graph.index;
+    /* the folded 100 was sizeof(animation_graph_unit_seat) */
+    animation_graph_unit_seat *unit_seats =
+        (animation_graph_unit_seat *)(TAG_GET(animation_graph, animation_graph_index))->unit_seats.address;
     animation_graph_unit_seat *seat_animations =
-        (animation_graph_unit_seat *)((char *)(TAG_GET(animation_graph, animation_graph_index))->unit_seats.address
-            + 100 * unit_object->unit.animation.seat_index);
+        &unit_seats[unit_object->unit.animation.seat_index];
 
     int16_t enter_animation;
     if (seat_animations->animations.count <= _unit_seat_animation_seat_enter)

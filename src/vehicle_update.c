@@ -357,24 +357,33 @@ seek_speed:
             old_velocity.n[1] = vehicle->object.translational_velocity.n[1];
             old_velocity.n[2] = vehicle->object.translational_velocity.n[2];
 
-            mass_point_datum powered_mass_points[2];
-            mass_point_datum mass_points[5];
+            /* DEVIATION: both scratch arrays were reconstructed with the wrong element type and
+             * far too few elements. The frame (stwu 0x3340) places powered_mass_points at r1+0xD0
+             * and mass_points at r1+0xCD0, with the saved FPRs starting at r1+0x32D0:
+             *   0xCD0 - 0xD0   = 0xC00  = 3072 = 32 * sizeof(powered_mass_point_datum) (96)
+             *   0x32D0 - 0xCD0 = 0x2600 = 9728 = 32 * sizeof(mass_point_datum)        (304)
+             * so each is a 32-element array, and the powered array really is
+             * powered_mass_point_datum — which is also what all six physics updaters take, so the
+             * casts below are gone. (The r1+0x340/0x1340/0x2340 references are __chkstk page
+             * probes for this 13 KB frame, not locals.) */
+            powered_mass_point_datum powered_mass_points[32];
+            mass_point_datum         mass_points[32];
             unsigned int vehicle_type = definition->vehicle.type;
             if ( vehicle_type <= _vehicle_type_turret )
             {
                 switch ( vehicle_type )
                 {
                     case _vehicle_type_human_jeep:
-                        update_human_jeep_physics(vehicle_index, (powered_mass_point_datum *)powered_mass_points, mass_points);
+                        update_human_jeep_physics(vehicle_index, powered_mass_points, mass_points);
                         break;
                     case _vehicle_type_human_boat:
-                        update_human_boat_physics(vehicle_index, (powered_mass_point_datum *)powered_mass_points, mass_points);
+                        update_human_boat_physics(vehicle_index, powered_mass_points, mass_points);
                         break;
                     case _vehicle_type_human_plane:
                         update_human_plane_physics(vehicle_index, mass_points);
                         break;
                     case _vehicle_type_alien_scout:
-                        update_alien_scout_physics(vehicle_index, steering_angle, (powered_mass_point_datum *)powered_mass_points, mass_points);
+                        update_alien_scout_physics(vehicle_index, steering_angle, powered_mass_points, mass_points);
                         break;
                     case _vehicle_type_alien_fighter:
                     {
@@ -382,9 +391,9 @@ seek_speed:
                         physics_definition *chassis_physics =
                             TAG_GET(physics_definition, definition->object.physics.index);
                         if ( chassis_physics->radius <= 0.0f )
-                            update_alien_fighter_physics_new(vehicle_index, (powered_mass_point_datum *)powered_mass_points, mass_points);
+                            update_alien_fighter_physics_new(vehicle_index, powered_mass_points, mass_points);
                         else
-                            update_alien_fighter_physics_old(vehicle_index, (powered_mass_point_datum *)powered_mass_points, mass_points);
+                            update_alien_fighter_physics_old(vehicle_index, powered_mass_points, mass_points);
                     }
                         create_ghost_effect(vehicle_index);
                         break;
@@ -392,7 +401,7 @@ seek_speed:
                         if ( vehicle_type )
                             physics_update(vehicle_index, NULL, mass_points, NULL, NULL);
                         else
-                            update_human_tank_physics(vehicle_index, (powered_mass_point_datum *)powered_mass_points, mass_points);
+                            update_human_tank_physics(vehicle_index, powered_mass_points, mass_points);
                         break;
                 }
             }

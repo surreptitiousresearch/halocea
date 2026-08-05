@@ -19,6 +19,8 @@
 #include "headers/unit_speech_item.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
+#include "headers/actor_datum.h"
+#include "headers/actor_combat_status.h"
 #include "headers/ai_vocalization_type.h"
 #include "headers/damage_category.h"
 #include "headers/ai_unit_effect.h"
@@ -70,7 +72,10 @@ int unit_make_damage_sound(int unit_index, damage_data *damage_data, uint8_t die
         if ( actor_index == -1 )
             severe = body_damage_taken > body_damage + 0.2f;
         else
-            severe = *((int16_t *)actor_data->data + 914 * (uint16_t)actor_index + 55) >= 3;
+            /* recovered: (int16_t *)actor_data->data + 914*idx + 55 -> actor_datum.state.combat_status
+             * (914*2 = 1828 = sizeof(actor_datum), +55*2 = +110). */
+            severe = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->state.combat_status
+                         >= _actor_combat_status_definite;
 
         if ( damage_vocalization_category == _damage_category_falling )
             vocalization = _vocalization_death_falling;

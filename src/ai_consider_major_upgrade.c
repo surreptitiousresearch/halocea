@@ -3,6 +3,7 @@
  * so the long-run upgrade rate converges on upgrade_chance. Returns true when this actor is upgraded. */
 
 #include "headers/squad_datum.h"
+#include "headers/encounter_datum.h"
 #include "headers/ai_globals.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
@@ -13,8 +14,10 @@ extern float real_seed_random(uint32_t *seed);
 
 uint8_t ai_consider_major_upgrade(int encounter_index, int16_t squad_index, float upgrade_chance)
 {
-    /* Encounter datum (stride 108): word at offset 4 = first squad index in squad_array. */
-    squad_datum *squad = &squad_array[(int16_t)(((int16_t *)encounter_data->data)[54 * (uint16_t)encounter_index + 2] + squad_index)];
+    /* recovered: (int16_t *)encounter_data->data + 54*idx + 2 -> encounter_datum.squad_base
+     * (54*2 = 108 = sizeof(encounter_datum), +2*2 = +4) — first squad index in squad_array. */
+    squad_datum *squad = &squad_array[(int16_t)(
+        DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->squad_base + squad_index)];
 
     float squad_error = squad->major_upgrade_error;
 

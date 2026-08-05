@@ -38,7 +38,10 @@ void contrail_update_points(uint16_t contrail_index, float dt)
         TAG_GET(contrail_definition, contrail->definition_index);
     int list;
     int16_t *collision_material_type;   /* decompiler reads this output pointer uninitialized */
-    _BYTE visited[144];                 /* indices of points visited this pass, in list order */
+    /* recovered: was `_BYTE visited[144]` written only through 4-byte casts — a 36-entry
+     * int array, not a byte buffer (144 = 36*4). The byte spelling hid the stride from
+     * every offset detector. */
+    int visited[36];                      /* indices of points visited this pass, in list order */
 
     for ( list = 0; list < 4; list = (int16_t)(list + 1) )
     {
@@ -136,7 +139,7 @@ void contrail_update_points(uint16_t contrail_index, float dt)
                         dt);
             }
 
-            *(_DWORD *)&visited[4 * visited_count++] = point_index;
+            visited[visited_count++] = point_index;
         }
 
         /* unlink/free dead points from the tail inward */
@@ -152,7 +155,7 @@ void contrail_update_points(uint16_t contrail_index, float dt)
                 contrail_point_datum *prev_point;
 
                 visited_cursor = (int16_t)(visited_cursor - 1);
-                entry = (int *)&visited[4 * visited_cursor];
+                entry = &visited[visited_cursor];
                 this_index = *entry;
                 prev_index = (uint16_t)*(entry - 1);
                 this_point = DATA_ARRAY_ELEMENT(contrail_point_data, contrail_point_datum, *entry);

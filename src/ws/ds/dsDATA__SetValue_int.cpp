@@ -45,6 +45,6 @@ void dsDATA::SetValue<int>(const int *val)
                 "0",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
                 138,
-                dsStrongAssertMessage);
+                empty_string);
     }
 }

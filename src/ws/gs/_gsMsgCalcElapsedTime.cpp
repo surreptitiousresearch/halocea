@@ -118,7 +118,7 @@ void _gsMsgCalcElapsedTime()
         STRONG_ASSERT_DUMMY().Crash(
             "_gsElapsedTimeScaleCur == 1.f",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\gs_msg.cpp", 481,
-            dsStrongAssertMessage);
+            empty_string);
 
     gsElapsedTime = scaled * _gsElapsedTimeScaleCur;
 

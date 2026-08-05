@@ -11,7 +11,7 @@
 #include "../sound_permutation.h"
 #include <string.h>
 
-extern const char empty_string; // shared single-NUL assert-info constant @0x8200155A
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 #define SND_SRC "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp"
 
@@ -32,7 +32,7 @@ bool HALO_SOUND_SYSTEM::FindSoundByName(const sound_permutation *perm, int ident
             "HALO_SOUND_SYSTEM::FindSoundByName", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
-                SND_SRC, 679, &empty_string);
+                SND_SRC, 679, empty_string);
         return false;
     }
 

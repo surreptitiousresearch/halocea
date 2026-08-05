@@ -3,9 +3,9 @@
 #include <string.h>
 #include "../../headers/ws/os/osLOCK.h" // pulls in the shared os-subsystem boundary decls
 
-extern bool IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" void STRONG_ASSERT_DUMMY_Crash(void *self, const char *condition, const char *file, int line, const char *info); /* ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z @0x825202A8: r3=dead this, info=empty string (disasm) */
-extern const char empty_string[];
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void osGetStartupDir(char *dir, unsigned int length)
 {

@@ -16,7 +16,7 @@ void dsPOOL<const char *, 1024, 512>::AllocChunk()
             "numChunks < MAX_CHUNKS",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_pool.h",
             200,
-            dsStrongAssertMessage);
+            empty_string);
 
     const char **chunk = (const char **)dlMalloc(0x1000u, this->cl.file, this->cl.line); // 1024 * 4
     this->chunkTable[this->numChunks].data = chunk;

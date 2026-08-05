@@ -14,13 +14,13 @@ pctFORMAT *pctGetFormat(unsigned int format)
             || (((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
                     "format > PCT_FORMAT_UNKNOWN && format < PCT_FORMAT_MAX",
                     "D:\\Projects\\code\\common\\src.sys\\picture\\picture.cpp",
-                    2193, dsStrongAssertMessage), !IGNORE_STRONG_ASSERT))
+                    2193, empty_string), !IGNORE_STRONG_ASSERT))
         {
             if (pctFormatList[format].bpp <= 0)
                 ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
                     "_pctFormatList[format].bpp > 0",
                     "D:\\Projects\\code\\common\\src.sys\\picture\\picture.cpp",
-                    2195, dsStrongAssertMessage);
+                    2195, empty_string);
         }
     }
     return &pctFormatList[format];

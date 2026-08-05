@@ -121,7 +121,7 @@ void objDEPENDENCY_CACHE::Init(objOBJ *obj)
                     STRONG_ASSERT_DUMMY *assertHelper = nullptr;
                     assertHelper->Crash("!hostInfo.IsDone()",
                                         "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_misc.cpp",
-                                        2120, dsStrongAssertMessage);
+                                        2120, empty_string);
                 }
                 ItemNode *hostNode = reinterpret_cast<ItemNode *>(hostInfo.item);
                 hostNode->value.PushBack(key);

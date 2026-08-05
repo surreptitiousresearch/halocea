@@ -10,7 +10,10 @@ struct smtSMART_OBJ_BASE; // smt — smart object   boundary (ptr)
 
 struct usePROCESSOR : propENTCONTAINER {
     fsmHO_INFO    hoInfo;                  // 0x050 (80) hideout-transform info
-    unsigned char _mid[408];              // 0x064 (100) owner..frameCurPropList (opaque, to 0x210)
+    /* 0x064 (100) owner..frameCurPropList, opaque. 428 bytes, not 408: the DB's detailed rows run
+     * owner@100 through frameCurPropList@480 (48 bytes) and end at 528 = 0x210, which is where
+     * isLocked starts. The short array put every field below here 20 bytes early. */
+    unsigned char _mid[428];
     bool          isLocked;               // 0x210 (528) locked by mind (0x400000 mind flag)
     bool          isLockedExt;            // 0x211 (529)
     unsigned char _pad212[2];             // 0x212

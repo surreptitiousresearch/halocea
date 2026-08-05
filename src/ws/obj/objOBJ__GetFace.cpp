@@ -17,7 +17,7 @@ objFACE *objOBJ::GetFace(int faceNmb)
         STRONG_ASSERT_DUMMY().Crash(
             "faceNmb >= 0 && faceNmb < nFace && !IsStateCompr(OBJ_ST_COMPR_FACE | OBJ_ST_COMPR_FACE_32)",
             "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 749,
-            dsStrongAssertMessage);
+            empty_string);
 
     return &this->pGeom->pSharedGeom->faceList[faceNmb];
 }

@@ -14,7 +14,7 @@ void *objOBJ::AllocObjData(unsigned int data, int size, void *oldData)
         STRONG_ASSERT_DUMMY().Crash(
             "data >= 0 && data < OBJ_DATA_MAX",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_alloc.cpp", 1316,
-            dsStrongAssertMessage);
+            empty_string);
 
     if (objOBJ::dataAlloc)
         return objOBJ::dataAlloc(this, data, size, oldData);

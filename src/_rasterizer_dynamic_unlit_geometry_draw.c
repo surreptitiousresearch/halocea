@@ -1,7 +1,12 @@
 /* _rasterizer_dynamic_unlit_geometry_draw @0x837A8CA8 — queue a dynamic (non-model) unlit geometry batch as
- * a transparent_geometry_group. FAITHFUL QUIRK: z_sort gets a +0.25 nudge only for shader type 1 (model)
- * with radiosity flag bit 0 set — an odd condition for "dynamic" (non-model) geometry, but that's what the
- * disasm computes; reproduced as-is. */
+ * a transparent_geometry_group. z_sort gets a +0.25 nudge for an effect shader that asks for a sort bias.
+ *
+ * DEVIATION: the decompiler folded the flag read into `shader[1].base.radiosity.flags` on the 40-byte base,
+ * which named the wrong struct AND the wrong bit. `lhz r5, 0x24(r29)` / `cmplwi 1` @0x837A8DF4 is
+ * base.type == _shader_type_effect (type 1 is effect, not model), and `lhz r10, 0x28(r29)` /
+ * `clrlwi r9, r10, 31` @0x837A8E00 is shader_effect's own uint16_t flags at +0x00 of its derived body,
+ * bit 0 = _shader_effect_sort_bias_bit — so the +0.25 (`__real_3e800000`) is exactly the sort bias the
+ * flag names, not an odd condition. */
 
 #include "headers/transparent_geometry_group.h"
 #include "headers/rasterizer_debug_options_struct.h"
@@ -10,7 +15,8 @@
 #include "headers/bitmap_data.h"
 #include "headers/render_animation.h"
 #include "headers/shader_type.h"
-#include "headers/shader_radiosity_flags.h"
+#include "headers/shader_effect.h"
+#include "headers/shader_effect_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -68,7 +74,7 @@ void _rasterizer_dynamic_unlit_geometry_draw(const shader *shader, const bitmap_
     group->cortana_hack = 0;
 
     if ( shader->base.type == _shader_type_effect
-         && (shader[1].base.radiosity.flags & (1u << _shader_radiosity_simple_parameterization_bit)) != 0 )
+         && (((const shader_effect *)shader)->effect.flags & (1u << _shader_effect_sort_bias_bit)) != 0 )
         group->z_sort = z_sort + 0.25f;
 
     group->node_matrices = 0;

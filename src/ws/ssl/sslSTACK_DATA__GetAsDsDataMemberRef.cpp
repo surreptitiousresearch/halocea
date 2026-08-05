@@ -21,7 +21,7 @@ sslERROR sslSTACK_DATA::GetAsDsDataMemberRef(dsDATA &val, dsSTRID &id) const
                 "dsSTRID(dsDataMemberRef.id).CStr() == dsDataMemberRef.id",
                 "D:\\Projects\\code\\common\\src.sys\\ssl\\ssl_stack.cpp",
                 437,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     id.id = this->dsDataMemberRef.id;

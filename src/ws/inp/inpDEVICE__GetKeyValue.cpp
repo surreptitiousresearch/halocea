@@ -14,7 +14,7 @@ float inpDEVICE::GetKeyValue(int key) const
             ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
                 "IsValidKey(key)",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\input\\inp.cpp",
-                177, dsStrongAssertMessage);
+                177, empty_string);
     }
 
     float value;

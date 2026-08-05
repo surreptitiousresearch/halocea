@@ -8,7 +8,7 @@
 #include "headers/hud_messaging_datum.h"
 
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
-extern wchar_t empty_wide_string;   /* empty wide string */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 void hud_enable_custom_state_message(int16_t local_player_index, char enabled)
 {
@@ -22,7 +22,7 @@ void hud_enable_custom_state_message(int16_t local_player_index, char enabled)
     if ( enabled )
     {
         datum->state_message.state_message = 0;
-        ustrncpy(datum->state_message.message_buffer, &empty_wide_string, 0xFFu);
+        ustrncpy(datum->state_message.message_buffer, empty_wide_string, 0xFFu);
     }
     datum->custom_message = enabled;
 }

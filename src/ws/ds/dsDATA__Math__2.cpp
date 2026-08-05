@@ -20,7 +20,7 @@ dsDATA_MATH_RES dsDATA::Math(dsDATA_BINARY_OP op, const dsDATA &right, dsDATA &r
             "type != 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
             389,
-            dsStrongAssertMessage);
+            empty_string);
 
     dsDATA_MATH_RES res = this->type->DoMathOp(
         op, (const unsigned int *)this, (const unsigned int *)&right, right.type, &ret);

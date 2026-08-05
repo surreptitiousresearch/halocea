@@ -11,7 +11,7 @@
 #include "headers/file_reference.h"
 #include "headers/xc_language.h"
 
-extern char empty_string[]; /* shared empty string literal */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern const char *cache_files_root_directory(void);
 extern int XTLGetLanguage(void);
 extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);

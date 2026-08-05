@@ -21,7 +21,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
                 "memSize <= chunkSize",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                 128,
-                dsStrongAssertMessage);
+                empty_string);
 
         // write the {fileName,fileLine} footer (6 bytes) into the chunk tail
         struct { const char *fileName; unsigned short fileLine; } footer;
@@ -63,7 +63,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
                     "!\"Too many allocates! Debug stats array is full. Reserve more memory\"",
                     "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                     162,
-                    dsStrongAssertMessage);
+                    empty_string);
                 return false;
             }
         }
@@ -78,7 +78,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
             "0",
             "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
             168,
-            dsStrongAssertMessage);
+            empty_string);
         return false;
     }
 

@@ -1,6 +1,6 @@
 extern int noMemLeftInDl;
-extern int IGNORE_STRONG_ASSERT;
-extern const char empty_string[]; /* shared "" @0x8200155A */
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void apDumpNoMemLeft(void);
 void STRONG_ASSERT_DUMMY_Crash(void *unused, const char *msg, const char *file, int line, const char *info);

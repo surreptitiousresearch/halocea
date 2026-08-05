@@ -3,8 +3,9 @@
  * region (region index -1); otherwise the named region is looked up in the object's model tag (region names
  * are 76-byte records) and the permutation applied just to it.
  *
- * DEVIATION: the sentinel-string comparison is reproduced as the binary's inline character compare against
- * the global "all" string (empty_string). */
+ * DEVIATION: the sentinel-string comparison is reproduced as the binary's inline character compare.
+ * The sentinel is the shared "" literal (0x837F8398 loads &byte_8200155A) — i.e. "all regions" is
+ * signalled by an EMPTY region_name; the earlier `"all"` annotation here was wrong. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -16,7 +17,7 @@
 #include "headers/model_region.h"
 #include "headers/blam_data_globals.h"
 
-extern char empty_string[];   /* "all" — all-regions sentinel */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern int stricmp(const char *a, const char *b);
 extern void object_permute_region(int object_index, const char *permutation_name, int16_t desired_region_index, uint8_t active_flag);
 
@@ -27,7 +28,7 @@ void hs_object_set_permutation(int object_index, const char *region_name, char *
 
     /* Inline compare of region_name against the all-regions sentinel. */
     const char *a = region_name;
-    char *b = empty_string;
+    const char *b = empty_string;
     int diff;
     do
     {

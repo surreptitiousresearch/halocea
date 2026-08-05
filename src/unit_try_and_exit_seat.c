@@ -20,6 +20,7 @@
 #include "headers/unit_animation_state.h"
 #include "headers/unit_seat_animation.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern int16_t game_connection(void);
@@ -31,7 +32,6 @@ extern void object_set_visibility(int object_index, uint8_t visible_flag);
 extern void ai_handle_exit_vehicle(int unit_index, int vehicle_index);
 extern void unit_exit_seat_to_network(int object_index, uint8_t force_exit);
 
-#define animation_update_kind_affects_game_state 1
 
 uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients)
 {

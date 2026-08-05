@@ -67,7 +67,7 @@ void mdlLIP_SYNCER::Update(float dt)
 
         if (!IGNORE_STRONG_ASSERT && seqList->nEntry <= 4)
             STRONG_ASSERT_DUMMY().Crash("IsValidIdx(idx)",
-                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166, dsStrongAssertMessage);
+                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166, empty_string);
 
         m3dSPL *spline = this->seqList.list[4].spline;
         if (spline) {
@@ -85,7 +85,7 @@ void mdlLIP_SYNCER::Update(float dt)
 
         if (!IGNORE_STRONG_ASSERT && seqList->nEntry <= 0)
             STRONG_ASSERT_DUMMY().Crash("IsValidIdx(idx)",
-                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166, dsStrongAssertMessage);
+                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166, empty_string);
 
         this->seqList.list[0].coef =
             _m3dClamp(0.0f, 1.0f, (float)(1.0f - this->seqList.list[4].coef));

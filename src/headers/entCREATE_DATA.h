@@ -12,5 +12,5 @@ struct entCREATE_DATA : animCREATE_DATA
     gsDOM_SPAWN *pDomSpawn;           /* 0xE8 (232) */
 
     entCREATE_DATA();                 /* 0x8252FFB8 */
-    virtual ~entCREATE_DATA();        /* 0x823CE690 — delegates to ~animCREATE_DATA */
+    ~entCREATE_DATA();        /* 0x823CE690 — delegates to ~animCREATE_DATA */
 }; /* 236 bytes */

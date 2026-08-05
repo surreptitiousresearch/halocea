@@ -8,6 +8,7 @@
  * The record-key match is an inlined strcmp (reproduced faithfully). 102000 == 200 * 510 == 0x18E70. */
 
 #include <stdint.h>
+#include "headers/datastore_entry.h"
 #include "headers/file_reference.h"
 
 extern void *memset(void *dest, int value, unsigned int count);
@@ -80,15 +81,16 @@ have_buffer:;
         if ( !diff )
             break;
         ++record_index;
-        record += 510;
+        record += sizeof(datastore_entry);
         if ( record_index >= 200 )
             goto write_file;
     }
 
     {
-        char *slot = &buffer[510 * record_index];
-        strcpy(slot, field_name);
-        memcpy(slot + 255, data, length);
+        /* 0x18E70 == 200 * sizeof(datastore_entry) — the file is exactly 200 fixed slots. */
+        datastore_entry *slot = &((datastore_entry *)buffer)[record_index];
+        strcpy(slot->name, field_name);
+        memcpy(slot->data, data, length);
         result = 1;
     }
 

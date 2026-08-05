@@ -35,7 +35,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1874,
-                dsStrongAssertMessage);
+                empty_string);
         return false;
     }
 
@@ -68,7 +68,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                     "\"sound.soundBank->getOpenState(&openState, NULL, NULL)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1902,
-                    dsStrongAssertMessage);
+                    empty_string);
             const char *desc = FModErrorDesc(result, false);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
@@ -86,7 +86,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                     "\"sound.soundBank->getNumSubSounds(&count)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1908,
-                    dsStrongAssertMessage);
+                    empty_string);
             const char *desc = FModErrorDesc(result, false);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
@@ -108,7 +108,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                     "\"sound.soundBank->getSubSound(sound.fsbIndex, &sound.subSound)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1911,
-                    dsStrongAssertMessage);
+                    empty_string);
             const char *desc = FModErrorDesc(result, false);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
@@ -125,7 +125,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                 "\"sound.subSound->getOpenState(&openState, NULL, NULL)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1916,
-                dsStrongAssertMessage);
+                empty_string);
         const char *desc = FModErrorDesc(result, false);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                              "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
@@ -148,7 +148,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                 "\"haloSoundSystem->system->playSound(FMOD_CHANNEL_FREE, sound.subSound, true, "
                 "&sound.channel)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1928,
-                dsStrongAssertMessage);
+                empty_string);
         const char *desc = FModErrorDesc(result, false);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                              "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
@@ -172,7 +172,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                 "\"sound.channel->setChannelGroup(channelGroup)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1942,
-                dsStrongAssertMessage);
+                empty_string);
         const char *desc = FModErrorDesc(result, false);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                              "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",

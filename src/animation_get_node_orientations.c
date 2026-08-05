@@ -147,13 +147,14 @@ void animation_get_node_orientations(const model *model, const animation *animat
         }
         else if ( compressed )
         {
-            /* irreducible: compressed-animation blob cursor; [5] is the default-translation
-             * table offset from the variable-format compressed header, stride 12 per node */
-            const float *components =
-                (const float *)(frame_cursor + 12 * node_index + ((const int *)frame_cursor)[5]);
-            node->translation.n[0] = components[0];
-            node->translation.n[1] = components[1];
-            node->translation.n[2] = components[2];
+            /* recovered: [5] is the default-translation sub-table offset in the variable-format
+             * compressed header; the table is real_point3d per node, so the 12 is the element
+             * size and indexes as one (same shape as the rotation table at [1] above). */
+            const real_point3d *components =
+                &((const real_point3d *)(frame_cursor + ((const int *)frame_cursor)[5]))[node_index];
+            node->translation.n[0] = components->n[0];
+            node->translation.n[1] = components->n[1];
+            node->translation.n[2] = components->n[2];
         }
         else
         {

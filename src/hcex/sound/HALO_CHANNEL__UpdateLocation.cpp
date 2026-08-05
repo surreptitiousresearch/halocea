@@ -25,7 +25,7 @@ void HALO_CHANNEL::UpdateLocation(HALO_PERM_SOUND *snd)
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2197,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 

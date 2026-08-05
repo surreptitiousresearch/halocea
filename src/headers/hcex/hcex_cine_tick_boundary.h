@@ -62,8 +62,8 @@ extern DBG_CINE_INFO        _dbgCineInfo;
 extern int                  gsAnitecElapsedTicsExternal;
 extern float                gsElapsedTime;
 extern float                totaltime;
-extern int                  IGNORE_STRONG_ASSERT;      /* DB: `?IGNORE_STRONG_ASSERT@@3HA` == int */
-extern const char            empty_string[];           /* "" */
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 typedef int dsCMP;
 #define INS_DUP_IGNORE 1   /* dsVECTOR<...>::INS_SORT::INS_DUP_IGNORE */

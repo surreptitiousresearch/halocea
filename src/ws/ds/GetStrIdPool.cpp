@@ -23,7 +23,7 @@ dsSTRID_POOL &GetStrIdPool()
         dsStrIdPool = newPool;
 
         // Intern the shared empty-message string so pool slot 0 holds the canonical empty string.
-        dsStrIdPool->AddStr(dsStrongAssertMessage);
+        dsStrIdPool->AddStr(empty_string);
 
         dsSTRID_POOL &pool = GetStrIdPool(); // dsStrIdPool is now set; recurses once, returns immediately
         dsStrIdOfEmptyId = pool.stringTable.Get(0);

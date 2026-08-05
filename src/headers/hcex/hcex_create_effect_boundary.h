@@ -136,7 +136,7 @@ extern dsVECTOR_FPM    fpModels;
 extern dscDESC_FAMILY  iaFamily;
 extern scnSCENE       *gsScenePtr;
 extern snd_SYSTEM     *snd_System;            /* snd::System */
-extern const char      empty_string[];        /* "" */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 /* --- ws container methods (free-function form of the C++ thiscall) --- */
 extern dsTSTRING_BUF_HEADER<char> *dsTSTRING_AllocBuffer(dsTSTRING_flat *s, int len, int maxLen);

@@ -7,7 +7,7 @@ txmTEXTURE *txmTEXTURE::GetSplitScreenTexture(unsigned int idx)
 {
     if (!IGNORE_STRONG_ASSERT && idx >= 2)
         STRONG_ASSERT_DUMMY().Crash("(0<=idx)&&(idx<=1)",
-            "d:\\projects\\code\\common\\incl.sys\\drv\\txm.h", 354, dsStrongAssertMessage);
+            "d:\\projects\\code\\common\\incl.sys\\drv\\txm.h", 354, empty_string);
 
     return this->pSplitScreenTex[idx];
 }

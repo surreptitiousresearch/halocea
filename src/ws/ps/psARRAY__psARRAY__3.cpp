@@ -46,6 +46,6 @@ psARRAY::psARRAY(const dsDATA &obj)
             ((psARRAY_DATA *)nullptr)->SetElements(&obj, 1);
         }
     } else if (!IGNORE_STRONG_ASSERT) {
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("0", "D:\\Projects\\code\\common\\src.sys\\ps\\ps_array.cpp", 41, dsStrongAssertMessage);
+        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("0", "D:\\Projects\\code\\common\\src.sys\\ps\\ps_array.cpp", 41, empty_string);
     }
 }

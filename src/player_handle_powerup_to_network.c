@@ -6,13 +6,13 @@
 #include "headers/field_properties_definition.h"
 #include "headers/message_player_handle_powerup.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 
 typedef struct network_game_server network_game_server;
 
 typedef struct _field_properties_definition _field_properties_definition;
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
-extern int  _message_player_handle_powerup;
-extern int  network_message_type_message_delta;
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern network_game_server *global_network_game_server_get(void);
 extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct network_game_server *server, int type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);

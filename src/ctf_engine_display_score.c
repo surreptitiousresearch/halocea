@@ -13,7 +13,7 @@
 #include "headers/multiplayer_game_text_string.h"
 #include "headers/blam_data_globals.h"
 
-extern const wchar_t empty_wide_string;   /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void *datum_try_and_get(const data_array *data, int index);
 extern int tag_loaded(uint32_t group_tag, const char *name);
@@ -33,7 +33,7 @@ uint8_t ctf_engine_display_score(int player_index, int message, int message_data
         case ctf_message_score:
             tag_index = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
             if ( tag_index == -1 )
-                usnprintf(buffer, buffer_size, &empty_wide_string, ctf_globals.score[0], ctf_globals.score[1]);
+                usnprintf(buffer, buffer_size, empty_wide_string, ctf_globals.score[0], ctf_globals.score[1]);
             else
             {
                 string = unicode_string_list_get_string(tag_index, _string_red_team_score_blue_team_score);
@@ -53,7 +53,7 @@ uint8_t ctf_engine_display_score(int player_index, int message, int message_data
             int string_index = _string_you_scored_score_to_score + (message - ctf_message_you_scored);
             tag_index = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
             if ( tag_index == -1 )
-                usnprintf(buffer, buffer_size, &empty_wide_string, ctf_globals.score[team], ctf_globals.score[other_team]);
+                usnprintf(buffer, buffer_size, empty_wide_string, ctf_globals.score[team], ctf_globals.score[other_team]);
             else
             {
                 string = unicode_string_list_get_string(tag_index, string_index);
@@ -63,7 +63,7 @@ uint8_t ctf_engine_display_score(int player_index, int message, int message_data
         }
 
         case ctf_message_you_have_the_flag:
-            usnprintf(buffer, buffer_size, &empty_wide_string);
+            usnprintf(buffer, buffer_size, empty_wide_string);
             return 1;
 
         case ctf_message_you_returned_the_flag:
@@ -89,7 +89,7 @@ uint8_t ctf_engine_display_score(int player_index, int message, int message_data
                 string_index = _string_the_enemy_returned_the_flag + (message - ctf_message_enemy_returned_the_flag);
             tag_index = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
             if ( tag_index == -1 )
-                string = &empty_wide_string;
+                string = empty_wide_string;
             else
                 string = unicode_string_list_get_string(tag_index, string_index);
             ustrncpy(buffer, string, buffer_size);

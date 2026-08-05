@@ -28,7 +28,7 @@ HALO_CROSSFADE_DSP *HALO_CROSSFADE_DSP::Acquire()
             "res->refCount == 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
             421,
-            dsStrongAssertMessage);
+            empty_string);
 
     ++result->refCount;
     return result;

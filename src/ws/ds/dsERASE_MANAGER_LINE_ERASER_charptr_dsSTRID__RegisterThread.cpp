@@ -48,7 +48,7 @@ void dsERASE_MANAGER<StrStridLineEraser>::RegisterThread()
             "numAllocated < 32 && idx >= 0",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             501,
-            dsStrongAssertMessage);
+            empty_string);
 
     if (numAllocated < 32 && idx >= 0) {
         this->threadAllocMask |= 1 << idx;

@@ -39,7 +39,7 @@ typedef struct propBASE {
     // 0x826C3658 — default construct. Body external to this batch. // boundary
     propBASE();
     // 0x823EB518 (virtual) — destruct. Body external to this batch. // boundary
-    virtual ~propBASE();
+    ~propBASE();
 
     // Per-entry probe called by iaIACTOR::GetProperty<P>() (see ../ia/iaIACTOR.h) while scanning
     // propContainer.properties/components: returns this propBASE reinterpreted as P* when it (or

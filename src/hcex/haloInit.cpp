@@ -42,16 +42,16 @@ int haloInit()
     entManager.AddHandler((char *)"halo_object", &hcexHaloObject);
 
     sslCLASS_REF halo = gsSslSystem->GetGlobalObj().GetClass();
-    halo.AddCbFunc("SetHaloCamActive(isAct : bool)", cbSetHaloCamActive, &empty_string, nullptr);
+    halo.AddCbFunc("SetHaloCamActive(isAct : bool)", cbSetHaloCamActive, empty_string, nullptr);
 
     sslCLASS_REF halo2 = gsSslSystem->GetGlobalObj().GetClass();
-    halo2.AddCbFunc("HcexTeleportToCam()", cbHcexTeleportToCam, &empty_string, nullptr);
+    halo2.AddCbFunc("HcexTeleportToCam()", cbHcexTeleportToCam, empty_string, nullptr);
 
     sslCLASS_REF halo3 = gsSslSystem->GetGlobalObj().GetClass();
-    halo3.AddCbFunc("HcexMakeAutosave()", cbMakeAutosave, &empty_string, nullptr);
+    halo3.AddCbFunc("HcexMakeAutosave()", cbMakeAutosave, empty_string, nullptr);
 
     sslCLASS_REF halo4 = gsSslSystem->GetGlobalObj().GetClass();
-    halo4.AddCbFunc("IsHaloMode() : bool", cbIsHaloMode, &empty_string, nullptr);
+    halo4.AddCbFunc("IsHaloMode() : bool", cbIsHaloMode, empty_string, nullptr);
 
     hcex_library_init();
     hcex_cine_init();
@@ -76,7 +76,7 @@ int haloInit()
 
         if (!IGNORE_STRONG_ASSERT && instManager)
             STRONG_ASSERT_DUMMY::Crash(nullptr, "!instManager",
-                                        "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 4208, &empty_string);
+                                        "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 4208, empty_string);
 
         hcexHALO_CUSTOM_OBJ_LIST *customObjList = (hcexHALO_CUSTOM_OBJ_LIST *)operator new(
             0x18u, "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 0x1071);

@@ -8,7 +8,7 @@
 #include "../../headers/ws/rend/gsFRAME_JOB_PIPELINE.h"
 #include "../../headers/ws/jbm/jbmMANAGER.h"
 #include "../../headers/ws/ap/apSTATE_T.h"
-// Canonical STRONG_ASSERT_DUMMY (struct) + IGNORE_STRONG_ASSERT + dsStrongAssertMessage.
+// Canonical STRONG_ASSERT_DUMMY (struct) + IGNORE_STRONG_ASSERT + empty_string.
 // Replaces the former local `namespace STRONG_ASSERT_DUMMY` decl which collided (C2757) with the
 // struct pulled in transitively by gsFRAME_JOB_PIPELINE.h.
 #include "../../headers/ws/ds/ds_assert_boundary.h"
@@ -72,7 +72,7 @@ void gsRendPrepareRenderNextFrame()
             ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
                 "0",
                 "D:\\Projects\\code\\common\\src.sys\\gm_sys\\gs_msg.cpp", 612,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     osPIXEndEvent();

@@ -44,7 +44,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                 "previousChannel != 0",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 1823,
-                dsStrongAssertMessage);
+                empty_string);
 
         unsigned int lengthPcm = 0;
         FMOD_RESULT res = previousSound->getLength(&lengthPcm, FMOD_TIMEUNIT_PCM);
@@ -55,7 +55,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"subSound->getLength(&lengthPcm, FMOD_TIMEUNIT_PCM)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1826,
-                    dsStrongAssertMessage);
+                    empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                 1826, res, FModErrorDesc(res, false));
@@ -71,7 +71,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                     "prevFadeOut != 0 && fadeIn != 0",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1844,
-                    dsStrongAssertMessage);
+                    empty_string);
             prevFadeOut->dsp->setBypass(true);
             fadeIn->dsp->setBypass(true);
 
@@ -84,7 +84,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                         "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"haloSoundSystem->system->getDSPClock(&startTime.hi, &startTime.lo)\"",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1848,
-                        dsStrongAssertMessage);
+                        empty_string);
                 osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                     1848, res, FModErrorDesc(res, false));
@@ -99,7 +99,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                         "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"previousChannel->getPosition(&positionPcm, FMOD_TIMEUNIT_PCM)\"",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1851,
-                        dsStrongAssertMessage);
+                        empty_string);
                 osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                     1851, res, FModErrorDesc(res, false));
@@ -125,7 +125,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                     "prevFadeOut == 0 && fadeIn == 0",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1829,
-                    dsStrongAssertMessage);
+                    empty_string);
 
             prevFadeOut = HALO_CROSSFADE_DSP::Acquire();
             fadeIn = HALO_CROSSFADE_DSP::Acquire();
@@ -156,7 +156,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                         "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"previousChannel->getDelay(FMOD_DELAYTYPE_DSPCLOCK_START, &startTime.hi, &startTime.lo)\"",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1836,
-                        dsStrongAssertMessage);
+                        empty_string);
                 osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                     1836, res, FModErrorDesc(res, false));
@@ -170,7 +170,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                     "lengthPcm > CROSSFADE_TIME",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1841,
-                    dsStrongAssertMessage);
+                    empty_string);
 
             uint64_t existingDelay = ((uint64_t)existingDelayHi << 32) | existingDelayLo;
             uint64_t stitchDelay = existingDelay + ((unsigned int)lengthAtOutputRate - (unsigned int)CROSSFADE_TIME.value);
@@ -208,7 +208,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"haloSoundSystem->system->getDSPClock(&startTime.hi, &startTime.lo)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1818,
-                    dsStrongAssertMessage);
+                    empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                 1818, res, FModErrorDesc(res, false));

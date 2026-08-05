@@ -18,6 +18,6 @@ con::SINGLE_ENTRY_CHECKER::SINGLE_ENTRY_CHECKER(int &nEntry_)
             "osLockedRead(&nEntry) == 0",
             "D:\\Projects\\code\\common\\src.sys\\console\\conComm.cpp",
             307,
-            dsStrongAssertMessage);
+            empty_string);
     osLockedAdd(this->nEntry, 1);
 }

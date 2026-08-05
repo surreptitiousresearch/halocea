@@ -20,7 +20,7 @@ void HALO_SOUND_LIST::ReleaseSound(FMOD::Sound *sound)
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1616,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 
@@ -31,11 +31,11 @@ void HALO_SOUND_LIST::ReleaseSound(FMOD::Sound *sound)
             if (!this->isLoaded)
                 STRONG_ASSERT_DUMMY().Crash(
                     "isLoaded", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                    1619, dsStrongAssertMessage);
+                    1619, empty_string);
             else if (this->streams[0] != sound)
                 STRONG_ASSERT_DUMMY().Crash(
                     "streams[0] == sound", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                    1620, dsStrongAssertMessage);
+                    1620, empty_string);
         }
         return;
     }
@@ -51,14 +51,14 @@ void HALO_SOUND_LIST::ReleaseSound(FMOD::Sound *sound)
         if (!IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY().Crash(
                 "false", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                1633, dsStrongAssertMessage);
+                1633, empty_string);
         return;
     }
 
     if (!IGNORE_STRONG_ASSERT && !this->streamUsed[i])
         STRONG_ASSERT_DUMMY().Crash(
             "streamUsed[i]", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-            1627, dsStrongAssertMessage);
+            1627, empty_string);
 
     this->streamUsed[i] = false;
 }

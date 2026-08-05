@@ -20,7 +20,7 @@ const HALO_SOUND_TAG *HALO_SOUND_LIST::Find(const char *tag_name) const
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1557,
-                dsStrongAssertMessage);
+                empty_string);
         return nullptr;
     }
 

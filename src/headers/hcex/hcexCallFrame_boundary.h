@@ -74,7 +74,7 @@ extern int           hcex_cur_render_mode;
 extern bool          hcex_enable_pix;
 extern bool          hcex_obj_sync_matrices_in_progress;
 extern int           colorizePerFrameNmb;
-extern int           IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 
 /* --- misc free-function boundaries --- */
 extern void ProcessSocketsNotifications(void);

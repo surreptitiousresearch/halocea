@@ -31,10 +31,10 @@ void instCONSTRUCTOR_NODE::SetRelations(animINST *pInst, instCONSTRUCTOR_NODE_RE
         objOBJ *ancestorObj = objList[ancestor->objId];
 
         dsTSTRING<char> childName;
-        childName.UnsafeInit(childObj->name ? childObj->name : dsStrongAssertMessage, -1, 0);
+        childName.UnsafeInit(childObj->name ? childObj->name : empty_string, -1, 0);
 
         dsTSTRING<char> parentName;
-        parentName.UnsafeInit(ancestorObj->name ? ancestorObj->name : dsStrongAssertMessage, -1, 0);
+        parentName.UnsafeInit(ancestorObj->name ? ancestorObj->name : empty_string, -1, 0);
 
         instCONSTRUCTOR_NODE_RELATIONS::RELATION *relation = rels->GetRelation(parentName, childName);
 

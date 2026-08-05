@@ -9,6 +9,7 @@
 
 #include <stdint.h>
 #include "headers/ai_command_list_definition.h"
+#include "headers/ai_command_definition.h"
 #include "headers/scenario.h"
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"
@@ -18,7 +19,10 @@ unsigned int ai_scripting_command_list_status_internal(int16_t actor_index, uint
     uint8_t index = *unit_index;
     ai_command_list_definition *command_list = (ai_command_list_definition *)global_scenario->ai_command_lists.address + actor_index;
 
-    if ( index < command_list->commands.count && (int)command_list->commands.address + 32 * index )
+    /* the guarded expression is the resolved element pointer itself (the decompiler emitted it as
+     * `(int)address + 32*index`); the 32 is sizeof(ai_command_definition), so index it as one. */
+    if ( index < command_list->commands.count
+         && &((ai_command_definition *)command_list->commands.address)[index] )
         return (~unit_index[4] >> 4) & 1 | 2;
     return 1;
 }

@@ -72,7 +72,7 @@ entENTITY *entCreate(scnSCENE *pScn, entCREATE_INFO *info)
                     "!\"empty class name\"",
                     "D:\\Projects\\code\\common\\src.sys\\gm_sys\\entity\\entity.cpp",
                     675,
-                    dsStrongAssertMessage);
+                    empty_string);
             return nullptr;
         }
 

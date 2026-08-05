@@ -14,13 +14,13 @@ void animTRACKER::GetInstMatrix(animINST *pInst, m3dMATR *out) const
             "pInst",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim_tracker.cpp",
             500,
-            dsStrongAssertMessage);
+            empty_string);
     if (!IGNORE_STRONG_ASSERT && !out)
         STRONG_ASSERT_DUMMY().Crash(
             "out",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim_tracker.cpp",
             501,
-            dsStrongAssertMessage);
+            empty_string);
 
     physSYSTEM_BASE *pPhysSystem = pInst->pPhysSystem;
     if (pPhysSystem && pPhysSystem->pSystemSafe)

@@ -33,7 +33,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 
-extern const wchar_t empty_wide_string; /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void *datum_try_and_get(const data_array *data, int index);
 extern int tag_loaded(uint32_t group_tag, const char *name);
@@ -63,11 +63,11 @@ uint8_t race_engine_display_score(int player_index, int message, int message_dat
                 {
                     int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
                     place_format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_name_1_flag)
-                            : &empty_wide_string;
+                            : empty_wide_string;
                     goto format_with_place;
                 }
                 int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-                const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+                const wchar_t *format = (text_tag == -1) ? empty_wide_string
                         : unicode_string_list_get_string(text_tag, _string_name_n_flags);
                 int16_t lap_count = subject[99];
                 game_engine_place place = game_engine_get_place(player_index, _get_score_team);
@@ -81,11 +81,11 @@ uint8_t race_engine_display_score(int player_index, int message, int message_dat
                 {
                     int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
                     place_format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_name_all_laps_complete)
-                            : &empty_wide_string;
+                            : empty_wide_string;
                     goto format_with_place;
                 }
                 int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-                const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+                const wchar_t *format = (text_tag == -1) ? empty_wide_string
                         : unicode_string_list_get_string(text_tag, _string_name_lap_n_of_total);
                 int score_to_win = game_engine_get_variant()->universal_variant.score_to_win;
                 int16_t lap_count = subject[99];
@@ -113,7 +113,7 @@ format_with_place:
             /* stat[0] = race_statistics.last_lap_time (byte +196), ticks */
             float lap_time = (float)player->statistics.multiplayer_statistics.race_statistics.last_lap_time * SECONDS_PER_TICK;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *format = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_you_completed_lap_n_in_x_seconds);
             usnprintf(buffer, buffer_size, format, player_again[99], lap_time);
             return 1;
@@ -125,7 +125,7 @@ format_with_place:
             if ( !player )
                 return 0;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *format = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_ally_name_completed_a_lap_n);
             usnprintf(buffer, buffer_size, format, player->name,
                     player->statistics.multiplayer_statistics.ctf_statistics.flag_returns);
@@ -138,7 +138,7 @@ format_with_place:
             if ( !player )
                 return 0;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *format = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_enemy_name_completed_a_lap);
             usnprintf(buffer, buffer_size, format, player->name,
                     player->statistics.multiplayer_statistics.ctf_statistics.flag_returns);
@@ -148,7 +148,7 @@ format_with_place:
         case race_message_you_touched_a_flag_rally: /* 34 */
         {
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *string = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *string = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_you_scored_a_flag);
             ustrncpy(buffer, string, buffer_size);
             return 1;
@@ -160,7 +160,7 @@ format_with_place:
             if ( !player )
                 return 0;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *format = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_ally_name_scored_a_flag);
             usnprintf(buffer, buffer_size, format, player->name);
             return 1;
@@ -172,7 +172,7 @@ format_with_place:
             if ( !player )
                 return 0;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *format = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_enemy_name_scored_a_flag);
             usnprintf(buffer, buffer_size, format, player->name);
             return 1;
@@ -186,7 +186,7 @@ format_with_place:
             /* stat[2] = race_statistics.best_lap_time (byte +200), ticks */
             float best_lap_time = (float)player->statistics.multiplayer_statistics.race_statistics.best_lap_time * SECONDS_PER_TICK;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-            const wchar_t *format = (text_tag == -1) ? &empty_wide_string
+            const wchar_t *format = (text_tag == -1) ? empty_wide_string
                     : unicode_string_list_get_string(text_tag, _string_new_best_lap_time_x);
             usnprintf(buffer, buffer_size, format, best_lap_time);
             return 1;

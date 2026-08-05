@@ -8,8 +8,8 @@
 #include "headers/global_tag_instances.h"
 #include "headers/animation_graph.h"
 #include "headers/animation.h"
+#include "headers/animation_update_kind.h"
 
-extern int animation_update_kind_affects_game_state;  /* animation_update_kind enum value */
 extern uint32_t *get_global_random_seed_address(void);
 extern uint32_t *get_global_local_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);

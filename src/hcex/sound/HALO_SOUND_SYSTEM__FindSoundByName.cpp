@@ -27,7 +27,7 @@ bool HALO_SOUND_SYSTEM::FindSoundByName(const sound_permutation *perm, int ident
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY().Crash("snd::THREAD_ID == osGetCurThreadId()",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         679, dsStrongAssertMessage);
+                                         679, empty_string);
         return false;
     }
 

@@ -62,7 +62,7 @@ typedef struct d3dDRIVER
     d3dDRIVER();
     // 0x8268F228 -- reversed in d3dDRIVER__dtor.cpp. Virtual. TermDrv, free the two vectors,
     // chain ~vidDRIVER.
-    virtual ~d3dDRIVER();
+    ~d3dDRIVER();
 
     // 0x82690EF0 -- reversed in d3dDRIVER__InitHW.cpp. Virtual. Bring up the Xenon device
     // (InitHWxenon), chain vidDRIVER::InitHW, seed render state + queries; sets ready bit 0x04000000.

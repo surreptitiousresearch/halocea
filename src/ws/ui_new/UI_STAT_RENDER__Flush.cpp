@@ -30,7 +30,7 @@ void ui_new::UI_STAT_RENDER::Flush()
     stateDesc.tex = pTex;
 
     // empty_string is the empty page-name string at 0x8200155A; SetCurDip's nameDip is const char*.
-    vidDriver->dipStat.SetCurDip("UI", (const char *)&empty_string, 0);
+    vidDriver->dipStat.SetCurDip("UI", (const char *)empty_string, 0);
     rendDRIVER_Configure(rendDrv, 0, &stateDesc, 0x2020495540000000ULL, COORDSPACE_SCREEN, RENDERBLOCK_COLOR, 0, 0);
     rendDRIVER_DrawIndexedPrimitive(rendDrv, vBuf.pData, vBuf.nElem, iBuf.pData, iBuf.nElem / 3,
                                      0x2020495540000000ULL, 0);

@@ -23,6 +23,12 @@ typedef struct dscDESC_vtbl {
     void                (*NotifyTermBrand)(dscDESC *self);  // 0x08
     void                (*ParsePS)(dscDESC *self, psSECTION section, const dsTSTRING<char> &hintErr);       // 0x0C
     void                (*PostProcessPS)(dscDESC *self, psSECTION section, const dsTSTRING<char> &hintErr); // 0x10
+    // 0x14 — NOT a dscDESC slot. types_members dscDESC_vtbl stops at PostProcessPS (size 20), and
+    // 0x14 is the first slot each derived hierarchy introduces for itself: bvd*_vtbl call it
+    // RegisterSslFuncCb(this, sslCLASS_REF*), propBASE_DESC_vtbl calls it GetSslClass with a
+    // different signature. They disagree, so it cannot be inherited. Declared here anyway because
+    // src/ws/ai/aiPLANNER__RegisterBhvSslFunctions.cpp dispatches to it through a dscDESC*, and
+    // that file is under the standing ws/ai exclusion — so this type reads 24 against the DB's 20.
     void                (*RegisterSslFunctions)(dscDESC *self, struct sslCLASS_REF *sslClass);              // 0x14
 } dscDESC_vtbl;
 

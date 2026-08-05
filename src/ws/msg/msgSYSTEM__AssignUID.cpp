@@ -26,7 +26,7 @@ void msgSYSTEM::AssignUID(msgADDR *pComm)
             "it.IsDone() || it.value() == pComm",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
             835,
-            dsStrongAssertMessage);
+            empty_string);
 
     if ((pComm->stateAddr.state & 0x100) == 0) {
         uidMap->Insert(&uniqueID, &pComm);

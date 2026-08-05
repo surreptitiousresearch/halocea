@@ -20,7 +20,7 @@ void vidDRIVER::ReleaseThreadOwnership()
                 "!IsSuspended()",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\video\\vid.cpp",
                 1121,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     osGetCurThreadProcessor();

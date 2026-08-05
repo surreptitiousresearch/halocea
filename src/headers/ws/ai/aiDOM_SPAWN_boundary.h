@@ -31,8 +31,6 @@ extern unsigned int gsAppState2;        // app-state flags (secondary word)
 extern int          ent_idx;            // monotonically increasing entity spawn counter
 extern int          IGNORE_STRONG_ASSERT;
 
-// idasql: empty_string — the shared empty/"?" C-string literal used for a fallback name.
-extern char empty_string[];
 
 // AI debug cvars — each wraps a `.value` field (bool-ish). Modeled minimally.
 struct aiDBG_BOOL_CVAR { int value; /* + cvar bookkeeping — boundary */ };

@@ -16,7 +16,7 @@ void dsSTATE_MGR::EraseState(int id)
                 "GetThreadId() >= 0 && threadInfo[GetThreadId()].isActive",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
                 1180,
-                dsStrongAssertMessage);
+                empty_string);
     }
     this->stateIndex.Get(id).idxData = -1;
 }

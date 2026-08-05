@@ -17,7 +17,7 @@
 
 extern scnSCENE     *gsScenePtr;
 extern gsLVL_SYSTEM *gsSysLevel;
-extern const char    dsStrongAssertMessage[]; /* empty_string — empty string, used when name is null */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern int sprintf_0(char *string, const char *format, ...);
 
 animINST *hcex_inst_create_clone(animINST *pInstPrototype)
@@ -32,7 +32,7 @@ animINST *hcex_inst_create_clone(animINST *pInstPrototype)
 
     const char *name = pInstPrototype->name;
     if (!name)
-        name = dsStrongAssertMessage;
+        name = empty_string;
     sprintf_0(createData.name, "clone_%s", name);
 
     if (!gsScenePtr)

@@ -24,7 +24,7 @@ void dsERASE_MANAGER<StrStridMap::LINE_ERASER>::SafelyEraseObject(const StrStrid
             "eraseQueue.Length() < 8192",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             536,
-            dsStrongAssertMessage);
+            empty_string);
 
     ERASED rec;
     rec.threadMask = (unsigned int)eraser.line; // dedup key = erased LINE pointer

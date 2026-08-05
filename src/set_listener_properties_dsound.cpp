@@ -23,7 +23,7 @@
 #include "headers/EAX_MAP.h"
 
 /* boundary declarations (defined elsewhere / debug scaffolding) */
-extern const bool IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern const m3dV m3dVZero;
 extern bool m3dCheckFinite(const m3dV *v);
 extern void STRONG_ASSERT2_HELPER_asserd_m3dV(const char *expr, const char *file, int line,

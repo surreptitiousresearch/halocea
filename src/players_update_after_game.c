@@ -29,7 +29,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/multiplayer_game_text_string.h"
 
-extern const wchar_t empty_wide_string;
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void game_set_players_are_double_speed(uint8_t players_are_double_speed);
 extern void player_telefrag_effect_start(int player_index, float scale);
@@ -88,7 +88,7 @@ void players_update_after_game(void)
                 if ( (uint16_t)player->local_player_index != 0xFFFF )
                 {
                     int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-                    const wchar_t *text = text_tag == -1 ? &empty_wide_string
+                    const wchar_t *text = text_tag == -1 ? empty_wide_string
                                                          : unicode_string_list_get_string(text_tag, _string_you_were_telefragged);
                     hud_print_message(player->local_player_index, text);
                 }

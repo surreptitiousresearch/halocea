@@ -33,7 +33,7 @@ void animINST::CalcOrthoL2W(m3dMATR *matrOrthoL2W)
             "rc",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             1550,
-            dsStrongAssertMessage);
+            empty_string);
 
     matrOrthoL2W->MakeLCS2WCS(&origin, nullptr, &rightAxis, &upAxis);
 }

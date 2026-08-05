@@ -16,6 +16,6 @@ typedef struct objFILTER_vtbl {
 typedef struct objFILTER {
     objFILTER_vtbl *__vftable; // 0x00
 
-    virtual ~objFILTER(); // 0x82660EE0 — sets the vtable back to objFILTER's own (no fields to release)
-    virtual int IsUse(objOBJ *obj) = 0; // pure — boundary, implemented per concrete filter
+    ~objFILTER(); // 0x82660EE0 — sets the vtable back to objFILTER's own (no fields to release)
+    int IsUse(objOBJ *obj); // pure — boundary, implemented per concrete filter
 } objFILTER;

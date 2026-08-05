@@ -16,7 +16,7 @@ int dsPOOL<dsDATA, 256, 256>::Alloc()
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             128,
-            dsStrongAssertMessage);
+            empty_string);
 
     int slotIndex = this->emptyChain;
     dsDATA *slot = &this->Get(slotIndex);

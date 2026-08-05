@@ -41,6 +41,7 @@
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/shader_type.h"
+#include "headers/shader_model.h"
 #include "headers/shader_model_flags.h"
 #include "headers/render_model_effect_type.h"
 #include "headers/blam_data_globals.h"
@@ -77,15 +78,20 @@ transparent_geometry_group *_rasterizer_model_transparent_geometry_submit(
     if (!rasterizer_debug_options.draw_models || !rasterizer_debug_options.draw_model_transparent_geometry)
         return new_group;
 
-    /* skip_submit: true only when shader is a decal-capable shader (type 4) whose second radiosity block
-     * has flag bit 0x8 set — those are drawn through a different path entirely. */
-    /* second radiosity block of a model shader overlays shader_model.flags; bit 3 = alpha-blended decal (DB enum shader_model_flags). */
-    uint8_t skip_submit = shader && shader->base.type == _shader_type_model && (shader[1].base.radiosity.flags & (1u << _shader_model_alpha_blended_decal_bit)) != 0;
+    /* skip_submit: true only when this is a model shader (type 4) flagged as an alpha-blended decal —
+     * those are drawn through a different path entirely.
+     * DEVIATION: `shader[1].base.radiosity.flags` was a folded byte offset on the 40-byte base, not an
+     * array element; 1 * 0x28 lands on the derived body, whose own uint16_t `flags` sits at +0x00.
+     * Disasm: lhz r11,0x24(r3) / cmplwi 4 (the type guard) then lhz r11,0x28(r3) /
+     * rlwinm r10,r11,0,28,28 @0x8378CD80 = bit 3. */
+    uint8_t skip_submit = shader && shader->base.type == _shader_type_model
+            && (((const shader_model *)shader)->model.flags & (1u << _shader_model_alpha_blended_decal_bit)) != 0;
 
-    /* wants_skinned_or_decal_path: camouflage/skinned effect, or a non-decal shader while the current
-     * model effect is camouflage (type 1) — both gate the immediate-draw / singleton-group branch below. */
+    /* wants_skinned_or_decal_path: camouflage/skinned effect, or a shader with any model flag set while
+     * the current model effect is camouflage (type 1) — both gate the immediate-draw / singleton-group
+     * branch below. The second test is the whole flags word, not a single bit (lhz 0x28(r25) @0x8378CDC4). */
     uint8_t wants_skinned_or_decal_path = local_model_effect_type != _render_model_effect_type_active_camouflage
-            || (shader && shader->base.type == _shader_type_model && shader[1].base.radiosity.flags);
+            || (shader && shader->base.type == _shader_type_model && ((const shader_model *)shader)->model.flags);
 
     if (skip_submit)
     {

@@ -12,7 +12,7 @@
 #include "headers/ui_audio_feedback_sound.h"
 #include "headers/blam_data_globals.h"
 
-extern const wchar_t empty_wide_string; /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
@@ -39,7 +39,7 @@ int video_menu_update(widget_instance *widget)
     {
         const wchar_t *name;
         if ( resolution_index < 0 || resolution_index >= video_resolution_count )
-            name = &empty_wide_string;
+            name = empty_wide_string;
         else
             name = (const wchar_t *)video_resolutions[resolution_index].name;
         ustrncpy(resolution_text, name, 0xFu);

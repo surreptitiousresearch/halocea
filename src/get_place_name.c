@@ -15,7 +15,7 @@
 
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
-extern uint16_t empty_wide_string;
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 uint16_t * get_place_name(game_engine_place place)
 {
@@ -48,6 +48,6 @@ uint16_t * get_place_name(game_engine_place place)
 
     int tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
     if ( tag_index == -1 )
-        return &empty_wide_string;
+        return (uint16_t *)empty_wide_string;   /* .rdata const -> the corpus's uint16_t* return shape */
     return unicode_string_list_get_string(tag_index, string_index + 102);
 }

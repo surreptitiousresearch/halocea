@@ -24,7 +24,7 @@ void jbmMANAGER::WaitThreadsDone(apSTATE_T<unsigned long> threadMask)
                     "IsValidIdx(idx)",
                     "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
                     166,
-                    dsStrongAssertMessage);
+                    empty_string);
             }
 
             if (threads[threadIdx].startThread)

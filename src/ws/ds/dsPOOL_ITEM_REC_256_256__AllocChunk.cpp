@@ -16,7 +16,7 @@ void dsPOOL<dsEVENT_MGR::ITEM_REC, 256, 256>::AllocChunk()
             "numChunks < MAX_CHUNKS",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             200,
-            dsStrongAssertMessage);
+            empty_string);
 
     dsEVENT_MGR::ITEM_REC *chunk =
         (dsEVENT_MGR::ITEM_REC *)dlMalloc(0x2400u, this->cl.file, this->cl.line); // 256 * 36

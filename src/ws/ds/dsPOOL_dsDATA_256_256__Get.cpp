@@ -14,7 +14,7 @@ dsDATA &dsPOOL<dsDATA, 256, 256>::Get(int idx)
             "idx >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             175,
-            dsStrongAssertMessage);
+            empty_string);
     int idxChunk = idx / 256;
     int idxElem = idx % 256;
     if (!IGNORE_STRONG_ASSERT) {
@@ -23,13 +23,13 @@ dsDATA &dsPOOL<dsDATA, 256, 256>::Get(int idx)
                 "idxChunk < numChunks",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 180,
-                dsStrongAssertMessage);
+                empty_string);
         else if (idxElem >= 256)
             STRONG_ASSERT_DUMMY().Crash(
                 "idxElem < CHUNK_SIZE",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 181,
-                dsStrongAssertMessage);
+                empty_string);
     }
     return this->chunkTable[idxChunk].data[idxElem];
 }

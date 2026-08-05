@@ -23,10 +23,10 @@ bool strmRESOURCE_PACK_S3D<strmRESOURCE, strmRESOURCE_TEXTURE>::IsReadFromPack()
         // verbatim as the two-step check the binary performs.
         if (value.type == dsDATA_TYPE_STORAGE<psSECTION>::dataType)
             STRONG_ASSERT_DUMMY().Crash("!value.IsType<psSECTION>()",
-                "d:\\projects\\code\\common\\incl.sys\\drv\\strm_resource.hpp", 17, dsStrongAssertMessage);
+                "d:\\projects\\code\\common\\incl.sys\\drv\\strm_resource.hpp", 17, empty_string);
         if (value.type == dsDATA_TYPE_STORAGE<psARRAY>::dataType)
             STRONG_ASSERT_DUMMY().Crash("!value.IsType<psARRAY>()",
-                "d:\\projects\\code\\common\\incl.sys\\drv\\strm_resource.hpp", 17, dsStrongAssertMessage);
+                "d:\\projects\\code\\common\\incl.sys\\drv\\strm_resource.hpp", 17, empty_string);
     }
 
     if (!value.type) {

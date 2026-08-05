@@ -44,7 +44,7 @@ void dsERASE_MANAGER<StrStridLineEraser>::UpdateThread()
                 "Length() > 0",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_deque.hpp",
                 298,
-                dsStrongAssertMessage);
+                empty_string);
 
         ERASED *front = &this->eraseQueue.data[this->eraseQueue.head];
         if (otherThreads != (front->threadMask & otherThreads))

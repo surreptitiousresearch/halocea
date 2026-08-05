@@ -62,7 +62,7 @@ void MSG_PROTOCOL::SendMsg(fioFILE &f)
                     "f.GetStreamName() && strcmp(f.GetStreamName(), \"memory buffer\") == 0",
                     "D:\\Projects\\code\\common\\src.sys\\console\\conComm.cpp",
                     274,
-                    dsStrongAssertMessage);
+                    empty_string);
             }
         }
         pComm->SendMsg(target->GetBuf(), f.streamSize, 1);

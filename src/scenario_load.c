@@ -22,7 +22,7 @@ extern int scenario_tags_load(const char *name);
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern uint8_t scenario_switch_structure_bsp(int16_t structure_bsp_index);
 extern char *strchr(const char *s, int c);
-extern char empty_string[];
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 uint8_t scenario_load(const char *name)
 {

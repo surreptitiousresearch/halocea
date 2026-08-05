@@ -38,7 +38,6 @@ m3dV *aiDbgGetPosFromCamera(m3dV *out);
 // Shared single-NUL-byte empty string constant, passed as the STRONG_ASSERT context arg. The
 // reversed bodies reference the IDA raw name byte_8200155A; declared here matching the
 // Crash(...,unsigned char msgCtx) overload it resolves to. (2026-07-31)
-extern const char empty_string;
 extern unsigned char byte_8200155A;
 
 // ai08 tuning constant (?WPN_TIME_KILL_HANG@@3MB / .data float @ ~0x820D9A10) — the "kill-hang"

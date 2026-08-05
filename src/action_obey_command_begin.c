@@ -72,11 +72,13 @@
 #include "headers/ai_atom_action_modifier.h"
 
 
-/* 0x8200155A: a NUL byte used as an empty seat-name substring (matches any vehicle seat). */
+/* DEVIATION: the seat-name substring argument was reconstructed as
+ * `extern const char ai_vehicle_any_seat_name;` at 0x8200155A. That address is the image's shared
+ * empty-string constant (a lone NUL byte), not a named seat-name object - the original passed a
+ * "" literal meaning "any seat". Restored as the literal; no storage is owed. */
 #include "headers/ai_information_packet.h"
 #include "headers/actor_position_data.h"
 #include "headers/scenario.h"
-extern const char ai_vehicle_any_seat_name;
 
 extern void  *memset(void *dst, int value, unsigned int n);
 extern void   qsort(void *base, unsigned int num, unsigned int width,
@@ -507,7 +509,7 @@ uint8_t action_obey_command_begin(
             while ( !actor_action_try_to_enter_vehicle(
                         actor_index,
                         vehicle_candidates[candidate_index].vehicle_index,
-                        &ai_vehicle_any_seat_name,
+                        "",   /* any seat (0x8200155A empty string) */
                         seat_desire_type,
                         0,
                         nullptr) )

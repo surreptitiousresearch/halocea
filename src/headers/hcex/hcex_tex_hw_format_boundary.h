@@ -48,8 +48,8 @@ extern void dsVECTOR_dsTSTRING_InsertSorted(dsVECTOR<dsTSTRING<char>, 8> *v,
 
 /* --- config toggle + strong-assert + PIX profiling boundaries --- */
 extern int  hcex_tex_block;             /* int hcex_tex_block — force blocking stream */
-extern int  IGNORE_STRONG_ASSERT;
-extern const char empty_string[]; /* shared "" @0x8200155A */
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info); /* STRONG_ASSERT_DUMMY::Crash */
 extern void osPIXBeginEvent(const char *string);
 extern void osPIXEndEvent(void);

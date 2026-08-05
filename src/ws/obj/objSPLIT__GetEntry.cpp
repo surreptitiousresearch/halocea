@@ -12,7 +12,7 @@ objSPLIT_ENTRY *objSPLIT::GetEntry(int i)
         STRONG_ASSERT_DUMMY().Crash(
             "i >= 0 && i < nEntry",
             "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 512,
-            dsStrongAssertMessage);
+            empty_string);
 
     int entryIndex = this->nEntry;
     if (i <= entryIndex)

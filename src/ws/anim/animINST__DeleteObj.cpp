@@ -23,7 +23,7 @@ void animINST::DeleteObj(objOBJ *obj)
             "pObj_->pInst == this",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             778,
-            dsStrongAssertMessage);
+            empty_string);
     if ((this->state2 & 0x1000) != 0)
         animSetObjInstRef(obj, nullptr);
     else

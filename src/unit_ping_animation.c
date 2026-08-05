@@ -38,6 +38,7 @@
 #include "headers/unit_animation_flags.h"
 #include "headers/base_seat.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
 
 extern uint8_t game_engine_running(void);
@@ -57,7 +58,6 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern uint8_t weapon_is_flag(int weapon_index);
 extern void unit_align_facing(int unit_index, const real_vector2d *alignment_vector);
 
-#define animation_update_kind_affects_game_state 1
 
 /* NOTE: `angle` (float) is arg7 — it occupies f1 and reserves/skips its GPR shadow slot (r9), so
    the prior 11-param sig's `real_vector2d *alignment_vector_unused` at r9 was that phantom shadow,

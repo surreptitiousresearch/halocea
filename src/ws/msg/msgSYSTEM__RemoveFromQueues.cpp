@@ -12,7 +12,7 @@ void msgSYSTEM::RemoveFromQueues(msgADDR *pAddr)
             "pAddr",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
             627,
-            dsStrongAssertMessage);
+            empty_string);
 
     dsCMP    cmp;
     msgADDR *key = pAddr;

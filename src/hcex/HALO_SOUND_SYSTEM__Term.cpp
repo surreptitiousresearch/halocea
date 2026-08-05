@@ -4,7 +4,7 @@
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-extern const char empty_string; // shared single-NUL assert-info constant @0x8200155A
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // 0x836BD790 — snd::SYSTEM_CUSTOM::Term override: tear down every per-level FSB sound list and
 // empty the table. Must run on the owning sound thread; if the driver is live (state bit 0 set)
@@ -25,6 +25,6 @@ void HALO_SOUND_SYSTEM::Term()
             STRONG_ASSERT_DUMMY::Crash(nullptr,
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                2311, &empty_string);
+                2311, empty_string);
     }
 }

@@ -26,7 +26,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/multiplayer_game_text_string.h"
 
-extern const wchar_t empty_wide_string; /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void *datum_try_and_get(const data_array *data, int index);
 extern int tag_loaded(uint32_t group_tag, const char *name);
@@ -54,7 +54,7 @@ uint8_t oddball_engine_display_score(int player_index, int message, int message_
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             const wchar_t *string = (text_tag != -1)
                     ? unicode_string_list_get_string(text_tag, string_index)
-                    : &empty_wide_string;
+                    : empty_wide_string;
             ustrncpy(buffer, string, buffer_size);
             return 1;
         }
@@ -68,7 +68,7 @@ uint8_t oddball_engine_display_score(int player_index, int message, int message_
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
             if ( text_tag == -1 )
             {
-                usnprintf(buffer, buffer_size, &empty_wide_string, player->name);
+                usnprintf(buffer, buffer_size, empty_wide_string, player->name);
                 return 1;
             }
             const wchar_t *format = unicode_string_list_get_string(text_tag, message == oddball_message_enemy_has_the_ball ? 164 : 161);
@@ -85,7 +85,7 @@ uint8_t oddball_engine_display_score(int player_index, int message, int message_
             int score = oddball_globals.team_score[player->team_index] / 30;   /* team_index @0x20 */
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
             if ( text_tag == -1 )
-                usnprintf(buffer, buffer_size, &empty_wide_string, player->name, score);
+                usnprintf(buffer, buffer_size, empty_wide_string, player->name, score);
             else
                 usnprintf(buffer, buffer_size,
                         unicode_string_list_get_string(text_tag, message == oddball_message_enemy_has_the_ball_tick ? 166 : 165),
@@ -103,7 +103,7 @@ uint8_t oddball_engine_display_score(int player_index, int message, int message_
             int score = oddball_globals.team_score[player->team_index] / 30;
             int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
             if ( text_tag == -1 )
-                usnprintf(buffer, buffer_size, &empty_wide_string, place_name, score);
+                usnprintf(buffer, buffer_size, empty_wide_string, place_name, score);
             else
                 usnprintf(buffer, buffer_size, unicode_string_list_get_string(text_tag, _string_place_score_seconds),
                         place_name, score);

@@ -23,7 +23,7 @@
 #include "headers/multiplayer_game_text_string.h"
 #include "headers/blam_data_globals.h"
 
-extern const wchar_t empty_wide_string; /* .short 0 — empty wide string, "tag not loaded" fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
@@ -36,7 +36,7 @@ extern uint16_t * get_place_string(statistic_buffer *buffer);
 void game_engine_generate_title_string(int player_index, uint16_t *title_string)
 {
     uint16_t lives_count_buffer[128];
-    const wchar_t *lives_status_text = &empty_wide_string;
+    const wchar_t *lives_status_text = empty_wide_string;
 
     if (global_variant.universal_variant.lives > 0)
     {
@@ -47,18 +47,18 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
         if (global_variant.universal_variant.lives == lives_used)
         {
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-            lives_status_text = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_no_lives) : &empty_wide_string;
+            lives_status_text = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_no_lives) : empty_wide_string;
         }
         else if (lives_remaining == 1)
         {
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-            lives_status_text = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_1_life) : &empty_wide_string;
+            lives_status_text = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_1_life) : empty_wide_string;
         }
         else
         {
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_n_lives)
-                    : &empty_wide_string;
+                    : empty_wide_string;
             usnprintf(lives_count_buffer, 0x80u, format, lives_remaining);
             lives_count_buffer[127] = 0;
             lives_status_text = lives_count_buffer;
@@ -115,7 +115,7 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
             return;
         }
 
-        ustrncpy(title_string, &empty_wide_string, 0x50u);
+        ustrncpy(title_string, empty_wide_string, 0x50u);
         title_string[79] = 0;
         return;
     }
@@ -132,7 +132,7 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
         int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
         const wchar_t *format = (text_tag != -1)
                 ? unicode_string_list_get_string(text_tag, (place_stats.place >= 0) ? 64 : 63)
-                : &empty_wide_string;
+                : empty_wide_string;
 
         uint16_t *place_string = get_place_string(&place_stats);
         usnprintf(title_string, 0x50u, format, place_string, score_string, lives_status_text);
@@ -150,19 +150,19 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
     if (team0_score > team1_score)
     {
         int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-        const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_red_leads_blue_score_to_score_lives) : &empty_wide_string;
+        const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_red_leads_blue_score_to_score_lives) : empty_wide_string;
         usnprintf(title_string, 0x50u, format, team0_score_string, team1_score_string, lives_status_text);
     }
     else if (team0_score < team1_score)
     {
         int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-        const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_blue_leads_red_score_to_score_lives) : &empty_wide_string;
+        const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_blue_leads_red_score_to_score_lives) : empty_wide_string;
         usnprintf(title_string, 0x50u, format, team1_score_string, team0_score_string, lives_status_text);
     }
     else
     {
         int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-        const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_teams_tied_lives) : &empty_wide_string;
+        const wchar_t *format = (text_tag != -1) ? unicode_string_list_get_string(text_tag, _string_teams_tied_lives) : empty_wide_string;
         /* asymmetric on purpose — only team 1's score string is formatted in for a tie, see file header */
         usnprintf(title_string, 0x50u, format, team1_score_string, lives_status_text);
     }

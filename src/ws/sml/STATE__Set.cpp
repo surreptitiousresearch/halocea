@@ -26,7 +26,7 @@ void STATE::Set(int idxState)
                 "false",
                 "D:\\Projects\\code\\common\\src.sys\\gm_sys\\entity\\ia_sml_state.cpp",
                 250,
-                dsStrongAssertMessage);
+                empty_string);
         }
     }
 }

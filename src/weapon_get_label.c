@@ -9,7 +9,7 @@
 #include "headers/weapon_definition.h"
 #include "headers/blam_data_globals.h"
 
-extern char empty_string[];  /* shared empty string "" */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 const char *weapon_get_label(int weapon_index)
 {

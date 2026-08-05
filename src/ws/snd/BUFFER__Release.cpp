@@ -14,6 +14,6 @@ void snd::BUFFER::Release()
         ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("refCount >= 0",
                                                  "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd.cpp",
                                                  80,
-                                                 dsStrongAssertMessage);
+                                                 empty_string);
     osLockedDecrement(&refCount);
 }

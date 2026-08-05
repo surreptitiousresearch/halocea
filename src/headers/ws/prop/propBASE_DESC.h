@@ -29,23 +29,23 @@ struct propBASE_DESC : sslDESC {
     // 0x823EAF40 — default construct. Body external to this batch. // boundary
     propBASE_DESC();
     // 0x823EB050 (virtual) — destruct. Body external to this batch. // boundary
-    virtual ~propBASE_DESC();
+    ~propBASE_DESC();
     // 0x823E06C8 — memberwise copy-assign. Body external to this batch. // boundary
     propBASE_DESC &operator=(const propBASE_DESC &that);
 
     // 0x826C4868 (?InitSslClass@propBASE_DESC@@UAAHABV?$dsTSTRING@D@@@Z) — virtual; called by
     // propHALO_OBJ_DESC::InitSslClass before its own per-event registration. Body not decompiled in
     // this batch. // boundary
-    virtual int InitSslClass(const dsTSTRING<char> &hintErr);
+    int InitSslClass(const dsTSTRING<char> &hintErr);
 
     // 0x826C2438 (?UnshareSslClass@propBASE_DESC@@UAAX_N0@Z) — virtual override of
     // sslDESC::UnshareSslClass; called (via the base vtable slot) from propHALO_OBJ_DESC's
     // InitSslClass as `this->UnshareSslClass(false, false)`. Body external to this batch.
     // boundary
-    virtual void UnshareSslClass(bool isBySslScript, bool isForceUnshare);
+    void UnshareSslClass(bool isBySslScript, bool isForceUnshare);
 
     // 0x826C8400 (?ParsePS@propBASE_DESC@@UAAXVpsSECTION@@ABV?$dsTSTRING@D@@@Z) — virtual;
     // propHALO_OBJ_DESC::ParsePS delegates to this first. psSECTION passed by value (invisible
     // reference — see dscDESC_vtbl note). Body external to this batch. // boundary
-    virtual void ParsePS(psSECTION ps, const dsTSTRING<char> &hintErr);
+    void ParsePS(psSECTION ps, const dsTSTRING<char> &hintErr);
 };

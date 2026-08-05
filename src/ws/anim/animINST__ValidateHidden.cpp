@@ -55,7 +55,7 @@ void animINST::ValidateHidden()
                     "pObjSkin->IsSkinCompound()",
                     "D:\\Projects\\code\\common\\src.sys\\objects\\obj_skin.cpp",
                     1348,
-                    dsStrongAssertMessage);
+                    empty_string);
             if (pCompObj->pGeom->nModifiers)
             {
                 dsTSTRING_BUF_HEADER<char> *pAffixBuffer = pBoneObj->affixes.str.pBuffer;

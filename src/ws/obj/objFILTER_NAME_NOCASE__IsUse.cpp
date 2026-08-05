@@ -7,7 +7,7 @@
 // treated as the empty string.
 
 extern "C" int stricmp(const char *a, const char *b);
-extern const char empty_string[]; // 0x8200155A — shared empty string
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 int objFILTER_NAME_NOCASE::IsUse(objOBJ *pObj)
 {

@@ -32,7 +32,7 @@ typedef struct animCREATE_DATA {
 
     // 0x8252CEA0 (virtual) — free any attached shader-replacement data, release the affixes
     // buffer reference, and destroy ps.
-    virtual ~animCREATE_DATA();
+    ~animCREATE_DATA();
 
     // 0x8252EF60 — memberwise copy-assign (matrix, frame/state/ps/affixes/name/scale, and a
     // deep copy of srData if the source has one).

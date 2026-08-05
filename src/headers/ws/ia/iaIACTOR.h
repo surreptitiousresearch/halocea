@@ -73,28 +73,28 @@ struct iaIACTOR : msgADDR {
     // 0x826D8450's callee — protected virtual: perform the actual unshare-and-reparse for a
     // by-value `section`/`hintErr` pair. Not reversed in this batch (dispatched through iaIACTOR's
     // own vtable, slot 0xD0 / 52). MAAX (protected, non-const), virtual. boundary.
-    virtual void UnshareDescByInst(psSECTION section, const dsTSTRING<char> &hintErr);
+    void UnshareDescByInst(psSECTION section, const dsTSTRING<char> &hintErr);
 
     // Frame/message-dispatch virtuals (added this session, DB-verified via mangled name for the
     // HALO_MNG override chain — see src/hcex/HALO_MNG__*.cpp). Bodies not decompiled here; boundary.
-    virtual void ProcessTERM_LEVEL();                                          // 0x826D5958 protected virtual
-    virtual msgRES ProcessMsg(int msg, void *pInfo, msgADDR *pSend);           // 0x826D5B00 protected virtual
-    virtual unsigned int GetSuspendMask();                                     // 0x826D5C68 protected virtual
-    virtual void OnChangeMode(unsigned int oldMode, unsigned int newMode);      // 0x826D5C88 protected virtual
-    virtual void ProcessFRAME();                                               // 0x826D67E8 protected virtual
+    void ProcessTERM_LEVEL();                                          // 0x826D5958 protected virtual
+    msgRES ProcessMsg(int msg, void *pInfo, msgADDR *pSend);           // 0x826D5B00 protected virtual
+    unsigned int GetSuspendMask();                                     // 0x826D5C68 protected virtual
+    void OnChangeMode(unsigned int oldMode, unsigned int newMode);      // 0x826D5C88 protected virtual
+    void ProcessFRAME();                                               // 0x826D67E8 protected virtual
 
     // 0x823D05C8 (?TypeID@iaIACTOR@@UBA?AVdsTYPE_ID@@XZ) — public virtual RTTI accessor: returns
     // this actor's dynamic dsTYPE_ID by value. boundary (body external to this batch).
-    virtual dsTYPE_ID TypeID() const;
+    dsTYPE_ID TypeID() const;
 
     // Public virtual: set this actor's instance name. DB-verified slot (types_members
     // HALO_MNG_vtbl::SetName @0x34, `void (*)(this, const dsTSTRING<char>*)`); resolves the
     // former haloInit.cpp raw offset-0x34 vtable dispatch CAVEAT. boundary.
-    virtual void SetName(const dsTSTRING<char> *name);
+    void SetName(const dsTSTRING<char> *name);
 
     // 0x823D4968 (?GetName@iaIACTOR@@UBA?AV?$dsTSTRING@D@@XZ) — public virtual: this actor's instance
     // name string, returned by value. boundary (body external to this batch).
-    virtual dsTSTRING<char> GetName() const;
+    dsTSTRING<char> GetName() const;
 
     // Public, non-virtual: elapsed time since this actor's last frame tick (used by
     // HALO_MNG::ProcessFRAME to drive hcex_update_anim). Not reversed here; boundary.

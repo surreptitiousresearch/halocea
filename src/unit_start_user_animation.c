@@ -18,6 +18,7 @@
 #include "headers/unit_animation_flags.h"
 #include "headers/unit_animation_state.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
 extern int16_t animation_graph_get_animation_by_name(int animation_graph_index, const char *animation_name);
 extern char *tag_get_name(int16_t tag_index);
@@ -26,7 +27,6 @@ extern int16_t animation_choose_random_permutation_internal(int render_or_affect
 extern void object_start_interpolation(int object_index, int16_t frame_count);
 extern void object_compute_node_matrices_recursive(int object_index);
 
-#define animation_update_kind_affects_game_state 0
 
 uint8_t unit_start_user_animation(int unit_index, int animation_graph_index, const char *animation_name, uint8_t interpolate)
 {

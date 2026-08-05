@@ -1,13 +1,19 @@
-/* shader_is_water_decal @0x83755850 — true if a transparent shader (types 5/6/7) is flagged as a water decal.
- * The flag is bit 4 of the radiosity-properties flags of the *second* shader element (shader[1], i.e. the
- * byte at shader + 0x29). Non-transparent or null shaders are never water decals.
+/* shader_is_water_decal @0x83755850 — for the 3 shader types that carry a "draw before water" toggle
+ * (transparent_generic / transparent_chicago / transparent_chicago_extended), reads that tag's own
+ * flag bit. Non-transparent or null shaders are never water decals.
  *
- * DEVIATION: the original read the raw byte at shader+0x29 (low byte of the big-endian u16 radiosity.flags);
- * expressed here as the equivalent named-field bit test now that radiosity is a typed sub-struct. */
+ * DEVIATION: the decompiler folded the read into `shader[1].base.radiosity.flags` on the 40-byte base.
+ * The real load is `lbz r11, 0x29(r11)` / `extrwi r3, r11, 1,27` @0x8375587C — a BYTE at +0x01 of the
+ * derived tag body (which starts at +0x28), i.e. the uint8_t `flags` that follows numeric_counter_limit,
+ * bit 4. All three tag types share a byte-identical {numeric_counter_limit, flags, type} prefix and
+ * DB-verified identical flag-bit assignments, so the compiler emitted a single load for the three
+ * cases; typed here through shader_transparent_generic. */
 
 #include <stdint.h>
 #include "headers/shader.h"
 #include "headers/shader_type.h"
+#include "headers/shader_transparent_generic.h"
+#include "headers/shader_transparent_generic_flags.h"
 
 uint8_t shader_is_water_decal(const shader *shader)
 {
@@ -18,7 +24,8 @@ uint8_t shader_is_water_decal(const shader *shader)
     if (type == _shader_type_transparent_generic
         || type == _shader_type_transparent_chicago
         || type == _shader_type_transparent_chicago_extended)
-        return (shader[1].base.radiosity.flags >> 4) & 1;  /* draw_before_water_bit (4) */
+        return (((const shader_transparent_generic *)shader)->generic.flags
+                >> _shader_transparent_generic_draw_before_water_bit) & 1;
 
     return 0;
 }

@@ -63,7 +63,7 @@ entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info)
             "!gsSysLevel->IsProcessDestroyLevel()",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\entity\\entity.cpp",
             585,
-            dsStrongAssertMessage);
+            empty_string);
 
     int savedCreatingEntityId = gs_creatingEntityId;
     gs_creatingEntityId = info.uid;
@@ -91,7 +91,7 @@ entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info)
     {
         // Deviation from decompiler: `pInst->name` is read here with no null guard on `pInst`
         // itself, matching the disasm exactly -- this error path assumes a non-null instance.
-        const char *instName = pInst->name ? pInst->name : dsStrongAssertMessage;
+        const char *instName = pInst->name ? pInst->name : empty_string;
         _apLog("~Entity,Error~Cannot find entity class %s (instName: %s)", nameClassStr, instName);
         gsScenePtr->DestroyInst(pInst);
         result = nullptr;
@@ -127,7 +127,7 @@ entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info)
                 hintErr.UnsafeInit("Unsharing ps for ", -1, 0);
             }
 
-            const char *instName = pInst->name ? pInst->name : dsStrongAssertMessage;
+            const char *instName = pInst->name ? pInst->name : empty_string;
             dsTSTRING<char> hintErrConcat = operator+(hintErr, instName);
 
             ent->UnshareDescIfNeeded(section, hintErrConcat);
@@ -156,7 +156,7 @@ entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info)
                 }
                 else
                 {
-                    const char *instClassName = pInst->nameClass ? pInst->nameClass : dsStrongAssertMessage;
+                    const char *instClassName = pInst->nameClass ? pInst->nameClass : empty_string;
                     isPlayerClass = (strcmp(instClassName, "player") == 0);
                 }
 

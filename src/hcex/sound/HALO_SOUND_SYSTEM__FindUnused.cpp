@@ -21,7 +21,7 @@ int HALO_SOUND_SYSTEM::FindUnused(HALO_SOUND_LIST *soundList, bool unload)
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY().Crash("snd::THREAD_ID == osGetCurThreadId()",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         1518, dsStrongAssertMessage);
+                                         1518, empty_string);
         return -1;
     }
 

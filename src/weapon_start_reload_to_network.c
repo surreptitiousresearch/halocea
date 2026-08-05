@@ -11,7 +11,6 @@
 
 #include "headers/field_properties_definition.h"
 typedef struct _field_properties_definition _field_properties_definition;
-extern int _message_weapon_start_reload;
 
 typedef struct network_game_server network_game_server;
 
@@ -23,6 +22,7 @@ extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct ne
 #include "headers/weapon_start_reload_message.h"
 #include "headers/blam_data_globals.h"
 #include "headers/network_message_type.h"
+#include "headers/message_delta_message_ids.h"
 
 void weapon_start_reload_to_network(int weapon_index, int16_t magazine_index)
 {

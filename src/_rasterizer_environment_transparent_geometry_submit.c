@@ -1,8 +1,8 @@
 /* _rasterizer_environment_transparent_geometry_submit 0x837A8398 — queue (or immediately draw) one transparent
  * environment geometry batch. Builds a transparent_geometry_group from the shader + its triangle/vertex buffers,
  * computes the back-to-front sort key from the centroid relative to the camera, snapshots the clip plane and a
- * copy of the lighting block, and then: for water shaders forces a visibility flag and, when the water shader's
- * second-stage radiosity requests it, draws + marks the group pending immediately; for decals / flag-2 geometry
+ * copy of the lighting block, and then: for water shaders forces a visibility flag and, when that water shader
+ * asks to be drawn before fog, draws + marks the group pending immediately; for decals / flag-2 geometry
  * it draws immediately; otherwise the freshly allocated group is left queued for the sorted transparent pass.
  *
  * DEVIATION (decompiler "stack over-read"): the decompiler could not bound the stack parameter area (this impl
@@ -26,6 +26,8 @@
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/shader_type.h"
+#include "headers/shader_transparent_water.h"
+#include "headers/shader_transparent_water_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -125,9 +127,12 @@ void _rasterizer_environment_transparent_geometry_submit(const shader *shader, i
     if ( shader->base.type == _shader_type_transparent_water )
         rasterizer_water_set_visibility_for_window(1);
 
-    /* bit 3 of the water shader's second-block radiosity word; shader_radiosity_flags names only bits 0-2,
-     * so this water-specific overlay bit has no DB enum name and stays raw. */
-    if ( shader->base.type == _shader_type_transparent_water && (shader[1].base.radiosity.flags & 8) != 0 )
+    /* DEVIATION: the decompiler folded this into `shader[1].base.radiosity.flags & 8` on the 40-byte base.
+     * `lhz r11, 0x28(r25)` / `rlwinm r10, r11, 0,28,28` @0x837A8590 is the water tag's own uint16_t flags
+     * at +0x00 of its derived body, bit 3 — DB enum shader_transparent_water_flags names it. */
+    if ( shader->base.type == _shader_type_transparent_water
+      && (((const shader_transparent_water *)shader)->water.flags
+              & (1u << _shader_transparent_water_draw_before_fog_bit)) != 0 )
     {
         group->geometry_flags |= (1u << _rasterizer_geometry_no_queue_bit);
         rasterizer_transparent_geometry_group_draw(group, 0);

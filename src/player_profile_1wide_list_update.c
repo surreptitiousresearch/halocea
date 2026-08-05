@@ -26,7 +26,7 @@ extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t str
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 extern void usnprintf(wchar_t *string, unsigned int size, const wchar_t *format, ...);
 extern uint16_t player_profile_number_of_available_primary_colors(void);
-extern const wchar_t empty_wide_string; /* .short 0 — empty wide string, "tag not loaded" fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 void player_profile_1wide_list_update(widget_instance *list_widget)
 {
@@ -123,7 +123,7 @@ rebuild_list:
             unsigned int default_name_index = flags >> 8;
             int names_tag = tag_loaded(0x75737472u /* 'ustr' */,
                                        "ui\\shell\\strings\\default_player_profile_names");
-            name_string = &empty_wide_string;
+            name_string = empty_wide_string;
             if ( names_tag != -1 )
                 name_string = unicode_string_list_get_string(names_tag, default_name_index);
             item_text = list_widget->parameters.list_parameters.item_text;

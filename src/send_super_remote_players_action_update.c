@@ -15,18 +15,18 @@
 #include "headers/field_properties_definition.h"
 #include "headers/network_game_server.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 
 typedef struct _field_properties_definition _field_properties_definition;
 extern void *datum_try_and_get(const data_array *data, int index);
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 
-extern int  _message_super_remote_players_action_update;
 extern int message_delta_processor_encode_stateless_iterated(message_delta_processor_message_definition_type definition_type, const void *const *headers, const void *const *datas, int iterations, void *buffer, int buffer_size_in_bits);
 extern int message_delta_processor_encode_incremental_iterated(message_delta_processor_message_definition_type definition_type, const void *const *headers, const void *const *datas, const void *const *baselines, int iterations, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
 
 extern network_game_server *global_network_game_server_get(void);
 extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct network_game_server *server, int type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);
-extern int network_message_type_message_delta;
 
 void send_super_remote_players_action_update(super_remote_players_action_update *update)
 {

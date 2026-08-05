@@ -15,7 +15,7 @@ void objOBJ::FreeObjData(unsigned int data, void *oldData)
         STRONG_ASSERT_DUMMY().Crash(
             "data >= 0 && data < OBJ_DATA_MAX",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_alloc.cpp", 1330,
-            dsStrongAssertMessage);
+            empty_string);
 
     if (objOBJ::dataFree)
         objOBJ::dataFree(this, oldData, data);

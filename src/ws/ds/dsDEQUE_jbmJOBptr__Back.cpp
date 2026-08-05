@@ -13,6 +13,6 @@ jbmJOB **dsDEQUE<jbmJOB *>::Back()
             "Length() > 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_deque.hpp",
             318,
-            dsStrongAssertMessage);
+            empty_string);
     return &this->data[this->tail];
 }

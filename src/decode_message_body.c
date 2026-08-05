@@ -9,7 +9,7 @@
 #include "headers/message_delta_processor_decoding_information.h"
 
 #include "headers/bitstream_t.h"
-extern _message_definition *message_delta_global_message_list[];
+extern _message_definition *message_delta_global_message_list[47];
 extern uint8_t bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
 extern void metrics_record_field_decode(const _message_definition *const message_definition, message_delta_processor_mode mode, const int field_index, const int bits_read);
 

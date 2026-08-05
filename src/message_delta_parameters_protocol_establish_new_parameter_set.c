@@ -6,13 +6,13 @@
 
 #include "headers/packed_parameter.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 
 typedef struct network_game_server network_game_server;
 
 extern void dump_to_parameters_set(void);
 extern void pack_parameter_set_for_transmission(packed_parameter *params);
-extern int _message_parameters_protocol;
-extern int network_message_type_message_delta;
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern network_game_server *global_network_game_server_get(void);
 extern unsigned char network_game_server_send_message_to_all_machines(network_game_server *server, int type, void *message, int size_in_bits, unsigned char reliable, unsigned char immediate, unsigned char including_local_client, int priority);

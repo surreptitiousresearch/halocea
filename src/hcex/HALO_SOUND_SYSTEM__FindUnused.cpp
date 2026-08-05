@@ -4,7 +4,7 @@
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-extern const char empty_string; // shared single-NUL assert-info constant @0x8200155A
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // 0x836BEE50 — pick a preloaded-but-unused sound belonging to `soundList` that can be recycled:
 // the one that has been sitting idle the longest (largest osGetTime()-initTime age, with a 5s
@@ -20,7 +20,7 @@ int HALO_SOUND_SYSTEM::FindUnused(HALO_SOUND_LIST *soundList, bool unload)
             STRONG_ASSERT_DUMMY::Crash(nullptr,
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                1518, &empty_string);
+                1518, empty_string);
         return -1;
     }
 

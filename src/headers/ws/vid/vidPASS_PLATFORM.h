@@ -5,8 +5,11 @@
 
 typedef struct vidPASS_PLATFORM
 {
-    enum ID     { ID_PC = 0, ID_XBOX360 = 1, ID_PS3 = 2 };
-    enum VENDOR { VENDOR_ATI = 0, VENDOR_NV = 1 };
+    /* Both enums are 1 byte in the DB (id@0x0, vendor@0x1, then five bools to 0x6 — size 7).
+     * A plain C++ enum is 4, which pushed the struct to 16 and shifted every vidDRIVER member
+     * after sdrPlatform — and through it d3dDRIVER and d3dHCEX_DRIVER. */
+    enum ID     : unsigned char { ID_PC = 0, ID_XBOX360 = 1, ID_PS3 = 2 };
+    enum VENDOR : unsigned char { VENDOR_ATI = 0, VENDOR_NV = 1 };
 
     ID     id;             /* 0x0 (1 byte) */
     VENDOR vendor;         /* 0x1 (1 byte) */

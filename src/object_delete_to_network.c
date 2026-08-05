@@ -10,14 +10,14 @@
 #include "headers/object_header_datum.h"
 #include "headers/object_header_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 
 typedef struct network_game_server network_game_server;
 typedef struct _field_properties_definition _field_properties_definition;
 typedef int network_message_type;
 typedef int message_delta_processor_message_definition_type;
 
-extern message_delta_processor_message_definition_type _message_object_deletion;
-extern const network_message_type network_message_type_message_delta;
 
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int field_translated_index_unregister_local_index(const _field_properties_definition *field_properties_definition, int local_index);

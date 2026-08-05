@@ -47,7 +47,7 @@
 #include "headers/network_game_server.h"
 #include "headers/rasterizer_dynamic_screen_geometry_parameters.h"
 #include "headers/point2d.h"
-extern const wchar_t empty_wide_string; /* .short 0 — empty wide string, "tag not loaded" fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void draw_string_set_draw_mode(int font_index, int16_t style, int16_t justification, unsigned int flags, const real_argb_color *color);
 extern void draw_string_set_color(const real_argb_color *color);
@@ -76,7 +76,7 @@ void game_engine_post_rasterize_post_game(void)
     if (!game_engine)
         return;
 
-    const wchar_t *empty_string = &empty_wide_string;
+    const wchar_t *empty_string = empty_wide_string;
 
     /* Column tab stops shared by the header and player rows. */
     int16_t tab_stops[6] = { 50, 125, 250, 350, 410, 500 };

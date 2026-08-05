@@ -13,7 +13,13 @@
 
 // --- boundary externs (OS / CRT / allocator / shared empty-string) -----------------------------
 extern int  bHappend;                                  // one-shot latch @ 0x841DB160
-extern dsTSTRING<char> dsStrongAssertMessage;          // shared assert-context string (empty by default)
+// DEVIATION: this object was named `dsStrongAssertMessage` here, colliding with the corpus's
+// alias for the shared "" literal (.rdata @0x8200155A). It is neither: the disassembly at
+// 0x825202E4 loads ?emptyStr@?1??UnsafeInitEmpty@?$dsTSTRING@D@@IAAXXZ@4V2@A (@0x841C3380) --
+// the function-local static dsTSTRING<char> of dsTSTRING<char>::UnsafeInitEmpty(), inlined here.
+// CAVEAT: its local-static guard (??_B?1??UnsafeInitEmpty@?$dsTSTRING@D@@IAAXXZ@51 @0x841C3384)
+// and the guarded first-use AllocBuffer are not modelled here.
+extern dsTSTRING<char> dsTSTRING_char_emptyStr;        // shared assert-context string (empty by default)
 extern "C" int  _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);
 extern "C" int  printf(const char *fmt, ...);
 extern int  osGetCurThreadId();
@@ -30,7 +36,7 @@ void STRONG_ASSERT_DUMMY::Crash(const char *condition, const char *file, int lin
     bHappend = 1;
 
     // Grab a ref on the shared assert-context string; when non-empty it is appended to the report.
-    dsTSTRING_BUF_HEADER<char> *ctx = dsStrongAssertMessage.pBuffer;
+    dsTSTRING_BUF_HEADER<char> *ctx = dsTSTRING_char_emptyStr.pBuffer;
     ++ctx->refCount;
 
     char message[4176];

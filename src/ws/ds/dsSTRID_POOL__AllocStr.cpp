@@ -20,7 +20,7 @@ const char *dsSTRID_POOL::AllocStr(const char *str)
             "len + 1 < STRING_BLOCK_SIZE",
             "D:\\Projects\\code\\common\\src.sys\\ds\\ds_strid.cpp",
             403,
-            dsStrongAssertMessage);
+            empty_string);
 
     if (this->posStorage + len + 1 > STRING_BLOCK_SIZE) {
         // no room left in the current block: move to the next one
@@ -31,7 +31,7 @@ const char *dsSTRID_POOL::AllocStr(const char *str)
                 "idxStorage < (sizeof(strStorage)/sizeof((strStorage)[0]))",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_strid.cpp",
                 409,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     if (!this->strStorage[this->idxStorage]) {

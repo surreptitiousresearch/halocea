@@ -10,4 +10,4 @@ entDESC *Desc(entENTITY *self);
 
 // Shared empty-string / zero-byte global at 0x8200155A, used as a fallback for unnamed objOBJ
 // nodes during the material-name scan.
-extern const char empty_string[];
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */

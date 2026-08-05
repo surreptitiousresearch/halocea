@@ -9,7 +9,7 @@
 void ui_new::UI_STAT_SYS::ProcessRenderPush()
 {
     if (!IGNORE_STRONG_ASSERT && lock.lockDepth > 0)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("! lock.IsLocked()", "D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 276, dsStrongAssertMessage);
+        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("! lock.IsLocked()", "D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 276, empty_string);
     lock.Lock("D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 277);
 
     for (int i = 0; i < uiStatItems.nElem; ++i)

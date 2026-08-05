@@ -6,7 +6,7 @@
 #include "../../headers/ws/dsc/dscDESC_FAMILY.h"
 #include "../../headers/ws/ds/dsTSTRING.h"
 
-extern const char empty_string[]; // boundary — shared empty-string global
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // DEVIATION: the real static type of `iaFamily` is iaFAMILY* (declared in the hcex boundary
 // header); iaFAMILY derives — through dscRTTI_FAMILY — from dscDESC_FAMILY. FindBrand is a

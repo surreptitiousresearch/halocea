@@ -11,6 +11,6 @@ unsigned int dsFIXED_BIT_ARRAY<4>::GetAt(unsigned int index) const
             "i >= 0 && i < NELEM",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_bit_array.h",
             132,
-            dsStrongAssertMessage);
+            empty_string);
     return this->array[index];
 }

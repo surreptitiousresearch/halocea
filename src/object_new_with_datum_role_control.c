@@ -35,7 +35,7 @@
 #include "headers/data_array.h"
 #include "headers/real_rgb_color.h"
 #include "headers/effect_vector_field.h"
-extern const int network_message_type_message_delta;
+#include "headers/network_message_type.h"
 
 typedef struct network_game_server network_game_server;
 

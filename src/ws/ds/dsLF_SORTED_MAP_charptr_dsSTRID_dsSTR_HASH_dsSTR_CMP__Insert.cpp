@@ -28,7 +28,7 @@ void dsLF_SORTED_MAP<const char *, dsSTRID, dsSTR_HASH, dsSTR_CMP>::Insert(
             "line == 0 || index == line->length || line->items[index].key != key",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             261,
-            dsStrongAssertMessage);
+            empty_string);
 
     ITEM item;
     item.key = key;

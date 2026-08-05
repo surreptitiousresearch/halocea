@@ -8,8 +8,8 @@
 #include "../headers/hcex/hcex_follow_boundary.h"
 
 extern void STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
-extern const char IGNORE_STRONG_ASSERT;
-extern const char empty_string[];
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void hcex_set_follow(entENTITY *pFollower, int objFollowId)
 {

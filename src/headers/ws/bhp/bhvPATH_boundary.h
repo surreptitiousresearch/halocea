@@ -16,4 +16,11 @@ struct bhvPATH {
 };
 
 // The member-function-pointer type stored in bhpPATH_PAR::useHOPath (the path's HO predicate).
+// SIZE CAVEAT: the shipped build stores 16 bytes here — IDA types the member `__int128`, which is
+// MSVC's generic (unknown-inheritance) pointer-to-member representation, emitted because the
+// original TU formed the PMF type while bhvPATH was still incomplete. With the class defined
+// first, any host compiler picks the 4-byte single-inheritance form instead. MSVC has no
+// per-class keyword for the generic form (only __single_/__multiple_/__virtual_inheritance; the
+// generic form is the whole-TU /vmg switch), so bhpPATH_PAR pads the slot out to 16 explicitly
+// rather than change this type — which would force edits in src/ws/ai, under standing exclusion.
 typedef bool (bhvPATH::*bhvPATH_UseHOFn)(const navWP &, bhvPATH_USEHO_RET &) const;

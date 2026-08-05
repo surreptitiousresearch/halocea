@@ -3,7 +3,7 @@
 #include "../headers/ws/dbg/STRONG_ASSERT2_HELPER.h"
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"
 
-extern int IGNORE_STRONG_ASSERT;   // ?IGNORE_STRONG_ASSERT@@3HA
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 
 // dsDEQUE<haloPLAYER_ACTIONS_ENV>::Reconstruct(int oldSize) @ 0x823C01C8
 // After the backing vector grew from `oldSize` slots, relocate whichever wrapped ring run is

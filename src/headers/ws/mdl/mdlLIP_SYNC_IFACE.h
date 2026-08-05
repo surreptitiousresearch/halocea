@@ -12,6 +12,6 @@ struct mdlLIP_SYNC_IFACE_vtbl {
 struct mdlLIP_SYNC_IFACE {
     mdlLIP_SYNC_IFACE_vtbl *__vftable; // 0x00
 
-    virtual ~mdlLIP_SYNC_IFACE();
-    virtual void ApplyLipSync() = 0;
+    ~mdlLIP_SYNC_IFACE();
+    void ApplyLipSync();
 };

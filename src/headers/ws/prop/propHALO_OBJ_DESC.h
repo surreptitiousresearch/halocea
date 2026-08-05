@@ -67,10 +67,10 @@ struct propHALO_OBJ_DESC : propENT_DESC {
     // 0x823EB808 (virtual) — after the propBASE_DESC base init, lazily register this class's eight
     // OnChange event declarations (In/Out x A-D) on the shared sslClass ref, short-circuiting on
     // the first registration error. Returns whether initialisation is (now) complete.
-    int InitSslClass(const dsTSTRING<char> &hintErr) override;
+    int InitSslClass(const dsTSTRING<char> &hintErr);
 
     // 0x823EBBF8 (virtual) — after the propBASE_DESC base parse, read "timeTerm" and the "use"
     // string array, OR-ing a distinct bit into objUse.state per recognised name (falling back to
     // bit 0x1 for any unrecognised/absent value).
-    void ParsePS(psSECTION ps, const dsTSTRING<char> &hintErr) override;
+    void ParsePS(psSECTION ps, const dsTSTRING<char> &hintErr);
 };

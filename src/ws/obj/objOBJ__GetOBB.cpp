@@ -28,13 +28,13 @@ void objOBJ::GetOBB(m3dOBB *pOBB)
                   || (STRONG_ASSERT_DUMMY().Crash(
                         "pGeom",
                         "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 37,
-                        dsStrongAssertMessage), !IGNORE_STRONG_ASSERT) )
+                        empty_string), !IGNORE_STRONG_ASSERT) )
                 {
                     if ( !this->pGeom->pSharedGeom )
                         STRONG_ASSERT_DUMMY().Crash(
                             "pGeom->pSharedGeom",
                             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 38,
-                            dsStrongAssertMessage);
+                            empty_string);
                 }
             }
             // Advanced transform: matrLT already carries scale.
@@ -49,13 +49,13 @@ void objOBJ::GetOBB(m3dOBB *pOBB)
               || (STRONG_ASSERT_DUMMY().Crash(
                     "pGeom",
                     "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 22,
-                    dsStrongAssertMessage), !IGNORE_STRONG_ASSERT) )
+                    empty_string), !IGNORE_STRONG_ASSERT) )
             {
                 if ( !this->pGeom->pSharedGeom )
                     STRONG_ASSERT_DUMMY().Crash(
                         "pGeom->pSharedGeom",
                         "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 23,
-                        dsStrongAssertMessage);
+                        empty_string);
             }
         }
         this->pGeom->pSharedGeom->bbox.Transform(&this->matrLT, pOBB); // member call; box is `this`

@@ -19,26 +19,26 @@
 
 extern int16_t hs_global_get_type(int16_t designator);
 
-extern unsigned char hs_type_boolean_default;
-extern int16_t hs_type_short_integer_default;
-extern int16_t hs_type_script_default;
-extern int16_t hs_type_trigger_volume_default;
-extern int16_t hs_type_cutscene_flag_default;
-extern int16_t hs_type_cutscene_camera_point_default;
-extern int16_t hs_type_cutscene_title_default;
-extern int16_t hs_type_cutscene_recording_default;
-extern int16_t hs_type_device_group_default;
-extern int16_t hs_type_ai_command_list_default;
-extern int16_t hs_type_starting_profile_default;
-extern int16_t hs_type_conversation_default;
-extern int16_t hs_type_navpoint_default;
-extern int16_t hs_type_hud_message_default;
-extern int16_t hs_type_enum_game_difficulty_default;
-extern int16_t hs_type_enum_team_default;
-extern int16_t hs_type_enum_ai_default_state_default;
-extern int16_t hs_type_enum_actor_type_default;
-extern int16_t hs_type_enum_hud_corner_default;
-extern int16_t hs_type_object_name_default;
+extern const unsigned char hs_type_boolean_default;
+extern const int16_t hs_type_short_integer_default;
+extern const int16_t hs_type_script_default;
+extern const int16_t hs_type_trigger_volume_default;
+extern const int16_t hs_type_cutscene_flag_default;
+extern const int16_t hs_type_cutscene_camera_point_default;
+extern const int16_t hs_type_cutscene_title_default;
+extern const int16_t hs_type_cutscene_recording_default;
+extern const int16_t hs_type_device_group_default;
+extern const int16_t hs_type_ai_command_list_default;
+extern const int16_t hs_type_starting_profile_default;
+extern const int16_t hs_type_conversation_default;
+extern const int16_t hs_type_navpoint_default;
+extern const int16_t hs_type_hud_message_default;
+extern const int16_t hs_type_enum_game_difficulty_default;
+extern const int16_t hs_type_enum_team_default;
+extern const int16_t hs_type_enum_ai_default_state_default;
+extern const int16_t hs_type_enum_actor_type_default;
+extern const int16_t hs_type_enum_hud_corner_default;
+extern const int16_t hs_type_object_name_default;
 
 void hs_global_reconcile_read(int16_t global_designator)
 {

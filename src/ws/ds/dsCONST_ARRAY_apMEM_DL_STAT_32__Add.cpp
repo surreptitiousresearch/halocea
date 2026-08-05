@@ -14,7 +14,7 @@ void dsCONST_ARRAY<apMEM_DL_STAT, 32>::Add(const apMEM_DL_STAT &val)
             "Length() < size",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             175,
-            dsStrongAssertMessage);
+            empty_string);
     apMEM_DL_STAT &slot = this->list[this->nEntry];
     ++this->nEntry;
     slot.type = val.type;

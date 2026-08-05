@@ -12,8 +12,8 @@
 
 extern void (*logsCB[LOG_CALLBACKS_COUNT])(const char *text); /* 0x842090F8 */
 extern int  isFirstTime;             /* 0x8413F1DC -- one-shot logsCB[] zero-init guard */
-extern int  IGNORE_STRONG_ASSERT;    /* boundary -- disables the strong-assert crash path */
-extern const char empty_string[]; /* shared "" @0x8200155A */
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 /* boundary -- STRONG_ASSERT_DUMMY::Crash(this, condition, file, line, info); see
  * src/dlDumpNoMemLeft.c for the established signature/call convention this mirrors. */

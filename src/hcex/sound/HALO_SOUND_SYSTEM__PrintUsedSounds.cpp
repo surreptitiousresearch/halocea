@@ -80,7 +80,7 @@ void HALO_SOUND_SYSTEM::PrintUsedSounds(const char *prefix)
         if (!IGNORE_STRONG_ASSERT && c.info->cache_block_index == -1)
             STRONG_ASSERT_DUMMY().Crash("c.info->cache_block_index != -1",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         2363, dsStrongAssertMessage);
+                                         2363, empty_string);
         if (!c.isUsed) {
             SoundUsageEntry entry;
             entry.name = c.soundList->fileName;

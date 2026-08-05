@@ -46,6 +46,6 @@ void dsDATA::SetValue<dsTSTRING<char>>(const dsTSTRING<char> *val)
                 "0",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
                 138,
-                dsStrongAssertMessage);
+                empty_string);
     }
 }

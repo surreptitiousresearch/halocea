@@ -8,6 +8,6 @@ void objOBJ::SetGeomSharingOfsVtx(int ofs)
     if (!IGNORE_STRONG_ASSERT && !pGeom)
         STRONG_ASSERT_DUMMY().Crash(
             "IsGeom()", "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 1220,
-            dsStrongAssertMessage);
+            empty_string);
     pGeom->sharingOfsVtx = ofs;
 }

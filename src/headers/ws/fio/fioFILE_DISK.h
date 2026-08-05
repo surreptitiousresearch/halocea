@@ -23,10 +23,10 @@ struct fioFILE_DISK : fioFILE {
     static fioFILE_DISK_OPEN_CB openCb;
 
     // --- reversed in this batch ---
-    virtual int Term();                       // 0x825B05B0 (overrides fioFILE::Term)
+    int Term();                       // 0x825B05B0 (overrides fioFILE::Term)
     void FlushData();                         // 0x825AD2A0
     int  InitFile(const char *fileName, dsFLAGS<FIO_OPEN,int> state, int bufSize); // 0x825AD0E8
 
     fioFILE_DISK();                    // 0x825AD090 default ctor
-    virtual ~fioFILE_DISK();           // 0x825B07B8 (overrides fioFILE::~fioFILE)
+    ~fioFILE_DISK();           // 0x825B07B8 (overrides fioFILE::~fioFILE)
 };

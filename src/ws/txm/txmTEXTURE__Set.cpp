@@ -13,7 +13,7 @@ int txmTEXTURE::Set(pctPICTURE *pPict, int isDelayed)
 {
     if (!IGNORE_STRONG_ASSERT && this == (txmTEXTURE *)-20)
         STRONG_ASSERT_DUMMY().Crash("GetDesc()",
-            "D:\\Projects\\code\\common\\src.sys\\drv\\video\\txm.cpp", 602, dsStrongAssertMessage);
+            "D:\\Projects\\code\\common\\src.sys\\drv\\video\\txm.cpp", 602, empty_string);
 
     // state bit 0x400000: the surface already exists (has been Create()d).
     if (((this->state.state >> 22) & 1) == 0)

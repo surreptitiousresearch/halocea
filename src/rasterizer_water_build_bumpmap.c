@@ -7,9 +7,14 @@
  * Runs only when rasterizer_debug_options.draw_water.
  *
  * Reconstructed from disassembly (decompiler reported "local variable allocation has failed"). The
- * decompiler's stacked-0x28-shader-layer puns (shader[5]/shader[7].base.radiosity...) are retyped to the
- * real shader_transparent_water tag fields (ripple_mipmap_levels / ripple_mipmap_fade_factor / ripple_maps /
- * ripples tag block). DEVIATIONS, all disasm-verified:
+ * decompiler knew only the 40-byte `shader` base, so it folded each concrete-tag byte offset into a
+ * subscript on it (`shader[N].base.radiosity.*`, N = byte_offset / 40); all four reads are really members
+ * of shader_transparent_water's own body, which begins at +0x28. Re-derived from the loads:
+ *   0xD4 `lwz` @0x83787DAC -> water.ripple_maps.index          (folded shader[5].base.radiosity.color.green)
+ *   0xD8 `lhz` @0x837878D8 -> water.ripple_mipmap_levels       (folded shader[5].base.radiosity.color.n[2])
+ *   0xDC `lfs` @0x83787CBC -> water.ripple_mipmap_fade_factor  (folded shader[5].base.radiosity.tint_color.n[0])
+ *   0x124/0x128 `lwz` @0x83787AB8 -> water.ripples.count/.address (folded shader[7].base.radiosity.color.*)
+ * DEVIATIONS, all disasm-verified:
  * (1) the four per-stage `m_Constants.Fetch[stage].Texture.dword[...]`/`m_Pending.m_Mask[3]` raw pokes are
  * the compiler-inlined AddressU/AddressV/SeparateZFilterEnable setters (bit ranges cross-checked against
  * the already-verified sibling rasterizer_plasma_energy_draw.c: U=0x1C00, V=0xE000, dword[0]; the
@@ -55,8 +60,9 @@
 #include <math.h>
 #include "headers/blam_data_globals.h"
 
-/* one entry of the water_bumpmap_layer tag block referenced by shader[7]; field names/offsets derived
- * from disasm usage (0x83787B68-0x83787C1C), 76 bytes per entry */
+/* one entry of the water_bumpmap_layer tag block referenced by water.ripples (tag +0x124, the offset the
+ * decompiler folded into shader[7]); field names/offsets derived from disasm usage
+ * (0x83787B68-0x83787C1C), 76 bytes per entry */
 typedef struct water_bumpmap_layer
 {
     float   rotation_angle;     /* 0x00 */

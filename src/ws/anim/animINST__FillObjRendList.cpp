@@ -55,7 +55,7 @@ void animINST::FillObjRendList(bool runtimeUpdate)
             "nObjRend1 == nObjRend2",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             912,
-            dsStrongAssertMessage);
+            empty_string);
 
     this->nObjRend = nFilled;
 }

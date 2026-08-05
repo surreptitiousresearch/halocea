@@ -68,13 +68,13 @@ struct strmRESOURCE_TEXTURE : strmRESOURCE_PACK_S3D<strmRESOURCE, strmRESOURCE_T
     strmRES_TEX_SIZE_CALC sizeCalc;   // 0x14C
 
     strmRESOURCE_TEXTURE();  // 0x82BF5760 — boundary, external to this batch
-    ~strmRESOURCE_TEXTURE() override; // boundary
+    ~strmRESOURCE_TEXTURE(); // boundary
 
     strmRESOURCE_TEXTURE &operator=(const strmRESOURCE_TEXTURE &that); // 0x8266F5B8
 
-    virtual int GetStreamingBehavior();  // vtbl+0x20 — boundary, external to this batch
-    virtual int GetCountMipsToRemove();  // vtbl+0x24 — boundary, external to this batch
-    virtual int CalcNeededMemSize();      // vtbl+0x30 — boundary, external to this batch
+    int GetStreamingBehavior();  // vtbl+0x20 — boundary, external to this batch
+    int GetCountMipsToRemove();  // vtbl+0x24 — boundary, external to this batch
+    int CalcNeededMemSize();      // vtbl+0x30 — boundary, external to this batch
 
     // 0x82BF5E58 — cancel any outstanding streaming query for this resource, drop back to
     // RES_STATE_IDLE, and clear loadingMip. Always returns true.

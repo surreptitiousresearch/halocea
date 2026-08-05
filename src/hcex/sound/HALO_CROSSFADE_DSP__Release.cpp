@@ -14,7 +14,7 @@ void HALO_CROSSFADE_DSP::Release()
             "refCount >= 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
             433,
-            dsStrongAssertMessage);
+            empty_string);
         ignoreAssert = IGNORE_STRONG_ASSERT;
     }
 
@@ -37,7 +37,7 @@ void HALO_CROSSFADE_DSP::Release()
                     "ds::FindNonSorted(cache, this) == -1",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     439,
-                    dsStrongAssertMessage);
+                    empty_string);
         }
     pushBack:
         cache.PushBack(this);

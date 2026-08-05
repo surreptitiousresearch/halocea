@@ -28,7 +28,7 @@ void dsSTATE_MGR::SetState(int id, const dsDATA *data)
                 "GetThreadId() >= 0 && threadInfo[GetThreadId()].isActive",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
                 1147,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     int threadId = dsSTATE_MGR_GetThreadId();

@@ -17,7 +17,7 @@ extern void *hcexCreateEffects;
 extern void *hcexModels;
 extern struct scnSCENE *gsScenePtr;
 extern struct msgSYSTEM msgSystem;
-extern char empty_string[];
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern void dsVECTOR_HCEX_EFFECT_8__Clear(void *vector);
 extern void dsVECTOR_dsPAIR_ulong_HCEX_MODEL_8__Clear(void *vector);

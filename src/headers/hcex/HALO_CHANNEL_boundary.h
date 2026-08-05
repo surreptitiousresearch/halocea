@@ -37,8 +37,8 @@ struct platform_sound_channel_properties {
 };
 
 // ---- ws-engine dbg / os / mem boundary globals & helpers ----
-extern int IGNORE_STRONG_ASSERT;    // ?IGNORE_STRONG_ASSERT@@3HA
-extern const char empty_string;    // shared single-NUL empty-string constant
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 #include "../ws/dbg/STRONG_ASSERT_DUMMY.h" // canonical STRONG_ASSERT_DUMMY::Crash (avoids C2011)
 

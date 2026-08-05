@@ -16,7 +16,7 @@ void dsPOOL<dsSTATE_MGR::STATE_REC, 256, 256>::AllocChunk()
             "numChunks < MAX_CHUNKS",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             200,
-            dsStrongAssertMessage);
+            empty_string);
 
     dsSTATE_MGR::STATE_REC *chunk =
         (dsSTATE_MGR::STATE_REC *)dlMalloc(0x2800u, this->cl.file, this->cl.line); // 256 * 40

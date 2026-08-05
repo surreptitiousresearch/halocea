@@ -56,7 +56,7 @@ snd::BUFFER *snd::SYSTEM_FMOD::GetBuffer(dsSTRID name, const snd::BUFFER_PARAMS 
             ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                                                     "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd_fmod.cpp",
                                                     1752,
-                                                    dsStrongAssertMessage);
+                                                    empty_string);
         return nullptr;
     }
 
@@ -105,7 +105,7 @@ snd::BUFFER *snd::SYSTEM_FMOD::GetBuffer(dsSTRID name, const snd::BUFFER_PARAMS 
     if (snd::BUFFER_FMOD_Init(buffer, eventIdx, params) ||
         (asBuffer->state.val & BST_VIRTUAL) != 0)
     {
-        const char *loopTag = (asBuffer->state.val & BST_LOOPED) != 0 ? "L " : dsStrongAssertMessage;
+        const char *loopTag = (asBuffer->state.val & BST_LOOPED) != 0 ? "L " : empty_string;
         // Timestamp in seconds (millisecond clock wrapped at 100000 ms). The DB shows the usual
         // PPC varargs double-promotion packing around this float; modeled directly here.
         float seconds = (float)(osGetTime() % 100000u) * 0.001f;

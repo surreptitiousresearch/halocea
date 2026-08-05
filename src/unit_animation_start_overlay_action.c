@@ -19,8 +19,8 @@
 #include "headers/unit_animation_overlay_action.h"
 #include "headers/weapon_type_animation.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
-extern int animation_update_kind_affects_game_state;
 
 extern uint8_t unit_animation_busy(unit_animation *animation);
 extern int16_t animation_choose_random_permutation_internal(int render_or_affects_game_state, int animation_graph_index, int16_t animation_index);

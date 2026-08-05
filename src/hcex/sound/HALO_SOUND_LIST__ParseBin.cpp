@@ -36,7 +36,7 @@ bool HALO_SOUND_LIST::ParseBin(const char *lst)
             STRONG_ASSERT_DUMMY().Crash(
                 "!\"Lst-bin: Old program version\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1238,
-                dsStrongAssertMessage);
+                empty_string);
         return false;
     }
 
@@ -62,14 +62,14 @@ bool HALO_SOUND_LIST::ParseBin(const char *lst)
             STRONG_ASSERT_DUMMY().Crash(
                 "nameLength < sizeof(buf)",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1254,
-                dsStrongAssertMessage);
+                empty_string);
 
         file.ReadData(nameBuf, nameLength, 1);
         if (!IGNORE_STRONG_ASSERT && nameBuf[nameLength - 1] != 0)
             STRONG_ASSERT_DUMMY().Crash(
                 "buf[nameLength - 1] == 0",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1257,
-                dsStrongAssertMessage);
+                empty_string);
 
         tag.name = dsSTRID(nameBuf, false);
         file.ReadData(&tag.startIndex, 4, 4);
@@ -100,7 +100,7 @@ bool HALO_SOUND_LIST::ParseBin(const char *lst)
                 STRONG_ASSERT_DUMMY().Crash(
                     "strcmp(tags[i - 1].name.CStr(), tags[i].name.CStr()) < 0",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1272,
-                    dsStrongAssertMessage);
+                    empty_string);
         }
     }
 

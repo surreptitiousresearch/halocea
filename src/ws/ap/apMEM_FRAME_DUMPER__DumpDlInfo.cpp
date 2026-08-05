@@ -27,7 +27,7 @@ void apMEM_FRAME_DUMPER::DumpDlInfo(apMEM_DL_ALLOC_TYPE type)
                 "IsValidIdx(idx)",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
                 166,
-                dsStrongAssertMessage);
+                empty_string);
 
         if (this->dlStat.list[slotIdx].type == type)
         {

@@ -12,7 +12,7 @@ const DBG_CINE_ACTOR_INFO &ds::impl::MAP_CONST_ITERATOR<dsSTRID, DBG_CINE_ACTOR_
     ITEM *matchedItem = reinterpret_cast<ITEM *>(this->item);
     if (!IGNORE_STRONG_ASSERT) {
         if (!matchedItem)
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("item != 0", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 169, dsStrongAssertMessage);
+            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("item != 0", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 169, empty_string);
         matchedItem = reinterpret_cast<ITEM *>(this->item);
     }
     return matchedItem->value;

@@ -29,12 +29,12 @@ typedef struct gsOBJ_MODIFIER_BASE {
     gsOBJ_MODIFIER_BASE_vtbl *__vftable; // 0x00 introduced by this class; precedes dscPRODUCT per MSVC ABI
     dscPRODUCT                base;      // 0x04 dscPRODUCT sub-object
 
-    virtual ~gsOBJ_MODIFIER_BASE();                                                  // boundary — vtbl slot 0
-    virtual void OnInit(animINST *inst);                                            // boundary — vtbl slot 1
-    virtual void OnUpdate(float dt);                                                // boundary — vtbl slot 2
-    virtual void OnTerm();                                                          // boundary — vtbl slot 3
-    virtual void OnStart();                                                         // boundary — vtbl slot 4
-    virtual void OnStop();                                                          // boundary — vtbl slot 5
+    ~gsOBJ_MODIFIER_BASE();                                                  // boundary — vtbl slot 0
+    void OnInit(animINST *inst);                                            // boundary — vtbl slot 1
+    void OnUpdate(float dt);                                                // boundary — vtbl slot 2
+    void OnTerm();                                                          // boundary — vtbl slot 3
+    void OnStart();                                                         // boundary — vtbl slot 4
+    void OnStop();                                                          // boundary — vtbl slot 5
     // vtbl slot 6 — dispatch a named event with parameters to this modifier instance.
-    virtual void OnEvent(const dsTSTRING<char> *event, const dsPARAM_LIST *params); // boundary
+    void OnEvent(const dsTSTRING<char> *event, const dsPARAM_LIST *params); // boundary
 } gsOBJ_MODIFIER_BASE;

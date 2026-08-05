@@ -25,13 +25,13 @@ void dsEVENT_MGR::SignalEvent(int id, const dsPARAM_LIST *params)
     if (!IGNORE_STRONG_ASSERT && currentThreadId >= 8u)
         STRONG_ASSERT_DUMMY().Crash(
             "threadId >= 0 && threadId < 8",
-            "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp", 514, dsStrongAssertMessage);
+            "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp", 514, empty_string);
 
     dsEVENT_MGR::THREAD_INFO *callingThread = &this->threadInfo[currentThreadId];
     if (!IGNORE_STRONG_ASSERT && !callingThread->isActive)
         STRONG_ASSERT_DUMMY().Crash(
             "ti.isActive",
-            "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp", 516, dsStrongAssertMessage);
+            "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp", 516, empty_string);
 
     dsEVENT_MGR::ITEM_REC &item = this->items.Get(id);
 
@@ -41,7 +41,7 @@ void dsEVENT_MGR::SignalEvent(int id, const dsPARAM_LIST *params)
         if (!IGNORE_STRONG_ASSERT && this->threadInfo[currentThreadId].numEmptyElements)
             STRONG_ASSERT_DUMMY().Crash(
                 "ti.numEmptyElements == 0",
-                "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp", 523, dsStrongAssertMessage);
+                "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp", 523, empty_string);
         int freeChainHead = -1;
         for (int remaining = 32; remaining; --remaining) {
             int prevHead = freeChainHead;
@@ -115,7 +115,7 @@ void dsEVENT_MGR::SignalEvent(int id, const dsPARAM_LIST *params)
                     if (!scratch.MakeMTSafe() && !IGNORE_STRONG_ASSERT)
                         STRONG_ASSERT_DUMMY().Crash(
                             "0", "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
-                            574, dsStrongAssertMessage);
+                            574, empty_string);
                     const char *srcId = srcParam->id.id;
                     dsPARAM blank;
                     blank.data.type = nullptr;

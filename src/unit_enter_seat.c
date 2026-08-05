@@ -8,7 +8,7 @@
  * DEVIATIONS:
  *   - The two inlined character-compare loops against "vehicles\\warthog\\warthog" /
  *     "vehicles\\banshee\\banshee" are strcmp; restored as strcmp() calls.
- *   - object_attach_to_marker's 4th argument is `&empty_string` (the empty-string marker sentinel — an
+ *   - object_attach_to_marker's 4th argument is `empty_string` (the empty-string marker sentinel — an
  *     attach at the marker origin); the decompiler dropped the address-of.
  *   - player_index_from_unit_index is idempotent here; the decompiler called it twice — called once. */
 
@@ -31,10 +31,10 @@
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/real_matrix4x3.h"
+#include "headers/animation_update_kind.h"
 extern int strcmp(const char *string1, const char *string2);
 
-extern char empty_string;
-extern int animation_update_kind_affects_game_state;
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern uint8_t unit_can_enter_seat(int unit_index, int parent_unit_index, int16_t seat_index, int *occupant_unit_index_reference);
 extern int player_index_from_unit_index(int unit_index);
@@ -99,7 +99,7 @@ uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_inde
     matrix4x3_inverse_transform_vector(&seat_marker.matrix, &seat_offset, &seat_offset);
 
     object_attach_to_marker(parent_unit_index, seat_definition->marker_name, unit_index,
-                            &empty_string);
+                            empty_string);
     unit_object->unit.parent_seat_index = seat_index;
     unit_object->object.parent_object_index = parent_unit_index;
     unit_update_driver_and_gunner(parent_unit_index);

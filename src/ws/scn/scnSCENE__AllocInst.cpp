@@ -40,7 +40,7 @@ animINST *scnSCENE::AllocInst(animTPL *pTpl, int isAttach)
                 "0",
                 "D:\\Projects\\code\\common\\src.sys\\objects\\Scene.cpp",
                 872,
-                dsStrongAssertMessage);
+                empty_string);
         }
         return nullptr;
     }

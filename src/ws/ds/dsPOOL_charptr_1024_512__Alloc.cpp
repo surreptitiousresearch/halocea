@@ -14,7 +14,7 @@ int dsPOOL<const char *, 1024, 512>::Alloc(const char *const &value)
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_pool.h",
             147,
-            dsStrongAssertMessage);
+            empty_string);
 
     int slotIndex = this->emptyChain;
     // Free slots overlay an int "next free index"; the pool element storage is that same word.

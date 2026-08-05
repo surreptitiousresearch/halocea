@@ -11,11 +11,11 @@
 #include "headers/player_datum.h"
 #include "headers/game_connection.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 
 
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
-extern int  _message_multiplayer_sound;
-extern int  network_message_type_message_delta;
 extern network_game_server *global_network_game_server_get(void);
 extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct network_game_server *server, int type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);
 extern int16_t game_connection(void);

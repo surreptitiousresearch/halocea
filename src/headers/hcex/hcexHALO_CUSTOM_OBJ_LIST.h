@@ -26,7 +26,7 @@ struct hcexHALO_CUSTOM_OBJ_LIST : instMANAGER_HANDLER {
     hcexHALO_CUSTOM_OBJ_LIST();
 
     // 0x823D97F0 — tear down cdList, reset __vftable to the instMANAGER_HANDLER base slot.
-    ~hcexHALO_CUSTOM_OBJ_LIST() override;
+    ~hcexHALO_CUSTOM_OBJ_LIST();
 
     // 0x823DCBA8 — compiler-generated vector deleting destructor (`??_E` mangle): runs the
     // destructor body, then conditionally operator-deletes `this` when bit 0 of `deleteFlags` is set.

@@ -30,7 +30,7 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1580,
-                dsStrongAssertMessage);
+                empty_string);
         return nullptr;
     }
 
@@ -62,7 +62,7 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
                     "\"haloSoundSystem->system->createSound((char *)data, FMOD_OPENMEMORY_POINT | "
                     "FMOD_CREATECOMPRESSEDSAMPLE | flags, &exinfo, &sound)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1600,
-                    dsStrongAssertMessage);
+                    empty_string);
             const char *desc = FModErrorDesc(result, false);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
@@ -80,7 +80,7 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                     "\"haloSoundSystem->system->createStream(fileName.CStr(), flags, &exinfo, &sound)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1605,
-                    dsStrongAssertMessage);
+                    empty_string);
             const char *desc = FModErrorDesc(result, false);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",

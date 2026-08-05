@@ -20,7 +20,7 @@
 extern int data_next_index(const data_array *data, int16_t index);
 extern int game_time_get(void);
 extern const char * hs_thread_format(uint16_t thread_index);
-extern char * expression_get_function_name(uint16_t thread_index, int expression_index);
+extern const char * expression_get_function_name(uint16_t thread_index, int expression_index);
 extern int sprintf_0(char *string, const char *format, ...);
 extern char *strcat(char *dst, const char *src);
 extern unsigned int strlen(const char *string);

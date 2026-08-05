@@ -25,22 +25,25 @@ typedef vidGAMMA_CONFIG vidGAMMA_CFG; /* legacy spelling of the driver's gamma b
 typedef struct PASS_DESC_FILL
 {
     /* Nested 1-byte enums — DB-verbatim enumerator sets (types_enum_values PASS_DESC_FILL::*).
+     * `: unsigned char` is load-bearing. A plain C++ enum is 4 bytes, which pushed writeColor,
+     * colorConst and all four flags off their DB offsets and sized the block 76 instead of 60 —
+     * the comments below always claimed 1 byte, but nothing enforced it.
      * NOTE: the previous boundary spelling wrongly defined PASS_GAMMA as 5; the DB has
      * PASS_GAMMA = 0 (5 is PASS_MSAA_RESOLVE_AND_REMAP), and the binary stores 0 here. */
-    enum PASS {
+    enum PASS : unsigned char {
         PASS_GAMMA = 0, PASS_GAMMA_BICUBIC0 = 1, PASS_GAMMA_BICUBIC1 = 2,
         PASS_MSAA_RESOLVE = 3, PASS_MSAA_REMAP = 4, PASS_MSAA_RESOLVE_AND_REMAP = 5,
         PASS_DEPTH_DOWNSAMPLE = 6, PASS_FILL = 7, PASS_FILL_MAX_Z = 8,
         PASS_FILL_CONV_Z = 9, PASS_RESTORE_HIGH_Z = 10,
     };
-    enum XENONMSAARESOLVETYPE {
+    enum XENONMSAARESOLVETYPE : unsigned char {
         XENONMSAARESOLVETYPE_ONE_X = 0, XENONMSAARESOLVETYPE_TWO_X = 1,
         XENONMSAARESOLVETYPE_FOUR_X = 2,
     };
-    enum XENONMSAARESOLVEFLAGS {
+    enum XENONMSAARESOLVEFLAGS : unsigned char {
         XENONMSAARESOLVEFLAGS_MIN_DEPTH = 0, XENONMSAARESOLVEFLAGS_MAX_DEPTH = 1,
     };
-    enum DEPTHDOWNSAMPLEFLAGS {
+    enum DEPTHDOWNSAMPLEFLAGS : unsigned char {
         DEPTHDOWNSAMPLEFLAGS_MIN_DEPTH = 0, DEPTHDOWNSAMPLEFLAGS_MAX_DEPTH = 1,
     };
 

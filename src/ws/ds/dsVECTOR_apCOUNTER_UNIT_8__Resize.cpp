@@ -26,7 +26,7 @@ void dsVECTOR<apCOUNTER_UNIT, 8>::Resize(int size)
             if (size > this->allocated)
                 this->Realloc(size);
             for (int index = this->nElem; index < size; ++index)
-                ::new ((void *)&this->pData[index]) apCOUNTER_UNIT(dsStrongAssertMessage);
+                ::new ((void *)&this->pData[index]) apCOUNTER_UNIT(empty_string);
         }
         this->nElem = size;
     } else {

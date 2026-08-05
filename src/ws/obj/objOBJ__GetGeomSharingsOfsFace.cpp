@@ -8,6 +8,6 @@ int objOBJ::GetGeomSharingsOfsFace() const
     if (!IGNORE_STRONG_ASSERT && !pGeom)
         STRONG_ASSERT_DUMMY().Crash(
             "IsGeom()", "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 1218,
-            dsStrongAssertMessage);
+            empty_string);
     return pGeom->sharingOfsFace;
 }

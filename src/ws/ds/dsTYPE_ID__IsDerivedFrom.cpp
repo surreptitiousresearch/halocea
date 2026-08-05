@@ -18,7 +18,7 @@ int dsTYPE_ID::IsDerivedFrom(const dsTYPE_ID &baseTypeID) const
                 "baseTypeID.IsInited()",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_typeid.cpp",
                 52,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     for (int cell = 0; cell < 4; ++cell) {

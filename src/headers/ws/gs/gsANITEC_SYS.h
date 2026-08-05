@@ -116,5 +116,5 @@ struct gsANITEC_SYS : public msgADDR, public mp::MSG_IFACE {
     // adds beyond msgADDR's own 10-entry vtable (which ends at 0x28). Tears down the active
     // cinematic; `wasAborted` distinguishes a natural finish from an abort/cancel. Called
     // through the vtable at the AbortCinematic call site — boundary (boundary).
-    virtual void OnCineEnd(bool wasAborted); // 0x825C1D28 — boundary
+    void OnCineEnd(bool wasAborted); // 0x825C1D28 — boundary
 };

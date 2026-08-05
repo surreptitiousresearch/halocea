@@ -18,7 +18,7 @@ void *vidDEFRAG_POOL_HCEX_X360::AllocBuf(int minSize, int *bufSize)
             "minSize <= bufSize",
             "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp",
             131,
-            dsStrongAssertMessage);
+            empty_string);
 
     return vidAllocPhysMem(*bufSize, 0, 4, nullptr, 0);
 }

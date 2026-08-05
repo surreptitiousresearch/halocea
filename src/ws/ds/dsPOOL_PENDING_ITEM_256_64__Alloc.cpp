@@ -15,7 +15,7 @@ int dsPOOL<dsEVENT_MGR::PENDING_ITEM, 256, 64>::Alloc()
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             128,
-            dsStrongAssertMessage);
+            empty_string);
 
     int slotIndex = this->emptyChain;
     this->emptyChain = this->Get(slotIndex).idxEvent; // advance past this slot's free-list link

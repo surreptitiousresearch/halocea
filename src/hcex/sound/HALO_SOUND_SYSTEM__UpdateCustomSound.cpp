@@ -23,7 +23,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
             if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getSubSound(sound.fsbIndex, &sound.subSound)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1036, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1036, empty_string);
             const char *desc = FModErrorDesc(result, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1036, result, desc);
@@ -31,7 +31,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (!IGNORE_STRONG_ASSERT && !sound.subSound)
             STRONG_ASSERT_DUMMY().Crash("sound.subSound != 0",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         1037, dsStrongAssertMessage);
+                                         1037, empty_string);
     }
 
     if (!sound.channel) {
@@ -45,7 +45,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
             if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->playSound(FMOD_CHANNEL_FREE, sound.subSound, true, &sound.channel)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1048, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1048, empty_string);
             const char *desc = FModErrorDesc(result, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1048, result, desc);
@@ -53,14 +53,14 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (!IGNORE_STRONG_ASSERT && !sound.channel)
             STRONG_ASSERT_DUMMY().Crash("sound.channel != 0",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         1049, dsStrongAssertMessage);
+                                         1049, empty_string);
 
         FMOD_RESULT modeResult = sound.channel->setMode(FMOD_2D);
         if (modeResult) {
             if (modeResult == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setMode(FMOD_2D)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1051, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1051, empty_string);
             const char *desc = FModErrorDesc(modeResult, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1051, modeResult, desc);
@@ -71,7 +71,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
             if (volResult == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setVolume(sound_manager_globals.master_gain)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1052, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1052, empty_string);
             const char *desc = FModErrorDesc(volResult, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1052, volResult, desc);
@@ -82,7 +82,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
             if (pauseResult == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setPaused(false)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1054, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1054, empty_string);
             const char *desc = FModErrorDesc(pauseResult, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1054, pauseResult, desc);

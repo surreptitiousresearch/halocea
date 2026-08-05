@@ -76,4 +76,4 @@ static inline void entENTITY_vtblCall99(struct entENTITY *self)
 /* dbg_hcex_off_bbox_calc — debug toggle to skip the per-frame bounding-volume recompute. */
 extern dbgVAR_SIMPLE<bool, 1> dbg_hcex_off_bbox_calc;
 
-extern int IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */

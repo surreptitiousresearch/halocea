@@ -24,6 +24,7 @@
 #include <stdint.h>
 #include "headers/transparent_geometry_group.h"
 #include "headers/shader.h"
+#include "headers/shader_model.h"
 #include "headers/shader_model_flags.h"
 #include "headers/rasterizer_dx9_shader_table.h"
 #include "headers/rasterizer_model_begin_parameters.h"
@@ -111,9 +112,10 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
             D3DDevice_SetVertexDeclaration(global_d3d_device,
                     rasterizer_dx9_shaders_vdecl9_get(rasterizer_transparent_geometry_get_primary_vertex_type(group)));
             D3DDevice_SetRenderState_CullMode(global_d3d_device,
-                    /* camouflage groups come from the model submit path: second radiosity block
-                     * overlays shader_model.flags (bit 1 = two sided) */
-                    (group_shader[1].base.radiosity.flags & (1u << _shader_model_two_sided_bit)) != 0 ? 0 : 6);
+                    /* DEVIATION: folded 0x28 into group_shader[1].base.radiosity.flags; lhz r10, 0x28(r26)
+                     * @0x837950F4 is shader_model.model.flags (camo groups reach here only via the
+                     * _shader_type_model case of rasterizer_transparent_geometry_group_draw) */
+                    (((const shader_model *)group_shader)->model.flags & (1u << _shader_model_two_sided_bit)) != 0 ? 0 : 6);
             D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
             D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
             D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 1);

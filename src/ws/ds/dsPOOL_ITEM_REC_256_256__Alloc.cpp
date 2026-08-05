@@ -17,7 +17,7 @@ int dsPOOL<dsEVENT_MGR::ITEM_REC, 256, 256>::Alloc()
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             128,
-            dsStrongAssertMessage);
+            empty_string);
 
     int slotIndex = this->emptyChain;
     dsEVENT_MGR::ITEM_REC *rec = &this->Get(slotIndex);

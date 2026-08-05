@@ -30,8 +30,8 @@
 #include "headers/object_damage_flags.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/network_message_type.h"
 
-extern int network_message_type_message_delta;
 
 extern uint8_t game_engine_running(void);
 extern int16_t game_connection(void);

@@ -7,7 +7,7 @@
 #include "headers/credits_line_s.h"
 #include "headers/blam_data_globals.h"
 
-extern wchar_t empty_wide_string;   /* the empty wide string used for spacer rows */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern unsigned int ustrlen(const wchar_t *string);
 extern int uatoi(const wchar_t *string);
@@ -30,7 +30,7 @@ int credits_item_new(const wchar_t *string, int string_index, int y0)
         if ( escape == L's' )
         {
             height = 8 * uatoi(string + 1);
-            item->string = &empty_wide_string;
+            item->string = empty_wide_string;
             item->y1 = y0 + 2 * height;
             return height * 2;
         }

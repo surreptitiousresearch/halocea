@@ -14,7 +14,7 @@ dsEVENT_MGR::ITEM_HANDLER &dsPOOL<dsEVENT_MGR::ITEM_HANDLER, 512, 256>::Get(int 
             "idx >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             175,
-            dsStrongAssertMessage);
+            empty_string);
     int idxChunk = idx / 512;
     int idxElem = idx % 512;
     if (!IGNORE_STRONG_ASSERT) {
@@ -23,13 +23,13 @@ dsEVENT_MGR::ITEM_HANDLER &dsPOOL<dsEVENT_MGR::ITEM_HANDLER, 512, 256>::Get(int 
                 "idxChunk < numChunks",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 180,
-                dsStrongAssertMessage);
+                empty_string);
         else if (idxElem >= 512)
             STRONG_ASSERT_DUMMY().Crash(
                 "idxElem < CHUNK_SIZE",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 181,
-                dsStrongAssertMessage);
+                empty_string);
     }
     return this->chunkTable[idxChunk].data[idxElem];
 }

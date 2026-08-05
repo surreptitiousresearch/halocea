@@ -5,7 +5,7 @@ extern "C" int stricmp(const char *a, const char *b); // boundary — case-insen
 
 // ?FindInstName@scnSCENE@@QAAPAVanimINST@@PBD@Z  (0x8253CFA8) — case-insensitive scan of the live
 // list for the first instance whose name matches `name`. A null per-instance name is treated as
-// the shared empty string (dsStrongAssertMessage aliases the same 0x8200155A empty-string byte
+// the shared empty string (empty_string aliases the same 0x8200155A empty-string byte
 // used by the STRONG_ASSERT machinery). An empty/null `name` never matches.
 animINST *scnSCENE::FindInstName(const char *name)
 {
@@ -21,7 +21,7 @@ animINST *scnSCENE::FindInstName(const char *name)
 
         const char *instName = inst->name;
         if (!instName)
-            instName = dsStrongAssertMessage;
+            instName = empty_string;
         if (!stricmp(instName, name))
             return inst;
     }

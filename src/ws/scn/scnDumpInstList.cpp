@@ -4,7 +4,7 @@
 #include "../../headers/animINST.h"
 #include "../../headers/ws/ds/dsTSTRING.h"
 
-extern const char empty_string[]; // boundary — shared empty-string global
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // boundary — variadic logging helpers (ap_log.cpp / os debug output).
 extern void _apForceLog(const char *fileName, const char *fmt, ...);

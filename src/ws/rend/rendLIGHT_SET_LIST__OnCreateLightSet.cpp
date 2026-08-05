@@ -19,7 +19,7 @@ void rendLIGHT_SET_LIST::OnCreateLightSet(rendLIGHT_SET *pLS)
                 "lightSets[i] != pLS",
                 "D:\\Projects\\code\\common\\src.sys\\render\\Rend_light_set.cpp",
                 208,
-                dsStrongAssertMessage);
+                empty_string);
         }
     }
 

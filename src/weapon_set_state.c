@@ -19,10 +19,10 @@
 #include "headers/weapon_animation.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
 
 extern int16_t animation_choose_random_permutation_internal(int render_or_affects_game_state, int animation_graph_index, int16_t animation_index);
-extern int animation_update_kind_affects_game_state;
 extern int weapon_get_owner_object_index(int weapon_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern void unit_handle_weapon_state_change(int unit_index, int16_t new_weapon_state);

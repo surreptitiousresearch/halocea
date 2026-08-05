@@ -1,6 +1,6 @@
 /* message_delta_processor_parameters_reload @0x837A1AD8 — re-runs the per-field-type parameter verifier for
  * every field of every registered message-delta message (both header and body field sets). Walks the global
- * message list to its terminating sentinel; each field's verifier is looked up by the field-type id at the
+ * message list over its 47-entry extent; each field's verifier is looked up by the field-type id at the
  * front of its properties block.
  *
  * DEVIATION: the field-type id lives at offset 0 of _field_properties_definition (the existing header types
@@ -14,8 +14,7 @@
 #include "headers/field_type_definition.h"
 #include "headers/blam_data_globals.h"
 
-extern _message_definition **message_delta_global_message_list;
-extern int _real_bd036d41;   /* symbol immediately after the message list — loop terminator */
+extern _message_definition *message_delta_global_message_list[47];
 
 static void verify_field_set(const _message_definition_field_reference_set *set)
 {
@@ -34,11 +33,13 @@ static void verify_field_set(const _message_definition_field_reference_set *set)
 
 void message_delta_processor_parameters_reload(void)
 {
-    for (_message_definition **entry = message_delta_global_message_list;
-         (int)entry < (int)&_real_bd036d41;
-         ++entry)
+    /* DEVIATION: the loop end address is materialised in the binary off the next named .rdata symbol
+     * (`addi r11, r25, (__real_bd036d41 - 0x82129A10)` @0x837A1BD0) - that float-pool constant is not a
+     * loop terminator object, it just follows the array. The bound is the array's own extent,
+     * 0x82129A10..0x82129ACC = 47 pointers, the count dispose_messages/initialize_messages already use. */
+    for (int i = 0; i < 47; ++i)
     {
-        _message_definition *message = *entry;
+        _message_definition *message = message_delta_global_message_list[i];
         verify_field_set(message->header_fields);
         verify_field_set(&message->body_fields);
     }

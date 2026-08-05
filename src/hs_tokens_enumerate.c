@@ -16,7 +16,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int16_t hs_tokens_enumerate_result_count;          /* running result count */
-extern char empty_string[];           /* empty-string fallback */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern int16_t hs_console_flags_to_test;          /* console-flags-to-test */
 extern void (*hs_token_enumerators[NUMBER_OF_HS_TOKEN_TYPES])(void);
 extern int alphabetize(const char **string1, const char **string2);

@@ -26,7 +26,7 @@ int dsDATA::MakeMTSafe()
                 "_type",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
                 254,
-                dsStrongAssertMessage);
+                empty_string);
         return 0;
     }
     return this->Convert(mtSafeType, DSD_CONV_EXPLICIT);

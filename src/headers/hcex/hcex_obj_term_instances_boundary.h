@@ -18,4 +18,4 @@ typedef struct scnSCENE scnSCENE;
 extern scnSCENE *gsScenePtr;
 extern void scnSCENE_DestroyInst(scnSCENE *scene, animINST *instance);   /* already used by hcex_destroy_dead_intances.c */
 
-extern int IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */

@@ -1,5 +1,5 @@
 #include "../../headers/ws/ai/aiBRAIN.h"
-#include "../../headers/ws/ds/ds_assert_boundary.h" // dsStrongAssertMessage (empty-string global)
+#include "../../headers/ws/ds/ds_assert_boundary.h" // empty_string (the shared "" global)
 
 // aiBRAIN::ProcessINITDead @ 0x83179700
 // ?ProcessINITDead@aiBRAIN@@QAAXXZ
@@ -8,7 +8,7 @@
 // dead-spawn init path. (byte_8200155A is the shared empty-string constant.)
 void aiBRAIN::ProcessINITDead()
 {
-    dsTSTRING<char> reason(dsStrongAssertMessage);
+    dsTSTRING<char> reason(empty_string);
     Die(reason);
     mind.ProcessINITDead();
 }

@@ -20,8 +20,8 @@
 #include "headers/weapon_class_animation.h"
 #include "headers/unit_seat_animation.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
-extern int animation_update_kind_affects_game_state;
 
 extern void unit_throw_grenade_release(int unit_index, uint8_t premature);
 extern int16_t animation_choose_random_permutation_internal(int render_or_affects_game_state, int animation_graph_index, int16_t animation_index);

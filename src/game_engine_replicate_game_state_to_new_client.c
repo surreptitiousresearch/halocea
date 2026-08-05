@@ -2,8 +2,8 @@
  * connected client in stateless mode. */
 
 #include "headers/game_engine.h"
+#include "headers/message_delta_processor_mode.h"
 
-extern int _message_delta_mode_stateless;
 
 void game_engine_replicate_game_state_to_new_client(const int machine_index)
 {

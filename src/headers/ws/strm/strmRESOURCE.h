@@ -26,11 +26,11 @@ typedef struct strmRESOURCE {
     strmRESOURCE_vtbl *__vftable; // 0x00
     int                 state;     // 0x04 (a strmRESOURCE::STATE value)
 
-    virtual ~strmRESOURCE();                                    // vtbl+0x00
-    virtual strmPRIORITY GetPriority();                         // vtbl+0x04
-    virtual STRM_QUEUE_ID GetQueueId();                         // vtbl+0x08
-    virtual bool OnAddQuery();                                  // vtbl+0x0C
-    virtual bool OnBeforeReadData();                             // vtbl+0x10
-    virtual bool OnReadData();                                  // vtbl+0x14
-    virtual void SetState(int newState);                        // vtbl+0x18
+    ~strmRESOURCE();                                    // vtbl+0x00
+    strmPRIORITY GetPriority();                         // vtbl+0x04
+    STRM_QUEUE_ID GetQueueId();                         // vtbl+0x08
+    bool OnAddQuery();                                  // vtbl+0x0C
+    bool OnBeforeReadData();                             // vtbl+0x10
+    bool OnReadData();                                  // vtbl+0x14
+    void SetState(int newState);                        // vtbl+0x18
 } strmRESOURCE;

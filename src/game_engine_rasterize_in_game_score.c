@@ -42,7 +42,7 @@
 #include "headers/multiplayer_game_text_string.h"
 
 #include "headers/point2d.h"
-extern const wchar_t empty_wide_string; /* .short 0 — empty wide string, used as a "tag not loaded" fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic, int requested_count, int unused_max_capacity);
 extern void game_engine_generate_title_string(int player_index, uint16_t *title_string);
@@ -108,10 +108,10 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
     header_color.n[3] = 0.5f;
 
     int text_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *rank_header = text_tag_index == -1 ? &empty_wide_string
+    const wchar_t *rank_header = text_tag_index == -1 ? empty_wide_string
             : unicode_string_list_get_string(text_tag_index, _string_place);
     text_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *name_header = text_tag_index == -1 ? &empty_wide_string
+    const wchar_t *name_header = text_tag_index == -1 ? empty_wide_string
             : unicode_string_list_get_string(text_tag_index, _string_name);
 
     wchar_t score_header[512];
@@ -158,7 +158,7 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
             if (out_of_lives)
             {
                 text_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-                status_text = text_tag_index == -1 ? &empty_wide_string
+                status_text = text_tag_index == -1 ? empty_wide_string
                         : unicode_string_list_get_string(text_tag_index, _string_dead);
             }
             else if (!player->quit_out_of_game)
@@ -168,7 +168,7 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
             else
             {
                 text_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-                status_text = text_tag_index == -1 ? &empty_wide_string
+                status_text = text_tag_index == -1 ? empty_wide_string
                         : unicode_string_list_get_string(text_tag_index, _string_quit);
             }
 
@@ -176,7 +176,7 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
             if ((entry->place & 0x7F) <= 0x1F)
                 rank = entry->place & 0x7F;
             text_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-            const wchar_t *rank_text = text_tag_index == -1 ? &empty_wide_string
+            const wchar_t *rank_text = text_tag_index == -1 ? empty_wide_string
                     : unicode_string_list_get_string(text_tag_index, rank + 36);
 
             usprintf(line_buffer, L"\t%s\t%s\t%s", rank_text, player->name, status_text);
@@ -218,7 +218,7 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
     const wchar_t *variant_description;
     if (text_tag_index == -1)
     {
-        variant_description = &empty_wide_string;
+        variant_description = empty_wide_string;
     }
     else
     {
@@ -240,7 +240,7 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
     const wchar_t *game_mode_name;
     if (game_mode_tag_index == -1)
     {
-        game_mode_name = &empty_wide_string;
+        game_mode_name = empty_wide_string;
         usprintf(line_buffer, L"%s (%s)", variant_description, game_mode_name);
     }
     else

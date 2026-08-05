@@ -9,7 +9,7 @@
 // stricmp out of line).
 
 extern "C" int strcmp(const char *a, const char *b);
-extern const char empty_string[]; // 0x8200155A — shared empty string
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 int objFILTER_NAME::IsUse(objOBJ *pObj)
 {

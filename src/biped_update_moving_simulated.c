@@ -41,6 +41,9 @@
 #include "headers/unit_animation_flags.h"
 #include "headers/unit_animation_state.h"
 #include "headers/animation_frame_info_type.h"
+#include "headers/animation_frame_info_xy_translation.h"
+#include "headers/animation_frame_info_xy_translation_yaw_rotation.h"
+#include "headers/animation_frame_info_xyz_translation_yaw_rotation.h"
 #include "headers/base_seat.h"
 #include "headers/game_difficulty_value.h"
 #include "headers/blam_data_globals.h"
@@ -194,36 +197,43 @@ void biped_update_moving_simulated(
                 animation *animation_def = (animation *)graph->animations.address + animation_index;
                 int frame_component_count = (uint16_t)animation_def->frame_info_type;
                 int frame_index = biped_real->object.animation.state.frame_index;
-                /* frame_base strides (8/12/16) are keyed by the runtime frame_info_type record size —
-                 * variable-format stream, irreducible to a single struct (ledgered) */
-                char *frame_base = (char *)animation_def->frame_info.address;
+                /* frame_info is a variable-format stream: the record type — and therefore the
+                 * stride — is chosen by animation.frame_info_type, and the DB carries one struct
+                 * per arm (8 / 12 / 16 bytes). Indexing each arm as its own type is what makes
+                 * the stride implicit instead of a magic multiplier. */
+                void *frame_base = animation_def->frame_info.address;
 
                 switch ( frame_component_count )
                 {
                     case _animation_frame_info_xy_translation:
                     {
-                        float *frame_data = (float *)(frame_base + 8 * frame_index);
-                        physics.movement_desired.n[0] = frame_data[0];
-                        desired_y = frame_data[1];
+                        const animation_frame_info_xy_translation *frame_data =
+                            &((const animation_frame_info_xy_translation *)frame_base)[frame_index];
+                        physics.movement_desired.n[0] = frame_data->offset.n[0];
+                        desired_y = frame_data->offset.n[1];
                         break;
                     }
                     case _animation_frame_info_xy_translation_yaw_rotation:
                     {
-                        float *frame_data = (float *)(frame_base + 12 * frame_index);
-                        physics.movement_desired.n[0] = frame_data[0];
-                        desired_y = frame_data[1];
-                        physics.movement_desired.n[1] = frame_data[1];
-                        frame_yaw_delta = frame_data[2];
+                        const animation_frame_info_xy_translation_yaw_rotation *frame_data =
+                            &((const animation_frame_info_xy_translation_yaw_rotation *)
+                              frame_base)[frame_index];
+                        physics.movement_desired.n[0] = frame_data->offset.n[0];
+                        desired_y = frame_data->offset.n[1];
+                        physics.movement_desired.n[1] = frame_data->offset.n[1];
+                        frame_yaw_delta = frame_data->yaw;
                         break;
                     }
                     case _animation_frame_info_xyz_translation_yaw_rotation:
                     {
-                        float *frame_data = (float *)(frame_base + 16 * frame_index);
-                        physics.movement_desired.n[0] = frame_data[0];
-                        desired_y = frame_data[1];
-                        physics.movement_desired.n[1] = frame_data[1];
-                        physics.movement_desired.n[2] = frame_data[2];
-                        frame_yaw_delta = frame_data[3];
+                        const animation_frame_info_xyz_translation_yaw_rotation *frame_data =
+                            &((const animation_frame_info_xyz_translation_yaw_rotation *)
+                              frame_base)[frame_index];
+                        physics.movement_desired.n[0] = frame_data->offset.n[0];
+                        desired_y = frame_data->offset.n[1];
+                        physics.movement_desired.n[1] = frame_data->offset.n[1];
+                        physics.movement_desired.n[2] = frame_data->offset.n[2];
+                        frame_yaw_delta = frame_data->yaw;
                         break;
                     }
                     default:

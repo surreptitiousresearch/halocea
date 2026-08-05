@@ -17,7 +17,7 @@ void msgSYSTEM::PostMsg(msgADDR *pRecv, int msg, msgADDR *pSend)
             "0",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
             414,
-            dsStrongAssertMessage);
+            empty_string);
 
     // Deliver only when the address accepts messages: neither the not-accepting bit (0x2) nor the
     // term-posted bit (0x8) is set.

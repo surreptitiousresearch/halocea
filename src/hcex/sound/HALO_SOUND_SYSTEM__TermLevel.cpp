@@ -15,7 +15,7 @@ void HALO_SOUND_SYSTEM::TermLevel()
     if (!IGNORE_STRONG_ASSERT && tagInfoPool.usedNodes.nElem)
         STRONG_ASSERT_DUMMY().Crash("tagInfoPool.IsEmpty()",
                                      "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                     1448, dsStrongAssertMessage);
+                                     1448, empty_string);
 
     for (int i = 0; i < soundLists.nElem; ++i) {
         HALO_SOUND_LIST &list = soundLists[i];

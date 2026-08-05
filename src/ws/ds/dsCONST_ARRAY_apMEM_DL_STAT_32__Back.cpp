@@ -11,6 +11,6 @@ apMEM_DL_STAT &dsCONST_ARRAY<apMEM_DL_STAT, 32>::Back()
             "nEntry > 0 && nEntry <= size",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             39,
-            dsStrongAssertMessage);
+            empty_string);
     return this->list[this->nEntry - 1];
 }

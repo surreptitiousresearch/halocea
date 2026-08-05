@@ -19,8 +19,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int bits_needed[];
-extern _message_definition **message_delta_global_message_list;
-extern message_delta_processor_message_definition_type _message_object_deletion;
+extern _message_definition *message_delta_global_message_list[47];
 
 extern int message_delta_parameters_protocol_get_packet_bit_size(void);
 extern unsigned int message_delta_parameters_protocol_get(void);

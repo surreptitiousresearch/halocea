@@ -27,10 +27,10 @@
 #include "headers/game_connection.h"
 #include "headers/unit_animation_state.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
 typedef struct unit_animation unit_animation;
 
-extern int animation_update_kind_affects_game_state;
 
 extern void object_iterator_new(object_iterator *iterator, uint32_t type_flags, uint8_t flags);
 extern void *object_iterator_next(object_iterator *iterator);

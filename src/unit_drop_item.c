@@ -18,7 +18,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/location.h"
-extern const char empty_string[];     /* empty marker-name string */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern void object_reconnect_to_map(int object_index, const location *location_in);
 extern void object_set_visibility(int object_index, uint8_t visible_flag);

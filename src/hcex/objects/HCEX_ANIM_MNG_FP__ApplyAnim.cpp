@@ -34,8 +34,8 @@ extern void m3dMultiplyMatr(const m3dMATR *a, const m3dMATR *b, m3dMATR *out); /
 extern void objCalcNodeLTM(objOBJ *pObjFrom);                          // boundary
 
 #include "../../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // canonical — avoids C2011 vs headers pulling it in
-extern int  IGNORE_STRONG_ASSERT; // boundary — tunable
-extern char empty_string[];       // boundary — canonical empty string
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern dsVECTOR<FP_MODEL, 8>                              fpModels;   // boundary global — first-person model table
 extern dsVECTOR<dsPAIR<unsigned int, HCEX_MODEL>, 8>       hcexModels; // boundary global — resolved Halo model table

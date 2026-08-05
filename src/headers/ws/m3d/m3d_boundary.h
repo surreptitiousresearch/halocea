@@ -121,7 +121,7 @@ int m3dVRandIntRange(const m3dV &v, int lo, int hi, unsigned int stride);
 
 // --- Debug assertion machinery (Saber STRONG_ASSERT), boundary only ---------------
 // Global that disables the strong-assert crash path (?IGNORE_STRONG_ASSERT@@3HA).
-extern int IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 // Empty context/message string global at 0x8200155A, passed as the final Crash argument.
 extern const char m3dStrongAssertMessage[];
 

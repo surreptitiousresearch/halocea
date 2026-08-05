@@ -2,8 +2,8 @@
 #include "../../headers/hcex/HALO_SOUND_TAG.h"
 #include "../../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 
-extern int IGNORE_STRONG_ASSERT;   // ?IGNORE_STRONG_ASSERT@@3HA
-extern char empty_string;         // shared assert message-context byte
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // ds::ARRAY<const HALO_SOUND_TAG*,15>::operator[] (non-const) @ 0x836B5C48
 // Bounds-checked mutable access into the fixed 15-slot tag-pointer list. Uses the const-list

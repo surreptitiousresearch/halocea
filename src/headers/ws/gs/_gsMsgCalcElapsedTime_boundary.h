@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 #include "../wb/dbgVAR_boundary.h"    // dbgVAR_IMPL<T,N> (.value)
-#include "../ds/ds_assert_boundary.h" // IGNORE_STRONG_ASSERT, STRONG_ASSERT_DUMMY, dsStrongAssertMessage
+#include "../ds/ds_assert_boundary.h" // IGNORE_STRONG_ASSERT, STRONG_ASSERT_DUMMY, empty_string
 #include "../m3d/m3d_boundary.h"      // m3dClamp
 #include "../msg/msgSYSTEM.h"         // msgSystem (frameNmb)
 #include "../../vidDRIVER.h"          // vidDRIVER (fps@0x188)

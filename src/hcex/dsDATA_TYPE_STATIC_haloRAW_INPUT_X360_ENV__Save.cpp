@@ -3,8 +3,8 @@
 #include "../headers/hcex/halo_ds_data_type_boundary.h"
 #include "../headers/hcex/haloRAW_INPUT_X360_ENV.h"
 
-extern int IGNORE_STRONG_ASSERT;   // ?IGNORE_STRONG_ASSERT@@3HA
-extern const char empty_string;   // shared single-NUL empty-string constant
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // ds_data::dsDATA_TYPE_STATIC<haloRAW_INPUT_X360_ENV>::Save @ 0x823BDF00
 // No disk serializer for this type: strong-assert("0") and return failure (0). fioFILE is a boundary.

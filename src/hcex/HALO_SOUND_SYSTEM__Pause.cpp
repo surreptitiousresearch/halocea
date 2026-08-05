@@ -4,7 +4,7 @@
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-extern const char empty_string; // shared single-NUL assert-info constant @0x8200155A
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // 0x836B55C0 — file-local FMOD helper: cancel a channel's scheduled pause and resume playback.
 // DEVIATION: the standalone decompile of _UnpauseChannel renders a spurious 3rd (u64) parameter,
@@ -26,7 +26,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
             STRONG_ASSERT_DUMMY::Crash(nullptr,
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                833, &empty_string);
+                833, empty_string);
         return;
     }
 
@@ -45,7 +45,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
                 STRONG_ASSERT_DUMMY::Crash(nullptr,
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPClock(&pauseTime.hi, &pauseTime.lo)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                    842, &empty_string);
+                    842, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 842, res, FModErrorDesc(res, false));
         }
@@ -76,7 +76,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
                 STRONG_ASSERT_DUMMY::Crash(nullptr,
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPClock(&currentTime.hi, &currentTime.lo)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                    863, &empty_string);
+                    863, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 863, res, FModErrorDesc(res, false));
         }

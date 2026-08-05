@@ -111,7 +111,7 @@ void HALO_SOUND_LIST::ParseLst(const char *lst)
                 STRONG_ASSERT_DUMMY().Crash(
                     "i == 0 || list[i - 1].name <= list[i].name",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1325,
-                    dsStrongAssertMessage);
+                    empty_string);
         }
 
         if (j == 0 || tag->name != dsSTRID(entries[j].name, false))
@@ -124,7 +124,7 @@ void HALO_SOUND_LIST::ParseLst(const char *lst)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!usedTags.Contains(tag->name)",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1333,
-                    dsStrongAssertMessage);
+                    empty_string);
 
             int dummy = 0;
             usedTags.Insert(&tag->name, &dummy);
@@ -134,7 +134,7 @@ void HALO_SOUND_LIST::ParseLst(const char *lst)
             STRONG_ASSERT_DUMMY().Crash(
                 "tag->startIndex + tag->count == list[i].index",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1338,
-                dsStrongAssertMessage);
+                empty_string);
 
         ++tag->count;
     }

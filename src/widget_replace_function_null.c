@@ -6,9 +6,9 @@
 #include <stddef.h>   /* wchar_t */
 #include "headers/widget_instance.h"
 
-extern const wchar_t empty_wide_string; /* .short 0 — empty wide string */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 uint16_t * widget_replace_function_null(widget_instance *widget)
 {
-    return (uint16_t *)&empty_wide_string;
+    return (uint16_t *)empty_wide_string;
 }

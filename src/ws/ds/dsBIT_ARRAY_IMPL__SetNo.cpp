@@ -10,6 +10,6 @@ void dsBIT_ARRAY_IMPL::SetNo(int i, unsigned int *array, int n_elem)
             "i >= 0 && Bit2Idx(i) < n_elem",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_bit_array.h",
             31,
-            dsStrongAssertMessage);
+            empty_string);
     array[i >> 5] &= ~(1 << (i & 0x1F));
 }

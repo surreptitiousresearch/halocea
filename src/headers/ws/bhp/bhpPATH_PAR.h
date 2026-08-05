@@ -23,7 +23,12 @@ struct bhpPATH_PAR : bhpPARAMS {
     int           isNeedAssoc;                 // 0x88
     bool          isImportant;                 // 0x8C
     bool          doNotifyNSChange;            // 0x8D
-    bhvPATH_UseHOFn useHOPath;                 // 0x90 HO-selection predicate (member-fn-ptr, 16B / __int128)
+    bhvPATH_UseHOFn useHOPath;                 // 0x90 HO-selection predicate (member-fn-ptr)
+    // The shipped slot is 16 bytes (MSVC generic pointer-to-member; IDA types it __int128), but a
+    // host compiler that already has bhvPATH complete emits the 4-byte single-inheritance form.
+    // Without this filler rtc and isLastWPHOPos sit 12 bytes early and the block sizes 164 vs 176.
+    // See the SIZE CAVEAT in bhvPATH_boundary.h for why the member type is not widened instead.
+    unsigned char _pad_useHOPath[16 - sizeof(bhvPATH_UseHOFn)];
     aiRETICLE     rtc;                         // 0xA0
     bool          isLastWPHOPos;               // 0xAC
 

@@ -16,6 +16,7 @@
 
 #include <stdint.h>
 #include "headers/model.h"
+#include "headers/model_node.h"
 #include "headers/rasterizer_model_begin_parameters.h"
 #include "headers/render_globals.h"
 #include "headers/rasterizer_debug_options_struct.h"
@@ -26,6 +27,7 @@
 #include "headers/scenario_flags.h"
 #include "headers/model_definition_flags.h"
 #include "headers/model_detail_level.h"
+#include "headers/render_model_flags.h"
 #include "headers/blam_data_globals.h"
 
 #include "headers/render_skinning.h"
@@ -51,7 +53,7 @@ void render_model(int model_index, float level_of_detail_pixels, const real_matr
     rasterizer_model_cortana_hack =
         (model_definition->node_list_checksum == 124371095 && (global_scenario->flags & (1u << _scenario_cortana_hack_bit)) != 0) ? 1 : 0;
 
-    if ( level_of_detail_pixels >= model_definition->detail_cutoff_pixels[0] || (flags & 2) != 0 )
+    if ( level_of_detail_pixels >= model_definition->detail_cutoff_pixels[0] || (flags & (1u << _render_model_shadow_bit)) != 0 )
     {
         if ( !region_permutation_indices )
             region_permutation_indices = (const char *)default_render_model_region_permutation_indices;
@@ -70,8 +72,12 @@ void render_model(int model_index, float level_of_detail_pixels, const real_matr
         {
             for ( int i = 0; i < node_count; )
             {
+                /* DEVIATION: the decompiler flattened the second operand to
+                 * (real_matrix4x3 *)nodes.address + 3*i + 2; the disassembly indexes the node block by
+                 * sizeof(model_node) (mulli r9,r31,0x9C) and adds 0x68 (addi r4,r10,0x68), i.e. the node's
+                 * own runtime_default_inverse_matrix — 52*(3*i+2) and 156*i+104 happen to coincide. */
                 matrix4x3_multiply(&node_matrices[i],
-                                   (const real_matrix4x3 *)model_definition->nodes.address + 3 * i + 2,
+                                   &((const model_node *)model_definition->nodes.address)[i].runtime_default_inverse_matrix,
                                    &skinned_node_matrices[i]);
                 i = (int16_t)(i + 1);
                 node_count = model_definition->nodes.count;
@@ -124,23 +130,23 @@ void render_model(int model_index, float level_of_detail_pixels, const real_matr
         unsigned int geometry_flags = 0;
         if ( (model_definition->flags & (1u << _model_definition_ignore_skinning)) != 0 )
             geometry_flags = (1u << _rasterizer_geometry_dont_skin);
-        if ( (flags & 1) != 0 )
+        if ( (flags & (1u << _render_model_immediate_bit)) != 0 )
             geometry_flags |= (1u << _rasterizer_geometry_no_sort_bit) | (1u << _rasterizer_geometry_no_queue_bit)
                             | (1u << _rasterizer_geometry_no_fog_bit) | (1u << _rasterizer_geometry_no_zbuffer_bit)
                             | (1u << _rasterizer_geometry_sky_bit); /* 0x1F */
-        geometry_flags = (flags & 4) != 0 ? geometry_flags | (1u << _rasterizer_geometry_atmospheric_fog_but_no_planar_fog_bit) : geometry_flags & ~(1u << _rasterizer_geometry_atmospheric_fog_but_no_planar_fog_bit);
-        geometry_flags = (flags & 8) != 0 ? geometry_flags | (1u << _rasterizer_geometry_first_person_bit) : geometry_flags & ~(1u << _rasterizer_geometry_first_person_bit);
+        geometry_flags = (flags & (1u << _render_model_no_planar_fog_bit)) != 0 ? geometry_flags | (1u << _rasterizer_geometry_atmospheric_fog_but_no_planar_fog_bit) : geometry_flags & ~(1u << _rasterizer_geometry_atmospheric_fog_but_no_planar_fog_bit);
+        geometry_flags = (flags & (1u << _render_model_first_person_bit)) != 0 ? geometry_flags | (1u << _rasterizer_geometry_first_person_bit) : geometry_flags & ~(1u << _rasterizer_geometry_first_person_bit);
         parameters.geometry_flags = geometry_flags;
         if ( (model_definition->flags & (1u << _model_definition_parts_have_local_nodes_bit)) != 0 )
             parameters.geometry_flags = geometry_flags | (1u << _rasterizer_geometry_parts_define_local_nodes_bit);
 
-        if ( (flags & 2) != 0 )
+        if ( (flags & (1u << _render_model_shadow_bit)) != 0 )
             rasterizer_environment_shadow_model_begin(&parameters);
         else
             rasterizer_model_begin(&parameters, 0);
         render_model_parts(model_definition, region_permutation_indices, &parameters.skinning, unique_identifier,
                            geometry_detail_level_index, forced_shader_permutation_index, flags);
-        if ( (flags & 2) != 0 )
+        if ( (flags & (1u << _render_model_shadow_bit)) != 0 )
             rasterizer_environment_shadow_model_end();
         else
             rasterizer_model_end();

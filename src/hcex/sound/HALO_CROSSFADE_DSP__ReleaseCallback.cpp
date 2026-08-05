@@ -29,7 +29,7 @@ FMOD_RESULT __fastcall HALO_CROSSFADE_DSP::ReleaseCallback(FMOD_DSP_STATE *dsp_s
             "state->dsp != 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
             456,
-            dsStrongAssertMessage);
+            empty_string);
 
     state->dsp = nullptr;
     operator delete(state);

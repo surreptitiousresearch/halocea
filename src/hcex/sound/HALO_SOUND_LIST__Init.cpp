@@ -31,7 +31,7 @@ void HALO_SOUND_LIST::Init(const char *levelName, const char *lst, const char *f
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1155,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 
@@ -62,7 +62,7 @@ void HALO_SOUND_LIST::Init(const char *levelName, const char *lst, const char *f
         if (!IGNORE_STRONG_ASSERT && prepareStreams <= 0)
             STRONG_ASSERT_DUMMY().Crash(
                 "prepareStreams > 0", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                1173, dsStrongAssertMessage);
+                1173, empty_string);
 
         this->streams.Resize(prepareStreams);
         this->streamUsed.Resize(prepareStreams, false);

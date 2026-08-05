@@ -75,7 +75,7 @@ extern gsLVL_SYSTEM                                  *gsSysLevel;
 extern dscDESC_FAMILY                                 iaFamily;
 extern dsVECTOR<dsPAIR<unsigned long, HCEX_MODEL>, 8>  hcexModels;
 extern dsVECTOR<dsTSTRING<char>, 8>                    hcexClsList;   /* debug: used-class dump */
-extern const char                                      dsStrongAssertMessage[]; /* empty_string */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 /* HCEX-specific custom-object registry: a large, separately-gated bridge class (not reversed in
  * this batch). Only the one method hcex_inst_create calls is declared. */
@@ -180,7 +180,7 @@ animINST *hcex_inst_create(int modelId, int id, bool isFP, int *pModelIdx)
              * strcmp against the resolved class name). */
             if (strcmp(outCls.pBuffer->str, "halo_object") == 0) {
                 dsTSTRING<char> defaultCls; defaultCls.pBuffer = 0;
-                defaultCls.UnsafeInit(dsStrongAssertMessage, -1, 0);
+                defaultCls.UnsafeInit(empty_string, -1, 0);
                 outCls = defaultCls;
             }
             if (strcmp(outCls.pBuffer->str, "halo_no_model") == 0) {
@@ -246,7 +246,7 @@ animINST *hcex_inst_create(int modelId, int id, bool isFP, int *pModelIdx)
 
     if (!IGNORE_STRONG_ASSERT && tpl->id > 0xFFFF)
         STRONG_ASSERT_DUMMY().Crash("pTpl->id <= 65535",
-            "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 716, dsStrongAssertMessage);
+            "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 716, empty_string);
 
     unsigned int modelKey = ((unsigned int)tpl->id << 16) | (unsigned short)modelId;
 
@@ -395,7 +395,7 @@ animINST *hcex_inst_create(int modelId, int id, bool isFP, int *pModelIdx)
             pInst->state |= 0x4400u;
         }
     } else {
-        const char *nameTpl = pInst->nameTpl ? pInst->nameTpl : dsStrongAssertMessage;
+        const char *nameTpl = pInst->nameTpl ? pInst->nameTpl : empty_string;
         if (strcmp(nameTpl, "grunt") == 0) {
             unsigned int color = hcex_get_obj_color(id);
             if (color != 0xFFFFFFu)

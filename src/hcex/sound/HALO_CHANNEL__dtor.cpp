@@ -13,12 +13,12 @@ HALO_CHANNEL::~HALO_CHANNEL()
             STRONG_ASSERT_DUMMY().Crash(
                 "prevFadeOut == 0 && fadeIn == 0",
                 "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260,
-                dsStrongAssertMessage);
+                empty_string);
 
         if (this->current.prevFadeOut || this->current.fadeIn)
             STRONG_ASSERT_DUMMY().Crash(
                 "prevFadeOut == 0 && fadeIn == 0",
                 "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260,
-                dsStrongAssertMessage);
+                empty_string);
     }
 }

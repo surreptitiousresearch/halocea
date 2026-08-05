@@ -10,7 +10,7 @@
 #include "../../headers/ws/ds/dsTSTRING.h"
 #include "../../headers/ws/ds/dsTSTRING_BUF_HEADER.h"
 
-extern const char empty_string[]; // boundary — shared empty-string global
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 dsTSTRING<char> entENTITY::GetName() const
 {

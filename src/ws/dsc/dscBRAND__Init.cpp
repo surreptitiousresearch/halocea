@@ -45,7 +45,7 @@ void dscBRAND::Init(dscDESC_FAMILY *pFamily)
             "!it.IsDone()",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\dsc_family.cpp",
             396,
-            dsStrongAssertMessage);
+            empty_string);
 
     psSECTION sectionCopy = *sectionIter;
     dsTSTRING<char> hintErr = dsSPrintf("Parsing %s", this->name.pBuffer->str);

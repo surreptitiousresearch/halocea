@@ -23,7 +23,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
                             "HALO_CHANNEL::CheckNotReady", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1874, &empty_string);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1874, empty_string);
         return false;
     }
 
@@ -58,7 +58,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
             if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY::Crash(nullptr,
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getOpenState(&openState, NULL, NULL)\"",
-                    fileNotFound, 1902, &empty_string);
+                    fileNotFound, 1902, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1902, r, FModErrorDesc(r, false));
         }
         if (openState != FMOD_OPENSTATE_READY)
@@ -71,7 +71,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
             if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY::Crash(nullptr,
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getNumSubSounds(&count)\"",
-                    fileNotFound, 1908, &empty_string);
+                    fileNotFound, 1908, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1908, r, FModErrorDesc(r, false));
         }
 
@@ -96,7 +96,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
             if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY::Crash(nullptr,
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getSubSound(sound.fsbIndex, &sound.subSound)\"",
-                    fileNotFound, 1911, &empty_string);
+                    fileNotFound, 1911, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1911, r, FModErrorDesc(r, false));
         }
     }
@@ -108,7 +108,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY::Crash(nullptr,
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.subSound->getOpenState(&openState, NULL, NULL)\"",
-                fileNotFound, 1916, &empty_string);
+                fileNotFound, 1916, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1916, r, FModErrorDesc(r, false));
     }
     if (subOpenState != FMOD_OPENSTATE_READY)
@@ -125,7 +125,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY::Crash(nullptr,
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"haloSoundSystem->system->playSound(FMOD_CHANNEL_FREE, sound.subSound, true, &sound.channel)\"",
-                fileNotFound, 1928, &empty_string);
+                fileNotFound, 1928, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1928, r, FModErrorDesc(r, false));
     }
 
@@ -146,7 +146,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY::Crash(nullptr,
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setChannelGroup(channelGroup)\"",
-                fileNotFound, 1942, &empty_string);
+                fileNotFound, 1942, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1942, r, FModErrorDesc(r, false));
     }
 
@@ -157,7 +157,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
 
     // Assemble the debug "PLAY <tag>\<perm>[ [id]]" line.
     bool haveSuffix = false;
-    const char *suffix = &empty_string;
+    const char *suffix = empty_string;
     if (sound->identifier != -1)
     {
         haveSuffix = true;

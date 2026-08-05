@@ -79,11 +79,11 @@ struct entENTITY : iaIACTOR {
     // `objName` (param2; empty = whole model — disasm @0x826A00F8 empty-checks param2 then walks
     // objITER_TREE). Param roles disasm-confirmed 2026-08-04; reversed in
     // src/ws/ent/entENTITY__implSetMaterial.cpp.
-    virtual void implSetMaterial(const dsTSTRING<char> &mtlName, const dsTSTRING<char> &objName);
+    void implSetMaterial(const dsTSTRING<char> &mtlName, const dsTSTRING<char> &objName);
 
     // Virtual termination hook — base entity teardown, invoked by derived overrides (e.g.
     // aiBRAIN::ProcessTERM calls entENTITY::ProcessTERM on its base subobject). Body external. boundary.
-    virtual void ProcessTERM();
+    void ProcessTERM();
 
     // 0x826A88B0 / 0x826A8A80 — hide/show this entity: flip the sml SHOW/HIDE/START states, mark
     // the model instance hidden (pInst->state bit 0), pause/resume+hide/show the sfx list and the

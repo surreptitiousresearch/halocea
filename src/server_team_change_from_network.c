@@ -22,9 +22,9 @@
 #include "headers/player_datum.h"
 #include "headers/multiplayer_team.h"
 #include "headers/blam_data_globals.h"
+#include "headers/network_message_type.h"
+#include "headers/message_delta_message_ids.h"
 
-extern int network_message_type_message_delta;
-extern int _message_team_change;
 
 extern uint8_t game_engine_running(void);
 extern uint8_t game_engine_has_teams(void);

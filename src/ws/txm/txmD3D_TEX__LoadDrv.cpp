@@ -80,10 +80,10 @@ int txmD3D_TEX::LoadDrv(pctPICTURE *pPict)
         if (!IGNORE_STRONG_ASSERT) {
             if (pPict->hdr.format != PCT_FORMAT_DXT5A)
                 ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
-                    "pPict->hdr.format!=PCT_FORMAT_DXT5A", D3D_TXM_CPP, 1331, dsStrongAssertMessage);
+                    "pPict->hdr.format!=PCT_FORMAT_DXT5A", D3D_TXM_CPP, 1331, empty_string);
             if (pPict->hdr.format == PCT_FORMAT_DXN)
                 ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
-                    "pPict->hdr.format!=PCT_FORMAT_DXN", D3D_TXM_CPP, 1332, dsStrongAssertMessage);
+                    "pPict->hdr.format!=PCT_FORMAT_DXN", D3D_TXM_CPP, 1332, empty_string);
         }
         for (int mip = 0; mip < this->nMipMap; ++mip) {
             _D3DLOCKED_BOX lb;

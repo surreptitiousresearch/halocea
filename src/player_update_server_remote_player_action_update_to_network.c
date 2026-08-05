@@ -29,7 +29,7 @@
 #include "headers/network_game_server.h"
 typedef struct _field_properties_definition _field_properties_definition;
 #include "headers/super_remote_players_action_update.h"
-extern int _message_remote_player_action_update;
+#include "headers/message_delta_message_ids.h"
 
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int game_time_get(void);

@@ -43,7 +43,7 @@ void dsAFFIX_READER::Init()
                     "nSubStr <= subStrCount",
                     "D:\\Projects\\code\\common\\src.sys\\ds\\ds_affixes.cpp",
                     555,
-                    dsStrongAssertMessage);
+                    empty_string);
         }
         pos = lineEnd + 1;
     }

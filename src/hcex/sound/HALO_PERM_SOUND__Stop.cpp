@@ -66,7 +66,7 @@ void HALO_PERM_SOUND::Stop()
                         "p.isUsed",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1772,
-                        dsStrongAssertMessage);
+                        empty_string);
                 found = true;
                 preloaded->isUsed = false;
             }
@@ -123,6 +123,6 @@ void HALO_PERM_SOUND::Stop()
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 1733,
-                dsStrongAssertMessage);
+                empty_string);
     }
 }

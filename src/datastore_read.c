@@ -6,6 +6,7 @@
  * found and copied. */
 
 #include <stdint.h>
+#include "headers/datastore_entry.h"
 #include "headers/file_reference.h"
 
 extern void *memset(void *destination, int value, unsigned int size);
@@ -44,10 +45,12 @@ uint8_t datastore_read(const char *file_name, const char *field_name, int length
     if ( !contents )
         return found;
 
+    /* 102000 == 200 * sizeof(datastore_entry) — the file is exactly 200 fixed slots. */
+    const datastore_entry *entries = (const datastore_entry *)contents;
     int record_index = 0;
     const unsigned char *record;
 
-    for ( record = (const unsigned char *)contents; ; record += 510 )
+    for ( record = (const unsigned char *)entries[0].name; ; record += sizeof(datastore_entry) )
     {
         const char *name = field_name;
         const unsigned char *record_name = record;
@@ -76,7 +79,7 @@ uint8_t datastore_read(const char *file_name, const char *field_name, int length
         }
     }
 
-    memcpy(data, &contents[510 * record_index + 255], length);
+    memcpy(data, entries[record_index].data, length);
     found = 1;
 
 found_empty:

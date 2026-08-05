@@ -1,7 +1,7 @@
 #include "../../headers/ws/txm/txmTEXTURE.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-extern int IGNORE_STRONG_ASSERT;           // boundary -- disables the strong-assert crash path
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern int osLockedDecrement(int *pVar);   // boundary -- interlocked decrement (?osLockedDecrement@@YAHPAH@Z)
 
 /* 0x823EF360 -- txmTEXTURE::Release()
@@ -22,7 +22,7 @@ unsigned int txmTEXTURE::Release()
             "refCount >= -1",
             "d:\\projects\\code\\common\\incl.sys\\drv\\txm.h",
             247,
-            dsStrongAssertMessage);
+            empty_string);
     }
 
     // Disasm uses `orc r9,r11,r10(=-r11)` i.e. refCount | ~(-refCount), which is algebraically

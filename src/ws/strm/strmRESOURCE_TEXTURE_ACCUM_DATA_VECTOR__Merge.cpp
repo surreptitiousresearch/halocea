@@ -20,7 +20,7 @@ void strmRESOURCE_TEXTURE::ACCUM_DATA_VECTOR::Merge()
     for (int i = 0; i < 6; ++i) {
         if (!IGNORE_STRONG_ASSERT && i < 0)
             STRONG_ASSERT_DUMMY().Crash("index >= 0 && index < Size",
-                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 115, dsStrongAssertMessage);
+                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 115, empty_string);
 
         ACCUM_DATA &entry = curData.list[i];
         if (entry.splitCount) {
@@ -39,7 +39,7 @@ void strmRESOURCE_TEXTURE::ACCUM_DATA_VECTOR::Merge()
 
         if (!IGNORE_STRONG_ASSERT && i < 0)
             STRONG_ASSERT_DUMMY().Crash("index >= 0 && index < Size",
-                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 115, dsStrongAssertMessage);
+                "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 115, empty_string);
 
         entry.mipCoef.x = 100.0f;
         entry.mipCoef.y = -100.0f;

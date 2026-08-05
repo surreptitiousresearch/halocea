@@ -12,7 +12,7 @@
 
 typedef struct _message_definition _message_definition;
 #include "headers/bitstream_t.h"
-extern _message_definition **message_delta_global_message_list;
+extern _message_definition *message_delta_global_message_list[47];
 
 extern int decode_message_dependent_header_iterated(message_delta_processor_header *const header);
 extern void metrics_rollback_header_field_data(const _message_definition *message_definition, message_delta_processor_mode mode, transmission_direction direction);

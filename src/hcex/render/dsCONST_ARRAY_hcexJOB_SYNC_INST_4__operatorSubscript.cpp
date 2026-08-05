@@ -14,6 +14,6 @@ hcexJOB_SYNC_INST &dsCONST_ARRAY<hcexJOB_SYNC_INST, 4>::operator[](int idx)
             "IsValidIdx(idx)",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             166,
-            (unsigned char)dsStrongAssertMessage[0]);
+            (unsigned char)empty_string[0]);
     return this->list[idx];
 }

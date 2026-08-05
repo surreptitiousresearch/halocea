@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include "headers/game_variant.h"
 
-extern const wchar_t empty_wide_string;
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 extern game_variant *game_engine_get_variant(void);
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
@@ -17,7 +17,7 @@ uint16_t * oddball_get_score_header_string(uint16_t *buffer)
         game_engine_get_variant()->game_engine_variant.oddball.oddball_ball_type != _oddball_terminator ? 158 : 154;
 
     int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
-    const wchar_t *string = (text_tag == -1) ? &empty_wide_string : unicode_string_list_get_string(text_tag, string_index);
+    const wchar_t *string = (text_tag == -1) ? empty_wide_string : unicode_string_list_get_string(text_tag, string_index);
 
     ustrcpy(buffer, string);
     return buffer;

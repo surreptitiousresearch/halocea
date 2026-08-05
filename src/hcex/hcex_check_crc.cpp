@@ -32,7 +32,7 @@ typedef struct COOP_MSG_HANDLER
 extern COOP_MSG_HANDLER       coopMsgHandler;
 extern dsCONST_ARRAY<int, 64> crc_list;
 extern int                    hcex_data_applied_num;
-extern const char             dsStrongAssertMessage[]; /* empty_string — empty string */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern void hcex_collect_crc(void);
 extern void osOutputDebugString(const char *fmt, ...);
@@ -65,7 +65,7 @@ void hcex_check_crc(void)
                 "!\"crc deviation\"",
                 "D:\\Projects\\code\\HCEX\\sources\\halo_coop.cpp",
                 244,
-                dsStrongAssertMessage);
+                empty_string);
         }
     }
 }

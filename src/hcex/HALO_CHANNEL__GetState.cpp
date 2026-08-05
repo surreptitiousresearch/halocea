@@ -14,7 +14,7 @@ int HALO_CHANNEL::GetState()
                             "HALO_CHANNEL::GetState", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2045, &empty_string);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2045, empty_string);
         return 0;
     }
 
@@ -25,7 +25,7 @@ int HALO_CHANNEL::GetState()
     {
         if (!IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY::Crash(nullptr, "false",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2062, &empty_string);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2062, empty_string);
         return 0;
     }
 

@@ -8,7 +8,7 @@
 #include "headers/game_looping_sound_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t empty_string;
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 /* def (src/game_looping_sound_new.c): arg3 is `const char *marker_name`, arg4 is `__int16 function_index`.
  * disasm (0x83713DE8) confirms the caller loads the ADDRESS of empty_string into r5 as marker_name. */
@@ -16,7 +16,7 @@ extern int game_looping_sound_new(int object_index, int definition_index, const 
 
 int unattached_looping_sound_start(int definition_index, int source_object_index, float scale)
 {
-    int index = game_looping_sound_new(source_object_index, definition_index, (const char *)&empty_string, -1);
+    int index = game_looping_sound_new(source_object_index, definition_index, (const char *)empty_string, -1);
     if ( index != -1 )
     {
         /* DEVIATION: blam_data_globals.h types game_looping_sound_data as game_looping_sound_data_t*

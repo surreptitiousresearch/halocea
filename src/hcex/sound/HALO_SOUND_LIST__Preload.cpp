@@ -18,7 +18,7 @@ void HALO_SOUND_LIST::Preload()
         if (!IGNORE_STRONG_ASSERT && !file)
             STRONG_ASSERT_DUMMY().Crash(
                 "file != 0", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                1355, dsStrongAssertMessage);
+                1355, empty_string);
 
         unsigned int size = osFileGetSize(file);
         this->dataLength = size;

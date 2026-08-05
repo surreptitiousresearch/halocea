@@ -10,6 +10,6 @@ m3dVTX *objOBJ::GetTexCoordList(unsigned int tcInd)
         STRONG_ASSERT_DUMMY().Crash(
             "tcInd >= 0 && tcInd < 5",
             "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 823,
-            dsStrongAssertMessage);
+            empty_string);
     return pGeom->pSharedGeom->texCoordList[tcInd];
 }

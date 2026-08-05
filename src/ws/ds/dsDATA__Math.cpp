@@ -14,7 +14,7 @@ dsDATA_MATH_RES dsDATA::Math(dsDATA_UNARY_OP op)
             "type != 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
             371,
-            dsStrongAssertMessage);
+            empty_string);
 
     dsDATA scratch;
     scratch.type = nullptr;

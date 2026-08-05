@@ -11,7 +11,7 @@ void animINST::DetachObj(objOBJ *pObj)
             "_pObj->pInst == this",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             792,
-            dsStrongAssertMessage);
+            empty_string);
 
     int id = pObj->id;
     if (id >= 0 && id < this->nObj)

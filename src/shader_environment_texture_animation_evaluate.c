@@ -2,11 +2,13 @@
  * offsets for an environment shader at a given time. Each axis runs a periodic function (over time / period)
  * scaled by a per-axis amplitude.
  *
- * DEVIATION: the decompiler rendered the shader-tag field accesses through a scaled `shader[8].base...`
- * expression; the real offsets are taken from the disassembly. They land in the environment shader's diffuse
- * block, now accessed via the DB-modeled shader_environment struct:
- *   diffuse.u_animation_function/period/scale (tag +0x150/+0x154/+0x158)
- *   diffuse.v_animation_function/period/scale (tag +0x15C/+0x160/+0x164) */
+ * DEVIATION: the decompiler knew only the 40-byte `shader` base, so it folded the byte offsets into
+ * subscripts on it (`shader[8].base.radiosity.color.n[2]` = 8 * 40 + 0x10 = 0x150, and so on). All six
+ * reads are members of shader_environment's own body, which begins at +0x28; disasm-confirmed:
+ *   `lhz 0x150` / `lfs 0x154` / `lfs 0x158` @0x83755C04/0x83755BF8/0x83755C18
+ *        -> environment.diffuse.u_animation_function / _period / _scale
+ *   `lhz 0x15C` / `lfs 0x160` / `lfs 0x164` @0x83755C24/0x83755C28/0x83755C34
+ *        -> environment.diffuse.v_animation_function / _period / _scale */
 
 #include <stdint.h>
 #include "headers/shader_environment.h"

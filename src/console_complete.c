@@ -15,7 +15,7 @@ extern int    tolower(int c);
 extern int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **results, int16_t maximum_count, uint16_t console_flags_to_test);
 extern void console_printf_only_if_open(uint8_t clear, const char *format, ...);
 
-extern char empty_string[]; /* empty string literal */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void console_complete(void)
 {

@@ -2,7 +2,7 @@
 #include "../ap/apCOUNTER_UNIT.h"
 #include <new> // placement new
 
-extern const char empty_string[]; // boundary — shared empty-string global (also used by ds_assert_boundary)
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // dsVECTOR<apCOUNTER_UNIT,8>::CallNew<apCOUNTER_UNIT> @ 0x82719320
 // Placement-construct helper: builds an empty-named counter into the raw slot `t`.

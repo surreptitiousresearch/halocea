@@ -29,7 +29,7 @@ void scnSCENE::AddJustCreatedInstances(int id)
             "threadNmb == osGetCurThreadProcessor()",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Scene.cpp",
             853,
-            dsStrongAssertMessage);
+            empty_string);
     }
 
     dsCMP cmp;

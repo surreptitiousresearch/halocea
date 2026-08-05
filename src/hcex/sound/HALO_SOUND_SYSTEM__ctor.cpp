@@ -90,6 +90,6 @@ HALO_SOUND_SYSTEM::HALO_SOUND_SYSTEM()
     if (!IGNORE_STRONG_ASSERT && haloSoundSystem)
         STRONG_ASSERT_DUMMY().Crash("haloSoundSystem == 0",
                                      "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                     563, dsStrongAssertMessage);
+                                     563, empty_string);
     haloSoundSystem = this;
 }

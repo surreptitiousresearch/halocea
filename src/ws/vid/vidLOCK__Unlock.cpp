@@ -10,7 +10,7 @@ void vidLOCK::Unlock(const char *file, int line)
             "lockDepth>0 || lockThread==osGetCurThreadId()",
             "D:\\Projects\\code\\common\\src.sys\\drv\\video\\vid.cpp",
             566,
-            dsStrongAssertMessage);
+            empty_string);
 
     if (lockDepth == 1)
     {

@@ -12,7 +12,7 @@ CLIENT_ID RELAY::GetLocalClientId() const
             "idxLocalClient >= 0",
             "D:\\Projects\\code\\common\\incl.sys\\DRV\\net_relay.h",
             188,
-            dsStrongAssertMessage);
+            empty_string);
     return clientData[idxLocalClient].clientId;
 }
 

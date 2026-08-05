@@ -48,7 +48,7 @@ extern sslSYSTEM         *gsSslSystem;   /* global ssl script system (AddClass/G
 
 /* --- STRONG_ASSERT_DUMMY::Crash (0x825202A8, ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z) --- */
 #include "../../ws/dbg/STRONG_ASSERT_DUMMY.h" /* canonical (member + static Crash overloads) — avoids C2011 */
-extern int IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 
 /* --- apCONFIG (full DB layout lives in ws/ap/apCONFIG.h) --- */
 #include "../../ws/ap/apCONFIG.h"

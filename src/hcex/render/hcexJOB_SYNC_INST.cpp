@@ -70,7 +70,7 @@ void hcexJOB_SYNC_INST::AddInstJob(int instListStart, int instListEnd)
     if (!IGNORE_STRONG_ASSERT && this->batchNum >= 200)
         ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
             "batchNum < (sizeof(batches)/sizeof((batches)[0]))",
-            "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 1336, dsStrongAssertMessage);
+            "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 1336, empty_string);
 
     this->batches[this->batchNum].start = instListStart;
     this->batches[this->batchNum].end   = instListEnd;
@@ -102,7 +102,7 @@ void hcexJOB_SYNC_INST::Execute(int threadID)
         if (!IGNORE_STRONG_ASSERT && syncedIdx.nEntry >= 2048)
             ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
                 "Length() < size", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
-                175, dsStrongAssertMessage);
+                175, empty_string);
 
         syncedIdx.list[syncedIdx.nEntry] = (unsigned short)objIdx;
         ++syncedIdx.nEntry;

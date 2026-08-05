@@ -13,6 +13,6 @@ const char *const &dsPOOL<const char *, 1024, 512>::Get(int idx) const
             "IsIndexValid(idx)",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_pool.h",
             189,
-            dsStrongAssertMessage);
+            empty_string);
     return this->chunkTable[idx / 1024].data[idx % 1024];
 }

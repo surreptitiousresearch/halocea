@@ -18,6 +18,6 @@ extern "C" void dsound_virtual_set_properties(short virtual_channel_index,
     } else if (!IGNORE_STRONG_ASSERT && !gain_only) {
         STRONG_ASSERT_DUMMY().Crash("gain_only",
                                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", /* backslashes escaped 2026-07-30 */
-                                    2726, dsStrongAssertMessage);
+                                    2726, empty_string);
     }
 }

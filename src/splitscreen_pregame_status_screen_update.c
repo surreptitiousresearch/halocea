@@ -29,7 +29,7 @@ extern unsigned int ustrlen(const wchar_t *string);
 extern uint8_t network_player_is_valid(network_player *player);
 extern void widget_instance_set_visibility_recursive(widget_instance *widget, uint8_t visible);
 
-extern const uint16_t empty_wide_string[];         /* RAW (irreducible): scratch source string stripped from binary — only the auto-named data label survives */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 extern const uint8_t indexed_controller_bitmaps[][3];
 
 void splitscreen_pregame_status_screen_update(widget_instance *widget)

@@ -28,12 +28,12 @@ void strmRES_TEX_MANAGER::_DbgCheckTex(txmTEXTURE *pTex)
         if (!IGNORE_STRONG_ASSERT && pD3DTex->lpSysSurf != pD3DTex->lpSysSurfLowRes)
             STRONG_ASSERT_DUMMY().Crash("pTex->lpSysSurf == pTex->lpSysSurfLowRes",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 729,
-                dsStrongAssertMessage);
+                empty_string);
     } else {
         if (!IGNORE_STRONG_ASSERT && pD3DTex->lpSysSurf != pD3DTex->lpSysSurfHiRes)
             STRONG_ASSERT_DUMMY().Crash("pTex->lpSysSurf == pTex->lpSysSurfHiRes",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 731,
-                dsStrongAssertMessage);
+                empty_string);
 
         unsigned int baseSize = 0, mipSize = 0;
         XGGetTextureLayout(pD3DTex->lpSysSurf, nullptr, &baseSize, nullptr, nullptr, 0x1000u,
@@ -42,7 +42,7 @@ void strmRES_TEX_MANAGER::_DbgCheckTex(txmTEXTURE *pTex)
         if (!IGNORE_STRONG_ASSERT && pD3DTex->memHandle->offset != (unsigned char *)baseSize)
             STRONG_ASSERT_DUMMY().Crash("pTex->memHandle->offset == (BYTE*)base",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 735,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     prev = *static_cast<strmRESOURCE_TEXTURE_XENON *>(pTex->strmResource);

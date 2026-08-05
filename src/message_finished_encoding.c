@@ -9,7 +9,7 @@
 
 #include "headers/bitstream_t.h"
 #include "headers/bitstream_t.h"
-extern _message_definition **message_delta_global_message_list;
+extern _message_definition *message_delta_global_message_list[47];
 extern unsigned int bits_needed[];
 
 extern int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int bit_count);

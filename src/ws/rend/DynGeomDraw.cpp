@@ -33,14 +33,14 @@ void DynGeomDraw(REND_PRIMTYPE primType, void *vertList, int nVert,
         ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
             "buffer",
             "D:\\Projects\\code\\common\\src.sys\\render\\rend_vis.cpp", 34,
-            dsStrongAssertMessage); // instance-call, 4 args (dropped stray leading this)
+            empty_string); // instance-call, 4 args (dropped stray leading this)
 
     vidFVF_DESCR *descr = vidVBUF_MNG_FitFVF(vidVBMng, fvf);
     if (!IGNORE_STRONG_ASSERT && !descr)
         ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
             "descr",
             "D:\\Projects\\code\\common\\src.sys\\render\\rend_vis.cpp", 37,
-            dsStrongAssertMessage); // instance-call, 4 args (dropped stray leading this)
+            empty_string); // instance-call, 4 args (dropped stray leading this)
 
     unsigned char sizeOfFVF = descr->sizeOfFVF;   /* 0x92 */
 

@@ -37,7 +37,7 @@ int psSECTION_DATA::AddKey(dsDATA obj, unsigned int flags, int lineNmb, psCOMPLE
                 "idx >= 0 && idx < nElem",
                 "D:\\Projects\\code\\common\\src.sys\\ps\\ps_section.cpp",
                 26,
-                dsStrongAssertMessage);
+                empty_string);
 
         int leaf = this->AddRec(complexKey._psKeysArr.pData[0], value, flags, lineNmb);
         objAlreadyEmpty = (obj.type == nullptr);

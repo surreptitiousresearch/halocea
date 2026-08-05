@@ -11,18 +11,18 @@
 extern sslSYSTEM *gsSslSystem;
 extern void       cbHcexHideLibrary(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
 extern void       cbHcexShowLibrary(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
-extern const char dsStrongAssertMessage[]; /* empty_string — empty string, used as the doc/help arg */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void hcex_library_init(void)
 {
     {
         sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
         sslCLASS_REF cls = globalObj.GetClass();
-        cls.AddCbFunc("HcexHideLibrary()", cbHcexHideLibrary, dsStrongAssertMessage, 0);
+        cls.AddCbFunc("HcexHideLibrary()", cbHcexHideLibrary, empty_string, 0);
     }
     {
         sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
         sslCLASS_REF cls = globalObj.GetClass();
-        cls.AddCbFunc("HcexShowLibrary()", cbHcexShowLibrary, dsStrongAssertMessage, 0);
+        cls.AddCbFunc("HcexShowLibrary()", cbHcexShowLibrary, empty_string, 0);
     }
 }

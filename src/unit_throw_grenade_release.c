@@ -33,7 +33,7 @@
 
 #include "headers/network_game_server.h"
 #include "headers/location.h"
-extern int    network_message_type_message_delta;
+#include "headers/network_message_type.h"
 
 extern void object_detach(int child_object_index);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);

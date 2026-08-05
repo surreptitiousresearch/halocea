@@ -40,5 +40,5 @@ struct sysUSER_STORAGE_TASK : gts::TASK {
     // 0x827D8180 -- boundary: external to this batch.
     sysUSER_STORAGE_TASK(ds_data::REF_TYPE<sysUSER> u, TASK_TYPE t, sysUSER_CONTENT_TYPE ct, bool async);
     // 0x827D8248 -- boundary: external to this batch.
-    virtual ~sysUSER_STORAGE_TASK();
+    ~sysUSER_STORAGE_TASK();
 };

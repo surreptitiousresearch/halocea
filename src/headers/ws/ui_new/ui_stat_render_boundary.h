@@ -25,5 +25,5 @@ extern void rendDRIVER_DrawIndexedPrimitive(rendDRIVER *self, void *vertices, in
 #define RENDERBLOCK_COLOR  0
 
 // Debug page-name byte used as vidDIP_STAT::SetCurDip's `id` argument (same global referenced as
-// `dsStrongAssertMessage`/`empty_string` elsewhere in the corpus's boundary headers).
-extern unsigned char empty_string;
+// `empty_string`/`empty_string` elsewhere in the corpus's boundary headers).
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */

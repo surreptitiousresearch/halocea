@@ -17,7 +17,7 @@ typedef struct _iobuf _iobuf;
 extern _iobuf *fopen(const char *filename, const char *mode);
 extern int fprintf(_iobuf *stream, const char *format, ...);
 extern int fclose(_iobuf *stream);
-extern char empty_string[];   /* shared empty-string global */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void lruv_debug_to_file(const char *path, const char *failed_allocation_name, int failed_allocation_size,
         lruv_cache *cache, void (*header_proc)(_iobuf *), const char *(*name_block_proc)(int))

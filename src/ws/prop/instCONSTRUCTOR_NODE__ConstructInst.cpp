@@ -30,7 +30,7 @@ void instCONSTRUCTOR_NODE::ConstructInst(animINST *pInst, instCONSTRUCTOR_NODE_R
     m3dV seed;
     pInst->GetPos(&seed);
 
-    const char *instName = pInst->name ? pInst->name : dsStrongAssertMessage;
+    const char *instName = pInst->name ? pInst->name : empty_string;
 
     // Build a private copy of the instance name (so we can index it) and fold every character
     // into the seed vector: a simple per-axis weighted hash of the name string.

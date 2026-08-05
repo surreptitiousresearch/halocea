@@ -41,7 +41,7 @@ void ui_new::UI_STAT_SYS::RenderIngameStat()
         if (x >= viewport.l && y >= viewport.t && x < viewport.r && y < viewport.b)
         {
             if (!IGNORE_STRONG_ASSERT && !gsStrings)
-                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("gsStrings", "D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 392, dsStrongAssertMessage);
+                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("gsStrings", "D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 392, empty_string);
 
             int strLen = item.StatData.pBuffer->strLen;
             wchar_t *wbuf = buf.Lock(strLen + 1);

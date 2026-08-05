@@ -15,7 +15,7 @@ void snd::BUFFER::Play()
         ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("!IsStopped()",
                                                 "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd.cpp",
                                                 91,
-                                                dsStrongAssertMessage);
+                                                empty_string);
 
     if ((state.val & BST_DELAY) != 0 || delay <= 0.0f)
     {

@@ -13,6 +13,6 @@ int ds_data::dsDATA_TYPE_STREAM<haloRAW_INPUT_X360_ENV>::Save(
         STRONG_ASSERT_DUMMY::Crash(
             nullptr, "0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_data_type_impl.hpp", 186,
-            (unsigned char)dsStrongAssertMessage[0]);
+            (unsigned char)empty_string[0]);
     return 0;
 }

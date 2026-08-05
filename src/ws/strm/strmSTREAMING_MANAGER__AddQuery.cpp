@@ -10,7 +10,7 @@ bool strmSTREAMING_MANAGER::AddQuery(strmRESOURCE *resource)
     STRM_QUEUE_ID queueId = resource->GetQueueId();
     if (!IGNORE_STRONG_ASSERT && (unsigned int)queueId >= STRM_QUEUE_COUNT)
         STRONG_ASSERT_DUMMY().Crash("queueId >= 0 && queueId < STRM_QUEUE_COUNT",
-            "D:\\Projects\\code\\common\\src.sys\\drv\\strm_resource.cpp", 769, dsStrongAssertMessage);
+            "D:\\Projects\\code\\common\\src.sys\\drv\\strm_resource.cpp", 769, empty_string);
 
     bool result = queues.list[queueId].AddQuery(resource);
     lockAdd.Unlock(nullptr, 0);

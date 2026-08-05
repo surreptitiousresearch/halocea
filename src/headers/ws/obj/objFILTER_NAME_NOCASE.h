@@ -10,6 +10,6 @@ struct objFILTER_NAME_NOCASE : objFILTER {
     const char *name; // 0x04
 
     objFILTER_NAME_NOCASE(const char *name); // 0x823CE930 (??0objFILTER_NAME_NOCASE@@QAA@PBD@Z) boundary
-    int IsUse(objOBJ *obj) override;         // 0x823CE980 (?IsUse@objFILTER_NAME_NOCASE@@UAAHPAVobjOBJ@@@Z) boundary
-    ~objFILTER_NAME_NOCASE() override;       // 0x823CE9E0 (??1objFILTER_NAME_NOCASE@@UAA@XZ) boundary
+    int IsUse(objOBJ *obj);         // 0x823CE980 (?IsUse@objFILTER_NAME_NOCASE@@UAAHPAVobjOBJ@@@Z) boundary
+    ~objFILTER_NAME_NOCASE();       // 0x823CE9E0 (??1objFILTER_NAME_NOCASE@@UAA@XZ) boundary
 };

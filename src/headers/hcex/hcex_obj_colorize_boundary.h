@@ -12,6 +12,6 @@ typedef struct objOBJ objOBJ;
  * per-consumer partial slice was consolidated. */
 #include "../animINST.h"
 
-extern const char empty_string[];   /* "" */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern void        objOBJ_SetColorMPHier(objOBJ *self, unsigned int color);
 extern HCEX_OBJ   *hcex_obj_get(int id);

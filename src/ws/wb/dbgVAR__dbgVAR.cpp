@@ -27,7 +27,7 @@ dbgVAR::dbgVAR(const dsTSTRING<char> &_name, int _typeId)
             "0",
             "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dbg_var.cpp",
             533,
-            dsStrongAssertMessage);
+            empty_string);
 
     dbgVAR_MANAGER::GetManager()->AddVar(this);
 }

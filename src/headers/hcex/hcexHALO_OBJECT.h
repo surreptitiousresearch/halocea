@@ -19,7 +19,7 @@ struct hcexHALO_OBJECT : entMANAGER_HANDLER {
     hcexHALO_OBJECT();
 
     // 0x823CEBD0 — reset __vftable to the entMANAGER_HANDLER base slot (no owned state to release).
-    ~hcexHALO_OBJECT() override;
+    ~hcexHALO_OBJECT();
 
     // 0x823D12B4 — compiler-generated scalar deleting destructor (`??_G` mangle).
     hcexHALO_OBJECT *scalarDeletingDtor(unsigned char deleteFlags);

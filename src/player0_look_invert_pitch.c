@@ -16,7 +16,7 @@ extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t str
 extern void hud_print_message(int16_t local_player_index, const wchar_t *text);
 extern void player_profile_save(int player_profile_index, player_profile *profile);
 extern void set_local_player_controls_from_player_profile(int16_t local_player_index);
-extern const wchar_t empty_wide_string;   /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 void player0_look_invert_pitch(uint8_t invert)
 {
@@ -26,7 +26,7 @@ void player0_look_invert_pitch(uint8_t invert)
     {
         int strings_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\shell\\strings\\temp_strings");
         const wchar_t *message = strings_tag == -1
-                               ? &empty_wide_string
+                               ? empty_wide_string
                                : unicode_string_list_get_string(strings_tag, 1);
 
         data_iterator iterator;

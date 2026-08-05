@@ -71,7 +71,7 @@ extern instMANAGER_HANDLER *instManager;
 extern float gsElapsedTimeMin;
 extern void (*UI_EXT_RENDER)();
 extern void  hcex_render_hud();
-extern const char empty_string; // a shared single-NUL-byte empty-string constant
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern "C" {
     void hcex_library_init();

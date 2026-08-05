@@ -42,6 +42,7 @@
 #include "headers/global_tag_instances.h"
 #include "headers/shader_type.h"
 #include "headers/shader_model_flags.h"
+#include "headers/shader_model.h"
 
 #include "headers/real_matrix4x3.h"
 extern uint8_t shader_type_is_valid_for_model(int16_t shader_type);
@@ -133,8 +134,11 @@ void render_model_parts(
                             }
                         }
                     }
+                    /* DEVIATION: folded 0x28 into (part_shader + 1)->base.radiosity.flags; lhz r11, 0x28(r28)
+                     * @0x837989CC is shader_model.model.flags, guarded by the base.type == model test above */
                     else if (part_shader->base.type == _shader_type_model
-                             && ((part_shader + 1)->base.radiosity.flags & (1u << _shader_model_alpha_blended_decal_bit)))
+                             && (((const shader_model *)part_shader)->model.flags
+                                 & (1u << _shader_model_alpha_blended_decal_bit)))
                     {
                         if (pass == 1)
                         {

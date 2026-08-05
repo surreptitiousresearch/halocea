@@ -16,7 +16,7 @@ void dsPOOL<dsDATA, 256, 256>::AllocChunk()
             "numChunks < MAX_CHUNKS",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             200,
-            dsStrongAssertMessage);
+            empty_string);
 
     dsDATA *chunk = (dsDATA *)dlMalloc(0x800u, this->cl.file, this->cl.line); // 256 * 8
     this->chunkTable[this->numChunks].data = chunk;

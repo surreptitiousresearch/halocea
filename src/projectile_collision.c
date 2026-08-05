@@ -36,9 +36,9 @@
 #include "headers/field_properties_definition.h"
 #include "headers/blam_data_globals.h"
 #include "headers/network_game_server.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 typedef struct _field_properties_definition _field_properties_definition;
-extern const int _message_projectile_attach;
-extern const int network_message_type_message_delta;
 
 extern void damage_data_new(damage_data *damage_data, int definition_index);
 extern void object_cause_damage(damage_data *damage_data, int object_index, int16_t node_index, int16_t region_index, int16_t material_index, const real_vector3d *object_normal);

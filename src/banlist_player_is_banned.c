@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-extern char empty_string[];
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern uint8_t _banlist_player_is_banned(const char *hash);
 
 uint8_t banlist_player_is_banned(int localid)

@@ -14,7 +14,7 @@ void objOBJ::SetGeomSharingHost(objOBJ *pObj)
             STRONG_ASSERT_DUMMY().Crash(
                 "IsGeom() && (pGeom->pSharingHostObj == 0 || pGeom->pSharingHostObj == pObj || pObj == 0)",
                 "D:\\Projects\\code\\common\\src.sys\\objects\\obj_access.cpp", 60,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     this->pGeom->pSharingHostObj = pObj;

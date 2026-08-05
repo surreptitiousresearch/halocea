@@ -10,6 +10,6 @@ objOBJ *animINST::GetObj(int id) const
             "id >=0 && id < nObj",
             "D:\\Projects\\code\\common\\INCL.SYS\\anim.h",
             834,
-            dsStrongAssertMessage);
+            empty_string);
     return this->ppObjList[id];
 }

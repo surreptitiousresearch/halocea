@@ -24,14 +24,14 @@ void HALO_CHANNEL::Play(HALO_PERM_SOUND *sound, HALO_PERM_SOUND *previous)
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1642,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 
     if (!IGNORE_STRONG_ASSERT && sound->fsbIndex == -1)
         STRONG_ASSERT_DUMMY().Crash(
             "sound.fsbIndex != -1", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-            1644, dsStrongAssertMessage);
+            1644, empty_string);
 
     bool borrowedPreload = false;
     for (int i = 0; i < haloSoundSystem->preloadList.nElem; ++i)

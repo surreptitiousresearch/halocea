@@ -34,8 +34,8 @@ extern "C" {
 }
 
 // ---- ws-engine dbg boundary globals (shared with the HALO_CHANNEL cluster) ----
-extern int         IGNORE_STRONG_ASSERT; // ?IGNORE_STRONG_ASSERT@@3HA
-extern const char  empty_string;         // shared single-NUL empty-string constant
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // ---- ws-engine dlmalloc-family allocator (heap alloc used by the inlined dsTSTRING paths) ----
 extern "C" void *dlMalloc(unsigned int size, const char *file, unsigned int line); // boundary

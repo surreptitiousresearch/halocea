@@ -14,7 +14,7 @@ dsEVENT_MGR::SUBSCRIBER_REC &dsPOOL<dsEVENT_MGR::SUBSCRIBER_REC, 64, 64>::Get(in
             "idx >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             175,
-            dsStrongAssertMessage);
+            empty_string);
     int idxChunk = idx / 64;
     int idxElem = idx % 64;
     if (!IGNORE_STRONG_ASSERT) {
@@ -23,13 +23,13 @@ dsEVENT_MGR::SUBSCRIBER_REC &dsPOOL<dsEVENT_MGR::SUBSCRIBER_REC, 64, 64>::Get(in
                 "idxChunk < numChunks",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 180,
-                dsStrongAssertMessage);
+                empty_string);
         else if (idxElem >= 64)
             STRONG_ASSERT_DUMMY().Crash(
                 "idxElem < CHUNK_SIZE",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 181,
-                dsStrongAssertMessage);
+                empty_string);
     }
     return this->chunkTable[idxChunk].data[idxElem];
 }

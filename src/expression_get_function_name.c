@@ -21,7 +21,8 @@
 #include "headers/blam_data_globals.h"
 
 
-char * expression_get_function_name(uint16_t thread_index, int expression_index)
+/* DEVIATION: returns const char * per DB prototype, not the decompiler's char * — every value returned is a read-only .rdata string. */
+const char * expression_get_function_name(uint16_t thread_index, int expression_index)
 {
     hs_syntax_node *syntax_data = (hs_syntax_node *)hs_syntax_data->data;
     hs_syntax_node *syntax_node = &syntax_data[(uint16_t)expression_index];

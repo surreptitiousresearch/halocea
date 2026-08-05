@@ -54,7 +54,7 @@ int strmRES_TEX_MANAGER::UpdateResource2(strmRESOURCE_TEXTURE *strmResource, int
         if (!IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY().Crash("0",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 419,
-                dsStrongAssertMessage);
+                empty_string);
         // Unreachable in a well-formed build: falls straight through to the curMip/reqMip
         // comparison below with checkMip still at its default (reqMip) — Subupdate is skipped.
     } else {

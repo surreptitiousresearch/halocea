@@ -24,7 +24,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY().Crash("snd::THREAD_ID == osGetCurThreadId()",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         833, dsStrongAssertMessage);
+                                         833, empty_string);
         return;
     }
 
@@ -40,7 +40,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
             if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPClock(&pauseTime.hi, &pauseTime.lo)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 842, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 842, empty_string);
             const char *desc = FModErrorDesc(result, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 842, result, desc);
@@ -68,7 +68,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
             if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
                 STRONG_ASSERT_DUMMY().Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPClock(&currentTime.hi, &currentTime.lo)\"",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 863, dsStrongAssertMessage);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 863, empty_string);
             const char *desc = FModErrorDesc(result, 0);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                                  "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 863, result, desc);

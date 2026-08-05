@@ -51,6 +51,6 @@ struct strmPACK_S3D : strmPACK_BASE {
     // resolved record's interned name matches on a hit. Returns the record's index, or -1.
     int FindPakRec(const dsSTRID &name, int pakId);
 
-    bool CanOpenFile(const dsSTRID &resName, int pakId, bool *cached) override; // boundary (outside this re-source)
-    void CloseFile(fioFILE *file) override;                                    // boundary (outside this re-source)
+    bool CanOpenFile(const dsSTRID &resName, int pakId, bool *cached); // boundary (outside this re-source)
+    void CloseFile(fioFILE *file);                                    // boundary (outside this re-source)
 };

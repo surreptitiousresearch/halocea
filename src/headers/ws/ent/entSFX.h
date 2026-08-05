@@ -34,6 +34,6 @@ typedef struct entSFX {
 
     // Per-camera sfx visibility, invoked by entENTITY::ShowToCamera/HideFromCamera for each live
     // instance. Virtual; body is a boundary. idCamera selects the camera slot.
-    virtual void implShow(int idCamera);
-    virtual void implHide(int idCamera);
+    void implShow(int idCamera);
+    void implHide(int idCamera);
 } entSFX;

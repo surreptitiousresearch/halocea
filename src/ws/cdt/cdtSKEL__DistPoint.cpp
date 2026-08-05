@@ -18,7 +18,7 @@ int cdtSKEL::DistPoint(animINST *pInst, const m3dV *point, float radius,
         STRONG_ASSERT_DUMMY().Crash(
             nullptr, "this != 0",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim_cdt.cpp", 169,
-            dsStrongAssertMessage);
+            empty_string);
 
     // Broad phase: reject when `point` is farther than `radius` from the instance's OBB.
     // No outputs requested (vClosest/dist/faceNmb all null per disasm r6=r7=r8=0).

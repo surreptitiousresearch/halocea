@@ -17,7 +17,7 @@ void HALO_CHANNEL::Update()
                             "HALO_CHANNEL::Update", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1962, &empty_string);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1962, empty_string);
         return;
     }
 
@@ -54,7 +54,7 @@ void HALO_CHANNEL::Update()
         {
             if (!IGNORE_STRONG_ASSERT && this->queued.fsbIndex == -1)
                 STRONG_ASSERT_DUMMY::Crash(nullptr, "queued.IsValid()",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1988, &empty_string);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1988, empty_string);
             memcpy(&this->current, &this->queued, sizeof(this->current));
             this->current.ResetFadeIn();
             this->queued.Reset();
@@ -69,7 +69,7 @@ void HALO_CHANNEL::Update()
     {
         if (!IGNORE_STRONG_ASSERT && this->current.soundBank)
             STRONG_ASSERT_DUMMY::Crash(nullptr, "current.soundBank == 0",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2003, &empty_string);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2003, empty_string);
         memcpy(&this->current, &this->queued, sizeof(this->current));
         this->queued.Reset();
         Play(&this->current, nullptr);
@@ -92,7 +92,7 @@ advance_machine: // LABEL_24
             haloSoundSystem->playToEnd.PushBack(*this);
             if (!IGNORE_STRONG_ASSERT && this->queued.fsbIndex != -1)
                 STRONG_ASSERT_DUMMY::Crash(nullptr, "!queued.IsValid()",
-                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2023, &empty_string);
+                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2023, empty_string);
             this->current.Reset();
             this->queued.Reset();
             this->state = ST_IDLE;

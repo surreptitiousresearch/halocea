@@ -38,23 +38,27 @@ uint8_t update_client_dequeue(player_action *actions, int *completed_client_upda
         index = (int16_t)(index + 1);
         if ( index < update->data.number_of_actions )
         {
-            /* source action[index]: update + 32*index bytes; floats [2..7] = facing/throttle/trigger,
-             * words [16..18] = weapon/grenade/zoom.
-             * typerec residue: packed wire-format records (no DB type; the 32-byte on-the-wire action
-             * and the per-player queue datum are call-site-local layouts, kept byte-exact). */
-            float *src = (float *)((char *)&update->update_number + 32 * index);
-            queue_action[1] = src[2];
-            queue_action[3] = src[3];
-            queue_action[4] = src[4];
-            queue_action[5] = src[5];
-            queue_action[6] = src[6];
-            queue_action[7] = src[7];
-            /* words [16..18] = desired weapon/grenade/zoom (packed wire; no DB type — word cursors) */
+            /* The source is NOT an unmodeled wire record: `(char *)&update->update_number +
+             * 32*index` is `&update->data.actions[index] - 8`, because actions[] starts 8 bytes
+             * into `update` (update_number@0 + number_of_actions@4 + pad@6). The decompiler's
+             * float cursor then reached the fields as src[2..7] / src_words[16..18], which are
+             * exactly player_action's members. The 32 was sizeof(player_action).
+             * The DESTINATION queue datum is still unmodeled — a per-player record with a header
+             * slot, whose fields stay index-addressed and are annotated inline. */
+            const player_action *src = &update->data.actions[index];
+            /* DEVIATION: slot [1] holds the control flags, which the read-back loop below consumes
+             * as an int (`queue_action[1] & ~queue_action[2]`); the decompiler copied them through
+             * a float lvalue only because it had typed the cursor float*. Copied as an int. */
+            ((int *)queue_action)[1] = src->control_flags;
+            queue_action[3] = src->desired_facing.n[0];
+            queue_action[4] = src->desired_facing.n[1];
+            queue_action[5] = src->throttle.n[0];
+            queue_action[6] = src->throttle.n[1];
+            queue_action[7] = src->primary_trigger;
             uint16_t *queue_action_words = (uint16_t *)queue_action;
-            uint16_t *src_words = (uint16_t *)src;
-            queue_action_words[16] = src_words[16];
-            queue_action_words[17] = src_words[17];
-            queue_action_words[18] = src_words[18];
+            queue_action_words[16] = src->desired_weapon_index;
+            queue_action_words[17] = src->desired_grenade_index;
+            queue_action_words[18] = src->desired_zoom_level;
         }
     }
 

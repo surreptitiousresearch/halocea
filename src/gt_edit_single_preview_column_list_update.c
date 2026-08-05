@@ -8,6 +8,7 @@
 #include "headers/widget_instance.h"
 #include "headers/game_variant.h"
 #include "headers/dynamic_array.h"
+#include "headers/bank_item_s.h"
 #include "headers/blam_data_globals.h"
 
 extern void single_preview_column_list_update(widget_instance *widget,
@@ -27,7 +28,10 @@ void gt_edit_single_preview_column_list_update(widget_instance *widget)
     if ( selected_list_item_index >= 0
       && selected_list_item_index < preview_list_array_bank[preview_list_current_bank].count )
     {
-        variant = ((game_variant **)preview_list_array_bank[preview_list_current_bank].elements)[4 * selected_list_item_index + 1];
+        /* DEVIATION: `((game_variant **)…)[4 * i + 1]` folded the 16-byte bank_item_s stride into a
+         * 4-byte-pointee subscript; 0x83781600 `slwi r11, r11, 4` scales by 16 and 0x8378160C loads
+         * offset 4, i.e. bank_item_s[i].ptr. */
+        variant = ((bank_item_s *)preview_list_array_bank[preview_list_current_bank].elements)[selected_list_item_index].ptr;
     }
 
     multiplayer_settings_select_list_update_item(widget->parameters.list_parameters.extended_description->children, variant);

@@ -9,5 +9,5 @@ HALO_PERM_SOUND::~HALO_PERM_SOUND()
             "prevFadeOut == 0 && fadeIn == 0",
             "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h",
             260,
-            dsStrongAssertMessage);
+            empty_string);
 }

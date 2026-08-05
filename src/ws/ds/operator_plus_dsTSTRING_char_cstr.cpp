@@ -1,6 +1,6 @@
 #include "dsTSTRING.h"
 
-extern const char dsEmptyCStr[]; // boundary — the shared "" literal at 0x8200155A (empty_string)
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // operator+<char>(const dsTSTRING<char>&, const char*) @ 0x823B5518
 // Concatenation with a C-string right operand: build a fresh string (returned by value / sret)
@@ -10,7 +10,7 @@ template<>
 dsTSTRING<char> operator+<char>(const dsTSTRING<char> &a, const char *b)
 {
     if (!b)
-        b = dsEmptyCStr;
+        b = empty_string;
     dsTSTRING<char> result;
     dsTSTRING_BUF_HEADER<char> *aBuffer = a.pBuffer;
     result.pBuffer = a.pBuffer;

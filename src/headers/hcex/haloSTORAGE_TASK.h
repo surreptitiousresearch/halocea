@@ -15,25 +15,25 @@ struct haloSTORAGE_TASK : sysUSER_STORAGE_TASK {
     haloSTORAGE_TASK(ds_data::REF_TYPE<sysUSER> u, TASK_TYPE t, sysUSER_CONTENT_TYPE ct, bool async);
 
     // 0x823F4984 — no owned resources of its own; just chains to ~sysUSER_STORAGE_TASK.
-    virtual ~haloSTORAGE_TASK();
+    ~haloSTORAGE_TASK();
 
     // 0x823F4A14 — GetErrorCode: return the stored error code. Public virtual (UAAHXZ), overrides
     // sysUSER_STORAGE_TASK's GetErrorCode.
-    virtual int GetErrorCode();
+    int GetErrorCode();
 
     // 0x823F49BC — IsReady: return whether Execute/Cancel has completed. Public virtual (UAA_NXZ).
-    virtual bool IsReady();
+    bool IsReady();
 
     // 0x823F4A00 — IsSuccess: ready AND no error. Public virtual (UAA_NXZ).
-    virtual bool IsSuccess();
+    bool IsSuccess();
 
     // 0x823F4A24 — Execute: mark ready (the actual async I/O is presumably driven by the
     // scheduler elsewhere / not observed at this call site). Protected virtual (MAAXXZ).
-    virtual void Execute();
+    void Execute();
 
     // 0x823F4A44 — Cancel: mark ready without ever setting an error. Protected virtual (MAAXXZ).
-    virtual void Cancel();
+    void Cancel();
 
     // 0x823F4A30 — Think: no per-tick work for this task type. Protected virtual (MAAXXZ).
-    virtual void Think();
+    void Think();
 };

@@ -27,7 +27,7 @@ void HALO_CHANNEL::SetLocation(bool spatialize, const sound_location *location, 
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2169,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 

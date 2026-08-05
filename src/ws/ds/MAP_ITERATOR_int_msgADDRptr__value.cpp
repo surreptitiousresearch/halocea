@@ -12,7 +12,7 @@ msgADDR **ds::impl::MAP_ITERATOR<int, msgADDR *, ds::HASH, ds::CMP, dsNODE_CACHE
             "item != 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp",
             169,
-            dsStrongAssertMessage);
+            empty_string);
     }
     return &reinterpret_cast<ds::MAP<int, msgADDR *, ds::HASH, ds::CMP, dsNODE_CACHE_ALLOCATOR>::ITEM *>(item)->value;
 }

@@ -19,7 +19,7 @@ struct hcexHALO_MODEL : hcexHALO_OBJECT {
     hcexHALO_MODEL();
 
     // 0x823D1230 — reset __vftable to the entMANAGER_HANDLER base slot (no owned state to release).
-    ~hcexHALO_MODEL() override;
+    ~hcexHALO_MODEL();
 
     // 0x823D342C — compiler-generated scalar deleting destructor (`??_G` mangle).
     hcexHALO_MODEL *scalarDeletingDtor(unsigned char deleteFlags);

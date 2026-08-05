@@ -15,8 +15,8 @@ struct field_properties_definition;
 
 #include "headers/field_properties_definition.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
 typedef struct _field_properties_definition _field_properties_definition;
-extern int _message_projectile_new;
 
 extern int field_translated_index_translate_index_no_default(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);

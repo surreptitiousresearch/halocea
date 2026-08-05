@@ -19,14 +19,14 @@ extern void ustrncat(wchar_t *dest, const wchar_t *source, unsigned int count);
 extern unsigned int ustrlen(const wchar_t *string);
 extern void ticks_to_unicode_time_string(int ticks, unsigned int count, uint16_t *buffer);
 extern void game_engine_play_multiplayer_sound(int index, uint8_t should_replicate);
-extern const wchar_t empty_wide_string; /* empty-string sentinel */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 /* Fetch entry `string_index` from the multiplayer game-text unicode string list;
    if the tag is not loaded, fall back to the empty-string sentinel. */
 static const wchar_t *get_game_text(int string_index)
 {
     int tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    return (tag == -1) ? &empty_wide_string : unicode_string_list_get_string(tag, string_index);
+    return (tag == -1) ? empty_wide_string : unicode_string_list_get_string(tag, string_index);
 }
 
 /* Format a multiplayer scoreboard/announcement message (identified by `message`)

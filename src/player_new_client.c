@@ -22,7 +22,7 @@
 #include "headers/multiplayer_team.h"
 #include "headers/blam_data_globals.h"
 
-extern const wchar_t empty_wide_string; /* the empty wide string used as a name fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern int datum_new(data_array *data);
 extern int datum_new_at_index(data_array *data, int index);
@@ -43,7 +43,7 @@ int player_new_client(int machine_index, int player_index, int16_t local_player_
     {
         player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, new_player_index);
         const network_player *name_source = network_player_data ? network_player_data
-                : (const network_player *)&empty_wide_string;
+                : (const network_player *)empty_wide_string;
 
         ustrncpy(player->name, name_source->name, 0xB);
         player->name[11] = 0;

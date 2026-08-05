@@ -1,8 +1,8 @@
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/hcex/HALO_SOUND_SYSTEM_globals.h"
 
-#include "../../headers/ws/ds/ds_assert_boundary.h" // STRONG_ASSERT_DUMMY + dsStrongAssertMessage
-extern int IGNORE_STRONG_ASSERT; // boundary — dbg tunable
+#include "../../headers/ws/ds/ds_assert_boundary.h" // STRONG_ASSERT_DUMMY + empty_string
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 
 extern "C" int strcmp(const char *a, const char *b); // boundary — CRT
 
@@ -31,7 +31,7 @@ bool HALO_SOUND_SYSTEM::Init(snd::INIT init)
         if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY().Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"snd::SystemFMod->system->getSystemObject(&this->system)\"",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2277, dsStrongAssertMessage);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2277, empty_string);
         const char *desc = FModErrorDesc(result, 0);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                              "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2277, result, desc);
@@ -43,7 +43,7 @@ bool HALO_SOUND_SYSTEM::Init(snd::INIT init)
         if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY().Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPBufferSize(&minDelay, NULL)\"",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2279, dsStrongAssertMessage);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2279, empty_string);
         const char *desc = FModErrorDesc(result, 0);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                              "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2279, result, desc);
@@ -57,7 +57,7 @@ bool HALO_SOUND_SYSTEM::Init(snd::INIT init)
         if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
             STRONG_ASSERT_DUMMY().Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getSoftwareFormat(&outputRate, NULL, NULL, NULL, NULL, NULL)\"",
-                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2282, dsStrongAssertMessage);
+                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2282, empty_string);
         const char *desc = FModErrorDesc(result, 0);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
                              "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2282, result, desc);

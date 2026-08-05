@@ -20,8 +20,8 @@ typedef int dsCMP;
 /* --- globals --- */
 extern haloENGINE_CONTROL *haloEngineCtrl;
 extern ds_vector_generic   hcexLipSyncList;   /* dsVECTOR<dsPAIR<int,mdlLIP_SYNCER*>,8> */
-extern const char          empty_string[];   /* "" */
-extern const char          IGNORE_STRONG_ASSERT;
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 
 /* dsTSTRING<char> flat helpers / allocator (C++ view of haloENGINE_CONTROL.h does not pull the
  * C-only hcex_ds_boundary.h, so declare the two this TU uses directly). */

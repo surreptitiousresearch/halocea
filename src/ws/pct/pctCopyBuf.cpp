@@ -252,7 +252,7 @@ void pctCopyBuf(pctPICTURE *pPict, int face, int mipMapNmb, pctFORMAT *pDstFmt, 
             // static-style STRONG_ASSERT_DUMMY::Crash(nullptr, ...) invocation.
             ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("sz == 1",
                 "D:\\Projects\\code\\common\\src.sys\\picture\\picture.cpp",
-                2637, dsStrongAssertMessage);
+                2637, empty_string);
         }
     }
 }

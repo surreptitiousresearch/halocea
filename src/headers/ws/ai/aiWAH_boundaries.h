@@ -10,7 +10,6 @@ struct aiSTATUS;  // ai08 — per-brain runtime status block (aiBRAIN::st.pointe
 // Shared empty-string / zero-byte global at 0x8200155A, passed by the strong-assert path as its
 // trailing "info" byte argument. The reversed bodies reference the IDA raw name byte_8200155A;
 // declared here matching the Crash(...,unsigned char msgCtx) overload it resolves to. (2026-07-31)
-extern unsigned char empty_string;
 extern unsigned char byte_8200155A;
 
 // --- DB-verified raw offsets into ai08 objects touched by these bodies -------------------------

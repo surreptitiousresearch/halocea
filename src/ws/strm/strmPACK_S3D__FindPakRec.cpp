@@ -13,7 +13,7 @@ int strmPACK_S3D::FindPakRec(const dsSTRID &name, int pakId)
     if (idx >= 0 && !IGNORE_STRONG_ASSERT && name.id != recTable[idx].name.id) {
         STRONG_ASSERT_DUMMY().Crash("recTable[id].name == name",
             "D:\\Projects\\code\\common\\src.sys\\drv\\strm_resource.cpp", 305,
-            dsStrongAssertMessage);
+            empty_string);
     }
 
     return idx;

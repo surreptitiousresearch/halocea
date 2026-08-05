@@ -35,7 +35,7 @@ extern void sslCLASS_REF_dtor(sslCLASS_REF *self);
 extern void sslCLASS_REF_AddCbFunc(sslERROR *outErr, sslCLASS_REF *self, const char *sig, void *cbFunc,
                                     const void *hostObj, int *outExtra);
 
-extern const char empty_string[]; /* "" — reused here as the default (empty) host object bytes */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 /* SSL callback bodies (registered by name; external to this batch — declared only so their
  * addresses can be passed to AddCbFunc). */

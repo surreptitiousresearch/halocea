@@ -1,18 +1,28 @@
 /* shader_get_vertex_shader_permutation 0x83755638 — select the vertex-shader permutation index for a
- * shader based on its class (base.type) and the concrete-subtype fields that overlap the generic base
- * shader. Returns 0 for an invalid/null shader or a class that has no permutations.
+ * shader based on its class (base.type) and fields of the *concrete* shader tag. Returns 0 for an
+ * invalid/null shader or a class that has no permutations.
  *
- * DEVIATION: the decompiler expresses the subtype field reads by punning through the 40-byte `shader`
- * base array (shader[N].base.radiosity.*); the LODWORD/HIWORD are bit reinterpretations of the float
- * radiosity slots, which the concrete shader subtype actually stores int16 indices in. Written as explicit
- * big-endian-correct bit extraction: *(int*)&f (whole 32-bit slot) and (u16)(*(u32*)&f >> 16) (high word,
- * which on big-endian PowerPC is the first int16 in memory). */
+ * DEVIATION: the decompiler only knew the 40-byte `shader` base type, so every read of a concrete-tag
+ * field came out as a subscript on that base (`shader[N].base.radiosity.*`, N = byte_offset / 40). Each
+ * one is really a member of the derived tag body, which begins at +0x28. Re-derived from the loads:
+ *   0x58 `lwz` @0x8375569C  -> shader_effect.effect.secondary_map.index
+ *   0x5C `lhz` @0x837556A8  -> shader_effect.effect.secondary_map_anchor
+ *   0x38 `lfs` @0x83755678  -> shader_model.model.translucency
+ *   0x2A `lhz` @0x837556BC/0x83755700/0x83755744 -> <generic|chicago|chicago_extended>.type
+ *   0x29 `lbz` @0x837556D0/0x83755714/0x83755758 -> <generic|chicago|chicago_extended>.flags (a BYTE
+ *        at +0x01 of the derived body, which is why the folded halfword read still landed on it)
+ *   0x00 `lhz` @0x837556E4  -> the genuine base member shader->base.radiosity.flags */
 
 #include <stdint.h>
 #include "headers/shader.h"
 #include "headers/shader_type.h"
 #include "headers/shader_radiosity_flags.h"
+#include "headers/shader_effect.h"
+#include "headers/shader_model.h"
+#include "headers/shader_transparent_generic.h"
 #include "headers/shader_transparent_generic_flags.h"
+#include "headers/shader_transparent_chicago.h"
+#include "headers/shader_transparent_chicago_extended.h"
 #include "headers/shader_transparent_chicago_flags.h"
 
 int16_t shader_get_vertex_shader_permutation(const shader *shader)
@@ -29,41 +39,59 @@ int16_t shader_get_vertex_shader_permutation(const shader *shader)
     switch ( shader->base.type )
     {
         case _shader_type_effect:
-            if ( *(int *)&shader[2].base.radiosity.color.n[0] != -1 )
-                return (int16_t)((uint16_t)(*(unsigned int *)&shader[2].base.radiosity.color.green >> 16) + 1);
+        {
+            const shader_effect *effect_shader = (const shader_effect *)shader;
+            if ( effect_shader->effect.secondary_map.index != -1 )
+                return (int16_t)(effect_shader->effect.secondary_map_anchor + 1);
             return 0;
+        }
 
         case _shader_type_decal:
         case _shader_type_environment:
             return 0;
 
         case _shader_type_model:
-            return shader[1].base.radiosity.color.n[2] > 0.0;
+            return ((const shader_model *)shader)->model.translucency > 0.0f;
 
         case _shader_type_transparent_generic:
-            permutation = (int16_t)(shader[1].base.radiosity.detail_level + 1);
+        {
+            /* permutation = first-map-type + 1; permutation 1 is _..._type_2d_map, which further
+             * degrades to 0 unless the first map is drawn in screenspace */
+            const shader_transparent_generic *generic_shader = (const shader_transparent_generic *)shader;
+            permutation = (int16_t)(generic_shader->generic.type + 1);
             if ( permutation == 1 )
-                permutation = (shader[1].base.radiosity.flags & (1u << _shader_transparent_generic_first_map_is_in_screenspace_bit)) != 0;
+                permutation = (generic_shader->generic.flags
+                        & (1u << _shader_transparent_generic_first_map_is_in_screenspace_bit)) != 0;
             if ( (shader->base.radiosity.flags & (1u << _shader_radiosity_FILTHY_transparent_lit_bit)) != 0 )
                 return 5;
             break;
+        }
 
         case _shader_type_transparent_chicago:
-            permutation = (int16_t)(shader[1].base.radiosity.detail_level + 1);
+        {
+            const shader_transparent_chicago *chicago_shader = (const shader_transparent_chicago *)shader;
+            permutation = (int16_t)(chicago_shader->chicago.type + 1);
             if ( permutation == 1 )
-                permutation = (shader[1].base.radiosity.flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0;
+                permutation = (chicago_shader->chicago.flags
+                        & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0;
             if ( (shader->base.radiosity.flags & (1u << _shader_radiosity_FILTHY_transparent_lit_bit)) != 0 )
                 return 5;
             break;
+        }
 
         default:
-            /* chicago_extended shares the chicago flags layout */
-            permutation = (int16_t)(shader[1].base.radiosity.detail_level + 1);
+        {
+            /* chicago_extended shares the chicago flags/type layout (no separate DB enum exists) */
+            const shader_transparent_chicago_extended *extended_shader =
+                    (const shader_transparent_chicago_extended *)shader;
+            permutation = (int16_t)(extended_shader->chicago_extended.type + 1);
             if ( permutation == 1 )
-                permutation = (shader[1].base.radiosity.flags & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0;
+                permutation = (extended_shader->chicago_extended.flags
+                        & (1u << _shader_transparent_chicago_first_map_is_in_screenspace_bit)) != 0;
             if ( (shader->base.radiosity.flags & (1u << _shader_radiosity_FILTHY_transparent_lit_bit)) != 0 )
                 return 5;
             break;
+        }
     }
     return permutation;
 }

@@ -8,7 +8,6 @@
 extern void *memset(void *dst, int value, unsigned int size);
 extern uint32_t main_get_mseconds(void);
 extern void input_key_debounce_update(void);
-extern short keyboard_auxbutton_mapping_end;   /* one-past-end sentinel of keyboard_auxbutton_mapping */
 extern uint8_t input_key_is_down(int16_t key_code);
 extern void input_mode_handle_events(void);
 extern void input_mode_handle_game_xbox(void);
@@ -25,7 +24,7 @@ void input_abstraction_update(void) /* attested void: tail restgprlr, 0/1 caller
     input_key_debounce_update();
 
     i = 0;
-    for ( m = keyboard_auxbutton_mapping; (int)m < (int)&keyboard_auxbutton_mapping_end; ++m )
+    for ( m = keyboard_auxbutton_mapping; m < &keyboard_auxbutton_mapping[3]; ++m )   /* DB-typed __int16[3] map */
     {
         result = input_key_is_down(*m);
         input_abstraction_globals.auxbutton_ticks[i++] = (unsigned char)result;

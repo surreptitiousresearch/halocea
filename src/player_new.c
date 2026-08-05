@@ -15,7 +15,7 @@
 #include "headers/game_team.h"
 
 #include "headers/data_array.h"
-extern const wchar_t empty_wide_string;   /* empty wide string / zeroed default network_player template */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern int datum_new(data_array *data);
 extern int datum_new_at_plain_index_hack_for_player_data(data_array *data, int index);
@@ -38,7 +38,7 @@ int player_new(int machine_index, int player_index, uint16_t local_player_index,
         player_update_server_data *server = &player->___u26.server_update_data;
 
         const network_player *source = network_player_data ? network_player_data
-                                                           : (const network_player *)&empty_wide_string;
+                                                           : (const network_player *)empty_wide_string;
         ustrncpy(player->name, source->name, 0xBu);
         player->local_player_index = local_player_index;
         player->name[11] = 0;

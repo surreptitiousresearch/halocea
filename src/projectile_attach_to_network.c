@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
+#include "headers/network_message_type.h"
 /* projectile_attach_to_network @0x83759858 — server-side encoder: notifies all loaded machines that a
  * projectile has attached to a parent object at a given node, message-delta-encoding the (network-index-
  * translated) projectile and parent indices plus the parent node index. Mirrors object_delete_to_network.c's
@@ -10,8 +12,6 @@ typedef struct _field_properties_definition _field_properties_definition;
 typedef int network_message_type;
 typedef int message_delta_processor_message_definition_type;
 
-extern message_delta_processor_message_definition_type _message_projectile_attach;
-extern const network_message_type network_message_type_message_delta;
 
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);

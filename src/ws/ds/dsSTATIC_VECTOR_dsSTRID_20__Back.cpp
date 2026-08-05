@@ -12,6 +12,6 @@ dsSTRID &dsSTATIC_VECTOR<dsSTRID, 20>::Back()
             "nElem > 0",
             "D:\\Projects\\code\\common\\src.sys\\ps\\ps_section.cpp",
             28,
-            dsStrongAssertMessage);
+            empty_string);
     return this->pData[this->nElem - 1];
 }

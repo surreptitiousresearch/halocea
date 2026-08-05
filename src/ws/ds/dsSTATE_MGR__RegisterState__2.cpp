@@ -28,7 +28,7 @@ int dsSTATE_MGR::RegisterState(dsSTRID id, bool isToggleEventOnChange)
             "GetThreadId() >= 0 && threadInfo[GetThreadId()].isActive",
             "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
             1106,
-            dsStrongAssertMessage);
+            empty_string);
 
     StrIntMap *stateMap = (StrIntMap *)&this->stateMap;
     osLOCK *lock = (osLOCK *)&this->lock;

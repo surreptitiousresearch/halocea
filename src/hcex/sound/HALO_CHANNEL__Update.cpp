@@ -23,7 +23,7 @@ void HALO_CHANNEL::Update()
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1962,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 
@@ -80,7 +80,7 @@ void HALO_CHANNEL::Update()
                 if (!IGNORE_STRONG_ASSERT && this->queued.fsbIndex != -1)
                     STRONG_ASSERT_DUMMY().Crash(
                         "!queued.IsValid()", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                        2023, dsStrongAssertMessage);
+                        2023, empty_string);
 
                 this->current.soundBank = nullptr;
                 this->current.fadeIn = nullptr;
@@ -129,7 +129,7 @@ void HALO_CHANNEL::Update()
         if (!IGNORE_STRONG_ASSERT && this->queued.fsbIndex == -1)
             STRONG_ASSERT_DUMMY().Crash(
                 "queued.IsValid()", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                1988, dsStrongAssertMessage);
+                1988, empty_string);
 
         memcpy(&this->current, &this->queued, sizeof(this->current));
         this->current.ResetFadeIn();
@@ -161,7 +161,7 @@ void HALO_CHANNEL::Update()
         if (!IGNORE_STRONG_ASSERT && this->current.soundBank)
             STRONG_ASSERT_DUMMY().Crash(
                 "current.soundBank == 0", "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                2003, dsStrongAssertMessage);
+                2003, empty_string);
 
         memcpy(&this->current, &this->queued, sizeof(this->current));
 

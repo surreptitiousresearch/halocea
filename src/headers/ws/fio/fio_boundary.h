@@ -30,6 +30,6 @@ void ByteReorder(void *data, int count, int gain);
 void _apLog(const char *fmt, ...);
 
 // Strong-assert stub — Crash() aborts; guarded by the IGNORE_STRONG_ASSERT global.
-extern int IGNORE_STRONG_ASSERT;          // boundary — global assert-suppression flag
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern unsigned char g_assertContextByte; // boundary — assert message context byte @ 0x8200155A
 #include "../dbg/STRONG_ASSERT_DUMMY.h" // canonical (member + static Crash overloads) — avoids C2011

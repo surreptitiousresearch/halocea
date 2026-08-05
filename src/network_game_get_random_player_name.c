@@ -6,7 +6,7 @@
 #include "headers/global_tag_instances.h"
 #include <stddef.h>   /* wchar_t */
 
-extern const wchar_t empty_wide_string; /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern uint32_t *get_global_local_random_seed_address(void);
@@ -17,11 +17,11 @@ uint16_t * network_game_get_random_player_name(void)
 {
     int tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\random_player_names");
     if ( tag_index == -1 )
-        return (uint16_t *)&empty_wide_string;
+        return (uint16_t *)empty_wide_string;
 
     int16_t *string_list = TAG_GET(int16_t, tag_index);
     if ( !string_list )
-        return (uint16_t *)&empty_wide_string;
+        return (uint16_t *)empty_wide_string;
 
     int16_t max_index = *string_list - 1;
     unsigned int *seed = get_global_local_random_seed_address();

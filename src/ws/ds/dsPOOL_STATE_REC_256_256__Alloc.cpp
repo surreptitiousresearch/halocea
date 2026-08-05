@@ -15,7 +15,7 @@ int dsPOOL<dsSTATE_MGR::STATE_REC, 256, 256>::Alloc()
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             128,
-            dsStrongAssertMessage);
+            empty_string);
 
     int slotIndex = this->emptyChain;
     this->emptyChain = this->Get(slotIndex).idxData; // advance past this slot's free-list link

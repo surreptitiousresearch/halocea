@@ -23,7 +23,7 @@
 #include "headers/blam_data_globals.h"
 
 extern const object_memory_release_function object_memory_release_procs[3];
-extern const char empty_string[]; /* empty string "" */
+extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern int memory_pool_get_contiguous_free_size(memory_pool *pool);
 extern int memory_pool_get_free_size(memory_pool *pool);

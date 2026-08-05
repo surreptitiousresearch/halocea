@@ -21,7 +21,7 @@
 #include "headers/multiplayer_game_text_string.h"
 #include "headers/blam_data_globals.h"
 
-extern const wchar_t empty_wide_string; /* empty wide string fallback */
+extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void *datum_try_and_get(const data_array *data, int index);
 extern int tag_loaded(uint32_t group_tag, const char *name);
@@ -43,7 +43,7 @@ uint8_t slayer_engine_display_score(int player_index, int message, int message_d
                 int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
                 const wchar_t *format = (text_tag != -1)
                     ? unicode_string_list_get_string(text_tag, _string_new_target_name)
-                    : &empty_wide_string;
+                    : empty_wide_string;
                 usnprintf(buffer, buffer_size, format, player->name);
                 return 1;
             }
@@ -61,7 +61,7 @@ uint8_t slayer_engine_display_score(int player_index, int message, int message_d
         int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
         const wchar_t *format = (text_tag != -1)
             ? unicode_string_list_get_string(text_tag, _string_name_kills_score_n_team_score_of_max)
-            : &empty_wide_string;
+            : empty_wide_string;
         player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
         int individual_score = slayer_globals.individual_score[player_index];
         int team_score = slayer_globals.team_score[player->team_index];
@@ -76,7 +76,7 @@ uint8_t slayer_engine_display_score(int player_index, int message, int message_d
         int text_tag = tag_loaded(0x75737472u, "ui\\multiplayer_game_text");
         const wchar_t *format = (text_tag != -1)
             ? unicode_string_list_get_string(text_tag, _string_name_kills_score_of_max)
-            : &empty_wide_string;
+            : empty_wide_string;
         player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
         int team_score = slayer_globals.team_score[player->team_index];
         usnprintf(buffer, buffer_size, format, place_name, team_score,

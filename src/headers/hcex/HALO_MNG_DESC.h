@@ -12,7 +12,7 @@ struct HALO_MNG_DESC : iaDESC {
     // 0x823E5518 — releases the same owned sub-objects the base iaDESC destructor does
     // (spSndData, smlDesc's name buffer, smlProg, psCustomSection, propContainerDesc, sslClass)
     // before chaining to ~dscDESC. HALO_MNG_DESC itself owns nothing extra.
-    virtual ~HALO_MNG_DESC();
+    ~HALO_MNG_DESC();
 
     // 0x823E6C04 — copy-assign: forwards entirely to iaDESC::operator=.
     HALO_MNG_DESC &operator=(const HALO_MNG_DESC &that);

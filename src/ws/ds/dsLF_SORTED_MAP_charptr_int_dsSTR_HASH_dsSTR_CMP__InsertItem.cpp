@@ -23,7 +23,7 @@ dsLF_SORTED_MAP<const char *, int, dsSTR_HASH, dsSTR_CMP>::InsertItem(
                 "index >= 0 && index <= ((line == 0) ? 0 : line->length)",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_lf_map.h",
                 308,
-                dsStrongAssertMessage);
+                empty_string);
     }
 
     int newLength = line ? line->length + 1 : 1;

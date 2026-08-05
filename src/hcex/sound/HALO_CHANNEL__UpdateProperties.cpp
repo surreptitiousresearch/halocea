@@ -30,7 +30,7 @@ void HALO_CHANNEL::UpdateProperties(HALO_PERM_SOUND *snd, bool initial)
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2117,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 

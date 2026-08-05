@@ -18,5 +18,5 @@ typedef struct entMANAGER_HANDLER {
     entMANAGER_HANDLER();  // 0x823CEBB8 — boundary, external to this batch
 
 protected:
-    virtual ~entMANAGER_HANDLER(); // 0x823CEB70 (protected per `MAA` mangle) — boundary, not decompiled
+    ~entMANAGER_HANDLER(); // 0x823CEB70 (protected per `MAA` mangle) — boundary, not decompiled
 } entMANAGER_HANDLER;

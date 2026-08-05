@@ -51,7 +51,7 @@ _D3DFORMAT txmPctFmtToD3dFmt(int pctFmt, int isSwizzledFormatReq)
                     "0",
                     "D:\\Projects\\code\\common\\src.sys\\drv\\video\\d3d_8\\d3d_txm_8.cpp",
                     438,
-                    dsStrongAssertMessage);
+                    empty_string);
             return (_D3DFORMAT)-1;
         case 48:
             return D3DFMT_R32F;

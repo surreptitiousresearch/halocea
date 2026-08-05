@@ -7,8 +7,8 @@
 #include <stdint.h>
 #include "../headers/hcex/hcex_texture_upload.h"
 
-extern int IGNORE_STRONG_ASSERT;
-extern const char empty_string[]; /* shared "" @0x8200155A */
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
 extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern void ds_ByteReorder(unsigned char *data, int count, int element_size);

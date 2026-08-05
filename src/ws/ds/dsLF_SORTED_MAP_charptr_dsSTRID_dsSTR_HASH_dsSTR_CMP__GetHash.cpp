@@ -19,6 +19,6 @@ int dsLF_SORTED_MAP<const char *, dsSTRID, dsSTR_HASH, dsSTR_CMP>::GetHash(const
             "val >= 0 && val < ds::BIG_PRIME",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             300,
-            dsStrongAssertMessage);
+            empty_string);
     return bucketHash;
 }

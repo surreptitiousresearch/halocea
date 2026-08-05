@@ -12,10 +12,10 @@ struct strmPACK_BASE_vtbl;
 typedef struct strmPACK_BASE {
     strmPACK_BASE_vtbl *__vftable; // 0x00
 
-    virtual ~strmPACK_BASE();                                                      // vtbl+0x00
-    virtual bool IsInitial();                                                      // vtbl+0x04
-    virtual bool CanOpenFile(const dsSTRID &resName, int pakId, bool *cached);     // vtbl+0x08
-    virtual fioFILE *OpenFile(const dsSTRID &resName, int pakId, int mode);        // vtbl+0x0C
-    virtual void CloseFile(fioFILE *file);                                        // vtbl+0x10
-    virtual void Term();                                                          // vtbl+0x14
+    ~strmPACK_BASE();                                                      // vtbl+0x00
+    bool IsInitial();                                                      // vtbl+0x04
+    bool CanOpenFile(const dsSTRID &resName, int pakId, bool *cached);     // vtbl+0x08
+    fioFILE *OpenFile(const dsSTRID &resName, int pakId, int mode);        // vtbl+0x0C
+    void CloseFile(fioFILE *file);                                        // vtbl+0x10
+    void Term();                                                          // vtbl+0x14
 } strmPACK_BASE;

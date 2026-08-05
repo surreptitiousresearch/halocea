@@ -6,7 +6,7 @@
 #include "headers/iterated_message.h"
 #include "headers/message_definition_field_reference_set.h"
 
-extern _message_definition *message_delta_global_message_list[];
+extern _message_definition *message_delta_global_message_list[47];
 extern void metrics_record_header_field_encode(const _message_definition *definition, message_delta_processor_mode mode, int field_index, int bits);
 
 int encode_iterated_header_field(iterated_message *const message, const int field_index, const void *const data)

@@ -23,8 +23,8 @@
 #include "headers/unit_animation_flags.h"
 #include "headers/unit_animation_state.h"
 #include "headers/blam_data_globals.h"
+#include "headers/animation_update_kind.h"
 
-extern int animation_update_kind_affects_game_state;  /* animation_update_kind enum value */
 extern uint8_t unit_can_play_animation_impulse(int unit_index, int16_t animation_impulse);
 extern int16_t unit_animation_impulse_get_index(int16_t animation_impulse, int16_t *interpolation_frame_count);
 extern void object_start_interpolation(int object_index, int16_t frame_count);

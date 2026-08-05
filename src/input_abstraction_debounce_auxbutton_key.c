@@ -5,8 +5,6 @@
 #include "headers/input_abstraction_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern int16_t keyboard_auxbutton_mapping_end;   /* one-past-end sentinel of keyboard_auxbutton_mapping */
-
 void input_abstraction_debounce_auxbutton_key(int16_t key_code)
 {
     int i = 0;
@@ -16,7 +14,7 @@ void input_abstraction_debounce_auxbutton_key(int16_t key_code)
     {
         m++;
         i++;
-        if ((int)m >= (int)&keyboard_auxbutton_mapping_end)
+        if (m >= &keyboard_auxbutton_mapping[3])   /* one past the DB-typed __int16[3] map */
             return;
     }
 

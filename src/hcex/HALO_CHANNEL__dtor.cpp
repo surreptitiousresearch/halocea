@@ -1,8 +1,8 @@
 #include "../headers/hcex/HALO_CHANNEL.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 
-extern int IGNORE_STRONG_ASSERT;  // ?IGNORE_STRONG_ASSERT@@3HA — ws dbg boundary
-extern const char empty_string;  // shared single-NUL empty-string constant
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 // HALO_CHANNEL::~HALO_CHANNEL() @ 0x836B5A80
 // Trivial teardown: assert both queued and current slots already released their crossfade DSPs.
@@ -14,10 +14,10 @@ HALO_CHANNEL::~HALO_CHANNEL()
     {
         if (this->queued.prevFadeOut || this->queued.fadeIn)
             STRONG_ASSERT_DUMMY::Crash(nullptr, "prevFadeOut == 0 && fadeIn == 0",
-                "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, &empty_string);
+                "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, empty_string);
 
         if (!IGNORE_STRONG_ASSERT && (this->current.prevFadeOut || this->current.fadeIn))
             STRONG_ASSERT_DUMMY::Crash(nullptr, "prevFadeOut == 0 && fadeIn == 0",
-                "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, &empty_string);
+                "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, empty_string);
     }
 }

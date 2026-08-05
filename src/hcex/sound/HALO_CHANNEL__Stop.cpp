@@ -19,7 +19,7 @@ void HALO_CHANNEL::Stop()
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2072,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 

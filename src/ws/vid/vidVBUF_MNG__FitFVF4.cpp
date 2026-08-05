@@ -2,7 +2,7 @@
 #include "../../headers/ws/vid/vidFVF_DESCR.h"
 
 // Canonical strong-assert machinery (struct STRONG_ASSERT_DUMMY, IGNORE_STRONG_ASSERT,
-// dsStrongAssertMessage). empty_string was the decompiler's char view of dsStrongAssertMessage.
+// empty_string). empty_string was the decompiler's char view of empty_string.
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
 // 0x827B7A88 -- ?FitFVF@vidVBUF_MNG@@...  vid_vbuf.cpp
@@ -76,6 +76,6 @@ vidFVF_DESCR *vidVBUF_MNG::FitFVF(unsigned long long fvf_full, unsigned long lon
     if (!IGNORE_STRONG_ASSERT)
         ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
             "0",
-            "D:\\Projects\\code\\common\\src.sys\\drv\\video\\vid_vbuf.cpp", 219, dsStrongAssertMessage);
+            "D:\\Projects\\code\\common\\src.sys\\drv\\video\\vid_vbuf.cpp", 219, empty_string);
     return nullptr;
 }

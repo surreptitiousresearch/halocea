@@ -24,7 +24,7 @@ void HALO_CHANNEL::SetProperties(const platform_sound_channel_properties *proper
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2084,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 

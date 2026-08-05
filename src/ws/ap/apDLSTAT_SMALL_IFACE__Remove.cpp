@@ -21,7 +21,7 @@ bool apDLSTAT_SMALL_IFACE::Remove(void *memBlock, bool isAllocator, apMEM_ALLOC_
                 "check_ptr(memBlock)",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                 226,
-                dsStrongAssertMessage);
+                empty_string);
 
         unsigned int chunkSize = dlChunkSize(memBlock);
 
@@ -42,7 +42,7 @@ bool apDLSTAT_SMALL_IFACE::Remove(void *memBlock, bool isAllocator, apMEM_ALLOC_
                 "realInfo",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                 237,
-                dsStrongAssertMessage);
+                empty_string);
 
         const char *fileName = realInfo->fileName;
         realInfo->memBlock = nullptr;

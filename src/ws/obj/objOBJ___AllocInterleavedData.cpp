@@ -21,7 +21,7 @@ void objOBJ::_AllocInterleavedData(int nVert, unsigned char size, uint64_t fvf)
         STRONG_ASSERT_DUMMY().Crash(
             "!stateShare.Is(OBJ_ST_SHARED_INTERLEAVED_DATA)",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_alloc.cpp", 1435,
-            dsStrongAssertMessage);
+            empty_string);
 
     void *interleavedData =
         AllocObjData(36, size * nVert, this->pGeom->pSharedGeom->pDataInterleaved);

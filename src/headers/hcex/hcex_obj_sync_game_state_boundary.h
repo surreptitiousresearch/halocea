@@ -100,7 +100,7 @@ extern float hcex_machine_position(int id);           /* hcex_machine_position.c
 extern void osPIXBeginEvent(const char *string);
 extern void osPIXEndEvent(void);
 
-extern int IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 
 /* --- dsVECTOR<HCEX_OBJ,8> (hcexObjects) — canonical DB instantiation --- */
 #include "../ws/ds/dsVECTOR.h"

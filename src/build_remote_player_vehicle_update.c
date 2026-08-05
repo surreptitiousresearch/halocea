@@ -17,10 +17,10 @@
 #include "headers/remote_player_position_update_header.h"
 #include "headers/remote_player_vehicle_update_network_data.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
 
 
 typedef struct _field_properties_definition _field_properties_definition;
-extern int  _message_remote_player_vehicle_update;
 
 extern int game_time_get(void);
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);

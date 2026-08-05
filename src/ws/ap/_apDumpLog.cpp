@@ -27,10 +27,13 @@ extern bool dumpLogWrite;                  // ap-log append-enable flag
 extern dbgVAR_SIMPLE<bool, 1> dbg_writeLog; // ap-log `writeLog` debug var
 
 // boundary — strong-assert stub and its context byte / suppression flag.
-extern int IGNORE_STRONG_ASSERT;
-extern char empty_string;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 namespace STRONG_ASSERT_DUMMY {
-    void Crash(void *ctx, const char *expr, const char *file, int line, char msgCtx);
+    // DEVIATION: slot 5 was `char msgCtx`, an artefact of empty_string having been declared here
+    // as a scalar `char`. ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z is (const char*, const char*,
+    // int, const char*) after the implicit this — the trailing arg is the "info" string pointer.
+    void Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
 }
 
 // Adjacent global marking the end of the _apLogList table (see apLOG.h).

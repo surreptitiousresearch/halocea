@@ -16,7 +16,7 @@ int dsPOOL<dsEVENT_MGR::EVENT, 1024, 512>::Alloc()
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             128,
-            dsStrongAssertMessage);
+            empty_string);
 
     int slotIndex = this->emptyChain;
     dsEVENT_MGR::EVENT *slot = &this->Get(slotIndex);

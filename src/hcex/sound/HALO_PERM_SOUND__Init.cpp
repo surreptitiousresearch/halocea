@@ -68,6 +68,6 @@ void HALO_PERM_SOUND::Init(const sound_permutation *info_, int identifier_,
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 1093,
-                dsStrongAssertMessage);
+                empty_string);
     }
 }

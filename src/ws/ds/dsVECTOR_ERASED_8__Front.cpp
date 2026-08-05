@@ -6,7 +6,7 @@
 struct ERASED { unsigned char _opaque[12]; };
 
 // Strong-assert boundary (shared ws-engine debug assert path).
-extern int IGNORE_STRONG_ASSERT;
+extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 struct STRONG_ASSERT2_HELPER {
     template<typename T>
     static void asserd(const char *expr, const char *file, int line,

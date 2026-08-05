@@ -23,7 +23,7 @@ bool msgADDR::Register(msgDATA *pInitData)
                 "!stateAddr.Is(MSG_ADDR_ST_TERM_POSTED) && !stateAddr.Is(MSG_ADDR_ST_TERMED)",
                 "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
                 83,
-                dsStrongAssertMessage);
+                empty_string);
         return false;
     }
 

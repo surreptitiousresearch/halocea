@@ -10,12 +10,12 @@
 #include "headers/object_header_datum.h"
 #include "headers/biped_datum.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
 
 typedef struct _field_properties_definition _field_properties_definition;
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int field_translated_index_translate_index_no_default(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int field_translated_index_server_register_local_index(const _field_properties_definition *field_properties_definition, int local_index);
-extern int _message_biped_new;
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 
 int biped_new_to_network(int object_index, void *buffer, int buffer_size_in_bits)

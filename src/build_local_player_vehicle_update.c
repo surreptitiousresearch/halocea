@@ -16,13 +16,13 @@
 #include "headers/data_array.h"
 #include "headers/field_properties_definition.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
 
 
 typedef struct _field_properties_definition _field_properties_definition;
 extern uint8_t player_update_history_is_valid_id(int update_id);
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int game_time_get(void);
-extern int  _message_local_player_vehicle_update;
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern unsigned int GetTickCount(void);
 extern void player_update_server_log(const char *format, ...);

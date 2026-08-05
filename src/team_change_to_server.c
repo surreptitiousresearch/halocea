@@ -9,10 +9,10 @@
 #include "headers/data_iterator.h"
 #include "headers/player_datum.h"
 #include "headers/blam_data_globals.h"
+#include "headers/message_delta_message_ids.h"
 
 extern uint8_t game_engine_running(void);
 extern uint8_t game_engine_has_teams(void);
-extern int _message_team_change;
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern network_game_client *global_network_game_client_get(void);
 

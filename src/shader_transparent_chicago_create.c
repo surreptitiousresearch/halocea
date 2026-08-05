@@ -14,7 +14,7 @@
  * 0x83830E34) mapping selector 0..7 -> op {0,1,2,3,3,1,3,4}; selector>7 reads an UNINITIALIZED stack slot
  * (v20/var_60, never written) — a genuine shipped uninit read, reproduced faithfully. is_cube uses the
  * addic/subfe carry idiom = (detail_level != 0). The tag fields map onto the DB shader_transparent_chicago
- * layout (the decompiler's shader[1]/shader[2] array indexing was a mis-typing artifact): chicago.type
+ * layout (Hex-Rays knew only the 40-byte base, folding +0x28/+0x50 into shader[1]/shader[2]): chicago.type
  * (u16) = "detail_level", chicago.framebuffer_blend_function (u16) = additional-op selector,
  * chicago.framebuffer_fade_mode (i16) = additional-op argument, chicago.maps.count = stage count,
  * chicago.maps.address = stage array (shader_transparent_chicago_map[], stride 220); per-stage +0x00 flags

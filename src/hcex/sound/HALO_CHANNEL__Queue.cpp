@@ -28,7 +28,7 @@ void HALO_CHANNEL::Queue(const sound_permutation *perm, int identifier)
             STRONG_ASSERT_DUMMY().Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1685,
-                dsStrongAssertMessage);
+                empty_string);
         return;
     }
 
@@ -64,7 +64,7 @@ void HALO_CHANNEL::Queue(const sound_permutation *perm, int identifier)
         STRONG_ASSERT_DUMMY().Crash(
             "current.soundBank == 0 && current.channel == 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1706,
-            dsStrongAssertMessage);
+            empty_string);
 
     memcpy(&this->current, &this->queued, sizeof(this->current));
 

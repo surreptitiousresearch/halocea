@@ -18,7 +18,7 @@ void objOBJ::SetVertColorList(unsigned int vcInd, unsigned int *list)
         STRONG_ASSERT_DUMMY().Crash(
             "vcInd >= 0 && vcInd < 3",
             "D:\\Projects\\code\\common\\src.sys\\objects\\obj_access.cpp", 1392,
-            dsStrongAssertMessage);
+            empty_string);
 
     _UnshareGeom();
 

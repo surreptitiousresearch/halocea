@@ -21,14 +21,14 @@ struct strmRESOURCE_TEXTURE_XENON : strmRESOURCE_TEXTURE {
     strmRES_TEX_HEADER_CACHE   *headerCache;    // 0x1A4
 
     strmRESOURCE_TEXTURE_XENON();  // 0x82BF7F58 — boundary, external to this batch
-    ~strmRESOURCE_TEXTURE_XENON() override; // boundary
+    ~strmRESOURCE_TEXTURE_XENON(); // boundary
 
     // 0x8266FF50 — copy-assign the base strmRESOURCE_TEXTURE, then this class's own fields
     // (d3dTex verbatim, mipCount/sizeX/sizeY/size/memHandle/headerCache).
     strmRESOURCE_TEXTURE_XENON &operator=(const strmRESOURCE_TEXTURE_XENON &that);
 
-    int CalcNeededMemSize() override;    // boundary — external to this batch
-    int GetAdditionalSeek() override;    // boundary — external to this batch
+    int CalcNeededMemSize();    // boundary — external to this batch
+    int GetAdditionalSeek();    // boundary — external to this batch
     void Clear();                        // boundary — external to this batch
     void CancelReadData();               // boundary — external to this batch
 };

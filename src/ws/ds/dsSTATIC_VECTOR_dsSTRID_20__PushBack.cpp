@@ -13,7 +13,7 @@ dsSTRID &dsSTATIC_VECTOR<dsSTRID, 20>::PushBack(const dsSTRID &val)
             "nElem < size",
             "D:\\Projects\\code\\common\\src.sys\\ps\\ps_section.cpp",
             29,
-            dsStrongAssertMessage);
+            empty_string);
     this->pData[this->nElem] = val;
     ++this->nElem;
     return this->pData[this->nElem - 1];

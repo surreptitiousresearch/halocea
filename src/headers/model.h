@@ -18,8 +18,7 @@ typedef struct model
     real_vector2d   base_map_scale;          /* 0x30 */
     int             unused2[29];             /* 0x38 */
     tag_block       markers;                 /* 0xAC — model_marker[] */
-    tag_block       nodes;                   /* 0xB8 — each node is 156 bytes: +32 first child, +34 next sibling,
-                                              *        +36 parent (all u16 node indices, 0xFFFF = none) */
+    tag_block       nodes;                   /* 0xB8 — model_node[], 156 bytes each */
     tag_block       regions;                 /* 0xC4 — model_region[], 76 bytes each */
     tag_block       geometries;              /* 0xD0 — model_geometry[], 48 bytes each */
     tag_block       shaders;                 /* 0xDC — model_shader_reference[], 32 bytes each */

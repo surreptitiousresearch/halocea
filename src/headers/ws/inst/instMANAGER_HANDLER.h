@@ -22,5 +22,5 @@ typedef struct instMANAGER_HANDLER {
     instMANAGER_HANDLER_vtbl *__vftable;     // 0x00
 
     instMANAGER_HANDLER();  // 0x823CE828 — boundary, external to this batch
-    virtual ~instMANAGER_HANDLER(); // 0x823CE870 — boundary, external to this batch
+    ~instMANAGER_HANDLER(); // 0x823CE870 — boundary, external to this batch
 } instMANAGER_HANDLER;

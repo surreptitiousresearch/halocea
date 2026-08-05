@@ -75,7 +75,7 @@ void dsEVENT_MGR::DispatchEvents()
                                             STRONG_ASSERT_DUMMY().Crash(
                                                 "ev.params[i].data.IsMTSafe()",
                                                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
-                                                740, dsStrongAssertMessage);
+                                                740, empty_string);
                                     }
                                 }
                             }

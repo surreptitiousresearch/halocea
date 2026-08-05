@@ -17,7 +17,7 @@ void ui_new::UI_STAT_SYS::RenderUIStat()
     apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_CALL> timerScope(&localTimeCounter_RenderUIStat);
 
     if (!IGNORE_STRONG_ASSERT && lock.lockDepth > 0)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("! lock.IsLocked()", "D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 325, dsStrongAssertMessage);
+        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("! lock.IsLocked()", "D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 325, empty_string);
     lock.Lock("D:\\Projects\\code\\common\\src.sys\\gm_sys\\ui\\ui_stat.cpp", 326);
 
     if (!switchOff)

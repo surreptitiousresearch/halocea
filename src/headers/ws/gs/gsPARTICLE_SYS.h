@@ -34,7 +34,7 @@ typedef struct gsPARTICLE_SYS {
     // NOTE (adjudicated 2026-08-04): 0x8290ECB0 is mid-body of dsVECTOR<WEAK_PTR<gsTROPHY_BASE>,8>
     // ::PushBack — a bogus attribution. The DB body ?PushDelayedCDT@gsPARTICLE_SYS@@UAAXXZ is at
     // 0x82677AF0, with vtable-slot data xrefs at 0x82034C00 / 0x822E8DD8.
-    virtual void PushDelayedCDT();
+    void PushDelayedCDT();
 
     // 0x82673A98 — stop the global partJobCdt job for a given thread id. Reversed in
     // gsPARTICLE_SYS__StopDelayedCDT.cpp.

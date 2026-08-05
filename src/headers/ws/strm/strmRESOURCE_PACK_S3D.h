@@ -17,8 +17,8 @@ struct strmRESOURCE_PACK_S3D : BASE {
     dsSTRID       resourceName; // 0x10
     int           pakId;        // 0x14 sub-pak/language variant selector
 
-    virtual ~strmRESOURCE_PACK_S3D();
-    virtual int GetAdditionalSeek(); // boundary — external to this batch
+    ~strmRESOURCE_PACK_S3D();
+    int GetAdditionalSeek(); // boundary — external to this batch
 
     // 0x8266F6E0 <strmRESOURCE,strmRESOURCE_TEXTURE> — reads the "Preload.usePaks" config key
     // (cached in a function-local static after the first successful read) and returns whether it

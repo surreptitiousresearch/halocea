@@ -18,6 +18,6 @@ void HALO_SOUND_SYSTEM::Term()
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             STRONG_ASSERT_DUMMY().Crash("snd::THREAD_ID == osGetCurThreadId()",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
-                                         2311, dsStrongAssertMessage);
+                                         2311, empty_string);
     }
 }

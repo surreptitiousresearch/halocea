@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 typedef struct _message_definition_field_reference_set _message_definition_field_reference_set;
-extern _message_definition **message_delta_global_message_list;
+extern _message_definition *message_delta_global_message_list[47];
 extern int bits_needed[];
 
 extern int message_definition_field_reference_set_initialize(_message_definition_field_reference_set *const field_reference_set);

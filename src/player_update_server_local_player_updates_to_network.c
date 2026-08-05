@@ -12,7 +12,7 @@
 
 #include "headers/data_array.h"
 #include "headers/network_game_server.h"
-extern int16_t          network_message_type_message_delta;
+#include "headers/network_message_type.h"
 
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);

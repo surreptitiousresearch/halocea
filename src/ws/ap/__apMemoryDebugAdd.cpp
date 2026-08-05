@@ -51,7 +51,7 @@ int __apMemoryDebugAdd(void *memBlock, unsigned int memSize, const char *fileNam
                         "0",
                         "D:\\Projects\\code\\common\\src.sys\\Ap\\ap_dlstat.cpp",
                         205,
-                        dsStrongAssertMessage);
+                        empty_string);
             }
 
             // Deviation: the decompile passes an undefined register ("v13") as apMEM_SIZE_STAT::Add's

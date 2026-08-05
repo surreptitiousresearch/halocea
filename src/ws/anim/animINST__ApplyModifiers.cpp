@@ -26,7 +26,7 @@ void animINST::ApplyModifiers(int stateVld)
                     "po->IsGeom()",
                     "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
                     2146,
-                    dsStrongAssertMessage);
+                    empty_string);
             pObj->ApplyModifiers(stateVld);
         }
     }

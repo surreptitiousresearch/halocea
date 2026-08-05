@@ -2,6 +2,7 @@
  * variant for the active shift/caps/symbols combination, falling back to DEL (127) if that variant is the
  * null key. */
 
+#include <wchar.h>
 #include <stdint.h>
 #include "headers/virtual_keyboard_globals_t.h"
 #include "headers/virtual_key.h"
@@ -9,7 +10,7 @@
 
 extern const char virtual_keyboard_layout_table[5][11];
 
-wchar_t virtual_keyboard_get_character(uint16_t keycode);
+extern wchar_t virtual_keyboard_get_character(uint16_t keycode);
 wchar_t virtual_keyboard_get_current_character(void)
 {
     uint16_t key_code = virtual_keyboard_layout_table[virtual_keyboard_globals.row][virtual_keyboard_globals.column];

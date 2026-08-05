@@ -23,12 +23,10 @@
 
 
 #include "headers/real_matrix4x3.h"
+#include "headers/real_matrix4x3.h"
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
 extern void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
-extern uint8_t rasterizer_environment_shadow_begin(int object_index, const real_matrix4x3 *shadow_matrix,
-                                                           const real_rgb_color *light_color,
-                                                           float object_bounding_radius,
-                                                           float *shadow_volume_bounding_radius);
+extern uint8_t rasterizer_environment_shadow_begin(int object_index, const real_matrix4x3 *shadow_matrix, const real_rgb_color *shadow_color, float object_bounding_radius, float *shadow_volume_bounding_radius);
 
 uint8_t render_object_shadow_begin(object_render_data *data, float lod)
 {

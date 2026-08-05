@@ -20,7 +20,7 @@
 
 extern _message_definition **message_delta_global_message_list;
 
-extern int bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
+extern uint8_t bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
 extern unsigned int bitstream_read_bit(bitstream_t *const bit_stream, uint8_t *const value);
 extern void metrics_record_iteration_dependent_overhead_decode(const _message_definition *const message_definition, const message_delta_processor_mode mode, const iteration_dependent_overhead_type type, const int bits);
 extern void metrics_record_header_field_decode(const _message_definition *const message_definition, const message_delta_processor_mode mode, const int field_index, const int bits_read);

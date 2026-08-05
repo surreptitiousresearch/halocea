@@ -1,8 +1,12 @@
-/* main_loop_init_console @0x83688C28 — start the developer console (thunk to console_startup). */
+/* main_loop_init_console @0x83688C28 — start the developer console (one-instruction
+ * `b console_startup` thunk).
+ *
+ * Deviation: attested void — the thunk's only in-binary caller (HALO_MNG::ProcessMsg @0x823DEAD4)
+ * discards r3, so console_startup's status is not part of this interface. */
 
-extern int console_startup(void);
+extern void console_startup(void);
 
-int main_loop_init_console(void)
+void main_loop_init_console(void)
 {
-    return console_startup();
+    console_startup();
 }

@@ -39,8 +39,7 @@ extern float normalize3d(real_vector3d *v);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 extern void fast_normals_interpolate(const real_vector3d *a, const real_vector3d *b, float t,
         real_vector3d *result);
-extern uint8_t pin_normal_to_cone3d(const real_vector3d *normal, const real_vector3d *direction,
-        float sine, float cosine, real_vector3d *result);
+extern uint8_t pin_normal_to_cone3d(const real_vector3d *normal, const real_vector3d *direction, float sine, float cosine, real_vector3d *result);
 extern int game_time_get(void);
 
 int player_aim_projectile(int player_index, const real_point3d *position, real_vector3d *direction)

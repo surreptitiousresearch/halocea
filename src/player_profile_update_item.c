@@ -17,7 +17,7 @@ extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
-extern int player_profile_number_of_available_primary_colors(void);
+extern uint16_t player_profile_number_of_available_primary_colors(void);
 extern void player_profile_get_highest_completed_solo_level(player_profile *profile, int16_t *level, int16_t *difficulty);
 
 void player_profile_update_item(widget_instance *item, player_profile *profile)

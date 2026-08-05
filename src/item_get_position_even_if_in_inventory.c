@@ -5,6 +5,7 @@
  * returns the holder unit's position instead. `position` is always zeroed first; returns whether it was
  * resolved. */
 
+#include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/item_flags.h"
 #include "headers/real_point3d.h"
@@ -19,7 +20,7 @@
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern void *datum_try_and_get(const data_array *data, int index);
 
-int item_get_position_even_if_in_inventory(int item_index, real_point3d *position)
+uint8_t item_get_position_even_if_in_inventory(int item_index, real_point3d *position)
 {
     item_datum *item = object_try_and_get_and_verify_type(item_index, object_mask_item);
 

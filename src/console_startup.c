@@ -9,7 +9,10 @@ extern char *strcpy(char *dest, const char *src);
 extern uint8_t console_exec(char *filename);
 extern int console_process_command(const char *command, uint16_t extra_flags);
 
-int console_startup(void)
+/* DEVIATION: the decompiler threaded console_exec's r3 through to the epilogue as a return
+ * value; the disasm never re-defines r3 for the return and no caller consumes it (the sole
+ * caller, the thunk main_loop_init_console @0x83688C28, is itself ignored) — attested void. */
+void console_startup(void)
 {
     char init_path[136];
     if ( game_in_editor() )
@@ -18,8 +21,6 @@ int console_startup(void)
     else
         strcpy(init_path, "d:\\init.txt");
 
-    int result = console_exec(init_path);
-    if ( !result && UsingD3DSpy )
-        return console_process_command("map_name b30", 0);
-    return result;
+    if ( !console_exec(init_path) && UsingD3DSpy )
+        console_process_command("map_name b30", 0);
 }

@@ -35,9 +35,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
-extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
-        firing_position *best_firing_position, int *current_owner, path_state *area_path_state,
-        uint8_t *area_path_state_valid);
+extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position, int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);

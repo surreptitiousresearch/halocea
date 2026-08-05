@@ -25,9 +25,10 @@ struct object_marker;
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
+#include "headers/data_array.h"
 extern void hcex_init_effect(int definition_index, int obj_follow, int plr_idx, const real_point3d *points,
                              const real_vector3d *vectors, const char **names, int npoints, float scale);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern uint8_t effects_object_is_corpse(int object_index);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);

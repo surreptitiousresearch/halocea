@@ -11,7 +11,7 @@
 
 extern int16_t game_connection(void);
 extern void ui_widgets_close_all(void);
-extern void *game_engine_playlist_prev(void);
+extern void game_engine_playlist_prev(void);
 extern void game_engine_end_game(void);
 extern void console_close(void);
 extern void ship_terminal_printf(const real_argb_color *color, const char *format, ...);

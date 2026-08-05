@@ -17,8 +17,9 @@
 
 
 #include "headers/data_array.h"
+#include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
-extern void   *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
 extern void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, uint8_t force);
 extern int16_t contrail_compute_new_point_count(uint16_t contrail_index, float dt);

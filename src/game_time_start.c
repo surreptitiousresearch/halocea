@@ -10,7 +10,7 @@
 extern unsigned char game_time_statistics_recording;
 extern unsigned char game_time_statistics_paused;
 extern int16_t game_connection(void);
-extern void *update_client_start(void);
+extern void update_client_start(void);
 extern void update_server_start(void);
 
 /* Attested void: r3 at both blr paths is callee residue (update_*_start), 0/6 callers consume. */

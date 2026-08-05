@@ -14,9 +14,9 @@
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
 
-int ai_scripting_status(int ai_index)
+int16_t ai_scripting_status(int ai_index)
 {
-    int max_status = 0;
+    int16_t max_status = 0;
     ai_index_actor_iterator iterator;
     ai_index_actor_iterator_new(ai_index, &iterator);
     while ( ai_index_actor_iterator_next(&iterator) )
@@ -56,7 +56,7 @@ int ai_scripting_status(int ai_index)
         {
             status = 0;
         }
-        if ( (int16_t)max_status > status )
+        if ( max_status > status )
             status = max_status;
         max_status = status;
     }

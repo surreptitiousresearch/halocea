@@ -13,7 +13,7 @@
 #include "headers/ai_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern int global_structure_bsp_index_get(void);
+extern int16_t global_structure_bsp_index_get(void);
 extern void encounterless_detach_actor(int actor_index);
 extern void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_index, uint8_t has_previous_team);
 

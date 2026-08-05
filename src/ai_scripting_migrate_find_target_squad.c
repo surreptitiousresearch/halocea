@@ -5,7 +5,14 @@
  *
  * NOTE: the decompiler's auto-named parameters are misleading; renamed here to match actual usage
  * (param1 is a squad index, param2/param3 are the source actor's variant/definition pointers, param4 is the
- * within-same-encounter flag, param5 is the target encounter index; the last two are unused). */
+ * within-same-encounter flag, param5 is the target encounter index; the last two are unused).
+ *
+ * Deviation (attestation 2026-08-05): the DB prototype names r3 "source_encounter_index" and r7
+ * "same_encounter"; the disassembly refutes it — r7 is the ai/encounter index (mr r3,r7 into
+ * ai_index_squad_iterator_new @837702D4, clrlwi 16 then *0xB0 encounter_definition index @837702B8) and
+ * r3 is the 16-bit source squad index (extsh r11,r17 @837703B8). r6 is an 8-bit flag (clrlwi r11,r16,24
+ * @837703AC). Return is 16-bit: every result register is extsh-normalized and both callers narrow
+ * (extsh r11,r3 @83770984 / sthx r3 @83770680). */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -19,15 +26,16 @@
 #include "headers/tag_reference.h"
 #include "headers/blam_data_globals.h"
 
+#include "headers/squad_datum.h"
 extern void ai_index_squad_iterator_new(unsigned int ai_index, ai_index_squad_iterator *iterator);
-extern void *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator);
+extern squad_datum *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator);
 extern uint32_t tag_get_group_tag(int16_t tag_index);
 
-int ai_scripting_migrate_find_target_squad(
+int16_t ai_scripting_migrate_find_target_squad(
         int16_t source_squad_index,
         actor_variant_definition *source_variant,
         actor_definition *source_actor,
-        int match_by_squad_index,
+        uint8_t match_by_squad_index,
         int target_encounter_index,
         int unused_target_ai_index,
         const char *unused_debug_description)
@@ -36,14 +44,13 @@ int ai_scripting_migrate_find_target_squad(
     (void)unused_debug_description;
 
     scenario *scenario_globals = global_scenario;
-    char match_by_index = (char)match_by_squad_index;
     encounter_definition *target_encounter = &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)target_encounter_index];
 
-    int match_same_index = -1;
-    int match_same_actor = -1;
-    int match_same_variant = -1;
-    int match_same_unit = -1;
-    int first_squad = -1;
+    int16_t match_same_index = -1;
+    int16_t match_same_actor = -1;
+    int16_t match_same_variant = -1;
+    int16_t match_same_unit = -1;
+    int16_t first_squad = -1;
 
     ai_index_squad_iterator iterator;
     ai_index_squad_iterator_new(target_encounter_index, &iterator);
@@ -68,34 +75,34 @@ int ai_scripting_migrate_find_target_squad(
             }
         }
 
-        if ( (int16_t)match_same_index == -1 && match_by_index && source_squad_index == squad_index )
+        if ( match_same_index == -1 && match_by_squad_index && source_squad_index == squad_index )
             match_same_index = (int16_t)squad_index;
-        if ( (int16_t)match_same_actor == -1 && source_actor && candidate_actor && source_actor == candidate_actor )
+        if ( match_same_actor == -1 && source_actor && candidate_actor && source_actor == candidate_actor )
             match_same_actor = (int16_t)squad_index;
-        if ( (int16_t)match_same_variant == -1 && source_variant && candidate_variant
+        if ( match_same_variant == -1 && source_variant && candidate_variant
           && source_variant == candidate_variant )
             match_same_variant = (int16_t)squad_index;
         /* recovered: *(u16 *)(variant + 20) -> low half of unit_reference.group_tag (lhz 0x14, faithful) */
-        if ( (int16_t)match_same_unit == -1 && source_variant && candidate_variant
+        if ( match_same_unit == -1 && source_variant && candidate_variant
           && (uint16_t)source_variant->unit_reference.group_tag == (uint16_t)candidate_variant->unit_reference.group_tag )
             match_same_unit = (int16_t)squad_index;
-        if ( (int16_t)first_squad == -1 )
+        if ( first_squad == -1 )
             first_squad = (int16_t)squad_index;
     }
 
-    if ( (int16_t)match_same_index != -1 )
+    if ( match_same_index != -1 )
         return match_same_index;
-    if ( (int16_t)match_same_actor != -1 )
+    if ( match_same_actor != -1 )
         return match_same_actor;
-    if ( (int16_t)match_same_variant != -1 )
+    if ( match_same_variant != -1 )
         return match_same_variant;
-    if ( (int16_t)match_same_unit != -1 )
+    if ( match_same_unit != -1 )
         return match_same_unit;
-    if ( (int16_t)first_squad == -1 )
+    if ( first_squad == -1 )
     {
         /* no squads iterated: 0 when the encounter declares squads, -1 when it has none */
         int squad_count = target_encounter->squads.count;
-        return ~(squad_count >> 31) + (squad_count != 0);
+        return (int16_t)(~(squad_count >> 31) + (squad_count != 0));
     }
     return first_squad;
 }

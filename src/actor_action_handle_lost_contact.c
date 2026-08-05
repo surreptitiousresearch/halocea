@@ -73,9 +73,7 @@ extern void actor_perception_tried_to_uncover(int actor_index, int prop_index);
 extern void actor_perception_tried_to_search(int actor_index, int prop_index);
 extern void actor_perception_abandoned_search(int actor_index, int prop_index);
 extern int actor_target_unit_index(uint16_t actor_index);
-extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
-        firing_position *best_firing_position, int *current_owner, path_state *area_path_state,
-        uint8_t *area_path_state_valid);
+extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position, int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
 extern uint8_t encounter_mark_examined_pursuit_position(int encounter_index, int actor_index, int16_t firing_position_index, int history_start_time);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);

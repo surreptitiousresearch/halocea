@@ -17,7 +17,7 @@ extern void display_errors_deferred_until_cinematic_stop(void);
 extern void hcex_fire_event(const char *name);
 extern int hcex_stop_cine(void);
 
-int cinematic_stop(void)
+void cinematic_stop(void)
 {
     if ( music_gain_in_profile != -1.0f )
         sound_set_music_gain(music_gain_in_profile);
@@ -40,5 +40,5 @@ int cinematic_stop(void)
     rasterizer_set_near_clip_distance(0.0f);
     display_errors_deferred_until_cinematic_stop();
     hcex_fire_event("cinameticStop");
-    return hcex_stop_cine();
+    hcex_stop_cine();
 }

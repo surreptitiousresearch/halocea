@@ -7,7 +7,8 @@
 
 #include "headers/sound_permutation.h"
 #include "headers/sound_location.h"
-extern unsigned char dsound_initialize(sound_preferences *preferences);
+#include "headers/sound_preferences.h"
+extern uint8_t dsound_initialize(sound_preferences *preferences);
 extern void          dsound_dispose(void);
 extern void          set_listener_properties_dsound(const platform_sound_listener_properties *properties);
 extern void begin_scene_dsound(void);

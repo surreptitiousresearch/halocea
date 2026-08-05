@@ -112,7 +112,7 @@ extern void qsort_4byte(void *base, unsigned int num, int (*compare)(int, int));
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 
-int actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
+int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context,
                                  firing_position *best_firing_position, int *current_owner,
                                  path_state *area_path_state, uint8_t *area_path_state_valid)
 {

@@ -18,9 +18,9 @@
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetPixelShader(D3DDevice *device, D3DPixelShader *shader);
 extern void rasterizer_dx9_dynamic_vertex_buffers_dispose(void);
-extern D3DResource *rasterizer_render_targets_dispose(void);
+extern void rasterizer_render_targets_dispose(void);
 extern void rasterizer_shaders_dispose(void);
-extern D3DQuery *rasterizer_occulsion_test_dispose(void);
+extern void rasterizer_occulsion_test_dispose(void);
 
 void rasterizer_termhw(void)
 {

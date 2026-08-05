@@ -14,7 +14,7 @@
 #include "headers/bitmap_format.h"
 
 extern bitmap_data * bitmap_3d_new(int16_t width, int16_t height, int16_t depth, int16_t mipmap_count, int16_t format);
-extern void *bitmap_3d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t z, int16_t mipmap_index);
+extern char *bitmap_3d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t z, int16_t mipmap_index);
 
 bitmap_data * bitmap_3d_shrink(const bitmap_data *source_bitmap, int16_t scale, int16_t alpha_bias, uint8_t ignore_zero_alpha)
 {
@@ -39,7 +39,10 @@ bitmap_data * bitmap_3d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
                 for ( int16_t x_out = 0; x_out < out_width; ++x_out )
                 {
                     int sum_alpha = 0, sum_byte1 = 0, sum_byte2 = 0, sum_byte0 = 0, count = 0;
-                    int *dest_voxel = bitmap_3d_address(dest, x_out, y_out, z_out, 0);
+                    /* bitmap_3d_address returns char*; the destination voxel is a packed 32-bit
+                     * ARGB word (stw @0x8377AAA0), matching the (unsigned int *) read below */
+                    unsigned int *dest_voxel =
+                        (unsigned int *)bitmap_3d_address(dest, x_out, y_out, z_out, 0);
 
                     for ( int16_t sz = 0; sz < sample_depth; ++sz )
                     {

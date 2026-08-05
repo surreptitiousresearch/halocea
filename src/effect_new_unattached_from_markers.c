@@ -19,12 +19,13 @@
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
+#include "headers/data_array.h"
 extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void hcex_init_effect(int definition_index, int obj_follow, int plr_idx, real_point3d *points,
         real_vector3d *vectors, const char **names, int npoints, float scale);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern void scenario_location_from_point(location *location, const real_point3d *point);
 extern void effect_build_locations(effect_datum *effect, int16_t (__fastcall *get_markers_by_name)(int, const char *, object_marker *, int16_t));

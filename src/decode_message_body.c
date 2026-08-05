@@ -8,8 +8,9 @@
 #include <stdint.h>
 #include "headers/message_delta_processor_decoding_information.h"
 
+#include "headers/bitstream_t.h"
 extern _message_definition *message_delta_global_message_list[];
-extern int bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
+extern uint8_t bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
 extern void metrics_record_field_decode(const _message_definition *const message_definition, message_delta_processor_mode mode, const int field_index, const int bits_read);
 
 /* field_included/baseline_data const: disasm 0x837A1880 only loads through r21 (lbzx) and address-computes r31 (no stores); callers pass const header->field_included / const baseline 2026-07-31 (C4090) */

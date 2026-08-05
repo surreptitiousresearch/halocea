@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern void *director_save_camera(void);   /* returns FILE* (fclose result); discarded here */
+extern void director_save_camera(void);   /* returns FILE* (fclose result); discarded here */
 
 void director_save_camera_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

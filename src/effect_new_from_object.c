@@ -16,6 +16,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
+#include "headers/data_array.h"
 extern void *memset(void *dst, int value, unsigned int n);
 
 /* passed as the get_markers_by_name callback to effect_build_locations — they are functions,
@@ -23,7 +24,7 @@ extern void *memset(void *dst, int value, unsigned int n);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern int16_t first_person_weapon_get_local_index(int object_index);
 extern uint8_t effects_object_is_corpse(int object_index);

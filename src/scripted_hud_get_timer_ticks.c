@@ -7,7 +7,7 @@
 
 extern int game_time_get(void);
 
-int scripted_hud_get_timer_ticks(void)
+int16_t scripted_hud_get_timer_ticks(void)
 {
     if ( !hud_messaging_globals->timer.enabled )
         return 0;

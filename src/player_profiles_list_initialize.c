@@ -21,8 +21,8 @@ extern void player_profiles_enumerate_available_to_local_player_index(int16_t lo
 extern void preview_list_create(void);
 extern int player_ui_get_player1_last_used_profile_index(void);
 extern uint8_t player_profile_get(int player_profile_index, player_profile *profile);
-extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data, int data_len,
-        uint8_t is_default);
+extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data,
+        unsigned int data_len, char is_default);
 
 uint8_t player_profiles_list_initialize(widget_instance *list_widget, event_record *event, uint8_t *widget_deleted)
 {

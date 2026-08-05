@@ -7,7 +7,7 @@
 #include "headers/object_damage_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern int object_list_get_first(int object_list_index, int *iterator);
+extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void object_initialize_vitality(int object_index, const float *custom_body_vitality, const float *custom_shield_vitality);
 

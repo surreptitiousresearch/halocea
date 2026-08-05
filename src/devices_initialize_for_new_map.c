@@ -11,9 +11,10 @@
 #include "headers/blam_data_globals.h"
 
 
+#include "headers/data_array.h"
 extern void data_make_valid(data_array *data);
 extern int datum_new(data_array *data);
-extern void *datum_get(data_array *array, int datum_index);
+extern void *datum_get(data_array *data, int index);
 
 void devices_initialize_for_new_map(void)
 {

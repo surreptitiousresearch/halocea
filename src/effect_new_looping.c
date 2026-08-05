@@ -15,7 +15,8 @@
 
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
-extern void *datum_get(data_array *array, int index);
+#include "headers/data_array.h"
+extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern int16_t first_person_weapon_get_local_index(int object_index);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);

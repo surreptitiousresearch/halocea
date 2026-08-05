@@ -8,7 +8,7 @@ extern uint32_t system_milliseconds(void);
 
 /* Credits widget setup handler: allocates the 20-byte-stride credit-line array and
  * seeds the scroll timestamp. Returns 1 (event handled). */
-int credits_initialize(widget_instance *widget, event_record *event, unsigned char *widget_deleted)
+uint8_t credits_initialize(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     dynamic_array_new(&credits_list, 20);
     credits_last_update_time = system_milliseconds();

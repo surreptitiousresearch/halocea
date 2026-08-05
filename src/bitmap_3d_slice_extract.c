@@ -7,8 +7,7 @@
 #include "headers/bitmap_format_tables.h"
 
 extern int bitmap_get_pixel_count(const bitmap_data *bitmap);
-extern void *bitmap_3d_address(const bitmap_data *bitmap, short x, short y, short slice_index,
-        short mipmap_index);
+extern char *bitmap_3d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t z, int16_t mipmap_index);
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);
 
 void bitmap_3d_slice_extract(const bitmap_data *source_bitmap, int16_t source_mipmap_index, int16_t source_slice_index, bitmap_data *slice_bitmap)

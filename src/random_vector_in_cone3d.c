@@ -13,9 +13,9 @@ real_vector3d *random_vector_in_cone3d(
         float outer_cone_angle,
         real_vector3d *result)
 {
-    /* result (incoming r6) forwarded as the 5th arg; the decompiler mislabels
-     * it as an uninitialised local because PPC reserves r5/r6 for the two float
-     * args, leaving result in r7. */
+    /* DEVIATION: result (incoming r6) is forwarded as the callee's 5th arg; the
+     * decompiler mislabels it as an uninitialised local because the two float args
+     * reserve GPR slots r4/r5 (float-slot-skip ABI), leaving result in r6. */
     return seed_random_vector_in_cone3d(
         get_global_random_seed_address(), axis, inner_cone_angle, outer_cone_angle, result);
 }

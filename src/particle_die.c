@@ -10,7 +10,7 @@
 
 extern void particle_effect_new(particle_datum *particle, unsigned int group_tag, int effect_index, float scale);
 extern void datum_delete(data_array *data, int index);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 
 void particle_die(int particle_index)
 {

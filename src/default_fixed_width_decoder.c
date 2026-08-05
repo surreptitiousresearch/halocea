@@ -16,8 +16,8 @@ int default_fixed_width_decoder(const _field_properties_definition *const field_
 {
     const unsigned int *parameters = (const unsigned int *)field_properties->parameters;
     unsigned int decoded_value = 0;
-    unsigned int result = bitstream_read_bits(input_stream, &decoded_value, parameters[0]);
+    int bits_read = bitstream_read_bits(input_stream, &decoded_value, parameters[0]);
 
     *(float *)destination_data = (float)decoded_value / (float)parameters[1];
-    return result;
+    return bits_read;
 }

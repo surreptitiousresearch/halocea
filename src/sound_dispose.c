@@ -7,9 +7,11 @@
 
 extern void data_make_invalid(data_array *data);
 extern void data_dispose(data_array *data);
-extern int sound_cache_delete(void);
+extern void sound_cache_delete(void);
 
-int sound_dispose(void)
+/* DEVIATION: the decompiler threaded the tail call's r3 out as a return value; sound_cache_delete is
+ * attested void, so r3 at blr is residue and sound_dispose returns nothing. */
+void sound_dispose(void)
 {
     if ( sound_manager_globals.initialized )
     {
@@ -24,5 +26,5 @@ int sound_dispose(void)
     if ( looping_sound_data )
         data_dispose(looping_sound_data);
 
-    return sound_cache_delete();
+    sound_cache_delete();
 }

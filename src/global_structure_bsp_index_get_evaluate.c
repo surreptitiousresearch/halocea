@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern int global_structure_bsp_index_get(void);
+extern int16_t global_structure_bsp_index_get(void);
 
 void global_structure_bsp_index_get_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

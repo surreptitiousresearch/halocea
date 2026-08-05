@@ -44,8 +44,7 @@
 #include "headers/point2d.h"
 extern const wchar_t empty_wide_string; /* .short 0 — empty wide string, used as a "tag not loaded" fallback */
 
-extern int  select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic,
-        int requested_count, int unused_max_capacity);
+extern int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic, int requested_count, int unused_max_capacity);
 extern void game_engine_generate_title_string(int player_index, uint16_t *title_string);
 extern void rasterize_in_game_score_draw_line(const wchar_t *text, uint8_t hilite, real_argb_color *_color, int line, int tab_stop_index);
 extern real_argb_color * hud_get_text_color(real_argb_color *result);

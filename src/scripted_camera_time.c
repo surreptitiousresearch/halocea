@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "headers/camera_script_globals.h"
 
-int scripted_camera_time(void)
+uint16_t scripted_camera_time(void)
 {
     return (uint16_t)(int)(camera_script_globals.timer * 30.0f);
 }

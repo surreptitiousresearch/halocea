@@ -12,7 +12,7 @@
 #include "headers/render_animation.h"
 #include "headers/render_lighting.h"
 #include "headers/render_animation.h"
-extern int antenna_new(int);
+extern int antenna_new(int antenna_definition_index);
 extern int flag_new(int flag_definition_index);
 extern int glow_new(int glow_definition_index);
 extern int light_volume_new(int definition_index);

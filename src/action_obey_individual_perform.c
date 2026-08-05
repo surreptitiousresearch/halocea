@@ -18,8 +18,7 @@
 
 extern uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control);
 extern void action_obey_command_end(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *next_command_index);
-extern uint8_t action_obey_command_begin(int actor_index, int unit_index, int16_t command_list_index,
-    obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control);
+extern uint8_t action_obey_command_begin(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control);
 
 void action_obey_individual_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data)
 {

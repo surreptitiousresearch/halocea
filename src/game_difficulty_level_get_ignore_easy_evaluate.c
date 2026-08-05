@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern int game_difficulty_level_get_ignore_easy(void);
+extern int16_t game_difficulty_level_get_ignore_easy(void);
 
 void game_difficulty_level_get_ignore_easy_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

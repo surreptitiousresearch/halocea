@@ -23,8 +23,9 @@ uint8_t infection_wander_move_time(int16_t movement_type)
     }
 
     int ticks = (int)(scale * 30.0f);
+    /* DEVIATION: disasm clamps to 0xFF (li r11,0xFF @0x838276F4), not -1. */
     if ( ticks > 255 )
-        ticks = -1;
+        ticks = 0xFF;
 
     return (uint8_t)ticks;
 }

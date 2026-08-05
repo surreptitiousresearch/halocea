@@ -11,12 +11,13 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/scenario.h"
-extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, short object_type, int *size);
+#include "headers/scenario.h"
+extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, int16_t object_type, int *size);
 extern tag_block * scenario_get_object_type_scenario_palette(scenario *scenario, int16_t object_type);
 extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern int object_new_from_scenario(scenario_object_datum *scenario_object, tag_block *palette);
 
-int object_new_by_name(short name_index)
+void object_new_by_name(int16_t name_index)
 {
     scenario_object_name *name_entry = (scenario_object_name *)global_scenario->object_names.address + name_index;
     short object_type = name_entry->runtime_object_type;
@@ -29,7 +30,6 @@ int object_new_by_name(short name_index)
         (scenario_object_datum *)tag_block_get_element_with_size(scenario_datums, scenario_datum_index, element_size);
 
     global_object_scenario_index = scenario_datum_index + 1;
-    int result = object_new_from_scenario(scenario_object, scenario_palette);
+    object_new_from_scenario(scenario_object, scenario_palette);
     global_object_scenario_index = 0;
-    return result;
 }

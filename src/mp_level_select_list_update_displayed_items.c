@@ -12,7 +12,7 @@
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
 extern void spinner_list_3wide_determine_displayed_item_indices(widget_instance *list_widget, int *displayed_item_index);
-extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int index);
+extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int n);
 extern int16_t map_list_get_pic_name_index(int index);
 
 void mp_level_select_list_update_displayed_items(widget_instance *list_widget)

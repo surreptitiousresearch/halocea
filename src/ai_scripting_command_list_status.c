@@ -30,9 +30,9 @@ extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
-int ai_scripting_command_list_status(int object_list_index)
+int16_t ai_scripting_command_list_status(int object_list_index)
 {
-    int result = 0;
+    int16_t result = 0;
     int now = game_time_get();
     int reference_index;
 
@@ -106,7 +106,7 @@ int ai_scripting_command_list_status(int object_list_index)
                 status = finish_time + 150 >= now;
         }
         if ( status > result )
-            result = status;
+            result = (int16_t)status;   /* extsh r27 @83771AAC — the accumulator is 16-bit */
     }
 
     return result;

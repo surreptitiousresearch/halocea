@@ -1,4 +1,4 @@
-/* alphabetize_file_references @0x8372F9A4 — qsort comparator ordering two file references by their
+/* alphabetize_file_references @0x8372F988 — qsort comparator ordering two file references by their
  * leaf name, case-insensitively. */
 
 #include "headers/file_reference.h"

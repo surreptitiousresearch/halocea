@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_point3d.h"
-extern int object_list_get_first(int object_list_index, int *iterator);
+extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t unit_can_see_point(int unit_index, const real_point3d *point, float theta);

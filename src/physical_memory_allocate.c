@@ -12,7 +12,7 @@ extern void *VirtualAlloc(void *lpAddress, unsigned int dwSize, unsigned int flA
                           unsigned int flProtect);
 extern void hcex_memory_debug_add(void *address, int size, const char *file, int line);
 
-void *physical_memory_allocate(void)
+void physical_memory_allocate(void)
 {
     physical_memory_map_globals.game_state_base_address = 0;
     physical_memory_map_globals.tag_cache_base_address = 0;
@@ -26,5 +26,5 @@ void *physical_memory_allocate(void)
         88);
 
     physical_memory_map_globals.tag_cache_base_address = (void *)0x4B8000;
-    return memset(physical_memory_map_globals.game_state_base_address, 0, 0x448000u);
+    memset(physical_memory_map_globals.game_state_base_address, 0, 0x448000u);
 }

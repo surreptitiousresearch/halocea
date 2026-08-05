@@ -11,7 +11,7 @@
 #include "headers/item_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern int equipment_new_to_network_with_flags(int object_index, void *buffer, int buffer_size_in_bits, int flags);
+extern int equipment_new_to_network_with_flags(int object_index, void *buffer, int buffer_size_in_bits, int object_flags);
 
 int equipment_new_to_network(int object_index, void *buffer, int buffer_size_in_bits)
 {

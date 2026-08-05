@@ -12,8 +12,10 @@
  * DEVIATIONS (disasm-resolved, 0x837F4508-0x837F4948):
  *  - action_vehicle_setup_impromptu's float args (attempt/continue distance) are f1/f2 (8.0/10.0 for the
  *    prop path; radius+3 / radius+6 for the enterable path) — the decompiler's fp locals.
- *  - Its 5th argument (state_data) register r5 is never initialised in this function; the shipped code
- *    passes a leftover value, so it is reproduced as an uninitialised local (the callee ignores it here).
+ *  - Its 5th argument (state_data) lands in r7, not r5: the two float args each also consume their GPR
+ *    shadow slot (see action_vehicle_setup_impromptu.c's own signature deviation). disasm 0x837F4900
+ *    loads r7 with var_110 — the SAME stack buffer handed to actor_action_change as new_action_data at
+ *    0x837F4924 — so the setup call fills the vehicle arm of this function's new_action_data in place.
  *  - The allowed-AI-index match uses the cntlzw==0 idiom for the low-16 compare (catalog #4). */
 
 #include <stdint.h>
@@ -70,7 +72,7 @@ uint8_t actor_action_handle_vehicle_entry(int actor_index)
     int best_vehicle_index = -1;
     float attempt_distance = VEHICLE_ENTRY_FLT_MAX;
     float continue_distance = VEHICLE_ENTRY_FLT_MAX;
-    vehicle_state_data *state_data;   /* passed uninitialised — see file header */
+    action_state_data new_action_data;   /* var_110: filled by the setup call, then handed to actor_action_change */
 
     if ( (actor_def->flags & (1u << _actor_definition_helps_players_in_vehicles_bit)) != 0 )
     {
@@ -199,10 +201,9 @@ select_vehicle:
 
 setup_entry:
     if ( !action_vehicle_setup_impromptu(actor_index, best_vehicle_index, attempt_distance, continue_distance,
-            state_data) )
+            &new_action_data.___u0.vehicle) )
         return 0;
 
-    action_state_data new_action_data;
     actor_action_change(actor_index, actor_action_vehicle, &new_action_data);
     return 1;
 }

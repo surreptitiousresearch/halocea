@@ -6,7 +6,8 @@
  * position/direction through the host node matrix (rebuilding a perpendicular and renormalizing the up
  * vector). Lights additionally flagged dirty (0x2) then recompute their bounding sphere, resolve a location
  * (from the host object, or from the sphere center if unhosted), reconnect into the light cluster partition,
- * and set the "connected" flag (0x4). Returns the terminal -1 from the datum iterator.
+ * and set the "connected" flag (0x4). No value is returned: r3 at the blr is only the terminal -1 left by
+ * the datum iterator, and the reconnect_to_structure_bsp_procs table types every handler void(*)(void).
  *
  * Light-datum fields (124-byte stride) are raw offsets: flags @+2, host object @+44, marker/node discriminator
  * @+88, marker/node index @+92, world position @+48, forward @+60, up @+72, object-space position @+96 and
@@ -43,7 +44,7 @@ extern void scenario_location_from_point(location *location, const real_point3d 
 extern location *object_get_location(int object_index, location *location_out);
 extern void cluster_partition_reconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference, const real_point3d *position, float radius, const location *location);
 
-int lights_reconnect_to_structure_bsp(void)
+void lights_reconnect_to_structure_bsp(void)
 {
     int result = data_next_index(light_data, -1);
     for ( int i = result; result != -1; i = result )
@@ -112,5 +113,4 @@ int lights_reconnect_to_structure_bsp(void)
         }
         result = data_next_index(light_data, i);
     }
-    return result;
 }

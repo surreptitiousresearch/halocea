@@ -27,7 +27,7 @@ extern float real_seed_random(uint32_t *seed);
 extern uint8_t actor_action_test_grenade(int actor_index);
 extern int actor_action_try_to_throw_grenade(int actor_index, uint8_t known_trajectory);
 
-int actor_action_consider_grenade(int actor_index)
+uint8_t actor_action_consider_grenade(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     const actor_variant_definition *variant_tag = TAG_GET(const actor_variant_definition, actor->meta.variant_definition_index);

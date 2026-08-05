@@ -7,7 +7,7 @@
 #include "headers/unit_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern int object_list_get_first(int object_list_index, int *iterator);
+extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void actor_delete(int actor_index, uint8_t died);
 

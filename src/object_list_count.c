@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-int object_list_count(int object_list_index)
+uint16_t object_list_count(int object_list_index)
 {
     if ( object_list_index == -1 )
         return 0;

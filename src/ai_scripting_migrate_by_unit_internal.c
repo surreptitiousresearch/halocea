@@ -19,10 +19,7 @@
 #include "headers/global_tag_instances.h"
 #include "headers/blam_data_globals.h"
 
-extern int ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant,
-                                                  actor_definition *source_actor, int match_by_squad_index,
-                                                  int target_encounter_index, int unused_target_ai_index,
-                                                  const char *unused_debug_description);
+extern int16_t ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant, actor_definition *source_actor, uint8_t match_by_squad_index, int target_encounter_index, int unused_target_ai_index, const char *unused_debug_description);
 extern void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index);
 extern void actor_stimulus_maneuvering(uint16_t actor_index, uint8_t advancing, uint8_t flee);
 

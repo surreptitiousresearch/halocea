@@ -20,7 +20,7 @@ static unsigned int ppc_cntlzw(unsigned int x)
     return n;
 }
 
-unsigned int default_fixed_width_weapon_index_encoder(const _field_properties_definition *const field_properties,
+int default_fixed_width_weapon_index_encoder(const _field_properties_definition *const field_properties,
     const void *const baseline_data, const void *const source_data, bitstream_t *const output_stream)
 {
     const int16_t *source = source_data;

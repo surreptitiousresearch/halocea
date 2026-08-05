@@ -21,7 +21,7 @@ extern uint8_t hs_rebuild_source_file(file_reference *script_file);
 extern int16_t find_files(unsigned int flags, const file_reference *directory, int maximum_count, file_reference *references);
 extern char *file_reference_get_name(const file_reference *reference, unsigned int flags, char *name);
 extern void qsort(void *base, unsigned int count, unsigned int size, int (__fastcall *compare)(const void *, const void *));
-extern int alphabetize_file_references(const file_reference *a, const file_reference *b);
+extern int alphabetize_file_references(const file_reference *ref1, const file_reference *ref2);
 
 uint8_t hs_rebuild_source(void)
 {

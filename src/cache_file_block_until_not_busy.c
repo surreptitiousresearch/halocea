@@ -1,19 +1,19 @@
 /* cache_file_block_until_not_busy @0x837543B0 — spin-waits (yielding via SleepEx each pass) until none of
- * the cache file system's 512 request slots are still pending. Returns the last SleepEx result. */
+ * the cache file system's 512 request slots are still pending. SleepEx's status is left in r3 at the blr
+ * but never computed for return and never consumed — attested void. */
 
 #include "headers/cache_file_globals.h"
 #include "headers/blam_data_globals.h"
 
 extern unsigned int SleepEx(unsigned int milliseconds, int alertable);
 
-unsigned int cache_file_block_until_not_busy(void)
+void cache_file_block_until_not_busy(void)
 {
-    unsigned int result;
     unsigned char any_pending;
 
     do
     {
-        result = SleepEx(0, 1);
+        SleepEx(0, 1);
         any_pending = 0;
 
         for ( int i = 0; i < 512; ++i )
@@ -23,6 +23,4 @@ unsigned int cache_file_block_until_not_busy(void)
         }
     }
     while ( any_pending );
-
-    return result;
 }

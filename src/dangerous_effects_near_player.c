@@ -26,8 +26,9 @@
 
 
 #include "headers/data_array.h"
+#include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern effect_location_datum *effect_location_get_next_instance(const effect_datum *effect, int *location_datum_index, int16_t camera_mode);
 extern real_matrix4x3 *first_person_weapon_get_node_matrix(int16_t local_player_index, int16_t node_index);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);

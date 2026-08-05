@@ -35,8 +35,7 @@ extern uint8_t actor_action_handle_combat_failure(int actor_index);
 extern uint8_t actor_action_handle_evasion(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);
-extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold,
-    int16_t cower_investigate_threshold);
+extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold, int16_t cower_investigate_threshold);
 extern uint8_t actor_action_can_stop_conversing(int actor_index);
 
 void engineer_decide_action(int actor_index)

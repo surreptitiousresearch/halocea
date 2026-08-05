@@ -8,7 +8,7 @@
 #include "headers/game_difficulty.h"
 
 
-int game_difficulty_level_get_ignore_easy(void)
+int16_t game_difficulty_level_get_ignore_easy(void)
 {
     int difficulty = game_globals->options.difficulty;
     if ( difficulty <= game_difficulty_level_normal )

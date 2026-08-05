@@ -20,7 +20,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int actor_action_handle_combat_selection(int actor_index);
+extern uint8_t actor_action_handle_combat_selection(int actor_index);
 extern uint8_t actor_action_handle_lost_contact(int actor_index);
 
 uint8_t actor_action_handle_combat_status(int actor_index, uint8_t allow_initiative, uint8_t force_decision)

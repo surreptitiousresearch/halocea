@@ -6,7 +6,7 @@
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
 
-int video_screen_dispose(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
+uint8_t video_screen_dispose(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     widget_instance *children = widget->children;
     widget_instance *next = children->next->children->next;

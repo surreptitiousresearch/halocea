@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int stricmp(const char *a, const char *b);
-extern int object_list_get_first(int object_list_index, int *iterator);
+extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void object_iterator_new(object_iterator *iterator, uint32_t type_flags, uint8_t flags);
 

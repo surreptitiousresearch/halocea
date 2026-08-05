@@ -18,7 +18,7 @@ extern void network_game_accept_remote_connections(uint8_t accept);
 extern network_game_server *global_network_game_server_get(void);
 extern network_game_client *global_network_game_client_get(void);
 extern int game_engine_playlist_initialize(uint8_t force_begin_playlist);
-extern int game_engine_playlist_begin(void);
+extern void game_engine_playlist_begin(void);
 extern uint8_t create_global_network_game_server(void);
 extern uint8_t create_global_network_game_client(void);
 extern void game_connection_set(int16_t new_connection);

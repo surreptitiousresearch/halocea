@@ -4,7 +4,7 @@
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
 extern void hs_return(uint16_t thread_index, int value);
-extern unsigned char recorded_animation_play(int object_index, int16_t recorded_animation_index);
+extern uint8_t recorded_animation_play(int unit_index, int16_t animation_index);
 
 void recorded_animation_play_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

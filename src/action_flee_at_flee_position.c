@@ -27,7 +27,7 @@
 extern uint8_t actor_path_at_destination(uint16_t actor_index);
 extern float actor_destination_tolerance(uint16_t actor_index);
 
-BOOL action_flee_at_flee_position(int actor_index)
+uint8_t action_flee_at_flee_position(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

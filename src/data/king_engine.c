@@ -24,7 +24,7 @@ extern void king_engine_prespawn_player_update(int player_index);
 extern void king_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header, network_game_client *client);
 extern void king_engine_replicate_game_mode_state_to_network(message_delta_processor_mode mode, int machine_index);
 extern void king_engine_statistics_append(game_statistics *permanent_statistics, game_statistics *game_statistics);
-extern int king_engine_update(void); /* prototype not in DB */
+extern void king_engine_update(void); /* prototype not in DB */
 extern int king_get_score(int player_index, get_score_type get_score_type);
 extern uint16_t * king_get_score_header_string(uint16_t *buffer);
 extern uint16_t * king_get_score_string(int player_index, uint16_t *buffer);

@@ -11,7 +11,7 @@
 
 extern int game_time_get(void);
 extern int16_t game_connection(void);
-extern game_variant *race_update_team_score(void);
+extern void race_update_team_score(void);
 
 void race_engine_player_added(int player_index)
 {

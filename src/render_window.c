@@ -37,7 +37,7 @@ extern void render_camera_debug_frustum(const render_camera *camera, const rende
 
 /* scene-pipeline stages — all void(void) except build_sprite_prepare_for_window (returns its
  * final matrix4x3_transform_normal result, which the caller ignores) */
-extern real_vector3d *build_sprite_prepare_for_window(void);
+extern void build_sprite_prepare_for_window(void);
 extern void render_sky(void);
 extern void first_person_weapon_render_update(void);
 extern void lights_preprocess_scene(void);

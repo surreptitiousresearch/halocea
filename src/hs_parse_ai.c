@@ -17,7 +17,7 @@ int hs_parse_ai(int expression_index)
     hs_syntax_node *node = &HS_SYNTAX_NODE(expression_index);
     int result = ai_index_from_string(global_scenario,
                                       &hs_compile_globals.compiled_source[node->source_offset],
-                                      (int *)&node->data);
+                                      &node->data);
     if ( !(unsigned char)result )
     {
         hs_compile_globals.__noop = "this is not a valid ai encounter or squad.";

@@ -2,7 +2,11 @@
  * the per-iteration bit counters, then in incremental mode open the field-map bitstream (one bit per body
  * field, counted into the iteration header); in stateless mode just clear the field-map stream state
  * (the compiled code zeroes the 7 ints of the bitstream_t struct in place). Finally open the iteration
- * data stream over the remaining bit budget. */
+ * data stream over the remaining bit budget.
+ *
+ * Deviation: attested void — the final bitstream_initialize is a plain `bl` (837A12F4) whose r3 merely
+ * survives the epilogue to the blr; there is no explicit return computation and the binary has no caller
+ * that consumes it, so the decompiler's unsigned __int8 status is threaded, not returned. */
 
 #include <stdint.h>
 #include <string.h>
@@ -11,7 +15,7 @@
 extern _message_definition **message_delta_global_message_list;
 extern uint8_t bitstream_initialize(bitstream_t *bit_stream, uint8_t *buffer, unsigned int first_bit, unsigned int bit_count, bitstream_mode mode);
 
-uint8_t message_iteration_begin(iterated_message *const message)
+void message_iteration_begin(iterated_message *const message)
 {
     message->iteration_body_bits_written = 0;
     message->iteration_header_bits_written = 0;
@@ -30,8 +34,8 @@ uint8_t message_iteration_begin(iterated_message *const message)
         memset(&message->iteration_field_map_stream, 0, sizeof(bitstream_t));
     }
 
-    return bitstream_initialize(&message->iteration_data_stream, message->buffer,
-                                message->iteration_start_bit + message->iteration_header_bits_written,
-                                message->bits_left - message->iteration_header_bits_written,
-                                _bitstream_mode_write);
+    bitstream_initialize(&message->iteration_data_stream, message->buffer,
+                         message->iteration_start_bit + message->iteration_header_bits_written,
+                         message->bits_left - message->iteration_header_bits_written,
+                         _bitstream_mode_write);
 }

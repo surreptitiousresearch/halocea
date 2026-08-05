@@ -32,9 +32,7 @@
 
 extern void *memset(void *dst, int value, unsigned int n);
 
-extern int16_t actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *context,
-        firing_position *best_firing_position, int *current_owner, path_state *area_path_state,
-        uint8_t *cached_path_available);
+extern int16_t actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position, int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern float actor_destination_tolerance(uint16_t actor_index);
 

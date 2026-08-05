@@ -20,18 +20,16 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
-                                                      int16_t seat_desire_type, int16_t *seat_indices,
-                                                      int16_t seat_max_indices);
+extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name, int16_t seat_desire_type, int16_t *seat_indices, int16_t seat_max_indices);
 extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern uint8_t unit_set_or_test_seat_and_weapon_label(int object_index, const char *seat_label, const char *weapon_label, uint8_t change_flag);
 extern void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit, uint8_t should_allow_clients, uint8_t should_replicate_if_appropriate);
 extern uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_index);
 
-int vehicle_scripting_load_magic(int unit_index, const char *seat_substring_name, int object_list_index)
+int16_t vehicle_scripting_load_magic(int unit_index, const char *seat_substring_name, int object_list_index)
 {
-    int loaded_count = 0;
+    int16_t loaded_count = 0;
     if (unit_index == -1)
         return loaded_count;
 

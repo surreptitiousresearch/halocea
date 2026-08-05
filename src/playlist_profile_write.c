@@ -13,7 +13,7 @@ extern unsigned int playlist_profile_write_thread_proc(int *input);
 extern uint8_t create_thread(uint16_t flags, unsigned int (__fastcall *function)(void *),
     void *function_input, thread **thread_reference);
 
-uint8_t playlist_profile_write(int index, game_variant *variant)
+void playlist_profile_write(int index, game_variant *variant)
 {
     while ( playlist_profile_globals.thread )
     {
@@ -26,6 +26,8 @@ uint8_t playlist_profile_write(int index, game_variant *variant)
     playlist_profile_globals.thread_input.index = index;
     memcpy(&playlist_profile_globals.thread_input.variant, variant, sizeof(game_variant));
 
-    return create_thread(0, playlist_profile_write_thread_proc, &playlist_profile_globals,
+    /* DEVIATION: create_thread's status is left in r3 at the epilogue but no caller consumes it —
+     * the decompiler's uint8_t return was threaded status, not a computed value. */
+    create_thread(0, playlist_profile_write_thread_proc, &playlist_profile_globals,
         &playlist_profile_globals.thread);
 }

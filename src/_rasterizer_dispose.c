@@ -11,8 +11,8 @@ extern void rasterizer_text_cache_dispose(void);
 extern void rasterizer_detail_objects_dispose(void);
 extern void rasterizer_environment_fog_screen_dispose(void);
 extern void rasterizer_shaders_dispose(void);
-extern D3DResource *rasterizer_render_targets_dispose(void);
-extern D3DQuery *rasterizer_occulsion_test_dispose(void);
+extern void rasterizer_render_targets_dispose(void);
+extern void rasterizer_occulsion_test_dispose(void);
 extern void D3DDevice_Release(D3DDevice *device);
 
 void _rasterizer_dispose(void)

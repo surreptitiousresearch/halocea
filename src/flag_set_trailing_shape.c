@@ -9,8 +9,7 @@
 #include "headers/flag_datum.h"
 #include "headers/trailing_edge_shape.h"
 
-extern void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y,
-        int16_t size, int16_t tesselation);
+extern void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y, int16_t size, int16_t tesselation);
 
 void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
 {

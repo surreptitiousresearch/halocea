@@ -27,7 +27,7 @@ extern void terminal_printf(const real_argb_color *color, const char *format, ..
 extern void *memmove(void *dest, const void *src, unsigned int count);
 extern void *memcpy(void *dest, const void *src, unsigned int count);
 
-enum postgame_statistic select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic,
+int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic,
         int requested_count, int unused_max_capacity)
 {
     statistic_buffer all_players[19];

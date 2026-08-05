@@ -61,8 +61,7 @@
 extern real_matrix3x3 *matrix3x3_from_forward_and_up(real_matrix3x3 *matrix, const real_vector3d *forward, const real_vector3d *up);
 extern real_matrix3x3 * matrix3x3_transpose(const real_matrix3x3 *matrix, real_matrix3x3 *result);
 extern real_matrix3x3 *matrix3x3_multiply(const real_matrix3x3 *a, const real_matrix3x3 *b, real_matrix3x3 *result);
-extern real_vector3d  *matrix3x3_transform_vector(const real_matrix3x3 *matrix, const real_vector3d *vector,
-                                                  real_vector3d *result);
+extern real_vector3d *matrix3x3_transform_vector(const real_matrix3x3 *matrix, const real_vector3d *vector, real_vector3d *result);
 extern void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern void rotate_vectors3d_by_angular_velocity(const real_vector3d *forward, const real_vector3d *up, const real_vector3d *angular_velocity, real_vector3d *rotated_forward, real_vector3d *rotated_up);

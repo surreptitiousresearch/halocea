@@ -8,7 +8,10 @@
  * DEVIATION: saved_game_files_notify_memory_units_changed() takes no argument and returns void (disasm
  * 0x83782394 sets up no arg register; DB proto confirms); Hex-Rays passed a stale `v8` and returned its value.
  * The record buffer (u16[76]=152 bytes) and checksum buffer (u8[360]) are contiguous on the stack and together
- * form the 512-byte on-disk record that file_write emits — reproduced as declared. */
+ * form the 512-byte on-disk record that file_write emits — reproduced as declared.
+ * DEVIATION: the decompiler gave this an `int` return threaded out of the tail call; no path writes r3
+ * explicitly (the early exit merely leaves tag_loaded's -1 in r3) and the sole caller @0x83782658 ignores
+ * r3 and declares it void. Declared void. */
 
 #include <stdint.h>
 #include "headers/game_variant.h"
@@ -36,11 +39,11 @@ extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern game_variant *(*default_variant_building_functions[])(game_variant *);
 extern int first_time_0; /* end-of-array sentinel immediately following default_variant_building_functions */
 
-int playlist_profile_create_default_profiles_on_disk(void)
+void playlist_profile_create_default_profiles_on_disk(void)
 {
     int string_list_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\default_multiplayer_game_setting_names");
     if ( string_list_tag_index == -1 )
-        return string_list_tag_index;
+        return;
 
     int profile_index = 0;
     game_variant *(**builder)(game_variant *) = default_variant_building_functions;
@@ -96,5 +99,4 @@ int playlist_profile_create_default_profiles_on_disk(void)
     while ( (int)builder < (int)&first_time_0 );
 
     saved_game_files_notify_memory_units_changed();
-    return string_list_tag_index;
 }

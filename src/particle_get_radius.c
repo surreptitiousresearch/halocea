@@ -9,7 +9,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *datum_get(data_array *array, int index);
+#include "headers/data_array.h"
+extern void *datum_get(data_array *data, int index);
 
 float particle_get_radius(uint16_t particle_index)
 {

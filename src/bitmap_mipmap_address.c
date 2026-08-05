@@ -7,8 +7,7 @@
 #include "headers/bitmap_type.h"
 
 extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t mipmap_index);
-extern void *bitmap_3d_address(const bitmap_data *bitmap, short x, short y, short slice_index,
-        short mipmap_index);
+extern char *bitmap_3d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t z, int16_t mipmap_index);
 extern void * bitmap_cube_map_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t face_index, int16_t mipmap_index);
 
 void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index)

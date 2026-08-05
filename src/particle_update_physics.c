@@ -25,6 +25,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
+#include "headers/data_array.h"
 extern float __fsqrts(float);
 
 
@@ -36,7 +37,7 @@ extern uint8_t material_effect_visible(const real_point3d *origin);
 extern void material_effect_new(int effects_definition_index, int16_t effect_index, int16_t material_index, const real_point3d *origin, const real_vector3d *normal, const location *location, float scale, uint8_t is_player);
 extern void particle_die(int particle_index);
 extern void datum_delete(data_array *data, int index);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 
 int particle_update_physics(int particle_index, float dt)
 {

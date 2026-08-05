@@ -15,8 +15,9 @@
 #include "headers/blam_data_globals.h"
 
 
+#include "headers/data_array.h"
 extern int datum_new(data_array *data);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern void contrail_next_frame(contrail_datum *contrail);
 extern uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
 extern void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, uint8_t force);

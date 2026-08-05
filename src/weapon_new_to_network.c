@@ -9,8 +9,7 @@
 #include "headers/item_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern int weapon_new_to_network_with_flags(int object_index, void *buffer, int buffer_size_in_bits,
-    int object_flags);
+extern int weapon_new_to_network_with_flags(int object_index, void *buffer, int buffer_size_in_bits, int object_flags);
 
 int weapon_new_to_network(int object_index, void *buffer, int buffer_size_in_bits)
 {

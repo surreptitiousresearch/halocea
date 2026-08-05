@@ -1,7 +1,9 @@
 /* hs_doc @0x83730238 — dump the signature and documentation of every HaloScript function (471 entries) to
  * "hs_doc.txt".
  *
- * DEVIATION: the binary copies each documentation string with an inline byte loop; reproduced as strcpy. */
+ * DEVIATION: the binary copies each documentation string with an inline byte loop; reproduced as strcpy.
+ * DEVIATION: the decompiler surfaced the tail `bl fclose` r3 as an int return; the sole caller
+ * (hs_doc_evaluate) ignores r3 — attested void. */
 
 #include <stdint.h>
 #include <stdio.h>
@@ -11,7 +13,7 @@
 
 extern void hs_get_function_parameters_string(int16_t function_index, char *buffer);
 
-int hs_doc(void)
+void hs_doc(void)
 {
     FILE *file = fopen("hs_doc.txt", "w");
     char buffer[2096];
@@ -22,5 +24,5 @@ int hs_doc(void)
         strcpy(buffer, hs_function_table[i]->documentation);
         fprintf(file, "%s\r\n\r\n", buffer);
     }
-    return fclose(file);
+    fclose(file);
 }

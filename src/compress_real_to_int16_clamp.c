@@ -8,7 +8,7 @@ extern double floor(double x);
 
 int16_t compress_real_to_int16_clamp(float z)
 {
-    float clamped = z;
+    float clamped = -1.0f;
 
     if ( z >= -1.0f )
     {

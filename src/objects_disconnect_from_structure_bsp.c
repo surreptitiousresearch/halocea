@@ -2,8 +2,7 @@
  * Walks every live object; for each object still flagged connected-to-map (_object_connected_to_map_bit,
  * 0x800) with no parent, disconnects it from the map, then re-stamps the connected flag (so the matching
  * objects_reconnect_to_structure_bsp pass knows to re-place it). Every object then has its type-specific
- * structure-BSP state torn down via object_type_disconnect_from_structure_bsp. Returns whatever
- * object_iterator_next() last returned (nullptr once exhausted).
+ * structure-BSP state torn down via object_type_disconnect_from_structure_bsp.
  *
  * DEVIATION: the re-set of 0x800 after object_disconnect_from_map is faithful to the shipped code — the
  * disconnect clears the flag internally and this restores it for the reconnect pass. */
@@ -16,7 +15,7 @@ extern void *object_iterator_next(object_iterator *iterator);
 extern void object_disconnect_from_map(int object_index);
 extern void object_type_disconnect_from_structure_bsp(int object_index);
 
-void *objects_disconnect_from_structure_bsp(void)
+void objects_disconnect_from_structure_bsp(void)
 {
     object_iterator iterator;
     iterator.flags = 0;
@@ -38,6 +37,4 @@ void *objects_disconnect_from_structure_bsp(void)
         }
         object_type_disconnect_from_structure_bsp(index);
     }
-
-    return object;
 }

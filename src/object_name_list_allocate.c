@@ -7,8 +7,7 @@
 
 extern void *game_state_malloc(const char *name, const char *type, int size);
 
-int *object_name_list_allocate(void)
+void object_name_list_allocate(void)
 {
     object_name_list = game_state_malloc("object name list", 0, 2048);
-    return object_name_list;
 }

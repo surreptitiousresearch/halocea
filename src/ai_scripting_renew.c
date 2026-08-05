@@ -17,7 +17,7 @@ extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_it
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
-extern int unit_get_current_grenade_type(int unit_index);
+extern int16_t unit_get_current_grenade_type(int unit_index);
 extern int16_t unit_get_grenade_count(int unit_index, int16_t grenade_type);
 extern int16_t unit_add_grenade_type_to_inventory(int unit_index, int16_t grenade_type, int16_t grenade_count);
 

@@ -11,7 +11,11 @@
  * by the true update-record stride of 1160) — algebraically it targets exactly `p_data - 4`, i.e. the
  * *current* update record's own `update_number` field, not another record's field. Reproduced here as a
  * plain field write. `__CFADD__(game_time - 128, 0x80000000) ? 0 : ...` is the standard "saturating
- * subtract, clamp to 0" idiom, simplified to a plain comparison. */
+ * subtract, clamp to 0" idiom, simplified to a plain comparison.
+ *
+ * DEVIATION: the decompiler's `void *result` in/out parameter is an artifact — the function reads no
+ * argument register, and the r3 live at the blr is only ever memset's or update_client_start's threaded
+ * value (both attested void-consumed). Attested `void (void)`. */
 
 #include <stdint.h>
 #include "headers/update_server_globals.h"
@@ -23,9 +27,9 @@
 extern int game_time_get(void);
 extern void *memset(void *destination, int value, unsigned int size);
 extern void update_server_start(void);
-extern void *update_client_start(void);
+extern void update_client_start(void);
 
-void *update_queues_reset_and_fill_with_lies(void *result)
+void update_queues_reset_and_fill_with_lies(void)
 {
     hcex_coop_update_number = 0;
     hcex_coop_nticks_to_apply = 0;
@@ -33,7 +37,7 @@ void *update_queues_reset_and_fill_with_lies(void *result)
     if ( update_server_globals.initialized )
     {
         update_server_globals.next_update_number_to_build = 0;
-        result = memset(update_server_globals.updates, 0, sizeof(update_server_globals.updates));
+        memset(update_server_globals.updates, 0, sizeof(update_server_globals.updates));
     }
 
     uint8_t client_was_initialized = update_client_globals.initialized;
@@ -58,7 +62,7 @@ void *update_queues_reset_and_fill_with_lies(void *result)
                 update *entry = &update_client_globals.updates[i];
                 entry->update_number = update_number;
                 entry->data.number_of_actions = 1;
-                result = memset(entry->data.actions, 0, sizeof(entry->data.actions));
+                memset(entry->data.actions, 0, sizeof(entry->data.actions));
             }
         }
 
@@ -76,8 +80,6 @@ void *update_queues_reset_and_fill_with_lies(void *result)
     }
     else if ( client_was_initialized )
     {
-        return update_client_start();
+        update_client_start();
     }
-
-    return result;
 }

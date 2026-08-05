@@ -11,8 +11,9 @@
 #include "headers/effect_camera_mode.h"
 #include "headers/blam_data_globals.h"
 
+#include "headers/data_array.h"
 extern int16_t local_player_count(void);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 
 effect_location_datum *effect_location_get_next_instance(const effect_datum *effect, int *location_datum_index,
         int16_t camera_mode)

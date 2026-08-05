@@ -14,9 +14,9 @@ extern void player_input_enable(uint8_t enable);
 extern void ai_globals_dialogue_triggers_enabled(uint8_t enable);
 extern int game_time_get(void);
 /* extern corrected to match def (projectiles_delete_all.c): returns void* (ignored iterator result). */
-extern void *projectiles_delete_all(void);
+extern void projectiles_delete_all(void);
 
-int cinematic_start(void)
+void cinematic_start(void)
 {
     hcex_fire_event("cinameticStart");
     hcex_start_cine();
@@ -28,5 +28,5 @@ int cinematic_start(void)
     cinematic_globals->letter_box = 1;
     cinematic_globals->letter_box_last_game_time = game_time_get();
     cinematic_globals->cinematic_in_progress = 1;
-    return (int)projectiles_delete_all();
+    projectiles_delete_all();
 }

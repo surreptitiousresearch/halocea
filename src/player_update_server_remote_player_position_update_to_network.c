@@ -20,8 +20,7 @@
 #include "headers/network_game_server.h"
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t player_is_vehicle_driver(int player_index);
-extern int   build_remote_player_position_update(player_datum *player, int player_index,
-                                                 uint8_t *body);
+extern int build_remote_player_position_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send);
 extern int build_remote_player_vehicle_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send);
 extern network_game_server *global_network_game_server_get(void);
 

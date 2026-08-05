@@ -10,7 +10,7 @@
 
 extern char *main_get_map_name(void);
 extern int stricmp(const char *string1, const char *string2);
-extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int index);
+extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int n);
 
 uint8_t difficulty_menu_initialize(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {

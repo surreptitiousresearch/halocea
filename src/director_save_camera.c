@@ -7,7 +7,11 @@
 
 extern const observer_result *observer_get_camera(int16_t local_player_index);
 
-FILE *director_save_camera(void)
+/* DEVIATION: the decompiler threaded fclose's status through r3 and typed the function as returning
+ * FILE * (via an intptr_t pun). Disasm shows the two exit paths leave unrelated values in r3 (fopen's
+ * NULL on the early-out, fclose's status on the success path) and the single caller
+ * (director_save_camera_evaluate @0x8372B5D4) ignores r3 — the function returns void. */
+void director_save_camera(void)
 {
     FILE *file = fopen("d:\\camera.txt", "w");
     if ( file )
@@ -17,7 +21,6 @@ FILE *director_save_camera(void)
         fprintf(file, "%f %f %f\n", camera->forward.n[0], camera->forward.n[1], camera->forward.n[2]);
         fprintf(file, "%f %f %f\n", camera->up.n[0], camera->up.n[1], camera->up.n[2]);
         fprintf(file, "%f\n", camera->field_of_view);
-        return (FILE *)(intptr_t)fclose(file);
+        fclose(file);
     }
-    return file;
 }

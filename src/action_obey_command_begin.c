@@ -118,7 +118,7 @@ extern void object_reset(int object_index);
 extern void object_compute_node_matrices_recursive(int object_index);
 extern void actor_input_sample_position(int actor_index, int unit_index, actor_position_data *position);
 
-uint8_t __fastcall action_obey_command_begin(
+uint8_t action_obey_command_begin(
         int actor_index,
         int unit_index,
         int16_t command_list_index,

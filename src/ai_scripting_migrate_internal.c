@@ -31,17 +31,14 @@
 extern void ai_index_squad_iterator_new(unsigned int ai_index, ai_index_squad_iterator *iterator);
 extern squad_datum *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator);
 extern uint32_t tag_get_group_tag(int16_t tag_index);
-extern int ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant,
-                                                  actor_definition *source_actor, int match_by_squad_index,
-                                                  int target_encounter_index, int unused_target_ai_index,
-                                                  const char *unused_debug_description);
+extern int16_t ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant, actor_definition *source_actor, uint8_t match_by_squad_index, int target_encounter_index, int unused_target_ai_index, const char *unused_debug_description);
 extern void encounter_actor_iterator_new(encounter_actor_iterator *iterator, int encounter_index);
 extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iterator);
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
 extern void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index);
 extern void actor_stimulus_maneuvering(uint16_t actor_index, uint8_t advancing, uint8_t flee);
-extern int global_structure_bsp_index_get(void);
+extern int16_t global_structure_bsp_index_get(void);
 extern void encounterless_detach_actor(int actor_index);
 extern void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_index, uint8_t has_previous_team);
 extern void ai_update_team_status(void);

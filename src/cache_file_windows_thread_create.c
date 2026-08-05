@@ -10,11 +10,12 @@ extern void *__stdcall CreateThread(void *, unsigned int, LPTHREAD_START_ROUTINE
 
 extern void cache_file_windows_thread_proc(void);
 
-void *cache_file_windows_thread_create(void)
+/* CreateThread's handle is left in r3 at the blr after being stored to cache_file_globals_0.thread,
+ * but no caller consumes it — attested void. */
+void cache_file_windows_thread_create(void)
 {
     cache_file_globals_0.sleep_event = CreateEventA(0, 0, 0, 0);
 
-    void *thread = CreateThread(0, 0x4000u, (LPTHREAD_START_ROUTINE)cache_file_windows_thread_proc, 0, 0, 0);
-    cache_file_globals_0.thread = thread;
-    return thread;
+    cache_file_globals_0.thread =
+        CreateThread(0, 0x4000u, (LPTHREAD_START_ROUTINE)cache_file_windows_thread_proc, 0, 0, 0);
 }

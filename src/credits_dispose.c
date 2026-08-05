@@ -10,7 +10,7 @@ extern void game_end_credits_start(uint8_t in_beginscene);
 /* Credits widget teardown handler: frees the credit-line array and, if the credits
  * were rolled at end-of-game (mode > 0), kicks off the post-credits sequence
  * (mode 2 => begin-scene). Returns 1 (event handled). */
-int credits_dispose(widget_instance *widget, event_record *event, unsigned char *widget_deleted)
+uint8_t credits_dispose(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     dynamic_array_delete(&credits_list);
     if (credits_endgame_mode > CREDITS_NOT_ENDGAME)

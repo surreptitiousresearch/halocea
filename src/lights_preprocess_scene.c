@@ -55,6 +55,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
+#include "headers/real_argb_color.h"
 extern int game_time_get(void);
 extern int data_next_index(const data_array *data, int16_t index);
 extern void datum_delete(data_array *data, int index);
@@ -86,15 +87,13 @@ extern uint8_t object_get_function_value(int object_index, int16_t function_inde
 extern int object_get_ultimate_parent(int object_index);
 extern float transition_function_evaluate(int16_t function_type, float value);
 extern real_rgb_color *rgb_colors_interpolate(real_rgb_color *rgb_result, unsigned int flags, const real_rgb_color *rgb_lower_bound, const real_rgb_color *rgb_upper_bound, float u);
-extern real_rgb_color *rgb_colors_interpolate_and_scale(real_rgb_color *rgb_result, unsigned int flags,
-    const real_argb_color *rgb_lower_bound, const real_argb_color *rgb_upper_bound,
-    const real_rgb_color *scale_color, float u);
+extern real_rgb_color *rgb_colors_interpolate_and_scale(real_rgb_color *rgb_result, unsigned int flags, const real_argb_color *argb_lower_bound, const real_argb_color *argb_upper_bound, const real_rgb_color *rgb_scale, float u);
 extern const char *object_get_attachment_marker_name(int object_index, int16_t attachment_index);
 extern void first_person_weapon_center_flashlight(int unit_index, real_point3d *position, real_vector3d *forward, real_vector3d *up);
 extern uint8_t first_person_weapon_adjust_light(int weapon_index, const char *marker_name, real_point3d *position, real_vector3d *forward, real_vector3d *up);
 extern int16_t first_person_weapon_get_marker_by_name_render(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern unsigned int compress_real_to_int8(float value);
+extern uint8_t compress_real_to_int8(float z);
 extern unsigned int compress_real_vector3d_to_int32_clamp(const real_vector3d *v);
 
 extern void light_marker_begin(void);

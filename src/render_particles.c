@@ -45,6 +45,7 @@
 #include "headers/data_array.h"
 #include "headers/render_frustum.h"
 #include "headers/real_argb_color.h"
+#include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
 extern uint8_t local_player_is_first_person(int16_t local_player_index);
 extern void render_sort_particles(rendered_particle_datum *rendered_particles, unsigned int rendered_particles_count);
@@ -59,7 +60,7 @@ extern float render_frustum_sphere_diameter_in_pixels(const render_frustum *frus
 extern void build_sprites_begin(build_sprite_data *data, int16_t maximum_sprite_count, int bitmap_group_index, const shader_effect *shader, unsigned int flags);
 extern void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index, int16_t sprite_index, const real_point3d *untransformed_origin, const real_vector3d *untransformed_direction, float rotation, float scale, const real_argb_color *color, float fade, unsigned int flags);
 extern void build_sprites_end(build_sprite_data *data);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 
 void render_particles(void)
 {

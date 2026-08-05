@@ -24,7 +24,7 @@ extern message_delta_processor_message_definition_type _message_object_deletion;
 
 extern int message_delta_parameters_protocol_get_packet_bit_size(void);
 extern unsigned int message_delta_parameters_protocol_get(void);
-extern int bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
+extern uint8_t bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
 extern unsigned int bitstream_read_bit(bitstream_t *const bit_stream, uint8_t *const value);
 extern int bitstream_read_bits(bitstream_t *const bit_stream, void *value, int bit_count);
 

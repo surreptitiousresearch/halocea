@@ -24,8 +24,9 @@
 #include "headers/math_constants.h"
 
 
+#include "headers/data_array.h"
 extern int datum_new(data_array *data);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 extern uint32_t *get_global_local_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 

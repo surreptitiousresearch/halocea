@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern int scripted_camera_time(void);
+extern uint16_t scripted_camera_time(void);
 void scripted_camera_time_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;

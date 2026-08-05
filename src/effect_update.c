@@ -36,7 +36,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *datum_get(data_array *array, int index);
+#include "headers/data_array.h"
+extern void *datum_get(data_array *data, int index);
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern int object_get_ultimate_parent(int object_index);

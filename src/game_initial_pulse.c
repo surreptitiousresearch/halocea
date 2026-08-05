@@ -6,7 +6,7 @@
 #include "headers/blam_data_globals.h"
 
 extern void game_engine_player_added(int player_index);
-extern int game_engine_game_starting(void);
+extern void game_engine_game_starting(void);
 
 /* attested void: 0/4 callers consume r3 — the trailing game_engine_game_starting r3 is callee residue */
 void game_initial_pulse(void)

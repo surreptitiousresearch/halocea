@@ -2,7 +2,7 @@
 /* hs_object_list_get_element @0x837F8290 — return the object at the given position in a HaloScript object
  * list, or -1 if the index is past the end. */
 
-extern int object_list_get_first(int object_list_index, int *iterator);
+extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 
 int hs_object_list_get_element(int object_list_index, int16_t element_index)

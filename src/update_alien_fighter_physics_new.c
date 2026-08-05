@@ -45,9 +45,7 @@
 
 
 extern float normalize3d(real_vector3d *v);
-extern real_vector3d *compute_acceleration(const real_vector3d *current_velocity, const real_vector3d *desired_velocity,
-                                          float maximum_acceleration, float maximum_deceleration,
-                                          real_vector3d *acceleration);
+extern real_vector3d *compute_acceleration(const real_vector3d *current_velocity, const real_vector3d *desired_velocity, float maximum_acceleration, float maximum_deceleration, real_vector3d *acceleration);
 extern real_matrix3x3 *matrix3x3_from_forward_and_up(real_matrix3x3 *matrix, const real_vector3d *forward, const real_vector3d *up);
 extern uint8_t unit_driven_by_ai(int unit_index);
 extern void pitch_vectors(real_vector3d *forward, real_vector3d *up, float sine, float cosine);

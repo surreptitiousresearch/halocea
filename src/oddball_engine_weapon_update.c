@@ -29,7 +29,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int item_get_position_even_if_in_inventory(int item_index, real_point3d *position);
+extern uint8_t item_get_position_even_if_in_inventory(int item_index, real_point3d *position);
 extern void game_engine_set_goal_position(int16_t index, real_point3d *position, float vertical_offset, char *descriptor, int player_index, int16_t team_index, int ignore_player_index);
 extern int game_time_get(void);
 extern int16_t game_connection(void);

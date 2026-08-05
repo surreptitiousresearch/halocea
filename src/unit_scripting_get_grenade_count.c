@@ -8,7 +8,7 @@
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
-int unit_scripting_get_grenade_count(int unit_index)
+int16_t unit_scripting_get_grenade_count(int unit_index)
 {
     unit_datum *unit = object_try_and_get_and_verify_type(unit_index, object_mask_unit);
     if ( !unit )

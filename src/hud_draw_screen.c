@@ -5,7 +5,9 @@
  * messaging. Otherwise it still plays unit sounds and updates messaging.
  *
  * DEVIATION: rasterizer_hud_begin/rasterizer_hud_end take no arguments (confirmed: both are no-arg thunks and
- * the disassembly sets up no r3 before the end calls); the decompiler's v2/v4 arguments are spurious r3 leftover. */
+ * the disassembly sets up no r3 before the end calls); the decompiler's v2/v4 arguments are spurious r3 leftover.
+ * DEVIATION: returns void — r3 at every blr is only rasterizer_hud_end's (attested void) leftover and the sole
+ * caller interface_draw_screen @836A6BB8 ignores it; the int return was decompiler r3-status threading. */
 
 #include <stdint.h>
 #include "headers/render_globals.h"
@@ -19,8 +21,8 @@
 extern int local_player_get_player_index(int16_t local_player_index);
 extern int16_t director_get_perspective(int16_t local_player_index);
 extern int16_t local_player_get_next(int16_t local_player_index);
-extern int rasterizer_hud_begin(void);
-extern int rasterizer_hud_end(void);
+extern void rasterizer_hud_begin(void);
+extern void rasterizer_hud_end(void);
 extern uint8_t game_engine_running(void);
 extern uint8_t game_engine_display_team_indicators(void);
 extern uint8_t cinematic_in_progress(void);
@@ -35,13 +37,16 @@ extern void hud_render_nav_points(int16_t local_player_index);
 extern void hud_render_damage_indicators(int16_t local_player_index);
 extern void hud_messaging_update(int16_t local_player_index);
 
-int hud_draw_screen()
+void hud_draw_screen(void)
 {
     int player_index = local_player_get_player_index(render.local_player_index);
     int16_t perspective = director_get_perspective(render.local_player_index);
     rasterizer_hud_begin();
     if ( player_index == -1 )
-        return rasterizer_hud_end();
+    {
+        rasterizer_hud_end();
+        return;
+    }
 
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
@@ -65,7 +70,8 @@ int hud_draw_screen()
             hud_render_nav_points(render.local_player_index);
             hud_render_damage_indicators(render.local_player_index);
             hud_messaging_update(render.local_player_index);
-            return rasterizer_hud_end();
+            rasterizer_hud_end();
+            return;
         }
         hud_show_action_response(player_index);
         show_hud = hud_scripted_globals->show_hud;
@@ -77,5 +83,5 @@ int hud_draw_screen()
 
     hud_play_unit_sounds(player, show_hud);
     hud_messaging_update(render.local_player_index);
-    return rasterizer_hud_end();
+    rasterizer_hud_end();
 }

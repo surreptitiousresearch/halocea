@@ -14,9 +14,9 @@ extern int RemoveDirectoryA(const char *path);
 extern unsigned int GetLastError(void);
 extern void SetLastError(unsigned int error);
 
-int file_delete(file_reference *file)
+uint8_t file_delete(file_reference *file)
 {
-    int succeeded = 0;
+    uint8_t succeeded = 0;
     char full_path[264];
     memset(full_path, 0, 256);
     file_location_get_full_path(*(int16_t *)&file->data[6], &file->data[8], full_path);
@@ -36,7 +36,7 @@ int file_delete(file_reference *file)
         succeeded = 1;
 
 failed:
-    if ( !(unsigned char)succeeded )
+    if ( !succeeded )
     {
         GetLastError();
         SetLastError(0);

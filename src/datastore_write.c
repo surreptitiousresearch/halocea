@@ -19,7 +19,7 @@ extern void dlFree(void *ptr);
 extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
 extern uint8_t file_exists(const file_reference *file);
 extern void *file_read_into_memory(file_reference *reference, unsigned int *size);
-extern void file_delete(file_reference *reference);
+extern uint8_t file_delete(file_reference *file);
 extern uint8_t file_create(file_reference *file);
 extern uint8_t file_open(file_reference *file, unsigned int flags);
 extern uint8_t file_write(const file_reference *file, unsigned int count, const void *buffer);

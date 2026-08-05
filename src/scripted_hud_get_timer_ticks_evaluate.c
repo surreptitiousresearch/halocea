@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern int scripted_hud_get_timer_ticks(void);
+extern int16_t scripted_hud_get_timer_ticks(void);
 void scripted_hud_get_timer_ticks_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;

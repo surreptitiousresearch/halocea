@@ -2,7 +2,12 @@
  * batch: when the relevant debug toggles are on and no lightmap mode is forced, set the D3D pipeline up to
  * accumulate the mask into the alpha channel (cull none, alpha-only color writes, additive alpha blend, depth
  * test on but no depth write) with a clamped, point-filtered sampler 0. Always selects mask shader 36 into
- * dxeffect_shader and returns it.
+ * dxeffect_shader.
+ *
+ * DEVIATION: the decompiler threaded rasterizer_shader_select's r3 through to blr and typed the function as
+ * returning rasterizer_dx9_shader *; disasm shows r3 is only stored to dxeffect_shader (no return path
+ * recomputes it) and no caller consumes it — the thunk discards it. Attested void, matching the whole
+ * _rasterizer_*_begin family.
  *
  * DEVIATION: the original inlined the sampler address-mode / separate-Z-filter setters as direct GPU fetch-
  * constant register writes (global_d3d_device->m_Constants.Fetch[0].Texture bit pokes plus m_Pending mask
@@ -35,7 +40,7 @@ extern void D3DDevice_SetSamplerState_MinFilter(D3DDevice *device, unsigned int 
 extern void D3DDevice_SetSamplerState_SeparateZFilterEnable(D3DDevice *device, unsigned int sampler,
                                                             unsigned int value);
 
-rasterizer_dx9_shader *_rasterizer_environment_reflection_lightmap_masks_begin(void)
+void _rasterizer_environment_reflection_lightmap_masks_begin(void)
 {
     if (!rasterizer_debug_options.drawing_mode
         && rasterizer_debug_options.draw_environment_reflection_lightmap_masks
@@ -61,5 +66,4 @@ rasterizer_dx9_shader *_rasterizer_environment_reflection_lightmap_masks_begin(v
     }
 
     dxeffect_shader = rasterizer_shader_select(_dxshader_environment_reflection_lightmap_mask);
-    return dxeffect_shader;
 }

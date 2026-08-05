@@ -21,8 +21,9 @@ extern char *strlwr(char *string);
 extern char *strstr(const char *haystack, const char *needle);
 extern uint8_t unit_seat_filled(int parent_object_index, int16_t seat_index);
 
-int vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
-                                           int16_t seat_desire_type, int16_t *seat_indices, int16_t seat_max_indices)
+int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
+                                               int16_t seat_desire_type, int16_t *seat_indices,
+                                               int16_t seat_max_indices)
 {
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     vehicle_definition *definition = TAG_GET(vehicle_definition, object->definition_index);
@@ -42,7 +43,7 @@ int vehicle_scripting_find_available_seats(int unit_index, const char *seat_subs
             accept_all_labels = 1;
     }
 
-    int found = 0;
+    int16_t found = 0;
     int seat_count = definition->unit.seats.count;
     if ( seat_count > 0 )
     {
@@ -50,9 +51,9 @@ int vehicle_scripting_find_available_seats(int unit_index, const char *seat_subs
         int seat_index = 0;
         do
         {
-            int output_slot = (int16_t)found;
+            int output_slot = found;
             unit_seat *seat = &seats[seat_index];
-            if ( (int16_t)found >= seat_max_indices )
+            if ( found >= seat_max_indices )
                 break;
 
             /* Lowercase a copy of the seat's label for case-insensitive substring matching. */

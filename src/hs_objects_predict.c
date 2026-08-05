@@ -1,7 +1,7 @@
 /* hs_objects_predict @0x837F8480 — request resource prediction (preload) for every object in a HaloScript
  * object list. */
 
-extern int object_list_get_first(int object_list_index, int *iterator);
+extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void object_predict(int object_index);
 

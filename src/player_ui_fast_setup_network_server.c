@@ -18,7 +18,7 @@ extern uint8_t game_engine_get_variant_by_name(const char *name, game_variant *v
 extern void *memcpy(void *dst, const void *src, unsigned int size);
 typedef struct widget_instance widget_instance;
 extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
-extern void game_engine_playlist_initialize(uint8_t force_begin_playlist);
+extern int game_engine_playlist_initialize(uint8_t force_begin_playlist);
 extern void network_game_accept_remote_connections(uint8_t accept);
 extern uint8_t create_global_network_game_server(void);
 extern uint8_t create_global_network_game_client(void);

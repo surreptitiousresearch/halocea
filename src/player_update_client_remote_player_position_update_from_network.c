@@ -38,8 +38,7 @@ typedef struct network_game_client network_game_client;
 typedef struct _field_properties_definition _field_properties_definition;
 extern int field_translated_index_get_local_index(const _field_properties_definition *const field_properties_definition, const int translated_index);
 extern void *datum_try_and_get(const data_array *data, int index);
-extern uint8_t message_delta_processor_decode_incremental(real_point3d *decoded_state,
-        void *baseline_state, message_delta_processor_header *header, int flags);
+extern uint8_t message_delta_processor_decode_incremental(void *const destination_data, const void *const baseline_data, const message_delta_processor_header *const header, const uint8_t allow_empty_body);
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
 extern uint8_t is_remote_player_update_in_order(player_datum *player, const remote_player_position_update_header *player_update_header);

@@ -19,7 +19,7 @@ extern int16_t game_connection(void);
 extern void *datum_try_and_get(const data_array *data, int index);
 extern game_variant *game_engine_get_variant(void);
 extern int game_time_get(void);
-extern game_variant *race_update_team_score(void);
+extern void race_update_team_score(void);
 
 void race_player_changed_team(int player_index, uint8_t new_team)
 {

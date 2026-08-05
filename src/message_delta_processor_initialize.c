@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 extern void message_delta_parameters_protocol_initialize(void);
-extern int initialize_messages(void);
+extern void initialize_messages(void);
 extern void metrics_initialize(const int message_definition_packed_bit_size);
 
 void message_delta_processor_initialize(void)

@@ -6,7 +6,7 @@
 extern void object_iterator_new(object_iterator *iterator, uint32_t type_flags, uint8_t flags);
 extern void object_delete(int object_index);
 
-object_datum *object_types_disconnect_from_structure_bsp(void)
+void object_types_disconnect_from_structure_bsp(void)
 {
     object_iterator iterator;
     object_datum *object;
@@ -19,5 +19,4 @@ object_datum *object_types_disconnect_from_structure_bsp(void)
         if ( (uint16_t)object->object.name_index == 0xFFFF )
             object_delete(iterator.index);
     }
-    return object;
 }

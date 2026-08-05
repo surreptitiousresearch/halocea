@@ -22,8 +22,7 @@
 #include "headers/blam_data_globals.h"
 
 extern float __fabs(float x);
-extern real_plane3d *plane3d_from_points(real_plane3d *plane, const real_point3d *point0,
-        const real_point3d *point1, const real_point3d *point2);
+extern real_plane3d *plane3d_from_points(real_plane3d *plane, const real_point3d *point0, const real_point3d *point1, const real_point3d *point2);
 
 uint8_t convex_hull3d_begin(int16_t point_count, const real_point3d *points, int16_t vertex_count, vertex3d *vertices, int16_t edge_count, edge3d *edges, int16_t surface_count, surface3d *surfaces)
 {

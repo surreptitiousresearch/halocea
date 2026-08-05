@@ -70,7 +70,7 @@ extern "C" void hcex_legacy_render(void);
 
 /* Xenon rasterizer FX-texture release (name preserved verbatim from the database, including its
  * "raserizer" typo). */
-extern "C" int raserizer_release_fx_textures(void); // real return type HRESULT; result discarded here
+extern "C" void raserizer_release_fx_textures(void); // real return type HRESULT; result discarded here
 
 struct vidLOCK; // ws-engine vid -- full type in src/headers/ws/vid/vidLOCK.h
 

@@ -7,7 +7,7 @@
 extern data_array *game_state_data_new(const char *name, int16_t maximum_count, int16_t size);
 extern int sprintf_0(char *string, const char *format, ...);
 
-data_array *reference_list_new(const char *name, short maximum_count)
+data_array *reference_list_new(const char *name, int16_t maximum_count)
 {
     char pool_name[256];
 

@@ -14,9 +14,7 @@
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
-extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
-                                                      int16_t seat_desire_type, int16_t *seat_indices,
-                                                      int16_t seat_max_indices);
+extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name, int16_t seat_desire_type, int16_t *seat_indices, int16_t seat_max_indices);
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
 extern void qsort(void *base, unsigned int count, unsigned int size,

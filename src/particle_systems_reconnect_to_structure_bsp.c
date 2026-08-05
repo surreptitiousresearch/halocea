@@ -4,8 +4,7 @@
  * (no cluster). For particle systems that survive, walk each of the 4 emitter types' particle lists and
  * likewise recompute/validate each particle's own location, deleting particles that land outside the BSP
  * (splicing them out of their type's singly-linked list). max_particles_per_type is the count of the
- * particle system definition's `types` tag_block (@+92). Returns whatever data_next_index() last
- * returned (-1 once the particle_systems array is exhausted). */
+ * particle system definition's `types` tag_block (@+92). */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -23,7 +22,7 @@ extern location *object_get_location(int object_index, location *location_out);
 extern void particle_system_delete(int system_index);
 extern void datum_delete(data_array *data, int index);
 
-int particle_systems_reconnect_to_structure_bsp(void)
+void particle_systems_reconnect_to_structure_bsp(void)
 {
     int system_index = data_next_index(particle_systems, -1);
 
@@ -76,6 +75,4 @@ int particle_systems_reconnect_to_structure_bsp(void)
 
         system_index = data_next_index(particle_systems, system_index);
     }
-
-    return system_index;
 }

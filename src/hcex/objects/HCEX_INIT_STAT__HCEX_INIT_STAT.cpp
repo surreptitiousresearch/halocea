@@ -13,7 +13,7 @@
 
 extern void *operator new(size_t size, const char *file, unsigned int line); // boundary — matches the (size,file,line) `operator new` overload used here (operators cannot have C linkage)
 extern "C" void  HALO_SOUND_SYSTEM_ctor(HALO_SOUND_SYSTEM *self);                            // boundary — HALO_SOUND_SYSTEM::HALO_SOUND_SYSTEM
-extern "C" void *physical_memory_allocate();                                                  // boundary
+extern "C" void physical_memory_allocate(void);                                                  // boundary
 extern "C" void  hcex_loading_screen_init();                                                  // boundary
 extern "C" d3dDRIVER *CrateHaloD3dDrv();                                                       // boundary
 extern "C" void  hcexCallFrame();                                                             // boundary — the real prototype takes no meaningful args; the DB's 8-int signature is the decompiler's generic varargs-call placeholder for a callback-table slot

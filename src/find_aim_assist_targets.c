@@ -19,11 +19,7 @@ extern double sin(double x);
 extern double cos(double x);
 extern int structure_clusters_in_cone(int16_t position_cluster_index, const real_point3d *position, const real_vector3d *direction, float distance, float sine, float cosine, int16_t maximum_cluster_count, int16_t *cluster_indices);
 extern int16_t objects_in_clusters_by_indices(unsigned int class_flags, int16_t cluster_count, const int16_t *cluster_indices, int16_t maximum_object_count, int *object_indices);
-extern int16_t find_aim_assist_targets_recursive(const aim_assist_parameters *parameters, int object_index,
-                                                 const real_point3d *position, const real_vector3d *direction,
-                                                 float distance, float angle_sine, float angle_cosine,
-                                                 int ignore_object_index, int16_t ignore_team_index,
-                                                 int16_t maximum_target_count, aim_assist_target *targets);
+extern int16_t find_aim_assist_targets_recursive(const aim_assist_parameters *parameters, int object_index, const real_point3d *position, const real_vector3d *direction, float distance, float angle_sine, float angle_cosine, int ignore_object_index, int16_t ignore_team_index, int16_t maximum_target_count, aim_assist_target *targets);
 
 int16_t find_aim_assist_targets(const aim_assist_parameters *parameters, int16_t position_cluster_index, const real_point3d *position, const real_vector3d *direction, aim_assist_target *ignore_object_index, int16_t ignore_team_index, int16_t maximum_target_count, aim_assist_target *targets)
 {

@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern int hs_doc(void);
+extern void hs_doc(void);
 void hs_doc_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     hs_doc();

@@ -44,8 +44,7 @@
 extern int game_time_get(void);
 extern uint8_t actor_action_allow_cover_seeking(int actor_index, uint8_t unopposable);
 extern uint8_t actor_action_try_to_seek_cover(int actor_index, uint8_t cover_from_last_visible_location, uint8_t allow_occluded_points);
-extern uint8_t actor_action_try_to_panic(int actor_index, int16_t panic_type, int panic_prop_index,
-        uint8_t force_flee_transition);
+extern uint8_t actor_action_try_to_panic(int actor_index, int16_t panic_type, int panic_prop_index, uint8_t force_flee_transition);
 extern uint8_t actor_action_consider_grenade(int actor_index);
 extern uint8_t actor_action_try_to_evade(int actor_index);
 extern int actor_target_unit_index(uint16_t actor_index);

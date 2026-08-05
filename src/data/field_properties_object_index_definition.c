@@ -14,7 +14,7 @@
 #include "../headers/_field_type_translated_index_parameters.h"
 
 extern int default_translated_index_encoder(const _field_properties_definition *const field_properties, void *baseline_data, void *source_data, void *output_stream); /* 0x8379BA30 */
-extern int default_translated_index_decoder(const struct _field_properties_definition *, void *, void *, void *); /* 0x8379BA80 */
+extern int default_translated_index_decoder(const struct _field_properties_definition *, void *, void *, void *); /* 0x8379BA80 — declared with the funcptr-SLOT signature, not the concrete attested one: this extern exists only to take the address for the dispatch table */
 extern _field_type_translated_index_parameters field_properties_object_index_parameters;                          /* 0x841833A4 */
 
 _field_properties_definition field_properties_object_index_definition =

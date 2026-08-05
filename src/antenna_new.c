@@ -89,7 +89,7 @@ int antenna_new(int antenna_definition_index)
                     {
                         const bitmap_group_sprite *sprite = (const bitmap_group_sprite *)sequence->sprites.address;
                         bitmap_data *bitmap = bitmap_group_try_and_get_bitmap(bitmap_group_index,
-                                (unsigned short)sprite->bitmap_index);
+                                sprite->bitmap_index);
                         if ( bitmap )
                         {
                             float denom = (sprite->bounds.n[1] - sprite->bounds.n[0])

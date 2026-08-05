@@ -4,7 +4,10 @@
  * against its bounding sphere; if that fails (no cluster), sweep a collision-BSP query sphere around the
  * bounding sphere and use the first overlapping leaf's cluster (falling back to the object's plain
  * position if the sphere test itself finds nothing). Reconnects the object to the map at the resolved
- * location. Returns whatever object_iterator_next() last returned (nullptr once exhausted).
+ * location.
+ * DEVIATION: no return value — r3 at the single blr (0x836F1094) is only the loop-exit object_iterator_next()
+ * result and the function has no callers that consume it; the decompiler had threaded that through as a
+ * phantom pointer return.
  *
  * The per-slot write clears the object_header_datum.cluster_index field (byte +4 of the 12-byte header
  * element), expressed via the canonical DATA_ARRAY_ELEMENT(...)->cluster_index form. */
@@ -31,7 +34,7 @@ extern void scenario_location_from_point(location *location, const real_point3d 
 extern uint8_t collision_bsp_test_sphere(const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *center, float radius, collision_bsp_test_sphere_result *result);
 extern void object_reconnect_to_map(int object_index, const location *location_in);
 
-void *objects_reconnect_to_structure_bsp(void)
+void objects_reconnect_to_structure_bsp(void)
 {
     object_iterator iterator;
     iterator.flags = 0;
@@ -78,6 +81,4 @@ void *objects_reconnect_to_structure_bsp(void)
 
         object_reconnect_to_map(index, &leaf_location);
     }
-
-    return object;
 }

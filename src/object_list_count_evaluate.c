@@ -4,7 +4,7 @@
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
 extern void hs_return(uint16_t thread_index, int value);
-extern int object_list_count(int object_list_index);
+extern uint16_t object_list_count(int object_list_index);
 void object_list_count_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);

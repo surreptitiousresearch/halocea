@@ -27,9 +27,9 @@
 extern void unit_estimate_position(int unit_index, int16_t estimate_mode, const real_point3d *body_position, real_vector3d *desired_facing, real_vector3d *desired_gun_offset, real_point3d *estimated_position);
 extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index, const real_point3d *p1, int16_t p1_cluster_index, int16_t mode, uint8_t test_line_of_fire, int ignore_object_index, uint8_t ignore_vehicles);
 
-BOOL action_flee_current_position_exposed(uint16_t actor_index, flee_state_data *flee_state_data)
+uint8_t action_flee_current_position_exposed(uint16_t actor_index, flee_state_data *flee_state_data)
 {
-    BOOL exposed = 0;
+    uint8_t exposed = 0;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
     if ( flee_state_data->flee_prop_index == -1 || actor->meta.encounter_index == -1 )

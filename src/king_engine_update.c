@@ -6,7 +6,7 @@
  * the search (without resetting the timer) if the new hill turned out to have no boundary points and the
  * previous hill_id was already 0 (nothing to fall back to). Once a hill with boundary points exists (either
  * freshly found or already active), registers it as multiplayer goal 0 ("crown_blue"); otherwise logs
- * "FAILED TO FIND HILL". Returns king_calculate_hill_state() on the server, or game_connection() otherwise.
+ * "FAILED TO FIND HILL". Finally re-evaluates the hill state on the server.
  *
  * DEVIATION: `find_hill`'s real signature takes 3 args (`int, __int16, __int16`); disasm confirms only the
  * first (the chosen hill index) is ever set at this call site — the other two are read from whatever the
@@ -39,9 +39,9 @@ extern void find_hill(void);
 extern void game_engine_play_multiplayer_sound(int index, uint8_t should_replicate);
 extern void console_printf(uint8_t clear, const char *format, ...);
 extern void game_engine_set_goal_position(int16_t index, real_point3d *position, float vertical_offset, char *descriptor, int player_index, int16_t team_index, int ignore_player_index);
-extern int king_calculate_hill_state(void);
+extern void king_calculate_hill_state(void);
 
-int king_engine_update(void)
+void king_engine_update(void)
 {
     int new_hill_id;
     uint8_t has_hill_points;
@@ -99,9 +99,6 @@ failed_to_find_hill:
         console_printf(0, "FAILED TO FIND HILL");
     }
 
-    int16_t connection = game_connection();
-    if ( connection == 2 )
-        return king_calculate_hill_state();
-
-    return connection;
+    if ( game_connection() == _game_connection_network_server )
+        king_calculate_hill_state();
 }

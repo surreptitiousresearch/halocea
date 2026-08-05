@@ -1,4 +1,4 @@
-/* actor_action_can_stop_guarding @0x837F2C44 — whether an actor guarding a position may stop: if it's
+/* actor_action_can_stop_guarding @0x837F2C30 — whether an actor guarding a position may stop: if it's
  * cowering (+164), compare its investigate level (+110) against cower_investigate_threshold; if it has no
  * time left on its current order (+156 <= 0), always allow stopping; otherwise allow it once the investigate
  * level clears guard_investigate_threshold, or once a secondary timer (+484) is running and it isn't
@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t actor_action_can_stop_guarding(uint16_t actor_index, int16_t guard_investigate_threshold,
+uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold,
     int16_t cower_investigate_threshold)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

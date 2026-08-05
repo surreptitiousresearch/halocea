@@ -9,7 +9,9 @@
  *
  * DEVIATION: reproduced with the original's goto/label control flow intact (rather than restructured)
  * since the single_flag_time-dependent branches interleave in a way that's easy to get subtly wrong by
- * "cleaning up" — faithfulness over readability here. */
+ * "cleaning up" — faithfulness over readability here. The decompiler's `game_variant *` return was the
+ * last game_engine_get_variant() value left in r3 (game_engine_end_game is void, so r3 is stale at the
+ * epilogue) and all 4 callers ignore it — attested void. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -27,7 +29,7 @@ extern game_variant *game_engine_get_variant(void);
 extern void game_engine_replicate_score_and_state_to_network(message_delta_processor_mode mode, int machine_index);
 extern void game_engine_end_game(void);
 
-game_variant *race_update_team_score(void)
+void race_update_team_score(void)
 {
     int team_index = 0;
     int *team_laps = race_globals.team_laps;
@@ -95,16 +97,13 @@ game_variant *race_update_team_score(void)
 
     game_engine_replicate_score_and_state_to_network(_message_delta_mode_incremental, -1);
 
-    game_variant *result = nullptr;
     int *team_score = race_globals.team_laps;
     do
     {
-        result = game_engine_get_variant();
-        if ( *team_score >= result->universal_variant.score_to_win )
+        game_variant *variant = game_engine_get_variant();
+        if ( *team_score >= variant->universal_variant.score_to_win )
             game_engine_end_game(); /* game_engine_end_game attested void — was cast-of-void residue */
         ++team_score;
     }
     while ( (int)team_score < (int)race_globals.persistent_team_score );
-
-    return result;
 }

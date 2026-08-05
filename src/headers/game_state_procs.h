@@ -17,11 +17,11 @@ extern void dummy(void);                                            /* 0x8368447
 extern void game_sound_clear(void);                                 /* 0x83713810 */
 
 /* after_load_procs (0x84172068, 15 entries, table order) */
-int   scenario_reload_structure_bsp_if_necessary(void);      /* 0x83703C20 */
+extern void scenario_reload_structure_bsp_if_necessary(void);      /* 0x83703C20 */
 extern void sound_stop_all(void);                                  /* 0x83719840 */
-int   game_sound_restore(void);                              /* 0x83713898 */
+extern void game_sound_restore(void);                              /* 0x83713898 */
 extern void observer_initialize_for_new_map(void);                 /* 0x8370E8C8 */
-void *update_queues_reset_and_fill_with_lies(void *result);  /* 0x836F6988 */
+extern void update_queues_reset_and_fill_with_lies(void);  /* 0x836F6988 */
 extern void rasterizer_detail_objects_initialize_for_new_map(void);/* 0x83712F08 */
 extern void rasterizer_decals_initialize_for_new_map(void);        /* 0x836A6020 */
 extern void rasterizer_decals_update_function_pointers(void);      /* 0x836A6018 */

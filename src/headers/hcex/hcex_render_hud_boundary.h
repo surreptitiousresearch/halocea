@@ -70,4 +70,4 @@ extern void rasterizer_screen_flash(void);
 extern void cinematic_render(void);
 extern void hud_render_timer(void);
 extern void terminal_draw(void);
-extern int  raserizer_release_fx_textures(void);   /* HRESULT return, discarded by the caller */
+extern void raserizer_release_fx_textures(void);   /* HRESULT return, discarded by the caller */

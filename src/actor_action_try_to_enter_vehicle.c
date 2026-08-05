@@ -13,9 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/vehicle_state_data.h"
-extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name,
-                                                      int16_t seat_desire_type, int16_t *seat_indices,
-                                                      int16_t seat_max_indices);
+extern int16_t vehicle_scripting_find_available_seats(int unit_index, const char *seat_substring_name, int16_t seat_desire_type, int16_t *seat_indices, int16_t seat_max_indices);
 extern uint8_t unit_has_animation_to_enter_seat(int unit_index, int vehicle_index, int16_t seat_index);
 extern uint8_t action_vehicle_setup_specific(int actor_index, int vehicle_index, int16_t seat_index, vehicle_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);

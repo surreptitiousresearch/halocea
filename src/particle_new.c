@@ -28,6 +28,7 @@
 #include "headers/blam_data_globals.h"
 
 
+#include "headers/data_array.h"
 extern real_matrix4x3 *first_person_weapon_get_node_matrix(int16_t local_player_index, int16_t node_index);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
@@ -42,7 +43,7 @@ extern int16_t local_player_count(void);
 extern float point_physics_definition_get_mass(const point_physics_definition *physics, float radius);
 extern void light_particle(const real_point3d *point, real_rgb_color *light_color, real_rgb_color *diffuse_color, uint8_t block);
 extern uint8_t particle_next_sequence(int particle_index);
-extern void *datum_get(data_array *array, int index);
+extern void *datum_get(data_array *data, int index);
 
 void particle_new(const new_particle_data *data)
 {

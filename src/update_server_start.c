@@ -14,7 +14,7 @@ extern void data_make_valid(data_array *data);
 extern void data_delete_all(data_array *data);
 extern int datum_new_at_index(data_array *data, int index);
 extern void action_queue_initialize(action_queue *queue);
-extern void *update_client_start(void);
+extern void update_client_start(void);
 
 /* attested: callers (4/4) ignore r3; the trailing update_client_start return is threaded residue -> void */
 void update_server_start(void)

@@ -26,7 +26,8 @@
 
 
 #include "headers/data_array.h"
-extern void *datum_get(data_array *array, int index);
+#include "headers/data_array.h"
+extern void *datum_get(data_array *data, int index);
 extern int data_next_index(const data_array *data, int16_t index);
 
 extern char *tag_get_name(int16_t tag_index);

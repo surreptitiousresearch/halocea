@@ -2,7 +2,8 @@
  * the world up/left axes transformed into viewer space (used to orient billboarded sprites toward the
  * camera).
  *
- * Returns the result of the final matrix4x3_transform_normal verbatim, matching the original tail call.
+ * The final matrix4x3_transform_normal leaves its result pointer in r3 at the blr, but the sole caller
+ * (render_window @0x83707348) ignores it — attested void.
  * Note: global_left3d is transformed into viewer_space_world_forward — the field name reflects how the
  * sprite builder consumes the left axis, not a relabelling of the input. */
 
@@ -16,13 +17,13 @@
 #include "headers/real_matrix4x3.h"
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 
-real_vector3d *build_sprite_prepare_for_window(void)
+void build_sprite_prepare_for_window(void)
 {
     build_sprite_globals.screen_coverage = 0.0f;
     build_sprite_globals.big_sprite_count = 0;
 
     matrix4x3_transform_normal(&render.frustum.world_to_view, global_up3d,
                                &build_sprite_globals.viewer_space_world_up);
-    return matrix4x3_transform_normal(&render.frustum.world_to_view, global_left3d,
-                                      &build_sprite_globals.viewer_space_world_forward);
+    matrix4x3_transform_normal(&render.frustum.world_to_view, global_left3d,
+                               &build_sprite_globals.viewer_space_world_forward);
 }

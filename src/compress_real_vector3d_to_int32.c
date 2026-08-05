@@ -1,4 +1,4 @@
-/* compress_real_vector3d_to_int32 @0x837E8148 — pack a vector's three components into a single 32-bit word:
+/* compress_real_vector3d_to_int32 @0x837E8120 — pack a vector's three components into a single 32-bit word:
  * x and y each quantized to 11 bits (scale 1023.5, i.e. assuming components in [-1,1] mapped to [0,2047]),
  * z quantized to 10 bits (scale 511.5), laid out as z:10 | y:11 | x:11 from MSB to LSB.
  *

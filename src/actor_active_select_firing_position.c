@@ -29,9 +29,7 @@
 
 
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
-extern int16_t actor_select_firing_position(int actor_index,
-        firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position,
-        int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
+extern int16_t actor_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position, int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
 extern uint8_t firing_position_forced_evaluation(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 
 int16_t actor_active_select_firing_position(int actor_index,

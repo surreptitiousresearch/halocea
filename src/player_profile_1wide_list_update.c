@@ -25,7 +25,7 @@ extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 extern void usnprintf(wchar_t *string, unsigned int size, const wchar_t *format, ...);
-extern int player_profile_number_of_available_primary_colors(void);
+extern uint16_t player_profile_number_of_available_primary_colors(void);
 extern const wchar_t empty_wide_string; /* .short 0 — empty wide string, "tag not loaded" fallback */
 
 void player_profile_1wide_list_update(widget_instance *list_widget)

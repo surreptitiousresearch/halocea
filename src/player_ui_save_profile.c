@@ -20,9 +20,9 @@ extern void saved_game_file_remember_last_used_multiplayer_variant_directory(cha
 extern int ustrncmp(const wchar_t *string1, const wchar_t *string2, size_t count);
 extern int playlist_profile_new(int16_t local_player_index, uint16_t *name);
 
-int player_ui_save_profile(void)
+uint8_t player_ui_save_profile(void)
 {
-    int saved = 0;
+    uint8_t saved = 0;
     int profile_index = player_ui_globals.edit_profile_data.profile_index;
     uint16_t file_type = saved_game_file_get_type(profile_index);
 

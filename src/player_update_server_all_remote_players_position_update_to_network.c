@@ -4,8 +4,11 @@
  * otherwise (new scheme, unit valid) only vehicle drivers get a vehicle update built, everyone else is
  * skipped this tick. On a successful build (result > 0), touches the network game server singleton and
  * fully drains a fresh player_data iterator (side effect only — result discarded, matches shipped code),
- * then advances the player's own remote-update sequence number mod 8. Returns the last player datum
- * iterated (matches the decompiled return type/behavior). */
+ * then advances the player's own remote-update sequence number mod 8.
+ *
+ * DEVIATION: the decompiler gave this a `void *` return; the only r3 live at the epilogue is the
+ * terminating (always null) data_iterator_next result of the outer loop and no caller consumes r3 —
+ * a threaded-status artifact. Declared void. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -19,20 +22,18 @@
 #include "headers/network_game_server.h"
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
-extern int build_remote_player_position_update(player_datum *source_player, int player_index,
-        uint8_t *is_reliable_send);
+extern int build_remote_player_position_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send);
 extern int build_remote_player_vehicle_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t player_is_vehicle_driver(int player_index);
 extern network_game_server *global_network_game_server_get(void);
 
-void *player_update_server_all_remote_players_position_update_to_network(void)
+void player_update_server_all_remote_players_position_update_to_network(void)
 {
     data_iterator iterator;
     data_iterator_new(&iterator, player_data);
 
-    void *result;
-    while ( (result = data_iterator_next(&iterator)) != nullptr )
+    while ( data_iterator_next(&iterator) != nullptr )
     {
         uint8_t is_reliable_send = 0;
         int player_index = iterator.index;
@@ -77,6 +78,4 @@ void *player_update_server_all_remote_players_position_update_to_network(void)
                 (player->___u26.server_update_data.next_remote_player_update_sequence_number + 1) % 8;
         }
     }
-
-    return result;
 }

@@ -21,8 +21,7 @@
 #include "headers/ai_information_data.h"
 extern int game_time_get(void);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
-extern uint8_t actor_action_try_to_panic(int actor_index, int16_t panic_type, int panic_prop_index,
-    uint8_t force_flee_transition);
+extern uint8_t actor_action_try_to_panic(int actor_index, int16_t panic_type, int panic_prop_index, uint8_t force_flee_transition);
 
 int actor_action_handle_panic_transition(int actor_index, int16_t minimum_panic_level, uint8_t enforced_calm, int16_t force_panic_level)
 {

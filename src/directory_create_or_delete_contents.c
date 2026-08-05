@@ -12,7 +12,7 @@ extern void file_path_add_name(char *path, const char *name);
 extern uint8_t file_exists(const file_reference *file);
 extern void find_files_start(unsigned int flags, const file_reference *directory);
 extern uint8_t find_files_next(file_reference *file, file_last_modification_date *date);
-extern void file_delete(const file_reference *reference);
+extern uint8_t file_delete(file_reference *file);
 extern uint8_t file_create(file_reference *file);
 
 void directory_create_or_delete_contents(const char *directory_name)

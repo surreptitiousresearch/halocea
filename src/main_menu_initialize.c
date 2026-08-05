@@ -24,7 +24,7 @@ extern void player_ui_end_editing_profile(void);
 extern uint8_t ui_main_menu_music_active(void);
 extern void ui_start_main_menu_music(void);
 
-uint8_t main_menu_initialize(widget_instance *widget, event_record *event, unsigned char *widget_deleted)
+uint8_t main_menu_initialize(widget_instance *widget, event_record *event, uint8_t *widget_deleted)
 {
     player_ui_clear_multiplayer_joins();
     player_ui_clear_multiplayer_variant();

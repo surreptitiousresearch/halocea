@@ -2,7 +2,10 @@
  * current multiplayer scene from the player count and a secondary count (territory-style netgame flags of
  * race-vehicle netgame flags (type 4) for the race engine, otherwise the number of vehicle objects). The
  * resulting bits in game_engine_globals.flags gate progressively heavier lighting as the scene gets busier
- * (bits 0/1 disable dynamic/integrated lights when busy; bits 2/3 mark the 5+/9+ player thresholds). */
+ * (bits 0/1 disable dynamic/integrated lights when busy; bits 2/3 mark the 5+/9+ player thresholds).
+ *
+ * DEVIATION: the reconstruction returned the last object_iterator_next result; that r3 is iterator
+ * residue — the sole caller (game_engine_game_starting) ignores it. */
 
 #include <stdint.h>
 #include "headers/data_iterator.h"
@@ -25,7 +28,7 @@ extern void *data_iterator_next(data_iterator *iterator);
 extern void object_iterator_new(object_iterator *iterator, uint32_t type_flags, uint8_t flags);
 extern void *object_iterator_next(object_iterator *iterator);
 
-void *game_engine_build_lighting(void)
+void game_engine_build_lighting(void)
 {
     int player_count = 0;
     int secondary_count = 0;
@@ -76,6 +79,4 @@ void *game_engine_build_lighting(void)
     }
     if (player_count >= 9)
         game_engine_globals.flags = flags | (1u << _game_engine_9_or_more_players_bit);
-
-    return result;
 }

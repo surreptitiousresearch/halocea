@@ -4,7 +4,11 @@
  * definition's flags (dword[0]) bit 1 is set, the sound is deleted instead (definition no longer wants a
  * cached instance); otherwise the definition's slot is stamped with this datum's index. Only sounds whose
  * flags bit 0x10 is set are touched. Finally clears the same cached-instance slot to -1 on every "snd!"
- * (sound_looping) tag not visited above, and returns the last tag_iterator_next result (-1). */
+ * (sound_looping) tag not visited above.
+ *
+ * DEVIATION: the decompiler surfaced the loop-terminating tag_iterator_next result (always -1) as an int
+ * return. r3 at blr is only ever the callee's and the function has no callers that consume it — attested
+ * void. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -24,7 +28,7 @@ extern void datum_delete(data_array *data, int index);
 extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
 extern int tag_iterator_next(tag_iterator *iterator);
 
-int game_sound_restore(void)
+void game_sound_restore(void)
 {
     for ( int index = data_next_index(game_looping_sound_data, -1); index != -1;
           index = data_next_index(game_looping_sound_data, index) )
@@ -43,10 +47,9 @@ int game_sound_restore(void)
 
     tag_iterator iterator;
     tag_iterator_new(&iterator, 0x736E6421u);   /* "snd!" (sound) */
-    int result;
-    for ( result = tag_iterator_next(&iterator); result != -1; result = tag_iterator_next(&iterator) )
+    for ( int tag_index = tag_iterator_next(&iterator); tag_index != -1;
+          tag_index = tag_iterator_next(&iterator) )
         /* prior "no member at byte 144" note checked looping_sound_definition — but 'snd!' is the
          * SOUND tag; DB sound_definition offset 144 = runtime_scripting_time. */
-        TAG_GET(sound_definition, result)->runtime_scripting_time = -1;
-    return result;
+        TAG_GET(sound_definition, tag_index)->runtime_scripting_time = -1;
 }

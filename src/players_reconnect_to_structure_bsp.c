@@ -10,8 +10,9 @@
  * cached BSP cluster word (@+60) is invalidated to force re-resolution against the new structure BSP.
  *
  * DEVIATION: the decompiler's post-loop `if (raised < 0.3)` re-check is unreachable (the loop exits via the
- * >= 0.3 break) and is folded into the break. The junk pointer return (last data_iterator_next result, always
- * null) is kept to match the DB prototype, as in objects_reconnect_to_structure_bsp. */
+ * >= 0.3 break) and is folded into the break. It also threaded the final (always null) data_iterator_next
+ * result out through r3; the function is an entry of the reconnect_to_structure_bsp_procs table, whose DB
+ * applied type is `void (*[13])(void)`, and it has no direct callers — so the return is void. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -34,7 +35,7 @@ extern int16_t scenario_cluster_index_from_point(const real_point3d *point);
 extern int16_t local_player_get_next(int16_t local_player_index);
 extern void player_teleport_on_bsp_switch(int player_index, int source_unit_index, const real_point3d *position);
 
-int16_t *players_reconnect_to_structure_bsp(void)
+void players_reconnect_to_structure_bsp(void)
 {
     data_iterator iterator;
 
@@ -128,5 +129,4 @@ int16_t *players_reconnect_to_structure_bsp(void)
         player->cluster_index = -1;    /* invalidate cached BSP cluster for every player */
         player = data_iterator_next(&iterator);
     }
-    return (int16_t *)player;
 }

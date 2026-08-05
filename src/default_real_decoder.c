@@ -3,7 +3,7 @@
 
 extern int bitstream_read_bits(bitstream_t *const bit_stream, void *value, int bit_count);
 
-unsigned int default_real_decoder(const _field_properties_definition *const field_properties,
+int default_real_decoder(const _field_properties_definition *const field_properties,
                                   const void *const baseline_data,
                                   void *destination_data,
                                   bitstream_t *const input_stream)

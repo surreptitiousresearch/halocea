@@ -8,7 +8,7 @@
 #include "headers/event_record.h"
 
 extern uint8_t player_ui_edit_profile_is_dirty(void);
-extern int player_ui_save_profile(void);
+extern uint8_t player_ui_save_profile(void);
 extern void player_ui_end_editing_profile(void);
 extern widget_instance *widget_instance_get_topmost_parent(widget_instance *widget);
 extern void ui_widget_delete(widget_instance *widget);

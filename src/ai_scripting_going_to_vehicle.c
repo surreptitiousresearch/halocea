@@ -10,9 +10,9 @@
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
 
-int ai_scripting_going_to_vehicle(int unit_index)
+int16_t ai_scripting_going_to_vehicle(int unit_index)
 {
-    int count = 0;
+    int16_t count = 0;
     actor_iterator iterator;
     actor_iterator_new(&iterator, 1u);
     for ( actor_datum *actor = actor_iterator_next(&iterator);

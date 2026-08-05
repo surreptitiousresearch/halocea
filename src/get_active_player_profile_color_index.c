@@ -7,7 +7,7 @@
 #include "headers/player_profile.h"
 
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
-extern int player_profile_number_of_available_primary_colors(void);
+extern uint16_t player_profile_number_of_available_primary_colors(void);
 
 void get_active_player_profile_color_index(widget_instance *widget)
 {

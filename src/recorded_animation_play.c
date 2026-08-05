@@ -5,7 +5,7 @@
 
 extern uint8_t recorded_animation_play_internal(int unit_index, int16_t animation_index, uint16_t extra_flags);
 
-unsigned char recorded_animation_play(int unit_index, int16_t animation_index)
+uint8_t recorded_animation_play(int unit_index, int16_t animation_index)
 {
     return recorded_animation_play_internal(unit_index, animation_index, 0);
 }

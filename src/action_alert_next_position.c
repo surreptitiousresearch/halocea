@@ -29,8 +29,7 @@
 
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern int16_t choose_random_array_element(void *array, int16_t element_size, int16_t element_count,
-        int16_t weight_field_offset, unsigned int *used_bit_vector);
+extern int choose_random_array_element(char *array, int16_t element_size, int16_t element_count, int16_t weight_field_offset, unsigned int *used_bit_vector);
 extern int game_time_get(void);
 
 int16_t action_alert_next_position(int actor_index, int16_t move_position_order, int16_t current_position_index, uint8_t *direction_increasing)

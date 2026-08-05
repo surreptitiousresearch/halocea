@@ -66,7 +66,7 @@ extern void rasterizer_sun_glow_draw(const rasterizer_lens_flare_submit_paramete
 extern uint8_t *lens_flare_occlusion_test_results_get(const rasterizer_lens_flare_submit_parameters *lens_flare_parameters);
 extern real_vector3d * uncompress_int32_to_real_vector3d(real_vector3d *result, unsigned int i);
 extern float uncompress_int8_to_real(uint8_t i);
-extern unsigned int compress_real_to_int8(float value);
+extern uint8_t compress_real_to_int8(float z);
 extern float lens_flare_evaluate_corona_rotation_function(int16_t function, const rasterizer_lens_flare_submit_parameters *lens_flare_parameters);
 extern float periodic_function_evaluate(int16_t function_type, float time);
 extern real_rgb_color *rgb_colors_interpolate(real_rgb_color *rgb_result, unsigned int flags, const real_rgb_color *rgb_lower_bound, const real_rgb_color *rgb_upper_bound, float u);

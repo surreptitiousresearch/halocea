@@ -17,7 +17,7 @@
 
 extern int game_time_get(void);
 extern void game_engine_play_multiplayer_sound_to_specific_player(int player_index, int index, uint8_t should_replicate);
-extern game_variant *race_update_team_score(void);
+extern void race_update_team_score(void);
 extern game_variant *game_engine_get_variant(void);
 extern void game_show_score_you_ally_enemy(int player_index, int message_you, int message_ally, int message_enemy, int message_data, uint8_t should_replicate);
 extern void game_show_score_extended(int recipient_player_index, int subject_player_index, int message, int message_data, uint8_t should_replicate);

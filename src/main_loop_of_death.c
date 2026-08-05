@@ -5,7 +5,10 @@
  * Deviations:
  *   - input_frame_begin/input_update/shell_idle/event_manager_update/process_ui_widgets/main_pregame_render
  *     and input_frame_end are all void no-arg; the decompiler chained them through r3. Unchained.
- *   - targa_export's return feeds the (ignored) input_frame_end arg in the decompiler; dropped. */
+ *   - targa_export's return feeds the (ignored) input_frame_end arg in the decompiler; dropped.
+ *   - the decompiler's `__noreturn` attribute is dropped from the attested signature: the loop back-edge
+ *     is a plain `b loc_8368C388` and the function genuinely never falls out, but the spelling is a
+ *     Hex-Rays-ism, not part of the interface. */
 
 #include <stdint.h>
 #include "headers/file_reference.h"
@@ -27,7 +30,7 @@ extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...)
 extern file_reference *file_reference_create_from_path(file_reference *reference, const char *path, uint8_t directory);
 extern const char *targa_export(file_reference *file, const bitmap_data *bitmap);
 
-void __noreturn main_loop_of_death(void)
+void main_loop_of_death(void)
 {
     while ( 1 )
     {

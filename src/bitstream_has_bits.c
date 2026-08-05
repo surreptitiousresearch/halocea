@@ -1,6 +1,7 @@
+#include <stdint.h>
 #include "headers/bitstream_t.h"
 
-int bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count)
+uint8_t bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count)
 {
     unsigned int last_needed_bit = 8 * bit_stream->current_byte + bit_stream->current_bit_in_byte + bit_count - 1;
 

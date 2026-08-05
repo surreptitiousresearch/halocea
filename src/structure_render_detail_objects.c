@@ -43,11 +43,11 @@ extern void rasterizer_detail_objects_end(void);
 
 extern detail_object_cell_definition *get_lower_bound_cell(detail_object_cell_definition *begin, detail_object_cell_definition *end, detail_object_cell_coord *key);
 extern detail_object_cell_definition * get_upper_bound_cell(detail_object_cell_definition *begin, detail_object_cell_definition *end, detail_object_cell_coord *key);
-int structure_render_detail_objects(void)
+void structure_render_detail_objects(void)
 {
-    int16_t result = local_player_count();
-    if (result != 1 || render.local_player_index == 0xFFFF)
-        return result;
+    int16_t local_players = local_player_count();
+    if (local_players != 1 || render.local_player_index == 0xFFFF)
+        return;
 
     detail_object_bsp_cell_table *table = global_structure_bsp->detail_object_data.count
             ? (detail_object_bsp_cell_table *)global_structure_bsp->detail_object_data.address
@@ -59,7 +59,7 @@ int structure_render_detail_objects(void)
     int16_t camera_cell_z = (int16_t)(render.camera.position.n[2] * 0.125f - 0.5f);
 
     if (!table->valid)
-        return result;
+        return;
 
     rasterizer_detail_objects_begin();
 
@@ -182,9 +182,8 @@ int structure_render_detail_objects(void)
     rasterizer_detail_objects_draw(&player0->view_data);
 
     /* DEVIATION: the decompile shows `return rasterizer_detail_objects_end();`, but that function (and
-     * its real `_rasterizer_detail_objects_end` implementation) is void — an empty stub. The PPC r3
-     * register is left holding whatever it last held (unspecified), so this is not a meaningful return
-     * value; reproduced as a plain call followed by returning the earlier `local_player_count()` result. */
+     * its real `_rasterizer_detail_objects_end` implementation) is void — an empty stub. Attested void:
+     * r3 at every blr is leftover (the `local_player_count()` value on the early exits, a call-argument
+     * address on the main path), and the single caller `render_window`@0x837075C4 ignores r3. */
     rasterizer_detail_objects_end();
-    return result;
 }

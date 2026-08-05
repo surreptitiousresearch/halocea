@@ -3,7 +3,7 @@
 
 extern int _rasterizer_needs_change(rasterizer_settings_parameters *parameters);
 
-uint8_t rasterizer_needs_change(rasterizer_settings_parameters *parameters)
+int rasterizer_needs_change(rasterizer_settings_parameters *parameters)
 {
     return _rasterizer_needs_change(parameters);
 }

@@ -18,7 +18,11 @@
  * (`camera_position[player].z - camera_position[player].z`) reads the SAME address for both operands —
  * confirmed via disasm, not a transcription slip — so it always evaluates to 0.0 and the range check is
  * effectively 2D (X/Y only). The object's own Z position is computed (`object_position.z`) but never
- * consulted anywhere in the function; kept as a dead read for fidelity. */
+ * consulted anywhere in the function; kept as a dead read for fidelity.
+ *
+ * DEVIATION: attested void — the decompiler's `void *` return is the r3 left over from the loop-exit
+ * `bl object_iterator_next` (837BD3B4) surviving the epilogue; it is always the NULL that ended the walk,
+ * and both callers (motion_sensor_tick @0x837BD7AC/0x837BD7D0) discard r3. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -50,7 +54,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern uint8_t should_draw_object(int object_index);
 extern uint8_t blip_type_get(int object_index, int local_player_index);
 
-void *motion_sensor_update(void)
+void motion_sensor_update(void)
 {
     game_engine_running();
     int current_time = game_time_get();
@@ -61,7 +65,6 @@ void *motion_sensor_update(void)
     int16_t new_active_index = (motion_sensor_globals->sensor_active_index + 1) % 10;
     motion_sensor_globals->sensor_active_index = new_active_index;
 
-    void *result = 0;
     uint8_t done = 0;
 
     if (current_time % 15 && current_time)
@@ -122,7 +125,7 @@ void *motion_sensor_update(void)
         }
 
         object_iterator_new(&iter, object_mask_unit, 1u);
-        for (result = object_iterator_next(&iter); result; result = object_iterator_next(&iter))
+        for (void *object_entry = object_iterator_next(&iter); object_entry; object_entry = object_iterator_next(&iter))
         {
             if (done)
                 break;
@@ -204,6 +207,4 @@ void *motion_sensor_update(void)
             }
         }
     }
-
-    return result;
 }

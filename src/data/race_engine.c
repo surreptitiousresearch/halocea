@@ -6,7 +6,7 @@
 #include "headers/weapon_datum.h"
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"
-extern int __fastcall race_engine_did_player_win(int player_index);
+extern int race_engine_did_player_win(int player_index);
 extern uint8_t race_engine_display_score(int player_index, int message, int message_data, uint16_t *buffer, int buffer_size);
 extern void race_engine_dispose(void); /* prototype not in DB */
 extern void race_engine_dispose_from_old_map(void); /* prototype not in DB */
@@ -23,7 +23,7 @@ extern void race_engine_player_killed_player(int killing_player_index, int killi
 extern void race_engine_player_removed(int player_index);
 extern void race_engine_player_update(int player_index);
 extern void race_engine_post_rasterize(void); /* prototype not in DB */
-extern uint8_t __fastcall race_engine_postspawn_player_update(int player_index);
+extern uint8_t race_engine_postspawn_player_update(int player_index);
 extern void race_engine_pregame_post_rasterize(void); /* prototype not in DB */
 extern void race_engine_prespawn_player_update(int player_index);
 extern void race_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header, network_game_client *client);

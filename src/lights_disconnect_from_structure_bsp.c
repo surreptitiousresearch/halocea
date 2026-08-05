@@ -2,7 +2,6 @@
  * Walks every live light; for each light flagged connected-to-map (0x4, _point_light_connected_to_map_bit)
  * that also connects-to-map (0x2, _point_light_connects_to_map_bit), removes it from the light cluster
  * partition and then re-stamps the connected flag so lights_reconnect_to_structure_bsp will re-place it.
- * Returns the terminal -1 from the datum iterator.
  *
  * DEVIATION: the clear-then-set of bit 0x4 around cluster_partition_disconnect is faithful to the shipped
  * code (the flag is briefly cleared, then restored for the reconnect pass). */
@@ -18,7 +17,7 @@
 extern int data_next_index(const data_array *data, int16_t index);
 extern void cluster_partition_disconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference);
 
-int lights_disconnect_from_structure_bsp(void)
+void lights_disconnect_from_structure_bsp(void)
 {
     int result = data_next_index(light_data, -1);
     for ( int i = result; result != -1; i = result )
@@ -36,5 +35,4 @@ int lights_disconnect_from_structure_bsp(void)
         }
         result = data_next_index(light_data, i);
     }
-    return result;
 }

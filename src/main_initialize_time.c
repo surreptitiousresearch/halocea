@@ -1,7 +1,8 @@
-/* main_initialize_time @0x8368A7F8 — sample the system clock and seed the per-frame timing fields; return
- * the current millisecond timestamp.
+/* main_initialize_time @0x8368A7F8 — sample the system clock and seed the per-frame timing fields.
  *
- * Deviation: the __int128 / +4-offset register juggling is PPC ABI noise around the 64-bit clock value. */
+ * Deviation: the __int128 / +4-offset register juggling is PPC ABI noise around the 64-bit clock value.
+ * Deviation: attested void — r3 at the blr is only the threaded system_clocks_to_milliseconds result
+ * (bl + epilogue, no explicit r3 computation) and the binary has no callers that consume it. */
 
 #include <stdint.h>
 #include "headers/main_globals.h"
@@ -9,11 +10,10 @@
 extern int64_t system_clocks(void);
 extern uint32_t system_clocks_to_milliseconds(int64_t clocks);
 
-unsigned int main_initialize_time(void)
+void main_initialize_time(void)
 {
     int64_t clocks = system_clocks();
     main_globals.last_time_clocks = clocks;
     main_globals.last_render_clocks = clocks;
     main_globals.last_time_msec = system_clocks_to_milliseconds(clocks);
-    return main_globals.last_time_msec;
 }

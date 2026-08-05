@@ -9,7 +9,7 @@
 
 typedef struct network_game_client network_game_client;
 extern void hs_return(uint16_t thread_index, int value);
-extern network_game_client *player_update_history_show_statistics_from_console(void);
+extern void player_update_history_show_statistics_from_console(void);
 
 void player_update_history_show_statistics_from_console_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

@@ -12,7 +12,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern unsigned int compress_real_to_int8(float value);
+extern uint8_t compress_real_to_int8(float z);
 extern unsigned int compress_real_vector3d_to_int32_clamp(const real_vector3d *v);
 
 void lights_queue_lens_flare(int definition_index, const real_point3d *position, const real_vector3d *direction,

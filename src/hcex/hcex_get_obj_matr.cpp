@@ -7,7 +7,7 @@
 #include "../headers/hcex/hcex_matr4x3.h"
 #include "../headers/real_matrix4x3.h"
 
-extern real_matrix4x3 *object_get_world_matrix(int object_index, real_matrix4x3 *matrix);
+extern "C" real_matrix4x3 *object_get_world_matrix(int object_index, real_matrix4x3 *matrix);
 
 extern "C" int hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr)
 {

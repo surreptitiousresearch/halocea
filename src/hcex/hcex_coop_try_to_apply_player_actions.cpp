@@ -10,16 +10,16 @@
 #include "../headers/real_vector3d.h"
 #include "../headers/real_euler_angles2d.h"
 
-extern int hcex_coop_online_test_local;
-extern int hcex_coop_local_player_index;
-extern game_update hcex_coop_update;
-extern player_action_collection hcex_action_collection;
-extern int hcex_coop_update_number;
+extern "C" int hcex_coop_online_test_local;
+extern "C" int hcex_coop_local_player_index;
+extern "C" game_update hcex_coop_update;
+extern "C" player_action_collection hcex_action_collection;
+extern "C" int hcex_coop_update_number;
 
-extern real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const real_euler_angles2d *angles);
-extern void player_control_set_facing(int16_t local_player_index, const real_vector3d *forward);
-extern void player_control_set_zoom_level(int16_t local_player_index, int16_t zoom_level);
-extern void update_client_handle_server_update(game_update *new_update, int update_number);
+extern "C" real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const real_euler_angles2d *angles);
+extern "C" void player_control_set_facing(int16_t local_player_index, const real_vector3d *forward);
+extern "C" void player_control_set_zoom_level(int16_t local_player_index, int16_t zoom_level);
+extern "C" void update_client_handle_server_update(game_update *new_update, int update_number);
 
 extern "C" void hcex_coop_try_to_apply_player_actions(void)
 {

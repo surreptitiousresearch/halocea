@@ -33,6 +33,6 @@ extern void m3dMATR_Invert(const m3dMATR *m, m3dMATR *out);
 extern void m3dMATR_Transform(m3dMATR *m, const m3dMATR *by, int mode);
 
 /* HCEX bridge math helpers (reversed separately). */
-extern int  hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr);
+extern "C" int  hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr);
 extern void hcex_make_inst_matr(const hcex_matr4x3 *src, m3dMATR *inst_matr);
 extern HCEX_OBJ *hcex_obj_get(int id);

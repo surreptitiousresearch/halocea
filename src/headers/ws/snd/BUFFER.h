@@ -38,26 +38,26 @@ struct BUFFER; // fwd for the vtbl's `this` parameters
 // DB-verified layout (types_members snd::BUFFER_vtbl): 20 slots, each a plain function pointer
 // (no RTTI/offset-to-top columns preceding slot 0 in this table dump).
 typedef struct BUFFER_vtbl {
-    void (__fastcall *Play)(BUFFER *self);
-    void (__fastcall *Pause)(BUFFER *self, bool pause);
-    void (__fastcall *Stop)(BUFFER *self, bool immediate);
-    bool (__fastcall *Set3DPanLevel)(BUFFER *self, float panLevel);
-    bool (__fastcall *KeyOff)(BUFFER *self);
-    bool (__fastcall *SetRPCParameter)(BUFFER *self, const char *name, float value);
-    bool (__fastcall *IsStarving)(BUFFER *self);
-    int (__fastcall *GetTime)(BUFFER *self);
-    int (__fastcall *GetCurTime)(BUFFER *self);
-    float (__fastcall *GetVolume)(BUFFER *self);
-    float (__fastcall *GetPitch)(BUFFER *self);
-    void (__fastcall *SetVolume)(BUFFER *self, float volume);
-    void (__fastcall *SetPitch)(BUFFER *self, float pitch);
-    void (__fastcall *SetOcclusion)(BUFFER *self, float directOcclusion, float reverbOcclusion);
-    void (__fastcall *GetOcclusion)(BUFFER *self, float *directOcclusion, float *reverbOcclusion);
-    void (__fastcall *SetPosVel)(BUFFER *self, const m3dV *pos, const m3dV *vel);
-    void (__fastcall *GetPosVel)(BUFFER *self, m3dV *pos, m3dV *vel);
-    void (__fastcall *Update)(BUFFER *self, float deltaTime);
-    void (__fastcall *dtr_BUFFER)(BUFFER *self, int deleteFlag); // scalar-deleting dtr slot; deleteFlag bit0 => free
-    void (__fastcall *Term)(BUFFER *self);
+    void (*Play)(BUFFER *self);
+    void (*Pause)(BUFFER *self, bool pause);
+    void (*Stop)(BUFFER *self, bool immediate);
+    bool (*Set3DPanLevel)(BUFFER *self, float panLevel);
+    bool (*KeyOff)(BUFFER *self);
+    bool (*SetRPCParameter)(BUFFER *self, const char *name, float value);
+    bool (*IsStarving)(BUFFER *self);
+    int (*GetTime)(BUFFER *self);
+    int (*GetCurTime)(BUFFER *self);
+    float (*GetVolume)(BUFFER *self);
+    float (*GetPitch)(BUFFER *self);
+    void (*SetVolume)(BUFFER *self, float volume);
+    void (*SetPitch)(BUFFER *self, float pitch);
+    void (*SetOcclusion)(BUFFER *self, float directOcclusion, float reverbOcclusion);
+    void (*GetOcclusion)(BUFFER *self, float *directOcclusion, float *reverbOcclusion);
+    void (*SetPosVel)(BUFFER *self, const m3dV *pos, const m3dV *vel);
+    void (*GetPosVel)(BUFFER *self, m3dV *pos, m3dV *vel);
+    void (*Update)(BUFFER *self, float deltaTime);
+    void (*dtr_BUFFER)(BUFFER *self, int deleteFlag); // scalar-deleting dtr slot; deleteFlag bit0 => free
+    void (*Term)(BUFFER *self);
 } BUFFER_vtbl;
 
 typedef struct BUFFER {

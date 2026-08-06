@@ -9,8 +9,8 @@ struct objOBJ; // ../obj/objOBJ.h — pointer only
 
 // DB-verified layout (types_members objFILTER_vtbl): dtr_objFILTER@0, IsUse@4.
 typedef struct objFILTER_vtbl {
-    void (__fastcall *dtr_objFILTER)(struct objFILTER *self);
-    int  (__fastcall *IsUse)(struct objFILTER *self, objOBJ *obj);
+    void (*dtr_objFILTER)(struct objFILTER *self);
+    int  (*IsUse)(struct objFILTER *self, objOBJ *obj);
 } objFILTER_vtbl;
 
 typedef struct objFILTER {

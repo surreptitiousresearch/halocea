@@ -1,9 +1,50 @@
-/* message_delta_global_field_type_list @ 0x84182E10, 672 bytes = 28 x _field_type_definition
-   (24 bytes each). Dispatch table for the network message-delta field serializer: one row
-   per _field_type enum id, each carrying requires_parameters, a maximum-size calculator, a
-   parameter verifier, and a destructor. Reconstructed from the raw image (big-endian); all
-   84 function pointers resolved to named functions via the DB funcs table. The trailing
-   `initialized` byte of every row is 0 in the image (populated at runtime). */
+/* message_delta_global_field_type_list @ 0x84182E10 (.data, 672 bytes)
+ * DB applied_types: _field_type_definition message_delta_global_field_type_list[28];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 type                       = 0x00000000
+ *        +0x04 requires_parameters        = 0x01
+ *        +0x08 maximum_size_calculator    = 0x8379A700 -> _field_type_integer_size_calculator
+ *        +0x0C field_parameters_verifier  = 0x8379A768 -> _field_type_integer_parameter_verifier
+ *        +0x10 destructor                 = 0x8379A790 -> _field_type_integer_destructor
+ *        +0x14 initialized                = 0x00
+ *   [ 1] +0x00 type                       = 0x00000001
+ *        +0x04 requires_parameters        = 0x00
+ *        +0x08 maximum_size_calculator    = 0x8379A980 -> _field_type_real_size_calculator
+ *        +0x0C field_parameters_verifier  = 0x8379A988 -> _field_type_real_parameter_verifier
+ *        +0x10 destructor                 = 0x8379A990 -> _field_type_real_destructor
+ *        +0x14 initialized                = 0x00
+ *   [ 2] +0x00 type                       = 0x00000002
+ *        +0x04 requires_parameters        = 0x00
+ *        +0x08 maximum_size_calculator    = 0x8379A9F8 -> _field_type_boolean_size_calculator
+ *        +0x0C field_parameters_verifier  = 0x8379AA00 -> _field_type_boolean_parameter_verifier
+ *        +0x10 destructor                 = 0x8379AA08 -> _field_type_boolean_destructor
+ *        +0x14 initialized                = 0x00
+ *   [ 3] +0x00 type                       = 0x00000003
+ *        +0x04 requires_parameters        = 0x00
+ *        +0x08 maximum_size_calculator    = 0x8379AA58 -> _field_type_ascii_character_size_calculator
+ *        +0x0C field_parameters_verifier  = 0x8379AA60 -> _field_type_ascii_character_parameter_verifier
+ *        +0x10 destructor                 = 0x8379AA68 -> _field_type_ascii_character_destructor
+ *        +0x14 initialized                = 0x00
+ *   [ 4] +0x00 type                       = 0x00000004
+ *        +0x04 requires_parameters        = 0x00
+ *        +0x08 maximum_size_calculator    = 0x8379AAB8 -> _field_type_wide_character_size_calculator
+ *        +0x0C field_parameters_verifier  = 0x8379AAC0 -> _field_type_wide_character_parameter_verifier
+ *        +0x10 destructor                 = 0x8379AAC8 -> _field_type_wide_character_destructor
+ *        +0x14 initialized                = 0x00
+ *   [ 5] +0x00 type                       = 0x00000005
+ *        +0x04 requires_parameters        = 0x01
+ *        +0x08 maximum_size_calculator    = 0x8379AAD0 -> _field_type_ascii_string_size_calculator
+ *        +0x0C field_parameters_verifier  = 0x8379AB20 -> _field_type_ascii_string_parameter_verifier
+ *        +0x10 destructor                 = 0x8379AB38 -> _field_type_ascii_string_destructor
+ *        +0x14 initialized                = 0x00
+ *   ... 22 further elements elided; full hex in .sweep/data_image.tsv
+ * 672 bytes = 28 x _field_type_definition
+ *    (24 bytes each). Dispatch table for the network message-delta field serializer: one row
+ *    per _field_type enum id, each carrying requires_parameters, a maximum-size calculator, a
+ *    parameter verifier, and a destructor. Reconstructed from the raw image (big-endian); all
+ *    84 function pointers resolved to named functions via the DB funcs table. The trailing
+ *    `initialized` byte of every row is 0 in the image (populated at runtime).
+ */
 #include <stdint.h>
 #include "../headers/field_type_definition.h"
 
@@ -94,6 +135,10 @@ extern int _field_type_item_placement_position_size_calculator(void *field_prope
 extern uint8_t _field_type_item_placement_position_parameter_verifier(const _field_properties_definition *const field_properties_definition);
 extern void _field_type_item_placement_position_destructor(const _field_properties_definition *const field_properties_definition);
 
+/* Field order per row (_field_type_definition, DB-verified layout):
+   type, requires_parameters, _pad05, maximum_size_calculator, field_parameters_verifier,
+   destructor. `initialized` (+0x14) and _pad15 are left to C zero-fill, which is what the
+   image holds: the field-type registry sets it at runtime. */
 _field_type_definition message_delta_global_field_type_list[28] = {
     { _field_type_integer, 1, {0,0,0}, _field_type_integer_size_calculator, _field_type_integer_parameter_verifier, _field_type_integer_destructor },
     { _field_type_real, 0, {0,0,0}, _field_type_real_size_calculator, _field_type_real_parameter_verifier, _field_type_real_destructor },

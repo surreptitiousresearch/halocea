@@ -1,4 +1,11 @@
-/* bitmap_address_table_0 @0x8212A07C — .rdata, 4 x int. The shader_transparent_chicago_extended
+/* bitmap_address_table_0 @ 0x8212A07C (.rdata, 16 bytes)
+ * DB applied_types: const unsigned int bitmap_address_table_0[4];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = 0x00000000
+ *   +0x0004 = 0x00000002
+ *   +0x0008 = 0x00000002
+ *   +0x000C = 0x00000002
+ * .rdata, 4 x int. The shader_transparent_chicago_extended
  * copy of bitmap_address_table (ICF twin by content, separate object: reconstructed from its own
  * bytes at its own address).
  * Element width: `slwi r9, r10, 2` + `lwzx r7, r9, r24` at 0x8382F45C/0x8382F460 inside
@@ -10,8 +17,8 @@
  * bitmap_address_table is 4 entries with no such pad, and the consumer's index domain (the
  * 4-member first-map-type enum) admits no 5th entry.
  * Values are Xbox 360 _D3DTEXTUREADDRESS modes fed to D3DDevice_SetSamplerState_Address{U,V,W}.
+ * /
  */
-
 #include "_D3DTEXTUREADDRESS.h"
 
 const int bitmap_address_table_0[4] =

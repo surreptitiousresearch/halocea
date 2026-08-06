@@ -1,4 +1,44 @@
-/* vehicle_data_definition @ 0x841771E8 -- second-order .data; object_type_definition reconstructed from binary bytes. */
+/* vehicle_data_definition @ 0x841771E8 (.data, 196 bytes)
+ * DB applied_types: object_type_definition vehicle_data_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 name                       = 0x8211462C -> "vehicle"
+ *   +0x04 group_tag                  = 0x76656869
+ *   +0x08 game_datum_size            = 0x05C0
+ *   +0x0A placement_tag_block_offset = 0x0240
+ *   +0x0C palette_tag_block_offset   = 0x024C
+ *   +0x0E placement_tag_block_element_size = 0x0078
+ *   +0x10 update_message_type        = 0x00000005
+ *   +0x14 initialize                 = 0x8375CCD8 -> vehicles_initialize
+ *   +0x18 dispose                    = 0x8375CCF0 -> vehicles_dispose
+ *   +0x1C initialize_for_new_map     = 0x8375CCE0 -> vehicles_initialize_for_new_map
+ *   +0x20 dispose_from_old_map       = 0x8375CCE8 -> vehicles_dispose_from_old_map
+ *   +0x24 datum_adjust_placement     = 0x00000000
+ *   +0x28 datum_new                  = 0x8375CDD0 -> vehicle_new
+ *   +0x2C datum_place                = 0x8375CCF8 -> vehicle_place
+ *   +0x30 datum_delete               = 0x8375CF30 -> vehicle_delete
+ *   +0x34 datum_update               = 0x83761F70 -> vehicle_update
+ *   +0x38 datum_export_function_values = 0x83760620 -> vehicle_export_function_values
+ *   +0x3C handle_deleted_object      = 0x00000000
+ *   +0x40 handle_region_destroyed    = 0x00000000
+ *   +0x44 handle_parent_destroyed    = 0x00000000
+ *   +0x48 datum_preprocess_node_orientations = 0x8375D388 -> vehicle_preprocess_node_orientations
+ *   +0x4C datum_postprocess_node_matrices = 0x00000000
+ *   +0x50 reset                      = 0x8375CD40 -> vehicle_reset
+ *   +0x54 disconnect_from_structure_bsp = 0x00000000
+ *   +0x58 notify_impulse_sound       = 0x00000000
+ *   +0x5C render_debug               = 0x8375DA38 -> vehicle_render_debug
+ *   +0x60 should_render_debug_object_network_visualization = 0x8375DA30 -> vehicle_should_render_debug_object_network_visualization
+ *   +0x64 object_new_to_network      = 0x8375DBC8 -> vehicle_new_to_network
+ *   +0x68 update_baseline            = 0x8375E028 -> vehicle_update_baseline
+ *   +0x6C build_update_delta         = 0x8375E0E8 -> vehicle_build_update_delta
+ *   +0x70 process_update_delta       = 0x8375E288 -> vehicle_process_update_delta
+ *   +0x74 should_try_sending_incremental = 0x8375E5F8 -> vehicle_should_try_sending_incremental
+ *   +0x78 should_send_incremental_to_player = 0x8375E600 -> vehicle_should_send_incremental_to_player
+ *   +0x7C incremental_sent           = 0x8375E608 -> vehicle_incremental_sent
+ *   +0x80 part_definitions           = 0x84176F9084177058841771E800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0xC0 next                       = 0x00000000
+ * second-order .data; object_type_definition reconstructed from binary bytes.
+ */
 #include <stdint.h>
 #include "../headers/object_type_definition.h"
 

@@ -27,8 +27,6 @@
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
 
-extern float vsh_constants__texanim[];
-
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);
 extern void rasterizer_set_target_as_texture_for_effect(int16_t stage, int16_t target, int16_t max_mipmap, rasterizer_dx9_shader *dxeffect_shader);
 extern void D3DDevice_SetSamplerState_SeparateZFilterEnable(D3DDevice *device, unsigned int sampler,

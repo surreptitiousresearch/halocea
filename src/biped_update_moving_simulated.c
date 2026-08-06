@@ -10,12 +10,17 @@
  * plain real_point3d/real_vector3d component copies they represent, verified against the store offsets.
  * The desired-facing overshoot test at 0x837B1C1C was a product of two scalar triple products
  * (up . (desired x rotated_forward)) * (up . (desired x forward)); reconstructed as such.
- * The predicted-animation outputs (movement direction, crouch flag) are stashed by the caller into bytes
- * of biped_faux->definition_index (the non-simulated sibling writes them to unit_animation_update_data
- * instead); the HIBYTE/BYTE1 accesses reproduce that faithfully. The 4th parameter `animation` is passed
- * by the caller for signature parity with biped_update_moving but is unused in this simulated path. */
+ *
+ * DEVIATION: this takes THREE arguments, not four — the call site at 0x837B2788 sets only r3/r4/r5, and
+ * r6 is never written. r5 is a unit_animation_update_data*, not a second biped_datum*: every access
+ * through it is `stb 0(r25)` / `lbz 1(r25)` / `stb 1(r25)`, bytes 0 and 1 only. The old reconstruction
+ * spelled that register as `biped_faux` and reached both outputs as byte [1] of its definition_index,
+ * which put the movement-direction state (stores @0x837B19B4 and @0x837B1A68, both to byte 0) on top of
+ * the crouch flag (byte 1, @0x837B2158/0x837B237C/0x837B2398). The outputs are the same pair the
+ * non-simulated sibling biped_update_moving writes: animation_update->state_desired / ->crouching. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/biped_datum.h"
 #include "headers/unit_definition_flags.h"
 #include "headers/biped_physics_in_flags.h"
@@ -64,15 +69,13 @@ extern double        __fabs(double x);
 extern float         __fsqrts(float x);
 extern double        sin(double x);
 extern double        cos(double x);
-extern void         *memcpy(void *dst, const void *src, unsigned int size);
 
 #define SECONDS_PER_TICK 0.033333335f  /* 1/30 */
 
 void biped_update_moving_simulated(
     unsigned int real_biped_index,
-    biped_datum *biped_real,
-    biped_datum *biped_faux,
-    unit_animation_update_data *unused_animation_update)  /* renamed from 'animation' to not shadow the animation type */
+    biped_datum *biped,
+    unit_animation_update_data *animation_update)  /* named ..._update to not shadow the animation type */
 {
     biped_physics physics;
     real_vector3d rotated_forward;
@@ -80,27 +83,25 @@ void biped_update_moving_simulated(
     float movement_scale;
     uint16_t in_flags;
 
-    (void)unused_animation_update;
-
-    if ( (biped_real->object.flags & (1u << _object_at_rest_bit)) != 0
-      && (biped_real->object.damage_flags & (1u << _object_dead_bit)) != 0
-      && (biped_real->unit.animation.flags & (1u << _unit_animation_ignore_translation_bit)) != 0 )
+    if ( (biped->object.flags & (1u << _object_at_rest_bit)) != 0
+      && (biped->object.damage_flags & (1u << _object_dead_bit)) != 0
+      && (biped->unit.animation.flags & (1u << _unit_animation_ignore_translation_bit)) != 0 )
     {
         return;
     }
 
     physics.biped_index = real_biped_index;
     physics.in_flags = 0;
-    physics.forward = biped_real->object.forward;
+    physics.forward = biped->object.forward;
 
-    definition = TAG_GET(const biped_definition, biped_real->definition_index);
+    definition = TAG_GET(const biped_definition, biped->definition_index);
 
     if ( (definition->unit.flags & (1u << _unit_definition_simple_creature_bit)) != 0 )
-        physics.aiming = biped_real->object.forward;
+        physics.aiming = biped->object.forward;
     else
         unit_get_aiming_vector(real_biped_index, &physics.aiming);
 
-    physics.velocity = biped_real->object.translational_velocity;
+    physics.velocity = biped->object.translational_velocity;
     physics.crouch_velocity = 0.0f;
     physics.acceleration_maximum = 0.0053333333f;
     physics.airborne_acceleration_maximum = 0.0f;
@@ -113,12 +114,12 @@ void biped_update_moving_simulated(
     physics.uphill_k0 = definition->biped.runtime_uphill_k0;
     physics.uphill_k1 = definition->biped.runtime_uphill_k1;
     physics.uphill_velocity_scale = definition->biped.uphill_velocity_scale;
-    physics.ground_plane = biped_real->biped.ground_plane;
+    physics.ground_plane = biped->biped.ground_plane;
     physics.ground_tangential_velocity_max = 3.4028235e38f;  /* FLT_MAX */
     physics.ground_tangential_angle = 0.0f;
-    physics.existing_support_surface_index = biped_real->biped.support_surface_index;
+    physics.existing_support_surface_index = biped->biped.support_surface_index;
 
-    if ( (uint16_t)biped_real->biped.landing == 1 )
+    if ( (uint16_t)biped->biped.landing == 1 )
     {
         physics.movement_desired.n[0] = 0.0f;
         physics.movement_desired.n[1] = 0.0f;
@@ -128,7 +129,7 @@ void biped_update_moving_simulated(
     else
     {
         movement_scale = 1.0f;
-        if ( (definition->biped.flags & (1u << _biped_random_speed_increase_bit)) != 0 && !biped_real->unit.aiming_speed )
+        if ( (definition->biped.flags & (1u << _biped_random_speed_increase_bit)) != 0 && !biped->unit.aiming_speed )
         {
             /* stagger movement speed per-biped by difficulty (index modulo 137, 1/137 ~= 0.00729927) */
             float difficulty_value = game_difficulty_get_value(_game_difficulty_infection_form_toughness);
@@ -137,26 +138,26 @@ void biped_update_moving_simulated(
         }
 
         /* classify the movement-direction animation (forward/back/left/right, +4 while stunned) into the
-         * faux biped's definition_index scratch bytes (byte 3 = state, byte 1 = crouch-started flag) */
-        if ( (definition->biped.flags & (1u << _biped_flying_bit)) == 0 || (biped_real->object.damage_flags & (1u << _object_dead_bit)) != 0 )
+         * caller's animation-update record (state_desired = _unit_state_move_front .. _stunned_move_right) */
+        if ( (definition->biped.flags & (1u << _biped_flying_bit)) == 0 || (biped->object.damage_flags & (1u << _object_dead_bit)) != 0 )
         {
-            float throttle_x = biped_real->unit.throttle.n[0];
+            float throttle_x = biped->unit.throttle.n[0];
             if ( throttle_x != 0.0f
-              || biped_real->unit.throttle.n[1] != 0.0f
-              || biped_real->unit.throttle.n[2] != 0.0f )
+              || biped->unit.throttle.n[1] != 0.0f
+              || biped->unit.throttle.n[2] != 0.0f )
             {
-                int stunned = biped_real->unit.body_stun > 0.2f;
+                int stunned = biped->unit.body_stun > 0.2f;
                 float stunned_movement_threshold = definition->unit.stunned_movement_threshold;
                 float throttle_y;
                 char movement_base;
                 char movement_state;
 
                 if ( stunned_movement_threshold > 0.0f
-                  && biped_real->object.recent_body_damage > stunned_movement_threshold )
+                  && biped->object.recent_body_damage > stunned_movement_threshold )
                 {
                     stunned = 1;
                 }
-                throttle_y = biped_real->unit.throttle.n[1];
+                throttle_y = biped->unit.throttle.n[1];
                 movement_base = stunned ? 4 : 0;
 
                 if ( __fabs(throttle_x) >= __fabs(throttle_y) )
@@ -173,30 +174,30 @@ void biped_update_moving_simulated(
                 {
                     movement_state = movement_base + 7;
                 }
-                ((unsigned char *)&biped_faux->definition_index)[1] = movement_state;
+                animation_update->state_desired = movement_state;
             }
         }
         else
         {
-            ((unsigned char *)&biped_faux->definition_index)[1] = 0;
+            animation_update->state_desired = 0;
         }
 
         /* pull the frame-relative movement delta from the currently-playing locomotion animation */
         {
-            int animation_index = biped_real->object.animation.state.index;
+            int animation_index = biped->object.animation.state.index;
 
             physics.movement_desired = *global_zero_vector3d;
 
             if ( animation_index != -1
-              && ((biped_real->object.damage_flags & (1u << _object_dead_bit)) != 0 || (definition->biped.flags & (1u << _biped_flying_bit)) == 0)
-              && (biped_real->unit.animation.flags & (1u << _unit_animation_ignore_translation_bit)) == 0 )
+              && ((biped->object.damage_flags & (1u << _object_dead_bit)) != 0 || (definition->biped.flags & (1u << _biped_flying_bit)) == 0)
+              && (biped->unit.animation.flags & (1u << _unit_animation_ignore_translation_bit)) == 0 )
             {
                 float frame_yaw_delta = 0.0f;
                 float desired_y = physics.movement_desired.n[1];
-                animation_graph *graph = TAG_GET(animation_graph, biped_real->object.animation.animation_graph_index);
+                animation_graph *graph = TAG_GET(animation_graph, biped->object.animation.animation_graph_index);
                 animation *animation_def = (animation *)graph->animations.address + animation_index;
                 int frame_component_count = (uint16_t)animation_def->frame_info_type;
-                int frame_index = biped_real->object.animation.state.frame_index;
+                int frame_index = biped->object.animation.state.frame_index;
                 /* frame_info is a variable-format stream: the record type — and therefore the
                  * stride — is chosen by animation.frame_info_type, and the DB carries one struct
                  * per arm (8 / 12 / 16 bytes). Indexing each arm as its own type is what makes
@@ -250,16 +251,16 @@ void biped_update_moving_simulated(
                     float yaw_cos = (float)cos(frame_yaw_delta);
                     float yaw_sin = (float)sin(frame_yaw_delta);
 
-                    rotated_forward = biped_real->object.forward;
-                    rotate_vector_about_axis(&rotated_forward, &biped_real->object.up, yaw_sin, yaw_cos);
+                    rotated_forward = biped->object.forward;
+                    rotate_vector_about_axis(&rotated_forward, &biped->object.up, yaw_sin, yaw_cos);
 
-                    if ( (biped_real->unit.control_flags & (1u << _unit_control_exact_facing_bit)) != 0 )
+                    if ( (biped->unit.control_flags & (1u << _unit_control_exact_facing_bit)) != 0 )
                     {
-                        char animation_state = biped_real->unit.animation.state;
+                        char animation_state = biped->unit.animation.state;
                         if ( animation_state == _unit_state_turn_left || animation_state == _unit_state_turn_right )
                         {
-                            real_vector3d *desired_facing = &biped_real->unit.desired_facing_vector;
-                            real_vector3d *forward = &biped_real->object.forward;
+                            real_vector3d *desired_facing = &biped->unit.desired_facing_vector;
+                            real_vector3d *forward = &biped->object.forward;
                             float dot_forward_desired =
                                   (forward->n[0] * desired_facing->n[0])
                                 + (desired_facing->n[2] * forward->n[2])
@@ -267,7 +268,7 @@ void biped_update_moving_simulated(
 
                             if ( dot_forward_desired > 0.5f )
                             {
-                                real_vector3d *object_up = &biped_real->object.up;
+                                real_vector3d *object_up = &biped->object.up;
                                 /* scalar triple products: up . (desired x rotated_forward) and
                                  * up . (desired x forward). Opposite signs => the rotation overshot the
                                  * desired facing, so snap straight to the desired vector. */
@@ -286,26 +287,26 @@ void biped_update_moving_simulated(
                         }
                     }
 
-                    biped_real->object.forward.n[0] = rotated_forward.n[0];
-                    biped_real->object.forward.n[1] = rotated_forward.n[1];
-                    biped_real->object.forward.n[2] = rotated_forward.n[2];
-                    biped_snap_facing(biped_real, definition);
+                    biped->object.forward.n[0] = rotated_forward.n[0];
+                    biped->object.forward.n[1] = rotated_forward.n[1];
+                    biped->object.forward.n[2] = rotated_forward.n[2];
+                    biped_snap_facing(biped, definition);
                 }
             }
         }
 
         {
             unsigned int def_flags = definition->biped.flags;
-            if ( (def_flags & (1u << _biped_flying_bit)) == 0 || (biped_real->object.damage_flags & (1u << _object_dead_bit)) != 0 )
+            if ( (def_flags & (1u << _biped_flying_bit)) == 0 || (biped->object.damage_flags & (1u << _object_dead_bit)) != 0 )
             {
-                if ( (def_flags & (1u << _biped_uses_player_physics_bit)) == 0 || biped_real->unit.animation.state == _unit_state_user_animation )
+                if ( (def_flags & (1u << _biped_uses_player_physics_bit)) == 0 || biped->unit.animation.state == _unit_state_user_animation )
                 {
                     /* AI/scripted ground movement: adopt the animation-driven velocity directly */
-                    unsigned int biped_flags = biped_real->biped.flags;
+                    unsigned int biped_flags = biped->biped.flags;
                     if ( (biped_flags & (1u << _biped_slipping_bit)) == 0 && (biped_flags & (1u << _biped_airborne_bit)) == 0 )
                     {
-                        biped_real->object.translational_velocity.n[0] = physics.movement_desired.n[0];
-                        biped_real->object.translational_velocity.n[1] = physics.movement_desired.n[1];
+                        biped->object.translational_velocity.n[0] = physics.movement_desired.n[0];
+                        biped->object.translational_velocity.n[1] = physics.movement_desired.n[1];
                         physics.acceleration_maximum = 3.4028235e38f;  /* FLT_MAX */
                     }
                 }
@@ -338,17 +339,17 @@ void biped_update_moving_simulated(
                         movement_params_copy.run_acceleration = 0.31999999f;
                     }
 
-                    player_index = biped_real->unit.player_index;
+                    player_index = biped->unit.player_index;
                     if ( player_index != -1 )
                     {
                         body_stun_scale = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)
                                             ->multiplayer.speed_multiplier;
                     }
 
-                    throttle_x = biped_real->unit.throttle.n[0];
-                    crouch = biped_real->biped.crouch;
-                    uncrouch = 1.0f - biped_real->biped.crouch;
-                    stun_factor = -((player_movement->stun_movement_penalty * biped_real->unit.body_stun) - 1.0f)
+                    throttle_x = biped->unit.throttle.n[0];
+                    crouch = biped->biped.crouch;
+                    uncrouch = 1.0f - biped->biped.crouch;
+                    stun_factor = -((player_movement->stun_movement_penalty * biped->unit.body_stun) - 1.0f)
                                     * body_stun_scale * movement_scale;
 
                     if ( throttle_x <= 0.0f )
@@ -362,7 +363,7 @@ void biped_update_moving_simulated(
                         side_speed = player_movement->run_forward_speed;
                     }
 
-                    base_seat_index = (uint8_t)biped_real->unit.animation.base_seat_index;
+                    base_seat_index = (uint8_t)biped->unit.animation.base_seat_index;
                     forward_velocity = (side_speed * uncrouch) + (forward_speed * crouch);
                     physics.movement_desired.n[0] = forward_velocity;
                     side_velocity = (player_movement->run_sideways_speed * uncrouch) + (player_movement->sneak_sideways_speed * crouch);
@@ -381,8 +382,8 @@ void biped_update_moving_simulated(
                     }
 
                     {
-                        unsigned int no_facing = biped_real->unit.control_flags & (1u << _unit_control_look_dont_turn_bit);
-                        float side_desired = (biped_real->unit.throttle.n[1] * stun_factor) * side_velocity;
+                        unsigned int no_facing = biped->unit.control_flags & (1u << _unit_control_look_dont_turn_bit);
+                        float side_desired = (biped->unit.throttle.n[1] * stun_factor) * side_velocity;
 
                         physics.acceleration_maximum = acceleration * SECONDS_PER_TICK;
                         physics.movement_desired.n[0] = ((throttle_x * stun_factor) * forward_velocity) * SECONDS_PER_TICK;
@@ -391,7 +392,7 @@ void biped_update_moving_simulated(
 
                         if ( !no_facing )
                         {
-                            physics.forward = biped_real->unit.desired_facing_vector;
+                            physics.forward = biped->unit.desired_facing_vector;
                         }
                     }
 
@@ -407,9 +408,9 @@ void biped_update_moving_simulated(
             {
                 /* flying movement model */
                 float throttle_magnitude = __fsqrts(
-                      (biped_real->unit.throttle.n[1] * biped_real->unit.throttle.n[1])
-                    + (biped_real->unit.throttle.n[2] * biped_real->unit.throttle.n[2])
-                    + (biped_real->unit.throttle.n[0] * biped_real->unit.throttle.n[0]));
+                      (biped->unit.throttle.n[1] * biped->unit.throttle.n[1])
+                    + (biped->unit.throttle.n[2] * biped->unit.throttle.n[2])
+                    + (biped->unit.throttle.n[0] * biped->unit.throttle.n[0]));
                 float clamped_throttle = throttle_magnitude >= 1.0f ? 1.0f : throttle_magnitude;
                 float inv_throttle = 1.0f - clamped_throttle;
                 float crouch_modifier = 1.0f;
@@ -420,7 +421,7 @@ void biped_update_moving_simulated(
 
                 if ( definition->biped.flying_crouch_velocity_modifier > 0.0f )
                 {
-                    float crouch = biped_real->biped.crouch;
+                    float crouch = biped->biped.crouch;
                     if ( crouch == 1.0f )
                     {
                         crouch_modifier = definition->biped.flying_crouch_velocity_modifier;
@@ -428,13 +429,13 @@ void biped_update_moving_simulated(
                     else if ( crouch > 0.0f )
                     {
                         crouch_modifier = ((definition->biped.flying_crouch_velocity_modifier - 1.0f)
-                                            * biped_real->biped.crouch) + 1.0f;
+                                            * biped->biped.crouch) + 1.0f;
                     }
                 }
 
-                throttle_x = biped_real->unit.throttle.n[0];
-                throttle_y = biped_real->unit.throttle.n[1];
-                throttle_z = biped_real->unit.throttle.n[2];
+                throttle_x = biped->unit.throttle.n[0];
+                throttle_y = biped->unit.throttle.n[1];
+                throttle_z = biped->unit.throttle.n[2];
 
                 physics.movement_desired.n[0] = (definition->biped.flying_velocity * crouch_modifier) * movement_scale;
                 physics.movement_desired.n[1] = (crouch_modifier * movement_scale) * definition->biped.flying_sidestep_velocity;
@@ -448,12 +449,12 @@ void biped_update_moving_simulated(
                 physics.airborne_acceleration_maximum = physics.acceleration_maximum;
             }
 
-            if ( (biped_real->biped.flags & (1u << _biped_airborne_bit)) != 0 )
+            if ( (biped->biped.flags & (1u << _biped_airborne_bit)) != 0 )
             {
                 int leaping = 0;
-                if ( biped_real->biped.airborne_ticks < 22 )
+                if ( biped->biped.airborne_ticks < 22 )
                 {
-                    int actor_index = biped_real->unit.actor_index;
+                    int actor_index = biped->unit.actor_index;
                     if ( actor_index != -1 )
                         leaping = actor_is_leaping(actor_index) != 0;
                 }
@@ -468,29 +469,29 @@ void biped_update_moving_simulated(
     }
 
     /* advance the crouch transition toward standing (0.0) or crouched (1.0) */
-    if ( biped_real->unit.animation.base_seat_index == _base_seat_crouch )
+    if ( biped->unit.animation.base_seat_index == _base_seat_crouch )
     {
-        if ( (1.0f - biped_real->biped.crouch) <= (double)definition->biped.runtime_crouch_transition_velocity )
-            biped_real->biped.crouch = 1.0f;
+        if ( (1.0f - biped->biped.crouch) <= (double)definition->biped.runtime_crouch_transition_velocity )
+            biped->biped.crouch = 1.0f;
         else
-            biped_real->biped.crouch = biped_real->biped.crouch + definition->biped.runtime_crouch_transition_velocity;
+            biped->biped.crouch = biped->biped.crouch + definition->biped.runtime_crouch_transition_velocity;
     }
-    else if ( -biped_real->biped.crouch >= -definition->biped.runtime_crouch_transition_velocity )
+    else if ( -biped->biped.crouch >= -definition->biped.runtime_crouch_transition_velocity )
     {
-        biped_real->biped.crouch = 0.0f;
+        biped->biped.crouch = 0.0f;
     }
     else
     {
-        biped_real->biped.crouch = biped_real->biped.crouch - definition->biped.runtime_crouch_transition_velocity;
+        biped->biped.crouch = biped->biped.crouch - definition->biped.runtime_crouch_transition_velocity;
     }
 
-    if ( biped_real->biped.crouch == 0.0f )
+    if ( biped->biped.crouch == 0.0f )
     {
         in_flags = physics.in_flags;
     }
     else
     {
-        char crouch_was_active = ((unsigned char *)&biped_faux->definition_index)[1];
+        uint8_t crouch_was_active = animation_update->crouching;
         physics.in_flags |= (1u << _biped_physics_in_crouched_bit);
         in_flags = physics.in_flags;
         if ( !crouch_was_active )
@@ -501,7 +502,7 @@ void biped_update_moving_simulated(
     }
 
     {
-        unsigned int biped_flags = biped_real->biped.flags;
+        unsigned int biped_flags = biped->biped.flags;
         if ( (biped_flags & (1u << _biped_airborne_bit)) != 0 )          { in_flags |= (1u << _biped_physics_in_airborne_bit);          physics.in_flags = in_flags; }
         if ( (biped_flags & (1u << _biped_slipping_bit)) != 0 )          { in_flags |= (1u << _biped_physics_in_slipping_bit);          physics.in_flags = in_flags; }
         if ( (biped_flags & (1u << _biped_absolute_movement_bit)) != 0 ) { in_flags |= (1u << _biped_physics_in_absolute_movement_bit); physics.in_flags = in_flags; }
@@ -509,7 +510,7 @@ void biped_update_moving_simulated(
     }
 
     {
-        int is_dead = biped_real->object.damage_flags & (1u << _object_dead_bit);
+        int is_dead = biped->object.damage_flags & (1u << _object_dead_bit);
         if ( is_dead )                                             { in_flags |= (1u << _biped_physics_in_dead_bit);  physics.in_flags = in_flags; }
         if ( (definition->biped.flags & (1u << _biped_flying_bit)) != 0 && !is_dead ) { in_flags |= (1u << _biped_physics_in_flying_bit);  physics.in_flags = in_flags; }
         if ( (definition->biped.flags & (1u << _biped_passes_through_bipeds_bit)) != 0 )          { in_flags |= (1u << _biped_physics_in_pass_through_bipeds_bit); physics.in_flags = in_flags; }
@@ -520,16 +521,16 @@ void biped_update_moving_simulated(
 
     if ( physics.elevator_object_index == -1 )
     {
-        int elevator_ticks = biped_real->biped.elevator_ticks;
+        int elevator_ticks = biped->biped.elevator_ticks;
         if ( elevator_ticks <= 0 )
-            biped_real->biped.elevator_object_index = -1;
+            biped->biped.elevator_object_index = -1;
         else
-            biped_real->biped.elevator_ticks = elevator_ticks - 1;
+            biped->biped.elevator_ticks = elevator_ticks - 1;
     }
     else
     {
-        biped_real->biped.elevator_object_index = physics.elevator_object_index;
-        biped_real->biped.elevator_ticks = 60;
+        biped->biped.elevator_object_index = physics.elevator_object_index;
+        biped->biped.elevator_ticks = 60;
     }
 
     {
@@ -538,7 +539,7 @@ void biped_update_moving_simulated(
         unsigned char out_flags;
         float adjusted_z;
 
-        if ( (biped_real->unit.flags & (1u << _unit_suspended_bit)) != 0 )
+        if ( (biped->unit.flags & (1u << _unit_suspended_bit)) != 0 )
         {
             /* attached to an elevator/mover: keep the resolved position, zero the velocity */
             out_flags = physics.out_flags & ~(1u << _biped_physics_out_airborne_bit);
@@ -557,70 +558,70 @@ void biped_update_moving_simulated(
         if ( (definition->biped.flags & (1u << _biped_pill_centered_at_origin_bit)) == 0 )
             adjusted_z = final_position.n[2] - physics.width;
 
-        biped_real->object.translational_velocity.n[0] = final_velocity.n[0];
-        biped_real->object.translational_velocity.n[1] = final_velocity.n[1];
-        biped_real->object.translational_velocity.n[2] = final_velocity.n[2];
-        biped_real->object.position.n[0] = final_position.n[0];
-        biped_real->object.position.n[1] = final_position.n[1];
-        biped_real->object.position.n[2] = adjusted_z;
-        biped_real->biped.pathfinding_surface_index = -1;
-        biped_real->biped.pathfinding_point.n[0] = final_position.n[0];
-        biped_real->biped.pathfinding_point.n[1] = final_position.n[1];
-        biped_real->biped.pathfinding_point.n[2] = adjusted_z;
-        biped_real->biped.support_surface_index = physics.support_surface_index;
+        biped->object.translational_velocity.n[0] = final_velocity.n[0];
+        biped->object.translational_velocity.n[1] = final_velocity.n[1];
+        biped->object.translational_velocity.n[2] = final_velocity.n[2];
+        biped->object.position.n[0] = final_position.n[0];
+        biped->object.position.n[1] = final_position.n[1];
+        biped->object.position.n[2] = adjusted_z;
+        biped->biped.pathfinding_surface_index = -1;
+        biped->biped.pathfinding_point.n[0] = final_position.n[0];
+        biped->biped.pathfinding_point.n[1] = final_position.n[1];
+        biped->biped.pathfinding_point.n[2] = adjusted_z;
+        biped->biped.support_surface_index = physics.support_surface_index;
 
-        if ( !((unsigned char *)&biped_faux->definition_index)[1] && (out_flags & (1u << _biped_physics_out_cannot_stand_bit)) != 0 )
-            ((unsigned char *)&biped_faux->definition_index)[1] = 1;
+        if ( !animation_update->crouching && (out_flags & (1u << _biped_physics_out_cannot_stand_bit)) != 0 )
+            animation_update->crouching = 1;
 
         {
-            unsigned int biped_flags = biped_real->biped.flags;
+            unsigned int biped_flags = biped->biped.flags;
             biped_flags = (out_flags & (1u << _biped_physics_out_airborne_bit)) != 0 ? (biped_flags | (1u << _biped_airborne_bit)) : (biped_flags & ~(1u << _biped_airborne_bit));
-            biped_real->biped.flags = biped_flags;
+            biped->biped.flags = biped_flags;
             biped_flags = (out_flags & (1u << _biped_physics_out_slipping_bit)) != 0 ? (biped_flags | (1u << _biped_slipping_bit)) : (biped_flags & ~(1u << _biped_slipping_bit));
-            biped_real->biped.flags = biped_flags;
-            biped_flags = biped_real->biped.flags;
+            biped->biped.flags = biped_flags;
+            biped_flags = biped->biped.flags;
             biped_flags = (definition->biped.flags & (1u << _biped_passes_through_bipeds_bit)) != 0 ? (biped_flags | (1u << _biped_movement_passes_through_bipeds_bit)) : (biped_flags & ~(1u << _biped_movement_passes_through_bipeds_bit));
-            biped_real->biped.flags = biped_flags;
+            biped->biped.flags = biped_flags;
         }
 
         {
             float landing_velocity = physics.landing_velocity;
             int do_landing = physics.landing_velocity > 0.0f;
-            biped_real->biped.ground_plane.n.n[0] = physics.ground_plane.n.n[0];
-            biped_real->biped.ground_plane.n.n[1] = physics.ground_plane.n.n[1];
-            biped_real->biped.ground_plane.n.n[2] = physics.ground_plane.n.n[2];
-            biped_real->biped.ground_plane.d = physics.ground_plane.d;
+            biped->biped.ground_plane.n.n[0] = physics.ground_plane.n.n[0];
+            biped->biped.ground_plane.n.n[1] = physics.ground_plane.n.n[1];
+            biped->biped.ground_plane.n.n[2] = physics.ground_plane.n.n[2];
+            biped->biped.ground_plane.d = physics.ground_plane.d;
             if ( do_landing )
-                biped_start_landing(biped_real, definition, landing_velocity);
+                biped_start_landing(biped, definition, landing_velocity);
         }
 
         {
             int airborne_input = physics.in_flags & (1u << _biped_physics_in_flying_bit);
             unsigned int object_flags;
 
-            if ( (physics.in_flags & (1u << _biped_physics_in_flying_bit)) != 0 || (biped_real->biped.flags & (1u << _biped_airborne_bit)) != 0 )
-                object_flags = biped_real->object.flags & ~(1u << _object_on_ground_bit);
+            if ( (physics.in_flags & (1u << _biped_physics_in_flying_bit)) != 0 || (biped->biped.flags & (1u << _biped_airborne_bit)) != 0 )
+                object_flags = biped->object.flags & ~(1u << _object_on_ground_bit);
             else
-                object_flags = biped_real->object.flags | (1u << _object_on_ground_bit);
-            biped_real->object.flags = object_flags;
+                object_flags = biped->object.flags | (1u << _object_on_ground_bit);
+            biped->object.flags = object_flags;
 
             if ( airborne_input
-              || (biped_real->biped.flags & (1u << _biped_airborne_bit)) != 0
+              || (biped->biped.flags & (1u << _biped_airborne_bit)) != 0
               || (out_flags & (1u << _biped_physics_out_volatile_collision_bit)) != 0
-              || ((biped_real->object.translational_velocity.n[2] * biped_real->object.translational_velocity.n[2])
-                    + ((biped_real->object.translational_velocity.n[0] * biped_real->object.translational_velocity.n[0])
-                     + (biped_real->object.translational_velocity.n[1] * biped_real->object.translational_velocity.n[1]))) >= 0.000099999997 )
+              || ((biped->object.translational_velocity.n[2] * biped->object.translational_velocity.n[2])
+                    + ((biped->object.translational_velocity.n[0] * biped->object.translational_velocity.n[0])
+                     + (biped->object.translational_velocity.n[1] * biped->object.translational_velocity.n[1]))) >= 0.000099999997 )
             {
-                object_flags = biped_real->object.flags & ~(1u << _object_at_rest_bit);
+                object_flags = biped->object.flags & ~(1u << _object_at_rest_bit);
             }
             else
             {
                 object_flags |= (1u << _object_at_rest_bit);
             }
-            biped_real->object.flags = object_flags;
+            biped->object.flags = object_flags;
 
             if ( (object_flags & (1u << _object_on_ground_bit)) != 0 )
-                biped_real->object.angular_velocity = *global_zero_vector3d;
+                biped->object.angular_velocity = *global_zero_vector3d;
         }
     }
 }

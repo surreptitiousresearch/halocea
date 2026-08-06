@@ -1,4 +1,4 @@
-/* biped_make_footstep @0x837B0384 — spawn the footstep material effect for a biped's foot contact point.
+/* biped_make_footstep @0x837B0338 — spawn the footstep material effect for a biped's foot contact point.
  * Skips if the contact point index is out of range, the biped's model has no footstep effect, or the biped
  * isn't visible to the material-effect system. Looks up the contact-point marker by name (biped definition
  * contact_points block, biped_contact_point.marker_name) and spawns the effect at the marker
@@ -39,6 +39,6 @@ void biped_make_footstep(int biped_index, int16_t event_index, int16_t contact_p
         object_marker marker;
         const char *marker_name = ((const biped_contact_point *)definition->biped.contact_points.address)[contact_point_index].marker_name;
         if ( object_get_marker_by_name(biped_index, marker_name, &marker, 1) )
-            material_effect_new_from_point(definition->biped.material_effects.index, event_index, (const real_point3d *)&marker.matrix.n[3], 0.0f, is_player);
+            material_effect_new_from_point(definition->biped.material_effects.index, event_index, &marker.matrix.position, 0.0f, is_player);
     }
 }

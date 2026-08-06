@@ -15,17 +15,17 @@
 #include "../headers/model_region.h"
 #include "../headers/model_region_permutation.h"
 
-extern uint8_t dump_decals;
-extern uint8_t dump_perm;
-extern uint8_t dump_effe;
-extern uint8_t dump_model_names;
-extern uint8_t dump_model_nodes;
+extern "C" uint8_t dump_decals;
+extern "C" uint8_t dump_perm;
+extern "C" uint8_t dump_effe;
+extern "C" uint8_t dump_model_names;
+extern "C" uint8_t dump_model_nodes;
 
-extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
-extern int tag_iterator_next(tag_iterator *iterator);
-extern char *tag_get_name(int16_t tag_index);
-extern void hcex_output_dbg(const char *text, ...);
-extern void hcex_dump_mdl_name(const char *mdl_name);
+extern "C" void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
+extern "C" int tag_iterator_next(tag_iterator *iterator);
+extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" void hcex_output_dbg(const char *text, ...);
+extern "C" void hcex_dump_mdl_name(const char *mdl_name);
 
 extern "C" void hcex_dump_all_models(void)
 {

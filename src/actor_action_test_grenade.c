@@ -8,11 +8,11 @@
  * @+0x19C, and minimum_enemy_count @+0x186) and finally actor_combat_plan_grenade_trajectory (trajectory_type
  * @+0x182), returning whether a trajectory was successfully planned.
  *
- * DEVIATION: the raw decompile passed uninitialized locals (`v14`, `v13`) as
+ * DEVIATION: the raw decompile passed two uninitialized locals as
  * actor_combat_check_collateral_damage's target_point/enemy_count_reference arguments — disasm
  * (0x837F2FAC-0x837F3024) confirms these are actually `&grenade_target` and `&enemy_count`, the same
  * locals used immediately before (by actor_combat_find_grenade_target) and after (the minimum_enemy_count
- * comparison) — a plain decompiler register-binding miss, not a real bug in the binary. The `(__int16)`
+ * comparison) — a plain decompiler register-binding miss, not a real bug in the binary. The `(int16_t)`
  * truncation before adding the computed delay to the last-thrown time is reproduced as-is (grenade delays
  * never approach 32K ticks in practice, so this is harmless, not a signature of a real bug). */
 

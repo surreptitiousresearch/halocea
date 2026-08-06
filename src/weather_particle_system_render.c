@@ -263,12 +263,15 @@ void weather_particle_system_render(int16_t system_index)
                             int k = 0;
                             if ( plane_count > 0 )
                             {
-                                float *planes = (float *)polyhedron->planes.address;
+                                /* DEVIATION: the decompiler flattened this block to `float *` with a
+                                 * 4-float fold; disasm 0x8373D6DC strides it by 16 (slwi r11,r10,4) and
+                                 * loads 0/4/8/0xC, i.e. real_plane3d. */
+                                real_plane3d *planes = (real_plane3d *)polyhedron->planes.address;
                                 for ( k = 0; k < plane_count; ++k )
                                 {
-                                    if ( (world_x * planes[4 * k]
-                                        + (planes[4 * k + 2] * world_z + planes[4 * k + 1] * world_y))
-                                       - planes[4 * k + 3] < 0.0f )
+                                    if ( (world_x * planes[k].normal.n[0]
+                                        + (planes[k].normal.n[2] * world_z + planes[k].normal.n[1] * world_y))
+                                       - planes[k].distance < 0.0f )
                                         break;
                                 }
                             }

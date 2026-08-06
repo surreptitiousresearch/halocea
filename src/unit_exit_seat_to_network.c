@@ -14,7 +14,7 @@ extern int message_delta_processor_encode_stateless(message_delta_processor_mess
 extern network_game_server *global_network_game_server_get(void);
 extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct network_game_server *server, int type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);
 
-#define _message_player_exit_vehicle       9    /* DB enum: message-delta definition type */
+#include "headers/message_delta_message_ids.h"   /* was a local #define _message_player_exit_vehicle 9 */
 
 #include "headers/player_exit_vehicle_message.h"
 #include "headers/blam_data_globals.h"

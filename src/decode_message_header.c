@@ -7,7 +7,7 @@
 #include "headers/bitstream_t.h"
 #include "headers/iterated_message.h"
 
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 
 extern void metrics_record_header_field_decode(const _message_definition *const message_definition, const message_delta_processor_mode mode, const int field_index, const int bits_read);
 

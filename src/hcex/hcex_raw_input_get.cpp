@@ -2,11 +2,11 @@
  * per-gamepad shadow arrays into a haloRAW_INPUT_X360, repacking the 16 button booleans into a
  * bitmask. Counterpart to hcex_raw_input_set. */
 
-extern char  hcex_gamepad_buttons[4][16];
-extern int16_t hcex_sThumbLX[4];
-extern int16_t hcex_sThumbLY[4];
-extern int16_t hcex_sThumbRX[4];
-extern int16_t hcex_sThumbRY[4];
+extern "C" char  hcex_gamepad_buttons[4][16];
+extern "C" int16_t hcex_sThumbLX[4];
+extern "C" int16_t hcex_sThumbLY[4];
+extern "C" int16_t hcex_sThumbRX[4];
+extern "C" int16_t hcex_sThumbRY[4];
 
 #include <stdint.h>
 #include "../headers/hcex/haloRAW_INPUT_X360.h"

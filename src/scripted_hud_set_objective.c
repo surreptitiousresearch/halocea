@@ -11,6 +11,7 @@
 #include "headers/hud_state_message_definition.h"
 #include "headers/hud_globals.h"
 #include "headers/hud_state_messages.h"
+#include "headers/hud_state_message_element.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -25,12 +26,13 @@ void scripted_hud_set_objective(int16_t message_index)
     hud_state_message_definition *definitions = (hud_state_message_definition *)tag_data->messages.address;
     hud_state_message_definition *message = &definitions[message_index];
 
-    /* elements are 2-byte records; the message qualifies only when its single element's first
-     * byte is zero. DEVIATION: the decompiler spelled the 2*index scaling as __ROL4__(x, 1) —
-     * identical for tag-bounded indices. */
-    const unsigned char *elements = (const unsigned char *)tag_data->elements.address;
+    /* The message qualifies only when its single element's type is zero.
+     * DEVIATION: the decompiler flattened the elements block to `unsigned char *` and spelled the
+     * 2*index scaling as __ROL4__(x, 1); disasm 0x836A413C-0x836A4140 is rotlwi+lbzx, i.e. a
+     * 2-byte hud_state_message_element stride with the byte read at offset 0 (`type`). */
+    const hud_state_message_element *elements = (const hud_state_message_element *)tag_data->elements.address;
     unsigned int element_index = message->element_start_index;
-    if ( message->element_count == 1 && !elements[2 * element_index] )
+    if ( message->element_count == 1 && !elements[element_index].type )
     {
         hud_messaging_globals->objective.message = message;
         /* recovered: *(__int16 *)((char *)hud_globals + 0x11C/0x11E) ->

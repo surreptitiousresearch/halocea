@@ -4,10 +4,10 @@
 
 #include <stdint.h>
 
-extern int hcex_coop_local_player_index;
+extern "C" int hcex_coop_local_player_index;
 
-extern int16_t local_player_count(void);
-extern void hcex_cam_sync_by_idx(int idx);
+extern "C" int16_t local_player_count(void);
+extern "C" void hcex_cam_sync_by_idx(int idx);
 
 extern "C" void hcex_cam_sync(void)
 {

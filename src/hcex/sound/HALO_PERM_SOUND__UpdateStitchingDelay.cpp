@@ -20,7 +20,7 @@ extern "C" void         osOutputDebugString(const char *fmt, ...);
 extern void _apLog(const char *fmt, ...);
 
 // Debug-tunable crossfade window length, in output-rate samples (dbgVAR_SIMPLE<int,2>).
-extern dbgVAR_SIMPLE<int, 2> CROSSFADE_TIME;
+extern "C" dbgVAR_SIMPLE<int, 2> CROSSFADE_TIME;
 
 void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
 {

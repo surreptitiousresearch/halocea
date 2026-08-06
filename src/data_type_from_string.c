@@ -5,7 +5,11 @@
 
 #define DATA_TYPE_STRING_COUNT 2
 
-extern const char *data_type_strings[DATA_TYPE_STRING_COUNT];
+/* DEVIATION: the local extern typed the table as `const char *[]` (mutable pointers); the object is in
+ * .rdata, so the pointers are const too. Declared canonically by headers/blam_data_globals.h
+ * (const char *const [2], def src/data/data_type_strings.c). */
+#include "headers/blam_data_globals.h"
+
 extern int stricmp(const char *string1, const char *string2);
 
 int data_type_from_string(const char *type_string)

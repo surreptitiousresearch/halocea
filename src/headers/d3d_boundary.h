@@ -76,6 +76,9 @@ typedef struct D3DPRESENT_PARAMETERS
 } D3DPRESENT_PARAMETERS; /* 124 bytes */
 typedef D3DPRESENT_PARAMETERS _D3DPRESENT_PARAMETERS_; /* DB struct-tag alias */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern unsigned int D3DResource_Release(D3DResource *resource); /* DB funcs: unsigned int __fastcall D3DResource_Release(D3DResource*) */
 
 extern HRESULT Direct3D_GetDeviceCaps(unsigned int Adapter, _D3DDEVTYPE DeviceType, _D3DCAPS9 *pCaps);
@@ -105,3 +108,6 @@ extern unsigned int XGSetTextureHeader(unsigned int Width, unsigned int Height, 
         unsigned int Usage, _D3DFORMAT Format, unsigned int ExpBias, unsigned int Flags,
         unsigned int BaseOffset, unsigned int MipOffset, D3DTexture *pTexture,
         unsigned int *pBaseSize, unsigned int *pMipSize);
+#ifdef __cplusplus
+}
+#endif

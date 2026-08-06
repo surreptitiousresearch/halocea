@@ -78,7 +78,7 @@ extern uint8_t network_game_client_end_frame(int ticks_to_apply_this_frames_upda
 extern int64_t system_clocks(void);
 extern float game_time_get_since_tick(void);
 extern double system_clock_delta_seconds_real(int64_t a, int64_t b);
-extern void hcex_pix_begin_event(const char *, double, double);
+extern void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10); the two trailing doubles below are varargs, not fixed params */
 extern void sound_render(void);
 extern void hcex_pix_end_event(void);
 extern void main_pregame_render(void);

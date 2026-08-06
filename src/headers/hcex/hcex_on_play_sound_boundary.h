@@ -29,12 +29,12 @@ extern void dsTSTRING_UnsafeInit(dsTSTRING_flat *s, const char *src, int len, in
 extern "C" void dlFree(void *ptr);
 
 /* --- ws / CRT / bridge helpers --- */
-extern const char *hcex_tag_get_name(int sound_definition_index);
+extern "C" const char *hcex_tag_get_name(int sound_definition_index);
 extern void        hcex_cine_on_play_sound(const char *name);
-extern char       *strstr(const char *haystack, const char *needle);
-extern char       *strrchr(const char *s, int c);
+extern "C" char       *strstr(const char *haystack, const char *needle);
+extern "C" char       *strrchr(const char *s, int c);
 extern HCEX_OBJ   *hcex_obj_get(int id);
-extern void        STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
+extern "C" void        STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
 
 /* placement operator new(size, file, line) */
 extern void *operator new(size_t size, const char *file, unsigned int line);

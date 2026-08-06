@@ -16,7 +16,7 @@
 #include "headers/euler_axis_plan.h"
 
 extern double __fabs(double value);
-extern float __fsqrts(double value);
+extern float __fsqrts(float value);
 
 void unit_euler_axis_buildplan(float current_location, float current_velocity, float velocity_limit,
         float acceleration_limit, euler_axis_plan *plan)

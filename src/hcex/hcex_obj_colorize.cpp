@@ -4,7 +4,7 @@
 
 #include "../headers/hcex/hcex_obj_colorize_boundary.h"   /* HCEX_OBJ, animINST, objOBJ, hcex_obj_get, SetColorMPHier */
 
-extern int strcmp(const char *a, const char *b);
+extern "C" int strcmp(const char *a, const char *b);
 
 extern "C" void hcex_obj_colorize(int id, unsigned int color)
 {

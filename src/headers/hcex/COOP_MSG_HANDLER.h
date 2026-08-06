@@ -29,4 +29,4 @@ typedef struct COOP_MSG_HANDLER : mp::MESSAGE_HANDLER {
     haloRAW_INPUT_X360_ENV          lastRawInput; // 0x24 most recent raw-input packet received
 } COOP_MSG_HANDLER;
 
-extern COOP_MSG_HANDLER coopMsgHandler;
+extern "C" COOP_MSG_HANDLER coopMsgHandler;

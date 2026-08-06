@@ -1,11 +1,82 @@
-/* builtin_multiplayer_maps @ 0x8417EDE0, 228 bytes = 19 x buildin_multiplayer_map_s (12 bytes each).
-   Build-time table source for map_list_initialize_known_list. Each record holds a
-   map_index, a char* name relocation into .rdata, and the original_xbox_map flag.
-   Names recovered from the .rdata strings the pointers target (big-endian image).
-   original_xbox_map is 1 for the 14 original Xbox maps (indices 0..13) and 0 for
-   the five PC/CE-added maps (indices 14..18). */
+/* builtin_multiplayer_maps @ 0x8417EDE0 (.data, 228 bytes)
+ * DB applied_types: buildin_multiplayer_map_s builtin_multiplayer_maps[19];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 map_index                  = 0x00000000
+ *        +0x04 map_name                   = 0x8211E918 -> "levels\test\beavercreek\beavercreek"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 1] +0x00 map_index                  = 0x00000001
+ *        +0x04 map_name                   = 0x8211E8F4 -> "levels\test\sidewinder\sidewinder"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 2] +0x00 map_index                  = 0x00000002
+ *        +0x04 map_name                   = 0x8211E8D4 -> "levels\test\damnation\damnation"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 3] +0x00 map_index                  = 0x00000003
+ *        +0x04 map_name                   = 0x8211E8B8 -> "levels\test\ratrace\ratrace"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 4] +0x00 map_index                  = 0x00000004
+ *        +0x04 map_name                   = 0x8211E898 -> "levels\test\prisoner\prisoner"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 5] +0x00 map_index                  = 0x00000005
+ *        +0x04 map_name                   = 0x8211E874 -> "levels\test\hangemhigh\hangemhigh"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 6] +0x00 map_index                  = 0x00000006
+ *        +0x04 map_name                   = 0x8211E854 -> "levels\test\chillout\chillout"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 7] +0x00 map_index                  = 0x00000007
+ *        +0x04 map_name                   = 0x8211E834 -> "levels\test\carousel\carousel"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 8] +0x00 map_index                  = 0x00000008
+ *        +0x04 map_name                   = 0x8211E808 -> "levels\test\boardingaction\boardingaction"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [ 9] +0x00 map_index                  = 0x00000009
+ *        +0x04 map_name                   = 0x8211E7E4 -> "levels\test\bloodgulch\bloodgulch"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [10] +0x00 map_index                  = 0x0000000A
+ *        +0x04 map_name                   = 0x8211E7C8 -> "levels\test\wizard\wizard"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [11] +0x00 map_index                  = 0x0000000B
+ *        +0x04 map_name                   = 0x8211E7AC -> "levels\test\putput\putput"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [12] +0x00 map_index                  = 0x0000000C
+ *        +0x04 map_name                   = 0x8211E790 -> "levels\test\longest\longest"
+ *        +0x08 original_xbox_map          = 0x01
+ *   [13] +0x00 map_index                  = 0x0000000D
+ *        +0x04 map_name                   = 0x8211E770 -> "levels\test\icefields\icefields"
+ *        +0x08 original_xbox_map          = 0x00
+ *   [14] +0x00 map_index                  = 0x0000000E
+ *        +0x04 map_name                   = 0x8211E74C -> "levels\test\deathisland\deathisland"
+ *        +0x08 original_xbox_map          = 0x00
+ *   [15] +0x00 map_index                  = 0x0000000F
+ *        +0x04 map_name                   = 0x8211E724 -> "levels\test\dangercanyon\dangercanyon"
+ *        +0x08 original_xbox_map          = 0x00
+ *   [16] +0x00 map_index                  = 0x00000010
+ *        +0x04 map_name                   = 0x8211E704 -> "levels\test\infinity\infinity"
+ *        +0x08 original_xbox_map          = 0x00
+ *   [17] +0x00 map_index                  = 0x00000011
+ *        +0x04 map_name                   = 0x8211E6E0 -> "levels\test\timberland\timberland"
+ *        +0x08 original_xbox_map          = 0x00
+ *   [18] +0x00 map_index                  = 0x00000012
+ *        +0x04 map_name                   = 0x8211E6B8 -> "levels\test\gephyrophobia\gephyrophobia"
+ *        +0x08 original_xbox_map          = 0x00
+ * 228 bytes = 19 x buildin_multiplayer_map_s (12 bytes each).
+ *    Build-time table source for map_list_initialize_known_list. Each record holds a
+ *    map_index, a char* name relocation into .rdata, and the original_xbox_map flag.
+ *    Names recovered from the .rdata strings the pointers target (big-endian image).
+ *    original_xbox_map is 1 for the 13 original Xbox maps (indices 0..12) and 0 for
+ *    the six PC/CE-added maps (indices 13..18: icefields, deathisland, dangercanyon,
+ *    infinity, timberland, gephyrophobia).
+ *
+ * DEVIATION: element [13] (icefields) was authored original_xbox_map = 1. The image byte at
+ * +0xA4 is 0x00, so the binary marks icefields as NOT an original Xbox map — it is one of the
+ * six Gearbox PC additions. The 1/0 split in the image falls after index 12, not after 13.
+ * The stale prose above ("14 original Xbox maps ... five PC/CE-added") was the source of the
+ * error; the generated byte block stopped at element 12, so the disagreement was never visible
+ * in the file. Every other field of every element re-derives from the image exactly.
+ */
 #include "../headers/buildin_multiplayer_map_s.h"
 
+/* Field order per row (buildin_multiplayer_map_s, DB-verified layout):
+   map_index, map_name, original_xbox_map. */
 buildin_multiplayer_map_s builtin_multiplayer_maps[19] = {
     {  0, "levels\\test\\beavercreek\\beavercreek",       1 },
     {  1, "levels\\test\\sidewinder\\sidewinder",         1 },
@@ -20,7 +91,7 @@ buildin_multiplayer_map_s builtin_multiplayer_maps[19] = {
     { 10, "levels\\test\\wizard\\wizard",                 1 },
     { 11, "levels\\test\\putput\\putput",                 1 },
     { 12, "levels\\test\\longest\\longest",               1 },
-    { 13, "levels\\test\\icefields\\icefields",           1 },
+    { 13, "levels\\test\\icefields\\icefields",           0 },
     { 14, "levels\\test\\deathisland\\deathisland",       0 },
     { 15, "levels\\test\\dangercanyon\\dangercanyon",     0 },
     { 16, "levels\\test\\infinity\\infinity",             0 },

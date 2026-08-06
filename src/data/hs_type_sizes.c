@@ -1,8 +1,19 @@
-/* hs_type_sizes @0x82118F10 (.rdata) - value size in bytes for every HaloScript node/value type,
+/* hs_type_sizes @ 0x82118F10 (.rdata, 98 bytes)
+ * DB applied_types: const __int16 hs_type_sizes[49];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0000 0000 0000 0000 0000 0001 0004 0002
+ *   +0x0010: 0004 0004 0004 0002 0002 0002 0002 0002
+ *   +0x0020: 0002 0004 0002 0002 0002 0002 0002 0004
+ *   +0x0030: 0004 0004 0004 0004 0004 0004 0004 0004
+ *   +0x0040: 0002 0002 0002 0002 0002 0004 0004 0004
+ *   +0x0050: 0004 0004 0004 0002 0002 0002 0002 0002
+ *   +0x0060: 0002
+ * value size in bytes for every HaloScript node/value type,
  * indexed by hs_type (0..48). 49 int16_t entries = 98 bytes; +0x62..+0x63 are zero alignment
  * padding inside the 100-byte slot (_hs_type_real_default follows at +0x64). Read as
  * `slwi idx,1` + `lhzx` + `extsh` in hs_evaluate_equality @0x8368F8F0 -> 2-byte signed elements,
- * matching the corpus decl `const int16_t hs_type_sizes[]`. */
+ * matching the corpus decl `const int16_t hs_type_sizes[]`.
+ */
 #include <stdint.h>
 #include "../headers/hs_type.h"
 

@@ -15,7 +15,7 @@ extern int16_t find_aim_assist_targets(const aim_assist_parameters *parameters, 
 extern int compare_targets(const aim_assist_target *target0, const aim_assist_target *target1);
 extern uint8_t aim_assist_clear_line_of_sight(const real_point3d *p0, const real_point3d *p1, int ignore_object_index, int target_object_index);
 extern void  qsort(void *base, unsigned int count, unsigned int size,
-                   int (__fastcall *compare)(const void *, const void *));
+                   int (*compare)(const void *, const void *));
 extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 uint8_t aim_assist(const aim_assist_parameters *parameters, const real_point3d *position, const real_vector3d *direction, int ignore_object_index, int16_t ignore_team_index, aim_assist_target *target)
@@ -32,7 +32,7 @@ uint8_t aim_assist(const aim_assist_parameters *parameters, const real_point3d *
         return 0;
 
     qsort(targets, count, sizeof(aim_assist_target),
-          (int (__fastcall *)(const void *, const void *))compare_targets);
+          (int (*)(const void *, const void *))compare_targets);
 
     int i = 0;
     while (!aim_assist_clear_line_of_sight(position, &targets[i].position,

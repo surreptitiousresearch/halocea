@@ -15,7 +15,6 @@
 typedef struct _message_definition_field_reference_set _message_definition_field_reference_set;
 extern void metrics_dispose(void);
 extern void message_definition_field_reference_set_dispose(_message_definition_field_reference_set *const field_reference_set);
-extern _message_definition *message_delta_global_message_list[47];
 extern void message_delta_parameters_protocol_dump_to_config_file(void);
 extern void message_delta_parameters_protocol_shutdown(void);
 

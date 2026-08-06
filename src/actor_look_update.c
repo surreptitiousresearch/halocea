@@ -24,6 +24,15 @@
  * candidate (disasm: three lwz/stw word moves per vector); rewritten as struct assignments, with
  * the shared n[1]-store labels (LABEL_100/101/102) flattened into per-path full copies.
  * PPC `_cntlzw` bit tests are reduced to the equality comparisons they implement (marked inline).
+ * DEVIATION (idle free-aiming path, 4 sites): the compiler reused the facing_available register
+ * (r22) for a second flag once facing_available had been snapshotted into r24 at 0x837FC1EC, and
+ * the decompiler lost that flag together with everything it gates — the flying-actor free-facing
+ * promotion (0x837FC3F4), the idle-minor aim-variation admission disjunct (0x837FC5A4), the
+ * aim-cone validation of the minor direction (0x837FC61C) and the aiming-vector publish
+ * (0x837FC670). Restored here as `free_aiming`; see the per-site DEVIATION notes.
+ * CONTROL FLOW: this function contains NO loop — the binary has zero back-edges across all 1,040
+ * instructions. Every `goto` below is a forward jump to a shared join; the decompiler's
+ * "backward" gotos were block-ordering artifacts and have been de-flattened or relocated.
  */
 
 #include <stdint.h>
@@ -77,6 +86,7 @@ void actor_look_update(int actor_index)
     float look_yaw_deviation;  /* runtime looking-deviation cosine, passed single-precision (f30) */
     uint8_t aim_pending;
     uint8_t look_pending;
+    uint8_t free_aiming;   /* r22 after 0x837FC1EC: idle free-aiming flag (see the flying promotion) */
     uint8_t facing_available;
     uint8_t aim_applied;
     uint8_t look_applied;
@@ -97,6 +107,7 @@ void actor_look_update(int actor_index)
     bool set_exact_facing;
     uint8_t exact_facing_value;
     actor_idle_looking *idle;
+    bool has_idle_facing;
     bool has_idle_aim;
     bool has_idle_look;
     uint8_t idle_updated;
@@ -152,7 +163,7 @@ void actor_look_update(int actor_index)
         actor_index_copy = actor_index;
         actor->control.desired_aiming_vector = actor->control.desired_facing_vector;
         actor->control.desired_looking_vector = actor->control.desired_facing_vector;
-        goto LABEL_192;
+        goto finalize_facing;
     }
 
     aim_yaw_deviation = actor_def->looking.runtime_maximum_aiming_deviation_cosine.__s1.yaw;
@@ -252,13 +263,21 @@ void actor_look_update(int actor_index)
                 || !aim_pending
                 && !actor_look_valid_aim_vector(aim_yaw_deviation, &actor->control.desired_facing_vector, &decoded))
             {
-                if (look_class_snapshot < _primary_priority_facing || !look_pending)
-                    goto LABEL_45;
-                look_pending = 0;
-                aim_pending = 1;
+                /* DEVIATION (de-flattened): the candidate failed the aim cone. Only a pending
+                 * optional-facing request at facing priority or above can still promote it;
+                 * the decompiler spelled the skip as `goto LABEL_45`. Disasm 0x837FBD5C-0x837FBD78
+                 * — every branch here is forward, this function has no back-edge at all. */
+                if (look_class_snapshot >= _primary_priority_facing && look_pending)
+                {
+                    look_pending = 0;
+                    aim_pending = 1;
+                    aim_succeeded = 1;
+                }
             }
-            aim_succeeded = 1;
-LABEL_45:
+            else
+            {
+                aim_succeeded = 1;
+            }
             if (aim_succeeded)
             {
                 facing_available = 0;
@@ -287,7 +306,7 @@ LABEL_45:
         /* commit stimulus-class look (layer 3 resolution) */
         /* range idiom: secondary priorities idle_look(2)..stop_and_aim(6); override(7)/override_exact_facing(8) fall through to the facing-lock path below */
         if ((unsigned int)(stimulus_class - _secondary_look_priority_idle_look) > 6)
-            goto LABEL_103;
+            goto after_stimulus_look;
         if (stimulus_class == _secondary_look_priority_idle_aim || stimulus_class == _secondary_look_priority_aim
             || stimulus_class == _secondary_look_priority_turn_and_aim || stimulus_class == _secondary_look_priority_stop_and_aim
             || stimulus_class == _secondary_look_priority_idle_look)
@@ -304,14 +323,7 @@ LABEL_45:
                         actor->control.desired_facing_vector = *spec_vector;
                         actor->control.face_exactly = 0;
                     }
-LABEL_99:
-                    aim_pending = 0;
-                    actor->control.desired_aiming_vector = *spec_vector;
-                    actor->control.desired_looking_vector = *spec_vector;
-                    look_applied = 0;
-                    actor->control.aiming_away_from_primary = 1;
-                    facing_available = 0;
-                    goto LABEL_103;
+                    goto commit_stimulus_look;
                 }
             }
             if (!look_applied && stimulus_aim_valid && (stimulus_class >= _secondary_look_priority_turn_and_aim || stimulus_class >= _secondary_look_priority_idle_aim && facing_available))
@@ -321,7 +333,7 @@ LABEL_99:
                 look_applied = 0;
                 actor->control.aiming_away_from_primary = 1;
                 facing_available = 0;
-                goto LABEL_103;
+                goto after_stimulus_look;
             }
             if (can_aim)
             {
@@ -332,7 +344,7 @@ LABEL_99:
                 {
                     can_aim = 0;
                     actor->control.desired_looking_vector = *spec_vector;
-                    goto LABEL_103;
+                    goto after_stimulus_look;
                 }
             }
             if (facing_available && stimulus_aim_valid)
@@ -342,40 +354,53 @@ LABEL_99:
                 actor->control.desired_aiming_vector = *spec_vector;
                 facing_available = 0;
             }
-            goto LABEL_103;
+            goto after_stimulus_look;
         }
 
-        /* _secondary_look_priority_override(_exact_facing) path (force-stop facing lock) */
+        /* _secondary_look_priority_override(_exact_facing) path (force-stop facing lock).
+         * DEVIATION (de-flattened): the decompiler emitted this as the goto web LABEL_94/95/96,
+         * including a backward `goto LABEL_94`. The binary is a plain fall-through if/else-if
+         * chain whose three exits are the *forward* branches 0x837FC03C / 0x837FC058 / 0x837FC06C
+         * into the shared 0x837FC074/78/7C tail — there is no loop. */
         facing_succeeded = 0;
         set_exact_facing = stimulus_class == _secondary_look_priority_override_exact_facing;
         exact_facing_value = set_exact_facing;
         if (actor->control.free_facing_vector)
         {
-LABEL_94:
             set_exact_facing = 1;
-            goto LABEL_95;
+            facing_succeeded = 1;
         }
-        if (!actor_look_valid_aim_vector(aim_yaw_deviation, &actor->control.desired_facing_vector, spec_vector))
+        else if (actor_look_valid_aim_vector(aim_yaw_deviation, &actor->control.desired_facing_vector, spec_vector))
         {
-            if (!actor_move_force_stop(actor_index))
-                goto LABEL_96;
+            facing_succeeded = 1;
+        }
+        else if (actor_move_force_stop(actor_index))
+        {
             exact_facing_value = 1;
-            goto LABEL_94;
+            set_exact_facing = 1;
+            facing_succeeded = 1;
         }
-LABEL_95:
-        facing_succeeded = 1;
-LABEL_96:
-        if (facing_succeeded)
+        if (!facing_succeeded)
+            goto after_stimulus_look;
+        if (set_exact_facing)
         {
-            if (set_exact_facing)
-            {
-                actor->control.face_exactly = exact_facing_value;
-                actor->control.desired_facing_vector = *spec_vector;
-            }
-            goto LABEL_99;
+            actor->control.face_exactly = exact_facing_value;
+            actor->control.desired_facing_vector = *spec_vector;
         }
 
-LABEL_103:
+commit_stimulus_look: /* LABEL_99 — shared commit of the decoded stimulus direction to aim and
+                       * look. Relocated to its binary position (0x837FC0B0, which falls straight
+                       * into the after-stimulus join): the decompiler emitted it inside the
+                       * priority arm above, which turned the override path's entry into a
+                       * backward goto. Both entries are forward branches in the binary. */
+        aim_pending = 0;
+        actor->control.desired_aiming_vector = *spec_vector;
+        actor->control.desired_looking_vector = *spec_vector;
+        look_applied = 0;
+        actor->control.aiming_away_from_primary = 1;
+        facing_available = 0;
+
+after_stimulus_look: /* LABEL_103 */
         look_class4 = look_class;
         if (look_class == _primary_priority_opportunity_aiming && facing_available
             && actor_look_valid_aim_vector(aim_yaw_deviation, &actor->control.desired_facing_vector, &decoded))
@@ -391,27 +416,24 @@ LABEL_103:
         /* layer 4: idle looking — pick the looking-mode substruct from the variant definition */
         idle = actor_look_get_looking_definition(actor_index);
 
+        /* all three budget tests are hoisted once (disasm 0x837FC188-0x837FC1B8) and reused by
+         * the guard, the free-facing test and the idle-minor admission test below */
+        has_idle_facing = idle->idle_facing_time_upper_bound > 0.0;
         has_idle_aim = idle->idle_aim_time_upper_bound > 0.0;
         has_idle_look = idle->idle_look_time_upper_bound > 0.0;
 
         if (actor->orders.look.idle_look_type <= 0
             || look_applied
             || !facing_available && !can_aim
-            || idle->idle_facing_time_upper_bound <= 0.0
-            && idle->idle_aim_time_upper_bound <= 0.0
-            && idle->idle_look_time_upper_bound <= 0.0)
+            || !has_idle_facing && !has_idle_aim && !has_idle_look)
         {
-            actor_index_copy = actor_index;
-            actor->control.idle_major_active = 0;
-            actor->control.idle_major_direction_is_interesting = 0;
-LABEL_179:
-            actor->control.idle_minor_active = 0;
-            goto LABEL_180;
+            goto clear_idle_state;
         }
 
         idle_updated = 0;
         idle_major_new = 0;
-        free_facing = idle->idle_facing_time_upper_bound > 0.0
+        free_aiming = 0;
+        free_facing = has_idle_facing
                    && aim_pending
                    && look_class4 == _primary_priority_face_360
                    && !actor->control.idle_facing_timer;
@@ -459,6 +481,17 @@ LABEL_179:
             {
                 if (facing_available)
                 {
+                    /* DEVIATION (dropped block, disasm 0x837FC3F4-0x837FC418): a flying actor
+                     * that still owes an aim and has an idle-facing budget is promoted to free
+                     * facing AND free aiming. The decompiler lost this entirely — it had reused
+                     * the facing_available register (r22) for the free-aiming flag once
+                     * facing_available was snapshotted into r24 at 0x837FC1EC. The free-aiming
+                     * flag is what selects the aim cone in the idle-minor layer below. */
+                    if (aim_pending && has_idle_facing && actor->state.flying)
+                    {
+                        free_facing = 1;
+                        free_aiming = 1;
+                    }
                     if (free_facing)
                     {
                         idle_updated = 1;
@@ -508,27 +541,55 @@ LABEL_179:
             *spec_vector = actor->control.desired_aiming_vector;
         }
 
-        if (!facing_available || !can_aim || !has_idle_look)
-            goto LABEL_179;
+        /* DEVIATION (dropped disjunct, disasm 0x837FC584-0x837FC5B8): the minor layer is admitted
+         * either as a look variation (can_aim + look budget) or as an aim variation (free_aiming +
+         * aim budget). Only the first disjunct was reconstructed. */
+        if (!facing_available
+            || !(can_aim && has_idle_look) && !(free_aiming && has_idle_aim))
+            goto clear_idle_minor;
         if (!actor->control.idle_minor_timer)
             actor_look_idle_new_minor_direction(actor_index_copy, idle, spec_vector);
         minor_active = actor->control.idle_minor_active;
         --actor->control.idle_minor_timer;
         if (!minor_active)
-            goto LABEL_180;
+            goto cross_validate_facing;
         {
             uint8_t minor_ok = 0;
             if (actor_look_decode_direction(actor_index_copy, &actor->control.idle_minor_direction, &decoded))
-                minor_ok = actor_look_valid_look_vector(look_yaw_deviation, &look_cone_cosines,
-                                                        (const real_vector2d *)&actor->control.desired_facing_vector,
-                                                        (const real_vector2d *)&actor->control.desired_aiming_vector,
-                                                        (const real_vector2d *)&decoded);
+            {
+                /* DEVIATION (dropped call, disasm 0x837FC610-0x837FC648): free aiming validates
+                 * the minor direction against the AIM cone, not the look cone. */
+                if (free_aiming)
+                    minor_ok = actor_look_valid_aim_vector(aim_yaw_deviation,
+                                                           &actor->control.desired_facing_vector, &decoded);
+                else
+                    minor_ok = actor_look_valid_look_vector(look_yaw_deviation, &look_cone_cosines,
+                                                            (const real_vector2d *)&actor->control.desired_facing_vector,
+                                                            (const real_vector2d *)&actor->control.desired_aiming_vector,
+                                                            (const real_vector2d *)&decoded);
+            }
             if (!minor_ok)
-                goto LABEL_179;
+                goto clear_idle_minor;
+            /* DEVIATION (dropped store, disasm 0x837FC658-0x837FC678): free aiming publishes the
+             * aiming vector too, not just the looking vector. */
+            if (free_aiming)
+                actor->control.desired_aiming_vector = decoded;
             actor->control.desired_looking_vector = decoded;
         }
+        goto cross_validate_facing;
 
-LABEL_180:
+        /* idle-looking teardown, placed here to match the binary's own block order
+         * (0x837FC68C / 0x837FC698, both entered by forward branches). The decompiler hoisted
+         * this tail up next to the early-out guard, which is what turned the two in-layer
+         * entries into backward `goto LABEL_179`s. */
+clear_idle_state:
+        actor_index_copy = actor_index;
+        actor->control.idle_major_active = 0;
+        actor->control.idle_major_direction_is_interesting = 0;
+clear_idle_minor: /* LABEL_179 */
+        actor->control.idle_minor_active = 0;
+
+cross_validate_facing: /* LABEL_180 */
         /* aim/look cross-validation fallback for non-busy, untargeted units: if the desired aim is
          * reachable from the desired facing but not from the unit's actual facing (and likewise for
          * looking), force exact facing so the body turns */
@@ -556,7 +617,7 @@ LABEL_180:
         if (!can_aim_saved)
             actor->control.desired_looking_vector = actor->control.desired_aiming_vector;
 
-LABEL_192:
+finalize_facing: /* LABEL_192 */
         /* zero out a tiny facing-Z residual; if the facing flattens to nothing, fall back to body facing */
         if (!actor->state.flying && __fabs(actor->control.desired_facing_vector.n[2]) >= 0.000099999997)
         {
@@ -632,9 +693,11 @@ LABEL_192:
         actor->output.looking_vector = actor->control.desired_looking_vector;
         actor_unit_control_exact_facing(actor_index_copy, actor->control.face_exactly);
 
+        /* DEVIATION (de-flattened): the decompiler routed the five slow-aim stimulus cases through
+         * a backward `goto LABEL_221`. In the binary both arms are separate stores of the same
+         * constant (0x837FCA48 sth 0 / 0x837FCA60 sth 1) — no shared block, no loop. */
         if (look_actively_engaged || actor->orders.look.idle_look_type == _idle_look_combat)
         {
-LABEL_221:
             actor->output.aiming_speed = 0;
         }
         else
@@ -646,7 +709,8 @@ LABEL_221:
                 case _secondary_look_combat_stimulus_prop:
                 case _secondary_look_damage:
                 case _secondary_look_dangerous_object:
-                    goto LABEL_221;
+                    actor->output.aiming_speed = 0;
+                    break;
                 default:
                     actor->output.aiming_speed = 1;
                     break;

@@ -99,7 +99,7 @@ void actor_move_vector_avoidance(
     float cross_y, cross_z, cross_x, cross_mag;
     float axis_x, axis_y, axis_z, rotation_angle, panic_emergency;
     real_vector3d *slide_direction;
-    float slide_emergency, slide_angle, rotation_y_comp, rotation_z_comp;
+    float slide_emergency, slide_angle;
     float zero_x, nudge_zero_y;
     float best_dir_z2, best_dir_y2, rot_z_acc, rot_y_acc, rot_mag, rot_y_norm, rot_z_norm;
     float final_rotation_y, final_rotation_z;
@@ -131,7 +131,7 @@ void actor_move_vector_avoidance(
     {
         object_index = actor->meta.unit_index;
         if ( object_index == -1 )
-            goto LABEL_109;
+            goto write_rotation;
     }
 
     unit_object = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);
@@ -425,34 +425,29 @@ void actor_move_vector_avoidance(
         emergency_scaled = (((sense_emergency - 0.6f) * 2.5000002f) + 1.0f);
     }
 
-    /* decide whether to "panic" (spin away) based on forward alignment + velocity */
+    /* decide whether to "panic" (spin away) based on forward alignment + velocity.
+     * DEVIATION (de-flattened): the decompiler rendered this as a goto web (LABEL_69/70/71)
+     * because the compiler shared the `is_panicking = should_panic` tail between two arms.
+     * Disasm 0x837C9C8C-0x837C9CFC is a plain if / else-if / else with every branch forward. */
     if ( move_dot_forward < -0.2f )
     {
         panic_timer = actor->control.vector_avoidance_sharp_turn_timer;
         if ( panic_timer != -1 && panic_timer < 90 )
         {
             is_panicking = 1;
-            goto LABEL_71;
         }
-        if ( ((unit_object->object.angular_velocity.n[0] * unit_object->object.angular_velocity.n[0])
-                   + ((unit_object->object.angular_velocity.n[1] * unit_object->object.angular_velocity.n[1])
-                             + (unit_object->object.angular_velocity.n[2] * unit_object->object.angular_velocity.n[2]))) > 0.0025f )
+        else
         {
-            if ( weight_advantage > 2.0f )
-            {
-                should_panic = best_weight > 2.0f;
-                goto LABEL_69;
-            }
-            goto LABEL_70;
+            if ( ((unit_object->object.angular_velocity.n[0] * unit_object->object.angular_velocity.n[0])
+                       + ((unit_object->object.angular_velocity.n[1] * unit_object->object.angular_velocity.n[1])
+                                 + (unit_object->object.angular_velocity.n[2] * unit_object->object.angular_velocity.n[2]))) > 0.0025f )
+                /* already spinning: only commit when the chosen direction is a decisive win */
+                should_panic = weight_advantage > 2.0f && best_weight > 2.0f;
+            else
+                should_panic = emergency_scaled > 0.5f;
+            is_panicking = should_panic;
         }
-        should_panic = emergency_scaled > 0.5f;
-LABEL_69:
-        is_panicking = 1;
-        if ( !should_panic )
-LABEL_70:
-            is_panicking = 0;
     }
-LABEL_71:
     panic_active = is_panicking;
     if ( is_panicking )
     {
@@ -472,7 +467,7 @@ LABEL_71:
         if ( move_dot_forward >= 0.5f )
         {
             if ( sense_emergency <= 0.0f )
-                goto LABEL_106;
+                goto record_direction;
             zero_x = global_zero_vector3d->n[0];
             nudge_zero_y = global_zero_vector3d->n[1];
             rotation_z = global_zero_vector3d->n[2];
@@ -492,7 +487,7 @@ LABEL_71:
             rot_mag = __fsqrts(((rotation_x * rotation_x)
                                     + ((rot_z_acc * rot_z_acc) + (rot_y_acc * rot_y_acc))));
             if ( __fabs(rot_mag) < 0.000099999997f )
-                goto LABEL_105;
+                goto direction_chosen;
             rotation_x = (1.0f / rot_mag)
                        * ((best_dir_y2 * avoidance_data.up.n[0]) + ((-best_dir_z2 * avoidance_data.left.n[0]) + zero_x));
             rot_y_norm = (rot_y_acc * (1.0f / rot_mag));
@@ -500,52 +495,53 @@ LABEL_71:
             rot_z_norm = (rot_z_acc * (1.0f / rot_mag));
             rotation_z = rot_z_norm;
             if ( rot_mag <= 0.0f )
-                goto LABEL_105;
+                goto direction_chosen;
+            /* DEVIATION (de-flattened): the decompiler shared the final rotation_y/rotation_z
+             * stores between this arm and the slide arm below as LABEL_104. In the binary that
+             * block (0x837CA054-0x837CA058) is a forward-entered tail, not a loop; the two
+             * stores are written out per arm and the *_comp scratch locals are gone. */
             rotation_x = ((1.0f / rot_mag)
                                  * ((best_dir_y2 * avoidance_data.up.n[0]) + ((-best_dir_z2 * avoidance_data.left.n[0]) + zero_x)))
                        * (emergency_scaled * 1.0471976f);   /* 60 deg in radians */
-            rotation_y_comp = (rot_y_norm * (emergency_scaled * 1.0471976f));
-            rotation_z_comp = (rot_z_norm * (emergency_scaled * 1.0471976f));
-LABEL_104:
-            rotation_z = rotation_z_comp;
-            rotation_y = rotation_y_comp;
-            goto LABEL_105;
+            rotation_y = (rot_y_norm * (emergency_scaled * 1.0471976f));
+            rotation_z = (rot_z_norm * (emergency_scaled * 1.0471976f));
+            goto direction_chosen;
         }
 
         if ( weight_advantage <= 1.3f )
-            goto LABEL_106;
+            goto record_direction;
         slide_direction = &avoidance_directions[best_index];
         if ( ((slide_direction->n[2] * move_plane_z)
                    + ((slide_direction->n[1] * move_plane_y) + (slide_direction->n[0] * move_plane_x))) <= 0.5f )
-            goto LABEL_106;
-        slide_emergency = (((best_weight - move_fit_fraction) * 0.76923078f) - 0.5f);
-        out_emergency = ((best_weight - move_fit_fraction) * 0.76923078f) - 0.5f;
-        if ( slide_emergency >= 0.0f )
+            goto record_direction;
+        /* DEVIATION (de-flattened): LABEL_95 was the decompiler's rendering of an ordinary
+         * clamp — the in-range arm skips the reload of the clamped value (0x837C9F08 branches
+         * past 0x837C9F10) while the out-of-range arms fall into it, which the decompiler can
+         * only express as a backward goto. Re-rolled as the clamp it is; the binary has no
+         * back-edge here (its last one is the direction scan at 0x837C9AF8). */
+        out_emergency = (((best_weight - move_fit_fraction) * 0.76923078f) - 0.5f);
+        if ( out_emergency >= 0.0f )
         {
-            if ( slide_emergency <= 1.0f )
-            {
-LABEL_95:
-                if ( slide_emergency <= emergency_scaled )
-                {
-                    out_emergency = emergency_scaled;
-                    slide_emergency = emergency_scaled;
-                }
-                slide_angle = (slide_emergency * 1.0471976f);   /* 60 deg in radians */
-                if ( ((slide_direction->n[1] * move_plane_z) - (slide_direction->n[2] * move_plane_y)) > 0.0f )
-                    slide_angle = -slide_angle;
-                rotation_y_comp = (avoidance_data.forward.n[1] * slide_angle);
-                rotation_x = avoidance_data.forward.n[0] * slide_angle;
-                rotation_z_comp = (avoidance_data.forward.n[2] * slide_angle);
-                goto LABEL_104;
-            }
-            out_emergency = 1.0f;
+            if ( out_emergency > 1.0f )
+                out_emergency = 1.0f;
         }
         else
         {
             out_emergency = 0.0f;
         }
         slide_emergency = out_emergency;
-        goto LABEL_95;
+        if ( slide_emergency <= emergency_scaled )
+        {
+            out_emergency = emergency_scaled;
+            slide_emergency = emergency_scaled;
+        }
+        slide_angle = (slide_emergency * 1.0471976f);   /* 60 deg in radians */
+        if ( ((slide_direction->n[1] * move_plane_z) - (slide_direction->n[2] * move_plane_y)) > 0.0f )
+            slide_angle = -slide_angle;
+        rotation_x = avoidance_data.forward.n[0] * slide_angle;
+        rotation_y = (avoidance_data.forward.n[1] * slide_angle);
+        rotation_z = (avoidance_data.forward.n[2] * slide_angle);
+        goto direction_chosen;
     }
 
     /* panic path: rotate directly toward the chosen avoidance direction */
@@ -602,15 +598,15 @@ LABEL_95:
     if ( out_emergency <= emergency_scaled )
         out_emergency = emergency_scaled;
 
-LABEL_105:
+direction_chosen:   /* LABEL_105 */
     result_written = 1;
-LABEL_106:
+record_direction:   /* LABEL_106 */
     if ( result_written )
         actor->control.vector_avoidance_current_direction = best_index;
     else
         actor->control.vector_avoidance_current_direction = -1;
 
-LABEL_109:
+write_rotation:     /* LABEL_109 */
     final_rotation_y = rotation_y;
     final_rotation_z = rotation_z;
     avoidance_rotation->n[0] = rotation_x;

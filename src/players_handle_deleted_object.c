@@ -21,7 +21,7 @@
 
 
 #include "headers/network_game_client.h"
-extern void hcex_fire_plr_event(const char *event_name, int16_t local_player);
+extern void hcex_fire_plr_event(const char *event_name, int local_player); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
 extern void player_control_new_unit(int16_t local_player_index, int unit_index);
 extern void player_cleanup_after_player_has_quit_game_and_no_longer_attached_to_unit(int player_index);
 extern int16_t game_connection(void);

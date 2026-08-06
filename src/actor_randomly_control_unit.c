@@ -5,7 +5,7 @@
  *
  * DEVIATION (2026-07-31): one param, not two. disasm (0x8371E768) reads only r3 (the actor index,
  * kept in r31 throughout); r4 is only ever written as scratch, never read — so the DB prototype's 2nd
- * `unit_index` param is a phantom. The decompiler's further phantom a3..a6 were the zero-fill source for
+ * `unit_index` param is a phantom. The decompiler's further phantom params were the zero-fill source for
  * control_data's unrolled memset. */
 
 #include <stdint.h>

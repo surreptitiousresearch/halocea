@@ -15,8 +15,8 @@
 #include "../headers/scenario.h"
 #include "../headers/scenario_object_name.h"
 
-extern data_array *object_header_data;
-extern scenario *global_scenario;
+extern "C" data_array *object_header_data;
+extern "C" scenario *global_scenario;
 
 extern "C" const char *hcex_obj_get_name(int id)
 {

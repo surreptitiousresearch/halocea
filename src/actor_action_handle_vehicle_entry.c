@@ -35,6 +35,7 @@
 #include "headers/actor_definition.h"
 #include "headers/actor_definition_flags.h"
 #include "headers/object_type.h"
+#include "headers/ai_index.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -168,13 +169,13 @@ uint8_t actor_action_handle_vehicle_entry(int actor_index)
             matched = (uint16_t)(actor->meta.encounter_index ^ ai_index) == 0;
             if ( matched )
             {
-                if ( ai_index >> 30 == 1 )
+                if ( AI_INDEX_SCOPE(ai_index) == _ai_index_platoon )
                 {
-                    matched = (uint8_t)(((ai_index >> 8) & 0xFF) == actor->meta.platoon_index);
+                    matched = (uint8_t)(AI_INDEX_SUB_INDEX(ai_index) == actor->meta.platoon_index);
                 }
-                else if ( ai_index >> 30 == 2 )
+                else if ( AI_INDEX_SCOPE(ai_index) == _ai_index_squad )
                 {
-                    matched = (uint8_t)(((ai_index >> 8) & 0xFF) == actor->meta.squad_index);
+                    matched = (uint8_t)(AI_INDEX_SUB_INDEX(ai_index) == actor->meta.squad_index);
                 }
                 /* types 0 and 3: the low-16 match alone is sufficient */
             }

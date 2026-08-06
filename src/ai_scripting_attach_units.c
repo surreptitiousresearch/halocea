@@ -11,9 +11,15 @@
  * platoon_index, initial_state, default_state. encounter_definition.flags bit 0x10 selects
  * "initially braindead". The four trailing actor_create_for_unit arguments (initial_state, default_state,
  * initial_command_list_index = -1, noncombat_sequence_id = 0) were lost by the decompiler (it left v15..v18
- * uninitialized); they are disasm-verified at 0x8376F678..0x8376F6A4 / 0x8376F548. */
+ * uninitialized); they are disasm-verified at 0x8376F678..0x8376F6A4 / 0x8376F548.
+ *
+ * DEVIATION: the sub-index unpack was `(ai_index >> 8) & 0xFF` — Hex-Rays' BYTE1 expanded with the
+ * little-endian value form. Disasm 0x8376F5B4 (explicit squad) and 0x8376F5C8 (platoon search key) are
+ * `extrwi rX, r27, 8, 8` (rlwinm SH=16 MB=24 ME=31, words 0x577E863E / 0x5765863E), i.e. (x >> 16) & 0xFF.
+ * Now AI_INDEX_SUB_INDEX. */
 
 #include <stdint.h>
+#include "headers/ai_index.h"
 #include "headers/scenario.h"
 #include "headers/encounter_flags.h"
 #include "headers/encounter_definition.h"
@@ -48,18 +54,18 @@ void ai_scripting_attach_units(int object_list_index, unsigned int ai_index)
         squad_definition *squads = (squad_definition *)encounter->squads.address;
         int squad_index = 0;
 
-        if ( ai_index >> 30 == 2 )
+        if ( AI_INDEX_SCOPE(ai_index) == _ai_index_squad )
         {
-            squad_index = (ai_index >> 8) & 0xFF;      /* BYTE1: explicit squad */
+            squad_index = AI_INDEX_SUB_INDEX(ai_index);
         }
-        else if ( ai_index >> 30 == 1 )
+        else if ( AI_INDEX_SCOPE(ai_index) == _ai_index_platoon )
         {
             int squad_count = encounter->squads.count;
             int i = 0;
             if ( squad_count > 0 )
             {
                 squad_definition *squad = squads;
-                while ( squad->platoon_index != ((ai_index >> 8) & 0xFF) )
+                while ( squad->platoon_index != AI_INDEX_SUB_INDEX(ai_index) )
                 {
                     ++i;
                     ++squad;

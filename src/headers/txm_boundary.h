@@ -22,7 +22,7 @@ extern void *txmMANAGER__Find(txmMANAGER *self, const char *name);
 
 /* Globals */
 extern txmMANAGER *txmManager;
-extern int hcex_off_tex_streaming;
+extern "C" int hcex_off_tex_streaming;
 // DB mangled `?osLockedIncrement@@YAHPAH@Z` → int(int*); was wrongly `long` (conflicted with the
 // canonical decl under strict C++). Return width unchanged on this ABI; callers unaffected.
 extern int osLockedIncrement(int *value);

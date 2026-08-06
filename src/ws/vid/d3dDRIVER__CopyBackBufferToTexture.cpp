@@ -12,7 +12,7 @@ extern vidDRIVER *vidDriver;
 // boundary -- Xbox 360 D3D SDK / Xenon helpers.
 extern int  _d3dXenonSurfaceGetGammaEnable(D3DSurface *pSurface);
 extern int  _d3dXenonTextureGetGammaEnable(D3DBaseTexture *pTexture);
-extern void D3DDevice_Resolve(D3DDevice *pDevice, unsigned int flags, const void *pRect,
+extern "C" void D3DDevice_Resolve(D3DDevice *pDevice, unsigned int flags, const void *pRect,
                               D3DBaseTexture *pDestTexture, const void *pSourceSurface,
                               int destSubResource, int srcSubResource, const void *pClearColorRect,
                               float clearZ, unsigned int clearStencil, const void *pResolveParams);

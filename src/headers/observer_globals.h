@@ -12,4 +12,12 @@ typedef struct observer_globals_t
     observer local_players[2];    /* 0x04 */
 } observer_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern observer_globals_t observer_globals;
+
+#ifdef __cplusplus
+}
+#endif

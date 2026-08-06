@@ -18,8 +18,9 @@
 #include "headers/message_delta_message_ids.h"
 #include "headers/blam_data_globals.h"
 
-extern int bits_needed[];
-extern _message_definition *message_delta_global_message_list[47];
+/* DEVIATION: the local extern typed bits_needed as `int[]`, a 4x stride error — the table is a byte
+ * array (disasm 0x837A2100: `lbz r30, -1(r10)` off an unscaled index). Declared canonically by
+ * headers/blam_data_globals.h (const uint8_t[2048], def src/data/bits_needed.c). */
 
 extern int message_delta_parameters_protocol_get_packet_bit_size(void);
 extern unsigned int message_delta_parameters_protocol_get(void);

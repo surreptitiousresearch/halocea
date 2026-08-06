@@ -43,10 +43,10 @@ typedef struct HALO_CROSSFADE_DSP {
 
     // FMOD_DSP_DESCRIPTION::read callback -- applies the gain ramp to `outbuffer` in place
     // for the block [blockStart, blockStart+length) if it overlaps [startTime,endTime).
-    static FMOD_RESULT __fastcall ReadCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer,
+    static FMOD_RESULT ReadCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer,
                                                 float *outbuffer, unsigned int length,
                                                 int inchannels, int outchannels); // ?ReadCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@PAM1IHH@Z
 
     // FMOD_DSP_DESCRIPTION::release callback -- frees the userdata block FMOD handed back.
-    static FMOD_RESULT __fastcall ReleaseCallback(FMOD_DSP_STATE *dsp_state); // ?ReleaseCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@@Z
+    static FMOD_RESULT ReleaseCallback(FMOD_DSP_STATE *dsp_state); // ?ReleaseCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@@Z
 } HALO_CROSSFADE_DSP;

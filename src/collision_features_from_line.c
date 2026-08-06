@@ -13,8 +13,8 @@
 #include "headers/real_vector3d.h"
 #include "headers/real_vector2d.h"
 #include "headers/collision_feature_list.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fsqrts(float);
 extern float __fabs(float);
 extern real_vector2d *perpendicular2d(const real_vector2d *a, real_vector2d *result);
@@ -24,10 +24,9 @@ static void project_prism_points(collision_prism *prism, const float corners[12]
 {
     for ( int i = 0; i < prism->point_count; ++i )
     {
-        int map = 2 * prism->projection_axis + prism->projection_sign;
         const float *corner = &corners[3 * i];
-        prism->points[i].n[0] = corner[global_projection3d_mappings[0][map][0]];
-        prism->points[i].n[1] = corner[global_projection3d_mappings[0][map][1]];
+        prism->points[i].n[0] = corner[global_projection3d_mappings[prism->projection_axis][prism->projection_sign][0]];
+        prism->points[i].n[1] = corner[global_projection3d_mappings[prism->projection_axis][prism->projection_sign][1]];
     }
 }
 

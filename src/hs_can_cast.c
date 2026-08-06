@@ -8,9 +8,14 @@
 #include <stdint.h>
 #include "headers/hs_type.h"
 
-typedef void *typecasting_procedure;            /* 4-byte fn pointer; only tested for non-null here */
-extern typecasting_procedure typecasting_procedures[][49];   /* inner dim number_of_hs_node_types from the mulli r,r,0x31 index math */
-extern int16_t hs_object_type_masks[];
+/* Both globals come from the canonical header rather than a local extern. This file previously
+ * spelled the table `typecasting_procedure typecasting_procedures[][49]` over a local
+ * `typedef void *typecasting_procedure` — same 4-byte element and the same index math, but an
+ * incomplete outer dimension and an element type that discards the call signature. The definition
+ * (src/data/typecasting_procedures.c) and hs_cast.c both use `int (*[49][49])(int)`, which is what
+ * `applied_types` states; three spellings of one object is exactly the divergence the canonical
+ * header exists to make impossible. */
+#include "headers/blam_data_globals.h"
 
 /* params extsh r3/r4 -> signed int16_t; return byte-normalized (all 5 callers clrlwi r3,24) -> uint8_t */
 uint8_t hs_can_cast(int16_t actual_type, int16_t desired_type)

@@ -2,8 +2,8 @@
 #include "dsSTRID_POOL.h"
 #include "ds_assert_boundary.h"
 
-extern dsSTRID_POOL *dsStrIdPool;      // ds global — lazily-created singleton pool instance
-extern const char   *dsStrIdOfEmptyId; // ds global — the interned id of the empty string
+extern "C" dsSTRID_POOL *dsStrIdPool;      // ds global — lazily-created singleton pool instance
+extern "C" const char   *dsStrIdOfEmptyId; // ds global — the interned id of the empty string
 
 // Debug placement operator new the ws build links in. boundary.
 void *operator new(size_t size, const char *file, unsigned int line);

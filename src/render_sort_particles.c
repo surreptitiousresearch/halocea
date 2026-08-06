@@ -14,7 +14,7 @@
 #include "headers/rendered_particle_datum.h"
 
 extern void qsort(void *base, unsigned int count, unsigned int size,
-        int (__fastcall *compare)(const void *, const void *));
+        int (*compare)(const void *, const void *));
 extern int compare_rendered_particles(const void *left, const void *right);
 
 void render_sort_particles(rendered_particle_datum *rendered_particles, unsigned int rendered_particles_count)

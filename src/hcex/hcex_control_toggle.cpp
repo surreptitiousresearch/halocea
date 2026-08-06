@@ -13,14 +13,14 @@
 #include "../headers/scenario_object_name.h"
 #include "../headers/object_header_datum.h"
 
-extern data_array *object_header_data;
-extern scenario   *global_scenario;
+extern "C" data_array *object_header_data;
+extern "C" scenario   *global_scenario;
 
-extern char *main_get_map_name(void);
-extern int game_time_get(void);
-extern void        hcex_fire_event_i(const char *event_name, const char *param_name, int value);
-extern char       *strstr(const char *haystack, const char *needle);
-extern int         strcmp(const char *a, const char *b);
+extern "C" char *main_get_map_name(void);
+extern "C" int game_time_get(void);
+extern "C" void        hcex_fire_event_i(const char *event_name, const char *param_name, int value);
+extern "C" char       *strstr(const char *haystack, const char *needle);
+extern "C" int         strcmp(const char *a, const char *b);
 
 extern "C" void hcex_control_toggle(int id, float value)
 {

@@ -1,11 +1,11 @@
-/* actor_stimulus_damage @0x837D4408 — react to the actor's unit taking damage: mark it as damaged (+748),
- * raise a level-5 surprise stimulus (toward the attacker's prop direction, or away from the damage velocity
- * when there is no prop), record the damage as a recent "look at the threat" hint, and steer the actor's
- * secondary look toward the prop / away from the hit.
+/* actor_stimulus_damage @0x837D4408 — react to the actor's unit taking damage: mark it as damaged
+ * (+748 -> stimuli.was_damaged), raise a level-5 surprise stimulus (toward the attacker's prop direction, or
+ * away from the damage velocity when there is no prop), record the damage as a recent "look at the threat"
+ * hint, and steer the actor's secondary look toward the prop / away from the hit.
  *
- * Deviation: the decompiler invents a 5th parameter `a5` that is actually the same register (r6) as
- * damage_velocity; both `a5` and the velocity-copy alias `v17` are damage_velocity. damage_fraction (f1) is
- * passed but unused by the body. The recent-threat hint fields are actor tail offsets kept raw.
+ * Deviation: the decompiler invents a 5th parameter out of the same register (r6) as damage_velocity; that
+ * phantom and the velocity-copy alias it derives from it are both damage_velocity. damage_fraction (f1) is
+ * passed but unused by the body. The recent-threat hint is actor_stimulus_combat's prop_look_timer argument.
  *
  * DEVIATION: the post-surprise actor re-fetch + combat-transition write block in the decompiler output is
  * a verbatim compiler-inlined copy of actor_stimulus_combat @0x837D3C90 (zero call xrefs in the binary —

@@ -12,4 +12,12 @@ typedef struct motion_sensor_globals_definition
     uint8_t             pad_0AD7;            /* 0xAD7 (alignment) */
 } motion_sensor_globals_definition;                  /* 2776 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern motion_sensor_globals_definition *motion_sensor_globals;
+
+#ifdef __cplusplus
+}
+#endif

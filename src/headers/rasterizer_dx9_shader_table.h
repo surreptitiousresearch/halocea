@@ -12,7 +12,15 @@ typedef struct rasterizer_dx9_shader
     char *filename;          // 0x1C
 } rasterizer_dx9_shader;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_dx9_shader shader_table[123];
 extern _D3DXMACRO global_effect_macros[3];
 extern ID3DXEffectPool *global_effect_pool;
 extern int dump_psh_to_binary;
+
+#ifdef __cplusplus
+}
+#endif

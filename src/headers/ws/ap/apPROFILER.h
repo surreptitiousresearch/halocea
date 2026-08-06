@@ -12,13 +12,13 @@ struct apPROFILER_DESC; // boundary — not decompiled here
 // DB-verified layout (types_members apPROFILER_vtbl): dtr@0, Start@4, Stop@8, StartFrame@12,
 // EndFrame@16, SaveProfileResult@20, SetDesc@24 — all boundary (bodies not decompiled here).
 typedef struct apPROFILER_vtbl {
-    void (__fastcall *dtr_apPROFILER)(apPROFILER *thisPtr);
-    void (__fastcall *Start)(apPROFILER *thisPtr);
-    void (__fastcall *Stop)(apPROFILER *thisPtr);
-    void (__fastcall *StartFrame)(apPROFILER *thisPtr);
-    void (__fastcall *EndFrame)(apPROFILER *thisPtr);
-    void (__fastcall *SaveProfileResult)(apPROFILER *thisPtr, const char *path);
-    void (__fastcall *SetDesc)(apPROFILER *thisPtr, const apPROFILER_DESC *desc);
+    void (*dtr_apPROFILER)(apPROFILER *thisPtr);
+    void (*Start)(apPROFILER *thisPtr);
+    void (*Stop)(apPROFILER *thisPtr);
+    void (*StartFrame)(apPROFILER *thisPtr);
+    void (*EndFrame)(apPROFILER *thisPtr);
+    void (*SaveProfileResult)(apPROFILER *thisPtr, const char *path);
+    void (*SetDesc)(apPROFILER *thisPtr, const apPROFILER_DESC *desc);
 } apPROFILER_vtbl;
 
 typedef struct apPROFILER {

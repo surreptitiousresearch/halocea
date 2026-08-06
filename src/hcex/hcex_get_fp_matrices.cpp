@@ -8,10 +8,10 @@
 
 #include "../headers/real_matrix4x3.h"
 
-extern int hcex_fp_model1[2];
-extern int hcex_fp_model2[2];
-extern real_matrix4x3 hcex_fp_model_matrices1[2][64];
-extern real_matrix4x3 hcex_fp_model_matrices2[2][64];
+extern "C" int hcex_fp_model1[2];
+extern "C" int hcex_fp_model2[2];
+extern "C" real_matrix4x3 hcex_fp_model_matrices1[2][64];
+extern "C" real_matrix4x3 hcex_fp_model_matrices2[2][64];
 
 extern "C" real_matrix4x3 *hcex_get_fp_matrices(int modelId, unsigned int cam_idx)
 {

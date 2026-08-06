@@ -24,6 +24,9 @@
  * come transitively from d3d_boundary.h. The DB-verified _D3DFORMAT enum (real Xbox 360 tokens)
  * comes from _D3DFORMAT.h; the former inline placeholder enum was removed. */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern D3DSurface *D3DDevice_GetRenderTarget(D3DDevice *device, unsigned int RenderTargetIndex);
 extern void D3DSurface_GetDesc(D3DSurface *surface, _D3DSURFACE_DESC *desc);
 extern D3DQuery *D3DDevice_CreateQueryTiled(D3DDevice *device, _D3DQUERYTYPE type, unsigned int tiled);
@@ -87,3 +90,6 @@ extern void D3DVolumeTexture_UnlockBox(D3DVolumeTexture *texture, unsigned int L
 extern void D3DCubeTexture_LockRect(D3DCubeTexture *texture, _D3DCUBEMAP_FACES FaceType, unsigned int Level,
                                     _D3DLOCKED_RECT *pLockedRect, const void *pRect, unsigned int Flags);
 extern void D3DCubeTexture_UnlockRect(D3DCubeTexture *texture, _D3DCUBEMAP_FACES FaceType, unsigned int Level);
+#ifdef __cplusplus
+}
+#endif

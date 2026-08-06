@@ -10,4 +10,12 @@ struct physical_memory_map_globals
     void *tag_cache_base_address;  // 0x04
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct physical_memory_map_globals physical_memory_map_globals;
+
+#ifdef __cplusplus
+}
+#endif

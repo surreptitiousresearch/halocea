@@ -21,4 +21,12 @@ typedef struct _update_client_globals
     update                   updates[128];                    /* 0x5C */
 } _update_client_globals;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _update_client_globals update_client_globals;
+
+#ifdef __cplusplus
+}
+#endif

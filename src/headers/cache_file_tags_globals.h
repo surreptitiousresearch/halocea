@@ -1,19 +1,20 @@
 #pragma once
-/* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
-/* cache_file_globals (tag-system instance) @ cache_file_globals — tracks the loaded tag/cache
- * file state. Distinct from the streaming cache_file_globals_s; this is the tag-resolution side. */
+/* cache_file_tags_globals — the tag-resolution view of `cache_file_globals`. Distinct from the
+ * streaming cache_file_globals_s (a different object, cache_file_globals_0).
+ *
+ * DEVIATION: this used to define its OWN struct body, so the single object `cache_file_globals`
+ * had two incompatible C types across the corpus (this one and cache_file_runtime_globals) —
+ * latent because no TU had ever included both. The DB has exactly one type for the object,
+ * anonymous struct $F4497E3014C013DA64EA5AA79E59B767 (types.size = 2060), and both bodies matched
+ * it member-for-member. Consolidated to a typedef alias of the canonical definition so the two
+ * externs are the same type; consumers keep using the name and members unchanged.
+ *
+ * cache_file_tags_header.h stays included here: consumers of this view dereference tags_header,
+ * which the canonical header only forward-declares. */
 
-#include "cache_file_header.h"
+#include "cache_file_runtime_globals.h"
 #include "cache_file_tags_header.h"
 
-typedef struct cache_file_structure_bsp_header cache_file_structure_bsp_header;
-
-typedef struct cache_file_tags_globals
-{
-    unsigned char                    tags_loaded;          /* 0x000 */
-    cache_file_header                header;               /* 0x004 (2048 bytes) */
-    cache_file_tags_header          *tags_header;          /* 0x804 */
-    cache_file_structure_bsp_header *structure_bsp_header; /* 0x808 */
-} cache_file_tags_globals;
+typedef cache_file_runtime_globals cache_file_tags_globals;
 
 extern cache_file_tags_globals cache_file_globals;

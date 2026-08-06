@@ -1,20 +1,38 @@
 #pragma once
 /* message_delta_message_ids — message_delta_processor_message_definition_type id constants (indices into
- * message_delta_global_message_list). Only the ids referenced by reconstructed code are listed.
+ * message_delta_global_message_list). Every id that owns a message definition object is listed, plus
+ * _message_hud_chat, which owns none.
  *
  * Every value below is the DB enum message_delta_processor_message_definition_type, cross-checked against the
  * literal the binary passes as `definition_type` wherever a call site exists (the `disasm` notes). The two
- * oracles agree on all 24 cross-checked ids. */
+ * oracles agree on all 24 cross-checked ids.
+ *
+ * The DB enum runs 0..50; ids 47..50 (_message_add_player_ingame, _message_remove_player_ingame,
+ * _message_game_over, _message_client_graceful_exit_ingame) own no message definition object and are not
+ * listed here, and neither is _message_hud_chat's definition — see the note on _message_hud_chat below. */
 
 enum
 {
     _message_object_deletion = 0, /* disasm 0x836EBD38: li r3, 0 # definition_type */
+    _message_projectile_update = 1,
+    _message_equipment_update = 2,
+    _message_weapon_update = 3,
+    _message_biped_update = 4,
+    _message_vehicle_update = 5,
     _message_hud_add_item = 6, /* disasm 0x836A5C64: li r3, 6 # definition_type */
     _message_player_create = 7,
     _message_player_spawn = 8,
+    _message_player_exit_vehicle = 9,
     _message_player_set_action_result = 10, /* disasm 0x836A99D8: li r3, 0xA # definition_type */
     _message_player_effect_start = 11, /* DB message_delta_processor_message_definition_type value 11 */
+    _message_unit_kill = 12,
+    _message_client_game_update = 13,
     _message_player_handle_powerup = 14, /* disasm 0x836AA430: li r3, 0xE # definition_type */
+    /* _message_hud_chat = 15 is in the DB enum but owns no message definition object and has no slot in
+     * message_delta_global_message_list, which is why that table is 47 entries (46 definitions plus a NULL
+     * terminator) rather than 48. Every id from 16 up therefore sits one slot lower in the table than its
+     * enum value — see src/data/message_delta_global_message_list.c. */
+    _message_hud_chat = 15,
     _message_slayer_update = 16,
     _message_ctf_update = 17,
     _message_oddball_update = 18, /* DB message_delta_processor_message_definition_type value 18 */

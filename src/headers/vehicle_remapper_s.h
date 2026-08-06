@@ -12,4 +12,12 @@ typedef struct vehicle_remapper_s
     uint8_t           is_teamplay;     /* 0x3C1 */
 } vehicle_remapper_s;                          /* 964 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern vehicle_remapper_s vehicle_remapper;
+
+#ifdef __cplusplus
+}
+#endif

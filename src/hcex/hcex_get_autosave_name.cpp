@@ -37,15 +37,15 @@ extern void      dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src
 extern void      dsTSTRING_dtor(dsTSTRING_flat *s);                                        /* ~dsTSTRING_flat */
 extern dsTSTRING_flat *fnmGetNameStr(dsTSTRING_flat *out, const dsTSTRING_flat *path);               /* strip to base name */
 
-extern int  verify_dir(const dsTSTRING_flat *dir);   /* HCEX sibling */
+extern "C" int  verify_dir(const dsTSTRING_flat *dir);   /* HCEX sibling */
 extern void _apLog(const char *format, ...);
 
 /* function-local-static lazy-init machinery (ws-engine / CRT boundary) */
 extern unsigned int hcex_get_autosave_name_guard;      /* _S2 */
 extern void hcex_get_autosave_name_path_dtor(void);
-extern int  atexit(void (*func)(void));
+extern "C" int  atexit(void (*func)(void));
 
-extern const char *hcex_chpt_ext;   /* checkpoint file extension ("sav") */
+extern "C" const char *hcex_chpt_ext;   /* checkpoint file extension ("sav") */
 
 extern "C" char *hcex_get_autosave_name(const char *levelPath)
 {

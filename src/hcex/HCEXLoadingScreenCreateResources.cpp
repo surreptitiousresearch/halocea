@@ -28,21 +28,21 @@ typedef struct vidDRIVER
 
 extern vidDRIVER *vidDriver;
 
-extern int                   sHCEXLoadingScreenResourcesCreated;
-extern D3DVertexShader      *spHCEXLoadingScreenVS;
-extern D3DPixelShader       *spHCEXLoadingScreenPS;
+extern "C" int                   sHCEXLoadingScreenResourcesCreated;
+extern "C" D3DVertexShader      *spHCEXLoadingScreenVS;
+extern "C" D3DPixelShader       *spHCEXLoadingScreenPS;
 extern D3DVertexDeclaration *spHCEXLoadingScreenVertexDecl;
-extern D3DTexture           *spHCEXLoadingScreenBackgroundTex;
-extern D3DTexture           *spHCEXLoadingScreenMaskTex;
-extern const unsigned int    sHcexLoadingScreenCodeVS[]; /* vertex shader bytecode */
-extern const unsigned int    sHcexLoadingScreenCodePS[]; /* pixel shader bytecode */
-extern const char            HCEX_LOADING_SCREEN_BACKGROUND_TEX[];
-extern const char            HCEX_LOADING_SCREEN_MASK_TEX[];
+extern "C" D3DTexture           *spHCEXLoadingScreenBackgroundTex;
+extern "C" D3DTexture           *spHCEXLoadingScreenMaskTex;
+extern "C" const unsigned int    sHcexLoadingScreenCodeVS[]; /* vertex shader bytecode */
+extern "C" const unsigned int    sHcexLoadingScreenCodePS[]; /* pixel shader bytecode */
+extern "C" const char            HCEX_LOADING_SCREEN_BACKGROUND_TEX[];
+extern "C" const char            HCEX_LOADING_SCREEN_MASK_TEX[];
 
-extern D3DVertexShader      *D3DDevice_CreateVertexShader(const unsigned int *function);
-extern D3DPixelShader       *D3DDevice_CreatePixelShader(const unsigned int *function);
-extern D3DVertexDeclaration *D3DDevice_CreateVertexDeclaration(const D3DVERTEXELEMENT9 *elements);
-extern int                   D3DXCreateTextureFromFileA(D3DDevice *pDevice, const char *pSrcFile, D3DTexture **ppTexture);
+extern "C" D3DVertexShader      *D3DDevice_CreateVertexShader(const unsigned int *function);
+extern "C" D3DPixelShader       *D3DDevice_CreatePixelShader(const unsigned int *function);
+extern "C" D3DVertexDeclaration *D3DDevice_CreateVertexDeclaration(const D3DVERTEXELEMENT9 *elements);
+extern "C" int                   D3DXCreateTextureFromFileA(D3DDevice *pDevice, const char *pSrcFile, D3DTexture **ppTexture);
 
 extern void HCEXLoadingScreenDestroyResources(void);
 

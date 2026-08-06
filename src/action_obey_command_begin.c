@@ -82,7 +82,7 @@
 
 extern void  *memset(void *dst, int value, unsigned int n);
 extern void   qsort(void *base, unsigned int num, unsigned int width,
-                    int (__fastcall *comp)(const void *, const void *));
+                    int (*comp)(const void *, const void *));
 extern int vehicle_possibility_qsort(const void *p1, const void *p2);
 
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
@@ -133,8 +133,8 @@ uint8_t action_obey_command_begin(
     int current_command_index = simple_control->current_command_index;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int actor_definition_index = actor->meta.definition_index;
-    ai_command_list_definition *command_list =
-        &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[command_list_index];
+    ai_command_list_definition_t *command_list =
+        &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[command_list_index];
     int command_count = command_list->commands.count;
     int command_result = 0;
 

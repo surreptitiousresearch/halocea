@@ -12,4 +12,12 @@ typedef struct rasterizer_lights_struct
     int                                fixed_function_d3d_light_count;  /* 0x1C04 */
 } rasterizer_lights_struct;                                            /* 0x1C08 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_lights_struct rasterizer_lights;
+
+#ifdef __cplusplus
+}
+#endif

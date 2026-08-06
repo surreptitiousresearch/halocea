@@ -11,7 +11,7 @@
 
 #include <string.h>
 
-extern char *hcex_conv_name(char *name, int max_len);
+extern "C" char *hcex_conv_name(char *name, int max_len);
 
 extern "C" char *hcex_conv_lgt_name(const char *name, char *out, int max_len)
 {

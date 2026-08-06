@@ -28,8 +28,10 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
 
     bitmap_data *bitmap = draw_character_software_globals.bitmap;
     unsigned int coverage_scale = color >> 24;
-    char *glyph_pixels = (char *)font_header->pixels.address + character->pixels_offset;
-    int format = bitmap->format;
+    /* glyph coverage is an UNSIGNED byte: every read is a bare lbz feeding mullw with no extsb
+     * (0x83769D8C/0x83769DF0/0x83769EA0), so the per-site (uint8_t) casts were identity. */
+    unsigned char *glyph_pixels = (unsigned char *)font_header->pixels.address + character->pixels_offset;
+    int16_t format = bitmap->format;   /* lhz+extsh 0xC(bitmap) @0x83769C78; bitmap_data.format is short */
 
     uint16_t destination_color_16;
     /* ARGB8888 -> R5G6B5 channel pack: 0xFF00/0xFC/>>3 are pixel-format channel extracts, not flag masks. */
@@ -44,8 +46,10 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
 
     for ( int row = dy; row > 0; --row, ++y, ++y0 )
     {
+        /* genuinely per-row: the call sits inside the row loop in the binary (bl @0x83769CD4, back edge
+         * 0x83769F7C -> 0x83769CC8) — loop-invariant, but not hoisted by the shipped compiler. */
         int16_t bits_per_pixel = bitmap_format_get_bits_per_pixel(format);
-        char *source_pixel = &glyph_pixels[character->bitmap_width * y + x];
+        unsigned char *source_pixel = &glyph_pixels[character->bitmap_width * y + x];
         unsigned char *destination_pixel = (unsigned char *)bitmap->base_address
                 + (x0 << draw_character_software_globals.encoding_shift)
                 + y0 * (bits_per_pixel * bitmap->width / 8);
@@ -61,7 +65,7 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
                     {
                         unsigned char destination_value = *destination_pixel;
                         int16_t coverage = (int16_t)(((int16_t)coverage_scale
-                                * (uint8_t)*source_pixel) >> 8);
+                                * *source_pixel) >> 8);
                         if ( coverage <= destination_value )
                             destination_value = (unsigned char)coverage;
                         *destination_pixel = destination_value;
@@ -75,7 +79,7 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
                     if ( *source_pixel )
                     {
                         int16_t coverage = (int16_t)(((int16_t)coverage_scale
-                                * (uint8_t)*source_pixel) >> 8);
+                                * *source_pixel) >> 8);
                         int16_t inverse = (int16_t)(255 - coverage);
                         uint16_t destination = *(uint16_t *)destination_pixel;
                         *(uint16_t *)destination_pixel =
@@ -93,7 +97,7 @@ void bitmap_draw_character(parse_string_state *parse_state, font_header *font_he
                     {
                         unsigned int destination = *(unsigned int *)destination_pixel;
                         int16_t coverage = (int16_t)(((int16_t)coverage_scale
-                                * (uint8_t)*source_pixel) >> 8);
+                                * *source_pixel) >> 8);
                         int16_t inverse = (int16_t)(255 - coverage);
                         unsigned int destination_alpha = destination >> 24;
                         if ( coverage > destination_alpha )

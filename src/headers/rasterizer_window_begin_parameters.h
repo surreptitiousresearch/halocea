@@ -21,5 +21,13 @@ typedef struct rasterizer_window_begin_parameters
     render_screen_effect screen_effect; // 0x250 — 8 bytes
 } rasterizer_window_begin_parameters; // 600 bytes
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_window_begin_parameters global_window_parameters;
 extern short global_current_render_target;
+
+#ifdef __cplusplus
+}
+#endif

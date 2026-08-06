@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include "headers/hs_type.h"
 
-extern int (__fastcall *typecasting_procedures[49][49])(int value);
+#include "headers/blam_data_globals.h"   /* typecasting_procedures — canonical decl, was inline here */
 extern int object_index_from_name_index(int16_t name_index);
 
 int hs_cast(int thread_index, int16_t actual_type, int16_t desired_type, int value)

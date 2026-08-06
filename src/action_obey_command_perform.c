@@ -51,7 +51,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
 {
     int current_command_index = simple_control->current_command_index;
     int done = 1;
-    ai_command_list_definition *command_list = (ai_command_list_definition *)global_scenario->ai_command_lists.address + command_list_index;
+    ai_command_list_definition_t *command_list = (ai_command_list_definition_t *)global_scenario->ai_command_lists.address + command_list_index;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
     if ( current_command_index >= command_list->commands.count )   /* past the last command */

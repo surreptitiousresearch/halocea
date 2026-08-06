@@ -5,7 +5,7 @@
  * isInputSwitchedOff is the haloENGINE_CONTROL bridge flag (headers/hcex/engine_control/
  * haloENGINE_CONTROL_boundary.h); hcex_update_gamepad_x360 is the sibling poll in this directory. */
 
-extern unsigned char isInputSwitchedOff;      /* bool — HCEX input master gate */
+extern "C" unsigned char isInputSwitchedOff;      /* bool — HCEX input master gate */
 extern void hcex_update_gamepad_x360(void);
 
 void OnInputUpdateCB(void)

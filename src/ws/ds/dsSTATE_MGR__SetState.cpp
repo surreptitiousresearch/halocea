@@ -13,7 +13,7 @@ extern "C" void osMemoryBarrier();
 // boundary — the global event manager singleton.
 extern dsEVENT_MGR *gEventMgr;
 // boundary — the interned "value" parameter id passed with the change event.
-extern dsSTRID valId;
+extern "C" dsSTRID valId;
 
 // dsSTATE_MGR::SetState @ 0x826193D0
 // Store `*data` as the calling thread's value for state `id`: lazily allocate the per-thread value

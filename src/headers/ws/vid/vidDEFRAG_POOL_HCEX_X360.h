@@ -12,13 +12,13 @@ struct vidDEFRAG_POOL_HCEX_X360; // fwd
 // vtable — DB-verified (types_members vidDEFRAG_POOL_HCEX_X360_vtbl). Same shape as
 // apDEFRAG_POOL_vtbl, overridden for this leaf class.
 typedef struct vidDEFRAG_POOL_HCEX_X360_vtbl {
-    void          (__fastcall *dtr_vidDEFRAG_POOL_HCEX_X360)(vidDEFRAG_POOL_HCEX_X360 *self);
-    void         *(__fastcall *AllocBuf)(vidDEFRAG_POOL_HCEX_X360 *self, int size, int *outIdx);
-    bool          (__fastcall *FreeBuf)(vidDEFRAG_POOL_HCEX_X360 *self, apDEFRAG_BUF *buf);
-    const char   *(__fastcall *Id)(vidDEFRAG_POOL_HCEX_X360 *self);
-    apDEFRAG_BUF *(__fastcall *CreateBuf)(vidDEFRAG_POOL_HCEX_X360 *self, char *base, int size);
-    void          (__fastcall *FitChunk)(vidDEFRAG_POOL_HCEX_X360 *self, apDEFRAG_CHUNK *chunk);
-    void          (__fastcall *DumpStat)(vidDEFRAG_POOL_HCEX_X360 *self);
+    void          (*dtr_vidDEFRAG_POOL_HCEX_X360)(vidDEFRAG_POOL_HCEX_X360 *self);
+    void         *(*AllocBuf)(vidDEFRAG_POOL_HCEX_X360 *self, int size, int *outIdx);
+    bool          (*FreeBuf)(vidDEFRAG_POOL_HCEX_X360 *self, apDEFRAG_BUF *buf);
+    const char   *(*Id)(vidDEFRAG_POOL_HCEX_X360 *self);
+    apDEFRAG_BUF *(*CreateBuf)(vidDEFRAG_POOL_HCEX_X360 *self, char *base, int size);
+    void          (*FitChunk)(vidDEFRAG_POOL_HCEX_X360 *self, apDEFRAG_CHUNK *chunk);
+    void          (*DumpStat)(vidDEFRAG_POOL_HCEX_X360 *self);
 } vidDEFRAG_POOL_HCEX_X360_vtbl;
 
 struct vidDEFRAG_POOL_HCEX_X360 : apDEFRAG_POOL {

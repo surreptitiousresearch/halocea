@@ -11,8 +11,8 @@
  *
  * DEVIATION: the 14-param DB prototype is authoritative but two things are misrendered by Hex-Rays:
  *  (1) param 8 `must_charge` is declared by-value u8 yet is really an output POINTER (disasm `stb r,0(r28)`);
- *  (2) Hex-Rays invented phantom params a15..a35 and aliased the six real stack output pointers as
- *      a28/a30/a32/a34/allow_target_uncover_0. Register + stack-offset tracing at 0x837F2A60 maps them:
+ *  (2) Hex-Rays invented a run of phantom stack params and aliased the six real stack output pointers
+ *      onto them. Register + stack-offset tracing at 0x837F2A60 maps them:
  *        must_charge            = r28  (param 8, r10 in)
  *        allow_target_uncover   = r27  (0x4C, param 9)
  *        allow_indefinite_target_uncover = arg_54 (0x54, param 10; READ-only here, an input)
@@ -23,9 +23,9 @@
  *      The desire->allow semantic pairing (desire_target_search<->allow_target_search,
  *      desire_pursuit<->allow_pursuit+allow_pursuit_search, desire_pursuit_search<->allow_pursuit_search)
  *      confirms the mapping. `(_cntlzw(x) & 0x20) != 0` is the established "x == 0" boolean idiom
- *      (cntlzw of 0 is 32=0x20), simplified here to a direct comparison. actor fields kept as raw offsets
- *      per sibling convention: +624 target prop index (int), +110 combat_status (__int16), +350 awareness
- *      state (__int16, 0/positive/4). */
+ *      (cntlzw of 0 is 32=0x20), simplified here to a direct comparison. Actor-field provenance, all now
+ *      named members: +624 -> target.target_prop_index; +110 -> state.combat_status; +350 ->
+ *      input.vehicle_driver_type (CORRECTED: an earlier note called +350 an "awareness state"). */
 
 #include <stdint.h>
 #include "headers/actor_datum.h"

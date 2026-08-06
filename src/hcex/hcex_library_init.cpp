@@ -9,8 +9,8 @@
 #include "../headers/ws/ssl/sslOBJ_REF.h"
 
 extern sslSYSTEM *gsSslSystem;
-extern void       cbHcexHideLibrary(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
-extern void       cbHcexShowLibrary(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+extern "C" void       cbHcexHideLibrary(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+extern "C" void       cbHcexShowLibrary(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 void hcex_library_init(void)

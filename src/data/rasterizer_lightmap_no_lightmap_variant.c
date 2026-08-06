@@ -1,3 +1,7 @@
+/* rasterizer_lightmap_no_lightmap_variant @ 0x8446C428 (.data, 4 bytes)
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ */
 #include <stdint.h>
 /* rasterizer_lightmap_no_lightmap_variant @ 0x8446C428 - .data zero-fill (IDA byte_8446C428, no PDB name).
  * Byte: _rasterizer_environment_lightmap_draw_pp reads it with `lbz r11,(byte_8446C428-0x8446C42C)(r28)`

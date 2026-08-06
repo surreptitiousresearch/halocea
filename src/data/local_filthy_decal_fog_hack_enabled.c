@@ -1,3 +1,8 @@
+/* local_filthy_decal_fog_hack_enabled @ 0x8445D3BA (.data, 1 bytes)
+ * DB applied_types: unsigned __int8 local_filthy_decal_fog_hack_enabled;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 00 (1 trailing byte)
+ */
 #include <stdint.h>
 /* local_filthy_decal_fog_hack_enabled @ 0x8445D3BA - data-bss zero-fill; DB applied-type `unsigned __int8 local_filthy_decal_fog_hack_enabled;`. DB type is 1 bytes; ledger size 2 is the next-symbol gap heuristic (overcount) - DB authoritative. */
 

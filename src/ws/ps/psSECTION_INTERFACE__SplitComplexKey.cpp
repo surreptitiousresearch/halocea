@@ -18,7 +18,7 @@
 // 0x8200155A — interned empty-string literal used to build an empty dsSTRID. boundary.
 extern const char psEmptyStringLiteral[];
 // Debug allocator free, used inline by the reversed dsTSTRING buffer release. boundary.
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 int psSECTION_INTERFACE::SplitComplexKey(const char *key, int internExistingOnly,
                                          int lastIsSubString, psCOMPLEX_KEY_DATA &c) const

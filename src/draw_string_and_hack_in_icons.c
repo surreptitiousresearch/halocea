@@ -4,15 +4,14 @@
  * between icons go through rasterizer_draw_unicode_string. `clip`, `cursor_reference`, and
  * `height_adjust` are accepted (matching funcs.prototype) but never read in this function's body.
  *
- * DEVIATION: the DB's applied prototype for render_state_bitmap_0 names its params (bounds,
- * cursor_bounds, color, icon), but render_state_bitmap_0's own decompiled body treats its 3rd
- * parameter entirely as an icon_hud_element_definition* (every field access matches that type's real
- * offsets from types_members) and never references a distinct 4th pointer — while THIS call site's
- * disasm (disasm_range(0x83731D88, 0x83731D88+872)) shows the icon pointer actually lands in the 3rd
- * GPR slot (r5) and a fully packed ARGB color lands in the 2nd (r4). Reconstructed here from that
- * disasm rather than the applied names. The 4th slot (r6) at this call site holds a leftover
- * intermediate byte-packing value that render_state_bitmap_0's body never appears to read;
- * reproduced faithfully rather than guessed away.
+ * DEVIATION: the DB's applied prototype for render_state_bitmap_0 names four params (bounds,
+ * cursor_bounds, color, icon), but the callee is genuinely 3-param: only r3/r4/r5 are read before
+ * being written in its prologue (0x83731878-0x83731880: r3->r29 bounds, r4->r28 fallback color,
+ * r5->r31 icon), and every field access off r31 matches icon_hud_element_definition's real offsets
+ * from types_members. r6 is NOT an argument slot at this call site: `or r6, r7, r10` @0x83732088 is a
+ * scratch intermediate immediately consumed by `slwi r4, r6, 8` @0x8373208C while the color bytes are
+ * packed into r4. Reconstructed from that disasm rather than the applied names; the callee's own TU
+ * (render_state_bitmap_0.c) records the same 3-param conclusion.
  *
  * FAITHFUL QUIRK: `icon_color` is computed via pixel32_to_real_argb_color (and possibly overwritten
  * with a copy of `text_color`) but is never actually read afterward — the packed color that reaches
@@ -27,6 +26,7 @@
 #include "headers/game_input_preferences.h"
 #include "headers/icon_hud_element_definition.h"
 #include "headers/icon_flags.h"
+#include "headers/hud_button_icon_range.h"
 #include "headers/hud_globals.h"
 #include "headers/blam_data_globals.h"
 
@@ -95,11 +95,11 @@ void draw_string_and_hack_in_icons(
             int16_t remapped = remap_sticks_for_local_player(icon_type,
                     local_player_index_for_draw_string_and_hack_in_icons);
             int16_t button_index = -1;
-            if (remapped <= 17)
+            if (remapped <= _hud_icon_specific_button_end)
             {
                 button_index = remapped;
             }
-            else if (remapped <= 31)
+            else if (remapped <= _hud_icon_remapped_button_end)
             {
                 if (remapped > 28)
                 {
@@ -116,7 +116,8 @@ void draw_string_and_hack_in_icons(
                     game_input_preferences preferences;
                     input_abstraction_get_local_player_preferences(
                             local_player_index_for_draw_string_and_hack_in_icons, &preferences);
-                    button_index = preferences.game_control_to_xbox_buttons[button_mappings_0[remapped - 18]];
+                    button_index = preferences.game_control_to_xbox_buttons[
+                            button_mappings_0[remapped - _hud_icon_remapped_button_start]];
                 }
             }
 
@@ -156,9 +157,8 @@ void draw_string_and_hack_in_icons(
 
                 /* FAITHFUL: byte order as packed in the binary is A,B,G,R (not the usual A,R,G,B) */
                 unsigned int packed_color = (alpha_byte << 24) | (b_byte << 16) | (g_byte << 8) | r_byte;
-                unsigned int dead_fragment = (b_byte << 8) | g_byte;
 
-                render_state_bitmap_0(&local_bounds, packed_color, icon); /* attested 3-param: phantom dead_fragment arg dropped */
+                render_state_bitmap_0(&local_bounds, packed_color, icon);
 
                 bounds->__s1.x0++;
 

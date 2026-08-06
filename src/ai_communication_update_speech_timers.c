@@ -18,8 +18,8 @@
 #include "headers/ai_communication_priority.h"
 #include "headers/blam_data_globals.h"
 
-extern const dialogue_usage   global_dialogue_table[];
-extern const dialogue_usage   global_reply_table[];
+/* DEVIATION: global_reply_table was declared here as `const dialogue_usage[]` — wrong element type. The
+ * binary strides it by 36 and reads +0x1C (0x837CC7C8..0x837CC7EC); dialogue_usage gives 40 and +0x14. */
 extern int game_time_get(void);
 extern void actor_reset_idle_vocalization_timer(uint16_t actor_index);
 extern int16_t actor_communication_team(uint16_t actor_index);

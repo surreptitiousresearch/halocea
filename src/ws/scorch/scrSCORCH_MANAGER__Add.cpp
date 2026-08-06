@@ -25,7 +25,7 @@
 
 // ---- boundary externs (deeper than the 2-level descent budget) -------------------------------
 struct osLOCK;
-extern osLOCK g_syncMT;
+extern "C" osLOCK g_syncMT;
 void osLOCK__Lock(osLOCK *self, void *, int);   // osLOCK::Lock
 void osLOCK_Unlock(osLOCK *self, void *, int); // osLOCK::Unlock
 extern "C" long osLockedIncrement(volatile int *p);
@@ -34,8 +34,8 @@ extern "C" long osLockedIncrement(volatile int *p);
 // live typed value.
 struct dbgVAR_bool  { int   value; };
 struct dbgVAR_class { dsTSTRING<char> value; };
-extern dbgVAR_bool  dbg_dontAddScorch;
-extern dbgVAR_class dbg_dontAddScorchClass;
+extern "C" dbgVAR_bool  dbg_dontAddScorch;
+extern "C" dbgVAR_class dbg_dontAddScorchClass;
 
 void scrSCORCH_MANAGER::Add(
     const scrSCORCH_INI *iniIn,

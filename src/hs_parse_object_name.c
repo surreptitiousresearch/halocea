@@ -8,7 +8,6 @@
 #include <stdint.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_compile_globals.h"
-#include "headers/hs_object_type_masks.h"
 #include "headers/scenario.h"
 #include "headers/scenario_object_name.h"
 #include "headers/data_array.h"

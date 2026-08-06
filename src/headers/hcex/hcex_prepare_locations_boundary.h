@@ -16,4 +16,4 @@ extern objOBJ *animINST_get_pObj(animINST *inst);   /* inst->pObj (0x148) */
 extern objOBJ *objFindName(objOBJ *root, const char *name);
 extern void    m3dMATR_Invert(const m3dMATR *src, m3dMATR *out);
 extern void    m3dMATR_MakeLCS2WCS_VZ(m3dMATR *out, const m3dV *origin, const m3dV *forward);
-extern char   *hcex_conv_name(char *name, int max_len);
+extern "C" char   *hcex_conv_name(char *name, int max_len);

@@ -7,7 +7,7 @@
 #include "../headers/machine_datum.h"
 #include "../headers/object_type.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_machine_is_power_on(int id)
 {

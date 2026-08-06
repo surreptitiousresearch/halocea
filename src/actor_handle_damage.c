@@ -1,11 +1,11 @@
 /* actor_handle_damage @0x8371E378 — record that an actor's unit took damage from an aggressor. Looks up the
  * actor's "prop" memory for the aggressor (prop_get_base_by_unit_index, acquiring/refreshing it), accumulates
- * the damage fraction into the prop's danger accumulator (+112), clears its decay timer (+108) and marks it
- * dirty (+116). The same is applied to the prop's linked/parent prop (+12) if present. Finally a combat
- * stimulus is raised — but only for a prop of a "live threat" kind (type +36 in [2,3]); otherwise -1 is
- * passed so actor_stimulus_damage gets no prop.
+ * the damage fraction into the prop's danger accumulator (+112 -> damage_inflicted_on_me), clears its decay
+ * timer (+108 -> ticks_since_damage) and marks it dirty (+116 -> currently_damaging_me). The same is applied to
+ * the linked/parent prop (+12 -> ___u3.parent_prop_index). Finally a combat stimulus is raised — but only for a
+ * prop of a "live threat" kind (+36 -> state, in [2,3]); otherwise -1 is passed and it gets no prop.
  *
- * Deviation: the decompiler reads damage_velocity from r5 (v6) but the disasm saves r6 (the 4th argument)
+ * Deviation: the decompiler reads damage_velocity from r5 but the disasm saves r6 (the 4th argument)
  * into r30 and forwards it; corrected to the damage_velocity parameter. */
 
 #include <stdint.h>

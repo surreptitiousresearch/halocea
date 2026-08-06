@@ -56,4 +56,4 @@ extern void gsRENDER_SYSTEM_SwapBuffers(gsRENDER_SYSTEM *self, int a, int b);
 /* --- OS / bridge helpers --- */
 extern void osPIXBeginEvent(const char *label);
 extern void osPIXEndEvent(void);
-extern int  hcex_is_halo_mode(void);
+extern "C" int  hcex_is_halo_mode(void);

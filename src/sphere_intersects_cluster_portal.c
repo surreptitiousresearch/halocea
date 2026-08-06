@@ -24,7 +24,6 @@
 #include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern int16_t projection_from_vector3d(const real_vector3d *n);
 extern uint8_t convex_hull2d_test_circle(int16_t count, const real_point2d *points, const real_point2d *p, float radius);
 
@@ -40,7 +39,7 @@ uint8_t sphere_intersects_cluster_portal(structure_bsp *structure, int16_t porta
     const real_plane3d *collision_plane;
     float  plane_distance;
     float  dx, dy, dz, reach;
-    int    axis, sign_slot, keep0, keep1;
+    int    axis, axis_sign, keep0, keep1;
     int    vertex_count, i;
 
     /* 1. distance from sphere center to portal plane */
@@ -65,9 +64,9 @@ uint8_t sphere_intersects_cluster_portal(structure_bsp *structure, int16_t porta
     /* 3. project onto the plane's dominant coordinate plane, then 2D circle-in-polygon */
     plane_normal = &((const real_plane3d *)global_bsp3d->planes.address)[plane_index].n;
     axis = projection_from_vector3d(plane_normal);
-    sign_slot = 2 * axis + (plane_normal->n[axis] > 0.0f);
-    keep0 = global_projection3d_mappings[0][sign_slot][0];
-    keep1 = global_projection3d_mappings[0][sign_slot][1];
+    axis_sign = (plane_normal->n[axis] > 0.0f);
+    keep0 = global_projection3d_mappings[axis][axis_sign][0];
+    keep1 = global_projection3d_mappings[axis][axis_sign][1];
 
     /* slide the sphere center onto the plane along the normal */
     projected[0] = plane_normal->n[0] * -plane_distance + point->n[0];

@@ -6,15 +6,16 @@
  * Deviation: identical float-GPR-skip scramble to collision_features_from_point — the parameter names are
  * shifted by one and `features` arrives on the stack (decompiler `a34`). True mapping: object_index=decompiler
  * flags, surface_index=decompiler breakable_surface_index, flags=decompiler material_index,
- * breakable_surface_index=decompiler a30, material_index=decompiler a32, features=a34. The second
- * global_projection3d_mappings index [axis][sign] aliases the flat [0][2*axis+sign] used elsewhere. */
+ * breakable_surface_index=decompiler a30, material_index=decompiler a32, features=a34.
+ * DEVIATION: the decompiler flattened global_projection3d_mappings to [0][2*axis+sign][c]; the DB
+ * applied type @0x821145B4 is const __int16[3][2][2], so it is indexed [axis][sign][c] here. */
 
 #include <stdint.h>
 #include "headers/real_point3d.h"
 #include "headers/real_plane3d.h"
 #include "headers/collision_feature_list.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float);
 
 void collision_features_from_polygon(int16_t point_count, const real_point3d *points, const real_plane3d *plane,
@@ -44,9 +45,8 @@ void collision_features_from_polygon(int16_t point_count, const real_point3d *po
 
     for ( int i = 0; i < prism->point_count; i = (int16_t)(i + 1) )
     {
-        int map = 2 * prism->projection_axis + prism->projection_sign;
-        prism->points[i].n[0] = points[i].n[global_projection3d_mappings[0][map][0]];
-        prism->points[i].n[1] = points[i].n[global_projection3d_mappings[0][map][1]];
+        prism->points[i].n[0] = points[i].n[global_projection3d_mappings[prism->projection_axis][prism->projection_sign][0]];
+        prism->points[i].n[1] = points[i].n[global_projection3d_mappings[prism->projection_axis][prism->projection_sign][1]];
     }
 
     if ( height > 0.0 && plane->n.n[2] < 0.0 )
@@ -55,7 +55,7 @@ void collision_features_from_polygon(int16_t point_count, const real_point3d *po
         if ( prism->projection_axis != 2 )
         {
             int lowered_component =
-                (global_projection3d_mappings[0][2 * prism->projection_axis + prism->projection_sign][1] == 2);
+                (global_projection3d_mappings[prism->projection_axis][prism->projection_sign][1] == 2);
             for ( int i = 0; i < prism->point_count; i = (int16_t)(i + 1) )
                 prism->points[i].n[lowered_component] = (prism->points[i].n[lowered_component] - height);
         }

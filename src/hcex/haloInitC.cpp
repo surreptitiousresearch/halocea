@@ -1,6 +1,6 @@
-extern int shell_initialize(void);
+extern "C" int shell_initialize(void);
 
-extern int optionNoSound;
+extern "C" int optionNoSound;
 
 int haloInitC(void)
 {

@@ -18,9 +18,9 @@ template<class Host> struct HandlerBase; // forward decl for the vtbl's self-ref
 
 template<class Host>
 struct HandlerBase_vtbl {
-    bool (__fastcall *IsConst)(HandlerBase<Host> *this_);
-    void (__fastcall *HandleCall)(HandlerBase<Host> *this_, Host *host, dsDATA *argv, int argc, dsDATA *retVal);
-    void (__fastcall *dtor)(HandlerBase<Host> *this_);
+    bool (*IsConst)(HandlerBase<Host> *this_);
+    void (*HandleCall)(HandlerBase<Host> *this_, Host *host, dsDATA *argv, int argc, dsDATA *retVal);
+    void (*dtor)(HandlerBase<Host> *this_);
 };
 
 template<class Host>

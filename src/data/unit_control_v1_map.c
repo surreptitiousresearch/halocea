@@ -1,4 +1,38 @@
-/* unit_control_v1_map @ 0x84186688 -- second-order .data; unit_control_data_entry[10] reconstructed from binary bytes. */
+/* unit_control_v1_map @ 0x84186688 (.data, 120 bytes)
+ * DB applied_types: unit_control_data_entry unit_control_v1_map[10];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 bs_def                     = 0x84185740 -> _byte_bs_definition
+ *        +0x04 size                       = 0x00000001
+ *        +0x08 offset                     = 0x00000000
+ *   [ 1] +0x00 bs_def                     = 0x84185740 -> _byte_bs_definition
+ *        +0x04 size                       = 0x00000001
+ *        +0x08 offset                     = 0x00000001
+ *   [ 2] +0x00 bs_def                     = 0x84185764 -> _word_bs_definition
+ *        +0x04 size                       = 0x00000002
+ *        +0x08 offset                     = 0x00000002
+ *   [ 3] +0x00 bs_def                     = 0x84185764 -> _word_bs_definition
+ *        +0x04 size                       = 0x00000002
+ *        +0x08 offset                     = 0x00000004
+ *   [ 4] +0x00 bs_def                     = 0x84185764 -> _word_bs_definition
+ *        +0x04 size                       = 0x00000002
+ *        +0x08 offset                     = 0xFFFFFFFF
+ *   [ 5] +0x00 bs_def                     = 0x84186644 -> real_vector2d_bs_definition
+ *        +0x04 size                       = 0x00000008
+ *        +0x08 offset                     = 0x0000000C
+ *   [ 6] +0x00 bs_def                     = 0x84186670 -> real_vector3d_bs_definition
+ *        +0x04 size                       = 0x0000000C
+ *        +0x08 offset                     = 0x0000001C
+ *   [ 7] +0x00 bs_def                     = 0x84186670 -> real_vector3d_bs_definition
+ *        +0x04 size                       = 0x0000000C
+ *        +0x08 offset                     = 0x00000028
+ *   [ 8] +0x00 bs_def                     = 0x84186670 -> real_vector3d_bs_definition
+ *        +0x04 size                       = 0x0000000C
+ *        +0x08 offset                     = 0x00000034
+ *   [ 9] +0x00 bs_def                     = 0x00000000
+ *        +0x04 size                       = 0xFFFFFFFF
+ *        +0x08 offset                     = 0xFFFFFFFF
+ * second-order .data; unit_control_data_entry[10] reconstructed from binary bytes.
+ */
 #include "../headers/unit_control_data_entry.h"
 
 extern byte_swap_definition _byte_bs_definition;

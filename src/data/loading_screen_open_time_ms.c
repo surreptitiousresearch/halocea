@@ -1,3 +1,8 @@
-/* loading_screen_open_time_ms @ 0x8417ED28 — .data data-init.
- * DB: unsigned int; bytes FF FF FF FF = 0xFFFFFFFF (NONE sentinel). */
+/* loading_screen_open_time_ms @ 0x8417ED28 (.data, 4 bytes)
+ * DB applied_types: unsigned int loading_screen_open_time_ms;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0xFFFFFFFF
+ * .data data-init.
+ * DB: unsigned int; bytes FF FF FF FF = 0xFFFFFFFF (NONE sentinel).
+ */
 unsigned int loading_screen_open_time_ms = 0xFFFFFFFFu;

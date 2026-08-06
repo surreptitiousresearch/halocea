@@ -2,9 +2,9 @@
  * chain and recursing into its first-child chain) and, for every object not yet visited this perception pass
  * (guarded by the global_object_marker epoch), feed it into the actor's perception. What happens depends on the
  * object type:
- *   - type 1 (vehicle): if it has no driver (object+804 == -1), assess it as a potential vehicle danger.
+ *   - type 1 (vehicle): if it has no driver (+804 -> unit.driver_object_index == -1), assess it as a danger.
  *   - type 5 (grenade / thrown danger): if its definition has a positive danger radius and it is either
- *     un-owned or has the "armed" flag (object+556 bit 5), record it as the actor's tracked grenade danger
+ *     un-owned or armed (+556 bit 5 -> projectile.flags _projectile_counting_down_bit), record it as the danger
  *     (position, velocity, radius, timer) when it is closer than an existing danger of equal/greater priority,
  *     tagging it friendly/enemy/own by its thrower's team.
  *   - type 0 (unit / prop): resolve the unit (dereferencing a swarm root when present), and if it is a distinct
@@ -17,10 +17,10 @@
  *  - the actor_index param is a plain int actor index (the decompiler typed it actor_position_data*).
  *  - the two calls the decompiler mis-argued are corrected: unit_from_swarm receives (&sense_position,
  *    swarm_root, -1, 1, mark_units) with sense_position punned into the int arg1 (0x837D8EA8: r3=&var_F0);
- *    assess_suicide_danger receives (enemy, currently_perceived=0) not the decompiler's (v18&4, v18)
- *    (0x837D8FE4: r7=is_enemy, r8=0).
+ *    assess_suicide_danger receives (enemy, currently_perceived=0), not the decompiler's positional pair
+ *    (object.damage_flags & dead-bit, object.damage_flags) (0x837D8FE4: r7=is_enemy, r8=0).
  *  - dead_ticks is reconstructed from disasm (0x837D8F6C-0x837D8F88): game_time_get()'s result, which the
- *    decompiler dropped, is (current game time - object's acknowledge time at object+1052).
+ *    decompiler dropped, is (current game time - object+1052 -> unit.time_of_death).
  *  - required_ticks and the optional_reference scratch byte are both 0 (r20 is a constant-zero register,
  *    0x837D8DF4 li r20,0).
  *  - mark_units is genuinely uninitialized in the shipped code (Hex-Rays models it uninitialized too);

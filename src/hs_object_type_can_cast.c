@@ -3,7 +3,7 @@
  * of the desired type's mask (containment test via hs_object_type_masks[]). */
 
 #include <stdint.h>
-#include "headers/hs_object_type_masks.h"
+#include "headers/blam_data_globals.h"
 
 int hs_object_type_can_cast(int16_t actual_type, int16_t desired_type)
 {

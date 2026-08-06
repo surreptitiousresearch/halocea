@@ -47,8 +47,8 @@ uint8_t action_obey_perform(int actor_index)
          * command_list[2] (byte off 8) was the folded flags load — disasm at 0x837DF356 shows
          * stride idx*96 and lwz r6,0x20(elem) = flags@0x20; rlwinm bit 27 = 0x10 = bit 4 =
          * _ai_command_list_disable_falling_damage_bit (here gates "wait for landing" behavior). */
-        ai_command_list_definition *command_list =
-            &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[obey->command_list_index];
+        ai_command_list_definition_t *command_list =
+            &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[obey->command_list_index];
         if ( (command_list->flags & (1u << _ai_command_list_disable_falling_damage_bit)) != 0 && actor->input.in_midair )
         {
             /* meta.definition_index is the actor ('actr') tag; *elem reads flags@0x00. Bit 21 (0x200000)

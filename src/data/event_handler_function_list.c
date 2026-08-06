@@ -1,11 +1,56 @@
-/* Storage definition for event_handler_function_list (0x84174770, 428 bytes = 107 entries).
+/* event_handler_function_list @ 0x84174770 (.data, 428 bytes)
+ * DB applied_types: unsigned __int8 (__fastcall *event_handler_function_list[107])(widget_instance *, event_record *, unsigned __int8 *);
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x83691928 -> widget_event_function_null
+ *   +0x0004 = 0x83734430 -> widget_event_function_list_widget_goto_next_item
+ *   +0x0008 = 0x83734630 -> widget_event_function_list_widget_goto_previous_item
+ *   +0x000C = 0x83691928 -> widget_event_function_null
+ *   +0x0010 = 0x83691928 -> widget_event_function_null
+ *   +0x0014 = 0x836984F0 -> solo_level_initialize_list_single_player
+ *   +0x0018 = 0x83691940 -> solo_level_initialize_list_coop
+ *   +0x001C = 0x83691CB0 -> solo_level_dispose_list
+ *   +0x0020 = 0x83691D00 -> solo_level_set_next_map_name
+ *   +0x0024 = 0x83691E58 -> difficulty_set
+ *   +0x0028 = 0x83691EA0 -> start_new_game
+ *   +0x002C = 0x83691FE0 -> pause_game_restart_at_checkpoint
+ *   +0x0030 = 0x83692008 -> pause_game_restart_level
+ *   +0x0034 = 0x83692030 -> pause_game_quit_to_main_menu
+ *   +0x0038 = 0x83692070 -> clear_multiplayer_player_joins
+ *   +0x003C = 0x836920A0 -> player_wants_to_join_multiplayer_game
+ *   +0x0040 = 0x836920C8 -> network_game_server_list_initialize
+ *   +0x0044 = 0x83692130 -> network_game_start_new_server
+ *   +0x0048 = 0x83692258 -> network_server_list_dispose
+ *   +0x004C = 0x83692270 -> network_game_cancel
+ *   +0x0050 = 0x836921E0 -> network_game_join_game_from_server_list
+ *   +0x0054 = 0x836922A0 -> split_screen_game_initialize
+ *   +0x0058 = 0x83692340 -> coop_game_initialize
+ *   +0x005C = 0x83692360 -> main_menu_initialize
+ *   +0x0060 = 0x836923D0 -> multiplayer_type_menu_initialize
+ *   +0x0064 = 0x836923F0 -> multiplayer_pick_quick_start_play_stage
+ *   +0x0068 = 0x83692420 -> multiplayer_level_list_initialize
+ *   +0x006C = 0x83692540 -> multiplayer_level_list_dispose
+ *   +0x0070 = 0x83692570 -> multiplayer_level_select
+ *   +0x0074 = 0x83692630 -> multiplayer_profiles_list_initialize
+ *   +0x0078 = 0x83692810 -> multiplayer_profiles_list_dispose
+ *   +0x007C = 0x83692868 -> multiplayer_profile_set_for_game
+ *   +0x0080 = 0x83692968 -> multiplayer_game_swap_teams
+ *   +0x0084 = 0x83692A20 -> netgame_join_player
+ *   +0x0088 = 0x83692A48 -> player_profiles_list_initialize
+ *   +0x008C = 0x83692BE0 -> player_profiles_list_dispose
+ *   +0x0090 = 0x83692C38 -> player_profile_set_for_game_3wide
+ *   +0x0094 = 0x83692D00 -> player_profile_set_for_game_1wide
+ *   +0x0098 = 0x83692DC0 -> playlist_profile_begin_editing
+ *   +0x009C = 0x83692E58 -> playlist_profile_end_editing
+ *   ... 268 further bytes elided; full hex in .sweep/data_image.tsv
+ * Storage definition for event_handler_function_list (0x84174770, 428 bytes = 107 entries).
  * Reconstructed from the binary reloc order; each entry is a named UI event handler.
  * Element type from the DB applied type of the object itself:
  *   unsigned __int8 (*event_handler_function_list[107])(widget_instance *, event_record *, unsigned __int8 *)
  * DEVIATION: this file previously declared the element type `int (*)(...)`, taken from the
  * consumer externs; 60 of the handlers carried an auto2(MEDIUM) `int` return while 28 carried
  * uint8_t, for one uniform table. Disassembly agrees with the DB (90/105 return sites produce a
- * 0/1 or byte-width r3, none produce a wide value), so the whole family is uint8_t. */
+ * 0/1 or byte-width r3, none produce a wide value), so the whole family is uint8_t.
+ */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

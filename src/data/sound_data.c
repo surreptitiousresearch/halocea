@@ -1,4 +1,9 @@
-/* sound_data @ 0x846DD080 — data-bss (4 bytes). */
+/* sound_data @ 0x846DD080 (.data, 4 bytes)
+ * DB applied_types: data_array *sound_data;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ * data-bss (4 bytes).
+ */
 #include "../headers/data_array.h"
 
 data_array * sound_data;

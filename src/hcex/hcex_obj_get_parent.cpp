@@ -6,7 +6,7 @@
 #include "../headers/data_array.h"
 #include "../headers/object_header_datum.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_obj_get_parent(int id, int *idParent, int *idParentBone)
 {

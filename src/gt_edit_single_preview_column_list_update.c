@@ -12,7 +12,7 @@
 #include "headers/blam_data_globals.h"
 
 extern void single_preview_column_list_update(widget_instance *widget,
-        uint8_t (__fastcall *func)(uint16_t *, int, void *));
+        uint8_t (*func)(uint16_t *, int, void *));
 extern uint8_t gametype_select_get_string(uint16_t *out, int index, void *list_items);
 extern void multiplayer_settings_select_list_update_item(widget_instance *item, game_variant *variant);
 extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int n);
@@ -21,7 +21,7 @@ extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, i
 void gt_edit_single_preview_column_list_update(widget_instance *widget)
 {
     single_preview_column_list_update(widget,
-        (uint8_t (__fastcall *)(uint16_t *, int, void *))gametype_select_get_string);
+        (uint8_t (*)(uint16_t *, int, void *))gametype_select_get_string);
 
     int selected_list_item_index = widget->parameters.list_parameters.selected_list_item_index;
     game_variant *variant = 0;

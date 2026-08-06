@@ -8,7 +8,7 @@
 
 extern int hcex_call_frame;
 extern unsigned int _S3_0;      /* $S3_0 — compiler init-once guard for evid_OnLevelWon */
-extern int evid_OnLevelWon;
+extern "C" int evid_OnLevelWon;
 
 extern "C" void hcex_load_level(const char *levelName)
 {

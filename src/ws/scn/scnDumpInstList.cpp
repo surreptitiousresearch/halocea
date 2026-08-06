@@ -8,7 +8,7 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 
 // boundary — variadic logging helpers (ap_log.cpp / os debug output).
 extern void _apForceLog(const char *fileName, const char *fmt, ...);
-extern void osOutputDebugString(const char *fmt, ...);
+extern "C" void osOutputDebugString(const char *fmt, ...);
 
 void scnDumpInstList(scnSCENE *pScn, const dsTSTRING<char> *nameFile)
 {

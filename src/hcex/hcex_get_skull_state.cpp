@@ -14,7 +14,7 @@
 
 #include "../headers/hcex/hcex_cfg_boundary.h"
 
-extern int _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);
+extern "C" int _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);
 
 extern int hcex_gold_skulls_count;
 extern int hcex_silver_skulls_count;

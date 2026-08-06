@@ -47,7 +47,7 @@
 #include "headers/collision_feature_list.h"
 #include "headers/collision_feature_list.h"
 extern float __fabs(float x);
-extern float __fsqrts(double value);
+extern float __fsqrts(float value);
 extern uint8_t collision_get_features_in_sphere(unsigned int flags, const real_point3d *center, float radius, float height, float width, int ignore_object_index, collision_feature_list *features);
 extern uint8_t collision_test_sphere(const real_point3d *center, float radius, int ignore_object_index);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);

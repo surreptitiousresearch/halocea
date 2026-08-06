@@ -12,5 +12,25 @@ typedef struct hs_global_external
     unsigned char  console_flags; /* 0x0C */
 } hs_global_external;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern hs_global_external *hs_external_globals[];
-extern int16_t hs_external_global_count;
+
+#ifdef __cplusplus
+}
+#endif
+/* const: the definition (src/data/hs_external_global_count.c) is `const int16_t ... = 482;` and the
+ * object lives at 0x82122214 in .rdata (segment perm 4, read-only); no TU writes it. Without the
+ * const this extern is a C2373 "different type modifiers" against the canonical globals header in
+ * every TU that includes both — latent only because blam_data_globals.h predates the storage def. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern const int16_t hs_external_global_count;
+
+#ifdef __cplusplus
+}
+#endif

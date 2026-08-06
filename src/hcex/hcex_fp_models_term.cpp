@@ -9,8 +9,8 @@
 
 extern fp_model_vector fpModels;
 extern struct msgSYSTEM msgSystem;
-extern int hcex_fp_model1[2];
-extern int hcex_fp_model2[2];
+extern "C" int hcex_fp_model1[2];
+extern "C" int hcex_fp_model2[2];
 
 extern void msgSYSTEM_SendMsg(struct msgSYSTEM *system, struct entENTITY *entity, int message, void *a, void *b);
 extern void hcex_obj_term_inst(animINST *instance);

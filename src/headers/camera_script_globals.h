@@ -23,4 +23,12 @@ typedef struct camera_script_globals
     int16_t       animation_index;         /* 0x3C */
 } camera_script_globals_t;                 /* 0x3E */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern camera_script_globals_t camera_script_globals;
+
+#ifdef __cplusplus
+}
+#endif

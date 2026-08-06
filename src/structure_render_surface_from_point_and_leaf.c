@@ -4,9 +4,8 @@
  * 3D point-in-triangle test on each candidate. On a hit, fills *lightmap_index, *material_index,
  * *surface_index and the barycentric (s,t), and returns 1; returns 0 if no surface contains the point.
  *
- * Leaf record (16 bytes): first surface reference @+12, reference count @+10. Surface reference
- * (8 bytes): surface_index @0, collision bsp3d node @+4. Lightmap record (32 bytes): structure_material
- * block pointer @+24. */
+ * Records are the DB types structure_leaf, structure_surface_reference, structure_lightmap and
+ * bsp3d_node (collision bsp3d nodes are 12 bytes: plane_index + child_indices[2]). */
 
 #include <stdint.h>
 #include "headers/structure_bsp.h"
@@ -16,6 +15,7 @@
 #include "headers/structure_surface.h"
 #include "headers/structure_surface_reference.h"
 #include "headers/collision_bsp.h"
+#include "headers/bsp3d_node.h"
 #include "headers/environment_vertex_compressed.h"
 #include "headers/environment_vertex_uncompressed.h"
 #include "headers/real_point3d.h"
@@ -39,17 +39,16 @@ uint8_t structure_render_surface_from_point_and_leaf(const real_point3d *point, 
     {
         const structure_surface_reference *surface_reference =
             &((const structure_surface_reference *)structure->surface_references.address)[reference];
-        int bsp3d_node = surface_reference->bsp3d_node_index;
+        int bsp3d_node_index = surface_reference->bsp3d_node_index;
         const collision_bsp *collision = (const collision_bsp *)structure->collision_bsp.address;
-        const int *bsp3d_nodes = (const int *)collision->bsp3d.nodes.address;
+        const bsp3d_node *bsp3d_nodes = (const bsp3d_node *)collision->bsp3d.nodes.address;
         const structure_surface *surface;
         const structure_lightmap *lightmap;
         structure_material *material;
         real_point3d tri_vertex0, tri_vertex1, tri_vertex2;
         int inside;
 
-        /* bsp3d node = {int plane_index, int back_child, int front_child} (12 bytes); plane_index is [0] */
-        if ( bsp3d_node == -1 || bsp3d_nodes[3 * bsp3d_node] != plane_index )
+        if ( bsp3d_node_index == -1 || bsp3d_nodes[bsp3d_node_index].plane_index != plane_index )
             continue;
 
         surface = (const structure_surface *)structure->surfaces.address + surface_reference->surface_index;

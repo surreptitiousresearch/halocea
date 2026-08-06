@@ -34,70 +34,70 @@
 #include "../ws/os/osLOCK.h"          /* osLOCK (hcexHaloLogic) */
 
 /* --- cheat-toggle source debug vars (dbgVAR_SIMPLE<bool,1>) --- */
-extern dbgVAR_bool dbg_cheatDeathless;
-extern dbgVAR_bool dbg_cheatInfAmmo;
-extern dbgVAR_bool dbg_cheatBumpPossession;
-extern dbgVAR_bool dbg_cheatReflexiveDamageEffects;
-extern dbgVAR_bool dbg_cheatMedusa;
-extern dbgVAR_bool dbg_cheatSuperJump;
-extern dbgVAR_bool dbg_cheatOmnipotent;
-extern dbgVAR_bool dbg_cheatBottomlessClip;
+extern "C" dbgVAR_bool dbg_cheatDeathless;
+extern "C" dbgVAR_bool dbg_cheatInfAmmo;
+extern "C" dbgVAR_bool dbg_cheatBumpPossession;
+extern "C" dbgVAR_bool dbg_cheatReflexiveDamageEffects;
+extern "C" dbgVAR_bool dbg_cheatMedusa;
+extern "C" dbgVAR_bool dbg_cheatSuperJump;
+extern "C" dbgVAR_bool dbg_cheatOmnipotent;
+extern "C" dbgVAR_bool dbg_cheatBottomlessClip;
 extern bool         hcex_infinite_ammo;
 
 /* --- per-frame drop/spawn cheat toggles --- */
-extern dbgVAR_bool   dbg_hcex_DropWeapons;
-extern dbgVAR_bool   dbg_hcex_DropVehicles;
-extern dbgVAR_bool   dbg_hcex_DropCharacters;
-extern dbgVAR_bool   dbg_hcex_DropPowerups;
-extern dbgVAR_bool   dbg_hcex_DropByName;
-extern dbgVAR_STRING dbg_hcex_ObjName;
-extern dbgVAR_bool   dbg_hcex_DropVarByName;
-extern dbgVAR_STRING dbg_hcex_VarName;
-extern dbgVAR_bool   dbg_hcex_ReloadShaders;
+extern "C" dbgVAR_bool   dbg_hcex_DropWeapons;
+extern "C" dbgVAR_bool   dbg_hcex_DropVehicles;
+extern "C" dbgVAR_bool   dbg_hcex_DropCharacters;
+extern "C" dbgVAR_bool   dbg_hcex_DropPowerups;
+extern "C" dbgVAR_bool   dbg_hcex_DropByName;
+extern "C" dbgVAR_STRING dbg_hcex_ObjName;
+extern "C" dbgVAR_bool   dbg_hcex_DropVarByName;
+extern "C" dbgVAR_STRING dbg_hcex_VarName;
+extern "C" dbgVAR_bool   dbg_hcex_ReloadShaders;
 
 /* --- checkpoint-save toggles --- */
-extern dbgVAR_bool dbg_hcex_GenChpt;
-extern dbgVAR_bool dbg_hcex_GenSafe;
+extern "C" dbgVAR_bool dbg_hcex_GenChpt;
+extern "C" dbgVAR_bool dbg_hcex_GenSafe;
 
 /* --- misc cheats/dumps --- */
-extern dbgVAR_bool   dbg_hcex_TeleportToCamera;
-extern dbgVAR_bool   dbg_hcex_ActiveCamo;
-extern dbgVAR_bool   dbg_hcex_DumpVariants;
-extern dbgVAR_bool   dbg_hcex_SwitchMode;
-extern dbgVAR_float  dbg_hcex_always_shoot_period;
-extern dbgVAR_bool   dbg_hcex_always_shoot;
-extern dbgVAR_bool   dbg_hcex_DrawDebug;
-extern dbgVAR_bool   dbg_hcex_EffectMoveTo;
-extern dbgVAR_STRING dbg_hcex_Effect;
-extern dbgVAR_float  dbg_hcex_flySpeedAccel;
-extern dbgVAR_bool   dbg_hcexDumpUsedSfx;
-extern dbgVAR_bool   dbg_hcexClearUsedSfx;
-extern dbgVAR_bool   dbg_hcexDumpUsedDecals;
-extern dbgVAR_bool   dbg_hcexClearUsedDecals;
-extern dbgVAR_bool   dbg_hcexDumpMissingSfx;
-extern dbgVAR_bool   dbg_hcexDumpUsedCls;
-extern dbgVAR_bool   dbg_hcexClearUsedCls;
-extern dbgVAR_bool   dbg_hcexDumpUsedTex;
-extern dbgVAR_bool   dbg_hcexClearUsedTex;
-extern dbgVAR_bool   dbg_hcexDumpScenery;
-extern dbgVAR_bool   dbg_hcex_SwitchCam;
-extern dbgVAR_bool   dbg_hcex_DrawIgnoreZ;
-extern dbgVAR_bool   dbg_hcex_DrawEffects;
-extern dbgVAR_STRING dbg_hcex_PjlEffect;
-extern dbgVAR_STRING dbg_hcex_MtlType;
-extern dbgVAR_bool   dbg_hcex_AiIsActive;
+extern "C" dbgVAR_bool   dbg_hcex_TeleportToCamera;
+extern "C" dbgVAR_bool   dbg_hcex_ActiveCamo;
+extern "C" dbgVAR_bool   dbg_hcex_DumpVariants;
+extern "C" dbgVAR_bool   dbg_hcex_SwitchMode;
+extern "C" dbgVAR_float  dbg_hcex_always_shoot_period;
+extern "C" dbgVAR_bool   dbg_hcex_always_shoot;
+extern "C" dbgVAR_bool   dbg_hcex_DrawDebug;
+extern "C" dbgVAR_bool   dbg_hcex_EffectMoveTo;
+extern "C" dbgVAR_STRING dbg_hcex_Effect;
+extern "C" dbgVAR_float  dbg_hcex_flySpeedAccel;
+extern "C" dbgVAR_bool   dbg_hcexDumpUsedSfx;
+extern "C" dbgVAR_bool   dbg_hcexClearUsedSfx;
+extern "C" dbgVAR_bool   dbg_hcexDumpUsedDecals;
+extern "C" dbgVAR_bool   dbg_hcexClearUsedDecals;
+extern "C" dbgVAR_bool   dbg_hcexDumpMissingSfx;
+extern "C" dbgVAR_bool   dbg_hcexDumpUsedCls;
+extern "C" dbgVAR_bool   dbg_hcexClearUsedCls;
+extern "C" dbgVAR_bool   dbg_hcexDumpUsedTex;
+extern "C" dbgVAR_bool   dbg_hcexClearUsedTex;
+extern "C" dbgVAR_bool   dbg_hcexDumpScenery;
+extern "C" dbgVAR_bool   dbg_hcex_SwitchCam;
+extern "C" dbgVAR_bool   dbg_hcex_DrawIgnoreZ;
+extern "C" dbgVAR_bool   dbg_hcex_DrawEffects;
+extern "C" dbgVAR_STRING dbg_hcex_PjlEffect;
+extern "C" dbgVAR_STRING dbg_hcex_MtlType;
+extern "C" dbgVAR_bool   dbg_hcex_AiIsActive;
 
 /* --- runtime globals this function reads/writes --- */
 extern bool  hcex_call_frame;
 extern int   hcex_cur_render_mode;
-extern int   hcex_switch_cam_mode;
-extern int   hcex_dbg_ignore_z;
-extern int   hcex_debug_effect_names;
-extern int   hcex_always_shoot;
-extern int   hcex_material_effect_type;
-extern float hcex_fly_mode_speed_scale;
+extern "C" int   hcex_switch_cam_mode;
+extern "C" int   hcex_dbg_ignore_z;
+extern "C" int   hcex_debug_effect_names;
+extern "C" int   hcex_always_shoot;
+extern "C" int   hcex_material_effect_type;
+extern "C" float hcex_fly_mode_speed_scale;
 extern bool  hcex_render_ready;
-extern uint8_t   debug_objects;
+extern "C" uint8_t   debug_objects;
 extern const char *const hcex_mtl_effects[0x21];   /* 33-entry material-effect-type name table */
 
 #include "../ws/ds/dsVECTOR.h"
@@ -137,10 +137,10 @@ extern void gsRENDER_SYSTEM_ToggleStereo3D(gsRENDER_SYSTEM *self);
 extern int  gsRENDER_SYSTEM_GetIsStereo3D(const gsRENDER_SYSTEM *self);       /* isStereo3D */
 extern void gsRENDER_SYSTEM_SetStereo3DRatio(gsRENDER_SYSTEM *self, float ratio); /* stereo3DRatio = value */
 extern void vidDRIVER_SetCurConfigStereo3D(vidDRIVER *self, int stereo3D);    /* curConfig.stereo3D = value */
-extern uint8_t director_is_first_person(int16_t local_player_index);
+extern "C" uint8_t director_is_first_person(int16_t local_player_index);
 
 /* --- god-mode toggle helper (already reversed: hcex_god_mode_toggle.c) --- */
-extern void hcex_god_mode_toggle(void);
+extern "C" void hcex_god_mode_toggle(void);
 
 /* --- dbgVAR_MANAGER (already fully typed: ws/dbg/dbgVAR_MANAGER.h); the string-name lookup path
  * used here (SetDbgVar<bool,1> by dotted display name) is declared directly. */
@@ -151,37 +151,37 @@ extern void dbgVAR_MANAGER_SetDbgVar_bool(dbgVAR_MANAGER *mgr, const dsTSTRING_f
 /* --- the rest of the per-frame pipeline (already reversed elsewhere in this corpus) --- */
 extern int  main_coop_update(void);
 extern void gsRendPrepareRenderNextFrameSkip(void);
-extern int main_loop_update(void);
+extern "C" int main_loop_update(void);
 extern void hcex_draw_string_flush(void);
-extern void hcex_fp_sync(void);
-extern void hcex_shaders_fx_update(void);
-extern void main_loop_check_state(void);
-extern int16_t local_player_count(void);
+extern "C" void hcex_fp_sync(void);
+extern "C" void hcex_shaders_fx_update(void);
+extern "C" void main_loop_check_state(void);
+extern "C" int16_t local_player_count(void);
 extern void hcex_light_sync_all(void);
 extern void hcex_create_effects_delayed(void);
 extern void hcex_create_decals_delayed(void);
-extern void main_save_map_safe(void);
-extern void main_save_map_nonsafe(void);
-extern void cheat_teleport_to_camera(void);
-extern int cheat_active_camouflage(void);
-extern void hcex_dump_variants(void);
+extern "C" void main_save_map_safe(void);
+extern "C" void main_save_map_nonsafe(void);
+extern "C" void cheat_teleport_to_camera(void);
+extern "C" int cheat_active_camouflage(void);
+extern "C" void hcex_dump_variants(void);
 extern void hcex_update_skulls(void);
-extern void hcex_set_pjl_effect(const char *name);
-extern void ai_globals_ai_active(uint8_t enable);
-extern void effect_move_to_next(const char *eff_name);
-extern void hcex_dump_scenery(void);
-extern void hcex_change_screen_mode(int mode);
+extern "C" void hcex_set_pjl_effect(const char *name);
+extern "C" void ai_globals_ai_active(uint8_t enable);
+extern "C" void effect_move_to_next(const char *eff_name);
+extern "C" void hcex_dump_scenery(void);
+extern "C" void hcex_change_screen_mode(int mode);
 
 /* --- debug "drop everything" cheats + spawn-by-name (not this batch's targets) --- */
-extern void cheat_all_weapons(void);
-extern void cheat_all_vehicles(void);
-extern void cheat_all_chars(void);
-extern void cheat_all_powerups(void);
-extern void cheat_by_model(const char *mdl_name);
-extern void spawn_variant_near_player(const char *variant_name);
+extern "C" void cheat_all_weapons(void);
+extern "C" void cheat_all_vehicles(void);
+extern "C" void cheat_all_chars(void);
+extern "C" void cheat_all_powerups(void);
+extern "C" void cheat_by_model(const char *mdl_name);
+extern "C" void spawn_variant_near_player(const char *variant_name);
 
 extern void dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src);   /* dsTSTRING<char>::operator= (shares buffer) */
-extern int  strcmp(const char *a, const char *b);
+extern "C" int  strcmp(const char *a, const char *b);
 
 /* --- level timer (real, DB-verified type; only ->timeLife is read here) --- */
 #include "../ws/gs/gsLVL_TIMER.h"

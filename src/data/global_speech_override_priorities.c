@@ -3,8 +3,8 @@
  * pre-empt whatever the unit is already saying (unit_test_speech.c:77 - `override_priority <
  * effective_priority`). Every entry is <= its own index, so it is a demotion ladder.
  *
- * DEVIATION: the sole decl, `extern int global_speech_override_priorities[]`
- * (src/unit_test_speech.c:24), is WRONG - the table is 16-bit. The disassembly indexes it with a
+ * DEVIATION: the sole decl used to be `extern int global_speech_override_priorities[]`
+ * (src/unit_test_speech.c:24) - WRONG, the table is 16-bit. The disassembly indexes it with a
  * 1-bit shift and a halfword load:
  *   837BA814  lis   r10, global_speech_override_priorities@ha
  *   837BA818  slwi  r31, r9, 1
@@ -12,7 +12,7 @@
  *   837BA828  extsh r11, r11            (so: signed 16-bit)
  * and the raw big-endian dwords are incoherent as int32 (0x00010001, 0x00050005,
  * 0x000A0000) but a clean ladder as int16. An `int` decl strides 4x and fuses two entries per read. Defined here as
- * int16_t; the decl is normalized corpus-wide by another pass.
+ * int16_t; the decl now comes from headers/blam_data_globals.h (2026-08-06).
  *
  * 11 entries == NUMBER_OF_UNIT_SPEECH_PRIORITIES == 22 bytes; the last halfword (+0x16 = 0x0000)
  * is alignment padding ahead of global_speech_queue_times @0x821263DC and is not an element.

@@ -11,7 +11,6 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/bitstream_t.h"
-extern _message_definition *message_delta_global_message_list[47];
 
 extern unsigned int bitstream_write_bit(bitstream_t *bit_stream, const unsigned int value);
 extern void metrics_record_field_encode(const _message_definition *message_definition, message_delta_processor_mode mode, const int field_index, const int bits_written);

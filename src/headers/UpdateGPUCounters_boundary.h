@@ -14,10 +14,12 @@
 extern vidDRIVER *vidDriver;
 
 // --- os layer (boundary) -------------------------------------------------------------------
-extern "C" {
-    int  osGetCurThreadProcessor(void);          // current HW thread/core index (0..7 slot)
-    void osLockedSet(int *target, int value);    // atomic store
-}
+// DEVIATION: these two were wrapped in `extern "C" { }`. Both are MANGLED in the binary —
+// ?osGetCurThreadProcessor@@YAHXZ and ?osLockedSet@@YAHPAHH@Z — so C linkage would have named
+// symbols the image does not contain. C++ linkage is what reproduces them.
+int  osGetCurThreadProcessor(void);          // current HW thread/core index (0..7 slot)
+int  osLockedSet(int *target, int value);    // atomic exchange; returns the PREVIOUS value
+                                             // (DB ?osLockedSet@@YAHPAHH@Z; was declared void)
 
 // --- vidDRIVER GPU-timer query entry points --------------------------------------------------
 // These are vidDRIVER_vtbl slots (GpuTimeQueryGetTime@132, GpuTimeQueryGetFreq@136,
@@ -31,23 +33,36 @@ extern float              vidDRIVER__GpuTimeIdlePercent(vidDRIVER *self);
 // --- the harvested per-pass GPU time counters -----------------------------------------------
 // One apCOUNTER_TIME per (pipe, VID_TQ pass); two GPU pipes (0/1). Data globals defined in the
 // gs render-counter registry translation unit.
-extern apCOUNTER_TIME gsRendCnt_GPU_0_ZP,  gsRendCnt_GPU_0_DIST_MASK, gsRendCnt_GPU_0_SM,
-                      gsRendCnt_GPU_0_SM0, gsRendCnt_GPU_0_SM1, gsRendCnt_GPU_0_SM2,
-                      gsRendCnt_GPU_0_SM3, gsRendCnt_GPU_0_SSAO, gsRendCnt_GPU_0_FOG_MASK,
-                      gsRendCnt_GPU_0_LBUF, gsRendCnt_GPU_0_FR_OPAQUE, gsRendCnt_GPU_0_FR_TRANSP,
-                      gsRendCnt_GPU_0_FR_MSG_REND, gsRendCnt_GPU_0_FR_PART,
-                      gsRendCnt_GPU_0_PP_EAA_DIST, gsRendCnt_GPU_0_PP_SCR_EFF,
-                      gsRendCnt_GPU_0_GUI, gsRendCnt_GPU_0_UPSAMPLE;
+//
+// DEVIATION: these were ONE 18-declarator statement per pipe, in VID_TQ pass order. The binary
+// does not give the 18 one linkage: 13 are exported unmangled (gsRendCnt_GPU_0_ZP @0x842A2AF8)
+// and the five SHADOW-MAP counters exist only as ?gsRendCnt_GPU_0_SM0@@3VapCOUNTER_TIME@@A —
+// no plain symbol at all. A linkage specifier attaches to the STATEMENT, so one statement cannot
+// state both; split by linkage, which costs the pass ordering and is why it is spelled out here.
+extern "C" apCOUNTER_TIME gsRendCnt_GPU_0_ZP,  gsRendCnt_GPU_0_DIST_MASK,
+                          gsRendCnt_GPU_0_SSAO, gsRendCnt_GPU_0_FOG_MASK,
+                          gsRendCnt_GPU_0_LBUF, gsRendCnt_GPU_0_FR_OPAQUE, gsRendCnt_GPU_0_FR_TRANSP,
+                          gsRendCnt_GPU_0_FR_MSG_REND, gsRendCnt_GPU_0_FR_PART,
+                          gsRendCnt_GPU_0_PP_EAA_DIST, gsRendCnt_GPU_0_PP_SCR_EFF,
+                          gsRendCnt_GPU_0_GUI, gsRendCnt_GPU_0_UPSAMPLE;
 
-extern apCOUNTER_TIME gsRendCnt_GPU_1_ZP,  gsRendCnt_GPU_1_DIST_MASK, gsRendCnt_GPU_1_SM,
-                      gsRendCnt_GPU_1_SM0, gsRendCnt_GPU_1_SM1, gsRendCnt_GPU_1_SM2,
-                      gsRendCnt_GPU_1_SM3, gsRendCnt_GPU_1_SSAO, gsRendCnt_GPU_1_FOG_MASK,
-                      gsRendCnt_GPU_1_LBUF, gsRendCnt_GPU_1_FR_OPAQUE, gsRendCnt_GPU_1_FR_TRANSP,
-                      gsRendCnt_GPU_1_FR_MSG_REND, gsRendCnt_GPU_1_FR_PART,
-                      gsRendCnt_GPU_1_PP_EAA_DIST, gsRendCnt_GPU_1_PP_SCR_EFF,
-                      gsRendCnt_GPU_1_GUI, gsRendCnt_GPU_1_UPSAMPLE;
+// The shadow-map passes, MANGLED in the image — C++ linkage is the truth here and `extern "C"`
+// on them would name symbols that do not exist. Same reasoning as osLockedSet above.
+extern apCOUNTER_TIME gsRendCnt_GPU_0_SM,  gsRendCnt_GPU_0_SM0, gsRendCnt_GPU_0_SM1,
+                      gsRendCnt_GPU_0_SM2, gsRendCnt_GPU_0_SM3;
 
-extern apCOUNTER_TIME gsRendCnt_GPU;          // aggregate "GPU total (minus shadowmaps)" counter
-extern apCOUNTER_CALL gsRendCnt_GPU_IDLE_HW;  // hardware idle-percent counter (callsTotal holds %)
+extern "C" apCOUNTER_TIME gsRendCnt_GPU_1_ZP,  gsRendCnt_GPU_1_DIST_MASK,
+                          gsRendCnt_GPU_1_SSAO, gsRendCnt_GPU_1_FOG_MASK,
+                          gsRendCnt_GPU_1_LBUF, gsRendCnt_GPU_1_FR_OPAQUE, gsRendCnt_GPU_1_FR_TRANSP,
+                          gsRendCnt_GPU_1_FR_MSG_REND, gsRendCnt_GPU_1_FR_PART,
+                          gsRendCnt_GPU_1_PP_EAA_DIST, gsRendCnt_GPU_1_PP_SCR_EFF,
+                          gsRendCnt_GPU_1_GUI, gsRendCnt_GPU_1_UPSAMPLE;
+
+// ?gsRendCnt_GPU_1_SM3@@3VapCOUNTER_TIME@@A etc. — mangled, as pipe 0's.
+extern apCOUNTER_TIME gsRendCnt_GPU_1_SM,  gsRendCnt_GPU_1_SM0, gsRendCnt_GPU_1_SM1,
+                      gsRendCnt_GPU_1_SM2, gsRendCnt_GPU_1_SM3;
+
+extern "C" apCOUNTER_TIME gsRendCnt_GPU;          // aggregate "GPU total (minus shadowmaps)" counter
+extern "C" apCOUNTER_CALL gsRendCnt_GPU_IDLE_HW;  // hardware idle-percent counter (callsTotal holds %)
 
 extern float gpuTotalFrame;                    // last frame's total GPU busy time, ms

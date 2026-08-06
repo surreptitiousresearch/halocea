@@ -19,9 +19,9 @@ typedef struct ent_scene ent_scene;
 extern ent_scene  *gsScenePtr;
 extern farm_system *farmSys;
 extern void       *hcexLights;   /* dsVECTOR<dsPAIR<int,HCEX_LIGHT>,8> */
-extern int         effectId_0;
+extern "C" int         effectId_0;
 
-extern char      *hcex_conv_name(char *name, int size);
+extern "C" char      *hcex_conv_name(char *name, int size);
 extern void       entCREATE_DATA_ctor(entCREATE_DATA *data);
 extern void       animCREATE_DATA_dtor(animCREATE_DATA *data); /* ??1animCREATE_DATA@@UAA@XZ @0x8252CEA0; derived entCREATE_DATA upcasts implicitly */
 extern entENTITY *entCreate(ent_scene *scene, const char *tag_name, void *tpl_name, entCREATE_DATA *data, void *msg);

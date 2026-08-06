@@ -22,14 +22,12 @@
 #include "headers/hud_globals.h"
 #include "headers/blip_type.h"
 #include "headers/blam_data_globals.h"
-#include "headers/real_rgb_color.h"
 extern float __fsqrts(float);
 
 extern double cos(double x);
 extern double sin(double x);
 extern double pow(double base, double exponent);
 extern int game_time_get(void);
-extern real_rgb_color blip_colors[];
 extern void rasterizer_hud_motion_sensor_blip_draw(const real_point2d *blip_position, float fade, float radius, const real_rgb_color *blip_color, uint8_t custom);
 
 void render_blip(

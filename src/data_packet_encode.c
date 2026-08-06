@@ -11,6 +11,7 @@
 
 #include "headers/data_packet_field.h"
 #include "headers/data_packet_field.h"
+#include "headers/byte_swap_definition.h"
 extern void _data_packet_verify(const data_packet_definition *packet_definition, int16_t *byte_count_reference, data_packet_field *first_field, int16_t *field_count_reference);
 extern void data_encode_new(data_encoding_state *state, void *buffer, int buffer_size);
 extern int data_encode_memory(data_encoding_state *state, const void *buffer, int16_t count, int code);
@@ -36,7 +37,7 @@ uint8_t data_packet_encode(data_packet_definition *packet_definition, int16_t ve
     {
         int16_t version_field;
         *(char *)&version_field = version; /* leading byte (big-endian) carries the version */
-        data_encode_memory(&state, &version_field, 1, 1);
+        data_encode_memory(&state, &version_field, 1, _1byte);
     }
     _data_packet_encode(packet_definition, &state, version, packet, 0, packet_definition->fields, 0);
 

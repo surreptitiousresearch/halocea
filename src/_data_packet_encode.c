@@ -13,6 +13,7 @@
 #include "headers/data_encoding_state.h"
 #include "headers/packet_field_type.h"
 
+#include "headers/byte_swap_definition.h"
 extern int data_encode_memory(data_encoding_state *state, const void *buffer, int16_t count, int code);
 extern int data_encode_string(data_encoding_state *state, const char *source_string, int16_t maximum_string_length);
 extern int data_encode_integer(data_encoding_state *state, int value, int maximum_value);
@@ -38,9 +39,9 @@ void _data_packet_encode(data_packet_definition *packet_definition, data_encodin
                 {
                     switch ( field->type )
                     {
-                        case __pack_short: data_encode_memory(encode_state, cursor, field->count, -2); break;
-                        case __pack_long: data_encode_memory(encode_state, cursor, field->count, -4); break;
-                        case __pack_int64: data_encode_memory(encode_state, cursor, field->count, -8); break;
+                        case __pack_short: data_encode_memory(encode_state, cursor, field->count, _2byte); break;
+                        case __pack_long: data_encode_memory(encode_state, cursor, field->count, _4byte); break;
+                        case __pack_int64: data_encode_memory(encode_state, cursor, field->count, _8byte); break;
                         case __pack_string: data_encode_string(encode_state, (char *)cursor, field->count); break;
                         case __pack_data:
                         {
@@ -48,7 +49,7 @@ void _data_packet_encode(data_packet_definition *packet_definition, data_encodin
                             if ( *cursor < 0 || array_count > field->count )
                                 array_count = 0;
                             data_encode_integer(encode_state, array_count, field->count);
-                            data_encode_memory(encode_state, cursor + 1, array_count, 1);
+                            data_encode_memory(encode_state, cursor + 1, array_count, _1byte);
                             break;
                         }
                         case __pack_array:
@@ -70,7 +71,7 @@ void _data_packet_encode(data_packet_definition *packet_definition, data_encodin
                             field += subfield_count;
                             break;
                         }
-                        default: data_encode_memory(encode_state, cursor, field->count, 1); break;
+                        default: data_encode_memory(encode_state, cursor, field->count, _1byte); break;
                     }
                 }
             }
@@ -79,19 +80,19 @@ void _data_packet_encode(data_packet_definition *packet_definition, data_encodin
                 /* field absent in this version: emit a zero/default placeholder of the right width */
                 if ( field->type == __pack_short || field->type == __pack_long || field->type == __pack_int64 )
                 {
-                    data_encode_memory(encode_state, 0, field->count, 1);
+                    data_encode_memory(encode_state, 0, field->count, _1byte);
                 }
                 else if ( field->type != __pack_string )
                 {
                     if ( field->type == __pack_data || field->type == __pack_array )
                         data_encode_integer(encode_state, 0, field->count);
                     else
-                        data_encode_memory(encode_state, 0, field->count, 1);
+                        data_encode_memory(encode_state, 0, field->count, _1byte);
                 }
                 else
                 {
                     char terminator = 0;
-                    data_encode_memory(encode_state, &terminator, 1, 1);
+                    data_encode_memory(encode_state, &terminator, 1, _1byte);
                 }
             }
 

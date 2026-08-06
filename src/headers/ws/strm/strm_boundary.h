@@ -18,14 +18,14 @@ extern apCONFIG *gCfg; // hcex bridge global — the live config database (see h
 typedef struct dbgVAR_TRIGGER {
     dbgVAR_SIMPLE<bool,5> base; /* 0x00 — value@0x0C */
 } dbgVAR_TRIGGER;
-extern dbgVAR_TRIGGER d2; // debug gate for strmRES_TEX_MANAGER::UpdateResource2's tex_stat_na.csv dump
+extern "C" dbgVAR_TRIGGER d2; // debug gate for strmRES_TEX_MANAGER::UpdateResource2's tex_stat_na.csv dump
 
-extern apCOUNTER cnt_strm_mem; // "streaming memory" perf counter (unit index 2 = "not enough mem" MB)
+extern "C" apCOUNTER cnt_strm_mem; // "streaming memory" perf counter (unit index 2 = "not enough mem" MB)
 
 // Most-recently-checked texture, cached by strmRES_TEX_MANAGER::_DbgCheckTex for its next call
 // (a single static strmRESOURCE_TEXTURE_XENON, reused as scratch — matches the disasm's `prev`
 // global symbol and the strmRESOURCE_TEXTURE_XENON::operator= call at the end of _DbgCheckTex).
-extern strmRESOURCE_TEXTURE_XENON prev;
+extern "C" strmRESOURCE_TEXTURE_XENON prev;
 
 // Formatted engine log (varargs) / forced-log-to-file variant. boundary.
 void _apLog(const char *fmt, ...);
@@ -48,7 +48,7 @@ extern "C" unsigned int __cntlzw(unsigned int value);
 // the rest of the os* surface already declared elsewhere).
 struct osHANDLE_DUMMY;
 extern "C" {
-    osHANDLE_DUMMY *osCreateThread(void (__fastcall *proc)(void *arg), void *arg, const char *name,
+    osHANDLE_DUMMY *osCreateThread(void (*proc)(void *arg), void *arg, const char *name,
                                     int stackSize); // boundary
     void osSetThreadPriority(osHANDLE_DUMMY *thread, int priority); // boundary
     void osSetSignal(osHANDLE_DUMMY *signal);    // boundary

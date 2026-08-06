@@ -11,7 +11,7 @@ extern void            osResetSignal(osHANDLE_DUMMY *handle);                   
 extern void             osSetSignal(osHANDLE_DUMMY *handle);                     // real body: src/ws/os/osSetSignal.cpp
 extern int              osWaitForSignal(osHANDLE_DUMMY *handle, unsigned long msTimeout); // real body: src/ws/os/osWaitForSignal.cpp
 extern void              osPIXAddMarker(const char *string);                     // boundary
-extern int sprintf_0(char *string, const char *format, ...);             // real body: src/sprintf_0.c
+extern "C" int sprintf_0(char *string, const char *format, ...);         // real body: src/sprintf_0.c
 
 extern scnSCENE *gsScenePtr;          // boundary -- the active Blam scene
 extern int        hcex_cur_render_mode;

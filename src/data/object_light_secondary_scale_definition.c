@@ -1,5 +1,13 @@
-/* object_light_secondary_scale_definition @ 0x8417F880 -- second-order .data; hs_global_external (16B, big-endian) reconstructed
- * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified. */
+/* object_light_secondary_scale_definition @ 0x8417F880 (.data, 16 bytes)
+ * DB applied_types: hs_global_external object_light_secondary_scale_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 name                       = 0x82121188 -> "object_light_secondary_scale"
+ *   +0x04 type                       = 0x0006
+ *   +0x08 pointer                    = 0x84176F08 -> object_light_secondary_scale
+ *   +0x0C console_flags              = 0x00
+ * second-order .data; hs_global_external (16B, big-endian) reconstructed
+ * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified.
+ */
 #include "../headers/hs_global_external.h"
 #include "../headers/hs_type.h"
 
@@ -7,9 +15,9 @@ extern float object_light_secondary_scale;
 
 hs_global_external object_light_secondary_scale_definition =
 {
-    "object_light_secondary_scale",
-    hs_type_real,
-    { 0, 0 },
-    &object_light_secondary_scale,
-    0
+    "object_light_secondary_scale",  /* name */
+    hs_type_real,                    /* type */
+    { 0, 0 },                        /* _pad06.._pad07 */
+    &object_light_secondary_scale,   /* pointer */
+    0,                               /* console_flags */
 };

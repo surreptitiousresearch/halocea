@@ -8,8 +8,8 @@
 #include "headers/real_plane3d.h"
 #include "headers/real_point2d.h"
 #include "headers/collision_prism.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 
 uint8_t collision_prism_test_point(const collision_prism *prism, const real_point3d *point,
                                    float *depth, real_plane3d *plane)
@@ -22,9 +22,8 @@ uint8_t collision_prism_test_point(const collision_prism *prism, const real_poin
         return 0;
 
     int point_count = prism->point_count;
-    int map = 2 * prism->projection_axis + prism->projection_sign;
-    int16_t axis_a = global_projection3d_mappings[0][map][0];
-    int16_t axis_b = global_projection3d_mappings[0][map][1];
+    int16_t axis_a = global_projection3d_mappings[prism->projection_axis][prism->projection_sign][0];
+    int16_t axis_b = global_projection3d_mappings[prism->projection_axis][prism->projection_sign][1];
 
     float projected[3];
     projected[0] = (prism->plane.n.n[0] * -above) + point->n[0];

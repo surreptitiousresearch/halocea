@@ -12,8 +12,8 @@
 #include "../headers/fp_model_vector.h"
 
 extern fp_model_vector fpModels;
-extern int  hcex_fp_model1[2];
-extern int  hcex_fp_model2[2];
+extern "C" int  hcex_fp_model1[2];
+extern "C" int  hcex_fp_model2[2];
 extern void hcex_update_fp_model(int model_handle, int cam_index);
 
 extern "C" void hcex_fp_sync(void)

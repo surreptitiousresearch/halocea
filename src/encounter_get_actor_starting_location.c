@@ -2,8 +2,14 @@
  * squad. Preference order: a still-required location (picked at random and consumed), otherwise an unused
  * location (the unused set is refilled when exhausted but required ones remain). Returns -1 if none available.
  *
- * required_locations / unused_locations are parallel bitmasks of length location_count (squad +208). The
- * `spawn` parameter is accepted for signature compatibility but unused by this routine. */
+ * required_locations / unused_locations are the two parallel one-word bit vectors at the head of squad_datum,
+ * indexed by starting-location index (squad_definition.starting_locations, +208).
+ *
+ * DEVIATION (signature): the DB prototype is 2-param — (unsigned __int16 encounter_index, __int64 spawn) —
+ * because IDA fused r4:r5 into one 64-bit slot. Disasm 0x8370A564 uses r4 as the squad_definition index
+ * (mulli r10, r4, 0xE8 = the 232-byte squad_definition stride), so the real ABI is r3=encounter_index,
+ * r4=squad_index, r5=spawn. r5 is never read before being written (first write 0x8370A560), i.e. `spawn` is
+ * genuinely dead in this routine; it is kept for call-site compatibility. */
 
 #include <stdint.h>
 #include "headers/squad_definition.h"
@@ -31,8 +37,13 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
     int squad_datum_index = (int16_t)(DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->squad_base + squad_index);
     squad_datum *runtime = &squad_array[squad_datum_index];
 
-    uint32_t taken[8];          /* per-call "already assigned" bitmask; only the first two words are
-                                 * initialized (a single 8-byte `std` of zero in the disassembly) */
+    /* Per-call "already assigned" bit vector. DEVIATION: sized [2], not [8]. The frame is 0x90 bytes with a
+     * single local at +0x50 (IDA models it as one 0x40 blob, but 0x14 of that is the __savegprlr_27 save
+     * area), and exactly 8 bytes are ever written to it — one `std` of zero at 0x8370A598. Nothing reads
+     * past index 63 in practice either: squad_datum is 32 bytes (slwi r6, 5 @0x8370A58C) and its
+     * required/unused banks are one word each, so location_count is bounded by 32 by the datum's own
+     * layout — the same bound the refill memset below relies on to stay inside unused_locations. */
+    uint32_t taken[2];
     taken[0] = 0;
     taken[1] = 0;
 
@@ -42,7 +53,7 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
     int16_t required_available = 0;
     if ( location_count > 0 )
     {
-        for ( int i = 0; i < location_count; i = (int16_t)(i + 1) )
+        for ( int16_t i = 0; i < location_count; ++i )
         {
             if ( BIT_VECTOR_TEST_FLAG(runtime->required_locations, i) && !BIT_VECTOR_TEST_FLAG(taken, i) )
                 ++required_available;
@@ -55,22 +66,25 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
         int count = squad->starting_locations.count;
         if ( count > 0 )
         {
-            int index = 0;
+            int16_t index = 0;
             do
             {
                 if ( BIT_VECTOR_TEST_FLAG(runtime->required_locations, index) && !BIT_VECTOR_TEST_FLAG(taken, index) )
                 {
                     if ( !pick )
                     {
-                        unsigned int *required_word = &runtime->required_locations[index >> 5];
                         chosen = index;
-                        *required_word &= ~(1 << (index & 31));
-                        required_word[1] &= ~(1 << (index & 31)); /* also clear from the adjacent unused_locations bank */
+                        /* disasm 0x8370A698-0x8370A6B4 clears the bit in *(runtime + word) and in
+                         * *(runtime + word + 4); squad_datum puts unused_locations at +4, immediately after
+                         * required_locations, so the second store is that bank — spelled explicitly here
+                         * rather than as required_locations[word + 1] pointer arithmetic. */
+                        BIT_VECTOR_CLEAR_FLAG(runtime->required_locations, index);
+                        BIT_VECTOR_CLEAR_FLAG(runtime->unused_locations, index);
                         break;
                     }
                     --pick;
                 }
-                index = (int16_t)(index + 1);
+                ++index;
             }
             while ( index < count );
         }
@@ -89,7 +103,7 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
         unused_available = 0;
         if ( count > 0 )
         {
-            for ( int j = 0; j < count; j = (int16_t)(j + 1) )
+            for ( int16_t j = 0; j < count; ++j )
             {
                 if ( !BIT_VECTOR_TEST_FLAG(taken, j) )
                 {
@@ -102,7 +116,7 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
         }
         if ( has_non_unused && !unused_available )
         {
-            memset(runtime->unused_locations, -1, 4 * BIT_VECTOR_SIZE_IN_LONGS(count));
+            memset(runtime->unused_locations, -1, sizeof(uint32_t) * BIT_VECTOR_SIZE_IN_LONGS(count));
             refilled = 1;
         }
     }
@@ -117,7 +131,7 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
     if ( count <= 0 )
         return chosen;
 
-    int index = 0;
+    int16_t index = 0;
     while ( 1 )
     {
         if ( BIT_VECTOR_TEST_FLAG(runtime->unused_locations, index) && !BIT_VECTOR_TEST_FLAG(taken, index) )
@@ -126,7 +140,7 @@ int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squa
                 break;
             --pick;
         }
-        index = (int16_t)(index + 1);
+        ++index;
         if ( index >= count )
             return chosen;
     }

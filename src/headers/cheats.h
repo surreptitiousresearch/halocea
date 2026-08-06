@@ -23,4 +23,12 @@ typedef struct cheat_globals
 
 typedef cheat_globals cheats;  /* Blam source spelling; DB type is cheat_globals */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern cheats cheat;
+
+#ifdef __cplusplus
+}
+#endif

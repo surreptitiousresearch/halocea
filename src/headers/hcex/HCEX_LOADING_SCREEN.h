@@ -15,26 +15,26 @@ struct m3dRECT;        // boundary — m3d subsystem
 struct HCEX_LOADING_SCREEN;
 
 typedef struct HCEX_LOADING_SCREEN_vtbl {
-    void (__fastcall *dtr_HCEX_LOADING_SCREEN)(HCEX_LOADING_SCREEN *self);                     // 0x00
-    void (__fastcall *ParsePS)(HCEX_LOADING_SCREEN *self, psSECTION *section);                  // 0x04
-    void (__fastcall *Init)(HCEX_LOADING_SCREEN *self);                                         // 0x08
-    void (__fastcall *Term)(HCEX_LOADING_SCREEN *self);                                         // 0x0C
-    void (__fastcall *UpdateViewport)(HCEX_LOADING_SCREEN *self, const m2dV *, const m3dRECT *, unsigned int); // 0x10
-    void (__fastcall *ProcessRender)(HCEX_LOADING_SCREEN *self);                                // 0x14
-    void (__fastcall *ProcessKey)(HCEX_LOADING_SCREEN *self);                                   // 0x18
-    void (__fastcall *ProcessMouse)(HCEX_LOADING_SCREEN *self, dsPARAM_LIST *);                  // 0x1C
-    void (__fastcall *ProcessCall)(HCEX_LOADING_SCREEN *self, const char *methodName, const dsPARAM_LIST *paramList); // 0x20
-    void (__fastcall *ProcessFrame)(HCEX_LOADING_SCREEN *self);                                  // 0x24
-    void (__fastcall *ProcessUIThread)(HCEX_LOADING_SCREEN *self);                                // 0x28
-    void (__fastcall *ReportStat)(HCEX_LOADING_SCREEN *self, int dsSTRID_, const char *);          // 0x2C
-    bool (__fastcall *IsReady)(HCEX_LOADING_SCREEN *self);                                        // 0x30
-    void (__fastcall *Enable)(HCEX_LOADING_SCREEN *self);                                         // 0x34
-    void (__fastcall *Disable)(HCEX_LOADING_SCREEN *self);                                        // 0x38
-    void (__fastcall *LockToPrimary)(HCEX_LOADING_SCREEN *self, bool);                            // 0x3C
-    void (__fastcall *SetFocus)(HCEX_LOADING_SCREEN *self, bool);                                 // 0x40
-    void (__fastcall *SslInit)(HCEX_LOADING_SCREEN *self);                                        // 0x44
-    void (__fastcall *SslDestroy)(HCEX_LOADING_SCREEN *self);                                      // 0x48
-    void (__fastcall *SslReload)(HCEX_LOADING_SCREEN *self);                                       // 0x4C
+    void (*dtr_HCEX_LOADING_SCREEN)(HCEX_LOADING_SCREEN *self);                                // 0x00
+    void (*ParsePS)(HCEX_LOADING_SCREEN *self, psSECTION *section);                             // 0x04
+    void (*Init)(HCEX_LOADING_SCREEN *self);                                                    // 0x08
+    void (*Term)(HCEX_LOADING_SCREEN *self);                                                    // 0x0C
+    void (*UpdateViewport)(HCEX_LOADING_SCREEN *self, const m2dV *, const m3dRECT *, unsigned int); // 0x10
+    void (*ProcessRender)(HCEX_LOADING_SCREEN *self);                                           // 0x14
+    void (*ProcessKey)(HCEX_LOADING_SCREEN *self);                                              // 0x18
+    void (*ProcessMouse)(HCEX_LOADING_SCREEN *self, dsPARAM_LIST *);                             // 0x1C
+    void (*ProcessCall)(HCEX_LOADING_SCREEN *self, const char *methodName, const dsPARAM_LIST *paramList); // 0x20
+    void (*ProcessFrame)(HCEX_LOADING_SCREEN *self);                                             // 0x24
+    void (*ProcessUIThread)(HCEX_LOADING_SCREEN *self);                                           // 0x28
+    void (*ReportStat)(HCEX_LOADING_SCREEN *self, int dsSTRID_, const char *);                     // 0x2C
+    bool (*IsReady)(HCEX_LOADING_SCREEN *self);                                                   // 0x30
+    void (*Enable)(HCEX_LOADING_SCREEN *self);                                                    // 0x34
+    void (*Disable)(HCEX_LOADING_SCREEN *self);                                                   // 0x38
+    void (*LockToPrimary)(HCEX_LOADING_SCREEN *self, bool);                                       // 0x3C
+    void (*SetFocus)(HCEX_LOADING_SCREEN *self, bool);                                            // 0x40
+    void (*SslInit)(HCEX_LOADING_SCREEN *self);                                                   // 0x44
+    void (*SslDestroy)(HCEX_LOADING_SCREEN *self);                                                 // 0x48
+    void (*SslReload)(HCEX_LOADING_SCREEN *self);                                                  // 0x4C
 } HCEX_LOADING_SCREEN_vtbl;
 
 struct HCEX_LOADING_SCREEN : ui_new::UI_FRAME {

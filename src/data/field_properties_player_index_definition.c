@@ -1,4 +1,15 @@
-/* field_properties_player_index_definition @ 0x84183AC8 — data-init _field_properties_definition
+/* field_properties_player_index_definition @ 0x84183AC8 (.data, 104 bytes)
+ * DB applied_types: _field_properties_definition field_properties_player_index_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 type                       = 0x0000000D
+ *   +0x04 name                       = 0x706C617965725F696E646578000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0x50 encode                     = 0x8379BA30 -> default_translated_index_encoder
+ *   +0x54 decode                     = 0x8379BA80 -> default_translated_index_decoder
+ *   +0x58 parameters                 = 0x84183A98 -> field_properties_player_index_parameters
+ *   +0x5C maximum_size               = 0xFFFFFFFF
+ *   +0x60 overhead_bits              = 0x00000000
+ *   +0x64 initialized                = 0x00
+ * data-init _field_properties_definition
  * (104 bytes) describing the "player_index" translated-index network field type.
  * Initializer reconstructed from the binary (big-endian):
  *   type            = 0x0000000D  -> _field_type_translated_index
@@ -9,6 +20,7 @@
  *   maximum_size    = 0xFFFFFFFF  -> -1
  *   overhead_bits   = 0
  *   initialized     = 0
+ * /
  */
 #include "../headers/field_properties_definition.h"
 #include "../headers/_field_type_translated_index_parameters.h"

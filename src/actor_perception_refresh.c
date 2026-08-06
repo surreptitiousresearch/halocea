@@ -12,7 +12,7 @@
  *   (4 enemies; enemies+friends bounded), creating new unacknowledged props and deleting the rest.
  *
  * DEVIATION: the decompiler rendered actor_perception_desire_prop's last three arguments as uninitialised
- * stack slots; disasm (0x837DB440) shows they are v14->dead_ticks, v14->required_ticks, and a pointer to a
+ * stack slots; disasm (0x837DB440) shows they are prop->dead_ticks, prop->required_ticks, and a pointer to a
  * zero-initialised local (the optional_reference output, whose result is discarded here). */
 
 #include <stdint.h>

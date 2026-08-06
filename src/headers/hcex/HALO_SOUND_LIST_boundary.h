@@ -68,4 +68,4 @@ struct HALO_SOUND_LST_PAIR {
 };
 
 // "sound\" literal ParseLst prefixes every derived tag path with (DB: aSound_1).
-extern const char aSound_1[];
+extern "C" const char aSound_1[];

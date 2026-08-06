@@ -23,7 +23,7 @@ void player_profile_create_default_profiles_on_disk(void)
     {
         unsigned short img[990];   /* raw player_profile image (1980 bytes) */
         char path_buf[256];
-        struct file_reference ref;
+        file_reference ref;
         const char *path;
 
         memset(img, 0, sizeof(img));

@@ -4,7 +4,7 @@
 extern int hcex_gold_skulls_count;
 extern int hcex_silver_skulls_count;
 
-extern void hcex_fire_plr_event(const char *event_name, short player_identifier);
+extern "C" void hcex_fire_plr_event(const char *event_name, int player_identifier); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
 
 extern "C" void hcex_check_ach44(void)
 {

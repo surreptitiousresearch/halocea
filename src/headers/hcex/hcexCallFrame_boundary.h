@@ -85,4 +85,4 @@ extern int  gsMsgIsMode(unsigned int mode);
 extern int  apProcLock_GetGameLogicThread(void);
 extern void apProcLock_SetGameLogicThread(int threadId);
 extern void hcex_obj_sync_matrices(void);
-extern void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
+extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);

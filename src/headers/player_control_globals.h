@@ -13,4 +13,12 @@ typedef struct player_control_globals_t
     player_control players[2];               /* 0x10 */
 } player_control_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern player_control_globals_t *player_control_globals;
+
+#ifdef __cplusplus
+}
+#endif

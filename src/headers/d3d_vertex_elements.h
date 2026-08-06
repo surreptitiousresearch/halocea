@@ -15,6 +15,10 @@ typedef struct D3DVERTEXELEMENT9
     unsigned char  UsageIndex; /* 0xA */
 } D3DVERTEXELEMENT9;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern D3DVERTEXELEMENT9 d3dve_environment[];
 extern D3DVERTEXELEMENT9 d3dve_environment_lightmap[];
 extern D3DVERTEXELEMENT9 d3dve_model[];
@@ -25,3 +29,7 @@ extern D3DVERTEXELEMENT9 d3dve_decal[];
 extern D3DVERTEXELEMENT9 d3dve_detail_object[];
 extern D3DVERTEXELEMENT9 d3dve_unlit_zsprite[];
 extern D3DVERTEXELEMENT9 d3dve_widget[];
+
+#ifdef __cplusplus
+}
+#endif

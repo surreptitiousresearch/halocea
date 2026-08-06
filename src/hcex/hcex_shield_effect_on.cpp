@@ -5,7 +5,7 @@
 #include "../headers/data_array.h"
 #include "../headers/object_header_datum.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" float hcex_shield_effect_on(int id)
 {

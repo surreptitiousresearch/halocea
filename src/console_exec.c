@@ -16,7 +16,6 @@
 #include "headers/blam_data_globals.h"
 
 extern char *strtok(char *str, const char *delim);
-extern char *strncpy(char *, const char *, uint64_t);
 extern uint16_t get_console_test_flags(uint16_t extra_flags);
 extern int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **results, int16_t maximum_count, uint16_t console_flags_to_test);
 extern int stricmp(const char *a, const char *b);

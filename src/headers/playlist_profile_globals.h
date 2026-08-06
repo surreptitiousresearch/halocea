@@ -13,4 +13,12 @@ typedef struct _playlist_profile_globals
     unsigned char    initialized;                     /* 0xA2 */
 } _playlist_profile_globals;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _playlist_profile_globals playlist_profile_globals;
+
+#ifdef __cplusplus
+}
+#endif

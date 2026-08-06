@@ -4,8 +4,8 @@
 
 #include <stdint.h>
 
-extern int16_t local_player_count(void);
-extern int   hcex_coop_local_player_index;
+extern "C" int16_t local_player_count(void);
+extern "C" int   hcex_coop_local_player_index;
 
 extern "C" int hcex_is_split_screen(void)
 {

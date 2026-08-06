@@ -18,7 +18,7 @@
 
 extern void player_profile_update_cache_for_nwide_list(int *profile_index, int number_of_profile_indices);
 extern void qsort(void *base, unsigned int count, unsigned int size,
-                  int (__fastcall *compare)(const void *, const void *));
+                  int (*compare)(const void *, const void *));
 extern int list_indices_sort_proc(const void *index1, const void *index2);
 extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern int tag_loaded(uint32_t group_tag, const char *name);

@@ -16,7 +16,7 @@ extern unsigned int simple_cache_copy_thread(void *parameter);
 /* Win32 boundary */
 extern void *CreateEventA(void *attributes, int manual_reset, int initial_state, const char *name);
 extern void *CreateThread(void *attributes, unsigned int stack_size,
-        unsigned int (__fastcall *start_routine)(void *), void *parameter, unsigned int flags,
+        unsigned int (*start_routine)(void *), void *parameter, unsigned int flags,
         unsigned int *thread_id);
 
 void cache_copy_initialize(void)

@@ -3,9 +3,9 @@
  * strength and the actor's awareness. Returns the keep/desire decision; *optional_reference receives a
  * secondary "interested but not desiring" flag.
  *
- * Deviation: the database prototype has 13 parameters; Hex-Rays invented phantom stack params (a14..a38) from
+ * Deviation: the database prototype has 13 parameters; Hex-Rays invented a run of phantom stack params from
  * the GPR slots reserved by the two float args (suicide_radius/distance_squared in f1/f2). The phantoms used
- * in the body map to real params: a30 = dead_ticks, a36 = required_ticks, a38 = optional_reference. */
+ * in the body are really params 9, 12 and 13: dead_ticks, required_ticks and optional_reference. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

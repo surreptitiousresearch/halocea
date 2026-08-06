@@ -28,7 +28,7 @@ extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern int16_t first_person_weapon_get_local_index(int object_index);
 extern uint8_t effects_object_is_corpse(int object_index);
-extern void effect_build_locations(effect_datum *effect, int16_t (__fastcall *get_markers_by_name)(int, const char *, object_marker *, int16_t));
+extern void effect_build_locations(effect_datum *effect, int16_t (*get_markers_by_name)(int, const char *, object_marker *, int16_t));
 extern void hcex_init_effect_by_locations(int effect_index, int object_index, float scale);
 extern void effect_update(int effect_index, float dt);
 

@@ -31,15 +31,15 @@ extern d3dDRIVER       *d3dDriver;
 
 extern struct osLOCK hcexHaloLogic;
 
-extern float crosshairOffsetX;
+extern "C" float crosshairOffsetX;
 extern float g_Stereo3DUIConstants[];   /* only indices [0] and [1] are read here */
-extern dbgVAR_float dbg_crosshairDepth;
-extern dbgVAR_bool  dbg_hcex_off_hud;
+extern "C" dbgVAR_float dbg_crosshairDepth;
+extern "C" dbgVAR_bool  dbg_hcex_off_hud;
 
 extern int           hcex_cur_render_mode;
 extern unsigned char hcex_render_ready;
-extern int           hcex_coop_local_player_index;
-extern int           hcex_off_cine_screen_effect;
+extern "C" int           hcex_coop_local_player_index;
+extern "C" int           hcex_off_cine_screen_effect;
 
 /* --- ws-engine methods (free-function form; several are virtual dispatch) --- */
 extern void osLOCK__Lock(struct osLOCK *lock, const char *file, int line);
@@ -59,15 +59,15 @@ extern void vidDRIVER__SetViewport(vidDRIVER *self, int x0, int y0, int x1, int 
 
 extern void d3dDRIVER_SetStartRenderingState(d3dDRIVER *self);
 
-extern int game_is_active(void);
-extern int16_t local_player_count(void);
+extern "C" int game_is_active(void);
+extern "C" int16_t local_player_count(void);
 extern void hcex_update_render_targets(int splitScreenIdx);
-extern void hcex_prepare_halo_render(int cam_idx);
-extern void hcex_update_screen_flash(int cam_idx);
-extern void interface_draw_screen(void);
-extern int  hcex_is_cine_mode(void);
-extern void rasterizer_screen_flash(void);
-extern void cinematic_render(void);
-extern void hud_render_timer(void);
-extern void terminal_draw(void);
-extern void raserizer_release_fx_textures(void);   /* HRESULT return, discarded by the caller */
+extern "C" void hcex_prepare_halo_render(int cam_idx);
+extern "C" void hcex_update_screen_flash(int cam_idx);
+extern "C" void interface_draw_screen(void);
+extern "C" int  hcex_is_cine_mode(void);
+extern "C" void rasterizer_screen_flash(void);
+extern "C" void cinematic_render(void);
+extern "C" void hud_render_timer(void);
+extern "C" void terminal_draw(void);
+extern "C" void raserizer_release_fx_textures(void);   /* HRESULT return, discarded by the caller */

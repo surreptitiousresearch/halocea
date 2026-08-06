@@ -11,6 +11,9 @@
 #include "ID3DXEffect.h"
 #include "ID3DXEffectCompiler.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern long D3DXCreateEffectPool(ID3DXEffectPool **pool);
 
 struct D3DDevice;
@@ -56,3 +59,6 @@ extern long ID3DXEffectCompiler_CompileEffect(ID3DXEffectCompiler *compiler, uns
                                               ID3DXBuffer **effect, ID3DXBuffer **errors); /* fix: CompileEffect yields the bytecode as an ID3DXBuffer, not ID3DXEffect */
 extern unsigned long ID3DXEffectCompiler_Release(ID3DXEffectCompiler *compiler);
 #endif /* _ID3DXEFFECT_C_WRAPPERS_ */
+#ifdef __cplusplus
+}
+#endif

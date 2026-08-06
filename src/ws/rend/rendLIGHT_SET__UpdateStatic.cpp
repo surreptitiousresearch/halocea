@@ -33,9 +33,9 @@
 //    against the light's name buffer.
 
 // --- boundary globals / helpers (rend + debug subsystems) ---
-extern dbgVAR_SIMPLE<bool,  1> dbg_isOffRenderAnim;            // boundary (only .value read)
-extern dbgVAR_SIMPLE<bool,  1> dbg_lightSetShowAllLights;      // boundary
-extern dbgVAR_SIMPLE<float, 3> dbg_lightSetAmbFilterThreshold; // boundary
+extern "C" dbgVAR_SIMPLE<bool,  1> dbg_isOffRenderAnim;            // boundary (only .value read)
+extern "C" dbgVAR_SIMPLE<bool,  1> dbg_lightSetShowAllLights;      // boundary
+extern "C" dbgVAR_SIMPLE<float, 3> dbg_lightSetAmbFilterThreshold; // boundary
 extern dsVECTOR<DEBUG_LIGHT_DATA, 8> dbgPlayerLights;          // boundary — debug overlay list
 
 static const float kAttenEpsilon = 0.000001f;

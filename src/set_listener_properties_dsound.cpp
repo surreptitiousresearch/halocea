@@ -29,7 +29,7 @@ extern bool m3dCheckFinite(const m3dV *v);
 extern void STRONG_ASSERT2_HELPER_asserd_m3dV(const char *expr, const char *file, int line,
     const char *name, const m3dV *value);
 extern void hcex_make_matr(const hcex_matr4x3 *in, m3dMATR *out);
-extern char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int16_t tag_index);
 /* SetPreset is a snd::SYSTEM vtable slot (offset 0x44) owned by the src/ws/snd drain; called here through
  * a boundary wrapper so this TU need not redeclare the shared SYSTEM vtable. */
 extern void snd_system_SetPreset(snd::SYSTEM *system, const dsTSTRING<char> &preset);

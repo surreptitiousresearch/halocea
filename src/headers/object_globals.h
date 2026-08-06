@@ -27,5 +27,13 @@ struct object_globals
     union $60EF112414981E0EE23A1884EE53F811 pvs_activation; /* 0x94 — 4 bytes (object_index is int) */
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct object_globals *object_globals;
 extern int global_object_marker;
+
+#ifdef __cplusplus
+}
+#endif

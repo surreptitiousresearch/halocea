@@ -58,7 +58,15 @@ typedef struct simple_decompressor_definition
     short                  current_read_sequence_count; /* 0xAC6 (2758) */
 } simple_decompressor_definition;                    /* 0xAC8 (2760) */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern simple_decompressor_definition *global_self;
 
 /* decompress_globals @ 0x844A6928 — the singleton decompressor state block (data-bss, 2760 bytes). */
 extern simple_decompressor_definition decompress_globals;
+
+#ifdef __cplusplus
+}
+#endif

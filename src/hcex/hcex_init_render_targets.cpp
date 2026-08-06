@@ -13,10 +13,10 @@
 #include "../headers/d3d_driver.h"          /* d3dDriver->pDepthBuffer */
 #include "../headers/rasterizer_render_target.h" /* global_render_targets */
 
-extern int sprintf_0(char *string, const char *format, ...);
+extern "C" int sprintf_0(char *string, const char *format, ...);
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
+extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
 
 extern "C" unsigned int hcex_init_render_targets(void)
 {

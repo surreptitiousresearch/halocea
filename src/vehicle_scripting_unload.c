@@ -1,4 +1,4 @@
-/* vehicle_scripting_unload @0x836D61? — script command to make AI units exit a vehicle. Every unit parented
+/* vehicle_scripting_unload @0x836D6180 — script command to make AI units exit a vehicle. Every unit parented
  * to the given vehicle whose seat label matches seat_substring_name (an empty/NULL substring matches every
  * seat) is ejected. Player-controlled exits are left to the netcode; a vehicle-type occupant is exited
  * immediately, while a normal rider plays its seat-exit animation: the exit animation is looked up in the
@@ -9,7 +9,10 @@
  * DEVIATION 1: the decompiler coalesced the unit_index argument with the "match-all" byte flag into one local;
  * the disassembly shows unit_animation_set_state(unit_index, _unit_state_opening) takes the vehicle's own index.
  * DEVIATION 2: two game_connection() results are discarded by the decompiler (a lost comparison around the
- * client/host split); reproduced as bare calls. */
+ * client/host split); reproduced as bare calls.
+ * DEVIATION 3: the seat's `animations` tag_block is an array of `animation_graph_animation_index` (DB type,
+ * 2 bytes, one __int16), not a uint16_t array, and slot 8 is `_unit_seat_animation_seat_exit`. Disasm
+ * 0x836D6374-0x836D6388: lwz .count(+0x40), cmpwi 8, lwz .address(+0x44), lhz at +0x10 (8 * 2), extsh. */
 
 #include <stdint.h>
 #include "headers/vehicle_datum.h"
@@ -19,6 +22,8 @@
 #include "headers/unit_seat.h"
 #include "headers/animation_graph.h"
 #include "headers/animation_graph_unit_seat.h"
+#include "headers/animation_graph_animation_index.h"
+#include "headers/unit_seat_animation.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -103,9 +108,11 @@ int16_t vehicle_scripting_unload(int unit_index, const char *seat_substring_name
                     animation_graph_unit_seat *seat_animations =
                         (animation_graph_unit_seat *)(TAG_GET(animation_graph, animation_graph_index))->unit_seats.address
                         + (unsigned char)occupant_object->unit.animation.seat_index;
-                    int16_t animation_index = (seat_animations->animations.count <= 8)
+                    int16_t animation_index =
+                        (seat_animations->animations.count <= _unit_seat_animation_seat_exit)
                         ? -1
-                        : ((uint16_t *)seat_animations->animations.address)[8];
+                        : ((const animation_graph_animation_index *)seat_animations->animations.address)
+                                [_unit_seat_animation_seat_exit].animation_index;
 
                     if (animation_index != -1)
                     {

@@ -6,7 +6,7 @@
 #include "../headers/object_datum.h"
 #include "../headers/object_type.h"
 
-extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
+extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
 extern "C" int hcex_obj_scenery_idx_type(int id, int *obj_idx, int *obj_type)
 {

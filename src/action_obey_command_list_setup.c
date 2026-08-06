@@ -34,8 +34,8 @@ uint8_t action_obey_command_list_setup(int actor_index, int16_t command_list_ind
     if ( command_list_index < 0 || command_list_index >= global_scenario->ai_command_lists.count )
         return 0;
 
-    ai_command_list_definition *command_list =
-        &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[command_list_index];
+    ai_command_list_definition_t *command_list =
+        &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[command_list_index];
 
     if ( actor->meta.swarm && actor->meta.swarm_cache_index == -1 )   /* swarm actor with no live swarm */
     {

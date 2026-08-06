@@ -32,44 +32,44 @@
 typedef struct vidDRIVER
 {
     unsigned char _opaque0[0x164];
-    struct vidDRIVER_INTERFACE { unsigned char _opaque0[0x128]; D3DDevice *pDevice; void (__fastcall *SetRTGamma)(void *, int); } *drvInterface; /* 0x164 */
+    struct vidDRIVER_INTERFACE { unsigned char _opaque0[0x128]; D3DDevice *pDevice; void (*SetRTGamma)(void *, int); } *drvInterface; /* 0x164 */
     unsigned char _opaque1[0xA6C - 0x164 - 4];
     D3DBaseTexture *resolveTargetTex; /* 0xA6C -- name inferred from usage, see file CAVEAT */
 } vidDRIVER;
 
 extern vidDRIVER *vidDriver;
 
-extern int    sHCEXLoadingScreenResourcesCreated;
-extern float  sHcexVisibleLoadingScreenProgress;
-extern float  sHcexLoadProgressVelocity;                       /* per-frame ease-rate state, adjusted adaptively */
-extern int    sHcexShouldClearPrevFrame;
-extern float  sHcexTimeAtStartOfLoadingScreenSessionSec;
-extern float  sHcexLastLoadingScreenUpdateTimeSec;
+extern "C" int    sHCEXLoadingScreenResourcesCreated;
+extern "C" float  sHcexVisibleLoadingScreenProgress;
+extern "C" float  sHcexLoadProgressVelocity;                       /* per-frame ease-rate state, adjusted adaptively */
+extern "C" int    sHcexShouldClearPrevFrame;
+extern "C" float  sHcexTimeAtStartOfLoadingScreenSessionSec;
+extern "C" float  sHcexLastLoadingScreenUpdateTimeSec;
 extern D3DVertexDeclaration *spHCEXLoadingScreenVertexDecl;
-extern D3DVertexShader      *spHCEXLoadingScreenVS;
-extern D3DPixelShader       *spHCEXLoadingScreenPS;
+extern "C" D3DVertexShader      *spHCEXLoadingScreenVS;
+extern "C" D3DPixelShader       *spHCEXLoadingScreenPS;
 
-extern unsigned int GetTickCount();
+extern "C" unsigned int GetTickCount();
 extern float         _m3dClamp(float lo, float hi, float t);
-extern void          D3DDevice_Resolve(D3DDevice *pDevice, unsigned int flags, const void *pRect,
+extern "C" void          D3DDevice_Resolve(D3DDevice *pDevice, unsigned int flags, const void *pRect,
                                         D3DBaseTexture *pDestTexture, const void *pSourceSurface,
                                         int destSubResource, int srcSubResource, const void *pClearColorRect, float clearZ,
                                         unsigned int clearStencil, const void *pResolveParams);
-extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_ZWriteEnable(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_HalfPixelOffset(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_SeparateAlphaBlendEnable(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_AlphaBlendEnable(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_SrcBlend(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_DestBlend(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_SrcBlendAlpha(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetRenderState_DestBlendAlpha(D3DDevice *pDevice, unsigned int value);
-extern void D3DDevice_SetTexture(D3DDevice *pDevice, unsigned int sampler, D3DBaseTexture *pTexture,
+extern "C" void D3DDevice_SetRenderState_ZEnable(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_ZWriteEnable(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_HalfPixelOffset(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_SeparateAlphaBlendEnable(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_AlphaBlendEnable(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_SrcBlend(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_DestBlend(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_SrcBlendAlpha(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetRenderState_DestBlendAlpha(D3DDevice *pDevice, unsigned int value);
+extern "C" void D3DDevice_SetTexture(D3DDevice *pDevice, unsigned int sampler, D3DBaseTexture *pTexture,
                                   uint64_t pendingMask);
-extern void D3DDevice_SetVertexDeclaration(D3DDevice *pDevice, D3DVertexDeclaration *pDeclaration);
-extern void D3DDevice_SetVertexShader(D3DDevice *pDevice, D3DVertexShader *pShader);
-extern void D3DDevice_SetPixelShader(D3DDevice *pDevice, D3DPixelShader *pShader);
-extern void D3DDevice_DrawVerticesUP(D3DDevice *pDevice, unsigned int primitiveType,
+extern "C" void D3DDevice_SetVertexDeclaration(D3DDevice *pDevice, D3DVertexDeclaration *pDeclaration);
+extern "C" void D3DDevice_SetVertexShader(D3DDevice *pDevice, D3DVertexShader *pShader);
+extern "C" void D3DDevice_SetPixelShader(D3DDevice *pDevice, D3DPixelShader *pShader);
+extern "C" void D3DDevice_DrawVerticesUP(D3DDevice *pDevice, unsigned int primitiveType,
                                       unsigned int vertexCount, const void *pVertexStreamZeroData,
                                       unsigned int stride);
 

@@ -1,4 +1,23 @@
-/* race_globals_baseline @ 0x8465ACA0 - data-bss, race_globals_type = 328 bytes; ledger gap 352. */
+/* race_globals_baseline @ 0x8465ACA0 (.data, 328 bytes)
+ * DB applied_types: race_globals_type race_globals_baseline;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 lap_completed_value        = 0x00000000
+ *   +0x04 first_flag                 = 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0x44 lap_bit_vector             = 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0x84 rally_flag                 = 0x00000000
+ *   +0x88 team_laps                  = 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0xC8 persistent_team_score      = 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0x108 vehicle_sound_timeout      = 0x00000000
+ *   +0x10C spawned_vehicles           = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   +0x12C number_of_spawned_vehicles = 0x00000000
+ *   +0x130 number_of_spawned_warthogs = 0x00000000
+ *   +0x134 number_of_spawned_ghosts   = 0x00000000
+ *   +0x138 number_of_spawned_tanks    = 0x00000000
+ *   +0x13C number_of_spawned_rocket_warthogs = 0x00000000
+ *   +0x140 number_of_spawned_banshees = 0x00000000
+ *   +0x144 vehicles_have_been_added   = 0x00
+ * data-bss, race_globals_type = 328 bytes; ledger gap 352.
+ */
 #include "../headers/race_globals.h"
 
 race_globals_type race_globals_baseline;

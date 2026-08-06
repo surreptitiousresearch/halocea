@@ -13,4 +13,12 @@ struct structure_visibility_globals
     int16_t       rendered_cluster_indices[512]; /* 0x04 */
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct structure_visibility_globals structure_visibility_globals;
+
+#ifdef __cplusplus
+}
+#endif

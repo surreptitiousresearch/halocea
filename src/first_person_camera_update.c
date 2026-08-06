@@ -13,7 +13,7 @@
 
 /* the last camera proc that ran this frame — a director.camera_proc value, typed as such so the
  * identity test below needs no cast */
-extern void (__fastcall *g_LastCameraUpdateProc)(void *camera_data, const camera_control *controls, observer_command *result);
+extern void (*g_LastCameraUpdateProc)(void *camera_data, const camera_control *controls, observer_command *result);
 
 extern int player_control_get_unit_index(int16_t local_player_index);
 extern real_vector3d *player_control_get_facing_direction(int16_t local_player_index, real_vector3d *direction);

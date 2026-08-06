@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 #include "headers/build_sprite_data.h"
-#include "headers/build_sprite_flags.h"
+#include "headers/build_sprites_flags.h"
 #include "headers/build_sprite_orientation.h"
 #include "headers/real_point3d.h"
 #include "headers/bitmap_data.h"
@@ -23,7 +23,7 @@
 
 void build_sprite_compute_scale(const build_sprite_data *data, int16_t mode, unsigned int flags, const real_point3d *origin, const bitmap_data *bitmap, float *scale)
 {
-    if ( (data->flags & (1u << _build_sprite_viewer_space_bit)) != 0 )
+    if ( (data->flags & (1u << _build_sprites_screen_space_bit)) != 0 )
     {
         if ( *scale == 0.0f )
             *scale = 1.0f;

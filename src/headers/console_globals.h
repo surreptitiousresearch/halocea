@@ -20,5 +20,13 @@ typedef struct console_globals_t
     int16_t             selected_previous_command_index; /* 0x9C0 */
 } console_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern console_globals_t console_globals;
 extern real_argb_color console_color;
+
+#ifdef __cplusplus
+}
+#endif

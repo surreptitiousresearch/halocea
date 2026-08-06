@@ -13,7 +13,7 @@
 // Global printf-into-dsTSTRING helper (returns the formatted string by reference); not reversed here.
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 // Table of binary-operator display names indexed by dsDATA_BINARY_OP; not reversed here.
-extern const char *dsBinaryOpName[]; // boundary
+extern "C" const char *dsBinaryOpName[]; // boundary
 
 // 0x82AD8470 — sslSCRIPTED_FUNCTION_BASE::MathFromStackToStack. Pop the top two operands off the VM
 // operand stack, apply binary operator `op` (left op right), and push the result. Returns sslERROR by

@@ -6,7 +6,7 @@
 #include "../headers/machine_datum.h"
 #include "../headers/object_type.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" float hcex_machine_position(int id)
 {

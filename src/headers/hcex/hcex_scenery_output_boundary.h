@@ -25,4 +25,4 @@ extern void apLogSetDumpRightNowMode(int enable);
 extern void _apDumpLog(const char *file, const char *fmt, ...);
 
 /* --- hcex model-name sanitiser --- */
-extern char *hcex_conv_mdl_name(const char *model_name, char *out, int max_len);
+extern "C" char *hcex_conv_mdl_name(const char *model_name, char *out, int max_len);

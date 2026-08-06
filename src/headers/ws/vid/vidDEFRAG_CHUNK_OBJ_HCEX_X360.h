@@ -18,14 +18,14 @@ struct vidDEFRAG_CHUNK_OBJ_HCEX_X360; // fwd
 // vtable — DB-verified (types_members vidDEFRAG_CHUNK_OBJ_HCEX_X360_vtbl). Same shape as
 // vidDEFRAG_CHUNK_vtbl, overridden for this leaf class.
 typedef struct vidDEFRAG_CHUNK_OBJ_HCEX_X360_vtbl {
-    const char *(__fastcall *DbgInfo)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
-    void       *(__fastcall *LockRead)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
-    void       *(__fastcall *LockWrite)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
-    void        (__fastcall *Unlock)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
-    int         (__fastcall *Alignment)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
-    int         (__fastcall *MemMove)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self, void *dst, void *src, int size, bool overlap);
-    void        (__fastcall *dtr_vidDEFRAG_CHUNK_OBJ_HCEX_X360)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self); // scalar-deleting dtor
-    const char *(__fastcall *Id)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
+    const char *(*DbgInfo)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
+    void       *(*LockRead)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
+    void       *(*LockWrite)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
+    void        (*Unlock)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
+    int         (*Alignment)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
+    int         (*MemMove)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self, void *dst, void *src, int size, bool overlap);
+    void        (*dtr_vidDEFRAG_CHUNK_OBJ_HCEX_X360)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self); // scalar-deleting dtor
+    const char *(*Id)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
 } vidDEFRAG_CHUNK_OBJ_HCEX_X360_vtbl;
 
 struct vidDEFRAG_CHUNK_OBJ_HCEX_X360 : vidDEFRAG_CHUNK {

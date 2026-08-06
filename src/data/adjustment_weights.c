@@ -1,10 +1,40 @@
-/* adjustment_weights @ 0x82110C18 — .rdata, 108 bytes = 9 x real_point3d (12 each), no padding.
+/* adjustment_weights @ 0x82110C18 (.rdata, 108 bytes)
+ * DB applied_types: const real_point3d adjustment_weights[9];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   [ 0] +0x00 n                          = 0x3F8000000000000000000000
+ *        +0x00 __s1                       = 0x3F8000000000000000000000
+ *        +0x00 __s2                       = 0x3F8000000000000000000000
+ *   [ 1] +0x00 n                          = 0x000000003F80000000000000
+ *        +0x00 __s1                       = 0x000000003F80000000000000
+ *        +0x00 __s2                       = 0x000000003F80000000000000
+ *   [ 2] +0x00 n                          = 0x00000000BF80000000000000
+ *        +0x00 __s1                       = 0x00000000BF80000000000000
+ *        +0x00 __s2                       = 0x00000000BF80000000000000
+ *   [ 3] +0x00 n                          = 0x3F3504F3BF3504F300000000
+ *        +0x00 __s1                       = 0x3F3504F3BF3504F300000000
+ *        +0x00 __s2                       = 0x3F3504F3BF3504F300000000
+ *   [ 4] +0x00 n                          = 0x3F3504F33F3504F300000000
+ *        +0x00 __s1                       = 0x3F3504F33F3504F300000000
+ *        +0x00 __s2                       = 0x3F3504F33F3504F300000000
+ *   [ 5] +0x00 n                          = 0x3F13CD3A3F13CD3A3F13CD3A
+ *        +0x00 __s1                       = 0x3F13CD3A3F13CD3A3F13CD3A
+ *        +0x00 __s2                       = 0x3F13CD3A3F13CD3A3F13CD3A
+ *   [ 6] +0x00 n                          = 0x3F13CD3A3F13CD3ABF13CD3A
+ *        +0x00 __s1                       = 0x3F13CD3A3F13CD3ABF13CD3A
+ *        +0x00 __s2                       = 0x3F13CD3A3F13CD3ABF13CD3A
+ *   [ 7] +0x00 n                          = 0x3F13CD3ABF13CD3A3F13CD3A
+ *        +0x00 __s1                       = 0x3F13CD3ABF13CD3A3F13CD3A
+ *        +0x00 __s2                       = 0x3F13CD3ABF13CD3A3F13CD3A
+ *   [ 8] +0x00 n                          = 0x3F13CD3ABF13CD3ABF13CD3A
+ *        +0x00 __s1                       = 0x3F13CD3ABF13CD3ABF13CD3A
+ *        +0x00 __s2                       = 0x3F13CD3ABF13CD3ABF13CD3A
+ * .rdata, 108 bytes = 9 x real_point3d (12 each), no padding.
  * Search offsets (in the caller's local frame, scaled by real_matrix4x3::scale) tried in order when
  * player_teleport_internal has to move a unit out of a blocked exit: the +x axis, the two +/-y axes,
  * the two xy-diagonals, then the four (+x, +/-y, +/-z) body diagonals.
  * Initializer reconstructed from the binary (big-endian words), 0x3F3504F3 = 0.70710677 (1/sqrt 2),
- * 0x3F13CD3A = 0.57735026 (1/sqrt 3). DB applied type: `const real_point3d adjustment_weights[9]`. */
-
+ * 0x3F13CD3A = 0.57735026 (1/sqrt 3). DB applied type: `const real_point3d adjustment_weights[9]`.
+ */
 #include "../headers/real_point3d.h"
 
 const real_point3d adjustment_weights[9] =

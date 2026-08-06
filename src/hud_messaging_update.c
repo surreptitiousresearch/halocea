@@ -74,7 +74,7 @@ extern const wchar_t  *hcex_get_hud_message(int is_state_message, int message_in
 extern void usprintf(wchar_t *string, const wchar_t *format, ...);
 extern int compare_messages(const hud_message *lhs, const hud_message *rhs);
 extern void            qsort(void *base, unsigned int num, unsigned int width,
-                           int (__fastcall *compare)(const void *, const void *));
+                           int (*compare)(const void *, const void *));
 extern double          pow(double base, double exponent);
 
 /* __ROL4__(text_index, 1) is a 2x scale of a halfword index into a wchar_t (2-byte) text stream. */
@@ -392,7 +392,7 @@ finish_first_pass:
     }
 
     /* recovered: qsort(datum, 4u, 0x8Cu, ...) -> datum->messages (offset 0), sizeof(hud_message) */
-    qsort(datum->messages, 4u, sizeof(hud_message), (int (__fastcall *)(const void *, const void *))compare_messages);
+    qsort(datum->messages, 4u, sizeof(hud_message), (int (*)(const void *, const void *))compare_messages);
 
     if ( max_lines > 0 )
     {

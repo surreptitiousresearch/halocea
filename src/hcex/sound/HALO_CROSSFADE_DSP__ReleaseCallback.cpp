@@ -6,7 +6,7 @@ extern "C" const char *FModErrorDesc(FMOD_RESULT res, bool info);
 extern void _apLog(const char *fmt, ...);
 extern "C" void osOutputDebugString(const char *fmt, ...);
 
-FMOD_RESULT __fastcall HALO_CROSSFADE_DSP::ReleaseCallback(FMOD_DSP_STATE *dsp_state)
+FMOD_RESULT HALO_CROSSFADE_DSP::ReleaseCallback(FMOD_DSP_STATE *dsp_state)
 {
     // DEVIATION: unlike ReadCallback (which extracts dsp_state->instance before calling any
     // FMOD::DSP method), the disassembly here calls getUserData directly on the incoming

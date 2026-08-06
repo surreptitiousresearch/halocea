@@ -5,26 +5,55 @@
  * verified src/data/<sym>.c storage definitions (the single source of truth).
  * Include this and drop inline externs so type divergence becomes a compile error. */
 
-#include <stdint.h>
 #include "ID3DXEffectPool.h"
+#include "_D3DBLEND.h"
+#include "_D3DBLENDOP.h"
 #include "_D3DCAPS9.h"
+#include "_D3DFORMAT.h"
+#include "_D3DTEXTUREADDRESS.h"
 #include "_D3DXMACRO.h"
 #include "_LARGE_INTEGER.h"
 #include "_field_type_translated_index_parameters.h"
 #include "achievements_info.h"
+#include "action_class.h"
+#include "action_specification.h"
+#include "actor_acknowledgement_speed.h"
+#include "actor_action.h"
+#include "actor_combat_status.h"
+#include "actor_default_state.h"
+#include "actor_evade.h"
+#include "actor_knowledge.h"
+#include "actor_perception_type.h"
+#include "actor_postcombat_type.h"
+#include "actor_race.h"
+#include "actor_target_type.h"
 #include "advertised_game_data.h"
+#include "ai_communication_enemy_status.h"
+#include "ai_communication_group.h"
+#include "ai_communication_hostility.h"
+#include "ai_communication_look_direction.h"
+#include "ai_communication_priority.h"
+#include "ai_communication_protagonist_type.h"
+#include "ai_communication_type.h"
 #include "ai_globals.h"
+#include "ai_information_packet.h"
+#include "ai_vocalization_type.h"
 #include "animation_event_header.h"
 #include "animation_event_v1.h"
 #include "animation_playback.h"
 #include "animation_playback_controller.h"
 #include "bitmap_data.h"
+#include "bitmap_format.h"
+#include "bitmap_format_tables.h"
+#include "bitmap_type.h"
+#include "blip_type.h"
 #include "breakable_surface_globals.h"
 #include "bsp3d.h"
 #include "build_sprite_globals.h"
 #include "buildin_multiplayer_map_s.h"
 #include "byte_swap_definition.h"
 #include "cache_file_globals.h"
+#include "cache_file_runtime_globals.h"
 #include "cache_file_tag_instance.h"
 #include "cached_player_profile.h"
 #include "cached_variant_profile.h"
@@ -39,9 +68,11 @@
 #include "collision_bsp.h"
 #include "collision_feature_list.h"
 #include "console_globals.h"
+#include "controller_sprite_frame.h"
 #include "convex_polygon2d.h"
 #include "ctf_globals.h"
 #include "d3d_boundary.h"
+#include "damage_category.h"
 #include "damage_material.h"
 #include "data_array.h"
 #include "data_file_s.h"
@@ -50,10 +81,15 @@
 #include "decal_globals.h"
 #include "detail_object_global_runtime_data.h"
 #include "dialogue_event_status.h"
+#include "dialogue_usage.h"
+#include "dialogue_usage_flags.h"
 #include "director.h"
+#include "director_camera_mode.h"
+#include "dive_animation_possibility.h"
 #include "draw_character_software_globals.h"
 #include "dynamic_array.h"
 #include "dynamic_screen_vertex.h"
+#include "dynamic_triangles.h"
 #include "dynamic_unlit_vertex.h"
 #include "dynamic_vertices.h"
 #include "editor_camera_focus_t.h"
@@ -63,14 +99,28 @@
 #include "exposed_parameter.h"
 #include "fg_graph.h"
 #include "field_properties_definition.h"
+#include "field_type_array_parameters.h"
+#include "field_type_ascii_string_parameters.h"
 #include "field_type_definition.h"
+#include "field_type_fixed_width_normal_vector_parameters.h"
+#include "field_type_fixed_width_parameters.h"
+#include "field_type_flags_parameters.h"
+#include "field_type_integer_parameters.h"
+#include "field_type_point_parameters.h"
+#include "field_type_smart_vector_parameters.h"
+#include "field_type_structure_parameters.h"
+#include "field_type_vector_parameters.h"
+#include "field_type_wide_string_parameters.h"
 #include "find_files_globals.h"
+#include "firing_point_evaluation_mode.h"
 #include "firing_position.h"
 #include "first_person_weapon.h"
 #include "flying_camera.h"
 #include "font_drawing_globals.h"
+#include "game_difficulty_value.h"
 #include "game_engine.h"
 #include "game_engine_globals.h"
+#include "game_engine_multiplayer_sound.h"
 #include "game_engine_playlist_s.h"
 #include "game_globals.h"
 #include "game_globals_rasterizer_data.h"
@@ -78,7 +128,9 @@
 #include "game_looping_sound_data.h"
 #include "game_sound_globals.h"
 #include "game_state_globals.h"
+#include "game_state_procs.h"
 #include "game_statistics_globals.h"
+#include "game_time_constants.h"
 #include "game_time_globals.h"
 #include "game_time_statistics.h"
 #include "game_variant.h"
@@ -88,19 +140,47 @@
 #include "hardware_character_cache.h"
 #include "hcex/HALO_SOUND_SYSTEM_fwd.h"
 #include "headers/_D3DDEVTYPE.h"
+#include "headers/animation_playback_controller.h"
+#include "headers/data_array.h"
+#include "headers/data_packet_definition.h"
+#include "headers/data_packet_field.h"
 #include "headers/debug_key.h"
 #include "headers/director_variable_definition.h"
 #include "headers/event_record.h"
+#include "headers/game_statistics.h"
+#include "headers/message_delta_processor_header.h"
 #include "headers/metrics_globals.h"
-#include "headers/real_argb_color.h"
+#include "headers/network_game_client.h"
+#include "headers/object_placement_data.h"
+#include "headers/packet_field_type.h"
+#include "headers/real_matrix4x3.h"
+#include "headers/real_orientation.h"
 #include "headers/real_rectangle3d.h"
-#include "headers/real_rgb_color.h"
 #include "headers/real_vector2d.h"
+#include "headers/render_animation.h"
+#include "headers/render_lighting.h"
+#include "headers/scenario_biped_datum.h"
+#include "headers/scenario_control_datum.h"
+#include "headers/scenario_equipment_datum.h"
+#include "headers/scenario_light_fixture_datum.h"
+#include "headers/scenario_machine_datum.h"
+#include "headers/scenario_placeholder_datum.h"
+#include "headers/scenario_player.h"
+#include "headers/scenario_scenery_datum.h"
+#include "headers/scenario_vehicle_datum.h"
+#include "headers/scenario_weapon_datum.h"
+#include "headers/sound_location.h"
+#include "headers/sound_permutation.h"
+#include "headers/sound_preferences.h"
+#include "headers/unit_control_data.h"
 #include "headers/unit_control_data_entry.h"
+#include "headers/weapon_datum.h"
 #include "headers/widget_instance.h"
 #include "hs_compile_globals.h"
+#include "hs_console_flags.h"
 #include "hs_function_definition.h"
 #include "hs_global_external.h"
+#include "hs_runtime_globals.h"
 #include "hs_type.h"
 #include "hud_globals.h"
 #include "hud_messaging_globals.h"
@@ -109,21 +189,32 @@
 #include "hud_scripted_globals.h"
 #include "input_abstraction_globals.h"
 #include "input_globals_xbox.h"
+#include "key_code.h"
 #include "king_globals.h"
 #include "leaf_map_globals.h"
 #include "light_volume_frame.h"
+#include "light_volume_globals.h"
+#include "lightning_globals.h"
 #include "lights_globals.h"
 #include "lruv_cache.h"
 #include "main_globals.h"
+#include "material_type.h"
+#include "math_constants.h"
 #include "memory_pool.h"
+#include "message_definition.h"
+#include "message_definition_field_reference_set.h"
 #include "message_delta_encoding_class.h"
+#include "message_delta_message_ids.h"
 #include "motion_sensor_globals_definition.h"
+#include "move_position_order.h"
 #include "multiplayer_map_s.h"
 #include "mutex.h"
 #include "net_graph.h"
 #include "netgame_goal.h"
 #include "network_game_server.h"
 #include "object_globals.h"
+#include "object_memory_release_function.h"
+#include "object_type.h"
 #include "object_type_definition.h"
 #include "observer_command.h"
 #include "observer_globals.h"
@@ -145,7 +236,11 @@
 #include "players_global_data.h"
 #include "playlist_profile_globals.h"
 #include "point2d.h"
+#include "post_combat_behavior_type.h"
+#include "post_evaluator_table_entry.h"
+#include "pre_evaluator_table_entry.h"
 #include "projectile_material_response_definition.h"
+#include "projection3d_globals.h"
 #include "queued_mp_sound.h"
 #include "race_globals.h"
 #include "random_math_globals.h"
@@ -160,6 +255,8 @@
 #include "rasterizer_model_begin_parameters.h"
 #include "rasterizer_model_techniques.h"
 #include "rasterizer_render_target.h"
+#include "rasterizer_vertex_shader_index.h"
+#include "rasterizer_vertex_type.h"
 #include "real_argb_color.h"
 #include "real_euler_angles2d.h"
 #include "real_matrix4x3.h"
@@ -171,6 +268,7 @@
 #include "real_rgb_color.h"
 #include "real_vector2d.h"
 #include "real_vector3d.h"
+#include "render_animation.h"
 #include "render_globals.h"
 #include "render_lighting.h"
 #include "render_model_effect.h"
@@ -178,17 +276,23 @@
 #include "render_screen_flash_type.h"
 #include "render_sky_globals.h"
 #include "render_window.h"
+#include "reply_usage.h"
+#include "reply_usage_override_scripted_flags.h"
 #include "saved_film.h"
 #include "saved_game_files_globals.h"
 #include "scenario.h"
 #include "scenario_globals.h"
+#include "secondary_look_priority.h"
+#include "secondary_look_type.h"
 #include "shader_effect.h"
+#include "shader_framebuffer_blend_function.h"
 #include "simple_decompressor_definition.h"
 #include "single_player_level_data.h"
 #include "slayer_globals.h"
 #include "sound_channel_datum.h"
 #include "sound_class_datum.h"
 #include "sound_class_definition.h"
+#include "sound_environment.h"
 #include "sound_manager_globals_t.h"
 #include "sound_preferences.h"
 #include "squad_datum.h"
@@ -197,6 +301,7 @@
 #include "struct_game_allegiance_globals.h"
 #include "structure_bsp.h"
 #include "structure_decals_globals_definition.h"
+#include "structure_globals.h"
 #include "structure_render_globals.h"
 #include "structure_visibility_globals.h"
 #include "super_remote_players_action_update.h"
@@ -206,10 +311,13 @@
 #include "thread.h"
 #include "transparent_geometry_group.h"
 #include "ui_widget_replace_function.h"
+#include "unit_animation_impulse.h"
 #include "unit_control_data.h"
 #include "unit_control_data_entry.h"
+#include "unit_desired_animation_state.h"
 #include "unit_globals.h"
 #include "unit_hud_globals_definition.h"
+#include "unit_speech_priority.h"
 #include "update_client_globals.h"
 #include "update_server_globals.h"
 #include "vector_avoidance_ray.h"
@@ -218,6 +326,8 @@
 #include "vertex_shader_function.h"
 #include "vibrate_globals.h"
 #include "video_resolution_s.h"
+#include "virtual_key_code.h"
+#include "virtual_keyboard_event.h"
 #include "virtual_keyboard_globals_t.h"
 #include "weapon_hud_globals_definition.h"
 #include "weather_particle_system_globals.h"
@@ -226,23 +336,65 @@
 #include "widget_instance.h"
 #include "widget_state.h"
 #include "widget_type_definition.h"
+#include "wind_globals.h"
+#include "xbox_game_state_globals.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern char *AppendText;
 extern int EnabledScreenShot;
 extern unsigned char InsideScene;
 extern int UsingD3DSpy;
+extern int _byte_bs_codes[];
+extern byte_swap_definition _byte_bs_definition;
 extern short keyboard_auxbutton_mapping[3];
 extern stack_memory_pool_medium _medium_widget_memory_pool;
 extern uint8_t _test_no_more_active_camo;
 extern const uint16_t _translation_table[108];
 extern const uint16_t _translation_table_0[108];
+extern int _word_bs_codes[];
+extern byte_swap_definition _word_bs_definition;
 extern unsigned char accept_remote_connections;
+extern const hs_function_definition activate_nav_point_flag_definition;
+extern const hs_function_definition activate_nav_point_object_definition;
+extern const hs_function_definition activate_team_nav_point_flag_definition;
+extern const hs_function_definition activate_team_nav_point_object_definition;
 extern data_array *actor_data;
+extern const hs_function_definition add_definition;
+extern const real_point3d adjustment_weights[9];
 extern void (*after_load_procs[15])(void);
+extern const hs_function_definition ai_actors_definition;
+extern const hs_function_definition ai_allegiance_broken_definition;
+extern const hs_function_definition ai_allegiance_definition;
+extern const hs_function_definition ai_allegiance_remove_definition;
+extern const hs_function_definition ai_allow_charge_definition;
+extern const hs_function_definition ai_allow_dormant_definition;
+extern const hs_function_definition ai_attach_definition;
+extern const hs_function_definition ai_attach_free_definition;
+extern const hs_function_definition ai_attack_definition;
+extern const hs_function_definition ai_automatic_migration_target_definition;
+extern const hs_function_definition ai_berserk_definition;
+extern const hs_function_definition ai_braindead_by_unit_definition;
+extern const hs_function_definition ai_braindead_definition;
+extern const hs_function_definition ai_command_list_advance_by_unit_definition;
+extern const hs_function_definition ai_command_list_advance_definition;
+extern const hs_function_definition ai_command_list_by_unit_definition;
+extern const hs_function_definition ai_command_list_definition;
+extern const hs_function_definition ai_command_list_status_definition;
+extern const hs_function_definition ai_conversation_advance_definition;
+extern const hs_function_definition ai_conversation_definition;
+extern const hs_function_definition ai_conversation_line_definition;
+extern const hs_function_definition ai_conversation_status_definition;
+extern const hs_function_definition ai_conversation_stop_definition;
 extern hs_global_external ai_debug_ballistic_lineoffire_freeze_definition;
 extern hs_global_external ai_debug_blind_definition;
+extern const hs_function_definition ai_debug_communication_focus_definition;
 extern hs_global_external ai_debug_communication_focus_enable_definition;
+extern const hs_function_definition ai_debug_communication_ignore_definition;
 extern hs_global_external ai_debug_communication_random_disabled_definition;
+extern const hs_function_definition ai_debug_communication_suppress_definition;
 extern hs_global_external ai_debug_communication_timeout_disabled_definition;
 extern hs_global_external ai_debug_communication_unit_repeat_disabled_definition;
 extern hs_global_external ai_debug_deaf_definition;
@@ -267,9 +419,56 @@ extern hs_global_external ai_debug_path_end_freeze_definition;
 extern hs_global_external ai_debug_path_flood_definition;
 extern hs_global_external ai_debug_path_maximum_radius_definition;
 extern hs_global_external ai_debug_path_start_freeze_definition;
+extern const hs_function_definition ai_debug_sound_point_set_definition;
+extern const hs_function_definition ai_debug_speak_definition;
+extern const hs_function_definition ai_debug_speak_list_definition;
+extern const hs_function_definition ai_debug_teleport_to_definition;
+extern const hs_function_definition ai_debug_vocalize_definition;
+extern const hs_function_definition ai_defend_definition;
+extern const hs_function_definition ai_definition;
+extern const hs_function_definition ai_deselect_definition;
+extern const hs_function_definition ai_detach_definition;
+extern const hs_function_definition ai_dialogue_triggers_definition;
+extern const hs_function_definition ai_disregard_definition;
+extern const hs_function_definition ai_erase_all_definition;
+extern const hs_function_definition ai_erase_definition;
+extern const hs_function_definition ai_exit_vehicle_definition;
 extern hs_global_external ai_fix_actor_variants_definition;
 extern hs_global_external ai_fix_defending_guard_firing_positions_definition;
+extern const hs_function_definition ai_follow_distance_definition;
+extern const hs_function_definition ai_follow_target_ai_definition;
+extern const hs_function_definition ai_follow_target_disable_definition;
+extern const hs_function_definition ai_follow_target_players_definition;
+extern const hs_function_definition ai_follow_target_unit_definition;
+extern const hs_function_definition ai_force_active_by_unit_definition;
+extern const hs_function_definition ai_force_active_definition;
+extern const hs_function_definition ai_free_definition;
+extern const hs_function_definition ai_free_units_definition;
 extern ai_globals_t * ai_globals;
+extern const hs_function_definition ai_go_to_vehicle_definition;
+extern const hs_function_definition ai_go_to_vehicle_override_definition;
+extern const hs_function_definition ai_going_to_vehicle_definition;
+extern const hs_function_definition ai_grenades_definition;
+extern const hs_function_definition ai_is_attacking_definition;
+extern const hs_function_definition ai_kill_definition;
+extern const hs_function_definition ai_kill_silent_definition;
+extern const hs_function_definition ai_lines_definition;
+extern const hs_function_definition ai_link_activation_definition;
+extern const hs_function_definition ai_living_count_definition;
+extern const hs_function_definition ai_living_fraction_definition;
+extern const hs_function_definition ai_look_at_object_definition;
+extern const hs_function_definition ai_magically_see_encounter_definition;
+extern const hs_function_definition ai_magically_see_players_definition;
+extern const hs_function_definition ai_magically_see_unit_definition;
+extern const hs_function_definition ai_maneuver_definition;
+extern const hs_function_definition ai_maneuver_enable_definition;
+extern const hs_function_definition ai_migrate_and_speak_definition;
+extern const hs_function_definition ai_migrate_by_unit_definition;
+extern const hs_function_definition ai_migrate_definition;
+extern const hs_function_definition ai_nonswarm_count_definition;
+extern const hs_function_definition ai_place_definition;
+extern const hs_function_definition ai_playfight_definition;
+extern const hs_function_definition ai_prefer_target_definition;
 extern hs_global_external ai_print_acknowledgement_definition;
 extern hs_global_external ai_print_allegiance_definition;
 extern hs_global_external ai_print_automatic_migration_definition;
@@ -300,6 +499,7 @@ extern hs_global_external ai_print_unfinished_paths_definition;
 extern hs_global_external ai_print_vocalizations_definition;
 extern hs_global_external ai_profile_disable_definition;
 extern hs_global_external ai_profile_random_definition;
+extern const hs_function_definition ai_reconnect_definition;
 extern hs_global_external ai_render_activation_definition;
 extern hs_global_external ai_render_active_cover_seeking_definition;
 extern hs_global_external ai_render_aiming_validity_definition;
@@ -378,6 +578,15 @@ extern hs_global_external ai_render_vehicle_avoidance_definition;
 extern hs_global_external ai_render_vehicles_enterable_definition;
 extern hs_global_external ai_render_vision_cones_definition;
 extern hs_global_external ai_render_vitality_definition;
+extern const hs_function_definition ai_renew_definition;
+extern const hs_function_definition ai_retreat_definition;
+extern const hs_function_definition ai_select_definition;
+extern const hs_function_definition ai_set_blind_definition;
+extern const hs_function_definition ai_set_current_state_definition;
+extern const hs_function_definition ai_set_deaf_definition;
+extern const hs_function_definition ai_set_respawn_definition;
+extern const hs_function_definition ai_set_return_state_definition;
+extern const hs_function_definition ai_set_team_definition;
 extern hs_global_external ai_show_actors_definition;
 extern hs_global_external ai_show_definition;
 extern hs_global_external ai_show_line_of_sight_definition;
@@ -386,6 +595,24 @@ extern hs_global_external ai_show_prop_types_definition;
 extern hs_global_external ai_show_sound_distance_definition;
 extern hs_global_external ai_show_stats_definition;
 extern hs_global_external ai_show_swarms_definition;
+extern const hs_function_definition ai_spawn_actor_definition;
+extern const hs_function_definition ai_status_definition;
+extern const hs_function_definition ai_stop_looking_definition;
+extern const hs_function_definition ai_strength_definition;
+extern const hs_function_definition ai_swarm_count_definition;
+extern const hs_function_definition ai_teleport_to_starting_location_definition;
+extern const hs_function_definition ai_teleport_to_starting_location_if_unsupported_definition;
+extern const hs_function_definition ai_timer_expire_definition;
+extern const hs_function_definition ai_timer_start_definition;
+extern const hs_function_definition ai_try_to_fight_definition;
+extern const hs_function_definition ai_try_to_fight_nothing_definition;
+extern const hs_function_definition ai_try_to_fight_player_definition;
+extern const hs_function_definition ai_vehicle_encounter_definition;
+extern const hs_function_definition ai_vehicle_enterable_actor_type_definition;
+extern const hs_function_definition ai_vehicle_enterable_actors_definition;
+extern const hs_function_definition ai_vehicle_enterable_disable_definition;
+extern const hs_function_definition ai_vehicle_enterable_distance_definition;
+extern const hs_function_definition ai_vehicle_enterable_team_definition;
 extern byte_swap_definition aiming_speed_event_data_bs_definition;
 extern byte_swap_definition aiming_speed_set_event_v1_bs_definition;
 extern unsigned char allow_client_side_weapon_projectiles;
@@ -396,17 +623,21 @@ extern float alpha_0;
 extern float alpha_1;
 extern char *alternative_directories[6];
 extern unsigned char always_filter_hud;
+extern const hs_function_definition and_definition;
 extern byte_swap_definition angle_vector_set_event_v1_bs_definition;
 extern byte_swap_definition animation_event_v1_bs_definition;
 extern byte_swap_definition animation_state_event_data_bs_definition;
 extern byte_swap_definition animation_state_set_event_v1_bs_definition;
 extern data_array *animation_threads;
 extern data_array *antenna_data;
+extern struct apDEFRAG_MNG *apDefragMng;
 extern void (*apply_funcs[23])(unit_control_data *, const animation_event_v1 *, const char **);
 extern void (*apply_funcs_0[23])(animation_playback_controller *, unit_control_data *, const animation_event_header *, const char **);
+extern const int16_t ascii_to_key_table[128];
 extern int16_t assertion_count;
 extern unsigned int attract_mode_countdown_timer;
 extern unsigned char attract_mode_immediate_start;
+extern const hs_function_definition attract_mode_start_definition;
 extern real_vector3d avoidance_directions[8];
 extern vector_avoidance_ray avoidance_rays[8][2];
 extern unsigned int ay;
@@ -415,11 +646,23 @@ extern dynamic_array banned_players;
 extern const char *base_seat_labels[6];
 extern void (*before_load_procs[1])(void);
 extern void (*before_save_procs[1])(void);
+extern const hs_function_definition begin_definition;
+extern const hs_function_definition begin_random_definition;
+extern const hs_function_definition bind_definition;
 extern object_type_definition biped_data_definition;
 extern int biped_incremental_rate;
 extern hs_global_external biped_incremental_rate_definition;
+extern const int bitmap_address_table[4];
+extern const int bitmap_address_table_0[4];
+extern const int8_t bitmap_format_bits_per_pixel_table[NUMBER_OF_BITMAP_FORMATS+1];
 extern const char *bitmap_format_string_table[19];
+extern int16_t bitmap_sharpen_negative_table[256];
 extern const char *bitmap_type_string_table[5];
+extern const uint16_t bitmap_type_table[4];
+extern const uint16_t bitmap_type_table_0[4];
+extern const uint8_t bits_needed[2048];
+extern const int blendop_table[NUMBER_OF_SHADER_FRAMEBUFFER_BLEND_FUNCTIONS+1];
+extern const real_rgb_color blip_colors[NUMBER_OF_BLIP_TYPES];
 extern int16_t blip_player_index;
 extern int blocked_message_delay;
 extern float blue;
@@ -428,19 +671,29 @@ extern float blue_1;
 extern char *blurred_permutation_names[2];
 extern unsigned char breakable_surface_effect_enabled;
 extern hs_global_external breakable_surfaces_definition;
+extern const hs_function_definition breakable_surfaces_enable_definition;
+extern const hs_function_definition breakable_surfaces_reset_definition;
 extern wchar_t build_number_string[64];
 extern build_sprite_globals_data build_sprite_globals;
 extern buildin_multiplayer_map_s builtin_multiplayer_maps[19];
 extern unsigned char button_mappings[14];
 extern const unsigned char button_mappings_0[14];
+extern cache_file_runtime_globals cache_file_globals;
 extern cache_file_globals_s cache_file_globals_0;
 extern char cache_root_directory[256];
 extern data_array *cached_object_render_states;
 extern _cached_player_profile cached_player_profile[3];
 extern _cached_variant_profile cached_variant_profile[3];
 extern float cam_ofs;
+extern const hs_function_definition camera_control_definition;
 extern short camera_mode;
 extern camera_script_globals_t camera_script_globals;
+extern const hs_function_definition camera_set_animation_definition;
+extern const hs_function_definition camera_set_dead_definition;
+extern const hs_function_definition camera_set_definition;
+extern const hs_function_definition camera_set_first_person_definition;
+extern const hs_function_definition camera_set_relative_definition;
+extern const hs_function_definition camera_time_definition;
 extern real_point2d center_point;
 extern float cf_DecalSlopeZBiasValue;
 extern float cf_DecalZBiasValue;
@@ -449,9 +702,17 @@ extern unsigned int cf_LinearTextureAddressingSun;
 extern unsigned int cf_LinearTextureAddressingZoom;
 extern unsigned int cf_MinMaxBlendOpIsBroken;
 extern unsigned int cf_SafeMode;
+extern float cf_TransparentDecalSlopeZBiasValue;
+extern float cf_TransparentDecalZBiasValue;
 extern unsigned int cf_UseAlternateConvolveMask;
+extern const hs_function_definition change_team_definition;
 extern void (*channel_set_properties)(short, platform_sound_channel_properties *, unsigned char, short);
 extern cheat_globals cheat;
+extern const hs_function_definition cheat_active_camouflage_definition;
+extern const hs_function_definition cheat_active_camouflage_local_player_definition;
+extern const hs_function_definition cheat_all_powerups_definition;
+extern const hs_function_definition cheat_all_vehicles_definition;
+extern const hs_function_definition cheat_all_weapons_definition;
 extern hs_global_external cheat_bottomless_clip_definition;
 extern hs_global_external cheat_bump_possession_definition;
 extern hs_global_external cheat_controller_definition;
@@ -461,13 +722,36 @@ extern hs_global_external cheat_jetpack_definition;
 extern hs_global_external cheat_medusa_definition;
 extern hs_global_external cheat_omnipotent_definition;
 extern hs_global_external cheat_reflexive_damage_effects_definition;
+extern const hs_function_definition cheat_spawn_warthog_definition;
 extern hs_global_external cheat_super_jump_definition;
+extern const hs_function_definition cheat_teleport_to_camera_definition;
+extern const hs_function_definition cheats_load_definition;
+extern unsigned char checking_for_updates_closing;
+extern const hs_function_definition checkpoint_load_definition;
+extern const hs_function_definition checkpoint_save_definition;
 extern chicago_pixel_shader chicago_shader_table[1014];
 extern int chicago_shader_table_size;
+extern const hs_function_definition cinematic_abort_definition;
 extern cinematic_globals_definition *cinematic_globals;
 extern struct cinematic_screen_effect_globals *cinematic_screen_effect_globals;
+extern const hs_function_definition cinematic_screen_effect_set_convolution_definition;
+extern const hs_function_definition cinematic_screen_effect_set_filter_definition;
+extern const hs_function_definition cinematic_screen_effect_set_filter_desaturation_tint_definition;
+extern const hs_function_definition cinematic_screen_effect_set_video_definition;
+extern const hs_function_definition cinematic_screen_effect_start_definition;
+extern const hs_function_definition cinematic_screen_effect_stop_definition;
+extern const hs_function_definition cinematic_set_near_clip_distance_definition;
+extern const hs_function_definition cinematic_set_title_definition;
+extern const hs_function_definition cinematic_set_title_delayed_definition;
+extern const hs_function_definition cinematic_show_letterbox_definition;
+extern const hs_function_definition cinematic_skip_start_internal_definition;
+extern const hs_function_definition cinematic_skip_stop_internal_definition;
+extern const hs_function_definition cinematic_start_definition;
+extern const hs_function_definition cinematic_stop_definition;
+extern const hs_function_definition cinematic_suppress_bsp_object_creation_definition;
 extern int client_log_destination;
 extern hs_global_external client_log_destination_definition;
+extern const hs_function_definition cls_definition;
 extern cluster_partition collideable_object_cluster_partition;
 extern hs_global_external collision_debug_definition;
 extern hs_global_external collision_debug_features_definition;
@@ -510,6 +794,16 @@ extern hs_global_external collision_log_render_definition;
 extern hs_global_external collision_log_time_definition;
 extern hs_global_external collision_log_totals_only_definition;
 extern unsigned int combined_pas[16];
+extern const float communication_notification_delays[NUMBER_OF_AI_COMMUNICATION_PRIORITIES];
+extern const float communication_play_delays[NUMBER_OF_COMMUNICATION_PROTAGONIST_TYPES];
+extern const int16_t communication_player_speaking_priorities[NUMBER_OF_AI_COMMUNICATION_PRIORITIES];
+extern const int16_t communication_protagonist_default_look_priorities[NUMBER_OF_AI_COMMUNICATION_PRIORITIES];
+extern const int16_t communication_recipient_default_look_priorities[NUMBER_OF_AI_COMMUNICATION_PRIORITIES];
+extern const int16_t communication_speech_priorities[NUMBER_OF_AI_COMMUNICATION_PRIORITIES];
+extern const float communication_timer_tolerances[NUMBER_OF_AI_COMMUNICATION_PRIORITIES][2][5];
+extern const hs_function_definition cond_definition;
+extern const hs_function_definition config_one_control_definition;
+extern const hs_function_definition connect_definition;
 extern real_argb_color console_color;
 extern unsigned char console_dump_to_file;
 extern hs_global_external console_dump_to_file_definition;
@@ -529,6 +823,14 @@ extern unsigned char controls_swapped;
 extern hs_global_external controls_swapped_definition;
 extern data_array * conversation_data;
 extern unsigned char coop_mode_selected;
+extern const hs_function_definition core_load_at_startup_definition;
+extern const hs_function_definition core_load_definition;
+extern const hs_function_definition core_load_name_at_startup_definition;
+extern const hs_function_definition core_load_name_definition;
+extern const hs_function_definition core_save_definition;
+extern const hs_function_definition core_save_name_definition;
+extern const hs_function_definition crash_definition;
+extern const uint32_t crc_table_0[8][256];
 extern unsigned int crc_table_1[256];
 extern uint8_t crc_table_built;
 extern int credits_endgame_mode;
@@ -539,9 +841,19 @@ extern struct game_engine ctf_engine;
 extern ctf_globals_type ctf_globals;
 extern ctf_globals_type ctf_globals_baseline;
 extern animation_playback current_playback;
+extern const hs_function_definition custom_animation_definition;
+extern const hs_function_definition custom_animation_list_definition;
+extern const hs_function_definition damage_new_definition;
+extern const hs_function_definition damage_object_definition;
+extern const char *const data_direction_strings[2];
 extern const char *data_file_dir;
 extern const char *data_file_dir_default;
 extern int data_file_reorder_on_write;
+extern const char *const data_type_strings[2];
+extern const hs_function_definition deactivate_nav_point_flag_definition;
+extern const hs_function_definition deactivate_nav_point_object_definition;
+extern const hs_function_definition deactivate_team_nav_point_flag_definition;
+extern const hs_function_definition deactivate_team_nav_point_object_definition;
 extern int debounce_f11;
 extern int debounce_f12;
 extern hs_global_external debug_bink_definition;
@@ -551,6 +863,8 @@ extern hs_global_external debug_biped_skip_collision_definition;
 extern hs_global_external debug_biped_skip_update_definition;
 extern hs_global_external debug_bsp_definition;
 extern hs_global_external debug_camera_definition;
+extern const hs_function_definition debug_camera_load_definition;
+extern const hs_function_definition debug_camera_save_definition;
 extern hs_global_external debug_collision_skip_objects_definition;
 extern hs_global_external debug_collision_skip_vectors_definition;
 extern hs_global_external debug_damage_definition;
@@ -580,6 +894,9 @@ extern hs_global_external debug_lights_definition;
 extern unsigned char debug_looping_sound;
 extern hs_global_external debug_looping_sound_definition;
 extern hs_global_external debug_material_effects_definition;
+extern const hs_function_definition debug_memory_by_file_definition;
+extern const hs_function_definition debug_memory_definition;
+extern const hs_function_definition debug_memory_for_file_definition;
 extern unsigned char debug_motion_sensor_draw_all_units;
 extern hs_global_external debug_motion_sensor_draw_all_units_definition;
 extern unsigned char debug_no_drawing;
@@ -650,9 +967,13 @@ extern hs_global_external debug_sound_definition;
 extern hs_global_external debug_sound_environment_definition;
 extern unsigned char debug_sound_hardware;
 extern hs_global_external debug_sound_hardware_definition;
+extern const hs_function_definition debug_sounds_distances_definition;
+extern const hs_function_definition debug_sounds_enable_definition;
+extern const hs_function_definition debug_sounds_wet_definition;
 extern unsigned char debug_sprites;
 extern hs_global_external debug_sprites_definition;
 extern hs_global_external debug_structure_definition;
+extern const hs_function_definition debug_tags_definition;
 extern hs_global_external debug_texture_cache_definition;
 extern unsigned char debug_trigger_volumes;
 extern hs_global_external debug_trigger_volumes_definition;
@@ -668,22 +989,40 @@ extern simple_decompressor_definition decompress_globals;
 extern damage_material default_damage_material;
 extern const convex_polygon2d default_face;
 extern float default_function_values[4];
+extern const render_lighting default_object_lighting;
 extern projectile_material_response_definition default_projectile_material_response;
-extern real_rgb_color default_render_model_change_colors;               /* @0x844A5928 (r22/change_colors NULL default; ex "function_colors") */
+extern real_rgb_color default_render_model_change_colors;
 extern render_model_effect default_render_model_effect;
-extern char default_render_model_region_permutation_indices[32];        /* @0x844A5908 (r20/region_permutation_indices NULL default; ex "change_color") */
+extern char default_render_model_region_permutation_indices[32];
+extern sound_environment default_sound_environment;
 extern sound_preferences default_sound_preferences;
 extern const wchar_t *default_string;
 extern game_variant * (*default_variant_building_functions[])(game_variant *);
 extern int delete_profile_index;
+extern const hs_function_definition delete_save_game_files_definition;
 extern char delete_savegame_filename[64];
 extern char *demo_scenario_0;
 extern real_plane3d depths_of_hell;
+extern const unsigned int destblend_table[NUMBER_OF_SHADER_FRAMEBUFFER_BLEND_FUNCTIONS+1];
 extern struct detail_object_global_runtime_data *detail_object_global_runtime_data;
 extern hs_global_external developer_mode_definition;
+extern object_type_definition device_data_definition;
+extern const hs_function_definition device_get_position_definition;
+extern const hs_function_definition device_get_power_definition;
+extern const hs_function_definition device_group_change_only_once_more_set_definition;
+extern const hs_function_definition device_group_get_definition;
+extern const hs_function_definition device_group_set_definition;
+extern const hs_function_definition device_group_set_immediate_definition;
 extern data_array * device_groups_data;
 extern unsigned char device_is_lost;
+extern const hs_function_definition device_one_sided_set_definition;
+extern const hs_function_definition device_operates_automatically_set_definition;
+extern const hs_function_definition device_set_never_appears_locked_definition;
+extern const hs_function_definition device_set_position_definition;
+extern const hs_function_definition device_set_position_immediate_definition;
+extern const hs_function_definition device_set_power_definition;
 extern struct device_usage_info_s device_usage_info;
+extern int16_t dialogue_vocalization_lookup[NUMBER_OF_VOCALIZATION_TYPES];
 extern point2d dimensions;
 extern point2d dimensions_0;
 extern point2d dimensions_1;
@@ -692,16 +1031,21 @@ extern unsigned char *director_camera_scripted;
 extern uint8_t director_camera_switch_fast;
 extern hs_global_external director_camera_switch_fast_definition;
 extern hs_global_external director_camera_switching_definition;
+extern const int16_t director_game_camera_modes[3];
 extern director_globals_t director_globals;
+extern const int16_t director_script_camera_record_camera_modes[4];
+extern const hs_function_definition disconnect_definition;
 extern void (*disconnect_from_structure_bsp_procs[10])(void);
 extern unsigned char display_framerate;
 extern hs_global_external display_framerate_definition;
 extern wchar_t display_name[128];
 extern unsigned char display_precache_progress;
 extern hs_global_external display_precache_progress_definition;
+extern const hs_function_definition display_scenario_help_definition;
 extern unsigned char display_vblank_deltas;
 extern hs_global_external display_vblank_deltas_definition;
 extern advertised_game_data *displayed_servers[9];
+extern const hs_function_definition divide_definition;
 extern draw_character_software_globals_t draw_character_software_globals;
 extern unsigned char dropped_samples[60];
 extern int dump_psh_to_binary;
@@ -710,6 +1054,7 @@ extern float duration;
 extern float duration_0;
 extern float duration_1;
 extern rasterizer_dx9_shader *dxeffect_shader;
+extern dynamic_triangles_struct dynamic_triangles;
 extern dynamic_vertices_struct dynamic_vertices;
 extern flying_camera *editor_camera;
 extern editor_camera_focus_definition editor_camera_focus;
@@ -717,15 +1062,24 @@ extern render_globals *editor_custom_render;
 extern data_array * effect_data;
 extern data_array *effect_location_data;
 extern const char *effect_marker_names[];
+extern const hs_function_definition effect_new_definition;
+extern const hs_function_definition effect_new_on_object_marker_definition;
 extern unsigned char effects_corpse_nonviolent;
 extern hs_global_external effects_corpse_nonviolent_definition;
+extern const char empty_string[1];
+extern const wchar_t empty_wide_string[1];
+extern const hs_function_definition enable_hud_help_flash_definition;
 extern data_array * encounter_data;
 extern short enumeration_maximum_count;
 extern real_matrix4x3 environment_shadow_projection_matrix;
+extern const char eol_characters[2];
+extern const hs_function_definition equal_definition;
 extern object_type_definition equipment_data_definition;
 extern int equipment_incremental_rate;
 extern hs_global_external equipment_incremental_rate_definition;
 extern error_global_data error_globals;
+extern const hs_function_definition error_overflow_suppression_definition;
+extern wchar_t error_string[256];
 extern hs_global_external error_suppress_all_definition;
 extern uint8_t (*event_handler_function_list[107])(widget_instance *widget, event_record *event, uint8_t *widget_deleted);
 extern _event_manager_globals event_manager_globals;
@@ -736,18 +1090,110 @@ extern hs_global_external f2_definition;
 extern hs_global_external f3_definition;
 extern hs_global_external f4_definition;
 extern hs_global_external f5_definition;
+extern const int16_t face_mapping_inverse_table[6];
 extern int fade_function;
 extern int fade_function_0;
 extern int fade_function_1;
+extern const hs_function_definition fade_in_definition;
+extern const hs_function_definition fade_out_definition;
 extern char faked_xbox_command_line[8];
+extern const hs_function_definition fast_setup_network_server_definition;
 extern collision_feature_list features;
 extern int fg_frame_height;
 extern int fg_frame_width;
 extern fg_graph fg_graphs[1];
+extern _field_properties_definition field_properties_angular_velocity_definition;
+extern _field_type_smart_vector_parameters field_properties_angular_velocity_parameters;
+extern _field_properties_definition field_properties_boolean_definition;
+extern _field_properties_definition field_properties_control_flags_definition;
+extern _field_type_flags_parameters field_properties_control_flags_parameters;
+extern _field_properties_definition field_properties_ctf_score_array_definition;
+extern _field_type_array_parameters field_properties_ctf_score_array_parameters;
+extern _field_properties_definition field_properties_damage_data_flags_definition;
+extern _field_type_flags_parameters field_properties_damage_data_flags_parameters;
+extern _field_properties_definition field_properties_definition_index_definition;
+extern _field_type_integer_parameters field_properties_definition_index_parameters;
+extern _field_properties_definition field_properties_digital_throttle_definition;
+extern _field_properties_definition field_properties_fixed_width_1bit_definition;
+extern _field_type_fixed_width_parameters field_properties_fixed_width_1bit_parameters;
+extern _field_properties_definition field_properties_fixed_width_3bits_definition;
+extern _field_type_fixed_width_parameters field_properties_fixed_width_3bits_parameters;
+extern _field_properties_definition field_properties_fixed_width_6bits_definition;
+extern _field_type_fixed_width_parameters field_properties_fixed_width_6bits_parameters;
+extern _field_properties_definition field_properties_fixed_width_grenade_index_definition;
+extern _field_properties_definition field_properties_fixed_width_normal_16bit_definition;
+extern _field_type_fixed_width_normal_vector_parameters field_properties_fixed_width_normal_16bit_parameters;
+extern _field_properties_definition field_properties_fixed_width_normal_8bit_definition;
+extern _field_type_fixed_width_normal_vector_parameters field_properties_fixed_width_normal_8bit_parameters;
+extern _field_properties_definition field_properties_fixed_width_weapon_index_definition;
+extern _field_properties_definition field_properties_game_engine_variant_definition;
+extern _field_type_array_parameters field_properties_game_engine_variant_parameters;
+extern _field_properties_definition field_properties_game_variant_definition;
+extern _field_properties_definition field_properties_game_variant_flags_definition;
+extern _field_type_flags_parameters field_properties_game_variant_flags_parameters;
+extern _field_properties_definition field_properties_game_variant_human_readable_description_definition;
+extern _field_type_wide_string_parameters field_properties_game_variant_human_readable_description_parameters;
+extern _field_type_structure_parameters field_properties_game_variant_parameters;
+extern _field_properties_definition field_properties_grenade_counts_definition;
+extern _field_properties_definition field_properties_integer_large_definition;
+extern _field_type_integer_parameters field_properties_integer_large_parameters;
+extern _field_properties_definition field_properties_integer_medium_definition;
+extern _field_type_integer_parameters field_properties_integer_medium_parameters;
+extern _field_properties_definition field_properties_integer_small_definition;
+extern _field_type_integer_parameters field_properties_integer_small_parameters;
+extern _field_properties_definition field_properties_king_score_array_definition;
+extern _field_type_array_parameters field_properties_king_score_array_parameters;
+extern _field_properties_definition field_properties_local_player_update_sequence_number_definition;
+extern _field_type_integer_parameters field_properties_local_player_update_sequence_number_parameters;
+extern _field_properties_definition field_properties_locality_reference_position_definition;
+extern _field_properties_definition field_properties_map_name_definition;
+extern _field_type_ascii_string_parameters field_properties_map_name_parameters;
+extern _field_properties_definition field_properties_network_game_name_definition;
+extern _field_type_wide_string_parameters field_properties_network_game_name_parameters;
+extern _field_properties_definition field_properties_network_game_players_definition;
+extern _field_type_array_parameters field_properties_network_game_players_parameters;
+extern _field_properties_definition field_properties_network_map_definition;
+extern _field_type_structure_parameters field_properties_network_map_parameters;
+extern _field_properties_definition field_properties_network_player_definition;
+extern _field_properties_definition field_properties_network_player_name_definition;
+extern _field_type_wide_string_parameters field_properties_network_player_name_parameters;
+extern _field_type_structure_parameters field_properties_network_player_parameters;
+extern _field_properties_definition field_properties_object_change_colors_definition;
+extern _field_type_array_parameters field_properties_object_change_colors_parameters;
 extern _field_properties_definition field_properties_object_index_definition;
 extern _field_type_translated_index_parameters field_properties_object_index_parameters;
+extern _field_properties_definition field_properties_oddball_score_array_definition;
+extern _field_type_array_parameters field_properties_oddball_score_array_parameters;
+extern _field_properties_definition field_properties_parameters_protocol_array_definition;
+extern _field_type_array_parameters field_properties_parameters_protocol_array_parameters;
 extern _field_properties_definition field_properties_player_index_definition;
 extern _field_type_translated_index_parameters field_properties_player_index_parameters;
+extern _field_properties_definition field_properties_point3d_definition;
+extern _field_type_point_parameters field_properties_point3d_parameters;
+extern _field_properties_definition field_properties_race_score_array_definition;
+extern _field_type_array_parameters field_properties_race_score_array_parameters;
+extern _field_properties_definition field_properties_real_definition;
+extern _field_properties_definition field_properties_remote_player_action_update_baseline_id_definition;
+extern _field_type_integer_parameters field_properties_remote_player_action_update_baseline_id_parameters;
+extern _field_properties_definition field_properties_remote_player_update_sequence_number_definition;
+extern _field_type_integer_parameters field_properties_remote_player_update_sequence_number_parameters;
+extern _field_properties_definition field_properties_slayer_score_array_definition;
+extern _field_type_array_parameters field_properties_slayer_score_array_parameters;
+extern _field_properties_definition field_properties_time_definition;
+extern _field_properties_definition field_properties_translational_velocity_definition;
+extern _field_type_smart_vector_parameters field_properties_translational_velocity_parameters;
+extern _field_properties_definition field_properties_universal_variant_definition;
+extern _field_properties_definition field_properties_universal_variant_flags_definition;
+extern _field_type_flags_parameters field_properties_universal_variant_flags_parameters;
+extern _field_type_structure_parameters field_properties_universal_variant_parameters;
+extern _field_properties_definition field_properties_update_id_definition;
+extern _field_type_integer_parameters field_properties_update_id_parameters;
+extern _field_properties_definition field_properties_update_tick_count_definition;
+extern _field_type_integer_parameters field_properties_update_tick_count_parameters;
+extern _field_properties_definition field_properties_vector2d_definition;
+extern _field_type_vector_parameters field_properties_vector2d_parameters;
+extern _field_properties_definition field_properties_vector3d_definition;
+extern _field_type_vector_parameters field_properties_vector3d_parameters;
 extern char file_location_volume_names[3][256];
 extern int16_t filter_coefficients[10];
 extern float final_offset;
@@ -764,6 +1210,7 @@ extern hs_global_external force_all_player_views_to_default_player_definition;
 extern float force_alpha;
 extern uint8_t force_alpha_blend;
 extern float forward_scale;
+extern const float fov[2];
 extern int16_t fps_sample_count;
 extern light_volume_frame frame_storage;
 extern hs_global_external framerate_lock_definition;
@@ -771,6 +1218,7 @@ extern hs_global_external framerate_throttle_definition;
 extern hs_global_external freeze_flying_camera_definition;
 extern float fudge_offset;
 extern unsigned char fudge_vector;
+extern const real_vector3d fudge_vectors[27];
 extern int gConnectionTimeoutMilliseconds;
 extern unsigned char gForceServerToStop;
 extern uint8_t gGameEngineRunningOriginalMap;
@@ -808,28 +1256,61 @@ extern uint8_t g_protocol_changeover_message_flag;
 extern unsigned char g_running_simulated_update;
 extern super_remote_players_action_update g_stateless_super_remote_players_action_udpate;
 extern wchar_t g_tracked_remote_player_position_updates[1024];
+extern const hs_function_definition game_all_quiet_definition;
 extern struct_game_allegiance_globals *game_allegiance_globals;
 extern void (*game_data_input_function_list[0x2B])(widget_instance *widget);
+extern const hs_function_definition game_difficulty_get_definition;
+extern const hs_function_definition game_difficulty_get_real_definition;
+extern const hs_function_definition game_difficulty_set_definition;
+extern struct game_engine *game_engine;
 extern game_engine_globals_t game_engine_globals;
 extern game_engine_playlist_s game_engine_playlist;
+extern int game_engine_queued_sound_count;
 extern struct game_engine *game_engines[8];
 extern struct_game_globals * game_globals;
 extern unsigned char game_initial_loading;
+extern const hs_function_definition game_is_cooperative_definition;
 extern data_array *game_looping_sound_data;
+extern const hs_function_definition game_lost_definition;
+extern const hs_function_definition game_revert_definition;
+extern const hs_function_definition game_reverted_definition;
+extern const hs_function_definition game_safe_to_save_definition;
+extern const hs_function_definition game_safe_to_speak_definition;
+extern const hs_function_definition game_save_cancel_definition;
+extern const hs_function_definition game_save_definition;
+extern const hs_function_definition game_save_no_timeout_definition;
+extern const hs_function_definition game_save_totally_unsafe_definition;
+extern const hs_function_definition game_saving_definition;
+extern const hs_function_definition game_skip_ticks_definition;
 extern game_sound_global_data *game_sound_globals;
+extern const hs_function_definition game_speed_definition;
 extern struct game_state_globals game_state_globals;
 extern game_statistics_globals_t game_statistics_globals;
+extern const hs_function_definition game_time_definition;
 extern game_time_globals_struct * game_time_globals;
 extern struct game_time_statistics game_time_statistics;
+extern unsigned char game_time_statistics_paused;
+extern unsigned char game_time_statistics_recording;
+extern const hs_function_definition game_variant_definition;
 extern game_variant game_variant_global;
+extern const hs_function_definition game_won_definition;
+extern const hs_function_definition garbage_collect_now_definition;
 extern object_type_definition garbage_data_definition;
+extern const int16_t geosphere_primitive_triangles[8][3];
+extern const real_point3d geosphere_primitive_vertices[6];
+extern const hs_function_definition get_pitch_rate_definition;
+extern const hs_function_definition get_yaw_rate_definition;
 extern int globalQuit;
+extern const int16_t global_acknowledgement_speeds[NUMBER_OF_ACTOR_KNOWLEDGE_TYPES][number_of_actor_perception_types];
+extern action_specification global_action_functions[14];
 extern const char *global_actor_mode_names[4];
 extern float global_air_density;
+extern float global_air_mass_over_radius_cubed;
 extern float global_atmospheric_fog_density;
 extern data_file_s global_bitmap_data_file;
 extern bsp3d *global_bsp3d;
 extern collision_bsp * global_collision_bsp;
+extern const int16_t global_combat_status_table[number_of_actor_target_types];
 extern int16_t global_communication_table_indices[57];
 extern hs_global_external global_connection_dont_timeout_definition;
 extern float global_convex_hull3d_delta;
@@ -839,16 +1320,20 @@ extern Direct3D *global_d3d;
 extern _D3DCAPS9 global_d3d_caps;
 extern D3DDevice * global_d3d_device;
 extern _D3DPRESENT_PARAMETERS_ global_d3d_present_parameters;
-extern const char *global_data_packet_groups_error_string; /* const: only ever holds string literals or 0 2026-07-31 (C4090) */
+extern const char *global_data_packet_groups_error_string;
 extern int *global_debug_key_down;
 extern debug_key global_debug_key_list[12];
 extern data_array * global_decal_data;
 extern real_rgb_color global_default_animation_colors[4];
 extern float global_default_animation_values[4];
+extern const uint16_t global_default_states[12];
 extern _D3DDEVTYPE global_devicetype;
 extern int16_t global_dialogue_event_count;
 extern dialogue_event_status *global_dialogue_events;
+extern const dialogue_usage global_dialogue_table[105];
+extern int16_t global_difficulty_friend_settings[NUMBER_OF_GAME_DIFFICULTY_VALUES];
 extern int16_t global_difficulty_level;
+extern dive_animation_possibility global_dive_animation_table[7];
 extern const real_vector3d *global_down3d;
 extern real_rgb_color global_effect_ambient;
 extern _D3DXMACRO global_effect_macros[3];
@@ -869,8 +1354,9 @@ extern const real_vector2d *global_left2d;
 extern const real_vector3d *global_left3d;
 extern bitmap_data *global_lightmap;
 extern unsigned int global_local_random_seed;
-extern const char *global_material_type_strings[];
+extern const char *global_material_type_strings[NUMBER_OF_MATERIAL_TYPES];
 extern int global_memory_index;
+extern const int16_t global_movement_animation_states[5];
 extern network_game_client *global_network_game_client;
 extern network_game_server *global_network_game_server;
 extern const real_rectangle2d *global_null_rectangle2d;
@@ -880,13 +1366,21 @@ extern int global_object_marker;
 extern int global_object_scenario_index;
 extern const real_point3d *global_origin3d;
 extern float global_physics_collision_depth;
+extern const int16_t global_post_combat_translation_table[NUMBER_OF_POST_COMBAT_BEHAVIOR_TYPES];
+extern post_evaluator_table_entry global_post_evaluator_table[6];
+extern pre_evaluator_table_entry global_pre_evaluator_table[7];
+extern const int16_t global_projection3d_mappings[3][2][2];
 extern unsigned int global_random_seed;
 extern game_globals_rasterizer_data * global_rasterizer_data;
+extern const real_argb_color *global_real_argb_aqua;
 extern const real_argb_color *global_real_argb_black;
 extern const real_argb_color *global_real_argb_blue;
+extern const real_argb_color *global_real_argb_cyan;
 extern const real_argb_color *global_real_argb_darkgreen;
 extern const real_argb_color *global_real_argb_green;
+extern const real_argb_color *global_real_argb_grey;
 extern const real_argb_color *global_real_argb_lightblue;
+extern const real_argb_color *global_real_argb_magenta;
 extern const real_argb_color *global_real_argb_orange;
 extern const real_argb_color *global_real_argb_pink;
 extern const real_argb_color *global_real_argb_purple;
@@ -895,27 +1389,45 @@ extern const real_argb_color *global_real_argb_salmon;
 extern const real_argb_color *global_real_argb_violet;
 extern const real_argb_color *global_real_argb_white;
 extern const real_argb_color *global_real_argb_yellow;
+extern const real_rgb_color *global_real_rgb_aqua;
 extern const real_rgb_color *global_real_rgb_black;
 extern const real_rgb_color *global_real_rgb_blue;
+extern const real_rgb_color *global_real_rgb_cyan;
+extern const real_rgb_color *global_real_rgb_darkgreen;
 extern const real_rgb_color *global_real_rgb_green;
 extern const real_rgb_color *global_real_rgb_grey;
+extern const real_rgb_color *global_real_rgb_lightblue;
+extern const real_rgb_color *global_real_rgb_magenta;
+extern const real_rgb_color *global_real_rgb_orange;
+extern const real_rgb_color *global_real_rgb_pink;
+extern const real_rgb_color *global_real_rgb_purple;
 extern const real_rgb_color *global_real_rgb_red;
+extern const real_rgb_color *global_real_rgb_salmon;
+extern const real_rgb_color *global_real_rgb_violet;
 extern const real_rgb_color *global_real_rgb_white;
+extern const real_rgb_color *global_real_rgb_yellow;
 extern rasterizer_render_target global_render_targets[10];
 extern int16_t global_reply_event_count;
 extern dialogue_event_status *global_reply_events;
+extern const reply_usage global_reply_table[46];
 extern const real_vector3d *global_right3d;
 extern saved_film global_saved_film;
 extern scenario * global_scenario;
 extern int global_scenario_index;
-extern int global_screenshot_count;
+extern int16_t global_screenshot_count;
 extern short global_screenshot_size;
+extern const int16_t global_secondary_look_priorities[28];
+extern const float global_secondary_look_times[14];
 extern simple_decompressor_definition *global_self;
 extern shader_effect global_shader_effect_additive;
 extern shader_effect global_shader_effect_alpha_blended;
 extern unsigned int global_shadow_color;
 extern data_file_s global_sound_data_file;
+extern bitmap_data *global_specular_lightmap;
+extern int16_t global_speech_override_priorities[NUMBER_OF_UNIT_SPEECH_PRIORITIES];
+extern float global_speech_queue_times[NUMBER_OF_UNIT_SPEECH_PRIORITIES];
 extern play_stage global_stage;
+extern int16_t global_state_move_position_orders[12];
 extern structure_bsp * global_structure_bsp;
 extern short global_structure_bsp_index;
 extern cache_file_tag_instance * global_tag_instances;
@@ -941,6 +1453,8 @@ extern float green;
 extern float green_0;
 extern float green_1;
 extern int16_t group_index;
+extern const hs_function_definition gt_definition;
+extern const hs_function_definition gte_definition;
 extern unsigned int hFlashDarken;
 extern unsigned int hFlashInvert;
 extern unsigned int hFlashLighten;
@@ -963,6 +1477,8 @@ extern unsigned int hVideoOn;
 extern HALO_SOUND_SYSTEM *haloSoundSystem;
 extern int halo_is_skip_private;
 extern int halo_use_white_tex;
+extern const hs_function_definition hammer_begin_definition;
+extern const hs_function_definition hammer_stop_definition;
 extern hardware_character_cache_struct hardware_character_cache;
 extern int hcex_2x_rounds_per_shot;
 extern int hcex_ai_drop_wpn_half_ammo;
@@ -1026,45 +1542,94 @@ extern int hcex_screen_width;
 extern int hcex_spawning_player;
 extern int hcex_switch_cam_mode;
 extern int hcex_unit_drop_grenade_on_melee;
+extern const hs_function_definition help_definition;
 extern hs_compile_globals_t hs_compile_globals;
+extern int16_t hs_console_flags_to_test;
 extern unsigned char hs_console_mode;
+extern const int16_t hs_external_global_count;
 extern hs_global_external *hs_external_globals[482];
 extern const hs_function_definition *hs_function_table[471];
 extern data_array *hs_global_data;
 extern unsigned char hs_model_animation_compression_enabled;
+extern const int16_t hs_object_type_masks[number_of_hs_object_types];
+extern hs_runtime_globals_t hs_runtime_globals;
 extern const char *hs_script_type_names[5];
 extern data_array * hs_syntax_data;
 extern unsigned char hs_syntax_data_allocated;
 extern data_array * hs_thread_data;
 extern void (*hs_token_enumerators[18])(void);
-extern const char **hs_tokens_enumerate_results;    /* enumeration state: results array (dword_8445F6A4; was int-holding-pointer, x64 hazard) */
-extern const char *hs_tokens_enumerate_substring;   /* enumeration state: search substring (dword_8445F698; was int-holding-pointer, x64 hazard) */
+extern int16_t hs_tokens_enumerate_result_count;
+extern const char **hs_tokens_enumerate_results;
+extern const char *hs_tokens_enumerate_substring;
+extern const int16_t hs_type_ai_command_list_default;
+extern const unsigned char hs_type_boolean_default;
+extern const int16_t hs_type_conversation_default;
+extern const int16_t hs_type_cutscene_camera_point_default;
+extern const int16_t hs_type_cutscene_flag_default;
+extern const int16_t hs_type_cutscene_recording_default;
+extern const int16_t hs_type_cutscene_title_default;
+extern const int16_t hs_type_device_group_default;
+extern const int16_t hs_type_enum_actor_type_default;
+extern const int16_t hs_type_enum_ai_default_state_default;
+extern const int16_t hs_type_enum_game_difficulty_default;
+extern const int16_t hs_type_enum_hud_corner_default;
+extern const int16_t hs_type_enum_team_default;
+extern const int16_t hs_type_hud_message_default;
 extern void (*hs_type_inspectors[49])(int16_t value_type, int value, char *buffer);
 extern const char *hs_type_names[49];
+extern const int16_t hs_type_navpoint_default;
+extern const int16_t hs_type_object_name_default;
+extern const int16_t hs_type_script_default;
+extern const int16_t hs_type_short_integer_default;
+extern const int16_t hs_type_sizes[number_of_hs_node_types];
+extern const int16_t hs_type_starting_profile_default;
 extern const char *hs_type_string_default;
+extern const int16_t hs_type_trigger_volume_default;
+extern const hs_function_definition hud_blink_health_definition;
+extern const hs_function_definition hud_blink_motion_sensor_definition;
+extern const hs_function_definition hud_blink_shield_definition;
 extern int hud_calculate_point_no_safearea_fit;
+extern const hs_function_definition hud_clear_messages_definition;
 extern hs_global_external hud_filter_definition;
+extern const hs_function_definition hud_get_timer_ticks_definition;
 extern hud_globals_definition * hud_globals;
+extern const hs_function_definition hud_help_flash_restart_definition;
 extern hud_messaging_globals_definition * hud_messaging_globals;
 extern hud_messaging_parameters_definition *hud_msg_def;
 extern hud_scripted_globals_definition *hud_scripted_globals;
+extern const hs_function_definition hud_set_help_text_definition;
+extern const hs_function_definition hud_set_objective_text_definition;
+extern const hs_function_definition hud_set_timer_position_definition;
+extern const hs_function_definition hud_set_timer_time_definition;
+extern const hs_function_definition hud_set_timer_warning_time_definition;
+extern const hs_function_definition hud_show_crosshair_definition;
+extern const hs_function_definition hud_show_health_definition;
+extern const hs_function_definition hud_show_motion_sensor_definition;
+extern const hs_function_definition hud_show_shield_definition;
 extern const unsigned char icon_is_special[18];
 extern const wchar_t *icon_names[40];
+extern const hs_function_definition if_definition;
 extern unsigned int ignore_game_input_time;
-extern const char *ignore_maps[14];
+extern const char *ignore_maps[13];
 extern transparent_geometry_group immediate_transparent_geometry_group;
 extern uint8_t in_error;
 extern unsigned int index;
+extern const uint8_t indexed_controller_bitmaps[2][3];
 extern unsigned char initialized_0;
 extern _input_abstraction_globals input_abstraction_globals;
+extern const hs_function_definition input_find_default_definition;
 extern input_globals_xbox input_globals;
+extern const hs_function_definition inspect_definition;
 extern const char *invalid_keys;
 extern unsigned char is_scripted;
+extern object_type_definition item_data_definition;
 extern struct game_engine king_engine;
+extern int16_t king_engine_hill_count;
 extern short king_engine_hills[64];
 extern king_globals_type king_globals;
 extern king_globals_type king_globals_baseline;
 extern short last_attract_movie;
+extern int last_damaged_object_index;
 extern int last_decal_index_queried_by_lruv_cache;
 extern unsigned int last_dpad_down[4];
 extern unsigned int last_dpad_left[4];
@@ -1085,9 +1650,15 @@ extern unsigned int left_analog_stick_timer[4];
 extern cluster_partition light_cluster_partition;
 extern data_array * light_data;
 extern object_type_definition light_fixture_data_definition;
+extern light_volume_globals_type light_volume_globals;
 extern render_lighting lighting_storage;
+extern const real_vector3d lightmap_sample_raycast_down;
+extern const real_vector3d lightmap_sample_raycast_sideways[4];
+extern lightning_globals_type lightning_globals;
 extern void *lights_game_globals;
 extern lights_globals_t lights_globals;
+extern const hs_function_definition list_count_definition;
+extern const hs_function_definition list_get_definition;
 extern unsigned int loading_screen_close_time_ms;
 extern wchar_t loading_screen_connect_ip[32];
 extern wchar_t loading_screen_map[64];
@@ -1135,24 +1706,93 @@ extern uint8_t local_sky_flag;
 extern lruv_cache *local_vertex_cache;
 extern uint8_t log_server_player_update_history;
 extern hs_global_external log_server_player_update_history_definition;
+extern int long_bs_codes[];
+extern byte_swap_definition long_bs_definition;
 extern data_array *looping_sound_data;
 extern unsigned char loud_dialog_hack;
 extern hs_global_external loud_dialog_hack_definition;
+extern const hs_function_definition lt_definition;
+extern const hs_function_definition lte_definition;
 extern object_type_definition machine_data_definition;
 extern int machine_to_player_table[32];
 extern short magic_base_animation_seat_index;
+extern const hs_function_definition magic_melee_attack_definition;
 extern short magic_number;
+extern const hs_function_definition magic_seat_name_definition;
 extern struct main_globals main_globals;
 extern const unsigned int mapRGB4[4];
 extern uint8_t map_lost;
+extern const hs_function_definition map_name_definition;
+extern const hs_function_definition map_reset_definition;
 extern dynamic_array mapcycle_array;
 extern char mask_technique_names[24][128];
+extern const hs_function_definition max_definition;
 extern float max_intensity;
 extern float max_intensity_0;
 extern float max_intensity_1;
 extern char memory_unit_mapfile_name[256];
+extern _message_definition message_biped_new_definition;
+extern _message_definition message_biped_update_definition;
+extern _message_definition message_client_game_update_definition;
+extern _message_definition message_ctf_update_definition;
+extern _message_definition message_damage_dealt_definition;
 extern _field_type_definition message_delta_global_field_type_list[28];
+extern _message_definition *const message_delta_global_message_list[47];
+extern _message_definition message_equipment_new_definition;
+extern _message_definition message_equipment_update_definition;
+extern _message_definition message_game_engine_change_mode_definition;
+extern _message_definition message_game_settings_update_definition;
+extern _message_definition_field_reference_set message_header_NO_HEADER_definition;
+extern _message_definition_field_reference_set message_header_biped_update_header_definition;
+extern _message_definition_field_reference_set message_header_client_game_update_header_definition;
+extern _message_definition_field_reference_set message_header_game_object_header_definition;
+extern _message_definition_field_reference_set message_header_game_object_header_timestamped_definition;
+extern _message_definition_field_reference_set message_header_player_score_update_header_definition;
+extern _message_definition_field_reference_set message_header_remote_player_action_update_header_definition;
+extern _message_definition_field_reference_set message_header_remote_player_position_update_header_definition;
+extern _message_definition message_hud_add_item_definition;
+extern _message_definition message_item_accelerate_definition;
+extern _message_definition message_king_update_definition;
+extern _message_definition message_local_player_update_definition;
+extern _message_definition message_local_player_vehicle_update_definition;
+extern const hs_function_definition message_metrics_clear_definition;
+extern const hs_function_definition message_metrics_dump_definition;
+extern _message_definition message_multiplayer_hud_message_definition;
+extern _message_definition message_multiplayer_sound_definition;
+extern _message_definition message_netgame_equipment_new_definition;
+extern _message_definition message_object_deletion_definition;
+extern _message_definition message_oddball_update_definition;
+extern _message_definition message_parameters_protocol_definition;
+extern _message_definition message_player_create_definition;
+extern _message_definition message_player_effect_start_definition;
+extern _message_definition message_player_exit_vehicle_definition;
+extern _message_definition message_player_handle_powerup_definition;
+extern _message_definition message_player_score_update_definition;
+extern _message_definition message_player_set_action_result_definition;
+extern _message_definition message_player_spawn_definition;
+extern _message_definition message_projectile_attach_definition;
+extern _message_definition message_projectile_detonate_definition;
+extern _message_definition message_projectile_new_definition;
+extern _message_definition message_projectile_update_definition;
+extern _message_definition message_race_update_definition;
+extern _message_definition message_remote_player_action_update_definition;
+extern _message_definition message_remote_player_position_update_definition;
+extern _message_definition message_remote_player_vehicle_update_definition;
+extern data_packet_definition message_server_game_update_packet;
+extern data_packet_field message_server_game_update_packet_fields[];
+extern _message_definition message_slayer_update_definition;
+extern _message_definition message_super_remote_players_action_update_definition;
+extern _message_definition message_team_change_definition;
+extern _message_definition message_unit_drop_current_weapon_definition;
+extern _message_definition message_unit_kill_definition;
+extern _message_definition message_vehicle_new_definition;
+extern _message_definition message_vehicle_update_definition;
+extern _message_definition message_weapon_ammo_pickup_mid_reload_definition;
+extern _message_definition message_weapon_new_definition;
+extern _message_definition message_weapon_start_reload_definition;
+extern _message_definition message_weapon_update_definition;
 extern struct metrics_globals metrics_globals;
+extern const hs_function_definition min_definition;
 extern const char *mode_str[2];
 extern hs_global_external model_animation_bullshit0_definition;
 extern hs_global_external model_animation_bullshit1_definition;
@@ -1169,24 +1809,54 @@ extern queued_mp_sound mp_sound_queue[5];
 extern byte_swap_definition multi_vector_set_event_v1_bs_definition;
 extern int multiplayer_map_list_count;
 extern int multiplayer_map_list_size;
+extern const hs_function_definition multiplayer_map_name_definition;
 extern multiplayer_map_s *multiplayer_maps;
+extern const int32_t multiple[5];
+extern const hs_function_definition multiply_definition;
 extern float music_gain_in_profile;
 extern unsigned int mutex_count;
 extern mutex mutex_pool[32];
 extern hud_nav_point_player_datum *nav_point_data;
 extern hs_global_external net_bandwidth_definition;
+extern const hs_function_definition net_graph_clear_definition;
 extern hs_global_external net_graph_enabled_definition;
 extern hs_global_external net_graph_period_definition;
+extern const hs_function_definition net_graph_show_definition;
+extern const hs_function_definition network_client_dump_definition;
 extern hs_global_external network_connect_timeout_definition;
+extern data_packet_definition network_game_data_packet;
+extern data_packet_field network_game_data_packet_fields[];
+extern const hs_function_definition network_server_dump_definition;
 extern uint8_t new_campaign_begin_editing;
 extern short new_campaign_controller_index;
+extern uint16_t new_campaign_entered_name[11];
+extern int16_t new_campaign_name_cursor;
 extern const short next_field[3];
 extern const short next_field_0[3];
+extern int noMemLeftInDl;
 extern int node_count;
 extern cluster_partition noncollideable_object_cluster_partition;
+extern int notEnoughMem;
+extern const hs_function_definition not_definition;
+extern const hs_function_definition not_equal_definition;
+extern const hs_function_definition numeric_countdown_timer_get_definition;
 extern int numeric_countdown_timer_milliseconds;
 extern unsigned char numeric_countdown_timer_on;
+extern const hs_function_definition numeric_countdown_timer_restart_definition;
+extern const hs_function_definition numeric_countdown_timer_set_definition;
+extern const hs_function_definition numeric_countdown_timer_stop_definition;
+extern const hs_function_definition object_beautify_definition;
+extern const hs_function_definition object_can_take_damage_definition;
+extern const hs_function_definition object_cannot_take_damage_definition;
+extern const hs_function_definition object_create_anew_containing_definition;
+extern const hs_function_definition object_create_anew_definition;
+extern const hs_function_definition object_create_containing_definition;
+extern const hs_function_definition object_create_definition;
+extern object_type_definition object_data_definition;
 extern void (*object_deleted_procs[3])(int);
+extern const hs_function_definition object_destroy_all_definition;
+extern const hs_function_definition object_destroy_containing_definition;
+extern const hs_function_definition object_destroy_definition;
 extern struct object_globals * object_globals;
 extern data_array * object_header_data;
 extern float object_light_ambient_base;
@@ -1200,11 +1870,34 @@ extern hs_global_external object_light_secondary_scale_definition;
 extern data_array *object_list_data;
 extern data_array *object_list_header_data;
 extern memory_pool *object_memory_pool;
+extern const object_memory_release_function object_memory_release_procs[3];
 extern int *object_name_list;
 extern unsigned char object_prediction;
 extern hs_global_external object_prediction_definition;
+extern const hs_function_definition object_pvs_activate_definition;
+extern const hs_function_definition object_pvs_clear_definition;
+extern const hs_function_definition object_pvs_set_camera_definition;
+extern const hs_function_definition object_pvs_set_object_definition;
+extern const hs_function_definition object_set_collideable_definition;
+extern const hs_function_definition object_set_facing_definition;
+extern const hs_function_definition object_set_melee_attack_inhibited_definition;
+extern const hs_function_definition object_set_permutation_definition;
+extern const hs_function_definition object_set_ranged_attack_inhibited_definition;
+extern const hs_function_definition object_set_scale_definition;
+extern const hs_function_definition object_set_shield_definition;
+extern const hs_function_definition object_teleport_definition;
+extern const hs_function_definition object_to_unit_definition;
 extern object_type_definition *object_type_definitions[12];
+extern const hs_function_definition object_type_predict_definition;
+extern const hs_function_definition objects_attach_definition;
+extern const hs_function_definition objects_can_see_flag_definition;
+extern const hs_function_definition objects_can_see_object_definition;
+extern const hs_function_definition objects_delete_by_definition_definition;
+extern const hs_function_definition objects_detach_definition;
+extern const hs_function_definition objects_dump_memory_definition;
+extern const hs_function_definition objects_predict_definition;
 extern observer_globals_t observer_globals;
+extern const float observer_maximum_accelerations[5];
 extern int16_t observer_parameter_derivative_real_counts[5];
 extern short observer_parameter_real_counts[5];
 extern D3DQuery *occlusion_query[1024];
@@ -1219,13 +1912,16 @@ extern float ofsx;
 extern float ofsy;
 extern unsigned int *old_ebp;
 extern unsigned int oldtime;
-extern uint8_t once;
+extern int16_t once;
 extern uint8_t once_0;
 extern uint8_t once_1;
+extern const float oneOverTwoToBitWidthLookupTable[17];
+extern const float one_over_full_circle;
 extern int optionNoNetwork;
 extern int optionNoSound;
 extern int optionNoVideo;
 extern int optionSafe;
+extern const hs_function_definition or_definition;
 extern int overcharge_count;
 extern achievements_info *p_achievements_info;
 extern hs_global_external pad3_definition;
@@ -1234,9 +1930,11 @@ extern int16_t parameter_types[2];
 extern data_array *particle_data;
 extern const char *particle_effect_marker_names[];
 extern data_array *particle_systems;
+extern const hs_function_definition pause_hud_timer_definition;
 extern pc_sound_cache_globals_t pc_sound_cache_globals;
 extern pc_texture_cache_globals_struct pc_texture_cache_globals;
 extern unsigned char *periodic_function_tables[12];
+extern unsigned char periodic_functions_built_flag;
 extern _persistant_game_data_info persistant_game_data_info;
 extern persisted_camera_data persisted_cameras[2];
 extern struct physical_memory_map_globals physical_memory_map_globals;
@@ -1246,14 +1944,41 @@ extern float planar_eye_density;
 extern platform_sound_manager_definition *platform_definitions[2];
 extern platform_sound_manager_definition platform_sound_dsound;
 extern platoon_datum * platoon_array;
+extern const hs_function_definition play_update_history_definition;
 extern animation_playback *playback_codec[4];
+extern const hs_function_definition playback_definition;
+extern const hs_function_definition player0_joystick_set_is_normal_definition;
+extern const hs_function_definition player0_look_invert_pitch_definition;
+extern const hs_function_definition player0_look_pitch_is_inverted_definition;
 extern int player1_last_used_profile_index;
 extern char player1_profile_path[256];
+extern const hs_function_definition player_action_test_accept_definition;
+extern const hs_function_definition player_action_test_action_definition;
+extern const hs_function_definition player_action_test_back_definition;
+extern const hs_function_definition player_action_test_grenade_trigger_definition;
+extern const hs_function_definition player_action_test_jump_definition;
+extern const hs_function_definition player_action_test_look_relative_all_directions_definition;
+extern const hs_function_definition player_action_test_look_relative_down_definition;
+extern const hs_function_definition player_action_test_look_relative_left_definition;
+extern const hs_function_definition player_action_test_look_relative_right_definition;
+extern const hs_function_definition player_action_test_look_relative_up_definition;
+extern const hs_function_definition player_action_test_move_relative_all_directions_definition;
+extern const hs_function_definition player_action_test_primary_trigger_definition;
+extern const hs_function_definition player_action_test_reset_definition;
+extern const hs_function_definition player_action_test_zoom_definition;
+extern const hs_function_definition player_add_equipment_definition;
 extern hs_global_external player_autoaim_definition;
 extern unsigned char player_autoaim_flag;
+extern const hs_function_definition player_camera_control_definition;
 extern player_control_globals_t * player_control_globals;
 extern data_array * player_data;
 extern player_effect_globals_definition * player_effect_globals;
+extern const hs_function_definition player_effect_set_max_rotation_definition;
+extern const hs_function_definition player_effect_set_max_translation_definition;
+extern const hs_function_definition player_effect_set_max_vibrate_definition;
+extern const hs_function_definition player_effect_start_definition;
+extern const hs_function_definition player_effect_stop_definition;
+extern const hs_function_definition player_enable_input_definition;
 extern float player_look_pitch_rate[4];
 extern float player_look_yaw_rate[4];
 extern hs_global_external player_magnetism_definition;
@@ -1262,7 +1987,9 @@ extern _player_profile_globals player_profile_globals;
 extern short player_spawn_count;
 extern hs_global_external player_spawn_count_definition;
 extern _player_ui_globals player_ui_globals;
+extern const hs_function_definition players_definition;
 extern players_global_data * players_globals;
+extern const hs_function_definition players_unzoom_all_definition;
 extern _playlist_profile_globals playlist_profile_globals;
 extern int pneed_clear;
 extern int pneed_dump_unused;
@@ -1275,14 +2002,27 @@ extern int previous_corrupt_player1_profile_index;
 extern int previous_game_time;
 extern float previous_projection_coefficients[4];
 extern short previous_stencil_mode;
+extern const hs_function_definition print_binds_definition;
+extern const hs_function_definition print_definition;
+extern const real_quaternion private_identity_quaternion;
+extern const real_argb_color private_real_argb_colors[17];
 extern unsigned short processed_bsp_flags;
+extern const hs_function_definition profile_activate_definition;
 extern const unsigned int profile_color_table[18];
+extern const hs_function_definition profile_deactivate_definition;
 extern hs_global_external profile_display_definition;
+extern const hs_function_definition profile_dump_definition;
 extern hs_global_external profile_dump_frames_definition;
 extern hs_global_external profile_dump_lost_frames_definition;
 extern hs_global_external profile_graph_definition;
+extern const hs_function_definition profile_graph_toggle_definition;
+extern const hs_function_definition profile_load_definition;
 extern char *profile_log_path;
+extern const hs_function_definition profile_reset_definition;
+extern const hs_function_definition profile_service_clear_timers_definition;
+extern const hs_function_definition profile_service_dump_timers_definition;
 extern hs_global_external profile_timebase_ticks_definition;
+extern const hs_function_definition profile_unlock_solo_levels_definition;
 extern object_type_definition projectile_data_definition;
 extern int projectile_incremental_rate;
 extern hs_global_external projectile_incremental_rate_definition;
@@ -1290,14 +2030,17 @@ extern data_array * prop_data;
 extern int pshader_table_used[123];
 extern data_array *pursuit_data;
 extern unsigned char quickstart_network_game_active;
+extern const hs_function_definition quit_definition;
 extern struct game_engine race_engine;
 extern race_globals_type race_globals;
 extern race_globals_type race_globals_baseline;
 extern random_math_globals_s random_math_globals;
+extern const hs_function_definition random_range_definition;
 extern int random_seed_lock_count;
 extern hs_global_external rasterizer_DXTC_noise_definition;
 extern hs_global_external rasterizer_active_camouflage_definition;
 extern hs_global_external rasterizer_active_camouflage_multipass_definition;
+extern _D3DFORMAT rasterizer_bitmap_format_table[NUMBER_OF_BITMAP_FORMATS];
 extern hs_global_external rasterizer_bump_mapping_definition;
 extern hs_global_external rasterizer_d3dlight_attenuation0_definition;
 extern hs_global_external rasterizer_d3dlight_attenuation1_definition;
@@ -1312,6 +2055,9 @@ extern hs_global_external rasterizer_debug_model_lod_definition;
 extern hs_global_external rasterizer_debug_model_vertices_definition;
 extern rasterizer_debug_options_struct rasterizer_debug_options;
 extern hs_global_external rasterizer_debug_transparents_definition;
+extern int rasterizer_decal_cached_bitmap_group_index;
+extern int16_t rasterizer_decal_cached_bitmap_index;
+extern const hs_function_definition rasterizer_decals_flush_definition;
 extern hs_global_external rasterizer_detail_objects_definition;
 extern hs_global_external rasterizer_detail_objects_offset_multiplier_definition;
 extern hs_global_external rasterizer_draw_first_person_weapon_first_definition;
@@ -1343,9 +2089,12 @@ extern hs_global_external rasterizer_far_clip_distance_definition;
 extern hs_global_external rasterizer_filthy_decal_fog_hack_definition;
 extern hs_global_external rasterizer_first_person_weapon_far_clip_distance_definition;
 extern hs_global_external rasterizer_first_person_weapon_near_clip_distance_definition;
+extern const hs_function_definition rasterizer_fixed_function_ambient_definition;
 extern hs_global_external rasterizer_floating_point_zbuffer_definition;
 extern hs_global_external rasterizer_fog_atmosphere_definition;
+extern float rasterizer_fog_eye_blend_factor;
 extern hs_global_external rasterizer_fog_plane_definition;
+extern const hs_function_definition rasterizer_fps_accumulate_definition;
 extern int64_t rasterizer_fps_accumulation_frame_index;
 extern int64_t rasterizer_fps_accumulation_time;
 extern hs_global_external rasterizer_fps_definition;
@@ -1362,15 +2111,19 @@ extern void (*rasterizer_glass_draw_tint)(const transparent_geometry_group *);
 extern rasterizer_globals_struct rasterizer_globals;
 extern hs_global_external rasterizer_hud_motion_sensor_definition;
 extern int rasterizer_initialized;
+extern int16_t rasterizer_last_bound_texture_height;
 extern hs_global_external rasterizer_lens_flares_definition;
 extern hs_global_external rasterizer_lens_flares_occlusion_debug_definition;
 extern hs_global_external rasterizer_lens_flares_occlusion_definition;
 extern hs_global_external rasterizer_lightmap_ambient_definition;
 extern hs_global_external rasterizer_lightmap_mode_definition;
+extern uint8_t rasterizer_lightmap_no_lightmap_variant;
 extern hs_global_external rasterizer_lightmaps_filtering_definition;
 extern hs_global_external rasterizer_lightmaps_incident_radiosity_definition;
 extern rasterizer_lights_struct rasterizer_lights;
+extern const hs_function_definition rasterizer_lights_reset_for_new_map_definition;
 extern hs_global_external rasterizer_mode_definition;
+extern const hs_function_definition rasterizer_model_ambient_reflection_tint_definition;
 extern uint8_t rasterizer_model_cortana_hack;
 extern void (*rasterizer_model_draw_environment_shader)(const shader *, int16_t, const triangle_buffer *, int, int, const vertex_buffer *, int);
 extern void (*rasterizer_model_draw_model_shader)(const shader *, int16_t, const triangle_buffer *, int, int, const vertex_buffer *, int);
@@ -1389,6 +2142,7 @@ extern hs_global_external rasterizer_safe_frame_bounds_definition;
 extern hs_global_external rasterizer_screen_effects_definition;
 extern hs_global_external rasterizer_screen_flashes_definition;
 extern hs_global_external rasterizer_secondary_render_target_debug_definition;
+extern float rasterizer_shadow_bounding_radius;
 extern hs_global_external rasterizer_shadows_convolution_definition;
 extern hs_global_external rasterizer_shadows_debug_definition;
 extern hs_global_external rasterizer_smart_definition;
@@ -1396,7 +2150,9 @@ extern hs_global_external rasterizer_soft_filter_definition;
 extern hs_global_external rasterizer_splitscreen_VB_optimization_definition;
 extern hs_global_external rasterizer_stats_definition;
 extern hs_global_external rasterizer_stencil_mask_definition;
+extern unsigned int rasterizer_swizzle_x_mask;
 extern hs_global_external rasterizer_transparent_pixel_counter_definition;
+extern const int16_t rasterizer_vertex_type_sizes[NUMBER_OF_RASTERIZER_VERTEX_TYPES];
 extern hs_global_external rasterizer_water_definition;
 extern void (*rasterizer_water_draw)(const transparent_geometry_group *);
 extern hs_global_external rasterizer_water_mipmapping_definition;
@@ -1404,14 +2160,25 @@ extern hs_global_external rasterizer_wireframe_definition;
 extern hs_global_external rasterizer_zbias_definition;
 extern hs_global_external rasterizer_zoffset_definition;
 extern hs_global_external rasterizer_zsprites_definition;
+extern const hs_function_definition real_random_range_definition;
+extern int real_vector2d_bs_codes[];
+extern byte_swap_definition real_vector2d_bs_definition;
+extern int real_vector3d_bs_codes[];
+extern byte_swap_definition real_vector3d_bs_definition;
 extern unsigned char recompile;
 extern void (*reconnect_to_structure_bsp_procs[13])(void);
+extern const hs_function_definition recording_kill_definition;
+extern const hs_function_definition recording_play_and_delete_definition;
+extern const hs_function_definition recording_play_and_hover_definition;
+extern const hs_function_definition recording_play_definition;
+extern const hs_function_definition recording_time_definition;
 extern unsigned char recover_saved_games_hack;
 extern hs_global_external recover_saved_games_hack_definition;
 extern uint8_t recursion_lock;
 extern float red;
 extern float red_0;
 extern float red_1;
+extern const float reference_values[4];
 extern int remote_player_action_baseline_update_rate;
 extern hs_global_external remote_player_action_baseline_update_rate_definition;
 extern int remote_player_action_update_rate;
@@ -1429,8 +2196,10 @@ extern hs_global_external remote_player_vehicle_update_rate_definition;
 extern render_globals render;
 extern unsigned char render_camera_debug_this_fucking_frustum;
 extern hs_global_external render_contrails_definition;
+extern const hs_function_definition render_effects_definition;
 extern int render_graph;
 extern int render_infos;
+extern const hs_function_definition render_lights_definition;
 extern hs_global_external render_model_index_counts_definition;
 extern hs_global_external render_model_markers_definition;
 extern hs_global_external render_model_no_geometry_definition;
@@ -1455,19 +2224,26 @@ extern uint16_t result_3[32];
 extern char rider_ejection;
 extern hs_global_external rider_ejection_definition;
 extern hs_global_external run_game_scripts_definition;
+extern const uint32_t sALL_ONES;
 extern float sPROJECTILE_CLIENT_TO_SERVER_POSITION_TOLERANCE;
 extern float sPROJECTILE_CLIENT_TO_SERVER_POSITION_TOLERANCE_0;
 extern float sPROJECTILE_CLIENT_TO_SERVER_POSITION_TOLERANCE_1;
 extern _LARGE_INTEGER s_ClockFrequency;
 extern char *s_file_name;
 extern int s_local_update_id;
+extern const uint8_t s_one_masks[9];
 extern int s_vehicle_waiting_time;
 extern int s_waiting_time;
+extern const uint8_t s_zero_masks[9];
 extern unsigned char saved_film_buffer[16384];
 extern int saved_film_buffer_head;
 extern int saved_film_buffer_tail;
+extern data_packet_definition saved_film_frame_header_packet;
+extern data_packet_field saved_film_frame_header_packet_fields[];
 extern data_packet_group_definition saved_film_group;
 extern data_packet_group_packet saved_film_group_packets[4];
+extern data_packet_definition saved_film_header_packet;
+extern data_packet_field saved_film_header_packet_fields[];
 extern _saved_game_files_globals saved_game_files_globals;
 extern float scale_2;
 extern float scale_crosshair;
@@ -1475,15 +2251,27 @@ extern float scales[3];
 extern scenario_global_data *scenario_globals;
 extern const char *scenario_paths[10];
 extern char *scenario_paths_0[10];
+extern const hs_function_definition scenery_animation_start_at_frame_definition;
+extern const hs_function_definition scenery_animation_start_definition;
 extern object_type_definition scenery_data_definition;
+extern const hs_function_definition scenery_get_animation_time_definition;
 extern char scratch_disk_root[261];
 extern int screen_flash_type;
 extern int screen_flash_type_0;
 extern int screen_flash_type_1;
+extern const real_plane3d screen_plane;
 extern hs_global_external screenshot_count_definition;
 extern hs_global_external screenshot_size_definition;
+extern const hs_function_definition script_doc_definition;
+extern const hs_function_definition script_recompile_definition;
+extern const hs_function_definition script_screen_effect_set_value_definition;
+extern const float seconds_per_tick_1;
 extern vector_avoidance_ray sense_rays[9];
 extern int sequential_counter;
+extern const hs_function_definition set_definition;
+extern const hs_function_definition set_gamma_definition;
+extern const hs_function_definition set_pitch_rate_definition;
+extern const hs_function_definition set_yaw_rate_definition;
 extern void *shader_bin_handle;
 extern rasterizer_dx9_shader shader_table[123];
 extern unsigned char shadow_restored;
@@ -1492,27 +2280,55 @@ extern uint8_t shadow_used;
 extern unsigned char should_force_hot_update;
 extern unsigned char should_play_multiplayer_hit_sound;
 extern hs_global_external should_play_multiplayer_hit_sound_definition;
+extern const hs_function_definition show_hud_definition;
+extern const hs_function_definition show_hud_help_text_definition;
+extern const hs_function_definition show_hud_timer_definition;
+extern const hs_function_definition show_player_update_stats_definition;
 extern float side_scale;
+extern const float sine_region_angle;
 extern _single_player_level_data single_player_level_data[10];
 extern float sizes[3];
 extern struct game_engine slayer_engine;
 extern slayer_globals_type slayer_globals;
 extern slayer_globals_type slayer_globals_baseline;
+extern const hs_function_definition sleep_definition;
+extern const hs_function_definition sleep_until_definition;
 extern hs_global_external slow_server_startup_safety_zone_in_seconds_definition;
+extern const hs_function_definition sound_cache_flush_definition;
 extern unsigned int sound_cache_page_count;
 extern short sound_cache_size;
 extern short sound_channel_type_flags[4];
 extern sound_channel_datum sound_channels[256];
 extern sound_class_datum *sound_class_data;
 extern const char *sound_class_names[51];
+extern const hs_function_definition sound_class_set_gain_definition;
 extern sound_class_definition sound_classes[51];
 extern data_array * sound_data;
+extern const hs_function_definition sound_enable_definition;
 extern float sound_fade_exponent;
 extern float sound_gain_under_dialog;
 extern hs_global_external sound_gain_under_dialog_definition;
-extern unsigned char sound_is_queueable[48];
+extern const hs_function_definition sound_get_effects_gain_definition;
+extern const hs_function_definition sound_get_gain_definition;
+extern const hs_function_definition sound_get_master_gain_definition;
+extern const hs_function_definition sound_get_music_gain_definition;
+extern const hs_function_definition sound_impulse_predict_definition;
+extern const hs_function_definition sound_impulse_start_definition;
+extern const hs_function_definition sound_impulse_stop_definition;
+extern const hs_function_definition sound_impulse_time_definition;
+extern unsigned char sound_is_queueable[NUMBER_OF_MULTIPLAYER_SOUNDS];
+extern const hs_function_definition sound_looping_predict_definition;
+extern const hs_function_definition sound_looping_set_alternate_definition;
+extern const hs_function_definition sound_looping_set_scale_definition;
+extern const hs_function_definition sound_looping_start_definition;
+extern const hs_function_definition sound_looping_stop_definition;
 extern sound_manager_globals_t sound_manager_globals;
+extern const float sound_player_fade_out_time;
 extern object_type_definition sound_scenery_data_definition;
+extern const hs_function_definition sound_set_effects_gain_definition;
+extern const hs_function_definition sound_set_gain_definition;
+extern const hs_function_definition sound_set_master_gain_definition;
+extern const hs_function_definition sound_set_music_gain_definition;
 extern float specular_light_brightness;
 extern short specular_light_vertex_shader_permutation_index;
 extern float speed;
@@ -1524,10 +2340,14 @@ extern float speed_scale;
 extern float split_sensor_ofsx;
 extern float split_sensor_ofsy;
 extern squad_datum * squad_array;
+extern const unsigned int srcblend_table[NUMBER_OF_SHADER_FRAMEBUFFER_BLEND_FUNCTIONS+1];
 extern _stack_walk_globals stack_walk_globals;
 extern const char *str_1[2];
 extern wchar_t string_data[1024];
+extern const hs_function_definition structure_bsp_index_definition;
 extern structure_decals_globals_definition *structure_decals_globals;
+extern structure_globals_t structure_globals;
+extern const hs_function_definition structure_lens_flares_place_definition;
 extern structure_render_globals_data structure_render_globals;
 extern float structure_sphere_threshold;
 extern struct structure_visibility_globals structure_visibility_globals;
@@ -1536,40 +2356,76 @@ extern hs_global_external structures_use_pvs_for_vs_definition;
 extern struct game_engine stub_engine;
 extern unsigned char stun_enable;
 extern hs_global_external stun_enable_definition;
+extern const hs_function_definition subtract_definition;
 extern unsigned char supports_occlusion_test;
+extern const hs_function_definition sv_ban_definition;
+extern const hs_function_definition sv_banlist_definition;
+extern const hs_function_definition sv_end_game_definition;
+extern const hs_function_definition sv_kick_definition;
+extern const hs_function_definition sv_map_definition;
+extern const hs_function_definition sv_map_next_definition;
+extern const hs_function_definition sv_map_restart_definition;
+extern const hs_function_definition sv_mapcycle_add_definition;
+extern const hs_function_definition sv_mapcycle_begin_definition;
+extern const hs_function_definition sv_mapcycle_definition;
+extern const hs_function_definition sv_mapcycle_del_definition;
+extern const hs_function_definition sv_mapcycle_save_definition;
 extern hs_global_external sv_mapcycle_timeout_definition;
 extern int sv_max_players_value;
 extern hs_global_external sv_maxplayers_definition;
+extern const hs_function_definition sv_name_definition;
 extern wchar_t sv_name_value[16];
+extern const hs_function_definition sv_parameters_dump_definition;
+extern const hs_function_definition sv_parameters_reload_definition;
+extern const hs_function_definition sv_password_definition;
 extern wchar_t sv_password_value[9];
+extern const hs_function_definition sv_players_definition;
 extern hs_global_external sv_public_definition;
 extern unsigned char sv_public_value;
+extern const hs_function_definition sv_status_definition;
+extern const hs_function_definition sv_unban_definition;
 extern data_array * swarm_component_data;
 extern data_array * swarm_data;
 extern float sweep_theta;
+extern const hs_function_definition switch_bsp_definition;
+extern const uint16_t swizzle_table[64];
 extern char symbol_buffer[0x4000];
 extern data_array *system_particles;
+extern _D3DFORMAT table[NUMBER_OF_BITMAP_FORMATS];
 extern data_array *team_data;
 extern hs_global_external temporary_hud_definition;
 extern terminal_globals_t terminal_globals;
 extern unsigned char terminal_render_enable;
+extern const int16_t terminal_tab_stops[3];
 extern float test_0;
 extern text_bounds_globals_t text_bounds_globals;
 extern _text_pick_globals text_pick_globals;
+extern const hs_function_definition texture_cache_flush_definition;
 extern hs_global_external texture_cache_graph_definition;
 extern hs_global_external texture_cache_list_definition;
 extern float theta;
 extern thread thread_pool[32];
+extern const hs_function_definition thread_sleep_definition;
 extern byte_swap_definition throttle_event_data_bs_definition;
 extern byte_swap_definition throttle_set_event_v1_bs_definition;
 extern int timeDemo;
+extern const hs_function_definition time_code_reset_definition;
+extern const hs_function_definition time_code_show_definition;
+extern const hs_function_definition time_code_start_definition;
 extern unsigned int time_of_first_device_insertion;
 extern unsigned int time_of_last_tab;
 extern unsigned int time_samples[60];
 extern int timeout_for_endgame_sound;
+extern const hs_function_definition track_remote_player_position_updates_definition;
 extern unsigned char *transition_function_tables[6];
 extern void (*translate_funcs[2][2])(flying_camera *camera);
 extern int16_t transparent_geometry_attached_group_count;
+extern const render_animation *transparent_geometry_cached_animation;
+extern const render_lighting *transparent_geometry_cached_lighting;
+extern const real_matrix4x3 *transparent_geometry_cached_node_matrices;
+extern int16_t transparent_geometry_cached_node_matrix_count;
+extern int transparent_geometry_cached_sorted_index;
+extern unsigned char transparent_geometry_group_buckets[48];
 extern int transparent_geometry_group_count;
 extern int transparent_geometry_group_count2;
 extern short *transparent_geometry_group_sorted_indices;
@@ -1583,15 +2439,50 @@ extern int trouble_is_brewing_bitmap_tag;
 extern unsigned int trouble_is_brewing_time;
 extern int (*typecasting_procedures[49][49])(int);
 extern real_argb_color ui_plasma_effect_color;
+extern const hs_function_definition ui_widget_show_path_definition;
+extern const hs_function_definition unbind_definition;
+extern const hs_function_definition unit_aim_without_turning_definition;
+extern const hs_function_definition unit_can_blink_definition;
+extern const hs_function_definition unit_close_definition;
 extern unit_control_data_entry *unit_control_data_map[4];
 extern unit_control_data_entry unit_control_v1_map[10];
-extern unit_control_data_entry unit_control_v2_map[10];
-extern unit_control_data_entry unit_control_v3_map[10];
-extern unit_control_data_entry unit_control_v4_map[10];
+extern unit_control_data_entry unit_control_v2_map[2];
+extern unit_control_data_entry unit_control_v3_map[2];
+extern unit_control_data_entry unit_control_v4_map[2];
+extern const hs_function_definition unit_custom_animation_at_frame_definition;
+extern object_type_definition unit_data_definition;
+extern const hs_function_definition unit_doesnt_drop_items_definition;
+extern const hs_function_definition unit_enter_vehicle_definition;
+extern const hs_function_definition unit_exit_vehicle_definition;
 extern int unit_focus;
+extern const hs_function_definition unit_get_current_flashlight_state_definition;
+extern const hs_function_definition unit_get_custom_animation_time_definition;
+extern const hs_function_definition unit_get_health_definition;
+extern const hs_function_definition unit_get_shield_definition;
+extern const hs_function_definition unit_get_total_grenade_count_definition;
 extern struct unit_globals *unit_globals;
+extern const hs_function_definition unit_has_weapon_definition;
+extern const hs_function_definition unit_has_weapon_readied_definition;
 extern unit_hud_globals_definition *unit_hud_globals;
+extern const hs_function_definition unit_impervious_definition;
+extern const hs_function_definition unit_is_playing_custom_animation_definition;
+extern const hs_function_definition unit_kill_definition;
+extern const hs_function_definition unit_kill_silent_definition;
 extern real_vector3d unit_offset;
+extern const hs_function_definition unit_open_definition;
+extern const hs_function_definition unit_set_current_vitality_definition;
+extern const hs_function_definition unit_set_desired_flashlight_state_definition;
+extern const hs_function_definition unit_set_emotion_animation_definition;
+extern const hs_function_definition unit_set_emotion_definition;
+extern const hs_function_definition unit_set_enterable_by_player_definition;
+extern const hs_function_definition unit_set_maximum_vitality_definition;
+extern const hs_function_definition unit_set_seat_definition;
+extern const hs_function_definition unit_solo_player_integrated_night_vision_is_active_definition;
+extern const hs_function_definition unit_stop_custom_animation_definition;
+extern const hs_function_definition unit_suspended_definition;
+extern const hs_function_definition units_set_current_vitality_definition;
+extern const hs_function_definition units_set_desired_flashlight_state_definition;
+extern const hs_function_definition units_set_maximum_vitality_definition;
 extern _update_client_globals update_client_globals;
 extern void (*update_funcs[2])(flying_camera *, const camera_control *, observer_command *);
 extern _update_server_globals update_server_globals;
@@ -1606,9 +2497,18 @@ extern director_variable_definition variables[4];
 extern byte_swap_definition vector_char_difference_data_bs_definition;
 extern byte_swap_definition vector_short_difference_data_bs_definition;
 extern object_type_definition vehicle_data_definition;
+extern const hs_function_definition vehicle_driver_definition;
+extern const hs_function_definition vehicle_gunner_definition;
+extern const hs_function_definition vehicle_hover_definition;
 extern int vehicle_incremental_rate;
 extern hs_global_external vehicle_incremental_rate_definition;
+extern const hs_function_definition vehicle_load_magic_definition;
 extern vehicle_remapper_s vehicle_remapper;
+extern const hs_function_definition vehicle_riders_definition;
+extern const hs_function_definition vehicle_test_seat_definition;
+extern const hs_function_definition vehicle_test_seat_list_definition;
+extern const hs_function_definition vehicle_unload_definition;
+extern const hs_function_definition version_definition;
 extern dynamic_screen_vertex vertex_data[4];
 extern dynamic_unlit_vertex vertex_data_0[4];
 extern dynamic_screen_vertex vertex_data_1[4];
@@ -1621,19 +2521,28 @@ extern video_resolution_s video_resolutions[32];
 extern uint8_t video_settings_saved;
 extern uint8_t video_test_save_confirmed;
 extern virtual_keyboard_globals_t virtual_keyboard_globals;
+extern const char virtual_keyboard_layout_table[NUMBER_OF_VIRTUAL_KEYBOARD_ROWS][NUMBER_OF_VIRTUAL_KEYBOARD_COLUMNS];
+extern const int16_t virtual_to_key_table[256];
 extern int vneed_clear;
 extern int vneed_dump_unused;
 extern int vneed_dump_used;
+extern const hs_function_definition volume_teleport_players_not_inside_definition;
+extern const hs_function_definition volume_test_object_definition;
+extern const hs_function_definition volume_test_objects_all_definition;
+extern const hs_function_definition volume_test_objects_definition;
 extern vertex_shader_declaration vsd_table[18];
 extern vertex_shader_function vsf_table[65];
 extern float vsh_constants__nodematrices[528];
 extern float vsh_constants__pointlight[20];
+extern const float vsh_constants__screenproj[20];
+extern const float vsh_constants__texanim[32];
 extern int vshader_table_used[65];
+extern const hs_function_definition wake_definition;
 extern unsigned int walk_up_current_frame;
 extern unsigned char want_to_teardown_networking;
 extern uint8_t warned;
-extern int warned_2;
-extern int warned_3;
+extern uint8_t warned_2;
+extern uint8_t warned_3;
 extern unsigned char warned_4;
 extern unsigned char warned_5;
 extern unsigned char warned_6;
@@ -1654,6 +2563,7 @@ extern unsigned char weather;
 extern hs_global_external weather_definition;
 extern data_array *weather_particle_data;
 extern weather_particle_system_globals_data weather_particle_system_globals;
+extern const char whitespace_characters[2];
 extern widget_batch widget_batches[5];
 extern data_array *widget_data;
 extern rasterizer_dx9_shader *widget_dxeffect_shader;
@@ -1665,21 +2575,16 @@ extern widget_state widget_state_current;
 extern widget_state widget_state_new;
 extern int widget_time_stamp;
 extern widget_type_definition widget_type_definitions[5];
+extern wind_globals_data wind_globals;
 extern struct render_window window;
 extern struct render_window window_0[3];
 extern float wtPrimary[3];
+extern struct xbox_game_state_globals xbox_game_state_globals;
+extern const hs_function_definition xbox_set_machine_name_definition;
 extern float yaw_scale;
 
-/* Globals whose canonical TYPED declaration lives in a dedicated header
- * (the src/data storage is a size-equal byte-blob alias). Include that header
- * for the typed view; NOT redeclared here to avoid a conflicting decl. */
-/* cache_file_globals -> "cache_file_runtime_globals.h" */
-/* dynamic_triangles -> "dynamic_triangles.h" */
-/* hs_runtime_globals -> "hs_runtime_globals.h" */
-/* light_volume_globals -> "light_volume_globals.h" */
-/* lightning_globals -> "lightning_globals.h" */
-/* structure_globals -> "structure_globals.h" */
-/* wind_globals -> "wind_globals.h" */
-/* xbox_game_state_globals -> "xbox_game_state_globals.h" */
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BLAM_DATA_GLOBALS_H */

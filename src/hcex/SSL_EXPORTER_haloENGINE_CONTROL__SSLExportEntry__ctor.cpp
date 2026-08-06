@@ -5,7 +5,7 @@
 // SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry::SSLExportEntry(cb, id, sslDecl) @ 0x823C4BF0
 // Full construct: adopt the callback and id-slot verbatim and share `_sslDecl`'s ref-counted buffer.
 SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry::SSLExportEntry(
-    void (__fastcall *_cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
+    void (*_cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
     int *_id,
     const dsTSTRING<char> *_sslDecl)
 {

@@ -28,7 +28,7 @@ extern void hcex_init_effect(int definition_index, int obj_follow, int plr_idx, 
 extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern void scenario_location_from_point(location *location, const real_point3d *point);
-extern void effect_build_locations(effect_datum *effect, int16_t (__fastcall *get_markers_by_name)(int, const char *, object_marker *, int16_t));
+extern void effect_build_locations(effect_datum *effect, int16_t (*get_markers_by_name)(int, const char *, object_marker *, int16_t));
 extern int16_t effect_marker_list_get_markers_by_name(int object_index, const char *name, object_marker *results, int16_t maximum_count);
 extern void effect_update(int effect_index, float dt);
 

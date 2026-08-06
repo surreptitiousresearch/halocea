@@ -144,7 +144,7 @@ struct osTIMER {                    // DB-verified (types_members osTIMER): star
 };
 
 extern void osSleep(int ms);
-extern void osOutputDebugString(const char *fmt, ...);
+extern "C" void osOutputDebugString(const char *fmt, ...);
 
 /* the two boundary helpers this header serves */
 extern const char *FModErrorDesc(FMOD_RESULT res, bool info);

@@ -63,7 +63,7 @@
 // LINE_START Update(-1) call reaches con::CONSOLE_SYS::Update via a cast (see below).
 extern con::MSG_PROTOCOL *apConsole;             // ap: active debug console (may be null)
 extern sslSYSTEM       *gsSslSystem;             // gs: global ssl system (owns errorCallStack)
-extern const char      *dsUnaryOpName[];         // ds: printable unary-op names
+extern "C" const char      *dsUnaryOpName[];         // ds: printable unary-op names
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern dsTSTRING<char>  dsSPrintf(const char *fmt, ...);           // ds: formatted string build (boundary)
 extern void             osSleep(int ms);                           // os: sleep helper (boundary)

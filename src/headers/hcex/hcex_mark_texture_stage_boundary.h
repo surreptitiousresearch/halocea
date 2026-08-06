@@ -9,4 +9,4 @@
 extern int txmTEXTURE__GetSizeX(const txmTEXTURE *self);
 extern int txmTEXTURE__GetSizeY(const txmTEXTURE *self);
 
-extern void hcex_pix_marker(const char *fmt, ...);
+extern "C" void hcex_pix_marker(const char *fmt, ...);

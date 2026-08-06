@@ -21,7 +21,7 @@
 
 extern int game_time_get(void);
 extern int16_t dialogue_vocalization_lookup[];
-extern int  global_speech_override_priorities[];
+/* DEVIATION: was declared `int global_speech_override_priorities[]` here; 0x837BA818 scales the index by 2 and 0x837BA824 loads a halfword (int16_t[11]). */
 extern float global_speech_queue_times[];
 
 int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursive_lookup,

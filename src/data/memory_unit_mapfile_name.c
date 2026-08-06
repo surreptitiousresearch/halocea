@@ -1,5 +1,24 @@
-/* memory_unit_mapfile_name @ 0x8445EA78 - data-bss zero-fill.
+/* memory_unit_mapfile_name @ 0x8445EA78 (.data, 255 bytes)
+ * DB applied_types: char memory_unit_mapfile_name[255];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0070: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x0090: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x00A0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x00B0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x00C0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x00D0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x00E0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ *   +0x00F0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ * data-bss zero-fill.
  * Consumer inline extern (authoritative) is `char memory_unit_mapfile_name[256];`
- * (matches ledger size 256); DB applied-type read [255] off-by-one. Using [256]. */
-
+ * (matches ledger size 256); DB applied-type read [255] off-by-one. Using [256].
+ */
 char memory_unit_mapfile_name[256];

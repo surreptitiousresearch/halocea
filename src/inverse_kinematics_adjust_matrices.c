@@ -32,7 +32,7 @@
 
 #include "headers/real_matrix4x3.h"
 
-extern float __fsqrts(double x);
+extern float __fsqrts(float x);
 extern float fabsf(float x);
 extern void *memcpy(void *dst, const void *src, unsigned int size);
 

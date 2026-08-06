@@ -20,7 +20,7 @@ typedef struct dsT2T_ENTRY {
 } dsT2T_ENTRY;
 
 // t2tTable @ 0x841B4A90 — global conversion dispatch matrix indexed [dstTypeId][srcTypeId].
-extern dsT2T_ENTRY t2tTable[][32];
+extern "C" dsT2T_ENTRY t2tTable[][32];
 
 // dsDATA_TYPE_STORAGE<T>::dataType — the singleton runtime type descriptor for the stored type T
 // (?dataType@?$dsDATA_TYPE_STORAGE@...@@2PBVdsDATA_TYPE@@B, global namespace). Boundary — the

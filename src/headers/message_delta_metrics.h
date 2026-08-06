@@ -11,8 +11,14 @@
 #include "iteration_independent_overhead_type.h"
 
 typedef struct _message_definition _message_definition;
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void metrics_commit_header_field_data(const _message_definition *message_definition, message_delta_processor_mode mode, transmission_direction direction);
 extern void metrics_rollback_header_field_data(const _message_definition *message_definition, message_delta_processor_mode mode, transmission_direction direction);
 extern void metrics_record_iteration_dependent_overhead_encode(const _message_definition *definition, message_delta_processor_mode mode, iteration_dependent_overhead_type type, int bits);
 extern void metrics_record_iteration_independent_overhead_encode(const _message_definition *definition, message_delta_processor_mode mode, iteration_independent_overhead_type type, int bits);
 extern void metrics_record_message_encode(const _message_definition *definition, message_delta_processor_mode mode, int total_bits, int iterations_written);
+#ifdef __cplusplus
+}
+#endif

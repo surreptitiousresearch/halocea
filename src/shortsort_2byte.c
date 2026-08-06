@@ -4,7 +4,7 @@
  * `end` by one element. */
 #include <stdint.h>
 
-void shortsort_2byte(char *lo, char *hi, uint8_t (__fastcall *compare)(int16_t, int16_t))
+void shortsort_2byte(char *lo, char *hi, uint8_t (*compare)(int16_t, int16_t))
 {
     char *end = hi;
 

@@ -6,8 +6,8 @@
  * (aim_dot) and against the actor's current facing (facing_dot); the candidate that best satisfies "align with
  * aim without losing too much facing" is chosen and returned as both an index (0..3) and its direction vector.
  *
- * DEVIATION: best_aim_dot/best_facing_dot correspond to the decompiler's v27/v28 which are seeded from an
- * uninitialized stack slot (v35); that read is dead because best_index starts at -1 so the first iteration always
+ * DEVIATION: best_aim_dot/best_facing_dot are seeded in the raw decompile from an
+ * uninitialized stack slot; that read is dead because best_index starts at -1 so the first iteration always
  * accepts and overwrites them. Initialized to 0.0f here. The dot-product component set (3 vs 2 terms) is gated by
  * move_in_3d per disasm (0x837C7B1C vs 0x837C7B34). */
 

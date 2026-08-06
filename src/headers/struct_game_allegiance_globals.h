@@ -14,4 +14,12 @@ typedef struct struct_game_allegiance_globals
     unsigned int    friendly_bitvector[4]; /* 0xA4 */
 } struct_game_allegiance_globals;          /* 180 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct_game_allegiance_globals *game_allegiance_globals;
+
+#ifdef __cplusplus
+}
+#endif

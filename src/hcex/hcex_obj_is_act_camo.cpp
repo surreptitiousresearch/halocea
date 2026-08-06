@@ -10,7 +10,7 @@
 #include "../headers/unit_flags.h"
 #include "../headers/object_type.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_obj_is_act_camo(int id)
 {

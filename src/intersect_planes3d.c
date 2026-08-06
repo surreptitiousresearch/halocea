@@ -12,12 +12,12 @@
 #include "headers/real_plane3d.h"
 #include "headers/real_plane2d.h"
 #include "headers/real_vector3d.h"
+#include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 
 extern double __fabs(double x);
 extern int _isnan(double x);
 extern uint8_t valid_real_normal3d(const real_vector3d *n);
-extern const int16_t global_projection3d_mappings[1][6][2];
 
 int16_t intersect_planes3d(const real_plane3d *plane, const real_plane3d *reference_plane, real_plane2d *result)
 {
@@ -70,9 +70,9 @@ int16_t intersect_planes3d(const real_plane3d *plane, const real_plane3d *refere
     }
     else
     {
-        int table_index = 2 * axis + (reference_plane->n.n[axis] > 0.0f);
-        int16_t axis0 = global_projection3d_mappings[0][table_index][0];
-        int16_t axis1 = global_projection3d_mappings[0][table_index][1];
+        int axis_sign = (reference_plane->n.n[axis] > 0.0f);
+        int16_t axis0 = global_projection3d_mappings[axis][axis_sign][0];
+        int16_t axis1 = global_projection3d_mappings[axis][axis_sign][1];
         result->d = ((float)1.0 / magnitude) * dir_d;
         float component1 = direction.n[axis1];
         result->n.n[0] = direction.n[axis0];

@@ -2,7 +2,7 @@
 #include "dsSTRID_POOL.h"
 #include "../os/osLOCK.h"
 
-extern osLOCK dsStrIdLock; // ds global — serialises string interning
+extern "C" osLOCK dsStrIdLock; // ds global — serialises string interning
 
 // dsSTRID_POOL::AddStr @ 0x8252B6E0
 // Intern `str`: if already pooled, return its dsSTRID; otherwise, under the global intern lock

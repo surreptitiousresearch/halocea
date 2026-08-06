@@ -4,8 +4,8 @@
  * Returns nullptr when the tag index does not resolve to a name. */
 #include <stdint.h>
 
-extern const char *hcex_tag_get_name(int id);
-extern char *hcex_conv_str_name(const char *name, int idx, char *out, int max_len);
+extern "C" const char *hcex_tag_get_name(int id);
+extern "C" char *hcex_conv_str_name(const char *name, int idx, char *out, int max_len);
 extern wchar_t *hcex_get_string(const char *str_name);
 
 extern "C" wchar_t *hcex_unicode_string_list_get_string(int tag_index, int16_t string_index)

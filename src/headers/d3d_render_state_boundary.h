@@ -23,7 +23,7 @@ extern d3dDRIVER *vidDriver; // NOTE: DB symbol name is `vidDriver`, typed here 
 #include "ws/wb/dbgVAR_boundary.h"
 struct dbgVAR_BOOL : dbgVAR_IMPL<bool, 1> {};
 typedef dbgVAR_BOOL dbgVAR_bool;
-extern dbgVAR_bool dbg_correctPWLGamma;
+extern "C" dbgVAR_bool dbg_correctPWLGamma;
 
 // 0x826950D0 -- reversed in d3dSRGBGamma.c. Linear-to-sRGB gamma encode.
 extern float d3dSRGBGamma(float Clinear);

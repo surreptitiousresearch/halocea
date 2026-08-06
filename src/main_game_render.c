@@ -28,7 +28,7 @@
 
 #include "headers/point2d.h"
 #include "headers/bitmap_data.h"
-extern void hcex_pix_begin_event(const char *name);
+extern void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10) */
 extern void hcex_pix_end_event(void);
 extern void lock_global_random_seed(void);
 extern void unlock_global_random_seed(void);

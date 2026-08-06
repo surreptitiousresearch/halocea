@@ -64,7 +64,7 @@ typedef struct dsVECTOR_BSURF dsVECTOR_BSURF;
 extern dsVECTOR_BSURF hcexBreakableSurfaces;
 
 /* one-time-initialized "Destroy" SSL function name + its init guard. */
-extern dsSTRID fnDestroy;
+extern "C" dsSTRID fnDestroy;
 extern unsigned int hcex_destroy_strid_initialized;   /* the _S1 static guard the decompiler shows */
 
 /* boundary ops (free-function form of the C++ thiscalls). */
@@ -77,4 +77,4 @@ extern void  sslOBJ_REF_ctor(sslOBJ_REF *r, sslOBJECT *obj);
 extern void  sslOBJ_REF_CallFunc(sslERROR *result, sslERROR *target, dsSTRID *func,
         int argc, void *args, void *err, sslOBJ_REF *self);
 extern sslOBJECT *entENTITY_get_sslObject(entENTITY *e);   /* &e->sslObject (entENTITY + 0x58) */
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);

@@ -7,7 +7,7 @@
 #include "headers/message_delta_processor_mode.h"
 #include <stddef.h>
 
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 extern void metrics_record_field_decode(const _message_definition *const message_definition, message_delta_processor_mode mode, const int field_index, const int bits_read);
 
 int decode_body_field(const message_delta_processor_message_definition_type definition_type, int field_index,

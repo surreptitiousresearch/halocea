@@ -22,4 +22,12 @@ struct cinematic_screen_effect_globals
     float          near_clip_distance;                              /* 0x74 */
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct cinematic_screen_effect_globals *cinematic_screen_effect_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -20,7 +20,7 @@
 
 
 int bsp3d_clip_line_to_leaves(const bsp3d *bsp, int node_index, const real_point3d *p0, const real_point3d *p1,
-        void (__fastcall *handler)(const real_point3d *, const real_point3d *, int, void *), void *user_data)
+        void (*handler)(const real_point3d *, const real_point3d *, int, void *), void *user_data)
 {
     const bsp3d_node *node = &((const bsp3d_node *)bsp->nodes.address)[node_index];
     const real_plane3d *plane = &((const real_plane3d *)bsp->planes.address)[node->plane_index];

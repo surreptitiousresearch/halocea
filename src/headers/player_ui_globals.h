@@ -22,4 +22,12 @@ typedef struct _player_ui_globals
     unsigned char      _pad1FA9[3];                             /* 0x1FA9 — trailing alignment */
 } _player_ui_globals;                                           /* 8108 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _player_ui_globals player_ui_globals;
+
+#ifdef __cplusplus
+}
+#endif

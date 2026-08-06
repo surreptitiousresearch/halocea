@@ -9,7 +9,7 @@ void strmSTREAMING_QUEUE::CreateThread()
         return;
 
     osHANDLE_DUMMY *thread = osCreateThread(
-        reinterpret_cast<void (__fastcall *)(void *)>(&strmSTREAMING_QUEUE::ThreadProc),
+        reinterpret_cast<void (*)(void *)>(&strmSTREAMING_QUEUE::ThreadProc),
         this, "streaming", -1);
     hThread = thread;
     osSetThreadPriority(thread, 1);

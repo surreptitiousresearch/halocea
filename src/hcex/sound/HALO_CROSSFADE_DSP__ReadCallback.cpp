@@ -17,9 +17,9 @@ extern "C" const char *FModErrorDesc(FMOD_RESULT res, bool info);
 extern void _apLog(const char *fmt, ...);
 extern "C" void         osOutputDebugString(const char *fmt, ...);
 extern "C" double       __u64tod(uint64_t value); // boundary -- PPC runtime helper
-extern const float      inv_log_2;                        // boundary -- 1/ln(2), named global
+extern "C" const float      inv_log_2;                        // boundary -- 1/ln(2), named global
 
-FMOD_RESULT __fastcall HALO_CROSSFADE_DSP::ReadCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer,
+FMOD_RESULT HALO_CROSSFADE_DSP::ReadCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer,
                                                           float *outbuffer, unsigned int length,
                                                           int inchannels, int outchannels)
 {

@@ -70,8 +70,8 @@ int16_t ai_scripting_command_list_status(int object_list_index)
                 goto accumulate;
 
             unsigned char current_command = component->___u9.obey.current_command_index;
-            ai_command_list_definition *command_list =
-                &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[actor->state.action_data.___u0.obey.command_list_index];
+            ai_command_list_definition_t *command_list =
+                &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[actor->state.action_data.___u0.obey.command_list_index];
             if ( current_command >= (unsigned int)command_list->commands.count
               || !(32 * current_command + (int)command_list->commands.address) )
             {
@@ -87,8 +87,8 @@ int16_t ai_scripting_command_list_status(int object_list_index)
                 goto accumulate;
 
             unsigned char current_command = actor->state.action_data.___u0.obey.simple_control.current_command_index;   /* actor+0xA4 */
-            ai_command_list_definition *command_list =
-                &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[actor->state.action_data.___u0.obey.command_list_index];
+            ai_command_list_definition_t *command_list =
+                &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[actor->state.action_data.___u0.obey.command_list_index];
             if ( current_command >= (unsigned int)command_list->commands.count
               || !(32 * current_command + (int)command_list->commands.address) )
             {

@@ -14,17 +14,26 @@
 #include "../headers/real_vector3d.h"
 #include "../headers/real_point3d.h"
 
-extern data_array *effect_data;
+extern "C" data_array *effect_data;
 
-extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern void hcex_init_effect(int definition_index, int obj_follow, int16_t local_player_index,
+extern "C" int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
+extern "C" int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
+extern "C" void hcex_init_effect(int definition_index, int obj_follow, int16_t local_player_index,
                              const real_point3d *positions, const real_vector3d *forwards,
                              const char **names, int count, double scale);
 
-extern "C" void hcex_init_effect_by_locations(uint16_t effect_index, int obj_follow, float scale)
+/* DEVIATION: arg0 was `uint16_t`, on the strength of the prologue's `clrlwi r11, r3, 16`. That mask
+ * is DATA_ARRAY_ELEMENT's own datum-handle low-word extraction, not a parameter narrowing — the
+ * callers decide. All three (hcex_obj_collect @0x83682120, effect_new_looping @0x836E3EF0,
+ * effect_new_from_object @0x836E4060) move an UNMASKED 32-bit function return into r3 with a plain
+ * `mr`; the C ABI puts the conversion-to-parameter-type on the caller, and MSVC cannot assume the
+ * high half of a call return is zero. effect_new_looping is decisive: it emits `clrlwi r10, r3, 16`
+ * @0x836E3E2C where it genuinely needs the absolute index, and no mask at the call. The value is a
+ * packed handle (BUILD_DATUM_INDEX: salt high, index low) from datum_new / data_next_index, so a
+ * 16-bit parameter would also have silently dropped the salt. DB prototype agrees: int. */
+extern "C" void hcex_init_effect_by_locations(int effect_index, int obj_follow, float scale)
 {
-    effect_datum *effect = DATA_ARRAY_ELEMENT(effect_data, effect_datum, effect_index);
+    effect_datum *effect = DATUM_GET(effect_data, effect_datum, effect_index);
     int found = 0;
     effect_definition *definition = *(effect_definition **)TAG_INSTANCE(effect->definition_index);
 

@@ -15,15 +15,23 @@ typedef struct action_specification
     unsigned int data_size;                                     /* 0x0C */
     int16_t      action_class;                                  /* 0x10 */
     unsigned char _pad0[2]; /* db-verified padding */
-    void (__fastcall *begin)(int actor_index);                  /* 0x14 */
-    uint8_t (__fastcall *perform)(int actor_index);     /* 0x18 */
-    void (__fastcall *update)(int actor_index);                 /* 0x1C */
-    void (__fastcall *control)(int actor_index);                /* 0x20 */
-    void (__fastcall *end)(int actor_index);                    /* 0x24 */
-    void (__fastcall *modify_color)(int actor_index, union real_argb_color *color); /* 0x28 */
-    void (__fastcall *replace_prop)(int actor_index, int a, int b);                  /* 0x2C */
-    void (__fastcall *flush_position_indices)(int actor_index);  /* 0x30 */
-    void (__fastcall *flush_structure_indices)(int actor_index); /* 0x34 */
+    void (*begin)(int actor_index);                             /* 0x14 */
+    uint8_t (*perform)(int actor_index);                /* 0x18 */
+    void (*update)(int actor_index);                            /* 0x1C */
+    void (*control)(int actor_index);                           /* 0x20 */
+    void (*end)(int actor_index);                               /* 0x24 */
+    void (*modify_color)(int actor_index, union real_argb_color *color); /* 0x28 */
+    void (*replace_prop)(int actor_index, int a, int b);                             /* 0x2C */
+    void (*flush_position_indices)(int actor_index);             /* 0x30 */
+    void (*flush_structure_indices)(int actor_index); /* 0x34 */
 } action_specification;                                          /* 56 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern action_specification global_action_functions[];
+
+#ifdef __cplusplus
+}
+#endif

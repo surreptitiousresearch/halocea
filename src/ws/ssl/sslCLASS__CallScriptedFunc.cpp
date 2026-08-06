@@ -13,7 +13,7 @@
 #include "../ds/dsTSTRING.h"
 
 // The most-recently-entered script function name, kept for crash diagnostics. boundary — global.
-extern dsTSTRING<char> gDebugFuncName;
+extern "C" dsTSTRING<char> gDebugFuncName;
 
 // 0x82A39A18 — sslCLASS::CallScriptedFunc. Returns sslERROR by value (sret): the decompiler swaps
 // this/result (r3 = return slot sslERROR*, r4 = this sslCLASS*). Push the call arguments onto the

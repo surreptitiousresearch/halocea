@@ -7,9 +7,9 @@ struct apL10N;
 
 // DB-verified layout (types_members apL10N_vtbl): 3 slots, 12 bytes.
 typedef struct apL10N_vtbl {
-    void           (__fastcall *dtr_apL10N)(apL10N *self);                          // 0x00
-    const wchar_t *(__fastcall *GetStringById)(apL10N *self, const char *id);       // 0x04
-    const char    *(__fastcall *GetUTFStringById)(apL10N *self, const char *id);    // 0x08
+    void           (*dtr_apL10N)(apL10N *self);                                     // 0x00
+    const wchar_t *(*GetStringById)(apL10N *self, const char *id);                  // 0x04
+    const char    *(*GetUTFStringById)(apL10N *self, const char *id);               // 0x08
 } apL10N_vtbl;
 
 typedef struct apL10N {

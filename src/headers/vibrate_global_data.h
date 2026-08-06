@@ -12,4 +12,12 @@ typedef struct vibrate_global_data
     scripted_vibrate_datum scripted_vibrate;       /* 0x410 */
 } vibrate_global_data;              /* 1052 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern vibrate_global_data *vibrate_globals;
+
+#ifdef __cplusplus
+}
+#endif

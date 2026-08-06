@@ -6,7 +6,7 @@
 #include "headers/bitmap_data.h"
 
 extern uint8_t rasterizer_bitmap_new(bitmap_data *bitmap);
-extern int  hcex_tex_get_hardware_format(void *hardware_format, unsigned char block, unsigned char load);
+extern int  hcex_tex_get_hardware_format(void *hardware_format, int block, int load); /* DEVIATION: block/load are int, not unsigned char -- def src/hcex/hcex_tex_get_hardware_format.cpp + prologue mr r30,r4 / cmpwi r5 @0x823F2114 */
 
 int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
         uint8_t load)

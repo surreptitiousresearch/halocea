@@ -1,4 +1,9 @@
-/* global_state_move_position_orders @ 0x82128A10 — .rdata, 24 bytes = 12 x int16_t (exact:
+/* global_state_move_position_orders @ 0x82128A10 (.rdata, 24 bytes)
+ * DB applied_types: const __int16 global_state_move_position_orders[12];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0000 0000 0000 0001 0002 0003 0004 0005
+ *   +0x0010: 0000 0000 0000 0000
+ * .rdata, 24 bytes = 12 x int16_t (exact:
  * number_of_actor_default_states == 12). Maps an actor_default_state to the move_position_order
  * that actor_action_set_default_state hands to action_alert_setup for the moving/alert states.
  * Raw big-endian halfwords -> resolved meaning:
@@ -14,12 +19,11 @@
  *   [9]  0x0000 [actor_default_state_guarding_at_guard_point]   _move_position_order_none
  *   [10] 0x0000 [actor_default_state_searching]                 _move_position_order_none
  *   [11] 0x0000 [actor_default_state_fleeing]                   _move_position_order_none
- *
  * The object is in .rdata (read-only in the original); the corpus declaration in
  * src/actor_action_set_default_state.c is non-const, and the definition matches it so every
  * declaration of the symbol agrees. Adding const is left to the declaration-normalization pass.
+ * /
  */
-
 #include <stdint.h>
 #include "../headers/move_position_order.h"
 

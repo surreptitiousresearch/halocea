@@ -23,8 +23,8 @@ void osGetStartupDir(char *dst, int size);
 
 // fnmDirInit-populated global directory-tree roots, one per registered search root
 // (see fnmAddSearchPath / fnmGetNSearchPath). Walked by fnmFindDisc.
-extern int      fnmNDir;       // boundary -- number of live entries in fnmDirList
-extern fnmDIR  *fnmDirList[];  // boundary -- array of directory-tree roots
+extern "C" int      fnmNDir;       // boundary -- number of live entries in fnmDirList
+extern "C" fnmDIR  *fnmDirList[];  // boundary -- array of directory-tree roots
 
 // CRT snprintf thunk, as named in the database. // boundary
-extern int _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);
+extern "C" int _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);

@@ -7,8 +7,8 @@
 #include "../headers/hcex/hcex_float3.h"
 #include "../headers/object_type.h"
 
-extern void hcex_dump_scenery_by_type(int object_type);
-extern void hcex_scenery_output(int obj_id, int obj_type, const char *model_name, hcex_float3 *pos,
+extern "C" void hcex_dump_scenery_by_type(int object_type);
+extern "C" void hcex_scenery_output(int obj_id, int obj_type, const char *model_name, hcex_float3 *pos,
         hcex_float3 *fw, hcex_float3 *up);
 
 extern "C" void hcex_dump_scenery(void)

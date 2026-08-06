@@ -1,15 +1,15 @@
 /* actor_compute_prop_target_weight @0x837D6DC8 — score how desirable a prop is as a combat target. Returns 0
  * for props that can't/shouldn't be engaged (suppressed, non-enemy, not yet acknowledged, stale corpse, or
- * betrayal type). Otherwise combines a range-band term (v11, from weapon/variant combat ranges), a
- * knowledge/threat term (v17), and target-continuity/visibility bonuses (v6/v7), scaled by 10 and biased by a
+ * betrayal type). Otherwise combines a range-band term (range_band, from weapon/variant combat ranges), a
+ * knowledge/threat term (threat_band), and continuity_bonus/acknowledged_bonus, scaled by 10 and biased by a
  * 1/(1+distance) falloff plus a current-target bonus.
  *
  * Definition fields resolved to the DB structs: weapon_definition weapon.ai_minimum_target_range @0x40C,
  * actor_variant_definition ranged_combat.combat_range_upper_bound @0xA0 and
  * ranged_combat.maximum_firing_range @0x74 (verified against disassembly).
  *
- * Deviation: the decompiler builds an __int64 (HIDWORD=v17, LODWORD=sum) and casts it to float; the HIDWORD
- * write is a dead artifact — the real conversion is of the integer sum. Return is the computed single. */
+ * Deviation: the decompiler builds a fused 64-bit slot (high half threat_band, low half the integer sum) and
+ * casts it to float; the high-half write is a dead artifact — the real conversion is of the sum. */
 
 #include <stdint.h>
 #include "headers/actor_definition.h"

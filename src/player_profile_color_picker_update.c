@@ -8,7 +8,7 @@
 #include "headers/player_profile.h"
 
 extern void single_preview_column_list_update(widget_instance *widget,
-    uint8_t (__fastcall *func)(uint16_t *, int, void *));
+    uint8_t (*func)(uint16_t *, int, void *));
 extern uint8_t color_picker_get_string(uint16_t *out, int index, void *list_items);
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);

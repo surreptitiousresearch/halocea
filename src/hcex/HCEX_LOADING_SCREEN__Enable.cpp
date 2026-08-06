@@ -3,13 +3,13 @@
 
 #include "../headers/hcex/HCEX_LOADING_SCREEN.h"
 
-extern float sHcexVisibleLoadingScreenProgress;
-extern float sHcexLoadProgressVelocity;
-extern int   sHcexShouldClearPrevFrame;
-extern float sHcexTimeAtStartOfLoadingScreenSessionSec;
-extern float sHcexLastLoadingScreenUpdateTimeSec;
+extern "C" float sHcexVisibleLoadingScreenProgress;
+extern "C" float sHcexLoadProgressVelocity;
+extern "C" int   sHcexShouldClearPrevFrame;
+extern "C" float sHcexTimeAtStartOfLoadingScreenSessionSec;
+extern "C" float sHcexLastLoadingScreenUpdateTimeSec;
 
-extern unsigned int GetTickCount();
+extern "C" unsigned int GetTickCount();
 
 void HCEX_LOADING_SCREEN::Enable()
 {

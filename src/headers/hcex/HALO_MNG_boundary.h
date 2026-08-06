@@ -46,9 +46,9 @@ struct dsSTATIC_PARAM_LIST : dsPARAM_LIST {
 typedef dsSTATIC_PARAM_LIST<2> dsSTATIC_PARAM_LIST_2; /* 32 bytes -- DB dsSTATIC_PARAM_LIST<2> */
 
 /* --- dbg console-variable globals (dbgVAR_IMPL<T,N>, DB-verified instantiations) --- */
-extern dbgVAR_IMPL<bool, 5>            dbg_forceReload;    /* 0x841C3A04 */
-extern dbgVAR_IMPL<dsTSTRING<char>, 4> dbg_defaultLevel;    /* 0x841C4070 */
-extern dbgVAR_IMPL<dsTSTRING<char>, 4> dbg_defaultChpt;     /* 0x841C41F0 */
+extern "C" dbgVAR_IMPL<bool, 5>            dbg_forceReload;    /* 0x841C3A04 */
+extern "C" dbgVAR_IMPL<dsTSTRING<char>, 4> dbg_defaultLevel;    /* 0x841C4070 */
+extern "C" dbgVAR_IMPL<dsTSTRING<char>, 4> dbg_defaultChpt;     /* 0x841C41F0 */
 
 /* --- misc HCEX/frame-loop globals --- */
 extern dsVECTOR<dsTSTRING<char>, 8> hcexUsedSfx;            /* 0x841C42AC */

@@ -32,7 +32,7 @@ extern void pctGetDXTPixel(pctPICTURE *pPict, int x, int y, int mip, pctPIXEL *p
 extern void pctGetPixel(pctPICTURE *pPict, int x, int y, int mip, pctPIXEL *pPix, int z, int face);
 extern int  pctGetSwizzleOffs(int w, int h, int bitpp, int x, int y);
 extern unsigned int m3dMaskBuffer2DWordReverce(int bpp, unsigned char *pSrc);
-extern void _blkmov(void *dst, const void *src, int n); // PPC block-move intrinsic wrapper. boundary.
+extern "C" void _blkmov(void *dst, const void *src, int n); // PPC block-move intrinsic wrapper. boundary.
 
 // maximum representable value for a channel of the given bit length ((1<<len)-1)
 static inline int pctChannelMax(int bitLength)

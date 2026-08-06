@@ -1,3 +1,12 @@
+/* new_campaign_entered_name @ 0x8441E664 (.data, 24 bytes)
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ *   +0x0004 = 0x00000000
+ *   +0x0008 = 0x00000000
+ *   +0x000C = 0x00000000
+ *   +0x0010 = 0x00000000
+ *   +0x0014 = 0x00000000
+ */
 #include <stdint.h>
 /* new_campaign_entered_name @ 0x8441E664 - .data zero-fill (IDA word_8441E664, no PDB name).
  * The virtual-keyboard text buffer for a new campaign profile name. new_campaign_chosen passes it to

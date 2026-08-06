@@ -7,7 +7,7 @@
 
 #include "../headers/hcex/hcex_follow_boundary.h"
 
-extern void STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
+extern "C" void STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 

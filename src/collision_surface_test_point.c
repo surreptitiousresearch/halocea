@@ -17,8 +17,8 @@
 #include "headers/collision_vertex.h"
 #include "headers/collision_surface_flags.h"
 #include "headers/real_point2d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[3][2][2];
 
 /* Return is 8-bit: both callers (collision_leaf_test_vector @0x837E15A0,
  * bsp3d_test_pill_recursive @0x837E29F0) normalize the result with clrlwi rN,r3,24. */
@@ -39,9 +39,8 @@ uint8_t collision_surface_test_point(const collision_bsp *bsp, int16_t breakable
         /* the folded 24 / 4-float strides were sizeof(collision_edge) / sizeof(collision_vertex) */
         const collision_edge *edges = (const collision_edge *)bsp->edges.address;
         const collision_vertex *vertices = (const collision_vertex *)bsp->vertices.address;
-        int map_index = 2 * projection_axis + projection_sign;
-        int map_x = global_projection3d_mappings[0][map_index][0];
-        int map_y = global_projection3d_mappings[0][map_index][1];
+        int map_x = global_projection3d_mappings[projection_axis][projection_sign][0];
+        int map_y = global_projection3d_mappings[projection_axis][projection_sign][1];
         float px = point->n[0];
         float py = point->n[1];
         int edge_index = first_edge;

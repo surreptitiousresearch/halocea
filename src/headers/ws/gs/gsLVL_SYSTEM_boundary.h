@@ -32,4 +32,4 @@ void sioSetObjLoadCB(void (*cb)());
 void _apLog(const char *fmt, ...);
 
 // Free a heap block (dsTSTRING buffer release path). boundary
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);

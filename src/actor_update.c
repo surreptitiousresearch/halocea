@@ -6,12 +6,12 @@
  * control/communication/conversation/destination/look/move/combat/unit-control chain; a swarm actor is
  * driven through actor_type_swarm_control instead.
  *
- * Reads/writes into the actor_datum opaque region are by raw byte offset (verified against disasm at
- * 0x83721B04-0x83721C84). Named meta fields (swarm @+6, dormant @+19 == meta+0xF) come from actor_meta_data.
+ * Offsets recovered against disasm at 0x83721B04-0x83721C84: actor+6 -> meta.swarm, actor+19 (meta+0xF) ->
+ * meta.dormant; every such access goes through the named actor_meta_data member here.
  *
  * Deviation: the decompiler loaded the 9-dword movement snapshot (src +0x174, dst +0x6FC) into registers in
- * a scrambled order (v10..v18); disasm confirms it is a plain sequential 9-dword copy, reconstructed as a
- * loop. global_zero_vector3d is a pointer global (lwz of the value at 0x83721C5C), dereferenced here. */
+ * a scrambled order; disasm confirms it is a plain sequential 9-dword copy, reconstructed as the three
+ * real_vector3d assignments below. global_zero_vector3d is a pointer global (lwz at 0x83721C5C), dereferenced. */
 
 #include <stdint.h>
 #include <string.h>

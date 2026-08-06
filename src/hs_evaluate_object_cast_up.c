@@ -10,7 +10,6 @@
 #include "headers/hs_thread.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
-#include "headers/hs_object_type_masks.h"
 #include "headers/data_array.h"
 #include "headers/hs_function_index.h"
 #include "headers/blam_data_globals.h"

@@ -21,16 +21,16 @@
 #include "../headers/object_type.h"
 #include "../headers/light_definition_flags.h"
 
-extern data_array *light_data;
-extern data_array *player_data;
+extern "C" data_array *light_data;
+extern "C" data_array *player_data;
 
-extern uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
-extern int local_player_get_player_index(int16_t local_player_index);
-extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern const char *object_get_attachment_marker_name(int object_index, int16_t attachment_index);
-extern void first_person_weapon_center_flashlight(int unit_index, real_point3d *position, real_vector3d *forward, real_vector3d *up);
-extern uint8_t first_person_weapon_adjust_light(int weapon_index, const char *marker_name, real_point3d *position, real_vector3d *forward, real_vector3d *up);
-extern void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
+extern "C" uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
+extern "C" int local_player_get_player_index(int16_t local_player_index);
+extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
+extern "C" const char *object_get_attachment_marker_name(int object_index, int16_t attachment_index);
+extern "C" void first_person_weapon_center_flashlight(int unit_index, real_point3d *position, real_vector3d *forward, real_vector3d *up);
+extern "C" uint8_t first_person_weapon_adjust_light(int weapon_index, const char *marker_name, real_point3d *position, real_vector3d *forward, real_vector3d *up);
+extern "C" void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
 
 extern "C" void hcex_get_light_params(int lightId, real_matrix4x3 *matr, float *radius, int *plr_idx)
 {

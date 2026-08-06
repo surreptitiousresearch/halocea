@@ -1,4 +1,49 @@
-/* video_resolutions @ 0x8446A760 — data-bss zero-fill; DB applied-type `video_resolution_s video_resolutions[32];`. */
+/* video_resolutions @ 0x8446A760 (.data, 2432 bytes)
+ * DB applied_types: video_resolution_s video_resolutions[32];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 1] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 2] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 3] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 4] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 5] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 6] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   [ 7] +0x00 width                      = 0x00000000
+ *        +0x04 height                     = 0x00000000
+ *        +0x08 name                       = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *        +0x28 numRefreshes               = 0x00000000
+ *        +0x2C refreshes                  = 0x0000000000000000000000000000000000000000000000000000000000000000
+ *   ... 24 further elements elided; full hex in .sweep/data_image.tsv
+ * data-bss zero-fill; DB applied-type `video_resolution_s video_resolutions[32];`.
+ */
 #include "../headers/video_resolution_s.h"
 
 video_resolution_s video_resolutions[32];

@@ -62,4 +62,12 @@ typedef struct first_person_weapon
     unsigned char              _pad1E9E[2];                    /* 0x1E9E */
 } first_person_weapon;                                         /* 7840 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern first_person_weapon *first_person_weapons;
+
+#ifdef __cplusplus
+}
+#endif

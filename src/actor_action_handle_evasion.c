@@ -6,7 +6,7 @@
  *   2. If the evasion urgency (+852) exceeds the tag's dive threshold (choosing the crouched/standing
  *      threshold at +784/+788, clamped to 1.1 when the actor is airborne and a positive dive-chance is
  *      set), reseed the RNG (once), and if the variant's grenade type is 2, consider a defensive grenade.
- *   3. Compute two gates (v12 = "prop still dangerous", v13 = "not already fleeing"), then optionally
+ *   3. Compute two gates (prop_dangerous, not_fleeing), then optionally
  *      seek cover again (RNG-gated by the tag's cover-seek chance at +792) firing an ai_communication_event,
  *      and finally fall back to a plain evade (setting the evasion cooldown timer at +872 from the tag's
  *      evade-duration at +796 * 30).
@@ -115,7 +115,7 @@ uint8_t actor_action_handle_evasion(int actor_index)
         acted = 1;
     }
 
-    /* v12 = "tracked prop still dangerous"; v13 = "not already committed to a fleeing action". */
+    /* prop_dangerous = "tracked prop still dangerous"; not_fleeing = "not already committed to fleeing". */
     uint8_t prop_dangerous = 1;
     uint8_t not_fleeing = 1;
 

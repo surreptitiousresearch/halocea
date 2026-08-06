@@ -28,4 +28,12 @@ struct game_time_statistics
     unsigned char   _pad26[2];                             /* 0x26 — pad to 40 */
 }; /* 40 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct game_time_statistics game_time_statistics;
+
+#ifdef __cplusplus
+}
+#endif

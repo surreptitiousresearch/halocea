@@ -20,4 +20,12 @@ typedef struct cheat_globals
 } cheat_globals;                                /* 10 bytes */
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern cheat_globals cheat;
+
+#ifdef __cplusplus
+}
+#endif

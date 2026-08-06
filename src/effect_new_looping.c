@@ -21,8 +21,14 @@ extern int effect_allocate(int definition_index, int owner_object_index, uint8_t
 extern int16_t first_person_weapon_get_local_index(int object_index);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern void effect_build_locations(effect_datum *effect, int16_t (__fastcall *get_markers_by_name)(int, const char *, object_marker *, int16_t));
-extern void hcex_init_effect_by_locations(uint16_t effect_index, int obj_follow, float scale);
+extern void effect_build_locations(effect_datum *effect, int16_t (*get_markers_by_name)(int, const char *, object_marker *, int16_t));
+/* DEVIATION: arg0 was `uint16_t`. It is a 32-bit datum handle: all three call sites move an
+ * unmasked function return (effect_allocate / data_next_index) into r3 with a plain `mr`, and a
+ * 16-bit parameter would have forced the caller-side narrowing the C ABI requires. This very
+ * function emits `clrlwi r10, r3, 16` @0x836E3E2C for its own use of the handle and does NOT
+ * emit one at the call @0x836E3EF0. The callee's `clrlwi r11, r3, 16` is DATA_ARRAY_ELEMENT's
+ * own low-word extraction, not a parameter narrowing. */
+extern void hcex_init_effect_by_locations(int effect_index, int obj_follow, float scale);
 extern void effect_update(int effect_index, float dt);
 
 int effect_new_looping(int definition_index, int object_index, int16_t scale_a_function_index,

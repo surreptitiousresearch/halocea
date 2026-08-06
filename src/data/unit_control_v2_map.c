@@ -1,4 +1,14 @@
-/* unit_control_v2_map @ 0x84186700 -- second-order .data; unit_control_data_entry[2] reconstructed from binary bytes. */
+/* unit_control_v2_map @ 0x84186700 (.data, 24 bytes)
+ * DB applied_types: unit_control_data_entry unit_control_v2_map[2];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 bs_def                     = 0x84185788 -> long_bs_definition
+ *        +0x04 size                       = 0x00000004
+ *        +0x08 offset                     = 0x00000018
+ *   [ 1] +0x00 bs_def                     = 0x00000000
+ *        +0x04 size                       = 0xFFFFFFFF
+ *        +0x08 offset                     = 0xFFFFFFFF
+ * second-order .data; unit_control_data_entry[2] reconstructed from binary bytes.
+ */
 /* NOTE: DB nominally types this as [10], but physical storage bounded by the adjacent symbol
  * (unit_control_v3_map @ 0x84186718, only 24 bytes = 2 entries) is 2 terminated entries; a [10]
  * declaration (120 bytes) would overlap v3/v4_map — sized to the ground-truth [2]. 2026-07-31. */

@@ -31,4 +31,4 @@ typedef struct camFRUSTUM {
 // (dbd_useFineAABBCulling @ 0x8434F778; disasm reads .value). boundary — the concrete bool-var
 // layout lives in hcex_dbgvar_boundary.h (dbgVAR_bool, .value @0xC).
 #include "../../hcex/hcex_dbgvar_boundary.h"
-extern dbgVAR_bool dbd_useFineAABBCulling;
+extern "C" dbgVAR_bool dbd_useFineAABBCulling;

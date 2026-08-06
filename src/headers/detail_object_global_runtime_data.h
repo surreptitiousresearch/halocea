@@ -11,4 +11,12 @@ struct detail_object_global_runtime_data
     real_vector4d              default_z_reference_vector;  /* 0xA420 */
 }; /* 42032 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct detail_object_global_runtime_data *detail_object_global_runtime_data;
+
+#ifdef __cplusplus
+}
+#endif

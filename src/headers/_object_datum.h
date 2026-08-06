@@ -78,7 +78,14 @@ typedef struct _object_datum
     unsigned char    functions_active_flags;                   /* 0x11F */
     float            incoming_function_values[4];              /* 0x120 */
     float            outgoing_function_values[4];              /* 0x130 */
-    char             attachment_types[8];                      /* 0x140 */
+    /* DEVIATION: types_members and headers_ref both spell this `char[8]`, but the binary's own
+     * codegen proves unsigned semantics — attachments_delete does `lbz` then `cmplwi 0xFF`
+     * @0x836F064C/0x836F0650 and `cmplwi 4` @0x836F0670, and attachments_new.c:99 stores a
+     * truncated int16_t -1 (so 255 IS the Blam NONE sentinel here). Under a SIGNED char the
+     * `!= 255` test can never be true. Plain `char` is unsigned on this PPC target, which is why
+     * the DB spelling worked, but it is SIGNED under MSVC x64 — so the explicit spelling is what
+     * keeps this correct through the x64 port. Size and offset unchanged (8 bytes @0x140). */
+    uint8_t          attachment_types[8];                      /* 0x140 */
     int              attachment_indices[8];                    /* 0x148 */
     int              first_widget_index;                       /* 0x168 */
     int              cached_render_state_index;                /* 0x16C */

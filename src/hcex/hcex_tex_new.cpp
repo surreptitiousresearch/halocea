@@ -12,8 +12,8 @@
 
 #include "../headers/txm_boundary.h"
 
-extern char *hcex_conv_bmp_name(const char *bmp_name, int bmp_index, char *out, int out_size);
-extern char *strcpy(char *dst, const char *src);
+extern "C" char *hcex_conv_bmp_name(const char *bmp_name, int bmp_index, char *out, int out_size);
+extern "C" char *strcpy(char *dst, const char *src);
 
 extern "C" txmTEXTURE *hcex_tex_new(const char *bmp_name, int bmp_index)
 {

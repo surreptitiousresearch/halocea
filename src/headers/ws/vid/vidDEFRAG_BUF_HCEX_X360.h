@@ -11,11 +11,11 @@ struct vidDEFRAG_BUF_HCEX_X360; // fwd
 // vtable — DB-verified (types_members vidDEFRAG_BUF_HCEX_X360_vtbl). Same shape as
 // vidDEFRAG_BUF_vtbl, overridden for this leaf class.
 typedef struct vidDEFRAG_BUF_HCEX_X360_vtbl {
-    void  (__fastcall *RemoveChunk)(vidDEFRAG_BUF_HCEX_X360 *self, apDEFRAG_CHUNK *chunk);
-    char *(__fastcall *FitIntoFreeBlock)(vidDEFRAG_BUF_HCEX_X360 *self, apDEFRAG_CHUNK *chunk, int align);
-    bool  (__fastcall *MoveChunk)(vidDEFRAG_BUF_HCEX_X360 *self, int block, apDEFRAG_CHUNK *chunk);
-    void  (__fastcall *DefragAllInside)(vidDEFRAG_BUF_HCEX_X360 *self);
-    void  (__fastcall *dtr_vidDEFRAG_BUF_HCEX_X360)(vidDEFRAG_BUF_HCEX_X360 *self);
+    void  (*RemoveChunk)(vidDEFRAG_BUF_HCEX_X360 *self, apDEFRAG_CHUNK *chunk);
+    char *(*FitIntoFreeBlock)(vidDEFRAG_BUF_HCEX_X360 *self, apDEFRAG_CHUNK *chunk, int align);
+    bool  (*MoveChunk)(vidDEFRAG_BUF_HCEX_X360 *self, int block, apDEFRAG_CHUNK *chunk);
+    void  (*DefragAllInside)(vidDEFRAG_BUF_HCEX_X360 *self);
+    void  (*dtr_vidDEFRAG_BUF_HCEX_X360)(vidDEFRAG_BUF_HCEX_X360 *self);
 } vidDEFRAG_BUF_HCEX_X360_vtbl;
 
 struct vidDEFRAG_BUF_HCEX_X360 : vidDEFRAG_BUF {

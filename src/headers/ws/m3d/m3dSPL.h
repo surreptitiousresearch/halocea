@@ -8,14 +8,14 @@ struct m3dSPL;
 
 // Virtual dispatch table. DB-verified (types_members m3dSPL_vtbl).
 struct m3dSPL_vtbl {
-    void     (__fastcall *dtr_m3dSPL)(m3dSPL *self, int deleteFlag); // scalar-deleting dtr; deleteFlag bit0 => free
+    void     (*dtr_m3dSPL)(m3dSPL *self, int deleteFlag); // scalar-deleting dtr; deleteFlag bit0 => free
     // Evaluate the spline. Real call sites pass (this, keyframeIdx, float *out, 0, sampleTime);
     // the extra args are absorbed by the PPC varargs ABI.
-    void     (__fastcall *GetValue)(m3dSPL *self, float t, void *out, void *ctx);
-    void     (__fastcall *InterpolateKp)(m3dSPL *self, void *a, void *b, float t, void *out);
-    void     (__fastcall *GetValueClosest)(m3dSPL *self, float t, void *out, void *ctx);
-    float    (__fastcall *DistPoint)(m3dSPL *self, void *pt, int *idx, float *dist, void *ctx);
-    m3dSPL  *(__fastcall *Convert)(m3dSPL *self, int type, int dim);
+    void     (*GetValue)(m3dSPL *self, float t, void *out, void *ctx);
+    void     (*InterpolateKp)(m3dSPL *self, void *a, void *b, float t, void *out);
+    void     (*GetValueClosest)(m3dSPL *self, float t, void *out, void *ctx);
+    float    (*DistPoint)(m3dSPL *self, void *pt, int *idx, float *dist, void *ctx);
+    m3dSPL  *(*Convert)(m3dSPL *self, int type, int dim);
 };
 
 struct m3dSPL {

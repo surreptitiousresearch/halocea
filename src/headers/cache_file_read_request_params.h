@@ -8,7 +8,7 @@ typedef struct cache_file_read_request_params cache_file_read_request_params;
 struct cache_file_read_request_params
 {
     volatile uint8_t                          *finished_flag;
-    void (__fastcall *finished_func)(cache_file_read_request_params *);
+    void (*finished_func)(cache_file_read_request_params *);
     void                                      *userdata;
 };
 

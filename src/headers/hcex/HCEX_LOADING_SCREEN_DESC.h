@@ -14,15 +14,15 @@ struct sslCLASS_REF;
 struct HCEX_LOADING_SCREEN_DESC;
 
 typedef struct HCEX_LOADING_SCREEN_DESC_vtbl {
-    const dscTYPE_INFO *(__fastcall *GetCurTypeInfo)(HCEX_LOADING_SCREEN_DESC *self);            // 0x00
-    void                (__fastcall *dtr_HCEX_LOADING_SCREEN_DESC)(HCEX_LOADING_SCREEN_DESC *self); // 0x04
-    void                (__fastcall *NotifyTermBrand)(HCEX_LOADING_SCREEN_DESC *self);            // 0x08
-    void                (__fastcall *ParsePS)(HCEX_LOADING_SCREEN_DESC *self, psSECTION *section, const dsTSTRING<char> *hintErr);       // 0x0C
-    void                (__fastcall *PostProcessPS)(HCEX_LOADING_SCREEN_DESC *self, psSECTION *section, const dsTSTRING<char> *hintErr); // 0x10
-    sslCLASS_REF       *(__fastcall *GetSslClass)(HCEX_LOADING_SCREEN_DESC *self, sslCLASS_REF *result); // 0x14
-    int                 (__fastcall *InitSslClass)(HCEX_LOADING_SCREEN_DESC *self, const dsTSTRING<char> *sslDecl);                     // 0x18
-    void                (__fastcall *UnshareSslClass)(HCEX_LOADING_SCREEN_DESC *self, bool a, bool b); // 0x1C
-    bool                (__fastcall *IsNeedToUnshareSslClass)(HCEX_LOADING_SCREEN_DESC *self, bool a); // 0x20
+    const dscTYPE_INFO *(*GetCurTypeInfo)(HCEX_LOADING_SCREEN_DESC *self);                       // 0x00
+    void                (*dtr_HCEX_LOADING_SCREEN_DESC)(HCEX_LOADING_SCREEN_DESC *self); // 0x04
+    void                (*NotifyTermBrand)(HCEX_LOADING_SCREEN_DESC *self);                       // 0x08
+    void                (*ParsePS)(HCEX_LOADING_SCREEN_DESC *self, psSECTION *section, const dsTSTRING<char> *hintErr);                  // 0x0C
+    void                (*PostProcessPS)(HCEX_LOADING_SCREEN_DESC *self, psSECTION *section, const dsTSTRING<char> *hintErr); // 0x10
+    sslCLASS_REF       *(*GetSslClass)(HCEX_LOADING_SCREEN_DESC *self, sslCLASS_REF *result); // 0x14
+    int                 (*InitSslClass)(HCEX_LOADING_SCREEN_DESC *self, const dsTSTRING<char> *sslDecl);                                // 0x18
+    void                (*UnshareSslClass)(HCEX_LOADING_SCREEN_DESC *self, bool a, bool b); // 0x1C
+    bool                (*IsNeedToUnshareSslClass)(HCEX_LOADING_SCREEN_DESC *self, bool a); // 0x20
 } HCEX_LOADING_SCREEN_DESC_vtbl;
 
 struct HCEX_LOADING_SCREEN_DESC : ui_new::UI_FRAME_DESC {

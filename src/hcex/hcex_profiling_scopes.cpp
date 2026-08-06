@@ -14,10 +14,10 @@
 /* The five backing counters. The four global ones are constructed with a static-init name string
  * ("hcex/main loop", "hcex/obj sync", "hcex/fp sync", "hcex/create sfx"); the outermost
  * "hcex/process_frame" scope uses a function-local static in the original. */
-extern apCOUNTER_TIME_CALL cnt_hcex_main_loop;   // 0x841C3AA8
-extern apCOUNTER_TIME_CALL cnt_hcex_obj_sync;    // 0x841C3E54
-extern apCOUNTER_TIME_CALL cnt_hcex_fp_sync;     // 0x841C3CC8
-extern apCOUNTER_TIME_CALL cnt_hcex_create_sfx;  // 0x841C3BEC
+extern "C" apCOUNTER_TIME_CALL cnt_hcex_main_loop;   // 0x841C3AA8
+extern "C" apCOUNTER_TIME_CALL cnt_hcex_obj_sync;    // 0x841C3E54
+extern "C" apCOUNTER_TIME_CALL cnt_hcex_fp_sync;     // 0x841C3CC8
+extern "C" apCOUNTER_TIME_CALL cnt_hcex_create_sfx;  // 0x841C3BEC
 
 /* apCOUNTER_TIME_CALL::Start (0x823DC758) / ::Stop (0x823DC928). */
 extern "C++" {

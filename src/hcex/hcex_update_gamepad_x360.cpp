@@ -30,17 +30,17 @@ extern int        inpINPUT_GetDeviceCount(inpINPUT *self);
 extern inpDEVICE *inpINPUT_GetDevice(inpINPUT *self, int id);
 extern float      inpDEVICE_GetKeyValue(inpDEVICE *self, int key_index);   /* non-virtual */
 
-extern void clear_hcex_input_x360(void);
+extern "C" void clear_hcex_input_x360(void);
 extern void hcex_raw_input_set(int gamepadId, const haloRAW_INPUT_X360 *inp);
 
-extern int    hcex_coop_local_player_index;
+extern "C" int    hcex_coop_local_player_index;
 extern haloRAW_INPUT_X360 hcex_coop_u1_inp_remote;
 
-extern char    hcex_gamepad_buttons[4][16];
-extern int16_t hcex_sThumbLX[4];
-extern int16_t hcex_sThumbLY[4];
-extern int16_t hcex_sThumbRX[4];
-extern int16_t hcex_sThumbRY[4];
+extern "C" char    hcex_gamepad_buttons[4][16];
+extern "C" int16_t hcex_sThumbLX[4];
+extern "C" int16_t hcex_sThumbLY[4];
+extern "C" int16_t hcex_sThumbRX[4];
+extern "C" int16_t hcex_sThumbRY[4];
 
 void hcex_update_gamepad_x360(void)
 {

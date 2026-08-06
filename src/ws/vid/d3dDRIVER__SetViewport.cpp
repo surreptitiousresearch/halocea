@@ -5,7 +5,7 @@
 // boundary -- the video-driver critical-section singleton.
 extern vidLOCK vidLock;
 // boundary -- Xbox 360 D3D SDK: set the device viewport.
-extern void D3DDevice_SetViewport(D3DDevice *pDevice, _D3DVIEWPORT9 *pViewport);
+extern "C" void D3DDevice_SetViewport(D3DDevice *pDevice, _D3DVIEWPORT9 *pViewport);
 
 // 0x8268E518 -- ?SetViewport@d3dDRIVER@@... (virtual)  D3d_drv_8.cpp:2298
 // Set the D3D viewport. Guarded by the device-ready state bit 0x04000000 (bit 26) and serialized

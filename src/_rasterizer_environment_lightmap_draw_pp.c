@@ -69,7 +69,7 @@ extern void shader_environment_texture_animation_evaluate(const struct shader *s
 extern float periodic_function_evaluate(int16_t function_type, float time);
 extern void rasterizer_draw_dynamic_triangles_static_vertices2(int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer0, const vertex_buffer *vertex_buffer1);
 
-void __fastcall rasterizer_environment_lightmap_draw_pp(const shader *shader, int16_t shader_permutation_index,
+void rasterizer_environment_lightmap_draw_pp(const shader *shader, int16_t shader_permutation_index,
         int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count,
         const vertex_buffer *vertex_buffer)
 {

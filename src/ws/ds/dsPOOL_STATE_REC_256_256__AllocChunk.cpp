@@ -3,7 +3,7 @@
 #include "ds_assert_boundary.h"
 
 // boundary — debug allocator: dlMalloc(size, callsite_file, callsite_line).
-extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
+extern "C" void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 
 // dsPOOL<dsSTATE_MGR::STATE_REC,256,256>::AllocChunk @ 0x82614388
 // Allocate a fresh chunk of 256 STATE_RECs and thread every slot onto the free list. While free,

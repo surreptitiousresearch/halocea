@@ -17,11 +17,11 @@ struct apDEFRAG_BUF;
 // vtable — DB-verified (types_members apDEFRAG_BUF_vtbl). Full body given here (was a bare forward
 // typedef) so consumers that pick up this flat header can dispatch through the slots.
 typedef struct apDEFRAG_BUF_vtbl {
-    void  (__fastcall *RemoveChunk)(apDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk);
-    char *(__fastcall *FitIntoFreeBlock)(apDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk, int align);
-    bool  (__fastcall *MoveChunk)(apDEFRAG_BUF *self, int block, apDEFRAG_CHUNK *chunk);
-    void  (__fastcall *DefragAllInside)(apDEFRAG_BUF *self);
-    void  (__fastcall *dtr_apDEFRAG_BUF)(apDEFRAG_BUF *self);
+    void  (*RemoveChunk)(apDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk);
+    char *(*FitIntoFreeBlock)(apDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk, int align);
+    bool  (*MoveChunk)(apDEFRAG_BUF *self, int block, apDEFRAG_CHUNK *chunk);
+    void  (*DefragAllInside)(apDEFRAG_BUF *self);
+    void  (*dtr_apDEFRAG_BUF)(apDEFRAG_BUF *self);
 } apDEFRAG_BUF_vtbl;
 
 /* free/reclaimable span inside the buffer. DB types_members apDEFRAG_BUF::MEM_BLOCK. */

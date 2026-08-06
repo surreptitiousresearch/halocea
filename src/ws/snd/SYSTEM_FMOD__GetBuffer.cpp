@@ -25,8 +25,8 @@ void *operator new(size_t size, const char *file, unsigned int line);
 // ws-engine debug-console bool toggles that suppress new sounds. dbgVAR_SIMPLE<bool,1>; only the
 // `.value` byte is read here. boundary — owned by the src/ws/snd drain.
 struct SND_DBGVAR_BOOL { unsigned char _dbgVarBase[12]; unsigned char value; };
-extern SND_DBGVAR_BOOL dbg_disableSounds;
-extern SND_DBGVAR_BOOL dbg_disableNewSounds;
+extern "C" SND_DBGVAR_BOOL dbg_disableSounds;
+extern "C" SND_DBGVAR_BOOL dbg_disableNewSounds;
 
 namespace snd {
 // FMOD backend buffer bring-up. boundary — bodies in the src/ws/snd drain.

@@ -9,4 +9,12 @@ typedef struct hud_scripted_globals_definition
     uint8_t pad[2];             /* 0x02 */
 } hud_scripted_globals_definition;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern hud_scripted_globals_definition *hud_scripted_globals;
+
+#ifdef __cplusplus
+}
+#endif

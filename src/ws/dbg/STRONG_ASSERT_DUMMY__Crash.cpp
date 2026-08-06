@@ -12,7 +12,7 @@
 // fault steps are skipped.
 
 // --- boundary externs (OS / CRT / allocator / shared empty-string) -----------------------------
-extern int  bHappend;                                  // one-shot latch @ 0x841DB160
+extern "C" int  bHappend;                                  // one-shot latch @ 0x841DB160
 // DEVIATION: this object was named `dsStrongAssertMessage` here, colliding with the corpus's
 // alias for the shared "" literal (.rdata @0x8200155A). It is neither: the disassembly at
 // 0x825202E4 loads ?emptyStr@?1??UnsafeInitEmpty@?$dsTSTRING@D@@IAAXXZ@4V2@A (@0x841C3380) --
@@ -26,7 +26,7 @@ extern int  osGetCurThreadId();
 extern int  osGetMainThreadId();
 extern void _apMsgBox(const char *text);
 extern void osDebugBreak();
-extern void osOutputDebugString(const char *fmt, ...);
+extern "C" void osOutputDebugString(const char *fmt, ...);
 extern "C" void dlFree(void *ptr);
 
 void STRONG_ASSERT_DUMMY::Crash(const char *condition, const char *file, int line, const char *info)

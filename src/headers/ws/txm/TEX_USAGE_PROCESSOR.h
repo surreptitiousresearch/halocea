@@ -32,9 +32,9 @@ typedef struct TEX_USAGE_PROCESSOR
 // String tables consulted by ProcessToken (ENGINE_MAP_TYPE_NAME[0..]) and by txmTexDescLoad's
 // address-mode parsing (ENGINE_TEX_ADDRESS_MODE_STR -- the sentinel one-past ENGINE_MAP_TYPE_NAME).
 // Not reversed as data in this batch -- boundary raw string-table pointers.
-extern const char *ENGINE_MAP_TYPE_NAME[];
-extern const char *ENGINE_TEX_ADDRESS_MODE_STR[];
+extern "C" const char *ENGINE_MAP_TYPE_NAME[];
+extern "C" const char *ENGINE_TEX_ADDRESS_MODE_STR[];
 
 // 0x82C66558 -- parse `str` ("wrap"/"clamp"/"mirror") into *mode. Body not decompiled in this
 // batch (called from txmTexDescLoad's address_u/address_v handling). boundary.
-extern void GetTexAddressModeFromString(ENGINE_TEX_ADDRESS_MODE *mode, const char *str);
+extern "C" void GetTexAddressModeFromString(ENGINE_TEX_ADDRESS_MODE *mode, const char *str);

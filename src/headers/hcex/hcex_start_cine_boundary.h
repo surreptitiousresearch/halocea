@@ -15,7 +15,7 @@ extern DBG_CINE_INFO _dbgCineInfo;
 extern dsVECTOR<dsTSTRING<char>, 8> cineHiddenActorsTplNames; /* DB dsVECTOR<dsTSTRING<char>,8> */
 extern dsVECTOR<dsSTRID, 8>         cineHiddenHcexObjKeys;    /* DB dsVECTOR<dsSTRID,8> */
 
-extern const char * hcex_get_parent_script(void);
+extern "C" const char * hcex_get_parent_script(void);
 extern void dsVECTOR_tstring_Clear(dsVECTOR<dsTSTRING<char>, 8> *v); /* dsVECTOR<dsTSTRING<char>,8>::Clear */
 extern void hcex_cine_process_start(const dsTSTRING_flat *parentScript);
 extern void DBG_CINE_INFO_Init(DBG_CINE_INFO *self);

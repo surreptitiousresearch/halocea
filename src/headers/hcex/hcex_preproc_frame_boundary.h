@@ -16,17 +16,17 @@ extern ENGINE_CONTROL *gsEngineCtrl;
 extern int  ENGINE_CONTROL_IsSplitScreen(const ENGINE_CONTROL *self);      /* IsSplitScreen() const */
 extern void ENGINE_CONTROL_SetSplitScreen(ENGINE_CONTROL *self, int value); /* SetSplitScreen(bool) */
 
-extern int  hcex_coop_local_player_index;   /* int */
+extern "C" int  hcex_coop_local_player_index;   /* int */
 extern int  hcex_cur_render_mode;
 extern bool hcex_split_screen;
 extern bool hcex_enable_pix;
 
-extern dbgVAR_bool dbg_hcex_test_online_coop_switch_plr;
+extern "C" dbgVAR_bool dbg_hcex_test_online_coop_switch_plr;
 
-extern void hcex_pix_begin_event(const char *fmt, ...);   /* already reversed: hcex_pix_begin_event.c */
+extern "C" void hcex_pix_begin_event(const char *fmt, ...);   /* already reversed: hcex_pix_begin_event.c */
 extern void osPIXEndEvent(void);
 
 extern void hcex_destroy_dead_intances(void);   /* already reversed: hcex_destroy_dead_intances.c */
 extern void hcex_change_render_mode(void);      /* not in this batch — boundary */
 extern void hcex_change_kinect_state(void);     /* already reversed: hcex_change_kinect_state.c */
-extern uint8_t cinematic_in_progress(void);        /* Blam engine — distinct from cinematic_globals->cinematic_in_progress */
+extern "C" uint8_t cinematic_in_progress(void);    /* Blam engine — distinct from cinematic_globals->cinematic_in_progress */

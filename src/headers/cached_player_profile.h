@@ -12,4 +12,12 @@ typedef struct _cached_player_profile
     player_profile profile;       /* 0x004 */
 } _cached_player_profile; /* 1984 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _cached_player_profile cached_player_profile[3];
+
+#ifdef __cplusplus
+}
+#endif

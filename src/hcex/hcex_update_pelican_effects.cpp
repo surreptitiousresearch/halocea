@@ -9,7 +9,7 @@
 
 #include "../headers/hcex/hcex_create_effect_boundary.h"   /* HCEX_OBJ, animINST, entENTITY, sml_STATE_Set, hcex_obj_get, hcex_prepare_locations, sprintf_0, dsTSTRING_flat, dlFree */
 
-extern char *hcex_conv_name(char *out, int max_len);
+extern "C" char *hcex_conv_name(char *out, int max_len);
 
 extern "C" void hcex_update_pelican_effects(int vehicle_index, const char *src_obj, hcex_float3 *point,
         hcex_float3 *vector, int start)

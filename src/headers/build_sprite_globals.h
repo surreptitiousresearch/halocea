@@ -18,4 +18,12 @@ typedef struct build_sprite_globals_data
     real_vector3d   viewer_space_world_forward;  /* 0x1C */
 } build_sprite_globals_data;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern build_sprite_globals_data build_sprite_globals;
+
+#ifdef __cplusplus
+}
+#endif

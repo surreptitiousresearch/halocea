@@ -24,7 +24,15 @@ typedef struct _input_abstraction_globals
     unsigned char _pad1DB[1];                          /* 0x1DB — trailing alignment */
 } _input_abstraction_globals;                          /* 476 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _input_abstraction_globals input_abstraction_globals;
+
+#ifdef __cplusplus
+}
+#endif
 
 /* device_usage_info_s — separate global (DB types_members device_usage_info_s); only
  * last_used_index touched here. */

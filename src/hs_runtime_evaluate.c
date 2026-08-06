@@ -17,7 +17,6 @@ extern int datum_new(data_array *data);
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
 extern void hs_thread_main(int thread_index);
 
-extern struct { unsigned char initialized; /* ... */ } hs_runtime_globals;
 
 int hs_runtime_evaluate(int expression_index)
 {

@@ -38,7 +38,7 @@ extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern real_argb_color * get_ui_argb_white(real_argb_color *result);
 
 void single_preview_column_list_update(widget_instance *widget,
-        uint8_t (__fastcall *func)(uint16_t *, int, void *))
+        uint8_t (*func)(uint16_t *, int, void *))
 {
     int list_item_top_index = widget->parameters.list_parameters.list_item_top_index;
     widget_instance *children = widget->children;

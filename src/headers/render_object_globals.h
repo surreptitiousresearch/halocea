@@ -11,4 +11,12 @@ typedef struct render_object_globals_struct
     int     rendered_object_indices[256];  /* 0x04 */
 } render_object_globals_struct;            /* 0x404 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern render_object_globals_struct render_object_globals;
+
+#ifdef __cplusplus
+}
+#endif

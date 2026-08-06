@@ -15,8 +15,8 @@
 #include "../headers/real_matrix4x3.h"
 #include "../headers/hcex/hcex_matr4x3.h"
 
-extern data_array *object_header_data;
-extern real_matrix4x3 *object_get_node_matrices(int object_index);
+extern "C" data_array *object_header_data;
+extern "C" real_matrix4x3 *object_get_node_matrices(int object_index);
 
 extern "C" int hcex_get_obj_node_matrices(int objId, hcex_matr4x3 *out_node_matrices, unsigned char *out_permutations)
 {

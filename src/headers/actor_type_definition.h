@@ -16,12 +16,12 @@ typedef struct actor_type_definition
     uint8_t swarm;                          /* 0x0D */
     /* 0x0E-0x0F: 2 bytes implicit padding (pointer member below forces 4-byte align to 0x10 —
      * db-verified. Left implicit so the flat static initializers map 1:1 to the named members. */
-    void (__fastcall *initialize)(int actor_index);                 /* 0x10 */
-    void (__fastcall *decide_action)(int actor_index);              /* 0x14 */
-    void (__fastcall *swarm_control)(int actor_index);              /* 0x18 */
+    void (*initialize)(int actor_index);                            /* 0x10 */
+    void (*decide_action)(int actor_index);                         /* 0x14 */
+    void (*swarm_control)(int actor_index);                         /* 0x18 */
     /* first param uint16_t 2026-07-30: matches the dispatch chain (actor_type_swarm_aim_jump ->
      * infection_swarm_aim_jump, both uint16_t actor_index — datum-index convention); was int (C4113) */
-    void (__fastcall *swarm_aim_jump)(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity); /* 0x1C */
+    void (*swarm_aim_jump)(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity); /* 0x1C */
 } actor_type_definition;                            /* 32 bytes */
 
 extern actor_type_definition *actor_type_definitions[];

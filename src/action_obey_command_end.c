@@ -33,8 +33,8 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 
 void action_obey_command_end(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *next_command_index)
 {
-    ai_command_list_definition *command_list =
-        &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[command_list_index];
+    ai_command_list_definition_t *command_list =
+        &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[command_list_index];
     int current_command_index = simple_control->current_command_index;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

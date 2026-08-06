@@ -41,10 +41,10 @@ typedef dsVECTOR<dsPAIR<unsigned long, HCEX_MODEL>, 8> dsVECTOR_HCEX_MODEL_8;
 extern dsVECTOR_HCEX_MODEL_8 hcexModels;
 
 /* --- already-reversed hcex bridge helpers this function drives --- */
-extern unsigned int hcex_object_hidden_cam_mask(int id);     /* hcex_object_hidden_cam_mask.c */
-extern int          hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr);   /* hcex_get_obj_matr.c */
+extern "C" unsigned int hcex_object_hidden_cam_mask(int id);     /* hcex_object_hidden_cam_mask.c */
+extern "C" int          hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr);   /* hcex_get_obj_matr.c */
 extern void         hcex_make_inst_matr(const hcex_matr4x3 *in, m3dMATR *out); /* hcex_make_inst_matr.c */
-extern int          hcex_get_obj_node_matrices(int objId, hcex_matr4x3 *out_node_matrices,
+extern "C" int          hcex_get_obj_node_matrices(int objId, hcex_matr4x3 *out_node_matrices,
                         unsigned char *out_permutations);      /* hcex_get_obj_node_matrices.c */
 
 /* --- ws-engine obj tree LTM helper (not one of this batch's targets) --- */
@@ -74,6 +74,6 @@ static inline void entENTITY_vtblCall99(struct entENTITY *self)
 }
 
 /* dbg_hcex_off_bbox_calc — debug toggle to skip the per-frame bounding-volume recompute. */
-extern dbgVAR_SIMPLE<bool, 1> dbg_hcex_off_bbox_calc;
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_hcex_off_bbox_calc;
 
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */

@@ -16,7 +16,7 @@
 #include <string.h>
 #include "headers/iterated_message.h"
 
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 
 extern uint8_t bitstream_initialize(bitstream_t *bit_stream, uint8_t *buffer, unsigned int first_bit, unsigned int bit_count, bitstream_mode mode);
 extern int bitstream_dispose(bitstream_t *bit_stream);

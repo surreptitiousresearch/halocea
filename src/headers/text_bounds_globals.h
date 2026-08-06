@@ -13,4 +13,12 @@ typedef struct text_bounds_globals_t
     font_header *last_font_header; /* 0x08 */
 } text_bounds_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern text_bounds_globals_t text_bounds_globals;
+
+#ifdef __cplusplus
+}
+#endif

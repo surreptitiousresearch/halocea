@@ -12,5 +12,11 @@ typedef struct data_iterator
     unsigned int signature;       /* 0xC */
 } data_iterator;                  /* 16 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
+#ifdef __cplusplus
+}
+#endif

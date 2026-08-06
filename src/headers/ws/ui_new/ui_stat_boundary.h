@@ -29,11 +29,11 @@ struct DBG_VAR {
 };
 
 // Debug toggles gating UI_STAT_SYS::ProcessRenderPush's ingame-text double-buffer swap.
-extern DBG_VAR<bool>     dbgIngameTextEnable;
-extern DBG_VAR<m3dCOLOR> dbgIngameTextColor;
-extern DBG_VAR<float>    dbgIngameTextScale;
-extern DBG_VAR<bool>     dbgIngameTextShadow;
+extern "C" DBG_VAR<bool>     dbgIngameTextEnable;
+extern "C" DBG_VAR<m3dCOLOR> dbgIngameTextColor;
+extern "C" DBG_VAR<float>    dbgIngameTextScale;
+extern "C" DBG_VAR<bool>     dbgIngameTextShadow;
 
 // Module-local "renderer failed to init once, stop retrying this session" latches (ui_stat.cpp).
-extern bool switchOff;    // UI_STAT_SYS::RenderUIStat
-extern bool switchOff_0;  // UI_STAT_SYS::RenderIngameStat
+extern "C" bool switchOff;    // UI_STAT_SYS::RenderUIStat
+extern "C" bool switchOff_0;  // UI_STAT_SYS::RenderIngameStat

@@ -1,6 +1,51 @@
-/* widget_type_definitions @ 0x8417DB98 -- data-init widget_type_definition[5] (200 bytes,
+/* widget_type_definitions @ 0x8417DB98 (.data, 200 bytes)
+ * DB applied_types: widget_type_definition widget_type_definitions[5];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 group_tag                  = 0x666C6167
+ *        +0x04 needs_lighting             = 0x01
+ *        +0x08 initialize                 = 0x8380DE18 -> flags_initialize
+ *        +0x0C initialize_for_new_map     = 0x8380DE50 -> flags_initialize_for_new_map
+ *        +0x10 dispose_from_old_map       = 0x8380DE60 -> flags_dispose_from_old_map
+ *        +0x14 dispose                    = 0x8380DE70 -> flags_dispose
+ *        +0x18 new_proc                   = 0x8380F408 -> flag_new
+ *        +0x1C delete_proc                = 0x8380DFB8 -> flag_delete
+ *        +0x20 update                     = 0x8380F698 -> flags_update
+ *        +0x24 render_proc                = 0x8380F5E8 -> flag_render
+ *   [ 1] +0x00 group_tag                  = 0x616E7421
+ *        +0x04 needs_lighting             = 0x00
+ *        +0x08 initialize                 = 0x8380D2C8 -> antennas_initialize
+ *        +0x0C initialize_for_new_map     = 0x8380D300 -> antennas_initialize_for_new_map
+ *        +0x10 dispose_from_old_map       = 0x8380D310 -> antennas_dispose_from_old_map
+ *        +0x14 dispose                    = 0x8380D320 -> antennas_dispose
+ *        +0x18 new_proc                   = 0x8380D340 -> antenna_new
+ *        +0x1C delete_proc                = 0x8380D5B8 -> antenna_delete
+ *        +0x20 update                     = 0x8380DD38 -> antennas_update
+ *        +0x24 render_proc                = 0x8380DC68 -> antenna_render
+ *   [ 2] +0x00 group_tag                  = 0x676C7721
+ *        +0x04 needs_lighting             = 0x00
+ *        +0x08 initialize                 = 0x8380C288 -> glow_initialize
+ *        +0x0C initialize_for_new_map     = 0x8380B410 -> glow_initialize_for_new_map
+ *        +0x10 dispose_from_old_map       = 0x8380B460 -> glow_dispose_from_old_map
+ *        +0x14 dispose                    = 0x8380B408 -> glow_dispose
+ *        +0x18 new_proc                   = 0x8380B4B0 -> glow_new
+ *        +0x1C delete_proc                = 0x8380B590 -> glow_delete
+ *        +0x20 update                     = 0x00000000
+ *        +0x24 render_proc                = 0x8380D240 -> glow_submit
+ *   [ 3] +0x00 group_tag                  = 0x6D677332
+ *        +0x04 needs_lighting             = 0x00
+ *        +0x08 initialize                 = 0x8380AA40 -> light_volumes_initialize
+ *        +0x0C initialize_for_new_map     = 0x8380AA80 -> light_volumes_initialize_for_new_map
+ *        +0x10 dispose_from_old_map       = 0x8380AA98 -> light_volumes_dispose_from_old_map
+ *        +0x14 dispose                    = 0x8380AA78 -> light_volumes_dispose
+ *        +0x18 new_proc                   = 0x8380AAB0 -> light_volume_new
+ *        +0x1C delete_proc                = 0x8380AAF8 -> light_volume_delete
+ *        +0x20 update                     = 0x00000000
+ *        +0x24 render_proc                = 0x8380B150 -> light_volume_submit
+ *   ... 1 further elements elided; full hex in .sweep/data_image.tsv
+ * data-init widget_type_definition[5] (200 bytes,
  * 40 bytes each). One descriptor per object widget type; group_tag + needs_lighting +
- * 8 procedure pointers reconstructed from the binary (big-endian, all named funcs). */
+ * 8 procedure pointers reconstructed from the binary (big-endian, all named funcs).
+ */
 #include <stdint.h>
 #include "../headers/widget_type_definition.h"
 

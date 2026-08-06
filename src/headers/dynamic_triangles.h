@@ -15,4 +15,12 @@ typedef struct dynamic_triangles_struct
     D3DIndexBuffer *d3d_index_buffer;   /* 0x3008 */
 } dynamic_triangles_struct;             /* 0x300C */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern dynamic_triangles_struct dynamic_triangles;
+
+#ifdef __cplusplus
+}
+#endif

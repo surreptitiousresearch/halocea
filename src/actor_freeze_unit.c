@@ -5,7 +5,7 @@
  *
  * Note: the DB prototype is (actor_index, unit_index) but the body only uses the first argument (as the
  * unit/object index for unit_get_*_vector / unit_control); the second is unused here, which is why the
- * AI-freeze caller passes only one value. The decompiler also invented a3..a6 from the memset's 64-bit
+ * AI-freeze caller passes only one value. The decompiler also invented extra params from the memset's 64-bit
  * zero source — dropped. */
 
 #include <stdint.h>

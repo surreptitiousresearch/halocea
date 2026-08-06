@@ -10,11 +10,11 @@
 #include "../headers/real_point3d.h"
 #include "../headers/real_vector3d.h"
 
-extern char *tag_get_name(int16_t tag_index);
-extern void hcex_output_dbg(const char *text, ...);
-extern void hcex_pix_begin_event(const char *text, ...);
-extern void hcex_pix_end_event(void);
-extern void hcex_create_effect(const char *name, int obj_follow, int plr_idx, hcex_float3 *positions,
+extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" void hcex_output_dbg(const char *text, ...);
+extern "C" void hcex_pix_begin_event(const char *text, ...);
+extern "C" void hcex_pix_end_event(void);
+extern "C" void hcex_create_effect(const char *name, int obj_follow, int plr_idx, hcex_float3 *positions,
         hcex_float3 *vectors, const char **names, int npoints);
 
 extern "C" void hcex_init_effect(int definition_index, int obj_follow, int plr_idx, real_point3d *points,

@@ -36,10 +36,6 @@
 #include "headers/environment_vertex_uncompressed.h"
 #include "headers/blam_data_globals.h"
 
-extern render_lighting default_object_lighting;
-extern real_vector3d lightmap_sample_raycast_sideways[4];
-extern real_vector3d lightmap_sample_raycast_down;
-
 extern uint8_t structure_test_vector(const real_point3d *p, const real_vector3d *v, real_point3d *collision_point, int16_t *lightmap_index, int16_t *material_index, int *surface_index, float *s, float *t);
 extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int16_t bitmap_index);
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);

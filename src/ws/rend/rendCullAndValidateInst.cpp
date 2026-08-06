@@ -41,7 +41,7 @@
 //  * A thread-local "current instance" cache store (*(TLS+56) = pInst at 0x8273CDA4) is a
 //    boundary os-TLS access unrelated to the cull result; omitted with this note.
 
-extern dbgVAR_SIMPLE<bool, 1> dbg_isOffRenderAnim; // boundary (only .value read)
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_isOffRenderAnim; // boundary (only .value read)
 extern "C" void osPIXBeginEvent(const char *name); // boundary — profiler marker
 extern "C" void osPIXEndEvent();                   // boundary
 

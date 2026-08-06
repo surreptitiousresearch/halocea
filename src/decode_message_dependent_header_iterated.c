@@ -18,7 +18,6 @@
 #include <string.h>
 #include "headers/blam_data_globals.h"
 
-extern _message_definition *message_delta_global_message_list[47];
 
 extern uint8_t bitstream_has_bits(const bitstream_t *const bit_stream, const unsigned int bit_count);
 extern unsigned int bitstream_read_bit(bitstream_t *const bit_stream, uint8_t *const value);

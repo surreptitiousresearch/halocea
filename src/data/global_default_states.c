@@ -1,4 +1,9 @@
-/* global_default_states @ 0x82128A28 — .rdata, 24 bytes = 12 x uint16_t (exact:
+/* global_default_states @ 0x82128A28 (.rdata, 24 bytes)
+ * DB applied_types: const __int16 global_default_states[12];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0000 0002 0002 0003 0004 0005 0006 0007
+ *   +0x0010: 0008 0009 0009 0008
+ * .rdata, 24 bytes = 12 x uint16_t (exact:
  * number_of_actor_default_states == 12). actor_action_get_default_state maps an actor's
  * initial-state enum through this table to the actor_default_state it falls back to.
  * Raw big-endian halfwords -> resolved meaning:
@@ -14,8 +19,8 @@
  *   [9]  0x0009 [guarding_at_guard_point]   -> actor_default_state_guarding_at_guard_point
  *   [10] 0x0009 [searching]                 -> actor_default_state_guarding_at_guard_point
  *   [11] 0x0008 [fleeing]                   -> actor_default_state_guarding
+ * /
  */
-
 #include <stdint.h>
 #include "../headers/actor_default_state.h"
 

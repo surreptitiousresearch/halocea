@@ -19,7 +19,7 @@ extern void pctCopyBuf(pctPICTURE *pic, int face, int mip, pctFORMAT *fmt, int p
                        unsigned char *dst, int slicePitch);
 
 /* Xbox 360 D3D: fetch the surface descriptor for a texture mip level. boundary. */
-extern void D3DTexture_GetLevelDesc(D3DTexture *texture, unsigned int Level, _D3DSURFACE_DESC *desc);
+extern "C" void D3DTexture_GetLevelDesc(D3DTexture *texture, unsigned int Level, _D3DSURFACE_DESC *desc);
 
 /* App log (variadic). boundary. */
 void _apLog(const char *format, ...);

@@ -14,4 +14,12 @@ typedef struct _player_profile_globals
     unsigned char  initialized;          /* 0xF80 */
 } _player_profile_globals;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _player_profile_globals player_profile_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -29,7 +29,7 @@ extern unsigned char hcex_render_ready;
 extern unsigned char hcex_obj_sync_matrices_in_progress;
 extern void hcex_wait_jobs(void);
 extern void hcex_obj_term_all(void);
-extern void hcex_destroy_light(unsigned long key);
+extern "C" void hcex_destroy_light(int lightId); /* DEVIATION: int lightId, not unsigned long -- def src/hcex/hcex_destroy_light.cpp + prologue stw r3 @0x823DE13C */
 extern void hcex_fp_models_term(void);
 extern void hcex_term_breakable_surfaces(int flag);
 extern void hcex_destroy_dead_intances(void);

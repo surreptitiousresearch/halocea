@@ -11,4 +11,12 @@ typedef struct dynamic_vertices_struct
     int buffer_count;                       // 0x50D8
 } dynamic_vertices_struct;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern dynamic_vertices_struct dynamic_vertices;
+
+#ifdef __cplusplus
+}
+#endif

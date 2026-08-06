@@ -9,7 +9,7 @@
 #include <stdarg.h>
 
 extern unsigned char hcex_enable_pix;   /* bool hcex_enable_pix */
-extern int vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
+extern "C" int vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
 extern void osPIXAddMarker(const char *string);
 
 extern "C" void hcex_pix_marker(const char *fmt, ...)

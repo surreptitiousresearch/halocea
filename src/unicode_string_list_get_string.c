@@ -30,6 +30,10 @@ unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_ind
         return L"<missing string>";
 
     result = (unsigned short *)entry->string.address;
-    *(unsigned short *)((char *)result + (entry->string.size & 0xFFFFFFFE) - 2) = 0;
+    /* DEVIATION: `(size & 0xFFFFFFFE) - 2` in pseudocode is the compiler's lowering of the wide-char
+     * element index `size / sizeof(wchar) - 1` (clrrwi r11,r10,1 @0x8377A3F8 then sth r10,-2(r9)
+     * @0x8377A404). The divisor is cast to int deliberately: size_t promotion would turn the size==1
+     * case from element -1 (what the disasm computes: address + 0 - 2) into SIZE_MAX. */
+    result[entry->string.size / (int)sizeof(unsigned short) - 1] = 0;
     return result;
 }

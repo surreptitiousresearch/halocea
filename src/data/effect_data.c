@@ -1,4 +1,9 @@
-/* effect_data @ 0x8477ACFC — data-bss (4 bytes). */
+/* effect_data @ 0x8477ACFC (.data, 4 bytes)
+ * DB applied_types: data_array *effect_data;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ * data-bss (4 bytes).
+ */
 #include "../headers/data_array.h"
 
 data_array * effect_data;

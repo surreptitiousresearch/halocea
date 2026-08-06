@@ -9,10 +9,10 @@
  *
  * Reconstructed from disassembly (0x837F03E0-0x837F15E8); the decompiler printed "local variable allocation
  * has failed". Deviations, all resolved from disasm:
- *   - The decompiler's OVERLAPPED `v6` is two independent registers packed into one 64-bit pair: its high half
+ *   - The decompiler's OVERLAPPED 64-bit local is two independent registers packed into one pair: its high half
  *     is actor_index (already a parameter) and its low half is the actor's SECOND tag definition (the
- *     variant/state definition). Split here into actor_index and actor_variant_definition. v14 is the FIRST
- *     tag definition. The various `*(_QWORD*)&v134[0]... = v6` stores are register-spill scratch with no
+ *     variant/state definition). Split here into actor_index and variant_def; actor_def is the FIRST
+ *     tag definition. The `*(_QWORD*)&candidates[0]...` spills of that pair are register scratch with no
  *     effect and are dropped.
  *   - CORRECTION: an earlier pass read these two tag pointers as `*(char**)(TAG_INSTANCE(idx) + 0x14)` — an
  *     extra `+ 0x14` on top of the shared `TAG_INSTANCE` macro, which already lands on the
@@ -23,8 +23,8 @@
  *     authoritative `actor_definition`/`actor_variant_definition` layouts — they only line up without the
  *     extra `+ 0x14`. Fixed here to the one-step form used everywhere else in the codebase.
  *   - The candidate array is 512 x 60-byte firing_position (disasm stride 0x3C, cap 0x200), which the
- *     decompiler mis-sized as v134[2]; the real frame is extended by 0x7800 at the second stwux. sort_indices
- *     and owner_actor_indices are likewise the full-size scratch buffers.
+ *     decompiler mis-sized as a 2-element local (`candidates` here); the real frame is extended by 0x7800 at the
+ *     second stwux. sort_indices and owner_actor_indices are likewise the full-size scratch buffers.
  *   - r23 holds the encounter pointer during candidate build, then is reloaded with actor_index at 0x114C for
  *     the remaining calls (the decompiler's encounter/actor_index split is correct). The first arg to
  *     encounter_build_...owner_actor_indices is encounter_index (the RtlCheckStack12 "return" is a stack-probe

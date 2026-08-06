@@ -9,11 +9,11 @@
 struct jbmJOB;
 
 typedef struct jbmJOB_vtbl {
-    void (__fastcall *dtr_jbmJOB)(jbmJOB *thisPtr);          // 0x00 destructor
-    void (__fastcall *Execute)(jbmJOB *thisPtr, int procID);     // 0x04
-    void (__fastcall *PreExecute)(jbmJOB *thisPtr, int procID);  // 0x08
-    void (__fastcall *PostExecute)(jbmJOB *thisPtr, int procID); // 0x0C
-    void (__fastcall *OnAdd)(jbmJOB *thisPtr, int procID);       // 0x10
+    void (*dtr_jbmJOB)(jbmJOB *thisPtr);                     // 0x00 destructor
+    void (*Execute)(jbmJOB *thisPtr, int procID);                // 0x04
+    void (*PreExecute)(jbmJOB *thisPtr, int procID);             // 0x08
+    void (*PostExecute)(jbmJOB *thisPtr, int procID); // 0x0C
+    void (*OnAdd)(jbmJOB *thisPtr, int procID);                  // 0x10
 } jbmJOB_vtbl;
 
 typedef struct jbmJOB {

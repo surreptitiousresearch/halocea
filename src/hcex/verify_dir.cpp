@@ -7,7 +7,7 @@
 #include "../headers/hcex/hcex_ds_boundary.h"   /* dsTSTRING_flat */
 
 extern int  osFileIsExist(const char *path);
-extern int  CreateDirectoryA(const char *path, void *security_attributes);
+extern "C" int  CreateDirectoryA(const char *path, void *security_attributes);
 extern void _apLog(const char *format, ...);
 
 int verify_dir(const dsTSTRING_flat *dir)

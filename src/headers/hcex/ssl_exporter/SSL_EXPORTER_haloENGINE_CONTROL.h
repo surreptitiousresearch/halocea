@@ -99,7 +99,7 @@ typedef struct SSL_EXPORTER_haloENGINE_CONTROL {
     // _SSL_FUNC_REGISTRATOR_* ctor (which duplicates this logic rather than calling it — DB-verified,
     // not a reconstruction error).
     static void RegisterEntry(
-        void (__fastcall *cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
+        void (*cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
         int *id,
         const dsTSTRING<char> *sslDecl);
 

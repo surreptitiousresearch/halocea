@@ -5,7 +5,7 @@
 #include "headers/message_definition.h"
 
 typedef struct _message_definition_field_reference_set _message_definition_field_reference_set;
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 extern void message_definition_field_reference_set_dispose(_message_definition_field_reference_set *const field_reference_set);
 
 void dispose_messages(void)

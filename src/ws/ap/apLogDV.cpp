@@ -7,10 +7,10 @@
 #include <stdio.h>
 #include <string.h>
 
-extern int gs_block;                 // boundary — when set, all logging is suppressed
-extern dsTSTRING<char> gs_prefix;    // boundary — active log-line prefix ("" = none)
+extern "C" int gs_block;                 // boundary — when set, all logging is suppressed
+extern "C" dsTSTRING<char> gs_prefix;    // boundary — active log-line prefix ("" = none)
 
-extern void CallLogCB(const char *text);          // 0x825C86E0 — callback dispatch (null-flush path)
+extern "C" void CallLogCB(const char *text);          // 0x825C86E0 — callback dispatch (null-flush path)
 extern void _osOutputDebugString(const char *s);  // boundary — platform debug output channel
 
 void apLogDV(char *text, char *argPtr)

@@ -19,7 +19,7 @@ sslERROR *AddCbFunc(
     sslCLASS_REF *this_,
     sslERROR *result,
     const char *decl,
-    void (__fastcall *cbFunc)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
+    void (*cbFunc)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
     const char *errHint,
     int *idx);
 

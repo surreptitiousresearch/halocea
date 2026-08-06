@@ -176,18 +176,18 @@ typedef struct FMOD_CREATESOUNDEXINFO {
     int                 numsubsounds;        // 0x20
     int                *inclusionlist;       // 0x24
     int                 inclusionlistnum;    // 0x28
-    FMOD_RESULT       (__fastcall *pcmreadcallback)(FMOD::Sound *, void *, unsigned int);       // 0x2C
-    FMOD_RESULT       (__fastcall *pcmsetposcallback)(FMOD::Sound *, int, unsigned int, unsigned int); // 0x30
-    FMOD_RESULT       (__fastcall *nonblockcallback)(FMOD::Sound *, FMOD_RESULT);                // 0x34
+    FMOD_RESULT       (*pcmreadcallback)(FMOD::Sound *, void *, unsigned int);                  // 0x2C
+    FMOD_RESULT       (*pcmsetposcallback)(FMOD::Sound *, int, unsigned int, unsigned int); // 0x30
+    FMOD_RESULT       (*nonblockcallback)(FMOD::Sound *, FMOD_RESULT);                           // 0x34
     const char         *dlsname;             // 0x38
     const char         *encryptionkey;       // 0x3C
     int                 maxpolyphony;        // 0x40
     void               *userdata;            // 0x44
     FMOD_SOUND_TYPE     suggestedsoundtype;  // 0x48
-    FMOD_RESULT       (__fastcall *useropen)(const char *, int, unsigned int *, void **, void **); // 0x4C
-    FMOD_RESULT       (__fastcall *userclose)(void *, void *);                                     // 0x50
-    FMOD_RESULT       (__fastcall *userread)(void *, void *, unsigned int, unsigned int *, void *); // 0x54
-    FMOD_RESULT       (__fastcall *userseek)(void *, unsigned int, void *);                         // 0x58
+    FMOD_RESULT       (*useropen)(const char *, int, unsigned int *, void **, void **); // 0x4C
+    FMOD_RESULT       (*userclose)(void *, void *);                                                // 0x50
+    FMOD_RESULT       (*userread)(void *, void *, unsigned int, unsigned int *, void *); // 0x54
+    FMOD_RESULT       (*userseek)(void *, unsigned int, void *);                                    // 0x58
     int                 speakermap;          // 0x5C FMOD_SPEAKERMAPTYPE
     struct FMOD_SOUNDGROUP *initialsoundgroup; // 0x60
     unsigned int        initialseekposition; // 0x64
@@ -205,16 +205,16 @@ typedef struct FMOD_DSP_DESCRIPTION {
     char                    name[32];        // 0x00
     unsigned int            version;         // 0x20
     int                     channels;        // 0x24
-    FMOD_RESULT (__fastcall *create)(FMOD_DSP_STATE *);                                        // 0x28
-    FMOD_RESULT (__fastcall *release)(FMOD_DSP_STATE *);                                       // 0x2C
-    FMOD_RESULT (__fastcall *reset)(FMOD_DSP_STATE *);                                         // 0x30
-    FMOD_RESULT (__fastcall *read)(FMOD_DSP_STATE *, float *, float *, unsigned int, int, int); // 0x34
-    FMOD_RESULT (__fastcall *setposition)(FMOD_DSP_STATE *, unsigned int);                      // 0x38
+    FMOD_RESULT (*create)(FMOD_DSP_STATE *);                                                   // 0x28
+    FMOD_RESULT (*release)(FMOD_DSP_STATE *);                                                  // 0x2C
+    FMOD_RESULT (*reset)(FMOD_DSP_STATE *);                                                    // 0x30
+    FMOD_RESULT (*read)(FMOD_DSP_STATE *, float *, float *, unsigned int, int, int); // 0x34
+    FMOD_RESULT (*setposition)(FMOD_DSP_STATE *, unsigned int);                                 // 0x38
     int                     numparameters;   // 0x3C
     FMOD_DSP_PARAMETERDESC *paramdesc;       // 0x40
-    FMOD_RESULT (__fastcall *setparameter)(FMOD_DSP_STATE *, int, float);                       // 0x44
-    FMOD_RESULT (__fastcall *getparameter)(FMOD_DSP_STATE *, int, float *, char *);             // 0x48
-    FMOD_RESULT (__fastcall *config)(FMOD_DSP_STATE *, void *, int);                            // 0x4C
+    FMOD_RESULT (*setparameter)(FMOD_DSP_STATE *, int, float);                                  // 0x44
+    FMOD_RESULT (*getparameter)(FMOD_DSP_STATE *, int, float *, char *);                        // 0x48
+    FMOD_RESULT (*config)(FMOD_DSP_STATE *, void *, int);                                       // 0x4C
     int                     configwidth;     // 0x50
     int                     configheight;    // 0x54
     void                   *userdata;        // 0x58

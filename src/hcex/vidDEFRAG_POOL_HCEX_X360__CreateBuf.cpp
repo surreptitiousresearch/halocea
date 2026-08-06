@@ -5,12 +5,10 @@
 void *operator new(size_t size, const char *file, unsigned int line); // boundary — debug-tagged new (Saber)
 extern "C" void *dlCalloc(unsigned int num, unsigned int size, const char *file, unsigned int line); // boundary — dlmalloc calloc
 
-// Xbox 360 XG hardware-buffer-header helpers (boundary — XDK, not reversed).
-extern "C" void XGSetIndexBufferHeader(unsigned int length, unsigned int offset, _D3DFORMAT format,
-                                        unsigned int endian, unsigned int pool, D3DIndexBuffer *outHeader);
-extern "C" void XGSetVertexBufferHeader(unsigned int length, unsigned int offset, unsigned int endian,
-                                         unsigned int pool, D3DVertexBuffer *outHeader);
-/* XGOffsetResourceAddress declared in d3d_render_boundary.h (plain linkage) — do not redeclare */
+/* Xbox 360 XG hardware-buffer-header helpers (boundary — XDK, not reversed): XGSetIndexBufferHeader,
+ * XGSetVertexBufferHeader and XGOffsetResourceAddress all come from d3d_render_boundary.h.
+ * DEVIATION: the local redeclarations removed here spelled the trailing Set parameter `unsigned int`
+ * against the header's `int`, which under C++ made them overloads rather than the same function. */
 
 // vidDEFRAG_POOL_HCEX_X360::CreateBuf @ 0x823F1830
 // Heap-allocate a vidDEFRAG_BUF_HCEX_X360 (debug-tagged new, halo_render.cpp:115), then dlCalloc a

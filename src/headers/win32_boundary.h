@@ -8,6 +8,9 @@ typedef void *HANDLE;
    Only ever touched through a bare pointer in this codebase so far; declared opaque. */
 typedef struct _CONTEXT _CONTEXT;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void *CreateFileA(const char *name, unsigned int access, unsigned int share,
                          void *security, unsigned int disposition,
                          unsigned int flags, void *templ);
@@ -18,3 +21,6 @@ extern int ReadFile(void *handle, void *buffer, unsigned int size,
 
 extern int WriteFile(void *handle, const void *buffer, unsigned int size,
                      unsigned int *written, void *overlapped);
+#ifdef __cplusplus
+}
+#endif

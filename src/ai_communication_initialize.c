@@ -9,8 +9,8 @@
 #include "headers/dialogue_event_status.h"
 #include "headers/blam_data_globals.h"
 
-extern const dialogue_usage *global_dialogue_table;
-extern const reply_usage *global_reply_table;
+/* DEVIATION: both tables were declared here as pointers (`const dialogue_usage *` / `const reply_usage *`)
+ * over array definitions; 0x837CBA2C/0x837CBA88 form the addresses with lis/addi, never load one. */
 
 extern void *game_state_malloc(const char *name, const char *type, int size);
 extern data_array *game_state_data_new(const char *name, int16_t maximum_count, int16_t size);

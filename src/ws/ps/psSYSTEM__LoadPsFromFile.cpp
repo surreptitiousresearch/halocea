@@ -14,7 +14,7 @@
 // then by-value dsTSTRING fileName/name/errHint) and the mangled callee signatures.
 
 extern "C" void dlFree(void *ptr);                       // boundary — dlmalloc allocator free
-extern      void *memcpy(void *dst, const void *src, unsigned int n);
+extern "C"      void *memcpy(void *dst, const void *src, unsigned int n);
 
 // The default #include-preprocessor instance, adopted when the caller left one unset. boundary.
 extern INCLUDE_PREPROCESSOR psIPP;

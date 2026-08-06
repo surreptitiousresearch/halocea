@@ -5,8 +5,8 @@
 struct mdlLIP_SYNC_IFACE;
 
 struct mdlLIP_SYNC_IFACE_vtbl {
-    void (__fastcall *dtr_mdlLIP_SYNC_IFACE)(mdlLIP_SYNC_IFACE *self); // slot 0
-    void (__fastcall *ApplyLipSync)(mdlLIP_SYNC_IFACE *self);         // slot 1
+    void (*dtr_mdlLIP_SYNC_IFACE)(mdlLIP_SYNC_IFACE *self); // slot 0
+    void (*ApplyLipSync)(mdlLIP_SYNC_IFACE *self);                    // slot 1
 };
 
 struct mdlLIP_SYNC_IFACE {

@@ -18,4 +18,12 @@ typedef struct _game_engine_globals
     float            time_until_map_cycle_timeout_expires_seconds; /* 0x20 */
 } game_engine_globals_t;                                           /* 36 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_engine_globals_t game_engine_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,4 +1,12 @@
-/* _byte_bs_codes @ 0x84185730 -- third-order .data (data_closure.py); reconstructed from binary bytes. */
+/* _byte_bs_codes @ 0x84185730 (.data, 16 bytes)
+ * DB applied_types: int byte_bs_codes[4];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0xFFFFFF9C
+ *   +0x0004 = 0x00000001
+ *   +0x0008 = 0x00000001
+ *   +0x000C = 0xFFFFFF9B
+ * third-order .data (data_closure.py); reconstructed from binary bytes.
+ */
 #include "byte_swap_definition.h"
 
 int _byte_bs_codes[] =

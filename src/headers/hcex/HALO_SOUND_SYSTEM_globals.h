@@ -24,10 +24,10 @@ struct DBG_VAR {
     T prevValue;
 };
 
-extern DBG_VAR<bool> dbg_disableSounds_0;     // globally mutes HALO_SOUND_SYSTEM::FindSoundByName
-extern DBG_VAR<int>  dbg_mouthMinDelay;        // -1 == "use HALO_SOUND_PARAMS::mouthMinDelay"
-extern DBG_VAR<bool> dbg_pauseHaloSounds;      // dbg-console pause toggle, polled from Update()
-extern int            maxPlaying;               // high-water mark logged by PrintUsedSounds
+extern "C" DBG_VAR<bool> dbg_disableSounds_0;     // globally mutes HALO_SOUND_SYSTEM::FindSoundByName
+extern "C" DBG_VAR<int>  dbg_mouthMinDelay;        // -1 == "use HALO_SOUND_PARAMS::mouthMinDelay"
+extern "C" DBG_VAR<bool> dbg_pauseHaloSounds;      // dbg-console pause toggle, polled from Update()
+extern "C" int            maxPlaying;               // high-water mark logged by PrintUsedSounds
 extern bool            hcex_mouth_skull;         // HCEX lip-sync/skull-VO feature toggle
 
 // One entry of the fixed 15-element FSB sound-list table (types_members
@@ -41,7 +41,7 @@ typedef struct _EC05441F58351F3B07D4C7AF18902550 {
     const char  *level;             // 0x0C
 } _EC05441F58351F3B07D4C7AF18902550;
 typedef _EC05441F58351F3B07D4C7AF18902550 SOUND_LIST_ENTRY;
-extern SOUND_LIST_ENTRY SOUND_LIST_LST[15]; // fixed table, one entry per HALO_SOUND_SYSTEM::soundLists slot
+extern "C" SOUND_LIST_ENTRY SOUND_LIST_LST[15]; // fixed table, one entry per HALO_SOUND_SYSTEM::soundLists slot
 
 #include "../sound_listener.h"
 struct platform_sound_manager_definition; // Blam platform sound layer — opaque here
@@ -70,4 +70,4 @@ typedef struct sound_manager_globals_t {
     unsigned char _padB7;                                       // 0xB7
     int16_t sound_variety;                                      // 0xB8
 } sound_manager_globals_t;
-extern sound_manager_globals_t sound_manager_globals;
+extern "C" sound_manager_globals_t sound_manager_globals;

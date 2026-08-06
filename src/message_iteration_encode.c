@@ -14,7 +14,6 @@
 #include <string.h>
 #include "headers/blam_data_globals.h"
 
-extern _message_definition *message_delta_global_message_list[47];
 
 extern void metrics_record_header_field_encode(const _message_definition *definition, message_delta_processor_mode mode, int field_index, int bits);
 extern uint8_t encode_iterated_body_field(iterated_message *message, int field_index, char *data, char *baseline);

@@ -1,8 +1,8 @@
 /* attachments_delete @ 0x836F05E0 — tear down every attachment an object carries (looping sounds,
- * effects, contrails, particle systems, lights). The model definition's attachment count is at
- * def+320; per attachment slot i a type byte sits at object_data+324+i and the attached datum index at
- * object_data int[83+i] (+332+4*i). Type 255 means an empty slot. The type selects how the attachment
- * is released. Mirrors object_connect_lights' slot layout. */
+ * effects, contrails, particle systems, lights). The definition's attachments block count drives the
+ * loop; per attachment slot i the type byte is object.attachment_types[i] and the attached datum index
+ * object.attachment_indices[i]. Type 255 — the truncated -1 attachments_new stores — means an empty
+ * slot. The type selects how the attachment is released. Mirrors object_connect_lights' slot layout. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -30,10 +30,14 @@ void attachments_delete(int object_index)
         int16_t i = 0;
         do
         {
-            uint8_t attachment_type = ((unsigned char *)object_data)[324 + i];
+            /* DEVIATION: types_members and headers_ref both spell _object_datum.attachment_types as
+             * char[8], but the binary reads the slot zero-extended and compares it unsigned throughout
+             * (lbz + cmplwi 0xFF @0x836F064C/0x836F0650, cmplwi 4 @0x836F0670) — a signed read would
+             * make the 255 test always true and let 0x80..0xFE pass the <= 4 test. Read it as a byte. */
+            uint8_t attachment_type = object_data->object.attachment_types[i];
             if ( attachment_type != _object_attachment_type_none )
             {
-                int attachment_index = ((int *)object_data)[i + 83];  /* raw int[] at +332+4*i */
+                int attachment_index = object_data->object.attachment_indices[i];
                 if ( attachment_index != -1 && attachment_type <= _object_attachment_type_particle_system )
                 {
                     switch ( attachment_type )
@@ -46,7 +50,9 @@ void attachments_delete(int object_index)
                             break;
                         case _object_attachment_type_contrail:
                             object_compute_node_matrices(object_index);
-                            contrail_owner_collision(((int *)object_data)[i + 83], 1u, 0.0f);
+                            /* re-read, not attachment_index: the binary reloads the slot at 0x836F06B4
+                             * after the call, which no compiler may rematerialize across an opaque call */
+                            contrail_owner_collision(object_data->object.attachment_indices[i], 1u, 0.0f);
                             break;
                         default:   /* particle_system (4) or light (0) */
                             if ( attachment_type )

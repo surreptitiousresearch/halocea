@@ -15,7 +15,7 @@
 
 #include "../headers/hcex/hcex_cine_tick_boundary.h"
 
-extern int strcmp(const char *a, const char *b);
+extern "C" int strcmp(const char *a, const char *b);
 
 void hcex_cine_update(void)
 {

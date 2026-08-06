@@ -1,4 +1,11 @@
-/* bitmap_address_table @0x8212A064 — .rdata, 16 bytes = 4 x int.
+/* bitmap_address_table @ 0x8212A064 (.rdata, 16 bytes)
+ * DB applied_types: const unsigned int bitmap_address_table[4];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = 0x00000000
+ *   +0x0004 = 0x00000002
+ *   +0x0008 = 0x00000002
+ *   +0x000C = 0x00000002
+ * .rdata, 16 bytes = 4 x int.
  * Element width: `slwi r9, r10, 2` + `lwzx r7, r9, r23` at 0x8382EC28/0x8382EC2C inside
  * rasterizer_dx9_transparent_chicago_draw (its only consumer) — 4-byte stride; the next .rdata
  * name, bitmap_type_table_0, starts at 0x8212A074, so exactly 4 entries and no padding.
@@ -9,8 +16,8 @@
  * Raw bytes 0x8212A064..0x8212A073: 00000000 00000002 00000002 00000002.
  * NOTE this is a distinct object from its ICF-lookalike twin bitmap_address_table_0 @0x8212A07C
  * (which is followed by 4 bytes of alignment padding); both were dumped separately.
+ * /
  */
-
 #include "_D3DTEXTUREADDRESS.h"
 
 const int bitmap_address_table[4] =

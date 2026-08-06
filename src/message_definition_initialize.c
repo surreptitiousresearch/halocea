@@ -9,8 +9,9 @@
 #include "headers/blam_data_globals.h"
 
 typedef struct _message_definition_field_reference_set _message_definition_field_reference_set;
-extern _message_definition *message_delta_global_message_list[47];
-extern int bits_needed[];
+/* DEVIATION: the local extern typed bits_needed as `int[]`, a 4x stride error — the table is a byte
+ * array (disasm 0x837A2ADC: `lbz r10, -1(r10)` off an unscaled index). Declared canonically by
+ * headers/blam_data_globals.h (const uint8_t[2048], def src/data/bits_needed.c). */
 
 extern int message_definition_field_reference_set_initialize(_message_definition_field_reference_set *const field_reference_set);
 extern int message_definition_field_reference_set_calculate_maximum_size(const _message_definition_field_reference_set *const field_reference_set);

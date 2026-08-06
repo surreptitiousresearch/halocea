@@ -4,11 +4,11 @@
 
 #include <stdint.h>
 
-extern char *main_get_map_name(void);
-extern char *strstr(const char *haystack, const char *needle);
-extern int16_t game_difficulty_level_get(void);
-extern int16_t halo_hud_get_timer_ticks(void);
-extern void hcex_fire_plr_event(const char *eventName, int plr_idx);
+extern "C" char *main_get_map_name(void);
+extern "C" char *strstr(const char *haystack, const char *needle);
+extern "C" int16_t game_difficulty_level_get(void);
+extern "C" int16_t halo_hud_get_timer_ticks(void);
+extern "C" void hcex_fire_plr_event(const char *eventName, int plr_idx);
 
 extern "C" void hcex_check_ach37(void)
 {

@@ -15,8 +15,8 @@ extern int       dsVECTOR_HCEX_OBJ_8__FindSorted(void *vector, const int *key, i
 extern int       dsVECTOR_HCEX_OBJ_8__InsertSorted(void *vector, const HCEX_OBJ *value, int *position, int dup_policy);
 extern HCEX_OBJ *dsVECTOR_HCEX_OBJ_8__operatorSubscript(void *vector, int position);
 extern void      dsVECTOR_WEAK_PTR_entENTITY_8__dtor(dsVECTOR_followers *vector);
-extern void dlFree(void *ptr);
-extern int       hcex_obj_model(int id);
+extern "C" void dlFree(void *ptr);
+extern "C" int       hcex_obj_model(int id);
 extern animINST *hcex_inst_create(int model_index, int id, int unused, int *out_model_idx);
 
 #define INS_DUP_IGNORE 0

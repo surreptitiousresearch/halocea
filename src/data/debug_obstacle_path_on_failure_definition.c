@@ -1,13 +1,21 @@
-/* debug_obstacle_path_on_failure_definition @ 0x8417FFE0 -- second-order .data; hs_global_external (16B, big-endian) reconstructed
- * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified. */
+/* debug_obstacle_path_on_failure_definition @ 0x8417FFE0 (.data, 16 bytes)
+ * DB applied_types: hs_global_external debug_obstacle_path_on_failure_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 name                       = 0x82120388 -> "debug_obstacle_path_on_failure"
+ *   +0x04 type                       = 0x0005
+ *   +0x08 pointer                    = 0x00000000
+ *   +0x0C console_flags              = 0x00
+ * second-order .data; hs_global_external (16B, big-endian) reconstructed
+ * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified.
+ */
 #include "../headers/hs_global_external.h"
 #include "../headers/hs_type.h"
 
 hs_global_external debug_obstacle_path_on_failure_definition =
 {
-    "debug_obstacle_path_on_failure",
-    hs_type_boolean,
-    { 0, 0 },
-    0,
-    0
+    "debug_obstacle_path_on_failure",  /* name */
+    hs_type_boolean,                   /* type */
+    { 0, 0 },                          /* _pad06.._pad07 */
+    0,                                 /* pointer */
+    0,                                 /* console_flags */
 };

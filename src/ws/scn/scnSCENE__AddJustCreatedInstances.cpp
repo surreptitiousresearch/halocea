@@ -4,7 +4,7 @@
 
 // ?GetPhysicsThreadNMB@@YAHXZ / ?GetMainThreadNMB@@YAHXZ are unrelated helpers; the thread guard
 // here reads a plain file-scope int global and osGetCurThreadProcessor().
-extern int threadNmb;                                  // boundary — Scene.cpp file-scope global
+extern "C" int threadNmb;                                  // boundary — Scene.cpp file-scope global
 extern "C" int osGetCurThreadProcessor();               // boundary
 
 // ?AddJustCreatedInstances@scnSCENE@@QAAXH@Z  (0x82540BD8) — insert `id` into the sorted

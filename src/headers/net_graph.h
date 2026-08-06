@@ -37,5 +37,13 @@ typedef struct net_graph
     char                     label[512];                    /* 0x23E0 */
 } net_graph;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern net_graph gGraph;
 extern unsigned int gNetGraphSamplePeriod;
+
+#ifdef __cplusplus
+}
+#endif

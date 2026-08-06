@@ -7,19 +7,23 @@
  * (vertices2d, vertex_count) with a 0.05 tolerance. Returns 1 on the first edge whose crossing lands
  * inside the polygon, else 0.
  *
- * Sibling of leaf_map_get_leaf_bounds.c (shares the 24-byte leaf stride, the face/plane resolution, and
- * the dominant-axis 2D→3D unprojection idiom). The clip plane's fields are the DB names n/d. */
+ * Sibling of leaf_map_get_leaf_bounds.c (shares the map_leaf indexing, the face/plane resolution, and
+ * the dominant-axis 2D→3D unprojection idiom). The clip plane's fields are the DB names n/d.
+ *
+ * DEVIATION: the face plane's distance term was spelled face_normal[3] — a read one element past
+ * real_vector3d::n[3]. It is real_plane3d::d at +0x0C: same bytes, no longer out of bounds. */
 
 #include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/map_leaf.h"
 #include "headers/map_leaf_face.h"
 #include "headers/bsp3d.h"
+#include "headers/bsp3d_node.h"
 #include "headers/real_plane3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_point2d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float x);
 extern uint8_t convex_hull2d_test_point(int16_t count, const real_point2d *points, const real_point2d *point, float epsilon);
 
@@ -32,14 +36,14 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
         return 0;
 
     const map_leaf_face *faces = (const map_leaf_face *)leaf->faces.address;
-    const int *nodes = (const int *)leaf_map->bsp->nodes.address;
-    const char *planes = (const char *)leaf_map->bsp->planes.address;
+    const bsp3d_node *nodes = (const bsp3d_node *)leaf_map->bsp->nodes.address;
+    const real_plane3d *planes = (const real_plane3d *)leaf_map->bsp->planes.address;
 
     for ( int face_index = 0; face_index < leaf->faces.count; face_index = (int16_t)(face_index + 1) )
     {
         const map_leaf_face *face = &faces[face_index];
         const real_plane3d *face_plane =
-                (const real_plane3d *)&planes[16 * nodes[3 * face->node_index]];
+                &planes[nodes[face->node_index].plane_index];
         const float *face_normal = face_plane->n.n;
 
         float abs_x = __fabs(face_normal[0]);
@@ -56,9 +60,9 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
             continue;
 
         float normal_axis = face_normal[axis];
-        int face_projection = 2 * axis + (normal_axis > 0.0f);
-        int u_axis = global_projection3d_mappings[0][face_projection][0];
-        int v_axis = global_projection3d_mappings[0][face_projection][1];
+        int face_sign = (normal_axis > 0.0f);
+        int u_axis = global_projection3d_mappings[axis][face_sign][0];
+        int v_axis = global_projection3d_mappings[axis][face_sign][1];
 
         const real_point2d *face_vertices = (const real_point2d *)face->vertices.address;
 
@@ -72,7 +76,7 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
             current.n[axis] = (__fabs(normal_axis) >= 0.000099999997f)
                     ? (-((face_normal[v_axis] * current2d->n[1])
                             - -((face_normal[u_axis] * current2d->n[0])
-                                    - face_normal[3])) / normal_axis)
+                                    - face_plane->d)) / normal_axis)
                     : 0.0f;
 
             /* unproject the next endpoint (wrapping to vertex 0) */
@@ -84,7 +88,7 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
             next.n[axis] = (__fabs(normal_axis) >= 0.000099999997f)
                     ? (-((face_normal[v_axis] * next2d->n[1])
                             - -((face_normal[u_axis] * next2d->n[0])
-                                    - face_normal[3])) / normal_axis)
+                                    - face_plane->d)) / normal_axis)
                     : 0.0f;
 
             float current_distance = (((plane->n.n[1] * current.n[1])
@@ -97,9 +101,8 @@ int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_p
             if ( (current_distance < -0.029999999f && next_distance > 0.029999999f)
               || (current_distance > 0.029999999f && next_distance < -0.029999999f) )
             {
-                int query_projection = 2 * projection + projection_sign;
-                int query_u_axis = global_projection3d_mappings[0][query_projection][0];
-                int query_v_axis = global_projection3d_mappings[0][query_projection][1];
+                int query_u_axis = global_projection3d_mappings[projection][projection_sign][0];
+                int query_v_axis = global_projection3d_mappings[projection][projection_sign][1];
 
                 float t = ((((plane->n.n[1] * current.n[1])
                                 + (plane->n.n[2] * current.n[2]))

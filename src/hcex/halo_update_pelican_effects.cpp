@@ -7,7 +7,7 @@
 #include "../headers/real_vector3d.h"
 #include "../headers/hcex/hcex_float3.h"
 
-extern void hcex_update_pelican_effects(int vehicle_index, const char *src_obj, hcex_float3 *point,
+extern "C" void hcex_update_pelican_effects(int vehicle_index, const char *src_obj, hcex_float3 *point,
         hcex_float3 *vector, int start);
 
 extern "C" void halo_update_pelican_effects(int vehicle_index, const char *src_obj, real_point3d *point,

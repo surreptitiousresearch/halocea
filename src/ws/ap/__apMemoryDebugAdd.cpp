@@ -11,7 +11,7 @@ void apDlStatFrameNotifyAlloc(int size, const char *filename, int line, apMEM_BL
 
 extern int  _isMemStatSuspend; // boundary global — is memory-stat tracking suspended
 extern int  _isMemStatOpened;  // boundary global — has the stat system been opened/started
-extern int  isSystemStart;     // boundary global — one-time "system started" latch
+extern "C" int  isSystemStart;     // boundary global — one-time "system started" latch
 
 osLOCK &apMemStatGetLock();        // boundary — the shared memstat critical section
 void apMemoryDebugSystemStart();   // boundary — one-time memory-debug subsystem start

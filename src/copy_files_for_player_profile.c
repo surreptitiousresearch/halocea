@@ -16,8 +16,8 @@ extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...)
 extern int CopyFileA(const char *existing_filename, const char *new_filename, int fail_if_exists);
 extern const char * game_state_get_persistent_storage_filename(void);
 extern char *strrchr(const char *string, int character);
-extern void *FindFirstFileA(const char *pattern, _WIN32_FIND_DATAA *find_data);
-extern int FindNextFileA(void *find_handle, _WIN32_FIND_DATAA *find_data);
+extern void *FindFirstFileA(const char *pattern, WIN32_FIND_DATAA *find_data);
+extern int FindNextFileA(void *find_handle, WIN32_FIND_DATAA *find_data);
 extern int CloseHandle(void *handle);
 
 static void replace_extension_with_sav(char *path)
@@ -44,7 +44,7 @@ uint8_t copy_files_for_player_profile(const char *src_profile, const char *dst_p
 {
     char dst_path[256];
     char src_path[256];
-    _WIN32_FIND_DATAA find_data;
+    WIN32_FIND_DATAA find_data;
     char pattern[320];
 
     _snprintf_0(dst_path, 0xFFu, "%s%s", dst_profile, "blam.sav");

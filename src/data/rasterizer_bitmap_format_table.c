@@ -1,12 +1,31 @@
-/* rasterizer_bitmap_format_table @0x82123B10 — .rdata bitmap_format -> Xbox 360 _D3DFORMAT
+/* rasterizer_bitmap_format_table @ 0x82123B10 (.rdata, 72 bytes)
+ * DB applied_types: const _D3DFORMAT rasterizer_bitmap_format_table[18];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = 0xFFFFFFFF
+ *   +0x0004 = 0xFFFFFFFF
+ *   +0x0008 = 0xFFFFFFFF
+ *   +0x000C = 0xFFFFFFFF
+ *   +0x0010 = 0xFFFFFFFF
+ *   +0x0014 = 0xFFFFFFFF
+ *   +0x0018 = 0x28280144
+ *   +0x001C = 0xFFFFFFFF
+ *   +0x0020 = 0x18280143
+ *   +0x0024 = 0x1828014F
+ *   +0x0028 = 0x28280186
+ *   +0x002C = 0x18280186
+ *   +0x0030 = 0xFFFFFFFF
+ *   +0x0034 = 0xFFFFFFFF
+ *   +0x0038 = 0x1A200152
+ *   +0x003C = 0x1A200153
+ *   +0x0040 = 0x1A200154
+ *   +0x0044 = 0xFFFFFFFF
+ * .rdata bitmap_format -> Xbox 360 _D3DFORMAT
  * lookup, 72 bytes = 18 x 4 (next .rdata name is the string @0x82123B58). Indexed by
  * bitmap_data.format everywhere it is used (rasterizer_bitmap_new / _2d_changed / _3d_changed /
  * _cm_changed / _get_hw_size / rasterizer_bitmap_d3d_format), so the element count is
  * NUMBER_OF_BITMAP_FORMATS.
- *
  * Byte-for-byte identical to `table` @0x82113CD8, but a distinct object; both were dumped from
  * the binary independently.
- *
  * Declared non-const to match the corpus declarations (bitmap_format_tables.h and the TU-local
  * one in rasterizer_bitmap_3d_changed.c are both non-const); the object itself lives in .rdata.
  * The -1 slots are spelled `(_D3DFORMAT)-1`: this TU includes d3d_render_boundary.h transitively,
@@ -19,8 +38,8 @@
  *   [12,13]  0xFFFFFFFF -> -1 (unused4, unused5)
  *   [14]     0x1A200152 -> D3DFMT_DXT1        [15]     0x1A200153 -> D3DFMT_DXT3
  *   [16]     0x1A200154 -> D3DFMT_DXT5        [17]     0xFFFFFFFF -> -1 (p8_bump)
+ * /
  */
-
 #include "bitmap_format_tables.h"
 #include "bitmap_format.h"
 

@@ -2,8 +2,8 @@
  * danger (a tracked grenade / explosive line). It decides whether to dive out of the way and/or switch into the
  * generic "avoid" action.
  *
- * The danger is modelled as a line segment (base at actor+688, direction actor+712 - actor+688) with a radius
- * (actor+660). The handler:
+ * The danger is modelled as a line segment (base +688 -> danger_zone.position, direction +712 ->
+ * danger_zone.predict_danger_position minus that base) with radius +660 -> danger_zone.danger_radius. The handler:
  *   1. Bails unless there is an active, un-suppressed danger and the actor is near its danger reference point,
  *      not already busy in a move animation.
  *   2. Measures how close the actor body / its path destination / its path re-entry are to the danger line, and
@@ -15,9 +15,9 @@
  *   4. Finally, if nothing dived and the body is within the wider escape radius, switches to the avoid action
  *      (action type 13) when the current action's class permits it.
  *
- * One of the actor_action_handle_* siblings; the actor datum is read at raw byte offsets per that convention.
+ * One of the actor_action_handle_* siblings. The actor datum is fully typed here; offset map below.
  *
- * DEVIATION: actor_action_try_to_dive's alignment_vector argument (decompiler local v24) is &alignment_vector
+ * DEVIATION: actor_action_try_to_dive's alignment_vector argument is &alignment_vector
  * (the real_vector2d actor_action_find_escape_from_danger filled) — the decompiler lost the assignment; the
  * prototype pairing (find_escape's alignment_vector_reference == try_to_dive's alignment_vector) makes it exact.
  *

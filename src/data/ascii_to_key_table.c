@@ -1,4 +1,23 @@
-/* ascii_to_key_table @0x82114410 - .rdata, 256 bytes = 128 halfwords; DB applied type
+/* ascii_to_key_table @ 0x82114410 (.rdata, 256 bytes)
+ * DB applied_types: const __int16 ascii_to_key_table[128];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0010: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0020: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0030: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0040: 0048 0011 0037 0013 0014 0015 0017 0037
+ *   +0x0050: 0019 001A 0018 001C 0041 001B 0042 0043
+ *   +0x0060: 001A 0011 0012 0013 0014 0015 0016 0017
+ *   +0x0070: 0018 0019 0036 0036 0041 001C 0042 0043
+ *   +0x0080: 0012 002D 003E 003C 002F 0021 0030 0031
+ *   +0x0090: 0032 0026 0033 0034 0035 0040 003F 0027
+ *   +0x00A0: 0028 001F 0022 002E 0023 0025 003D 0020
+ *   +0x00B0: 003B 0024 003A 0029 002B 002A 0016 001B
+ *   +0x00C0: 0010 002D 003E 003C 002F 0021 0030 0031
+ *   +0x00D0: 0032 0026 0033 0034 0035 0040 003F 0027
+ *   +0x00E0: 0028 001F 0022 002E 0023 0025 003D 0020
+ *   +0x00F0: 003B 0024 003A 0029 002B 002A 0010 0054
+ * .rdata, 256 bytes = 128 halfwords; DB applied type
  * `const __int16[128]`, matching the declaration in src/input_update_keyboard.c
  * (`extern const int16_t ascii_to_key_table[128]`). 256 bytes over the 128 ASCII codes is 2 bytes
  * per entry, and the element is a key_code as in the sibling virtual_to_key_table.
@@ -7,11 +26,10 @@
  * entry is the 0xFFFF sentinel. 96 of the 128 slots are mapped: the printable range 0x20-0x7E plus
  * DEL, with each entry naming the physical key that produces the character (shifted characters map
  * to their unshifted key, so '!' -> _key_1 and ':' -> _key_semicolon).
- *
  * Reconstructed from the raw big-endian halfwords; the mapping is self-checking - the digits, the
  * letters (upper and lower case both landing on the same key_code) and the shifted punctuation all
- * follow the US keyboard layout exactly. */
-
+ * follow the US keyboard layout exactly.
+ */
 #include <stdint.h>
 #include "../headers/key_code.h"
 

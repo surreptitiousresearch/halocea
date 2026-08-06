@@ -8,9 +8,15 @@
  * Squad definition fields resolved to the DB squad_definition struct (232 bytes): actor_palette_index,
  * platoon_index, initial_state, default_state. encounter_definition.flags bit 0x10
  * selects "initially braindead". State-source pointers verified against disassembly (the decompiler lost the
- * squad-relative reads and the four trailing actor_create_for_unit arguments). */
+ * squad-relative reads and the four trailing actor_create_for_unit arguments).
+ *
+ * DEVIATION: the sub-index unpack was `(ai_index >> 8) & 0xFF` — Hex-Rays' BYTE1 expanded with the
+ * little-endian value form. Disasm 0x8376F400 (explicit squad) and 0x8376F414 (platoon search key) are
+ * `extrwi rX, r4, 8, 8` (rlwinm SH=16 MB=24 ME=31, words 0x549E863E / 0x5485863E), i.e. (x >> 16) & 0xFF.
+ * Now AI_INDEX_SUB_INDEX. */
 
 #include <stdint.h>
+#include "headers/ai_index.h"
 #include "headers/squad_definition.h"
 #include "headers/encounter_flags.h"
 #include "headers/scenario.h"
@@ -41,20 +47,20 @@ void ai_scripting_attach_unit(int unit_index, unsigned int ai_index)
     squad_definition *squads = (squad_definition *)encounter->squads.address;
     int squad_index = 0;
 
-    if ( ai_index >> 30 == 2 )
+    if ( AI_INDEX_SCOPE(ai_index) == _ai_index_squad )
     {
-        squad_index = (ai_index >> 8) & 0xFF;      /* BYTE1: explicit squad */
+        squad_index = AI_INDEX_SUB_INDEX(ai_index);
         if ( squad_index < 0 )
             return;
     }
-    else if ( ai_index >> 30 == 1 )
+    else if ( AI_INDEX_SCOPE(ai_index) == _ai_index_platoon )
     {
         int squad_count = encounter->squads.count;
         int i = 0;
         if ( squad_count > 0 )
         {
             squad_definition *squad = squads;
-            while ( squad->platoon_index != ((ai_index >> 8) & 0xFF) )   /* squad+0x22 = platoon index */
+            while ( squad->platoon_index != AI_INDEX_SUB_INDEX(ai_index) )   /* squad+0x22 = platoon index */
             {
                 ++i;
                 ++squad;   /* sizeof(squad_definition) == 232 (DB-confirmed); fixed prior char-style +=232 stride bug */

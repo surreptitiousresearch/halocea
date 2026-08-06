@@ -13,14 +13,14 @@ extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...)
 extern int DeleteFileA(const char *filename);
 extern const char * game_state_get_persistent_storage_filename(void);
 extern char *strrchr(const char *string, int character);
-extern void *FindFirstFileA(const char *pattern, _WIN32_FIND_DATAA *find_data);
-extern int FindNextFileA(void *find_handle, _WIN32_FIND_DATAA *find_data);
+extern void *FindFirstFileA(const char *pattern, WIN32_FIND_DATAA *find_data);
+extern int FindNextFileA(void *find_handle, WIN32_FIND_DATAA *find_data);
 extern int CloseHandle(void *handle);
 
 int delete_files_for_player_profile(const char *profile)
 {
     char path[256];
-    _WIN32_FIND_DATAA find_data;
+    WIN32_FIND_DATAA find_data;
     char pattern[304];
 
     _snprintf_0(path, 0xFFu, "%s%s", profile, "blam.sav");

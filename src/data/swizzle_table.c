@@ -1,4 +1,15 @@
-/* swizzle_table @0x82128260 — .rdata bit-spread (Morton/Z-order interleave) table, 128 bytes.
+/* swizzle_table @ 0x82128260 (.rdata, 128 bytes)
+ * DB applied_types: const unsigned __int16 swizzle_table[64];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0000 0001 0004 0005 0010 0011 0014 0015
+ *   +0x0010: 0040 0041 0044 0045 0050 0051 0054 0055
+ *   +0x0020: 0100 0101 0104 0105 0110 0111 0114 0115
+ *   +0x0030: 0140 0141 0144 0145 0150 0151 0154 0155
+ *   +0x0040: 0400 0401 0404 0405 0410 0411 0414 0415
+ *   +0x0050: 0440 0441 0444 0445 0450 0451 0454 0455
+ *   +0x0060: 0500 0501 0504 0505 0510 0511 0514 0515
+ *   +0x0070: 0540 0541 0544 0545 0550 0551 0554 0555
+ * .rdata bit-spread (Morton/Z-order interleave) table, 128 bytes.
  * Element width: every access in bitmap_swizzle_vector2d is an `lhzx` at byte offset 2*index
  * (0x837E31B4/31B8/31F0/31F4/31F8/3200), and the object spans exactly 128 bytes (next .rdata name
  * face_mapping_inverse_table @0x821282E0) — so 64 x uint16_t, matching the corpus
@@ -7,8 +18,8 @@
  *   swizzle_table[i] = sum over k in 0..5 of ((i >> k) & 1) << (2*k).
  * That identity was verified against all 64 dumped halfwords, so the literals below are the
  * binary's own bytes, not a regenerated formula. Max entry 0x0555 (i = 63).
+ * /
  */
-
 #include <stdint.h>
 
 const uint16_t swizzle_table[64] =

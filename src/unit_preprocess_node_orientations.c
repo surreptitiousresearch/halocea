@@ -33,6 +33,10 @@
  *    record stride) is accounted for: `v26 + 4` (4 * 24 = 96 bytes) lands exactly on the weapon class's own
  *    `aiming_screen_bounds` sub-struct (`animation_graph_weapon_class` offset 0x60), matching the disasm's
  *    direct `r30 + 0x60` register alias (renamed r29). Reproduced here as `&weapon_class->aiming_screen_bounds`.
+ *  - The seat's `animations` tag_block is an array of `animation_graph_animation_index` (DB type, 2 bytes,
+ *    one __int16), not a bare int16_t array; its slots are the `unit_seat_animation` enum (11 = emotions,
+ *    10 = mouth_aperture, 2..4 = acceleration front_back/left_right/up_down). Disasm 0x836CD9C8/0x836CDA4C
+ *    load .address (+0x44) then lhz at +0x16 / +0x14, and 0x836CDAB0 scales the loop slot by 2 (slwi 1).
  *  - `unit_datum.h`'s `_unit_datum` was previously only a partial/padded stub; this session fleshed it out to
  *    the full database layout (all field names/offsets DB-verified via `types_members`), which is what makes
  *    every field below a named access rather than a raw offset. New nested types `unit_animation`,
@@ -48,8 +52,10 @@
 #include "headers/animation_graph.h"
 #include "headers/animation_graph_unit_seat.h"
 #include "headers/animation_graph_weapon_class.h"
+#include "headers/animation_graph_animation_index.h"
 #include "headers/animation_aiming_screen_bounds.h"
 #include "headers/animation.h"
+#include "headers/unit_seat_animation.h"
 #include "headers/real_orientation.h"
 #include "headers/real_matrix4x3.h"
 #include "headers/real_vector3d.h"
@@ -60,8 +66,6 @@
 #include "headers/unit_animation_state.h"
 #include "headers/blam_data_globals.h"
 
-
-#include "headers/animation_aiming_screen_bounds.h"
 extern void object_get_orientation(int object_index, real_vector3d *forward, real_vector3d *up);
 extern real_vector3d *matrix4x3_inverse_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern real_euler_angles2d *euler_angles2d_from_vector3d(real_euler_angles2d *angles, const real_vector3d *vector);
@@ -112,9 +116,10 @@ void unit_preprocess_node_orientations(int object_index, real_orientation *node_
      * slot 11; emotion_index doubles as the explicit frame to display. */
     if (emotion_index != -1)
     {
-        int16_t emotion_animation_index = seat->animations.count <= 11
+        int16_t emotion_animation_index = seat->animations.count <= _unit_seat_animation_emotions
                 ? -1
-                : ((int16_t *)seat->animations.address)[11];
+                : ((const animation_graph_animation_index *)seat->animations.address)
+                        [_unit_seat_animation_emotions].animation_index;
         if (unit->unit.override_emotion_animation_index != -1)
             emotion_animation_index = unit->unit.override_emotion_animation_index;
 
@@ -130,9 +135,10 @@ void unit_preprocess_node_orientations(int object_index, real_orientation *node_
     /* Mouth/talk overlay: seat's fixed slot 10, scaled by the live mouth_aperture value. */
     if (unit->unit.mouth_aperture > 0.0f)
     {
-        int16_t mouth_animation_index = seat->animations.count <= 10
+        int16_t mouth_animation_index = seat->animations.count <= _unit_seat_animation_mouth_aperture
                 ? -1
-                : ((int16_t *)seat->animations.address)[10];
+                : ((const animation_graph_animation_index *)seat->animations.address)
+                        [_unit_seat_animation_mouth_aperture].animation_index;
         if (mouth_animation_index != -1)
             overlay_animation_apply_scaled(
                     &((const animation *)graph->animations.address)[mouth_animation_index],
@@ -145,10 +151,11 @@ void unit_preprocess_node_orientations(int object_index, real_orientation *node_
     {
         for (int i = 0; i < 3; ++i)
         {
-            int slot = i + 2;
+            int slot = _unit_seat_animation_acceleration_front_back + i;
             int16_t additive_animation_index = (slot < 0 || slot >= seat->animations.count)
                     ? -1
-                    : ((int16_t *)seat->animations.address)[slot];
+                    : ((const animation_graph_animation_index *)seat->animations.address)
+                            [slot].animation_index;
             if (additive_animation_index != -1)
             {
                 const animation *additive_animation =

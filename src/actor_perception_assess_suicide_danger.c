@@ -4,9 +4,9 @@
  * with the unit, its origin and velocity, a 6-tick fuse, the enemy flag and the perceived flag. Returns 1 if a
  * threat was (re)latched.
  *
- * Deviation: the database prototype's 5th/6th params (enemy, currently_perceived) are the real args; Hex-Rays
- * additionally invented a7/a8 from the GPR slots reserved by the two float args. The values actually consumed
- * map: enemy -> "is this the visibility==2 case" flag, currently_perceived -> stored fuse flag. */
+ * Deviation: the database prototype's 5th/6th params (enemy, currently_perceived) are the real args, but the
+ * float-slot-skip ABI makes Hex-Rays read them through two invented trailing slots. Those are what the body
+ * consumes: enemy -> danger_zone.hostility (stored inverted), currently_perceived -> danger_zone.currently_perceived. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

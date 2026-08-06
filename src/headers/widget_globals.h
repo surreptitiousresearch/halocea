@@ -44,9 +44,25 @@ typedef struct _widget_globals
     unsigned char             sound_paused;                 /* 0x43 */
 } _widget_globals;                                          /* 68 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _widget_globals widget_globals;
 extern unsigned char we_are_at_the_main_menu;
 
+#ifdef __cplusplus
+}
+#endif
+
 #include "stack_memory_pool.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern stack_memory_pool *widget_memory_pool;
+
+#ifdef __cplusplus
+}
+#endif

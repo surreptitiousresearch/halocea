@@ -15,8 +15,8 @@
 extern char * wide_to_ascii(uint16_t *unicode, char *ascii, unsigned int ascii_length_bytes);
 extern int sprintf_0(char *string, const char *format, ...);
 extern int strcmp(const char *string1, const char *string2);
-extern void *FindFirstFileA(const char *pattern, _WIN32_FIND_DATAA *find_data);
-extern int FindNextFileA(void *find_handle, _WIN32_FIND_DATAA *find_data);
+extern void *FindFirstFileA(const char *pattern, WIN32_FIND_DATAA *find_data);
+extern int FindNextFileA(void *find_handle, WIN32_FIND_DATAA *find_data);
 extern int CloseHandle(void *handle);
 extern int DeleteFileA(const char *filename);
 extern int RemoveDirectoryA(const char *path);
@@ -36,7 +36,7 @@ unsigned int XDeleteSaveGame(const char *lpRootPathName, const wchar_t *lpSaveGa
     sprintf_0(pattern, "%s*.*", save_directory);
 
     int result = 0;
-    _WIN32_FIND_DATAA find_data;
+    WIN32_FIND_DATAA find_data;
     void *find_handle = FindFirstFileA(pattern, &find_data);
     if ( find_handle != (void *)-1 )
     {

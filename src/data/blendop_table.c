@@ -1,4 +1,16 @@
-/* blendop_table @0x8210FAD4 — .rdata lookup table, 36 bytes = 9 x 4.
+/* blendop_table @ 0x8210FAD4 (.rdata, 36 bytes)
+ * DB applied_types: const unsigned int blendop_table[9];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = 0x00000000
+ *   +0x0004 = 0x00000000
+ *   +0x0008 = 0x00000000
+ *   +0x000C = 0x00000000
+ *   +0x0010 = 0x00000004
+ *   +0x0014 = 0x00000002
+ *   +0x0018 = 0x00000003
+ *   +0x001C = 0x00000000
+ *   +0x0020 = 0xFFFFFFFF
+ * .rdata lookup table, 36 bytes = 9 x 4.
  * Element width: `slwi r29, r11, 2` + `lwzx` off the blendop_table base at 0x8369C3CC/0x8369C3D0
  * (rasterizer_set_framebuffer_blend_function) — 4-byte stride; the next .rdata name is the
  * string at 0x8210FAF8, i.e. exactly 9 words.
@@ -7,8 +19,8 @@
  *   [4]    0x00000004 -> D3DBLENDOP_REVSUBTRACT
  *   [5]    0x00000002 -> D3DBLENDOP_MIN     [7] 0x00000000 -> D3DBLENDOP_ADD
  *                                           [8] 0xFFFFFFFF -> -1 (terminator)
+ * /
  */
-
 #include "_D3DBLENDOP.h"
 #include "shader_framebuffer_blend_function.h"
 

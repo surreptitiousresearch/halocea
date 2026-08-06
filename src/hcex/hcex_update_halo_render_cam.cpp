@@ -9,15 +9,15 @@
 #include "../headers/observer_result.h"
 
 #include "headers/rectangle2d.h"
-extern render_window hcex_window[];
-extern float hcex_fov[];
-extern int hcex_coop_local_player_index;
+extern "C" render_window hcex_window[];
+extern "C" float hcex_fov[];
+extern "C" int hcex_coop_local_player_index;
 
-extern int16_t hcex_render_player_index(int cam_idx);
-extern const observer_result *observer_get_camera(int16_t local_player_index);
-extern int16_t local_player_count(void);
-extern void compute_window_bounds(int player_index, int num_players, rectangle2d *pixel_bounds, rectangle2d *safe_frame_bounds);
-extern void set_window_camera_values(struct render_window *current_window, const observer_result *observer);
+extern "C" int16_t hcex_render_player_index(int cam_idx);
+extern "C" const observer_result *observer_get_camera(int16_t local_player_index);
+extern "C" int16_t local_player_count(void);
+extern "C" void compute_window_bounds(int player_index, int num_players, rectangle2d *pixel_bounds, rectangle2d *safe_frame_bounds);
+extern "C" void set_window_camera_values(struct render_window *current_window, const observer_result *observer);
 
 extern "C" void hcex_update_halo_render_cam(int cam_idx)
 {

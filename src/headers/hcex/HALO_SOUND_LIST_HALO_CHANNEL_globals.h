@@ -33,11 +33,11 @@ struct DBG_VAR {
     T prevValue;
 };
 
-extern DBG_VAR<bool> dbg_printBufPlay_10;  // HALO_SOUND_LIST::GetFreeSound / HALO_CHANNEL::CheckNotReady debug log
-extern DBG_VAR<bool> dbg_printQueuePlay;   // HALO_CHANNEL::Queue debug log
-extern DBG_VAR<bool> dbg_disableEAX;       // HALO_CHANNEL::CheckNotReady -- force master (non-reverb) bus
-extern DBG_VAR<bool> dbg_disable3DCone;    // HALO_CHANNEL::UpdateProperties -- disable 3D cone attenuation
-extern DBG_VAR<bool> dbg_mute2dSounds;     // HALO_CHANNEL::UpdateProperties -- mute all 2D sounds
+extern "C" DBG_VAR<bool> dbg_printBufPlay_10;  // HALO_SOUND_LIST::GetFreeSound / HALO_CHANNEL::CheckNotReady debug log
+extern "C" DBG_VAR<bool> dbg_printQueuePlay;   // HALO_CHANNEL::Queue debug log
+extern "C" DBG_VAR<bool> dbg_disableEAX;       // HALO_CHANNEL::CheckNotReady -- force master (non-reverb) bus
+extern "C" DBG_VAR<bool> dbg_disable3DCone;    // HALO_CHANNEL::UpdateProperties -- disable 3D cone attenuation
+extern "C" DBG_VAR<bool> dbg_mute2dSounds;     // HALO_CHANNEL::UpdateProperties -- mute all 2D sounds
 
 // ---- ds string helpers (template dsTSTRING<char> convention) ----
 extern const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary

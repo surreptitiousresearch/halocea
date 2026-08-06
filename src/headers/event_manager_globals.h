@@ -13,4 +13,12 @@ typedef struct _event_manager_globals
     event_record  event_queue[4][8];                 /* 0x0C */
 } _event_manager_globals;                            /* 268 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _event_manager_globals event_manager_globals;
+
+#ifdef __cplusplus
+}
+#endif

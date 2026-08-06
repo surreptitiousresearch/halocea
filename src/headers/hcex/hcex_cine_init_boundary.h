@@ -39,8 +39,8 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 
 /* SSL callback bodies (registered by name; external to this batch — declared only so their
  * addresses can be passed to AddCbFunc). */
-extern void cbSetHaloCineScreenEffectActive(void);
-extern void cbHcexStartCine(void);
-extern void cbHcexDontSkipCine(void);
-extern void cbAddCine(void);
-extern void cbHideActorsByTplName(void);
+extern "C" void cbSetHaloCineScreenEffectActive(void);
+extern "C" void cbHcexStartCine(void);
+extern "C" void cbHcexDontSkipCine(void);
+extern "C" void cbAddCine(void);
+extern "C" void cbHideActorsByTplName(void);

@@ -16,4 +16,8 @@
 
 #include "../headers/real_plane3d.h"
 
-const real_plane3d screen_plane = { { 0.0f, 0.0f, -1.0f }, 0.01f };
+const real_plane3d screen_plane =
+{
+    { 0.0f, 0.0f, -1.0f },   /* n */
+    0.01f,                   /* d */
+};

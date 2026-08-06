@@ -16,7 +16,7 @@ extern int                  load_as_halo;
 extern void haloEngineCtrlTerm();
 extern void InputQueueTerm();
 extern void hcex_loading_screen_term();
-extern void main_loop_term(void); /* attested void */
+extern "C" void main_loop_term(void); /* attested void */
 
 int haloTerm()
 {

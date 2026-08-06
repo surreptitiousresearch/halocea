@@ -6,7 +6,7 @@
 #include <wchar.h>
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
-extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);
+extern "C" int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);
 extern wchar_t *hcex_get_string(const char *str_name);
 extern haloENGINE_CONTROL *haloEngineCtrl;
 

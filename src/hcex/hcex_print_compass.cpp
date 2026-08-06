@@ -5,7 +5,7 @@
 
 #include "../headers/hcex/hcex_ds_boundary.h"
 
-extern void hcex_dbg_add_string(const char *string);
+extern "C" void hcex_dbg_add_string(const char *string);
 
 extern "C" void hcex_print_compass(int idx, float compass_magnitude)
 {

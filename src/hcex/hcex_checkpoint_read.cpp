@@ -9,20 +9,20 @@
  * do-while against "_autosave.sav"), and strcat (the manual append loop); these are written here as the
  * library calls they represent. strrchr and strncpy are real calls in the binary. */
 
-extern const char *hcex_get_current_checkpoint(void);
-extern void *CreateFileA(const char *file_name, unsigned int desired_access, unsigned int share_mode,
+extern "C" const char *hcex_get_current_checkpoint(void);
+extern "C" void *CreateFileA(const char *file_name, unsigned int desired_access, unsigned int share_mode,
                          void *security_attributes, unsigned int creation_disposition,
                          unsigned int flags_and_attributes, void *template_file);
-extern unsigned int SetFilePointer(void *file, int distance, int *distance_high, unsigned int method);
-extern int ReadFile(void *file, void *buffer, unsigned int count, unsigned int *read, void *overlapped);
-extern int WriteFile(void *file, const void *buffer, unsigned int count, unsigned int *written, void *overlapped);
-extern int SetEndOfFile(void *file);
-extern int CloseHandle(void *handle);
-extern char *strrchr(const char *s, int c);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
-extern char *strcat(char *dst, const char *src);
-extern int strcmp(const char *a, const char *b);
-extern unsigned int strlen(const char *s);
+extern "C" unsigned int SetFilePointer(void *file, int distance, int *distance_high, unsigned int method);
+extern "C" int ReadFile(void *file, void *buffer, unsigned int count, unsigned int *read, void *overlapped);
+extern "C" int WriteFile(void *file, const void *buffer, unsigned int count, unsigned int *written, void *overlapped);
+extern "C" int SetEndOfFile(void *file);
+extern "C" int CloseHandle(void *handle);
+extern "C" char *strrchr(const char *s, int c);
+extern "C" char *strncpy(char *dst, const char *src, unsigned int n);
+extern "C" char *strcat(char *dst, const char *src);
+extern "C" int strcmp(const char *a, const char *b);
+extern "C" unsigned int strlen(const char *s);
 
 #define GENERIC_READ              0x80000000u
 #define GENERIC_WRITE             0x40000000u

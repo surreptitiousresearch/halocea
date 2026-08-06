@@ -1,4 +1,42 @@
-/* Blam .lib data-global storage definition (init batch 7). */
+/* offsets @ 0x84181478 (.data, 204 bytes)
+ * DB applied_types: real_vector3d offsets[17];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 n                          = 0xBF8000000000000000000000
+ *        +0x00 __s1                       = 0xBF8000000000000000000000
+ *   [ 1] +0x00 n                          = 0x3F8000000000000000000000
+ *        +0x00 __s1                       = 0x3F8000000000000000000000
+ *   [ 2] +0x00 n                          = 0x00000000BF80000000000000
+ *        +0x00 __s1                       = 0x00000000BF80000000000000
+ *   [ 3] +0x00 n                          = 0x000000003F80000000000000
+ *        +0x00 __s1                       = 0x000000003F80000000000000
+ *   [ 4] +0x00 n                          = 0xBF3504F3BF3504F300000000
+ *        +0x00 __s1                       = 0xBF3504F3BF3504F300000000
+ *   [ 5] +0x00 n                          = 0x3F3504F33F3504F300000000
+ *        +0x00 __s1                       = 0x3F3504F33F3504F300000000
+ *   [ 6] +0x00 n                          = 0x3F3504F3BF3504F300000000
+ *        +0x00 __s1                       = 0x3F3504F3BF3504F300000000
+ *   [ 7] +0x00 n                          = 0xBF3504F33F3504F300000000
+ *        +0x00 __s1                       = 0xBF3504F33F3504F300000000
+ *   [ 8] +0x00 n                          = 0x00000000000000003F800000
+ *        +0x00 __s1                       = 0x00000000000000003F800000
+ *   [ 9] +0x00 n                          = 0xBF3504F3000000003F3504F3
+ *        +0x00 __s1                       = 0xBF3504F3000000003F3504F3
+ *   [10] +0x00 n                          = 0x3F3504F3000000003F3504F3
+ *        +0x00 __s1                       = 0x3F3504F3000000003F3504F3
+ *   [11] +0x00 n                          = 0x00000000BF3504F33F3504F3
+ *        +0x00 __s1                       = 0x00000000BF3504F33F3504F3
+ *   [12] +0x00 n                          = 0x000000003F3504F33F3504F3
+ *        +0x00 __s1                       = 0x000000003F3504F33F3504F3
+ *   [13] +0x00 n                          = 0xBF13CD3ABF13CD3A3F13CD3A
+ *        +0x00 __s1                       = 0xBF13CD3ABF13CD3A3F13CD3A
+ *   [14] +0x00 n                          = 0x3F13CD3A3F13CD3A3F13CD3A
+ *        +0x00 __s1                       = 0x3F13CD3A3F13CD3A3F13CD3A
+ *   [15] +0x00 n                          = 0x3F13CD3ABF13CD3A3F13CD3A
+ *        +0x00 __s1                       = 0x3F13CD3ABF13CD3A3F13CD3A
+ *   [16] +0x00 n                          = 0xBF13CD3A3F13CD3A3F13CD3A
+ *        +0x00 __s1                       = 0xBF13CD3A3F13CD3A3F13CD3A
+ * Blam .lib data-global storage definition (init batch 7).
+ */
 #include "../headers/real_vector3d.h"
 /* offsets @0x84181478, DB extent 208. 17 real_vector3d (204 bytes) of unit sample directions
  * followed by a trailing 0.0f padding word (belongs to the ledger gap). */

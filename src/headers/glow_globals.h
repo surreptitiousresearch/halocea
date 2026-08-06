@@ -11,4 +11,12 @@ typedef struct glow_globals_type
     data_array *glow_particle_data; /* 0x04 */
 } glow_globals_type;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern glow_globals_type glow_globals;
+
+#ifdef __cplusplus
+}
+#endif

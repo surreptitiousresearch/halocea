@@ -10,7 +10,7 @@
 #include "../ds/ds_assert_boundary.h"
 
 // --- other-subsystem boundary (declared, not reversed here) ---
-extern void dlFree(void *ptr); // allocator: heap free (dlmalloc-family), same convention as os_boundary.h
+extern "C" void dlFree(void *ptr); // allocator: heap free (dlmalloc-family), same convention as os_boundary.h
 
 // sslCLASS::~sslCLASS() @ 0x82A3AA30
 // Tear down every OWNED (non-inherited) element per its TYPE:

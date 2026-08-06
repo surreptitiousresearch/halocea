@@ -12,8 +12,8 @@
 #include "../headers/_object_definition.h"
 #include "../headers/object_type.h"
 
-extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern int object_hidden_cam_mask(int object_index);   /* Blam @0x83683050 */
+extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
+extern "C" int object_hidden_cam_mask(int object_index);   /* Blam @0x83683050 */
 
 extern "C" int hcex_object_hidden_cam_mask(int id)
 {

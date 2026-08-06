@@ -1,4 +1,4 @@
-/* bitmap_format_to_a8r8g8b8 @0x836F46A8 — read one texel of the given bitmap pixel format and expand
+/* bitmap_format_to_a8r8g8b8 @0x836F4688 — read one texel of the given bitmap pixel format and expand
  * it to a 32-bit A8R8G8B8 color. Handles the engine's stored formats: A8 (0), Y8 (1), AY8 (2), A8Y8
  * (3), R5G6B5 (6), A1R5G5B5 (8), A4R4G4B4 (9), already-32-bit X8R8G8B8/A8R8G8B8 (10/11), and the
  * palettized P8 (17) via global_vector_palette. The bit-replication expressions are reproduced as
@@ -12,12 +12,14 @@
 #include "headers/blam_data_globals.h"
 
 
-/* mipmap_address respelled uint16_t*->void* 2026-07-30: format-dependent texel width, body derives its
- * own byte/short views; bitmap_2d_get_pixel passes a char* base (C4133) */
-unsigned int bitmap_format_to_a8r8g8b8(int16_t format, void *mipmap_address, int pixel_index)
+/* mipmap_address respelled uint16_t*->const void* : format-dependent texel width, body derives its own
+ * byte/short/dword views; const per the DB prototype (bitmap_2d_get_pixel passes a non-const char* base,
+ * which converts silently). */
+unsigned int bitmap_format_to_a8r8g8b8(int16_t format, const void *mipmap_address, int pixel_index)
 {
-    unsigned char  *bytes  = (unsigned char *)mipmap_address;
-    unsigned short *pixels = (unsigned short *)mipmap_address;
+    const unsigned char  *bytes  = (const unsigned char *)mipmap_address;
+    const unsigned short *pixels = (const unsigned short *)mipmap_address;
+    const uint32_t       *texels = (const uint32_t *)mipmap_address;
 
     switch (format)
     {
@@ -55,17 +57,21 @@ unsigned int bitmap_format_to_a8r8g8b8(int16_t format, void *mipmap_address, int
         case _bitmap_format_a4r4g4b4:
         {
             unsigned int p = pixels[pixel_index];
-            return (16 * ((16 * ((16 * ((16 * ((16 * p) & 0xFFFF0000
-                                                | p & 0xFFFFF000
-                                                | (16 * ((p >> 4) & 0xF0 | (p >> 8) & 0xF))
-                                                | ((unsigned char)p >> 4)))
-                                        | ((unsigned char)p >> 4)))
-                                | p & 0xF))
-                         | p & 0xF));
+            /* DEVIATION: the previous rendering carried one `16 *` too many, shifting the whole result a
+             * nibble left and dropping the top nibble (0xABCD produced 0xABBCCDD0, not 0xAABBCCDD). Disasm
+             * 0x836F478C-0x836F47D8 has exactly three (slwi 4 ; or) merge pairs after the alpha/red/green
+             * seed, not four. */
+            return 16 * (16 * (16 * ((16 * p) & 0xFFFF0000
+                                     | p & 0xFFFFF000
+                                     | (16 * ((p >> 4) & 0xF0 | (p >> 8) & 0xF))
+                                     | ((unsigned char)p >> 4))
+                               | ((unsigned char)p >> 4))
+                         | p & 0xF)
+                   | p & 0xF;
         }
         case _bitmap_format_x8r8g8b8:
         case _bitmap_format_a8r8g8b8:
-            return *(unsigned int *)&pixels[2 * pixel_index];
+            return texels[pixel_index];
         case _bitmap_format_p8_bump:
             return global_vector_palette[bytes[pixel_index]];
         default:

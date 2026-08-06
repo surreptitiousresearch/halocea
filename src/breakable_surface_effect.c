@@ -25,6 +25,7 @@
 #include "headers/collision_bsp.h"
 #include "headers/collision_edge.h"
 #include "headers/structure_bsp.h"
+#include "headers/structure_collision_material.h"
 #include "headers/game_globals_tag.h"
 #include "headers/material_definition.h"
 #include "headers/global_tag_instances.h"
@@ -45,7 +46,6 @@
 #include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern void hcex_kill_breakable_surface(int bsp, int idx);
 extern uint32_t *get_global_local_random_seed_address(void);
@@ -69,10 +69,10 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         return;
 
     {
-    const int16_t *collision_materials = (const int16_t *)structure->collision_materials.address;
+    const structure_collision_material *collision_materials = (const structure_collision_material *)structure->collision_materials.address;
     const collision_surface *seed_surface =
         &((const collision_surface *)collision->surfaces.address)[seed_surface_index];
-    int material_global_index = collision_materials[10 * seed_surface->material_index + 9];
+    int material_global_index = collision_materials[seed_surface->material_index].runtime_physics_material_type;
     breakable_surface *effect_block =
         &((material_definition *)global_game_globals->materials.address)[material_global_index].breakable_surface;
 
@@ -111,7 +111,7 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         float plane_signed[4];   /* indexed by projection axis */
         float pn_x, pn_y, pn_z, pd;
         int projection_axis;
-        int proj_sign_slot;
+        int proj_sign;
         int keep0, keep1;
 
         worklist_index = (int16_t)(worklist_index + 1);
@@ -135,9 +135,9 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
             else
                 projection_axis = 2;
         }
-        proj_sign_slot = 2 * projection_axis + (plane_signed[projection_axis] > 0.0f);
-        keep0 = global_projection3d_mappings[0][proj_sign_slot][0];
-        keep1 = global_projection3d_mappings[0][proj_sign_slot][1];
+        proj_sign = (plane_signed[projection_axis] > 0.0f);
+        keep0 = global_projection3d_mappings[projection_axis][proj_sign][0];
+        keep1 = global_projection3d_mappings[projection_axis][proj_sign][1];
 
         /* walk this surface's edge loop */
         while ( 1 )

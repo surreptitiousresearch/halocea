@@ -21,8 +21,8 @@
 #include "headers/real_point2d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[3][2][2];
 extern double __fabs(double x);
 extern int bsp2d_test_point(const bsp2d *bsp, const real_point2d *point, int child_index);
 extern uint8_t collision_surface_test_point(const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, int surface_index, int16_t projection_axis, uint8_t projection_sign, const real_point2d *point);

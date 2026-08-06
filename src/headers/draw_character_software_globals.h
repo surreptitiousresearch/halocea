@@ -19,4 +19,12 @@ typedef struct draw_character_software_globals_t
      * reversed consumer (only .bitmap @0x00 and .encoding_shift @0x04 are used) */
 } draw_character_software_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern draw_character_software_globals_t draw_character_software_globals;
+
+#ifdef __cplusplus
+}
+#endif

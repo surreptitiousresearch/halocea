@@ -4,4 +4,12 @@
 
 #include "rasterizer_frame_begin_parameters.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_frame_begin_parameters global_frame_parameters;
+
+#ifdef __cplusplus
+}
+#endif

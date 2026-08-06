@@ -36,7 +36,7 @@
 
 // ---- boundary externs (deeper than the 2-level descent budget) -------------------------------
 struct osLOCK;
-extern osLOCK g_syncMT;
+extern "C" osLOCK g_syncMT;
 void osLOCK__Lock(osLOCK *self, void *, int);
 void osLOCK_Unlock(osLOCK *self, void *, int);
 extern float m3dDist_2(const m3dV *p1, const m3dV *p2); // 0x8265BC48

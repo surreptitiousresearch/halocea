@@ -10,7 +10,6 @@
 #include "headers/observer_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern float   observer_maximum_accelerations[5];
 extern void *memset(void *dst, int c, unsigned int n);
 
 void observer_update_accelerations(int16_t local_player_index)

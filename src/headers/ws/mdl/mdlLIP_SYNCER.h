@@ -19,10 +19,10 @@ struct mdlLIP_SYNCER;
 
 // Virtual dispatch table. DB-verified (types_members mdlLIP_SYNCER_vtbl).
 struct mdlLIP_SYNCER_vtbl {
-    void (__fastcall *dtr_mdlLIP_SYNCER)(mdlLIP_SYNCER *self);
-    void (__fastcall *ApplyLipSync)(mdlLIP_SYNCER *self);
-    void (__fastcall *OnReset)(mdlLIP_SYNCER *self);
-    void (__fastcall *GetAnimSeq)(mdlLIP_SYNCER *self, const struct dsTSTRING<char> *name,
+    void (*dtr_mdlLIP_SYNCER)(mdlLIP_SYNCER *self);
+    void (*ApplyLipSync)(mdlLIP_SYNCER *self);
+    void (*OnReset)(mdlLIP_SYNCER *self);
+    void (*GetAnimSeq)(mdlLIP_SYNCER *self, const struct dsTSTRING<char> *name,
                                   anim_blend::SEQ_ID_FULL *seqOut, animSEQ **pSeqOut);
 };
 

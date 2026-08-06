@@ -21,5 +21,13 @@ typedef struct exposed_parameter
     union _C48C822FD3E0506D4FCC38D528467D21 ___u2; /* 0x08 */
 } exposed_parameter;                 /* 0x0C */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern exposed_parameter g_exposed_params[64];
 extern int               g_num_exposed_params;
+
+#ifdef __cplusplus
+}
+#endif

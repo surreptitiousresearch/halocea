@@ -132,7 +132,7 @@ void game_engine_post_rasterize_post_game(void)
             }
             if (game_engine)
             {
-                int (__fastcall *did_player_win)(int) = game_engine->game_engine_did_player_win;
+                int (*did_player_win)(int) = game_engine->game_engine_did_player_win;
                 if (did_player_win)
                     winner = did_player_win(winner_scan.index);
                 else

@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include "../headers/bitmap_data.h"
 
-extern uint8_t rasterizer_bitmap_new(bitmap_data *bitmap);
-extern int  hcex_tex_get_hardware_format(void *hardware_format, int block, int load);
+extern "C" uint8_t rasterizer_bitmap_new(bitmap_data *bitmap);
+extern "C" int  hcex_tex_get_hardware_format(void *hardware_format, int block, int load);
 
 int halo_tex_get_hardware_format(bitmap_data *bitmap, int block, int load)
 {

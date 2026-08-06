@@ -11,5 +11,11 @@ typedef struct encounter_iterator
 } encounter_iterator;                     /* 24 bytes */
 
 #include "headers/encounter_datum.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void encounter_iterator_new(encounter_iterator *iterator, uint8_t active_only); // boundary — Blam C export
 extern encounter_datum *encounter_iterator_next(encounter_iterator *iterator);
+#ifdef __cplusplus
+}
+#endif

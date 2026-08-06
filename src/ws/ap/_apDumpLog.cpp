@@ -22,9 +22,9 @@ extern bool osFileIsReadOnly(const char *name);
 extern void osFileSetNormal(const char *name);
 
 // boundary — dump-enable state and the `writeLog` debug variable.
-extern bool dumpRightNow;                  // 0x842090D0 — force-flush flag
-extern bool dumpLogWrite;                  // ap-log append-enable flag
-extern dbgVAR_SIMPLE<bool, 1> dbg_writeLog; // ap-log `writeLog` debug var
+extern "C" bool dumpRightNow;                  // 0x842090D0 — force-flush flag
+extern "C" bool dumpLogWrite;                  // ap-log append-enable flag
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_writeLog; // ap-log `writeLog` debug var
 
 // boundary — strong-assert stub and its context byte / suppression flag.
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
@@ -37,7 +37,7 @@ namespace STRONG_ASSERT_DUMMY {
 }
 
 // Adjacent global marking the end of the _apLogList table (see apLOG.h).
-extern int gs_prefix; // referenced only for &gs_prefix as the scan bound
+extern "C" int gs_prefix; // referenced only for &gs_prefix as the scan bound
 
 #define AP_LOG_NOT_FOUND 250 // slot-scan sentinel used by the shipped code
 

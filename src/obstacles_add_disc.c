@@ -12,8 +12,8 @@
 #include <stdint.h>
 #include "headers/obstacles.h"
 #include "headers/real_point3d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[3][2][2];
 
 int obstacles_add_disc(obstacles *obstacles, int object_index, int16_t flags,
         const real_point3d *center, float radius)

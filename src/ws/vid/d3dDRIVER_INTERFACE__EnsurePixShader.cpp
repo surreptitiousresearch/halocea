@@ -1,7 +1,7 @@
 #include "../../headers/d3dDRIVER_INTERFACE.h"
 
 // boundary -- Xbox 360 D3D SDK: set the active pixel shader.
-extern void D3DDevice_SetPixelShader(D3DDevice *pDevice, D3DPixelShader *pShader);
+extern "C" void D3DDevice_SetPixelShader(D3DDevice *pDevice, D3DPixelShader *pShader);
 
 // 0x82694910 -- ?EnsurePixShader@d3dDRIVER_INTERFACE@@UAA_NPAVD3DPixelShader@@_N@Z (virtual)
 // Redundancy-filtered pixel-shader bind. `isEmptyShader` selects the null shader: the disasm

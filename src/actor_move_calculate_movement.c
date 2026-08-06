@@ -6,22 +6,22 @@
  * the disassembly. The reg-allocation failure produced a fabricated 50-parameter signature — the real
  * prototype (DB funcs.prototype, 17 args) is authoritative. The failure manifested in three ways, all fixed
  * here:
- *   1. The six pointer parameters passed on the stack (slots 11-16) were fabricated as `a40/a42/a44/a46`
- *      plus duplicate `*_0` params. Resolved from usage + the epilogue stores:
- *        a40                       -> desired_movement_vector  (input)
- *        a42                       -> desired_facing_vector    (output)
- *        a44                       -> desired_facing_direction (output)
- *        a46                       -> desired_throttle         (output)
- *        desired_movement_vector_0 -> movement_thwarted        (output u8; decompiler wrote HIBYTE of n[0])
- *        desired_facing_vector_0   -> movement_complete        (output u8; same)
- *   2. `v52 = (char)desired_movement_vector` is garbage; disasm (mr r23,r8) shows v52 == allow_all_moving_turns.
- *   3. The normalize-fallback register aliasing (v80/v81 OVERLAPPED) is a single cached direction: after the
- *      facing vector is normalized (falling back to the actor's forward vector when degenerate), that valid
- *      direction is reused as the fallback for the subsequent movement/aim normalizations.
+ *   1. The six pointer parameters passed on the stack (slots 11-16) were fabricated as phantom
+ *      half-slot params plus duplicate `*_0` params. Resolved from usage + the epilogue stores:
+ *        stack slot 11 -> desired_movement_vector  (input)
+ *        stack slot 12 -> desired_facing_vector    (output)
+ *        stack slot 13 -> desired_facing_direction (output)
+ *        stack slot 14 -> desired_throttle         (output)
+ *        stack slot 15 -> movement_thwarted        (output u8; decompiler wrote HIBYTE of n[0])
+ *        stack slot 16 -> movement_complete        (output u8; same)
+ *   2. allow_all_moving_turns was shown as a `(char)` cast of the movement-vector pointer, which is
+ *      garbage; disasm (mr r23,r8) shows that byte is the caller's r8 — the real argument.
+ *   3. The normalize-fallback register aliasing (two OVERLAPPED locals) is one cached direction,
+ *      `fallback_direction` below: once the facing vector normalizes (falling back to the actor's
+ *      forward vector when degenerate), it is reused for the later movement/aim normalizations.
  *
- * Actor-datum fields past the modeled range are kept as raw `*((T *)actor + N)` offsets, matching the house
- * style of the other actor_move_* siblings. Forward vector = float[93..95] (offset 372); 2D position =
- * float[75..77] (offset 300); pathfinding surface index = int[89] (offset 356).
+ * Actor-datum field provenance — recovered by offset, all now named members (DB types_members):
+ *   +372 -> input.facing_vector; +300 -> input.position.body_position; +356 -> input.pathfinding_surface_index
  */
 
 #include <stdint.h>
@@ -65,16 +65,16 @@ void actor_move_calculate_movement(int actor_index, uint8_t move_in_3d, int16_t 
     const actor_definition *character_tag = TAG_GET(const actor_definition, actor->meta.definition_index);
 
     float facing_dot_threshold = 0.86602539f;   /* cos(30 deg); raised to the character tag value for long moves */
-    int16_t aiming_facing_code = -1;             /* decompiler HIWORD(v128) init; output of the aiming path */
+    int16_t aiming_facing_code = -1;             /* aiming-path output; decompiler fused this init into the high half of a 32-bit slot */
 
     if ( actor->orders.move.move_face_exactly )
         actor->control.face_exactly = 1;
 
-    int16_t facing_code;                         /* v66 — facing direction code (0=fwd,1=back,2=left,3=right,4=free) */
-    real_vector3d facing_direction;              /* v130 */
-    real_vector3d scratch;                       /* v131 */
-    real_vector3d movement_direction;            /* v132 */
-    real_vector3d free_throttle;                 /* v133 — actor_move_calculate_free output */
+    int16_t facing_code;                         /* facing direction code (0=fwd,1=back,2=left,3=right,4=free) */
+    real_vector3d facing_direction;
+    real_vector3d scratch;
+    real_vector3d movement_direction;
+    real_vector3d free_throttle;                 /* actor_move_calculate_free output */
 
     if ( (unsigned int)override_facing < 4 )
     {
@@ -161,12 +161,12 @@ facing_ready:
                 facing_direction.n[1] = actor->input.facing_vector.n[1];
                 facing_direction.n[2] = actor->input.facing_vector.n[2];
             }
-            real_vector3d fallback_direction = facing_direction;   /* v80/v81 cache */
+            real_vector3d fallback_direction = facing_direction;
 
             if ( normalize3d(&movement_direction) == 0.0f )
                 movement_direction = fallback_direction;
 
-            const real_vector3d *free_facing;   /* v84 */
+            const real_vector3d *free_facing;
             if ( use_aim_facing )
             {
                 scratch.n[0] = actor->input.facing_vector.n[0];
@@ -215,7 +215,7 @@ facing_ready:
         + ((actor->input.facing_vector.n[0] * facing_direction.n[0])
                 + (actor->input.facing_vector.n[2] * facing_direction.n[2]));
 
-    uint8_t can_move;   /* v100 */
+    uint8_t can_move;
     if ( allow_all_moving_turns || actor->output.movement_type == actor_movement_type_flaming )
     {
         can_move = 1;
@@ -285,8 +285,8 @@ facing_ready:
                 + (desired_movement_vector->n[2] * desired_movement_vector->n[2]));
     *movement_complete = movement_magnitude_sq < (destination_tolerance * destination_tolerance);
 
-    float current_stopping_distance;   /* v128 */
-    float maximum_stopping_distance;   /* v129 */
+    float current_stopping_distance;
+    float maximum_stopping_distance;
     actor_get_stopping_distances(actor_index, &current_stopping_distance, &maximum_stopping_distance);
     if ( !actor->control.path.destination_orders.keep_moving && movement_magnitude_sq < (current_stopping_distance * current_stopping_distance) )
     {
@@ -338,7 +338,7 @@ facing_ready:
     /* Steering / oversteer: rotate the facing direction toward the target by a clamped angle step. */
     if ( steering_maximum_angle > 0.0f || oversteer_maximum_angle > 0.0f )
     {
-        float angle;   /* v107 */
+        float angle;
         if ( facing_dot < 1.0f )
         {
             if ( facing_dot > -1.0f )
@@ -351,11 +351,11 @@ facing_ready:
             angle = 0.0f;
         }
 
-        float clamped = angle;   /* v109 */
+        float clamped = angle;
         if ( steering_maximum_angle > 0.0f )
         {
-            float emergency = (steering_maximum_angle * rotation_emergency_amount);   /* v110 */
-            float limit = steering_maximum_angle;                                            /* v111 */
+            float emergency = (steering_maximum_angle * rotation_emergency_amount);
+            float limit = steering_maximum_angle;
             if ( rotation_emergency_amount > 1.0f )
             {
                 float factor = 1.5f;
@@ -376,7 +376,7 @@ facing_ready:
             }
         }
 
-        float oversteer_accumulator = actor->control.face_exactly_oversteer_angle;   /* v113 */
+        float oversteer_accumulator = actor->control.face_exactly_oversteer_angle;
         if ( clamped <= oversteer_accumulator )
         {
             if ( oversteer_accumulator > 0.0f )
@@ -398,7 +398,7 @@ facing_ready:
         float delta = (clamped - angle);
         if ( __fabs(delta) > 0.000099999997 )
         {
-            real_vector3d axis;   /* v134 = cross(actor_forward, facing_direction) */
+            real_vector3d axis;   /* cross(actor_forward, facing_direction) */
             axis.n[1] = (actor->input.facing_vector.n[2] * facing_direction.n[0])
                       - (actor->input.facing_vector.n[0] * facing_direction.n[2]);
             axis.n[2] = (facing_direction.n[1] * actor->input.facing_vector.n[0])

@@ -13,7 +13,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 
-extern double __fsqrts(double x);
+extern float __fsqrts(float x);
 extern void fast_normalize3d(real_vector3d *v);
 
 uint8_t sphere_test_vector3d(const real_point3d *center, float radius,
@@ -37,7 +37,7 @@ uint8_t sphere_test_vector3d(const real_point3d *center, float radius,
 
     if ( c <= 0.0f )               /* origin inside (or on) the sphere */
     {
-        float len = (float)__fsqrts(d_squared);
+        float len = __fsqrts(d_squared);
         float inv = 1.0f / len;
         *out_t = 0.0f;
         out_normal->n[0] = dx * inv;

@@ -11,5 +11,13 @@ typedef struct video_resolution_s
     unsigned int      refreshes[8];  /* 0x2C */
 } video_resolution_s; /* 76 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern video_resolution_s video_resolutions[];
 extern int video_resolution_count;
+
+#ifdef __cplusplus
+}
+#endif

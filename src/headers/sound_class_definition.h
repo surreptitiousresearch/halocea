@@ -23,4 +23,12 @@ typedef struct sound_class_definition
     unsigned char _pad29[3];                     /* 0x29 */
 } sound_class_definition;                        /* 44 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern sound_class_definition sound_classes[];
+
+#ifdef __cplusplus
+}
+#endif

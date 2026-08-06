@@ -16,4 +16,12 @@ typedef struct game_variant
     uint16_t  flags;                 /* 0x94 */
 } game_variant;                              /* 152 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_variant global_variant;
+
+#ifdef __cplusplus
+}
+#endif

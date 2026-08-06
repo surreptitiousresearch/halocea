@@ -15,7 +15,7 @@
 
 // boundary externs (CRT/OS + allocator helpers, external to this batch)
 extern "C" long osLockedIncrement(volatile int *pValue);
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 void package::GS_PACKAGE::ProcessLoadTextures()
 {

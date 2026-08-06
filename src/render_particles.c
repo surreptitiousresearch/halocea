@@ -45,6 +45,7 @@
 #include "headers/data_array.h"
 #include "headers/render_frustum.h"
 #include "headers/real_argb_color.h"
+#include "headers/build_sprites_flags.h"
 #include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
 extern uint8_t local_player_is_first_person(int16_t local_player_index);
@@ -149,7 +150,8 @@ void render_particles(void)
 
         build_sprite_data sprite_batch;
         build_sprites_begin(&sprite_batch, group_size, definition->bitmap.index, &definition->shader,
-                            group_start->attached_to_first_person_weapon ? 2 : 0);
+                            group_start->attached_to_first_person_weapon
+                                    ? (1u << _build_sprites_first_person_bit) : 0);
 
         for (int n = 0; n < group_size; n++, particle_cursor++)
         {

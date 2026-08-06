@@ -48,7 +48,6 @@
 #include "headers/real_rgb_color.h"
 #include "headers/effect_vector_field.h"
 extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern float seconds_per_tick_1; /* 1/30, seconds per game tick */
 
 extern uint8_t game_engine_running(void);
 extern uint32_t *get_global_random_seed_address(void);

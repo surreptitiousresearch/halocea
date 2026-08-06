@@ -28,12 +28,12 @@ void *operator new(size_t size, const char *file, unsigned int line);
 
 // ---- boundary externs (deeper than the 2-level descent budget) -------------------------------
 struct osLOCK;
-extern osLOCK g_syncMT;
+extern "C" osLOCK g_syncMT;
 extern "C" int osLockedDecrement(volatile int *p);
 void osLOCK__Lock(osLOCK *self, void *, int);   // osLOCK::Lock
 void osLOCK_Unlock(osLOCK *self, void *, int); // osLOCK::Unlock
-extern void dlFree(void *ptr);
-extern void dlFreeAligned(void *ptr);
+extern "C" void dlFree(void *ptr);
+extern "C" void dlFreeAligned(void *ptr);
 // scorch::COLLECTOR ctor lives in COLLECTOR__ctor.cpp; Deleter/Reset in dsSHARED_PTR.
 
 void scrSCORCH_MANAGER::RemoveAll()

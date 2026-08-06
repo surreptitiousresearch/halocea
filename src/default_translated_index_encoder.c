@@ -1,4 +1,5 @@
 #include "headers/field_properties_definition.h"
+#include "headers/_field_type_translated_index_parameters.h"
 #include "headers/bitstream_t.h"
 
 extern int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int bit_count);
@@ -10,7 +11,11 @@ extern int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int 
  * (DB types_members for _field_properties_definition +0x50), not the narrower
  * `unsigned int (..., unsigned int *, unsigned int *, bitstream_t *const)` the decompiler inferred
  * from this one body. The slot is shared by every field type, so the payload pointers are opaque
- * here and the datum width is a property of this encoder, not of the interface. */
+ * here and the datum width is a property of this encoder, not of the interface.
+ * DEVIATION: the decompiler's `*((int *)parameters + 2)` is
+ * _field_type_translated_index_parameters.number_of_bits (DB types_members, +0x08); disasm
+ * 0x8379BA30 loads the blob from +0x58 (_field_properties_definition.parameters) and the width
+ * from +8 of it. */
 int default_translated_index_encoder(const _field_properties_definition *const field_properties,
         void *baseline_data, void *source_data, void *output_stream)
 {
@@ -24,6 +29,7 @@ int default_translated_index_encoder(const _field_properties_definition *const f
     if (!changed)
         return 0;
 
-    int bit_count = *((int *)field_properties->parameters + 2);
-    return bitstream_write_bits((bitstream_t *)output_stream, source, bit_count);
+    _field_type_translated_index_parameters *parameters =
+        (_field_type_translated_index_parameters *)field_properties->parameters;
+    return bitstream_write_bits((bitstream_t *)output_stream, source, parameters->number_of_bits);
 }

@@ -13,7 +13,7 @@ extern void apPROCESSOR_LOCK_CheckCurrentProcessor(apPROCESSOR_LOCK *lock, const
 extern haloENGINE_CONTROL *haloEngineCtrl;
 extern void haloENGINE_CONTROL_SetCurCheckpoint(haloENGINE_CONTROL *self, const dsTSTRING_flat *name);
 extern void fnmGetNameExtStr(dsTSTRING_flat *out, const dsTSTRING_flat *path);   /* name + extension of a file path */
-extern int  verify_checkpoint(const dsTSTRING_flat *name);
+extern "C" int  verify_checkpoint(const dsTSTRING_flat *name);
 extern void _apLog(const char *format, ...);
 extern void dsTSTRING_dtor(dsTSTRING_flat *s);
 extern void dsTSTRING_UnsafeInit(dsTSTRING_flat *s, const char *src, int len, int flags); /* dsTSTRING<char>::UnsafeInit */

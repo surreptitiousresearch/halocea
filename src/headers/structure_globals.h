@@ -12,4 +12,12 @@ typedef struct structure_globals_t
     int           cluster_magic_numbers[512]; /* 0x08 */
 } structure_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern structure_globals_t structure_globals;
+
+#ifdef __cplusplus
+}
+#endif

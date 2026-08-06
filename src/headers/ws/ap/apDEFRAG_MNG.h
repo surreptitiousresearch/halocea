@@ -34,7 +34,7 @@ typedef struct apDEFRAG_MNG {
     template<class POOL> void RegisterPool();
     // Register a chunk-descriptor kind under `poolId`, with an optional per-chunk callback
     // (boundary — not decompiled for every instantiation).
-    template<class CHUNK> void RegisterChunk(const char *poolId, void (__fastcall *callback)(apDEFRAG_CHUNK *));
+    template<class CHUNK> void RegisterChunk(const char *poolId, void (*callback)(apDEFRAG_CHUNK *));
     // Reserve/allocate the backing buffer for the named pool.
     void AllocBuf(const char *poolId, int size);
 } apDEFRAG_MNG;

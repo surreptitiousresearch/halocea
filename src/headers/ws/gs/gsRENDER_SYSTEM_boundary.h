@@ -63,11 +63,11 @@ typedef struct gsAPP_SYSTEM {
 extern gsAPP_SYSTEM *gsAppSystem;
 
 // --- misc globals / OS helpers ---
-extern apCOUNTER_TIME_RECUR gsRendCnt_Swap;
-extern bool                 FORCE_SHOT;
+extern "C" apCOUNTER_TIME_RECUR gsRendCnt_Swap;
+extern "C" bool                 FORCE_SHOT;
 extern dsTSTRING<char>      gsLevelName;
 
-extern void UpdateGPUCounters();
+extern "C" void UpdateGPUCounters();
 extern bool osFileIsExist(const char *path);
 extern void osFileMakeDir(const char *path);
 // DB return type is non-const dsTSTRING<char>* (?dsSPrintf@@YA?AV?$dsTSTRING@D@@PBDZZ); const removed

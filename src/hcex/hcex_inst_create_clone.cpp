@@ -18,7 +18,7 @@
 extern scnSCENE     *gsScenePtr;
 extern gsLVL_SYSTEM *gsSysLevel;
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern int sprintf_0(char *string, const char *format, ...);
+extern "C" int sprintf_0(char *string, const char *format, ...);
 
 animINST *hcex_inst_create_clone(animINST *pInstPrototype)
 {

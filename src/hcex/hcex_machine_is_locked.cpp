@@ -15,7 +15,7 @@
 #include "../headers/object_type.h"
 #include "../headers/device_function_mode.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_machine_is_locked(int id)
 {

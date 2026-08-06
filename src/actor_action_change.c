@@ -20,7 +20,7 @@ void actor_action_change(int actor_index, int new_action_type, action_state_data
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    void (__fastcall *end)(int) = global_action_functions[actor->state.action].end;
+    void (*end)(int) = global_action_functions[actor->state.action].end;
     if ( end )
         end(actor_index);
 
@@ -44,7 +44,7 @@ void actor_action_change(int actor_index, int new_action_type, action_state_data
     actor->state.action = new_action_type;
     actor->state.action_changed = 1;
 
-    void (__fastcall *begin)(int) = global_action_functions[(int16_t)new_action_type].begin;
+    void (*begin)(int) = global_action_functions[(int16_t)new_action_type].begin;
     if ( begin )
         begin(actor_index);
 }

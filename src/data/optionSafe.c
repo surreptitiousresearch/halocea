@@ -1,3 +1,7 @@
-/* optionSafe @ 0x8441DFEC, 4 bytes (data-bss, zero-fill). */
-
+/* optionSafe @ 0x8441DFEC (.data, 4 bytes)
+ * DB applied_types: int optionSafe;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ * 4 bytes (data-bss, zero-fill).
+ */
 int optionSafe;

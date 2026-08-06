@@ -11,8 +11,8 @@
 #include "headers/bsp3d_node.h"
 #include "headers/real_plane3d.h"
 #include "headers/real_point2d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float);
 extern void bsp2d_test_sphere_recursive(test_sphere_data *data, int child_index);
 
@@ -109,9 +109,8 @@ leaf:
                 uint8_t sign =
                     sign_intermediate - (-(reference_entry->plane_index >= 0) - plane_positive + (sign_intermediate == 0));
                 data->projection_sign = sign;
-                int map = 2 * axis + sign;
-                data->center2d.n[0] = projected[global_projection3d_mappings[0][map][0]];
-                data->center2d.n[1] = projected[global_projection3d_mappings[0][map][1]];
+                data->center2d.n[0] = projected[global_projection3d_mappings[axis][sign][0]];
+                data->center2d.n[1] = projected[global_projection3d_mappings[axis][sign][1]];
                 bsp2d_test_sphere_recursive(data, reference_entry->bsp2d_root_index);
             }
 next_reference:

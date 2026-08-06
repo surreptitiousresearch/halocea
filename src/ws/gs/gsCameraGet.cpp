@@ -2,7 +2,7 @@
 #include "../../headers/ws/ds/dsVECTOR.h"
 #include "../../headers/ws/cam/camCAMERA.h"
 
-extern dsVECTOR<camCAMERA *, 8> vec_cam; // global camera registry
+extern "C" dsVECTOR<camCAMERA *, 8> vec_cam; // global camera registry
 
 camCAMERA *gsCameraGet(int idx)
 {

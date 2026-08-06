@@ -12,5 +12,13 @@ typedef struct debug_key
     unsigned char *variable;         /* 0x10 — bound bool */
 } debug_key;                         /* 20 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern debug_key global_debug_key_list[];
 extern int *global_debug_key_down;   /* one "is-down" bit per key */
+
+#ifdef __cplusplus
+}
+#endif

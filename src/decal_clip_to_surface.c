@@ -37,7 +37,6 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_point3d.h"
-extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern real_plane3d *bsp3d_get_plane_from_designator(const bsp3d *bsp, int plane_designator, real_plane3d *result);
 extern float angle_between_normals3d(const real_vector3d *a, const real_vector3d *b);
@@ -134,18 +133,19 @@ next_edge:
             output_points = decal_points2d_temp[edge_counter & 1]; /* ping-pong rows of 12 */
             int is_right = surface_index == edge->surface_indices[1];
             int loop_vertex = is_right ? edge->vertex_indices[0] : edge->vertex_indices[1];
-            int map = 2 * projection->axis + projection->sign;
+            int u_axis = global_projection3d_mappings[projection->axis][projection->sign][0];
+            int v_axis = global_projection3d_mappings[projection->axis][projection->sign][1];
 
             if (!edge_counter)
             {
                 /* first iteration: seed the previous point from the edge's other endpoint */
                 int other_vertex = is_right ? edge->vertex_indices[1] : edge->vertex_indices[0];
-                previous_point.n[0] = vertices[other_vertex].point.n[global_projection3d_mappings[0][map][0]];
-                previous_point.n[1] = vertices[other_vertex].point.n[global_projection3d_mappings[0][map][1]];
+                previous_point.n[0] = vertices[other_vertex].point.n[u_axis];
+                previous_point.n[1] = vertices[other_vertex].point.n[v_axis];
             }
 
-            current_point.n[0] = vertices[loop_vertex].point.n[global_projection3d_mappings[0][map][0]];
-            current_point.n[1] = vertices[loop_vertex].point.n[global_projection3d_mappings[0][map][1]];
+            current_point.n[0] = vertices[loop_vertex].point.n[u_axis];
+            current_point.n[1] = vertices[loop_vertex].point.n[v_axis];
 
             real_plane2d clip_plane;
             if (plane2d_from_points(&clip_plane, &current_point, &previous_point))

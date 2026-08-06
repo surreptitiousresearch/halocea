@@ -7,14 +7,16 @@
  * get four 2D decal points, and finally computes the u/v texture axes and the reciprocal-area texture scale.
  *
  * The corner→2D mapping selects, for each (axis, sign) pair, which two of the three world coordinates form
- * the 2D point — reproduced via global_projection3d_mappings[0][2*axis+sign][0..1] indexing a world[3]. */
+ * the 2D point — global_projection3d_mappings[axis][sign][0..1] indexing a world[3].
+ * DEVIATION: the decompiler flattened the table to [0][2*axis+sign][c]; the DB applied type
+ * @0x821145B4 is const __int16[3][2][2], so the two leading subscripts are (axis, sign). */
 
 #include <stdint.h>
 #include "headers/real_matrix4x3.h"
 #include "headers/real_rectangle2d.h"
 #include "headers/decal_projection.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern void *memcpy(void *dest, const void *src, unsigned int count);
 extern float __fabs(float x);
@@ -45,7 +47,8 @@ void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d
     projection->axis = axis;
     projection->sign = projection->plane.normal.n[axis] > 0.0f;
 
-    int mapping_index = 2 * projection->axis + projection->sign;
+    int u_axis = global_projection3d_mappings[projection->axis][projection->sign][0];
+    int v_axis = global_projection3d_mappings[projection->axis][projection->sign][1];
     float world[3];
 
     /* corner 0 = (x0, y0) */
@@ -54,8 +57,8 @@ void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d
              + basis->n[3][1];
     world[2] = ((extent->n[0] * basis->n[0][2]) + (extent->n[2] * basis->n[1][2]))
              + basis->n[3][2];
-    projection->decal_points2d[0].n[0] = world[global_projection3d_mappings[0][mapping_index][0]];
-    projection->decal_points2d[0].n[1] = world[global_projection3d_mappings[0][mapping_index][1]];
+    projection->decal_points2d[0].n[0] = world[u_axis];
+    projection->decal_points2d[0].n[1] = world[v_axis];
 
     /* corner 1 = (x1, y0) */
     world[0] = (extent->n[1] * basis->n[0][0] + basis->n[1][0] * extent->n[2]) + basis->n[3][0];
@@ -63,8 +66,8 @@ void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d
              + basis->n[3][1];
     world[2] = ((extent->n[1] * basis->n[0][2]) + (extent->n[2] * basis->n[1][2]))
              + basis->n[3][2];
-    projection->decal_points2d[1].n[0] = world[global_projection3d_mappings[0][mapping_index][0]];
-    projection->decal_points2d[1].n[1] = world[global_projection3d_mappings[0][mapping_index][1]];
+    projection->decal_points2d[1].n[0] = world[u_axis];
+    projection->decal_points2d[1].n[1] = world[v_axis];
 
     /* corner 2 = (x1, y1) */
     world[0] = (extent->n[1] * basis->n[0][0] + basis->n[1][0] * extent->n[3]) + basis->n[3][0];
@@ -72,8 +75,8 @@ void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d
              + basis->n[3][1];
     world[2] = ((extent->n[3] * basis->n[1][2]) + (extent->n[1] * basis->n[0][2]))
              + basis->n[3][2];
-    projection->decal_points2d[2].n[0] = world[global_projection3d_mappings[0][mapping_index][0]];
-    projection->decal_points2d[2].n[1] = world[global_projection3d_mappings[0][mapping_index][1]];
+    projection->decal_points2d[2].n[0] = world[u_axis];
+    projection->decal_points2d[2].n[1] = world[v_axis];
 
     /* corner 3 = (x0, y1) */
     world[0] = (extent->n[0] * basis->n[0][0] + basis->n[1][0] * extent->n[3]) + basis->n[3][0];
@@ -81,8 +84,8 @@ void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d
              + basis->n[3][1];
     world[2] = ((extent->n[3] * basis->n[1][2]) + (extent->n[0] * basis->n[0][2]))
              + basis->n[3][2];
-    projection->decal_points2d[3].n[0] = world[global_projection3d_mappings[0][mapping_index][0]];
-    projection->decal_points2d[3].n[1] = world[global_projection3d_mappings[0][mapping_index][1]];
+    projection->decal_points2d[3].n[0] = world[u_axis];
+    projection->decal_points2d[3].n[1] = world[v_axis];
 
     projection->texture_u_axis.n[0] = projection->decal_points2d[1].n[0] - projection->decal_points2d[0].n[0];
     projection->texture_u_axis.n[1] = projection->decal_points2d[1].n[1] - projection->decal_points2d[0].n[1];

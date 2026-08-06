@@ -21,8 +21,8 @@
 #define FILE_ATTRIBUTE_DIRECTORY   0x10
 
 
-extern void *FindFirstFileA(const char *file_name, WIN32_FIND_DATAA *find_data);
-extern int   FindNextFileA(void *handle, WIN32_FIND_DATAA *find_data);
+extern void *FindFirstFileA(const char *pattern, WIN32_FIND_DATAA *find_data);
+extern int   FindNextFileA(void *find_handle, WIN32_FIND_DATAA *find_data);
 extern int   CloseHandle(void *handle);
 extern void *memset(void *dst, int value, unsigned int count);
 extern void *memcpy(void *dst, const void *src, unsigned int count);

@@ -56,4 +56,12 @@ typedef struct object_type_definition
     struct object_type_definition *next;                    /* 0xC0 */
 } object_type_definition;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern object_type_definition *object_type_definitions[12];
+
+#ifdef __cplusplus
+}
+#endif

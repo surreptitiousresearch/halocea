@@ -17,11 +17,11 @@ struct vidDEFRAG_BUF; // fwd
 
 // vtable — DB-verified (types_members vidDEFRAG_BUF_vtbl).
 typedef struct vidDEFRAG_BUF_vtbl {
-    void  (__fastcall *RemoveChunk)(vidDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk);
-    char *(__fastcall *FitIntoFreeBlock)(vidDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk, int align);
-    bool  (__fastcall *MoveChunk)(vidDEFRAG_BUF *self, int block, apDEFRAG_CHUNK *chunk);
-    void  (__fastcall *DefragAllInside)(vidDEFRAG_BUF *self);
-    void  (__fastcall *dtr_vidDEFRAG_BUF)(vidDEFRAG_BUF *self);
+    void  (*RemoveChunk)(vidDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk);
+    char *(*FitIntoFreeBlock)(vidDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk, int align);
+    bool  (*MoveChunk)(vidDEFRAG_BUF *self, int block, apDEFRAG_CHUNK *chunk);
+    void  (*DefragAllInside)(vidDEFRAG_BUF *self);
+    void  (*dtr_vidDEFRAG_BUF)(vidDEFRAG_BUF *self);
 } vidDEFRAG_BUF_vtbl;
 
 struct vidDEFRAG_BUF : apDEFRAG_BUF {

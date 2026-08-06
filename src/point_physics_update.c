@@ -22,7 +22,10 @@
 #include "headers/collision_test_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern const float global_air_mass_over_radius_cubed;   /* global_air_mass_over_radius_cubed */
+/* DEVIATION: the local extern qualified global_air_mass_over_radius_cubed `const`; it is a mutable
+ * .data global (0x8442A008) that point_physics_initialize_for_new_map writes with `stfs`
+ * (disasm 0x836E0640). Declared canonically by headers/blam_data_globals.h (def
+ * src/data/global_air_mass_over_radius_cubed.c). */
 
 extern void scenario_get_current_from_weather_palette(const real_point3d *position, real_vector3d *current_vector, unsigned int flags, int16_t weather_palette_index);
 extern uint8_t scenario_get_current(const location *location, const real_point3d *position, real_vector3d *wind_vector, unsigned int flags);

@@ -25,11 +25,11 @@ void structure_render_pass(
         int    *surface_indices,
         int16_t surface_count,
         int     dynamic_triangles_index,
-        void (__fastcall *begin_lightmap)(bitmap_data *),
-        void (__fastcall *draw_triangles)(const shader *, int16_t, int, int, int, const vertex_buffer *),
-        void (__fastcall *end_lightmap)(void),
-        void (__fastcall *draw_transparent_triangles)(const shader *, int16_t, bitmap_data *, int, int, int,
-                                                       const vertex_buffer *, const real_point3d *))
+        void (*begin_lightmap)(bitmap_data *),
+        void (*draw_triangles)(const shader *, int16_t, int, int, int, const vertex_buffer *),
+        void (*end_lightmap)(void),
+        void (*draw_transparent_triangles)(const shader *, int16_t, bitmap_data *, int, int, int,
+                                            const vertex_buffer *, const real_point3d *))
 {
     structure_bsp *bsp                = global_structure_bsp;
     int           *surface_cursor     = surface_indices;

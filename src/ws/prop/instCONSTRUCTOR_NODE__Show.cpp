@@ -10,7 +10,7 @@
 // ObjCB is the StateCondProc callback (boundary, obj/ObjCB — 0x826E1168): it marks
 // selObjs[pObj->id] = 1 and returns true (always applies the state bit). pSelObj is the file-scope
 // global it reads that selection vector through while the callback is in flight.
-extern dsVECTOR<unsigned char, 8> *pSelObj;                 // ?pSelObj@@3PAV?$dsVECTOR@E$07@@A — boundary global
+extern "C" dsVECTOR<unsigned char, 8> *pSelObj;                 // ?pSelObj@@3PAV?$dsVECTOR@E$07@@A — boundary global
 extern int ObjCB(objOBJ *pObj, void *usr);                  // boundary — StateCondProc, sets pSelObj[pObj->id]=1
 
 void instCONSTRUCTOR_NODE::Show(animINST *pInst, bool show, dsVECTOR<unsigned char, 8> &selObjs)

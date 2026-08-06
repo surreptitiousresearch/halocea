@@ -99,7 +99,7 @@ struct dbgVAR_MANAGER;
 extern dbgVAR_MANAGER *dbgVAR_MANAGER_GetManager();
 extern dbgVAR *dbgVAR_MANAGER_FindFirst(dbgVAR_MANAGER *mgr, const dsTSTRING<char> *name); // boundary
 extern void     dbgVAR_MANAGER_SendVarUpdate(dbgVAR_MANAGER *mgr, dbgVAR *var);             // boundary
-extern uint8_t      debug_no_drawing;
+extern "C" uint8_t      debug_no_drawing;
 extern void      vidLOCK_Lock(void *lock, void *site, int flag);   // boundary
 extern void      vidLOCK_Unlock(void *lock, void *site, int flag); // boundary
 extern void     *vidLock;
@@ -119,7 +119,7 @@ typedef VOID_CALLBACK_MNG onPreProcessFrameCallbacks;
 extern VOID_CALLBACK_MNG onPreProcessFrame;
 extern void hcex_preproc_frame();
 
-extern void cbSetHaloCamActive(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
-extern void cbHcexTeleportToCam(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
-extern void cbMakeAutosave(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
-extern void cbIsHaloMode(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+extern "C" void cbSetHaloCamActive(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+extern "C" void cbHcexTeleportToCam(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+extern "C" void cbMakeAutosave(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+extern "C" void cbIsHaloMode(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);

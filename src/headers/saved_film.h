@@ -14,4 +14,12 @@ typedef struct saved_film
     unsigned int   next_expected_update;  /* 0x408 */
 } saved_film;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern saved_film global_saved_film;
+
+#ifdef __cplusplus
+}
+#endif

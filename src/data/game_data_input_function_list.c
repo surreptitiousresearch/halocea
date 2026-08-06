@@ -1,4 +1,49 @@
-/* Blam .lib data-global storage definition (init batch 7). */
+/* game_data_input_function_list @ 0x84181548 (.data, 172 bytes)
+ * DB applied_types: void (__fastcall *game_data_input_function_list[43])(widget_instance *);
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x8377E1C8 -> widget_function_null
+ *   +0x0004 = 0x8377E1D0 -> settings_menu_update_extended_description
+ *   +0x0008 = 0x8377E1C8 -> widget_function_null
+ *   +0x000C = 0x8377E228 -> playlist_settings_menu_update_extended_description
+ *   +0x0010 = 0x8377E290 -> playlist_gametype_select_menu_update_extended_description
+ *   +0x0014 = 0x8377E2F8 -> multiplayer_type_menu_update_extended_description
+ *   +0x0018 = 0x837817A0 -> solo_level_select_list_update_displayed_items
+ *   +0x001C = 0x8377E570 -> difficulty_select_menu_update_extended_description
+ *   +0x0020 = 0x8377E620 -> set_textbox_to_build_number
+ *   +0x0024 = 0x8377E6A0 -> server_list_menu_update
+ *   +0x0028 = 0x8377EC78 -> network_pregame_status_screen_update
+ *   +0x002C = 0x8377EC80 -> splitscreen_pregame_status_screen_update
+ *   +0x0030 = 0x8377EF10 -> netgame_prejoin_players
+ *   +0x0034 = 0x83781828 -> mutliplayer_settings_select_list_update_displayed_items
+ *   +0x0038 = 0x83781948 -> player_profile_3wide_list_update
+ *   +0x003C = 0x8377F3F8 -> player_profile_edit_select_menu_update_extended_description
+ *   +0x0040 = 0x83781950 -> player_profile_1wide_list_update
+ *   +0x0044 = 0x8377F468 -> game_options_menu_update_text_desc
+ *   +0x0048 = 0x8377F558 -> solo_game_objective_text
+ *   +0x004C = 0x83781D70 -> player_profile_color_picker_update
+ *   +0x0050 = 0x8377F5D8 -> game_options_menu_update_pic_desc
+ *   +0x0054 = 0x8377F660 -> main_menu_animation_fakery
+ *   +0x0058 = 0x83781DE8 -> mp_level_select_list_update_displayed_items
+ *   +0x005C = 0x8377F718 -> get_active_player_profile_display_name
+ *   +0x0060 = 0x8377F780 -> get_editable_player_profile_display_name
+ *   +0x0064 = 0x8377F7F0 -> get_editable_playlist_profile_display_name
+ *   +0x0068 = 0x8377F860 -> get_active_player_profile_color_index
+ *   +0x006C = 0x8377F8E8 -> multiplayer_game_set_text_box_for_map_name
+ *   +0x0070 = 0x8377FAF0 -> multiplayer_game_set_text_box_for_game_ruleset
+ *   +0x0074 = 0x8377FBF0 -> multiplayer_game_set_text_box_for_teams_noteams
+ *   +0x0078 = 0x8377FC40 -> multiplayer_game_set_text_box_for_score_limit
+ *   +0x007C = 0x8377FCB8 -> multiplayer_game_set_text_box_for_score_limit_type
+ *   +0x0080 = 0x8377FD40 -> multiplayer_game_set_bitmap_for_map
+ *   +0x0084 = 0x8377FF48 -> multiplayer_game_set_bitmap_for_ruleset
+ *   +0x0088 = 0x8377FFD8 -> multiplayer_game_set_text_box_for_number_of_players
+ *   +0x008C = 0x83780058 -> multiplayer_edit_profile_set_ruleset_textbox_string_index
+ *   +0x0090 = 0x837800E8 -> system_link_status_check
+ *   +0x0094 = 0x83780120 -> multiplayer_game_directions
+ *   +0x0098 = 0x83780128 -> teams_no_teams_mp_game_bitmap_update
+ *   +0x009C = 0x83780178 -> warn_if_difficulty_will_nuke_saved_game
+ *   ... 12 further bytes elided; full hex in .sweep/data_image.tsv
+ * Blam .lib data-global storage definition (init batch 7).
+ */
 #include "../headers/widget_instance.h"
 /* game_data_input_function_list @0x84181548, DB extent 172 = 43 function pointers (0x2B).
  * Reconstructed from binary relocation order. */

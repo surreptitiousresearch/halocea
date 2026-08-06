@@ -23,24 +23,24 @@ struct vidMEM_MNG_vtbl;  // boundary
 
 typedef struct vidVBUF_MNG_vtbl
 {
-    void (__fastcall *dtr_vidVBUF_MNG)(vidVBUF_MNG *self);      /* 0x00 */
-    void (__fastcall *ReleaseAll)(vidVBUF_MNG *self);           /* 0x04 boundary */
-    void (__fastcall *DumpStat)(vidVBUF_MNG *self);             /* 0x08 boundary */
-    void (__fastcall *AppendDyn)(vidVBUF_MNG *self);            /* 0x0C boundary */
-    void (__fastcall *LockDyn)(vidVBUF_MNG *self);              /* 0x10 boundary */
-    void (__fastcall *UnlockDyn)(vidVBUF_MNG *self);            /* 0x14 boundary */
-    void (__fastcall *GetDataAlign)(vidVBUF_MNG *self);         /* 0x18 boundary */
-    void (__fastcall *CreateBuffer)(vidVBUF_MNG *self);         /* 0x1C boundary */
-    void (__fastcall *DestroyBuffer)(vidVBUF_MNG *self);        /* 0x20 boundary */
-    void (__fastcall *ReserveVBDyn)(vidVBUF_MNG *self);         /* 0x24 boundary */
-    void (__fastcall *Defrag)(vidVBUF_MNG *self);               /* 0x28 boundary */
-    void (__fastcall *CreateDynamicBufs)(vidVBUF_MNG *self);    /* 0x2C boundary */
-    void (__fastcall *DiscardDynAll)(vidVBUF_MNG *self);        /* 0x30 (index 12) -- called here */
-    void (__fastcall *GetDynHwB)(vidVBUF_MNG *self);            /* 0x34 boundary */
-    void (__fastcall *AllocStatData)(vidVBUF_MNG *self);        /* 0x38 boundary */
-    void (__fastcall *AllocStatDataImpl)(vidVBUF_MNG *self);    /* 0x3C boundary */
-    void (__fastcall *Defrag_AddChunk)(vidVBUF_MNG *self);      /* 0x40 boundary */
-    void (__fastcall *Defrag_RemoveUnused)(vidVBUF_MNG *self);  /* 0x44 boundary */
+    void (*dtr_vidVBUF_MNG)(vidVBUF_MNG *self);                 /* 0x00 */
+    void (*ReleaseAll)(vidVBUF_MNG *self);                      /* 0x04 boundary */
+    void (*DumpStat)(vidVBUF_MNG *self);                        /* 0x08 boundary */
+    void (*AppendDyn)(vidVBUF_MNG *self);                       /* 0x0C boundary */
+    void (*LockDyn)(vidVBUF_MNG *self);                         /* 0x10 boundary */
+    void (*UnlockDyn)(vidVBUF_MNG *self);                       /* 0x14 boundary */
+    void (*GetDataAlign)(vidVBUF_MNG *self);                    /* 0x18 boundary */
+    void (*CreateBuffer)(vidVBUF_MNG *self);                    /* 0x1C boundary */
+    void (*DestroyBuffer)(vidVBUF_MNG *self);                   /* 0x20 boundary */
+    void (*ReserveVBDyn)(vidVBUF_MNG *self);                    /* 0x24 boundary */
+    void (*Defrag)(vidVBUF_MNG *self);                          /* 0x28 boundary */
+    void (*CreateDynamicBufs)(vidVBUF_MNG *self);               /* 0x2C boundary */
+    void (*DiscardDynAll)(vidVBUF_MNG *self);                   /* 0x30 (index 12) -- called here */
+    void (*GetDynHwB)(vidVBUF_MNG *self);                       /* 0x34 boundary */
+    void (*AllocStatData)(vidVBUF_MNG *self);                   /* 0x38 boundary */
+    void (*AllocStatDataImpl)(vidVBUF_MNG *self);               /* 0x3C boundary */
+    void (*Defrag_AddChunk)(vidVBUF_MNG *self);                 /* 0x40 boundary */
+    void (*Defrag_RemoveUnused)(vidVBUF_MNG *self);             /* 0x44 boundary */
 } vidVBUF_MNG_vtbl;
 
 /* types_members vidMEM_MNG (size 52) */
@@ -63,7 +63,7 @@ struct vidVBUF_MNG : vidMEM_MNG
 
 extern vidDRIVER  *vidDriver;
 extern vidVBUF_MNG *vidVBMng;
-extern vidDRIVER_DYNGEOM_CHUNK *hcex_dyn_chunk;
+extern "C" vidDRIVER_DYNGEOM_CHUNK *hcex_dyn_chunk;
 
 /* Legacy Blam renderer entry point (Blam engine boundary -- see CLAUDE.md). */
 extern "C" void hcex_legacy_render(void);

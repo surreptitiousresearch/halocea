@@ -14,7 +14,6 @@
 
 #include "headers/message_delta_encoding_class.h"
 #include "headers/blam_data_globals.h"
-extern unsigned int sALL_ONES;
 
 extern void convert_to_quantized_smart(const real_vector3d *const in, quantized_smart_vector *const out, const _field_type_smart_vector_parameters *const parameters);
 extern unsigned int bitstream_write_bit(bitstream_t *bit_stream, const unsigned int value);

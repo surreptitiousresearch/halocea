@@ -9,7 +9,7 @@
 
 #include "../headers/hcex/hcex_ds_boundary.h"   /* dsTSTRING_flat, dsSPrintf, dlFree */
 
-extern int  hcexPage;
+extern "C" int  hcexPage;
 extern int  wb_RegisterPage(const char *name, int flags, int enabled);  /* wb::RegisterPage */
 extern char wb_IsActive(int page);                                      /* wb::IsActive */
 extern void wb_Printf(int page, const char *format, ...);               /* wb::Printf */

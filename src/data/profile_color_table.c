@@ -1,4 +1,26 @@
-/* Blam .lib data-global storage definition (init batch 7). */
+/* profile_color_table @ 0x8417ED38 (.data, 72 bytes)
+ * DB applied_types: int profile_color_table[18];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00FFFFFF
+ *   +0x0004 = 0x00000000
+ *   +0x0008 = 0x00FE0000
+ *   +0x000C = 0x000201E3
+ *   +0x0010 = 0x00707E71
+ *   +0x0014 = 0x00FFFF01
+ *   +0x0018 = 0x0000FF01
+ *   +0x001C = 0x00FF56B9
+ *   +0x0020 = 0x00AB10F4
+ *   +0x0024 = 0x0001FFFF
+ *   +0x0028 = 0x006493ED
+ *   +0x002C = 0x00FF7F00
+ *   +0x0030 = 0x001ECC91
+ *   +0x0034 = 0x00006401
+ *   +0x0038 = 0x00603814
+ *   +0x003C = 0x00C69C6C
+ *   +0x0040 = 0x009D0B0E
+ *   +0x0044 = 0x00F5999E
+ * Blam .lib data-global storage definition (init batch 7).
+ */
 /* profile_color_table @0x8417ED38, DB extent 72 = unsigned int[18] (0x00RRGGBB colors). */
 const unsigned int profile_color_table[18] = {
     0x00FFFFFFu, 0x00000000u, 0x00FE0000u, 0x000201E3u, 0x00707E71u, 0x00FFFF01u,

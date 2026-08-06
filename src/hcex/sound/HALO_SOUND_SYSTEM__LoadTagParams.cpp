@@ -2,7 +2,7 @@
 #include "../../headers/ws/ps/psSYSTEM.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-extern void osOutputDebugString(const char *fmt, ...); // boundary — os debug log
+extern "C" void osOutputDebugString(const char *fmt, ...); // boundary — os debug log
 
 extern "C" char *strchr(const char *s, int c); // boundary — CRT
 

@@ -1,4 +1,48 @@
-/* crc_table_0 @0x8208B148 (.rdata) - 8192 bytes = uint32_t[8][256]: the zlib "BYFOUR" CRC-32
+/* crc_table_0 @ 0x8208B148 (.rdata, 8192 bytes)
+ * DB applied_types: const unsigned int crc_table_0[8][256];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = 0x00000000
+ *   +0x0004 = 0x77073096
+ *   +0x0008 = 0xEE0E612C
+ *   +0x000C = 0x990951BA
+ *   +0x0010 = 0x076DC419
+ *   +0x0014 = 0x706AF48F
+ *   +0x0018 = 0xE963A535
+ *   +0x001C = 0x9E6495A3
+ *   +0x0020 = 0x0EDB8832
+ *   +0x0024 = 0x79DCB8A4
+ *   +0x0028 = 0xE0D5E91E
+ *   +0x002C = 0x97D2D988
+ *   +0x0030 = 0x09B64C2B
+ *   +0x0034 = 0x7EB17CBD
+ *   +0x0038 = 0xE7B82D07
+ *   +0x003C = 0x90BF1D91
+ *   +0x0040 = 0x1DB71064
+ *   +0x0044 = 0x6AB020F2
+ *   +0x0048 = 0xF3B97148
+ *   +0x004C = 0x84BE41DE
+ *   +0x0050 = 0x1ADAD47D
+ *   +0x0054 = 0x6DDDE4EB
+ *   +0x0058 = 0xF4D4B551
+ *   +0x005C = 0x83D385C7 -> $M141614+0x15E3
+ *   +0x0060 = 0x136C9856
+ *   +0x0064 = 0x646BA8C0
+ *   +0x0068 = 0xFD62F97A
+ *   +0x006C = 0x8A65C9EC
+ *   +0x0070 = 0x14015C4F
+ *   +0x0074 = 0x63066CD9
+ *   +0x0078 = 0xFA0F3D63
+ *   +0x007C = 0x8D080DF5
+ *   +0x0080 = 0x3B6E20C8
+ *   +0x0084 = 0x4C69105E
+ *   +0x0088 = 0xD56041E4
+ *   +0x008C = 0xA2677172
+ *   +0x0090 = 0x3C03E4D1
+ *   +0x0094 = 0x4B04D447
+ *   +0x0098 = 0xD20D85FD
+ *   +0x009C = 0xA50AB56B
+ *   ... 8032 further bytes elided; full hex in .sweep/data_image.tsv
+ * 8192 bytes = uint32_t[8][256]: the zlib "BYFOUR" CRC-32
  * table set for the reflected polynomial 0xEDB88320. Rows 0..3 are the little-endian
  * slicing-by-4 sub-tables; rows 4..7 are their byte-swapped big-endian counterparts, which are the
  * ones crc32_big indexes. Word elements and the [8][256] shape come from crc32_big @0x82D61788:
@@ -6,7 +50,8 @@
  * `lwzx` after `slwi r10, r6, 2`. All 2048 words are reproduced from the image; every row was
  * additionally reproduced independently from the polynomial and compared word-for-word.
  * (The "-> .text" annotations in the raw dump are value coincidences, not relocations: .rdata
- * carries no relocs and the table is generated data.) */
+ * carries no relocs and the table is generated data.)
+ */
 #include <stdint.h>
 
 const uint32_t crc_table_0[8][256] =

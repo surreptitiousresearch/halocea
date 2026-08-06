@@ -14,9 +14,9 @@
  *   - otherwise (in a vehicle): the latched aim point above is used directly.
  * The chosen direction is scaled by the actor's throw speed (+1736) into *vector.
  *
- * Deviation: the decompiler packs the working direction into an __int64 (v26) + float (v27); the byte order is
- * straightforward big-endian (no x/y swap) — direction.x = +188/aim_x, direction.y = +192/aim_y,
- * direction.z = +196+0.2 / aim_z. The collateral-damage call's true arguments (per disasm at 0x837B95C8) are
+ * Deviation: the decompiler packs the working direction into a fused __int64 + float slot pair; the byte order
+ * is straightforward big-endian (no x/y swap) — direction.x/.y/.z come from +188/+192/+196 ->
+ * prop.body_position.n[0..2] (z + 0.2). The collateral-damage call's true args (per disasm at 0x837B95C8) are
  * (actor_index, variant_def[98], variant_def[103], test_point [r6], NULL [r7]); the decompiler's
  * tag-instance/tag-index arguments are the float GPR-skip phantoms and are not real. The two
  * radii are the variant definition's grenade_combat.enemy_radius / .collateral_damage_radius. */

@@ -15,4 +15,12 @@ typedef struct _update_server_globals
     update          updates[32];                  /* 0x0C */
 } _update_server_globals;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _update_server_globals update_server_globals;
+
+#ifdef __cplusplus
+}
+#endif

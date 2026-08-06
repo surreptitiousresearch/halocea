@@ -22,4 +22,12 @@ typedef struct sound_environment
     int              unused[4];             /* 0x38 */
 } sound_environment;                        /* 72 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern sound_environment default_sound_environment;
+
+#ifdef __cplusplus
+}
+#endif

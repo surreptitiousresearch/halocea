@@ -24,4 +24,12 @@ typedef struct hs_compile_globals_t
     unsigned char  variables_predetermined;       /* 0x128 */
 } hs_compile_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern hs_compile_globals_t hs_compile_globals;
+
+#ifdef __cplusplus
+}
+#endif

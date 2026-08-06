@@ -13,5 +13,13 @@ typedef struct _cached_variant_profile
     game_variant variant;       /* 0x04 */
 } _cached_variant_profile; /* 156 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _cached_variant_profile cached_variant_profile[3];
 extern data_array *object_list_header_data; /* DB applied type (was void*) */
+
+#ifdef __cplusplus
+}
+#endif

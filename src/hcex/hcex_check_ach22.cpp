@@ -8,11 +8,11 @@
 #include "../headers/encounter_datum.h"
 #include "../headers/encounter_definition.h"
 
-extern scenario *global_scenario;
+extern "C" scenario *global_scenario;
 
-extern char *main_get_map_name(void);
-extern int strcmp(const char *a, const char *b);
-extern void hcex_fire_plr_event(const char *event_name, short player_identifier);
+extern "C" char *main_get_map_name(void);
+extern "C" int strcmp(const char *a, const char *b);
+extern "C" void hcex_fire_plr_event(const char *event_name, int player_identifier); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
 
 extern "C" void hcex_check_ach22(void)
 {

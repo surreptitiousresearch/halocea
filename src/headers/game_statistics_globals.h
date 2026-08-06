@@ -8,4 +8,12 @@ typedef struct game_statistics_globals_t
     unsigned char active; /* 0x00 */
 } game_statistics_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_statistics_globals_t game_statistics_globals;
+
+#ifdef __cplusplus
+}
+#endif

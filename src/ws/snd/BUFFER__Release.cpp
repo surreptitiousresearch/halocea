@@ -2,7 +2,7 @@
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
 // boundary — atomic decrement primitive (D3D/CRT-adjacent os* helper), not reversed here.
-extern "C" int __fastcall osLockedDecrement(int *value);
+extern "C" int osLockedDecrement(int *value);
 
 // 0x82696C48 (snd::BUFFER::Release, D:\Projects\code\common\src.sys\drv\sound\snd.cpp:80).
 // Drops one reference on this buffer handle. Asserts the count never went negative before this

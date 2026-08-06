@@ -29,6 +29,6 @@ struct SOCKET_LISTENER {
 //   gs_delayedListLock — guards gs_delayedList.
 //   gs_batchDelete     — set while draining so socket dtors route to the batch instead of
 //                        recursing back into the list.
-extern ds::LIST<ap::BASE_SOCKET *> gs_delayedList;
-extern osLOCK                      gs_delayedListLock;
-extern int                         gs_batchDelete;
+extern "C" ds::LIST<ap::BASE_SOCKET *> gs_delayedList;
+extern "C" osLOCK                      gs_delayedListLock;
+extern "C" int                         gs_batchDelete;

@@ -24,8 +24,8 @@ extern inpINPUT  *gsINP_SYSTEM_GetInput(gsINP_SYSTEM *self);
 extern int        inpINPUT_GetDeviceCount(inpINPUT *self);
 extern inpDEVICE *inpINPUT_GetDevice(inpINPUT *self, int id);
 
-extern uint8_t game_time_get_paused(void);
-extern int           hcex_coop_local_player_index;
+extern "C" uint8_t game_time_get_paused(void);
+extern "C" int           hcex_coop_local_player_index;
 extern unsigned char hcex_off_vibration;
 
 extern "C" void input_set_gamepad_vibrater_state(int ctrl_idx, uint16_t left, uint16_t right)

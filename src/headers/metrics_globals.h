@@ -24,4 +24,12 @@ struct metrics_globals
     char                   metrics_timestamp[260];           /* 0x4C */
 }; /* 336 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct metrics_globals metrics_globals;
+
+#ifdef __cplusplus
+}
+#endif

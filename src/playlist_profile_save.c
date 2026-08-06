@@ -12,7 +12,7 @@ extern void game_engine_variant_cleanup(game_variant *variant);
 extern uint8_t thread_has_exited(const thread *thread_reference);
 extern void dispose_thread(thread *thread_reference);
 extern unsigned int playlist_profile_write_thread_proc(int *input);
-extern uint8_t create_thread(uint16_t flags, unsigned int (__fastcall *function)(void *),
+extern uint8_t create_thread(uint16_t flags, unsigned int (*function)(void *),
     void *function_input, thread **thread_reference);
 
 void playlist_profile_save(int playlist_profile_index, game_variant *variant)

@@ -36,7 +36,7 @@ int bsp3d_clip_polygon_to_leaves_recursive(
         const real_point3d  *vertices,
         int16_t              vertex_count,
         float                epsilon,
-        void (__fastcall    *handler)(const real_point3d *, int16_t, int, int, void *),
+        void (*handler)(const real_point3d *, int16_t, int, int, void *),
         void                *user_data)
 {
     const bsp3d_node *node  = &((const bsp3d_node *)bsp->nodes.address)[node_index];

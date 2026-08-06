@@ -7,7 +7,7 @@
 #include "../headers/object_header_datum.h"
 #include "../headers/object_datum.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_get_obj_color(int id)
 {

@@ -4,8 +4,8 @@
  * the actor's idle-vocalization timer (actor +0x6CE word). Also records whether the actor is in combat
  * (actor +0x6CC byte).
  *
- * Deviation: Hex-Rays widens the single-precision range math to double and packs the offset into an __int64
- * (v11); reconstructed as float/int. */
+ * Deviation: Hex-Rays widens the single-precision range math to double and packs the offset into a fused
+ * __int64 slot; reconstructed as float/int. */
 
 #include <stdint.h>
 #include "headers/unit_datum.h"

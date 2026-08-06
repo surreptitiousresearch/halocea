@@ -12,7 +12,7 @@
 #include "../../headers/entCREATE_DATA.h"
 #include <string.h>
 
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 void _apLog(const char *format, ...); // boundary — ap log sink
 
 // ws-engine gs boundary globals (same convention as entENTITY::Register).
@@ -21,13 +21,13 @@ extern scnSCENE      *gsScenePtr; // ?gsScenePtr@@3PAVscnSCENE@@A
 
 // Save/restore stack of the entity id currently under construction (re-entrancy guard for
 // nested entCreate calls triggered from within a create-data/descriptor callback).
-extern int gs_creatingEntityId;
+extern "C" int gs_creatingEntityId;
 
 // Process-wide per-class-family instrumentation counters (apCOUNTER_TIME_CALL), stamped onto
 // newly-created entities of well-known base classes.
-extern apCOUNTER_TIME_CALL cnt_plr;
-extern apCOUNTER_TIME_CALL cnt_pjl;
-extern apCOUNTER_TIME_CALL cnt_wpn;
+extern "C" apCOUNTER_TIME_CALL cnt_plr;
+extern "C" apCOUNTER_TIME_CALL cnt_pjl;
+extern "C" apCOUNTER_TIME_CALL cnt_wpn;
 
 // ia (interactive actor) subsystem: process-wide actor-family factory registry. BOUNDARY — not
 // reversed in this batch; only the one instantiation entCreate needs is modeled.

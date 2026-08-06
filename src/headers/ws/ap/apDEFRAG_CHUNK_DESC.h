@@ -9,9 +9,9 @@ struct apDEFRAG_CHUNK;
 struct apDEFRAG_POOL;
 
 typedef struct apDEFRAG_CHUNK_DESC {
-    apDEFRAG_CHUNK *(__fastcall *fnMake)(const char *dbg, int size);          // 0x00 factory
-    void            (__fastcall *fnCopy)(apDEFRAG_CHUNK *dst, apDEFRAG_CHUNK *src); // 0x04
-    void            (__fastcall *callback)(apDEFRAG_CHUNK *chunk);            // 0x08 post-move notify
+    apDEFRAG_CHUNK *(*fnMake)(const char *dbg, int size);                     // 0x00 factory
+    void            (*fnCopy)(apDEFRAG_CHUNK *dst, apDEFRAG_CHUNK *src); // 0x04
+    void            (*callback)(apDEFRAG_CHUNK *chunk);                       // 0x08 post-move notify
     apDEFRAG_POOL  *pool;                                                     // 0x0C owning pool
     dsTSTRING<char> id;                                                       // 0x10 debug name
 } apDEFRAG_CHUNK_DESC;

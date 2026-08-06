@@ -31,7 +31,7 @@ namespace STRONG_ASSERT_DUMMY {
 }
 
 // Adjacent global marking the end of the _apLogList table (see apLOG.h).
-extern int gs_prefix; // referenced only for &gs_prefix as the scan bound
+extern "C" int gs_prefix; // referenced only for &gs_prefix as the scan bound
 
 #define AP_LOG_NOT_FOUND 250 // slot-scan sentinel used by the shipped code
 

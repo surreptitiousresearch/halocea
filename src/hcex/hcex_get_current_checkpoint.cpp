@@ -38,9 +38,9 @@ extern void dsTSTRING_InsertString(dsTSTRING_flat *s, int at, const dsTSTRING_fl
 /* function-local-static lazy-init machinery (ws-engine / CRT boundary) */
 extern unsigned int hcex_get_current_checkpoint_guard;      /* _S1_0 */
 extern void hcex_get_current_checkpoint_result_dtor(void);
-extern int  atexit(void (*func)(void));
+extern "C" int  atexit(void (*func)(void));
 extern int  osFileIsExist(const char *path);
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 extern "C" char *hcex_get_current_checkpoint(void)
 {

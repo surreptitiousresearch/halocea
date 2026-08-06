@@ -14,7 +14,7 @@
 // Global printf-into-dsTSTRING helper (returns the formatted string by reference); not reversed here.
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 // bounded snprintf into a caller buffer; not reversed here.
-int _snprintf_0(char *buf, unsigned int size, const char *fmt, ...); // boundary
+extern "C" int _snprintf_0(char *buf, unsigned int size, const char *fmt, ...); // boundary
 // boundary — the process-wide descriptor for the null/empty value type.
 struct NULL_TYPE;
 template<class T> struct dsDATA_TYPE_STORAGE { static const dsDATA_TYPE *dataType; };

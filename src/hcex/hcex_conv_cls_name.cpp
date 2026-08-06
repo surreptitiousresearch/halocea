@@ -10,7 +10,7 @@
 
 #include <string.h>
 
-extern char *hcex_conv_name(char *name, int max_len);
+extern "C" char *hcex_conv_name(char *name, int max_len);
 
 extern "C" char *hcex_conv_cls_name(const char *name, const char *name_prefix, char *out, int max_len)
 {

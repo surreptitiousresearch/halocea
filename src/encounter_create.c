@@ -3,8 +3,14 @@
  * the encounter is filled; otherwise only the squad matching the requested platoon/squad is filled.
  *
  * The per-squad actor count is chosen by difficulty, the actor type is resolved through the actor palette ->
- * actor variant -> actor definition chain, and certain squads get a forced initial actor variant (the
- * v15/initial_variant codes: 100/101/12/11 and the random 100..101). */
+ * actor variant -> actor definition chain, and certain squads get a forced initial actor variant.
+ *
+ * DEVIATION (control flow): the decompiler flattens this into six labels and a backward goto. Disasm
+ * 0x8370E22C-0x8370E240 is a plain increment/compare back-edge to the loop head at 0x8370DF90, and both
+ * dispatches (difficulty @0x8370DFD0, unique_leader_type @0x8370E088) are MSVC's bounds-check + mtctr/bdzf
+ * dense-switch idiom, so they are restored as a `for` and two `switch`es. The conditional fall-through from
+ * _leader_normal into _leader_random is real: 0x8370E11C branches past the switch when should_randomize is
+ * clear and otherwise falls into the _leader_random body at 0x8370E120. */
 
 #include <stdint.h>
 #include "headers/encounter_definition.h"
@@ -30,128 +36,93 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 extern uint8_t encounter_place_actor(int encounter_index, int16_t squad_index, int16_t variant_number, uint8_t spawn);
 extern void encounter_update_status(int encounter_index);
 extern void encounters_test_activation(void);
-
-/* Scenario encounter definition layout (stride 176): +128 squad_count, +132 squads address (squad stride 232).
- * Squad layout: +32 actor_type palette index, +34 platoon index, +44 initial spawn state,
- * +124 normal-difficulty count, +126 legendary-difficulty count. */
-
 extern int16_t squad_get_actor_type(squad_definition *squad_definition);
+
 void encounter_create(int encounter_index, int16_t desired_platoon_index, int16_t desired_squad_index)
 {
     if ( !ai_globals->ai_initialized_for_map )
         return;
 
     int encounter_index_u16 = (uint16_t)encounter_index;
-    int desired_platoon = desired_platoon_index;
     encounter_definition *encounter_def = (encounter_definition *)global_scenario->ai_encounters.address + (uint16_t)encounter_index;
 
     /* match_any_squad is true only when neither a platoon nor a squad was requested. */
-    uint8_t match_any_squad;
-    if ( desired_platoon_index != -1 || (match_any_squad = 1, desired_squad_index != -1) )
-        match_any_squad = 0;
+    uint8_t match_any_squad = (uint8_t)(desired_platoon_index == -1 && desired_squad_index == -1);
 
-    int squad_index = 0;
-    if ( encounter_def->squads.count > 0 )
+    /* DEVIATION: the difficulty switch below has no default arm, so the binary carries actor_count in from
+     * an uninitialized frame slot (lhz r28, var_A0 @0x8370DF6C, hoisted out of the loop). Initialized to 0
+     * here; unreachable in practice since game_difficulty_level_get() is bounds-checked to 0..3. */
+    int16_t actor_count = 0;
+
+    for ( int16_t squad_index = 0; squad_index < encounter_def->squads.count; ++squad_index )
     {
-        int squad_loop_index = 0;
-        squad_definition *squad;
+        squad_definition *squad = (squad_definition *)encounter_def->squads.address + squad_index;
 
-        while ( 1 )
+        if ( !match_any_squad && squad_index != desired_squad_index )
         {
-            squad = (squad_definition *)encounter_def->squads.address + squad_loop_index;
-            if ( match_any_squad )
-                break;
-            if ( squad_loop_index == desired_squad_index )
-                break;
-            int squad_platoon_index = squad->platoon_index;
-            if ( squad_platoon_index != -1 && squad_platoon_index == desired_platoon )
-                break;
-
-next_squad:
-            squad_index = (int16_t)(squad_loop_index + 1);
-            squad_loop_index = squad_index;
-            if ( squad_index >= encounter_def->squads.count )
-                goto finished;
+            int16_t squad_platoon_index = squad->platoon_index;
+            if ( squad_platoon_index == -1 || squad_platoon_index != desired_platoon_index )
+                continue;
         }
 
-        /* --- process the selected squad --- */
         int16_t initial_variant = 0;
-        int16_t actor_count = 0;
-        int16_t difficulty = game_difficulty_level_get();
-        if ( (unsigned int)difficulty <= game_difficulty_level_impossible )
+
+        switch ( game_difficulty_level_get() )
         {
-            if ( difficulty != game_difficulty_level_normal || !difficulty )
-            {
-                if ( difficulty == game_difficulty_level_hard )       /* heroic: average of normal and legendary counts */
-                {
-                    actor_count = (squad->max_count + squad->min_count) / 2;
-                    goto have_count;
-                }
-                if ( difficulty )            /* legendary */
-                {
-                    actor_count = squad->max_count;
-                    goto have_count;
-                }
-            }
-            actor_count = squad->min_count; /* easy and normal */
+        case game_difficulty_level_easy:
+        case game_difficulty_level_normal:
+            actor_count = squad->min_count;
+            break;
+        case game_difficulty_level_hard:        /* heroic: average of normal and legendary counts */
+            actor_count = (squad->max_count + squad->min_count) / 2;
+            break;
+        case game_difficulty_level_impossible:
+            actor_count = squad->max_count;
+            break;
         }
 
-have_count:
-        ;
-        /* DEVIATION: inlined copy of squad_get_actor_type@0x8370A838 (0 xrefs) collapsed to call; args verbatim, no folding. */
-        /* DEVIATION: verbatim inlined copy of squad_get_actor_type@0x8370A838 (zero-xref donor) — collapsed to a
-         * direct call. Single squad_definition* argument, no NULL-guard/index folding was needed. */
+        /* DEVIATION: verbatim inlined copy of squad_get_actor_type@0x8370A838 (zero-xref donor) — collapsed
+         * to a direct call. Single squad_definition* argument, no NULL-guard/index folding was needed. */
         int16_t actor_type = squad_get_actor_type(squad);
 
-        unsigned int unique_leader_type = (uint16_t)squad->unique_leader_type;  /* prior name "spawn_state" was a guess */
-        if ( unique_leader_type >= NUMBER_OF_UNIQUE_LEADER_TYPES || unique_leader_type == _leader_none )
-            goto place_actors;
-        if ( unique_leader_type == _leader_random )
-            goto randomize_variant;
-        if ( unique_leader_type == _leader_sergeant_johnson && squad->unique_leader_type )
+        switch ( (uint16_t)squad->unique_leader_type )
         {
-            if ( actor_type == _actor_type_marine )
-                initial_variant = 100;
-            goto place_actors;
-        }
-        if ( squad->unique_leader_type ) /* unique_leader_type == _leader_sergeant_lehto */
-        {
-            if ( actor_type == _actor_type_marine )
-                initial_variant = 101;
-            goto place_actors;
-        }
-
-        /* unique_leader_type == _leader_normal */
-        {
-            encounter_datum *encounter =
-                DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index_u16);
-            int should_randomize = 0;
+        case _leader_normal:
+            {
+                int should_randomize = 0;
+                if ( actor_type == _actor_type_marine )
+                {
+                    encounter_datum *encounter =
+                        DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index_u16);
+                    if ( encounter->unique_leader_count == 0 )
+                        should_randomize = encounter->original_count + actor_count >= 4;
+                    else if ( encounter->unique_leader_count == 1 )
+                        should_randomize = encounter->original_count + actor_count >= 10;
+                }
+                if ( !should_randomize )
+                    break;
+            }
+            /* fall through — see the DEVIATION note above */
+        case _leader_random:
             if ( actor_type == _actor_type_marine )
             {
-                int16_t current_count;
-                int threshold;
-                /* recovered: ((__int16 *)encounter)[14] -> unique_leader_count, [12] -> original_count */
-                if ( encounter->unique_leader_count )
-                {
-                    if ( encounter->unique_leader_count != 1 )
-                        goto check_randomize;
-                    current_count = encounter->original_count;
-                    threshold = 10;
-                }
-                else
-                {
-                    current_count = encounter->original_count;
-                    threshold = 4;
-                }
-                should_randomize = current_count + actor_count >= threshold;
+                uint32_t *seed = get_global_random_seed_address();
+                initial_variant = seed_random_range(seed, 0, 2) + 100;
             }
-check_randomize:
-            if ( should_randomize )
-                goto randomize_variant;
+            break;
+        case _leader_sergeant_johnson:
+            if ( actor_type == _actor_type_marine )
+                initial_variant = 100;
+            break;
+        case _leader_sergeant_lehto:
+            if ( actor_type == _actor_type_marine )
+                initial_variant = 101;
+            break;
+        case _leader_none:
+            break;
         }
 
-place_actors:
-        if ( !desired_squad_index && desired_platoon == -1 )
+        if ( desired_squad_index == 0 && desired_platoon_index == -1 )
         {
             /* Named special-case encounters get a fixed initial variant. */
             if ( strcmp(encounter_def->name, "cryo_tech") == 0 )
@@ -159,29 +130,20 @@ place_actors:
             if ( strcmp(encounter_def->name, "fetch") == 0 )
                 initial_variant = 11;
         }
+
         if ( actor_count > 0 )
         {
-            int placed = 0;
+            int16_t placed = 0;
             do
             {
                 encounter_place_actor(encounter_index, squad_index, initial_variant, 0);
                 initial_variant = 0; /* only the first actor of a squad carries the forced variant */
-                placed = (int16_t)(placed + 1);
+                ++placed;
             }
             while ( placed < actor_count );
         }
-        goto next_squad;
-
-randomize_variant:
-        if ( actor_type == _actor_type_marine )
-        {
-            unsigned int *seed = get_global_random_seed_address();
-            initial_variant = seed_random_range(seed, 0, 2) + 100;
-        }
-        goto place_actors;
     }
 
-finished:
     encounter_update_status(encounter_index);
     encounters_test_activation();
 }

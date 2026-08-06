@@ -46,10 +46,10 @@ extern dsVECTOR<FP_MODEL, 8>                         fpModels;
 extern dsVECTOR<dsPAIR<unsigned long, HCEX_MODEL>, 8> hcexModels;
 
 extern animINST      *hcex_inst_create(int modelId, int id, bool isFP, int *pModelIdx);
-extern void hcex_reset_weapon_state(void);
-extern real_matrix4x3 * hcex_get_fp_matrices(int modelId, unsigned int cam_idx);
+extern "C" void hcex_reset_weapon_state(void);
+extern "C" real_matrix4x3 * hcex_get_fp_matrices(int modelId, unsigned int cam_idx);
 extern void            hcex_make_inst_matr(const hcex_matr4x3 *in, m3dMATR *out);
-extern int hcex_plr_is_act_camo(int idx);
+extern "C" int hcex_plr_is_act_camo(int idx);
 
 void hcex_update_fp_model(int modelId, int cam_idx)
 {

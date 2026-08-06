@@ -1,4 +1,9 @@
-/* bitmap_format_bits_per_pixel_table @0x82113EC0 — .rdata bits-per-pixel per bitmap_format.
+/* bitmap_format_bits_per_pixel_table @ 0x82113EC0 (.rdata, 19 bytes)
+ * DB applied_types: const char bitmap_format_bits_per_pixel_table[19];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 08 08 08 10 00 00 10 00 10 10 20 20 00 00 04 08
+ *   +0x0010: 08 08 FF
+ * .rdata bits-per-pixel per bitmap_format.
  * Element width: `lbzx r8, r10, r9` + `extsb r3, r8` at 0x836F427C/0x836F4280
  * (bitmap_format_get_bits_per_pixel), i.e. a signed byte with stride 1 — the 15 access sites in
  * the binary all load it that way.
@@ -9,8 +14,8 @@
  * and srcblend_table/destblend_table/blendop_table carry the same -1 terminator convention), and
  * [19] = 0x00 is the single alignment pad byte before the string, so it is not emitted.
  * DXT block formats report their amortized per-texel cost (dxt1 = 4, dxt3/dxt5 = 8).
+ * /
  */
-
 #include <stdint.h>
 #include "bitmap_format.h"
 

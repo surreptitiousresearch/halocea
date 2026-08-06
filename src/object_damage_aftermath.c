@@ -61,7 +61,7 @@ extern void biped_accelerate(int biped_index, real_vector3d *acceleration);
 extern void item_accelerate(int item_index, const real_vector3d *acceleration, uint8_t detonates_explosives);
 extern void projectile_accelerate(int projectile_index, const real_vector3d *acceleration);
 extern int player_index_from_unit_index(int unit_index);
-extern void  hcex_fire_plr_event(const char *event_name, int16_t player_identifier);
+extern void  hcex_fire_plr_event(const char *event_name, int player_identifier); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
 extern void *datum_try_and_get(const data_array *data, int index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern int field_translated_index_translate_index_no_default(const _field_properties_definition *const field_properties_definition, int local_index);

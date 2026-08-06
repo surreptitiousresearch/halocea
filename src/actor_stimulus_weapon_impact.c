@@ -36,7 +36,7 @@ extern void actor_stimulus_surprise(uint16_t actor_index, int16_t surprise_level
 extern void actor_stimulus_combat(int actor_index, int16_t transition_type, const real_point3d *guard_point, int guard_point_surface_index, float guard_distance, int guard_timer, const real_vector3d *transition_vector, int prop_index, int prop_look_timer, uint8_t prop_look_while_moving);
 extern direction_specification *direction_get_empty(direction_specification *result);
 extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
-extern float __fsqrts(double value);
+extern float __fsqrts(float value);
 extern double __fabs(double value);
 
 void actor_stimulus_weapon_impact(int actor_index, int object_index, const real_point3d *position, int16_t count)

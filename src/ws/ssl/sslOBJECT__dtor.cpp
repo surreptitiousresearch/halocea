@@ -5,7 +5,7 @@
 #include "../ds/dsDATA_TYPE.h"
 
 // --- other-subsystem boundary (declared, not reversed here) ---
-extern void dlFree(void *ptr); // allocator: heap free (dlmalloc-family), same convention as os_boundary.h
+extern "C" void dlFree(void *ptr); // allocator: heap free (dlmalloc-family), same convention as os_boundary.h
 
 // sslOBJECT::~sslOBJECT() @ 0x82A37E28
 // Decrement the live-object counter and let the owning system drop this uid from its object

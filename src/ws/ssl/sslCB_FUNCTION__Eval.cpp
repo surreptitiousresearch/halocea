@@ -21,7 +21,7 @@ const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); //
 template<class T> T *New(T *dst, const T *src); // boundary
 
 // Scratch parameter stack shared by native callback dispatch. boundary — defined elsewhere.
-extern dsVECTOR<dsDATA, 8> cbParamsStack;
+extern "C" dsVECTOR<dsDATA, 8> cbParamsStack;
 // Debug call-stack instrumentation globals. boundary — defined elsewhere.
 extern bool dbg_sslCallStack;
 extern dsVECTOR<dsTSTRING<char>, 8> sslCallStack;

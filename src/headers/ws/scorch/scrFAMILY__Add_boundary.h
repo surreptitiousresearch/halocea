@@ -55,6 +55,6 @@ extern camCAMERA *gsCameraGet(int idx);
 extern float m3dLengthVector_2(const m3dV *v);
 extern float m3dDist_2(const m3dV *a, const m3dV *b);
 extern void _m3dCheckValid(const void *v);
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 #define M3D_EPSILON_2_309 2.30909e-4f

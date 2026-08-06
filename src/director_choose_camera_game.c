@@ -24,7 +24,7 @@ extern void director_choose_game_perspective(int16_t local_player_index, uint8_t
 extern void dead_camera_new(dead_camera *camera, int16_t local_player_index, int unit_index);
 extern void dead_camera_update(dead_camera *camera, const camera_control *controls, observer_command *result);
 
-extern void director_set_camera(int16_t local_player_index, void (__fastcall *camera_proc)(void *camera_data, const camera_control *, observer_command *), uint8_t interpolate);
+extern void director_set_camera(int16_t local_player_index, void (*camera_proc)(void *camera_data, const camera_control *, observer_command *), uint8_t interpolate);
 void director_choose_camera_game(int16_t local_player_index, uint8_t initialize, uint8_t key)
 {
     director *dir = &director_globals.local_players[local_player_index];
@@ -35,7 +35,7 @@ void director_choose_camera_game(int16_t local_player_index, uint8_t initialize,
     {
         /* DEVIATION: director_set_camera@0x836E48E8 inlined here (zero-xref donor); interpolate folded to 0 (no camera_change_pause write) — collapsed to a call. */
         first_person_camera_new((first_person_camera *)dir->camera_data);
-        director_set_camera(local_player_index, (void (__fastcall *)(void *, const camera_control *, observer_command *))first_person_camera_update, 0);
+        director_set_camera(local_player_index, (void (*)(void *, const camera_control *, observer_command *))first_person_camera_update, 0);
         return;
     }
 
@@ -51,10 +51,10 @@ void director_choose_camera_game(int16_t local_player_index, uint8_t initialize,
 
         if ( !*director_camera_scripted )
         {
-            void (__fastcall *camera_proc)(dead_camera *, const camera_control *, observer_command *);
+            void (*camera_proc)(dead_camera *, const camera_control *, observer_command *);
 
             director_choose_game_perspective(local_player_index, initialize);
-            camera_proc = (void (__fastcall *)(dead_camera *, const camera_control *, observer_command *))dir->camera_proc;
+            camera_proc = (void (*)(dead_camera *, const camera_control *, observer_command *))dir->camera_proc;
 
             if ( wants_dead_camera )
             {
@@ -62,7 +62,7 @@ void director_choose_camera_game(int16_t local_player_index, uint8_t initialize,
                 {
                     /* DEVIATION: director_set_camera@0x836E48E8 inlined here (zero-xref donor); interpolate folded to 1 (camera_change_pause=1.0 unconditional) — collapsed to a call. */
                     dead_camera_new((dead_camera *)dir->camera_data, local_player_index, -1);
-                    director_set_camera(local_player_index, (void (__fastcall *)(void *, const camera_control *, observer_command *))dead_camera_update, 1);
+                    director_set_camera(local_player_index, (void (*)(void *, const camera_control *, observer_command *))dead_camera_update, 1);
                 }
             }
             else if ( camera_proc == dead_camera_update )

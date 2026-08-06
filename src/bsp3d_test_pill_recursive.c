@@ -17,8 +17,8 @@
 #include "headers/bsp3d_node.h"
 #include "headers/real_plane3d.h"
 #include "headers/real_point2d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 
 extern float __fabs(float);
 extern int bsp2d_test_point(const bsp2d *bsp, const real_point2d *point, int child_index);
@@ -136,7 +136,6 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     uint8_t sign =
                         sign_intermediate - (-(reference_entry->plane_index >= 0) - plane_positive + (sign_intermediate == 0));
                     data->projection_sign = sign;
-                    int map_index = 2 * axis + sign;
 
                     /* project the 3D hit point (at `fraction`) onto the plane, then drop to 2D */
                     float hit_y = ((vector->n[1] * fraction) + point->n[1]);
@@ -152,8 +151,8 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     hit_point[0] = ((plane[0] * pushed) + hit_x);
 
                     real_point2d projected;
-                    projected.n[0] = hit_point[global_projection3d_mappings[0][map_index][0]];
-                    projected.n[1] = hit_point[global_projection3d_mappings[0][map_index][1]];
+                    projected.n[0] = hit_point[global_projection3d_mappings[axis][sign][0]];
+                    projected.n[1] = hit_point[global_projection3d_mappings[axis][sign][1]];
 
                     int surface_index = bsp2d_test_point(leaf_bsp2d, &projected, reference_entry->bsp2d_root_index);
                     const collision_bsp *result_bsp = data->bsp;
@@ -185,21 +184,22 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
 
                     /* project the start point and the sweep vector into 2D, then sweep-test the leaf bsp2d */
                     const real_point3d *start = data->point;
-                    int map_index2 = 2 * data->projection_axis + data->projection_sign;
+                    int u_axis = global_projection3d_mappings[data->projection_axis][data->projection_sign][0];
+                    int v_axis = global_projection3d_mappings[data->projection_axis][data->projection_sign][1];
                     float start_proj[3];
                     start_proj[0] = (plane[0] * -distance_start) + start->n[0];
                     start_proj[1] = (plane[1] * -distance_start) + start->n[1];
                     start_proj[2] = (plane[2] * -distance_start) + start->n[2];
-                    data->p2d.n[0] = start_proj[global_projection3d_mappings[0][map_index2][0]];
-                    data->p2d.n[1] = start_proj[global_projection3d_mappings[0][map_index2][1]];
+                    data->p2d.n[0] = start_proj[u_axis];
+                    data->p2d.n[1] = start_proj[v_axis];
 
                     const real_vector3d *sweep = data->vector;
                     float vector_proj[3];
                     vector_proj[0] = (plane[0] * -along) + sweep->n[0];
                     vector_proj[1] = (plane[1] * -along) + sweep->n[1];
                     vector_proj[2] = (plane[2] * -along) + sweep->n[2];
-                    data->v2d.n[0] = vector_proj[global_projection3d_mappings[0][map_index2][0]];
-                    data->v2d.n[1] = vector_proj[global_projection3d_mappings[0][map_index2][1]];
+                    data->v2d.n[0] = vector_proj[u_axis];
+                    data->v2d.n[1] = vector_proj[v_axis];
 
                     if ( bsp2d_test_pill_recursive(data, reference_entry->bsp2d_root_index) )
                         hit = 1;

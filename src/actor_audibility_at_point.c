@@ -4,8 +4,8 @@
  * line-of-sight factor. Returns 0 if inaudible (out of range or BSP sound-path too long), else 2 or 3
  * depending on volume.
  *
- * Deviation: the database's float param (perception_factor) is unused; Hex-Rays invented a trailing a8 from its
- * reserved GPR slot. The value actually consumed (decompiler's a8) is the real line_of_sight argument. */
+ * Deviation: the database's float param (perception_factor) is unused; Hex-Rays invented a trailing slot from its
+ * reserved GPR. The value actually consumed through that slot is the real line_of_sight argument. */
 
 #include <stdint.h>
 #include "headers/actor_definition.h"

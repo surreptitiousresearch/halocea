@@ -13,4 +13,12 @@ typedef struct player_effect_globals_definition
     int                              reference_time;              /* 0x210 */
 } player_effect_globals_definition;                               /* 532 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern player_effect_globals_definition *player_effect_globals;
+
+#ifdef __cplusplus
+}
+#endif

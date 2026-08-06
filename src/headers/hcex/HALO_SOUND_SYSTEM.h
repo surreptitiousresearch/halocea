@@ -132,4 +132,4 @@ private:
 // `hkpCollisionAgent::removePoint`-gated editor/tool rebuild path). boundary — declared here,
 // defined by whichever translation unit first constructs a HALO_SOUND_SYSTEM (matches the
 // existing corpus convention for engine-wide singletons).
-extern HALO_SOUND_SYSTEM *haloSoundSystem;
+extern "C" HALO_SOUND_SYSTEM *haloSoundSystem;

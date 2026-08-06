@@ -7,16 +7,15 @@
 #include "headers/real_point2d.h"
 #include "headers/real_point3d.h"
 #include <stdint.h>
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float x);
 
 real_point3d *project_point2d(const real_point2d *p2d, const real_plane3d *plane, int16_t projection,
                               uint8_t sign, real_point3d *p3d)
 {
-    int mapping_index = 2 * projection + sign;
-    int axis_u = global_projection3d_mappings[0][mapping_index][0];
-    int axis_v = global_projection3d_mappings[0][mapping_index][1];
+    int axis_u = global_projection3d_mappings[projection][sign][0];
+    int axis_v = global_projection3d_mappings[projection][sign][1];
 
     p3d->n[axis_u] = p2d->n[0];
     p3d->n[axis_v] = p2d->n[1];

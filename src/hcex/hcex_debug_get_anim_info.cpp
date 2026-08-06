@@ -13,7 +13,7 @@
 #include "../headers/global_tag_instances.h"
 #include "../headers/animation_frame_info_type.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 extern char *_none, *_xy, *_xyr, *_xyzr;   /* frame-info channel name strings */
 
 extern "C" void hcex_debug_get_anim_info(int objId, int *frameCount, char **info)

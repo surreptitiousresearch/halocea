@@ -6,7 +6,7 @@
  * cleared. Returns 1.
  *
  * DEVIATION: FPR-shadow — the float jump_magnitude (4th arg) reserves r6, so the real jump_velocity
- * pointer arrives in r7 (the decompiler's phantom `a6`); the decompiler's r6 "jump_velocity" param is
+ * pointer arrives in r7 (rendered as a phantom 6th param); the decompiler's r6 "jump_velocity" param is
  * the shadow and is unused. DB prototype is ground truth and is used here. The swarm call likewise
  * forwards jump_velocity (disasm `mr r6,r7`). */
 

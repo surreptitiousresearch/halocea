@@ -11,4 +11,12 @@ typedef struct game_engine_playlist_s
     unsigned int                 now_playing;     /* 0x0C */
 } game_engine_playlist_s;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_engine_playlist_s game_engine_playlist;
+
+#ifdef __cplusplus
+}
+#endif

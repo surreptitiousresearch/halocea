@@ -22,13 +22,13 @@ extern dsVECTOR<hcex_light_pair, 8> hcexLights;
 /* --- Blam-side light param resolver (already reversed: src/hcex/hcex_get_light_params.c) --- */
 // DB-canonical 2nd param is hcex_matr4x3* (matches this file's hcex_matr4x3 callers); the
 // hcex_get_light_params.c definition uses the layout-identical real_matrix4x3* internally. (2026-07-31)
-extern void hcex_get_light_params(uint16_t lightId, hcex_matr4x3 *matr, float *radius, int *plr_idx);
+extern "C" void hcex_get_light_params(uint16_t lightId, hcex_matr4x3 *matr, float *radius, int *plr_idx);
 
 /* --- Halo->ws instance-matrix builder (already reversed: src/hcex/hcex_make_inst_matr.c) --- */
 extern void hcex_make_inst_matr(const hcex_matr4x3 *in, m3dMATR *out);
 
 /* --- Blam-side first-person visibility check (already reversed: src/first_person_weapon_visible.c) --- */
-extern int first_person_weapon_visible(int16_t plr_idx);
+extern "C" int first_person_weapon_visible(int16_t plr_idx);
 
 /* entENTITY virtual methods touched here (vtable dispatch in the binary; declared as free functions
  * per the project's compiler-generated-thiscall convention since entENTITY.h does not model a vtable). */

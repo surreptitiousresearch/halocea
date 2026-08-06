@@ -11,4 +11,12 @@ typedef struct _persistant_game_data_info
     uint8_t  corrupted;      /* 0x104 */
 } _persistant_game_data_info;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _persistant_game_data_info persistant_game_data_info;
+
+#ifdef __cplusplus
+}
+#endif

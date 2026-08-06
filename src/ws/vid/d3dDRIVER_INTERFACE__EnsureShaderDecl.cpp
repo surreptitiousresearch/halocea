@@ -2,7 +2,7 @@
 #include "../../headers/ws/vid/vidFVF_DESCR.h"
 
 // boundary -- Xbox 360 D3D SDK: set the active vertex declaration.
-extern void D3DDevice_SetVertexDeclaration(D3DDevice *pDevice, D3DVertexDeclaration *pDecl);
+extern "C" void D3DDevice_SetVertexDeclaration(D3DDevice *pDevice, D3DVertexDeclaration *pDecl);
 
 // 0x82694898 -- ?EnsureShaderDecl@d3dDRIVER_INTERFACE@@UAAXPAVvidFVF_DESCR@@HH@Z (virtual)
 // Cache the requested FVF descriptor and apply its owned D3D vertex declaration. In the d3d build

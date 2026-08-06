@@ -19,16 +19,15 @@
 
 #include "headers/collision_bsp.h"
 #include "headers/real_point2d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[][2];
 
 int collision_surface_find_closest_point2d(const collision_bsp *bsp, int surface_index,
                                            int16_t projection_axis, uint8_t projection_sign,
                                            const real_point2d *point, real_point2d *result)
 {
-    int projection = 2 * projection_axis + projection_sign;
-    int u_axis = global_projection3d_mappings[projection][0];
-    int v_axis = global_projection3d_mappings[projection][1];
+    int u_axis = global_projection3d_mappings[projection_axis][projection_sign][0];
+    int v_axis = global_projection3d_mappings[projection_axis][projection_sign][1];
 
     collision_edge *edges = (collision_edge *)bsp->edges.address;
     collision_vertex *vertices = (collision_vertex *)bsp->vertices.address;

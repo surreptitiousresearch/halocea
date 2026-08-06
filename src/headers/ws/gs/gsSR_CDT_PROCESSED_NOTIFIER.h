@@ -21,5 +21,5 @@ struct gsSR_CDT_PROCESSED_NOTIFIER {
 //   refineModifyVector — pending cdtREFINE weak refs whose Modify() must run this frame; dead
 //                        handles are Erase()d as encountered.
 //   cdtProcessedNotifiers — observers fired after modification, then cleared.
-extern dsVECTOR<ds::WEAK_PTR<cdtREFINE>, 8>       refineModifyVector;
-extern dsVECTOR<gsSR_CDT_PROCESSED_NOTIFIER *, 8> cdtProcessedNotifiers;
+extern "C" dsVECTOR<ds::WEAK_PTR<cdtREFINE>, 8>       refineModifyVector;
+extern "C" dsVECTOR<gsSR_CDT_PROCESSED_NOTIFIER *, 8> cdtProcessedNotifiers;

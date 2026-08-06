@@ -9,8 +9,6 @@
 #include "headers/sound_type.h"
 #include "headers/blam_data_globals.h"
 
-extern float sound_player_fade_out_time;
-
 extern void *datum_try_and_get(const data_array *data, int index);
 extern void sound_start_fade(int16_t mode, float seconds, int fade_out_sound_index, int fade_up_sound_index);
 

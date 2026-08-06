@@ -11,6 +11,9 @@
 typedef void (*game_state_proc)(void);
 
 /* before_save_procs (0x84172060) */
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void dummy(void);                                            /* 0x83684478 */
 
 /* before_load_procs (0x84172064) */
@@ -32,3 +35,6 @@ extern void game_state_set_revert_time(void);                      /* 0x83684DA0
 extern void player_control_fix_for_loaded_game_state(void);        /* 0x836A8890 */
 extern void director_initialize_for_saved_game(void);              /* 0x836E5B08 */
 extern void scripted_hud_messages_clear(void);                     /* 0x836A4AB0 */
+#ifdef __cplusplus
+}
+#endif

@@ -9,4 +9,12 @@ typedef struct play_stage
     game_variant game_variant;   /* 0x40 (152 bytes) */
 } play_stage;                    /* 0xD8 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern play_stage global_stage;
+
+#ifdef __cplusplus
+}
+#endif

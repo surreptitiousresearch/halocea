@@ -3,11 +3,11 @@
 #include "../../headers/ws/fnm/fnm.h"
 
 // dl allocator free (releases a dsTSTRING buffer header at zero refcount). boundary.
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 // Process-wide default-descriptor table singleton. DB symbol is g_TexDescDB (the txmTEX_DESC_DB.h
 // extern spells it txmTexDescDB; the DB-verified name is used here to match the reference).
-extern txmTEX_DESC_DB g_TexDescDB;
+extern "C" txmTEX_DESC_DB g_TexDescDB;
 
 // 0x826FBDD0 -- ?Add@txmMANAGER@@QAAPAVtxmTEXTURE@@PBDHH@Z
 // Get-or-create the named texture. If it already exists, only its state flags are updated;

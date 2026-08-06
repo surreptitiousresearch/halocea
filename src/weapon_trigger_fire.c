@@ -57,7 +57,7 @@ extern int player_index_from_unit_index(int unit_index);
 extern char *main_get_map_name(void);
 extern char *strstr(const char *haystack, const char *needle);
 extern float device_group_get_value(int group_index);
-extern void hcex_fire_plr_event(const char *event_name, int16_t player_identifier);
+extern void hcex_fire_plr_event(const char *event_name, int player_identifier); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
 extern uint32_t *get_global_random_seed_address(void);
 extern uint16_t seed_random(uint32_t *seed);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);

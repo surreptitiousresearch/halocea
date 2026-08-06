@@ -14,7 +14,7 @@
 
 #include <stdint.h>
 #include "headers/build_sprite_data.h"
-#include "headers/build_sprite_flags.h"
+#include "headers/build_sprites_flags.h"
 #include "headers/build_sprite_orientation.h"
 #include "headers/build_sprite_globals.h"
 #include "headers/real_point3d.h"
@@ -25,7 +25,7 @@ extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, f
 
 void build_sprite_compute_basis(const build_sprite_data *data, int16_t mode, const real_vector3d *up_reference, const real_point3d *facing_direction, real_vector3d *basis)
 {
-    if ( (data->flags & (1u << _build_sprite_viewer_space_bit)) != 0 )
+    if ( (data->flags & (1u << _build_sprites_screen_space_bit)) != 0 )
         return;
 
     if ( mode == _build_sprite_normal )

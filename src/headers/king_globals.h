@@ -23,4 +23,12 @@ typedef struct king_globals_type
     int              hill_timer;                          /* 0x1A8 */
 } king_globals_type; /* 428 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern king_globals_type king_globals;
+
+#ifdef __cplusplus
+}
+#endif

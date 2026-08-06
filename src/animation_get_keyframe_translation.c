@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <math.h>
 #include "headers/animation.h"
+#include "headers/animation_compressed_block.h"
 #include "headers/real_point3d.h"
 
 extern int16_t animation_keyframe_search(const int16_t *keyframe_frame_indices, int16_t keyframe_count, int16_t target_frame_index);
@@ -16,13 +17,13 @@ extern void points_interpolate(const real_point3d *a, const real_point3d *b, flo
 void animation_get_keyframe_translation(const animation *animation, float real_frame_index,
                                         int16_t adjusted_node_index, int16_t node_index, real_point3d *result)
 {
-    unsigned int *compressed_block =
-        (unsigned int *)((char *)animation->data.address + animation->compressed_data_offset);
+    const animation_compressed_block *compressed_block =
+        (const animation_compressed_block *)((char *)animation->data.address + animation->compressed_data_offset);
 
-    /* RAW: packed codec stream — compressed_block[3] is a byte offset word in the block header; the
-     * per-node descriptor table it points to has no DB struct. Byte-exact index kept. */
-    unsigned int descriptor = *(unsigned int *)((char *)compressed_block + 4 * adjusted_node_index + compressed_block[3]);
-    char *keyframe_data_base = (char *)compressed_block + compressed_block[5];
+    unsigned int descriptor =
+        ((const unsigned int *)((const char *)compressed_block
+                                + compressed_block->translation_descriptor_offset))[adjusted_node_index];
+    const char *keyframe_data_base = (const char *)compressed_block + compressed_block->translation_default_offset;
     short keyframe_count = (short)(descriptor & 0xFFF);
     short data_index = (short)(descriptor >> 12);
 
@@ -35,11 +36,12 @@ void animation_get_keyframe_translation(const animation *animation, float real_f
     }
 
     const short *keyframe_frame_indices =
-        (const short *)((char *)compressed_block + 2 * data_index + compressed_block[4]);
-    /* recovered: 12*data_index byte offset -> typed real_point3d index off the block-header
-     * region base (compressed_block[6] is the translation-keyframe region offset word) */
+        &((const short *)((const char *)compressed_block
+                          + compressed_block->translation_frame_index_offset))[data_index];
+    /* recovered: 12*data_index byte offset -> typed real_point3d index off the region base */
     const real_point3d *keyframe_points =
-        (const real_point3d *)((char *)compressed_block + compressed_block[6]) + data_index;
+        (const real_point3d *)((const char *)compressed_block
+                               + compressed_block->translation_keyframe_offset) + data_index;
 
     short target_frame_index = (short)(int)floorf(real_frame_index);
 

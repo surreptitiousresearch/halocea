@@ -84,4 +84,4 @@ extern void rendDRIVER_Configure(rendDRIVER *self, int count, PASS_DESC_FILL *de
 extern void rendDRIVER_DrawPoly(rendDRIVER *self, void *vertices, int nVert,
         unsigned long long coordDescriptor);
 extern void PASS_DESC_FILL_dtor(PASS_DESC_FILL *self);
-extern void *memset(void *dst, int c, unsigned int n);
+extern "C" void *memset(void *dst, int c, unsigned int n);

@@ -1,4 +1,4 @@
-/* actor_look_find_random_vector @0x837FB374 — pick a random look direction for an actor by perturbing a
+/* actor_look_find_random_vector @0x837FB358 — pick a random look direction for an actor by perturbing a
  * base direction within yaw/pitch ranges. Builds a horizontal pitch axis perpendicular to the base
  * direction (falling back to global left when the base is near-vertical), then repeatedly: draws random
  * yaw and pitch angles, rotates the base vector by pitch about that axis and by yaw about up, and — when
@@ -7,7 +7,7 @@
  *
  * DEVIATION: this is a PPC FPR-shadow case. The four float angle args (yaw/pitch min/max) each reserve a
  * positional GPR slot, so the real result_vector pointer arrives in r10 — which the decompiler mislabeled
- * as a phantom trailing arg `a12`. Per the DB prototype it is the 8th parameter, result_vector. */
+ * as a phantom trailing arg. Per the DB prototype it is the 8th parameter, result_vector. */
 
 #include <stdint.h>
 #include "headers/real_point3d.h"

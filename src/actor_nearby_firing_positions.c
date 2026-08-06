@@ -6,7 +6,7 @@
  * units — and returns 1 on the first hit. Returns 0 if none qualify.
  *
  * DEVIATION: the DB 4-arg prototype is authoritative; the decompiler's RtlCheckStack12 stack-probe misrender
- * fabricated a huge phantom-parameter pile (a5..a59) that is really this frame's stack scratch — a path_input,
+ * fabricated a huge phantom-parameter pile that is really this frame's stack scratch — a path_input,
  * a path_state, and a float distance out. Register-level disasm resolved the calls: path_input_new radius is the
  * actor definition's pathfinding_radius (+140), ignore_broken_surfaces=1, ignore_source_object_index=-1; the
  * firing-position group test is (1 << group_index) (r29=1, disasm 0x837EFBD8); and path_3d_available's float

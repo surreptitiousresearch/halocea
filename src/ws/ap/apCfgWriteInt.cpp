@@ -9,9 +9,9 @@
 #include "../../headers/ws/ds/dsTSTRING.h"
 #include "../../headers/ws/ds/dsTSTRING_BUF_HEADER.h"
 
-extern apCONFIG *gameConfig;                              // boundary — the global config database
+extern "C" apCONFIG *gameConfig;                              // boundary — the global config database
 extern dsTSTRING<char> dsSPrintf(const char *fmt, ...);   // boundary — ds formatted string build
-extern void dlFree(void *ptr);                            // boundary — dlmalloc free
+extern "C" void dlFree(void *ptr);                        // boundary — dlmalloc free
 extern void _apLog(const char *fmt, ...);                 // boundary — ap variadic log wrapper
 
 static void releaseKeyString(dsTSTRING<char> &keyStr)

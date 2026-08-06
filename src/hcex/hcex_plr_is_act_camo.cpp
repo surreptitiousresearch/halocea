@@ -9,10 +9,10 @@
 #include "../headers/unit_datum.h"
 #include "../headers/unit_flags.h"
 
-extern data_array *player_data;
-extern int16_t local_player_count(void);
-extern int local_player_get_player_index(int16_t local_player_index);
-extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
+extern "C" data_array *player_data;
+extern "C" int16_t local_player_count(void);
+extern "C" int local_player_get_player_index(int16_t local_player_index);
+extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
 extern "C" int hcex_plr_is_act_camo(int idx)
 {

@@ -27,11 +27,11 @@
  *
  * DEVIATIONS ("local variable allocation has failed"; disasm-resolved, 0x8381F224-0x8381F818):
  *  - The group crouch/stand blend is rendered as a `__int64`/pointer-arithmetic mess reading 4 bytes before
- *    a local (`*(__int64*)((char*)&v26 - 4)`); disasm (0x8381F6EC-0x8381F764) shows it is plainly
+ *    a stack local; disasm (0x8381F6EC-0x8381F764) shows it is plainly
  *    `chance -= 0.5*((1-chance)*standing_count - chance*crouching_count)`, using the two loop counters
  *    directly (no 64-bit value ever existed).
- *  - `v2[867] = (_cntlzw((unsigned __int8)v2[867]) & 0x20) != 0` is the standard "x == 0" idiom applied to
- *    the byte's own current value — i.e. a plain logical-NOT flip; simplified to `!crouch_switching_current_value`.
+ *  - The `(_cntlzw(byte) & 0x20) != 0` store at actor+867 (-> emotions.crouch_switching_current_value) is the
+ *    standard "x == 0" idiom on the byte's own value — a plain logical-NOT flip; simplified to `!` of the member.
  *  - `actor_variant_definition` was previously a fully opaque forward declaration (every other reconstructed
  *    caller reads its fields at raw offsets). This session fleshed it out from `types_members`: a
  *    `movement_switching` block (crouch/run switching timing, new `actor_movement_switching_properties`) and

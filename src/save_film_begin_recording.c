@@ -95,7 +95,7 @@ void save_film_begin_recording(void)
         return;
     }
 
-    saved_film_header_packet header;
+    saved_film_header_packet_t header;
     /* recovered: header.signature/field_a/field_b -> game_code/version/platform */
     header.game_code = SAVED_FILM_GAME_CODE; /* 'blam' */
     header.version = SAVED_FILM_VERSION;

@@ -11,9 +11,9 @@
    this note. The manual byte-copy loops are the inlined strcpy/strcat the
    compiler emitted. */
 
-extern int sprintf_0(char *string, const char *format, ...);
-extern char *strchr(const char *s, int c);
-extern char *hcex_conv_name(char *name, int max_len);
+extern "C" int sprintf_0(char *string, const char *format, ...);
+extern "C" char *strchr(const char *s, int c);
+extern "C" char *hcex_conv_name(char *name, int max_len);
 
 extern "C" char *hcex_conv_bmp_name(char *name, int idx, char *out, int max_len)
 {

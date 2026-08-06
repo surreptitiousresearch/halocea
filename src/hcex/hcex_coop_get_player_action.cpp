@@ -6,9 +6,9 @@
 #include "../headers/haloPLAYER_ACTION.h"
 #include "../headers/player_action_collection.h"
 
-extern int hcex_coop_last_tick;
-extern int game_time_get(void);
-extern void update_client_build_client_update(player_action_collection *action_collection);
+extern "C" int hcex_coop_last_tick;
+extern "C" int game_time_get(void);
+extern "C" void update_client_build_client_update(player_action_collection *action_collection);
 
 extern "C" int hcex_coop_get_player_action(haloPLAYER_ACTION *hcex_actions)
 {

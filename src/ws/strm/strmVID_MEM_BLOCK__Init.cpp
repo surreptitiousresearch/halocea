@@ -1,9 +1,9 @@
 #include "../../headers/ws/strm/strmVID_MEM_BLOCK.h"
 
 // vid subsystem boundary — physical/GPU memory allocator.
-// mangled ?vidAllocPhysMem@@YAPAXHIIPAII@Z: arg3 (actualSize) is unsigned int* (PAI).
+// mangled ?vidAllocPhysMem@@YAPAXKKKPAHK@Z: arg3 (actualSize) is int* (PAH).
 extern void *vidAllocPhysMem(unsigned long size, unsigned long align, unsigned long flags,
-                              unsigned int *actualSize, unsigned long extra);
+                              int *actualSize, unsigned long extra);
 
 // strmVID_MEM_BLOCK::Init @ 0x8269CCA0
 // Reserve this block's physical-memory range: try a fixed 20 MB (0x1400000) request first; if the
@@ -18,7 +18,7 @@ bool strmVID_MEM_BLOCK::Init(unsigned int blockId)
     if (!reserved) {
         // fallback: take whatever physical memory remains; the driver writes the granted size
         // back into this->size via the actualSize out-param
-        this->offset = (unsigned char *)vidAllocPhysMem(0xFFFFFFFFu, 0x1000u, 0x404u, (unsigned int *)&this->size, 1u);
+        this->offset = (unsigned char *)vidAllocPhysMem(0xFFFFFFFFu, 0x1000u, 0x404u, &this->size, 1u);
     }
     if (!this->offset)
         return false;

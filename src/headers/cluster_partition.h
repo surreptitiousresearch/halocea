@@ -10,4 +10,10 @@ typedef struct cluster_partition
     data_array *cluster_reference_data;         /* 0x8 */
 } cluster_partition;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void cluster_partition_new(cluster_partition *partition, const char *name);
+#ifdef __cplusplus
+}
+#endif

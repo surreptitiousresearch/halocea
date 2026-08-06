@@ -14,5 +14,11 @@ typedef struct actor_iterator
 } actor_iterator;                                 /* 28 bytes */
 
 #include "headers/actor_datum.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
+#ifdef __cplusplus
+}
+#endif

@@ -12,10 +12,10 @@
 #include "../headers/hs_script.h"
 #include "../headers/scenario.h"
 
-extern data_array *hs_thread_data;
-extern data_array *hs_syntax_data;
-extern scenario *global_scenario;
-extern int hcex_cur_hs_thread;
+extern "C" data_array *hs_thread_data;
+extern "C" data_array *hs_syntax_data;
+extern "C" scenario *global_scenario;
+extern "C" int hcex_cur_hs_thread;
 
 extern "C" const char *hcex_get_parent_script(void)
 {

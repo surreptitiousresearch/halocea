@@ -20,6 +20,14 @@ typedef struct cache_file_globals_s
     cache_request   *requests;
 } cache_file_globals_s;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern cache_file_globals_s cache_file_globals_0;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CACHE_FILE_GLOBALS_H */

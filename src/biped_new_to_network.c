@@ -47,6 +47,11 @@ int biped_new_to_network(int object_index, void *buffer, int buffer_size_in_bits
     message.change_colors[2] = object->object.base_change_colors[2];
     message.change_colors[3] = object->object.base_change_colors[3];
     message.current_baseline_index = object->biped.baseline_index;
+    /* DEVIATION: kept as a 16-bit pun rather than two element copies. Both operands are char[2], but the
+     * binary transfers them as one halfword — `lhz r11, 0x52C(r31)` / `sth r11, ...` @0x837AD9C0-0x837AD9C4.
+     * The destination lands at biped_new_data +0x75, an ODD offset, so this is an unaligned 16-bit store:
+     * free on PPC (and on x86/x64), and not something the compiler would synthesise from two byte stores,
+     * so the pun is the original source's, not the decompiler's. */
     *(int16_t *)message.grenade_counts = *(int16_t *)object->biped.baseline.grenade_counts;
     message.body_vitality = object->biped.baseline.body_vitality;
     message.shield_vitality = object->biped.baseline.shield_vitality;

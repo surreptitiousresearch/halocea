@@ -21,8 +21,18 @@ struct ID3DXBuffer
     ID3DXBufferVtbl *lpVtbl; /* 0x00 */
 };
 
+/* Reached by both C and C++ TUs. The D3DX exports carry C linkage in the real SDK headers and the
+   symbol is flat in this binary, so the C++ view must not mangle it. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern long D3DXCompileShaderFromFileA(const char *file, const void *defines,
                                        void *include, const char *entry,
                                        const char *profile, unsigned int flags,
                                        ID3DXBuffer **shader, ID3DXBuffer **errors,
                                        ID3DXConstantTable **table);
+
+#ifdef __cplusplus
+}
+#endif

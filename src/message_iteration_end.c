@@ -8,7 +8,7 @@
 #include "headers/iterated_message.h"
 #include "headers/message_delta_metrics.h"
 
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 extern int bitstream_dispose(bitstream_t *bit_stream);
 
 void message_iteration_end(iterated_message *message, const uint8_t allow_empty_body)

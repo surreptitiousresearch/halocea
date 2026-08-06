@@ -9,7 +9,7 @@
 #include "../headers/real_vector3d.h"
 
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern void hcex_create_effect(const char *eff_name, int obj_follow, int plr_idx, const hcex_float3 *position, const hcex_float3 *orientation, const char **marker, int npoints);
+extern "C" void hcex_create_effect(const char *eff_name, int obj_follow, int plr_idx, const hcex_float3 *position, const hcex_float3 *orientation, const char **marker, int npoints);
 
 extern "C" void hcex_init_effect_simple(const char *eff_name, real_point3d *point, real_vector3d *vector)
 {

@@ -12,4 +12,12 @@ typedef struct render_sky_globals_t
     float animation_states[8];
 } render_sky_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern render_sky_globals_t render_sky_globals;
+
+#ifdef __cplusplus
+}
+#endif

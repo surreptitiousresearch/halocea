@@ -1,10 +1,10 @@
 /* actor_freeze @0x8371E538 — drive an actor's unit(s) into a neutral "frozen" control pose this frame and mark
- * the actor frozen (actor+0x7 = 1). For a single-unit actor it delegates to actor_freeze_unit; for a swarm actor
- * (actor+0x6 != 0) it applies the same neutral control to every live unit in the swarm.
+ * the actor frozen (actor+0x7 -> meta.frozen). For a single-unit actor it delegates to actor_freeze_unit; for a
+ * swarm actor (actor+0x6 -> meta.swarm) it applies the same neutral control to every live unit in the swarm.
  *
- * DEVIATION: the decompiler gives actor_freeze a second parameter (a2) that it forwards to actor_freeze_unit. The
+ * DEVIATION: the decompiler gives actor_freeze a second parameter that it forwards to actor_freeze_unit. The
  * disassembly shows no caller sets r4 (e.g. actor_braindead @0x8372090C calls with only actor_index) and
- * actor_freeze_unit ignores its second parameter, so a2 is a ghost from an uninitialized register; this is a
+ * actor_freeze_unit ignores its second parameter, so that slot is a ghost from an uninitialized register; this is a
  * single-parameter function. The swarm-unit control setup mirrors actor_freeze_unit's body. */
 
 #include <stdint.h>

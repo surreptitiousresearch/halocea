@@ -11,7 +11,7 @@ extern "C" void dlFree(void *ptr); // boundary — Saber debug allocator free
 
 // Per-instance "random stride" seed (?sRandomStride@@3HA) mixed with objId to decorrelate
 // siblings that share the same name/position. boundary global — not reversed in this batch.
-extern int sRandomStride;
+extern "C" int sRandomStride;
 
 // instCONSTRUCTOR_NODE::ConstructInst(animINST*, instCONSTRUCTOR_NODE_RELATIONS*,
 // dsVECTOR<unsigned char,8>&) — 0x826E2DA8

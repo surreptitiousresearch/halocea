@@ -18,4 +18,12 @@ typedef struct ctf_globals_type
     uint8_t         _pad31[3];
 } ctf_globals_type;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern ctf_globals_type ctf_globals;
+
+#ifdef __cplusplus
+}
+#endif

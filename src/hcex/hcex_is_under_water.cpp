@@ -6,8 +6,8 @@
 #include "../headers/real_point3d.h"
 #include "../headers/real_vector3d.h"
 
-extern void scenario_location_from_point(location *location, const real_point3d *point);
-extern uint8_t scenario_get_current(const location *location, const real_point3d *position, real_vector3d *wind_vector, unsigned int flags);
+extern "C" void scenario_location_from_point(location *location, const real_point3d *point);
+extern "C" uint8_t scenario_get_current(const location *location, const real_point3d *position, real_vector3d *wind_vector, unsigned int flags);
 
 extern "C" int hcex_is_under_water(float x, float y, float z)
 {

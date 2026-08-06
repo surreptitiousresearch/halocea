@@ -8,4 +8,12 @@ typedef struct unit_hud_globals_definition
     int             script_flags;  /* 0xB0 */
 } unit_hud_globals_definition;     /* 180 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern unit_hud_globals_definition *unit_hud_globals;
+
+#ifdef __cplusplus
+}
+#endif

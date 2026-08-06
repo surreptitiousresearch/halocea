@@ -26,7 +26,7 @@
 extern int datum_new(data_array *data);
 extern void squad_reset_starting_locations(uint16_t encounter_index, int16_t squad_index);
 
-void __fastcall encounter_new(encounter_definition *encounter_definition, int16_t *squad_base, int16_t *platoon_base)
+void encounter_new(encounter_definition *encounter_definition, int16_t *squad_base, int16_t *platoon_base)
 {
     int encounter_index;
     int encounter_index_saved;

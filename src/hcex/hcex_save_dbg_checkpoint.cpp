@@ -4,7 +4,7 @@
 
 #include "../headers/hcex/hcex_dbgvar_boundary.h"   /* dbgVAR*, dbg_hcex_GenChptNamed, dsTSTRING_flat */
 
-extern void main_save_map_nonsafe(void);
+extern "C" void main_save_map_nonsafe(void);
 
 extern "C" void hcex_save_dbg_checkpoint(const char *name)
 {

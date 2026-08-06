@@ -3,7 +3,7 @@
 #include "ds_assert_boundary.h"
 
 // boundary — debug allocator: dlMalloc(size, callsite_file, callsite_line).
-extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
+extern "C" void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 
 // dsPOOL<dsEVENT_MGR::PENDING_ITEM,256,64>::AllocChunk @ 0x82613B90
 // Allocate a fresh chunk of 256 PENDING_ITEMs and thread every slot onto the free list. While

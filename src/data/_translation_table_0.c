@@ -1,5 +1,23 @@
-/* .data init @0x84186EA0 (__int16[108]; consumers use unsigned __int16).
- * Behavior-index translation table; 0xFFFF = unused slot. */
+/* _translation_table_0 @ 0x84186EA0 (.data, 216 bytes)
+ * DB applied_types: __int16 translation_table_0[108];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000: 0025 002C 002A 0028 002E FFFF FFFF FFFF
+ *   +0x0010: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0020: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0030: 0027 002D 002B 0029 002F 0026 FFFF FFFF
+ *   +0x0040: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0050: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0060: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0070: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0080: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0090: 0025 002C 002A 0028 002E FFFF FFFF FFFF
+ *   +0x00A0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x00B0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x00C0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x00D0: FFFF FFFF FFFF FFFF
+ * .data init @0x84186EA0 (__int16[108]; consumers use unsigned __int16).
+ * Behavior-index translation table; 0xFFFF = unused slot.
+ */
 #include <stdint.h>
 const uint16_t _translation_table_0[108] =
 {

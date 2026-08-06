@@ -1,4 +1,10 @@
-/* rasterizer_vertex_type_sizes @0x82128514 — .rdata byte size of one vertex per
+/* rasterizer_vertex_type_sizes @ 0x82128514 (.rdata, 38 bytes)
+ * DB applied_types: const __int16 rasterizer_vertex_type_sizes[19];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0038 0020 0014 0008 0044 0020 0018 0024
+ *   +0x0010: 0018 0010 0010 0014 0020 0008 0020 0020
+ *   +0x0020: 0024 001C 0000
+ * .rdata byte size of one vertex per
  * rasterizer_vertex_type.
  * Element width: `slwi r9, r11, 1` + `lhzx r7, r9, r8` + `extsh r3, r7` at
  * 0x837E83F8/0x837E8400/0x837E8404 (rasterizer_geometry_get_vertex_size) — a 16-bit element with
@@ -9,8 +15,14 @@
  * vertex type (no vertex type index above 17 exists), so they are not emitted.
  * Cross-check on the values: 56 = pos12+norm12+binorm12+tan12+uv8 (environment uncompressed) and
  * 68 = that plus the model node indices/weights (model uncompressed).
+ *
+ * Element-count adjudication (2026-08-06): the three oracles disagree and only one of them is
+ * semantic. DB applied_types says [19]; the distance to the next .rdata name (__real@447fe000
+ * @0x8212853C) says 20 halfwords; the DB enum _CF57790460AB4D75BF9117BCF4018910 says
+ * NUMBER_OF_RASTERIZER_VERTEX_TYPES = 18. The two image-derived numbers are upper bounds that
+ * absorb the 4-byte alignment gap, and they do not even agree with each other; the enum is the
+ * count the code indexes by. Trusted the enum: 18 elements, and halfwords 18..19 verified zero.
  */
-
 #include <stdint.h>
 #include "rasterizer_vertex_type.h"
 

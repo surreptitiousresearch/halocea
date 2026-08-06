@@ -1,5 +1,18 @@
-/* metrics_globals (0x84186030, 336 bytes). All bytes zero except output_widths.widths[0..7].
- * widths = {6,8,8,6,6,8,7,10}; remaining widths members and all other fields are zero. */
+/* metrics_globals @ 0x84186030 (.data, 336 bytes)
+ * DB applied_types: metrics_globals metrics_globals;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 widths                     = 0x000000060000000800000008000000060000000600000008000000070000000A0000000000000000000000000000000000000000
+ *   +0x34 message_definition_packed_bit_size = 0x00000000
+ *   +0x38 write_message_log          = 0x00
+ *   +0x39 auto_write_metrics_files   = 0x00
+ *   +0x3C metrics                    = 0x00000000
+ *   +0x40 traffic_log_file           = 0x00000000
+ *   +0x44 traffic_data               = 0x00000000
+ *   +0x48 first_message_time         = 0x00000000
+ *   +0x4C metrics_timestamp          = 0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ * metrics_globals (0x84186030, 336 bytes). All bytes zero except output_widths.widths[0..7].
+ * widths = {6,8,8,6,6,8,7,10}; remaining widths members and all other fields are zero.
+ */
 #include "headers/metrics_globals.h"
 struct metrics_globals metrics_globals = {
     { 6, 8, 8, 6, 6, 8, 7, 10 }, /* widths (output_widths) */

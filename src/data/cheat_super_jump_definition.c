@@ -1,5 +1,13 @@
-/* cheat_super_jump_definition @ 0x84180C90 -- second-order .data; hs_global_external (16B, big-endian) reconstructed
- * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified. */
+/* cheat_super_jump_definition @ 0x84180C90 (.data, 16 bytes)
+ * DB applied_types: hs_global_external cheat_super_jump_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 name                       = 0x8211EF4C -> "cheat_super_jump"
+ *   +0x04 type                       = 0x0005
+ *   +0x08 pointer                    = 0x8477BE24 -> "" (empty string at target)
+ *   +0x0C console_flags              = 0x00
+ * second-order .data; hs_global_external (16B, big-endian) reconstructed
+ * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified.
+ */
 #include "../headers/hs_global_external.h"
 #include "../headers/hs_type.h"
 
@@ -8,9 +16,9 @@ extern cheat_globals cheat;
 
 hs_global_external cheat_super_jump_definition =
 {
-    "cheat_super_jump",
-    hs_type_boolean,
-    { 0, 0 },
-    (char *)&cheat + 4,
-    0
+    "cheat_super_jump",  /* name */
+    hs_type_boolean,     /* type */
+    { 0, 0 },            /* _pad06.._pad07 */
+    (char *)&cheat + 4,  /* pointer */
+    0,                   /* console_flags */
 };

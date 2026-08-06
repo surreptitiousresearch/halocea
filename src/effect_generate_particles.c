@@ -210,7 +210,7 @@ void effect_generate_particles(effect_datum *effect)
                 }
                 else
                 {
-                    void (__fastcall *translational)(real_vector3d *, const real_point3d *, void *) = effect->impulse_field.translational;
+                    void (*translational)(real_vector3d *, const real_point3d *, void *) = effect->impulse_field.translational;
                     if ( translational )
                         translational(&particle.initial_impulse, &position, effect->impulse_field.identifier);
                     else

@@ -10,4 +10,12 @@ typedef struct pc_texture_cache_globals_struct
     lruv_cache *cache;    // 0x04
 } pc_texture_cache_globals_struct;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern pc_texture_cache_globals_struct pc_texture_cache_globals;
+
+#ifdef __cplusplus
+}
+#endif

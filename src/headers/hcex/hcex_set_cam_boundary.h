@@ -33,16 +33,16 @@ typedef struct dbgVAR_TRIGGER
 #include "hcex_dbgvar_boundary.h"
 
 /* --- globals --- */
-extern dbgVAR_TRIGGER dbg_hcex_DumpModels;
-extern dbgVAR_float   dbg_hcex_CustomFov;
-extern unsigned char  dumpModels;
+extern "C" dbgVAR_TRIGGER dbg_hcex_DumpModels;
+extern "C" dbgVAR_float   dbg_hcex_CustomFov;
+extern "C" unsigned char  dumpModels;
 extern unsigned char  hcex_off_cam;
-extern int            halo_cam_sync_back;
-extern hcex_float3    halo_cam_pos;
-extern hcex_float3    halo_cam_up;
-extern hcex_float3    halo_cam_forv;
+extern "C" int            halo_cam_sync_back;
+extern "C" hcex_float3    halo_cam_pos;
+extern "C" hcex_float3    halo_cam_up;
+extern "C" hcex_float3    halo_cam_forv;
 extern const m3dV     hcexWorldOffset;
-extern float          offsetZ;
+extern "C" float          offsetZ;
 extern gsANITEC_SYS  *gsSysAnitec;
 
 /* --- ws math / camera / anitec methods (boundary) --- */
@@ -57,5 +57,5 @@ extern void camCAMERA_SetParameters(camCAMERA *self, const m3dV *org, const m3dV
 extern void camCAMERA_SetAngleHor(camCAMERA *self, float angleHor);
 
 /* --- hcex bridge helpers --- */
-extern void hcex_dump_all_models(void);
+extern "C" void hcex_dump_all_models(void);
 extern void hcex_cine_set_cam(camCAMERA *camera);

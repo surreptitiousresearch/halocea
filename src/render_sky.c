@@ -14,17 +14,17 @@
  * DEVIATION: multiple LODWORD/HIDWORD-style decompiler artifacts here are confirmed via disasm to be genuine,
  * if bizarre, original-binary behavior rather than decompiler noise — reproduced faithfully rather than
  * "fixed":
- *   - The tail lighting-fill (`v34`/`v35`/`v36`/`v37`) reads global_real_rgb_white->g and ->b correctly, but
- *     the third value (decompiler's `v36`, cast from `LODWORD(v34->n[0])`) is actually loaded from 12 bytes
- *     past global_real_rgb_white's base — i.e. NOT white.r, but whatever float sits immediately after the
- *     12-byte real_rgb_color in memory (the alpha field of the next entry in the shared, unnamed
- *     real_argb_color constants table `global_real_rgb_white` is known to point into). That stray value is
- *     stored into render_lighting.distant_lights[0].direction.n[1] AND — reproduced exactly as disasm shows,
- *     with no further register write in between — passed as render_model's node_matrices argument (3rd
- *     parameter), while the REAL computed skinned matrices buffer is passed one slot later, as
- *     region_permutation_indices (4th parameter, `const char *`). This looks like a genuine argument-order
- *     bug in the original compiled code, not a reconstruction error; both call-argument slots and the stray
- *     table read are reproduced verbatim.
+ *   - The tail lighting-fill loads global_real_rgb_white's three components at displacements 0/+4/+8 off the
+ *     loaded pointer — lwz r4/r3/r11 @0x837EBD64/0x837EBD5C/0x837EBD6C with r11 = 0x82113F0C — i.e. plain
+ *     white.red / .green / .blue, stored to direction.n[1], direction.n[2] and distant_lights[1].color.n[0].
+ *     CORRECTED 2026-08-06: this note previously claimed the first of the three was read 12 bytes PAST
+ *     white's base (the next table entry's alpha), and the source carried that phantom out-of-bounds read.
+ *     It is not one. IDA renders that load symbolically as `(private_real_argb_colors+4 - 0x82113F0C)(r11)`,
+ *     whose value is displacement ZERO; the `+0xC` token on the neighbouring load is relative to the TABLE
+ *     base, not to r11. No load in this function reaches outside private_real_argb_colors[0].
+ *     What IS an original-binary oddity is the call: r4 still holds white.red's bit pattern at
+ *     `bl render_model` @0x837EBD88, so it lands in the node_matrices slot (3rd parameter) while the REAL
+ *     skinned-matrices buffer is passed one slot later. Both call-argument slots are reproduced verbatim.
  *   - The `v45` lighting-environment zero-fill (`v31 += 2; *(_QWORD*)v31 = 0;` x14) is reproduced as the raw
  *     pointer loop rather than converted to memset, since it demonstrably clears past render_lighting's
  *     documented 116-byte layout into adjacent stack space; a raw loop guarantees the same byte range
@@ -224,23 +224,23 @@ void render_sky(void)
         }
     }
 
-    /* DEVIATION (see file header): `stray_table_value` is NOT global_real_rgb_white->r — disasm shows it is
-     * read 12 bytes past global_real_rgb_white's base, i.e. from the entry immediately following "white" in
-     * the shared color-constants table. It is stored into the lighting environment AND, unmodified, passed
-     * as render_model's node_matrices argument below — both reproduced verbatim. */
-    const unsigned int *stray_table_ptr = (const unsigned int *)((const char *)global_real_rgb_white + 12);
-    unsigned int stray_table_value = *stray_table_ptr;
+    /* DEVIATION (see file header): this word IS global_real_rgb_white->red, read at displacement ZERO
+     * (lwz r4, (private_real_argb_colors+4 - 0x82113F0C)(r11) @0x837EBD64, with r11 = 0x82113F0C). It is
+     * kept as a raw word only because the same register is still live at `bl render_model` @0x837EBD88 and
+     * therefore lands in the node_matrices slot as a float bit pattern — that call-argument oddity is the
+     * binary's, and is reproduced verbatim. */
+    unsigned int white_r_bits = *(const unsigned int *)&global_real_rgb_white->__s1.red;
     float white_g = global_real_rgb_white->__s1.green;
     float white_b = global_real_rgb_white->__s1.blue;
 
-    *(unsigned int *)&lighting.distant_lights[0].direction.n[1] = stray_table_value;
+    *(unsigned int *)&lighting.distant_lights[0].direction.n[1] = white_r_bits;
     lighting.distant_lights[0].direction.n[2] = white_g;
     lighting.distant_lights[1].color.n[0] = white_b;
 
     /* trailing stack args: disasm confirms forced_shader_permutation_index is the constant-0 register (r23,
      * live as 0 for the whole function) and flags is a separately-set constant 1 (r28, set once earlier and
      * unchanged); unique_identifier shares the same constant-0 register as the shader permutation index. */
-    render_model(active_sky->model.index, 0.0f, (const real_matrix4x3 *)stray_table_value,
+    render_model(active_sky->model.index, 0.0f, (const real_matrix4x3 *)white_r_bits,
                 (const char *)node_matrices, 0, 0, &lighting,
                 (const real_point3d *)&lighting.distant_lights[0].direction, 0.0f,
                 (const render_model_effect *)&render.camera, 0, 0, 1u);

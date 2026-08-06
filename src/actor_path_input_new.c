@@ -5,12 +5,12 @@
  * actor's last-known pathfinding position.
  *
  * DEVIATION: disasm_range(0x837C87C8, 0x837C8880) resolves two decompiler ambiguities: (1) the decompile's
- * `path_input_new(input, v4, v6, byte@actor+886)` call has an unassigned "v6" — disasm shows the real 3rd
+ * path_input_new call passes an unassigned local as its 3rd argument — disasm shows the real 3rd
  * argument (r5) is the byte at actor+886 and the real 4th argument (r6) is actor->input.vehicle_index, the
  * reverse of the decompile's textual order (r4 is a dead shadow GPR for the float radius argument, which
- * shifts the following GPR-argument numbering); (2) `(const real_point3d *)v3 + 30` is confirmed to mean
- * actor+0x168 (cast-then-scale, not a raw byte offset), matching actor_input_data.pathfinding_point
- * exactly. The byte at actor+886 is actor_datum's emotions.ignorant_of_broken_surfaces. */
+ * shifts the following GPR-argument numbering); (2) the decompile's `(const real_point3d *)actor + 30`
+ * start-point argument is confirmed to mean actor+0x168 (cast-then-scale, not a raw byte offset), matching
+ * actor_input_data.pathfinding_point exactly. actor+886 is emotions.ignorant_of_broken_surfaces. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

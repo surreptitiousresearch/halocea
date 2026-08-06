@@ -8,7 +8,7 @@
 
 #include "headers/message_definition.h"
 
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 extern void message_definition_initialize(_message_definition *const message_definition);
 
 void initialize_messages(void)

@@ -85,7 +85,7 @@ void actor_combat_update(int actor_index)
     weapon_definition *weapon_definition_ = actor_get_weapon_definition(actor_index);
     int  burst_state = -1;
     uint8_t oversteer_unaligned = 0;
-    uint8_t special_eval = 0;   /* decompiler v95: set when the special-fire branch ran (final_state != 4) */
+    uint8_t special_eval = 0;   /* set when the special-fire branch ran (final_state != 4) */
     int  weapon = actor_get_weapon(actor_index);
 
     /* age the combat timers */
@@ -517,7 +517,7 @@ aim_solve:
         weapon_aim(weapon, actor->control.fire_burst_secondary != 0, &origin, &actor->control.burst_target,
                    actor->control.current_fire_target_superballistic,
                    &actor->control.burst_aim_vector, NULL, NULL, NULL);
-        actor->control.burst_aim_by_vector = (special_eval == 0);   /* decompiler (cntlzw(v95) & 0x20) != 0  <=>  v95 == 0 */
+        actor->control.burst_aim_by_vector = (special_eval == 0);   /* decompiler `(cntlzw(x) & 0x20) != 0` is the "x == 0" idiom */
 
         real_vector3d to_origin;
         to_origin.n[0] = *aim_smoothed - origin.n[0];

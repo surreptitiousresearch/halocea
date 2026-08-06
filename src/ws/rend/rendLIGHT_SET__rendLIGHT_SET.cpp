@@ -7,7 +7,7 @@
 extern const m3dV m3dVUndef;
 
 // rendLightSetsList — the single global registry of live light sets (rendLIGHT_SET_LIST).
-extern rendLIGHT_SET_LIST rendLightSetsList;
+extern "C" rendLIGHT_SET_LIST rendLightSetsList;
 
 // rendLIGHT_SET::rendLIGHT_SET(animINST*, objOBJ*) @ 0x82ABDC70
 //

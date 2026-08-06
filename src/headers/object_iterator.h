@@ -15,5 +15,11 @@ typedef struct object_iterator
 
 struct object_datum;
 /* Blam object-table iteration (boundary; unmangled C exports). */
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void object_iterator_new(object_iterator *iterator, uint32_t type_flags, uint8_t flags);
 extern void *object_iterator_next(object_iterator *iterator); /* DB prototype returns void*; callers cast to the concrete *_datum */
+#ifdef __cplusplus
+}
+#endif

@@ -5,11 +5,11 @@
 #include "../headers/real_point3d.h"
 #include "../headers/hcex/hcex_float3.h"
 
-extern char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int16_t tag_index);
 /* hcex render-bridge primitives — boundary into the ws-engine decal/scorch system, not reversed here. */
-extern void hcex_pix_begin_event(const char *name);
-extern void hcex_pix_end_event(void);
-extern void hcex_create_decal(const char *decal_name, const hcex_float3 *position);
+extern "C" void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10) */
+extern "C" void hcex_pix_end_event(void);
+extern "C" void hcex_create_decal(const char *decal_name, const hcex_float3 *position);
 
 extern "C" void hcex_init_decal(int decal_definition_index, const real_point3d *point)
 {

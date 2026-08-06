@@ -13,4 +13,12 @@ typedef struct leaf_map_globals_s
                                         hs_compile_globals.__noop (see hs_compile_globals.h) */
 } leaf_map_globals_s;                /* 0x408 = 1032 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern leaf_map_globals_s leaf_map_globals;
+
+#ifdef __cplusplus
+}
+#endif

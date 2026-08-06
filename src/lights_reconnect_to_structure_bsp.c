@@ -37,7 +37,7 @@ extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_ind
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
-extern float __fsqrts(double value);
+extern float __fsqrts(float value);
 extern double __fabs(double value);
 extern void light_compute_bounding_sphere(uint16_t light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
 extern void scenario_location_from_point(location *location, const real_point3d *point);

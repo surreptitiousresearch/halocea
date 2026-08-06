@@ -10,4 +10,12 @@
 
 typedef data_array game_looping_sound_data_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern data_array *game_looping_sound_data;
+
+#ifdef __cplusplus
+}
+#endif

@@ -11,4 +11,4 @@ typedef struct apLOG {
 
 // ?_apLogList / the fixed slot table. The scan bound in apForceLogV is the address of the
 // adjacent global `gs_prefix`; the code treats slot index 250 as the "not found" sentinel.
-extern apLOG _apLogList[250];
+extern "C" apLOG _apLogList[250];

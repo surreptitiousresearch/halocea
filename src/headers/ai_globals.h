@@ -38,4 +38,12 @@ typedef struct ai_globals_t
     int             mounted_weapon_unit_indices[8]; /* 0x8BC */
 } ai_globals_t;                                     /* 2268 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern ai_globals_t *ai_globals;
+
+#ifdef __cplusplus
+}
+#endif

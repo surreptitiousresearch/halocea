@@ -20,11 +20,11 @@ extern int             osWaitForFirstOfMultipleSignals(int count, osHANDLE_DUMMY
 extern int              osLockedAdd(int *pVar, int addend);                              // real body: src/ws/os/osLockedAdd.cpp
 extern void             osPIXBeginEvent(const char *name);                                // real body: src/ws/os/osPIXBeginEvent.cpp
 extern void             osPIXEndEvent(void);                                              // real body: src/ws/os/osPIXEndEvent.cpp
-extern int sprintf_0(char *string, const char *format, ...);                       // real body: src/sprintf_0.c
+extern "C" int sprintf_0(char *string, const char *format, ...);                   // real body: src/sprintf_0.c
 
 extern HCEX_OBJ *hcex_obj_get_by_idx(int idx);         // real body: src/hcex/hcex_obj_get_by_idx.c
 extern void       hcex_obj_sync(HCEX_OBJ *pObj);        // boundary -- not part of this batch
-extern void       hcex_pix_marker(const char *fmt, ...); // real body: src/hcex/hcex_pix_marker.c
+extern "C" void       hcex_pix_marker(const char *fmt, ...); // real body: src/hcex/hcex_pix_marker.c
 
 extern bool rendIsCullAndValidateInstNeeded(animINST *pInst);                                  // boundary
 extern void rendCullAndValidateInst(const rendCAM_LIST *camList, unsigned int curFrameNmb,

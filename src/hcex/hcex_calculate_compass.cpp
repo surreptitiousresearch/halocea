@@ -12,10 +12,10 @@
 #include "../headers/scenario.h"
 #include "../headers/math_constants.h"
 
-extern scenario *global_scenario;
+extern "C" scenario *global_scenario;
 
-extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
-extern double atan2(double y, double x);
+extern "C" real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
+extern "C" double atan2(double y, double x);
 
 /* Cached needle position, retained when the heading can't be measured (object pointing up/down). */
 static float magnitude;

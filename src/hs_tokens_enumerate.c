@@ -20,7 +20,7 @@ extern const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal 
 extern int16_t hs_console_flags_to_test;          /* console-flags-to-test */
 extern void (*hs_token_enumerators[NUMBER_OF_HS_TOKEN_TYPES])(void);
 extern int alphabetize(const char **string1, const char **string2);
-extern void qsort(void *base, unsigned int count, unsigned int size, int (__fastcall *compare)(const void *, const void *));
+extern void qsort(void *base, unsigned int count, unsigned int size, int (*compare)(const void *, const void *));
 
 int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **results, int16_t maximum_count, uint16_t console_flags_to_test)
 {
@@ -36,7 +36,7 @@ int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **
             hs_token_enumerators[kind]();
     }
 
-    qsort(results, hs_tokens_enumerate_result_count, 4u, (int (__fastcall *)(const void *, const void *))alphabetize);
+    qsort(results, hs_tokens_enumerate_result_count, 4u, (int (*)(const void *, const void *))alphabetize);
     hs_tokens_enumerate_results = 0;  /* NULL out the enumeration-state pointer */
     return hs_tokens_enumerate_result_count; /* attest: lhz load; callers extsh -> int16_t */
 }

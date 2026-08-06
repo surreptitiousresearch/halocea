@@ -6,7 +6,7 @@
 
 // wb-subsystem debug toggle gating the "remove objects not touched by the new preset" pass
 // (?dbg_del@@3Udbg_del@@... aliased through dbgVAR_SIMPLE<bool,1>). boundary global.
-extern dbgVAR_SIMPLE<bool, 1> dbg_del;
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_del;
 
 // instCONSTRUCTOR_MNG::Construct(const dsTSTRING<char>&, animINST*, bool) — 0x826E3FD0
 //

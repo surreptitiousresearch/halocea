@@ -32,5 +32,8 @@ extern const m3dV m3dVZero;
 // Engine log sink used by ValidateHidden diagnostics.  boundary.
 void _apLog(const char *fmt, ...); // boundary
 
-// os atomic store (?osLockedSet@@YAXPAHH@Z).  boundary.
-void osLockedSet(volatile int *pValue, int newValue); // boundary
+// os atomic exchange (?osLockedSet@@YAHPAHH@Z) — returns the PREVIOUS value. boundary.
+// DEVIATION: was declared `void`, citing `?osLockedSet@@YAXPAHH@Z`. That mangling does not exist
+// in the binary; `YAH` is an int return, and src/ws/os/osLockedSet.cpp defines it as int.
+// DEVIATION: `volatile int *` mangles to PCH; the binary's PAH is a plain `int *`.
+int osLockedSet(int *pValue, int newValue); // boundary

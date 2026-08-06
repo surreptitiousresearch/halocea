@@ -1,10 +1,18 @@
 /* ai_scripting_vehicle_encounter @0x83772098 — assign a vehicle to an encounter+squad, so AI riding it are
  * counted in that encounter. Resolves the AI index (whole encounter / platoon / squad scope) to an
  * encounter+squad, re-homes any actor already riding the vehicle from the vehicle's previously-assigned
- * encounter, and records the new encounter+squad on the vehicle object (+0x334 / +0x336).
+ * encounter, and records the new encounter+squad on the vehicle object
+ * (_unit_datum.fake_encounter_index / fake_squad_index, unit_datum +0x334 / +0x336).
  *
  * DEVIATION: the decompiler renders the platoon-squad lookup result with a saturating 64-bit expression;
- * reconstructed as a plain "first squad matching the platoon, else squad 0" search. */
+ * reconstructed as a plain "first squad matching the platoon, else squad 0" search.
+ *
+ * DEVIATION: the ai_index unpack was `(ai_index >> 8) & 0xFF` — Hex-Rays' BYTE1 expanded with the
+ * little-endian value form. Disasm 0x83772130 is `extrwi r10, r4, 8, 8` (rlwinm SH=16 MB=24 ME=31), i.e.
+ * (x >> 16) & 0xFF. Now spelled AI_INDEX_SUB_INDEX (headers/ai_index.h).
+ *
+ * DEVIATION (signature): the DB prototype says `int ai_index`; disasm 0x83772110 shifts it with `srwi`
+ * (logical), so the parameter is unsigned — the corpus spelling is kept. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -15,6 +23,7 @@
 #include "headers/actor_datum.h"
 #include "headers/encounter_actor_iterator.h"
 #include "headers/unit_datum.h"
+#include "headers/ai_index.h"
 #include "headers/blam_data_globals.h"
 
 extern void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index);
@@ -28,33 +37,36 @@ void ai_scripting_vehicle_encounter(int unit_index, unsigned int ai_index)
     int16_t target_squad = -1;
     unit_datum *vehicle_object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
-    if ( ai_index != -1 && (int16_t)ai_index >= 0 && (int16_t)ai_index < global_scenario->ai_encounters.count )
+    if ( ai_index != -1 && AI_INDEX_ENCOUNTER_SIGNED(ai_index) >= 0
+         && AI_INDEX_ENCOUNTER_SIGNED(ai_index) < global_scenario->ai_encounters.count )
     {
         encounter_definition *encounter_def = &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)ai_index];
         int16_t squad = 0;
-        if ( ai_index >> 30 == 1 )
+        if ( AI_INDEX_SCOPE(ai_index) == _ai_index_platoon )
         {
-            /* Platoon-scoped: first squad whose platoon (squad def +0x22) matches byte 1, else squad 0. */
+            /* Platoon-scoped: first squad whose squad_definition.platoon_index matches the packed
+             * platoon byte, else squad 0. */
             int squad_count = encounter_def->squads.count;
-            int found = 0;
+            int16_t squad_search_index = 0;
             if ( squad_count > 0 )
             {
-                for ( found = 0; found < squad_count; found = (int16_t)(found + 1) )
+                for ( squad_search_index = 0; squad_search_index < squad_count; ++squad_search_index )
                 {
-                    if ( ((squad_definition *)encounter_def->squads.address)[found].platoon_index == ((ai_index >> 8) & 0xFF) )
+                    if ( ((squad_definition *)encounter_def->squads.address)[squad_search_index].platoon_index
+                         == AI_INDEX_SUB_INDEX(ai_index) )
                         break;
                 }
             }
-            squad = (int16_t)found < squad_count ? (int16_t)found : 0;
+            squad = squad_search_index < squad_count ? squad_search_index : 0;
         }
-        else if ( ai_index >> 30 == 2 )
+        else if ( AI_INDEX_SCOPE(ai_index) == _ai_index_squad )
         {
-            squad = (ai_index >> 8) & 0xFF;
+            squad = AI_INDEX_SUB_INDEX(ai_index);
         }
 
         if ( squad >= 0 && squad < encounter_def->squads.count )
         {
-            target_encounter = ai_index;
+            target_encounter = AI_INDEX_ENCOUNTER_SIGNED(ai_index);
             target_squad = squad;
         }
     }

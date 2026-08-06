@@ -16,4 +16,12 @@ typedef struct find_files_globals
     WIN32_FIND_DATAA data;           /* 0x128 — WIN32_FIND_DATAA */
 } find_files_globals_t;              /* 616 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern find_files_globals_t find_files_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -8,7 +8,7 @@
 
 #include <string.h>
 
-extern char *hcex_conv_mdl_name(const char *mdl_name, char *out, int max_len);
+extern "C" char *hcex_conv_mdl_name(const char *mdl_name, char *out, int max_len);
 
 extern "C" int hcex_cmp_mdl_names(const char *n1, const char *n2)
 {

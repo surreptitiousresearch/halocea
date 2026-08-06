@@ -47,27 +47,27 @@
 #include <new>
 
 /* --- HCEX bridge helpers already reversed elsewhere in src/hcex --- */
-extern char *hcex_model_name(int modelId);                                   /* tag path for a model tag */
-extern char *hcex_conv_mdl_name(const char *mdl_name, char *out, int max_len);
-extern char *hcex_obj_definition_name(int object_index);
-extern const char *hcex_obj_prefix(int id);
-extern char *hcex_conv_cls_name(const char *name, const char *name_prefix, char *out, int max_len);
-extern char *hcex_conv_name(char *name, int max_len);
-extern int   hcex_obj_scenery_idx_type(int id, int *obj_idx, int *obj_type);
-extern int   hcex_get_obj_color(int id);
-extern int   hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr);
+extern "C" char *hcex_model_name(int modelId);                                   /* tag path for a model tag */
+extern "C" char *hcex_conv_mdl_name(const char *mdl_name, char *out, int max_len);
+extern "C" char *hcex_obj_definition_name(int object_index);
+extern "C" const char *hcex_obj_prefix(int id);
+extern "C" char *hcex_conv_cls_name(const char *name, const char *name_prefix, char *out, int max_len);
+extern "C" char *hcex_conv_name(char *name, int max_len);
+extern "C" int   hcex_obj_scenery_idx_type(int id, int *obj_idx, int *obj_type);
+extern "C" int   hcex_get_obj_color(int id);
+extern "C" int   hcex_get_obj_matr(int objId, hcex_matr4x3 *obj_matr);
 extern void  hcex_make_inst_matr(const hcex_matr4x3 *in, m3dMATR *out);
-extern void  hcex_enum_model_nodes(int model_index, void (*cb)(void *mdl, const char *node), void *mdl);
-extern void  hcex_enum_model_regions(int model_index, void (*cb)(void *mdl, const char *region), void *mdl);
-extern void  hcex_enum_model_perm(int model_index, int region_index,
+extern "C" void  hcex_enum_model_nodes(int model_index, void (*cb)(void *mdl, const char *node), void *mdl);
+extern "C" void  hcex_enum_model_regions(int model_index, void (*cb)(void *mdl, const char *region), void *mdl);
+extern "C" void  hcex_enum_model_perm(int model_index, int region_index,
                  void (*cb)(void *mdl, int region_index, const char *permutation), void *mdl);
-extern void  hcex_add_model_node(char *mdl, const char *node_name);
+extern "C" void  hcex_add_model_node(char *mdl, const char *node_name);
 extern void  hcex_add_model_reg(void *mdl, const char *reg_name);
 extern void  hcex_add_model_perm(char *mdl, int idx, const char *perm_name);
 
 /* --- Blam-side lookups --- */
-extern int player_index_from_unit_index(int unit_index);
-extern int  hcex_spawning_player;
+extern "C" int player_index_from_unit_index(int unit_index);
+extern "C" int  hcex_spawning_player;
 
 /* --- globals this function reads/writes --- */
 extern scnSCENE                                      *gsScenePtr;
@@ -117,7 +117,7 @@ extern "C" void dlFree(void *ptr);
 
 /* dbgVAR_bool (DB-verified, 16 bytes: base dbgVAR@0 + value/prevValue/defaultValue @0xC/D/E). */
 struct dbgVAR_bool_min { unsigned char _base[12]; unsigned char value; };
-extern dbgVAR_bool_min dbg_hcexDumpUsedClsOn;
+extern "C" dbgVAR_bool_min dbg_hcexDumpUsedClsOn;
 
 extern dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...);
 

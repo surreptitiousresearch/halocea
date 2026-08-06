@@ -23,31 +23,31 @@
 #include "../headers/hcex/hcex_dbgvar_boundary.h"   /* dbgVAR_bool (reused for dbg_skull01..15) */
 
 extern int hcex_get_skull_state(int skull_index, bool dbg_var);
-extern void hcex_set_explode_grunts(int val);
+extern "C" void hcex_set_explode_grunts(int val);
 
 extern int hcex_gold_skulls_count;
 extern int hcex_silver_skulls_count;
-extern int hcex_reset_single_on_die;
-extern int hcex_disable_motion_sensor;
-extern int hcex_mythic_skull;
-extern int hcex_ai_drop_wpn_half_ammo;
-extern int hcex_allow_covenant_weapon;
-extern unsigned char player_magnetism_flag;
-extern int hcex_off_aim_projectile;
-extern int hcex_2x_rounds_per_shot;
-extern int hcex_malfunction_skull;
-extern int hcex_off_hud_element;
-extern int hcex_recharge_on_melee;
+extern "C" int hcex_reset_single_on_die;
+extern "C" int hcex_disable_motion_sensor;
+extern "C" int hcex_mythic_skull;
+extern "C" int hcex_ai_drop_wpn_half_ammo;
+extern "C" int hcex_allow_covenant_weapon;
+extern "C" unsigned char player_magnetism_flag;
+extern "C" int hcex_off_aim_projectile;
+extern "C" int hcex_2x_rounds_per_shot;
+extern "C" int hcex_malfunction_skull;
+extern "C" int hcex_off_hud_element;
+extern "C" int hcex_recharge_on_melee;
 extern int hcex_skull_GruntBirthdayParty;
-extern int hcex_unit_drop_grenade_on_melee;
-extern float hcex_aim_assist_coeff;
+extern "C" int hcex_unit_drop_grenade_on_melee;
+extern "C" float hcex_aim_assist_coeff;
 extern int hcex_mouth_skull;
 extern int hcex_infinite_ammo;
-extern int hcex_double_damage_radius;
+extern "C" int hcex_double_damage_radius;
 
-extern dbgVAR_bool dbg_skull01, dbg_skull02, dbg_skull03, dbg_skull04, dbg_skull05,
-                    dbg_skull06, dbg_skull07, dbg_skull08, dbg_skull09, dbg_skull10,
-                    dbg_skull11, dbg_skull12, dbg_skull13, dbg_skull14, dbg_skull15;
+extern "C" dbgVAR_bool dbg_skull01, dbg_skull02, dbg_skull03, dbg_skull04, dbg_skull05,
+                        dbg_skull06, dbg_skull07, dbg_skull08, dbg_skull09, dbg_skull10,
+                        dbg_skull11, dbg_skull12, dbg_skull13, dbg_skull14, dbg_skull15;
 
 void hcex_update_skulls(void)
 {

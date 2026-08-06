@@ -21,7 +21,7 @@
 #include "headers/scenario.h"
 
 extern void data_make_valid(data_array *data);
-extern short hs_external_global_count;
+extern const int16_t hs_external_global_count;
 
 #include "headers/hs_runtime_globals.h"
 #include "headers/hs_thread_type.h"

@@ -7,13 +7,19 @@
  * on this node. The "ancestor" node passed downward is either this node or the inherited ancestor depending on
  * that same face gate.
  *
- * BSP nodes are 3 ints {plane_index, back_child, front_child}; a negative child encodes a leaf as
- * (child & 0x7FFFFFFF), -1 meaning none. Leaves are 24 bytes {face_count, face_array_ptr, ...}; each face is
- * 16 bytes beginning with its node index. */
+ * BSP nodes are bsp3d_node {plane_index, child_indices[2]}; a negative child encodes a leaf as
+ * (child & 0x7FFFFFFF), -1 meaning none.
+ *
+ * DEVIATION: the decompiler's stack-entry node index `2*n + (n & 0x7FFFFFFF)` (int units) is exactly
+ * `3 * (n & 0x7FFFFFFF)` in 32-bit arithmetic, not 3*n — 2*n differs from 2*(n & 0x7FFFFFFF) only by
+ * 2*2^31 = 2^32, which wraps to 0. Node-stack entries carry the traversal side in bit 31, so the mask is
+ * load-bearing and the masked index is the correct one for all inputs (disasm 0x8381BF5C-BF68:
+ * clrlwi m, n, 1 / slwi 2n / add / slwi 2 = 12*m). */
 
 #include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/bsp3d.h"
+#include "headers/bsp3d_node.h"
 #include "headers/map_leaf.h"
 #include "headers/map_leaf_face.h"
 
@@ -21,8 +27,8 @@ extern void leaf_map_build_portal_from_leaves(leaf_map *leaf_map, int node_index
 
 void leaf_map_build_portals_from_leaf(leaf_map *leaf_map, int ancestor_node_index, int leaf_index, int node_index, int16_t stack_depth)
 {
-    int *nodes = (int *)leaf_map->bsp->nodes.address;
-    int *node = &nodes[3 * node_index];
+    const bsp3d_node *nodes = (const bsp3d_node *)leaf_map->bsp->nodes.address;
+    const bsp3d_node *node = &nodes[node_index];
 
     int expected_stack_node;
     if ( ancestor_node_index == -1 )
@@ -40,7 +46,7 @@ void leaf_map_build_portals_from_leaf(leaf_map *leaf_map, int ancestor_node_inde
         while ( 1 )
         {
             stacked_node = leaf_map_globals.node_stack[leaf_map_globals.node_stack_count - scan - 1];
-            if ( nodes[2 * stacked_node + (stacked_node & 0x7FFFFFFF)] == *node )
+            if ( nodes[stacked_node & 0x7FFFFFFF].plane_index == node->plane_index )
                 break;
             scan = (int16_t)(scan + 1);
             if ( scan >= leaf_map_globals.node_stack_count )
@@ -95,7 +101,7 @@ scanned:
         if ( process_children
           && (ancestor_node_index == -1 || !plane_on_stack || stacked_node_negative != i) )
         {
-            int child = node[i + 1];
+            int child = node->child_indices[i];
             int descend_ancestor = prefer_this_node ? node_index : ancestor_node_index;
             if ( child >= 0 )
                 leaf_map_build_portals_from_leaf(leaf_map, descend_ancestor, leaf_index, child, stack_depth - 1);

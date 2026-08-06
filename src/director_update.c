@@ -33,7 +33,7 @@ extern void scripted_camera_update(dead_camera *camera, const camera_control *co
 extern void first_person_camera_update(first_person_camera *camera, const camera_control *controls, observer_command *result);
 
 /* last camera proc that ran — typed as director.camera_proc so the store below needs no cast */
-void (__fastcall *g_LastCameraUpdateProc)(void *camera_data, const camera_control *controls, observer_command *result);
+void (*g_LastCameraUpdateProc)(void *camera_data, const camera_control *controls, observer_command *result);
 
 void director_update(float dt)
 {
@@ -48,7 +48,7 @@ void director_update(float dt)
         camera_control control;
         observer_command command_buffer;
         uint8_t updated;
-        void (__fastcall *camera_proc)(void *, const camera_control *, observer_command *);
+        void (*camera_proc)(void *, const camera_control *, observer_command *);
         observer_command *p_command;
 
         if ( player_index == -1 )

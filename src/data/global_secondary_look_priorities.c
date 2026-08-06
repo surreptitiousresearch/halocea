@@ -1,4 +1,11 @@
-/* global_secondary_look_priorities @ 0x82128C68 — .rdata, 56 bytes = 28 x int16_t (exact:
+/* global_secondary_look_priorities @ 0x82128C68 (.rdata, 56 bytes)
+ * DB applied_types: const __int16 global_secondary_look_priorities[28];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0001 0001 0002 0002 0002 0002 0003 0003
+ *   +0x0010: 0005 0003 0004 0004 0005 0004 0005 0004
+ *   +0x0020: 0004 0003 0005 0005 0006 0003 0006 0003
+ *   +0x0030: 0007 0005 0007 0002
+ * .rdata, 56 bytes = 28 x int16_t (exact:
  * NUMBER_OF_SECONDARY_LOOK_TYPES == 14 rows of 2). actor_look_secondary resolves an "auto"
  * (_secondary_look_priority_default) request with
  *   global_secondary_look_priorities[2 * type + (combat_status >= _actor_combat_status_certain)],
@@ -9,8 +16,8 @@
  *   [4]  0x0005 0x0003   [5]  0x0004 0x0004   [6]  0x0005 0x0004   [7]  0x0005 0x0004
  *   [8]  0x0004 0x0003   [9]  0x0005 0x0005   [10] 0x0006 0x0003   [11] 0x0006 0x0003
  *   [12] 0x0007 0x0005   [13] 0x0007 0x0002
+ * /
  */
-
 #include <stdint.h>
 #include "../headers/secondary_look_priority.h"
 

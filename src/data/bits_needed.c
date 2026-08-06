@@ -1,10 +1,55 @@
-/* bits_needed @0x82125110 (.rdata) - 2048 bytes: for every index 0..2047, the number of bits
+/* bits_needed @ 0x82125110 (.rdata, 2048 bytes)
+ * DB applied_types: const unsigned __int8 bits_needed[2048];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 01 01 02 02 03 03 03 03 04 04 04 04 04 04 04 04
+ *   +0x0010: 05 05 05 05 05 05 05 05 05 05 05 05 05 05 05 05
+ *   +0x0020: 06 06 06 06 06 06 06 06 06 06 06 06 06 06 06 06
+ *   +0x0030: 06 06 06 06 06 06 06 06 06 06 06 06 06 06 06 06
+ *   +0x0040: 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07
+ *   +0x0050: 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07
+ *   +0x0060: 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07
+ *   +0x0070: 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07 07
+ *   +0x0080: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x0090: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x00A0: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x00B0: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x00C0: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x00D0: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x00E0: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x00F0: 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+ *   +0x0100: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0110: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0120: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0130: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0140: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0150: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0160: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0170: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0180: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0190: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x01A0: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x01B0: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x01C0: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x01D0: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x01E0: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x01F0: 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09 09
+ *   +0x0200: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0210: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0220: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0230: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0240: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0250: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0260: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   +0x0270: 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A 0A
+ *   ... 1408 further bytes elided; full hex in .sweep/data_image.tsv
+ * 2048 bytes: for every index 0..2047, the number of bits
  * needed to represent that value (bits_needed[0] = 1; bits_needed[i] = floor(log2 i) + 1 for i > 0).
  * Every one of the 2048 bytes reproduced from the image and cross-checked against that rule.
  * DEVIATION: the element is one BYTE - bits_needed_for_value @0x837A0F68 reads it with
  * `lbzx r3, r10, r3` (unscaled index) and calculate_max_iterations_packed_bit_size @0x837A0F20 with
  * `lbz r3, -1(r9)` - while all seven consumer TUs declare `extern int bits_needed[]` /
- * `extern unsigned int bits_needed[]`, which is 4x too wide. Defined at the binary's width. */
+ * `extern unsigned int bits_needed[]`, which is 4x too wide. Defined at the binary's width.
+ */
 #include <stdint.h>
 
 const uint8_t bits_needed[2048] =

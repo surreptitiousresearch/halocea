@@ -11,7 +11,7 @@
  * discards the computed view-space vector here; reproduced faithfully rather than "fixed". */
 
 #include "headers/build_sprite_data.h"
-#include "headers/build_sprite_flags.h"
+#include "headers/build_sprites_flags.h"
 #include "headers/real_point2d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
@@ -28,7 +28,7 @@ void build_sprite_transform_origin_and_direction(const build_sprite_data *data, 
         const real_point3d *untransformed_origin, const real_vector3d *untransformed_direction,
         real_point3d *transformed_origin, real_vector3d *transformed_direction)
 {
-    if (data->flags & (1u << _build_sprite_viewer_space_bit))
+    if (data->flags & (1u << _build_sprites_screen_space_bit))
     {
         /* result is discarded — see DEVIATION note above */
         real_vector3d discarded_view_vector;

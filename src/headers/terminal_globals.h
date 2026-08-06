@@ -22,4 +22,12 @@ typedef struct terminal_globals_t
     int last_insertion_point_toggle;           /* 0x18 */
 } terminal_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern terminal_globals_t terminal_globals;
+
+#ifdef __cplusplus
+}
+#endif

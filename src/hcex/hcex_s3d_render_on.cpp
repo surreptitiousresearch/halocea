@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 extern int hcex_new_render_mode;
-extern uint8_t debug_no_drawing;
+extern "C" uint8_t debug_no_drawing;
 
 extern "C" void hcex_s3d_render_on(void)
 {

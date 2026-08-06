@@ -4,11 +4,11 @@
 
 #include "../headers/d3d_render_boundary.h"
 
-extern D3DVertexShader      *spHCEXLoadingScreenVS;
-extern D3DPixelShader       *spHCEXLoadingScreenPS;
+extern "C" D3DVertexShader      *spHCEXLoadingScreenVS;
+extern "C" D3DPixelShader       *spHCEXLoadingScreenPS;
 extern D3DVertexDeclaration *spHCEXLoadingScreenVertexDecl;
-extern D3DTexture           *spHCEXLoadingScreenBackgroundTex;
-extern D3DTexture           *spHCEXLoadingScreenMaskTex;
+extern "C" D3DTexture           *spHCEXLoadingScreenBackgroundTex;
+extern "C" D3DTexture           *spHCEXLoadingScreenMaskTex;
 
 void HCEXLoadingScreenDestroyResources(void)
 {

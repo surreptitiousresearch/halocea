@@ -1,6 +1,6 @@
 #include "dsSTRID_POOL.h"
 
-extern const char *dsStrIdOfEmptyId; // ds global — the interned id of the empty string
+extern "C" const char *dsStrIdOfEmptyId; // ds global — the interned id of the empty string
 
 // dsSTRID_POOL::GetIdByStr @ 0x8252A998
 // CAVEAT: the decompiler mismodeled the ABI. Verified against the prologue

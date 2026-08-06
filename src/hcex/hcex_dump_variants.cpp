@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include "../headers/tag_iterator.h"
 
-extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
-extern int tag_iterator_next(tag_iterator *iterator);
-extern char *tag_get_name(int16_t tag_index);
+extern "C" void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
+extern "C" int tag_iterator_next(tag_iterator *iterator);
+extern "C" char *tag_get_name(int16_t tag_index);
 
 extern "C" void hcex_dump_variants(void)
 {

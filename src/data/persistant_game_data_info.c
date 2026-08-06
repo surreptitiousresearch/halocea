@@ -1,4 +1,13 @@
-/* Storage definition for Blam data-segment global `persistant_game_data_info` (data-bss, zero-fill). */
+/* persistant_game_data_info @ 0x8441E710 (.data, 262 bytes)
+ * DB applied_types: _persistant_game_data_info persistant_game_data_info;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 map_name                   = 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0x100 difficulty                 = 0x0000
+ *   +0x102 map_index                  = 0x00
+ *   +0x103 valid                      = 0x00
+ *   +0x104 corrupted                  = 0x00
+ * Storage definition for Blam data-segment global `persistant_game_data_info` (data-bss, zero-fill).
+ */
 #include "persistant_game_data_info.h"
 
 _persistant_game_data_info persistant_game_data_info;

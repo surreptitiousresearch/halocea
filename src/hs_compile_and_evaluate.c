@@ -21,7 +21,6 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/data_array.h"
-extern char *strncpy(char *, const char *, uint64_t);
 extern int sprintf_0(char *string, const char *format, ...);
 extern void hs_compile_initialize(uint8_t permanent);
 extern int16_t hs_find_global_by_name(const char *name);

@@ -20,4 +20,12 @@ struct xbox_game_state_globals
     char core_path[256];               // 0x114
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct xbox_game_state_globals xbox_game_state_globals;
+
+#ifdef __cplusplus
+}
+#endif

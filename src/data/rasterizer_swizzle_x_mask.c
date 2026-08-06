@@ -1,5 +1,8 @@
-/* rasterizer_swizzle_x_mask @ 0x844A61B4 - .data zero-fill (IDA dword_844A61B4, no PDB name).
+/* rasterizer_swizzle_x_mask @ 0x844A61B4 (.data, 4 bytes)
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ * .data zero-fill (IDA dword_844A61B4, no PDB name).
  * The X bit-interleave mask, stored between the DB-named siblings az (0x844A61B0) and ay (0x844A61B8);
- * compute_swizzle_masks writes all three with `stw` (disasm 0x837E30C8 / 0x837E3124). */
-
+ * compute_swizzle_masks writes all three with `stw` (disasm 0x837E30C8 / 0x837E3124).
+ */
 unsigned int rasterizer_swizzle_x_mask;

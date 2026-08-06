@@ -28,15 +28,15 @@ extern void dbgVAR_MANAGER_SetDbgVar_tstring(dbgVAR_MANAGER *mgr, const dsTSTRIN
 extern const char *dbgVAR_STRING_CStr(const dbgVAR_STRING *self);
 
 /* HCEX debug-console string var holding the checkpoint base name. */
-extern dbgVAR_STRING dbg_hcex_ChptName;
+extern "C" dbgVAR_STRING dbg_hcex_ChptName;
 
 /* HCEX debug-console toggles (dbgVAR_SIMPLE<bool,1>). */
-extern dbgVAR_bool dbg_hcex_GenChptNamed;
-extern dbgVAR_bool dbg_hcex_DisableCine;
-extern dbgVAR_bool dbg_hcex_DumpCine;
-extern dbgVAR_bool dbg_hcex_CineMakeSave;
-extern dbgVAR_bool dbg_hcex_DumpCineExtras;   /* extra per-frame cine dump logs (camera time, sound) */
-extern dbgVAR_bool dbg_hcex_HideCineActors;   /* hide cinematic actors while their cine clip is active */
+extern "C" dbgVAR_bool dbg_hcex_GenChptNamed;
+extern "C" dbgVAR_bool dbg_hcex_DisableCine;
+extern "C" dbgVAR_bool dbg_hcex_DumpCine;
+extern "C" dbgVAR_bool dbg_hcex_CineMakeSave;
+extern "C" dbgVAR_bool dbg_hcex_DumpCineExtras;   /* extra per-frame cine dump logs (camera time, sound) */
+extern "C" dbgVAR_bool dbg_hcex_HideCineActors;   /* hide cinematic actors while their cine clip is active */
 
 /* HCEX debug-console float knob (dbgVAR_SIMPLE<float,3>). */
-extern dbgVAR_float dbg_hcex_inp_vibration_scale;
+extern "C" dbgVAR_float dbg_hcex_inp_vibration_scale;

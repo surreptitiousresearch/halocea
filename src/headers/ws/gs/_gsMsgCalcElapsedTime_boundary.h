@@ -33,15 +33,15 @@ extern unsigned int gsTime;                     // this frame's osGetTime() samp
 extern int64_t      gsPrevTimeLarge;            // previous frame's osGetPerfCounter() sample
 extern int          gsElapsedTimeModified;      // set when any override altered the raw dt
 
-extern dbgVAR_FLOAT  dbg_maxFpsVal;             // frame-rate cap (0 = uncapped)
-extern dbgVAR_FLOAT  dbg_fixedFpsVal;           // forced fixed frame rate
-extern dbgVAR_FLOAT  dbg_timeSpeed;             // global time-scale multiplier
-extern dbgVAR_BOOL_1 dbg_useNonUniformFps;      // debug: jitter alternate frames
-extern dbgVAR_BOOL_1 dbg_useFixedFps;           // debug: use dbg_fixedFpsVal
+extern "C" dbgVAR_FLOAT  dbg_maxFpsVal;             // frame-rate cap (0 = uncapped)
+extern "C" dbgVAR_FLOAT  dbg_fixedFpsVal;           // forced fixed frame rate
+extern "C" dbgVAR_FLOAT  dbg_timeSpeed;             // global time-scale multiplier
+extern "C" dbgVAR_BOOL_1 dbg_useNonUniformFps;      // debug: jitter alternate frames
+extern "C" dbgVAR_BOOL_1 dbg_useFixedFps;           // debug: use dbg_fixedFpsVal
 
 extern float gsElapsedTimeMin;                  // floor on dt (sleep up to it)
 extern float gsElapsedTimeMax;                  // ceiling on final dt
-extern int   frame;                             // running frame counter (non-uniform fps)
+extern "C" int   frame;                             // running frame counter (non-uniform fps)
 extern float _gsElapsedTimeRealUnclamped;       // raw measured dt before any clamp
 extern unsigned int gsAppState;                 // app state flags (0x100 == ?)
 

@@ -1,6 +1,6 @@
 #include "MSG_PROTOCOL.h"
 
-extern void dlFree(void *ptr); // boundary — debug heap allocator
+extern "C" void dlFree(void *ptr); // boundary — debug heap allocator
 
 namespace con {
 

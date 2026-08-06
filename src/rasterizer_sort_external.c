@@ -8,7 +8,7 @@
 
 
 extern int group_sorted_indices_cmpfn(const int16_t *group_index1, const int16_t *group_index2);
-extern void qsort(void *base, unsigned int count, unsigned int size, int (__fastcall *compare)(const void *, const void *));
+extern void qsort(void *base, unsigned int count, unsigned int size, int (*compare)(const void *, const void *));
 
 void rasterizer_sort_external(void)
 {
@@ -16,7 +16,7 @@ void rasterizer_sort_external(void)
         transparent_geometry_group_sorted_indices[i] = i;
 
     qsort(transparent_geometry_group_sorted_indices, transparent_geometry_group_count, 2u,
-        (int (__fastcall *)(const void *, const void *))group_sorted_indices_cmpfn);
+        (int (*)(const void *, const void *))group_sorted_indices_cmpfn);
 
     for ( int i = 0; i < transparent_geometry_group_count; ++i )
         transparent_geometry_groups[transparent_geometry_group_sorted_indices[i]].sorted_index = i;

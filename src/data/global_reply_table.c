@@ -1,10 +1,61 @@
-/* global_reply_table @ 0x82127A08 (.rdata, 1656 bytes) — the AI reply table: for a line that was
+/* global_reply_table @ 0x82127A08 (.rdata, 1656 bytes)
+ * DB applied_types: const reply_usage global_reply_table[46];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   [ 0] +0x00 original_vocalization_type = 0x004C
+ *        +0x02 original_damage_category   = 0xFFFF
+ *        +0x04 protagonist_type           = 0x0002
+ *        +0x06 vocalization_type          = 0x005C
+ *        +0x08 animation_type             = 0xFFFF
+ *        +0x0A communication_priority     = 0x0002
+ *        +0x0C flags                      = 0x0000
+ *        +0x10 chance                     = 0x00000000 -> 0f
+ *        +0x14 player_chance              = 0x3F800000 -> 1f
+ *        +0x18 delay_time                 = 0x3F333333 -> 0.7f
+ *        +0x1C repeat_delay               = 0x41F00000 -> 30f
+ *        +0x20 reply_filter               = 0x837CBF60 -> reply_filter_close
+ *   [ 1] +0x00 original_vocalization_type = 0x0035
+ *        +0x02 original_damage_category   = 0x0002
+ *        +0x04 protagonist_type           = 0x0002
+ *        +0x06 vocalization_type          = 0x0051
+ *        +0x08 animation_type             = 0xFFFF
+ *        +0x0A communication_priority     = 0x0002
+ *        +0x0C flags                      = 0x0000
+ *        +0x10 chance                     = 0x00000000 -> 0f
+ *        +0x14 player_chance              = 0x3F000000 -> 0.5f
+ *        +0x18 delay_time                 = 0x3F333333 -> 0.7f
+ *        +0x1C repeat_delay               = 0x42700000 -> 60f
+ *        +0x20 reply_filter               = 0x837CBF60 -> reply_filter_close
+ *   [ 2] +0x00 original_vocalization_type = 0x0035
+ *        +0x02 original_damage_category   = 0x000B
+ *        +0x04 protagonist_type           = 0x0002
+ *        +0x06 vocalization_type          = 0x0052
+ *        +0x08 animation_type             = 0xFFFF
+ *        +0x0A communication_priority     = 0x0002
+ *        +0x0C flags                      = 0x0000
+ *        +0x10 chance                     = 0x00000000 -> 0f
+ *        +0x14 player_chance              = 0x3F19999A -> 0.6f
+ *        +0x18 delay_time                 = 0x3F333333 -> 0.7f
+ *        +0x1C repeat_delay               = 0x42700000 -> 60f
+ *        +0x20 reply_filter               = 0x837CBF60 -> reply_filter_close
+ *   ... 42 further elements elided; full hex in .sweep/data_image.tsv
+ *   [45] +0x00 original_vocalization_type = 0xFFFF
+ *        +0x02 original_damage_category   = 0xFFFF
+ *        +0x04 protagonist_type           = 0xFFFF
+ *        +0x06 vocalization_type          = 0xFFFF
+ *        +0x08 animation_type             = 0xFFFF
+ *        +0x0A communication_priority     = 0xFFFF
+ *        +0x0C flags                      = 0x0000
+ *        +0x10 chance                     = 0x00000000 -> 0f
+ *        +0x14 player_chance              = 0x00000000 -> 0f
+ *        +0x18 delay_time                 = 0x00000000 -> 0f
+ *        +0x1C repeat_delay               = 0x00000000 -> 0f
+ *        +0x20 reply_filter               = 0x00000000
+ * The AI reply table: for a line that was
  * just spoken (original_vocalization_type, and optionally the damage category that caused it),
  * every reply another actor may voice, with the chance/delay and the eligibility filter applied to
  * the candidate replier. Rows are grouped by original_vocalization_type, which is what lets
  * ai_communication_finished and ai_communication_find_actor_to_reply_to_player walk the contiguous
  * run for one vocalization.
- *
  * Element type and length are PROVEN, not inferred from the (contradictory) corpus declarations:
  * ai_communication_initialize @0x837CBA18 forms the object address directly (`lis r11,
  * global_reply_table@ha` / `addi r10, r11, global_reply_table@l` — no pointer load) and strides it
@@ -12,7 +63,6 @@
  * +0x1C (repeat_delay). 0x24 == 36 == sizeof(reply_usage) and 1656 / 36 == 46 rows exactly.
  * Row [45] is the terminator (original_vocalization_type == -1); the initialize loop counts up to
  * it, yielding global_reply_event_count == 45.
- *
  * Field order per row (reply_usage, DB-verified layout):
  *   original_vocalization_type, original_damage_category, protagonist_type, vocalization_type,
  *   animation_type, communication_priority, flags, _pad0E,

@@ -17,6 +17,14 @@ typedef struct error_global_data
     char     message_buffer[4096];
 } error_global_data;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern error_global_data error_globals;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ERROR_GLOBAL_DATA_H */

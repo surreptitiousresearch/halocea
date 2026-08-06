@@ -7,7 +7,7 @@
 
 extern int _isMemStatOpened;   // boundary — memstat system live flag
 extern int _isMemStatSuspend;  // boundary — when set, allocations are not recorded
-extern int isMemStopInited;    // boundary — atexit(stop) registration guard
+extern "C" int isMemStopInited;    // boundary — atexit(stop) registration guard
 
 extern void apMemoryDebugSystemStop(); // 0x826C... shutdown counterpart
 

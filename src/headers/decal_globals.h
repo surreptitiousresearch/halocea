@@ -10,4 +10,12 @@ struct decal_globals
     int permanent_count;                    /* 0x2808 */
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct decal_globals *decal_globals;
+
+#ifdef __cplusplus
+}
+#endif

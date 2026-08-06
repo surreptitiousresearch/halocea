@@ -6,10 +6,10 @@
 #include "../headers/haloPLAYER_ACTION.h"
 #include "../headers/player_action_collection.h"
 
-extern int hcex_coop_local_player_index;
-extern int hcex_coop_update_number;
-extern int hcex_coop_nticks_to_apply;
-extern player_action_collection hcex_action_collection;
+extern "C" int hcex_coop_local_player_index;
+extern "C" int hcex_coop_update_number;
+extern "C" int hcex_coop_nticks_to_apply;
+extern "C" player_action_collection hcex_action_collection;
 
 extern "C" void hcex_coop_apply_player_actions(haloPLAYER_ACTION *hcex_actions)
 {

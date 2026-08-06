@@ -9,7 +9,7 @@
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"
 
 extern int  hcex_raw_input_back_start(unsigned int buttons);
-extern uint8_t cinematic_can_be_skipped(void);
+extern "C" uint8_t cinematic_can_be_skipped(void);
 
 void hcex_coop_process_raw_input(const haloRAW_INPUT_X360 *local_input,
                                   const haloRAW_INPUT_X360 *remote_input,

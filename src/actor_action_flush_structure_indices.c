@@ -18,7 +18,7 @@ void actor_action_flush_structure_indices(uint16_t actor_index)
     /* recovered: (int16_t *)actor_data->data + 914*idx + 54 -> actor_datum.state.action
      * (914*2 = 1828 = sizeof(actor_datum), +54*2 = +108 = 0x6C). */
     int16_t action = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->state.action;
-    void (__fastcall *flush_structure_indices)(int actor_index) = global_action_functions[action].flush_structure_indices;
+    void (*flush_structure_indices)(int actor_index) = global_action_functions[action].flush_structure_indices;
 
     if (flush_structure_indices)
         flush_structure_indices(actor_index);

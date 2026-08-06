@@ -11,7 +11,7 @@
 //
 // `elapsedTime` is a float (mangled ...@M@Z); the decompiler widened it to double.
 
-extern dbgVAR_SIMPLE<float, 3> dbg_lightSetLerpCoeff; // boundary (only .value read)
+extern "C" dbgVAR_SIMPLE<float, 3> dbg_lightSetLerpCoeff; // boundary (only .value read)
 
 void rendLIGHT_SET::Update(m3dV *pos, float elapsedTime)
 {

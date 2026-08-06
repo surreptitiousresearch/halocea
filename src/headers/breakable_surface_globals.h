@@ -12,5 +12,13 @@ typedef struct breakable_surface_globals
     breakable_surface_datum breakable_surfaces[16][256]; /* 0x204 — per-surface vitality (1024-byte stride/BSP) */
 } breakable_surface_globals; /* 16900 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct breakable_surface_globals *globals;
 extern int16_t global_structure_bsp_index;
+
+#ifdef __cplusplus
+}
+#endif

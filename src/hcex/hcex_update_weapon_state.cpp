@@ -16,18 +16,18 @@
 
 typedef struct weapon_datum weapon_datum;
 
-extern float hcex_plasma_pistol_heat[];
-extern float hcex_plasma_rifle_heat[];
-extern int hcex_arifle_ammo[];
-extern float hcex_arifle_compass[];
+extern "C" float hcex_plasma_pistol_heat[];
+extern "C" float hcex_plasma_rifle_heat[];
+extern "C" int hcex_arifle_ammo[];
+extern "C" float hcex_arifle_compass[];
 
-extern int strcmp(const char *a, const char *b);
+extern "C" int strcmp(const char *a, const char *b);
 extern float __fabs(float x);
-extern void hcex_dbg_add_float(const char *name, float v);
-extern void hcex_print_compass(int idx, float compass_magnitude);
-extern float hcex_update_heat(int modelId, int16_t local_player_index, float heat_level);
-extern int hcex_update_ammo(int modelId, int16_t local_player_index, int arifle_ammo);
-extern float hcex_update_compass(int modelId, int16_t local_player_index, float compass_magnitude);
+extern "C" void hcex_dbg_add_float(const char *name, float v);
+extern "C" void hcex_print_compass(int idx, float compass_magnitude);
+extern "C" float hcex_update_heat(int modelId, int16_t local_player_index, float heat_level);
+extern "C" int hcex_update_ammo(int modelId, int16_t local_player_index, int arifle_ammo);
+extern "C" float hcex_update_compass(int modelId, int16_t local_player_index, float compass_magnitude);
 
 extern "C" void hcex_update_weapon_state(int16_t local_player_index, const weapon_definition *w,
                               const weapon_interface_state *weapon_state, const int16_t *state_flags,

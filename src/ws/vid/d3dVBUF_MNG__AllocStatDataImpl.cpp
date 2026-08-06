@@ -19,7 +19,7 @@
 // vidVBUF_MNG::AllocStatDataImpl virtual it overrides.
 
 extern apDEFRAG_MNG apDefragMng; // ?apDefragMng@@3PAVapDEFRAG_MNG@@A
-extern apCOUNTER    cnt_da;      // defrag-arena per-content memory counter
+extern "C" apCOUNTER    cnt_da;      // defrag-arena per-content memory counter
 
 // 1 / (1024*1024): bytes -> megabytes (matches literal 0.00000095367432 in the disasm).
 static const float BYTES_TO_MB = 0.00000095367432f;

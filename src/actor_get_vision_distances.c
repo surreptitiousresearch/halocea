@@ -4,8 +4,8 @@
  * are the full distances; between, they blend toward the peripheral distance.
  *
  * Deviation: the database prototype invents phantom params from the three float args' reserved GPR slots; the
- * real output pointers are the decompiler's a8 (= r7 = full_distance_reference) and a9 (= r8 =
- * partial_distance_reference), confirmed by disassembly. Note the value written to full_distance_reference is
+ * real output pointers are the two trailing GPR slots — r7 = full_distance_reference and r8 =
+ * partial_distance_reference — confirmed by disassembly. Note the value written to full_distance_reference is
  * the 0.7x-reduced threshold and partial_distance_reference receives the larger max*perception threshold — the
  * parameter names are as the database labels them even though the magnitudes read "swapped". */
 

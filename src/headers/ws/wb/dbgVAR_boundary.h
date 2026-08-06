@@ -21,10 +21,10 @@ typedef struct dbgVAR_vtbl {
     // at 0x8269DB00 (dbgVARWrapper::~dbgVARWrapper) loads r4=1 before the indirect branch --
     // a real 2nd argument, matching the standard vector-deleting-destructor ABI (flag bit 0 =
     // also free the object's storage). Modeled with the 2nd arg to match observed disasm.
-    void     (__fastcall *dtr)(struct dbgVAR *self, int freeMemory);
-    dsDATA  *(__fastcall *GetAsPsData)(struct dbgVAR *self, dsDATA *result);
-    void     (__fastcall *ReadPs)(struct dbgVAR *self, psSECTION section);
-    void     (__fastcall *Update)(struct dbgVAR *self);
+    void     (*dtr)(struct dbgVAR *self, int freeMemory);
+    dsDATA  *(*GetAsPsData)(struct dbgVAR *self, dsDATA *result);
+    void     (*ReadPs)(struct dbgVAR *self, psSECTION section);
+    void     (*Update)(struct dbgVAR *self);
 } dbgVAR_vtbl;
 
 typedef struct dbgVAR {

@@ -71,7 +71,7 @@ extern int  dsTSTRING_IsStartWith(const dsTSTRING<char> *self, const char *s, in
 
 /* --- hcex bridge helpers / CRT --- */
 extern HCEX_OBJ    *hcex_obj_get(int id);
-extern const char  *hcex_tag_get_name(int tag_index);
-extern char        *hcex_conv_name(char *name, int max_len);
-extern char        *strrchr(const char *s, int ch);
-extern char        *strncpy(char *dst, const char *src, unsigned int n);
+extern "C" const char  *hcex_tag_get_name(int tag_index);
+extern "C" char        *hcex_conv_name(char *name, int max_len);
+extern "C" char        *strrchr(const char *s, int ch);
+extern "C" char        *strncpy(char *dst, const char *src, unsigned int n);

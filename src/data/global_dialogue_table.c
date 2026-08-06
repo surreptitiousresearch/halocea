@@ -1,9 +1,46 @@
-/* global_dialogue_table @ 0x821269A0 (.rdata, 4200 bytes) — the master AI dialogue table: every
+/* global_dialogue_table @ 0x821269A0 (.rdata, 4200 bytes)
+ * DB applied_types: const dialogue_usage global_dialogue_table[105];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   [ 0] +0x00 communication_type         = 0x0000
+ *        +0x02 communication_priority     = 0x0003
+ *        +0x04 vocalization_type          = 0x0031
+ *        +0x06 animation_type             = 0xFFFF
+ *        +0x08 protagonist_type           = 0x0001
+ *        +0x0A protagonist_look_priority  = 0x0006
+ *        +0x0C recipient_look_direction   = 0x0002
+ *        +0x0E recipient_look_priority    = 0x0001
+ *        +0x10 weight                     = 0x41200000 -> 10f
+ *        +0x14 repeat_delay               = 0x00000000 -> 0f
+ *        +0x18 flags                      = 0x0000
+ *        +0x1A required_group             = 0xFFFF
+ *        +0x1C required_hostility         = 0x0002
+ *        +0x1E required_enemy_status      = 0xFFFF
+ *        +0x20 required_subject_race      = 0xFFFF
+ *        +0x22 required_cause_race        = 0xFFFF
+ *        +0x24 required_damage            = 0xFFFF
+ *   [ 1] +0x00 communication_type         = 0x0000
+ *        +0x02 communication_priority     = 0x0006
+ *        +0x04 vocalization_type          = 0x0033
+ *        +0x06 animation_type             = 0xFFFF
+ *        +0x08 protagonist_type           = 0x0001
+ *        +0x0A protagonist_look_priority  = 0x0006
+ *        +0x0C recipient_look_direction   = 0x0003
+ *        +0x0E recipient_look_priority    = 0x0006
+ *        +0x10 weight                     = 0x41A00000 -> 20f
+ *        +0x14 repeat_delay               = 0x00000000 -> 0f
+ *        +0x18 flags                      = 0x0042
+ *        +0x1A required_group             = 0xFFFF
+ *        +0x1C required_hostility         = 0x0002
+ *        +0x1E required_enemy_status      = 0xFFFF
+ *        +0x20 required_subject_race      = 0x0001
+ *        +0x22 required_cause_race        = 0xFFFF
+ *        +0x24 required_damage            = 0xFFFF
+ *   ... 103 further elements elided; full hex in .sweep/data_image.tsv
+ * the master AI dialogue table: every
  * (communication_type, matching conditions) -> vocalization/animation row ai_communication_event
  * may choose from. Rows are grouped by communication_type in ascending order, which is what lets
  * ai_communication_initialize build global_communication_table_indices by scanning for the first
  * row of each type, and what lets ai_communication_event walk the contiguous run for one type.
- *
  * Element type and length are PROVEN, not inferred from the (contradictory) corpus declarations:
  * ai_communication_initialize @0x837CBA18 forms the object address directly (`lis r11,
  * global_dialogue_table@ha` / `addi r30, r11, global_dialogue_table@l` — no pointer load) and
@@ -12,7 +49,6 @@
  * 4200 / 40 == 105 rows exactly. Row [104] is the terminator (communication_type == -1); the
  * initialize loop counts up to it, yielding global_dialogue_event_count == 104.
  * Every row's bytes +0x26..+0x27 are zero — the struct's tail alignment padding.
- *
  * Field order per row (dialogue_usage, DB-verified layout):
  *   communication_type, communication_priority, vocalization_type, animation_type,
  *   protagonist_type, protagonist_look_priority, recipient_look_direction, recipient_look_priority,
@@ -20,6 +56,7 @@
  *   required_group, required_hostility, required_enemy_status,
  *   required_subject_race, required_cause_race, required_damage
  * -1 in any int16_t field is the "no requirement / none" sentinel.
+ * /
  */
 #include "../headers/dialogue_usage.h"
 #include "../headers/ai_communication_type.h"

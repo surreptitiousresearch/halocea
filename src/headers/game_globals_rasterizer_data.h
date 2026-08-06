@@ -31,4 +31,12 @@ typedef struct game_globals_rasterizer_data
     tag_reference distance_attenuation_2d_for_the_pc;                       /* 0x19C */
 } game_globals_rasterizer_data;                                            /* 428 bytes (0x1AC) */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_globals_rasterizer_data *global_rasterizer_data;
+
+#ifdef __cplusplus
+}
+#endif

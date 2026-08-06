@@ -18,4 +18,12 @@ typedef struct scenario_global_data
     sound_environment         sound_environment_interpolator;/* 0x60 — eased toward the active environment */
 } scenario_global_data;                                             /* 168 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern scenario_global_data *scenario_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -15,7 +15,7 @@ typedef struct data_packet_group_definition data_packet_group_definition;
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_euler_angles2d.h"
-extern saved_film_frame_header_packet_t saved_film_frame_header_packet;
+/* DEVIATION: the global was declared here as the 4-byte payload struct; it is the data_packet_definition descriptor (IDA resolves 0x836EB99C as saved_film_frame_header_packet.size, i.e. +0x08). */
 
 extern uint8_t saved_film_read(void *buffer, int16_t *size);
 extern uint8_t data_packet_group_decode_packet(data_packet_group_definition *group_definition, void *decoded_packet, char *encoded_packet, int16_t *encoded_packet_size, int16_t *packet_type, int16_t *packet_version, int16_t expected_packet_class);

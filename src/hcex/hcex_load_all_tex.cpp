@@ -5,9 +5,9 @@
 #include <stdint.h>
 #include "../headers/tag_iterator.h"
 
-extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
-extern int tag_iterator_next(tag_iterator *iterator);
-extern void hcex_load_bitmap_group(int bitmap_group_index);
+extern "C" void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
+extern "C" int tag_iterator_next(tag_iterator *iterator);
+extern "C" void hcex_load_bitmap_group(int bitmap_group_index);
 
 extern "C" int hcex_load_all_tex(void)
 {

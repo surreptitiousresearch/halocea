@@ -1,6 +1,51 @@
-/* hs_function_table @ 0x84178048 -- data-init const hs_function_definition *[471].
+/* hs_function_table @ 0x84178048 (.data, 1884 bytes)
+ * DB applied_types: const hs_function_definition *hs_function_table[471];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x82119008 -> begin_definition
+ *   +0x0004 = 0x82119024 -> begin_random_definition
+ *   +0x0008 = 0x82119040 -> if_definition
+ *   +0x000C = 0x8211905C -> cond_definition
+ *   +0x0010 = 0x82119078 -> set_definition
+ *   +0x0014 = 0x82119094 -> and_definition
+ *   +0x0018 = 0x821190B0 -> or_definition
+ *   +0x001C = 0x821190CC -> add_definition
+ *   +0x0020 = 0x821190E8 -> subtract_definition
+ *   +0x0024 = 0x82119104 -> multiply_definition
+ *   +0x0028 = 0x82119120 -> divide_definition
+ *   +0x002C = 0x8211913C -> min_definition
+ *   +0x0030 = 0x82119158 -> max_definition
+ *   +0x0034 = 0x82119174 -> equal_definition
+ *   +0x0038 = 0x82119190 -> not_equal_definition
+ *   +0x003C = 0x821191AC -> gt_definition
+ *   +0x0040 = 0x821191C8 -> lt_definition
+ *   +0x0044 = 0x821191E4 -> gte_definition
+ *   +0x0048 = 0x82119200 -> lte_definition
+ *   +0x004C = 0x8211921C -> sleep_definition
+ *   +0x0050 = 0x82119238 -> sleep_until_definition
+ *   +0x0054 = 0x82119254 -> wake_definition
+ *   +0x0058 = 0x82119270 -> inspect_definition
+ *   +0x005C = 0x8211928C -> object_to_unit_definition
+ *   +0x0060 = 0x821192A8 -> ai_debug_communication_suppress_definition
+ *   +0x0064 = 0x821192C4 -> ai_debug_communication_ignore_definition
+ *   +0x0068 = 0x821192E0 -> ai_debug_communication_focus_definition
+ *   +0x006C = 0x821192FC -> not_definition
+ *   +0x0070 = 0x8211931C -> print_definition
+ *   +0x0074 = 0x8211933C -> players_definition
+ *   +0x0078 = 0x82119358 -> volume_teleport_players_not_inside_definition
+ *   +0x007C = 0x82119378 -> volume_test_object_definition
+ *   +0x0080 = 0x82119398 -> volume_test_objects_definition
+ *   +0x0084 = 0x821193B8 -> volume_test_objects_all_definition
+ *   +0x0088 = 0x821194B4 -> object_teleport_definition
+ *   +0x008C = 0x821194D4 -> object_set_facing_definition
+ *   +0x0090 = 0x821194F4 -> object_set_shield_definition
+ *   +0x0094 = 0x82119514 -> object_set_permutation_definition
+ *   +0x0098 = 0x821193D8 -> object_create_definition
+ *   +0x009C = 0x821193F8 -> object_destroy_definition
+ *   ... 1724 further bytes elided; full hex in .sweep/data_image.tsv
+ * data-init const hs_function_definition *[471].
  * HaloScript built-in function/operator definition table, indexed by function opcode.
- * Pointer targets recovered from the binary reloc order (all named .rdata definitions). */
+ * Pointer targets recovered from the binary reloc order (all named .rdata definitions).
+ */
 #include "../headers/hs_function_definition.h"
 
 extern const hs_function_definition begin_definition;

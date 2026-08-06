@@ -8,6 +8,12 @@ typedef struct dynamic_array
     void *elements;      /* 0x8 */
 } dynamic_array;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void dynamic_array_new(dynamic_array *array, int element_size);
 extern void dynamic_array_delete(dynamic_array *array);
 extern int dynamic_array_add_element(dynamic_array *array);  /* returns index or -1 */
+#ifdef __cplusplus
+}
+#endif

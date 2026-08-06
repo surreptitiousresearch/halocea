@@ -20,4 +20,12 @@ typedef struct players_global_data
     unsigned int  combined_pvs_local[16];                     /* 0x60 */
 } players_global_data;                                        /* 160 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern players_global_data *players_globals;
+
+#ifdef __cplusplus
+}
+#endif

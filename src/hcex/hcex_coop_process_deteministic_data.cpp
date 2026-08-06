@@ -15,7 +15,7 @@
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
-extern void main_skip_cinematic(void);
+extern "C" void main_skip_cinematic(void);
 extern haloENGINE_CONTROL *haloEngineCtrl;
 extern void haloENGINE_CONTROL_SetDetAction(haloENGINE_CONTROL *self, haloPLAYER_ACTION *actions);
 extern int  hcex_data_applied_num;

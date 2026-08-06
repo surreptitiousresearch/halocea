@@ -7,7 +7,7 @@
 
 #include <math.h>
 
-extern _message_definition *message_delta_global_message_list[47];
+extern _message_definition *const message_delta_global_message_list[47];
 
 int message_delta_processor_get_maximum_message_size(int definition_type)
 {

@@ -9,10 +9,10 @@
 #include "../headers/player_datum.h"
 #include "../headers/director_perspective.h"
 
-extern data_array    *player_data;
-extern render_globals render;
-extern int local_player_get_player_index(int16_t local_player_index);
-extern int16_t director_get_perspective(int16_t local_player_index);
+extern "C" data_array    *player_data;
+extern "C" render_globals render;
+extern "C" int local_player_get_player_index(int16_t local_player_index);
+extern "C" int16_t director_get_perspective(int16_t local_player_index);
 
 extern "C" int hcex_is_hud_shown(void)
 {

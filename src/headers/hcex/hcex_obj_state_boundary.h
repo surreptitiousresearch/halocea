@@ -51,6 +51,6 @@ typedef DSVECTOR_INSTANCE dsVECTOR_FP_MODEL
 extern dsVECTOR_FP_MODEL fpModels;
 
 extern HCEX_OBJ *hcex_obj_get(int id);
-extern int       hcex_fp_weapon_plr_index(int object_index);
+extern "C" int       hcex_fp_weapon_plr_index(int object_index);
 extern FP_MODEL *dsVECTOR_FP_MODEL_index(dsVECTOR_FP_MODEL *v, int i);     /* dsVECTOR<FP_MODEL,8>::operator[] */
 extern void      sml_STATE_Set(sml_STATE *state, const dsTSTRING_flat *value);  /* sml::STATE::Set */

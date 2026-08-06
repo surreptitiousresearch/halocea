@@ -4,10 +4,10 @@
  * actor_new, attaches it to the encounter (or marks it encounterless), seeds its state/command-list/sequence
  * fields, and finally attaches the unit. Returns the actor index, or -1 on failure.
  *
- * Deviation: Hex-Rays invents phantom trailing argument slots (a13..a34) for the six small trailing parameters.
- * The real 12-arg prototype is the database's; the stores map a28->initial_state, a30->default_state,
- * a32->initial_command_list_index, a34->noncombat_sequence_id (verified against the slot offsets and the
- * actor_action_get_default_state fallback). */
+ * Deviation: Hex-Rays invents phantom trailing argument slots and reads the four small trailing parameters
+ * through those copies rather than the named ones. The real 12-arg prototype is the database's; those stores are
+ * state.initial_state, state.default_state, state.command_list_index and state.noncombat_sequence_id (verified
+ * against the slot offsets and the actor_action_get_default_state fallback). */
 
 #include <stdint.h>
 #include "headers/unit_datum.h"

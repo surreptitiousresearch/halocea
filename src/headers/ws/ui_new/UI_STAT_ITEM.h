@@ -10,8 +10,8 @@
 namespace ui_new {
 
 typedef struct UI_STAT_ITEM {
-    void (__fastcall *GetStatParamsCB)(UI_STAT_PARAMS *outParams); // 0x00
-    void (__fastcall *GetStatDataCB)(dsTSTRING<wchar_t> *outText); // 0x04
+    void (*GetStatParamsCB)(UI_STAT_PARAMS *outParams); // 0x00
+    void (*GetStatDataCB)(dsTSTRING<wchar_t> *outText); // 0x04
     dsTSTRING<wchar_t>  StatData;                                   // 0x08
 } UI_STAT_ITEM;
 

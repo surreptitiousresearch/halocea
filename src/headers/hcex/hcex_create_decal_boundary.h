@@ -22,8 +22,8 @@ typedef struct dsVECTOR_DECAL dsVECTOR_DECAL;  /* hcexCreateDecals: dsVECTOR<HCE
 typedef struct dsVECTOR_TSTR  dsVECTOR_TSTR;   /* hcexUsedDecals:   dsVECTOR<dsTSTRING_flat,8>    */
 
 /* --- debug-console toggles (dbgVAR_SIMPLE<bool,1>; the load site names ".value") --- */
-extern dbgVAR_bool dbg_hcex_create_decals;
-extern dbgVAR_bool dbg_hcexDumpUsedDecalsOn;
+extern "C" dbgVAR_bool dbg_hcex_create_decals;
+extern "C" dbgVAR_bool dbg_hcexDumpUsedDecalsOn;
 
 /* --- globals --- */
 extern dsVECTOR_DECAL hcexCreateDecals;
@@ -37,6 +37,6 @@ extern void        dsVECTOR_TSTR_InsertSorted(dsVECTOR_TSTR *v, const dsTSTRING_
 extern HCEX_DECAL *dsVECTOR_DECAL_PushBack(dsVECTOR_DECAL *v, const HCEX_DECAL *src);
 
 /* --- CRT / hcex helpers --- */
-extern char *strncpy(char *dst, const char *src, unsigned int n);
-extern char *strrchr(const char *s, int c);
-extern void  hcex_conv_name(char *name, int max_len);
+extern "C" char *strncpy(char *dst, const char *src, unsigned int n);
+extern "C" char *strrchr(const char *s, int c);
+extern "C" void  hcex_conv_name(char *name, int max_len);

@@ -23,7 +23,7 @@ void director_script_camera(uint8_t enabled)
             director *player_director = &director_globals.local_players[local_player];
             player_director->debug_input_scale = 1.0f;
             player_director->camera_proc =
-                (void (__fastcall *)(void *, const camera_control *, observer_command *))scripted_camera_update;
+                (void (*)(void *, const camera_control *, observer_command *))scripted_camera_update;
             player_director->debug_controls = 0;
         }
         else

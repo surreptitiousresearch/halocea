@@ -81,5 +81,13 @@ typedef struct scenario
     tag_block     structure_bsp_references;            /* 0x5A4 */
 } scenario;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern scenario *global_scenario;
 extern int global_scenario_index;
+
+#ifdef __cplusplus
+}
+#endif

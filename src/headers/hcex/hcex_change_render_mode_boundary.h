@@ -44,7 +44,7 @@ extern int         hcex_cur_render_mode;   /* ?hcex_cur_render_mode / current co
 extern int         hcex_new_render_mode;   /* pending mode requested by the s3d/screen-mode path */
 extern int         hcex_tex_block;         /* force blocking texture stream during re-precache */
 extern int         vidUseGammaCorrection;  /* d3d_ensure_texture_boundary: gamma-correction toggle */
-extern unsigned char debug_no_drawing;     /* blam debug: suppress drawing */
+extern "C" unsigned char debug_no_drawing;     /* blam debug: suppress drawing */
 extern vidDRIVER  *vidDriver;              /* render-thread driver (thread-ownership hooks) */
 extern gsSHADOW_MAP_SYSTEM *gsShadowMap;   /* ?gsShadowMap@@3PAVgsSHADOW_MAP_SYSTEM@@A */
 extern strmVID_MEM_MANAGER strmMemMng;     /* ?strmMemMng@@3VstrmVID_MEM_MANAGER@@A */
@@ -53,9 +53,9 @@ extern strmVID_MEM_MANAGER strmMemMng;     /* ?strmMemMng@@3VstrmVID_MEM_MANAGER
 extern void osPIXBeginEvent(const char *label);
 extern void osPIXEndEvent(void);
 extern void hcex_render_targets_set_gamma(int on);
-extern void hcex_precache_resources(void);
+extern "C" void hcex_precache_resources(void);
 extern void rnsMNG_ClearAndSwap(void);
 
 /* D3D fence primitives — D3D SDK boundary (stay extern). */
-extern unsigned int D3DDevice_InsertFence(D3DDevice *device);
-extern void         D3DDevice_BlockOnFence(unsigned int fence);
+extern "C" unsigned int D3DDevice_InsertFence(D3DDevice *device);
+extern "C" void         D3DDevice_BlockOnFence(unsigned int fence);

@@ -26,4 +26,12 @@ struct font_drawing_globals
     rasterizer_dynamic_screen_geometry_parameters multitexture_params; /* 0x4C */
 };                     /* 216 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct font_drawing_globals font_drawing_globals;
+
+#ifdef __cplusplus
+}
+#endif

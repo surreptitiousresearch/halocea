@@ -7,4 +7,12 @@
 
 typedef uint16_t *(*ui_widget_replace_function)(widget_instance *widget);
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern ui_widget_replace_function replace_function_list[4];
+
+#ifdef __cplusplus
+}
+#endif

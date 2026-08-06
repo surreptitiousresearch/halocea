@@ -22,8 +22,8 @@ extern uint8_t action_obey_command_begin(int actor_index, int unit_index, int16_
 
 void action_obey_individual_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data)
 {
-    const ai_command_list_definition *command_list =
-        &((const ai_command_list_definition *)global_scenario->ai_command_lists.address)[command_list_index];
+    const ai_command_list_definition_t *command_list =
+        &((const ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[command_list_index];
 
     if ( !(simple_control->metadata_flags & (1u << _obey_metadata_commands_finished_bit)) )
     {

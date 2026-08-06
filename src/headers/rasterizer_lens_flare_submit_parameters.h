@@ -22,5 +22,13 @@ typedef struct rasterizer_lens_flare_submit_parameters
     int           internal__occlusion_pixels;     /* 0x24 */
 } rasterizer_lens_flare_submit_parameters;        /* 0x28 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_lens_flare_submit_parameters local_lens_flare_parameters[1024];
 extern int local_lens_flare_count;
+
+#ifdef __cplusplus
+}
+#endif

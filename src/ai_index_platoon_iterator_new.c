@@ -5,14 +5,19 @@
  *   2 = squad-scoped           — byte 1 is a squad index; its platoon field (squad+0x22) is the single platoon
  *   3 = invalid                — empties the iterator
  * An out-of-range encounter, AI not yet initialized for the map, or an out-of-range platoon empties the iterator
- * (encounter_index = -1). */
+ * (encounter_index = -1).
+ *
+ * DEVIATION: the sub-index unpack was `(ai_index >> 8) & 0xFF` — Hex-Rays' BYTE1 expanded with the
+ * little-endian value form. Disasm 0x8376EF18 is `extrwi r11, r3, 8, 8` (rlwinm SH=16 MB=24 ME=31,
+ * word 0x546B863E), i.e. (x >> 16) & 0xFF; the compiler CSEs it across all three uses below.
+ * Now AI_INDEX_SUB_INDEX. */
 
 #include "headers/scenario.h"
 #include "headers/encounter_definition.h"
 #include "headers/squad_definition.h"
 #include "headers/ai_globals.h"
 #include "headers/ai_index_platoon_iterator.h"
-#include "headers/ai_index_scope.h"
+#include "headers/ai_index.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -31,7 +36,7 @@ void ai_index_platoon_iterator_new(unsigned int ai_index, ai_index_platoon_itera
     encounter_definition *encounter =
         &((encounter_definition *)global_scenario->ai_encounters.address)[(unsigned short)ai_index];
 
-    switch ( ai_index >> 30 )
+    switch ( AI_INDEX_SCOPE(ai_index) )
     {
         case _ai_index_encounter:
             iterator->platoon_index = 0;
@@ -39,11 +44,11 @@ void ai_index_platoon_iterator_new(unsigned int ai_index, ai_index_platoon_itera
             return;
 
         case _ai_index_squad:
-            if ( ((ai_index >> 8) & 0xFF) >= encounter->squads.count )
+            if ( AI_INDEX_SUB_INDEX(ai_index) >= encounter->squads.count )
                 iterator->platoon_index = -1;
             else
                 iterator->platoon_index =
-                    ((squad_definition *)encounter->squads.address)[(ai_index >> 8) & 0xFF].platoon_index;
+                    ((squad_definition *)encounter->squads.address)[AI_INDEX_SUB_INDEX(ai_index)].platoon_index;
             break;
 
         case 3:   /* reserved/invalid scope (no DB name) */
@@ -51,7 +56,7 @@ void ai_index_platoon_iterator_new(unsigned int ai_index, ai_index_platoon_itera
             return;
 
         default:   /* _ai_index_platoon — explicit platoon index in byte 1 */
-            iterator->platoon_index = (ai_index >> 8) & 0xFF;
+            iterator->platoon_index = AI_INDEX_SUB_INDEX(ai_index);
             break;
     }
 

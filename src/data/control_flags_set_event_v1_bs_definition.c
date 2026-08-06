@@ -1,3 +1,12 @@
+/* control_flags_set_event_v1_bs_definition @ 0x841850AC (.data, 20 bytes)
+ * DB applied_types: byte_swap_definition control_flags_set_event_v1_bs_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 name                       = 0x82128AB0 -> "control_flags_set_event_v1"
+ *   +0x04 size                       = 0x00000006
+ *   +0x08 codes                      = 0x8418509C -> control_flags_set_event_v1_bs_codes
+ *   +0x0C signature                  = 0x62797377
+ *   +0x10 verified                   = 0x00
+ */
 #include "../headers/byte_swap_definition.h"
 
 /* .data init: byte_swap_definition for control_flags_set_event_v1. size=6, signature='bysw'. */

@@ -8,26 +8,26 @@
  * a fresh one-shot `path_state` on the stack (`actor_path_input_new` + optional target-object/attractor +
  * `path_state_new`/`path_state_destination`/`path_state_find`/`path_state_build_path`).
  *
- * DEVIATION: the decompiler shows `v29` (the `path_3d_build_path` call's 4th argument) as an undefined
+ * DEVIATION: the decompiler shows the `path_3d_build_path` call's 4th argument as an undefined
  * local never assigned anywhere in the function, and passes `(path_result *)(actor+1160)` as the 5th
  * argument. disasm_range(0x837CA440, 0x837CA4B0) shows the real register mapping is
  * r4=start_point=actor+0x12C(300), f1=avoidance_distance=0.0, r6=end_point=actor+0x488(1160),
  * r7=path=r24=actor+0x4A8(1192) — i.e. the decompiler swapped the 4th/5th argument VALUES (end_point and
- * path), and the actual value it labeled "v29" is simply never used at all. `actor+1192` is exactly the
+ * path), and the value it substituted for that argument is never used at all. `actor+1192` is exactly the
  * same `path_result*` used by both `path_state_build_path` calls elsewhere in this function, confirming
  * the fix. Reconstructed positionally from disasm.
  *
- * DEVIATION: `v37` (the 4th argument to `path_input_set_attractor`, "object_index") is likewise an
+ * DEVIATION: the 4th argument to `path_input_set_attractor` ("object_index") is likewise an
  * undefined local in the decompile; disasm_range(0x837CA440, 0x837CA560) shows it's
- * `*(int *)(actor + 0x28C)` (byte offset 652), loaded immediately before the call but dropped from the
+ * `*(int *)(actor + 0x28C)` = +652 -> danger_zone.object_index, loaded just before the call but dropped from the
  * decompiler's output.
  *
  * FAITHFUL: the "build a fresh path_state" branch performs a `_RtlCheckStack12` dynamic stack-probe
  * (extending the frame for a 64KB+ `path_state` local) — pure compiler stack-management boilerplate with
  * no source-level effect; reproduced by simply declaring `path_state fresh_path_state` as a plain local.
- * The `float v43[2]` the decompiler shows earlier (as `actor_path_3d_available`'s output parameter) is
+ * The 2-float stack slot the decompiler shows earlier (as `actor_path_3d_available`'s output parameter) is
  * the SAME stack slot reused for that later `path_state`, in a mutually-exclusive branch (gated by the
- * same `actor[153]` byte both times) — modeled here as two separate, non-conflicting locals. */
+ * same byte both times: +153 -> state.flying) — modeled here as two separate, non-conflicting locals. */
 
 #include <stdint.h>
 #include <math.h>

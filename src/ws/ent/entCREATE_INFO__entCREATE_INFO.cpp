@@ -1,6 +1,6 @@
 #include "../../headers/ws/ent/entCREATE_INFO.h"
 
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 // ?entGetClassTplName@@YAPADABV?$dsTSTRING@D@@@Z — resolve a class name's configured default
 // template name (via entDESC::nameTplDefault, looked up through the dscDESC_FAMILY registry).

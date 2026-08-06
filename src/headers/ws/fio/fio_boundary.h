@@ -16,10 +16,10 @@ unsigned int  osFileGetSize(osFILE_HANDLE_DUMMY *fp);        // boundary
 void          osDestroySignal(osHANDLE_DUMMY *signal);       // boundary — releases an OS wait/signal handle
 
 // --- debug heap allocator (dl*) ---
-extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);                       // boundary
-void *dlReallocAligned(void *p, unsigned int size, unsigned int align, const char *file, unsigned int line); // boundary
-extern void dlFree(void *ptr);        // boundary
-extern void dlFreeAligned(void *ptr); // boundary
+extern "C" void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);                   // boundary
+extern "C" void *dlReallocAligned(void *p, unsigned int size, unsigned int align, const char *file, unsigned int line); // boundary
+extern "C" void dlFree(void *ptr);    // boundary
+extern "C" void dlFreeAligned(void *ptr); // boundary
 
 namespace ds {
 // Endian byte-swap `data` in place: `count` bytes grouped into `gain`-byte elements. boundary.

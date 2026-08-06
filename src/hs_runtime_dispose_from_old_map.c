@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "headers/data_array.h"
 
-extern int16_t hs_external_global_count;
+extern const int16_t hs_external_global_count;
 #include "headers/hs_runtime_globals.h"
 #include "headers/blam_data_globals.h"
 extern void data_make_invalid(data_array *data);

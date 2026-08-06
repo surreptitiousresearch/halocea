@@ -19,4 +19,12 @@ struct game_state_globals
     game_state_header *header;         // 0x18
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct game_state_globals game_state_globals;
+
+#ifdef __cplusplus
+}
+#endif

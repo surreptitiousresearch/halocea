@@ -1,5 +1,9 @@
-/* CAVEAT: the second row is all zeros in the shipped data — see the note below. */
-
+/* indexed_controller_bitmaps @ 0x821231E4 (.rdata, 6 bytes)
+ * DB applied_types: const unsigned __int8 indexed_controller_bitmaps[2][3];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 03 05 04 00 00 00
+ * CAVEAT: the second row is all zeros in the shipped data — see the note below.
+ */
 /* indexed_controller_bitmaps @0x821231E4 — .rdata, 8-byte span to the next symbol (aLongest
  * @0x821231EC); DB applied type `const unsigned __int8[2][3]`, i.e. 6 bytes used + 2 bytes of
  * alignment padding before the following string literal.

@@ -5,7 +5,10 @@
 // names have been given descriptive C identifiers.
 
 // Atomically stores `newValue` into *pVar and returns the PREVIOUS value.
-extern "C" int osLockedSet(int *pVar, int newValue)
+// DEVIATION: was `extern "C"`. The binary exports ?osLockedSet@@YAHPAHH@Z — MANGLED — so C linkage
+// here would emit a flat `osLockedSet` the image does not contain, and every caller would resolve
+// against a symbol nothing defines. C++ linkage reproduces the mangled name exactly.
+int osLockedSet(int *pVar, int newValue)
 {
     int previousValue;
 #ifdef _M_PPCBE

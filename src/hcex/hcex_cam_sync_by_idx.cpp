@@ -17,13 +17,13 @@
 #include "../headers/rasterizer_globals.h"
 #include "../headers/math_constants.h"
 
-extern unsigned char debug_no_drawing;
-extern render_window hcex_window[];
-extern float hcex_fov[];
-extern rasterizer_globals_struct rasterizer_globals;
+extern "C" unsigned char debug_no_drawing;
+extern "C" render_window hcex_window[];
+extern "C" float hcex_fov[];
+extern "C" rasterizer_globals_struct rasterizer_globals;
 
-extern const observer_result *observer_get_camera(int16_t local_player_index);
-extern void hcex_set_cam(int idx, hcex_float3 *pos, hcex_float3 *up, hcex_float3 *forv, float fov, float z_near,
+extern "C" const observer_result *observer_get_camera(int16_t local_player_index);
+extern "C" void hcex_set_cam(int idx, hcex_float3 *pos, hcex_float3 *up, hcex_float3 *forv, float fov, float z_near,
         float z_far);
 
 extern "C" void hcex_cam_sync_by_idx(int idx)

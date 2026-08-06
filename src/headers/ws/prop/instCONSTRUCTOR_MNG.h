@@ -42,4 +42,4 @@ private:
 
 // The single process-wide instance every propINST_CONSTRUCTOR method operates on (DB address
 // 0x8837B598). All prop instances share one construction manager / preset tree.
-extern instCONSTRUCTOR_MNG mng;
+extern "C" instCONSTRUCTOR_MNG mng;

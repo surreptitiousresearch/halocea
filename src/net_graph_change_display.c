@@ -9,9 +9,6 @@
 #include "headers/net_graph.h"
 #include "headers/blam_data_globals.h"
 
-extern const char *data_type_strings[];
-extern const char *data_direction_strings[];
-
 extern int  stricmp(const char *a, const char *b);
 extern void update_for_resolution_change(net_graph *graph, uint8_t force);
 

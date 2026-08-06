@@ -1,4 +1,39 @@
-/* virtual_to_key_table @0x82114210 - .rdata, 512 bytes = 256 halfwords; DB applied type
+/* virtual_to_key_table @ 0x82114210 (.rdata, 512 bytes)
+ * DB applied_types: const __int16 virtual_to_key_table[256];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0010: 001D 001E FFFF FFFF FFFF 0038 FFFF FFFF
+ *   +0x0020: 006E 006F 0047 000F 002C FFFF FFFF FFFF
+ *   +0x0030: FFFF FFFF FFFF 0000 FFFF FFFF FFFF FFFF
+ *   +0x0040: 0048 0053 0056 0055 0052 004F 004D 0050
+ *   +0x0050: 004E FFFF FFFF FFFF FFFF 0051 0054 FFFF
+ *   +0x0060: 001A 0011 0012 0013 0014 0015 0016 0017
+ *   +0x0070: 0018 0019 FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0080: FFFF 002D 003E 003C 002F 0021 0030 0031
+ *   +0x0090: 0032 0026 0033 0034 0035 0040 003F 0027
+ *   +0x00A0: 0028 001F 0022 002E 0023 0025 003D 0020
+ *   +0x00B0: 003B 0024 003A 0046 004A 004B FFFF FFFF
+ *   +0x00C0: 005A 005B 005C 005D 005E 005F 0060 0061
+ *   +0x00D0: 0062 0063 0059 0065 FFFF 0064 0067 0058
+ *   +0x00E0: 0001 0002 0003 0004 0005 0006 0007 0008
+ *   +0x00F0: 0009 000A 000B 000C FFFF FFFF FFFF FFFF
+ *   +0x0100: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0110: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0120: 0057 000E FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0130: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0140: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0150: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0160: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0170: FFFF FFFF 0036 001C 0041 001B 0042 0043
+ *   +0x0180: 0010 FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0190: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x01A0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x01B0: FFFF FFFF FFFF 0029 002B 002A 0037 FFFF
+ *   +0x01C0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x01D0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x01E0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x01F0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ * .rdata, 512 bytes = 256 halfwords; DB applied type
  * `const __int16[256]`, matching the declaration in src/input_update_keyboard.c
  * (`extern const int16_t virtual_to_key_table[256]`). 512 bytes over the 256 Windows virtual-key
  * codes is 2 bytes per entry, and the consumer's `input_globals.key_latches[stroke.key_code]`
@@ -7,16 +42,14 @@
  * XINPUT_KEYSTROKE virtual-key code into a Blam key_code. -1 marks an unmapped virtual key;
  * the consumer's `(uint16_t)ascii_to_key_table[...] == 0xFFFF` test is the same sentinel read
  * unsigned. 99 of the 256 slots are mapped.
- *
  * Reconstructed from the raw big-endian halfwords; every mapped slot agrees with the standard
  * Windows VK_ assignment named in its comment (VK_BACK -> _key_backspace, VK_OEM_3 -> _key_backquote
  * and so on), which is the independent cross-check on the decode.
- *
  * CAVEAT (original data, reproduced as-is): VK_SHIFT and VK_CONTROL map to _key_shift (110) and
  * _key_control (111), the two synthetic aggregate codes above NUMBER_OF_KEYS, so input_update_keyboard's
  * `key_code <= _key_102_oem` guard drops those two keystrokes entirely; VK_MENU by contrast maps to
- * the concrete _key_left_alt (71) and is accepted. */
-
+ * the concrete _key_left_alt (71) and is accepted.
+ */
 #include <stdint.h>
 #include "../headers/key_code.h"
 

@@ -121,12 +121,12 @@ typedef struct dscDESC_FAMILY dscDESC_FAMILY;
 /* --- debug toggles: DB applied type dbgVAR_SIMPLE<bool,1> (value@0x0C via dbgVAR_IMPL base).
  * Deviation from the earlier flat hcex_debug_bool {int; uchar@4} model, which mis-placed
  * `value` — the disasm reads dbgVAR_SIMPLE<bool,1>.value (offset 12). --- */
-extern dbgVAR_SIMPLE<bool, 1> dbg_hcex_create_effects;
-extern dbgVAR_SIMPLE<bool, 1> dbg_hcexDumpUsedSfxOn;
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_hcex_create_effects;
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_hcexDumpUsedSfxOn;
 
 /* --- globals --- */
-extern int             hcex_last_killed_in_body_part;
-extern int             hcex_coop_local_player_index;
+extern "C" int             hcex_last_killed_in_body_part;
+extern "C" int             hcex_coop_local_player_index;
 extern int             hcex_skull_GruntBirthdayParty;
 extern dsVECTOR_PAIR   hcex_effect_names;
 extern dsVECTOR_TSTR   hcexUsedSfx;
@@ -166,10 +166,10 @@ extern int         dscDESC_FAMILY_FindBrand(dscDESC_FAMILY *family, const dsTSTR
 extern int         entENTITY_GetNumSfx(entENTITY *ent);
 
 /* --- hcex bridge helpers --- */
-extern char  *hcex_conv_eff_name(const char *mdl_name, char *out, int max_len);
-extern int    hcex_is_under_water(float x, float y, float z);
-extern int    hcex_is_weapon(int id);
-extern int    hcex_is_vehicle(int id);
+extern "C" char  *hcex_conv_eff_name(const char *mdl_name, char *out, int max_len);
+extern "C" int    hcex_is_under_water(float x, float y, float z);
+extern "C" int    hcex_is_weapon(int id);
+extern "C" int    hcex_is_vehicle(int id);
 extern HCEX_OBJ   *hcex_obj_get(int id);
 extern entENTITY  *hcex_create_effect_impl(const dsTSTRING_flat *name, int obj_follow, const hcex_float3 *position);
 extern void        hcex_prepare_locations(animINST *inst, const hcex_float3 *positions,
@@ -177,6 +177,6 @@ extern void        hcex_prepare_locations(animINST *inst, const hcex_float3 *pos
 extern void        hcex_set_follow(entENTITY *ent, int obj_follow);
 
 /* --- CRT / allocator --- */
-extern void dlFree(void *ptr);
-extern void *memcpy(void *dst, const void *src, unsigned int n);
-extern int sprintf_0(char *string, const char *format, ...);
+extern "C" void dlFree(void *ptr);
+extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
+extern "C" int sprintf_0(char *string, const char *format, ...);

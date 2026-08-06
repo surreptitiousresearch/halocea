@@ -11,4 +11,12 @@ typedef struct rasterizer_render_target
     D3DTexture *texture;  // 0x10
 } rasterizer_render_target;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_render_target global_render_targets[10];
+
+#ifdef __cplusplus
+}
+#endif

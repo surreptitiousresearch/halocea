@@ -1,3 +1,8 @@
+/* controls_enable_crouch @ 0x84429FD2 (.data, 1 bytes)
+ * DB applied_types: unsigned __int8 controls_enable_crouch;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 00 (1 trailing byte)
+ */
 #include <stdint.h>
 /* controls_enable_crouch @ 0x84429FD2 - data-bss zero-fill; DB applied-type `unsigned __int8 controls_enable_crouch;`. */
 

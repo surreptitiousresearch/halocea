@@ -14,11 +14,11 @@ void video_resolution_init(void)
     memset(video_resolutions, 0, 32 * sizeof(video_resolution_s)); /* table holds 32 entries (disasm: memset size 0x980) */
 
     qsort(video_resolutions, 0, sizeof(video_resolution_s),
-        (int (__fastcall *)(const void *, const void *))compare_video_resolutions);
+        (int (*)(const void *, const void *))compare_video_resolutions);
 
     for ( int i = 0; i < video_resolution_count; ++i )
     {
         qsort(video_resolutions[i].refreshes, video_resolutions[i].numRefreshes, sizeof(unsigned int),
-            (int (__fastcall *)(const void *, const void *))compare_video_refresh_rates);
+            (int (*)(const void *, const void *))compare_video_refresh_rates);
     }
 }

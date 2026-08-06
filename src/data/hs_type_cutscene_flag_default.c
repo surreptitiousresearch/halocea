@@ -1,3 +1,8 @@
+/* hs_type_cutscene_flag_default @ 0x82118F88 (.rdata, 2 bytes)
+ * DB applied_types: const __int16 hs_type_cutscene_flag_default;
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = ffff (2 trailing bytes)
+ */
 #include <stdint.h>
 /* hs_type_cutscene_flag_default @ 0x82118F88 - .rdata read-only constant. DB symbol name is the leading-underscore
  * form _hs_type_cutscene_flag_default (the original file-scope spelling); consumers use the plain name, the same

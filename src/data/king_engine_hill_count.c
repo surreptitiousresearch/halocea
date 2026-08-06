@@ -1,3 +1,7 @@
+/* king_engine_hill_count @ 0x844B78FC (.data, 4 bytes)
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ */
 #include <stdint.h>
 /* king_engine_hill_count @ 0x844B78FC - .data zero-fill (IDA word_844B78FC, no PDB name).
  * Halfword: find_next_hill reads it with `lhz r30,(word_844B78FC-0x844B7900)(r31)` and sign-extends it

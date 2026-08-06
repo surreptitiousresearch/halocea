@@ -37,7 +37,7 @@
 
 #include "headers/real_vector3d.h"
 #include "headers/real_euler_angles2d.h"
-extern float __fsqrts(double value);
+extern float __fsqrts(float value);
 extern player_update * player_update_history_slide(player_update_history *history, int last_completed_id, uint8_t destructive);
 extern void player_update_client_log(client_log_subject subject, int log_level, const char *format, ...);
 extern uint8_t unit_seat_is_driver(int vehicle_index, int16_t seat_index);

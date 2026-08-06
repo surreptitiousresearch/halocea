@@ -6,7 +6,7 @@
 #include "../headers/bitmap_group.h"
 #include "../headers/bitmap_data.h"
 
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
+extern "C" int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 
 extern "C" void hcex_load_bitmap_group(int bitmap_group_index)
 {

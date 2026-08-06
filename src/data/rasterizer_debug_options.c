@@ -1,6 +1,88 @@
-/* rasterizer_debug_options @ 0x841759E0 — data-INIT (144 bytes). Ledger marks this data-bss, but
+/* rasterizer_debug_options @ 0x841759E0 (.data, 144 bytes)
+ * DB applied_types: rasterizer_debug_options_struct rasterizer_debug_options;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 fps_accumulation           = 0x00
+ *   +0x02 statistics_mode            = 0x0000
+ *   +0x04 drawing_mode               = 0x0000
+ *   +0x06 wireframe_enabled          = 0x00
+ *   +0x07 debug_model_vertices_enabled = 0x00
+ *   +0x08 debug_model_lod            = 0xFFFF
+ *   +0x0A debug_transparent_geometry_enabled = 0x00
+ *   +0x0B debug_meter_shader_enabled = 0x00
+ *   +0x0C draw_models                = 0x01
+ *   +0x0D draw_model_transparent_geometry = 0x01
+ *   +0x0E draw_first_person_weapon_first = 0x01
+ *   +0x0F stencil_mask_enabled       = 0x01
+ *   +0x10 draw_environment           = 0x02
+ *   +0x11 draw_environment_lightmaps = 0x01
+ *   +0x12 draw_environment_shadows   = 0x01
+ *   +0x13 draw_environment_diffuse_lights = 0x01
+ *   +0x14 draw_environment_textures  = 0x01
+ *   +0x15 draw_environment_decals    = 0x01
+ *   +0x16 draw_environment_specular_lights = 0x01
+ *   +0x17 draw_environment_specular_lightmaps = 0x01
+ *   +0x18 draw_environment_reflection_lightmap_masks = 0x01
+ *   +0x19 draw_environment_reflection_mirrors = 0x01
+ *   +0x1A draw_environment_reflections = 0x01
+ *   +0x1B draw_environment_transparent_geometry = 0x01
+ *   +0x1C draw_environment_fog       = 0x01
+ *   +0x1D draw_environment_fog_screen = 0x01
+ *   +0x1E draw_water                 = 0x01
+ *   +0x1F draw_lens_flares           = 0x01
+ *   +0x20 draw_dynamic_unlit_geometry = 0x01
+ *   +0x21 draw_dynamic_lit_geometry  = 0x01
+ *   +0x22 draw_dynamic_screen_geometry = 0x01
+ *   +0x23 draw_hud_motion_sensor     = 0x01
+ *   +0x24 draw_detail_objects        = 0x01
+ *   +0x25 draw_debug_geometry        = 0x01
+ *   +0x26 debug_geometry_multipass   = 0x00
+ *   +0x27 fog_atmospheric_enabled    = 0x01
+ *   +0x28 fog_planar_enabled         = 0x01
+ *   +0x29 bump_mapping_enabled       = 0x01
+ *   +0x2C lightmap_ambient           = 0x3F800000 -> 1f
+ *   +0x30 _lightmap_mode             = 0x0000
+ *   +0x32 pad3                       = 0x0000
+ *   +0x34 lightmap_incident_radiosity_enabled = 0x01
+ *   +0x35 lightmap_filtering_enabled = 0x01
+ *   +0x38 model_lighting_ambient     = 0x00000000 -> 0f
+ *   +0x3C environment_alpha_testing_enabled = 0x01
+ *   +0x3D environment_specular_mask_enabled = 0x01
+ *   +0x3E shadow_convolution_enabled = 0x01
+ *   +0x3F shadow_debug_enabled       = 0x00
+ *   +0x40 water_mipmapping_enabled   = 0x00
+ *   +0x41 active_camouflage_enabled  = 0x01
+ *   +0x42 active_camouflage_multipass_enabled = 0x01
+ *   +0x43 plasma_energy_enabled      = 0x01
+ *   +0x44 lens_flare_occlusion_enabled = 0x01
+ *   +0x45 lens_flare_occlusion_debug = 0x00
+ *   +0x46 lens_flare_sun_glow_enabled = 0x01
+ *   +0x47 screen_flash_enabled       = 0x01
+ *   +0x48 screen_effects_enabled     = 0x01
+ *   +0x49 DXTC_noise_enabled         = 0x00
+ *   +0x4A soft_filter_enabled        = 0x00
+ *   +0x4B secondary_render_target_debug_enabled = 0x00
+ *   +0x4C profile_log_enabled        = 0x00
+ *   +0x50 detail_object_screen_facing_offset_multiplier = 0x3ECCCCCD -> 0.4f
+ *   +0x54 zbias                      = 0x00000000 -> 0f
+ *   +0x58 zoffset                    = 0x3B800000 -> 0.00390625f
+ *   +0x5C force_all_player_views_to_default_player = 0x00
+ *   +0x5D safe_frame_bounds_adjust_enabled = 0x00
+ *   +0x5E freeze_flying_camera       = 0x0000
+ *   +0x60 zsprite_enabled            = 0x01
+ *   +0x61 filthy_decal_fog_hack_enabled = 0x01
+ *   +0x62 smart_states_enabled       = 0x01
+ *   +0x63 splitscreen_VB_optimization_enabled = 0x00
+ *   +0x64 profile_print_locks        = 0x00
+ *   +0x68 profile_objectlock_time    = 0x00000000 -> 0f
+ *   +0x6C rasterizer_effects_level   = 0x0002
+ *   +0x6E rasterizer_texture_default_mip_level = 0x0000
+ *   +0x70 rasterizer_model_quality_level = 0x0002
+ *   +0x74 pad3_scale                 = 0x3F800000 -> 1f
+ *   +0x78 f                          = 0x000000000000000000000000000000000000000000000000
+ * data-INIT (144 bytes). Ledger marks this data-bss, but
  * the binary carries nonzero constant defaults; reconstructed field-by-field from the big-endian
- * image (see .data bytes @ 0x841759E0). Only nonzero members are listed; the rest zero-init. */
+ * image (see .data bytes @ 0x841759E0). Only nonzero members are listed; the rest zero-init.
+ */
 #include "../headers/rasterizer_debug_options.h"
 
 rasterizer_debug_options_struct rasterizer_debug_options = {

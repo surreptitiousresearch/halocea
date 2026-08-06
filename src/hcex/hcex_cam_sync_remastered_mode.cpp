@@ -18,9 +18,9 @@ extern struct jbmMANAGER      gsJobManager;
 extern char gsJobPrepareRender[];   /* ws-engine gsREND_JOB_PREPARE_RENDER (jbmJOB_EX base) — boundary; reached by DB offset */
 extern int  hcex_cur_render_mode;
 
-extern void hcex_update_halo_render(void);
-extern void first_person_weapon_update_no_rend(void);
-extern void hcex_cam_sync(void);
+extern "C" void hcex_update_halo_render(void);
+extern "C" void first_person_weapon_update_no_rend(void);
+extern "C" void hcex_cam_sync(void);
 extern void gsPARTICLE_SYS_StopDelayedCDT(struct gsPARTICLE_SYS *system, int mode);  /* virtual, vtbl+0x24 */
 extern void gsRendPrepareRenderNextFrame(void);
 extern void gsRendPrepareRenderNextFrameSkip(void);

@@ -1,5 +1,14 @@
-/* global_real_rgb_green @ 0x84176DB0 — .data data-init (const real_rgb_color *).
- * Points at unnamed .rdata constant @ 0x82113F4C = {r=0,g=1,b=0}. */
-#include "headers/real_rgb_color.h"
-static const real_rgb_color _global_real_rgb_green = { 0.0f, 1.0f, 0.0f };
-const real_rgb_color *global_real_rgb_green = &_global_real_rgb_green;
+/* global_real_rgb_green @ 0x84176DB0 (.data, 4 bytes)  DB decl: const real_rgb_color *global_real_rgb_green;
+ * Image bytes (big-endian), reconstructed from the binary .data record:
+ *   +0x0000 = 0x82113F4C -> &private_real_argb_colors[4].rgb   (private_real_argb_colors+0x044 = element 4 + 4)
+ *
+ * That sub-object decodes big-endian to 00000000 3F800000 00000000 = { red 0.0, green 1.0, blue 0.0 } = green.
+ * There is no private 12-byte constant behind this pointer: all 17 global_real_rgb_<name>
+ * pointers address the rgb sub-object of an element of the single 272-byte
+ * private_real_argb_colors array in .rdata, i.e. element base + 4, skipping the alpha channel.
+ */
+#include "../headers/real_argb_color.h"
+
+extern const real_argb_color private_real_argb_colors[17]; /* 0x82113F08 (.rdata) */
+
+const real_rgb_color *global_real_rgb_green = &private_real_argb_colors[4].rgb;

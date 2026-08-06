@@ -85,7 +85,25 @@ struct main_globals
     int16_t           vblank_flip_deltas[15];        /* 0x40E */
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct main_globals main_globals;
 
-/* Screenshot sequence counter (data-bss @ 0x8441E42C); no other header declared it. */
-extern int global_screenshot_count;
+#ifdef __cplusplus
+}
+#endif
+
+/* Screenshot sequence counter (data-bss @ 0x8441E42C); no other header declared it.
+ * int16_t, not int: every reader in the binary is `lhz` + `extsh` and every writer is `sth`
+ * (see src/data/global_screenshot_count.c), and applied_types says `__int16`. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern int16_t global_screenshot_count;
+
+#ifdef __cplusplus
+}
+#endif

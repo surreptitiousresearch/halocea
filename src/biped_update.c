@@ -32,6 +32,7 @@
 #include "headers/first_person_weapon_message_type.h"
 #include "headers/first_person_weapon_animation.h"
 #include "headers/blam_data_globals.h"
+#include "headers/biped_datum_state.h"
 
 
 extern void biped_blend_client_and_server(int biped_index);
@@ -117,15 +118,19 @@ uint8_t biped_update(int biped_index)
                 biped->unit.desired_facing_vector = *global_forward3d;
         }
 
-        /* classify unit.animation.state into biped.state (0 idle, 1 moving, 2 airborne) */
+        /* classify unit.animation.state into biped.state.
+         * DEVIATION: the three classes were raw 0/1/2 under an in-file comment guessing
+         * "2 = airborne". DB enum $DEF844EF3F09529AA4D2083269A0CC9F names them
+         * idle/moving/unknown — 2 is `unknown`, not airborne (airborne is a separate
+         * _biped_datum.flags bit). Header src/headers/biped_datum_state.h already existed. */
         uint8_t state = (uint8_t)biped->unit.animation.state;
         char animation_class;
         if ( state > _unit_state_move_right || state == _unit_state_gesture )
-            animation_class = 2;
+            animation_class = biped_state_unknown;
         else if ( state == _unit_state_idle || state == _unit_state_turn_left || state == _unit_state_turn_right )
-            animation_class = 0;
+            animation_class = biped_state_idle;
         else
-            animation_class = 1;
+            animation_class = biped_state_moving;
         biped->biped.state = animation_class;
 
         /* squelch sub-threshold aim velocity */

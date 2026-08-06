@@ -35,10 +35,10 @@ extern void       dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *sr
 extern void       dsTSTRING_ReleaseBuffer(dsTSTRING_flat *self, dsTSTRING_BUF_HEADER<char> *buffer);
 extern void       dsTSTRING_dtor(dsTSTRING_flat *s);                                           /* ~dsTSTRING_flat */
 
-extern char *hcex_chpt_ext;                              /* "sav" */
-extern int   hcex_checkpoint_read_header(const char *filename);
+extern "C" char *hcex_chpt_ext;                              /* "sav" */
+extern "C" int   hcex_checkpoint_read_header(const char *filename);
 extern int   osFileIsExist(const char *path);
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 int verify_checkpoint(const dsTSTRING_flat *checkpoint)
 {

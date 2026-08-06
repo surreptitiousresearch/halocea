@@ -21,7 +21,7 @@
 // 0x8200155A — interned empty-string literal used to build an empty dsSTRID. boundary.
 extern const char psEmptyStringLiteral[];
 // Debug allocator free — not needed explicitly here (temporaries destruct themselves). boundary.
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 // ps text helpers (not reversed in this batch). boundary.
 // Render a dsDATA value into `out` as raw text (used for the #ssl embedded-script block).

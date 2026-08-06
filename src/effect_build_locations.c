@@ -20,7 +20,7 @@ extern int datum_new(data_array *data);
 extern int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 
 void effect_build_locations(effect_datum *effect,
-        int16_t (__fastcall *get_markers_by_name)(int, const char *, object_marker *, int16_t))
+        int16_t (*get_markers_by_name)(int, const char *, object_marker *, int16_t))
 {
     effect_definition *definition = TAG_GET(effect_definition, effect->definition_index);
     int event;

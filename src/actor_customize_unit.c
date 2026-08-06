@@ -3,8 +3,8 @@
  * 4, stored into the object's primary/secondary color blocks), and grant the variant's default weapon,
  * grenades and equipment. Camouflaged variants (flags 0x10/0x20) get active-camo state set.
  *
- * Deviation: the decompiler reads the variant flags both as a dword (*v3) and reinterpreted as float
- * (LOBYTE(v25)); both are the same flags dword and are read here as an int. The change-color RGB pack
+ * Deviation: the decompiler reads the variant flags both as a dword and as the low byte of a float-punned
+ * copy of the same word; both are the same flags dword and are read here as an int. The change-color RGB pack
  * (__ROL4__) is R<<16 | G<<8 | B. */
 
 #include <stdint.h>

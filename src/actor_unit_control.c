@@ -18,7 +18,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_vector2d.h"
-extern const unsigned char global_movement_animation_states[];
+/* DEVIATION: was declared `const unsigned char global_movement_animation_states[]` here; 0x8371FD84 scales the index by 2 and loads a halfword (const int16_t[5]). */
 
 extern uint8_t player_input_enabled(void);
 extern void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled);

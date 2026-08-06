@@ -17,8 +17,8 @@ extern int director_is_first_person_player(void);
 extern void observer_update(float dt, uint8_t predict_local_player_movement);
 extern void game_tick(int ticks_remaining_this_frame);
 extern void game_frame(float dt);
-extern void hcex_pix_begin_event(const char *);
-extern int  hcex_pix_end_event(void);
+extern void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10); was declared fixed-arity */
+extern void hcex_pix_end_event(void);                   /* DEVIATION: void, not int (def: src/hcex/hcex_pix_end_event.cpp) */
 extern void hcex_obj_sync_matrices_start(void);
 extern int  hcex_cam_sync_remastered_mode(void);
 

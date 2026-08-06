@@ -1,5 +1,13 @@
-/* net_graph_period_definition @ 0x8417EFC0 -- second-order .data; hs_global_external (16B, big-endian) reconstructed
- * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified. */
+/* net_graph_period_definition @ 0x8417EFC0 (.data, 16 bytes)
+ * DB applied_types: hs_global_external net_graph_period_definition;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 name                       = 0x821220D4 -> "net_graph_period"
+ *   +0x04 type                       = 0x0008
+ *   +0x08 pointer                    = 0x8417ED20 -> gNetGraphSamplePeriod
+ *   +0x0C console_flags              = 0x00
+ * second-order .data; hs_global_external (16B, big-endian) reconstructed
+ * from binary bytes. Pointed to by hs_external_globals[]. name/type DB-verified.
+ */
 #include "../headers/hs_global_external.h"
 #include "../headers/hs_type.h"
 
@@ -7,9 +15,9 @@ extern unsigned int gNetGraphSamplePeriod;
 
 hs_global_external net_graph_period_definition =
 {
-    "net_graph_period",
-    hs_type_long_integer,
-    { 0, 0 },
-    &gNetGraphSamplePeriod,
-    0
+    "net_graph_period",      /* name */
+    hs_type_long_integer,    /* type */
+    { 0, 0 },                /* _pad06.._pad07 */
+    &gNetGraphSamplePeriod,  /* pointer */
+    0,                       /* console_flags */
 };

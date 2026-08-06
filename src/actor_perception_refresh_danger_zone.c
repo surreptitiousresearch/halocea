@@ -7,9 +7,9 @@
  * line-of-sight, visibility and audibility tests). If it just started reacting, it flicks a secondary look
  * toward the danger. The result flag is latched into the actor's behaviour payload.
  *
- * The actor record and the danger-object datum are addressed as raw byte bases (matching the decompiler,
- * which never had the full actor_datum/object payload types applied); accesses land in the opaque
- * behaviour payload so they are reproduced as raw offset casts per the actor_datum convention. */
+ * The actor record and the danger-object datum are now fully typed (actor_datum.danger_zone, object_datum /
+ * projectile_datum / unit_datum); the byte offsets quoted below (object+104, def+412, unit+804, def+4 ...) are
+ * kept as recovery provenance. The one surviving raw cast is the parent-object location at object_datum+152. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -113,10 +113,10 @@ void actor_perception_refresh_danger_zone(int actor_index)
     actor->danger_zone.bounding_sphere_radius =
         __fsqrts(rad_x * rad_x + (rad_y * rad_y + rad_z * rad_z)) + actor->danger_zone.danger_radius;
 
-    uint8_t danger_moved_to_owner_team = 0; /* v21 */
+    uint8_t danger_moved_to_owner_team = 0;
 
     /* ignore_vehicles argument shared by the line-of-sight tests: the actor+344 terms cancel to
-     * `1 - (actor+86 == -1)`, i.e. whether the actor's slot-86 index is valid. */
+     * `1 - (input.vehicle_index == -1)`, i.e. whether that index (actor+344) is valid. */
     uint8_t los_ignore_vehicles = (uint8_t)(actor->input.vehicle_index != -1);
 
     switch ( danger_type )
@@ -138,7 +138,7 @@ void actor_perception_refresh_danger_zone(int actor_index)
             break;
         }
 
-        case actor_danger_zone_projectile: /* thrown grenade / timed device (fuse fraction 1-[144])/[145] */
+        case actor_danger_zone_projectile: /* grenade/timed device; fuse = (1-detonation_timer)/detonation_timer_delta */
         {
             int actor_unit_index = actor->meta.unit_index;
             if ( actor_unit_index != -1 )

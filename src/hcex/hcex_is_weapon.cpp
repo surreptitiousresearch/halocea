@@ -8,7 +8,7 @@
 #include "../headers/object_datum.h"
 #include "../headers/object_type.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_is_weapon(uint16_t id)
 {

@@ -8,12 +8,12 @@
 #include <stdint.h>
 #include "../headers/game_state_header.h"
 
-extern void *CreateFileA(const char *file_name, unsigned int desired_access, unsigned int share_mode,
+extern "C" void *CreateFileA(const char *file_name, unsigned int desired_access, unsigned int share_mode,
                          void *security_attributes, unsigned int creation_disposition,
                          unsigned int flags_and_attributes, void *template_file);
-extern int ReadFile(void *file, void *buffer, unsigned int count, unsigned int *read, void *overlapped);
-extern int CloseHandle(void *handle);
-extern uint8_t game_state_header_valid(game_state_header *header, uint8_t fatal);
+extern "C" int ReadFile(void *file, void *buffer, unsigned int count, unsigned int *read, void *overlapped);
+extern "C" int CloseHandle(void *handle);
+extern "C" uint8_t game_state_header_valid(game_state_header *header, uint8_t fatal);
 
 #define GENERIC_READ          0x80000000u
 #define OPEN_EXISTING         3u

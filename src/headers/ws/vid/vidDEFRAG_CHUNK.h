@@ -28,14 +28,14 @@ struct vidDEFRAG_CHUNK; // fwd
 // vtable — DB-verified (types_members vidDEFRAG_CHUNK_vtbl). Same shape as apDEFRAG_CHUNK_vtbl,
 // overridden per-instance at this level.
 typedef struct vidDEFRAG_CHUNK_vtbl {
-    const char *(__fastcall *DbgInfo)(vidDEFRAG_CHUNK *self);
-    void       *(__fastcall *LockRead)(vidDEFRAG_CHUNK *self);
-    void       *(__fastcall *LockWrite)(vidDEFRAG_CHUNK *self);
-    void        (__fastcall *Unlock)(vidDEFRAG_CHUNK *self);
-    int         (__fastcall *Alignment)(vidDEFRAG_CHUNK *self);
-    int         (__fastcall *MemMove)(vidDEFRAG_CHUNK *self, void *dst, void *src, int size, bool overlap);
-    void        (__fastcall *dtr_vidDEFRAG_CHUNK)(vidDEFRAG_CHUNK *self); // scalar-deleting dtor
-    const char *(__fastcall *Id)(vidDEFRAG_CHUNK *self);
+    const char *(*DbgInfo)(vidDEFRAG_CHUNK *self);
+    void       *(*LockRead)(vidDEFRAG_CHUNK *self);
+    void       *(*LockWrite)(vidDEFRAG_CHUNK *self);
+    void        (*Unlock)(vidDEFRAG_CHUNK *self);
+    int         (*Alignment)(vidDEFRAG_CHUNK *self);
+    int         (*MemMove)(vidDEFRAG_CHUNK *self, void *dst, void *src, int size, bool overlap);
+    void        (*dtr_vidDEFRAG_CHUNK)(vidDEFRAG_CHUNK *self); // scalar-deleting dtor
+    const char *(*Id)(vidDEFRAG_CHUNK *self);
 } vidDEFRAG_CHUNK_vtbl;
 
 struct vidDEFRAG_CHUNK : apDEFRAG_CHUNK {

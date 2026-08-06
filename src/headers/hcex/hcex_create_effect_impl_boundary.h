@@ -76,10 +76,10 @@ extern void dsSTRID_ctor(dsSTRID *s, const char *name, int flags);
 extern const m3dV m3dVUnitY;
 extern void m3dMATR_MakeLCS2WCS_VY(m3dMATR *out, const m3dV *origin, const m3dV *up);
 
-extern void dlFree(void *ptr);
-extern int sprintf_0(char *string, const char *format, ...);
+extern "C" void dlFree(void *ptr);
+extern "C" int sprintf_0(char *string, const char *format, ...);
 
-extern int effectId;
+extern "C" int effectId;
 
 /* apCOUNTER profiler scope (ws-engine instrumentation) bracketing the function body. The original inlines
  * the apCOUNTER macro for counter units 0 and 1; reproduced here as enter/exit boundary calls. */

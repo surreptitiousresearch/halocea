@@ -5,16 +5,16 @@
 
 #include <stdint.h>
 
-extern int global_scenario_index;
-extern char *tag_get_name(int16_t tag_index);
-extern const char *hcex_get_autosave_name(const char *scenario_name);
-extern void hcex_set_current_checkpoint(const char *autosave_name);
-extern void *CreateFileA(const char *name, unsigned int access, unsigned int share, void *security,
+extern "C" int global_scenario_index;
+extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" const char *hcex_get_autosave_name(const char *scenario_name);
+extern "C" void hcex_set_current_checkpoint(const char *autosave_name);
+extern "C" void *CreateFileA(const char *name, unsigned int access, unsigned int share, void *security,
     unsigned int creation, unsigned int flags, void *template_file);
-extern unsigned int SetFilePointer(void *file, int distance, int *distance_high, unsigned int method);
-extern int SetEndOfFile(void *file);
-extern int WriteFile(void *file, const void *buffer, unsigned int count, unsigned int *written, void *overlapped);
-extern int CloseHandle(void *file);
+extern "C" unsigned int SetFilePointer(void *file, int distance, int *distance_high, unsigned int method);
+extern "C" int SetEndOfFile(void *file);
+extern "C" int WriteFile(void *file, const void *buffer, unsigned int count, unsigned int *written, void *overlapped);
+extern "C" int CloseHandle(void *file);
 
 #define GENERIC_READ              0x80000000u
 #define GENERIC_WRITE             0x40000000u

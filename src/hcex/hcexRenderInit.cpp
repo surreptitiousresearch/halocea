@@ -7,8 +7,8 @@
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 #include "../headers/hcex/vidDEFRAG_CHUNK_OBJ_HCEX_X360.h"
 
-extern int            hcex_screen_width;
-extern int            hcex_screen_height;
+extern "C" int            hcex_screen_width;
+extern "C" int            hcex_screen_height;
 extern apDEFRAG_MNG  *apDefragMng;
 
 void hcexRenderInit()

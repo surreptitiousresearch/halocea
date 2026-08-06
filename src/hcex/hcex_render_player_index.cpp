@@ -6,9 +6,9 @@
 #include <stdint.h>
 #include "../headers/director_perspective.h"
 
-extern int16_t local_player_count(void);
-extern int16_t director_get_perspective(int16_t local_player_index);
-extern int     hcex_coop_local_player_index;
+extern "C" int16_t local_player_count(void);
+extern "C" int16_t director_get_perspective(int16_t local_player_index);
+extern "C" int     hcex_coop_local_player_index;
 
 extern "C" int hcex_render_player_index(int cam_idx)
 {

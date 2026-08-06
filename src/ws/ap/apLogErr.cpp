@@ -11,8 +11,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-extern apLOG_CON_CB *_apConCb;              // boundary — optional console log sink (null = none)
-extern void CallLogErrCB(const char *text); // 0x825C87A8 — dispatch a line to all error callbacks (boundary)
+extern "C" apLOG_CON_CB *_apConCb;              // boundary — optional console log sink (null = none)
+extern "C" void CallLogErrCB(const char *text); // 0x825C87A8 — dispatch a line to all error callbacks (boundary)
 
 void apLogErr(const char *text, ...)
 {

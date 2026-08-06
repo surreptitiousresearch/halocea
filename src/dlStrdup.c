@@ -1,12 +1,17 @@
+/* dlStrdup @0x82506760
+ *
+ * DEVIATION: this TU is C++, not C (see dlMalloc.c) — a FLAT export whose callees are all mangled. */
+
 #include <stdint.h>
 #include <string.h>
+#include "headers/ws/ap/apDLALLOC_IFACE.h"
 #include "headers/ws/ap/apMEM_BLOCK_TYPE.h"
 
-void *apDLALLOC_IFACE_Malloc(uint32_t size);
-void  dlDumpNoMemLeft(void);
-int   __apMemoryDebugAdd(void *ptr, uint32_t size, const char *file, uint32_t line, apMEM_BLOCK_TYPE type);
+void dlDumpNoMemLeft(void); /* ?dlDumpNoMemLeft@@YAXXZ */
+int  __apMemoryDebugAdd(void *ptr, uint32_t size, const char *file, uint32_t line,
+                        apMEM_BLOCK_TYPE type);
 
-char *dlStrdup(char *ptr, const char *file, uint32_t line)
+extern "C" char *dlStrdup(char *ptr, const char *file, uint32_t line)
 {
     const char *src;
     char       *scan;
@@ -25,7 +30,7 @@ char *dlStrdup(char *ptr, const char *file, uint32_t line)
     padded_size = (uint32_t)(scan - ptr) - 1 + 7;
     if ((uint32_t)(scan - ptr) == (uint32_t)-6)
         padded_size = 1;
-    dup = apDLALLOC_IFACE_Malloc(padded_size);
+    dup = apDLALLOC_IFACE::Malloc(padded_size);
     if (!dup)
         dlDumpNoMemLeft();
     __apMemoryDebugAdd(dup, padded_size, file, line, AP_MEM_BT_ALLOCATOR);

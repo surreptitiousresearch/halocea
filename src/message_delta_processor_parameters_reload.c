@@ -14,7 +14,6 @@
 #include "headers/field_type_definition.h"
 #include "headers/blam_data_globals.h"
 
-extern _message_definition *message_delta_global_message_list[47];
 
 static void verify_field_set(const _message_definition_field_reference_set *set)
 {

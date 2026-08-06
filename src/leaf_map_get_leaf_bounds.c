@@ -9,8 +9,8 @@
  * The AABB is seeded from global_null_rectangle3d (an empty box) so the first real vertex initializes it.
  *
  * The 2D->3D unprojection mirrors the collision-surface siblings (e.g. collision_surface_find_closest_
- * point2d.c): projection = 2*dominant_axis + normal_sign selects the (u_axis, v_axis) pair, and the third
- * coordinate is solved from the plane equation. */
+ * point2d.c): global_projection3d_mappings[dominant_axis][normal_sign] selects the (u_axis, v_axis)
+ * pair, and the third coordinate is solved from the plane equation. */
 
 #include <stdint.h>
 #include "headers/leaf_map.h"
@@ -18,6 +18,7 @@
 #include "headers/map_leaf_face.h"
 #include "headers/leaf_map_portal.h"
 #include "headers/bsp3d.h"
+#include "headers/bsp3d_node.h"
 #include "headers/real_plane3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_point2d.h"
@@ -25,7 +26,6 @@
 #include "headers/blam_data_globals.h"
 
 /* pointer, not a value: disasm 0x8381AA90 loads it with lwz, then copies through it (-> private_null_rectangle) */
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float sqrtf(float x);
 extern float fabsf(float x);
 
@@ -66,14 +66,14 @@ void leaf_map_get_leaf_bounds(const leaf_map *leaf_map, int leaf_index,
     else if ( leaf->faces.count > 0 )
     {
         const map_leaf_face *faces = (const map_leaf_face *)leaf->faces.address;
-        const int *nodes = (const int *)leaf_map->bsp->nodes.address;
-        const char *planes = (const char *)leaf_map->bsp->planes.address;
+        const bsp3d_node *nodes = (const bsp3d_node *)leaf_map->bsp->nodes.address;
+        const real_plane3d *planes = (const real_plane3d *)leaf_map->bsp->planes.address;
 
         for ( int face_index = 0; face_index < leaf->faces.count; ++face_index )
         {
             const map_leaf_face *face = &faces[face_index];
             const real_plane3d *plane =
-                (const real_plane3d *)&planes[16 * nodes[3 * face->node_index]];
+                &planes[nodes[face->node_index].plane_index];
             const float *normal = plane->n.n;
 
             /* dominant axis = component of the plane normal with the largest magnitude */
@@ -87,9 +87,9 @@ void leaf_map_get_leaf_bounds(const leaf_map *leaf_map, int leaf_index,
                 axis = 2;
 
             float normal_axis = normal[axis];
-            int projection = 2 * axis + (normal_axis > 0.0f);
-            int u_axis = global_projection3d_mappings[0][projection][0];
-            int v_axis = global_projection3d_mappings[0][projection][1];
+            int axis_sign = (normal_axis > 0.0f);
+            int u_axis = global_projection3d_mappings[axis][axis_sign][0];
+            int v_axis = global_projection3d_mappings[axis][axis_sign][1];
 
             const real_point2d *vertices = (const real_point2d *)face->vertices.address;
             for ( int i = 0; i < face->vertices.count; ++i )

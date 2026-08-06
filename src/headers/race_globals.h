@@ -21,4 +21,12 @@ typedef struct race_globals_type
     uint8_t vehicles_have_been_added;              /* 0x144 */
 } race_globals_type; /* 328 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern race_globals_type race_globals;
+
+#ifdef __cplusplus
+}
+#endif

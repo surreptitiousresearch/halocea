@@ -9,8 +9,10 @@
 
 #include "headers/bitstream_t.h"
 #include "headers/bitstream_t.h"
-extern _message_definition *message_delta_global_message_list[47];
-extern int bits_needed[];
+#include "headers/blam_data_globals.h"
+/* DEVIATION: the local extern typed bits_needed as `int[]`, a 4x stride error — the table is a byte
+ * array (see src/data/bits_needed.c for the per-consumer `lbz`/`lbzx` disasm). Declared canonically
+ * by headers/blam_data_globals.h (const uint8_t[2048]). */
 extern int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int bit_count);
 
 uint8_t message_write_iteration_independent_header_post_encoding(iterated_message *const message)

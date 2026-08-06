@@ -61,7 +61,7 @@ extern dsVECTOR_cine_list   listCine;                 /* dsVECTOR<dsPAIR<dsTSTRI
 extern DBG_CINE_INFO        _dbgCineInfo;
 extern int                  gsAnitecElapsedTicsExternal;
 extern float                gsElapsedTime;
-extern float                totaltime;
+extern "C" float                totaltime;
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
@@ -71,15 +71,15 @@ typedef int dsCMP;
 /* --- ws / CRT / bridge helpers (free-function form of the C++ thiscall) --- */
 extern HCEX_OBJ   *hcex_obj_get(int id);
 extern HCEX_OBJ   *hcex_obj_get_by_idx(int idx);
-extern const char *hcex_obj_get_name(int id);
-extern void hcex_obj_get_child_and_next(int id, int *idChild, int *idNext);
-extern int hcex_obj_get_anim_info(int id, int *frameCur, int *frameCount, char **ptrName);
-extern int         hcex_is_cine_mode(void);
-extern int hcex_get_elapsed_tics(void);
+extern "C" const char *hcex_obj_get_name(int id);
+extern "C" void hcex_obj_get_child_and_next(int id, int *idChild, int *idNext);
+extern "C" int hcex_obj_get_anim_info(int id, int *frameCur, int *frameCount, char **ptrName);
+extern "C" int         hcex_is_cine_mode(void);
+extern "C" int hcex_get_elapsed_tics(void);
 extern int         gsMsgIsMode(unsigned int mode);
 extern void        hcex_hide_obj_follow_hier(int id, int isHide, int isHideNext);
 extern int         _apForceLog(const char *path, const char *fmt, ...);
-extern int16_t game_difficulty_level_get(void);
+extern "C" int16_t game_difficulty_level_get(void);
 
 /* dsSTRID / dsTSTRING_flat template ops beyond hcex_ds_boundary.h's base set */
 extern dsTSTRING_flat *dsTSTRING_concat(dsTSTRING_flat *out, const dsTSTRING_flat *a, const dsTSTRING_flat *b);      /* operator+ */

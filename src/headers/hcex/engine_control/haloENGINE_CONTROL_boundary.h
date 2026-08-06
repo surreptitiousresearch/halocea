@@ -124,8 +124,8 @@ extern "C" void set_local_player_controls_from_player_profile(int16_t local_play
 // canonical ws-side home:
 #include "../../ws/gs/gsiCONTEXT.h"
 extern gsINP_SYSTEM *gsSysInput;
-extern void OnInputUpdateCB();
-extern bool isInputSwitchedOff;
+extern "C" void OnInputUpdateCB();
+extern "C" bool isInputSwitchedOff;
 extern "C" void clear_hcex_input_x360();
 
 /* --- co-op session plumbing (SESSION_BASE / net::RELAY — large net-layer classes, referenced
@@ -203,4 +203,4 @@ extern "C" {
 }
 
 #include "../../ws/wb/dbgVAR_boundary.h"
-extern dbgVAR_SIMPLE<bool, 1> dbg_hcex_test_online_coop_local; /* applied_types: dbgVAR_SIMPLE<bool,1> */
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_hcex_test_online_coop_local; /* applied_types: dbgVAR_SIMPLE<bool,1> */

@@ -25,7 +25,7 @@ const real_argb_color * actor_action_debug_color(uint16_t actor_index)
     if ( action_class <= actor_action_avoid )
     {
         global_temporary_render_color = **global_action_functions[action_class].color;
-        void (__fastcall *modify_color)(int, real_argb_color *) = global_action_functions[action_class].modify_color;
+        void (*modify_color)(int, real_argb_color *) = global_action_functions[action_class].modify_color;
         if ( modify_color )
             modify_color(actor_index, &global_temporary_render_color);
     }

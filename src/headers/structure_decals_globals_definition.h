@@ -9,4 +9,12 @@ typedef struct structure_decals_globals_definition
     uint8_t pad[3];       /* 0x01 — pads struct to 4 bytes */
 } structure_decals_globals_definition;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern structure_decals_globals_definition *structure_decals_globals;
+
+#ifdef __cplusplus
+}
+#endif

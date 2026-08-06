@@ -16,8 +16,8 @@ void action_obey_individual_begin(int actor_index, int unit_index, int16_t comma
     /* MIS-SCALED: decompiler *((_DWORD*)address + 24*index + 8) @837DED84 is DWORD-indexed,
      * i.e. element stride 96 (= ai_command_list_definition) and flags at byte 32 — not a 24-byte
      * stride with an +8 byte flags field as a prior byte-offset transcription assumed. */
-    ai_command_list_definition *command_list =
-        &((ai_command_list_definition *)global_scenario->ai_command_lists.address)[command_list_index];
+    ai_command_list_definition_t *command_list =
+        &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[command_list_index];
 
     if ( command_list->flags & (1u << _ai_command_list_disable_falling_damage_bit) )   /* ai_command_list "no falling damage" flag */
     {

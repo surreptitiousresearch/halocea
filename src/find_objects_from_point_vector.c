@@ -25,11 +25,11 @@ extern int16_t scenario_cluster_index_from_point(const real_point3d *point);
 extern unsigned int *structure_bsp_get_cluster_pvs(structure_bsp *structure_bsp, int16_t cluster_index);
 extern int cluster_partition_get_first_datum(const cluster_partition *partition, int *reference_index, int16_t cluster_index);
 extern int cluster_partition_get_next_datum(const cluster_partition *partition, int *reference_index);
-extern int recursive_object_adder(int object_index, uint8_t (__fastcall *add_object_function)(int, void *),
+extern int recursive_object_adder(int object_index, uint8_t (*add_object_function)(int, void *),
                                   void *custom_data, int object_count, int maximum_count, int *object_indices);
 
 int find_objects_from_point_vector(const real_point3d *position, const real_vector3d *direction,
-                                   uint8_t (__fastcall *add_object_function)(int, void *),
+                                   uint8_t (*add_object_function)(int, void *),
                                    void *custom_data, int maximum_object_count, int *object_indices)
 {
     int object_count = 0;

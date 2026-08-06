@@ -1,10 +1,55 @@
-/* global_action_functions @ 0x821286C8 — .rdata, 784 bytes = 14 x action_specification
+/* global_action_functions @ 0x821286C8 (.rdata, 784 bytes)
+ * DB applied_types: const action_specification global_action_functions[14];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   [ 0] +0x00 action                     = 0x00000000
+ *        +0x04 name                       = 0x8200466C -> "none"
+ *        +0x08 color                      = 0x84176D64 -> global_real_argb_black
+ *        +0x0C data_size                  = 0x00000000
+ *        +0x10 action_class               = 0x0000
+ *        +0x14 begin                      = 0x00000000
+ *        +0x18 perform                    = 0x00000000
+ *        +0x1C update                     = 0x00000000
+ *        +0x20 control                    = 0x00000000
+ *        +0x24 end                        = 0x00000000
+ *        +0x28 modify_color               = 0x00000000
+ *        +0x2C replace_prop               = 0x00000000
+ *        +0x30 flush_position_indices     = 0x00000000
+ *        +0x34 flush_structure_indices    = 0x00000000
+ *   [ 1] +0x00 action                     = 0x00000001
+ *        +0x04 name                       = 0x8211877C -> "sleep"
+ *        +0x08 color                      = 0x84176D84 -> global_real_argb_lightblue
+ *        +0x0C data_size                  = 0x00000000
+ *        +0x10 action_class               = 0x0000
+ *        +0x14 begin                      = 0x00000000
+ *        +0x18 perform                    = 0x00000000
+ *        +0x1C update                     = 0x00000000
+ *        +0x20 control                    = 0x83826DD8 -> action_sleep_control
+ *        +0x24 end                        = 0x00000000
+ *        +0x28 modify_color               = 0x00000000
+ *        +0x2C replace_prop               = 0x00000000
+ *        +0x30 flush_position_indices     = 0x00000000
+ *        +0x34 flush_structure_indices    = 0x00000000
+ *   ... 11 further elements elided; full hex in .sweep/data_image.tsv
+ *   [13] +0x00 action                     = 0x0000000D
+ *        +0x04 name                       = 0x82128680 -> "avoid"
+ *        +0x08 color                      = 0x84176D60 -> global_real_argb_grey
+ *        +0x0C data_size                  = 0x00000004
+ *        +0x10 action_class               = 0x0002
+ *        +0x14 begin                      = 0x83821288 -> action_avoid_begin
+ *        +0x18 perform                    = 0x83821298 -> action_avoid_perform
+ *        +0x1C update                     = 0x83821358 -> action_avoid_update
+ *        +0x20 control                    = 0x83821360 -> action_avoid_control
+ *        +0x24 end                        = 0x83821290 -> action_avoid_end
+ *        +0x28 modify_color               = 0x00000000
+ *        +0x2C replace_prop               = 0x00000000
+ *        +0x30 flush_position_indices     = 0x00000000
+ *        +0x34 flush_structure_indices    = 0x00000000
+ * .rdata, 784 bytes = 14 x action_specification
  * (sizeof == 56; 784 / 56 == 14 == number_of_actor_actions, no padding). The actor-action dispatch
  * table: one row per actor_action, carrying the action id, its console/debug name and debug color,
  * the size of its action_state_data payload, its action_class, and the nine per-action callbacks.
  * Initializer reconstructed from the binary relocations and big-endian words; every non-null
  * pointer word below was resolved to a DB symbol, every null word is an absent callback:
- *
  *   row  action    name        color                        data_size  action_class
  *   [0]  none      "none"      global_real_argb_black         0x00     noncombat   (no callbacks)
  *   [1]  sleep     "sleep"     global_real_argb_lightblue     0x00     noncombat   control
@@ -20,16 +65,14 @@
  *   [11] obey      "obey"      global_real_argb_purple        0x84     transitory  begin perform update control end
  *   [12] converse  "converse"  global_real_argb_orange        0x14     transitory  begin perform update control end replace_prop
  *   [13] avoid     "avoid"     global_real_argb_grey          0x04     transitory  begin perform update control end
- *
  * The name pointers are the .rdata literals at 0x8200466C "none", 0x8211877C "sleep",
  * 0x820DC020 "alert", 0x821286BC "fight", 0x82113328 "flee", 0x821286B4 "uncover",
  * 0x821286AC "guard", 0x821286A4 "search", 0x8207BC94 "wait", 0x8211462C "vehicle",
  * 0x8212869C "charge", 0x82128694 "obey", 0x82128688 "converse", 0x82128680 "avoid".
- *
  * The object is in .rdata; the corpus declaration (src/headers/action_specification.h, plus four
  * consumer TUs) is non-const and the definition matches it so every declaration agrees.
+ * /
  */
-
 #include <stdint.h>
 #include "../headers/real_argb_color.h"
 #include "../headers/action_specification.h"
@@ -49,9 +92,8 @@ extern const real_argb_color *global_real_argb_darkgreen;  /* 0x84176D94 */
 extern const real_argb_color *global_real_argb_red;        /* 0x84176D68 */
 extern const real_argb_color *global_real_argb_purple;     /* 0x84176D8C */
 extern const real_argb_color *global_real_argb_orange;     /* 0x84176D88 */
-/* These four have no definition anywhere in the corpus yet (they are .data storage gaps of the
- * same family as the thirteen that do); declared here at the canonical type so this table can
- * take their address. */
+/* These four are now defined too (BACKLOG A7): like the other thirteen they are .data pointers
+ * into private_real_argb_colors @ 0x82113F08. */
 extern const real_argb_color *global_real_argb_cyan;       /* 0x84176D74 */
 extern const real_argb_color *global_real_argb_aqua;       /* 0x84176D90 */
 extern const real_argb_color *global_real_argb_magenta;    /* 0x84176D7C */

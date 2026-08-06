@@ -12,4 +12,4 @@ typedef struct EAX_MAP_ENTRY
     dsTSTRING<char>  fmod_preset;  /* 0x04 */
 } EAX_MAP_ENTRY;                   /* 8 bytes */
 
-extern EAX_MAP_ENTRY EAX_MAP[23];
+extern "C" EAX_MAP_ENTRY EAX_MAP[23];

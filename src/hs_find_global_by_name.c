@@ -12,7 +12,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int stricmp(const char *a, const char *b);
-extern int16_t hs_external_global_count;
+extern const int16_t hs_external_global_count;
 
 int16_t hs_find_global_by_name(const char *name)
 {

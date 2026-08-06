@@ -14,7 +14,7 @@ extern apProfileTimer   hcex_prof;
 
 extern unsigned long long osGetPerfCounter(void);
 extern unsigned long long osGetPerfFrequancy(void);
-extern double __u64tod(unsigned long long value);
+extern "C" double __u64tod(unsigned long long value);
 extern float *dsVECTOR_float_8__PushBack(dsVECTOR_float_8 *v, const float *value);  /* dsVECTOR<float,8>::PushBack */
 
 extern "C" float *hcex_prof_end(void)

@@ -12,13 +12,13 @@ struct apDEFRAG_CHUNK_DESC;
 
 // vtable — DB-verified (types_members apDEFRAG_POOL_vtbl).
 typedef struct apDEFRAG_POOL_vtbl {
-    void          (__fastcall *dtr_apDEFRAG_POOL)(apDEFRAG_POOL *self);
-    void         *(__fastcall *AllocBuf)(apDEFRAG_POOL *self, int size, int *outIdx);
-    bool          (__fastcall *FreeBuf)(apDEFRAG_POOL *self, apDEFRAG_BUF *buf);
-    const char   *(__fastcall *Id)(apDEFRAG_POOL *self);
-    apDEFRAG_BUF *(__fastcall *CreateBuf)(apDEFRAG_POOL *self, char *base, int size);
-    void          (__fastcall *FitChunk)(apDEFRAG_POOL *self, apDEFRAG_CHUNK *chunk);
-    void          (__fastcall *DumpStat)(apDEFRAG_POOL *self);
+    void          (*dtr_apDEFRAG_POOL)(apDEFRAG_POOL *self);
+    void         *(*AllocBuf)(apDEFRAG_POOL *self, int size, int *outIdx);
+    bool          (*FreeBuf)(apDEFRAG_POOL *self, apDEFRAG_BUF *buf);
+    const char   *(*Id)(apDEFRAG_POOL *self);
+    apDEFRAG_BUF *(*CreateBuf)(apDEFRAG_POOL *self, char *base, int size);
+    void          (*FitChunk)(apDEFRAG_POOL *self, apDEFRAG_CHUNK *chunk);
+    void          (*DumpStat)(apDEFRAG_POOL *self);
 } apDEFRAG_POOL_vtbl;
 
 typedef struct apDEFRAG_POOL {

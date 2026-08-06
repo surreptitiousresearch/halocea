@@ -9,14 +9,14 @@
 #include "../headers/observer_result.h"
 #include "../headers/hcex/hcex_float3.h"
 
-extern int         halo_cam_sync_back;
-extern int         halo_adjust_widescreen_fov;
-extern hcex_float3 halo_cam_pos;
-extern hcex_float3 halo_cam_forv;
-extern hcex_float3 halo_cam_up;
+extern "C" int         halo_cam_sync_back;
+extern "C" int         halo_adjust_widescreen_fov;
+extern "C" hcex_float3 halo_cam_pos;
+extern "C" hcex_float3 halo_cam_forv;
+extern "C" hcex_float3 halo_cam_up;
 
-extern double tan(double x);
-extern double atan2(double y, double x);
+extern "C" double tan(double x);
+extern "C" double atan2(double y, double x);
 
 extern "C" void hcex_update_observer_res(observer_result *cmd)
 {

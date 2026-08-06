@@ -8,7 +8,7 @@
 
 #include <stdarg.h>
 
-extern int vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
+extern "C" int vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
 extern void _osOutputDebugString(const char *string);
 
 extern "C" void hcex_output_dbg(const char *fmt, ...)

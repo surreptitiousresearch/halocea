@@ -1,6 +1,50 @@
-/* sound_classes @ 0x8417CA68 -- data-init sound_class_definition[51] (2244 bytes;
+/* sound_classes @ 0x8417CA68 (.data, 2244 bytes)
+ * DB applied_types: sound_class_definition sound_classes[51];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   [ 0] +0x00 maximum_number_per_definition = 0x0003
+ *        +0x02 maximum_number_per_object  = 0x0002
+ *        +0x04 preemption_time            = 0x00000064
+ *        +0x08 speech                     = 0x00
+ *        +0x0A priority                   = 0x0004
+ *        +0x0C cache_miss_mode            = 0x0000
+ *        +0x10 reverb_damping_factor      = 0x3F000000 -> 0.5f
+ *        +0x14 effect_damping_factor      = 0x00000000 -> 0f
+ *        +0x18 minimum_distance           = 0x3FB33333 -> 1.4f
+ *        +0x1C maximum_distance           = 0x41000000 -> 8f
+ *        +0x20 gain_lower_bound           = 0x3F800000 -> 1f
+ *        +0x24 gain_upper_bound           = 0x3F800000 -> 1f
+ *        +0x28 disabled                   = 0x00
+ *   [ 1] +0x00 maximum_number_per_definition = 0x0004
+ *        +0x02 maximum_number_per_object  = 0x0001
+ *        +0x04 preemption_time            = 0x000000C8
+ *        +0x08 speech                     = 0x00
+ *        +0x0A priority                   = 0x0005
+ *        +0x0C cache_miss_mode            = 0x0001
+ *        +0x10 reverb_damping_factor      = 0x3F000000 -> 0.5f
+ *        +0x14 effect_damping_factor      = 0x00000000 -> 0f
+ *        +0x18 minimum_distance           = 0x41000000 -> 8f
+ *        +0x1C maximum_distance           = 0x42F00000 -> 120f
+ *        +0x20 gain_lower_bound           = 0x3F800000 -> 1f
+ *        +0x24 gain_upper_bound           = 0x3F800000 -> 1f
+ *        +0x28 disabled                   = 0x00
+ *   [ 2] +0x00 maximum_number_per_definition = 0x0000
+ *        +0x02 maximum_number_per_object  = 0x0000
+ *        +0x04 preemption_time            = 0x00000000
+ *        +0x08 speech                     = 0x00
+ *        +0x0A priority                   = 0x0000
+ *        +0x0C cache_miss_mode            = 0x0000
+ *        +0x10 reverb_damping_factor      = 0x00000000 -> 0f
+ *        +0x14 effect_damping_factor      = 0x00000000 -> 0f
+ *        +0x18 minimum_distance           = 0x00000000 -> 0f
+ *        +0x1C maximum_distance           = 0x00000000 -> 0f
+ *        +0x20 gain_lower_bound           = 0x00000000 -> 0f
+ *        +0x24 gain_upper_bound           = 0x00000000 -> 0f
+ *        +0x28 disabled                   = 0x00
+ *   ... 48 further elements elided; full hex in .sweep/data_image.tsv
+ * data-init sound_class_definition[51] (2244 bytes;
  * ledger size 2248 overcounts by 4). Per-sound-class mixing/priority tuning,
- * each 44-byte record reconstructed field-by-field from the binary (big-endian). */
+ * each 44-byte record reconstructed field-by-field from the binary (big-endian).
+ */
 #include "../headers/sound_class_definition.h"
 
 sound_class_definition sound_classes[51] =

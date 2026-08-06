@@ -17,4 +17,12 @@ typedef struct hardware_character_cache_struct
     hardware_character characters[512]; // 0x10
 } hardware_character_cache_struct;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern hardware_character_cache_struct hardware_character_cache;
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,3 +1,9 @@
+/* hs_console_flags_to_test @ 0x8445F69C (.data, 12 bytes)
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x00000000
+ *   +0x0004 = 0x00000000
+ *   +0x0008 = 0x00000000
+ */
 #include <stdint.h>
 /* hs_console_flags_to_test @ 0x8445F69C - .data zero-fill (IDA word_8445F69C, no PDB name).
  * Halfword slot of the hs_tokens_enumerate enumeration-state block (enumeration_maximum_count 0x8445F694,

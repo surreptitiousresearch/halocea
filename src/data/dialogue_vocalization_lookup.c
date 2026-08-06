@@ -1,15 +1,43 @@
-/* CAVEAT: six entries name themselves - [93]/[94]/[95] (playerkill_unused1..3), [108]
+/* dialogue_vocalization_lookup @ 0x82129AD8 (.rdata, 418 bytes)
+ * DB applied_types: const __int16 dialogue_vocalization_lookup[209];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0001 FFFF FFFF FFFF FFFF FFFF FFFF 0006
+ *   +0x0010: 0006 0006 FFFF 000A FFFF 000C 000F FFFF
+ *   +0x0020: 000E 000F 000E 000F FFFF FFFF 0015 FFFF
+ *   +0x0030: FFFF FFFF FFFF FFFF FFFF FFFF FFFF 001D
+ *   +0x0040: FFFF FFFF FFFF 0020 0020 0020 0020 0020
+ *   +0x0050: 0020 0020 0020 0020 0020 0020 FFFF FFFF
+ *   +0x0060: FFFF FFFF FFFF 0031 FFFF FFFF FFFF 0035
+ *   +0x0070: 0036 0035 0036 0035 0036 0035 0036 0035
+ *   +0x0080: 0036 0035 0035 0035 0035 0035 0035 0035
+ *   +0x0090: 0035 0035 0035 0035 FFFF FFFF FFFF FFFF
+ *   +0x00A0: FFFF 0050 0050 0050 0050 0050 0050 0050
+ *   +0x00B0: 0050 0050 0050 0050 0050 005D 005E 005F
+ *   +0x00C0: FFFF 0060 0060 0062 0060 0064 0064 0064
+ *   +0x00D0: 0064 FFFF FFFF FFFF 006C 006D 006C FFFF
+ *   +0x00E0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x00F0: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0100: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0110: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0120: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0130: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0140: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0150: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0160: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0170: FFFF FFFF FFFF FFFF 0035 0070 009A 00BF
+ *   +0x0180: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x0190: FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF
+ *   +0x01A0: 0000
+ * CAVEAT: six entries name themselves - [93]/[94]/[95] (playerkill_unused1..3), [108]
  * (sighted_enemy_new), [109] (sighted_enemy_recent) and [191] (shoot_corpse). unit_test_speech's
  * fallback walk re-indexes with the value it just read, so such an entry cannot terminate the walk
  * on its own; it only exits because the resolved sound is non-null or recursion is disabled. The
  * bytes were re-read straight out of the image and are reproduced exactly - this is original
  * shipped data, not a reconstruction artifact.
- *
- * dialogue_vocalization_lookup @ 0x82129AD8 - .rdata read-only table, 418 bytes of data.
+ * .rdata read-only table, 418 bytes of data.
  * ai_vocalization_type -> the fallback ai_vocalization_type to try when a unit's dialogue tag has
  * no sound for the requested one, or -1 to give up. unit_test_speech.c:52 is the only consumer:
  * `vocalization_type = dialogue_vocalization_lookup[type];` inside the recursive-lookup loop.
- *
  * Element type int16_t, proven by the load in unit_test_speech (index scaled by 2, halfword load,
  * sign-extended):
  *   837BA73C  lis   r10, dialogue_vocalization_lookup@ha
@@ -17,17 +45,15 @@
  *   837BA764  slwi  r11, r11, 1
  *   837BA768  lhzx  r4, r11, r7
  *   837BA76C  extsh r11, r4
- *
  * Length 209 == NUMBER_OF_VOCALIZATION_TYPES, which is the same domain that sizes
  * dialogue_definition.vocalizations[209] - the table this one redirects within. 209 * 2 == 418;
  * the gap to the next named .rdata object (aFrontLeafIndex @0x82129C7C) is 420, so the trailing
  * two bytes are alignment padding, not an element.
- *
  * Entry [208] (postcombatchatter_unused4) is 0x0000. Written here as the enum constant that value
  * denotes; note it is equally consistent with a 208-entry initializer list that the compiler
  * zero-filled - both spellings assemble to the identical image, and [205]..[207] are -1.
- *
  * 132 of the 209 entries are -1 (no fallback).
+ * /
  */
 #include <stdint.h>
 #include "../headers/ai_vocalization_type.h"

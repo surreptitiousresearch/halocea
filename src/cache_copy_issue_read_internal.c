@@ -4,6 +4,7 @@
  * by ReadFileEx) hEvent slot so the completion routine can identify which buffer finished. */
 
 #include <stdint.h>
+#include "headers/win32_async_io_boundary.h"
 #include "headers/simple_decompressor_definition.h"
 #include "headers/copy_flags.h"
 #include "headers/blam_data_globals.h"
@@ -12,9 +13,6 @@
 extern unsigned int SleepEx(unsigned int dwMilliseconds, int bAlertable);
 extern void         SetLastError(unsigned int dwErrCode);
 extern unsigned int GetLastError(void);
-extern int          ReadFileEx(void *hFile, void *lpBuffer, unsigned int nNumberOfBytesToRead,
-                               _OVERLAPPED *lpOverlapped,
-                               void (__fastcall *lpCompletionRoutine)(unsigned int, unsigned int, _OVERLAPPED *));
 extern void cache_copy_FileIOCompletionRoutine(unsigned int dwErrorCode, unsigned int dwNumberOfBytesTransfered, _OVERLAPPED *lpOverlapped);
 
 void cache_copy_issue_read_internal(simple_decompressor_definition *self, void *buffer, unsigned int size, int offset, int16_t read_buffer_index)

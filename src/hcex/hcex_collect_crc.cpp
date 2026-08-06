@@ -8,7 +8,7 @@
 #include "../headers/ws/ds/dsCONST_ARRAY.h"
 
 extern dsCONST_ARRAY<int, 64> crc_list;
-extern uint32_t game_state_calculate_crc(void);
+extern "C" uint32_t game_state_calculate_crc(void);
 
 void hcex_collect_crc(void)
 {

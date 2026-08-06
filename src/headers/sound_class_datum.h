@@ -10,4 +10,12 @@ typedef struct sound_class_datum
     int16_t ticks;        // 0x08
 } sound_class_datum;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern sound_class_datum *sound_class_data;
+
+#ifdef __cplusplus
+}
+#endif

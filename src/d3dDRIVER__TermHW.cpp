@@ -7,12 +7,17 @@ struct vidLOCK { void Lock(const char *file, int line); void Unlock(const char *
 extern vidLOCK vidLock;
 extern int DEBUG_SceneCounter;
 extern int DEBUG_WasBegin;
-extern void D3DResource_Release(void *pResource);
-extern void D3DDevice_Release(D3DDevice *pDevice);
-extern void D3DDevice_SetRenderTarget_External(D3DDevice *pDevice, unsigned int index, void *pRT);
-extern void D3DDevice_SetDepthStencilSurface(D3DDevice *pDevice, void *pDepthStencil);
+/* DEVIATION: D3DResource_Release was locally redeclared here as `void (void *)`, which under C++
+ * overloaded the correct `unsigned int (D3DResource *)` that d3d_boundary.h (via d3d_driver.h)
+ * already declares -- an unresolvable mangled reference at link. Local decl removed; the call
+ * sites take the corpus-standard (D3DResource *) cast. */
+extern "C" void D3DDevice_Release(D3DDevice *pDevice);
+extern "C" void D3DDevice_SetRenderTarget_External(D3DDevice *pDevice, unsigned int index, void *pRT);
+extern "C" void D3DDevice_SetDepthStencilSurface(D3DDevice *pDevice, void *pDepthStencil);
 extern "C" void XPhysicalFree(void *p);
-extern void __apMemoryDebugRemove(void *p, int flags);
+/* DEVIATION: ?__apMemoryDebugRemove@@YAHPAX_N@Z returns int and takes bool; the previous
+ * `void (void *, int)` spelling mangled to a symbol the binary does not export. */
+extern int __apMemoryDebugRemove(void *p, bool isAllocator);
 
 // 0x82691730 -- d3dDRIVER::TermHW. Tears down the Xenon device. Clears the in-scene bit, resets
 // the DEBUG scene counters, and (only if the device was actually up, bit 0x04000000) chains
@@ -42,7 +47,7 @@ void d3dDRIVER::TermHW()
     for ( int i = 0; i < 2; ++i )
     {
         if ( this->m_pFrontBufferTexture[i] )
-            D3DResource_Release(this->m_pFrontBufferTexture[i]);
+            D3DResource_Release((D3DResource *)this->m_pFrontBufferTexture[i]);
         this->m_pFrontBufferTexture[i] = nullptr;
     }
 
@@ -80,10 +85,10 @@ void d3dDRIVER::TermHW()
     this->pAllocator = nullptr;
 
     if ( this->pDepthBuffer )
-        D3DResource_Release(this->pDepthBuffer);
+        D3DResource_Release((D3DResource *)this->pDepthBuffer);
     this->pDepthBuffer = nullptr;
     if ( this->pBackBuffer )
-        D3DResource_Release(this->pBackBuffer);
+        D3DResource_Release((D3DResource *)this->pBackBuffer);
     this->pBackBuffer = nullptr;
 
     vidLock.Unlock("D:\\Projects\\code\\common\\src.sys\\drv\\video\\d3d_8\\D3d_drv_8.cpp", 1346);

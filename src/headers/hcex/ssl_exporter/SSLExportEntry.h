@@ -10,7 +10,7 @@
 struct SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry {
     // 0x00 the SSL-VM-facing trampoline this entry registers (self, argc, argv, retVal, caller).
     // Null for entries that register as a bare SSL event instead of a callable function.
-    void (__fastcall *cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
+    void (*cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller);
     // 0x04 pointer to the int slot (a byte offset into an SSL_EXPORTER_haloENGINE_CONTROL instance,
     // per the ctors below) that PerformExport writes the resolved SSL function/event id into.
     int *id;
@@ -31,7 +31,7 @@ struct SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry {
     // 0x823C4BF4 — full construct: adopts `_cb`/`_id` verbatim and shares `_sslDecl`'s buffer
     // (ref-counted).
     SSLExportEntry(
-        void (__fastcall *_cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
+        void (*_cb)(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVal, sslOBJ_REF caller),
         int *_id,
         const dsTSTRING<char> *_sslDecl);
 };

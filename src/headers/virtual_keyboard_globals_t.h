@@ -33,4 +33,12 @@ typedef struct _virtual_keyboard_globals
     int              text_font_tag;             /* 0x70 */
 } virtual_keyboard_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern virtual_keyboard_globals_t virtual_keyboard_globals;
+
+#ifdef __cplusplus
+}
+#endif

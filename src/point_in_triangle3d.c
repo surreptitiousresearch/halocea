@@ -9,8 +9,8 @@
 
 #include <stdint.h>
 #include "headers/real_point3d.h"
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern float __fabs(float x);
 
 /* attested: return is uint8_t — both callers re-normalize with clrlwi r3,24
@@ -25,7 +25,7 @@ uint8_t point_in_triangle3d(const real_point3d *point, const real_point3d *p0, c
     float plane_dist;
     float abs_n0, abs_n1, abs_n2;
     int axis;
-    int slot, keep0, keep1;
+    int axis_sign, keep0, keep1;
     float numerator_s, numerator_t, denominator, inv;
 
     edge1[0] = p1->n[0] - p0->n[0];
@@ -62,9 +62,9 @@ uint8_t point_in_triangle3d(const real_point3d *point, const real_point3d *p0, c
     else
         axis = 2;                       /* dominant is axis 2 */
 
-    slot = 2 * axis + (normal[axis] > 0.0);
-    keep0 = global_projection3d_mappings[0][slot][0];
-    keep1 = global_projection3d_mappings[0][slot][1];
+    axis_sign = (normal[axis] > 0.0);
+    keep0 = global_projection3d_mappings[axis][axis_sign][0];
+    keep1 = global_projection3d_mappings[axis][axis_sign][1];
 
     /* barycentric numerators/denominator in the projected 2D plane */
     numerator_t = (pvec[keep1] * edge1[keep0]) - (edge1[keep1] * pvec[keep0]);

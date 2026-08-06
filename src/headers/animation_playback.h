@@ -5,6 +5,6 @@
 
 typedef struct animation_playback
 {
-    void (__fastcall *initialize_event_stream)(struct animation_playback_controller *controller, struct unit_control_data *control, const char **stream, uint8_t init_parameter); /* 0x00 */
-    uint8_t (__fastcall *apply_event_stream)(struct animation_playback_controller *controller, struct unit_control_data *control, int *stream_cursor, const char **stream_data); /* 0x04 */
+    void (*initialize_event_stream)(struct animation_playback_controller *controller, struct unit_control_data *control, const char **stream, uint8_t init_parameter); /* 0x00 */
+    uint8_t (*apply_event_stream)(struct animation_playback_controller *controller, struct unit_control_data *control, int *stream_cursor, const char **stream_data); /* 0x04 */
 } animation_playback;

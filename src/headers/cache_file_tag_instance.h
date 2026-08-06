@@ -11,4 +11,12 @@ typedef struct cache_file_tag_instance
     unsigned int unused[2];    // 0x18
 } cache_file_tag_instance;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern cache_file_tag_instance *global_tag_instances;
+
+#ifdef __cplusplus
+}
+#endif

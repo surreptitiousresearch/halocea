@@ -7,7 +7,7 @@
 
 /* Parallel string table, one entry per ENGINE_TEX_ADDRESS_MODE value [0, ETADDR_LAST).
  * Data boundary — defined in the rasterizer string-tables translation unit. */
-extern const char *ENGINE_TEX_ADDRESS_MODE_STR[];
+extern "C" const char *ENGINE_TEX_ADDRESS_MODE_STR[];
 
 extern "C" int stricmp(const char *a, const char *b); // CRT boundary (case-insensitive compare)
 

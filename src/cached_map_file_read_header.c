@@ -3,6 +3,7 @@
  * the header is zeroed; if the read never completed the slot's handle is invalidated. */
 
 #include <stdint.h>
+#include "headers/win32_async_io_boundary.h"
 #include "headers/cache_file_globals.h"
 #include "headers/async_read_request.h"
 #include "headers/blam_data_globals.h"
@@ -12,9 +13,6 @@ extern unsigned int SleepEx(unsigned int dwMilliseconds, int bAlertable);
 /* Win32 imports (kernel32 boundary; repo shim types — system <windows.h> collides with the
  * canonical globals header's Win32 shims) */
 extern int GetFileTime(void *hFile, _FILETIME *lpCreationTime, _FILETIME *lpLastAccessTime, _FILETIME *lpLastWriteTime);
-/* CAST-FIX: lpCompletionRoutine is a completion-routine funcptr (Win32 LPOVERLAPPED_COMPLETION_ROUTINE),
- * not void*; typed so ReadFileEx matches cached_map_issue_async_request's async_fn param with no cast. */
-extern int ReadFileEx(void *hFile, void *lpBuffer, uint32_t nNumberOfBytesToRead, _OVERLAPPED *lpOverlapped, void (*lpCompletionRoutine)(uint32_t, uint32_t, _OVERLAPPED *));
 
 extern char *system_get_scratch_disk_root(void);
 extern int sprintf_0(char *string, const char *format, ...);

@@ -3,10 +3,10 @@
  * (no cached value); the compass headings and plasma heat levels are zeroed. Two slots each = split-screen
  * local players 0 and 1. */
 
-extern int   hcex_arifle_ammo[];
-extern float hcex_arifle_compass[];
-extern float hcex_plasma_rifle_heat[];
-extern float hcex_plasma_pistol_heat[];
+extern "C" int   hcex_arifle_ammo[];
+extern "C" float hcex_arifle_compass[];
+extern "C" float hcex_plasma_rifle_heat[];
+extern "C" float hcex_plasma_pistol_heat[];
 
 extern "C" void hcex_reset_weapon_state(void)
 {

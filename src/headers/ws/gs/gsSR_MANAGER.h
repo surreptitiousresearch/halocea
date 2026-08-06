@@ -71,5 +71,5 @@ struct gsSR_MANAGER : msgADDR {
 extern void gsStartJobSrMng(jbmJOB *pJob);
 
 // Per-frame query counters reset by CheckAddExecJobs. Module globals.
-extern int queryAddNmb;
-extern int queryExecuteNmb;
+extern "C" int queryAddNmb;
+extern "C" int queryExecuteNmb;

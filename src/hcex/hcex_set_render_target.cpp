@@ -9,7 +9,7 @@
 
 #include "../headers/vid_boundary.h"
 
-extern int hcex_is_halo_mode(void);
+extern "C" int hcex_is_halo_mode(void);
 
 extern "C" void hcex_set_render_target(unsigned int new_tgt, int old_tgt)
 {

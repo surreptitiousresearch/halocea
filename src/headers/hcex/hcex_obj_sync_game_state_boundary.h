@@ -89,13 +89,13 @@ extern void objOBJ_SetStateProcNo(struct objOBJ *self, int stateProc, void *cbCo
 extern void objOBJ_SetTransparency(struct objOBJ *self, int alpha);
 
 /* --- Blam-side / hcex-bridge queries (already reversed) --- */
-extern float hcex_obj_get_function_in(int object_index, int function_index);   /* hcex_obj_get_function_in.c */
-extern uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
-extern float hcex_shield_effect_on(int id);          /* hcex_shield_effect_on.c */
-extern int hcex_obj_is_act_camo(int id);            /* hcex_obj_is_act_camo.c */
-extern int hcex_machine_is_locked(int id);          /* hcex_machine_is_locked.c */
-extern int hcex_machine_is_power_on(int id);        /* hcex_machine_is_power_on.c */
-extern float hcex_machine_position(int id);           /* hcex_machine_position.c */
+extern "C" float hcex_obj_get_function_in(int object_index, int function_index);   /* hcex_obj_get_function_in.c */
+extern "C" uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
+extern "C" float hcex_shield_effect_on(int id);          /* hcex_shield_effect_on.c */
+extern "C" int hcex_obj_is_act_camo(int id);            /* hcex_obj_is_act_camo.c */
+extern "C" int hcex_machine_is_locked(int id);          /* hcex_machine_is_locked.c */
+extern "C" int hcex_machine_is_power_on(int id);        /* hcex_machine_is_power_on.c */
+extern "C" float hcex_machine_position(int id);           /* hcex_machine_position.c */
 
 extern void osPIXBeginEvent(const char *string);
 extern void osPIXEndEvent(void);

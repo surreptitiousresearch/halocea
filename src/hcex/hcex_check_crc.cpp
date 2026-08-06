@@ -29,13 +29,13 @@ typedef struct COOP_MSG_HANDLER
     haloRAW_INPUT_X360_ENV  lastRawInput;           /* 0x24 */
 } COOP_MSG_HANDLER;
 
-extern COOP_MSG_HANDLER       coopMsgHandler;
+extern "C" COOP_MSG_HANDLER       coopMsgHandler;
 extern dsCONST_ARRAY<int, 64> crc_list;
 extern int                    hcex_data_applied_num;
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern void hcex_collect_crc(void);
-extern void osOutputDebugString(const char *fmt, ...);
+extern "C" void osOutputDebugString(const char *fmt, ...);
 
 void hcex_check_crc(void)
 {

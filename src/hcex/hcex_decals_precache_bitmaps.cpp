@@ -8,9 +8,9 @@
 #include "../headers/decal_definition.h"
 #include "../headers/global_tag_instances.h"
 
-extern data_array *global_decal_data;
+extern "C" data_array *global_decal_data;
 
-extern void hcex_load_bitmap_group(int bitmap_group_index);
+extern "C" void hcex_load_bitmap_group(int bitmap_group_index);
 
 extern "C" void hcex_decals_precache_bitmaps(void)
 {

@@ -57,7 +57,7 @@ extern void object_postprocess_node_matrices(int object_index);
 extern void object_type_export_function_values(int object_index);
 extern void object_compute_function_values(int object_index);
 extern void object_compute_change_colors(int object_index);
-extern void hcex_pix_begin_event(const char *name);
+extern void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10) */
 extern void hcex_pix_end_event(void);
 extern void hcex_obj_init(int id);
 extern void widgets_new(int object_index);

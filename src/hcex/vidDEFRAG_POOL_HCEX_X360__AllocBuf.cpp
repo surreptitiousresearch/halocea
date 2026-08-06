@@ -2,8 +2,9 @@
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
 // vid subsystem boundary — physical/GPU memory allocator (see also strmVID_MEM_BLOCK::Init).
+// mangled ?vidAllocPhysMem@@YAPAXKKKPAHK@Z: arg3 (actualSize) is int* (PAH).
 extern void *vidAllocPhysMem(unsigned long size, unsigned long align, unsigned long flags,
-                              unsigned int *actualSize, unsigned long extra);
+                              int *actualSize, unsigned long extra);
 
 // vidDEFRAG_POOL_HCEX_X360::AllocBuf @ 0x823F13D4
 // Always requests the whole 16 MB (0x1000000) arena in one shot; `bufSize` is unconditionally

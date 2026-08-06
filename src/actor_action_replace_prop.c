@@ -16,7 +16,7 @@ void actor_action_replace_prop(uint16_t actor_index, int invalid_prop_index,
                                int replacement_prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    void (__fastcall *replace_prop)(int, int, int) =
+    void (*replace_prop)(int, int, int) =
         global_action_functions[actor->state.action].replace_prop;
     if ( replace_prop )
         replace_prop(actor_index, invalid_prop_index, replacement_prop_index);

@@ -10,7 +10,7 @@
 extern data_array *game_state_data_new(const char *name, int16_t maximum_count, int16_t size);
 extern void data_make_valid(data_array *data);
 extern int datum_new_at_index(data_array *data, int index);
-extern short hs_external_global_count;
+extern const int16_t hs_external_global_count;
 
 void hs_runtime_initialize(void)
 {

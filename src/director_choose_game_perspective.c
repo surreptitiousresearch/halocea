@@ -18,7 +18,7 @@ extern void following_camera_update(following_camera *camera, const camera_contr
 extern void first_person_camera_new(first_person_camera *camera);
 extern void first_person_camera_update(first_person_camera *camera, const camera_control *controls, observer_command *result);
 
-extern void director_set_camera(int16_t local_player_index, void (__fastcall *camera_proc)(void *camera_data, const camera_control *, observer_command *), uint8_t interpolate);
+extern void director_set_camera(int16_t local_player_index, void (*camera_proc)(void *camera_data, const camera_control *, observer_command *), uint8_t interpolate);
 void director_choose_game_perspective(int16_t local_player_index, uint8_t force)
 {
     director *dir = &director_globals.local_players[local_player_index];
@@ -29,7 +29,7 @@ void director_choose_game_perspective(int16_t local_player_index, uint8_t force)
 
     if (force || dir->seat_state != desired_seat)
     {
-        void (__fastcall *new_proc)(void *, const camera_control *, observer_command *);
+        void (*new_proc)(void *, const camera_control *, observer_command *);
 
         if (perspective == _director_perspective_third_person)  /* following (3rd-person) camera */
         {

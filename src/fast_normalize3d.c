@@ -5,7 +5,7 @@
 
 #include "headers/real_vector3d.h"
 
-extern double __fsqrts(double x);
+extern float __fsqrts(float x);
 
 void fast_normalize3d(real_vector3d *v)
 {
@@ -13,7 +13,7 @@ void fast_normalize3d(real_vector3d *v)
 
     if ( length_squared != 0.0f )
     {
-        float inv_length = 1.0f / (float)__fsqrts(length_squared);
+        float inv_length = 1.0f / __fsqrts(length_squared);
         v->n[0] = v->n[0] * inv_length;
         v->n[1] = v->n[1] * inv_length;
         v->n[2] = v->n[2] * inv_length;

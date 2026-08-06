@@ -11,7 +11,7 @@ extern actor_type_definition *actor_type_definitions[];
 
 void actor_type_initialize(uint16_t actor_index)
 {
-    void (__fastcall *initialize)(int) =
+    void (*initialize)(int) =
         actor_type_definitions[DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index)->meta.type]->initialize;
     if ( initialize )
         initialize(actor_index);

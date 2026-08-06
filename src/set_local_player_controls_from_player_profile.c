@@ -8,8 +8,11 @@
  *   - The profile control bytes are player_data[idx].profile.controller_settings (@298).
  *   - The decompiler assigns the pitch rate from the first table and the yaw rate from the second
  *     (apparent table swap); reproduced verbatim.
- *   - The control-scheme button mapping is a goto/fallthrough graph; reproduced literally with the
- *     decompiler's labels to preserve the exact fallthrough semantics. */
+ *   - The control-scheme button mapping is a goto/fallthrough graph: each preset writes only the
+ *     slots it changes and then jumps into the shared tail of the standard map. Reproduced
+ *     literally to preserve the exact fallthrough semantics; the four join points carry their
+ *     decompiler label numbers as provenance comments. Every jump is forward — the binary has a
+ *     single back-edge (the bdnz preference-block clear at 0x83699494), no loop lives here. */
 
 #include <stdint.h>
 #include "headers/player_ui_globals.h"
@@ -90,7 +93,7 @@ void set_local_player_controls_from_player_profile(int16_t local_player_index)
                 preferences.game_control_to_xbox_buttons[7] = 6;
                 preferences.game_control_to_xbox_buttons[1] = 4;
                 preferences.game_control_to_xbox_buttons[6] = 7;
-                goto LABEL_32;
+                goto map_shared_from_11;
             case _button_preset_jumpy:
                 preferences.game_control_to_xbox_buttons[6] = 0;
                 preferences.game_control_to_xbox_buttons[4] = 1;
@@ -98,13 +101,13 @@ void set_local_player_controls_from_player_profile(int16_t local_player_index)
                 preferences.game_control_to_xbox_buttons[1] = 5;
                 preferences.game_control_to_xbox_buttons[0] = 6;
                 preferences.game_control_to_xbox_buttons[5] = 4;
-                goto LABEL_31;
+                goto map_shared_from_3;
             case _button_preset_bumperjumper:
                 preferences.game_control_to_xbox_buttons[1] = 0;
                 preferences.game_control_to_xbox_buttons[2] = 1;
                 preferences.game_control_to_xbox_buttons[0] = 5;
                 preferences.game_control_to_xbox_buttons[4] = 4;
-                goto LABEL_29;
+                goto map_shared_from_5;
             case _button_preset_boxer:
                 preferences.game_control_to_xbox_buttons[0] = 0;
                 preferences.game_control_to_xbox_buttons[1] = 1;
@@ -112,7 +115,7 @@ void set_local_player_controls_from_player_profile(int16_t local_player_index)
                 preferences.game_control_to_xbox_buttons[5] = 5;
                 preferences.game_control_to_xbox_buttons[4] = 6;
                 preferences.game_control_to_xbox_buttons[6] = 4;
-                goto LABEL_31;
+                goto map_shared_from_3;
             case _button_preset_greenthumb:
                 preferences.game_control_to_xbox_buttons[0] = 0;
                 preferences.game_control_to_xbox_buttons[3] = 3;
@@ -123,7 +126,7 @@ void set_local_player_controls_from_player_profile(int16_t local_player_index)
                 preferences.game_control_to_xbox_buttons[11] = 4;
                 preferences.game_control_to_xbox_buttons[7] = 7;
                 preferences.game_control_to_xbox_buttons[4] = 15;
-                goto LABEL_33;
+                goto map_shared_from_9;
             case _button_preset_theduke:
                 preferences.game_control_to_xbox_buttons[0] = 0;
                 preferences.game_control_to_xbox_buttons[4] = 1;
@@ -138,7 +141,7 @@ void set_local_player_controls_from_player_profile(int16_t local_player_index)
                     preferences.game_control_to_xbox_buttons[4] = 1;
                     preferences.game_control_to_xbox_buttons[1] = 5;
                     preferences.game_control_to_xbox_buttons[2] = 4;
-                    goto LABEL_29;
+                    goto map_shared_from_5;
                 }
                 preferences.game_control_to_xbox_buttons[0] = 0;
                 preferences.game_control_to_xbox_buttons[1] = 1;
@@ -147,17 +150,17 @@ void set_local_player_controls_from_player_profile(int16_t local_player_index)
                 preferences.game_control_to_xbox_buttons[4] = 4;
                 break;
 
-LABEL_29:
+map_shared_from_5:   /* LABEL_29 */
                 preferences.game_control_to_xbox_buttons[5] = 2;
                 break;
         }
         preferences.game_control_to_xbox_buttons[6] = 6;
-LABEL_31:
+map_shared_from_3:   /* LABEL_31 */
         preferences.game_control_to_xbox_buttons[3] = 3;
         preferences.game_control_to_xbox_buttons[7] = 7;
-LABEL_32:
+map_shared_from_11:  /* LABEL_32 */
         preferences.game_control_to_xbox_buttons[11] = 15;
-LABEL_33:
+map_shared_from_9:   /* LABEL_33 */
         preferences.game_control_to_xbox_buttons[9] = 13;
         preferences.game_control_to_xbox_buttons[8] = 12;
         preferences.game_control_to_xbox_buttons[10] = 14;

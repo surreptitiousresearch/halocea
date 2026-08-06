@@ -40,7 +40,7 @@ extern strmRES_TEX_MANAGER strmRES_TEX_MANAGER_mng;                           /*
 extern void strmRES_TEX_MANAGER_NecessaryStreamTexture(strmRES_TEX_MANAGER *mng, txmD3D_TEX *tex);
 
 /* --- debug: dump-used-textures list --- */
-extern dbgVAR_bool          dbg_hcexDumpUsedTexOn;
+extern "C" dbgVAR_bool          dbg_hcexDumpUsedTexOn;
 /* hcexTexList: dsVECTOR<dsTSTRING<char>,8> (20B) — canonical dsVECTOR (included above). */
 extern dsVECTOR<dsTSTRING<char>, 8> hcexTexList;
 extern void dsVECTOR_dsTSTRING_InsertSorted(dsVECTOR<dsTSTRING<char>, 8> *v,
@@ -50,7 +50,7 @@ extern void dsVECTOR_dsTSTRING_InsertSorted(dsVECTOR<dsTSTRING<char>, 8> *v,
 extern int  hcex_tex_block;             /* int hcex_tex_block — force blocking stream */
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info); /* STRONG_ASSERT_DUMMY::Crash */
+extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info); /* STRONG_ASSERT_DUMMY::Crash */
 extern void osPIXBeginEvent(const char *string);
 extern void osPIXEndEvent(void);
-extern int  _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);
+extern "C" int  _snprintf_0(char *buf, unsigned int size, const char *fmt, ...);

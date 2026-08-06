@@ -16,7 +16,7 @@ typedef struct BUFFER_PARAMS {
     int timeOffset;                                                 // 0x0C
     bool blocking;                                                  // 0x10
     unsigned char _pad0[3]; /* db-verified padding */
-    void (__fastcall *callback)(const NOTIFICATION_INFO *, void *); // 0x14
+    void (*callback)(const NOTIFICATION_INFO *, void *); // 0x14
     void *userData;                                                 // 0x18
     dsTSTRING<char> dbgInfo;                                        // 0x1C
 

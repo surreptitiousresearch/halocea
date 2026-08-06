@@ -1,4 +1,12 @@
-/* window @ 0x8441DF20, 172 bytes (data-bss, zero-fill). */
+/* window @ 0x8441DF20 (.data, 172 bytes)
+ * DB applied_types: render_window window;
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x00 local_player_index         = 0x0000
+ *   +0x02 console_window             = 0x00
+ *   +0x04 render_camera              = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ *   +0x58 rasterizer_camera          = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ * 172 bytes (data-bss, zero-fill).
+ */
 #include "../headers/render_window.h"
 
 struct render_window window;

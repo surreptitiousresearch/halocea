@@ -10,12 +10,12 @@
  *   +0x08 0x0006 -> [actor_movement_type_flaming]  _unit_animation_state_flaming
  *   +0x0A 0x0000 -> alignment padding (number_of_actor_movement_types == 5)
  *
- * DEVIATION: src/actor_unit_control.c declares this `extern const unsigned char
+ * DEVIATION: src/actor_unit_control.c used to declare this `extern const unsigned char
  * global_movement_animation_states[]`. The element type is 16-bit, not 8-bit: actor_unit_control
  * @0x8371FD38 scales the index by two and loads a halfword (`lhz r4, 0x6DC(r31)` /
  * `slwi r9, r3, 1` / `lhzx r7, r9, r6`), and the DB applied type is `const __int16[5]`
  * (independently recorded in src/headers/unit_desired_animation_state.h). Defined here at the
- * evidenced width; the consumer declaration is left to the declaration-normalization pass.
+ * evidenced width; the consumer decl now comes from headers/blam_data_globals.h (2026-08-06).
  */
 
 #include <stdint.h>

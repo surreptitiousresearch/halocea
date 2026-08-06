@@ -9,7 +9,7 @@
  *
  * DEVIATION: FPR-shadow ABI trap — the float args evade_distance (f1) and maximum_ledge_height (f2) burn the
  * r5/r6 GPR shadow slots, so Hex-Rays invented two phantom params and pushed the real evasion_is_ledge_reference
- * (r7) and result (r8) out to a7/a8; the DB's 6-arg prototype is authoritative. The same trap corrupted the
+ * (r7) and result (r8) out into those phantom slots; the DB's 6-arg prototype is authoritative. It also corrupted the
  * structure_test_pill2d call: disasm (0x837C74C0-0x837C74E4) shows flags = 0 and result = this function's own
  * `result` param (r28, spilled to the stack arg slot), not the nullptr/garbage Hex-Rays emitted. Both
  * collision_bsp_test_vector calls write into one local scratch result (r1+var_470); Hex-Rays misresolved that

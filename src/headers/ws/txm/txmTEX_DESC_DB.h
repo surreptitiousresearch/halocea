@@ -35,7 +35,7 @@ typedef struct txmTEX_DESC_DB
 
 // Per-suffix ".td" filename fragments consulted by Init() (index 0 is unused -- index 0 loads
 // the bare "default_texdesc.td"). Not reversed as data in this batch -- boundary raw string table.
-extern const char *TEX_SUFFIXES_1[];
+extern "C" const char *TEX_SUFFIXES_1[];
 
 // Process-wide singleton instance. boundary (definition site external to this batch).
 extern txmTEX_DESC_DB txmTexDescDB;

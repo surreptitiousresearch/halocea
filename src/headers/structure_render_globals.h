@@ -16,4 +16,12 @@ typedef struct structure_render_globals_data
     real_vector3d   fog_offset_vector;            /* 0x0C */
 } structure_render_globals_data;                  /* 24 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern structure_render_globals_data structure_render_globals;
+
+#ifdef __cplusplus
+}
+#endif

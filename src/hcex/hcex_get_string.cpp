@@ -14,7 +14,7 @@
 
 extern gsSTRINGS *gsStrings;
 extern int        hcex_test_strings;
-extern wchar_t     buf[2048];   /* DB-verified size (4096 bytes); shared debug-wrap scratch buffer */
+extern "C" wchar_t     buf[2048];   /* DB-verified size (4096 bytes); shared debug-wrap scratch buffer */
 
 wchar_t *hcex_get_string(const char *str_name)
 {

@@ -10,4 +10,12 @@ typedef struct weapon_hud_globals_definition
     int                 script_flags;        /* 0xF0 */
 } weapon_hud_globals_definition;             /* 244 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern weapon_hud_globals_definition *weapon_hud_globals;
+
+#ifdef __cplusplus
+}
+#endif

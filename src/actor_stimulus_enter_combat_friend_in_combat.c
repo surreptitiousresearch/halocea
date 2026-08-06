@@ -7,9 +7,9 @@
  * DEVIATION: the first block of the decompiler output is a verbatim compiler-inlined copy of
  * actor_stimulus_combat @0x837D3C90 (zero call xrefs in the binary — it is inlined at every caller)
  * constant-folded for guard_point=NULL — emitted as the call the source had. The `&prop->actor_to_prop
- * == 0` always-false artifact (v5 == -224) was the callee's own `if (transition_vector)` parameter
- * test. The NULL guard_point makes guard_point_surface_index/guard_distance dead; -1/0.0f are the
- * assumed folded-away spellings. */
+ * == 0` always-false artifact (the prop pointer compared against -224 = actor_to_prop's own +0xE0)
+ * was the callee's own `if (transition_vector)` parameter test. The NULL guard_point makes
+ * guard_point_surface_index/guard_distance dead; -1/0.0f are the assumed folded-away spellings. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

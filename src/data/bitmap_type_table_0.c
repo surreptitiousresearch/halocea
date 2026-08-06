@@ -1,4 +1,8 @@
-/* bitmap_type_table_0 @0x8212A074 — .rdata, 8 bytes = 4 x uint16_t. The
+/* bitmap_type_table_0 @ 0x8212A074 (.rdata, 8 bytes)
+ * DB applied_types: const __int16 bitmap_type_table_0[4];
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000: 0000 0002 0002 0002
+ * .rdata, 8 bytes = 4 x uint16_t. The
  * shader_transparent_chicago_extended copy of bitmap_type_table (ICF twin by content, separate
  * object: reconstructed from its own bytes at its own address).
  * Element width: `slwi r9, r11, 1` + `lhzx r8, r9, r10` at 0x8382F400/0x8382F404 inside
@@ -6,8 +10,8 @@
  * .rdata name, bitmap_address_table_0, starts at 0x8212A07C, so exactly 4 entries.
  * Index: shader_transparent_chicago_extended.type, the "first map type" enum (4 members).
  * Raw bytes 0x8212A074..0x8212A07B: 00 00 00 02 00 02 00 02.
+ * /
  */
-
 #include <stdint.h>
 #include "bitmap_type.h"
 

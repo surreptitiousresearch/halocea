@@ -13,7 +13,9 @@
 #include "headers/collision_bsp.h"
 #include "headers/collision_surface.h"
 #include "headers/collision_edge.h"
+#include "headers/collision_vertex.h"
 #include "headers/real_matrix4x3.h"
+#include "headers/real_plane3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/collision_feature_list.h"
@@ -34,10 +36,10 @@ void collision_features_from_edge(const collision_bsp *bsp, int edge_index, cons
     if ( left_plane == right_plane )
         return;
 
-    const float *vertices = (const float *)bsp->vertices.address;
-    const float *planes = (const float *)bsp->bsp3d.planes.address;
-    const real_point3d *vertex0 = (const real_point3d *)&vertices[4 * edge->vertex_indices[0]];
-    const float *vertex1 = &vertices[4 * edge->vertex_indices[1]];
+    const collision_vertex *vertices = (const collision_vertex *)bsp->vertices.address;
+    const real_plane3d *planes = (const real_plane3d *)bsp->bsp3d.planes.address;
+    const real_point3d *vertex0 = &vertices[edge->vertex_indices[0]].point;
+    const real_point3d *vertex1 = &vertices[edge->vertex_indices[1]].point;
 
     int left_plane_index = left_plane & 0x7FFFFFFF;
     int right_plane_index = right_plane & 0x7FFFFFFF;
@@ -45,26 +47,26 @@ void collision_features_from_edge(const collision_bsp *bsp, int edge_index, cons
     char right_sign = (right_plane < 0);
 
     real_vector3d edge_vector;
-    edge_vector.n[0] = vertex1[0] - vertex0->n[0];
-    edge_vector.n[1] = vertex1[1] - vertex0->n[1];
-    edge_vector.n[2] = vertex1[2] - vertex0->n[2];
+    edge_vector.n[0] = vertex1->n[0] - vertex0->n[0];
+    edge_vector.n[1] = vertex1->n[1] - vertex0->n[1];
+    edge_vector.n[2] = vertex1->n[2] - vertex0->n[2];
 
-    const float *left = &planes[4 * left_plane_index];
-    const float *right = &planes[4 * right_plane_index];
+    const real_plane3d *left = &planes[left_plane_index];
+    const real_plane3d *right = &planes[right_plane_index];
 
     if ( left_plane_index != right_plane_index )
     {
         if ( left_sign == right_sign )
         {
-            float cross1 = ((((right[0] * left[2]) - (left[0] * right[2])) * edge_vector.n[1])
-                                 + (((left[1] * right[2]) - (left[2] * right[1])) * edge_vector.n[0])
-                                 + ((left[0] * right[1]) - (right[0] * left[1])) * edge_vector.n[2]);
+            float cross1 = ((((right->n.n[0] * left->n.n[2]) - (left->n.n[0] * right->n.n[2])) * edge_vector.n[1])
+                                 + (((left->n.n[1] * right->n.n[2]) - (left->n.n[2] * right->n.n[1])) * edge_vector.n[0])
+                                 + ((left->n.n[0] * right->n.n[1]) - (right->n.n[0] * left->n.n[1])) * edge_vector.n[2]);
             if ( cross1 <= -0.000099999997 )
                 return;
         }
-        float cross2 = ((((left[2] * right[0]) - (right[2] * left[0])) * edge_vector.n[1])
-                             + (((left[1] * right[2]) - (left[2] * right[1])) * edge_vector.n[0])
-                             + ((right[1] * left[0]) - (left[1] * right[0])) * edge_vector.n[2]);
+        float cross2 = ((((left->n.n[2] * right->n.n[0]) - (right->n.n[2] * left->n.n[0])) * edge_vector.n[1])
+                             + (((left->n.n[1] * right->n.n[2]) - (left->n.n[2] * right->n.n[1])) * edge_vector.n[0])
+                             + ((right->n.n[1] * left->n.n[0]) - (left->n.n[1] * right->n.n[0])) * edge_vector.n[2]);
         if ( cross2 >= 0.000099999997 )
             return;
     }

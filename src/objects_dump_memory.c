@@ -17,7 +17,7 @@
 #include "headers/objects_information.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
-extern void qsort(void *base, unsigned int count, unsigned int size, int (__fastcall *compare)(const void *, const void *));
+extern void qsort(void *base, unsigned int count, unsigned int size, int (*compare)(const void *, const void *));
 
 #define MAXIMUM_DUMPS 1024
 

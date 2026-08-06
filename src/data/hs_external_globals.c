@@ -1,6 +1,11 @@
-/* hs_external_globals @ 0x84180CF0 -- data-init hs_global_external *[482]. Table of
+/* hs_external_globals @ 0x84180CF0 (.data, 4 bytes)
+ * DB applied_types: hs_global_external *hs_external_globals[];
+ * Image bytes (big-endian), decoded from the binary .data record:
+ *   +0x0000 = 0x8417F030 -> rasterizer_near_clip_distance_definition
+ * data-init hs_global_external *[482]. Table of
  * engine-exposed HaloScript global variable descriptors. Pointer targets recovered from
- * the binary reloc order (all named globals). */
+ * the binary reloc order (all named globals).
+ */
 #include "../headers/hs_global_external.h"
 
 extern hs_global_external rasterizer_near_clip_distance_definition;

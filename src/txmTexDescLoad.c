@@ -1,7 +1,7 @@
 #include "headers/ws/txm/txm_functions.h"
 #include "headers/ws/txm/TEX_USAGE_PROCESSOR.h"
 
-extern int stricmp(const char *a, const char *b);
+extern "C" int stricmp(const char *a, const char *b);
 
 // 0x82C66648 -- reconstructed against the by-value-with-default psSECTION_INTERFACE::GetInt/
 // GetBool/GetFloat overloads (psSECTION_INTERFACE.h) rather than the decompiler's literal call

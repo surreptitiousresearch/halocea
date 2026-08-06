@@ -5,7 +5,7 @@
 
 // 0x82AF0xxx (m3d) — shared epsilon constant (~0.000001f) used across the engine for
 // near-zero float comparisons. boundary — not reversed here (single rodata float).
-extern const float M3D_EPSILON_5;
+extern "C" const float M3D_EPSILON_5;
 
 // 0x823EB418
 // CAVEAT: the decompiler resolved this->spDesc.pointee's field access as

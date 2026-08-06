@@ -1,7 +1,7 @@
-/* biped_update_turning @0x837B0FC0 — per-tick facing/turning update for a biped. Two entirely different
+/* biped_update_turning @0x837B0F80 — per-tick facing/turning update for a biped. Two entirely different
  * modes:
  *
- *  - Flying-camera mode (definition flags & 4, and the biped isn't taking damage): a free-look "noclip"
+ *  - Flying-camera mode (_biped_flying_bit set and the biped isn't dead): a free-look "noclip"
  *    style turn that snaps straight to the desired facing when the biped is nearly stationary (velocity/
  *    angular-velocity/throttle all below tiny thresholds and the facing is already close to desired), else
  *    blends toward a throttle-tilted facing; separately updates a banking angle from the throttle-driven
@@ -9,23 +9,25 @@
  *    angular acceleration is zero); finishes with biped_snap_facing.
  *
  *  - Normal ground/vehicle mode: computes a signed "turn direction" (which side the desired facing is on)
- *    from either the up-axis cross product (airborne-capable bipeds) or a flattened 2D cross product
- *    (grounded bipeds), snapping it to the near side when almost fully turned around; if actively moving
- *    or forced to turn (biped state 1 / definition flags & 1), rotates the facing (and banks around the
- *    facing axis if the biped can fly) by a fixed per-tick turning speed, stopping as soon as the facing
- *    crosses the desired direction; if idle and not seated/vehicle-controlled, only sets the animation's
- *    desired turning state without touching the actual facing.
+ *    from either the up-axis cross product (_biped_climbs_anything_bit bipeds, whose up axis need not be
+ *    the world up) or a flattened 2D cross product (ordinary bipeds), snapping it to the near side when
+ *    almost fully turned around; if actively moving or forced to turn (biped state 1 /
+ *    _biped_turns_without_animating_bit), rotates the facing by a fixed per-tick turning speed —
+ *    re-orthogonalizing it against the biped's own up axis for climbs-anything bipeds, else snapping it
+ *    into the world XY plane — and stops as soon as the facing crosses the desired direction; if idle and
+ *    not seated/vehicle-controlled, only sets the animation's desired turning state without touching the
+ *    actual facing.
  *
  * Clean decompile. object/unit sub-record field names come from the newly-typed _object_datum/_unit_datum
  * (object_datum.h/unit_datum.h) — previously opaque byte blobs in biped_datum.h, now reused as-is since
- * both are DB types_members-confirmed. `(_cntlzw(x)&0x20)==0` / `!=0` are the established "x != 0"/"x == 0"
- * branchless idioms used elsewhere in this codebase. */
+ * both are DB types_members-confirmed. */
 
 #include <stdint.h>
 #include <math.h>
 
 #include "headers/biped_datum.h"
 #include "headers/biped_definition.h"
+#include "headers/biped_definition_flags.h"
 #include "headers/unit_definition_flags.h"
 #include "headers/unit_animation_update_data.h"
 #include "headers/global_tag_instances.h"
@@ -51,7 +53,6 @@ extern float normalize2d(real_vector2d *v);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *aiming_vector, const real_vector3d *desired_aiming_vector, real_vector3d *aiming_velocity, const real_rectangle2d *aiming_bounds, float angular_velocity_limit, float angular_acceleration_limit);
 extern void biped_snap_facing(biped_datum *biped, const biped_definition *biped_definition);
-extern int _cntlzw(unsigned int);
 
 void biped_update_turning(int biped_index, unit_animation_update_data *animation)
 {
@@ -59,7 +60,7 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
     const biped_definition *definition = TAG_GET(const biped_definition, biped->definition_index);
     unsigned int flags = definition->biped.flags;
 
-    if ( (flags & 4) != 0 && (biped->object.damage_flags & (1u << _object_dead_bit)) == 0 )
+    if ( (flags & (1u << _biped_flying_bit)) != 0 && (biped->object.damage_flags & (1u << _object_dead_bit)) == 0 )
     {
         /* flying-camera mode */
         int nearly_stationary = 0;
@@ -177,9 +178,9 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
 
     real_vector3d turn_axis;
     float dot_current_desired;
-    if ( (flags & 0x40) != 0 )
+    if ( (flags & (1u << _biped_climbs_anything_bit)) != 0 )
     {
-        /* airborne-capable: turn direction from the up-axis cross product of forward and desired facing */
+        /* climbs-anything: turn direction from the up-axis cross product of forward and desired facing */
         turn_axis.n[0] = biped->object.up.n[2]
                     * (biped->object.up.n[0] * biped->unit.desired_facing_vector.n[1]
                         - biped->object.up.n[1] * biped->unit.desired_facing_vector.n[0])
@@ -241,7 +242,7 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
             turn_right = 0;
     }
 
-    if ( biped->biped.state == biped_state_moving || (flags & 1) != 0 )
+    if ( biped->biped.state == biped_state_moving || (flags & (1u << _biped_turns_without_animating_bit)) != 0 )
     {
         if ( (biped->unit.control_flags & (1u << _unit_control_look_dont_turn_bit)) != 0 )
             return;
@@ -253,7 +254,7 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
             sin_step = -sin_step;
 
         float progress;
-        if ( (flags & 0x40) != 0 )
+        if ( (flags & (1u << _biped_climbs_anything_bit)) != 0 )
         {
             rotate_vector_about_axis(&biped->object.forward, &biped->object.up, sin_step, cos_step);
             progress = biped->object.up.n[0] * (turn_axis.n[2] * biped->object.forward.n[1] - turn_axis.n[1] * biped->object.forward.n[2])
@@ -279,7 +280,7 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
             return;
         }
 
-        if ( (flags & 0x40) != 0 )
+        if ( (flags & (1u << _biped_climbs_anything_bit)) != 0 )
         {
             real_vector3d rotation_axis;
             rotation_axis.n[0] = biped->object.up.n[1] * turn_axis.n[2] - biped->object.up.n[2] * turn_axis.n[1];
@@ -313,7 +314,7 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
                     ? 0.99000001f
                     : definition->biped.runtime_cosine_stationary_turning_threshold;
             if ( facing_alignment < stationary_turning_threshold && (definition->unit.flags & (1u << _unit_is_special)) == 0 )
-                animation->state_desired = ((_cntlzw(turn_right) & 0x20) == 0) + 2;
+                animation->state_desired = turn_right ? _unit_state_turn_right : _unit_state_turn_left;
         }
     }
 }

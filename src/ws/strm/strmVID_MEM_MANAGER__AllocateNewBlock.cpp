@@ -4,10 +4,10 @@
 extern void *operator new(size_t size, const char *file, unsigned int line); // size_t: MSVC operator new requires size_t first param
 
 // dl subsystem boundary — general-purpose heap free (releases dsVECTOR backing storage).
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 // strm subsystem monotonic block-id counter (global, shared by every strmVID_MEM_MANAGER).
-extern unsigned int blockId;
+extern "C" unsigned int blockId;
 
 // strmVID_MEM_MANAGER::AllocateNewBlock @ 0x8269CEA8
 // Allocate a fresh strmVID_MEM_BLOCK (inlined default construction — same pattern as

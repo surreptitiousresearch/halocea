@@ -12,7 +12,7 @@ extern const m3dV m3dVZero;
 extern scnSCENE  *gsScenePtr;
 extern animINST  *scnSCENE_FindInstName(scnSCENE *scene, const char *name);
 extern void       animINST_GetPos(animINST *inst, m3dV *out);
-extern int sprintf_0(char *string, const char *format, ...);
+extern "C" int sprintf_0(char *string, const char *format, ...);
 
 extern "C" void hcex_scenario_switch_structure_bsp(int idx)
 {

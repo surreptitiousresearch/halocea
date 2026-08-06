@@ -10,5 +10,11 @@ typedef struct encounter_actor_iterator
     int next_index;      /* 0x8 — next actor index to visit (meta.next_actor_index chain) */
 } encounter_actor_iterator;  /* 12 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void encounter_actor_iterator_new(encounter_actor_iterator *iterator, int encounter_index);
 extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iterator);
+#ifdef __cplusplus
+}
+#endif

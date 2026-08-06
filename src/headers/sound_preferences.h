@@ -8,4 +8,12 @@ typedef struct sound_preferences
     short virtual_channel_counts[4];// 0x0A
 } sound_preferences;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern sound_preferences default_sound_preferences;
+
+#ifdef __cplusplus
+}
+#endif

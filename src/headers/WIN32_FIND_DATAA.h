@@ -1,6 +1,12 @@
 #pragma once
 /* WIN32_FIND_DATAA — the Win32 directory-entry record filled by FindFirstFileA/FindNextFileA.
- * Standard platform layout. Embeds three _FILETIME members (DB member type is _FILETIME). */
+ * Standard platform layout. Embeds three _FILETIME members (DB member type is _FILETIME).
+ *
+ * CANONICAL NAME: WIN32_FIND_DATAA. That is the platform typedef; `_WIN32_FIND_DATAA` is only the
+ * struct TAG, which IDA prints as if it were the type name. The tag-spelled typedef below is kept
+ * solely so DB-type-name lookups resolve — do not declare with it. (Every non-Havok user was
+ * unified onto WIN32_FIND_DATAA 2026-08-06; src/headers/havok/win32_file_boundary.h carries an
+ * independent copy of this struct, reached only by src/havok/hkWin32ListDirectory.cpp.) */
 
 #include "_FILETIME.h"
 

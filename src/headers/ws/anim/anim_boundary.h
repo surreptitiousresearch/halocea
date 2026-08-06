@@ -14,7 +14,7 @@ void _apLog(const char *format, ...);
 
 // m3d "positive infinity" float constant at 0x820013F4 (decompiler symbol M3D_INFINITY_302),
 // used as the sentinel distance for the farthest LOD level. boundary.
-extern const float M3D_INFINITY;
+extern "C" const float M3D_INFINITY;
 
 // os atomic increment (?osLockedIncrement@@YAHPAH@Z).
 int osLockedIncrement(int *pValue);
@@ -35,7 +35,7 @@ void objMakePtrListID(objOBJ *pObjRoot, objOBJ **ppList, int nObj); // boundary
 
 // Havok collidable teardown bookkeeping. boundary.
 void RemoveCollidablesAllocated();                 // ?RemoveCollidablesAllocated@@YAXXZ
-extern int sizeMatrLT_COPY;                        // running byte total of copied LT matrices
+extern "C" int sizeMatrLT_COPY;                        // running byte total of copied LT matrices
 
 // Havok collidable — only its deleting destructor is referenced here. boundary.
 struct hkpCollidable;

@@ -36,7 +36,7 @@ extern void actor_stimulus_combat(int actor_index, int16_t transition_type, cons
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern direction_specification *direction_get_empty(direction_specification *result);
 extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
-extern float __fsqrts(double value);
+extern float __fsqrts(float value);
 extern double __fabs(double value);
 
 

@@ -11,8 +11,8 @@
 #include "headers/collision_edge.h"
 #include "headers/collision_vertex.h"
 #include "headers/real_vector3d.h" /* real_vector3d used by fast_vector_intersects_sphere + edge_vector */
+#include "headers/blam_data_globals.h"
 
-extern const int16_t global_projection3d_mappings[1][6][2];
 extern uint8_t fast_vector_intersects_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
 extern void add_feature(int *count, int *indices, int index);
 
@@ -43,12 +43,12 @@ void collision_surface_test_sphere(test_sphere_data *data, int surface_index)
         collision_edge *edge = &((collision_edge *)data->bsp->edges.address)[edge_index];
         BOOL forward = (surface_index == edge->surface_indices[1]);
         int vertex_index = edge->vertex_indices[forward];
-        const float *vertex = (const float *)&((const collision_vertex *)data->bsp->vertices.address)[vertex_index];
+        const real_point3d *vertex = &((const collision_vertex *)data->bsp->vertices.address)[vertex_index].point;
 
-        float dy = vertex[1] - center->n[1];
-        float dz = vertex[2] - center->n[2];
+        float dy = vertex->n[1] - center->n[1];
+        float dz = vertex->n[2] - center->n[2];
         if ( (((dz * dz) + (dy * dy))
-                   + ((vertex[0] - center->n[0]) * (vertex[0] - center->n[0]))) <= radius_squared )
+                   + ((vertex->n[0] - center->n[0]) * (vertex->n[0] - center->n[0]))) <= radius_squared )
         {
             add_feature(&data->result->vertex_count, data->result->vertex_indices, vertex_index);
             hit_any = 1;
@@ -63,17 +63,16 @@ void collision_surface_test_sphere(test_sphere_data *data, int surface_index)
     {
         float radius = data->radius;
         const real_point3d *center = data->center;
-        const float *vertices = (const float *)data->bsp->vertices.address;
+        const collision_vertex *vertices = (const collision_vertex *)data->bsp->vertices.address;
         collision_edge *edge = &((collision_edge *)data->bsp->edges.address)[edge_index];
         BOOL forward = (surface_index == edge->surface_indices[1]);
         int far_vertex = edge->vertex_indices[!forward];
-        const real_point3d *near_vertex =
-            (const real_point3d *)&vertices[4 * edge->vertex_indices[forward]];
+        const real_point3d *near_vertex = &vertices[edge->vertex_indices[forward]].point;
 
         real_vector3d edge_vector;
-        edge_vector.n[0] = vertices[4 * far_vertex] - near_vertex->n[0];
-        edge_vector.n[1] = vertices[4 * far_vertex + 1] - near_vertex->n[1];
-        edge_vector.n[2] = vertices[4 * far_vertex + 2] - near_vertex->n[2];
+        edge_vector.n[0] = vertices[far_vertex].point.n[0] - near_vertex->n[0];
+        edge_vector.n[1] = vertices[far_vertex].point.n[1] - near_vertex->n[1];
+        edge_vector.n[2] = vertices[far_vertex].point.n[2] - near_vertex->n[2];
         if ( fast_vector_intersects_sphere(near_vertex, &edge_vector, center, radius) )
         {
             add_feature(&data->result->edge_count, data->result->edge_indices, edge_index);
@@ -87,22 +86,23 @@ void collision_surface_test_sphere(test_sphere_data *data, int surface_index)
     if ( !hit_any )
     {
         /* Phase 3 — sphere centre inside the projected surface polygon */
-        const float *vertices = (const float *)data->bsp->vertices.address;
+        const collision_vertex *vertices = (const collision_vertex *)data->bsp->vertices.address;
         int walk_edge = first_edge;
         while ( 1 )
         {
             collision_edge *edge = &((collision_edge *)data->bsp->edges.address)[walk_edge];
-            int map = 2 * data->projection_axis + data->projection_sign;
             BOOL forward = (surface_index == edge->surface_indices[1]);
             int far_vertex = edge->vertex_indices[!forward];
-            const float *near_vertex = &vertices[4 * edge->vertex_indices[forward]];
-            int16_t ia = global_projection3d_mappings[0][map][0];
-            int16_t ib = global_projection3d_mappings[0][map][1];
+            const real_point3d *near_vertex = &vertices[edge->vertex_indices[forward]].point;
+            /* projection3d mapping entries are position-component indices 0..2 (see
+             * src/data/global_projection3d_mappings.c) — in range for real_point3d.n[3] */
+            int16_t ia = global_projection3d_mappings[data->projection_axis][data->projection_sign][0];
+            int16_t ib = global_projection3d_mappings[data->projection_axis][data->projection_sign][1];
 
-            float cross = (((vertices[4 * far_vertex + ib] - data->center2d.n[1])
-                                        * (near_vertex[ia] - data->center2d.n[0]))
-                                - ((near_vertex[ib] - data->center2d.n[1])
-                                        * (vertices[4 * far_vertex + ia] - data->center2d.n[0])));
+            float cross = (((vertices[far_vertex].point.n[ib] - data->center2d.n[1])
+                                        * (near_vertex->n[ia] - data->center2d.n[0]))
+                                - ((near_vertex->n[ib] - data->center2d.n[1])
+                                        * (vertices[far_vertex].point.n[ia] - data->center2d.n[0])));
             if ( cross < 0.0 )
                 break;
             walk_edge = edge->edge_indices[forward];

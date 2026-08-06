@@ -19,8 +19,14 @@ typedef struct data_array
     void            *data;
 } data_array;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern void data_make_valid(data_array *data);
 extern void data_make_invalid(data_array *data);
+#ifdef __cplusplus
+}
+#endif
 
 /* DATA_ARRAY_ELEMENT(arr, type, index) — address of the indexed element, reproducing the decompiler
  * idiom (char*)arr->data + arr->size * index. Byte-stride cast is required because arr->data is

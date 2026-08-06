@@ -34,4 +34,12 @@ typedef struct render_globals
     int           environment_surface_indices[16384]; /* 0x8D298 (578200); ends at 643736 */
 } render_globals; /* 643736 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern render_globals render;
+
+#ifdef __cplusplus
+}
+#endif

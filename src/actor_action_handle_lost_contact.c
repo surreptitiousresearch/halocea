@@ -8,7 +8,7 @@
  *
  * 2026-07-14 fully typed. Deviations, all verified:
  *   - The decompiler lost the spilled output-pointer arguments of encounter_determine_pursuit_availability and
- *     actor_action_determine_pursuit_options (shown as uninitialised v32..v37). Recovered from disasm
+ *     actor_action_determine_pursuit_options (shown as a run of uninitialised locals). Recovered from disasm
  *     0x837F5EAC-0x837F5F34: the four trailing pointers of the availability call are &allow_pursuit_search,
  *     &controlling_group_pursuit, &controlled_by_group_pursuit, &wait_after_pursuit; the pursuit-options call
  *     passes &allow_target_uncover as its `must_charge` slot (matching the callee's pointer-typed param) then
@@ -95,7 +95,7 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
     uint8_t changed = 0;
     uint8_t should_return_to_idle = 0;
     char wants_postcombat_guard = 0;
-    action_state_data action_data; /* v57 — the single action working-state buffer reused for every setup */
+    action_state_data action_data; /* the single action working-state buffer reused for every setup */
 
     /* return to idle when the encounter is standing down and combat has fully wound down. */
     if (encounter && encounter->stand_down && actor->state.combat_status <= _actor_combat_status_investigate && !actor->state.artificial_combat_status)

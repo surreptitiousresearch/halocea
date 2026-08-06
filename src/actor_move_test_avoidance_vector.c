@@ -11,7 +11,7 @@
  * DEVIATION: the ray frame math adds global_zero_vector3d ({0,0,0}) as a generic base; those +0 terms are
  * bit-exact no-ops and are dropped. FPR-shadow ABI traps corrupted the two call sites: disasm (0x837C8144 /
  * 0x837C81A8) shows collision_bsp_test_vector uses point/vector = ray_origin/ray_direction and one shared result
- * scratch (Hex-Rays punned the scratch pointer through LODWORD(v18)); pill_test_vector3d's real args are
+ * scratch (Hex-Rays punned that pointer through the low half of a fused slot); pill_test_vector3d's real args are
  * (base, height, width, ray_origin, ray_direction, &pill_t, &pill_normal) — the height/width floats burn the r4/r5
  * GPR shadow so Hex-Rays mislabeled point/vector/t/normal. Both BSP tests use maximum_t = 1.0. */
 

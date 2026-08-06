@@ -1,21 +1,21 @@
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
 /* actor_situation_update @ 0x837D7530 — rebuild the actor's tactical "situation" tally for this frame by
  * iterating its props (its knowledge of nearby units). The counter block at actor+492 (123 bytes) is cleared
- * and then filled: enemy props bump threat counters bucketed by a computed threat category (v9 below: damaging
- * me > facing-and-close > shooting > visible, etc.), while ally props bump support counters bucketed by the
- * ally's actor type (player=6, AI=meta.type, unknown=14). Each prop also feeds the best-target selection: the
- * prop with the highest target_weight becomes the actor's active prop (actor+624). When the active prop
+ * and then filled: enemy props bump threat counters bucketed by a computed threat category (threat_category
+ * below: damaging me > facing-and-close > shooting > visible, etc.), while ally props bump support counters by
+ * the ally's actor type (player=6, AI=meta.type, unknown=14). Each prop also feeds the best-target selection: the
+ * prop with the highest target_weight becomes the active prop (actor+624 -> target.target_prop_index). When it
  * changes, the old and new props' cached target_weight is recomputed. Finally the per-target and combat-status
  * summaries are refreshed.
  *
- * Counter block (byte counters relative to actor base):
- *   +492 enemies seen           +493 enemies seen & reachable   +494..+503 threat-category histogram
- *   +504 visible enemies        +505..+511 facing/shooting/damaging sub-counts
- *   +512 nearby allies          +513 fighting allies            +514 fighting vehicle-gunner allies
- *   +515.. allies by type       +531.. fighting allies by type
- *   +547 allies w/ LOS          +548 fighting w/ LOS            +549.. / +565.. by type
- *   +581 close allies           +582 fighting close             +583.. / +599.. by type
- * The histogram offsets and sub-array bases are preserved as raw offsets to match the decompiler exactly. */
+ * Counter block (byte offsets relative to actor base -> actor_situation members):
+ *   +492 -> known_enemies       +493 -> visible_reachable_enemies   +494..+502 -> specific_threats[9]
+ *   +503..+511 -> cumulative_threats[9] (every category a prop qualifies for; specific_threats gets only its top)
+ *   +512 -> area_friends        +513 -> area_fighting_friends       +514 -> area_fire_support_friends
+ *   +515.. -> area_friends_by_type[16]                              +531.. -> area_fighting_friends_by_type[16]
+ *   +547 -> visible_friends     +548 -> visible_fighting_friends    +549../+565.. -> the visible _by_type pair
+ *   +581 -> close_friends       +582 -> close_fighting_friends      +583../+599.. -> the close _by_type pair
+ * Layout is src/headers/actor_situation.h (actor_datum +0x1EC, 123 bytes); all accesses below are by member. */
 
 #include <stdint.h>
 #include "headers/unit_datum.h"
@@ -44,7 +44,7 @@ void actor_situation_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    /* suppress the "facing & very close" threat bump while charging (action 10) or when actor+888 is set */
+    /* suppress the "facing & very close" threat bump while charging or when actor+888 -> emotions.berserk is set */
     char suppress_close_threat = (actor->emotions.berserk || actor->state.action == actor_action_charge) ? 1 : 0;
 
     int   best_index  = -1;

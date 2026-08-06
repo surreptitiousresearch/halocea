@@ -9,8 +9,8 @@
 
 #include <string.h>
 
-extern char *hcex_conv_name(char *name, int max_len);
-extern int sprintf_0(char *string, const char *format, ...);
+extern "C" char *hcex_conv_name(char *name, int max_len);
+extern "C" int sprintf_0(char *string, const char *format, ...);
 
 extern "C" char *hcex_conv_str_name(const char *name, int idx, char *out, int max_len)
 {

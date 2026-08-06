@@ -11,8 +11,8 @@
  * burns the r7 GPR shadow slot, so Hex-Rays mis-read the trailing integer args. Disasm (0x837C7D34-0x837C7D5C:
  * r8=&buffer, r9=0x800) confirms the DB's 7-arg prototype: object_indices is the local buffer and maximum_count
  * is 2048 (Hex-Rays instead showed the leftover 3*object_index index computation as object_indices). The buffer
- * is int[2048], not the 160-byte array Hex-Rays inferred. v8/max_radius seeds from f27 (0.0, via `fmr f31,f27`),
- * which is also the `fsel` height floor. The v13 int-store/float-load pun is just *(float*)(object+168). */
+ * is int[2048], not the 160-byte array Hex-Rays inferred. max_radius seeds from f27 (0.0, via `fmr f31,f27`),
+ * which is also the `fsel` height floor. The int-store/float-load pun is +168 -> object.bounding_sphere_center.n[2]. */
 
 #include <stdint.h>
 #include "headers/vector_avoidance_data.h"

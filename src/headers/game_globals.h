@@ -47,4 +47,12 @@ typedef struct struct_game_globals
     game_options  options;                  /* 0x08 */
 } struct_game_globals;                      /* 276 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct_game_globals *game_globals;
+
+#ifdef __cplusplus
+}
+#endif

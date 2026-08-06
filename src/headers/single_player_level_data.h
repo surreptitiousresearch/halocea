@@ -9,4 +9,12 @@ typedef struct _single_player_level_data
     uint8_t  level_completed[4]; /* 0x04 — per-difficulty completion flags */
 } _single_player_level_data;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _single_player_level_data single_player_level_data[10];
+
+#ifdef __cplusplus
+}
+#endif

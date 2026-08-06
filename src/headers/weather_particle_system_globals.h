@@ -15,4 +15,12 @@ typedef struct weather_particle_system_globals_data
     weather_particle_system_datum systems[2];          /* 0x04 */
 } weather_particle_system_globals_data;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern weather_particle_system_globals_data weather_particle_system_globals;
+
+#ifdef __cplusplus
+}
+#endif

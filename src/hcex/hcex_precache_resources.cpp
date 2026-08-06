@@ -20,21 +20,21 @@
 #include "../headers/tag_block.h"
 
 #include "headers/tag_block.h"
-extern struct game_globals *global_game_globals;
-extern structure_bsp *global_structure_bsp; // non-const to match blam_data_globals.h
+extern "C" struct game_globals *global_game_globals;
+extern "C" structure_bsp *global_structure_bsp; // non-const to match blam_data_globals.h
 
-extern void hcex_pix_begin_event(const char *name);
-extern void hcex_pix_end_event(void);
-extern void hcex_load_bitmap_group(int bitmap_group_index);
-extern void hcex_decals_precache_bitmaps(void);
-extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
-extern int tag_iterator_next(tag_iterator *iterator);
-extern void object_definition_predict(int definition_index);
-extern int16_t local_player_count(void);
-extern const observer_result *observer_get_camera(int16_t local_player_index);
-extern void scenario_location_from_point(location *location, const real_point3d *point);
-extern void predicted_resources_precache(const tag_block *predicted_resources);
-extern void first_person_weapon_predict(int16_t local_player_index);
+extern "C" void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10) */
+extern "C" void hcex_pix_end_event(void);
+extern "C" void hcex_load_bitmap_group(int bitmap_group_index);
+extern "C" void hcex_decals_precache_bitmaps(void);
+extern "C" void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
+extern "C" int tag_iterator_next(tag_iterator *iterator);
+extern "C" void object_definition_predict(int definition_index);
+extern "C" int16_t local_player_count(void);
+extern "C" const observer_result *observer_get_camera(int16_t local_player_index);
+extern "C" void scenario_location_from_point(location *location, const real_point3d *point);
+extern "C" void predicted_resources_precache(const tag_block *predicted_resources);
+extern "C" void first_person_weapon_predict(int16_t local_player_index);
 
 extern "C" void hcex_precache_resources(void)
 {

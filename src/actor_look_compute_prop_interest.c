@@ -3,8 +3,8 @@
  * neutral); the actor's own unit gets zero. The score is then boosted by movement (quantized speed), a recent
  * shot, and a vehicle bonus, and attenuated with distance.
  *
- * Deviation: the decompiler returns *((float*)&v3+1) (a single/double register-aliasing artifact); the real
- * return value is the accumulated single-precision interest. */
+ * Deviation: the decompiler returns the high float of a fused 64-bit local (a single/double register-aliasing
+ * artifact); the real return value is the accumulated single-precision interest. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

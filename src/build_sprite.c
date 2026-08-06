@@ -25,6 +25,7 @@
 #include "headers/build_sprite_data.h"
 #include "headers/shader_effect_flags.h"
 #include "headers/build_sprite_flags.h"
+#include "headers/build_sprites_flags.h"
 #include "headers/build_sprite_group.h"
 #include "headers/build_sprite_globals.h"
 #include "headers/bitmap_group.h"
@@ -149,7 +150,7 @@ void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index,
                         /* recovered: (char *)vertices + 24*corner_index -> vertices[corner_index] */
                         dynamic_screen_vertex *vertex =
                                 (dynamic_screen_vertex *)sprite_group->vertices + corner_index;
-                        if ((data->flags & (1u << _build_sprite_viewer_space_bit)) != 0)
+                        if ((data->flags & (1u << _build_sprites_screen_space_bit)) != 0)
                         {
                             vertex->position.n[0] = (rotated_x * sprite_size) + transformed_origin.n[0];
                             vertex->position.n[1] = (rotated_y * sprite_size) + transformed_origin.n[1];
@@ -198,7 +199,7 @@ void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index,
                     ++sprite_group->sprite_count;
                     ++data->sprite_count;
 
-                    if ((data->flags & (1u << _build_sprite_viewer_space_bit)) == 0)
+                    if ((data->flags & (1u << _build_sprites_screen_space_bit)) == 0)
                     {
                         float view_fraction = render_frustum_cube_view_fraction(&render.frustum, &view_bounds);
                         build_sprite_globals.screen_coverage = view_fraction

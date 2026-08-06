@@ -19,8 +19,8 @@
 
 namespace ui_new {
 
-typedef void (__fastcall *UI_STAT_GET_PARAMS_CB)(UI_STAT_PARAMS &);
-typedef void (__fastcall *UI_STAT_GET_DATA_CB)(dsTSTRING<wchar_t> &);
+typedef void (*UI_STAT_GET_PARAMS_CB)(UI_STAT_PARAMS &);
+typedef void (*UI_STAT_GET_DATA_CB)(dsTSTRING<wchar_t> &);
 
 typedef struct UI_STAT_SYS {
     osLOCK                       lock;                 // 0x000

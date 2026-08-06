@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <math.h>
 #include "headers/animation.h"
+#include "headers/animation_compressed_block.h"
 
 extern int16_t animation_keyframe_search(const int16_t *keyframe_frame_indices, int16_t keyframe_count, int16_t target_frame_index);
 extern void scalars_interpolate(float a, float b, float t, float *result);
@@ -15,13 +16,13 @@ extern void scalars_interpolate(float a, float b, float t, float *result);
 void animation_get_keyframe_scale(const animation *animation, float real_frame_index,
                                   int16_t adjusted_node_index, float *result)
 {
-    unsigned int *compressed_block =
-        (unsigned int *)((char *)animation->data.address + animation->compressed_data_offset);
+    const animation_compressed_block *compressed_block =
+        (const animation_compressed_block *)((char *)animation->data.address + animation->compressed_data_offset);
 
-    /* RAW: packed codec stream — compressed_block[7] is a byte offset word in the block header; the
-     * per-node descriptor table it points to has no DB struct. Byte-exact index kept. */
-    unsigned int descriptor = *(unsigned int *)((char *)compressed_block + 4 * adjusted_node_index + compressed_block[7]);
-    char *keyframe_data_base = (char *)compressed_block + compressed_block[9];
+    unsigned int descriptor =
+        ((const unsigned int *)((const char *)compressed_block
+                                + compressed_block->scale_descriptor_offset))[adjusted_node_index];
+    const char *keyframe_data_base = (const char *)compressed_block + compressed_block->scale_default_offset;
     short keyframe_count = (short)(descriptor & 0xFFF);
     short data_index = (short)(descriptor >> 12);
 
@@ -32,12 +33,12 @@ void animation_get_keyframe_scale(const animation *animation, float real_frame_i
         return;
     }
 
-    /* RAW: same packed codec stream — words [8]/[10] are header byte-offset words to the frame-index
-     * and value tables; no DB struct exists for the block layout, byte-exact arithmetic kept. */
     const short *keyframe_frame_indices =
-        (const short *)((char *)compressed_block + 2 * data_index + compressed_block[8]);
+        &((const short *)((const char *)compressed_block
+                          + compressed_block->scale_frame_index_offset))[data_index];
     const float *keyframe_values =
-        (const float *)((char *)compressed_block + 4 * data_index + compressed_block[10]);
+        &((const float *)((const char *)compressed_block
+                          + compressed_block->scale_keyframe_offset))[data_index];
 
     short target_frame_index = (short)(int)floorf(real_frame_index);
 

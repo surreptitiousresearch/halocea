@@ -20,7 +20,7 @@ extern uint8_t file_exists(const file_reference *file);
 extern uint8_t hs_rebuild_source_file(file_reference *script_file);
 extern int16_t find_files(unsigned int flags, const file_reference *directory, int maximum_count, file_reference *references);
 extern char *file_reference_get_name(const file_reference *reference, unsigned int flags, char *name);
-extern void qsort(void *base, unsigned int count, unsigned int size, int (__fastcall *compare)(const void *, const void *));
+extern void qsort(void *base, unsigned int count, unsigned int size, int (*compare)(const void *, const void *));
 extern int alphabetize_file_references(const file_reference *ref1, const file_reference *ref2);
 
 uint8_t hs_rebuild_source(void)
@@ -48,7 +48,7 @@ uint8_t hs_rebuild_source(void)
     file_reference found[8];
     int file_count = find_files(0, &directory, 8, found);
     /* standard qsort idiom: typed comparator cast to qsort's generic const void* signature */
-    qsort(found, file_count, 0x10Cu, (int (__fastcall *)(const void *, const void *))alphabetize_file_references);
+    qsort(found, file_count, 0x10Cu, (int (*)(const void *, const void *))alphabetize_file_references);
 
     for ( int16_t i = 0; i < file_count; i = (int16_t)(i + 1) )
     {

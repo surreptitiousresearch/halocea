@@ -37,10 +37,10 @@ namespace mp {
 template<class T> T *dsDATA_Construct(dsDATA *data);
 
 // --- co-op module-scope globals (HCEX halo_coop.cpp) ----------------------------------------
-extern SESSION_BASE *pSyncSession;            // active co-op session (null == not in co-op)
-extern int           msgId;                    // outgoing raw-input message sequence counter
+extern "C" SESSION_BASE *pSyncSession;            // active co-op session (null == not in co-op)
+extern "C" int           msgId;                    // outgoing raw-input message sequence counter
 extern int           hcex_data_applied_num;    // count of deterministic ticks applied so far
-extern int           hcex_coop_nticks_to_apply;// pending queued ticks still to be applied
+extern "C" int           hcex_coop_nticks_to_apply;// pending queued ticks still to be applied
 extern int           hcex_num_update;          // co-op update invocation counter
 extern haloENGINE_CONTROL *haloEngineCtrl;      // the Blam engine-control bridge singleton
 

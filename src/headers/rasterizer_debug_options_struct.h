@@ -90,4 +90,12 @@ typedef struct rasterizer_debug_options_struct
     float           f[6];                                      /* 0x78 */
 } rasterizer_debug_options_struct;                             /* 144 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern rasterizer_debug_options_struct rasterizer_debug_options;
+
+#ifdef __cplusplus
+}
+#endif

@@ -11,7 +11,7 @@
 #include "../headers/animation.h"
 #include "../headers/global_tag_instances.h"
 
-extern data_array *object_header_data;
+extern "C" data_array *object_header_data;
 
 extern "C" int hcex_obj_get_anim_info(int id, int *frameCur, int *frameCount, char **ptrName)
 {

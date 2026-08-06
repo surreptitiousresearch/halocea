@@ -10,14 +10,14 @@
 
 #define LOG_CALLBACKS_COUNT 4
 
-extern void (*logsCB[LOG_CALLBACKS_COUNT])(const char *text); /* 0x842090F8 */
-extern int  isFirstTime;             /* 0x8413F1DC -- one-shot logsCB[] zero-init guard */
+extern "C" void (*logsCB[LOG_CALLBACKS_COUNT])(const char *text); /* 0x842090F8 */
+extern "C" int  isFirstTime;             /* 0x8413F1DC -- one-shot logsCB[] zero-init guard */
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 /* boundary -- STRONG_ASSERT_DUMMY::Crash(this, condition, file, line, info); see
  * src/dlDumpNoMemLeft.c for the established signature/call convention this mirrors. */
-void STRONG_ASSERT_DUMMY_Crash(void *unused, const char *condition, const char *file, int line, const char *info);
+extern "C" void STRONG_ASSERT_DUMMY_Crash(void *unused, const char *condition, const char *file, int line, const char *info);
 
 void CallLogCB(const char *text)
 {

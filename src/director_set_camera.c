@@ -9,7 +9,7 @@
 
 void director_set_camera(
         int16_t local_player_index,
-        void (__fastcall *camera_proc)(void *camera_data, const camera_control *, observer_command *),
+        void (*camera_proc)(void *camera_data, const camera_control *, observer_command *),
         uint8_t interpolate)
 {
     director *dir = &director_globals.local_players[local_player_index];

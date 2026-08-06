@@ -6,7 +6,7 @@
 #include "../../headers/entCREATE_DATA.h"
 #include <string.h>
 
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 // Declared in entCreate.cpp (the animINST-overload, lowest address). Same free-function family.
 entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info);

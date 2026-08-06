@@ -14,4 +14,12 @@ typedef struct persisted_camera_data
     uint8_t _pad1D[3]; /* 0x1D */
 } persisted_camera, persisted_camera_data; /* 32 bytes — persisted_camera_data is the DB spelling (used by the storage def) */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern persisted_camera persisted_cameras[2];
+
+#ifdef __cplusplus
+}
+#endif

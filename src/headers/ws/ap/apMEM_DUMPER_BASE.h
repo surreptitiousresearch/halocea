@@ -8,13 +8,13 @@ struct apMEM_DUMPER_BASE;
 
 // vtable — DB-verified (types_members apMEM_DUMPER_BASE_vtbl).
 typedef struct apMEM_DUMPER_BASE_vtbl {
-    void (__fastcall *dtr_apMEM_DUMPER_BASE)(apMEM_DUMPER_BASE *self);
+    void (*dtr_apMEM_DUMPER_BASE)(apMEM_DUMPER_BASE *self);
     void (*Write)(apMEM_DUMPER_BASE *self, const char *fileName, char *text, ...);
-    void (__fastcall *coreDump)(apMEM_DUMPER_BASE *self, const char *fileName, unsigned int typesMask);
+    void (*coreDump)(apMEM_DUMPER_BASE *self, const char *fileName, unsigned int typesMask);
 } apMEM_DUMPER_BASE_vtbl;
 
 // Re-entrancy guard shared by every dumper — true while a dump is running.
-extern bool isDumpInProgress;
+extern "C" bool isDumpInProgress;
 
 typedef struct apMEM_DUMPER_BASE {
     apMEM_DUMPER_BASE_vtbl *__vftable; // 0x00

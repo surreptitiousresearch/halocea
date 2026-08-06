@@ -13,7 +13,7 @@ typedef struct director
     int16_t camera_mode_index;              /* 0x00 */
     unsigned char _pad02[2];                /* 0x02 */
     float   camera_change_pause;            /* 0x04 — countdown blending out of a camera change */
-    void (__fastcall *camera_proc)(void *camera_data, const camera_control *, observer_command *); /* 0x08 */
+    void (*camera_proc)(void *camera_data, const camera_control *, observer_command *); /* 0x08 */
     uint8_t camera_data[64];        /* 0x0C — opaque per-camera state */
     int     bored_time;                     /* 0x4C */
     uint8_t bored;                  /* 0x50 */
@@ -42,4 +42,12 @@ typedef struct _15F3ED9EB994D8D3C43F28ECD84A8394
 } _15F3ED9EB994D8D3C43F28ECD84A8394;                                          /* 504 bytes */
 typedef struct _15F3ED9EB994D8D3C43F28ECD84A8394 director_globals_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern director_globals_t director_globals;
+
+#ifdef __cplusplus
+}
+#endif

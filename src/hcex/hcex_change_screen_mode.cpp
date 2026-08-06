@@ -7,11 +7,11 @@
  * are `void` (they only set hcex_new_render_mode) and hcex_input_update_window takes no argument — the
  * threaded r3 is a decompiler artifact, dropped here. */
 
-extern int curMode;
+extern "C" int curMode;
 
-extern void hcex_s3d_render_off(void);
-extern void hcex_s3d_render_on(void);
-extern void hcex_input_update_window(void);
+extern "C" void hcex_s3d_render_off(void);
+extern "C" void hcex_s3d_render_on(void);
+extern "C" void hcex_input_update_window(void);
 
 extern "C" void hcex_change_screen_mode(int mode)
 {

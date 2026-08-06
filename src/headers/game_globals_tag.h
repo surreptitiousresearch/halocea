@@ -9,4 +9,12 @@
 
 typedef struct game_globals game_globals_tag; /* 0x1AC (428 bytes) */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_globals_tag *global_game_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -64,4 +64,12 @@ typedef struct structure_bsp
     leaf_map  leaf_map;                   /* 0x26C — runtime leaf/portal visibility map */
 } structure_bsp;                          /* 648 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern structure_bsp *global_structure_bsp;
+
+#ifdef __cplusplus
+}
+#endif

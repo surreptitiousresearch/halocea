@@ -1,3 +1,8 @@
+/* hs_type_navpoint_default @ 0x82118FAC (.rdata, 2 bytes)
+ * DB applied_types: const __int16 hs_type_navpoint_default;
+ * Image bytes (big-endian), decoded from the binary .rdata record:
+ *   +0x0000 = ffff (2 trailing bytes)
+ */
 #include <stdint.h>
 /* hs_type_navpoint_default @ 0x82118FAC - .rdata read-only constant. DB symbol name is the leading-underscore
  * form _hs_type_navpoint_default (the original file-scope spelling); consumers use the plain name, the same

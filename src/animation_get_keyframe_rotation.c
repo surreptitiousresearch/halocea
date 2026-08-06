@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <math.h>
 #include "headers/animation.h"
+#include "headers/animation_compressed_block.h"
 #include "headers/real_quaternion.h"
 #include "headers/compressed_quaternion_6byte.h"
 
@@ -20,11 +21,11 @@ extern void quaternions_interpolate_and_normalize(const real_quaternion *q0, con
 void animation_get_keyframe_rotation(const animation *animation, float real_frame_index,
                                      int16_t adjusted_node_index, int16_t node_index, real_quaternion *result)
 {
-    unsigned int *compressed_block =
-        (unsigned int *)((char *)animation->data.address + animation->compressed_data_offset);
+    const animation_compressed_block *compressed_block =
+        (const animation_compressed_block *)((char *)animation->data.address + animation->compressed_data_offset);
 
-    unsigned int descriptor = compressed_block[adjusted_node_index + 11];
-    char *keyframe_data_base = (char *)compressed_block + compressed_block[1];
+    unsigned int descriptor = compressed_block->rotation_descriptors[adjusted_node_index];
+    const char *keyframe_data_base = (const char *)compressed_block + compressed_block->rotation_default_offset;
     short keyframe_count = (short)(descriptor & 0xFFF);
     short data_index = (short)(descriptor >> 12);
 
@@ -39,10 +40,12 @@ void animation_get_keyframe_rotation(const animation *animation, float real_fram
     }
 
     const short *keyframe_frame_indices =
-        (const short *)((char *)compressed_block + 2 * data_index + compressed_block[0]);
-    /* recovered: (compressed_quaternion_6byte *)(block + 6*data_index + block[2]) -> typed [] index off the array base */
+        &((const short *)((const char *)compressed_block
+                          + compressed_block->rotation_frame_index_offset))[data_index];
+    /* recovered: 6*data_index byte offset -> typed compressed_quaternion_6byte index off the region base */
     const compressed_quaternion_6byte *keyframe_quaternions =
-        &((const compressed_quaternion_6byte *)((char *)compressed_block + compressed_block[2]))[data_index];
+        &((const compressed_quaternion_6byte *)((const char *)compressed_block
+                                                + compressed_block->rotation_keyframe_offset))[data_index];
 
     short target_frame_index = (short)(int)floorf(real_frame_index);
 

@@ -22,4 +22,12 @@ typedef struct widget_type_definition
     void          (*render_proc)(int, int, const struct render_lighting *, const struct render_animation *); /* 0x24 */
 } widget_type_definition;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern widget_type_definition widget_type_definitions[5];
+
+#ifdef __cplusplus
+}
+#endif

@@ -10,10 +10,10 @@
 #include "../headers/unit_definition_flags.h"
 #include "../headers/global_tag_instances.h"
 
-extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
-extern int tag_iterator_next(tag_iterator *iterator);
-extern char *tag_get_name(int16_t tag_index);
-extern int strcmp(const char *s1, const char *s2);
+extern "C" void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
+extern "C" int tag_iterator_next(tag_iterator *iterator);
+extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" int strcmp(const char *s1, const char *s2);
 
 extern "C" void hcex_set_explode_grunts(int val)
 {

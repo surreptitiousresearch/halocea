@@ -8,4 +8,12 @@ typedef struct game_sound_global_data
     int render_time;            /* 0x08 */
 } game_sound_global_data;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern game_sound_global_data *game_sound_globals;
+
+#ifdef __cplusplus
+}
+#endif

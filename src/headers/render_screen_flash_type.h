@@ -15,6 +15,14 @@ enum render_screen_flash_type {
 };
 
 /* screen_flash_type @ 0x84175BE4 — standalone int holding a default render_screen_flash_type value. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern int screen_flash_type;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RENDER_SCREEN_FLASH_TYPE_H */

@@ -11,4 +11,12 @@ struct unit_globals
     char            pad[3];         /* 0x05 */
 };                                  /* 8 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern struct unit_globals *unit_globals;
+
+#ifdef __cplusplus
+}
+#endif

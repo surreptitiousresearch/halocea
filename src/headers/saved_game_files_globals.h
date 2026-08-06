@@ -19,4 +19,12 @@ typedef struct _saved_game_files_globals
     char           paths[10][256];                /* 0x119 */
 } _saved_game_files_globals;                      /* 2844 bytes */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern _saved_game_files_globals saved_game_files_globals;
+
+#ifdef __cplusplus
+}
+#endif

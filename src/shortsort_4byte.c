@@ -3,7 +3,7 @@
  * shortsort_2byte.c at 4-byte element granularity. */
 #include <stdint.h>
 
-void shortsort_4byte(char *lo, char *hi, uint8_t (__fastcall *compare)(int, int))
+void shortsort_4byte(char *lo, char *hi, uint8_t (*compare)(int, int))
 {
     char *end = hi;
 

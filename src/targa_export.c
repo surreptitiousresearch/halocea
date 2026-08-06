@@ -1,7 +1,7 @@
 /* targa_export @0x83767758 — write a bitmap out as an uncompressed 32-bit top-down TGA file. Returns NULL on
  * success or a static error string describing the failure stage. */
 
-typedef struct file_reference file_reference;
+typedef union file_reference file_reference;
 #include <stdint.h>
 #include "headers/bitmap_data.h"
 

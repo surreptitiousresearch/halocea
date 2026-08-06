@@ -1,7 +1,7 @@
 #include "../../headers/ws/prop/propINST_CONSTRUCTOR.h"
 #include "../../headers/ws/ent/entENTITY.h"
 
-extern void dlFree(void *ptr);
+extern "C" void dlFree(void *ptr);
 
 // 0x826E4750 — propINST_CONSTRUCTOR::ChangeSkin(const dsTSTRING<char>&)
 // Adopts `presetName` as this instance's current skin, then delegates the actual instance

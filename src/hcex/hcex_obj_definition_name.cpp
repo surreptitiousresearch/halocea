@@ -9,8 +9,8 @@
 #include "../headers/object_datum.h"
 #include "../headers/object_type.h"
 
-extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern char *tag_get_name(int16_t tag_index);
+extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
+extern "C" char *tag_get_name(int16_t tag_index);
 
 extern "C" char *hcex_obj_definition_name(int object_index)
 {

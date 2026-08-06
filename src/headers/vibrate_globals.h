@@ -10,4 +10,12 @@
 
 typedef vibrate_global_data vibrate_globals_s;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern vibrate_global_data *vibrate_globals;
+
+#ifdef __cplusplus
+}
+#endif

@@ -7,7 +7,7 @@ struct strmVID_BUF_INS_PRED {}; // boundary — empty ordering predicate; Insert
 extern void *operator new(size_t size, const char *file, unsigned int line); // size_t: MSVC operator new requires size_t first param
 
 // strm subsystem monotonic buffer-id counter (global, shared by every strmVID_MEM_BLOCK).
-extern unsigned int bufId;
+extern "C" unsigned int bufId;
 
 // strmVID_MEM_BLOCK::AddNewBuffer @ 0x8269BDE8
 // Allocate one strmVID_BUFFER, fill it in from the caller's parameters, assign it the next global

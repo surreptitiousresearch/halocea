@@ -53,7 +53,7 @@ int actor_action_find_escape_from_danger(int actor_index, int16_t *escape_direct
             TAG_GET(float, *(int *)((char *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum))[142];
 
     /* Written through to alignment_vector_reference even when escape_distance <= 0, in which case it is read
-     * uninitialized — faithful to the shipped code (v41 has no init on that path). */
+     * uninitialized — faithful to the shipped code (escape_heading has no init on that path). */
     real_vector2d escape_heading;
     if ( escape_distance > 0.0f )
     {

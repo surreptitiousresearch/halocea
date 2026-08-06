@@ -13,7 +13,7 @@
  * (actor_target_data); the "grenade-readiness timer" reading was a prior guess. The remaining fields are resolved:
  * the action-state counter to the flee arm's panic_type (action_data+0xC) and the want-to-throw-grenade
  * flag to actor->control.grenade_trying_to_throw (+1696). The
- * "v4 = (~(sign_bit) + (x!=0)) & 1" bit-twiddle the decompiler emits for the ammo/shot-counter check is
+ * "(~(sign_bit) + (x!=0)) & 1" bit-twiddle the decompiler emits for the ammo/shot-counter check is
  * algebraically just "x <= 0" (verified by cases: x>0 -> 0, x==0 -> 1, x<0 -> 1) and is simplified here. */
 
 #include <stdint.h>

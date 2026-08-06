@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include "headers/file_reference.h"
 
-extern unsigned int SetFilePointer(void *handle, int distance, void *distance_high, unsigned int move_method);
+extern unsigned int SetFilePointer(void *file, int distance, int *distance_high, unsigned int method);
 extern unsigned int GetLastError(void);
 extern void SetLastError(unsigned int code);
 extern uint8_t file_read(const file_reference *file, unsigned int count, void *buffer);

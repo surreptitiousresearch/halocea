@@ -2,7 +2,7 @@
 #include "../ds/ds_assert_boundary.h"
 
 // stricmp — CRT boundary (case-insensitive string compare), per project convention.
-extern int stricmp(const char *a, const char *b);
+extern "C" int stricmp(const char *a, const char *b);
 
 // 0x826B80A8 — case-insensitive compare of record.ofsIdText's text (looked up via
 // data->storageIds, the packed NUL-separated ID-text byte pool) against `key`.

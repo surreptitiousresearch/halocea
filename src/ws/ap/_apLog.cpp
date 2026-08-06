@@ -7,7 +7,7 @@
 #include <stdarg.h>
 
 extern void apLogV(char *text, char *argPtr);      // 0x825C9390 — core variadic log sink
-extern dbgVAR_SIMPLE<bool, 1> dbg_logs;            // ap-log `logs` debug var (value != 0 -> suppress)
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_logs;            // ap-log `logs` debug var (value != 0 -> suppress)
 
 void _apLog(const char *fmt, ...)
 {

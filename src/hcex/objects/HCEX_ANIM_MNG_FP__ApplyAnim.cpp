@@ -43,8 +43,8 @@ extern dsVECTOR<dsPAIR<unsigned int, HCEX_MODEL>, 8>       hcexModels; // bounda
 extern const m3dV m3dVZero; // boundary — zero vector constant
 
 // First-person reposition tuning globals (no prior corpus reference; first touched here).
-extern float rotX, rotY, rotZ; // boundary — fixed yaw/pitch/roll offsets applied when `repos` is set
-extern bool  repos;             // boundary — whether to apply the fixed fpOfs/rot* reposition
+extern "C" float rotX, rotY, rotZ; // boundary — fixed yaw/pitch/roll offsets applied when `repos` is set
+extern "C" bool  repos;             // boundary — whether to apply the fixed fpOfs/rot* reposition
 
 void HCEX_ANIM_MNG_FP::ApplyAnim(unsigned char typeValidation)
 {

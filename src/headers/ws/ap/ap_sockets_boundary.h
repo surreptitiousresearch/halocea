@@ -29,6 +29,10 @@ struct SOCKET_LISTENER {
 //   gs_delayedListLock — guards gs_delayedList.
 //   gs_batchDelete     — set while draining so socket dtors route to the batch instead of
 //                        recursing back into the list.
+// DEVIATION: gs_batchDelete (0x842C15D0) is a 1-byte bool, not an int — the DB applied type is
+// `bool gs_batchDelete;` and both accessors are byte ops at the symbol base (stb @0x82792F6C /
+// 0x82792FD0 here, lbz @0x82793034 in ~BASE_SOCKET). On this big-endian target a 4-byte store of
+// 1 would leave byte 0 zero, so the destructor's lbz would never observe the flag as set.
 extern "C" ds::LIST<ap::BASE_SOCKET *> gs_delayedList;
 extern "C" osLOCK                      gs_delayedListLock;
-extern "C" int                         gs_batchDelete;
+extern "C" bool                        gs_batchDelete;

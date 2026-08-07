@@ -28,8 +28,8 @@ void hs_script_evaluate(int16_t script_index, int thread_index, uint8_t initiali
      * data top, 4-aligned up. The compiled `if (slot - 1 > top) --slot` correction can never fire
      * (align-up advances at most 3 bytes); kept verbatim for fidelity. */
     unsigned char *stack_top = &frame->data[frame->size];
-    int *result_slot = (int *)(((unsigned int)stack_top + 3) & ~3u);
-    if ( (unsigned int)(result_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *result_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3);
+    if ( (uintptr_t)(result_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --result_slot;
     frame->size = (int16_t)((unsigned char *)result_slot - frame->data + 4);
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "fsmEVENT_BASE.h"
 #include "fsmAIMING_EVENT.h"        // fsmEVENT_PARAM_BASE (single canonical definition)
 #include "../ds/dsSTRID.h"
 #include "../ds/dsVECTOR.h"
@@ -10,7 +11,8 @@
 
 struct mdlITRC_BASE; // mdl — interactive transform ref component (mdlITRC_BASE.h)
 
-struct fsmHIDEOUT_EVENT {
+// DB types_members fsmHIDEOUT_EVENT: one row — the empty fsmEVENT_BASE base at offset 0.
+struct fsmHIDEOUT_EVENT : fsmEVENT_BASE {
     // ?change_side_@fsmHIDEOUT_EVENT@@SAABVdsSTRID@@XZ @ 0x829BE420 — static: interned "change_side" id.
     static const dsSTRID &change_side_();
 

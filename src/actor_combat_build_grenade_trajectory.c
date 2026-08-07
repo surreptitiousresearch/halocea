@@ -1,15 +1,15 @@
 /* actor_combat_build_grenade_trajectory @0x837B8170 — solve a throwable-grenade trajectory: looks up the
  * grenade type's projectile definition and calls projectile_aim to get an aim vector/speed toward
  * desired_impact_point, then (on success) converts that into an initial velocity vector (aim_vector *
- * aim_speed) and reports the projectile's ballistic acceleration, when the caller asked for either.
- * Returns whether an aim solution was found.
+ * aim_speed) and reports the ballistic acceleration (zero for a linear solution), when the caller asked
+ * for either. Returns whether an aim solution was found.
  *
- * DEVIATION: the decompiler renders this with 38 parameter slots of which only 11 are real — the float-slot-skip
- * ABI makes it invent seven `double` slots between arc_time and arc_initial_velocity plus a phantom tail after
- * arc_acceleration; the DB's 11-parameter prototype is ground truth. Register-level disasm confirmed which DB
- * params map to which of projectile_aim's args (grenade_origin -> origin, desired_impact_point -> target_point,
- * optional_ballistic_fraction_min -> target_ballistic_fraction_min, aim_vector -> result_aim_vector, aim_speed ->
- * result_velocity — direct pass-through, reused as projectile_aim's own output slots); `lob`/`arc_time` unread. */
+ * DEVIATION: 10 parameters, not the 11 previously read here (nor the decompiler's 38). A `lob` between
+ * optional_ballistic_fraction_min and aim_vector was a float-slot-skip phantom: velocity_max consumes r5's
+ * slot while living in f1, so desired_impact_point is r6 and optional_ballistic_fraction_min r7 — exactly
+ * what this body forwards to projectile_aim's target_point (`mr r5, r6`) and target_ballistic_fraction_min
+ * (`mr r8, r7`), whose own `lob` is the literal 0. Both ends agree: only slots 8/9 arrive on the stack
+ * (arg_54/arg_5C; `stfs f1, arg_24` homes velocity_max at slot 2), and arc_time is r10 -> result_ticks. */
 
 #include <stdint.h>
 #include "headers/game_globals_definition.h"
@@ -24,7 +24,7 @@
 extern uint8_t projectile_aim(const projectile_definition *projectile_definition, const real_point3d *origin, const real_point3d *target_point, const float *override_velocity_max, float *target_velocity_min, float *target_ballistic_fraction_min, float *forced_velocity, uint8_t lob, real_vector3d *result_aim_vector, float *result_velocity, float *result_ticks, float *result_distance, uint8_t *result_linear);
 extern float projectile_get_ballistic_acceleration(const projectile_definition *projectile_definition);
 
-uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_point3d *grenade_origin, float velocity_max, const real_point3d *desired_impact_point, float *optional_ballistic_fraction_min, uint8_t lob, real_vector3d *aim_vector, float *aim_speed, float *arc_time, real_vector3d *arc_initial_velocity, float *arc_acceleration)
+uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_point3d *grenade_origin, float velocity_max, const real_point3d *desired_impact_point, float *optional_ballistic_fraction_min, real_vector3d *aim_vector, float *aim_speed, float *arc_time, real_vector3d *arc_initial_velocity, float *arc_acceleration)
 {
     float velocity_max_copy = velocity_max;
     uint8_t success = 0;
@@ -42,7 +42,7 @@ uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_p
                 uint8_t result_linear;
                 if ( projectile_aim(definition, grenade_origin, desired_impact_point, &velocity_max_copy,
                         nullptr, optional_ballistic_fraction_min, nullptr, 0, aim_vector, aim_speed,
-                        nullptr, nullptr, &result_linear) )
+                        arc_time, nullptr, &result_linear) )
                 {
                     success = 1;
                     if ( arc_initial_velocity )
@@ -53,7 +53,14 @@ uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_p
                         arc_initial_velocity->n[2] = aim_vector->n[2] * speed;
                     }
                     if ( arc_acceleration )
-                        *arc_acceleration = projectile_get_ballistic_acceleration(definition);
+                    {
+                        /* DEVIATION: a linear solution has no ballistic drop — 0x837B8260-0x837B8288
+                         * branches on result_linear and the zero arm was missing from the pseudocode. */
+                        if ( result_linear )
+                            *arc_acceleration = 0.0f;
+                        else
+                            *arc_acceleration = projectile_get_ballistic_acceleration(definition);
+                    }
                 }
             }
         }

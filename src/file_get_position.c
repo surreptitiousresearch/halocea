@@ -9,7 +9,7 @@ extern void SetLastError(unsigned int code);
 
 unsigned int file_get_position(const file_reference *file)
 {
-    unsigned int position = SetFilePointer(*(void **)&file->data[264], 0, nullptr, 1u);
+    unsigned int position = SetFilePointer(file->win32.handle, 0, nullptr, 1u);
     if (position == (unsigned int)-1)
     {
         GetLastError();

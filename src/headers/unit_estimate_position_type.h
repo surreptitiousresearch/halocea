@@ -8,6 +8,7 @@ enum unit_estimate_position_type {
 	_unit_estimate_head_standing = 1,
 	_unit_estimate_head_crouching = 2,
 	_unit_estimate_gun_position = 3,
+	NUMBER_OF_UNIT_ESTIMATE_POSITION_MODES = 4,
 };
 
 #endif /* UNIT_ESTIMATE_POSITION_TYPE_H */

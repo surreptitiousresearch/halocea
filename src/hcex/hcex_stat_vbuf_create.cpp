@@ -14,6 +14,9 @@ extern "C" vidDEFRAG_CHUNK_OBJ_HCEX_X360 *hcex_stat_vbuf_create(int size)
 {
     vidDEFRAG_CHUNK_OBJ_HCEX_X360 *chunk =
         apDEFRAG_MNG_Alloc_vidDEFRAG_CHUNK_OBJ_HCEX_X360(apDefragMng, size);
-    chunk->base.content = VID_BC_VERT;
+    /* `stb r10, 0x1C(r3)` @0x823F1B80 — vidDEFRAG_CHUNK::content, inherited (types_members marks
+     * vidDEFRAG_CHUNK as vidDEFRAG_CHUNK_OBJ_HCEX_X360's is_baseclass at offset 0), not a member
+     * named `base`. */
+    chunk->content = VID_BC_VERT;
     return chunk;
 }

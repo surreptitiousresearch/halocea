@@ -8,7 +8,10 @@
 // DB-verified layout (types_members psITERATOR): name@0 (dsTSTRING<char>), type@4 (psSTD_TYPEID),
 // flags@8 (unsigned int), records@12 (dsVECTOR<psSECTION_KEY_REF,8>), pos@32 (int) — size 36.
 
-// DB-verified enum (types_enum_values psSTD_TYPEID).
+// DB-verified enum (types_enum_values psSTD_TYPEID). Canonical (and now only) body: the duplicate
+// in hcex/hcex_effect_names_parse_boundary.h was deleted. NOTE, carried over from that copy: an
+// earlier boundary spelling mis-set PS_TYPEID_SECTION to 2; the DB value is 7 (call sites reference
+// the symbol, so the correction is transparent).
 enum psSTD_TYPEID {
     PS_TYPEID_INVALID = -1,
     PS_TYPEID_NULL    = 0,

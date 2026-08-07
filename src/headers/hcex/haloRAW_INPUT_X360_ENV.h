@@ -11,9 +11,9 @@ struct dsDATA; // ws-engine ds — boundary, passed through untouched as a per-s
 
 typedef struct haloRAW_INPUT_X360_ENV : haloRAW_INPUT_X360
 {
-    int msgId;   /* 0x0C */
-    int tick;    /* 0x10 */
-    int crc;     /* 0x14 */
+    int msgId;   /* 0x0C monotonically increasing send id */
+    int tick;    /* 0x10 game tick this input applies to */
+    int crc;     /* 0x14 sender's game-state CRC at that tick */
 
     // 0x823BD180 — serialize msgId, tick, crc, then the base haloRAW_INPUT_X360 fields (buttons,
     // sThumbLX, sThumbLY, sThumbRX, sThumbRY), byte-reordering each field first when the stream is

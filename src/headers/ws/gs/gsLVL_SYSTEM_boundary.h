@@ -1,27 +1,18 @@
 #pragma once
 #include "../anim/animTPL.h"
+#include "../scn/scnSCENE.h"
 // Boundary declarations for gsLVL_SYSTEM::FindTplName (0x827986D0): the scene template store it
-// queries (scnSCENE / gsScenePtr) plus the scene-I/O and logging helpers. scnSCENE is a large
-// engine object modeled here only up to pTplDummy@10220 (types_members scnSCENE) — the one field
-// FindTplName reads directly; its template-management methods stay extern.
-
-struct m3dV; // m3d — 3-vector (IsBelongPosSceneBox arg)  boundary (fwd)
-
-typedef struct scnSCENE {
-    unsigned char _pad0000[10220]; // 0x0000 — engine-internal scene state (not modeled here)
-    animTPL      *pTplDummy;        // 0x27EC (10220) sentinel "template not found/loaded" marker
-
-    // 0x827430B8 (?IsBelongPosSceneBox@scnSCENE@@QAAHPAUm3dV@@@Z) — nonzero when world position
-    // `pos` lies inside the scene's bounding box. boundary.
-    int IsBelongPosSceneBox(m3dV *pos);
-
-    // Locate an already-resident template by (extension-stripped) name; returns pTplDummy on miss.
-    animTPL *FindTplName(const char *name);
-    // Allocate an empty template slot (null on exhaustion).
-    animTPL *AllocTpl();
-    // Release a template slot allocated via AllocTpl.
-    void     DestroyTpl(animTPL *pTpl);
-} scnSCENE;
+// queries (scnSCENE / gsScenePtr) plus the scene-I/O and logging helpers.
+//
+// DEVIATION: this header used to carry its own truncated scnSCENE body (`_pad0000[10220]` +
+// pTplDummy, 10224 bytes) while src/headers/ws/scn/scnSCENE.h already carried the full
+// DB-verified layout (types_members scnSCENE — 10352 bytes). Two bodies for one type is a latent
+// C2011 and a second, contradictory layout; the canonical header is included instead, and the
+// four template-store/bbox methods this file declared were moved onto it (all four DB-confirmed
+// scnSCENE members: ?FindTplName@scnSCENE@@QAAPAVanimTPL@@PBD@Z @0x8253C6A8,
+// ?AllocTpl@scnSCENE@@QAAPAVanimTPL@@XZ @0x8253EAA0,
+// ?DestroyTpl@scnSCENE@@QAAXPAVanimTPL@@@Z @0x8253EBC8,
+// ?IsBelongPosSceneBox@scnSCENE@@QAAHPAUm3dV@@@Z @0x827430B8).
 
 extern scnSCENE *gsScenePtr;
 

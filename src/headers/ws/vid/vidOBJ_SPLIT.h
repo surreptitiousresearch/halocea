@@ -5,6 +5,7 @@
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsTSTRING.h"
 #include "vidMTL.h"
+#include "vidPASS_OBJ.h"
 // ws-engine vid: one draw-batch split of a render object, grouped by material/pass state.
 // DB-verified layout (types_members vidOBJ_SPLIT): occRes@0 (vidOBJ_SPLIT_OCC_RES, 16B),
 // passList@16 (d3dOBJ_PASS_LIST, 88B), objDesc@104 (vidPASS_OBJ, 156B), mtlList@260
@@ -14,91 +15,18 @@
 // outside this batch's closure; per the established vid* boundary convention (large
 // self-contained video-driver classes reached through a handful of methods) it is kept as a
 // DB-size-accurate opaque byte blob. objDesc (vidPASS_OBJ, DB-verified types_members
-// vidPASS_OBJ) IS given a thin typed shell below because dsVECTOR<vidOBJ_SPLIT,8>::
-// ShrinkResize/Resize call vidPASS_OBJ::MTL's destructor directly on the sub-object at
-// objDesc.mtl (offset 24 within vidPASS_OBJ) — MTL itself (a D3D material-state block) stays
-// an opaque DB-size-accurate blob with only its destructor exposed as a boundary.
-
-typedef struct vidPASS_OBJ {
-    // vidPASS_OBJ::MTL — D3D per-pass material/texture-stage state (132 bytes; DB-verified,
-    // types_members vidPASS_OBJ::MTL and nested BASE/LM/LAYER0/1/2 — the fully-typed flattened
-    // spelling lives in vidPASS_OBJ_MTL.h). Only its destructor is called by this batch
-    // (releases held D3D resource references).
-    struct MTL {
-        struct BASE {
-            int             tint;            /* 0x00 */
-            txmTEXTURE_PTR  tex;             /* 0x04 */
-            float           texDensityU;     /* 0x08 */
-            float           texDensityV;     /* 0x0C */
-            unsigned short  streams;         /* 0x10 BASE::STREAMS (2B) */
-            unsigned char   _pad12[2];       /* 0x12 db-verified tail padding */
-        } base;                              /* 0x00 */
-        struct LM {
-            txmTEXTURE_PTR  texDif;          /* 0x00 */
-            txmTEXTURE_PTR  texDir;          /* 0x04 */
-            float           maxIntensity;    /* 0x08 */
-            unsigned char   source;          /* 0x0C LM::SOURCE (1B) */
-            unsigned char   streams[3];      /* 0x0D LM::STREAMS (3B) */
-        } lm;                                /* 0x14 */
-        struct LAYER0 {
-            int             tint;            /* 0x00 */
-            float           texDensityU;     /* 0x04 */
-            float           texDensityV;     /* 0x08 */
-            txmTEXTURE_PTR  texDiff;         /* 0x0C */
-            txmTEXTURE_PTR  texNM;           /* 0x10 */
-            txmTEXTURE_PTR  texSpec;         /* 0x14 */
-            unsigned char   mask;            /* 0x18 LAYER0::MASK (1B) */
-            unsigned char   vcMaskComp;      /* 0x19 LAYER0::VCMASKCOMP (1B) */
-            unsigned char   blend;           /* 0x1A LAYER0::BLEND (1B) */
-            unsigned char   streams[3];      /* 0x1B LAYER0::STREAMS (3B) */
-            unsigned char   _pad1E[2];       /* 0x1E db-verified tail padding */
-        } layer0;                            /* 0x24 */
-        struct LAYER1 {
-            int             tint;            /* 0x00 */
-            float           texDensityU;     /* 0x04 */
-            float           texDensityV;     /* 0x08 */
-            txmTEXTURE_PTR  texDiff;         /* 0x0C */
-            txmTEXTURE_PTR  texNM;           /* 0x10 */
-            txmTEXTURE_PTR  texSpec;         /* 0x14 */
-            unsigned char   mask;            /* 0x18 LAYER1::MASK (1B) */
-            unsigned char   vcMaskComp;      /* 0x19 LAYER1::VCMASKCOMP (1B) */
-            unsigned char   blend;           /* 0x1A LAYER1::BLEND (1B) */
-            unsigned char   streams[3];      /* 0x1B LAYER1::STREAMS (3B) */
-            unsigned char   _pad1E[2];       /* 0x1E db-verified tail padding */
-        } layer1;                            /* 0x44 */
-        struct LAYER2 {
-            int             tint;            /* 0x00 */
-            float           texDensityU;     /* 0x04 */
-            float           texDensityV;     /* 0x08 */
-            txmTEXTURE_PTR  texDiff;         /* 0x0C */
-            txmTEXTURE_PTR  texNM;           /* 0x10 */
-            txmTEXTURE_PTR  texSpec;         /* 0x14 */
-            unsigned char   mask;            /* 0x18 LAYER2::MASK (1B) */
-            unsigned char   vcMaskComp;      /* 0x19 LAYER2::VCMASKCOMP (1B) */
-            unsigned char   blend;           /* 0x1A LAYER2::BLEND (1B) */
-            unsigned char   streams[3];      /* 0x1B LAYER2::STREAMS (3B) */
-            unsigned char   _pad1E[2];       /* 0x1E db-verified tail padding */
-        } layer2;                            /* 0x64 */
-        ~MTL(); // boundary
-    };
-
-    // DB-verified nested enums (types_enum_values vidPASS_OBJ::*), 1-byte storage each.
-    enum COORDSPACE { COORDSPACE_LOCAL = 0, COORDSPACE_WORLD = 1, COORDSPACE_SCREEN = 2, COORDSPACE_PROJ = 3 };
-    enum SKINTYPE   { SKINTYPE_NONE = 0, SKINTYPE_DUAL_QUAT = 1, SKINTYPE_COMPOUND = 2 };
-    enum BILLBOARD  { BILLBOARD_NONE = 0, BILLBOARD_SIMPLE = 1, BILLBOARD_AXIS_Y = 2 };
-
-    COORDSPACE    coordSpace;  // 0x00 (1 byte)
-    SKINTYPE      skinType;    // 0x01 (1 byte)
-    BILLBOARD     billboard;   // 0x02 (1 byte)
-    unsigned char _pad3;       // 0x03
-    float         z_bias;      // 0x04
-    float         z_bias_ss;   // 0x08
-    float         scale;       // 0x0C
-    bool          decal;       // 0x10
-    unsigned char _pad17[3];   // 0x11
-    unsigned int  geom;        // 0x14
-    MTL           mtl;         // 0x18
-} vidPASS_OBJ;
+// vidPASS_OBJ) IS typed, because dsVECTOR<vidOBJ_SPLIT,8>::ShrinkResize/Resize destroy the
+// material sub-object at objDesc.mtl (offset 24 within vidPASS_OBJ) directly.
+//
+// vidPASS_OBJ used to have a SECOND body right here — same nine DB members and the same 156
+// bytes, but with explicit _pad members and with `mtl` typed as a locally-nested `struct MTL`
+// instead of vidPASS_OBJ_MTL. Two file-scope bodies are `error: redefinition` in the
+// header_layout probe TU and made the layout a TU saw depend on include order, so the canonical
+// (ws/vid/vidPASS_OBJ.h) is now included instead; the nested enums this copy carried were merged
+// into it. Consequence for this header's own consumers: the material sub-object is spelled
+// vidPASS_OBJ_MTL (the corpus's single model of the DB type vidPASS_OBJ::MTL — its per-member
+// ctors are reversed in src/vidPASS_OBJ_MTL*.c), so the two dsVECTOR TUs call
+// `objDesc.mtl.~vidPASS_OBJ_MTL()` rather than `.~MTL()`.
 
 typedef struct vidOBJ_SPLIT {
     vidOBJ_SPLIT_OCC_RES  occRes;          // 0x000

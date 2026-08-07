@@ -42,13 +42,13 @@ extern "C" void hcex_obj_customize(int id, int tag_index)
         return;
 
     propINST_CONSTRUCTOR *ctor;
-    if ( dsTYPE_ID_IsDerivedFrom(&desc->base.typeId, &propINST_CONSTRUCTOR_DESC_TYPE_ID) )
+    if ( dsTYPE_ID_IsDerivedFrom(&desc->typeId, &propINST_CONSTRUCTOR_DESC_TYPE_ID) )
     {
         ctor = desc;
     }
     else
     {
-        if ( !dsTYPE_ID_IsDerivedFrom(&desc->base.typeId, &propCONTAINER_DESC_TYPE_ID) )
+        if ( !dsTYPE_ID_IsDerivedFrom(&desc->typeId, &propCONTAINER_DESC_TYPE_ID) )
             return;
 
         ctor = 0;

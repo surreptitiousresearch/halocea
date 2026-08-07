@@ -31,8 +31,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint16_t *wcscpy(uint16_t *dst, const wchar_t *src);
-extern uint16_t *wcschr(const wchar_t *string, wchar_t ch);
+/* wcscpy provided by CRT via <wchar.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* wcschr provided by CRT via <wchar.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 /* wcslen provided by CRT via <wchar.h>; local non-standard extern removed (C2371 unsigned int vs size_t) */
 
 extern void draw_string_set_indents(int16_t initial_indent, int16_t paragraph_indent);

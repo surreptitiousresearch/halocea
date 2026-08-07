@@ -8,11 +8,15 @@
 #include "../m3d/m3dV.h"
 #include "../m3d/m2dV.h"
 // ws-engine inp: the Kinect input subsystem message-actor. DB-verified layout (types_members
-// gsINP_KINECT, 844 bytes) — mirrors the C-flattened copy in hcex/hcex_kinect_boundary.h (the
-// HCEX bridge's boundary view, which keeps the helper value-types opaque and points here);
-// this is the canonical C++ home with the Load/Unload methods. Helper value-type layouts
+// gsINP_KINECT, 844 bytes; row 0 is an anonymous msgADDR BASE-CLASS member at offset 0, hence the
+// inheritance below rather than a named `base` member). The SOLE definition of this type as of
+// 2026-08-07: hcex/hcex_kinect_boundary.h used to carry a flat plain-C copy with opaque helper
+// value-types and now includes this header instead (odr_dup drain). Helper value-type layouts
 // filled from DB types_members 2026-08-04 (inpKINECT_SKEL 332, inpKINECT_ARM_HANDLES 28,
 // gsINP_KINECT_ARM 16, gsINP_KINECT_UI_FRAME 20, EVENT_DISP_gsINP_KINECT 8).
+//
+// `state` bits, merged from the boundary header's provenance (read by
+// hcex_change_kinect_state @0x823D1650): 0x1 == load pending, 0x2 == unload pending.
 
 struct gsINP_KINECT_GESTURE_BASE; // boundary — pointer only
 struct gsINP_KINECT_UI_ELEMENT;   // boundary — pointer only (UI overlay element)

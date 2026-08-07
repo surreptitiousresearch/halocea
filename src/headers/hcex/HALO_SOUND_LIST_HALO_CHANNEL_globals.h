@@ -25,19 +25,23 @@ extern "C" {
     void hcex_notify_sound_start(const char *tagName);
 }
 
-// A tunable dbg-console value with change-detection, matching HALO_SOUND_SYSTEM_globals.h's
-// DBG_VAR<T> convention (redeclared here to avoid a cross-header dependency loop).
-template<class T>
-struct DBG_VAR {
-    T value;
-    T prevValue;
-};
+// dbg-console tunables with change-detection. boundary — the ws-engine dbgVAR subsystem.
+//
+// DEVIATION (odr_dup drain): these were declared as a locally-defined `template<class T> struct
+// DBG_VAR { T value; T prevValue; };`, one of three verbatim copies of that body at file scope
+// (also HALO_SOUND_SYSTEM_globals.h and ws/ui_new/ui_stat_boundary.h). It was also the wrong
+// layout: `applied_types` spells all five of these symbols `dbgVAR_SIMPLE<bool,1>`, whose `.value`
+// sits at 0x0C behind a 12-byte dbgVAR base (__vftable/name/typeId), not at 0. Proof at this
+// cluster's own call site — HALO_CHANNEL::CheckNotReady reads dbg_disableEAX at 0x836C30C0 as
+// `lbz r8, dbgVAR_SIMPLE<bool,1>.value(r10)`, i.e. +0x0C. Replaced by the canonical DB-verified
+// templates; `.value` / `.prevValue` are inherited, so no consumer expression changes.
+#include "../ws/wb/dbgVAR_boundary.h"   // dbgVAR / dbgVAR_IMPL<T,N> / dbgVAR_SIMPLE<T,N>
 
-extern "C" DBG_VAR<bool> dbg_printBufPlay_10;  // HALO_SOUND_LIST::GetFreeSound / HALO_CHANNEL::CheckNotReady debug log
-extern "C" DBG_VAR<bool> dbg_printQueuePlay;   // HALO_CHANNEL::Queue debug log
-extern "C" DBG_VAR<bool> dbg_disableEAX;       // HALO_CHANNEL::CheckNotReady -- force master (non-reverb) bus
-extern "C" DBG_VAR<bool> dbg_disable3DCone;    // HALO_CHANNEL::UpdateProperties -- disable 3D cone attenuation
-extern "C" DBG_VAR<bool> dbg_mute2dSounds;     // HALO_CHANNEL::UpdateProperties -- mute all 2D sounds
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_printBufPlay_10;  // HALO_SOUND_LIST::GetFreeSound / HALO_CHANNEL::CheckNotReady debug log
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_printQueuePlay;   // HALO_CHANNEL::Queue debug log
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_disableEAX;       // HALO_CHANNEL::CheckNotReady -- force master (non-reverb) bus
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_disable3DCone;    // HALO_CHANNEL::UpdateProperties -- disable 3D cone attenuation
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_mute2dSounds;     // HALO_CHANNEL::UpdateProperties -- mute all 2D sounds
 
 // ---- ds string helpers (template dsTSTRING<char> convention) ----
 extern const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary

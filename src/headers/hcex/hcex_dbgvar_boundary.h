@@ -15,7 +15,16 @@
  * the canonical dbgVAR_IMPL<T,N> (single dbgVAR definition; consumers use `.value`, inherited). */
 struct dbgVAR_bool   : dbgVAR_IMPL<bool, 1>            {}; /* value@0x0C — 16 bytes */
 struct dbgVAR_float  : dbgVAR_IMPL<float, 3>           {}; /* value@0x0C — 24 bytes */
-struct dbgVAR_STRING : dbgVAR_IMPL<dsTSTRING<char>, 4> {}; /* value@0x0C — 24 bytes */
+
+/* DEVIATION (2026-08-07, odr_dup drain): dbgVAR_STRING used to be spelled here as a third
+ * `: dbgVAR_IMPL<dsTSTRING<char>,4> {}` line, duplicating the body in ws/dbg/dbgVAR_STRING.h —
+ * one `error: redefinition` in header_layout's probe TU. The canonical body wins on DB evidence:
+ * types_members dbgVAR_STRING is a single ANONYMOUS BASE-CLASS member of type
+ * dbgVAR_SIMPLE<dsTSTRING<char>,4> at offset 0 (size 24), i.e. the SIMPLE level, not the IMPL
+ * level this copy inherited from. Layout is identical either way (dbgVAR_SIMPLE<T,N> adds no
+ * fields over dbgVAR_IMPL<T,N> — it exists to install its own vtable), and no consumer here
+ * touches a field: hcex_get_autosave_name.cpp goes through dbgVAR_STRING_CStr() below. */
+#include "../ws/dbg/dbgVAR_STRING.h"
 
 typedef struct dbgVAR_MANAGER dbgVAR_MANAGER;
 

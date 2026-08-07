@@ -10,7 +10,10 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 // DEVIATION: the standalone decompile of _UnpauseChannel renders a spurious 3rd (u64) parameter,
 // but both call sites in Pause() pass exactly two registers (channel, delta), so it is declared
 // here to match the actual call ABI.
-extern void UnpauseChannel(FMOD::Channel *channel, int delta);
+// DEVIATION: `extern "C"`, not plain `extern`. The binary exports the FLAT symbol
+// `_UnpauseChannel` and its sole definition (src/hcex/sound/_UnpauseChannel.cpp:29) is already
+// `extern "C"`; declared plain here it mangles and this TU would not link (LNK2019).
+extern "C" void UnpauseChannel(FMOD::Channel *channel, int delta);
 
 // 0x836BCC08 — pause/resume the whole Halo mixer. Must run on the owning sound thread (else log +
 // assert). On pause: snapshot the DSP clock into pauseTime, offset it by minDelay, and schedule a
@@ -81,11 +84,18 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 863, res, FModErrorDesc(res, false));
         }
 
-        // currentTime += minDelay (64-bit); the low word passed as the per-channel unpause delta.
+        // currentTime += minDelay (64-bit); the per-channel unpause delta is that value MINUS the
+        // clock snapshot taken at pause time.
+        // DEVIATION: the `- pauseTime.lo` term was missing. 0x836BCECC-0x836BCF24 builds the
+        // value passed in r4 as `((newHi - pauseTime.hi) << 32) - pauseTime.lo + newLo`
+        // (`subf r10, r6, r3` @0x836BCF20 is the subtraction, `add r29, r10, r11` @0x836BCF24 the
+        // sum); the high half cannot reach a 32-bit delta, so the 32-bit result is exactly
+        // `newLo - pauseTime.lo`. Without it every channel resumed at an absolute DSP timestamp
+        // instead of an offset from when it was paused.
         unsigned int newLo = lo + this->minDelay;
         hi += (newLo < lo);
         (void)hi;
-        int delta = static_cast<int>(newLo);
+        int delta = static_cast<int>(newLo - this->pauseTime.lo);
 
         for (int i = 0; i < this->channels.nElem; ++i)
         {

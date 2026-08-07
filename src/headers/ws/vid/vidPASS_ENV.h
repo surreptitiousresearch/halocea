@@ -4,8 +4,12 @@
 // lights@4 (LIGHTS, 8), lod@12, camDist@16, state@20 — size 24.
 
 struct vidPASS_ENV {
-    // DB-verified values (types_enum_values vidPASS_ENV::RENDERBLOCK). Stored as 1 byte.
-    enum RENDERBLOCK {
+    // DB-verified values (types_enum_values vidPASS_ENV::RENDERBLOCK). Stored as 1 byte — the
+    // fixed underlying type is load-bearing and was recorded ONLY in rendDRIVER.h's forward
+    // declaration (`enum RENDERBLOCK : unsigned char`) until 2026-08-07. That declaration spelled
+    // vidPASS_ENV as a NAMESPACE, contradicting this struct, and removing it without merging the
+    // underlying type here made rendDRIVER::curRenderBlock a 4-byte int and shifted curCamIdx.
+    enum RENDERBLOCK : unsigned char {
         RENDERBLOCK_COLOR = 0,
         RENDERBLOCK_DEPTH = 1,
         RENDERBLOCK_SM    = 2,

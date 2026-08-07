@@ -17,7 +17,7 @@
 #include "hcexCINE_INFO.h"                        /* hcexCINE_INFO (actor + apSTATE_T<unsigned char> mask) */
 
 /* stateless comparator selector for InsertSorted (an empty predicate; DB dsCMP). */
-typedef int dsCMP;
+#include "../ws/ds/dsCMP.h"   /* canonical dsCMP (stateless empty struct) — a local `typedef int dsCMP` is a C2371/ODR conflict with it */
 
 /* listCine element: cinematic name -> per-difficulty (actor,mask) table.
  * DB type: dsVECTOR<dsPAIR<dsTSTRING<char>,dsVECTOR<hcexCINE_INFO,8>>,8>. */

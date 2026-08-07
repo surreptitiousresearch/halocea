@@ -8,7 +8,10 @@
 extern "C" unsigned char isInputSwitchedOff;      /* bool — HCEX input master gate */
 extern void hcex_update_gamepad_x360(void);
 
-void OnInputUpdateCB(void)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `OnInputUpdateCB` (@0x823CAC28);
+// compiled as C++ without it the definition mangles to `?OnInputUpdateCB@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" void OnInputUpdateCB(void)
 {
     if (!isInputSwitchedOff)
         hcex_update_gamepad_x360();

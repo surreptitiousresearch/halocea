@@ -84,7 +84,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
             const bsp2d_reference *reference_entry = &((const bsp2d_reference *)data->bsp->bsp2d_references.address)[reference];
             if ( data->stack_depth > 0 )
             {
-                int reference_plane = reference_entry->plane_index;
+                int reference_plane = reference_entry->plane_designator;
                 int stack_pos = 0;
                 while ( data->plane_stack[stack_pos] != reference_plane )
                 {
@@ -132,9 +132,9 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     data->projection_axis = axis;
                     BOOL plane_positive = plane[axis] > 0.0;
                     const bsp2d *leaf_bsp2d = &bsp->bsp2d;
-                    int sign_intermediate = (reference_entry->plane_index < 0) - plane_positive;
+                    int sign_intermediate = (reference_entry->plane_designator < 0) - plane_positive;
                     uint8_t sign =
-                        sign_intermediate - (-(reference_entry->plane_index >= 0) - plane_positive + (sign_intermediate == 0));
+                        sign_intermediate - (-(reference_entry->plane_designator >= 0) - plane_positive + (sign_intermediate == 0));
                     data->projection_sign = sign;
 
                     /* project the 3D hit point (at `fraction`) onto the plane, then drop to 2D */
@@ -154,7 +154,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     projected.n[0] = hit_point[global_projection3d_mappings[axis][sign][0]];
                     projected.n[1] = hit_point[global_projection3d_mappings[axis][sign][1]];
 
-                    int surface_index = bsp2d_test_point(leaf_bsp2d, &projected, reference_entry->bsp2d_root_index);
+                    int surface_index = bsp2d_test_point(leaf_bsp2d, &projected, reference_entry->root_index);
                     const collision_bsp *result_bsp = data->bsp;
                     if ( collision_surface_test_point(data->bsp, 0, 0L, surface_index,
                                                       data->projection_axis, data->projection_sign, &projected) )
@@ -163,7 +163,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                             &((const collision_surface *)result_bsp->surfaces.address)[surface_index];
                         data->result->t = fraction;
                         collision_bsp_test_pill_result *result = data->result;
-                        if ( reference_entry->plane_index >= 0 )
+                        if ( reference_entry->plane_designator >= 0 )
                         {
                             result->plane.normal.n[0] = plane[0];
                             result->plane.normal.n[1] = plane[1];
@@ -201,7 +201,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                     data->v2d.n[0] = vector_proj[u_axis];
                     data->v2d.n[1] = vector_proj[v_axis];
 
-                    if ( bsp2d_test_pill_recursive(data, reference_entry->bsp2d_root_index) )
+                    if ( bsp2d_test_pill_recursive(data, reference_entry->root_index) )
                         hit = 1;
                 }
             }

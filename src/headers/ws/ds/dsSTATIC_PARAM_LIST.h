@@ -27,7 +27,9 @@ struct dsSTATIC_PARAM_LIST : dsPARAM_LIST {
     void Add(dsSTRID id, const T &val);
 
     // Same as above but interning the name `id` into a dsSTRID first.
-    // 0x823D7B10 (<1>, dsTSTRING<char>). Reversed per-instantiation.
+    // 0x823D7B10 (<1>, dsTSTRING<char>) / 0x823DB2A8 (<2>, dsTSTRING<char> —
+    // ??$Add@V?$dsTSTRING@D@@@?$dsSTATIC_PARAM_LIST@$01@@QAAXPBDABV?$dsTSTRING@D@@@Z, the overload
+    // HALO_MNG::ProcessFRAME calls with string literals). Reversed per-instantiation.
     template<class T>
     void Add(const char *id, const T &val);
 };

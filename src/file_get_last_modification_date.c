@@ -24,7 +24,7 @@ uint8_t file_get_last_modification_date(const file_reference *file, file_last_mo
 
     memset(date, 0, sizeof(*date));
     memset(full_path, 0, 256);
-    file_location_get_full_path(*(unsigned short *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(file->info.location, file->info.path, full_path);
 
     if ( GetFileAttributesExA(full_path, GetFileExInfoStandard, &attribute_data) )
     {

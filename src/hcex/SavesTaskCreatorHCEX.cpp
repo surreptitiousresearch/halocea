@@ -10,8 +10,9 @@
 
 extern void *operator new(size_t size, const char *file, int line);
 
-// ds_data::REF_TYPE<sysUSER>::Release — boundary (see REF_TYPE<T> note in sysUSER_STORAGE_TASK.h);
-// called here in free-function form since that header's local REF_TYPE<T> stub has no methods.
+// ds_data::REF_TYPE<sysUSER>::Release — boundary, kept in the free-function (compiler-generated
+// thiscall) form this bridge TU was reconstructed in. The canonical ws/ds/REF_TYPE.h now also
+// declares the member form REF_TYPE<T>::Release(REF_TYPE_DATA<T>*); both name the same symbol.
 extern void ds_data_REF_TYPE_sysUSER_Release(ds_data::REF_TYPE<sysUSER> *self, void *data);
 
 sysUSER_STORAGE_TASK *SavesTaskCreatorHCEX(ds_data::REF_TYPE<sysUSER> u, bool isLoad, bool async)

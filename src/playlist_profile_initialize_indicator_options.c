@@ -40,7 +40,7 @@ uint8_t playlist_profile_initialize_indicator_options(widget_instance *widget, e
     int flags = edit_playlist_profile->universal_variant.flags;
     if ( flags & (1u << _allow_motion_tracker_bit) )
         friendly_fire_text->parameters.text_box_parameters.string_list_index =
-            ((flags & (1u << _allow_motion_tracker_bit)) != 0) && ((flags & (1u << _motion_tracker_no_enemies_bit)) != 0);
+            ((flags & (1u << _allow_motion_tracker_bit)) != 0) && ((flags & (1u << _motion_tracker_no_enemies)) != 0);
     else
         friendly_fire_text->parameters.text_box_parameters.string_list_index = 2;
 

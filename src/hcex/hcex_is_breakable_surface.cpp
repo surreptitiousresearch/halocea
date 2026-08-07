@@ -35,7 +35,7 @@ bool hcex_is_breakable_surface(scnINST_CREATE_DATA *pInstCD)
     surf.cd = *pInstCD;                   // scnINST_CREATE_DATA::operator=
     sscanf(pInstCD->nameInst.pBuffer->str, "brk_%x_%d|h", &surf.idx, &surf.bsp);
 
-    dsCMP cmp = 0;
+    dsCMP cmp;
     hcexBreakableSurfaces.InsertSorted(surf, cmp, dsVECTOR<hcexBREAKABLE_SURF, 8>::INS_DUP_IGNORE);
     return true;
 }

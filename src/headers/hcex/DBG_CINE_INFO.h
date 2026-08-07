@@ -22,16 +22,6 @@ struct DBG_CINE_PTR_VEC
     apCL          __cl;      /* 0x0C allocation call-site cookie */
 };
 
-/* ds::PTR_LIST<T,ds::LIST_NODE_ACCESS_POLICY<T>> — flattened boundary shim (DB-verified layout:
- * pHead@0, pTail@4, length@8 — size 12; canonical C++ form src/headers/ws/ds/PTR_LIST.h). */
-template<class T>
-struct DBG_CINE_PTR_LIST
-{
-    T   *pHead;  /* 0x00 */
-    T   *pTail;  /* 0x04 */
-    int  length; /* 0x08 */
-};
-
 /* ds::HASH — stateless hashing policy (types_members ds::HASH — no data members). */
 typedef struct HASH
 {
@@ -42,16 +32,31 @@ typedef struct CMP
 {
 } CMP;
 
-/* dsNODE_CACHE_ALLOCATOR<DUMMY> — 44-byte node-pool allocator; generic boundary shim
- * (the DB stores only instantiations). Layout filled from types_members
+/* ds::PTR_LIST<T,ds::LIST_NODE_ACCESS_POLICY<T>> — flattened boundary shim (DB-verified layout:
+ * pHead@0, pTail@4, length@8 — size 12; canonical C++ form src/headers/ws/ds/PTR_LIST.h). */
+template<class T>
+struct DBG_CINE_PTR_LIST
+{
+    T   *pHead;  /* 0x00 */
+    T   *pTail;  /* 0x04 */
+    int  length; /* 0x08 */
+};
+
+/* dsNODE_CACHE_ALLOCATOR<DUMMY> — 44-byte node-pool allocator; flattened boundary shim, named with
+ * this file's DBG_CINE_ prefix (as DBG_CINE_PTR_VEC/DBG_CINE_PTR_LIST/DBG_CINE_MAP_ITER_T are)
+ * because the canonical fully-reversed form owns the bare name dsNODE_CACHE_ALLOCATOR in
+ * src/headers/ws/ds/dsNODE_CACHE_ALLOCATOR.h. The canonical form cannot be substituted here: it
+ * declares only dsNODE_CACHE_ALLOCATOR(apCL), so every aggregate containing it — MAP, and hence
+ * DBG_CINE_INFO — loses its implicit default ctor, and this boundary layer's flattened lifecycle
+ * convention (raw local + explicit DBG_CINE_INFO_ctor, see hcex_stop_cine.c) requires one.
+ * Layout filled from types_members
  * dsNODE_CACHE_ALLOCATOR<ds::MAP<dsSTRID,DBG_CINE_ACTOR_INFO,...>::DUMMY> (2026-08-04):
  * a single unnamed dsNODE_CACHE<DUMMY> base of the same 44 bytes — nNode@0, nodeList@4
  * (dsVECTOR<DUMMY*,8>, 20), freeNodeList@24 (ds::PTR_LIST<DUMMY,...>, 12), __cl@36 (apCL, 8).
  * Inner containers typed via the flattened DBG_CINE_PTR_VEC/DBG_CINE_PTR_LIST shims above
- * (byteshim reconciliation 2026-08-04, offsets unchanged); the fully reversed form is
- * src/headers/ws/ds/dsNODE_CACHE_ALLOCATOR.h. */
+ * (byteshim reconciliation 2026-08-04, offsets unchanged). */
 template<class DUMMY>
-struct dsNODE_CACHE_ALLOCATOR
+struct DBG_CINE_NODE_CACHE
 {
     int                       nNode;        /* 0x00 live node count */
     DBG_CINE_PTR_VEC<DUMMY>   nodeList;     /* 0x04 dsVECTOR<DUMMY*,8> node pool */
@@ -77,14 +82,10 @@ struct MAP
     apCL                   cl;        /* 0x4C */
 };
 
-/* DBG_CINE_ACTOR_INFO — per-actor debug record stored in mapActors (keyed by dsSTRID). Flattened plain-C
- * mirror of the real ws-engine C++ type (src/headers/ws/dbg/DBG_CINE_ACTOR_INFO.h), for use from the
- * hcex bridge layer. DB-verified layout: filePath@0 (dsTSTRING<char>), wasUpdatedCurFrame@4 (bool). */
-typedef struct DBG_CINE_ACTOR_INFO
-{
-    dsTSTRING<char> filePath;       /* 0x00 capture output path for this actor */
-    bool wasUpdatedCurFrame;  /* 0x04 set once refreshed this frame */
-} DBG_CINE_ACTOR_INFO;
+/* DBG_CINE_ACTOR_INFO — per-actor debug record stored in mapActors (keyed by dsSTRID); the
+ * canonical ws-engine definition is used directly (identical body: filePath@0 (dsTSTRING<char>),
+ * wasUpdatedCurFrame@4 (bool), types.size 8). */
+#include "../ws/dbg/DBG_CINE_ACTOR_INFO.h"
 
 typedef struct DBG_CINE_INFO
 {
@@ -96,7 +97,7 @@ typedef struct DBG_CINE_INFO
     int           frame;            /* 0x10 */
     /* A param spelled with an explicit arg (layout-neutral: the allocator only stores node
      * pointers); a bare class template can't be a template argument in strict C++. */
-    MAP<dsSTRID, DBG_CINE_ACTOR_INFO, HASH, CMP, dsNODE_CACHE_ALLOCATOR<DBG_CINE_ACTOR_INFO> > mapActors; /* 0x14 */
+    MAP<dsSTRID, DBG_CINE_ACTOR_INFO, HASH, CMP, DBG_CINE_NODE_CACHE<DBG_CINE_ACTOR_INFO> > mapActors; /* 0x14 */
 } DBG_CINE_INFO;
 
 /* ds::MAP<...>::Clear on the mapActors sub-object */

@@ -10,31 +10,19 @@
 #include "../ws/dbg/STRONG_ASSERT2_HELPER.h"
 #include "../ws/ds/dsTSTRING.h"
 
-// Blam boundary type (../sound_location.h). Only the leading position/forward/
-// translational_velocity real-vector triplet is used here; each is a 3-float vector, so the whole
-// prefix is layout-compatible with hcex_float3[3] (which is how SetLocation consumes it).
-// DB-verified offsets (types_members sound_location); game_location@36 is the Blam `location`
-// (cluster+leaf), typed via ../location.h (byteshim reconciliation 2026-08-04).
-#include "../location.h"
-struct sound_location {
-    hcex_float3 position;               // 0x00 (real_point3d)
-    hcex_float3 forward;                // 0x0C (real_vector3d)
-    hcex_float3 translational_velocity; // 0x18 (real_vector3d)
-    location    game_location;          // 0x24 (Blam `location`, 8 bytes)
-};
+// Blam boundary type: the canonical definition, matching types_members sound_location
+// (real_point3d position@0x00, real_vector3d forward@0x0C, real_vector3d
+// translational_velocity@0x18, location game_location@0x24 — size 44). This header used to carry
+// its own copy of the struct with the three vectors spelled hcex_float3; layout-identical, but a
+// second definition of a Blam type that already owns a header, and it disagreed with the DB's
+// member types. Pull the canonical one in instead.
+#include "../sound_location.h"
 
-// Blam boundary type (../platform_sound_channel_properties.h). DB-verified layout
-// (types_members platform_sound_channel_properties) — size 32.
-struct platform_sound_channel_properties {
-    float minimum_distance;    // 0x00
-    float maximum_distance;    // 0x04
-    float pitch;               // 0x08
-    float gain;                // 0x0C
-    float inner_cone_angle;    // 0x10
-    float outer_cone_angle;    // 0x14
-    float outer_cone_gain;     // 0x18
-    float reverb_damping_factor; // 0x1C
-};
+// Blam boundary type. DB-verified layout (types_members platform_sound_channel_properties) — size
+// 32. Same treatment as sound_location above: this header used to carry its own file-scope copy of
+// the eight-float body, member-for-member identical to the type's own header, so the layout probe
+// measured it twice. Pull the canonical one in instead.
+#include "../platform_sound_channel_properties.h"
 
 // ---- ws-engine dbg / os / mem boundary globals & helpers ----
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */

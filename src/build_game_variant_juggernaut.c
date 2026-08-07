@@ -42,7 +42,7 @@ game_variant * build_game_variant_juggernaut(game_variant *result)
     result->game_engine_variant.ctf.assault = 0;
     result->game_engine_variant.oddball.trait_with_ball = _game_trait_extra_damage;
     result->game_engine_variant.oddball.trait_without_ball = _game_trait_none;
-    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies_bit))) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_classic_bit);
+    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies))) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_classic);
     result->game_engine_variant.oddball.oddball_ball_type = _oddball_terminator;
     result->flags = 1;
     return result;

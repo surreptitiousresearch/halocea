@@ -7,6 +7,6 @@ extern void file_path_add_name(char *path, const char *name);
 
 file_reference *file_reference_add_directory(file_reference *reference, const char *directory)
 {
-    file_path_add_name(&reference->data[8], directory);
+    file_path_add_name(reference->info.path, directory);
     return reference;
 }

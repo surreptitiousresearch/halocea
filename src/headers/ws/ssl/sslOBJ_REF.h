@@ -3,6 +3,10 @@
 // ssl subsystem: script object reference. DB-verified layout (types_members sslOBJ_REF):
 //   pObject@0 (sslOBJECT *) — size 4. Method bodies that dereference pObject live in the
 //   .cpp (which includes sslOBJECT.h); this header only forward-declares sslOBJECT.
+// Canonical home, and as of 2026-08-07 the SOLE definition: three hcex boundary headers
+// (haloENGINE_CONTROL.h's dead plain-C branch, hcex_cine_init_boundary.h,
+// hcex_kill_breakable_surface_boundary.h) each restated it as a flat `{ sslOBJECT *pObject; }`
+// and now include this header (odr_dup drain — layouts were identical, so this was pure rot).
 
 struct sslOBJECT;   // ssl script object instance (full definition in sslOBJECT.h)
 struct sslCB_HOST;  // ssl callback host (full definition in sslCB_HOST.h)

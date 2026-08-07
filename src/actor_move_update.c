@@ -198,7 +198,7 @@ void actor_move_update(int actor_index)
     if ( seat_role > 0 )                                       /* in a vehicle seat */
     {
         int   vehicle_index = actor->input.vehicle_index;
-        int   vehicle_object = ((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum);
+        object_datum *vehicle_object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum;
         vehicle_definition *vehicle_def = TAG_GET(vehicle_definition, *(int *)vehicle_object);
         steering_maximum_angle = vehicle_def->vehicle.ai_steering_max_angle;
         if ( vehicle_def->vehicle.ai_steering_max_throttle > 0.0f )

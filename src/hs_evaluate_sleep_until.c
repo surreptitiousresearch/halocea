@@ -26,36 +26,36 @@ void hs_evaluate_sleep_until(int16_t function_index, int thread_index, uint8_t i
      * most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *condition_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(condition_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *condition_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(condition_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --condition_slot;
     frame->size = (int16_t)((unsigned char *)condition_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *period_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(period_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *period_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(period_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --period_slot;
     frame->size = (int16_t)((unsigned char *)period_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *timeout_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(timeout_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *timeout_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(timeout_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --timeout_slot;
     frame->size = (int16_t)((unsigned char *)timeout_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *start_time = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(start_time - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *start_time = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(start_time - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --start_time;
     frame->size = (int16_t)((unsigned char *)start_time - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int16_t *phase = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);
-    if ( (unsigned int)(phase - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int16_t *phase = (int16_t *)(((uintptr_t)stack_top + 1) & ~(uintptr_t)0x1);
+    if ( (uintptr_t)(phase - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --phase;
     frame->size = (int16_t)((unsigned char *)phase - frame->data + 2);
 

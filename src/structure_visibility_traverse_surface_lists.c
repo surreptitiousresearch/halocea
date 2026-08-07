@@ -45,7 +45,7 @@ void structure_visibility_traverse_surface_lists(structure_bsp *structure)
                 (structure_lightmap *)structure->lightmaps.address + lightmap_index;
             structure_material *vertex_group =
                 (structure_material *)lightmap->materials.address + vertex_page;
-            int vertex_buffer = (int)vertex_group->compressed_vertex_data.address;
+            uintptr_t vertex_buffer = (uintptr_t)vertex_group->compressed_vertex_data.address;
 
             for (; consumed < group_end; ++consumed)
             {
@@ -64,9 +64,9 @@ void structure_visibility_traverse_surface_lists(structure_bsp *structure)
                     uint16_t *triangle =
                         ((structure_surface *)structure->surfaces.address)[surface_index].vertex_indices;
                     if (render_frustum_triangle_visible(frustum,
-                            (const real_point3d *)((triangle[0] << 5) + vertex_buffer),
-                            (const real_point3d *)((triangle[1] << 5) + vertex_buffer),
-                            (const real_point3d *)((triangle[2] << 5) + vertex_buffer)))
+                            (const real_point3d *)(((uintptr_t)triangle[0] << 5) + vertex_buffer),
+                            (const real_point3d *)(((uintptr_t)triangle[1] << 5) + vertex_buffer),
+                            (const real_point3d *)(((uintptr_t)triangle[2] << 5) + vertex_buffer)))
                     {
                         render.environment_surface_flags[word] |= bit;
                         ++render.environment_surface_count;

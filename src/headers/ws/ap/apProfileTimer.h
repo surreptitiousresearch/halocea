@@ -11,6 +11,7 @@ typedef struct apProfileTimer {
     uint64_t startTime; // 0x00 tick stamp of the last Start()
     uint64_t totalTime; // 0x08 accumulated ticks since last read
 
-    // Return accumulated time in seconds and clear the accumulator.
+    // 0x823CDEA0 (src/ws/ap/apProfileTimer__GetResSec.cpp) — convert the accumulated ticks to
+    // seconds (osGetPerfFrequancy units) and clear the accumulator.
     float GetResSec();
 } apProfileTimer;

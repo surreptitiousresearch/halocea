@@ -39,11 +39,11 @@ int biped_build_update_delta(int object_index, void *buffer, int buffer_size_in_
         return 0;
 
     _biped_update_header header;
-    header.translated_object_index = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
+    header.object_index = field_translated_index_translate_index(&field_properties_object_index_definition, object_index);
     header.force_shield_update = object->object.force_shield_update;
-    header.sequence_number = object->biped.message_index;
+    header.message_index = object->biped.message_index;
     header.baseline_index = object->biped.baseline_index;
-    header.mode_is_stateless = (mode == _message_delta_mode_stateless);
+    header.update_baseline = (mode == _message_delta_mode_stateless);
     header.timestamp = system_milliseconds();
 
     message_delta_processor_message_definition_type update_message_type =

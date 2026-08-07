@@ -10,8 +10,8 @@
 typedef struct _iobuf _iobuf;
 
 extern _iobuf *__iob_func(void);
-extern int fprintf(_iobuf *stream, const char *format, ...);
-extern int fflush(_iobuf *stream);
+/* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* fflush provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern void bitmap_2d_alpha_bleed(bitmap_data *bitmap, int16_t passes);
 extern void bitmap_3d_alpha_bleed(bitmap_data *bitmap, int16_t passes);
 

@@ -94,7 +94,7 @@ extern uint8_t actor_perception_friend_prop_is_attacking(uint16_t actor_index, u
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
 extern void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only);
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
 extern void actor_path_input_new(uint16_t actor_index, path_input *input);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);
 extern void path_input_set_start(path_input *input, const real_point3d *start_point, int start_surface_index);
@@ -502,10 +502,10 @@ int16_t actor_select_firing_position(int actor_index, firing_position_evaluation
                              + ((to_target.n[1] * to_target.n[1])
                                        + (to_target.n[2] * to_target.n[2]))) < 400.0f )
                 {
-                    /* DEVIATION: path_3d_available's destination_reference arg is obscured by spilling; the
+                    /* DEVIATION: path_3d_available's end_point arg is obscured by spilling; the
                      * check is target->firing-position reachability with 0 avoidance. */
                     if ( path_3d_available(global_structure_bsp, &evaluation_context->target_point, 0.0f,
-                                           (const collision_bsp_test_vector_result *)&definition->position,
+                                           &definition->position,
                                            nullptr, nullptr) )
                     {
                         candidates[i].path_distance_to_target = normalize3d(&to_target);

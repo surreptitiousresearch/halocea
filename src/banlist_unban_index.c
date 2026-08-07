@@ -10,8 +10,8 @@
 
 extern void dynamic_array_delete_element(dynamic_array *array, int index);
 extern struct _iobuf * banlist_open_file(const char *how);
-extern int fprintf(struct _iobuf *stream, const char *format, ...);
-extern int fclose(struct _iobuf *stream);
+/* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* fclose provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 uint8_t banlist_unban_index(int index)
 {

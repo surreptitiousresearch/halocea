@@ -39,8 +39,18 @@ typedef struct cdtREFINE {
     unsigned int             layerMask;       // 0x18 collision layer mask
     SELDOM                   specMode;        // 0x1C sparse-sampling mode (default = 5, see ctor)
 
-    // 0x827139E8 — construct from (flags, layerMask+objState packed in _stateObjUsrIncl, self inst).
-    cdtREFINE(unsigned int flags, int64_t stateObjUsrIncl, animINST *pInstSelf);
+    // 0x827139E8 — construct from (flags, layerMask, user object-inclusion state, self inst).
+    // DEVIATION (2026-08-07): this was modeled with THREE parameters, folding layerMask out of
+    // the high dword of stateObjUsrIncl. It takes FOUR. The mangle is
+    // ??0cdtREFINE@@QAA@HKV?$apSTATE_T@_J@@PAVanimINST@@@Z = (int, unsigned long,
+    // apSTATE_T<__int64>, animINST *), and the prologue stores confirm it register-for-register:
+    // stw r4,0x14 (state=flags) / stw r5,0x18 (layerMask) / std r6,8 (the whole 64-bit
+    // apSTATE_T, one GPR — the 360's GPRs are 64-bit) / stw r7,0x10 (pInstSelf). The 3-arg model
+    // computed layerMask = HIDWORD(stateObjUsrIncl), which is a different value at every call
+    // site that passes them independently (hcex_create_decals_delayed @0x823DDF3C passes
+    // layerMask=0 in r5 while r6 holds 0xC004000FBF, whose high dword is 0xC0).
+    cdtREFINE(int flags, unsigned long layerMask, apSTATE_T<int64_t> stateObjUsrIncl,
+              animINST *pInstSelf);
     // 0x823D6590 — release weak handle on destroy. Dispatched through the explicit __vftable
     // member (slot 0); declared non-virtual so MSVC emits no implicit vptr — a `virtual` here
     // would shift every member +4 vs the DB layout (single-vptr convention, as in cdtBONE et al).

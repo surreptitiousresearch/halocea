@@ -33,7 +33,7 @@ int actor_swarm_cache_new(uint16_t actor_index)
             swarm->actor_index = actor_index;
             for ( swarm->unit_count = 0; unit_index != -1; )
             {
-                int unit = (int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
+                object_datum *unit = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
                 int component_index = datum_new(swarm_component_data);
                 if ( component_index == -1 )
                     break;

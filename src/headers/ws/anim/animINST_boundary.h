@@ -1,25 +1,18 @@
 #pragma once
-// ws-engine anim instance — BOUNDARY slice. The full animINST (legacy Blam anim graph) is a large
-// type not re-sourced in this wave; only the fields the ai08 SMR helpers read are exposed. Offsets
-// are DB-verified (types_members animINST): name@0x28, pPhysSystem@0xB4, pObj@0x148. Leading fields
-// are byte-accurate padding, NOT an authoritative field-by-field layout. animINST is used through a
-// pointer only, so the tail past pObj is intentionally unmodelled.
-
-struct physSYSTEM_BASE; // phys system (pointer only)   boundary (fwd)
-struct objOBJ;          // obj model object (pointer only) boundary (fwd)
-struct m3dOBB;          // oriented bounding box          boundary (fwd)
-
-struct animINST {
-    unsigned char    _pad0[0x28];         // 0x00
-    char            *name;                // 0x28 instance name (may be null)
-    unsigned char    _pad1[0xB4 - 0x2C];  // 0x2C
-    physSYSTEM_BASE *pPhysSystem;         // 0xB4 physics system, if any
-    unsigned char    _pad2[0x148 - 0xB8]; // 0xB8
-    objOBJ          *pObj;                // 0x148 root model object
-
-    // ?GetOBB@animINST@@... — instance-space oriented bounding box (bone index; 0 = whole instance).
-    m3dOBB *GetOBB(int boneIndex);
-
-    // animINST::GetPos — write the instance's world-space origin into `out`.
-    void GetPos(struct m3dV *out) const;
-};
+// ws-engine anim instance — BOUNDARY alias header.
+//
+// This file used to carry a SECOND file-scope body for `animINST`: a partial padding model exposing
+// only name@0x28 / pPhysSystem@0xB4 / pObj@0x148. The full DB-verified 536-byte layout
+// (types_members animINST, DB size 536) already lives in src/headers/animINST.h, so which layout a
+// TU saw depended on include order. Forwarded to the canonical header instead. The include is
+// PATH-QUALIFIED on purpose: `animINST.h` is also the basename of ws/anim/animINST.h (itself a
+// forwarder), so a bare `#include "animINST.h"` would resolve by include-directory order.
+//
+// Nothing correct was lost in the merge — both claims the deleted body carried are refuted by the
+// binary, and both are already spelled correctly in animINST.h:
+//   * `void GetPos(m3dV *) const` — the DB mangle is ?GetPos@animINST@@QAAXPAUm3dV@@@Z
+//     (QAA = public NON-const; QBA would be const).
+//   * `GetOBB(int boneIndex)`, "0 = whole instance" — the disasm at 0x825E4E30 tests the argument
+//     only to SKIP animINST::Validate(0x100), then returns `this + 0xC4` (the one `obb` member)
+//     on every path. The parameter is forceNoValidate, as animINST.h states; it is not a bone index.
+#include "../../animINST.h"

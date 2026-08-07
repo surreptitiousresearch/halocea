@@ -80,7 +80,7 @@ void actor_emotion_update(int actor_index)
         actor->emotions.forced_to_charge = 0;
     }
 
-    /* 3. aggression target from the highest occupied threat-histogram bucket (actor+494..+503) */
+    /* 3. aggression target from the highest threat-histogram bucket. CAVEAT: `li r11,9`/`lbz r10,0x1EE(r10)` @0x837D9DE4 starts at 9 but specific_threats is char[9], so pass 1 reads actor+503 = cumulative_threats[0]; original OOB read, kept. */
     int16_t bucket = 9;
     while ( bucket > 0 && actor->situation.specific_threats[bucket] <= 0 )
         bucket = (int16_t)(bucket - 1);

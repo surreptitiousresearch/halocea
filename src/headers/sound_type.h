@@ -1,7 +1,7 @@
 #pragma once
 /* sound_type — sound_datum ->type (the playback role of a playing sound: a one-shot
  * impulse or one of the looping-track lifecycle states).
- * DB anonymous enum _A8E1C366B75ABE5D28E7BB479D0F1B51 (verbatim). */
+ * DB-verified via types_enum_values $A8E1C366B75ABE5D28E7BB479D0F1B51 (verbatim). */
 #ifndef SOUND_TYPE_H
 #define SOUND_TYPE_H
 

@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include "headers/file_reference.h"
+#include "headers/reference_info_flags.h"
 
 extern void *memset(void *dst, int value, unsigned int count);
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
@@ -19,10 +20,10 @@ uint8_t file_delete(file_reference *file)
     uint8_t succeeded = 0;
     char full_path[264];
     memset(full_path, 0, 256);
-    file_location_get_full_path(*(int16_t *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(file->info.location, file->info.path, full_path);
 
     int result;
-    if ( (*(int16_t *)&file->data[4] & 1) != 0 )   /* name-set flag word at data[4] */
+    if ( (file->info.flags & (1u << _has_filename_bit)) != 0 )
     {
         if ( !SetFileAttributesA(full_path, 0x80u) )
             goto failed;

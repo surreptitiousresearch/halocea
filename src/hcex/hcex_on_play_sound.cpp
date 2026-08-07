@@ -36,7 +36,7 @@ extern "C" void hcex_on_play_sound(int unit_index, int sound_definition_index, i
     dsCMP cmp;
 
     entry.key = unit_index;
-    cmp = 0;
+    cmp = dsCMP();
     int index = dsVECTOR_lipsync_FindSorted(&hcexLipSyncList, &entry.key, &cmp);
     if ( index == -1 )
     {
@@ -49,7 +49,7 @@ extern "C" void hcex_on_play_sound(int unit_index, int sound_definition_index, i
 
         entry.val = syncer;
         entry.key = unit_index;
-        cmp = 0;
+        cmp = dsCMP();
         index = dsVECTOR_lipsync_InsertSorted(&hcexLipSyncList, &entry, &cmp, INS_DUP_IGNORE);
     }
 

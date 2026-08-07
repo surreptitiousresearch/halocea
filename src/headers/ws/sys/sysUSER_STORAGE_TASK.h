@@ -1,6 +1,7 @@
 #pragma once
 #include "../gts/TASK.h"
 #include "../fio/fioFILE_MEM.h"
+#include "../ds/REF_TYPE.h" // ds_data::REF_TYPE<T> — canonical single definition (m_pData@0, 4B)
 // ws-engine sys (system user / storage) subsystem: base class for an async load/save task bound
 // to a sysUSER profile. BOUNDARY -- this batch only needs sysUSER_STORAGE_TASK's *size* and
 // constructor/destructor signatures to type haloSTORAGE_TASK's own fields and ctor/dtor chain-up
@@ -16,15 +17,9 @@ struct sysUSER; // ws-engine sys — boundary
 // enumerators (previously marked unmodeled); filled in here.
 enum sysUSER_CONTENT_TYPE : int { CNT_CONFIG = 0, CNT_SAVEDATA = 1, CNT_TROPHY = 2, CNT__LAST = 3 };
 
-namespace ds_data {
-// ds_data::REF_TYPE<T> is, per types_members, a single m_pData pointer (4 bytes) -- modeled
-// generically here so the field below has a real (if opaque) type rather than a raw byte blob.
-// Full template surface (Release/AddRef/etc) is a boundary; external to this batch.
-template<class T>
-struct REF_TYPE {
-    void *m_pData; // 0x00 -- opaque REF_TYPE_DATA<T>*
-};
-}
+// ds_data::REF_TYPE<T> is, per types_members, a single m_pData pointer (4 bytes); it comes from
+// ../ds/REF_TYPE.h above, where m_pData is typed REF_TYPE_DATA<T>* rather than the bare void*
+// this header used to model locally. Its full template surface (Release/operator->) is a boundary.
 
 struct sysUSER_STORAGE_TASK : gts::TASK {
     // DEVIATION (2026-07 SavesTaskCreatorHCEX pass): types_enum_values now resolves these

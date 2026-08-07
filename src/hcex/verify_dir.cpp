@@ -10,7 +10,10 @@ extern int  osFileIsExist(const char *path);
 extern "C" int  CreateDirectoryA(const char *path, void *security_attributes);
 extern void _apLog(const char *format, ...);
 
-int verify_dir(const dsTSTRING_flat *dir)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `verify_dir` (@0x823C23D8);
+// compiled as C++ without it the definition mangles to `?verify_dir@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" int verify_dir(const dsTSTRING_flat *dir)
 {
     if ( osFileIsExist(dir->pBuffer->str) || CreateDirectoryA(dir->pBuffer->str, 0) )
         return 1;

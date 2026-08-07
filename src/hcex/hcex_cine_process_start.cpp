@@ -9,7 +9,7 @@
 
 void hcex_cine_process_start(const dsTSTRING_flat *script_name)
 {
-    dsCMP cmp = 0;
+    dsCMP cmp;
     int index = dsVECTOR_cine_list_FindSorted(&listCine, script_name, &cmp);
     if ( index == -1 )
         return;

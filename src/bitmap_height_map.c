@@ -12,8 +12,8 @@
 typedef struct _iobuf _iobuf;
 
 extern _iobuf *__iob_func(void);
-extern int fprintf(_iobuf *stream, const char *format, ...);
-extern int fflush(_iobuf *stream);
+/* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* fflush provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 extern void bitmap_2d_height_map(bitmap_data *bitmap, float bump_height);
 extern bitmap_data *bitmap_2d_new(int16_t width, int16_t height, int16_t mipmap_count, int16_t format);

@@ -182,7 +182,7 @@ void actor_combat_update(int actor_index)
                 special_fire = 0;
             if ( special_fire )
             {
-                int  weapon_object = ((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon)->datum);
+                object_datum *weapon_object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon)->datum;
                 /* recovered: raw weapon_tag+1276 = weapon.triggers.count (tag_block at _weapon_definition+0x1F4) */
                 weapon_definition *weapon_tag_def = TAG_GET(weapon_definition, *(int *)weapon_object);
                 game_difficulty_get_team_value(_game_difficulty_special_fire_delay_scale, actor->meta.team_index);

@@ -93,7 +93,7 @@ void race_update_team_score(void)
         ++team_laps;
         ++team_index;
     }
-    while ( (int)team_laps < (int)race_globals.persistent_team_score );
+    while ( (uintptr_t)team_laps < (uintptr_t)race_globals.persistent_team_score );
 
     game_engine_replicate_score_and_state_to_network(_message_delta_mode_incremental, -1);
 
@@ -105,5 +105,5 @@ void race_update_team_score(void)
             game_engine_end_game(); /* game_engine_end_game attested void — was cast-of-void residue */
         ++team_score;
     }
-    while ( (int)team_score < (int)race_globals.persistent_team_score );
+    while ( (uintptr_t)team_score < (uintptr_t)race_globals.persistent_team_score );
 }

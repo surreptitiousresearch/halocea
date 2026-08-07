@@ -4,7 +4,12 @@
 #include "../m3d/m3dVTX.h"
 #include "objGEOM_SHARED.h"
 // ws-engine obj: per-object (unshared) geometry wrapper around an objGEOM_SHARED.
-// DB-verified layout (types_members objGEOM_UNSHARED) — size 71 (0x47).
+// DB-verified layout (types_members objGEOM_UNSHARED) — size 72 (0x48).
+// DEVIATION: this comment previously said "size 71 (0x47)". The DB `types` row for
+// objGEOM_UNSHARED is 72; the last member is transpRendPriority@0x46 (1 byte), so byte 0x47 is
+// trailing padding. sizeof() is 72 either way (struct alignment is >= 4), so no member is added —
+// only the stated size is corrected. (The duplicate body in ws/anim/objOBJ_boundary.h, deleted in
+// the odr_dup drain, was the copy that had this right, via an explicit `_pad47[1]` tail member.)
 
 struct objOBJ;       // boundary — pointer only
 struct rendORD;      // boundary — pointer only

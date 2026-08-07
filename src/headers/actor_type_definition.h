@@ -20,7 +20,10 @@ typedef struct actor_type_definition
     void (*decide_action)(int actor_index);                         /* 0x14 */
     void (*swarm_control)(int actor_index);                         /* 0x18 */
     /* first param uint16_t 2026-07-30: matches the dispatch chain (actor_type_swarm_aim_jump ->
-     * infection_swarm_aim_jump, both uint16_t actor_index — datum-index convention); was int (C4113) */
+     * infection_swarm_aim_jump, both uint16_t actor_index — datum-index convention); was int (C4113).
+     * types_members types this slot `void (*)(int, ...)`; the disassembly of the only implementation
+     * refutes that — infection_swarm_aim_jump@0x83828848 opens with `clrlwi r11, r3, 16`, reading
+     * only the low half of the incoming register (2026-08-07). */
     void (*swarm_aim_jump)(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity); /* 0x1C */
 } actor_type_definition;                            /* 32 bytes */
 

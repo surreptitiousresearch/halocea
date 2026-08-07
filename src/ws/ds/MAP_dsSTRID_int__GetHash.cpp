@@ -15,7 +15,7 @@ template<>
 template<>
 unsigned int ds::MAP<dsSTRID, int, ds::HASH, ds::CMP, dsNODE_CACHE_ALLOCATOR>::GetHash(const dsSTRID *key) const
 {
-    long long h = (long long)(int)a * (long long)(int)key->id + (long long)(int)b;
+    long long h = (long long)(int)a * (long long)(intptr_t)key->id + (long long)(int)b;
     unsigned long long q = __umulh((unsigned long long)h, 0xBFFFFFE5C0000397ULL) >> 30;
     int val = (int)(unsigned int)((unsigned long long)h - q * 1431655777ULL);
     if (!IGNORE_STRONG_ASSERT) {

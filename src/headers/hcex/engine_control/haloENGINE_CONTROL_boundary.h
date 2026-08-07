@@ -59,57 +59,14 @@ extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3
  * (??$GetValue@...@apCONFIG@@QBA_NPBDAA...@Z / ??$Retrieve@...@apCONFIG@@QBAXPBDAAV1@ABV1@@Z);
  * the reversed struct itself is in apCONFIG.h. */
 
-/* --- gsUSER_CFG_MNG / gsUSER_MNG — full DB layouts (types_members) with the touched methods --- */
-namespace gts { struct TASK; }
-struct dsREF_COUNT;
-
-struct gsUSER_CFG_MNG_vtbl; // boundary — vtable shape
-typedef struct gsUSER_CFG_MNG {
-    // Nested dsEVENT_HANDLER subscriber (types_members gsUSER_CFG_MNG::EVENT_DISP_gsUSER_CFG_MNG:
-    // dsEVENT_HANDLER base@0, pObj@4 — size 8).
-    struct EVENT_DISP_gsUSER_CFG_MNG : public dsEVENT_HANDLER {
-        gsUSER_CFG_MNG *pObj; // 0x04
-    };
-    // types_members gsUSER_CFG_MNG::TASK_INFO: userID@0, task@4 — size 8.
-    struct TASK_INFO {
-        int userID;                                                              // 0x00
-        dsSMART_PTR<gts::TASK, _dsSP_OWNER_PLC_REFCOUNT<dsREF_COUNT *> > task;   // 0x04
-    };
-
-    gsUSER_CFG_MNG_vtbl            *__vftable;       // 0x00
-    EVENT_DISP_gsUSER_CFG_MNG       eventDispatcher; // 0x04
-    ds_data::REF_TYPE<apCONFIG>     defaultCfg;      // 0x0C
-    bool                            initialized;     // 0x10
-    unsigned char                   _pad11[3];       // 0x11
-    ds::LIST<TASK_INFO>             tasks;           // 0x14 — size 40
-
-    // ?Get@gsUSER_CFG_MNG@@QAA?AV?$REF_TYPE@VapCONFIG@@@ds_data@@H@Z — the per-user apCONFIG handle
-    // for `userID`, returned by value (sret).
-    ds_data::REF_TYPE<apCONFIG> Get(int userID);
-} gsUSER_CFG_MNG;
-typedef struct gsUSER_MNG {
-    // Nested dsEVENT_HANDLER subscriber (types_members gsUSER_MNG::EVENT_DISP_gsUSER_MNG:
-    // dsEVENT_HANDLER base@0, pObj@4 — size 8).
-    struct EVENT_DISP_gsUSER_MNG : public dsEVENT_HANDLER {
-        gsUSER_MNG *pObj; // 0x04
-    };
-
-    EVENT_DISP_gsUSER_MNG                                 eventDispatcher;  // 0x00
-    sslOBJ_REF                                            sslObject;        // 0x08
-    dsVECTOR<ds_data::REF_TYPE<dsVECTOR_PARAM_LIST>, 8>   users;            // 0x0C
-    int                                                   primaryUserIdx;   // 0x20
-    int                                                   secondaryUserIdx; // 0x24 — size 40
-
-    // 0x823C1370 (?PrimaryUserIdx@gsUSER_MNG@@QBAHXZ) — the primary local user's slot index. const (QBA).
-    int PrimaryUserIdx() const;
-    // 0x82630ED0 (?SecondaryUserIdx@gsUSER_MNG@@QAAHXZ) — the secondary local user's slot index.
-    // Non-const (QAA) per the DB mangle — reads/maintains SelectSecondaryUser's live state.
-    int SecondaryUserIdx();
-} gsUSER_MNG;
+/* --- gsUSER_CFG_MNG / gsUSER_MNG — canonical full DB layouts (types_members) with the touched
+ * methods. gsUSER_CFG_MNG.h pulls gsUSER_MNG.h, which also declares `extern gsUSER_MNG *gsUserMng;`
+ * plus PrimaryUserIdx()/SecondaryUserIdx(); gsUSER_CFG_MNG.h additionally carries the no-arg
+ * Get() overload @0x823D29E0 that this copy lacked. --- */
+#include "../../ws/gs/gsUSER_CFG_MNG.h"
 
 extern apCONFIG        *gCfg;
 extern gsUSER_CFG_MNG   *gsUserCfgMng;
-extern gsUSER_MNG       *gsUserMng;
 
 extern "C" _player_ui_globals * hcex_get_local_player_profile(int16_t local_player_index);
 extern "C" void set_local_player_controls_from_player_profile(int16_t local_player_index);

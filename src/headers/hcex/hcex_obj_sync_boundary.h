@@ -29,7 +29,7 @@
  * only FindSorted/index are needed here. */
 typedef struct ds_vector_generic ds_vector_generic;
 extern ds_vector_generic hcexLipSyncList;
-typedef int dsCMP;
+#include "../ws/ds/dsCMP.h"   /* canonical dsCMP (stateless empty struct) — a local `typedef int dsCMP` is a C2371/ODR conflict with it */
 extern int           dsVECTOR_lipsync_FindSorted(ds_vector_generic *v, const int *key, dsCMP *cmp);
 extern lipsync_pair *dsVECTOR_lipsync_index(ds_vector_generic *v, int position);
 extern void          mdlLIP_SYNCER_ApplyLipSync(mdlLIP_SYNCER *self);

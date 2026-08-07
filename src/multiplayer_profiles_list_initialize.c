@@ -89,8 +89,8 @@ populate_items:
                 if ( playlist_profile_get(list_items[i], &variant) )
                 {
                     int bank = 0;
-                    if ( has_spinner && (variant.universal_variant.flags & (1u << _game_mode_standard_bit)) == 0 )
-                        bank = ((variant.universal_variant.flags & (1u << _game_mode_classic_bit)) == 0) + 1;
+                    if ( has_spinner && (variant.universal_variant.flags & (1u << _game_mode_standard)) == 0 )
+                        bank = ((variant.universal_variant.flags & (1u << _game_mode_classic)) == 0) + 1;
                     preview_list_add_item_to_bank(
                         bank, variant.human_readable_game_description, i, &variant, 152, list_items[i] == last_used_profile_index);
                 }

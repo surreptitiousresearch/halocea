@@ -13,10 +13,10 @@ file_reference *file_reference_create_from_path_absolute(file_reference *referen
                                                          uint8_t directory)
 {
     memset(reference, 0, sizeof(file_reference));
-    *(int16_t *)&reference->data[6] = 2;
-    *(unsigned int *)reference->data = 0x66696C65u; /* 'file' */
+    reference->info.location = 2;
+    reference->info.signature = 0x66696C65u; /* 'file' */
     if (directory)
-        file_path_add_name(&reference->data[8], path);
+        file_path_add_name(reference->info.path, path);
     else
         file_reference_set_name(reference, path);
     return reference;

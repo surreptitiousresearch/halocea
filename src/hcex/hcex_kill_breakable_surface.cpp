@@ -3,48 +3,43 @@
  * sorted hcexBreakableSurfaces vector; if it has a live scene instance with an entity, invokes the entity's
  * "Destroy" SSL function (lazily interning the function name on first use) and releases the returned ref.
  *
- * Pure ws/SSL bridge glue: the container, scene-instance, SSL object/ref and ent/anim types are boundaries
- * (see hcex_kill_breakable_surface_boundary.h). */
+ * DEVIATION (2026-08-07): the surface slot, its create-data, the SSL object ref and the SSL error result
+ * were previously flat plain-C restatements in this file's boundary header, driven through free-function
+ * sret shims. They are the canonical ws-engine types now (odr_dup drain), so the C++ forms the binary
+ * actually calls are spelled directly: `hcexBREAKABLE_SURF key;` constructs/destroys its embedded
+ * scnINST_CREATE_DATA (the `bl scnINST_CREATE_DATA::scnINST_CREATE_DATA(void)` @0x823B20E8 and
+ * `bl scnINST_CREATE_DATA::~scnINST_CREATE_DATA(void)` @0x823B21D8 — the folded/inlined
+ * hcexBREAKABLE_SURF ctor and dtor, both at 0x823B16F8 / 0x823B1144), the caller ref is built as a
+ * temporary directly into the by-value argument slot (`bl sslOBJ_REF::sslOBJ_REF(sslOBJECT *)`
+ * @0x823B218C with no copy ctor and no matching dtor — MSVC has the callee destroy a by-value class
+ * parameter), and the discarded sslERROR result's desc buffer is released by that temporary's
+ * destructor at the end of the full expression, which is the `bl dlFree` @0x823B21D0. */
 
 #include "../headers/hcex/hcex_kill_breakable_surface_boundary.h"
 
 extern "C" void hcex_kill_breakable_surface(int bsp, int idx)
 {
     hcexBREAKABLE_SURF key;
-    dsCMP cmp = 0;
+    dsCMP cmp;
     int found;
 
     key.bsp = bsp;
     key.idx = idx;
-    scnINST_CREATE_DATA_ctor(&key.cd);
 
-    found = dsVECTOR_BSURF_FindSorted(&hcexBreakableSurfaces, &key, &cmp);
+    found = hcexBreakableSurfaces.FindSorted(key, cmp);
     if ( found >= 0 )
     {
-        animINST *inst = dsVECTOR_BSURF_index(&hcexBreakableSurfaces, found)->pInst;
+        animINST *inst = hcexBreakableSurfaces[found].pInst;
         if ( inst && inst->pEnt )
         {
-            sslERROR  *ssl_object;
-            sslOBJ_REF self;
-            sslERROR result;
-
             if ( (hcex_destroy_strid_initialized & 1) == 0 )
             {
                 hcex_destroy_strid_initialized |= 1u;
                 dsSTRID_init(&fnDestroy, "Destroy", 0);
             }
 
-            ssl_object = (sslERROR *)entENTITY_get_sslObject(inst->pEnt);
-            sslOBJ_REF_ctor(&self, 0);
-            sslOBJ_REF_CallFunc(&result, ssl_object, &fnDestroy, 0, 0, 0, &self);
-
-            /* release the sret sslERROR's desc string buffer: dec refcount, free at zero
-             * (CallFunc returns sslERROR by value; the decompiler's --*v10 is the desc
-             * dsTSTRING_flat buffer refcount release). */
-            if ( --result.desc.pBuffer->refCount == 0 )
-                dlFree(result.desc.pBuffer);
+            entENTITY_get_sslObject(inst->pEnt)
+                ->CallFunc(fnDestroy, 0, 0, 0, sslOBJ_REF((sslOBJECT *)0));
         }
     }
-
-    scnINST_CREATE_DATA_dtor(&key.cd);
 }

@@ -16,7 +16,10 @@
 
 extern dsVECTOR<FP_MODEL, 8> fpModels;
 
-propOBJ_MODIFIER_LIST *GetModifier(int modelId, int16_t localPlayerIndex)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `GetModifier` (@0x823E1E90);
+// compiled as C++ without it the definition mangles to `?GetModifier@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" propOBJ_MODIFIER_LIST *GetModifier(int modelId, int16_t localPlayerIndex)
 {
     int idx = 0;
     if (fpModels.nElem <= 0)

@@ -96,7 +96,7 @@ void playlist_profile_create_default_profiles_on_disk(void)
         ++builder;
         ++profile_index;
     }
-    while ( (int)builder < (int)&first_time_0 );
+    while ( (uintptr_t)builder < (uintptr_t)&first_time_0 );
 
     saved_game_files_notify_memory_units_changed();
 }

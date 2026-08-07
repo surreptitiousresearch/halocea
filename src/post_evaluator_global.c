@@ -3,9 +3,9 @@
  * 15.0. With a position, checks whether 3D pathing is actually needed for the actor
  * (actor_path_3d_available) and, if so, whether a straight-line 3D path from the actor's own position
  * (actor +300, per the salted-offset convention) to the firing position clears collision
- * (path_3d_available, reusing firing_position_definition's leading real_point3d as both the
- * destination_point and the type-punned collision_bsp_test_vector_result per path_3d_available.c's
- * established convention). A clear path adds a flat 15.0 bonus; a blocked one rejects the position
+ * (path_3d_available, passing firing_position_definition's leading real_point3d as both the
+ * destination_point and path_3d_available's end_point — the same real_point3d reached two ways,
+ * not two different arguments). A clear path adds a flat 15.0 bonus; a blocked one rejects the position
  * (invalidating it unless rejected positions are allowed). Returns the position's validity (or 1 if just
  * bounding the context). */
 
@@ -23,7 +23,7 @@
 #include "headers/structure_bsp.h"
 #include "headers/real_point3d.h"
 extern uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destination_point, float *avoidance_distance_reference);
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
 
 uint8_t post_evaluator_global(int actor_index, firing_position_evaluation_context *evaluation_context,
         firing_position *firing_position)
@@ -46,7 +46,7 @@ uint8_t post_evaluator_global(int actor_index, firing_position_evaluation_contex
         /* actor +300 = actor_datum.input.position.body_position (0x120 + 0xC) */
         if ( path_available )
             path_available = path_3d_available(global_structure_bsp, &actor->input.position.body_position,
-                avoidance_distance, (const collision_bsp_test_vector_result *)firing_position->definition, 0, 0);
+                avoidance_distance, &firing_position->definition->position, 0, 0);
 
         if ( path_available )
         {

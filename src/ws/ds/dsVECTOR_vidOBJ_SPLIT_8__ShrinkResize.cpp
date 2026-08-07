@@ -22,7 +22,7 @@ void dsVECTOR<vidOBJ_SPLIT, 8>::ShrinkResize(int size)
         for (int i = size; i < this->nElem; ++i) {
             vidOBJ_SPLIT *elem = &this->pData[i];
             dlFree(elem->mtlList.pData);
-            elem->objDesc.mtl.~MTL();
+            elem->objDesc.mtl.~vidPASS_OBJ_MTL(); // DB vidPASS_OBJ::MTL::~MTL (flattened spelling)
         }
         this->nElem = size;
     }

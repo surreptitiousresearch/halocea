@@ -28,9 +28,9 @@ void find_files_start(unsigned int flags, const file_reference *directory)
     }
     find_files_globals.flags = flags;
     find_files_globals.depth = 0;
-    find_files_globals.location = *(int16_t *)&directory->data[6];
+    find_files_globals.location = directory->info.location;
 
-    const char *src = &directory->data[8];
+    const char *src = directory->info.path;
     char *dst = find_files_globals.path;
     char c;
     do

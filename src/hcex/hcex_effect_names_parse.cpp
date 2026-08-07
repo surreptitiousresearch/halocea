@@ -46,7 +46,7 @@ void hcex_effect_names_parse(void)
             entry.val = hcex_name;
             ++entry.val.pBuffer->refCount;
 
-            dsCMP cmp = 0;
+            dsCMP cmp;
             dsVECTOR_PAIR_InsertSorted(&hcex_effect_names, &entry, &cmp, INS_DUP_IGNORE);
 
             if ( --entry.val.pBuffer->refCount == 0 )

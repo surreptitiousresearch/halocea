@@ -12,7 +12,7 @@ extern uint8_t file_read(const file_reference *file, unsigned int count, void *b
 
 uint8_t file_read_from_position(const file_reference *file, unsigned int position, unsigned int count, void *buffer)
 {
-    unsigned int result = SetFilePointer(*(void **)&file->data[264], position, nullptr, 0u);
+    unsigned int result = SetFilePointer(file->win32.handle, position, nullptr, 0u);
     if ( result == (unsigned int)-1 )
     {
         GetLastError();

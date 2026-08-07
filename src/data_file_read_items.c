@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "headers/data_file_s.h"
 #include "headers/data_file_item_s.h"
+#include "headers/byte_swap_definition.h"
 #include "headers/blam_data_globals.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
@@ -27,7 +28,7 @@ uint8_t data_file_read_items(data_file_s *data_file)
     if (data_file_reorder_on_write)
         _byte_swap_memory(data_file->items,
                          (3 * data_file->header.item_count) & 0x3FFFFFFF,
-                         -4);
+                         _4byte);
 
     if (read_ok)
         data_file->max_item_count = data_file->header.item_count;

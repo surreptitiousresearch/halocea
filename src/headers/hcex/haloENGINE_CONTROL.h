@@ -10,17 +10,22 @@
  *   pathToCheckpoints @ 0x14 (dsTSTRING<char>)
  *   isCoop            @ 0x18 (bool)                                          — 25 bytes total.
  *
- * This header serves two disjoint consumer camps in this corpus, hence the dual view below:
- *   - legacy Blam-side bridge helpers (src/hcex/*.c, plain C) that only ever pass `haloEngineCtrl`
- *     through their own locally-declared `haloENGINE_CONTROL_<Method>(self, ...)` extern shims —
- *     they need the type name/size only, never direct field or method access;
- *   - the ws-engine C++ side (this class's own 32 reversed methods in src/hcex/engine_control/,
- *     and the sibling SSL_EXPORTER_haloENGINE_CONTROL pass, which binds real pointers-to-member via
- *     `&haloENGINE_CONTROL::SetMode` and needs the actual dsTSTRING<char> C++ template types).
- * The plain-C view (opaque-sized struct) and the C++ view (the real class) are layout-identical;
- * `#ifdef __cplusplus` selects the appropriate one per translation unit. */
-
-#ifdef __cplusplus
+ * Consumers are the ws-engine C++ side: this class's own 32 reversed methods in
+ * src/hcex/engine_control/, and the sibling SSL_EXPORTER_haloENGINE_CONTROL pass, which binds real
+ * pointers-to-member via `&haloENGINE_CONTROL::SetMode` and needs the actual dsTSTRING<char> C++
+ * template types.
+ *
+ * DEVIATION (2026-08-07, odr_dup drain): this header used to carry a second, plain-C `#else` view
+ * that restated dsEVENT_HANDLER, EVENT_DISP_haloENGINE_CONTROL, sslOBJ_REF and haloENGINE_CONTROL
+ * as flat C structs, for "legacy Blam-side bridge helpers (src/hcex/*.c, plain C)". That branch was
+ * dead and unbuildable: the include graph reaches this header from 0 C TUs and 130 C++ TUs, and the
+ * branch's own first include (hcex_ds_boundary.h) uses `extern "C"` and `dsTSTRING<char>`, so it
+ * could never have compiled as C. Its two duplicate bodies were the only file-scope definitions of
+ * dsEVENT_HANDLER and sslOBJ_REF outside their canonical headers (ws/ds/dsEVENT_HANDLER.h,
+ * ws/ssl/sslOBJ_REF.h) — both of which this header already includes below, layout-identical and
+ * DB-verified (dsEVENT_HANDLER: __vftable@0, size 4; sslOBJ_REF: pObject@0, size 4). Removed; the
+ * C++ view is now the only view, so a C TU that reaches here fails loudly instead of silently
+ * seeing a different type. */
 
 #include "../ws/ds/dsTSTRING.h"
 #include "../ws/ds/dsPARAM_LIST.h"
@@ -173,44 +178,3 @@ private:
     // (primary/secondary) the signaled userID matches.
     void OnConfigChanged(unsigned int eventUserId, const dsPARAM_LIST &paramList);
 } haloENGINE_CONTROL;
-
-#else /* !__cplusplus — plain-C boundary view for the legacy Blam-side bridge helpers */
-
-#include "hcex_ds_boundary.h"
-#include <stdbool.h>
-
-struct haloENGINE_CONTROL;
-typedef struct dsEVENT_HANDLER_vtbl dsEVENT_HANDLER_vtbl; /* boundary */
-typedef struct sslOBJECT sslOBJECT;                       /* boundary */
-
-/* types_members dsEVENT_HANDLER (size 4) — plain-C mirror of the ws base. */
-typedef struct dsEVENT_HANDLER
-{
-    dsEVENT_HANDLER_vtbl *__vftable; /* 0x00 */
-} dsEVENT_HANDLER;
-
-/* types_members haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL (size 8) —
- * dsEVENT_HANDLER base spelled base-as-first-member per the plain-C convention. */
-typedef struct EVENT_DISP_haloENGINE_CONTROL
-{
-    dsEVENT_HANDLER            base; /* 0x00 */
-    struct haloENGINE_CONTROL *pObj; /* 0x04 */
-} EVENT_DISP_haloENGINE_CONTROL;
-
-/* types_members sslOBJ_REF (size 4) — plain-C mirror. */
-typedef struct sslOBJ_REF
-{
-    sslOBJECT *pObject; /* 0x00 */
-} sslOBJ_REF;
-
-typedef struct haloENGINE_CONTROL
-{
-    EVENT_DISP_haloENGINE_CONTROL eventDispatcher; /* 0x00 */
-    sslOBJ_REF    sslObject;            /* 0x08 */
-    dsTSTRING<char>     curCheckpoint;        /* 0x0C */
-    dsTSTRING<char>     curLevel;             /* 0x10 */
-    dsTSTRING<char>     pathToCheckpoints;    /* 0x14 */
-    bool          isCoop;               /* 0x18 */
-} haloENGINE_CONTROL;
-
-#endif /* __cplusplus */

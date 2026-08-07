@@ -47,7 +47,7 @@ game_variant * build_game_variant_ctf_standard(game_variant *result)
     result->game_engine_variant.ctf.flag_at_home_to_score = 1;
     result->universal_variant.time_limit = 36000;
     result->universal_variant.teams = 1;
-    result->universal_variant.flags = (flags & ~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u)) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _motion_tracker_no_enemies_bit) | (1u << _game_mode_standard_bit);
+    result->universal_variant.flags = (flags & ~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u)) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _motion_tracker_no_enemies) | (1u << _game_mode_standard);
     result->flags = 1;
     return result;
 }

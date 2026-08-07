@@ -6,9 +6,9 @@
 // crossed geometry. In fast-peek mode, if no brain is currently watched and the picked entity is an
 // aiBRAIN, select it as the debug watchee and mirror that to the console.
 //
-// The ray uses a cdtREFINE_CURSOR filter: the compiler constructs a base cdtREFINE (realized 3-arg
-// ABI: flags=0, packed{ objState=0x20, layerMask=0xFFFFFFFF }, self=nullptr) then overwrites its
-// vptr with cdtREFINE_CURSOR's vtable — replicated here to stay faithful to the emitted code.
+// The ray uses a cdtREFINE_CURSOR filter: the compiler constructs a base cdtREFINE (flags=0,
+// layerMask=0xFFFFFFFF, stateObjUsrIncl=0x20, self=nullptr) then overwrites its vptr with
+// cdtREFINE_CURSOR's vtable — replicated here to stay faithful to the emitted code.
 #include "../../headers/ws/ai/aiPLANNER.h"
 #include "../../headers/ws/ai/aiCON_CB.h"
 #include "../../headers/ws/ai/aiPLANNER_debugkeys_boundaries.h" // _aiConCb
@@ -46,7 +46,11 @@ void aiPLANNER::UpdateCursor()
     m3dV vFrom = { camMatr.__s1._41, camMatr.__s1._42, camMatr.__s1._43 }; // camera origin (row 4)
     m3dV vDir  = { camMatr.__s1._31, camMatr.__s1._32, camMatr.__s1._33 }; // camera forward z (row 3)
 
-    cdtREFINE refine(0, 0xFFFFFFFF00000020LL, nullptr);
+    // DEVIATION: the packed literal 0xFFFFFFFF00000020 never existed — it was the folded 3-arg
+    // ctor model fusing two independent registers. The caller sets `li r5, -1` @0x832468C4
+    // (layerMask), and `li r10, 0x20` @0x832468B0 / `std r10, var_130` / `ld r6, 0(r11)`
+    // @0x832468CC (stateObjUsrIncl = 0x20, one 64-bit GPR), with `li r7, 0` @0x832468BC.
+    cdtREFINE refine(0, 0xFFFFFFFFu, apSTATE_T<int64_t>{0x20}, nullptr);
     refine.__vftable = &cdtREFINE_CURSOR__vftable; // promote to cdtREFINE_CURSOR
 
     cdtINFO info;

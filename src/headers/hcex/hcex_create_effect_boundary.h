@@ -22,67 +22,25 @@
  * now an alias of the canonical template (identical layout: pBuffer@0, 4 bytes). */
 typedef dsTSTRING<char> dsTSTRING_flat;
 
-typedef int dsCMP;
+#include "../ws/ds/dsCMP.h"   /* canonical dsCMP (stateless empty struct) — a local `typedef int dsCMP` is a C2371/ODR conflict with it */
 
 #include "../ws/ds/dsSTRID.h"   /* canonical dsSTRID — avoids C2011 vs the prop/ent chain */
 
-/* --- effect record stored in hcexCreateEffects --- */
-typedef struct HCEX_EFFECT_LOC
-{
-    hcex_float3 pos;   /* 0x00 */
-    hcex_float3 vec;   /* 0x0C */
-    dsTSTRING<char>  name;  /* 0x18 */
-} HCEX_EFFECT_LOC;
-
-typedef struct HCEX_EFFECT
-{
-    dsVECTOR<HCEX_EFFECT_LOC, 8> locations; /* 0x00 */
-    dsTSTRING<char>      hcexName;  /* 0x14 */
-} HCEX_EFFECT;
+/* --- effect record stored in hcexCreateEffects: canonical bodies (28 / 24 bytes, types_members) --- */
+#include "HCEX_EFFECT_LOC.h"
+#include "HCEX_EFFECT.h"
 
 /* --- ent / anim object model: canonical animTPL / animINST included above. The former flat
  * partial models (state2/pEnt/pTpl at raw offsets) are superseded by the DB-verified headers. --- */
 #include "../ws/ent/entENTITY.h"      /* full entENTITY (pInst@0x15C) — .cpp reads ent->pInst */
 typedef struct sml_STATE sml_STATE;   /* opaque; 12 bytes */
 
-typedef struct FP_MODEL
-{
-    int       plrIdx;           /* 0x00 */
-    int       modelId;          /* 0x04 */
-    int       modelIdx;         /* 0x08 */
-    animINST *pInst;            /* 0x0C */
-    int       isActCamo;        /* 0x10 */
-    bool      isHiddenCam1;     /* 0x14 */
-    bool      isHiddenCam1Prev; /* 0x15 */
-    bool      isHiddenCam2;     /* 0x16 */
-    bool      isHiddenCam2Prev; /* 0x17 */
-} FP_MODEL;
-
-struct m3dMATR; // ../ws/m3d — pointer/vector element only
-typedef struct HCEX_OBJ
-{
-    int           id;            /* 0x00 */
-    animINST     *pInst;         /* 0x04 */
-    int           modelIdx;      /* 0x08 */
-    dsVECTOR<ds::WEAK_PTR<entENTITY>, 8> followers;    /* 0x0C */
-    dsVECTOR<m3dMATR, 8>                 followersOfs; /* 0x20 */
-    unsigned int  _reserved : 17;        /* 0x34 (DB anonymous 17-bit pad) */
-    unsigned int  isFuncDin : 1;         /* 0x36 */
-    unsigned int  isFuncCin : 1;
-    unsigned int  isFuncBin : 1;
-    unsigned int  isFuncAin : 1;
-    unsigned int  isFuncD : 1;
-    unsigned int  isFuncC : 1;
-    unsigned int  isFuncB : 1;
-    unsigned int  isFuncA : 1;
-    unsigned int  isMachinePositionOn : 1;
-    unsigned int  isMachinePowerOn : 1;
-    unsigned int  isMachineLocked : 1;
-    unsigned int  isShieldShow : 1;
-    unsigned int  isActCamo : 1;
-    unsigned int  isHidden : 1;
-    unsigned int  isInited : 1;          /* 0x37 */
-} HCEX_OBJ;
+/* FP_MODEL (24 bytes) / HCEX_OBJ (56 bytes) — canonical bodies (types_members). HCEX_OBJ.h spells
+ * `followers` with its own boundary WEAK_PTR<T> shim rather than ds::WEAK_PTR<T>; both are
+ * one-pointer wrappers (types_members ds::WEAK_PTR<entENTITY>: pHandle@0), so the dsVECTOR element
+ * stride is identical and no consumer of this header touches `followers`. */
+#include "FP_MODEL.h"
+#include "HCEX_OBJ.h"
 
 /* --- snd audio system (large ws-engine systems: snd::BUFFER / snd::SYSTEM; touched here only
  * through Play/GetBuffer, kept opaque with free-function accessors per this corpus's boundary
@@ -90,14 +48,14 @@ typedef struct HCEX_OBJ
 typedef struct snd_BUFFER snd_BUFFER;   /* opaque — snd::BUFFER */
 typedef struct snd_SYSTEM snd_SYSTEM;   /* opaque — snd::SYSTEM */
 
-struct snd_NOTIFICATION_INFO; /* boundary */
+namespace snd { struct NOTIFICATION_INFO; } /* boundary — DB snd::NOTIFICATION_INFO (same type ws/snd/BUFFER_PARAMS.h declares, not a second flat one) */
 typedef struct snd_BUFFER_PARAMS
 {
     m3dV          pos;         /* 0x00 — DB m3dV; layout-identical to hcex_float3 */
     int           timeOffset;  /* 0x0C */
     bool          blocking;    /* 0x10 */
     unsigned char _pad11[3];   /* 0x11 db-verified padding */
-    void        (*callback)(const struct snd_NOTIFICATION_INFO *, void *); /* 0x14 */
+    void        (*callback)(const snd::NOTIFICATION_INFO *, void *); /* 0x14 */
     void         *userData;    /* 0x18 */
     dsTSTRING<char>    dbgInfo;     /* 0x1C */
 } snd_BUFFER_PARAMS;
@@ -153,8 +111,9 @@ extern void         dsVECTOR_LOC_Resize(dsVECTOR<HCEX_EFFECT_LOC, 8> *v, int n);
 extern HCEX_EFFECT_LOC *dsVECTOR_LOC_index(dsVECTOR<HCEX_EFFECT_LOC, 8> *v, int i);
 extern FP_MODEL    *dsVECTOR_FPM_index(dsVECTOR_FPM *v, int i);
 
-extern void  HCEX_EFFECT_ctor(HCEX_EFFECT *e);
-extern void  HCEX_EFFECT_dtor(HCEX_EFFECT *e);
+/* HCEX_EFFECT_ctor / HCEX_EFFECT_dtor (free-function spellings of ??0HCEX_EFFECT@@ @0x823D6AA4 and
+ * ??1HCEX_EFFECT@@ @0x823D6B54) are gone: HCEX_EFFECT.h declares both as real members, and the one
+ * caller now gets them from scope entry/exit. */
 
 /* --- sml / snd / scene / family / ent --- */
 extern void        sml_STATE_Set(sml_STATE *state, const dsTSTRING_flat *value);

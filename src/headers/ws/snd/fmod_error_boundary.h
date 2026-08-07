@@ -6,8 +6,12 @@
  *   - FModErrorDesc  (src/ws/snd/FModErrorDesc.cpp)  — FMOD_RESULT -> human/enum string
  *   - WaitSoundBank  (src/hcex/WaitSoundBank.cpp)    — spin until a streaming sound finishes loading
  *
- * FMOD_RESULT is the full DB enumerator set (types_enum_values FMOD_RESULT, 96 members). FMOD::Sound
- * is the SDK class (opaque; only getOpenState is called). */
+ * It is also the single home for the three FMOD SDK types that the wider snd_fmod_boundary.h also
+ * needed: FMOD_RESULT (the full DB enumerator set — types_enum_values FMOD_RESULT, 96 members),
+ * FMOD_OPENSTATE (full set, 10 members) and FMOD::Sound. snd_fmod_boundary.h carried its own
+ * truncated copies of all three (2 of 96 FMOD_RESULT enumerators; FMOD_OPENSTATE without
+ * FORCEINT); those bodies are gone and it includes this file. Everything else FMOD — System,
+ * Channel, ChannelGroup, DSP, the FMOD_* structs and mode bits — stays there. */
 
 /* ---- FMOD_RESULT (full DB enumerator set) ---- */
 enum FMOD_RESULT {
@@ -120,14 +124,34 @@ enum FMOD_OPENSTATE {
     FMOD_OPENSTATE_STREAMING = 6,
     FMOD_OPENSTATE_SETPOSITION = 7,
     FMOD_OPENSTATE_MAX = 8,
+    FMOD_OPENSTATE_FORCEINT = 65536, /* SDK int-width pin (types_enum_values FMOD_OPENSTATE idx 9) */
 };
 
-/* ---- FMOD::Sound (external SDK class; opaque, only getOpenState used) ---- */
+/* FMOD_TIMEUNIT is a typedef'd bitfield (unsigned int) in the SDK, not an enum in the DB's type
+ * info. Only the constant the HALO_PERM_SOUND/HALO_CROSSFADE_DSP cluster uses is given. */
+typedef unsigned int FMOD_TIMEUNIT;
+#define FMOD_TIMEUNIT_PCM 0x00000002u // boundary -- standard FMOD SDK value
+
+/* ---- FMOD::Sound (external SDK class; opaque, methods declared far enough to type call sites) ----
+ * `class`, not `struct`: ?WaitSoundBank@@YAXPAVSound@FMOD@@@Z spells the parameter PAV = pointer to
+ * class. */
 namespace FMOD {
     class Sound {
     public:
+        // ?getOpenState@Sound@FMOD@@QAA?AW4FMOD_RESULT@@PAW4FMOD_OPENSTATE@@PAIPA_N@Z --
+        // THREE parameters (PAW4FMOD_OPENSTATE / PAI / PA_N), the last a `bool *`. This header
+        // previously declared a four-parameter form with `int *starving, int *diskbusy` (the later
+        // FMOD Ex spelling); the binary disagrees twice over. Both call sites in WaitSoundBank
+        // (0x836B5834, 0x836B58DC) set exactly r4/r5/r6 before the branch, and the assert strings
+        // the original source compiled in read "getOpenState(&state, NULL, NULL)".
         FMOD_RESULT getOpenState(FMOD_OPENSTATE *openstate, unsigned int *percentbuffered,
-                                 int *starving, int *diskbusy); // percentbuffered/diskbusy passed null here
+                                 bool *starving);                                    // boundary — FMOD SDK
+        // -- added by the HALO_SOUND_LIST/HALO_CHANNEL/HALO_PERM_SOUND clusters --
+        FMOD_RESULT getSubSound(int index, Sound **subSound);                        // boundary — FMOD SDK
+        FMOD_RESULT release();                                                       // boundary — FMOD SDK
+        FMOD_RESULT getLength(unsigned int *length, FMOD_TIMEUNIT lengthtype);       // boundary — FMOD SDK
+        FMOD_RESULT getNumSubSounds(int *numsubsounds);                              // boundary — FMOD SDK
+        FMOD_RESULT getDefaults(float *frequency, float *volume, float *pan, int *priority); // boundary
     };
 }
 
@@ -137,15 +161,12 @@ extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3
 
 #include "../dbg/STRONG_ASSERT_DUMMY.h" // canonical (member + static Crash overloads) — avoids C2011
 
-struct osTIMER {                    // DB-verified (types_members osTIMER): start@0, time@4 — size 8
-    int start;                      // 0x00
-    int time;                       // 0x04
-    osTIMER(int start);
-};
+#include "../os/osTIMER.h" // os subsystem type; canonical home (was a copy of the body here)
 
-extern void osSleep(int ms);
+extern void osSleep(int ms); /* ?osSleep@@YAXH@Z — C++ linkage per the mangled name */
 extern "C" void osOutputDebugString(const char *fmt, ...);
 
-/* the two boundary helpers this header serves */
+/* the two boundary helpers this header serves. Both are C++ linkage, not `extern "C"`: the DB
+ * names them ?FModErrorDesc@@YAPBDW4FMOD_RESULT@@_N@Z and ?WaitSoundBank@@YAXPAVSound@FMOD@@@Z. */
 extern const char *FModErrorDesc(FMOD_RESULT res, bool info);
 extern void WaitSoundBank(FMOD::Sound *sound);

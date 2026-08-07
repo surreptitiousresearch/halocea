@@ -28,22 +28,22 @@ void hs_evaluate_begin_random(int16_t function_index, int thread_index, uint8_t 
      * advances at most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int16_t *count = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);   /* 2-byte slot */
-    if ( (unsigned int)(count - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int16_t *count = (int16_t *)(((uintptr_t)stack_top + 1) & ~(uintptr_t)0x1);   /* 2-byte slot */
+    if ( (uintptr_t)(count - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --count;
     frame->size = (int16_t)((unsigned char *)count - frame->data + 2);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    unsigned int *used_mask = (unsigned int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(used_mask - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    unsigned int *used_mask = (unsigned int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(used_mask - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --used_mask;
     frame->size = (int16_t)((unsigned char *)used_mask - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *result = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *result = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(result - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --result;
     int probe_count = 0;   /* v15: number of used slots skipped this pass */
     frame->size = (int16_t)((unsigned char *)result - frame->data + 4);

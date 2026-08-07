@@ -1,4 +1,4 @@
-/* game_engine_force_autopickup @0x83748458 — game-mode override that forces a unit to auto-pick a weapon.
+/* game_engine_force_autopickup @0x8374A3C0 — game-mode override that forces a unit to auto-pick a weapon.
  * Only Capture the Flag (game_engine_index 1) forces it, and only for the flag "weapon" itself, so a player
  * walking over the flag always picks it up. unit_index is unused. */
 

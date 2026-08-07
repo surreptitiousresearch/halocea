@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "headers/data_file_s.h"
+#include "headers/byte_swap_definition.h"
 #include "headers/blam_data_globals.h"
 
 extern uint8_t cached_sync_read(void *file, void *buffer, int size, int offset);
@@ -17,7 +18,7 @@ uint8_t data_file_read_header(data_file_s *data_file, uint32_t data_file_id)
     if (cached_sync_read(data_file->hFile, data_file, 16, 0))
     {
         if (data_file_reorder_on_write)
-            _byte_swap_memory(data_file, 4, -4); /* li r5,-4 @ 0x838095AC */
+            _byte_swap_memory(data_file, 4, _4byte); /* li r5,-4 @ 0x838095AC */
         if (data_file->header.data_file_id == data_file_id)
         {
             return 1;

@@ -22,7 +22,7 @@ void cache_copy_issue_read_internal(simple_decompressor_definition *self, void *
 
     self->overlapped_in_use_flags[0] |= 1 << (read_buffer_index & 0x1F);
 
-    overlapped->hEvent     = (void *)(int)read_buffer_index;
+    overlapped->hEvent     = (void *)(intptr_t)read_buffer_index;
     overlapped->Offset     = offset;
     overlapped->OffsetHigh = 0;
 

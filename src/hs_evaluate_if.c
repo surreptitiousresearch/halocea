@@ -23,22 +23,22 @@ void hs_evaluate_if(int16_t function_index, int thread_index, uint8_t initialize
      * most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *condition_result = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
-    if ( (unsigned int)(condition_result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *condition_result = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3) /* align up to 4 */;
+    if ( (uintptr_t)(condition_result - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --condition_result;
     frame->size = (int16_t)((unsigned char *)condition_result - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *chosen_branch = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
-    if ( (unsigned int)(chosen_branch - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *chosen_branch = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3) /* align up to 4 */;
+    if ( (uintptr_t)(chosen_branch - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --chosen_branch;
     frame->size = (int16_t)((unsigned char *)chosen_branch - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *branch_result = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
-    if ( (unsigned int)(branch_result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *branch_result = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3) /* align up to 4 */;
+    if ( (uintptr_t)(branch_result - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --branch_result;
     frame->size = (int16_t)((unsigned char *)branch_result - frame->data + 4);
 

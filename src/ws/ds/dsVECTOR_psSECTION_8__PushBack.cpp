@@ -25,16 +25,16 @@ psSECTION &dsVECTOR<psSECTION, 8>::PushBack(const psSECTION &val)
     if (this->allocated >= nElem + 1) {
         psSECTION *slot = &this->pData[nElem];
         if (slot) {
-            psSECTION_DATA *data = (psSECTION_DATA *)val.handle;
+            psSECTION_DATA *data = val.pData;
             if (data) {
                 psSECTION_BRANCH *branch = data->pBranch;
                 ++data->refCount;
                 ++branch->refCount;
             }
-            slot->handle = val.handle;
+            slot->pData = val.pData;
         }
     } else {
-        psSECTION_DATA *data = (psSECTION_DATA *)val.handle;
+        psSECTION_DATA *data = val.pData;
         if (data) {
             psSECTION_BRANCH *branch = data->pBranch;
             ++data->refCount;
@@ -54,7 +54,7 @@ psSECTION &dsVECTOR<psSECTION, 8>::PushBack(const psSECTION &val)
                 ++data->refCount;
                 ++branch->refCount;
             }
-            slot->handle = (unsigned int)data;
+            slot->pData = data;
         }
         if (data)
             data->Release(); // drop the reference taken across the Realloc

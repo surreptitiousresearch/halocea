@@ -53,7 +53,7 @@ bool main_coop_update()
         env->tick  = hcex_data_applied_num;
         env->crc   = game_state_calculate_crc();
 
-        pSyncSession->GetMessageDispatcher()->SendMessage((net::CLIENT_MASK)1, mp::MSG_RAW_INPUT, &data);
+        pSyncSession->GetMessageDispatcher()->SendMessage((net::CLIENT_MASK)1, MSG_RAW_INPUT, &data);
 
         if (coopMsgHandler.detInput.length)
         {
@@ -106,7 +106,7 @@ bool main_coop_update()
             }
 
             hcex_coop_process_raw_input(&rawInput, &coopMsgHandler.lastRawInput, env);
-            pSyncSession->GetMessageDispatcher()->SendMessage((net::CLIENT_MASK)2, mp::MSG_DET_INPUT, &data);
+            pSyncSession->GetMessageDispatcher()->SendMessage((net::CLIENT_MASK)2, MSG_DET_INPUT, &data);
             hcex_check_crc();
             hcex_coop_process_deteministic_data(env);
             didUpdate = 1;

@@ -3,65 +3,48 @@
  * SetHaloCineScreenEffectActive(), HcexStartCine(), HcexDontSkipCine(), AddCine() and
  * HideCineActorsByTplName(). Each registration follows the same pattern: resolve gsSslSystem's global
  * object, resolve its class, AddCbFunc the native callback under its script-visible signature, then
- * release the transient sslCLASS_REF/sslOBJ_REF/sslERROR values. */
+ * release the transient sslCLASS_REF/sslOBJ_REF/sslERROR values.
+ *
+ * DEVIATION (2026-08-07): the transient handles were previously declared as flat plain-C structs and
+ * released through explicit sslCLASS_REF_dtor/sslOBJ_REF_dtor shim calls, because the boundary header
+ * restated sslOBJ_REF/sslCLASS_REF locally. They are the canonical RAII ws-engine types now, so each
+ * block's closing brace IS the release — which is what the binary emits, in this exact order:
+ * AddCbFunc -> dlFree (the discarded sslERROR result's desc buffer) -> ~sslCLASS_REF -> ~sslOBJ_REF.
+ * Copy-initialising from the by-value returns also removes the three phantom default constructions
+ * the old spelling implied but the binary never performs. Same shape as hcex_library_init.cpp. */
 
 #include "../headers/hcex/hcex_cine_init_boundary.h"
 
 void hcex_cine_init(void)
 {
     {
-        sslOBJ_REF globalObj;
-        sslSYSTEM_GetGlobalObj(&globalObj, gsSslSystem);
-        sslCLASS_REF cls;
-        sslOBJ_REF_GetClass(&cls, &globalObj);
-        sslERROR err;
-        sslCLASS_REF_AddCbFunc(&err, &cls, "SetHaloCineScreenEffectActive(isOn : bool)",
-                                (void *)cbSetHaloCineScreenEffectActive, empty_string, 0);
-        sslCLASS_REF_dtor(&cls);
-        sslOBJ_REF_dtor(&globalObj);
+        sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
+        sslCLASS_REF cls = globalObj.GetClass();
+        cls.AddCbFunc("SetHaloCineScreenEffectActive(isOn : bool)",
+                      cbSetHaloCineScreenEffectActive, empty_string, 0);
     }
     {
-        sslOBJ_REF globalObj;
-        sslSYSTEM_GetGlobalObj(&globalObj, gsSslSystem);
-        sslCLASS_REF cls;
-        sslOBJ_REF_GetClass(&cls, &globalObj);
-        sslERROR err;
-        sslCLASS_REF_AddCbFunc(&err, &cls, "HcexStartCine(name : string = \"\")",
-                                (void *)cbHcexStartCine, empty_string, 0);
-        sslCLASS_REF_dtor(&cls);
-        sslOBJ_REF_dtor(&globalObj);
+        sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
+        sslCLASS_REF cls = globalObj.GetClass();
+        cls.AddCbFunc("HcexStartCine(name : string = \"\")",
+                      cbHcexStartCine, empty_string, 0);
     }
     {
-        sslOBJ_REF globalObj;
-        sslSYSTEM_GetGlobalObj(&globalObj, gsSslSystem);
-        sslCLASS_REF cls;
-        sslOBJ_REF_GetClass(&cls, &globalObj);
-        sslERROR err;
-        sslCLASS_REF_AddCbFunc(&err, &cls, "HcexDontSkipCine()",
-                                (void *)cbHcexDontSkipCine, empty_string, 0);
-        sslCLASS_REF_dtor(&cls);
-        sslOBJ_REF_dtor(&globalObj);
+        sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
+        sslCLASS_REF cls = globalObj.GetClass();
+        cls.AddCbFunc("HcexDontSkipCine()",
+                      cbHcexDontSkipCine, empty_string, 0);
     }
     {
-        sslOBJ_REF globalObj;
-        sslSYSTEM_GetGlobalObj(&globalObj, gsSslSystem);
-        sslCLASS_REF cls;
-        sslOBJ_REF_GetClass(&cls, &globalObj);
-        sslERROR err;
-        sslCLASS_REF_AddCbFunc(&err, &cls, "AddCine(object : object, name : string = \"\", mask : string = \"all\") ",
-                                (void *)cbAddCine, empty_string, 0);
-        sslCLASS_REF_dtor(&cls);
-        sslOBJ_REF_dtor(&globalObj);
+        sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
+        sslCLASS_REF cls = globalObj.GetClass();
+        cls.AddCbFunc("AddCine(object : object, name : string = \"\", mask : string = \"all\") ",
+                      cbAddCine, empty_string, 0);
     }
     {
-        sslOBJ_REF globalObj;
-        sslSYSTEM_GetGlobalObj(&globalObj, gsSslSystem);
-        sslCLASS_REF cls;
-        sslOBJ_REF_GetClass(&cls, &globalObj);
-        sslERROR err;
-        sslCLASS_REF_AddCbFunc(&err, &cls, "HideCineActorsByTplName(name : string = \"\")",
-                                (void *)cbHideActorsByTplName, empty_string, 0);
-        sslCLASS_REF_dtor(&cls);
-        sslOBJ_REF_dtor(&globalObj);
+        sslOBJ_REF   globalObj = gsSslSystem->GetGlobalObj();
+        sslCLASS_REF cls = globalObj.GetClass();
+        cls.AddCbFunc("HideCineActorsByTplName(name : string = \"\")",
+                      cbHideActorsByTplName, empty_string, 0);
     }
 }

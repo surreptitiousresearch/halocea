@@ -25,29 +25,29 @@ void hs_evaluate_arithmetic(int16_t function_index, int thread_index, uint8_t in
      * advances at most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int16_t *operand_index = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);
-    if ( (unsigned int)(operand_index - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int16_t *operand_index = (int16_t *)(((uintptr_t)stack_top + 1) & ~(uintptr_t)0x1);
+    if ( (uintptr_t)(operand_index - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --operand_index;
     frame->size = (int16_t)((unsigned char *)operand_index - frame->data + 2);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *iterator = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(iterator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *iterator = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(iterator - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --iterator;
     frame->size = (int16_t)((unsigned char *)iterator - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *operand = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(operand - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *operand = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(operand - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --operand;
     frame->size = (int16_t)((unsigned char *)operand - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    float *accumulator = (float *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(accumulator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    float *accumulator = (float *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(accumulator - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --accumulator;
     frame->size = (int16_t)((unsigned char *)accumulator - frame->data + 4);
 

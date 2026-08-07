@@ -8,6 +8,9 @@
 // DB-verified layout (types_members scnINST_CREATE_DATA): state@0(4), nameInst@4, nameTpl@8,
 // nameClass@12 (dsTSTRING<char>, 4 each), matrInst@16(64, m3dMATR), affixes@80(4, dsAFFIX_STRING),
 // ps@84(4, psSECTION) — total size 88.
+// Canonical home, and as of 2026-08-07 the SOLE definition: hcex/hcex_kill_breakable_surface_boundary.h
+// carried a member-for-member identical flat copy and now reaches this one through
+// hcex_surf_vector.h -> hcex_breakable_surf.h (odr_dup drain).
 typedef struct scnINST_CREATE_DATA {
     int state;                    // 0x00
     dsTSTRING<char> nameInst;     // 0x04

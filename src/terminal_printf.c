@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int terminal_new_line(void);
-extern int vsnprintf(char *buffer, size_t count, const char *format, va_list args);
+/* vsnprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern char *strstr(const char *haystack, const char *needle);
 
 void terminal_printf(const real_argb_color *color, const char *format, ...)

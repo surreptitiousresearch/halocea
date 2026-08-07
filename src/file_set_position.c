@@ -7,7 +7,7 @@
 
 uint8_t file_set_position(const file_reference *file, unsigned int position)
 {
-    unsigned int result = SetFilePointer(*(void **)&file->data[264], position, 0, FILE_BEGIN);
+    unsigned int result = SetFilePointer(file->win32.handle, position, 0, FILE_BEGIN);
     unsigned char succeeded = result != (unsigned int)-1;
     if ( result == (unsigned int)-1 )
     {

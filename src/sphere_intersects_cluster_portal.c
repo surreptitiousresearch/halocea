@@ -22,6 +22,10 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
+
+/* argwarn C4013: __fabs was used with no declaration, so C read its return as int —
+ * the corpus convention is this per-TU extern (see accelerate_to_position.c:13). */
+extern double __fabs(double x);
 extern float __fsqrts(float);
 
 extern int16_t projection_from_vector3d(const real_vector3d *n);

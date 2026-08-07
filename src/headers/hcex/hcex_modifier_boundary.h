@@ -17,27 +17,11 @@ typedef struct propOBJ_MODIFIER_LIST propOBJ_MODIFIER_LIST;
 
 /* Canonical template forms of the DB instantiations ds_data::REF_TYPE<dsVECTOR_PARAM_LIST> and
  * ds_data::REF_TYPE_DATA<dsVECTOR_PARAM_LIST> (mirrors the HandlerBase<Host> templatization);
- * the former flat REF_TYPE_*_param_list names are kept as aliases so consumers are unchanged. */
-namespace ds_data {
-
-/* ds_data::OBJECT_POLICY — DB-verified (types_enum_values ds_data::OBJECT_POLICY). */
-enum OBJECT_POLICY { opRefCount = 0, opExternal = 1, opROExternal = 2 };
-
-/* ds_data::REF_TYPE_DATA<T> — 12 bytes, the heap-allocated ref-counted body. */
-template<class T>
-struct REF_TYPE_DATA {
-    T            *m_pT;         /* 0x00 owned referent */
-    int           m_iRefCount;  /* 0x04 */
-    OBJECT_POLICY m_op;         /* 0x08 */
-};
-
-/* ds_data::REF_TYPE<T> — 4 bytes, the stack-held smart pointer. */
-template<class T>
-struct REF_TYPE {
-    REF_TYPE_DATA<T> *m_pData;  /* 0x00 */
-};
-
-} // namespace ds_data
+ * the former flat REF_TYPE_*_param_list names are kept as aliases so consumers are unchanged.
+ * ds_data::OBJECT_POLICY / REF_TYPE_DATA<T> (12B) / REF_TYPE<T> (4B) all come from the single
+ * canonical header below; the DB-verified layouts this file used to restate inline are identical
+ * (m_pT@0, m_iRefCount@4, m_op@8; m_pData@0). */
+#include "../ws/ds/REF_TYPE.h"
 
 typedef ds_data::REF_TYPE_DATA<dsVECTOR_PARAM_LIST> REF_TYPE_DATA_param_list;
 typedef ds_data::REF_TYPE<dsVECTOR_PARAM_LIST>      REF_TYPE_param_list;

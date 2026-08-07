@@ -24,6 +24,10 @@ uint8_t vehicle_remapper_should_spawn(int vehicle_ref_index, unsigned int scenar
     if ( vehicle_type <= 5 )
     {
         char found = 0;
+        /* CAVEAT: the loop bound really is 3 (`cmpwi cr6, r6, 3` @0x837014F0) over a [6][2] array, so the
+         * third pass reads vehicles[vehicle_type+1][0] and, at vehicle_type 5, past the 960-byte array
+         * entirely. The flat slot is kept as the binary computes it (stride 80) rather than re-spelt as
+         * [vehicle_type][team], which cannot express team 2. Original out-of-bounds read, preserved. */
         for ( int team = 0; team < 3 && !found; ++team )
         {
             unsigned int flat_slot = 2 * vehicle_type + team;

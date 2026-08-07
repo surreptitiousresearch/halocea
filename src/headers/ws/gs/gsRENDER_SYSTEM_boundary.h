@@ -48,17 +48,12 @@ extern void        pctSetPixel(pctPICTURE *pic, int x, int y, int mip, const pct
 extern int         pctSaveBMP(const char *path, pctPICTURE *pic); // DB: int return (was bool)
 
 // --- app system (anitec automated-screenshot mode) ---
-// DB-verified layout (types_members gsAPP_SYSTEM) — size 352.
-struct gsAPP_SYSTEM_vtbl; // boundary
-typedef struct gsAPP_SYSTEM {
-    gsAPP_SYSTEM_vtbl           *__vftable;       // 0x00
-    dsTSTRING<char>              cmdLine;         // 0x04
-    dsVECTOR<dsTSTRING<char>, 8> anitecNames;     // 0x08
-    int                          anitecShotIdx;   // 0x1C
-    bool                         anitecSoundOnly; // 0x20
-    unsigned char                _pad21[3];       // 0x21 db-verified padding
-    fioFILE_DISK                 anitecLog;       // 0x24 (316B)
-} gsAPP_SYSTEM;
+// Use the single canonical gsAPP_SYSTEM definition (src/headers/gsAPP_SYSTEM.h, DB-verified
+// types_members gsAPP_SYSTEM — size 352) instead of the byte-identical copy that used to sit here;
+// two file-scope bodies are `error: redefinition` in the header_layout probe TU. The copy differed
+// only in the name of the explicit 3-byte pad at 0x21 (`_pad21` here vs `_pad0` there) and in
+// forward-declaring gsAPP_SYSTEM_vtbl locally, which the canonical does as a typedef'd tag.
+#include "../../gsAPP_SYSTEM.h"
 
 extern gsAPP_SYSTEM *gsAppSystem;
 

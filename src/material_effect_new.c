@@ -71,7 +71,9 @@ void material_effect_new(int effects_definition_index, int16_t effect_index, int
             sound.forward = *normal;
             sound.translational_velocity = *global_zero_vector3d;
             sound.game_location = *location;
-            unattached_impulse_sound_new(sound_tag, &sound, scale, 0);
+            /* DEVIATION: is_player (r10, saved into r28 by the prologue) is forwarded here —
+             * `mr r6, r28` at 0x836EAA24 is the callee's is_player slot; it is not a literal 0. */
+            unattached_impulse_sound_new(sound_tag, &sound, scale, is_player);
         }
     }
 }

@@ -1,29 +1,12 @@
 #pragma once
-/* Win32 file-enumeration boundary (platform APIs).
-   NOTE: the DB (Xbox 360 build) stores dwHighDateTime FIRST in _FILETIME —
-   kept verbatim (types_members _FILETIME / FILETIME agree). */
+/* Win32 file-enumeration boundary (platform APIs), reached only by src/havok/hkWin32ListDirectory.
+   The two records are PLATFORM boundary types: declared once, in the canonical headers below,
+   never re-declared here. This file carried its own copies of both until 2026-08-07, which is an
+   ODR redefinition — clang leaves the dependent record incomplete in header_layout's bulk probe,
+   and the type then drops out of header_db, header_members and enum_values at once. */
 
-typedef struct _FILETIME
-{
-    unsigned int dwHighDateTime; /* 0 */
-    unsigned int dwLowDateTime;  /* 4 */
-} _FILETIME;
-typedef _FILETIME FILETIME;
-
-/* types_members _WIN32_FIND_DATAA (size 320) */
-typedef struct _WIN32_FIND_DATAA
-{
-    unsigned int dwFileAttributes; /* 0 */
-    _FILETIME ftCreationTime;      /* 4 */
-    _FILETIME ftLastAccessTime;    /* 12 */
-    _FILETIME ftLastWriteTime;     /* 20 */
-    unsigned int nFileSizeHigh;    /* 28 */
-    unsigned int nFileSizeLow;     /* 32 */
-    unsigned int dwReserved0;      /* 36 */
-    unsigned int dwReserved1;      /* 40 */
-    char cFileName[260];           /* 44 */
-    char cAlternateFileName[14];   /* 304 */
-} _WIN32_FIND_DATAA;
+#include "../_FILETIME.h"
+#include "../WIN32_FIND_DATAA.h"
 
 unsigned int GetFileAttributesA(const char *fileName);
 void *FindFirstFileA(const char *fileName, _WIN32_FIND_DATAA *findData);

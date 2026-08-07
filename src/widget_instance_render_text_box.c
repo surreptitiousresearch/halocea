@@ -39,7 +39,7 @@ extern uint16_t *ui_widget_search_and_replace_invoke(widget_instance *widget, in
 extern wchar_t *ascii_to_wide(const char *ascii, wchar_t *unicode, unsigned int unicode_length_bytes);
 extern int search_and_replace(const wchar_t *search, const wchar_t *replace, uint16_t **in_buffer);
 extern void draw_string_set_draw_mode(int font_index, int16_t style, int16_t justification, unsigned int flags, const real_argb_color *color);
-extern uint16_t *wcschr(const wchar_t *string, wchar_t ch);
+/* wcschr provided by CRT via <wchar.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern int16_t get_icon_type(const wchar_t *string);
 extern void draw_string_and_hack_in_icons(rectangle2d *bounds, rectangle2d *clip, point2d *cursor_reference, int16_t height_adjust, const wchar_t *instring, uint8_t ignore_icon_color);
 extern void rasterizer_draw_unicode_string(const rectangle2d *bounds, const rectangle2d *clip, point2d *cursor_reference, int16_t height_adjust, const wchar_t *string);

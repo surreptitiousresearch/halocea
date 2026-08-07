@@ -12,7 +12,7 @@
 #include "HCEX_DECAL.h"
 #include "hcex_dbgvar_boundary.h"   /* dbgVAR_bool (value @ 0x0C), and dsTSTRING_flat/dlFree/UnsafeInit via hcex_ds_boundary.h */
 
-typedef int dsCMP;
+#include "../ws/ds/dsCMP.h"   /* canonical dsCMP (stateless empty struct) — a local `typedef int dsCMP` is a C2371/ODR conflict with it */
 
 /* InsertSorted duplicate policy */
 #define INS_DUP_IGNORE 0

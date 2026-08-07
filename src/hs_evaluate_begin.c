@@ -23,15 +23,15 @@ void hs_evaluate_begin(int16_t function_index, int thread_index, uint8_t initial
      * most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *iterator = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(iterator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *iterator = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(iterator - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --iterator;
     frame->size = (int16_t)((unsigned char *)iterator - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *result = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(result - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *result = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(result - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --result;
     frame->size = (int16_t)((unsigned char *)result - frame->data + 4);
 

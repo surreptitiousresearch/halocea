@@ -15,7 +15,7 @@
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 #include "../../headers/ws/wb/dbgVAR_boundary.h"
 
-extern "C" const char *FModErrorDesc(FMOD_RESULT res, bool info);
+extern const char *FModErrorDesc(FMOD_RESULT res, bool info); // C++ linkage: ?FModErrorDesc@@YAPBDW4FMOD_RESULT@@_N@Z
 extern "C" void         osOutputDebugString(const char *fmt, ...);
 extern void _apLog(const char *fmt, ...);
 

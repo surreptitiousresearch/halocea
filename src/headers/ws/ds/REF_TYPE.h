@@ -5,8 +5,10 @@
 
 namespace ds_data {
 
-// Ref-count/ownership policy tag for REF_TYPE_DATA. Enumerators per headers_ref
-// (the DB carries the enum as a member-less shell).
+// Ref-count/ownership policy tag for REF_TYPE_DATA. DB-verified enumerators
+// (types_enum_values ds_data::OBJECT_POLICY: opRefCount=0, opExternal=1, opROExternal=2; the
+// type's own DB size is 4). A prior comment here claimed the DB carried this enum as a
+// member-less shell — it does not, and headers_ref was never the only source.
 enum OBJECT_POLICY : int {
     opRefCount   = 0,
     opExternal   = 1,

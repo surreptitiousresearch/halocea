@@ -10,7 +10,7 @@ uint8_t file_read(const file_reference *file, unsigned int count, void *buffer)
     unsigned char succeeded = 0;
     unsigned int bytes_read;
 
-    if ( ReadFile(*(void **)&file->data[264], buffer, count, &bytes_read, 0) )
+    if ( ReadFile(file->win32.handle, buffer, count, &bytes_read, 0) )
     {
         if ( bytes_read == count )
             succeeded = 1;

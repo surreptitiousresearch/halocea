@@ -12,6 +12,7 @@
 #include "../ap/apSTATE_T.h"
 #include "../txm/txmTEXTURE_PTR.h"
 #include "../ia/iaIACTOR.h"
+#include "PKG_MNG_STATES.h"
 
 namespace package {
 
@@ -40,10 +41,13 @@ struct GS_PACKAGE : iaIACTOR {
     void ProcessLoadTextures();
 };
 
-// The package/pak file manager the loader closes through. boundary — package::PKG_MNG_XENON,
-// Close(dsTSTRING<char>, int) is virtual (?Close@PKG_MNG_XENON@package@@UAAXV?$dsTSTRING@D@@H@Z).
+// The package/pak file manager the loader closes through. boundary — the concrete instance is
+// package::PKG_MNG_XENON (PKG_MNG@0, size 80), Close(dsTSTRING<char>, int) is virtual
+// (?Close@PKG_MNG_XENON@package@@UAAXV?$dsTSTRING@D@@H@Z).
+// DB-verified layout (types_members package::PKG_MNG): __vftable@0, state@4 — size 8.
 struct PKG_MNG {
-    struct VTBL; VTBL *__vftable;
+    struct VTBL; VTBL *__vftable; // 0x00 (DB: package::PKG_MNG_vtbl *)
+    PKG_MNG_STATES   state;       // 0x04 fill-list/open/close state machine
     void Close(dsTSTRING<char> name, int flags); // virtual dispatch
 };
 extern PKG_MNG *pkg_mng; // package::pkg_mng

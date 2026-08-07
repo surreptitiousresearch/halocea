@@ -46,15 +46,12 @@ typedef DSVECTOR_INSTANCE dsVECTOR_propBASE
 
 
 /* propINST_CONSTRUCTOR (48 bytes, database layout: anonymous propENT base@0 (40B),
- * curPresetName@0x28, mSeed@0x2C). In the container-DESC variant the curPresetName/mSeed
- * region (0x28..) is reinterpreted as the two dsVECTOR<propBASE*> child arrays this function
- * iterates. */
-typedef struct propINST_CONSTRUCTOR
-{
-    propENT      base;            /* 0x00 (typeId lives at +0x18 of the propBASE layer) */
-    dsTSTRING<char>    curPresetName;   /* 0x28 */
-    unsigned int mSeed;           /* 0x2C */
-} propINST_CONSTRUCTOR;
+ * curPresetName@0x28, mSeed@0x2C) — the canonical ws definition is used directly; types_members
+ * marks the propENT slot is_baseclass=1, so the inheritance form is the faithful one and typeId
+ * is reached as `p->typeId` (it lives at +0x18 of the propBASE layer). In the container-DESC
+ * variant the curPresetName/mSeed region (0x28..) is reinterpreted as the two dsVECTOR<propBASE*>
+ * child arrays hcex_obj_customize iterates. */
+#include "../ws/prop/propINST_CONSTRUCTOR.h"
 
 /* --- runtime type-id singletons (const dsTYPE_ID) --- */
 extern const dsTYPE_ID propINST_CONSTRUCTOR_DESC_TYPE_ID;   /* propINST_CONSTRUCTOR_DESC::TYPE_ID */

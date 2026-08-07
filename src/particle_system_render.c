@@ -162,7 +162,7 @@ void particle_system_render(uint16_t system_index)
                  * .primary_map_flags (state+226==shader@184 + effect@40 + 2/6). NOTE: the prior reconciled
                  * form read the second field as state_revisions[1] (+228 = framebuffer_fade_mode); disasm
                  * (8373B0FC) shows the read is at +230 = primary_map_flags — corrected here. */
-                if ((int)state == -184 || (int)transition_state == -184
+                if ((intptr_t)state == -184 || (intptr_t)transition_state == -184
                         || state->shader.effect.framebuffer_blend_function
                                 != transition_state->shader.effect.framebuffer_blend_function
                         || state->shader.effect.primary_map_flags

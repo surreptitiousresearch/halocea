@@ -39,7 +39,7 @@ void strmRES_TEX_MANAGER::_DbgCheckTex(txmTEXTURE *pTex)
         XGGetTextureLayout(pD3DTex->lpSysSurf, nullptr, &baseSize, nullptr, nullptr, 0x1000u,
                             nullptr, &mipSize);
 
-        if (!IGNORE_STRONG_ASSERT && pD3DTex->memHandle->offset != (unsigned char *)baseSize)
+        if (!IGNORE_STRONG_ASSERT && (uintptr_t)pD3DTex->memHandle->offset != baseSize)
             STRONG_ASSERT_DUMMY().Crash("pTex->memHandle->offset == (BYTE*)base",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 735,
                 empty_string);

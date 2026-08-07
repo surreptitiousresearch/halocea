@@ -80,8 +80,8 @@ typedef struct water_bumpmap_layer
 #include "headers/point2d.h"
 extern void *memset(void *dst, int value, unsigned int n);
 extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern double cos(double x);
-extern double sin(double x);
+/* cos provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* sin provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);
 extern void D3DDevice_SetRenderState_CullMode(D3DDevice *device, unsigned int value);

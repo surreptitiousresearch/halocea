@@ -164,7 +164,8 @@ uint8_t physics_compute_biped_collision(collision_model_instance *instance, int 
             float relative_speed_squared = relative_velocity.n[0] * relative_velocity.n[0]
                                           + relative_velocity.n[1] * relative_velocity.n[1]
                                           + relative_velocity.n[2] * relative_velocity.n[2];
-            if (relative_speed_squared <= 0.0011111112f)
+            /* DEVIATION: 0.0011111112f was one ULP off; the image holds 0.0011111111f (1/900). */
+            if (relative_speed_squared <= 0.0011111111f)
                 return collision_occurred;
         }
     }

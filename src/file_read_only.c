@@ -8,7 +8,7 @@ int file_read_only(const file_reference *file)
 {
     char full_path[256];
 
-    file_location_get_full_path(*(unsigned short *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(file->info.location, file->info.path, full_path);
 
     DWORD attributes = GetFileAttributesA(full_path);
     if ( attributes == (DWORD)-1 )

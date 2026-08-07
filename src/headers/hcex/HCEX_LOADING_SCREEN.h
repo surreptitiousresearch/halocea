@@ -9,6 +9,7 @@
 // prototypes for completeness (bodies boundary, not decompiled here).
 
 struct psSECTION;     // boundary — ps subsystem
+#include "../ws/ds/dsSTRID.h" // interned string id — ReportStat's first slot parameter, by value
 struct dsPARAM_LIST;  // boundary — ds subsystem
 struct m2dV;           // boundary — m2d subsystem
 struct m3dRECT;        // boundary — m3d subsystem
@@ -26,7 +27,8 @@ typedef struct HCEX_LOADING_SCREEN_vtbl {
     void (*ProcessCall)(HCEX_LOADING_SCREEN *self, const char *methodName, const dsPARAM_LIST *paramList); // 0x20
     void (*ProcessFrame)(HCEX_LOADING_SCREEN *self);                                             // 0x24
     void (*ProcessUIThread)(HCEX_LOADING_SCREEN *self);                                           // 0x28
-    void (*ReportStat)(HCEX_LOADING_SCREEN *self, int dsSTRID_, const char *);                     // 0x2C
+    /* ?ReportStat@UI_FRAME@ui_new@@UAAXVdsSTRID@@PBD@Z -- dsSTRID BY VALUE (`V`), not an int. */
+    void (*ReportStat)(HCEX_LOADING_SCREEN *self, dsSTRID statId, const char *);                   // 0x2C
     bool (*IsReady)(HCEX_LOADING_SCREEN *self);                                                   // 0x30
     void (*Enable)(HCEX_LOADING_SCREEN *self);                                                    // 0x34
     void (*Disable)(HCEX_LOADING_SCREEN *self);                                                   // 0x38

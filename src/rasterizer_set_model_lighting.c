@@ -44,7 +44,7 @@ void rasterizer_set_model_lighting(const render_lighting *lighting)
         for ( int16_t light_index = 0; light_index < 2; light_index++ )
         {
             if ( light_index >= lighting->distant_light_count
-              || (unsigned int)((const char *)&lighting->distant_lights[light_index]) == 0 )
+              || (uintptr_t)((const char *)&lighting->distant_lights[light_index]) == 0 )
             {
                 constants.distant_lights[light_index].forward.n[0] = 0.0f;
                 constants.distant_lights[light_index].forward.n[1] = 0.0f;

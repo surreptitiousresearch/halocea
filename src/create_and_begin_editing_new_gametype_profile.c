@@ -73,7 +73,7 @@ uint8_t create_and_begin_editing_new_gametype_profile(widget_instance *widget, e
     ustrncpy(edit_profile->human_readable_game_description, (const wchar_t *)profile_name, 0x17u);
     edit_profile->human_readable_game_description[23] = 0;
     /* clear the two game-mode bits (7,8); 0xFFFFFE7F == ~((1<<7)|(1<<8)) */
-    edit_profile->universal_variant.flags &= ~((1u << _game_mode_classic_bit) | (1u << _game_mode_standard_bit));
+    edit_profile->universal_variant.flags &= ~((1u << _game_mode_classic) | (1u << _game_mode_standard));
 
     launched = virtual_keyboard_launch(edit_profile->human_readable_game_description, 0x30u, 9);
     if ( launched == 1 )

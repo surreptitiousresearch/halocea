@@ -69,7 +69,12 @@ typedef struct objOBJ {
     void SetVertBoneIdxList(uint8_t *idxList);             // 0x82BCB3E8
     int  GetFaceSize() const;                                       // 0x82A7F740
     void SetRenderPassId(int passId);                              // 0x826823C0
-    void GetOBB(struct m3dOBB *obb);                                // boundary (used by rendCullAndValidateInst)
+    // 0x82A719D8 ?GetOBB@objOBJ@@QAAXPAVm3dOBB@@@Z — boundary (used by rendCullAndValidateInst).
+    void GetOBB(struct m3dOBB *obb);                                // 0x82A719D8
+    // 0x82BCE098 ?GetVert@objOBJ@@QAAXHPAUm3dV@@@Z — vertex position by index. boundary.
+    // Merged in from ws/anim/objOBJ_boundary.h, which was the only header that carried it
+    // (consumer: src/ws/ai/aiCOORDINATOR__AddGroupFrontsMesh.cpp).
+    void GetVert(int idx, m3dV *pResult);                           // 0x82BCE098
 
     // ---- reversed in the ws_obj_0002 batch ----
     void FreeUnnecessaryData();                                     // 0x82A7F5C0

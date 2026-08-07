@@ -3,6 +3,10 @@
 // dsEVENT_MGR::ITEM_HANDLER, dispatched via OnEvent). DB-verified layout (types_members
 // dsEVENT_HANDLER): __vftable@0 (dsEVENT_HANDLER_vtbl*) — size 4. Every haloENGINE_CONTROL-family
 // "EVENT_DISP_*" nested dispatcher class in this corpus derives from this one leaf.
+// Canonical home, and as of 2026-08-07 the SOLE definition: hcex/haloENGINE_CONTROL.h carried an
+// identical plain-C mirror inside a `#else /* !__cplusplus */` branch that the include graph reaches
+// from 0 C TUs (and that could not have compiled as C anyway — its own first include uses
+// `extern "C"` and dsTSTRING<char>); that dead branch was deleted (odr_dup drain).
 //
 // DB-verified vtable (types_members dsEVENT_HANDLER_vtbl): slot0 = scalar-deleting-destructor-style
 // dtor thunk, slot1 = OnEvent(const dsEVENT*). Virtual dispatch is through the explicit

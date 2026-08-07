@@ -20,10 +20,16 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
         return nullptr;
     }
 
-    // Base open mode 0x0A010008 == FMOD_2D | (software/compressed mode bits) | FMOD_NONBLOCKING.
-    unsigned int flags = 0x0A010008;
+    // DEVIATION: the low byte is 0x48, not 0x08 -- bit 0x40 (FMOD_SOFTWARE) was dropped from BOTH
+    // paths. The binary builds the mode with `lis r5,0xA01 / ori r5,r5,0x48` @0x836B6A10 and the
+    // forced-blocking variant with `lis r5,0xA00 / ori r5,r5,0x48` @0x836B6A38 -- 0x0A010048 and
+    // 0x0A000048. Every sound was being opened without the software-mixing bit.
+    // Found by the linkdup drain: this file is the one being KEPT, and the duplicate scheduled for
+    // deletion carried the correct literals. Deleting on the address signal alone would have
+    // destroyed the only right copy of this constant.
+    unsigned int flags = 0x0A010048;
     if (((unsigned int)snd::SystemFMod->state.val >> 9) & 1 || snd::SystemFMod->dbg.disableNonblocking)
-        flags &= ~FMOD_NONBLOCKING; // -> 0x0A000008 (blocking open forced)
+        flags &= ~FMOD_NONBLOCKING; // -> 0x0A000048 (blocking open forced)
 
     FMOD_CREATESOUNDEXINFO exinfo = {};
     exinfo.cbsize = 112;

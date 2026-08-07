@@ -12,6 +12,13 @@
 #include "../ap/apDEFRAG_CHUNK.h"
 
 // vidBUF_CONTENT — buffer-content kind tag (DB types_enum_values vidBUF_CONTENT).
+// DEVIATION: the underlying type is `unsigned char`, not the default int. The DB sizes this enum
+// at 1 byte and `vidDEFRAG_CHUNK.content` at offset 0x1C is a 1-byte member; both writers store it
+// with a BYTE op — `stb r10, 0x1C(r3)` at 0x823F1BB8 (hcex_stat_ibuf_create) and 0x823F1B80
+// (hcex_stat_vbuf_create). Without the base type this enum is 4 bytes, and on this big-endian
+// target `content = VID_BC_INDEX` then writes 00 00 00 02 across 0x1C..0x1F, leaving byte 0x1C
+// zero — so every reader of the tag saw VID_BC_TEX. sizeof(vidDEFRAG_CHUNK) is 32 either way
+// (28 + 4, or 28 + 1 padded to 4), which is why no size check could ever see this.
 enum vidBUF_CONTENT : unsigned char
 {
     VID_BC_TEX             = 0,

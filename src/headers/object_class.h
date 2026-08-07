@@ -7,6 +7,7 @@
 enum object_class {
 	_object_class_collideable = 0,
 	_object_class_noncollideable = 1,
+	NUMBER_OF_OBJECT_CLASSES = 2,
 };
 
 #endif /* OBJECT_CLASS_H */

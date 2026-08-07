@@ -89,9 +89,10 @@ extern "C" {
  * vtable@0, name@4 (dsTSTRING<char>), typeId@8 (int) -- 12 bytes base; value@12 (bool) on the
  * dbgVAR_SIMPLE<bool,1> specialization used here ("ui/ingame text/enable"). */
 #include "../ws/wb/dbgVAR_boundary.h" /* canonical dbgVAR / dbgVAR_IMPL<T,N> */
-/* DB type dbgVAR_BOOL: dbgVAR_IMPL<bool,1> base (value@0x0C); replaces the former local
- * dbgVAR + {bool value} partial. */
-struct dbgVAR_BOOL : dbgVAR_IMPL<bool, 1> {};
+/* odr_dup drain: a `struct dbgVAR_BOOL : dbgVAR_IMPL<bool, 1> {};` used to sit here, duplicating
+ * the body in d3d_render_state_boundary.h. Nothing reachable from this header ever named it —
+ * haloInit.cpp casts to `dbgVAR_bool` (below), the DB-verified spelling of dbgVAR_SIMPLE<bool,1> —
+ * so it is simply deleted rather than re-homed. */
 /* dbgVAR_bool has a single definition in hcex_dbgvar_boundary.h — include it rather than a local
  * typedef, so a TU pulling both headers doesn't hit a dbgVAR_bool redefinition (C2371). */
 #include "hcex_dbgvar_boundary.h"

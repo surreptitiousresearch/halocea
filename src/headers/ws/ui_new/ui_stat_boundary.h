@@ -19,20 +19,30 @@ void Printf(int page, const char *fmt, ...);
 void Clear(int page);
 } // namespace wb
 
-// Generic "value + previous value" debug-toggle wrapper, matching the corpus's DBG_VAR<T>
-// convention used throughout the dbg* globals (see e.g.
-// HALO_SOUND_LIST_HALO_CHANNEL_globals.h).
-template<class T>
-struct DBG_VAR {
-    T value;
-    T prevValue;
+// Debug toggles gating UI_STAT_SYS::ProcessRenderPush's ingame-text double-buffer swap.
+//
+// DEVIATION (odr_dup drain): these were declared as a locally-defined `template<class T> struct
+// DBG_VAR { T value; T prevValue; };`, one of three verbatim copies of that body at file scope
+// (also hcex/HALO_SOUND_SYSTEM_globals.h and hcex/HALO_SOUND_LIST_HALO_CHANNEL_globals.h). It was
+// also the wrong layout: `.value` sits at 0x0C behind a 12-byte dbgVAR base (__vftable@0, name@4,
+// typeId@8 — types_members dbgVAR / dbgVAR_IMPL<T,N>), not at offset 0. Replaced by the canonical
+// DB-verified templates; `.value` is inherited, so no consumer expression changes.
+#include "../wb/dbgVAR_boundary.h"   // dbgVAR / dbgVAR_IMPL<T,N> / dbgVAR_SIMPLE<T,N>
+
+// dbgVAR_M3DCOLOR — the DB's own type for dbgIngameTextColor (applied_types:
+// `dbgVAR_M3DCOLOR dbgIngameTextColor;`). types_members dbgVAR_M3DCOLOR: base
+// dbgVAR_SIMPLE<m3dCOLOR,9>@0 (60 bytes) + ranged@60 (bool) — DB `types` size 64. It adds the one
+// field over the plain simple-var shape, so it is spelled out here rather than approximated.
+struct dbgVAR_M3DCOLOR : dbgVAR_SIMPLE<m3dCOLOR, 9> {
+    bool ranged; // 0x3C clamp the edited colour to the 0..1 range
 };
 
-// Debug toggles gating UI_STAT_SYS::ProcessRenderPush's ingame-text double-buffer swap.
-extern "C" DBG_VAR<bool>     dbgIngameTextEnable;
-extern "C" DBG_VAR<m3dCOLOR> dbgIngameTextColor;
-extern "C" DBG_VAR<float>    dbgIngameTextScale;
-extern "C" DBG_VAR<bool>     dbgIngameTextShadow;
+// applied_types, one per symbol: dbgVAR_SIMPLE<bool,1> / dbgVAR_M3DCOLOR / dbgVAR_SIMPLE<float,3> /
+// dbgVAR_SIMPLE<bool,1>.
+extern "C" dbgVAR_SIMPLE<bool, 1>  dbgIngameTextEnable;
+extern "C" dbgVAR_M3DCOLOR         dbgIngameTextColor;
+extern "C" dbgVAR_SIMPLE<float, 3> dbgIngameTextScale;
+extern "C" dbgVAR_SIMPLE<bool, 1>  dbgIngameTextShadow;
 
 // Module-local "renderer failed to init once, stop retrying this session" latches (ui_stat.cpp).
 extern "C" bool switchOff;    // UI_STAT_SYS::RenderUIStat

@@ -23,9 +23,10 @@ void vehicle_remapper_process_by_teams(void)
     {
         for ( int vehicle_type = 0; vehicle_type < 6; ++vehicle_type )
         {
-            int flat_slot = 2 * vehicle_type + team;
-            int team_base = 10 * flat_slot;
-            int map_count = vehicle_remapper.vehicles[0][flat_slot].map_count;
+            /* DEVIATION: the flat slot 2*vehicle_type+team and the 10-unit team_vehicles stride were folded
+             * through vehicles[0][0]; vehicles is [6][2] of 80 bytes and team_vehicles[8] sits at +16, so
+             * [vehicle_type][team].team_vehicles[j] is the same address for every j the loop reaches. */
+            int map_count = vehicle_remapper.vehicles[vehicle_type][team].map_count;
 
             char literal_set = 0;
             variant = game_engine_get_variant();
@@ -41,8 +42,7 @@ void vehicle_remapper_process_by_teams(void)
             {
                 for ( int j = 0; j < map_count; ++j )
                 {
-                    int entry = team_base + j;
-                    vehicle_info_s *vehicle = &vehicle_remapper.vehicles[0][0].team_vehicles[entry];
+                    vehicle_info_s *vehicle = &vehicle_remapper.vehicles[vehicle_type][team].team_vehicles[j];
                     int spawn = 0;
                     variant = game_engine_get_variant();
                     if ( variant )
@@ -57,18 +57,17 @@ void vehicle_remapper_process_by_teams(void)
                         }
                     }
                     if ( spawn )
-                        vehicle_remapper.vehicles[0][0].team_vehicles[entry].spawn = 1;
+                        vehicle_remapper.vehicles[vehicle_type][team].team_vehicles[j].spawn = 1;
                 }
             }
             else
             {
-                int max_to_spawn = vehicle_remapper.vehicles[0][flat_slot].max_to_spawn;
+                int max_to_spawn = vehicle_remapper.vehicles[vehicle_type][team].max_to_spawn;
                 for ( int k = 0; k < map_count && max_to_spawn > 0; ++k )
                 {
-                    int entry = team_base + k;
                     --max_to_spawn;
-                    ++vehicle_remapper.vehicles[0][flat_slot].num_spawned;
-                    vehicle_remapper.vehicles[0][0].team_vehicles[entry].spawn = 1;
+                    ++vehicle_remapper.vehicles[vehicle_type][team].num_spawned;
+                    vehicle_remapper.vehicles[vehicle_type][team].team_vehicles[k].spawn = 1;
                 }
             }
         }

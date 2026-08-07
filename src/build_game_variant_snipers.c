@@ -41,6 +41,6 @@ game_variant * build_game_variant_snipers(game_variant *result)
     result->game_engine_variant.ctf.reset_on_capture = 0;
     result->game_engine_variant.ctf.flag_must_reset = 0;
     result->flags = 1;
-    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies_bit))) | (1u << _allow_friendly_navpoints_bit) | (1u << _generic_starting_equipment_bit) | (1u << _game_mode_classic_bit);   /* __ROL4__(81,1)&0x3F | 0x80 */
+    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies))) | (1u << _allow_friendly_navpoints_bit) | (1u << _generic_starting_equipment_bit) | (1u << _game_mode_classic);   /* __ROL4__(81,1)&0x3F | 0x80 */
     return result;
 }

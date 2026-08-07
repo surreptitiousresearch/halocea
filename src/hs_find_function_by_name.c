@@ -18,7 +18,13 @@ int16_t hs_find_function_by_name(const char *name)
     const char *lookup = name;
 
     char legacy_alias[176];
-    strcpy(legacy_alias, "player_effect_set_max_rumble");
+    /* DEVIATION: the alias was transcribed as "player_effect_set_max_rumble". The binary's string
+     * is "player_effect_set_max_ru" @0x8213E440 — 24 characters, NUL-terminated (strings.length
+     * 25, and the following bytes are 00 00 00 00 then the next literal), and no string containing
+     * "rumble" exists anywhere in the image. Four invented characters made this comparison
+     * unmatchable, so the legacy name never resolved to player_effect_set_max_vibrate.
+     * Found 2026-08-06 by tools/find_string_fidelity.py. */
+    strcpy(legacy_alias, "player_effect_set_max_ru");
     if ( !stricmp(name, legacy_alias) )
         lookup = "player_effect_set_max_vibrate";
 

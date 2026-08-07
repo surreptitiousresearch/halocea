@@ -11,11 +11,11 @@ extern file_reference *file_reference_set_name(file_reference *reference, const 
 file_reference *file_reference_create_from_path(file_reference *reference, const char *path, uint8_t directory)
 {
     memset(reference, 0, sizeof(file_reference));
-    *(unsigned short *)&reference->data[6] = (unsigned short)-1;
-    *(unsigned int *)reference->data = 0x66696C65u;   /* 'file' location header magic */
+    reference->info.location = (unsigned short)-1;
+    reference->info.signature = 0x66696C65u;   /* 'file' location header magic */
 
     if ( directory )
-        file_path_add_name(&reference->data[8], path);
+        file_path_add_name(reference->info.path, path);
     else
         file_reference_set_name(reference, path);
 

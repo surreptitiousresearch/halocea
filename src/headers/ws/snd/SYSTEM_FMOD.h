@@ -24,10 +24,19 @@ typedef struct CMP_EQ {
 
 // Debug/diagnostics sub-object (types_members snd::SYSTEM_DBG_FMOD, size 1244; DB re-checked
 // 2026-08-04 — 55 member rows exist, interior dominated by ds::MAP/osTIMER FMOD state). Kept as
-// an exact-size opaque blob per the FMOD-boundary adjudication (rc2026 OPAQUE_BRIEF §3): the
-// full layout is owned by the src/ws/snd drain; only the members GetBuffer reads are exposed.
+// an exact-size record per the FMOD-boundary adjudication (rc2026 OPAQUE_BRIEF §3): the full
+// layout is owned by the src/ws/snd drain; only the members consumers read are exposed by name.
+// Sole definition (2026-08-07 odr_dup): snd_fmod_boundary.h carried a three-member stand-in of the
+// same name whose one data member, `disableNonblocking`, sat at offset 0 — where the DB has
+// `enableStats`. The five leading flags are therefore spelled out here from types_members so the
+// HALO_SOUND_LIST::CreateSound test reads the byte the binary reads; the rest stays opaque.
 typedef struct SYSTEM_DBG_FMOD {
-    unsigned char _opaque[1244]; // 0x000..0x4DC full interior (boundary)
+    bool enableStats;         // 0x000
+    bool disableNonblocking;  // 0x001 forces a blocking FMOD::System::create{Sound,Stream}
+    bool showSpawn;           // 0x002
+    bool showSpawnSpikes;     // 0x003
+    bool enableVisualization; // 0x004
+    unsigned char _opaque[1239]; // 0x005..0x4DB remaining interior (boundary) — total size 1244
 
     // boundary — dbg-console per-sound filters (bodies in the src/ws/snd drain).
     bool IsBreakOn(const char *path);
@@ -35,8 +44,9 @@ typedef struct SYSTEM_DBG_FMOD {
 
     // Print-play-spam gate: a bool inside the `playStats` map wrapper at struct offset 1004
     // (DB: playStats@1000, the enable flag is the byte at +4). When set, GetBuffer applies the
-    // break-on-play filter on both the success and failure paths.
-    bool PrintPlayEnabled() const { return _opaque[1004] != 0; }
+    // break-on-play filter on both the success and failure paths. The `- 5` rebases the struct
+    // offset onto _opaque, which now starts at 0x005.
+    bool PrintPlayEnabled() const { return _opaque[1004 - 5] != 0; }
 } SYSTEM_DBG_FMOD;
 
 struct SYSTEM_FMOD : SYSTEM {

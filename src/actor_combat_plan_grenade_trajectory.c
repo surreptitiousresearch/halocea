@@ -16,10 +16,10 @@
  * Reconstructed via full register trace of both call sites (stack-argument-overflow-count cross-checked
  * against each callee's known parameter count to resolve GPR/FPR slot assignment).
  *
- * The desired_impact_point/optional_ballistic_fraction_min arguments to actor_combat_build_grenade_trajectory
- * are, per that same disasm trace, genuinely the actor-variant tag definition pointer and grenade_target
- * (reinterpreted as a float*) respectively — not a decompiler artifact, this is what the shipped binary
- * actually passes; reproduced verbatim per project convention for shipped-but-unusual behavior. */
+ * DEVIATION: the earlier reading passed the actor-variant tag as desired_impact_point, grenade_target
+ * (cast to float*) as optional_ballistic_fraction_min, and a `lob` argument — all three from assuming
+ * `float velocity_max` consumes no parameter slot. It does, so slot 3 is r6 and slot 4 is r7: the call
+ * passes grenade_target (r6 = r30) and NULL (`li r7, 0`); r5 is only scratch for `lfs f1, 0x190(r5)`. */
 
 #include <stdint.h>
 #include "headers/actor_variant_definition.h"
@@ -31,7 +31,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_point3d *grenade_origin, float velocity_max, const real_point3d *desired_impact_point, float *optional_ballistic_fraction_min, uint8_t lob, real_vector3d *aim_vector, float *aim_speed, float *arc_time, real_vector3d *arc_initial_velocity, float *arc_acceleration);
+extern uint8_t actor_combat_build_grenade_trajectory(int16_t grenade_type, const real_point3d *grenade_origin, float velocity_max, const real_point3d *desired_impact_point, float *optional_ballistic_fraction_min, real_vector3d *aim_vector, float *aim_speed, float *arc_time, real_vector3d *arc_initial_velocity, float *arc_acceleration);
 extern uint8_t ai_test_ballistic_line_of_fire(int actor_index, const real_point3d *origin, float arc_time, const real_vector3d *arc_initial_velocity, float arc_acceleration, int ignore_object_index, uint8_t ignore_vehicles);
 
 uint8_t actor_combat_plan_grenade_trajectory(int actor_index, int16_t trajectory_type, const real_point3d *grenade_target, int grenade_target_prop_index, int grenade_ignore_object_index)
@@ -52,8 +52,8 @@ uint8_t actor_combat_plan_grenade_trajectory(int actor_index, int16_t trajectory
     float arc_acceleration;
 
     if ( !actor_combat_build_grenade_trajectory(grenade_type, &grenade_origin, velocity_max,
-            (const real_point3d *)variant_tag, (float *)grenade_target->n, 0,
-            &aim_vector, &aim_speed, &arc_time, &arc_initial_velocity, &arc_acceleration) )
+            grenade_target, nullptr, &aim_vector, &aim_speed, &arc_time,
+            &arc_initial_velocity, &arc_acceleration) )
         return 0;
 
     uint8_t ignore_vehicles = (actor->input.vehicle_index != -1);

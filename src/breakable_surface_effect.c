@@ -44,6 +44,10 @@
 #include "headers/math_constants.h"
 #include <math.h>
 #include "headers/blam_data_globals.h"
+
+/* argwarn C4013: __fabs was used with no declaration, so C read its return as int —
+ * the corpus convention is this per-TU extern (see accelerate_to_position.c:13). */
+extern double __fabs(double x);
 extern float __fsqrts(float);
 
 

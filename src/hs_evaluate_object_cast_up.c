@@ -26,8 +26,8 @@ void hs_evaluate_object_cast_up(int16_t function_index, int thread_index, uint8_
      * frame data top, 4-aligned up. The compiled `if (slot - 4 > top) slot -= 4` correction
      * can never fire (align-up advances at most 3 bytes); kept verbatim for fidelity. */
     unsigned char *stack_top = &frame->data[frame->size];
-    int *reference_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)reference_slot - 4 > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *reference_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)reference_slot - 4 > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --reference_slot;
     frame->size = (int16_t)((unsigned char *)reference_slot - frame->data + 4);
 

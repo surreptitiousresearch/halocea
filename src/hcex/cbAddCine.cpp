@@ -91,7 +91,7 @@ extern "C" void cbAddCine(sslOBJ_REF self, int argc, dsDATA *argv, dsDATA *retVa
     emptyActors.allocated = 0;
 
     hcex_cine_entry entry = { name, emptyActors }; // dsPAIR(const K&, const V&)
-    dsCMP cmp = 0;
+    dsCMP cmp;
     int inserted = listCine.InsertSorted<dsCMP>(entry, cmp,
                                                 dsVECTOR<hcex_cine_entry, 8>::INS_DUP_IGNORE);
 

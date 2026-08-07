@@ -1,6 +1,6 @@
 #include "headers/blam_data_globals.h"
 extern char *strstr(const char *str1, const char *str2);
-extern int sscanf(const char *string, const char *format, ...);
+/* sscanf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 int find_parameter_in_config(const char *query, const char *format, void *value)
 {

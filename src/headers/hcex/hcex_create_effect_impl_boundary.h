@@ -8,41 +8,28 @@
 #include "hcex_create_effect_boundary.h"       /* dsTSTRING_flat, dsTSTRING_BUF_HEADER, entENTITY,
                                                            snd_BUFFER, dsSTRID */
 
-/* animCREATE_DATA — the anim-instance creation descriptor entCREATE_DATA derives from
- * (232 bytes, DB-verified types_members animCREATE_DATA). Flat plain-C model consistent with
- * this boundary file's convention. */
-struct animCREATE_DATA_vtbl; struct rendSR_DATA;
-#include "../ws/ps/psSECTION.h"      /* canonical psSECTION (4B) — avoids C2011 */
-#include "../ws/ds/dsAFFIX_STRING.h" /* canonical dsAFFIX_STRING (dsTSTRING<char> @0 — 4B);
-                                        * replaces the former flat {dsTSTRING_flat base} model */
-typedef struct animCREATE_DATA
-{
-    animCREATE_DATA_vtbl *__vftable;         /* 0x00 */
-    m3dMATR               matrInst;          /* 0x04 */
-    float                 frameCur;          /* 0x44 */
-    int                   state;             /* 0x48 */
-    psSECTION             ps;                /* 0x4C */
-    dsAFFIX_STRING        affixes;           /* 0x50 */
-    char                  name[128];         /* 0x54 */
-    int16_t               animSeqNmb;        /* 0xD4 */
-    uint8_t       animSeqIsCycled;   /* 0xD6 */
-    uint8_t       isIgnorePS_Scale;  /* 0xD7 */
-    rendSR_DATA          *srData;            /* 0xD8 */
-    float                 scaleX;            /* 0xDC */
-    float                 scaleY;            /* 0xE0 */
-    float                 scaleZ;            /* 0xE4 */
-} animCREATE_DATA;                           /* 232 bytes */
+/* animCREATE_DATA (232B) / entCREATE_DATA (236B) — the creation descriptors.
+ *
+ * DEVIATION (2026-08-07, odr_dup drain): this header used to restate BOTH bodies as flat plain-C
+ * structs beside their canonical homes (ws/anim/animCREATE_DATA.h, entCREATE_DATA.h) — two
+ * `error: redefinition`s in header_layout's probe TU. The canonical bodies win on DB evidence:
+ *   - animCREATE_DATA: types_members lists 14 members, identical names/offsets/types to the copy
+ *     here (__vftable@0 … scaleZ@228), so the copy carried nothing the canonical lacks; the
+ *     canonical additionally carries the DB-verified ctor/dtor/Clear/ApplySRData addresses.
+ *   - entCREATE_DATA: types_members row 0 is an ANONYMOUS BASE-CLASS member of type
+ *     animCREATE_DATA at offset 0 (is_baseclass=1, size 232), which `struct entCREATE_DATA :
+ *     animCREATE_DATA` models and the flat `animCREATE_DATA base;` member here did not. That is
+ *     the one spelling difference, and it is why hcex_create_effect_impl.cpp lost its `.base.`
+ *     hops in the same change.
+ * psSECTION / dsAFFIX_STRING / m3dMATR / rendSR_DATA now come in through the canonical header. */
+#include "../ws/anim/animCREATE_DATA.h"
+#include "../entCREATE_DATA.h"
 
-/* entCREATE_DATA — entity creation descriptor: animCREATE_DATA base@0 + pDomSpawn@0xE8
- * (DB-verified types_members entCREATE_DATA) — size 236. */
-typedef struct entCREATE_DATA
-{
-    animCREATE_DATA base;      /* 0x00 (anonymous DB base) */
-    struct gsDOM_SPAWN *pDomSpawn; /* 0xE8 */
-} entCREATE_DATA;
-
-extern void entCREATE_DATA_ctor(entCREATE_DATA *d);
-extern void entCREATE_DATA_dtor(entCREATE_DATA *d);
+/* entCREATE_DATA::entCREATE_DATA / ~entCREATE_DATA — 0x8252FFB8 / 0x823CE690. The .cpp now
+ * declares the descriptor by value and lets the real ctor/dtor run (which is what the binary
+ * emits: `bl entCREATE_DATA::entCREATE_DATA(void)` @0x823DE3EC and
+ * `bl animCREATE_DATA::~animCREATE_DATA(void)` @0x823DE73C, the base dtor the derived one folds
+ * into), so the flattened free-function shims that used to be declared here are gone. */
 
 typedef struct scnSCENE scnSCENE;
 typedef struct msgDATA  msgDATA;

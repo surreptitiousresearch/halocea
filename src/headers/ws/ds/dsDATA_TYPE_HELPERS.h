@@ -1,49 +1,30 @@
 #pragma once
-#include "dsBIT_STREAM.h"
-struct dsDATA;   // ws/ds/dsDATA.h — pass-through user context (pointer/ref only)
-struct dsSTRID;  // ws/ds/dsSTRID.h — interned id (by value)
-struct fioFILE;  // ws/fio/fioFILE.h — boundary (pointer only)
 
-// Static-policy helper templates in the ds_data type machinery. Each concrete dsDATA_TYPE_IMPL<T>
-// virtual override forwards to the matching static here. Names are the DB-authoritative mangled
-// class names (?$dsDATA_TYPE_STREAM / _CONSTRUCT / _PACK, and dsDATA_TYPE_CLASS as the reflection
-// dispatch target). Bodies are reversed per concrete T as explicit specializations under src/hcex/.
-namespace ds_data {
-
-// dsDATA_TYPE_STREAM<T> — disk (fioFILE) serialization policy. For plain value types both
-// Save/Load are the "unsupported" stubs (STRONG_ASSERT + return 0), per ds_data_type_impl.hpp.
-template<class T>
-struct dsDATA_TYPE_STREAM {
-    static int Save(const T &data, fioFILE *pFile);
-    static int Load(fioFILE *pFile, T &data);
-};
-
-// dsDATA_TYPE_CONSTRUCT<T> — heap value-cell lifetime policy. The storage cell holds a pointer to
-// the boxed value; the mangled param type is `unsigned long*` (the 4-byte cell), which the bodies
-// dereference as void** — declared as void** here to match those bodies.
-template<class T>
-struct dsDATA_TYPE_CONSTRUCT {
-    static void Destroy(void **storage);              // ?Destroy@...@@SAXPAK@Z
-    static void Copy(const void **src, void **dest);  // ?Copy@...@@SAXPBKPAK@Z
-    static void CopyObj(const T *obj, void **dest);   // ?CopyObj@...@@SAXPBU<T>@@PAK@Z
-};
-
-// dsDATA_TYPE_PACK<T> — network (ds::BIT_STREAM) serialization policy; forwards to T's own
-// Pack/Unpack members.
-template<class T>
-struct dsDATA_TYPE_PACK {
-    static void Pack(const T &data, ds::BIT_STREAM &stream, const dsDATA &userData);
-    static void Unpack(ds::BIT_STREAM &stream, T &data, const dsDATA &userData);
-};
-
-// dsDATA_TYPE_CLASS<T> — reflection / SSL-scripting dispatch policy; the IMPL IsFunc/IsProperty/
-// CallFunc virtuals forward here. Signatures taken from the mangled IMPL virtuals (const dsDATA&,
-// dsSTRID by value). boundary — bodies not reversed in this batch.
-template<class T>
-struct dsDATA_TYPE_CLASS {
-    static int IsFunc(const dsDATA &inst, dsSTRID id);
-    static int IsProperty(const dsDATA &inst, dsSTRID id);
-    static int CallFunc(dsSTRID id, dsDATA &inst, dsDATA *args, int argCount, dsDATA &retval);
-};
-
-} // namespace ds_data
+// Convenience aggregate for the static-policy helper templates in the ds_data type machinery.
+// Each concrete dsDATA_TYPE_IMPL<T> virtual override forwards to the matching static in one of
+// these four policies. Names are the DB-authoritative mangled class names (?$dsDATA_TYPE_STREAM /
+// _CONSTRUCT / _PACK, and dsDATA_TYPE_CLASS as the reflection dispatch target); bodies are
+// reversed per concrete T as explicit specializations under src/hcex/.
+//
+// This header used to carry its OWN copy of all four class bodies, which made each of them a
+// file-scope redefinition against its canonical <type>.h -- `error: redefinition` in the
+// header_layout probe TU, and a layout/signature hazard because which body a TU saw depended on
+// include order. It is now purely the four canonical includes; every declaration it used to make
+// lives in exactly one place:
+//
+//   dsDATA_TYPE_STREAM<T>     ws/ds/dsDATA_TYPE_STREAM.h     (identical body -- nothing lost)
+//   dsDATA_TYPE_PACK<T>       ws/ds/dsDATA_TYPE_PACK.h       (identical body -- nothing lost)
+//   dsDATA_TYPE_CLASS<T>      ws/ds/dsDATA_TYPE_CLASS.h      (superset: the canonical adds
+//                                                             Get/SetProperty to the IsFunc /
+//                                                             IsProperty / CallFunc declared here)
+//   dsDATA_TYPE_CONSTRUCT<T>  ws/ds/dsDATA_TYPE_CONSTRUCT.h  (adjudicated -- this header spelled
+//                             the value cell `void **` while the DB mangling says `PAK`
+//                             (`unsigned long *`), as this header's own comment recorded; the
+//                             canonical uses the 4-byte-cell spelling and the three
+//                             haloPLAYER_ACTIONS_ENV bodies that used `void **` were re-spelled)
+#include "dsBIT_STREAM.h"   // kept: this header supplied the complete ds::BIT_STREAM to its
+                            // consumers (the canonical dsDATA_TYPE_PACK.h only forward-declares it)
+#include "dsDATA_TYPE_STREAM.h"
+#include "dsDATA_TYPE_CONSTRUCT.h"
+#include "dsDATA_TYPE_PACK.h"
+#include "dsDATA_TYPE_CLASS.h"

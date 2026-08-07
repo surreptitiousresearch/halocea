@@ -55,7 +55,7 @@ extern game_variant * build_game_variant_crazy_king_standard(game_variant *resul
 extern game_variant * build_game_variant_assault_standard(game_variant *result);
 
 /* Boundary helpers (CRT / Blam runtime). */
-extern int stricmp(const char *str1, const char *str2);
+/* stricmp provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern wchar_t *ascii_to_wide(const char *ascii, wchar_t *unicode, unsigned int unicode_length_bytes);
 extern void playlist_profiles_enumerate_available_to_local_player_index(int16_t local_player_index, uint16_t *number_of_profiles, int *playlist_profile_indices);
 extern uint8_t playlist_profile_get(int playlist_profile_index, game_variant *variant);

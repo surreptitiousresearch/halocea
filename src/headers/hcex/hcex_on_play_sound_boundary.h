@@ -12,7 +12,7 @@
 #include "../lipsync_pair.h"         /* lipsync_pair, mdlLIP_SYNCER (opaque) */
 #include "../ds_vector_generic.h" /* ds_vector_generic */
 
-typedef int dsCMP;
+#include "../ws/ds/dsCMP.h"   /* canonical dsCMP (stateless empty struct) — a local `typedef int dsCMP` is a C2371/ODR conflict with it */
 
 /* InsertSorted duplicate policy */
 #define INS_DUP_IGNORE 0

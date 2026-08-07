@@ -46,7 +46,7 @@ uint8_t rasterizer_dx9_shaders_vshader9_load_from_binary(void)
     }
     CloseHandle(file);
 
-    unsigned int blob_end = (unsigned int)blob + size;
+    uintptr_t blob_end = (uintptr_t)blob + size;
     unsigned int *cursor = (unsigned int *)blob;
     vertex_shader_function *entry = vsf_table;
     int entry_index = 0;
@@ -57,10 +57,10 @@ uint8_t rasterizer_dx9_shaders_vshader9_load_from_binary(void)
             continue; /* unnamed slot: nothing to load */
 
         const unsigned int *function = cursor + 1;          /* skip the length dword */
-        if ( (unsigned int)function > blob_end )
+        if ( (uintptr_t)function > blob_end )
             break;
         unsigned int *next = (unsigned int *)((char *)function + *cursor);
-        if ( (unsigned int)next > blob_end )
+        if ( (uintptr_t)next > blob_end )
             break;
 
         entry->shader = D3DDevice_CreateVertexShader(function);

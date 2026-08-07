@@ -47,7 +47,7 @@ game_variant * build_game_variant_assault_standard(game_variant *result)
     result->universal_variant.score_to_win = 5;
     result->universal_variant.time_limit = 36000;
     result->universal_variant.teams = 1;
-    result->universal_variant.flags = (flags & ~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u)) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_standard_bit);
+    result->universal_variant.flags = (flags & ~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u)) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_standard);
     result->flags = 1;
     return result;
 }

@@ -27,21 +27,11 @@ extern dsEVENT_MGR *gEventMgr;
 
 // dsSTATIC_PARAM_LIST<2> -- a fixed 2-slot dsPARAM_LIST, built directly on the real dsPARAM_LIST/
 // dsPARAM above (DB-verified layout: dsPARAM_LIST base@0 (8) + dsPARAM storage[2]@8 (24) -- 32
-// bytes). Only the single Add<dsTSTRING<char>> overload HALO_MNG::ProcessFRAME uses is modeled;
-// the many other instantiations (Add<int>, Add<bool>, ...) are boundary/not needed here.
-template<int N>
-struct dsSTATIC_PARAM_LIST : dsPARAM_LIST {
-    dsPARAM storage[N]; // 0x08
-
-    dsSTATIC_PARAM_LIST();   // 0x823D0788 (N=2) -- boundary
-    ~dsSTATIC_PARAM_LIST();  // 0x823D0720 (N=2) -- boundary
-
-    // 0x823DB2A8 -- Add<dsTSTRING<char>>(const char *id, const dsTSTRING<char>&): interns `id`
-    // then appends {id, data} to storage and grows `length`. Extern boundary per re-source
-    // conventions. (A sibling dsSTRID-keyed overload also exists at 0x823D84D8; this
-    // is the one HALO_MNG::ProcessFRAME actually calls, passing string literals directly.)
-    void Add(const char *id, const dsTSTRING<char> &value);
-};
+// bytes). Canonical template body; ProcessFRAME calls its
+// Add<dsTSTRING<char>>(const char *id, const dsTSTRING<char>&) overload @0x823DB2A8, which
+// interns `id`, appends {id, data} to storage and grows `length` (extern boundary per re-source
+// conventions -- the address is recorded on the declaration there).
+#include "../ws/ds/dsSTATIC_PARAM_LIST.h"
 
 typedef dsSTATIC_PARAM_LIST<2> dsSTATIC_PARAM_LIST_2; /* 32 bytes -- DB dsSTATIC_PARAM_LIST<2> */
 

@@ -33,6 +33,11 @@ struct wpnWEAPON {
 };
 
 // A unit's weapon list / inventory.
+// DB layout for the wpn frontier (types_members wpnLIST_BASE, size 160): propSYNCABLE base@0/44,
+// wpnSlots@44/20 dsVECTOR<dsPAIR<dsSTRID,wpnWEAPON*>,8>, eventHandler@64/92 fsmCB_HANDLER<dsSTRID>,
+// activeSlotName@156/4 dsSTRID. Deliberately modelled opaque: every use in the tree is a
+// wpnLIST_BASE* (aiWATCHER::GetWeaponList, aiWEAPON::wpnList@0x1220, aiWATCHER_PLAYER::wpnCtrl@0xAC),
+// so no TU depends on the size or layout.
 struct wpnLIST_BASE {
     // ?GetWeaponCur@wpnLIST_BASE@@QBAPAVwpnWEAPON@@XZ — the currently selected weapon (null if none).
     wpnWEAPON *GetWeaponCur() const;

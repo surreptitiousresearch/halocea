@@ -21,12 +21,10 @@
 #include "../ws/wb/dbgVAR_boundary.h" /* dbgVAR / dbgVAR_IMPL / dbgVAR_SIMPLE templates */
 
 /* --- debug variables (dbgVAR base is 12 bytes; the value follows at 0x0C) --- */
-/* dbgVAR_TRIGGER — DB: a single anonymous dbgVAR_SIMPLE<bool,5> base at offset 0 (16 bytes);
- * the bool payload lives at base offset 0x0C (dbgVAR_IMPL layer). */
-typedef struct dbgVAR_TRIGGER
-{
-    dbgVAR_SIMPLE<bool,5> base;  /* 0x00 — value@0x0C */
-} dbgVAR_TRIGGER;
+/* dbgVAR_TRIGGER has a single definition in ws/dbg/dbgVAR_TRIGGER.h (DB: one anonymous
+ * dbgVAR_SIMPLE<bool,5> base at offset 0, 16 bytes; bool payload at base offset 0x0C); include it
+ * rather than redefining locally, so the header_layout probe TU doesn't hit error: redefinition. */
+#include "../ws/dbg/dbgVAR_TRIGGER.h"
 
 /* dbgVAR_float has a single definition in hcex_dbgvar_boundary.h (dbgVAR_SIMPLE<float,3> spelling);
  * include it rather than redefining locally, so TUs pulling both headers don't clash (C2371). */

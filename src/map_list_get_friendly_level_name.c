@@ -12,7 +12,7 @@
 
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern int map_list_find_map(const char *map_name);
-extern char *strrchr(const char *str, int ch);
+/* strrchr provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern wchar_t *ascii_to_wide(const char *ascii, wchar_t *unicode, unsigned int unicode_length_bytes);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);

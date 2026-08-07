@@ -21,6 +21,9 @@ typedef struct vidDRIVER_DYNGEOM_CHUNK {
 } vidDRIVER_DYNGEOM_CHUNK;
 typedef struct vidDRIVER_DYNGEOM_BUFFER  vidDRIVER_DYNGEOM_BUFFER;
 typedef struct vidFVF_DESCR              vidFVF_DESCR;
+/* Draw's primitive-type slot parameter. Body (5 DB-verified values) in ws/rend/rendDRIVER.h;
+ * declared opaque here so the 6 hcex TUs that only need the buffer do not pull in rendDRIVER. */
+enum REND_PRIMTYPE : int;
 
 /* nested unnamed enum vidDRIVER_DYNGEOM_BUFFER::<unnamed_tag> : __int32 */
 enum { CHUNKS_COUNT = 4 };
@@ -35,7 +38,7 @@ typedef struct vidDRIVER_DYNGEOM_BUFFER_vtbl
     bool (*WriteIndicesBegin)(vidDRIVER_DYNGEOM_BUFFER *self, vidDRIVER_DYNGEOM_CHUNK *, int, unsigned int *, unsigned short **); /* 0x14 */
     void (*WriteIndicesEnd)(vidDRIVER_DYNGEOM_BUFFER *self, vidDRIVER_DYNGEOM_CHUNK *);   /* 0x18 */
     bool (*WriteIndices)(vidDRIVER_DYNGEOM_BUFFER *self, vidDRIVER_DYNGEOM_CHUNK *, const void *, int, unsigned int *); /* 0x1C */
-    void (*Draw)(vidDRIVER_DYNGEOM_BUFFER *self, vidFVF_DESCR *, int, unsigned int, int, unsigned int, int); /* 0x20 */
+    void (*Draw)(vidDRIVER_DYNGEOM_BUFFER *self, vidFVF_DESCR *, REND_PRIMTYPE, unsigned int, int, unsigned int, int); /* 0x20 */
     void (*End)(vidDRIVER_DYNGEOM_BUFFER *self, vidDRIVER_DYNGEOM_CHUNK *);              /* 0x24 */
     void (*Flush)(vidDRIVER_DYNGEOM_BUFFER *self);                                       /* 0x28 */
 } vidDRIVER_DYNGEOM_BUFFER_vtbl;

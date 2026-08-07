@@ -90,7 +90,7 @@ extern "C" void hcex_create_effect(const char *name, int obj_follow, int plr_idx
     sfx_name.pBuffer = emptyStr.pBuffer;
     ++emptyStr.pBuffer->refCount;
 
-    cmp = 0;
+    cmp = dsCMP();
     found = dsVECTOR_PAIR_FindSorted(&hcex_effect_names, &name_str, &cmp);
     if ( found >= 0 )
     {
@@ -136,7 +136,7 @@ extern "C" void hcex_create_effect(const char *name, int obj_follow, int plr_idx
             }
             while ( remaining );
         }
-        cmp = 0;
+        cmp = dsCMP();
         dsVECTOR_TSTR_InsertSorted(&hcexUsedSfx, &dump, &cmp, INS_DUP_IGNORE);
         tstring_release(&dump);
     }
@@ -249,7 +249,7 @@ extern "C" void hcex_create_effect(const char *name, int obj_follow, int plr_idx
 
     if ( !dscDESC_FAMILY_FindBrand(&iaFamily, &sfx_name) )
     {
-        cmp = 0;
+        cmp = dsCMP();
         dsVECTOR_TSTR_InsertSorted(&hcexMissedSfx, &sfx_name, &cmp, INS_DUP_IGNORE);
         tstring_release(&sfx_name);
         goto cleanup;
@@ -257,12 +257,17 @@ extern "C" void hcex_create_effect(const char *name, int obj_follow, int plr_idx
 
     if ( obj_follow == -1 )
     {
-        HCEX_EFFECT scratch;
         HCEX_EFFECT *effect;
         int i;
-        HCEX_EFFECT_ctor(&scratch);
-        effect = dsVECTOR_EFF_PushBack(&hcexCreateEffects, &scratch);
-        HCEX_EFFECT_dtor(&scratch);
+        {
+            /* DEVIATION: the ctor/dtor pair around the push was spelled as explicit
+             * HCEX_EFFECT_ctor/_dtor calls on a POD twin of HCEX_EFFECT. HCEX_EFFECT now carries
+             * its real members (src/headers/hcex/HCEX_EFFECT.h), so the compiler emits
+             * ??0HCEX_EFFECT@@ @0x823D6AA4 at scope entry and ??1HCEX_EFFECT@@ @0x823D6B54 at
+             * scope exit — the same two calls, at the same two points, without duplicating them. */
+            HCEX_EFFECT scratch;
+            effect = dsVECTOR_EFF_PushBack(&hcexCreateEffects, &scratch);
+        }
         dsTSTRING_assign(&effect->hcexName, &sfx_name);
         dsVECTOR_LOC_Resize(&effect->locations, npoints);
         for ( i = 0; i < npoints; ++i )

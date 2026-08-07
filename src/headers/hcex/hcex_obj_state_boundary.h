@@ -22,19 +22,8 @@
 /* Legacy C spelling of sml::STATE (12 bytes: dsFIXED_BIT_ARRAY<2> state@0, iaIACTOR *pOwner@8). */
 typedef sml::STATE sml_STATE;
 
-/* FP_MODEL — one first-person bridge model (24 bytes, DB-verified). */
-typedef struct FP_MODEL
-{
-    int           plrIdx;           /* 0x00 */
-    int           modelId;          /* 0x04 */
-    int           modelIdx;         /* 0x08 */
-    animINST     *pInst;            /* 0x0C */
-    int           isActCamo;        /* 0x10 */
-    bool          isHiddenCam1;     /* 0x14 */
-    bool          isHiddenCam1Prev; /* 0x15 */
-    bool          isHiddenCam2;     /* 0x16 */
-    bool          isHiddenCam2Prev; /* 0x17 */
-} FP_MODEL;
+/* FP_MODEL — one first-person bridge model (24 bytes, DB-verified). Canonical body: */
+#include "FP_MODEL.h"
 
 /* dsVECTOR_FP_MODEL is the plain-C spelling of the DB instantiation dsVECTOR<FP_MODEL,8>
  * (20 bytes; no C-spellable DB name of its own); DSVECTOR_INSTANCE keeps the layout verifier

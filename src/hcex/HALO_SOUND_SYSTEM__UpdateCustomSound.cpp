@@ -57,7 +57,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (!IGNORE_STRONG_ASSERT && !sound.channel)
             STRONG_ASSERT_DUMMY::Crash(nullptr, "sound.channel != 0", SND_SRC, 1049, empty_string);
 
-        res = sound.channel->setMode(8u); // FMOD_2D
+        res = sound.channel->setMode(FMOD_2D); // li r4, 8 @0x836BE8BC
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)

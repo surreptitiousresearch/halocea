@@ -18,6 +18,6 @@ const HALO_SOUND_TAG *&ds::ARRAY<const HALO_SOUND_TAG *, 15>::operator[](int i)
             "index >= 0 && index < Size",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             115,
-            (unsigned char)empty_string);
+            empty_string);
     return this->list[i];
 }

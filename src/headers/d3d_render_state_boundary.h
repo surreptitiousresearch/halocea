@@ -18,12 +18,21 @@ extern d3dDRIVER *vidDriver; // NOTE: DB symbol name is `vidDriver`, typed here 
                               // offset 0, so this is a legitimate narrowing per this file's scope)
 
 // dbgVAR<bool>-style debug toggle gating the PWL<->sRGB gamma correction path. boundary.
-// DB type dbgVAR_BOOL (dbgVAR_IMPL<bool,1> base; value @0x0C). Deviation from the earlier flat
-// {bool value} model, which mis-placed value at 0 — the disasm reads dbgVAR_SIMPLE<bool,1>.value.
+// Deviation from an earlier flat {bool value} model, which mis-placed value at 0 — the disasm
+// reads dbgVAR_SIMPLE<bool,1>.value, i.e. +0x0C behind the 12-byte dbgVAR base.
+//
+// odr_dup drain: this file and hcex/haloInit_boundary.h each defined
+// `struct dbgVAR_BOOL : dbgVAR_IMPL<bool, 1> {};` at file scope — two definitions of one name, and
+// in haloInit_boundary.h an unused one. Both are gone: `applied_types` stamps this symbol
+// `dbgVAR_SIMPLE<bool,1> dbg_correctPWLGamma;`, so it is now spelled with the canonical template
+// straight from ws/wb/dbgVAR_boundary.h and the local proxy is unnecessary. (The DB does carry a
+// distinct `dbgVAR_BOOL` type — size 16, sole member the dbgVAR_IMPL<bool,1> base, i.e. layout-
+// identical — but no symbol reachable from this header is typed with it.)
+// Dropping the local `typedef dbgVAR_BOOL dbgVAR_bool;` also removes a latent C2371: hcex/
+// hcex_dbgvar_boundary.h defines `dbgVAR_bool` as a CLASS, and a TU pulling both would have seen a
+// typedef and a class under one name.
 #include "ws/wb/dbgVAR_boundary.h"
-struct dbgVAR_BOOL : dbgVAR_IMPL<bool, 1> {};
-typedef dbgVAR_BOOL dbgVAR_bool;
-extern "C" dbgVAR_bool dbg_correctPWLGamma;
+extern "C" dbgVAR_SIMPLE<bool, 1> dbg_correctPWLGamma;
 
 // 0x826950D0 -- reversed in d3dSRGBGamma.c. Linear-to-sRGB gamma encode.
 extern float d3dSRGBGamma(float Clinear);

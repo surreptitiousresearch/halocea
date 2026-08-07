@@ -9,6 +9,12 @@ namespace ds_data {
 // (GetProperty/SetProperty/IsFunc/IsProperty/CallFunc) forward straight into these statics,
 // which resolve named members/methods against T's registered descriptor. Boundary — the
 // static bodies are provided by the ds_data reflection runtime, not reversed here.
+//
+// Single canonical body: ws/ds/dsDATA_TYPE_HELPERS.h and hcex/halo_ds_data_type_boundary.h each
+// used to carry a partial copy (IsFunc/IsProperty/CallFunc and Get/SetProperty respectively);
+// both now include this file. All five signatures are confirmed against the DB manglings, e.g.
+// ?GetProperty@?$dsDATA_TYPE_CLASS@UhaloPLAYER_ACTIONS_ENV@@@ds_data@@SAHVdsSTRID@@ABVdsDATA@@AAV4@@Z
+// and ?CallFunc@...@ds_data@@SAHVdsSTRID@@AAVdsDATA@@PAV4@H1@Z (dsSTRID by value, dsDATA by ref).
 template<class T>
 struct dsDATA_TYPE_CLASS {
     static int GetProperty(dsSTRID id, const dsDATA &inst, dsDATA &val);

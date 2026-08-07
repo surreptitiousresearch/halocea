@@ -9,7 +9,7 @@ extern void *memset(void *destination, int value, unsigned int size);
 file_reference *file_reference_create(file_reference *reference, int16_t location)
 {
     memset(reference, 0, sizeof(file_reference));
-    *(int16_t *)&reference->data[6] = location;
-    *(unsigned int *)reference->data = 0x66696C65u; /* 'file' */
+    reference->info.location = location;
+    reference->info.signature = 0x66696C65u; /* 'file' */
     return reference;
 }

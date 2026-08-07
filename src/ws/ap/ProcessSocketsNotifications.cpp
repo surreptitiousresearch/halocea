@@ -8,7 +8,7 @@ void ProcessSocketsNotifications()
 {
     ap::SOCKET_LISTENER::DoSelectNonBlock();
 
-    gs_batchDelete = 1;
+    gs_batchDelete = true;
     gs_delayedListLock.Lock(nullptr, 0);
 
     for (ds::LIST<ap::BASE_SOCKET *>::DATA *node = gs_delayedList.head; node; node = node->next)
@@ -18,6 +18,6 @@ void ProcessSocketsNotifications()
     }
     gs_delayedList.Clear();
 
-    gs_batchDelete = 0;
+    gs_batchDelete = false;
     gs_delayedListLock.Unlock(nullptr, 0);
 }

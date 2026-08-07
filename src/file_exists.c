@@ -8,7 +8,7 @@ uint8_t file_exists(const file_reference *file)
 {
     char full_path[256];
     memset(full_path, 0, sizeof(full_path));
-    file_location_get_full_path(*(unsigned short *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(file->info.location, file->info.path, full_path);
     if ( GetFileAttributesA(full_path) != (DWORD)-1 )
         return 1;
     if ( GetLastError() != 2 && GetLastError() != 3 )

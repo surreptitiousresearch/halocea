@@ -19,7 +19,10 @@ extern void dsTSTRING_dtor(dsTSTRING_flat *s);
 extern void dsTSTRING_UnsafeInit(dsTSTRING_flat *s, const char *src, int len, int flags); /* dsTSTRING<char>::UnsafeInit */
 extern "C" void dlFree(void *ptr);
 
-void hcex_set_current_checkpoint(const char *checkpoint)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `hcex_set_current_checkpoint` (@0x823C77A8);
+// compiled as C++ without it the definition mangles to `?hcex_set_current_checkpoint@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" void hcex_set_current_checkpoint(const char *checkpoint)
 {
     if ( checkpoint )
     {

@@ -22,24 +22,15 @@ struct useLOGGER_MNG;
 struct vidDRIVER;
 
 /* --- srMANAGER: only the isCopyDelayedCalled/isAnyQueryAdded bits are touched directly here --- */
-struct srMANAGER_vtbl; // boundary — srMANAGER's vtable (ProcessLastPortion/CheckAddExecJobs/
-                       // CopyDelayed2LastValid/AddQuery are virtual; dispatched via free
-                       // functions below rather than reproducing the vtable layout)
 #include "../ws/ds/dsVECTOR.h"
 struct jbmJOB;   // boundary — frame-job record
-struct scnSCENE; // boundary — scene root
 
-/* Full DB layout (types_members srMANAGER, size 32). */
-typedef struct srMANAGER
-{
-    srMANAGER_vtbl *__vftable;         // 0x00
-    unsigned char   _reserved04 : 6;   // 0x04 bits 0-5 unused/unnamed (anonymous :6 in DB)
-    unsigned char   isCopyDelayedCalled : 1; // 0x04 bit 6
-    unsigned char   isAnyQueryAdded : 1;     // 0x04 bit 7
-    unsigned char   _pad05[3];         // 0x05
-    dsVECTOR<jbmJOB *, 8> srJobs;      // 0x08
-    scnSCENE       *pScene;            // 0x1C
-} srMANAGER;
+/* srMANAGER used to have a second file-scope body right here. The full DB layout
+ * (types_members srMANAGER, DB size 32) it carried is now the single definition, and lives in
+ * ws/gs/gsSR_MANAGER.h beside gsSR_MANAGER (the concrete manager) and `pSrMng`, which is where the
+ * rest of the family is declared. That header also owns srMANAGER_vtbl's forward declaration and
+ * the RunAllDelayedJobs / ShootRay declarations the other half of the pair contributed. */
+#include "../ws/gs/gsSR_MANAGER.h"
 
 /* --- free-function boundary wrappers for virtual/boundary method calls --- */
 extern void package_GS_PACKAGE_ProcessLoadTextures(package::GS_PACKAGE *self);

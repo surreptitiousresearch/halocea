@@ -1,4 +1,5 @@
 #pragma once
+#include "../ap/apSTATE_T.h"
 #include "../ds/dsSHARED_PTR.h"
 
 // ws-engine prop subsystem — the "smart-object" property attached to an entity. The planner only
@@ -14,5 +15,5 @@ struct smtSMART_OBJ_BASE;
 struct propSMT : propENT {
     dsSHARED_PTR<smtSMART_OBJ_BASE, 0, Deleter<smtSMART_OBJ_BASE> > smtObj; // 0x28
     entENTITY    *pEntOwner;     // 0x30
-    unsigned char state;         // 0x34 apSTATE_T<unsigned char>
+    apSTATE_T<unsigned char> state; // 0x34 (DB member type; 1 byte)
 };

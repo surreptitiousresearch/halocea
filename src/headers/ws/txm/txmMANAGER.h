@@ -80,6 +80,20 @@ typedef struct txmMANAGER
     // Load a texture's pixel data from an already-opened pak/memory stream. boundary (called from
     // package::GS_PACKAGE::ProcessLoadTextures; body external to this batch).
     void LoadFromPak(txmTEXTURE *pTex, fioFILE_MEM *pFile, int flags);
+
+    // Lightweight cursor over the live entries of listTex. DB-verified layout
+    // (types_members txmMANAGER::ITERATOR, size 8): index@0x00, listTex@0x04.
+    struct ITERATOR {
+        int                         index;    /* 0x00 current live-texture index */
+        dsVECTOR<txmTEXTURE *, 8>  *listTex;  /* 0x04 backing texture vector */
+
+        // ?operator++@ITERATOR@txmMANAGER@@ -- advance to the next live texture. boundary
+        void operator++();
+    };
+
+    // ?Begin@txmMANAGER@@QAA?AVITERATOR@1@XZ -- construct an iterator at the first live texture.
+    // boundary (body external to this batch).
+    ITERATOR Begin();
 } txmMANAGER;
 
 extern txmMANAGER *txmManager;

@@ -52,10 +52,10 @@ int structure_clusters_in_cone(int16_t position_cluster_index, const real_point3
         int portal_count = cluster->portal_indices.count;
         if (portal_count > 0)
         {
-            int portal_index_list = (int)cluster->portal_indices.address;
+            const int16_t *portal_index_list = (const int16_t *)cluster->portal_indices.address;
             for (int i = 0; i < portal_count; i++)
             {
-                int16_t portal_index = ((int16_t *)portal_index_list)[i];  /* portal-index list is a packed __int16[] */
+                int16_t portal_index = portal_index_list[i];  /* portal-index list is a packed __int16[] */
                 cluster_portal *portal = &((cluster_portal *)bsp->cluster_portals.address)[portal_index];
 
                 int neighbor_cluster = portal->cluster_indices[0];

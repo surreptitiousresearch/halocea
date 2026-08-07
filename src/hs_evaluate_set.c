@@ -40,8 +40,8 @@ void hs_evaluate_set(int16_t function_index, int thread_index, uint8_t initializ
      * slot at the frame data top, 4-aligned up. The compiled `if (slot - 1 > top) --slot` correction
      * can never fire (align-up advances at most 3 bytes); kept verbatim for fidelity. */
     unsigned char *stack_top = &frame->data[frame->size];
-    int *popped = (int *)(((unsigned int)stack_top + 3) & ~0x3u); /* align up to 4 */
-    if ( (unsigned int)(popped - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *popped = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3); /* align up to 4 */
+    if ( (uintptr_t)(popped - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --popped;
     frame->size = (int16_t)((unsigned char *)popped - frame->data + 4);
 

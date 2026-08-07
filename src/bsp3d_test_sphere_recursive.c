@@ -76,7 +76,7 @@ leaf:
             const bsp2d_reference *reference_entry = &((const bsp2d_reference *)data->bsp->bsp2d_references.address)[reference];
             if ( data->stack_depth > 0 )
             {
-                int reference_plane = reference_entry->plane_index;
+                int reference_plane = reference_entry->plane_designator;
                 int stack_pos = 0;
                 while ( data->plane_stack[stack_pos] != reference_plane )
                 {
@@ -105,13 +105,13 @@ leaf:
                     axis = 2;
                 data->projection_axis = axis;
                 BOOL plane_positive = plane[axis] > 0.0;
-                int sign_intermediate = (reference_entry->plane_index < 0) - plane_positive;
+                int sign_intermediate = (reference_entry->plane_designator < 0) - plane_positive;
                 uint8_t sign =
-                    sign_intermediate - (-(reference_entry->plane_index >= 0) - plane_positive + (sign_intermediate == 0));
+                    sign_intermediate - (-(reference_entry->plane_designator >= 0) - plane_positive + (sign_intermediate == 0));
                 data->projection_sign = sign;
                 data->center2d.n[0] = projected[global_projection3d_mappings[axis][sign][0]];
                 data->center2d.n[1] = projected[global_projection3d_mappings[axis][sign][1]];
-                bsp2d_test_sphere_recursive(data, reference_entry->bsp2d_root_index);
+                bsp2d_test_sphere_recursive(data, reference_entry->root_index);
             }
 next_reference:
             ++reference;

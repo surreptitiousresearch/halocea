@@ -6,7 +6,10 @@
  * arrays. (The decompiler types the return as __int16* — an artifact of the tail store leaving the
  * last written address in r3; the function is really void, matching every call site and the extern
  * declaration in haloENGINE_CONTROL_boundary.h / hcex_update_gamepad_x360.c.) */
-void clear_hcex_input_x360(void)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `clear_hcex_input_x360` (@0x823C1540);
+// compiled as C++ without it the definition mangles to `?clear_hcex_input_x360@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" void clear_hcex_input_x360(void)
 {
     memset(hcex_gamepad_buttons, 0, sizeof(hcex_gamepad_buttons));
     memset(hcex_sThumbLX, 0, sizeof(hcex_sThumbLX));

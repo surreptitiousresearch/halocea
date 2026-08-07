@@ -27,7 +27,7 @@ void _rasterizer_environment_lightmap_begin(const bitmap_data *lightmap)
     }
     else
     {
-        unsigned int seed = (unsigned int)lightmap;
+        unsigned int seed = (unsigned int)(uintptr_t)lightmap;
         local_lightmap_ambient_color.__s1.red = real_seed_random(&seed);
         local_lightmap_ambient_color.__s1.green = real_seed_random(&seed);
         local_lightmap_ambient_color.__s1.blue = real_seed_random(&seed);

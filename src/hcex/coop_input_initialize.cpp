@@ -9,8 +9,8 @@ void coop_input_initialize(SESSION_BASE *pSession)
     pSyncSession = pSession;
 
     mp::MESSAGE_DISPATCHER *dispatcher = pSession->GetMessageDispatcher();
-    dispatcher->SubscribeMessage(mp::MSG_RAW_INPUT, &coopMsgHandler, -1);
+    dispatcher->SubscribeMessage(MSG_RAW_INPUT, &coopMsgHandler, -1);
 
     dispatcher = pSyncSession->GetMessageDispatcher();
-    dispatcher->SubscribeMessage(mp::MSG_DET_INPUT, &coopMsgHandler, -1);
+    dispatcher->SubscribeMessage(MSG_DET_INPUT, &coopMsgHandler, -1);
 }

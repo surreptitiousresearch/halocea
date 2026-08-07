@@ -22,19 +22,23 @@ struct rendV3D;         // rendV3D.h — screen-space textured vertex (pointer o
 struct m3dPOLY;         // ../m3d/m3dPOLY.h — convex polygon (nVert + m3dV[20])  pointer only here
 struct txmTEXTURE;      // ../txm/txmTEXTURE.h — texture (pointer only here)  boundary
 
-// rend immediate-mode primitive type passed to DynGeomDraw. boundary — full enum lives in the
-// rend subsystem; only the two values used by DrawIndexedPrimitive/DrawPoly are named here.
+// rend immediate-mode primitive type passed to DynGeomDraw.
+// DB-verified values (types_enum_values REND_PRIMTYPE, 5 values; headers_ref INS_SORT.h agrees).
+// Only TRILIST/TRIFAN are referenced by DrawIndexedPrimitive/DrawPoly in this corpus.
 enum REND_PRIMTYPE : int {
-    REND_PRIMTYPE_TRILIST = 0,
-    REND_PRIMTYPE_TRIFAN  = 1,
+    REND_PRIMTYPE_TRILIST   = 0,
+    REND_PRIMTYPE_TRIFAN    = 1,
+    REND_PRIMTYPE_LINESTRIP = 2,
+    REND_PRIMTYPE_LINELIST  = 3,
+    REND_PRIMTYPE_LAST      = 4,
 };
 
 // vid base render-pass descriptor (carries PASS_DESC_BASE::BLENDMODE and friends). Full
 // DB-verified layout in PASS_DESC_BASE.h; RenderPoly builds one on the stack.
 #include "PASS_DESC_BASE.h"
 
-struct scnSCENE;
-namespace vidPASS_ENV { enum RENDERBLOCK : unsigned char; } // vid subsystem — 1-byte enum, boundary        // boundary — scene subsystem, only used by pointer here
+struct scnSCENE;        // boundary — scene subsystem, only used by pointer here
+#include "../vid/vidPASS_ENV.h" // RENDERBLOCK is NESTED in struct vidPASS_ENV, so it cannot be forward-declared
 struct camCAMERA;       // boundary — camera subsystem, only used by pointer here
 
 typedef struct rendDRIVER {

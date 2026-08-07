@@ -1,7 +1,7 @@
 // ?Detach@HALO_CROSSFADE_DSP@@QAAXXZ -- 0x836B53B0
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 
-extern "C" const char *FModErrorDesc(FMOD_RESULT res, bool info);
+extern const char *FModErrorDesc(FMOD_RESULT res, bool info); // C++ linkage: ?FModErrorDesc@@YAPBDW4FMOD_RESULT@@_N@Z
 extern void _apLog(const char *fmt, ...);
 extern "C" void osOutputDebugString(const char *fmt, ...);
 

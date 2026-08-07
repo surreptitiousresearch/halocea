@@ -14,6 +14,16 @@ struct entENTITY;
 struct animINST; // anim — skeletal-animation instance (fwd, boundary pointer)
 struct objOBJ;   // obj — game object (fwd, boundary pointer)
 
+/* DB anonymous union $711EBA443E85D2C6B31F673BD26B454C (4 bytes) — the hit-id slot of
+ * gsGEOM_ANCHOR. types_members lists both arms at offset 0, both `int`: which one is live depends
+ * on whether the query resolved to a collision face or to a skeletal bone.
+ * $-name kept verbatim behind a leading '_' ($ in identifiers is an MSVC extension), matching the
+ * m3dMATR / mtlPARAM convention for DB anonymous aggregates. */
+typedef union _711EBA443E85D2C6B31F673BD26B454C {
+    int idFace; /* 0x00 collision-face index */
+    int idBone; /* 0x00 skeletal-bone index (same slot) */
+} _711EBA443E85D2C6B31F673BD26B454C;
+
 struct gsGEOM_ANCHOR {
     dsTSTRING<char>          instNameSafe;  // 0x00
     dsTSTRING<char>          tplNameSafe;   // 0x04
@@ -24,7 +34,7 @@ struct gsGEOM_ANCHOR {
     objOBJ                  *pObj;          // 0x18
     m3dV                     vClosest;      // 0x1C
     float                    distMin;       // 0x28
-    unsigned int             ___u9;         // 0x2C DB anonymous 4-byte union slot (arms unresolved)
+    _711EBA443E85D2C6B31F673BD26B454C ___u9; // 0x2C DB anonymous union: idFace / idBone (see above)
     int                      idFaceExt;     // 0x30
     int                      syncId;        // 0x34
     short                    objId;         // 0x38

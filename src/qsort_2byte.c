@@ -5,7 +5,7 @@
  * structure, __int16 stride and a byte pivot offset of span & ~1).
  *
  * DEVIATION: the decompiler modeled the two parallel partition-bound stacks as single BYREF ints (v19/v20);
- * the surrounding stack frame shows each is really a 32-entry int array, declared as such here. */
+ * the surrounding stack frame shows each is really a 32-entry array of element pointers. */
 #include <stdint.h>
 
 void qsort_2byte(int16_t *base, unsigned int num, uint8_t (*compare)(int16_t, int16_t))
@@ -13,8 +13,8 @@ void qsort_2byte(int16_t *base, unsigned int num, uint8_t (*compare)(int16_t, in
     int stack_depth;
     int16_t *lo;
     int16_t *hi;
-    int *hi_stack;
-    int *lo_stack;
+    int16_t **hi_stack;
+    int16_t **lo_stack;
     unsigned int span;
     int16_t *max_elem;
     int16_t *i;
@@ -23,8 +23,8 @@ void qsort_2byte(int16_t *base, unsigned int num, uint8_t (*compare)(int16_t, in
     int16_t *left;
     int16_t *right;
     int16_t swap_tmp;
-    int hi_stack_storage[32];
-    int lo_stack_storage[32];
+    int16_t *hi_stack_storage[32];
+    int16_t *lo_stack_storage[32];
 
     if ( num < 2 )
         return;
@@ -88,9 +88,9 @@ void qsort_2byte(int16_t *base, unsigned int num, uint8_t (*compare)(int16_t, in
 
             if ( left < hi )
             {
-                *++lo_stack = (int)left;
+                *++lo_stack = left;
                 ++stack_depth;
-                *++hi_stack = (int)hi;
+                *++hi_stack = hi;
             }
             if ( lo + 1 >= right )
             {
@@ -100,8 +100,8 @@ pop_partition:
                 --hi_stack;
                 if ( stack_depth < 0 )
                     return;
-                lo = (int16_t *)lo_stack[1];
-                hi = (int16_t *)hi_stack[1];
+                lo = lo_stack[1];
+                hi = hi_stack[1];
             }
             else
             {
@@ -111,9 +111,9 @@ pop_partition:
 
         if ( lo + 1 < right )
         {
-            lo_stack[1] = (int)lo;
+            lo_stack[1] = lo;
             ++stack_depth;
-            hi_stack[1] = (int)(right - 1);
+            hi_stack[1] = right - 1;
             ++lo_stack;
             ++hi_stack;
         }

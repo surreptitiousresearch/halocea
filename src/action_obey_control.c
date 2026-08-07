@@ -21,7 +21,7 @@
 
 #include <stdint.h>
 #include "headers/actor_datum.h"
-#include "headers/obey_simple_flags.h"
+#include "headers/obey_simple_control_flags.h"
 #include "headers/data_array.h"
 #include "headers/real_vector2d.h"
 #include "headers/actor_combat_status.h"

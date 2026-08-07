@@ -7,6 +7,12 @@
 // DB-verified layout (types_members snd::SYSTEM_CUSTOM_vtbl): Init@0, Term@4, Update@8,
 // InitLevel@12, TermLevel@16, DbgRenderSounds@20, destructor@24.
 // DB-verified (types_members snd::SYSTEM_CUSTOM): __vftable@0 -- size 4.
+// Sole home for snd::HRTF / snd::INIT / snd::SYSTEM_CUSTOM / SYSTEM_CUSTOM_vtbl; snd_fmod_boundary.h
+// carried a narrower second copy of the first three (INIT without its 0x03 pad, an unsized HRTF,
+// SYSTEM_CUSTOM with only a forward-declared vtbl) and now includes this header.
+// Related binary symbols: ??_7SYSTEM_CUSTOM@snd@@6B@ @0x82111408 (the vtable object the __vftable
+// slot points at), ??0SYSTEM_CUSTOM@snd@@QAA@XZ @0x836B5570, ??1SYSTEM_CUSTOM@snd@@UAA@XZ
+// @0x836B4D70 -- all boundary, owned by the src/ws/snd/ drain.
 
 namespace snd {
 
@@ -40,6 +46,13 @@ typedef struct SYSTEM_CUSTOM_vtbl { // DB types_members snd::SYSTEM_CUSTOM_vtbl
 
 typedef struct SYSTEM_CUSTOM {
     SYSTEM_CUSTOM_vtbl *__vftable; // 0x00
+
+    // `snd::SYSTEM_CUSTOM::`vftable'' — boundary. ??_7SYSTEM_CUSTOM@snd@@6B@ @0x82111408; the
+    // object __vftable points at, named so HALO_SOUND_SYSTEM::~HALO_SOUND_SYSTEM can take its
+    // address for the destructor vptr unwind, per the convention used across src/headers/hcex.
+    // Merged in from the snd_fmod_boundary.h copy this pass deleted — it was the only one of the
+    // two that carried it, and dropping it broke src/hcex/sound/HALO_SOUND_SYSTEM__dtor.cpp:14.
+    static SYSTEM_CUSTOM_vtbl vftable;
 
     // Convenience declarations for the virtual interface above (dispatch via __vftable).
     bool Init(INIT initParams);

@@ -32,7 +32,7 @@ void hcex_cine_update(void)
         actorName.pBuffer = 0;
         entENTITY_GetName(actor, &actorName);
 
-        dsCMP cmp = 0;
+        dsCMP cmp;
         int cached = dsVECTOR_cine_pair_FindSorted(&hcexObjectsCine, &actorName, &cmp);
 
         if ( cached == -1 )
@@ -55,7 +55,7 @@ void hcex_cine_update(void)
                 entry.key = actorName;
                 entry.val = found->id;
                 ++actorName.pBuffer->refCount; /* the pair now shares this string's buffer too */
-                cmp = 0;
+                cmp = dsCMP();
                 cached = dsVECTOR_cine_pair_InsertSorted(&hcexObjectsCine, &entry, &cmp, INS_DUP_IGNORE);
 
                 if ( cached != -1 )
@@ -89,7 +89,7 @@ void hcex_cine_update(void)
             {
                 hcex_hide_obj_follow_hier(obj->id, dbg_hcex_HideCineActors.value, 0);
 
-                dsCMP cmp = 0;
+                dsCMP cmp;
                 dsVECTOR_int_InsertSorted(&cineHiddenHcexObjKeys, &obj->id, &cmp, INS_DUP_IGNORE);
                 break;
             }

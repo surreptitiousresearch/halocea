@@ -22,7 +22,7 @@ int GetMemorySize(void)
             total += info.RegionSize;
         address += info.RegionSize;
     }
-    while ( (unsigned int)address < 0x80000000 );
+    while ( (uintptr_t)address < 0x80000000 );
 
     return total;
 }

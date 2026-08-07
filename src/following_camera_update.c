@@ -30,9 +30,9 @@ extern double sin(double x);
 extern float  __fsqrts(float x);
 
 /* object data pointer for an object handle (object header datum: data ptr at int element 3*idx+2) */
-static int object_data_ptr(int object_handle)
+static uintptr_t object_data_ptr(int object_handle)
 {
-    return ((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_handle)->datum);
+    return (uintptr_t)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_handle)->datum;
 }
 
 void following_camera_update(following_camera *camera, const camera_control *controls, observer_command *result)

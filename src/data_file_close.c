@@ -10,7 +10,7 @@
 
 
 extern void dlFree(void *ptr);
-extern int printf(const char *format, ...);
+/* printf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 uint8_t data_file_close(unsigned int data_file_id)
 {

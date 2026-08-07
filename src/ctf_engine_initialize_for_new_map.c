@@ -68,7 +68,7 @@ uint8_t ctf_engine_initialize_for_new_map(void)
         ++score;
         ++team;
     }
-    while ( (int)score < (int)&ctf_globals.score_to_win );
+    while ( (uintptr_t)score < (uintptr_t)&ctf_globals.score_to_win );
 
     if ( game_connection() == _game_connection_network_server )
     {

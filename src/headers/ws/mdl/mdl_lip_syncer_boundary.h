@@ -5,6 +5,7 @@
 // three functions touch are modeled; everything here is an extern boundary.
 
 #include "../ds/dsTSTRING.h"
+#include "../ds/dsVECTOR.h"
 #include "../fio/fioCHUNK.h"
 #include "../m3d/m3dV.h"
 #include "../m3d/m3dSPL.h"
@@ -14,8 +15,20 @@
 
 struct fioFILE;
 
-// ws-engine fio cache: opens chunked resource files by (dir, name, ext). boundary.
+// ws-engine fio cache: opens chunked resource files by (dir, name, ext). Methods are a boundary,
+// but the LAYOUT is DB-verified (types_members fioCACHE — size 64) because this header declares
+// `fioCache` as an OBJECT, not a pointer: an empty shim would have declared it as 1 byte.
 struct fioCACHE {
+    // Element record types, used only through dsVECTOR's T* storage; bodies are a boundary
+    // (types_members fioCACHE::REC — 20 bytes; fioCACHE::BlockREC — 36 bytes).
+    struct REC;
+    struct BlockREC;
+
+    dsVECTOR<REC, 8>        rec;             // 0x00 cached file records
+    dsVECTOR<BlockREC *, 8> vecBlocks;       // 0x14 resident block records
+    dsVECTOR<void *, 8>     tmpMemBlocks;    // 0x28 scratch block allocations
+    bool                    cfgLoadFromDisk; // 0x3C bypass the cache and read from disk
+
     // 0x??? — open "<dir>/<name>.<ext>"; returns nullptr if absent.
     fioFILE *OpenFile(const char *dir, const char *name, const char *ext, unsigned int mode);
     void     CloseFile(fioFILE *file);

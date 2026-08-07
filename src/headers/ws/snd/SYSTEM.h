@@ -11,9 +11,15 @@
 
 namespace snd {
 
-// System state bits; only bit 0 (live/initialised) is exercised by the reversed methods.
+// System state bits. Full DB enumerator set (types_enum_values snd::SYSTEM_STATE, ordinal 1237,
+// 6 values) — verbatim, not inferred. Only bit 0 is exercised by the reversed methods so far.
 enum SYSTEM_STATE {
-    SST_INITED = 1, // system is up and driving buffers
+    SST_INITED            = 1,  // system is up and driving buffers
+    SST_EAX               = 2,  // backend reports EAX/reverb capability
+    SST_EAX_ENABLED       = 4,  // EAX/reverb processing currently enabled
+    SST_MUTED             = 8,  // all output muted
+    SST_UPDATE_CATEGORIES = 16, // category volumes dirty; re-push on next update
+    SST_USER              = 32, // first backend-defined bit
 };
 
 struct SYSTEM_vtbl; // boundary — full backend dispatch slot table owned by the src/ws/snd drain

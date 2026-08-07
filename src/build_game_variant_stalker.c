@@ -45,7 +45,7 @@ game_variant * build_game_variant_stalker(game_variant *result)
     result->game_engine_variant.ctf.assault = 0;
     result->game_engine_variant.oddball.trait_with_ball = _game_trait_invisible;
     result->game_engine_variant.oddball.trait_without_ball = _game_trait_damage_resistant;
-    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies_bit))) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_classic_bit);
+    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies))) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_classic);
     result->game_engine_variant.oddball.oddball_ball_type = _oddball_terminator;
     result->game_engine_variant.ctf.single_flag_time = 2;
     result->flags = 1;

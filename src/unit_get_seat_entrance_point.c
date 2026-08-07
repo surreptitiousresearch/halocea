@@ -24,7 +24,7 @@
 #include "headers/unit_seat.h"
 #include "headers/blam_data_globals.h"
 
-extern int stricmp(const char *a, const char *b);
+/* stricmp provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern void animation_get_root_matrix(const model *model, const animation *animation, int16_t frame_index, real_matrix4x3 *matrix);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);

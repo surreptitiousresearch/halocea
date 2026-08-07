@@ -6,6 +6,6 @@
 int memory_pool_get_used_size(memory_pool *pool)
 {
     if (pool->last_block)
-        return (int)pool->last_block + pool->last_block->size - (unsigned int)pool->base_address;
+        return (int)((uintptr_t)pool->last_block + pool->last_block->size - (uintptr_t)pool->base_address);
     return 0;
 }

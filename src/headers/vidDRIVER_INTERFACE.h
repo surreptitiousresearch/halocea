@@ -18,7 +18,7 @@ struct vidCOMMAND_BUFFER;
 struct rnsRENDERBUF_ENTRY;
 struct m3dV;
 struct vidOBJ_DIP;
-struct vidPASS_RENDERSTATE;
+#include "ws/vid/vidPASS_RENDERSTATE.h" /* nested BLEND_RGB/BLEND_A/CULLMODE/Z_FUNC slot params */
 struct vidSTREAM_CACHE;
 struct m3dMATR;
 struct objBONES_INFO;
@@ -26,8 +26,9 @@ struct m3dMATR34;
 struct instSKIN_BONE_INFO;
 struct vidCMD_BUF_ENV;
 
-/* DB-verified (types_members vidDRIVER_INTERFACE_vtbl, 59 slots / 236 bytes). Nested-enum
- * parameters (vidPASS_RENDERSTATE::BLEND_RGB/BLEND_A/CULLMODE/Z_FUNC) are carried as int here. */
+/* DB-verified (types_members vidDRIVER_INTERFACE_vtbl, 59 slots / 236 bytes). The nested-enum slot
+ * parameters (vidPASS_RENDERSTATE::BLEND_RGB/BLEND_A/CULLMODE/Z_FUNC) carry their DB enum type;
+ * they used to be flattened to int, which lost the only naming the values have. */
 typedef struct vidDRIVER_INTERFACE_vtbl
 {
     void  (*dtr_vidDRIVER_INTERFACE)(struct vidDRIVER_INTERFACE *self, int freeMemory); /* 0x00 deleting dtor (deviation: DB sig has no flag arg; call sites pass it) */
@@ -40,10 +41,14 @@ typedef struct vidDRIVER_INTERFACE_vtbl
     void  (*EnsurePixShaderConst)(struct vidDRIVER_INTERFACE *self, int, const float *, int);           /* 0x1C */
     float *(*EnsurePixShaderConstStart)(struct vidDRIVER_INTERFACE *self, int, int);                    /* 0x20 */
     void  (*EnsurePixShaderConstEnd)(struct vidDRIVER_INTERFACE *self);                                 /* 0x24 */
-    void  (*ConfigureAlphaBlend)(struct vidDRIVER_INTERFACE *self, int blendRGB, int blendA);           /* 0x28 */
-    void  (*ConfigureCullMode)(struct vidDRIVER_INTERFACE *self, int cullMode);                         /* 0x2C */
+    void  (*ConfigureAlphaBlend)(struct vidDRIVER_INTERFACE *self,
+                                 vidPASS_RENDERSTATE::BLEND_RGB blendRGB,
+                                 vidPASS_RENDERSTATE::BLEND_A blendA);                                 /* 0x28 */
+    void  (*ConfigureCullMode)(struct vidDRIVER_INTERFACE *self,
+                               vidPASS_RENDERSTATE::CULLMODE cullMode);                                /* 0x2C */
     void  (*ConfigureBackBufferWrite)(struct vidDRIVER_INTERFACE *self, int, int, int, int);            /* 0x30 */
-    void  (*ConfigureZ)(struct vidDRIVER_INTERFACE *self, int, int, int zFunc);                         /* 0x34 */
+    void  (*ConfigureZ)(struct vidDRIVER_INTERFACE *self, int, int,
+                        vidPASS_RENDERSTATE::Z_FUNC zFunc);                                            /* 0x34 */
     void  (*ConfigureDepthBias)(struct vidDRIVER_INTERFACE *self, float, float);                        /* 0x38 */
     void  (*ConfigureFillMode)(struct vidDRIVER_INTERFACE *self, int);                                  /* 0x3C */
     void  (*ConfigureStencil)(struct vidDRIVER_INTERFACE *self, int, unsigned int, int, int, int);      /* 0x40 */

@@ -8,5 +8,5 @@
 
 uint8_t game_variant_is_classic(game_variant *variant)
 {
-    return (variant->universal_variant.flags >> _game_mode_classic_bit) & 1;
+    return (variant->universal_variant.flags >> _game_mode_classic) & 1;
 }

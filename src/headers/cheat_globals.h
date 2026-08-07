@@ -1,10 +1,9 @@
 #pragma once
 #include <stdint.h>
-/* cheat_globals — runtime cheat toggle flags (cheats.c). Layout from the database (10 bytes). */
+/* cheat_globals — runtime cheat toggle flags (cheats.c). DB-verified: types_members cheat_globals,
+ * ten uint8_t flags at 0x0..0x9, size 10. Sole definition; cheats.h includes this and adds the
+ * `cheats` source-spelling typedef. */
 
-/* Shared struct guard: cheats.h defines the identical layout; guard lets both coexist. */
-#ifndef BLAM_CHEAT_GLOBALS_STRUCT
-#define BLAM_CHEAT_GLOBALS_STRUCT
 typedef struct cheat_globals
 {
     uint8_t deathless_player;          /* 0x0 */
@@ -18,7 +17,6 @@ typedef struct cheat_globals
     uint8_t controller_enabled;         /* 0x8 */
     uint8_t bottomless_clip;            /* 0x9 */
 } cheat_globals;                                /* 10 bytes */
-#endif
 
 #ifdef __cplusplus
 extern "C" {

@@ -34,9 +34,19 @@ extern void data_make_invalid(data_array *data);
  * The (uint16_t) truncation keeps only the absolute-index low word, so passing a full datum
  * handle is also safe — but handle callers should use DATUM_GET below, which says so.
  * Parameter named `arr`, not `data`, so it doesn't collide with the ->data field it substitutes into
- * (the preprocessor would otherwise turn arr->data into e.g. actor_data->actor_data). */
+ * (the preprocessor would otherwise turn arr->data into e.g. actor_data->actor_data).
+ *
+ * The (void *) hop is load-bearing for the SCANNERS, not for codegen. Without it clang's
+ * -Wcast-align fires on every expansion — 2,774 of the corpus's 2,955 castalign sites came from
+ * this one macro, so the class measured how often the accessor is used rather than how often
+ * anything is misaligned. The arithmetic provably preserves alignment: `arr->size` is the element
+ * size, C guarantees sizeof is a multiple of alignof, so `size * index` is a whole number of
+ * elements and base + that is aligned exactly when the base is. And the base must be: this is the
+ * engine's most-executed accessor on a PowerPC target where a misaligned load TRAPS, so misaligned
+ * data here could not have shipped. Silencing it at the macro is what makes the ~180 remaining
+ * castalign sites — the ones that are not this idiom — legible. */
 #define DATA_ARRAY_ELEMENT(arr, type, index) \
-    ((type *)((char *)(arr)->data + (arr)->size * (uint16_t)(index)))
+    ((type *)(void *)((char *)(arr)->data + (arr)->size * (uint16_t)(index)))
 
 /* DATUM_GET(arr, type, datum_index) — unchecked datum-handle -> element resolve: the release-build
  * flavor of datum_get (debug builds called the checked function, see datum_get.c). A handle packs

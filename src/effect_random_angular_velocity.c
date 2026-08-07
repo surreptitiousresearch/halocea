@@ -2,10 +2,13 @@
  * particle. A scaled random magnitude is drawn; if it is zero the result is the zero vector, otherwise
  * a random unit direction is chosen and scaled by the magnitude.
  *
- * DEVIATION: the decompiler under-counted the effect_real_random_range call (7 visible args vs the
- * canonical 9-arg prototype). Per the call-site disassembly the register plumbing is: unused_a = result
- * pointer, unused_b = a_scale_flags, scale_a_flags = scale_a_flags, first_bit_index = constant 3; the scale_b_flags
- * slot (r8) is loaded from an undefined register and is passed as 0 here. */
+ * DEVIATION: the call to effect_real_random_range forwards BOTH scale-flag parameters. The
+ * disassembly is `mr r7, r8` / `mr r8, r9` / `li r9, 3` at 0x836E1458-0x836E1460, i.e. the callee's
+ * a_scale_flags <- our r8 (a_scale_flags), its b_scale_flags <- our r9 (b_scale_flags), and
+ * first_bit_index is the constant 3. The earlier reading passed the trailing int16_t parameter and a
+ * literal 0 instead; it came from assuming the two float parameters consume no GPR slot. They do —
+ * lower_bound/upper_bound occupy slots 3 and 4 (r6/r7) while living in f1/f2. The trailing int16_t
+ * (r10) is genuinely never read by the binary and the DB prototype leaves it unnamed. */
 
 #include <stdint.h>
 #include "headers/effect_datum.h"
@@ -15,10 +18,10 @@
 extern float effect_real_random_range(uint32_t *seed, const effect_datum *effect, float lower_bound, float upper_bound, unsigned int scale_a_flags, unsigned int scale_b_flags, int16_t first_bit_index);
 extern real_vector3d *seed_random_direction3d(uint32_t *seed, real_vector3d *direction);
 
-void effect_random_angular_velocity(unsigned int *seed, const effect_datum *effect, real_vector3d *result, float lower_bound, float upper_bound, unsigned int a_scale_flags, unsigned int b_scale_flags, int16_t scale_a_flags)
+void effect_random_angular_velocity(unsigned int *seed, const effect_datum *effect, real_vector3d *result, float lower_bound, float upper_bound, unsigned int a_scale_flags, unsigned int b_scale_flags, int16_t unused_first_bit_index)
 {
     float magnitude = effect_real_random_range(seed, effect, lower_bound, upper_bound,
-            scale_a_flags, 0, 3);
+            a_scale_flags, b_scale_flags, 3);
 
     if ( magnitude == 0.0f )
     {

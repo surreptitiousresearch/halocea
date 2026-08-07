@@ -51,7 +51,7 @@ uint8_t rasterizer_dx9_shaders_load_from_binary(void)
     }
     CloseHandle(file);
 
-    unsigned int blob_end = (unsigned int)blob + size;
+    uintptr_t blob_end = (uintptr_t)blob + size;
     unsigned int *cursor = (unsigned int *)blob;
     unsigned char *record_end = 0;
     int index = 0;
@@ -59,10 +59,10 @@ uint8_t rasterizer_dx9_shaders_load_from_binary(void)
     for ( ; index < 123; ++index )
     {
         unsigned char *data = (unsigned char *)(cursor + 1);  /* skip length dword */
-        if ( (unsigned int)data > blob_end )
+        if ( (uintptr_t)data > blob_end )
             break;
         record_end = &data[*cursor];
-        if ( (unsigned int)record_end > blob_end )
+        if ( (uintptr_t)record_end > blob_end )
             break;
         if ( !rasterizer_dx9_shaders_create_effect_from_binary(index, data, *cursor) )
             break;

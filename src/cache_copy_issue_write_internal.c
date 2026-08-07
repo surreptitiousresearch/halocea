@@ -26,7 +26,7 @@ void cache_copy_issue_write_internal(simple_decompressor_definition *self, void 
     _OVERLAPPED *overlapped = &self->overlapped[slot];
 
     self->overlapped_in_use_flags[0] |= 1 << (slot & 0x1F);
-    overlapped->hEvent = (void *)slot;
+    overlapped->hEvent = (void *)(intptr_t)slot;
     overlapped->Offset = offset;
     overlapped->OffsetHigh = 0;
 

@@ -10,26 +10,15 @@
 #include <stdint.h>
 #include "../ds/dsTSTRING.h"
 #include "SYSTEM.h" // canonical snd::SYSTEM home for the shared `snd::System` global (2026-07-31)
-
-// ---- FMOD_RESULT (types_enum_values FMOD_RESULT; only the members this class touches) ----
-enum FMOD_RESULT {
-    FMOD_OK = 0,
-    FMOD_ERR_FILE_NOTFOUND = 23,
-    // ...remaining ~90 members not needed by HALO_SOUND_SYSTEM call sites.
-};
-
-// ---- FMOD_OPENSTATE (types_enum_values FMOD_OPENSTATE) ----
-enum FMOD_OPENSTATE {
-    FMOD_OPENSTATE_READY = 0,
-    FMOD_OPENSTATE_LOADING = 1,
-    FMOD_OPENSTATE_ERROR = 2,
-    FMOD_OPENSTATE_CONNECTING = 3,
-    FMOD_OPENSTATE_BUFFERING = 4,
-    FMOD_OPENSTATE_SEEKING = 5,
-    FMOD_OPENSTATE_STREAMING = 6,
-    FMOD_OPENSTATE_SETPOSITION = 7,
-    FMOD_OPENSTATE_MAX = 8,
-};
+// Canonical homes for the types this header used to define a SECOND time (2026-08-07 odr_dup):
+//   fmod_error_boundary.h -> FMOD_RESULT, FMOD_OPENSTATE, FMOD::Sound, FMOD_TIMEUNIT, and the
+//                            C++-linkage decls of FModErrorDesc / WaitSoundBank
+//   SYSTEM_CUSTOM.h       -> snd::HRTF, snd::INIT, snd::SYSTEM_CUSTOM (+ SYSTEM_CUSTOM_vtbl)
+//   SYSTEM_FMOD.h         -> snd::SYSTEM_DBG_FMOD (DB-exact, 1244 bytes)
+// Each copy here was the narrower one; see the notes at the deletion sites in those headers.
+#include "fmod_error_boundary.h"
+#include "SYSTEM_CUSTOM.h"
+#include "SYSTEM_FMOD.h"
 
 // ---- FMOD_SOUND_TYPE (types_enum_values FMOD_SOUND_TYPE; only the member used) ----
 // -- added by the HALO_SOUND_LIST cluster --
@@ -45,7 +34,7 @@ enum FMOD_DELAYTYPE {
     FMOD_DELAYTYPE_DSPCLOCK_PAUSE = 3,
 };
 
-// FMOD_MODE bit used directly (FMOD_2D == 0x8, passed as a literal `8u` at the call site).
+// FMOD_MODE bit. Consumers use the NAME (the one `8u` literal call site was replaced 2026-08-06).
 #define FMOD_2D 0x00000008
 // Reserved channel handle meaning "let FMOD pick any free channel".
 #define FMOD_CHANNEL_FREE (-1)
@@ -62,11 +51,6 @@ typedef struct FMOD_VECTOR {
     float z; // 0x08
 } FMOD_VECTOR;
 
-// FMOD_TIMEUNIT is a typedef'd bitfield (unsigned int) in the SDK, not an enum in the DB's
-// type info. Only the constant the HALO_PERM_SOUND/HALO_CROSSFADE_DSP cluster uses is given.
-typedef unsigned int FMOD_TIMEUNIT;
-#define FMOD_TIMEUNIT_PCM 0x00000002u // boundary -- standard FMOD SDK value
-
 // The real FMOD_CREATESOUNDEXINFO is defined at global scope further down; forward-declare it here
 // so the createSound/createStream members below name THAT type (::FMOD_CREATESOUNDEXINFO) rather
 // than accidentally forward-declaring a distinct incomplete FMOD::FMOD_CREATESOUNDEXINFO.
@@ -74,7 +58,7 @@ struct FMOD_CREATESOUNDEXINFO;
 
 namespace FMOD {
 
-struct Sound;
+// class Sound is defined in fmod_error_boundary.h (included above).
 struct Channel;
 struct ChannelGroup;
 struct DSP;
@@ -95,16 +79,6 @@ typedef struct System {
                               ::FMOD_CREATESOUNDEXINFO *exinfo, Sound **sound);       // boundary — FMOD SDK
     FMOD_RESULT getChannelsPlaying(int *channels);                                         // boundary — FMOD SDK
 } System;
-
-typedef struct Sound {
-    FMOD_RESULT getOpenState(FMOD_OPENSTATE *state, unsigned int *percentBuffered, bool *starving); // boundary
-    FMOD_RESULT getSubSound(int index, Sound **subSound);                               // boundary — FMOD SDK
-    FMOD_RESULT release();                                                              // boundary — FMOD SDK
-    FMOD_RESULT getLength(unsigned int *length, FMOD_TIMEUNIT lengthtype);              // boundary — FMOD SDK (HALO_PERM_SOUND cluster)
-    // -- added by the HALO_SOUND_LIST/HALO_CHANNEL cluster --
-    FMOD_RESULT getNumSubSounds(int *numsubsounds);                                     // boundary — FMOD SDK
-    FMOD_RESULT getDefaults(float *frequency, float *volume, float *pan, int *priority); // boundary — FMOD SDK
-} Sound;
 
 // ChannelGroup -- a mixing bus (snd::SystemFMod->master/->reverb). Added by the HALO_CHANNEL
 // cluster; only ever passed by pointer, full API not modeled.
@@ -160,6 +134,10 @@ typedef struct FMOD_DSP_STATE {
 
 // FMOD_DSP_PARAMETERDESC -- referenced only by pointer (paramdesc); not reversed.
 struct FMOD_DSP_PARAMETERDESC;
+// The C API's opaque sound handle. FMOD_CREATESOUNDEXINFO is the C struct, so its three sound
+// callbacks take FMOD_SOUND * (types_members FMOD_CREATESOUNDEXINFO agrees) -- NOT the C++ wrapper
+// FMOD::Sound *, which is what these three slots used to say. FMOD SDK boundary: no layout.
+struct FMOD_SOUND;
 
 // FMOD_CREATESOUNDEXINFO (types_members FMOD_CREATESOUNDEXINFO) -- 112 bytes. Added by the
 // HALO_SOUND_LIST cluster (CreateSound only sets cbsize/length/suggestedsoundtype; every
@@ -176,9 +154,9 @@ typedef struct FMOD_CREATESOUNDEXINFO {
     int                 numsubsounds;        // 0x20
     int                *inclusionlist;       // 0x24
     int                 inclusionlistnum;    // 0x28
-    FMOD_RESULT       (*pcmreadcallback)(FMOD::Sound *, void *, unsigned int);                  // 0x2C
-    FMOD_RESULT       (*pcmsetposcallback)(FMOD::Sound *, int, unsigned int, unsigned int); // 0x30
-    FMOD_RESULT       (*nonblockcallback)(FMOD::Sound *, FMOD_RESULT);                           // 0x34
+    FMOD_RESULT       (*pcmreadcallback)(FMOD_SOUND *, void *, unsigned int);                  // 0x2C
+    FMOD_RESULT       (*pcmsetposcallback)(FMOD_SOUND *, int, unsigned int, unsigned int); // 0x30
+    FMOD_RESULT       (*nonblockcallback)(FMOD_SOUND *, FMOD_RESULT);                           // 0x34
     const char         *dlsname;             // 0x38
     const char         *encryptionkey;       // 0x3C
     int                 maxpolyphony;        // 0x40
@@ -195,9 +173,10 @@ typedef struct FMOD_CREATESOUNDEXINFO {
     int                  ignoresetfilesystem;// 0x6C
 } FMOD_CREATESOUNDEXINFO; // 112 bytes (cbsize == 112, matches sizeof at this FMOD Ex version)
 
-// Blocks until an FMOD_NONBLOCKING sound bank finishes opening. Added by the HALO_SOUND_LIST
-// cluster; boundary (HCEX FMOD backend helper, not reversed in this batch).
-extern "C" void WaitSoundBank(FMOD::Sound *sound);
+// WaitSoundBank (blocks until an FMOD_NONBLOCKING sound bank finishes opening) is declared by
+// fmod_error_boundary.h, which also owns its definition's TU. It was declared `extern "C"` here;
+// the DB names it ?WaitSoundBank@@YAXPAVSound@FMOD@@@Z, i.e. C++ linkage, so the two declarations
+// could never have referred to the same symbol.
 
 // FMOD_DSP_DESCRIPTION -- DB-verified layout (types_members FMOD_DSP_DESCRIPTION), 92 bytes.
 // Added by the HALO_CROSSFADE_DSP cluster (custom DSP creation descriptor).
@@ -220,17 +199,12 @@ typedef struct FMOD_DSP_DESCRIPTION {
     void                   *userdata;        // 0x58
 } FMOD_DSP_DESCRIPTION;
 
-// ?FModErrorDesc@@YAPBDW4FMOD_RESULT@@_N@Z — human-readable FMOD_RESULT string; second param
-// observed always 0 at HALO_SOUND_SYSTEM call sites. boundary.
-extern "C" const char *FModErrorDesc(FMOD_RESULT result, bool unused);
+// FModErrorDesc (human-readable FMOD_RESULT string; the second param is observed always 0 at
+// HALO_SOUND_SYSTEM call sites) is declared by fmod_error_boundary.h. Same story as WaitSoundBank:
+// it was `extern "C"` here directly under a comment quoting its own C++-mangled DB name
+// ?FModErrorDesc@@YAPBDW4FMOD_RESULT@@_N@Z.
 
 namespace snd {
-
-enum HRTF {
-    HRTF_NONE = 0,
-    HRTF_LIGHT = 1,
-    HRTF_FULL = 2,
-};
 
 // dsFLAGS-wrapped live/dead state bit 0 checked as `snd::System->state.val & 1`.
 typedef struct SYSTEM_STATE_FLAGS { int val; } SYSTEM_STATE_FLAGS;
@@ -244,13 +218,14 @@ typedef struct SYSTEM_BASE {
 // headers meet in one TU; snd::SYSTEM::state is a dsFLAGS with the same .val bit-0 view. (2026-07-31)
 extern SYSTEM *System; // ?System@snd@@3PAVSYSTEM@@... — boundary global
 
+// SYSTEM_DBG_FMOD is defined by SYSTEM_FMOD.h (included above) at its DB-exact 1244 bytes. The
+// three-member view that lived here put `disableNonblocking` at offset 0, where the DB has
+// `enableStats` — the flag HALO_SOUND_LIST::CreateSound tests was reading the wrong byte.
+
 // FMOD backend singleton; only ->system (the FMOD::System*) and ->dbg are used here.
-typedef struct SYSTEM_DBG_FMOD {
-    bool IsSkipped(const char *path); // boundary — dbg-console sound-skip filter
-    // -- added by the HALO_SOUND_LIST/HALO_CHANNEL cluster --
-    bool disableNonblocking;          // boundary offset — forces a blocking FMOD::System::create{Sound,Stream}
-    bool IsBreakOn(const char *path); // boundary — dbg-console break-on-play filter
-} SYSTEM_DBG_FMOD;
+// NOTE: SYSTEM_FMOD_BASE is a compile-only stand-in and is NOT a DB type — the real singleton is
+// snd::SYSTEM_FMOD (SYSTEM_FMOD.h, 2320 bytes: system@52, master@56, reverb@60, dbg@0x430). Only
+// the member NAMES below are evidence; their offsets here are not. Left as-is by the odr_dup pass.
 typedef struct SYSTEM_FMOD_BASE {
     FMOD::System *system; // boundary offset — owned by src/ws/snd/ drain
     SYSTEM_DBG_FMOD dbg;   // boundary offset
@@ -265,28 +240,10 @@ extern unsigned int THREAD_ID;             // owning-thread id asserted by every
 extern dsTSTRING<char> CUSTOM_SOUND_PATH;  // "d:\sounds\xbox360\" base path for custom sounds
 extern dsTSTRING<char> SOUND_LOCALE;       // active locale code (e.g. "en")
 
-// DB-verified layout (types_members snd::INIT): waveOutput@0, enableEax@1, enableHW@2,
-// hrtf@4 (snd::HRTF) — size 8. Init-time configuration passed down from the driver-selection
-// layer; owned by the parallel src/ws/snd/ drain, declared here only far enough to type
-// HALO_SOUND_SYSTEM::Init's parameter.
-typedef struct INIT {
-    bool waveOutput; // 0x00
-    bool enableEax;   // 0x01
-    bool enableHW;     // 0x02
-    HRTF  hrtf;          // 0x04
-} INIT;
-
-struct SYSTEM_CUSTOM_vtbl; // boundary — full slot table owned by src/ws/snd/ (backend dispatch)
-
-// DB-verified layout (types_members snd::SYSTEM_CUSTOM): __vftable@0 — size 4. Abstract backend
-// interface the low-level snd:: driver layer drives every concrete sound backend (FMOD/XAudio/
-// etc) through; HALO_SOUND_SYSTEM is one concrete backend. Full vtbl slot list and the rest of
-// this interface's methods belong to the parallel src/ws/snd/ drain — declared here only as the
-// base class HALO_SOUND_SYSTEM derives from.
-typedef struct SYSTEM_CUSTOM {
-    SYSTEM_CUSTOM_vtbl *__vftable; // 0x00
-
-    static SYSTEM_CUSTOM_vtbl vftable; // `snd::SYSTEM_CUSTOM::`vftable'' — boundary, not reversed
-} SYSTEM_CUSTOM;
+// snd::HRTF, snd::INIT, snd::SYSTEM_CUSTOM and SYSTEM_CUSTOM_vtbl are defined by SYSTEM_CUSTOM.h
+// (included above), which is the only one of the two copies that spelled INIT's 0x03 pad and the
+// vtbl's seven slots. HALO_SOUND_SYSTEM derives from SYSTEM_CUSTOM and takes an INIT by value in
+// Init(), so the layouts have to be the ones the DB gives: INIT is 8 bytes with hrtf@4, and
+// SYSTEM_CUSTOM is 4 bytes with __vftable@0.
 
 } // namespace snd

@@ -121,8 +121,8 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
                 snd.forward = *world_forward;
                 snd.translational_velocity = *global_zero_vector3d;
                 snd.game_location = effect->location;
-                unattached_impulse_sound_new(part_definition->reference.index, &snd, scale,
-                        (uint8_t)*(const unsigned int *)&world_forward->n[0]); /* shipped: forward.x bit-image passed in the is_player arg (r5 @0x836E1DAC) */
+                /* DEVIATION: is_player is 0 (`li r6, 0` @0x836E1D90). Float-slot skip — r5 is `scale`'s shadow, so IDA's 5-arg prototype mislabels the r5 scratch load @0x836E1DAC (it only feeds snd.forward.n[0]); the callee reads r6 (`mr r30, r6` @0x83713AA8), never r5. */
+                unattached_impulse_sound_new(part_definition->reference.index, &snd, scale, 0);
             }
             else
             {

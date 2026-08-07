@@ -15,6 +15,11 @@
 struct gsJBM_JOB_DELAY_MNG_PPU;  // boundary — PPU delayed-job record
 struct gsJBM_JOB_DELAY_MNG_SPU;  // boundary — SPU delayed-job record
 struct jbmJOB;                   // boundary — frame-job record
+struct scnSCENE;                 // boundary — scene root
+struct srMANAGER_vtbl;           // boundary — srMANAGER's vtable: dtr/ProcessLastPortion/
+                                 // CheckAddExecJobs/CopyDelayed2LastValid/AddQuery are virtual and
+                                 // are dispatched through free-function wrappers by consumers
+                                 // rather than through a reproduced vtable layout.
 
 // DB-verified layout (types_members gsSR_MANAGER_INT<...>, size 24): lastJobNmb@0, jobs@4.
 template<class JOB_DELAY_MNG>
@@ -28,14 +33,24 @@ struct gsSR_MANAGER_INT {
 };
 
 // srMANAGER base — the abstract interface hcexCallFrame dispatches through (ProcessLastPortion /
-// CheckAddExecJobs / CopyDelayed2LastValid / RunAllDelayedJobs). boundary: only RunAllDelayedJobs
-// is called from the concrete method below.
-// Partial layout from the disasm of gsStartJobSrMng (0x82515C7C: PushBack targets this+8):
-// srJobs (the single-thread deferred-job list) lives at offset 8.
+// CheckAddExecJobs / CopyDelayed2LastValid / RunAllDelayedJobs). This is the SINGLE definition of
+// srMANAGER; hcex/hcexCallFrame_boundary.h used to carry a second body and now includes this file.
+//
+// Full DB layout (types_members srMANAGER, DB `types` size 32) — adjudicated in the odr_dup drain:
+//   __vftable@0 (srMANAGER_vtbl*), unnamed `unsigned __int8 : 6`@4, isCopyDelayedCalled:1@4,
+//   isAnyQueryAdded:1@4, srJobs@8 (dsVECTOR<jbmJOB*,8>, 20 bytes), pScene@28 (scnSCENE*).
+// The body that lived here was the strictly poorer half of the pair: it modelled offset 4 as a
+// plain `int _unk4` and stopped at srJobs, missing pScene entirely. It is replaced by the DB layout
+// (which agrees with it on srJobs@8 — the one offset it had corroborated from the disasm of
+// gsStartJobSrMng, 0x82515C7C: PushBack targets this+8). Its two method declarations are kept.
 struct srMANAGER {
-    void                       *_vfptr;   // 0x00 vtable pointer
-    int                         _unk4;    // 0x04 (not touched by this batch)
+    srMANAGER_vtbl             *__vftable;               // 0x00
+    unsigned char               _reserved04 : 6;         // 0x04 bits 0-5 unused (anonymous :6 in DB)
+    unsigned char               isCopyDelayedCalled : 1; // 0x04 bit 6
+    unsigned char               isAnyQueryAdded : 1;     // 0x04 bit 7
+    unsigned char               _pad05[3];               // 0x05
     dsVECTOR<jbmJOB *, 8>       srJobs;   // 0x08 single-thread deferred job list
+    scnSCENE                   *pScene;   // 0x1C
 
     void RunAllDelayedJobs(); // 0x82D26A48 callee — boundary (external to this batch)
 

@@ -83,7 +83,7 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
     int effect_index;
     damage_data object_damage;
     damage_data surface_damage;
-    damage_data effect_block;       /* damage_data slot reused (union-style) as an effect payload */
+    real_vector3d effect_vectors[5]; /* projectile_effect_new's `vectors` arg; shares the surface_damage stack slot */
     real_point3d markers[5];
     unsigned int *seed;
     int i;
@@ -339,23 +339,25 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
         if (material_effect_scale < 0.0f) material_effect_scale = 0.0f;
         else if (material_effect_scale > 1.0f) material_effect_scale = 1.0f;
 
-        /* --- build the effect payload: the decompiler repurposes the effect_block
-           damage_data block (union-style) to pack the plane normal, the negated
-           unit velocity, global_down3d and the reflected impact vector for
-           projectile_effect_new. Reproduced field-for-field. --- */
-        *(float *)&effect_block.definition_index = p_plane->n.n[0];
-        effect_block.flags = *(int *)&collision->plane.n.n[1];
-        effect_block.owner_player_index = *(int *)&collision->plane.n.n[2];
-        *(float *)&effect_block.owner_object_index = unit_velocity.n[0] * -1.0f;
-        *(float *)&effect_block.owner_team_index = unit_velocity.n[1] * -1.0f;
-        /* union-style repack: the whole 8-byte location slot (leaf_index+cluster_index+bonus) holds a
-         * packed velocity pair, then the float below overwrites location.cluster_index (0x18) */
-        *(int64_t *)&effect_block.location = *(int64_t *)unit_velocity.n;
-        *(float *)&effect_block.location.cluster_index = unit_velocity.n[2] * -1.0f;
-        effect_block.origin.n[1] = unit_velocity.n[2];
-        effect_block.epicenter.n[2] = global_down3d->n[0];
-        *(int64_t *)effect_block.direction.n = *(int64_t *)&global_down3d->__s1.j;
-        reflect_vector3d(&unit_velocity, &collision->plane.n, (real_vector3d *)&effect_block.epicenter);
+        /* --- build the effect payload for projectile_effect_new ---
+         * DEVIATION: an earlier pass modelled this block as a repurposed `damage_data` and punned
+         * every slot into it. The compiler does reuse the surface_damage stack slot here
+         * (`addi r3, r1, var_1A0 # damage_data` -> damage_data_new @0x8375B614), but the payload
+         * itself is projectile_effect_new's `vectors` argument — 5 consecutive real_vector3d at
+         * var_1A0 (IDA labels it `# vectors` at both call sites, 0x8375BB10 / 0x8375BB54).
+         * Store map @0x8375BA5C-0x8375BAB4 (var_1A0 = +0x00):
+         *   +0x00 plane normal   +0x0C -unit_velocity   +0x18 unit_velocity
+         *   +0x24 reflection (reflect_vector3d's out arg, `addi r5, r1, var_17C` = +0x24)
+         *   +0x30 global_down3d (all three components)
+         * The damage_data model put -velocity.z at +0x18 instead of +0x14, left +0x1C unwritten,
+         * and aimed reflect_vector3d at +0x28 — which also clobbered the down vector's x. --- */
+        effect_vectors[0] = collision->plane.n;
+        effect_vectors[1].n[0] = unit_velocity.n[0] * -1.0f;
+        effect_vectors[1].n[1] = unit_velocity.n[1] * -1.0f;
+        effect_vectors[1].n[2] = unit_velocity.n[2] * -1.0f;
+        effect_vectors[2] = unit_velocity;
+        effect_vectors[4] = *global_down3d;
+        reflect_vector3d(&unit_velocity, &collision->plane.n, &effect_vectors[3]);
 
         for (i = 0; i < 5; ++i)
         {
@@ -365,13 +367,13 @@ void projectile_collision(int projectile_index, collision_result *collision, rea
         }
 
         if (velocity_delta > 0.0083333338)
-            projectile_effect_new(projectile_index, effect_index, collision, markers, (real_vector3d *)&effect_block, effect_scale, material_effect_scale);
+            projectile_effect_new(projectile_index, effect_index, collision, markers, effect_vectors, effect_scale, material_effect_scale);
 
         {
             unsigned int po_flags = po->projectile.flags;
             if ((po_flags & (1u << _projectile_counting_down_bit)) == 0
                 && ((po_flags & (1u << _projectile_stopped_after_collision_bit)) != 0 || the_response == _projectile_response_attach))
-                projectile_effect_new(projectile_index, pdef->projectile.detonation_timer_started.index, collision, markers, (real_vector3d *)&effect_block, effect_scale, material_effect_scale);
+                projectile_effect_new(projectile_index, pdef->projectile.detonation_timer_started.index, collision, markers, effect_vectors, effect_scale, material_effect_scale);
         }
     }
 

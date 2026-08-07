@@ -94,9 +94,9 @@ extern void ai_communication_look_secondary_at_unit(int actor_index, int16_t typ
 extern void ai_communication_update_speech_timers(int unit_index, int16_t priority, int16_t vocalization_type, int16_t dialogue_type_index);
 
 /* helper: object data pointer from a unit/object index (3-dword header records) */
-static int object_from_index(int index)
+static object_datum *object_from_index(int index)
 {
-    return ((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, index)->datum);  /* _DWORD->int */
+    return DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, index)->datum;
 }
 
 void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index,

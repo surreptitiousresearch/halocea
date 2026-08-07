@@ -14,7 +14,7 @@
 #include "headers/ui_widget_type.h"
 #include "headers/game_engine_universal_variant_flags.h"
 
-#define _motion_tracker_flags ((1u << _allow_motion_tracker_bit) | (1u << _motion_tracker_no_enemies_bit))
+#define _motion_tracker_flags ((1u << _allow_motion_tracker_bit) | (1u << _motion_tracker_no_enemies))
 
 extern game_variant * player_ui_get_edit_playlist_profile(void);
 

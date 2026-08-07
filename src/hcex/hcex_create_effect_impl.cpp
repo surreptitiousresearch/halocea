@@ -21,7 +21,6 @@ static int cstr_equals(const char *a, const char *b)
 
 entENTITY *hcex_create_effect_impl(dsTSTRING_flat *hcexName, int obj_follow, hcex_float3 *pos)
 {
-    entCREATE_DATA create_data;
     m3dV spawn_origin;
     entENTITY *entity;
     unsigned char ssl_suspend_saved;
@@ -29,13 +28,21 @@ entENTITY *hcex_create_effect_impl(dsTSTRING_flat *hcexName, int obj_follow, hce
 
     cnt_hcex_create_sfx_enter();
 
-    entCREATE_DATA_ctor(&create_data);
-    sprintf_0(create_data.base.name, "hcex_effect%d", effectId++);
+    /* DEVIATION: `create_data` is scoped so its destructor runs where the binary runs it —
+     * `bl animCREATE_DATA::~animCREATE_DATA` @0x823DE73C, BEFORE the dlFree @0x823DE754 that
+     * releases the caller's name buffer. It used to be a function-scope local paired with
+     * explicit entCREATE_DATA_ctor/_dtor shim calls, because this file's boundary header
+     * restated entCREATE_DATA as a flat plain-C struct; it now uses the canonical RAII type
+     * (odr_dup drain), whose ctor is the `bl entCREATE_DATA::entCREATE_DATA(void)` @0x823DE3EC. */
+    {
+    entCREATE_DATA create_data;
+
+    sprintf_0(create_data.name, "hcex_effect%d", effectId++);
 
     spawn_origin.x = pos->x * HALO_TO_WS_SCALE;
     spawn_origin.y = pos->z * HALO_TO_WS_SCALE;
     spawn_origin.z = pos->y * -HALO_TO_WS_SCALE;
-    m3dMATR_MakeLCS2WCS_VY(&create_data.base.matrInst, &spawn_origin, &m3dVUnitY);
+    m3dMATR_MakeLCS2WCS_VY(&create_data.matrInst, &spawn_origin, &m3dVUnitY);
 
     if ( cstr_equals(hcexName->pBuffer->str, "sfx_pg_detonation_start") )
     {
@@ -79,8 +86,7 @@ entENTITY *hcex_create_effect_impl(dsTSTRING_flat *hcexName, int obj_follow, hce
     (*gsSSL_SYSTEM_isSuspendAdd(gsSslSystem)) = ssl_suspend_saved;
 
     cnt_hcex_create_sfx_exit();
-
-    entCREATE_DATA_dtor(&create_data);
+    }   /* ~entCREATE_DATA (@0x823DE73C) */
 
     if ( --hcexName->pBuffer->refCount == 0 )
         dlFree(hcexName->pBuffer);

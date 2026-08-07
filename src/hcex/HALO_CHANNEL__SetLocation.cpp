@@ -8,6 +8,11 @@
 // The Blam sound_location's leading position/forward/translational_velocity are three contiguous
 // 3-float vectors, which is exactly hcex_conv_pos/hcex_conv_vec's hcex_float3 input; the raw
 // decompile reflects this by indexing `location`/`location+1`/`location+2`.
+//
+// CAVEAT: hcex_conv_pos/hcex_conv_vec take hcex_float3 in the original HCEX bridge signature;
+// sound_location's real_point3d/real_vector3d are layout-identical plain {x,y,z} floats, copied
+// field-by-field here rather than via a raw pointer cast so no ABI equivalence the DB does not
+// state is asserted. Same treatment as the sibling reconstruction in src/hcex/sound/.
 void HALO_CHANNEL::SetLocation(bool spatialize, const sound_location *location,
                               float occlusion, float obstruction, bool underwater)
 {
@@ -24,9 +29,14 @@ void HALO_CHANNEL::SetLocation(bool spatialize, const sound_location *location,
     this->props.is3D = spatialize;
     if (spatialize)
     {
-        hcex_conv_pos(&location->position, &this->props.position);
-        hcex_conv_vec(&location->forward, &this->props.forward);
-        hcex_conv_vec(&location->translational_velocity, &this->props.velocity);
+        hcex_float3 position = { location->position.x, location->position.y, location->position.z };
+        hcex_float3 forward  = { location->forward.i, location->forward.j, location->forward.k };
+        hcex_float3 velocity = { location->translational_velocity.i,
+                                 location->translational_velocity.j,
+                                 location->translational_velocity.k };
+        hcex_conv_pos(&position, &this->props.position);
+        hcex_conv_vec(&forward, &this->props.forward);
+        hcex_conv_vec(&velocity, &this->props.velocity);
         this->props.occlusion = occlusion;
         this->props.obstruction = obstruction;
     }

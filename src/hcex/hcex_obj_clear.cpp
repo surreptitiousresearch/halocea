@@ -36,7 +36,10 @@ extern void hcex_destroy_dead_intances(void);
 extern void hcex_init_breakable_surfaces(void);
 extern void hcex_cine_obj_clear(void);
 
-void hcex_obj_clear(void)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `hcex_obj_clear` (@0x823E0A58);
+// compiled as C++ without it the definition mangles to `?hcex_obj_clear@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" void hcex_obj_clear(void)
 {
     hcex_render_ready = 0;
     hcex_wait_jobs();

@@ -27,22 +27,22 @@ void hs_evaluate_sleep(int16_t function_index, int thread_index, uint8_t initial
      * most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *ticks_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(ticks_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *ticks_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(ticks_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --ticks_slot;
     frame->size = (int16_t)((unsigned char *)ticks_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *script_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u);
-    if ( (unsigned int)(script_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *script_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3);
+    if ( (uintptr_t)(script_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --script_slot;
     frame->size = (int16_t)((unsigned char *)script_slot - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int16_t *phase = (int16_t *)(((unsigned int)stack_top + 1) & ~0x1u);
-    if ( (unsigned int)(phase - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int16_t *phase = (int16_t *)(((uintptr_t)stack_top + 1) & ~(uintptr_t)0x1);
+    if ( (uintptr_t)(phase - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --phase;
     int target_thread = thread_index;
     frame->size = (int16_t)((unsigned char *)phase - frame->data + 2);

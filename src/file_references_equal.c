@@ -6,11 +6,11 @@
 
 int file_references_equal(const file_reference *reference0, const file_reference *reference1)
 {
-    if (*(uint16_t *)&reference0->data[6] != *(uint16_t *)&reference1->data[6])   /* location id word at data[6] */
+    if (reference0->info.location != reference1->info.location)
         return 0;
 
-    const char *path0 = &reference0->data[8];
-    const char *path1 = &reference1->data[8];
+    const char *path0 = reference0->info.path;
+    const char *path1 = reference1->info.path;
 
     while (*path0 == *path1)
     {

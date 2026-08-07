@@ -80,7 +80,7 @@ void oddball_engine_update(void)
                 if ( owner_player_index != -1 )
                 {
                     real_point3d *owner_position = (real_point3d *)
-                        (((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, owner_object_index)->datum) + 0xA0);
+                        ((uintptr_t)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, owner_object_index)->datum + 0xA0);
                     game_engine_set_goal_position(i, owner_position, 0.0f, "target_blue", -1, -1, 0);
                 }
             }

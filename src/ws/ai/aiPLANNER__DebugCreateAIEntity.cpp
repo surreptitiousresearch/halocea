@@ -47,8 +47,14 @@ void aiPLANNER::DebugCreateAIEntity(const dsTSTRING<char> &nameClass, const dsTS
 
     cdtINFO info;
     entENTITY *player = gsGetPlayer(0);
-    // Refine: exclude the player's own instance; layer mask 0x20.
-    cdtREFINE refine(0, 32, player->pInst);
+    // Refine: exclude the player's own instance, query every collision layer, user
+    // object-inclusion state 0x20.
+    // DEVIATION: this passed layerMask=0 and carried a comment claiming the mask was 0x20 —
+    // both wrong, and both artifacts of the folded 3-arg ctor model. The caller sets
+    // `li r5, -1` @0x831958E4 (layerMask = 0xFFFFFFFF); the 0x20 is stored as a doubleword and
+    // reloaded into r6 (`std r4, var_1A8` @0x831958D8 / `ld r6, 0(r29)` @0x831958E8), i.e. it is
+    // the 64-bit stateObjUsrIncl, not the mask; r7 = player->pInst (`lwz r7, 0x15C(r3)`).
+    cdtREFINE refine(0, 0xFFFFFFFFu, apSTATE_T<int64_t>{0x20}, player->pInst);
 
     apCL cl = { "D:\\Projects\\code\\common\\src.sys\\gm_shared\\ai08\\a8_debug.cpp", 367 };
     pSrMng->ShootRay(from, dir, 500.0f, &refine, &info, cl); // return ignored; validity read below

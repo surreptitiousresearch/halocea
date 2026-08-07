@@ -45,8 +45,8 @@ static int *hs_thread_push_result_slot(hs_thread *thread)
 {
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *slot = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
-    if ((unsigned int)(slot - 1) > (unsigned int)stack_top)   /* dead branch (shipped) */
+    int *slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3) /* align up to 4 */;
+    if ((uintptr_t)(slot - 1) > (uintptr_t)stack_top)   /* dead branch (shipped) */
         --slot;
     frame->size = (int16_t)((unsigned char *)slot - frame->data + 4);
     return slot;

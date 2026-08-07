@@ -5,7 +5,8 @@ struct gsANITEC_ACTOR; // ws-engine gs: cinematic actor being animated (pointer 
 // HCEX bridge: one entry in the cinematics-in-progress list — pairs a cinematic actor with the
 // per-actor "mask" state snapshot used to restore its animation-tec state afterward.
 // DB-verified layout (types_members hcexCINE_INFO): actor@0 (gsANITEC_ACTOR*),
-// mask@4 (apSTATE_T<unsigned char>) — size 5 (padded to 8 in the containing dsVECTOR<...,8>).
+// mask@4 (apSTATE_T<unsigned char>, 1 byte) — the DB's own `types.size` for hcexCINE_INFO is 8,
+// i.e. the 3 trailing pad bytes are part of the type (members end at 5).
 typedef struct hcexCINE_INFO {
     gsANITEC_ACTOR      *actor; // 0x00
     apSTATE_T<unsigned char> mask; // 0x04

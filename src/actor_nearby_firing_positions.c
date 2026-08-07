@@ -10,7 +10,7 @@
  * a path_state, and a float distance out. Register-level disasm resolved the calls: path_input_new radius is the
  * actor definition's pathfinding_radius (+140), ignore_broken_surfaces=1, ignore_source_object_index=-1; the
  * firing-position group test is (1 << group_index) (r29=1, disasm 0x837EFBD8); and path_3d_available's float
- * avoidance_distance (arg 3) burns the r5 shadow, so its destination_reference is the firing position and its
+ * avoidance_distance (arg 3) burns the r5 shadow, so its end_point is the firing position's own point and its
  * two output args are null (same shape as path_3d_build_path). actor typed to name meta.definition_index/
  * meta.encounter_index; the actor definition, encounter (176-byte stride) and firing positions (24-byte stride)
  * are typed: encounter_definition (176 bytes, firing_positions tag_block @152) and its
@@ -44,7 +44,7 @@ extern void path_input_set_search_bounds(path_input *input, float maximum_distan
 extern void path_state_new(const path_input *input, path_state *state, path_debug_storage *debug);
 extern uint8_t path_state_find(path_state *state);
 extern int path_state_estimated_distance(path_state *state, const real_point3d *end_point, int end_surface_index, float *distance_reference, float *closest_approach_to_attractor_reference, real_vector3d *estimated_direction_reference);
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
 
 uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode)
 {
@@ -87,7 +87,7 @@ uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point,
                         if ( use_bsp_path_test )
                         {
                             if ( path_3d_available(global_structure_bsp, test_point, 0.0f,
-                                    (const collision_bsp_test_vector_result *)firing_position, nullptr, nullptr) )
+                                    &firing_position->position, nullptr, nullptr) )
                                 return 1;
                         }
                         else

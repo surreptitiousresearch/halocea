@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"
-#include "headers/obey_simple_flags.h"
+#include "headers/obey_simple_control_flags.h"
 
 extern void action_obey_directmovement_update_facing(uint16_t actor_index, int unit_index, obey_individual_simple_control *simple_control);
 

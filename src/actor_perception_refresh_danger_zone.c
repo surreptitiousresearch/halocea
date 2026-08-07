@@ -229,7 +229,7 @@ void actor_perception_refresh_danger_zone(int actor_index)
             if ( danger_object->object.parent_object_index == -1 )
                 danger_location = &danger_object->object.location; /* object_datum +152 */
             else
-                danger_location = (const location *)(((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(danger_object_index))->datum) + 152);
+                danger_location = &DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(danger_object_index))->datum->object.location; /* object_datum +152 */
 
             int16_t line_of_sight = ai_test_line_of_sight(&sense[0].head_position,
                     sense[0].body_location.cluster_index, &actor->danger_zone.position,

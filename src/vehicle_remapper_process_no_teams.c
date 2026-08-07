@@ -50,24 +50,24 @@ void vehicle_remapper_process_no_teams(void)
                 if ( column < 0 )
                     break;
 
-                int flat_slot = 2 * vehicle_type + column;
+                /* DEVIATION: flat slot 2*vehicle_type+column folded through vehicles[0]; the array is [6][2]. */
                 --max_to_spawn;
-                unsigned int slot_num_spawned = vehicle_remapper.vehicles[0][flat_slot].num_spawned;
-                vehicle_remapper.vehicles[0][flat_slot].num_spawned = slot_num_spawned + 1;
-                vehicle_remapper.vehicles[0][flat_slot].team_vehicles[slot_num_spawned].spawn = 1;
+                unsigned int slot_num_spawned = vehicle_remapper.vehicles[vehicle_type][column].num_spawned;
+                vehicle_remapper.vehicles[vehicle_type][column].num_spawned = slot_num_spawned + 1;
+                vehicle_remapper.vehicles[vehicle_type][column].team_vehicles[slot_num_spawned].spawn = 1;
             }
             continue;
         }
 
         for ( int column = 0; column <= 1; ++column )
         {
-            int flat_slot = 2 * vehicle_type + column;
-            int team_base = 10 * flat_slot;
+            /* DEVIATION: the 10-unit team_vehicles stride was folded through vehicles[0][0]; vehicles is
+             * [6][2] of 80 bytes with team_vehicles[8] at +16, so 10 units per slot IS one struct stride
+             * and [vehicle_type][column].team_vehicles[j] is the same address. */
             int map_count = vehicle_remapper.vehicles[vehicle_type][column].map_count;
             for ( int j = 0; j < map_count; ++j )
             {
-                int entry = team_base + j;
-                vehicle_info_s *vehicle = &vehicle_remapper.vehicles[0][0].team_vehicles[entry];
+                vehicle_info_s *vehicle = &vehicle_remapper.vehicles[vehicle_type][column].team_vehicles[j];
                 int spawn = 0;
                 variant = game_engine_get_variant();
                 if ( variant )
@@ -82,7 +82,7 @@ void vehicle_remapper_process_no_teams(void)
                     }
                 }
                 if ( spawn )
-                    vehicle_remapper.vehicles[0][0].team_vehicles[entry].spawn = 1;
+                    vehicle_remapper.vehicles[vehicle_type][column].team_vehicles[j].spawn = 1;
             }
         }
     }

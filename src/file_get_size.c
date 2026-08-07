@@ -15,7 +15,7 @@ uint8_t file_get_size(const file_reference *file, unsigned int *size)
     uint8_t result = 0;
 
     memset(full_path, 0, sizeof(full_path));
-    file_location_get_full_path(*(unsigned short *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(file->info.location, file->info.path, full_path);
 
     if ( GetFileAttributesExA(full_path, GetFileExInfoStandard, &attr_data) )
     {

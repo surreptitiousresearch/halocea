@@ -5,7 +5,9 @@
 #include "../ds/dsAFFIX_STRING.h"
 #include "../rend/rendSR_DATA.h"
 // ws-engine anim: parameter block passed to animINST creation.
-// DB-verified layout (types_members animCREATE_DATA) — size 232 (0xE8).
+// DB-verified layout (types_members animCREATE_DATA, 14 members) — size 232 (0xE8).
+// Canonical home, and as of 2026-08-07 the SOLE definition: hcex/hcex_create_effect_impl_boundary.h
+// carried a member-for-member identical flat plain-C copy and now includes this header (odr_dup drain).
 
 struct animCREATE_DATA_vtbl; // polymorphic base vtable (pointer only)  boundary
 

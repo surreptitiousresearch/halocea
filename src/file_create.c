@@ -6,8 +6,9 @@
 #include <stdint.h>
 #include <windows.h>
 #include "headers/file_reference.h"
+#include "headers/reference_info_flags.h"
 
-extern void *memset(void *dst, int c, size_t n);
+/* memset provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
 extern const char *tag_name_strip_path(const char *name);
 
@@ -16,11 +17,11 @@ uint8_t file_create(file_reference *file)
     int created = 0;
     char full_path[288];
     memset(full_path, 0, 256);
-    file_location_get_full_path(*(unsigned short *)&file->data[6], &file->data[8], full_path);
+    file_location_get_full_path(file->info.location, file->info.path, full_path);
 
-    if ( (*(unsigned short *)&file->data[4] & 1) == 0 )   /* name-set flag word at data[4] (file_reference is an opaque char[268] in the DB) */
+    if ( (file->info.flags & (1u << _has_filename_bit)) == 0 )
     {
-        if ( CreateDirectoryA((const char *)&file->data[8], 0) )
+        if ( CreateDirectoryA((const char *)file->info.path, 0) )
             created = 1;
     }
     else

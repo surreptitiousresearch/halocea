@@ -27,7 +27,7 @@ void ui_widgets_close_all(void) /* attested void: 0/11 callers consume r3 */
             dispose_widget_stack(widget_stack);
         ++widget_stack;
     }
-    while ( (int)widget_stack < (int)&widget_globals.current_system_milliseconds );
+    while ( (uintptr_t)widget_stack < (uintptr_t)&widget_globals.current_system_milliseconds );
 
     widget_globals.pause_game_time_count = 0;
     controls_screen_cancel_config_mode(); /* attested void: tail-call, 0/11 callers consume r3 */

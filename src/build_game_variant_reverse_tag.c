@@ -24,7 +24,7 @@ game_variant * build_game_variant_reverse_tag(game_variant *result)
     result->universal_variant.teams = 0;
     result->universal_variant.vehicles_respawn = 0;
     result->universal_variant.goal_radar = 1;
-    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies_bit))) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_classic_bit);   /* __ROL4__(65, 1) & 0x3F | 0x80, folded */
+    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies))) | (1u << _allow_friendly_navpoints_bit) | (1u << _game_mode_classic);   /* __ROL4__(65, 1) & 0x3F | 0x80, folded */
     result->universal_variant.health = 1.0f;
     result->universal_variant.respawn_time = 150;
     result->game_engine_index = game_engine_oddball;

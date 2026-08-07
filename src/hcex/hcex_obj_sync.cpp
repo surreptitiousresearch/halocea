@@ -97,7 +97,7 @@ void hcex_obj_sync(HCEX_OBJ *obj)
         follower_ent->pInst->Transform(&follower_matr, 0);
     }
 
-    dsCMP cmp = 0;
+    dsCMP cmp;
     int lip_sync_idx = dsVECTOR_lipsync_FindSorted(&hcexLipSyncList, &obj->id, &cmp);
     if ( lip_sync_idx != -1 )
         mdlLIP_SYNCER_ApplyLipSync(dsVECTOR_lipsync_index(&hcexLipSyncList, lip_sync_idx)->val);

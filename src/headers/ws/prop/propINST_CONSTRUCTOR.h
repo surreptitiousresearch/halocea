@@ -1,6 +1,8 @@
 #pragma once
 #include "propENT.h"
+#include "propENT_DESC.h"
 #include "instCONSTRUCTOR_MNG.h"
+#include "../DEFAULT_CTOR.h"
 #include "../ds/dsTSTRING.h"
 #include "../ds/dsTYPE_ID.h"
 // ws-engine prop subsystem: per-object "prop instance constructor" component — builds/configures
@@ -10,10 +12,20 @@
 // DB-verified layout (types_members propINST_CONSTRUCTOR):
 //   propENT@0 (40B, base), curPresetName@40 (dsTSTRING<char>), mSeed@44 (unsigned int) — size 48.
 
-// Descriptor for propINST_CONSTRUCTOR. Modeled here only far enough to expose its runtime-type
-// bitmask static (?TYPE_ID@propINST_CONSTRUCTOR_DESC@@2VdsTYPE_ID@@A @ 0x8427C3BC), which
-// propBASE::GetProperty<propINST_CONSTRUCTOR> matches against. Full layout is a boundary.
-struct propINST_CONSTRUCTOR_DESC {
+// Descriptor for propINST_CONSTRUCTOR. DB-verified layout (types_members
+// propINST_CONSTRUCTOR_DESC): propENT_DESC base@0 (52), isEntSslClassInited@0x34,
+// presetName@0x38, nameCdtSkeleton@0x3C, nameRagdoll@0x40, m_bDynamicSkin@0x44,
+// canRemove@0x48 — size 76. Same shape as propGAME_INFO_DESC (its sibling descriptor).
+struct propINST_CONSTRUCTOR_DESC : propENT_DESC {
+    DEFAULT_CTOR<bool> isEntSslClassInited; // 0x34 lazy-init flag for the ssl class link
+    dsTSTRING<char>    presetName;          // 0x38 default preset/skin name
+    dsTSTRING<char>    nameCdtSkeleton;     // 0x3C collision-skeleton name
+    dsTSTRING<char>    nameRagdoll;         // 0x40 ragdoll name
+    int                m_bDynamicSkin;      // 0x44
+    int                canRemove;           // 0x48
+
+    // DB-verified static (?TYPE_ID@propINST_CONSTRUCTOR_DESC@@2VdsTYPE_ID@@A @ 0x8427C3BC), which
+    // propBASE::GetProperty<propINST_CONSTRUCTOR> matches against.
     static dsTYPE_ID TYPE_ID;
 };
 

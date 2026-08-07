@@ -39,7 +39,7 @@ void player_ui_begin_editing_profile(int profile_index)
             0x98u);
         player_ui_globals.edit_profile_data.edit_profile.variant.universal_variant.flags =
             player_ui_globals.edit_profile_data.original_profile.variant.universal_variant.flags
-                & ~((1u << _game_mode_classic_bit) | (1u << _game_mode_standard_bit));
+                & ~((1u << _game_mode_classic) | (1u << _game_mode_standard));
     }
     else
     {

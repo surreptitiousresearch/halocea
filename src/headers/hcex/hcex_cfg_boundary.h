@@ -24,30 +24,12 @@ namespace ds_data
     typedef REF_TYPE<apCONFIG>      REF_TYPE_apCONFIG;      /* 4 bytes */
 }
 
-/* Full DB layout (types_members gsUSER_MNG, size 40); the dispatcher/handle members are spelled
- * with the ws-engine types. */
-#include "../ws/ssl/sslOBJ_REF.h"
-#include "../ws/ds/dsVECTOR.h"
+/* Full DB layout (types_members gsUSER_MNG, size 40) — canonical body, which also declares
+ * `extern gsUSER_MNG *gsUserMng;`. */
 #include "../ws/ds/dsEVENT_MGR.h"
-struct dsVECTOR_PARAM_LIST; /* boundary — parameter-list vector class */
-
-typedef struct gsUSER_MNG
-{
-    /* Nested dsEVENT_HANDLER subscriber (types_members gsUSER_MNG::EVENT_DISP_gsUSER_MNG:
-     * dsEVENT_HANDLER base@0, pObj@4 — size 8). */
-    struct EVENT_DISP_gsUSER_MNG : public dsEVENT_HANDLER {
-        gsUSER_MNG *pObj; /* 0x04 */
-    };
-
-    EVENT_DISP_gsUSER_MNG                               eventDispatcher;  /* 0x00 */
-    sslOBJ_REF                                          sslObject;        /* 0x08 */
-    dsVECTOR<ds_data::REF_TYPE<dsVECTOR_PARAM_LIST>, 8> users;            /* 0x0C */
-    int           primaryUserIdx; /* 0x20 */
-    int           secondaryUserIdx; /* 0x24 */
-} gsUSER_MNG;                     /* 40 bytes */
+#include "../ws/gs/gsUSER_MNG.h"
 
 extern gsUSER_CFG_MNG *gsUserCfgMng;
-extern gsUSER_MNG      *gsUserMng;
 
 /* 0x823C1478-adjacent boundary calls (free-function thiscall form). */
 extern ds_data::REF_TYPE_apCONFIG gsUSER_CFG_MNG_Get(gsUSER_CFG_MNG *self, int userIdx);   /* ?Get@gsUSER_CFG_MNG@@QAA?AV?$REF_TYPE@VapCONFIG@@@ds_data@@H@Z */

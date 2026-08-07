@@ -15,7 +15,13 @@
  * Bit 1 is set only via the |= 3 in action_obey_command_begin's halt path — unnamed. */
 /* DB-AUTHORITATIVE (was a GUESS before extraction). DB $5F14168C names all 5 bits including bit 1
  * (previously the unnamed |= 3 halt path). Canonical DB names first; the pre-existing _obey_simple_control_*
- * consumer identifiers are kept as same-value aliases. DB confirms bit 3 = jump_jumped (local "jump_begun"). */
+ * consumer identifiers are kept as same-value aliases. DB confirms bit 3 = jump_jumped (local "jump_begun").
+ *
+ * CANONICAL HOME for the $5F14168C enumerators. src/headers/obey_simple_flags.h held a second
+ * definition of the same six names (merged provenance: "types_enum_values
+ * _5F14168CA5C13897CF031FE97B7BC729 carries these named values verbatim") and was deleted
+ * 2026-08-07 — two enum bodies for one DB enum is an ODR redefinition that makes clang leave the
+ * dependent record incomplete in header_layout's bulk probe. */
 enum obey_simple_control_flags {
 	_obey_simple_directmovement_bit = 0x0,
 	_obey_simple_control_direct_movement_bit = 0x0,                 /* legacy consumer alias */

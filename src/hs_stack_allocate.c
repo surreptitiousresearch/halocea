@@ -14,7 +14,11 @@ char * hs_stack_allocate(uint16_t thread_index, int16_t size, int alignment)
     hs_stack_frame *frame = thread->stack;
 
     char *top = (char *)&frame->data[frame->size];
-    char *result = (char *)((unsigned int)(top + alignment - 1) & -alignment);
+    /* uintptr_t on BOTH halves: a 32-bit mask zero-extends and clears the high half of the address
+     * on x64. The mask keeps the original `-alignment` spelling, sign-extended — `~(alignment-1)`
+     * would agree only for powers of two, and silently changing the expression is not the job. */
+    char *result = (char *)((uintptr_t)(top + alignment - 1)
+                            & (uintptr_t)(intptr_t)(-alignment));
     if ( &result[-alignment] > top )
         result -= alignment;
 

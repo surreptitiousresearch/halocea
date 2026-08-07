@@ -26,8 +26,8 @@
 
 typedef struct _iobuf _iobuf;
 extern _iobuf *__iob_func(void);
-extern int fprintf(_iobuf *stream, const char *format, ...);
-extern int fflush(_iobuf *stream);
+/* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* fflush provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
 extern uint8_t tag_block_resize(tag_block *block, int element_count);
 extern uint8_t tag_data_resize(tag_data *data, int size);

@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include "apCOUNTER.h"
+#include "apCOUNTER_TIME_CALL_WRP.h" /* apCOUNTER_TIME_CALL_WRP<T> — canonical single definition */
 // ap named cumulative call-time counters (profiling). apCOUNTER_TIME_RECUR (full definition:
 // apCOUNTER_TIME_RECUR.h) is a static per-call-site recurring time counter; apCOUNTER_TIME_CALL_WRP
 // is the RAII scope guard that accumulates elapsed time into it for the duration of one call
@@ -30,12 +31,4 @@ struct apCOUNTER_TIME : apCOUNTER {
     // Construct a named single-shot time counter (register it with the counter manager). The second
     // argument is the units-names string (nullptr → the default "time" units). boundary.
     apCOUNTER_TIME(const char *name, const char *unitsNames);
-};
-
-template<class COUNTER>
-struct apCOUNTER_TIME_CALL_WRP {
-    COUNTER *counter; // 0x00 the counter being accumulated into
-
-    explicit apCOUNTER_TIME_CALL_WRP(COUNTER *c); // boundary — begin timing this scope
-    ~apCOUNTER_TIME_CALL_WRP();                   // boundary — accumulate the elapsed time
 };

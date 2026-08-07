@@ -7,7 +7,12 @@
 // type (separate subsystem, external to this batch) — treated as an opaque boundary
 // declaration here. iaDESC (and its RegisterSmlState, called by sml::STATE::Set(name)) is now
 // a real, fully-reversed type — see ../ia/iaDESC.h; no local stub is kept here.
-class iaIACTOR; // boundary — entity/actor engine
+// DEVIATION: `struct`, not `class`. The DB types row for iaIACTOR is kind=struct (size 200) and
+// every other forward declaration in the corpus spells it `struct`, so this one line was the
+// minority spelling — and it produced 854 of the corpus's 866 C4099 warnings
+// ("type name first seen using 'struct' now seen using 'class'"), which nothing measured because
+// the C++ corpus had no /W flag at all until clcheck_cpp_w3.bat.
+struct iaIACTOR; // boundary — entity/actor engine
 
 // ??$Desc@ViaIACTOR@@@@YAPAViaDESC@@PBViaIACTOR@@@Z — free template helper that returns
 // the iaDESC describing `actor`. boundary (not decompiled here).

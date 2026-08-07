@@ -48,7 +48,7 @@ unsigned int DBG_CINE_INFO_mapActors_GetHash(void *map_actors, const dsSTRID *ke
 {
     DBG_CINE_ACTOR_MAP_VIEW *map = (DBG_CINE_ACTOR_MAP_VIEW *)map_actors;
 
-    unsigned int mixed = (unsigned int)(unsigned long)key->id * map->a + map->b;
+    unsigned int mixed = (unsigned int)(uintptr_t)key->id * map->a + map->b;
     /* Raw decompile: dividend64 low dword = mixed, high dword = 0x55555560; the whole reduction is a
      * materialized `% ds::BIG_PRIME` (0x55555561 == 1431655777). */
     unsigned long long dividend64 = ((unsigned long long)0x55555560u << 32) | mixed;

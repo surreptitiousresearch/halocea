@@ -2,6 +2,9 @@
 #include "../ds/dsTSTRING.h"
 // ssl subsystem: a script error/result value. DB-verified layout (types_members sslERROR):
 //   id@0 (sslERROR_ID), desc@4 (dsTSTRING<char>), tags@8 (int) — size 12.
+// Canonical home, and as of 2026-08-07 the SOLE definition: hcex/hcex_kill_breakable_surface_boundary.h
+// restated the body with `typedef int sslERROR_ID;`, contradicting the DB (types_members reports
+// member `id` with mt_is_enum=1); it now includes this header (odr_dup drain).
 
 // DB-verified full enumerator set (types_enum_values sslERROR_ID). 0 = no error.
 enum sslERROR_ID {

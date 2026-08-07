@@ -63,6 +63,21 @@ typedef struct scnSCENE {
     int                   countShootRays;  // 0x2858
     dsVECTOR<int, 8>       instIndJustCreated; // 0x285C pending just-created instance ids (sorted, dedup)
 
+    // ---- template store (boundary; DB-confirmed scnSCENE members) ----
+
+    // 0x8253C6A8 (?FindTplName@scnSCENE@@QAAPAVanimTPL@@PBD@Z) — locate an already-resident
+    // template by (extension-stripped) name; returns pTplDummy on miss. boundary.
+    animTPL *FindTplName(const char *name);
+    // 0x8253EAA0 (?AllocTpl@scnSCENE@@QAAPAVanimTPL@@XZ) — allocate an empty template slot
+    // (null on exhaustion). boundary.
+    animTPL *AllocTpl();
+    // 0x8253EBC8 (?DestroyTpl@scnSCENE@@QAAXPAVanimTPL@@@Z) — release a template slot
+    // allocated via AllocTpl. boundary.
+    void     DestroyTpl(animTPL *pTpl);
+    // 0x827430B8 (?IsBelongPosSceneBox@scnSCENE@@QAAHPAUm3dV@@@Z) — nonzero when world position
+    // `pos` lies inside the scene's bounding box. boundary.
+    int IsBelongPosSceneBox(m3dV *pos);
+
     // ---- reversed in the ws_scn_0001 batch ----
 
     // 0x8253C718 — the instance following `pInst` in the live list, or the list head when

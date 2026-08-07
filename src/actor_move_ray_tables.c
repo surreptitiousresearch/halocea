@@ -49,4 +49,7 @@ float avoid_ray_adjacent_fractions[2] = { 0.8f, 0.5f };
  * direction (x0.7 scaled in code) with these divergences (30 and 55 degrees).
  * Recovered @0x82126654 / @0x8212665C. */
 float avoidance_ray_offsets[2]    = { 0.7f, 1.0f };
-float avoidance_ray_divergence[2] = { 0.52359903f, 0.95993108f };
+/* DEVIATION: 0.52359903f was one ULP off. The image holds 0.5235988f (pi/6, 30 degrees)
+ * and no word matching 0.52359903f exists in .rdata/.data. Found 2026-08-06 by
+ * tools/find_float_fidelity.py. */
+float avoidance_ray_divergence[2] = { 0.5235988f, 0.95993108f };

@@ -27,8 +27,8 @@ void dsVECTOR<psSECTION, 8>::Erase(int pos, int n)
 
     if (n) {
         for (int eraseIndex = pos; eraseIndex < pos + n; ++eraseIndex) {
-            // the 4-byte handle field aliases a psSECTION_DATA* payload pointer
-            psSECTION_DATA *payload = (psSECTION_DATA *)this->pData[eraseIndex].handle;
+            // pData is the DB member name for this slot (handle is its legacy uint alias)
+            psSECTION_DATA *payload = this->pData[eraseIndex].pData;
             if (payload)
                 payload->Release();
         }

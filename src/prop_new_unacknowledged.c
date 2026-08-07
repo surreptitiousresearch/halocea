@@ -1,8 +1,16 @@
-/* prop_new_unacknowledged @0x837D1CC8 — allocate a prop slot for a newly noticed unit. It first scans the
- * actor's existing props for the best one to evict: any prop the actor no longer desires
- * (actor_perception_desire_prop returns false) and that is the farthest away (largest distance) becomes the
- * eviction candidate. If one is found it is switched out, removed and cleared (preserving its datum
- * identifier) for reuse; otherwise a fresh prop datum is allocated. Either way prop_add binds it to the unit.
+/* prop_new_unacknowledged @0x837D1CC8 — allocate a prop slot for a newly noticed unit. It scans the actor's
+ * existing props for the best one to evict, keeping TWO candidates: the nearest prop the actor no longer
+ * desires (actor_perception_desire_prop returns false), and, as a fallback, the nearest still-desired prop
+ * on the same side as `enemy` for which desire_prop raised its secondary "interested but not desiring"
+ * output. The fallback is only taken when the actor already tracks at least 6 same-side props when `enemy`
+ * is set, or 4 when it is clear. If a candidate is found it is switched out, removed and cleared (preserving
+ * its datum identifier) for reuse; otherwise a fresh prop datum is allocated. Either way prop_add binds it
+ * to the unit.
+ *
+ * DEVIATION: the fallback track was missing entirely — the pseudocode dropped the `enemy` parameter, the
+ * same-side tally and the second candidate, keeping only the tally's increment. Recovered from
+ * 0x837D1DDC-0x837D1E58: `lbz r11, 0x60(r31)` / `clrlwi r10, r24, 24` / `cmplw` is prop->enemy == enemy,
+ * and the threshold is `addi r7, r11, 4` over a bit lifted from `enemy != 0`, i.e. 4 or 6.
  *
  * Deviation: actor_perception_desire_prop's two float args (suicide_radius, distance_squared) make its
  * trailing int args float-GPR-skip phantoms in the decompiler; from disasm they are dead_ticks (prop+0x76),
@@ -25,8 +33,11 @@ extern void prop_add(int actor_index, int unit_index, int prop_index);
 
 int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy)
 {
-    float best_distance = 3.4028235e38f;
+    float best_undesired_distance = 3.4028235e38f;
+    float best_same_side_distance = 3.4028235e38f;
     int eviction_prop_index = -1;
+    int same_side_prop_index = -1;
+    int16_t same_side_count = 0;
     /* was raw *((int*)actor_data->data + 457*actor_index + 20): actor_datum.meta.first_prop_index @0x50 */
     int prop_index = DATUM_GET(actor_data, actor_datum, actor_index)->meta.first_prop_index;
 
@@ -39,22 +50,34 @@ int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy)
 
         if ( (state < _prop_state_uninspected_orphan || state > _prop_state_inspected_orphan) && prop->___u3.orphan_prop_index == -1 )
         {
-            uint8_t desire_scratch = 0;
+            uint8_t secondary_interest = 0;
             if ( actor_perception_desire_prop(actor_index, -1, prop->unit_index, prop->actor_index,
                                               prop->in_use, prop->player, prop->enemy, prop->dead,
                                               prop->dead_ticks, prop->suicide_radius,
                                               prop->distance * prop->distance, prop->required_ticks,
-                                              &desire_scratch) )
+                                              &secondary_interest) )
             {
-                /* desired prop kept; matching-enemy tally is computed but unused */
+                if ( prop->enemy == enemy )
+                {
+                    same_side_count = (int16_t)(same_side_count + 1);
+                    if ( secondary_interest && prop->distance < best_same_side_distance )
+                    {
+                        same_side_prop_index = current_prop_index;
+                        best_same_side_distance = prop->distance;
+                    }
+                }
             }
-            else if ( prop->distance < best_distance )
+            else if ( prop->distance < best_undesired_distance )
             {
                 eviction_prop_index = current_prop_index;
-                best_distance = prop->distance;
+                best_undesired_distance = prop->distance;
             }
         }
     }
+
+    if ( eviction_prop_index == -1 && same_side_prop_index != -1
+        && same_side_count >= (enemy ? 6 : 4) )
+        eviction_prop_index = same_side_prop_index;
 
     int new_prop_index;
     if ( eviction_prop_index == -1 )

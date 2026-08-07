@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include "headers/file_reference.h"
+#include "headers/reference_info_flags.h"
 
 extern void *memset(void *dst, int value, unsigned int n);
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
@@ -20,8 +21,8 @@ char *file_reference_get_name(const file_reference *reference, unsigned int flag
     char full_path[304];
 
     memset(full_path, 0, 256);
-    file_location_get_full_path(*(uint16_t *)&reference->data[6], &reference->data[8], full_path);
-    file_path_split(full_path, &base_name, &file_name, &directory, &extension, reference->data[4] & 1);
+    file_location_get_full_path(reference->info.location, reference->info.path, full_path);
+    file_path_split(full_path, &base_name, &file_name, &directory, &extension, reference->info.flags & (1u << _has_filename_bit));
 
     *name = 0;
     if ( (flags & 1) != 0 )

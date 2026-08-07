@@ -25,7 +25,7 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
                          int16_t version, int16_t *original_buffer, int16_t *byte_count_reference,
                          data_packet_field *first_field, int16_t *field_count_reference)
 {
-    int16_t buffer_start = (int16_t)(int)original_buffer;
+    int16_t buffer_start = (int16_t)(uintptr_t)original_buffer;
     data_packet_field *field = first_field;
     int16_t *cursor = original_buffer;
 
@@ -129,5 +129,5 @@ void _data_packet_decode(data_packet_definition *packet_definition, data_encodin
     if ( field_count_reference )
         *field_count_reference = field - first_field + 1;
     if ( byte_count_reference )
-        *byte_count_reference = (int16_t)(int)cursor - buffer_start;
+        *byte_count_reference = (int16_t)(uintptr_t)cursor - buffer_start;
 }

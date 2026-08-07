@@ -34,7 +34,7 @@ extern void hcex_check_ach44(void);
 extern void hcex_fire_event(const char *event_name);
 extern void hcex_fire_event_s(const char *event_name, const char *param_name, const char *param_value);
 extern char *tag_get_name(int16_t tag_index);
-extern char *strlwr(char *string);
+/* strlwr provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);
 
 void main_won_map(void)

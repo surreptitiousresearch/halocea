@@ -7,7 +7,10 @@
 extern "C" uint8_t rasterizer_bitmap_new(bitmap_data *bitmap);
 extern "C" int  hcex_tex_get_hardware_format(void *hardware_format, int block, int load);
 
-int halo_tex_get_hardware_format(bitmap_data *bitmap, int block, int load)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `halo_tex_get_hardware_format` (@0x836F3F10);
+// compiled as C++ without it the definition mangles to `?halo_tex_get_hardware_format@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" int halo_tex_get_hardware_format(bitmap_data *bitmap, int block, int load)
 {
     if ( !bitmap->hardware_format )
         rasterizer_bitmap_new(bitmap);

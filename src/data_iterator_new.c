@@ -8,5 +8,5 @@ void data_iterator_new(data_iterator *iterator, data_array *data)
     iterator->data = data;
     iterator->absolute_index = 0;
     iterator->index = -1;
-    iterator->signature = (unsigned int)data ^ 0x69746572; /* 'iter' */
+    iterator->signature = (unsigned int)(uintptr_t)data ^ 0x69746572u; /* 'iter' */
 }

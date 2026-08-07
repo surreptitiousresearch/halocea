@@ -40,11 +40,7 @@ typedef struct gsUSER_CFG_MNG {
     ds_data::REF_TYPE<apCONFIG> Get(int userIdx);
 } gsUSER_CFG_MNG;
 
-// ws-engine gs: user manager singleton — modeled here only up to primaryUserIdx@0x20 (the one
-// field the config-manager wrapper reads). types_members gsUSER_MNG. boundary.
-typedef struct gsUSER_MNG {
-    unsigned char _pad00[0x20]; // 0x00 — engine-internal user table (not modeled here)
-    int           primaryUserIdx; // 0x20
-} gsUSER_MNG;
-
-extern gsUSER_MNG *gsUserMng;
+// ws-engine gs: user manager singleton. Only primaryUserIdx is read through this header, but the
+// canonical body is the full member-level types_members model (the opaque `_pad00[0x20]` prefix
+// this header used to carry was one of three competing gsUSER_MNG definitions).
+#include "gsUSER_MNG.h"

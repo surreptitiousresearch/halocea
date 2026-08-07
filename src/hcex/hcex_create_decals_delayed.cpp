@@ -24,12 +24,13 @@ void hcex_create_decals_delayed(void)
     {
         HCEX_DECAL *decal = &hcexCreateDecals.pData[i];
 
+        /* scrSCORCH_INI::scrSCORCH_INI(void) @0x827454A8 — emitted by the declaration itself now
+         * that the canonical type (with its ctor) is in scope; this was a raw local plus an
+         * explicit scrSCORCH_INI_ctor(&ini) while the type was a flat local shim. */
         scrSCORCH_INI ini;
-        scrSCORCH_INI_ctor(&ini);
 
-        cdtREFINE refine;
-        cdtREFINE_ctor(&refine, /*flags*/ 1, /*layerMask*/ 0,
-                HCEX_DECAL_REFINE_STATE_OBJ_USR_INCL, /*pInstSelf*/ 0);
+        cdtREFINE refine(/*flags*/ 1, /*layerMask*/ 0,
+                apSTATE_T<int64_t>{ HCEX_DECAL_REFINE_STATE_OBJ_USR_INCL }, /*pInstSelf*/ nullptr);
 
         if ( scnSCENE_GetClosestPoint_EXT(gsScenePtr, &decal->pos, 0.2f, &refine, &ini.cdtInfo) )
         {
@@ -43,8 +44,8 @@ void hcex_create_decals_delayed(void)
 
             dsTSTRING_dtor(&ini.nameClass);
         }
-
-        cdtREFINE_dtor(&refine);
+        /* ~cdtREFINE() runs here at the end of the loop body — the same point the binary calls it
+         * (this was an explicit cdtREFINE_dtor(&refine) while the type was a flat local shim). */
     }
 
     dsVECTOR_HCEX_DECAL_8__Clear(&hcexCreateDecals);

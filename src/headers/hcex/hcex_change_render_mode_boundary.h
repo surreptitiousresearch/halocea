@@ -15,25 +15,19 @@
 #include "../ws/rend/rendLGT_MNG.h"         /* rendLGT_MNG (ClearActiveLights, PushLights..., rendLgtMng) */
 #include "../ws/ds/dsVECTOR.h"              /* dsVECTOR<txmTEXTURE*,8> — iterator element store */
 
-/* --- ws texture manager (opaque) + its lightweight iterator --- */
-/* DB-verified layout (types_members txmMANAGER::ITERATOR, size 8): index@0, listTex@4. */
-typedef struct txmMANAGER {
-    struct ITERATOR {
-        int                         index;    /* 0x00 current live-texture index */
-        dsVECTOR<txmTEXTURE *, 8>  *listTex;  /* 0x04 backing texture vector */
-
-        // ?operator++@ITERATOR@txmMANAGER@@ — advance to the next live texture. boundary
-        void operator++();
-    };
-
-    // ?Begin@txmMANAGER@@QAA?AVITERATOR@1@XZ — construct an iterator at the first live texture.
-    // boundary (body external to this batch).
-    ITERATOR Begin();
-} txmMANAGER;
-
-extern txmMANAGER *txmManager;
+/* --- ws texture manager --- */
+/* Canonical full DB layout (types_members txmMANAGER, size 928) plus its ITERATOR/Begin(). This
+ * header used to carry a second, member-less `typedef struct txmMANAGER` next to the canonical
+ * one — a duplicate definition of a type that already owns a header, and the reason db_verify
+ * reported all 25 DB members missing. Include the real one instead; ITERATOR and Begin() moved
+ * there (a nested type cannot live outside its class). `txmManager` is declared there too. */
+#include "../ws/txm/txmMANAGER.h"
 
 /* --- gs shadow-map subsystem (opaque; only ClearLights is called) --- */
+/* Deliberately opaque: the DB type is 51,160 bytes over 45 members (nCurLight, rendSMTargeters[50],
+ * smParams[8][4], …), none of which this path reads. It is reached only through the gsShadowMap
+ * pointer below — never constructed, sized or indexed here — and no canonical header models it
+ * (gsRENDER_SYSTEM.h forward-declares it for the same reason). */
 typedef struct gsSHADOW_MAP_SYSTEM {
     // Body lives in the gs subsystem — boundary (called from hcex_change_render_mode).
     void ClearLights();

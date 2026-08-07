@@ -27,24 +27,24 @@ int * hs_arguments_evaluate(int thread_index, int16_t formal_parameter_count, co
      * 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *values = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
-    if ( (unsigned int)(values - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *values = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3) /* align up to 4 */;
+    if ( (uintptr_t)(values - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --values;
     frame->size = (int16_t)((unsigned char *)values - frame->data + 4 * formal_parameter_count);
 
     /* slot 2: argument cursor (2-byte aligned, one int16) */
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int16_t *argument_cursor = (int16_t *)(((unsigned int)stack_top + 1) & ~1u) /* align up to 2 */;
-    if ( (unsigned int)(argument_cursor - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int16_t *argument_cursor = (int16_t *)(((uintptr_t)stack_top + 1) & ~(uintptr_t)1) /* align up to 2 */;
+    if ( (uintptr_t)(argument_cursor - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --argument_cursor;
     frame->size = (int16_t)((unsigned char *)argument_cursor - frame->data + 2);
 
     /* slot 3: current-argument node index (4-byte aligned, one int) */
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *current_argument = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
-    if ( (unsigned int)(current_argument - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *current_argument = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3) /* align up to 4 */;
+    if ( (uintptr_t)(current_argument - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --current_argument;
     frame->size = (int16_t)((unsigned char *)current_argument - frame->data + 4);
 

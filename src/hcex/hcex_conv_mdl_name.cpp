@@ -35,7 +35,7 @@ extern "C" char *hcex_conv_mdl_name(const char *mdl_name, char *out, int max_len
             while ( copy_start[-1] != '\\' )
             {
                 --copy_start;
-                if ( (unsigned int)copy_start <= (unsigned int)mdl_name )
+                if ( (uintptr_t)copy_start <= (uintptr_t)mdl_name )
                     break;
             }
         }

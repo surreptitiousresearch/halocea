@@ -56,7 +56,7 @@ extern "C" void hcex_create_decal(const char *name, hcex_float3 *position)
         dsTSTRING_Insert(&mapping, mapping.pBuffer->strLen, " -> ", -1);
         dsTSTRING_Insert(&mapping, mapping.pBuffer->strLen, conv_name, -1);
 
-        dsCMP cmp = 0;
+        dsCMP cmp;
         dsVECTOR_TSTR_InsertSorted(&hcexUsedDecals, &mapping, &cmp, INS_DUP_IGNORE);
         tstring_release(&mapping);
     }

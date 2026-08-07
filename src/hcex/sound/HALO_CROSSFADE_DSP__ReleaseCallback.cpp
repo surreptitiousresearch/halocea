@@ -2,7 +2,7 @@
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-extern "C" const char *FModErrorDesc(FMOD_RESULT res, bool info);
+extern const char *FModErrorDesc(FMOD_RESULT res, bool info); // C++ linkage: ?FModErrorDesc@@YAPBDW4FMOD_RESULT@@_N@Z
 extern void _apLog(const char *fmt, ...);
 extern "C" void osOutputDebugString(const char *fmt, ...);
 

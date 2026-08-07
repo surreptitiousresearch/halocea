@@ -12,12 +12,11 @@
 
 extern apCONFIG *gCfg; // hcex bridge global — the live config database (see haloENGINE_CONTROL_boundary.h)
 
-// dbgVAR_TRIGGER — DB: a single anonymous dbgVAR_SIMPLE<bool,5> base at offset 0 (16 bytes);
-// the trigger's bool payload lives at base offset 0x0C (dbgVAR_IMPL layer — see
-// ws/wb/dbgVAR_boundary.h for the template home).
-typedef struct dbgVAR_TRIGGER {
-    dbgVAR_SIMPLE<bool,5> base; /* 0x00 — value@0x0C */
-} dbgVAR_TRIGGER;
+// dbgVAR_TRIGGER has a single definition in ws/dbg/dbgVAR_TRIGGER.h (DB: one anonymous
+// dbgVAR_SIMPLE<bool,5> base at offset 0, 16 bytes; the trigger's bool payload lives at base
+// offset 0x0C, the dbgVAR_IMPL layer). Include it rather than redefining locally, so the
+// header_layout probe TU doesn't hit error: redefinition.
+#include "../dbg/dbgVAR_TRIGGER.h"
 extern "C" dbgVAR_TRIGGER d2; // debug gate for strmRES_TEX_MANAGER::UpdateResource2's tex_stat_na.csv dump
 
 extern "C" apCOUNTER cnt_strm_mem; // "streaming memory" perf counter (unit index 2 = "not enough mem" MB)

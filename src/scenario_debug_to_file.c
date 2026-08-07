@@ -27,7 +27,7 @@
 
 typedef struct _iobuf _iobuf;
 
-extern int fprintf(_iobuf *stream, const char *format, ...);
+/* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern char *tag_get_name(int16_t tag_index);
 
 

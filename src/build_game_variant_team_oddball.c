@@ -19,7 +19,7 @@ game_variant * build_game_variant_team_oddball(game_variant *result)
 {
     /* keep bits 6+ (motion-tracker-no-enemies, game-mode), reset config bits 0-5, then set
      * allow_motion_tracker | allow_friendly_navpoints | generic_starting_equipment (0x23). */
-    unsigned int flags = (result->universal_variant.flags & ~((1u << _motion_tracker_no_enemies_bit) - 1))
+    unsigned int flags = (result->universal_variant.flags & ~((1u << _motion_tracker_no_enemies) - 1))
                        | (1u << _allow_motion_tracker_bit)
                        | (1u << _allow_friendly_navpoints_bit)
                        | (1u << _generic_starting_equipment_bit);
@@ -42,8 +42,8 @@ game_variant * build_game_variant_team_oddball(game_variant *result)
     result->universal_variant.time_limit = 0;
     /* force game mode = classic: clear both game-mode bits (7,8 = 0x180), then set classic (bit 7). */
     result->universal_variant.flags =
-        (flags & ~((1u << _game_mode_classic_bit) | (1u << _game_mode_standard_bit)))
-        | (1u << _game_mode_classic_bit);
+        (flags & ~((1u << _game_mode_classic) | (1u << _game_mode_standard)))
+        | (1u << _game_mode_classic);
     /* vehicle set: preset field (bits 28-31) = none, all per-type counts 0 (was 0x10000000). */
     result->universal_variant.vehicle_set.value = 0;
     result->universal_variant.vehicle_set.__s1.preset = _game_engine_vehicles_none;

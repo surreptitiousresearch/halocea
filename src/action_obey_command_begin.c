@@ -490,7 +490,7 @@ uint8_t action_obey_command_begin(
                     if ( search_radius == 0.0 || distance_sq < (double)(search_radius * search_radius) )
                     {
                         int slot = (int16_t)candidate_count++;
-                        vehicle_candidates[slot].distance_sq = distance_sq;
+                        vehicle_candidates[slot].distance_squared = distance_sq;
                         vehicle_candidates[slot].vehicle_index = vehicle_cursor.index;
                         if ( candidate_count >= 0x10u )
                             break;

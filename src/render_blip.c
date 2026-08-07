@@ -68,7 +68,8 @@ void render_blip(
 
     float pulse_scale = 1.0f;
     if ( blip_type == _blip_type_custom )
-        pulse_scale = (float)((sin((float)game_time_get() * 0.10471974f) + 1.0) * 0.3333333333333333 + 1.0);
+        /* DEVIATION: 0.10471974f was one ULP off; the image holds 0.10471976f (pi/30). */
+        pulse_scale = (float)((sin((float)game_time_get() * 0.10471976f) + 1.0) * 0.3333333333333333 + 1.0);
 
     float blip_draw_size = pulse_scale * radius + sizes[blip_size_type];
     rasterizer_hud_motion_sensor_blip_draw(

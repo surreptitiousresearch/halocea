@@ -7,7 +7,7 @@ uint8_t file_write(const file_reference *file, unsigned int count, const void *b
 {
     uint8_t ok = 0;
     unsigned int written;
-    if ( WriteFile(*(void **)&file->data[264], buffer, count, &written, 0) )
+    if ( WriteFile(file->win32.handle, buffer, count, &written, 0) )
         ok = (written == count);
     if ( !ok )
     {

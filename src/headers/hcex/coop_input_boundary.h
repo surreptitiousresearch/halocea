@@ -14,16 +14,23 @@
 
 // --- ws-engine mp (multiplayer messaging) surface -------------------------------------------
 namespace net {
-    // Bitmask of relay client slots a message is addressed to (DB: 4-byte flag set).
-    enum CLIENT_MASK { CLIENT_MASK_NONE = 0 };
+    // Bitmask of relay client slots a message is addressed to. DB enum net::CLIENT_MASK (4 bytes)
+    // carries exactly these two names. Individual slot bits are raw values the callers cast in:
+    // main_coop_update passes 1 and 2 (`li r4, 1` @0x823C0F50, `li r4, 2` @0x823C1180).
+    enum CLIENT_MASK { CLIENT_MASK_NONE = 0, CLIENT_MASK_ALL = -1 };
 }
 
 namespace mp {
-    // Relay message id (DB enum mp::DISPATCHER_MSGID). Only the two co-op inputs are named here.
-    enum DISPATCHER_MSGID { MSG_RAW_INPUT = 0, MSG_DET_INPUT = 1 };
+    // Relay message id. DB enum mp::DISPATCHER_MSGID (types_enum_values) carries exactly ONE
+    // enumerator — the sentinel below. The live channel ids are NOT compile-time constants; see
+    // MSG_RAW_INPUT / MSG_DET_INPUT after this namespace.
+    enum DISPATCHER_MSGID { UNKNOWN_DISPATCHER_MSGID = -1 };
 
-    // mp::MESSAGE_DISPATCHER — routes relay messages to subscribed handlers. Boundary; only the
-    // two entry points the co-op path uses are declared.
+    // mp::MESSAGE_DISPATCHER — routes relay messages to subscribed handlers. Boundary: the DB type
+    // is 108 bytes with seven data members (m_mapThreadData/m_pRelay/m_pListner/m_sendTestTime/
+    // m_myTest/m_hisTest/m_dbgObjId), none of which the co-op path touches. It is only ever reached
+    // through the pointer SESSION_BASE::GetMessageDispatcher() returns, never constructed or sized
+    // here, so only the two entry points the co-op path calls are declared.
     struct MESSAGE_DISPATCHER {
         // 0x... — register `handler` for `msg`; `clientFilter` == -1 means "any sender".
         void SubscribeMessage(DISPATCHER_MSGID msg, MESSAGE_HANDLER *handler, int clientFilter);
@@ -31,6 +38,17 @@ namespace mp {
         void SendMessage(net::CLIENT_MASK mask, DISPATCHER_MSGID msg, dsDATA *data);
     };
 }
+
+// The two co-op relay channels are file-scope VARIABLES of type mp::DISPATCHER_MSGID, not
+// enumerators: applied_types @0x84137098 / @0x8413709C read `mp::DISPATCHER_MSGID MSG_RAW_INPUT;`
+// and `mp::DISPATCHER_MSGID MSG_DET_INPUT;`, both dwords 0xFFFFFFFF (= UNKNOWN_DISPATCHER_MSGID) in
+// the image, with the real ids installed at static-init time by the reg_MSG_RAW_INPUT /
+// reg_MSG_DET_INPUT registrars (`dynamic initializer for 'reg_MSG_RAW_INPUT'` @0x8409B320). Every
+// use LOADS them — `lwz r30, ?MSG_RAW_INPUT@@3W4DISPATCHER_MSGID@mp@@A@l(r8)` at 0x823BB1C8 and
+// 0x823C0F40, the MSG_DET_INPUT twin at 0x823BB1F4 and 0x823C1170 — never an immediate. Global
+// namespace, per the mangling (`?MSG_RAW_INPUT@@3…`, no `@mp@@` on the name itself).
+extern mp::DISPATCHER_MSGID MSG_RAW_INPUT;   // .data @0x84137098
+extern mp::DISPATCHER_MSGID MSG_DET_INPUT;   // .data @0x8413709C
 
 // dsDATA::Construct<T> — construct an empty typed value of T into `data` and return a pointer to
 // its storage (installs the dsDATA_TYPE_STORAGE<T> descriptor). Static template, boundary.

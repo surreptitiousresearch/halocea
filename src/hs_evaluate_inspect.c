@@ -28,8 +28,8 @@ void hs_evaluate_inspect(int16_t function_index, int thread_index, uint8_t initi
      * (align-up advances at most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *value_slot = (int *)(((unsigned int)stack_top + 3) & ~0x3u) /* align up to 4 */;
-    if ( (unsigned int)(value_slot - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *value_slot = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)0x3) /* align up to 4 */;
+    if ( (uintptr_t)(value_slot - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --value_slot;
     frame->size = (int16_t)((unsigned char *)value_slot - frame->data + 4);
 

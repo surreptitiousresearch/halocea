@@ -28,11 +28,7 @@ typedef dsVECTOR<hcex_cine_pair, 8> hcex_cine_pair_vec;
 /* --- per-mask cine-actor binding (hcexCINE_INFO, DB size 8) and the owning list-of-lists (listCine) --- */
 struct gsANITEC_ACTOR; /* boundary — cinematic actor runtime record */
 
-typedef struct hcexCINE_INFO
-{
-    struct gsANITEC_ACTOR   *actor; /* 0x00 */
-    apSTATE_T<unsigned char> mask;  /* 0x04 per-difficulty bitmask */
-} hcexCINE_INFO; /* 8 bytes (DB-verified) */
+#include "hcexCINE_INFO.h" /* hcexCINE_INFO — canonical single definition (actor@0, mask@4) */
 
 typedef dsVECTOR<hcexCINE_INFO, 8> dsVECTOR_hcexCINE_INFO;
 
@@ -65,7 +61,7 @@ extern "C" float                totaltime;
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
-typedef int dsCMP;
+#include "../ws/ds/dsCMP.h"   /* canonical dsCMP (stateless empty struct) — a local `typedef int dsCMP` is a C2371/ODR conflict with it */
 #define INS_DUP_IGNORE 1   /* dsVECTOR<...>::INS_SORT::INS_DUP_IGNORE */
 
 /* --- ws / CRT / bridge helpers (free-function form of the C++ thiscall) --- */

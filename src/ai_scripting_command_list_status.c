@@ -73,7 +73,7 @@ int16_t ai_scripting_command_list_status(int object_list_index)
             ai_command_list_definition_t *command_list =
                 &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[actor->state.action_data.___u0.obey.command_list_index];
             if ( current_command >= (unsigned int)command_list->commands.count
-              || !(32 * current_command + (int)command_list->commands.address) )
+              || !(32 * current_command + (uintptr_t)command_list->commands.address) )
             {
                 status = 1;
                 goto accumulate;
@@ -90,7 +90,7 @@ int16_t ai_scripting_command_list_status(int object_list_index)
             ai_command_list_definition_t *command_list =
                 &((ai_command_list_definition_t *)global_scenario->ai_command_lists.address)[actor->state.action_data.___u0.obey.command_list_index];
             if ( current_command >= (unsigned int)command_list->commands.count
-              || !(32 * current_command + (int)command_list->commands.address) )
+              || !(32 * current_command + (uintptr_t)command_list->commands.address) )
             {
                 status = 1;
                 goto accumulate;

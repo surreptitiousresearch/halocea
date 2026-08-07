@@ -40,7 +40,7 @@ void hud_render_weapon_interface(player_datum *player)
 {
     weapon_interface_state weapon_state;
     int unit_index = player->unit_index;
-    int unit = (int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
+    object_datum *unit = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
 
     /* recovered: *(__int16 *)(unit + 754) -> unit.current_weapon_index (500+254) */
     int weapon = unit_inventory_get_weapon(unit_index, ((unit_datum *)unit)->unit.current_weapon_index);
@@ -56,7 +56,7 @@ void hud_render_weapon_interface(player_datum *player)
             int16_t parent_seat_index = ((unit_datum *)unit)->unit.parent_seat_index;
             if ( parent_seat_index != -1 )
             {
-                int parent = (int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_object_index)->datum;
+                object_datum *parent = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_object_index)->datum;
                 unit_definition *parent_definition = TAG_GET(unit_definition, *(int *)parent);
                 unit_seat *seat = &((unit_seat *)parent_definition->unit.seats.address)[parent_seat_index];
 
@@ -75,7 +75,7 @@ void hud_render_weapon_interface(player_datum *player)
 
     if ( weapon != -1 )
     {
-        int weapon_object = (int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon)->datum;
+        object_datum *weapon_object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon)->datum;
         const weapon_definition *definition = TAG_GET(const weapon_definition, *(int *)weapon_object);
 
         weapon_build_weapon_interface_state(weapon, &weapon_state);

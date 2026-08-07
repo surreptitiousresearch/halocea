@@ -11,7 +11,7 @@
 extern void saved_film_flush_buffer(void);
 extern void *memset(void *dst, int value, unsigned int count);
 extern void ufclose(FILE *stream);
-extern struct _iobuf *fopen(const char *filename, const char *mode);
+/* fopen provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 uint8_t save_film_open_recording(const char *filename)
 {

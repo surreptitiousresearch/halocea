@@ -36,7 +36,7 @@ uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destin
 
     if (actor->input.vehicle_driver_type == _actor_vehicle_driver_directional_flying)
     {
-        int vehicle_object = ((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, actor->input.vehicle_index)->datum);
+        object_datum *vehicle_object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, actor->input.vehicle_index)->datum;
         vehicle_definition *vehicle_tag = TAG_GET(vehicle_definition, *(int *)vehicle_object);
         avoidance_distance = vehicle_tag->vehicle.ai_avoidance_distance; /* abs +904 = vehicle.ai_avoidance_distance */
 

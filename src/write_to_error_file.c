@@ -29,7 +29,7 @@ void write_to_error_file(char *string, uint8_t date)
         write_to_error_file("halo xbox 01.00.01.0563(CACHE) ----------------------------------------------\r\n", 1u);
         sprintf_0(header, "reference function: %s\r\n", "_write_to_error_file");
         write_to_error_file(header, 1u);
-        sprintf_0(header, "reference address: %x\r\n", (unsigned int)(void *)write_to_error_file);
+        sprintf_0(header, "reference address: %x\r\n", (unsigned int)(uintptr_t)(void *)write_to_error_file);
         write_to_error_file(header, 1u);
     }
 

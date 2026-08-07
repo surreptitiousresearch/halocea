@@ -10,13 +10,18 @@
 
 enum ITRC_ST;             // mdl — per-itrc state flags (boundary)
 enum MP_ITRC_TYPE;        // mdl — multiplayer itrc kind (boundary)
-// mdl — hideout corner position kind. The DB carries the tag but no enumerator values; the two
-// corner tags reached by aiBODY::SetZeroGravity are modelled with INFERRED (unverified) values
-// (only equality against LEFT/RIGHT is used, so ordering is not load-bearing).
+// mdl — hideout corner position kind.
+// DB-verified: types_enum_values ITRC_HO_POS_TYPE carries all four names and values verbatim.
+// The previous body was INFERRED and wrong, under a comment asserting "the DB carries the tag but
+// no enumerator values" — a negative claim the enum oracle contradicts outright. It invented
+// ITRC_HO_POS_NONE for the DB's ITRC_HO_POS_UNDEF, omitted MIDDLE entirely, and therefore had
+// RIGHT one short at 2. Found 2026-08-06 by find_enum_values.py, the first check to compare a
+// header enumerator's VALUE against the binary at all.
 enum ITRC_HO_POS_TYPE {
-    ITRC_HO_POS_NONE  = 0,
-    ITRC_HO_POS_LEFT  = 1,
-    ITRC_HO_POS_RIGHT = 2,
+    ITRC_HO_POS_UNDEF  = 0,
+    ITRC_HO_POS_LEFT   = 1,
+    ITRC_HO_POS_MIDDLE = 2,
+    ITRC_HO_POS_RIGHT  = 3,
 };
 
 struct mdlITRC_BASE;
@@ -30,10 +35,31 @@ struct dsSTRID;
 struct propBODY_FSM;
 struct ctrlPROP_LIST;
 
+struct mdlITRC_BASE_vtbl;
+
+struct mdlITRC_BASE {
+    // Nested boundary type: DB types_members mdlITRC_BASE::UPDATE_INFO (trIn/mInst/mPivot/mShape/
+    // idObjShape/idObjPivot/dt/typeMove/offRotTurn/syncInfo/vUp/isHardPlacement/rideSpeed/
+    // scaleUser). Declared incomplete -- only Update's slot parameter names it here. It has to be
+    // declared inside the class, so the class body precedes the vtable and the inline wrappers
+    // below move out of line.
+    struct UPDATE_INFO;
+
+    mdlITRC_BASE_vtbl    *__vftable;   // 0x00
+    dsFLAGS<ITRC_ST, int> stateUser;   // 0x04
+
+    // Thin wrappers over the DB-verified vtable slots the HO drain dispatches through.
+    bool IsHO();                       // slot 9
+    bool IsValid();                    // slot 8
+    bool GetSnapMatr(m3dMATR *m);      // slot 3
+    bool GetBaseMatr(m3dMATR *m);      // slot 5
+    ITRC_HO_POS_TYPE GetCornerPosType(); // slot 30
+};
+
 // DB-verified 33-slot vtable (types_members mdlITRC_BASE_vtbl).
 struct mdlITRC_BASE_vtbl {
     void   (*dtr_mdlITRC_BASE)(mdlITRC_BASE *self);                                  // 0
-    void   (*Update)(mdlITRC_BASE *self, const void *updateInfo, m3dTR *);           // 1  updateInfo = mdlITRC_BASE::UPDATE_INFO*
+    void   (*Update)(mdlITRC_BASE *self, const mdlITRC_BASE::UPDATE_INFO *updateInfo, m3dTR *); // 1
     unsigned int (*PredictMovement)(mdlITRC_BASE *self, const m3dV *);               // 2
     bool   (*GetSnapMatr)(mdlITRC_BASE *self, m3dMATR *);                            // 3
     bool   (*GetSnapTrk)(mdlITRC_BASE *self, entTRACKER *);                          // 4
@@ -70,14 +96,8 @@ struct mdlITRC_BASE_vtbl {
     void   (*UpdatePredictionPropsAI)(mdlITRC_BASE *self, ctrlPROP_LIST *);          // 32
 };
 
-struct mdlITRC_BASE {
-    mdlITRC_BASE_vtbl    *__vftable;   // 0x00
-    dsFLAGS<ITRC_ST, int> stateUser;   // 0x04
-
-    // Thin wrappers over the DB-verified vtable slots the HO drain dispatches through.
-    bool IsHO()                   { return __vftable->IsHO(this); }        // slot 9
-    bool IsValid()                { return __vftable->IsValid(this); }     // slot 8
-    bool GetSnapMatr(m3dMATR *m)  { return __vftable->GetSnapMatr(this, m); } // slot 3
-    bool GetBaseMatr(m3dMATR *m)  { return __vftable->GetBaseMatr(this, m); } // slot 5
-    ITRC_HO_POS_TYPE GetCornerPosType() { return __vftable->GetCornerPosType(this); } // slot 30
-};
+inline bool mdlITRC_BASE::IsHO()                  { return __vftable->IsHO(this); }
+inline bool mdlITRC_BASE::IsValid()               { return __vftable->IsValid(this); }
+inline bool mdlITRC_BASE::GetSnapMatr(m3dMATR *m) { return __vftable->GetSnapMatr(this, m); }
+inline bool mdlITRC_BASE::GetBaseMatr(m3dMATR *m) { return __vftable->GetBaseMatr(this, m); }
+inline ITRC_HO_POS_TYPE mdlITRC_BASE::GetCornerPosType() { return __vftable->GetCornerPosType(this); }

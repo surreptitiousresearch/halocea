@@ -19,8 +19,8 @@ uint8_t file_rename(file_reference *file, const char *name)
     memset(current_path, 0, 256);
     memset(new_path, 0, sizeof(new_path));
 
-    unsigned char *reference_path = &file->data[8];
-    file_location_get_full_path(*(unsigned short *)&file->data[6], reference_path, current_path);
+    unsigned char *reference_path = file->info.path;
+    file_location_get_full_path(file->info.location, reference_path, current_path);
 
     int i = 0;
     char c;

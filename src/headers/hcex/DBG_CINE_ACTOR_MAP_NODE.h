@@ -34,8 +34,9 @@ typedef struct DBG_CINE_ACTOR_MAP_VIEW
     unsigned int              b;         /* 0x04 hash seed B */
     int                       count;     /* 0x08 live entry count */
     DBG_CINE_ACTOR_BUCKET_VEC data;      /* 0x0C bucket vector */
-    /* 0x20 node pool. DB type dsNODE_CACHE_ALLOCATOR<...::DUMMY>; instantiated here with the
-     * map's value type — layout-neutral, the allocator only stores node pointers. */
-    dsNODE_CACHE_ALLOCATOR<DBG_CINE_ACTOR_INFO> allocator;
+    /* 0x20 node pool. DB type dsNODE_CACHE_ALLOCATOR<...::DUMMY>, modeled by DBG_CINE_INFO.h's
+     * DBG_CINE_NODE_CACHE shim; instantiated here with the map's value type — layout-neutral, the
+     * allocator only stores node pointers. */
+    DBG_CINE_NODE_CACHE<DBG_CINE_ACTOR_INFO> allocator;
     apCL                      cl;        /* 0x4C */
 } DBG_CINE_ACTOR_MAP_VIEW;

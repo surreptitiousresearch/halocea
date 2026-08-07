@@ -1,4 +1,5 @@
 #pragma once
+#include "fsmEVENT_BASE.h"
 #include "../ds/dsSTRID.h"
 // ws-engine fsm boundary — the event-callback handler template keyed by interned event id
 // (fsmCB_HANDLER<KEY>). Only the templated RegisterCB entry point reached by the aiWEAPON
@@ -25,7 +26,8 @@ struct fsmCB_HANDLER {
 };
 
 // fsm weapon-event id accessors (real statics). boundary — bodies external to this batch.
-struct fsmWEAPON_EVENT {
+// DB types_members fsmWEAPON_EVENT: one row — the empty fsmEVENT_BASE base at offset 0.
+struct fsmWEAPON_EVENT : fsmEVENT_BASE {
     // ?request_tgt_@fsmWEAPON_EVENT@@SAABVdsSTRID@@XZ
     static const dsSTRID &request_tgt_();
     // ?request_sprd_@fsmWEAPON_EVENT@@SAABVdsSTRID@@XZ

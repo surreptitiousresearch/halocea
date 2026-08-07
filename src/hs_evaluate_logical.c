@@ -25,22 +25,22 @@ void hs_evaluate_logical(int16_t function_index, int thread_index, uint8_t initi
      * advances at most 3 bytes; the 1-byte slot needs no alignment); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *iterator = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
-    if ( (unsigned int)(iterator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *iterator = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3) /* align up to 4 */;
+    if ( (uintptr_t)(iterator - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --iterator;
     frame->size = (int16_t)((unsigned char *)iterator - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *operand = (int *)(((unsigned int)stack_top + 3) & ~3u) /* align up to 4 */;
-    if ( (unsigned int)(operand - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *operand = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3) /* align up to 4 */;
+    if ( (uintptr_t)(operand - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --operand;
     frame->size = (int16_t)((unsigned char *)operand - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
     char *accumulator = (char *)stack_top;
-    if ( (unsigned int)(stack_top - 1) > (unsigned int)accumulator )   /* dead branch (shipped) */
+    if ( (uintptr_t)(stack_top - 1) > (uintptr_t)accumulator )   /* dead branch (shipped) */
         accumulator = (char *)stack_top - 1;
     frame->size = (int16_t)((unsigned char *)accumulator - frame->data + 1);
 

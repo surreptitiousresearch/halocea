@@ -1,4 +1,5 @@
 #pragma once
+#include "fsmEVENT_BASE.h"
 #include "../ds/dsSTRID.h"
 #include "../ds/dsTSTRING.h"
 #include "../m3d/m3dV.h"
@@ -10,7 +11,8 @@
 // Empty base of every FSM event parameter block (DB fsmEVENT_PARAM_BASE: no data members).
 struct fsmEVENT_PARAM_BASE {};
 
-struct fsmAIMING_EVENT {
+// DB types_members fsmAIMING_EVENT: one row — the empty fsmEVENT_BASE base at offset 0.
+struct fsmAIMING_EVENT : fsmEVENT_BASE {
     // ?look_at_@fsmAIMING_EVENT@@SAABVdsSTRID@@XZ — static: the interned "look_at" event id.  boundary.
     static const dsSTRID &look_at_();
     // ?off_look_at_@fsmAIMING_EVENT@@SAABVdsSTRID@@XZ — static: the interned "off_look_at" id.  boundary.

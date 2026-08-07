@@ -1,7 +1,9 @@
 #pragma once
 #include "../ds/dsTSTRING.h" // SetDbgInfo takes dsTSTRING<char> by value — needs the full type (2026-07-31)
 // ssl subsystem: ref-counted reference to a script class descriptor. DB-verified layout
-// (types_members sslCLASS_REF): pClass@0 — size 4. The copy-ctor/dtor adjust the class
+// (types_members sslCLASS_REF): pClass@0 — size 4. Canonical home, and as of 2026-08-07 the SOLE
+// definition: hcex/hcex_cine_init_boundary.h restated it as a flat `{ sslCLASS *pClass; }` and now
+// includes this header (odr_dup drain — layout identical). The copy-ctor/dtor adjust the class
 // refcount. Method bodies that dereference pClass live in the .cpp (which includes
 // sslCLASS.h) so this header only forward-declares sslCLASS.
 
@@ -31,11 +33,16 @@ typedef struct sslCLASS_REF {
     ~sslCLASS_REF();                         // 0x825234E0 — ref-counted release
     sslCLASS_REF &operator=(const sslCLASS_REF &other); // 0x82523910 — ref-counted assign
 
-    // 0x8270D8F0 — register a native global-form callback (`cb`) as a script-callable function
+    // 0x82525230 (?AddCbFunc@sslCLASS_REF@@QAA?AVsslERROR@@PBDP6AXVsslOBJ_REF@@HPAVdsDATA@@AAV4@1@Z0PAH@Z)
+    // — register a native global-form callback (`cb`) as a script-callable function
     // named `name` on the referenced class; `msg` is an (unused-here) doc/help string, `outIdx`
     // optionally receives the new function element's index (null accepted). Returns an sslERROR
-    // by value (sret). Reversed only for its call-site shape (hcex_library_init); body is a
-    // boundary outside this re-source. QAA.
+    // by value (sret). Reversed only for its call-site shape (hcex_library_init, hcex_cine_init);
+    // body is a boundary outside this re-source. QAA.
+    // DEVIATION (2026-08-07): this line used to cite 0x8270D8F0, an address the DB has NO function
+    // at (`SELECT ... FROM funcs WHERE address = 0x8270D8F0` is empty). Corrected to the address
+    // the mangled name resolves to; the sibling member-callback overload's 0x82524DD0 below checks
+    // out and is unchanged.
     sslERROR AddCbFunc(const char *name, sslCB_GLOBAL_FN cb,
                         const char *msg, int *outIdx); // boundary
 

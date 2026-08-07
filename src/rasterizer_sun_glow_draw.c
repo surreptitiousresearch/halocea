@@ -53,8 +53,8 @@
 #include "headers/rasterizer_vertex_shader_index.h"
 
 
-extern double cos(double x);
-extern double floor(double x);
+/* cos provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* floor provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern float normalize3d(real_vector3d *v);
 extern real_vector3d * uncompress_int32_to_real_vector3d(real_vector3d *result, unsigned int i);
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);

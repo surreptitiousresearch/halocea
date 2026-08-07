@@ -31,7 +31,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
         return true;
     }
 
-    unsigned int block = (unsigned int)(unsigned long)memBlock;
+    unsigned int block = (unsigned int)(uintptr_t)memBlock;
     int row = (block >> 10) & 0x7F;
     apMEM_ALLOC_INFO *rowSlots = _apMemStat->allocInfo[row];
 

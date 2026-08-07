@@ -11,7 +11,7 @@ struct propWPN_AI_USABLE_DESC {
     unsigned char _pad0[0x84];       // 0x000 propUSABLE_DESC base + fields (frontier, opaque)
     aimCHECK_TYPE typeIsAimed;       // 0x084 default aim-check type for this controller
     unsigned char _pad88[4];         // 0x088
-    m3dV          tipOffset;         // 0x08C body-local muzzle-tip offset
+    m3dV          tipOffset;         // 0x08C body-local muzzle-tip offset (DB: shiftPosTip)
                                      //       (x -> dirUBodyRight, y -> dirUpBody, z -> dirUBody)
 
     // DB-verified static (?TYPE_ID@propWPN_AI_USABLE_DESC@@2VdsTYPE_ID@@A) — this class's runtime

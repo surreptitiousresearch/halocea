@@ -24,22 +24,22 @@ void hs_evaluate_debug_string(int16_t function_index, int thread_index, uint8_t 
      * advances at most 3 bytes); kept verbatim for fidelity. */
     hs_stack_frame *frame = thread->stack;
     unsigned char *stack_top = &frame->data[frame->size];
-    int *iterator = (int *)(((unsigned int)stack_top + 3) & ~3u);
-    if ( (unsigned int)(iterator - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *iterator = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3);
+    if ( (uintptr_t)(iterator - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --iterator;
     frame->size = (int16_t)((unsigned char *)iterator - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    int *count = (int *)(((unsigned int)stack_top + 3) & ~3u);
-    if ( (unsigned int)(count - 1) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    int *count = (int *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3);
+    if ( (uintptr_t)(count - 1) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         --count;
     frame->size = (int16_t)((unsigned char *)count - frame->data + 4);
 
     frame = thread->stack;
     stack_top = &frame->data[frame->size];
-    char *strings = (char *)(((unsigned int)stack_top + 3) & ~3u);
-    if ( (unsigned int)(strings - 4) > (unsigned int)stack_top )   /* dead branch (shipped) */
+    char *strings = (char *)(((uintptr_t)stack_top + 3) & ~(uintptr_t)3);
+    if ( (uintptr_t)(strings - 4) > (uintptr_t)stack_top )   /* dead branch (shipped) */
         strings -= 4;
     frame->size = (int16_t)((unsigned char *)strings - frame->data + 128);
 

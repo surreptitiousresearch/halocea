@@ -44,7 +44,7 @@ int collision_leaf_test_vector(const collision_bsp *bsp, int16_t breakable_surfa
     for ( ;; )
     {
         const bsp2d_reference *reference = &((const bsp2d_reference *)bsp->bsp2d_references.address)[index];
-        if ( (reference->plane_index & 0x7FFFFFFF) == plane_index )
+        if ( (reference->plane_designator & 0x7FFFFFFF) == plane_index )
         {
             float *plane = (float *)&((real_plane3d *)bsp->bsp3d.planes.address)[plane_index];
             float ax = (float)__fabs(plane[0]);
@@ -63,12 +63,12 @@ int collision_leaf_test_vector(const collision_bsp *bsp, int16_t breakable_surfa
             hit_point[0] = vector->n[0] * t + point->n[0];
             hit_point[1] = vector->n[1] * t + point->n[1];
             hit_point[2] = vector->n[2] * t + point->n[2];
-            projection_sign = (reference->plane_index < 0) != (plane[projection_axis] > 0.0f);
+            projection_sign = (reference->plane_designator < 0) != (plane[projection_axis] > 0.0f);
 
             projected.n[0] = hit_point[global_projection3d_mappings[projection_axis][projection_sign][0]];
             projected.n[1] = hit_point[global_projection3d_mappings[projection_axis][projection_sign][1]];
 
-            surface_index = bsp2d_test_point(&bsp->bsp2d, &projected, reference->bsp2d_root_index);
+            surface_index = bsp2d_test_point(&bsp->bsp2d, &projected, reference->root_index);
             if ( !test_surface
               || collision_surface_test_point(bsp, breakable_surface_count, breakable_surface_flags,
                                               surface_index, projection_axis, projection_sign, &projected) )

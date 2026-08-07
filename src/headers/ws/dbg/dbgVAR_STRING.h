@@ -8,6 +8,10 @@
 // dbgVAR/dbgVAR_IMPL's fields, matches layout). Own vtable identity (dbgVAR_STRING_vtbl) overrides
 // the same 4 slots as the base (dtr/GetAsPsData/ReadPs/Update); reuses the dbgVAR_vtbl shape per
 // the existing dbgVAR_SIMPLE<T,N> convention.
+//
+// Canonical home, and as of 2026-08-07 the SOLE definition: hcex/hcex_dbgvar_boundary.h carried a
+// second body deriving from dbgVAR_IMPL (one level too low against the DB row above) and now
+// includes this header instead (odr_dup drain).
 
 struct dbgVAR_STRING : dbgVAR_SIMPLE<dsTSTRING<char>, 4> {
     static dbgVAR_vtbl vftable; // `dbgVAR_STRING::`vftable''  -- boundary, not decompiled

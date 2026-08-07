@@ -48,19 +48,19 @@ void actor_move_initialize(void)
             float ang_s = (float)sin(avoidance_ray_angles[k]);
             float ang_c = (float)cos(avoidance_ray_angles[k]);
             float off = avoidance_ray_offsets[a];
-            int slot = 2 * k + a;
+            /* DEVIATION: the flat slot 2*k+a was folded through avoidance_rays[0]; the array is [8][2], so [k][a] is the same address. */
 
             avoidance_directions[k].n[0] = 0.0f;
             avoidance_directions[k].n[1] = ang_c;
             avoidance_directions[k].n[2] = ang_s;
 
-            avoidance_rays[0][slot].length = 0.69999999f;
-            avoidance_rays[0][slot].offset.n[0] = (0.0f * off);
-            avoidance_rays[0][slot].offset.n[1] = (avoidance_directions[k].n[1] * off);
-            avoidance_rays[0][slot].offset.n[2] = (avoidance_directions[k].n[2] * off);
-            avoidance_rays[0][slot].divergence.n[0] = adiv_c;
-            avoidance_rays[0][slot].divergence.n[1] = (avoidance_directions[k].n[1] * adiv_s);
-            avoidance_rays[0][slot].divergence.n[2] = (avoidance_directions[k].n[2] * adiv_s);
+            avoidance_rays[k][a].length = 0.69999999f;
+            avoidance_rays[k][a].offset.n[0] = (0.0f * off);
+            avoidance_rays[k][a].offset.n[1] = (avoidance_directions[k].n[1] * off);
+            avoidance_rays[k][a].offset.n[2] = (avoidance_directions[k].n[2] * off);
+            avoidance_rays[k][a].divergence.n[0] = adiv_c;
+            avoidance_rays[k][a].divergence.n[1] = (avoidance_directions[k].n[1] * adiv_s);
+            avoidance_rays[k][a].divergence.n[2] = (avoidance_directions[k].n[2] * adiv_s);
         }
     }
 }

@@ -6,10 +6,10 @@
 uint8_t file_close(file_reference *file)
 {
     uint8_t closed = 0;
-    if ( CloseHandle(*(void **)&file->data[264]) )
+    if ( CloseHandle(file->win32.handle) )
     {
         closed = 1;
-        *(void **)&file->data[264] = 0;
+        file->win32.handle = 0;
     }
     if ( !closed )
     {

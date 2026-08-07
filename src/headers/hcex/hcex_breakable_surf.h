@@ -18,7 +18,12 @@
  * rebuild it. Layout corrected to DB ground truth (types_members hcexBREAKABLE_SURF): the record
  * is keyed on (bsp, idx) at the front — earlier revision of this header omitted them and placed
  * pInst at 0x00, which was wrong (size 92 vs the DB's 100). dsVECTOR<hcexBREAKABLE_SURF,8>::
- * FindSorted binary-searches on this (bsp, idx) key. */
+ * FindSorted binary-searches on this (bsp, idx) key.
+ * Canonical home, and as of 2026-08-07 the SOLE definition: hcex_kill_breakable_surface_boundary.h
+ * carried a second, method-less copy of the same four members and now includes this one through
+ * hcex_surf_vector.h (odr_dup drain). No basename in the corpus matches the type name, so ownership
+ * was a judgment call: this header carries the DB-verified ctor/dtor/operator=/operator< addresses
+ * and is already the header hcex_surf_vector.h and three sibling TUs build on. */
 typedef struct hcexBREAKABLE_SURF
 {
     int                 bsp;    /* 0x00 */

@@ -52,8 +52,8 @@
 extern float __fsqrts(float);
 
 
-extern double cos(double x);
-extern double sin(double x);
+/* cos provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* sin provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern void rasterizer_water_build_bumpmap(const shader *shader);
 extern int16_t rasterizer_transparent_geometry_get_primary_vertex_type(const transparent_geometry_group *group);
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);

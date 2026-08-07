@@ -23,6 +23,7 @@
 #include "headers/structure_surface.h"
 #include "headers/location.h"
 #include "headers/lights_globals.h"
+#include "headers/lights_illumination_at_point_light_count.h"
 #include "headers/data_array.h"
 #include "headers/bitmap_data.h"
 #include "headers/real_rgb_color.h"
@@ -73,14 +74,15 @@ void lights_illumination_at_point(const real_point3d *point, const location *loc
         /* DEVIATION: inlined body of light_marker_begin@0x836F84D8 collapsed to call (donor takes no args, nothing to fold) */
         light_marker_begin();
 
-        int light_indices[2];
-        float light_brightness[2];
-        float light_attenuations[2];
+        int light_indices[LIGHTS_ILLUMINATION_AT_POINT_LIGHT_COUNT];
+        float light_brightness[LIGHTS_ILLUMINATION_AT_POINT_LIGHT_COUNT];
+        float light_attenuations[LIGHTS_ILLUMINATION_AT_POINT_LIGHT_COUNT];
         int16_t light_count = 0;
         find_point_lights_for_object_in_cluster(-1, location->cluster_index, point, 0.0f,
                                                 0, /* vestigial_unused (r7) — caller recon had dropped it */
                                                 light_indices, light_brightness, light_attenuations,
-                                                &light_count, 2);
+                                                &light_count,
+                                                LIGHTS_ILLUMINATION_AT_POINT_LIGHT_COUNT);
         lights_globals.marker_initialized = 0;
 
         for (int i = 0; i < light_count; ++i)

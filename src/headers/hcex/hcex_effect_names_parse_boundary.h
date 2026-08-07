@@ -4,10 +4,11 @@
  * hcex_effect_names_parse loads "hcex_effect_names.ps" (a ws-engine property-sheet file) and populates
  * the sorted hcex_effect_names table (halo effect name -> hcex/ws effect name) from every top-level
  * section that carries both a "halo" and an "hcex" string key. The ps (property-sheet) system and its
- * iterator are ws-engine boundaries; only the shape this function touches is modeled. Reuses the flat
+ * iterator are ws-engine boundaries; their methods are declared below in the free-function
+ * (compiler-generated-thiscall) form this function was reversed against. Reuses the
  * dsTSTRING<char> / dsVECTOR_PAIR / dsPAIR_TSTR types already declared for hcex_effect_names in
- * hcex_create_effect_boundary.h (rather than the templated ws/ps headers) to stay layout-consistent
- * with that global. */
+ * hcex_create_effect_boundary.h, to stay layout-consistent with that global; the ps TYPES
+ * themselves come from their canonical ws/ps headers (see the note below). */
 
 #include "hcex_create_effect_boundary.h"   /* dsTSTRING<char>, dsCMP, dsVECTOR_PAIR, dsPAIR_TSTR, hcex_effect_names,
                                                dsTSTRING_UnsafeInit, INS_DUP_IGNORE */
@@ -18,42 +19,20 @@
 /* dsTSTRING<char>::UnsafeInitEmpty — adopt the shared empty-string singleton (boundary). */
 extern void dsTSTRING_UnsafeInitEmpty(dsTSTRING_flat *out);
 
-/* DB-verified enum (types_enum_values psSTD_TYPEID). NOTE: an earlier boundary spelling
- * mis-set PS_TYPEID_SECTION to 2; the DB value is 7 (the ctor call site references the symbol,
- * so this correction is transparent). */
-typedef enum psSTD_TYPEID
-{
-    PS_TYPEID_INVALID = -1,
-    PS_TYPEID_NULL    = 0,
-    PS_TYPEID_INT     = 1,
-    PS_TYPEID_FLOAT   = 2,
-    PS_TYPEID_BOOL    = 3,
-    PS_TYPEID_STRING  = 4,
-    PS_TYPEID_OLD     = 5,
-    PS_TYPEID_ARRAY   = 6,
-    PS_TYPEID_SECTION = 7,
-} psSTD_TYPEID;
-
-/* psSECTION_KEY_REF — a section handle + key index (DB-verified, types_members) — size 8. */
-typedef struct psSECTION_KEY_REF
-{
-    psSECTION ps;      /* 0x00 */
-    int       keyIdx;  /* 0x04 */
-} psSECTION_KEY_REF;
-
-/* dsVECTOR<psSECTION_KEY_REF,8> (20B) — canonical template (avoids C2953 duplicate definition). */
-#include "../ws/ds/dsVECTOR.h"
-
-/* ps::ITERATOR — walks the (name,type)-filtered child records of a section.
- * DB-verified layout (types_members psITERATOR) — size 36. */
-struct psITERATOR
-{
-    dsTSTRING<char>                          name;    /* 0x00 name filter */
-    psSTD_TYPEID                        type;    /* 0x04 type filter */
-    unsigned int                       flags;   /* 0x08 */
-    dsVECTOR<psSECTION_KEY_REF, 8>     records; /* 0x0C matching key refs */
-    int                                pos;     /* 0x20 current index */
-};
+/* psSTD_TYPEID, psSECTION_KEY_REF and psITERATOR each used to have a SECOND body here, which is
+ * `error: redefinition` in the header_layout probe TU and made the visible layout depend on
+ * include order. All three now come from their canonical headers, reached through psITERATOR.h
+ * (which pulls psSECTION_KEY_REF.h and ../ds/dsVECTOR.h). The bodies agreed member-for-member with
+ * the canonicals — psSTD_TYPEID identically (including PS_TYPEID_SECTION = 7), psSECTION_KEY_REF
+ * identically (ps@0, keyIdx@4, size 8), psITERATOR as a data-member subset of it (name@0, type@4,
+ * flags@8, records@0xC, pos@0x20, size 36; the canonical adds the ctors/dtor/accessors).
+ *
+ * NOTE (provenance kept from the body deleted here): an earlier boundary spelling of psSTD_TYPEID
+ * mis-set PS_TYPEID_SECTION to 2; the DB value is 7 — see the same note now in ws/ps/psITERATOR.h.
+ * The consumer (hcex_effect_names_parse.cpp) keeps the free-function boundary spellings declared
+ * below; the canonical psITERATOR additionally declares (never defines) a default ctor and dtor,
+ * exactly the position psSECTION is already in in that same TU. */
+#include "../ws/ps/psITERATOR.h"
 
 typedef struct psSYSTEM psSYSTEM;
 extern psSYSTEM *psSystem;

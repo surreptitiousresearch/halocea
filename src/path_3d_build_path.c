@@ -10,7 +10,7 @@
  * artifact seen repeatedly this session. Verified field-for-field against `path_result`'s real
  * (types_members-confirmed) layout: `path->endpoint.point` and `path->steps[0].point` both end up
  * holding `end_point`'s own words verbatim — one copied directly from `end_point` itself, the other via
- * `path_3d_available`'s `hit_result_out` parameter (which itself is just a pass-through copy of the
+ * `path_3d_available`'s `path_endpoint` parameter (which itself is just a pass-through copy of the
  * same buffer, see `path_3d_available.c`) — genuinely the same value reached through two different
  * plumbing paths, not two different results. `path->endpoint.surface_index`/`target_radius` are fixed
  * sentinels (-1 / 0.0), independent of the collision test's actual outcome. */
@@ -21,7 +21,7 @@
 #include "headers/collision_bsp_test_vector_result.h"
 #include "headers/path_result.h"
 
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
 
 uint8_t path_3d_build_path(structure_bsp *structure_bsp, const real_point3d *start_point,
         float avoidance_distance, const real_point3d *end_point, path_result *path)
@@ -37,8 +37,7 @@ uint8_t path_3d_build_path(structure_bsp *structure_bsp, const real_point3d *sta
     uint8_t path_available_flag = 0;
     real_point3d hit_result;
     if (path_3d_available(structure_bsp, start_point, avoidance_distance,
-            (const collision_bsp_test_vector_result *)end_point, &path_available_flag,
-            (float *)&hit_result))
+            end_point, &path_available_flag, &hit_result))
     {
         path->steps_finish_path = path_available_flag;
         path->step_count = 1;

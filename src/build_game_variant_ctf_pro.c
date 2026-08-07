@@ -20,7 +20,7 @@ game_variant * build_game_variant_ctf_pro(game_variant *result)
     result->universal_variant.vehicles_respawn = 0;
     result->universal_variant.friendly_fire_penalty = 0;
     result->game_engine_index = game_engine_ctf;
-    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies_bit))) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _generic_starting_equipment_bit) | (1u << _game_mode_classic_bit);
+    result->universal_variant.flags = (flags & (~((1u << NUMBER_OF_GAME_ENGINE_UNIVERSAL_VARIANT_FLAGS) - 1u) | (1u << _motion_tracker_no_enemies))) | (1u << _allow_motion_tracker_bit) | (1u << _allow_friendly_navpoints_bit) | (1u << _generic_starting_equipment_bit) | (1u << _game_mode_classic);
     result->universal_variant.health = 1.0f;
     result->universal_variant.goal_radar = 1;
     result->universal_variant.respawn_time = 300;

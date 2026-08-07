@@ -88,7 +88,7 @@ void render_motion_sensor(int16_t local_player_index, uint8_t in_multiplayer, co
                 if ( variant )
                 {
                     uint8_t hide_this = 0;
-                    if ( (variant->universal_variant.flags & (1u << _motion_tracker_no_enemies_bit)) != 0 )
+                    if ( (variant->universal_variant.flags & (1u << _motion_tracker_no_enemies)) != 0 )
                     {
                         char blip_type = blip->type;
                         if ( blip_type == _blip_type_enemy || blip_type == _blip_type_vehicle_enemy )

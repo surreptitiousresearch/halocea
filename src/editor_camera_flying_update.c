@@ -29,8 +29,8 @@
 extern real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const real_euler_angles2d *angles);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern double cos(double x);
-extern double sin(double x);
+/* cos provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
+/* sin provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern float __fsqrts(float x);
 extern float __fabs(float x);
 

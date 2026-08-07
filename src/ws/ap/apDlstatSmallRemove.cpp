@@ -13,7 +13,7 @@ apMEM_ALLOC_INFO *apDlstatSmallRemove(unsigned int memBlock)
     int last = used - 1;
 
     // fast path: the block is most often the most-recently-added slot in its row
-    if (last > 0 && rowSlots[last].memBlock == (void *)memBlock)
+    if (last > 0 && (unsigned int)(uintptr_t)rowSlots[last].memBlock == memBlock)
     {
         if (used > last)
             _apMemStat->free_block[row] = last;

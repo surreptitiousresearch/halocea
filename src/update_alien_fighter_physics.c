@@ -25,7 +25,7 @@ extern void create_ghost_effect(int vehicle_index);
 void update_alien_fighter_physics(int vehicle_index, powered_mass_point_datum *powered_mass_points,
     mass_point_datum *mass_points)
 {
-    int vehicle = ((int)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum);
+    object_datum *vehicle = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum;
     int object_tag_index = *(int *)vehicle;
     vehicle_definition *definition = TAG_GET(vehicle_definition, object_tag_index);
     physics_definition *physics = TAG_GET(physics_definition, definition->object.physics.index);

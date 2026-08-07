@@ -18,7 +18,7 @@
 #include <math.h>
 
 extern unsigned int compress_real_vector3d_to_int32_clamp(const real_vector3d *v);
-extern double floor(double x);
+/* floor provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 
 static int16_t pack_unit_int16(float value)
 {

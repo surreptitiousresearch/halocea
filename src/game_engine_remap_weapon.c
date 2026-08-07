@@ -24,7 +24,7 @@ int game_engine_remap_weapon(int weapon_definition_index)
     int remapped = list_index;
 
     if ( gGameEngineRunningOriginalMap
-        && (global_variant.universal_variant.flags & (1u << _game_mode_classic_bit)) != 0
+        && (global_variant.universal_variant.flags & (1u << _game_mode_classic)) != 0
         && (list_index == _weapon_list_flamethrower || list_index == _weapon_list_plasma_cannon) )
         return -1;
 

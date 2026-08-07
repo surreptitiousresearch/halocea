@@ -3,7 +3,12 @@
 
 /* widget_event_flags — widget_event flags.
  * DB-verified: types_enum_values _2A6EDA2781F91EF7130057E6B1F8497E carries these named
- * values verbatim. Values are BIT INDICES — use as (1u << _bit). */
+ * values verbatim. Values are BIT INDICES — use as (1u << _bit).
+ *
+ * The list sub-block of the same $2A6EDA27 blob has a canonical home of its own; it was defined
+ * a second time here until 2026-08-07 (an ODR redefinition of five enumerators). Included rather
+ * than repeated, so the enumerators have exactly one body. */
+#include "ui_widget_list_flags.h"
 enum widget_event_flags {
 	_widget_event_button_a = 0,
 	_widget_event_button_b = 1,
@@ -68,11 +73,7 @@ enum widget_event_flags {
 	_text_box_flashing_text_bit = 2,
 	_text_box_no_weird_focus_test = 3,
 	NUMBER_OF_TEXT_BOX_FLAGS = 4,
-	_list_items_generated_in_code = 0,
-	_list_items_generated_from_string_list_tag = 1,
-	_list_items_only_one_tooltip_entry = 2,
-	_list_single_preview_box_no_scroll = 3,
-	NUMBER_OF_LIST_FLAGS = 4,
+	/* the list sub-block lives in ui_widget_list_flags.h, included above */
 	_widget_controller0 = 0,
 	_widget_controller1 = 1,
 	_widget_controller2 = 2,

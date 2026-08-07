@@ -40,7 +40,10 @@ extern "C" int   hcex_checkpoint_read_header(const char *filename);
 extern int   osFileIsExist(const char *path);
 extern "C" void dlFree(void *ptr);
 
-int verify_checkpoint(const dsTSTRING_flat *checkpoint)
+// DEVIATION: `extern "C"`. The binary exports this as the FLAT symbol `verify_checkpoint` (@0x823C5F98);
+// compiled as C++ without it the definition mangles to `?verify_checkpoint@@YA...` and nothing links
+// against it. 209 of the 219 flat-defining hcex TUs already do this -- these ten did not.
+extern "C" int verify_checkpoint(const dsTSTRING_flat *checkpoint)
 {
     const dsTSTRING_flat *cur_level = haloENGINE_CONTROL_GetCurLevel(haloEngineCtrl);
     if ( !cur_level->pBuffer->strLen || !checkpoint->pBuffer->strLen )

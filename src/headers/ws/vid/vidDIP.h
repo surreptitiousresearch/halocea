@@ -3,6 +3,7 @@
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsNAME_CMP.h"
 #include "../os/osLOCK.h"
+#include "../os/osTIMER.h" // vidDIP_STAT::timer -- os subsystem type, canonical home
 // ws-engine vid: per-frame draw-call ("DIP" = DrawIndexedPrimitive) statistics, organised as a
 // 3-level named hierarchy (group -> class -> individual dip), each level carrying a running
 // dip/poly counter. Reached via vidDriver->dipStat. DB-verified layouts (types_members):
@@ -67,14 +68,6 @@ typedef struct vidDIP_GROUP
     vidDIP_GROUP(); // boundary (outside this re-source)
     ~vidDIP_GROUP(); // boundary (outside this re-source)
 } vidDIP_GROUP;
-
-// DB-verified layout (types_members osTIMER): start@0, time@4 -- size 8. Platform
-// timer snapshot (os subsystem; methods are boundaries).
-typedef struct osTIMER
-{
-    int start; /* 0x00 */
-    int time;  /* 0x04 */
-} osTIMER;
 
 typedef struct vidDIP_STAT
 {

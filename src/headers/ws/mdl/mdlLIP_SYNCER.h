@@ -19,7 +19,7 @@ struct mdlLIP_SYNCER;
 
 // Virtual dispatch table. DB-verified (types_members mdlLIP_SYNCER_vtbl).
 struct mdlLIP_SYNCER_vtbl {
-    void (*dtr_mdlLIP_SYNCER)(mdlLIP_SYNCER *self);
+    void (*dtr_mdlLIP_SYNCER)(mdlLIP_SYNCER *self, int deleteFlag); // deleting dtor: vftable+0x00 holds ??_EmdlLIP_SYNCER@@UAAPAXI@Z
     void (*ApplyLipSync)(mdlLIP_SYNCER *self);
     void (*OnReset)(mdlLIP_SYNCER *self);
     void (*GetAnimSeq)(mdlLIP_SYNCER *self, const struct dsTSTRING<char> *name,

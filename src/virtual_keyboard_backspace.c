@@ -2,12 +2,12 @@
  * remainder of the buffer left. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/virtual_keyboard_globals_t.h"
 #include "headers/ui_audio_feedback_sound.h"
 #include "headers/blam_data_globals.h"
 
 
-extern void *memmove(void *dest, const void *src, unsigned int count);
 extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
 
 void virtual_keyboard_backspace(void)

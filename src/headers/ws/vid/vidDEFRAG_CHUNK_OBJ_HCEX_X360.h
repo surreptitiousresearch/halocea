@@ -24,7 +24,7 @@ typedef struct vidDEFRAG_CHUNK_OBJ_HCEX_X360_vtbl {
     void        (*Unlock)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
     int         (*Alignment)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
     int         (*MemMove)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self, void *dst, void *src, int size, bool overlap);
-    void        (*dtr_vidDEFRAG_CHUNK_OBJ_HCEX_X360)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self); // scalar-deleting dtor
+    void        (*dtr_vidDEFRAG_CHUNK_OBJ_HCEX_X360)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self, int deleteFlag); // scalar-deleting dtor — deleting dtor: vftable+0x18 holds ??_GvidDEFRAG_CHUNK_OBJ_HCEX_X360@@UAAPAXI@Z
     const char *(*Id)(vidDEFRAG_CHUNK_OBJ_HCEX_X360 *self);
 } vidDEFRAG_CHUNK_OBJ_HCEX_X360_vtbl;
 

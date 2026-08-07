@@ -3,6 +3,7 @@
  * white (0.917647) flash, priority 2, type tint, fade function 1, duration 2.0, max intensity 0.5. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/screen_flash_definition.h"
@@ -10,7 +11,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/screen_flash_priority.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern void player_effect_screen_flash(int player_index, const screen_flash_definition *screen_flash, float scale);
 
 void player_health_pack_screen_effect(int player_index)

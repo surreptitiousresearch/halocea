@@ -5,10 +5,10 @@
  * a failure, so 0 is returned. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/saved_film.h"
 #include "headers/saved_film_mode.h"
 #include "headers/blam_data_globals.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 
 extern void saved_film_flush_buffer(void);

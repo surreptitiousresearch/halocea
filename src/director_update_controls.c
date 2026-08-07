@@ -12,6 +12,7 @@
  * int16 axes, and wheel_delta = ((buttons[8] > 1) - (buttons[9] > 1)) * 0.4. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/director.h"
 #include "headers/camera_control.h"
 #include "headers/gamepad_state.h"
@@ -31,7 +32,6 @@ extern int local_player_get_player_index(int16_t local_player_index);
 extern uint8_t input_has_gamepad(int16_t gamepad_index);
 extern gamepad_state *input_get_gamepad_state(int16_t gamepad_index);
 extern void director_process_variables(int16_t local_player_index, int control_bits, float speed_delta);
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 /* Compared by address only (never called here). Declared with the exact type of director::camera_proc

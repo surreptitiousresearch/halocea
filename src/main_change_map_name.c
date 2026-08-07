@@ -10,12 +10,12 @@
  * register artifacts). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 #include "headers/game_globals.h"   /* game_options */
 #include "headers/blam_data_globals.h"
 
 
-extern char *strncpy(char *dst, const char *src, unsigned int count);
 extern void ui_loading_init_state(void);
 extern void ui_loading_set_state(int state);
 extern uint8_t ui_main_menu_music_active(void);

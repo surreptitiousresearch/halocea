@@ -10,6 +10,7 @@
  * — a standard ellipse containment/projection. Notable decompiler corrections are marked DEVIATION. */
 
 #include <stdint.h>
+#include <string.h>
 #include <math.h>
 
 #include "headers/hud_globals.h"
@@ -34,7 +35,6 @@
 
 #include "headers/render_camera.h"
 #include "headers/render_frustum.h"
-extern void *memset(void *dest, int value, unsigned int count);
 
 extern float __fsqrts(float x);
 extern int local_player_get_player_index(int16_t local_player_index);

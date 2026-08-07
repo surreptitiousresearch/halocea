@@ -2,8 +2,8 @@
  * success, or the (still-zero) initialized flag if the queue data array could not be allocated. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/update_client_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern data_array *data_new(const char *name, int16_t maximum_count, int16_t size);
 

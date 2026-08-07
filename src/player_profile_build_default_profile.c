@@ -3,11 +3,11 @@
  * from the active or first-available profile. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
 #include "headers/gamepad_button.h"
 
-extern void *memset(void *, int, unsigned int);
-extern void *memcpy(void *, const void *, unsigned int);
+/* memcpy declared by <string.h> */
 extern int player_ui_get_active_player_profile_index(int16_t local_player_index);
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void saved_game_files_enumerate_available_to_local_player_index(int16_t player_index, uint16_t saved_game_file_type, uint16_t *number_of_profiles, int *player_profile_indices, uint8_t include_default_profiles);

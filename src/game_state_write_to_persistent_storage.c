@@ -7,13 +7,13 @@
  * storage file couldn't be opened. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/_OVERLAPPED.h"
 
 extern void *game_state_open_persistent_storage(const char *directory);
 extern void crc_new(uint32_t *crc_reference);
 extern void crc_checksum_buffer(uint32_t *crc_reference, const void *buffer, int buffer_size);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
-extern void *memset(void *destination, int value, unsigned int size);
+/* memset declared by <string.h> */
 extern unsigned int SetFilePointer(void *hFile, int lDistanceToMove, int *lpDistanceToMoveHigh,
     unsigned int dwMoveMethod);
 extern int WriteFile(void *hFile, const void *lpBuffer, unsigned int nNumberOfBytesToWrite,

@@ -4,6 +4,7 @@
  * retries. Returns 1 on success, 0 when not yet available. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/vehicle_update_queue.h"
 #include "headers/vehicle_update_entry.h"
 
@@ -11,7 +12,6 @@
 #include "headers/simple_circular_queue.h"
 extern uint8_t simple_circular_queue_peek(simple_circular_queue *queue, void **user_data);
 extern int simple_circular_queue_read(simple_circular_queue *queue, void **user_data);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 uint8_t vehicle_update_queue_read(vehicle_update_queue *queue, int client_update_id, vehicle_update_entry *entry)
 {

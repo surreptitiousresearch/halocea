@@ -16,6 +16,7 @@
  * output. "input" below is that real output pointer. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/input_blob.h"
 #include "headers/game_input_state.h"
 #include "headers/gamepad_state.h"
@@ -55,7 +56,6 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern void player_control_action_test_check_reset_input_blob(input_blob *input);
 extern double __fabs(double x);
 extern float  __fsqrts(float x);
-extern void  *memset(void *dst, int value, unsigned int count);
 
 /* object data pointer for an object handle (object header datum: data ptr at int element 3*idx+2) */
 static unit_datum *object_data_ptr(int object_handle)

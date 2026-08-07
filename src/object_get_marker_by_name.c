@@ -7,6 +7,7 @@
  * fallback when an empty name was requested. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/object_header_datum.h"
@@ -17,7 +18,6 @@
 
 extern int16_t model_get_marker_by_name(int model_index, const char *name, const uint8_t *region_permutations, const int16_t *node_remapping_table, int16_t node_count, const real_matrix4x3 *node_matrices, uint8_t mirrored_flag, object_marker *markers, int16_t maximum_marker_count);
 extern void matrix4x3_identity(real_matrix4x3 *matrix);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count)
 {

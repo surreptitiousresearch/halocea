@@ -13,10 +13,10 @@
  * casts. Border vertex color -256 (0xFFFFFF00 ARGB) preserved verbatim. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/net_graph.h"
 #include "headers/rasterizer_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int count);
 extern void clear_graph(net_graph *graph);
 extern int _snprintf_0(char *string, unsigned int count, const char *format, ...);
 

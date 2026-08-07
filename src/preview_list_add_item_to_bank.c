@@ -4,6 +4,7 @@
  * fresh allocation too. Sets preview_list_has_default when the new item is marked default. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/dynamic_array.h"
 #include "headers/bank_item_s.h"
 #include "headers/blam_data_globals.h"
@@ -12,7 +13,6 @@
 extern unsigned int ustrlen(const wchar_t *string);
 extern void ustrcpy(wchar_t *dest, const wchar_t *src);
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data,
         unsigned int data_len, char is_default)

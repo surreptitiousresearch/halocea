@@ -2,11 +2,11 @@
  * the fixed network-player slot table looking for the first valid, unmarked slot owned by the event's
  * controller. The located slot is not used further and the callback unconditionally returns 1.
  *
- * DEVIATION/NOTE: the binary iterates raw slot addresses (0x15E..0x55E, stride 0x20 = sizeof(network_player));
- * network_player_is_valid is passed the slot base (cursor - 0x1C), so the cursor points at
- * network_player.machine_index (+0x1C) and cursor+1 is controller_index (+0x1D) — DB-verified (an earlier
- * comment called these a marked flag). Reproduced verbatim from the disassembly — the scan has no effect
- * on the result, so this reads as a leftover/no-op probe. */
+ * DEVIATION/NOTE: the cursor runs 0x15E..0x55E, stride 0x20 = sizeof(network_player); the slot base is
+ * cursor - 0x1C, so the cursor sits on network_player.machine_index (+0x1C) and cursor+1 is
+ * controller_index (+0x1D) — DB-verified. NOT a base this reconstruction dropped: `li r31, 0x15E`
+ * @0x83697184 is 3BE0015E, rA = r0; 0x142 + 32k IS network_game_data.players[k] over the NULL the
+ * network_game_client_get_game() stub folds in (network_game_server_get_game.c). The scan is a no-op. */
 
 #include <stdint.h>
 #include "headers/widget_instance.h"

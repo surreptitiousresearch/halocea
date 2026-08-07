@@ -4,13 +4,13 @@
 
 #include <stdint.h>
 #include <stdarg.h>
+#include <string.h>
 #include "headers/console_globals.h"
 #include "headers/blam_data_globals.h"
 
 extern void terminal_clear(void);
 extern int  vsprintf_0(char *buffer, const char *format, va_list args);
 extern void ship_terminal_printf(const real_argb_color *color, const char *format, ...);
-extern char *strncat(char *dst, const char *src, unsigned int n);
 extern void write_to_error_file(char *string, uint8_t date);
 
 

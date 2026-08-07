@@ -2,10 +2,10 @@
  * clear the local-player fog interpolators, and seed the sound-environment interpolator from the default
  * (above-water) environment. */
 
+#include <string.h>
 #include "headers/scenario_globals.h"
 #include "headers/sound_environment.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern void *memset(void *dst, int value, unsigned int n);
+/* memset declared by <string.h> */
 
 extern sound_environment default_sound_environment;
 

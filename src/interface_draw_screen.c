@@ -11,6 +11,7 @@
  * interpolated radius to a stack temporary and reads it back, restored here. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_globals.h"
 #include "headers/hud_screen_effect_mask_only_when_zoomed_flags.h"
 #include "headers/hud_screen_effect_convolution_only_when_zoomed_flags.h"
@@ -34,7 +35,6 @@ extern float rasterizer_script_screen_effect_get_value(int16_t index);
 extern void rasterizer_screen_effect(const rasterizer_screen_effect_parameters *parameters);
 extern void hud_draw_screen(void);
 extern void game_engine_post_rasterize(void);
-extern void *memset(void *dst, int value, unsigned int count);
 
 void interface_draw_screen(void)
 {

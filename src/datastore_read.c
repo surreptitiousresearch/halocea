@@ -6,11 +6,11 @@
  * found and copied. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/datastore_entry.h"
 #include "headers/file_reference.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
+/* memcpy declared by <string.h> */
 extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
 extern uint8_t file_exists(const file_reference *file);
 extern void *file_read_into_memory(file_reference *reference, unsigned int *size);

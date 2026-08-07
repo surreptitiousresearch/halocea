@@ -1,10 +1,10 @@
 /* memory_pool_new @ 0x8371BDD8 — heap-allocate and init a memory_pool */
 
+#include <string.h>
 #include "headers/memory_pool.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *, int, unsigned int);
-extern char *strncpy(char *, const char *, unsigned int);
+/* strncpy declared by <string.h> */
 
 memory_pool *memory_pool_new(const char *name, int size)
 {

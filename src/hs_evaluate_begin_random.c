@@ -8,6 +8,7 @@
  * allocation and the random-probe arithmetic are reproduced verbatim. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_thread.h"
 #include "headers/data_array.h"
@@ -17,7 +18,6 @@ extern void hs_evaluate(int thread_index, int expression_index, int *destination
 extern void hs_return(uint16_t thread_index, int value);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
-extern void *memset(void *dst, int value, unsigned int count);
 
 void hs_evaluate_begin_random(int16_t function_index, int thread_index, uint8_t initialize)
 {

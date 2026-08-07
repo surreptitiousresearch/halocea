@@ -1,3 +1,4 @@
+#include <string.h>
 #include "../headers/havok/hkThreadMemory.h"
 
 /* Raw hkArray header view (matches hkArray<T>: data ptr, size, capacityAndFlags).
@@ -9,7 +10,6 @@ struct hkArrayHeader
     int   m_capacityAndFlags; /* 0x08 */
 };
 
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 /* hkArrayUtil::_reserveMore — grow an array so it can hold more elements:
    allocate a new buffer of 2*m_size elements (1 if empty), copy the existing

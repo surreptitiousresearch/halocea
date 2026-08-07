@@ -5,13 +5,13 @@
  * DEVIATION: the leading system_milliseconds() call has its result discarded; reproduced. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/update_server_globals.h"
 #include "headers/update.h"
 #include "headers/game_update.h"
 #include "headers/update_server_queue_datum.h"
 
 extern uint32_t system_milliseconds(void);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 extern update *update_server_get_update(int update_number);
 void update_server_build_server_update(int machine_index, game_update *update, int *update_number)

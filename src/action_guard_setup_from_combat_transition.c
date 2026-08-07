@@ -15,6 +15,7 @@
  * the body. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/data_array.h"
 #include "headers/guard_state_data.h"
@@ -25,7 +26,6 @@
 
 
 #include "headers/real_point3d.h"
-extern void *memset(void *destination, int value, unsigned int size);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
 extern float normalize3d(real_vector3d *v);
 

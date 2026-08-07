@@ -28,6 +28,7 @@
  * is dropped. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/vehicle_state_data.h"
@@ -36,7 +37,6 @@
 #include "headers/actor_action.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 
 extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index,

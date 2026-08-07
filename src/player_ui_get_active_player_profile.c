@@ -2,9 +2,9 @@
  * globals slot. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_ui_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile)
 {

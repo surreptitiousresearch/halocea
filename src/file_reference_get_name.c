@@ -3,10 +3,10 @@
  * first, splits it, then appends the requested pieces. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 #include "headers/reference_info_flags.h"
 
-extern void *memset(void *dst, int value, unsigned int n);
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
 extern void file_path_split(char *path, char **directory, char **parent_directory, char **filename, char **extension, uint8_t has_filename);
 extern void file_path_add_name(char *path, const char *name);

@@ -7,6 +7,7 @@
  * calls (threaded-r3 artifact). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/d3d_render_boundary.h"
@@ -16,7 +17,6 @@
 
 
 extern void _rasterizer_set_default_state(void);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern void rasterizer_memory_pool_begin(void);
 extern void rasterizer_dynamic_geometry_begin(void);
 extern void rasterizer_transparent_geometry_begin(void);

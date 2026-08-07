@@ -6,11 +6,11 @@
  * are contiguous in ai_globals); reconstructed as a direct field clear of the new ai_vehicle_enterable. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/ai_globals.h"
 #include "headers/ai_vehicle_enterable.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
 
 ai_vehicle_enterable * ai_scripting_find_vehicle_enterable(int vehicle_index)
 {

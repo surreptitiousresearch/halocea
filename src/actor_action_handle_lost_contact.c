@@ -19,6 +19,7 @@
  *     firing_position_evaluation_context frame) is compiler boilerplate and is omitted; memset is the real init. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/action_state_data.h"
 #include "headers/action_specification.h"
@@ -77,7 +78,6 @@ extern int16_t actor_select_firing_position(int actor_index, firing_position_eva
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
 extern uint8_t encounter_mark_examined_pursuit_position(int encounter_index, int actor_index, int16_t firing_position_index, int history_start_time);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
-extern void *memset(void *destination, int value, unsigned int size);
 
 uint8_t actor_action_handle_lost_contact(int actor_index)
 {

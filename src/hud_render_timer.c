@@ -19,6 +19,7 @@
  *     plain integer divides. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/point2d.h"
 #include "headers/render_globals.h"
 #include "headers/hud_messaging_globals.h"
@@ -31,7 +32,6 @@
 #include "headers/interface_tag_index.h"
 #include "headers/hud_number_definition.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern int game_time_get(void);

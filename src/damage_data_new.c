@@ -2,9 +2,9 @@
  * Zeroes the structure, then sets the non-zero defaults: scale/multiplier = 1, owner/material indices = -1,
  * and an invalid (cluster_index -1) location. */
 
+#include <string.h>
 #include "headers/damage_data.h"
 
-extern void *memset(void *dst, int value, unsigned int n);
 
 void damage_data_new(damage_data *damage_data, int definition_index)
 {

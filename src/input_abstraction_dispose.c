@@ -2,8 +2,8 @@
  * Binary is a tail `b memset` (r3 carries memset's return), but the sole caller
  * (game_dispose) ignores r3 — attested void. */
 
+#include <string.h>
 #include "headers/input_abstraction_globals.h"
-extern void *memset(void *, int, unsigned int);
 
 void input_abstraction_dispose(void)
 {

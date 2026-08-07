@@ -4,6 +4,7 @@
  * priority 2, type 2, fade function 0, duration 2.0, max intensity 1.0. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/screen_flash_definition.h"
@@ -11,7 +12,6 @@
 #include "headers/screen_flash_type.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern void player_effect_screen_flash(int player_index, const screen_flash_definition *screen_flash, float scale);
 
 void player_active_camo_screen_effect(int player_index)

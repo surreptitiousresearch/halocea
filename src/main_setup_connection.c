@@ -3,14 +3,14 @@
  * configured solo level directly. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 #include "headers/game_globals.h"
 #include "headers/network_game_data.h"
 #include "headers/game_connection.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *, int, unsigned int);
-extern char *strrchr(const char *, int);
+/* strrchr declared by <string.h> */
 extern int sprintf_0(char *string, const char *format, ...);
 extern uint16_t save_film_get_mode(void);
 extern uint8_t save_film_open_recording(const char *filename);
@@ -20,7 +20,7 @@ extern void game_precache_new_map(const char *map_name, uint8_t blocking);
 extern void game_dispose_from_old_map(void);
 extern void main_new_map(game_options *options);
 extern void main_menu_load(void);
-extern char *strncpy(char *, const char *, unsigned int);
+/* strncpy declared by <string.h> */
 
 
 void main_setup_connection(void)

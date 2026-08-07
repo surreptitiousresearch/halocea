@@ -41,7 +41,7 @@ typedef struct vidDEFRAG_CHUNK_vtbl {
     void        (*Unlock)(vidDEFRAG_CHUNK *self);
     int         (*Alignment)(vidDEFRAG_CHUNK *self);
     int         (*MemMove)(vidDEFRAG_CHUNK *self, void *dst, void *src, int size, bool overlap);
-    void        (*dtr_vidDEFRAG_CHUNK)(vidDEFRAG_CHUNK *self); // scalar-deleting dtor
+    void        (*dtr_vidDEFRAG_CHUNK)(vidDEFRAG_CHUNK *self, int deleteFlag); // scalar-deleting dtor — deleting dtor: vftable+0x18 holds ??_GvidDEFRAG_CHUNK@@UAAPAXI@Z
     const char *(*Id)(vidDEFRAG_CHUNK *self);
 } vidDEFRAG_CHUNK_vtbl;
 

@@ -1,8 +1,8 @@
 /* player_profiles_initialize @ 0x83765990 — reset profile globals, build default profile */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
-extern void *memset(void *, int, unsigned int);
 
 #include "headers/player_profile_globals.h"
 /* DEVIATION: the decompiler put initialized@1988; the DB-verified layout has initialized@0xF80 (memset

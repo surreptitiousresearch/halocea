@@ -14,6 +14,7 @@
  * misread as a phantom return/argument" pattern, so both calls are reproduced with no return value/args. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/real_matrix4x3.h"
 #include "headers/blam_data_globals.h"
 
@@ -22,7 +23,6 @@ extern int16_t local_player_count(void);
 extern void hcex_prepare_halo_render(int camera_index);
 extern void first_person_weapon_render_update(void);
 extern void first_person_weapon_draw(void);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void first_person_weapon_update_no_rend(void)
 {

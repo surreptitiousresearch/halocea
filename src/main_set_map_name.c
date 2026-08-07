@@ -3,9 +3,9 @@
  * a game is running — request a map rename. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 
-extern char *strncpy(char *dst, const char *src, unsigned int count);
 extern uint8_t game_in_editor(void);
 extern uint8_t game_in_progress(void);
 

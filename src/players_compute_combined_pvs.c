@@ -5,6 +5,7 @@
  * local_only is set, non-local (network) players are skipped. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/data_iterator.h"
@@ -16,7 +17,6 @@
 
 
 #include "headers/real_point3d.h"
-extern void *memset(void *dst, int value, unsigned int size);
 extern uint8_t game_in_editor(void);
 extern const observer_result *observer_get_camera(int16_t local_player_index);
 extern int16_t scenario_cluster_index_from_point(const real_point3d *point);

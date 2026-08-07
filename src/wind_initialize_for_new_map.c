@@ -1,8 +1,8 @@
 /* wind_initialize_for_new_map @0x837C1FD8 — reset the wind globals for a new map and rebuild the cyclic
  * variance noise table. */
 
+#include <string.h>
 #include "headers/wind_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern void wind_variance_initialize(void);
 

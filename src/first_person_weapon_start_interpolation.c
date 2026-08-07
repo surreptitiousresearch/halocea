@@ -13,8 +13,8 @@
 #include "headers/animation_graph.h"
 #include "headers/blam_data_globals.h"
 #include <stdint.h>
+#include <string.h>
 
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void first_person_weapon_start_interpolation(int16_t local_player_index, int16_t frame_count)
 {

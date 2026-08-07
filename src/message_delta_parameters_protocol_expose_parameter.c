@@ -9,15 +9,15 @@
  * dlStrdup'd name into the freshly allocated buffer; these are written as the equivalent library calls. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/exposed_parameter.h"
 #include "headers/blam_data_globals.h"
 
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern char *dlStrdup(char *ptr, const char *file, uint32_t line);
-extern char *strcpy(char *dst, const char *src);
-extern char *strcat(char *dst, const char *src);
-extern unsigned int strlen(const char *string);
+/* strcat declared by <string.h> */
+/* strlen declared by <string.h> */
 extern uint8_t find_parameter_in_exposed(const char *query, int *value);
 extern int find_parameter_in_config(const char *query, const char *format, void *value);
 

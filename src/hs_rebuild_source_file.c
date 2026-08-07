@@ -4,6 +4,7 @@
  * Returns 1 on success, 0 on any failure. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/hs_source_file.h"
 #include "headers/file_reference.h"
@@ -15,9 +16,8 @@ extern int16_t tag_block_add_element(tag_block *block);
 extern void *file_read_into_memory(file_reference *reference, unsigned int *size);
 extern uint8_t tag_data_resize(tag_data *data, int size);
 extern char *file_reference_get_name(const file_reference *reference, unsigned int flags, char *name);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
 extern char *tag_data_get_pointer(const tag_data *data, int offset, int size);
-extern void *memcpy(void *dst, const void *src, unsigned int n);
+/* memcpy declared by <string.h> */
 
 uint8_t hs_rebuild_source_file(file_reference *script_file)
 {

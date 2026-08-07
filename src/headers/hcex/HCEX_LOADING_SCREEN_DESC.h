@@ -15,7 +15,7 @@ struct HCEX_LOADING_SCREEN_DESC;
 
 typedef struct HCEX_LOADING_SCREEN_DESC_vtbl {
     const dscTYPE_INFO *(*GetCurTypeInfo)(HCEX_LOADING_SCREEN_DESC *self);                       // 0x00
-    void                (*dtr_HCEX_LOADING_SCREEN_DESC)(HCEX_LOADING_SCREEN_DESC *self); // 0x04
+    void                (*dtr_HCEX_LOADING_SCREEN_DESC)(HCEX_LOADING_SCREEN_DESC *self, int freeMemory); // 0x04 — deleting dtor: vftable+0x04 holds ??_GHCEX_LOADING_SCREEN_DESC@@UAAPAXI@Z
     void                (*NotifyTermBrand)(HCEX_LOADING_SCREEN_DESC *self);                       // 0x08
     /* psSECTION is passed BY VALUE, not by pointer: the dscDESC-family mangle is
      * `?ParsePS@dscDESC@@MAAXVpsSECTION@@ABV?$dsTSTRING@D@@@Z` -- `V` before psSECTION is

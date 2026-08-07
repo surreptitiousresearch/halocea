@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <string.h>
 #include "headers/blam_data_globals.h"
 /* file_location_set_volume @0x837678C8 — copies volume_name into the volume-name slot of the given file
  * location, truncated and NUL-terminated at 255 characters.
@@ -8,7 +9,6 @@
  * written at row+0xFF (0x837678F8 addi r9, r31, 0xFF / stbx). */
 
 
-extern char *strncpy(char *dst, const char *src, unsigned int count);
 
 void file_location_set_volume(int16_t location, const char *volume_name)
 {

@@ -6,10 +6,10 @@
  * re-broadcast the authoritative team change to every loaded machine. Only runs while a team game engine is
  * active; otherwise the iteration body is discarded.
  *
- * Faithful shipped quirk (bug class 12, same as client_team_change_from_network / teamplay_get_team_info): the
- * two record-search loops walk the 32 network_player slots at the ABSOLUTE address 0x142 (base 0x142 + 32*i),
- * not through the fetched server/client pointer — the global_network_game_*_get() results are discarded
- * (disasm 0x83802DF0/0x83802E00). Reproduced verbatim. The player-datum scan matches on network_player_data.player_list_index (byte +103). */
+ * NOT a base this reconstruction dropped (re-derived 2026-08-07): both record-search loops init with
+ * `li r11, 0x142` — 39600142 at 0x83802E00 and 0x83802E8C, rA = r0. 0x142 + 32*i IS
+ * network_game_data.players[i] (DB types_members) over the NULL the network_game_server_get_game() stub
+ * folds in; the surviving getter calls are dead. Mechanism: network_game_server_get_game.c. The player-datum scan matches on network_player_data.player_list_index (byte +103). */
 
 #include <stdint.h>
 #include "headers/message_delta_processor_header.h"

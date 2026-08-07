@@ -2,12 +2,12 @@
  * to a sentinel "no ground" plane (`depths_of_hell`), and clears its last-falling-communication timer
  * (+1272) to -1 (none). */
 
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/biped_datum.h"
 #include "headers/real_plane3d.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 void biped_reset(int biped_index)

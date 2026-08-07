@@ -12,6 +12,7 @@
  * beyond the 8-GPR window), matching the literal `3` already used for the all-machines broadcast. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/message_delta_processor_mode.h"
 #include "headers/oddball_globals.h"
 #include "headers/game_variant.h"
@@ -23,7 +24,6 @@
 
 
 extern game_variant *game_engine_get_variant(void);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern int message_delta_processor_encode_incremental(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, const void *baseline_data, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
 extern network_game_server *global_network_game_server_get(void);

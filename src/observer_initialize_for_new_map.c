@@ -3,11 +3,11 @@
  * velocity, a cleared command, and freshly stamped header/trailer signatures. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/observer_globals.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_point3d.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 /* Attested void: sole caller (game_initialize_for_new_map @83687C30) ignores r3; the decompiler's

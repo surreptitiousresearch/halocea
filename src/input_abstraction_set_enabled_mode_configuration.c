@@ -4,6 +4,7 @@
  * array. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/input_abstraction_globals.h"
 #include "headers/input_abstraction_mode_flags.h"
 #include "headers/gamepad_state.h"
@@ -11,8 +12,7 @@
 
 
 extern gamepad_state *input_get_gamepad_state(int16_t gamepad_index);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern void *memset(void *dst, int value, unsigned int size);
+/* memset declared by <string.h> */
 
 void input_abstraction_set_enabled_mode_configuration(uint8_t enabled)
 {

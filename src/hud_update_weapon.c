@@ -9,6 +9,7 @@
  * The decompiler lost this (showed an uninitialized v13); restored from the disassembly. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/weapon_definition.h"
@@ -36,7 +37,6 @@ extern void hcex_update_weapon_state(int16_t local_player_index, const weapon_de
                                      const int16_t *overlay_flags, const int16_t *numbers,
                                      const float *numbers_real, float compass_magnitude, weapon_datum *wpn);
 extern void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index, int hud_index, weapon_interface_state *weapon_state);
-extern void *memset(void *dst, int value, unsigned int count);
 
 void hud_update_weapon(void)
 {

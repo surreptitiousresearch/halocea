@@ -5,10 +5,10 @@
  * The decompiler walks the player slots with a raw char pointer starting at &_unused_game_engine
  * (stride 32 == sizeof(network_player)); re-expressed as named game->players[i] member access. */
 
+#include <string.h>
 #include "headers/network_game_data.h"
 #include "headers/network_player.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void network_game_invalidate_player(network_player *player);

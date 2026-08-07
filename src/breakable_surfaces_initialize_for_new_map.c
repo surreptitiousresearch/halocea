@@ -5,8 +5,8 @@
  * reproduced as breakable_surfaces[bsp][i] indexing — offset 0x204 = float index 129. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/breakable_surface_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 void breakable_surfaces_initialize_for_new_map(void)
 {

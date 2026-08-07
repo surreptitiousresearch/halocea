@@ -6,11 +6,11 @@
    The decompiler renders each success test as a branchless fold of the
    E_OUTOFMEMORY HRESULT (0x8007000E); it reduces to "decl != NULL". */
 
+#include <string.h>
 #include "headers/rasterizer_dx9_shader_tables.h"
 #include "headers/d3d_vertex_elements.h"
 
 extern D3DVertexDeclaration *D3DDevice_CreateVertexDeclaration(D3DVERTEXELEMENT9 *elements);
-extern void *memset(void *dst, int value, unsigned int size);
 
 unsigned int rasterizer_dx9_shaders_vdecl9_initialize(void)
 {

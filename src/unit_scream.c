@@ -5,6 +5,7 @@
  * queues a unit_speech_item via unit_speak. Returns 1 if the unit spoke, 0 otherwise. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -15,7 +16,6 @@
 #include "headers/unit_speech_priority.h"
 #include "headers/blam_data_globals.h"
 #include "headers/ai_information_packet.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern uint32_t *get_global_random_seed_address(void);

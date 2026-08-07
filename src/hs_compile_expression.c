@@ -5,6 +5,7 @@
  * down in the scenario's string-constant tag data. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_syntax_node_flags.h"
@@ -16,7 +17,6 @@
 #include "headers/blam_data_globals.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 extern void skip_whitespace(char **c);
 extern int hs_tokenize(hs_tokenizer *state);
 extern int datum_new(data_array *data);

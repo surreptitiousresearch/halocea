@@ -7,10 +7,10 @@
  * 0x35 (53). Faithful to the compiled (degenerate) control flow. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 #include "headers/error_type.h"
 
-extern char *strncpy(char *, const char *, unsigned int);
 extern void display_error(int16_t error_code, int16_t local_player_index, uint8_t modal, uint8_t pause_game_time);
 
 int main_connect(const char *ip_and_port, const char *password)

@@ -11,11 +11,11 @@
  * byte loop, reproduced verbatim (sets a nonzero difference on the first mismatching byte). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_variant.h"
 #include "headers/playlist_profile_globals.h"
 #include "headers/file_reference.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern uint8_t thread_has_exited(const thread *thread_reference);
 extern void dispose_thread(thread *thread_reference);
 extern game_variant * build_game_variant_slayer(game_variant *result);

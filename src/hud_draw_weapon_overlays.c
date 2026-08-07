@@ -4,11 +4,11 @@
  * 0, gated on `draw_flags` bit 0); picks a looping animation frame from the bitmap's own sequence table
  * when the item is both flashing and has a positive frame_rate; then resolves and draws the bitmap.
  *
- * DEVIATION: `hud_draw_bitmap_with_meter`'s DB-resolved prototype has 11 parameters, but only 10
- * distinct stack/register writes are made at this call site — the `is_interface_bitmap` stack slot
- * (between `in_multiplayer` and the explicit `is_crosshair_bitmap = 0`) is never written here, so its
- * value is whatever was already on the stack; reproduced faithfully as an uninitialized local rather
- * than guessing a value. `local_player_index` is accepted but never read in this function body. */
+ * DEVIATION: `hud_draw_bitmap_with_meter` takes TEN parameters, not the DB's 11 — this call writes only
+ * the two stack bytes it has: r1+0x57 = in_multiplayer @0x837A075C and r1+0x5F = 0 (r27, from
+ * `li r27,0` @0x837A05E8) @0x837A0764. r1+0x60 is this function's own `bitmap` out-local (@0x837A0710),
+ * so the "never written is_interface_bitmap slot" previously reported here was the phantom param 11.
+ * `local_player_index` is accepted but never read in this function body. */
 
 #include <stdint.h>
 #include "headers/hud_absolute_placement_definition.h"
@@ -30,7 +30,7 @@ extern int game_time_get(void);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 extern void hud_retrieve_bitmap_and_bounding_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame_index, const bitmap_data **bitmap, const real_rectangle2d **clip);
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
-extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
+extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap);
 
 void hud_draw_weapon_overlays(int16_t local_player_index, const hud_absolute_placement_definition *placement, const weapon_hud_overlay_definition *overlays, int type_flags, int reference_time, int16_t draw_flags, uint8_t in_multiplayer)
 {
@@ -73,10 +73,9 @@ void hud_draw_weapon_overlays(int16_t local_player_index, const hud_absolute_pla
 
         if (bitmap && _texture_cache_bitmap_get_hardware_format((bitmap_data *)bitmap, 0, 1u))
         {
-            uint8_t is_interface_bitmap; /* FAITHFUL QUIRK: uninitialized at this call site */
             /* recovered: (const hud_placement_definition *)item -> &item->placement (placement is at offset 0) */
             hud_draw_bitmap_with_meter(0, bitmap, placement, &item->placement, clip,
-                                       hcex_hud_globals_scale, 0.0f, color, in_multiplayer, is_interface_bitmap, 0);
+                                       hcex_hud_globals_scale, 0.0f, color, in_multiplayer, 0);
         }
     }
 }

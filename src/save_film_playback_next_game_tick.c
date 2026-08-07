@@ -3,6 +3,7 @@
  * Validates the game-state CRC, applies the recorded player 0 facing/zoom, hands the
  * update to the client, and advances the expected-update counter. Returns 1 on success. */
 #include <stdint.h>
+#include <string.h>
 #include "headers/saved_film.h"
 #include "headers/saved_film_mode.h"
 #include "headers/game_update.h"
@@ -25,7 +26,6 @@ extern real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const 
 extern void player_control_set_facing(int16_t local_player_index, const real_vector3d *forward);
 extern void player_control_set_zoom_level(int16_t local_player_index, int16_t zoom_level);
 extern void update_client_handle_server_update(game_update *new_update, int update_number);
-extern void *memcpy(void *, const void *, unsigned int);
 
 uint8_t save_film_playback_next_game_tick(void)
 {

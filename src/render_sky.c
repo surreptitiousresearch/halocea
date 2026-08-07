@@ -31,6 +31,7 @@
  *     regardless of that struct's exact modeled size. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_globals.h"
 #include "headers/sky.h"
 #include "headers/sky_animation.h"
@@ -69,7 +70,6 @@ extern void render_model(int model_index, float level_of_detail_pixels, const re
 extern double fmod(double x, double y);
 extern double __fabs(double x);
 extern float __fsqrts(float x);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void render_sky(void)
 {

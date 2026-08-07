@@ -4,6 +4,7 @@
 
 /* removed <windows.h>: canonical blam_data_globals.h provides self-contained Win32 type shims (tagRECT/HWND__/_OVERLAPPED/_FILETIME); system windows.h collided. Win32 fn protos resolve via project headers/implicit-decl. */
 #include <stdint.h>
+#include <string.h>
 #include "headers/cache_file_globals.h"
 #include "headers/blam_data_globals.h"
 
@@ -12,7 +13,6 @@ extern const char *tag_name_strip_path(const char *name);
 extern int16_t cached_map_files_find_map(const char *name);
 extern uint8_t cache_file_read_header_from_dvd(const char *name, cache_file_header *header);
 extern int16_t cached_map_files_find_free_map(int size, int16_t scenario_type);
-extern void *memset(void *dst, int c, unsigned int n);
 extern char *cache_files_map_directory(void);
 extern const char *cache_files_root_directory(void);
 extern int sprintf_0(char *string, const char *format, ...);

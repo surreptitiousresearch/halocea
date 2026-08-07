@@ -1,10 +1,10 @@
 /* teamplay_get_team_info @0x83802AE8 — count the valid network players on teams 0/1 (skipping
  * skip_player_index) and fetch both team scores. Zeroes all outputs when no team game is running.
  *
- * Faithful shipped quirk (bug class 12, disasm-verified): the compiled loop walks the 32 network-player
- * records at ABSOLUTE addresses (record k at 0x142 + 32k, team byte at 0x160 + 32k, player index byte at
- * 0x161 + 32k) — the base returned by global_network_game_server_get (called and discarded) was never
- * added. Reproduced verbatim, including the discarded call. */
+ * NOT a base this reconstruction dropped (re-derived 2026-08-07): the loop init at 0x83802B38 encodes as
+ * 3BE00160 = `addi r31, r0, 0x160`, rA = r0. 0x142 + 32k IS network_game_data.players[k] (DB
+ * types_members) over the NULL that the network_game_server_get_game() stub folds in — mechanism in
+ * network_game_server_get_game.c. The discarded getter call is reproduced because the binary makes it. */
 
 #include <stdint.h>
 #include "headers/network_player.h"

@@ -34,7 +34,7 @@ struct iaSND_DATA;  // ws-engine per-descriptor sound data — boundary, only po
 // (see iaIACTOR::SetDesc, which does exactly this to call TypeID).
 typedef struct iaDESC_vtbl {
     const dscTYPE_INFO *(*GetCurTypeInfo)(iaDESC *self);                                          // 0x00
-    void                (*dtr_iaDESC)(iaDESC *self);                                              // 0x04 (deleting dtr; takes a free flag)
+    void                (*dtr_iaDESC)(iaDESC *self, int deleteFlag);                                              // 0x04 (deleting dtr; takes a free flag) — deleting dtor: vftable+0x04 holds ??_EiaDESC@@UAAPAXI@Z
     void                (*NotifyTermBrand)(iaDESC *self);                                         // 0x08
     void                (*ParsePS)(iaDESC *self, psSECTION section, const dsTSTRING<char> &hintErr);       // 0x0C
     void                (*PostProcessPS)(iaDESC *self, psSECTION section, const dsTSTRING<char> &hintErr); // 0x10

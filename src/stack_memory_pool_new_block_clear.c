@@ -1,7 +1,7 @@
+#include <string.h>
 #include "headers/stack_memory_pool.h"
 
 extern memory_block *stack_memory_pool_allocate(stack_memory_pool *pool, int size);
-extern void *memset(void *, int, unsigned int);
 
 memory_block *stack_memory_pool_new_block_clear(stack_memory_pool *pool, unsigned int size)
 {

@@ -9,11 +9,11 @@
  * (rather than per-element) groups. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/field_properties_definition.h"
 #include "headers/field_type_array_parameters.h"
 #include "headers/bitstream_t.h"
 
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern unsigned int bitstream_tell(const bitstream_t *bit_stream);
 extern uint8_t bitstream_seek(bitstream_t *const bit_stream, const int offset, const bitstream_seek_origin origin);
 extern unsigned int bitstream_read_bit(bitstream_t *const bit_stream, uint8_t *const value);

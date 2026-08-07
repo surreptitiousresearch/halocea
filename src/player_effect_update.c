@@ -6,13 +6,13 @@
  * with the following 236-byte clear but is preserved from the decompiler. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_effect_globals.h"
 #include "headers/player_datum.h"
 #include "headers/player_effect_datum.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dst, int c, unsigned int n);
 extern int16_t local_player_get_next(int16_t local_player_index);
 extern int local_player_get_player_index(int16_t local_player_index);
 extern void vibrate_player_clear(int16_t local_player_index);

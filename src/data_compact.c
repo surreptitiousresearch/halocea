@@ -4,12 +4,12 @@
  * element count. No-op if the scratch allocation fails. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
-extern void *memset(void *destination, int value, unsigned int size);
+/* memset declared by <string.h> */
 
 void data_compact(data_array *data)
 {

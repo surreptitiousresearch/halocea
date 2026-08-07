@@ -5,11 +5,11 @@
  * result back to the bitmap, so successive passes bleed color outward one ring at a time. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
-extern void *memcpy(void *dest, const void *src, unsigned int count);
 extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
 extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t mipmap_index);
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);

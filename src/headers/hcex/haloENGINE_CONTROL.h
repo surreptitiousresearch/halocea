@@ -176,5 +176,9 @@ private:
     void ApplySettings(bool isPrimary);
     // 0x823C89C8 — gsUserConfigChanged event handler: re-applies settings for whichever user slot
     // (primary/secondary) the signaled userID matches.
-    void OnConfigChanged(unsigned int eventUserId, const dsPARAM_LIST &paramList);
+    // DEVIATION: `unsigned long`, not `unsigned int`. The binary's mangled symbol
+    // ?OnConfigChanged@haloENGINE_CONTROL@@AAAXKABVdsPARAM_LIST@@@Z spells the first parameter K
+    // = unsigned long, which is also RegisterEventEntry's member-fn-ptr parameter above; the two
+    // are distinct MSVC types at the same width, and the mismatch needed a cast to bridge.
+    void OnConfigChanged(unsigned long eventUserId, const dsPARAM_LIST &paramList);
 } haloENGINE_CONTROL;

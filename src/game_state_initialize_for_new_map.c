@@ -3,10 +3,10 @@
  * count, difficulty, cache checksum, and running allocation-size checksum. Returns the cache file checksum. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_state_globals.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
-extern char *strcpy(char *, const char *);
+/* strcpy declared by <string.h> */
 
 
 extern char *tag_get_name(int16_t tag_index);

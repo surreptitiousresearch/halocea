@@ -1,7 +1,7 @@
 /* playlist_profiles_initialize @ 0x83781E98 — reset playlist-profile globals */
 
-extern void *memset(void *, int, unsigned int);
 
+#include <string.h>
 #include "headers/playlist_profile_globals.h"
 /* DEVIATION: the decompiler put initialized@0 (memset size 1); the DB-verified layout has initialized@0xA2
  * (memset size 0xA4) — disasm `stb _playlist_profile_globals.initialized`. Reusing the canonical corrects it. */

@@ -11,7 +11,7 @@ typedef struct weapon_datum weapon_datum;
 typedef struct scenario_player scenario_player;
 typedef struct message_delta_processor_header message_delta_processor_header;
 typedef struct network_game_client network_game_client;
-typedef enum message_delta_processor_mode message_delta_processor_mode;
+#include "message_delta_processor_mode.h"
 
 struct game_engine
 {

@@ -10,6 +10,7 @@
  * 0/2/1 respectively (reproduced verbatim). Hex-Rays flagged "local variable allocation has failed". */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 
 extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
@@ -17,7 +18,6 @@ extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
 extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t mipmap_index);
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern double __fabs(double x);
 extern float __fsqrts(float x);
 

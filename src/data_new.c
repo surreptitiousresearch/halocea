@@ -4,11 +4,11 @@
    header. The signature 0x64407440 ('d@t@') marks a live array. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *dst, int value, unsigned int size);
-extern char *strncpy(char *dst, const char *src, unsigned int count);
+/* strncpy declared by <string.h> */
 
 data_array *data_new(const char *name, int16_t maximum_count, int16_t size)
 {

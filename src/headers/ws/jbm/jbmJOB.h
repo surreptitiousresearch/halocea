@@ -9,7 +9,7 @@
 struct jbmJOB;
 
 typedef struct jbmJOB_vtbl {
-    void (*dtr_jbmJOB)(jbmJOB *thisPtr);                     // 0x00 destructor
+    void (*dtr_jbmJOB)(jbmJOB *thisPtr, int deleteFlag);                     // 0x00 destructor — deleting dtor: vftable+0x00 holds ??_EjbmJOB@@UAAPAXI@Z
     void (*Execute)(jbmJOB *thisPtr, int procID);                // 0x04
     void (*PreExecute)(jbmJOB *thisPtr, int procID);             // 0x08
     void (*PostExecute)(jbmJOB *thisPtr, int procID); // 0x0C

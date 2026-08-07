@@ -13,8 +13,8 @@
 #include "headers/data_array.h"
 
 #include <stdarg.h>
+#include <stdio.h>
 
-extern int vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
 extern char *strstr(const char *haystack, const char *needle);
 extern int terminal_new_line(void);
 

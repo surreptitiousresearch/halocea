@@ -9,6 +9,7 @@
  * empty DB prototypes and structure_visibility_compute reuses r3 without reading it). Written as bare calls. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_globals.h"
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/render_camera.h"
@@ -19,8 +20,7 @@
 
 
 #include "headers/render_screen_flash.h"
-extern void *memset(void *dst, int value, unsigned int count);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
+/* memcpy declared by <string.h> */
 
 extern void structure_visibility_compute(void);
 extern void player_effect_get_screen_flash(int16_t local_player_index, render_screen_flash *screen_flash);

@@ -7,6 +7,7 @@
  * reconstruction returns void. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/saved_film.h"
 #include "headers/saved_film_mode.h"
 #include "headers/network_game_data.h"
@@ -21,7 +22,6 @@ extern int16_t game_connection(void);
 extern network_game_data *network_game_get_game(void);
 extern void network_game_invalidate(network_game_data *game);
 extern char *main_get_map_name(void);
-extern char *strrchr(const char *string, int ch);
 extern uint32_t get_random_seed(void);
 extern int16_t game_difficulty_level_get(void);
 extern uint8_t network_game_add_player(network_game_data *game, network_player *player);
@@ -34,9 +34,9 @@ extern int sprintf_0(char *string, const char *format, ...);
 #include "headers/game_engine_type.h"
 #include "headers/game_connection.h"
 #include "headers/blam_data_globals.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern void *memset(void *dst, int value, unsigned int n);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
+/* memcpy declared by <string.h> */
+/* memset declared by <string.h> */
+/* strncpy declared by <string.h> */
 
 void save_film_begin_recording(void)
 {

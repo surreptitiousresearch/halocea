@@ -8,13 +8,13 @@
  * caller register). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/prop_datum.h"
 #include "headers/real_vector3d.h"
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void prop_setup_orphan(uint16_t prop_index, uint16_t orphan_prop_index, int acknowledged_prop_index)
 {

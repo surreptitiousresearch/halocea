@@ -3,9 +3,9 @@
  * translation is the transpose-rotated negative translation divided by scale. A zero-scale matrix
  * inverts to all-zero. */
 
+#include <string.h>
 #include "headers/real_matrix4x3.h"
 
-extern void *memset(void *dst, int value, unsigned int n);
 
 void matrix4x3_inverse(const real_matrix4x3 *matrix, real_matrix4x3 *result)
 {

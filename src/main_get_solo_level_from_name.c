@@ -2,10 +2,10 @@
  * lowercasing it and matching the known scenario stubs; returns -1 if it is not a campaign level. */
 
 #include <stdint.h>
-extern void *memset(void *dst, int c, unsigned int n);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
-extern char *strlwr(char *string);
-extern char *strstr(const char *haystack, const char *needle);
+#include <string.h>
+/* strncpy declared by <string.h> */
+/* strlwr declared by <string.h> */
+/* strstr declared by <string.h> */
 
 int16_t main_get_solo_level_from_name(const char *name)
 {

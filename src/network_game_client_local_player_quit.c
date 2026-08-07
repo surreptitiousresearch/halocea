@@ -1,12 +1,12 @@
 /* network_game_client_local_player_quit @0x83756AE0 — when a network client session is active, scans the
- * network_player table (see find_player_matching_string.c: addressed absolutely at 0x142..0x542, 32-byte
- * stride — the players[] field of the network_game_data global based at address 0) for the valid,
+ * network_game_data.players[32] table (0x142..0x542, 32-byte stride, DB types_members) for the valid,
  * non-disconnected entry whose controller_index matches local_player_index; unless it lands on the loop's
- * own final slot count, flags a networking teardown and closes the chat UI.
+ * own final slot count, flags a networking teardown and closes the chat UI. NOT a base this reconstruction
+ * dropped: `li r31, 0x15E` @0x83756AE8 is 3BE0015E, rA = r0 — see network_game_server_get_game.c.
  *
- * The `32 * slot_index != -322` gate is preserved verbatim from disasm; note it is unreachable as false for
- * any slot_index the bounded loop (0x142..0x542, at most 32 iterations) can produce, so in practice this
- * branch always executes — kept as-is rather than assumed to be a compiler artifact. */
+ * The `32 * slot_index != -322` gate is `addic. r11, r11, 0x142` @0x83756B3C, i.e. the original
+ * `if (&game->players[slot_index] != NULL)` with the folded-NULL base still inside it — which is why it is
+ * unreachable as false for any slot_index the bounded loop can produce. Kept verbatim. */
 
 #include <stdint.h>
 #include "headers/network_player.h"

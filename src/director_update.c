@@ -14,6 +14,7 @@
  * parameter_flags/parameter_timers fields they land on. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/director.h"
 #include "headers/observer_command.h"
 #include "headers/observer_command_flags.h"
@@ -21,8 +22,7 @@
 
 #include "headers/first_person_camera.h"
 #include "headers/dead_camera.h"
-extern void *memcpy(void *dst, const void *src, unsigned int n);
-extern void *memset(void *dst, int c, unsigned int n);
+/* memset declared by <string.h> */
 
 extern int local_player_get_player_index(int16_t local_player_index);
 extern int16_t local_player_get_next(int16_t local_player_index);

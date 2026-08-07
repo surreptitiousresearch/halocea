@@ -4,9 +4,9 @@
  * also calling change_team_for_player_in_player_datum; if no record matches, only the player-datum update
  * runs.
  *
- * Faithful shipped quirk (bug class 12, disasm-verified, same as teamplay_get_team_info): the compiled loop
- * walks the 32 network_player records at the ABSOLUTE address 0x142 (base 0x142 + 32k), not through a
- * fetched pointer. Reproduced verbatim. */
+ * NOT a base this reconstruction dropped (re-derived 2026-08-07): `li r11, 0x142` @0x83802FF0 encodes as
+ * 39600142, rA = r0. 0x142 + 32k IS network_game_data.players[k] (DB types_members) over the NULL that the
+ * network_game_client_get_game() stub folds in — mechanism in network_game_server_get_game.c. */
 
 #include <stdint.h>
 #include "headers/message_delta_processor_header.h"

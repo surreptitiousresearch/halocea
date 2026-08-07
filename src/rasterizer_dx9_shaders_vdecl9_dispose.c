@@ -3,9 +3,9 @@
    The binary bounds the release loop with the address of the adjacent global
    global_rasterizer_data (the symbol following vsd_table) — the 18-entry span. */
 
+#include <string.h>
 #include "headers/rasterizer_dx9_shader_tables.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 
 void rasterizer_dx9_shaders_vdecl9_dispose(void)
 {

@@ -32,7 +32,7 @@
 #include "headers/base_seat.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
-
+#include "headers/player_update_history.h"
 #include "headers/network_game_client.h"
 extern int16_t game_connection(void);
 extern int game_time_get(void);
@@ -55,7 +55,7 @@ extern void *datum_try_and_get(const data_array *data, int index);
 extern void simple_circular_queue_empty(simple_circular_queue *queue);
 extern void unit_exit_seat_to_network(int object_index, uint8_t force_exit);
 extern network_game_client *global_network_game_client_get(void);
-extern void player_update_history_clear(struct player_update_history *history);
+extern void player_update_history_clear(player_update_history *history);
 
 void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit,
                         uint8_t should_allow_clients, uint8_t should_replicate_if_appropriate)

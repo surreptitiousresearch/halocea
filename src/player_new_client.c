@@ -17,6 +17,7 @@
  * 24 bytes, matching their declared sizes). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/multiplayer_team.h"
@@ -30,8 +31,7 @@ extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 extern void action_queue_initialize(action_queue *queue);
 extern void position_queue_initialize(position_queue *queue);
 extern void vehicle_update_queue_initialize(vehicle_update_queue *queue);
-extern void *memset(void *destination, int value, unsigned int size);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
+/* memcpy declared by <string.h> */
 extern int *machine_get_player_list(int machine_index);
 
 int player_new_client(int machine_index, int player_index, int16_t local_player_index, network_player *network_player_data)

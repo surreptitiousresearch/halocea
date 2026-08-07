@@ -13,6 +13,7 @@
  * function-driven scale update. type_definition->flags is particle_system_type_flags (see header). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
@@ -31,7 +32,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/real_vector3d.h"
 #include "headers/particle_system_type_particle_state_interpolated_randomized_variables.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 
 extern void (*system_update_functions[])(particle_system_datum *system, double dtime);

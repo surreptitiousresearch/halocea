@@ -4,10 +4,10 @@
  * packed handle (identifier in the high word, absolute index in the low word) or -1 if full. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/datum_index.h"
 
-extern void *memset(void *dst, int value, unsigned int n);
 
 int datum_new(data_array *data)
 {

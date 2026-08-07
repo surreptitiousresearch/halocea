@@ -13,6 +13,7 @@
  * 0.5 = sin(30 deg). Swarm member unit indices are swarm->unit_indices[i]. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/actor_iterator.h"
 #include "headers/swarm_datum.h"
@@ -32,7 +33,6 @@ extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, f
 extern int game_time_get(void);
 extern void unit_control(int unit_index, const unit_control_data *control_data, int completed_client_update_id);
 extern void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled);
-extern void *memset(void *dst, int value, unsigned int size);
 
 void actors_move_randomly(void)
 {

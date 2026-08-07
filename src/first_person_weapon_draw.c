@@ -27,6 +27,7 @@
  * trailing modifier_animation bytes are left as uninitialized stack, faithful to the original. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_globals.h"
 #include "headers/first_person_weapon.h"
 #include "headers/render_lighting.h"
@@ -55,7 +56,6 @@ extern int local_player_get_player_index(int16_t local_player_index);
 extern render_lighting *object_get_cached_render_lighting(int object_index, float level_of_detail_pixels);
 extern void model_remap_node_matrices_to_match_animation_graph(int model_index, real_matrix4x3 *model_node_matrices, const real_matrix4x3 *source_node_matrices, const int16_t *node_remapping_table);
 extern void render_model(int model_index, float level_of_detail_pixels, const real_matrix4x3 *node_matrices, const char *region_permutation_indices, const real_rgb_color *change_colors, const float *function_values, const render_lighting *lighting, const real_point3d *centroid, float radius, const render_model_effect *model_effect, int unique_identifier, int16_t forced_shader_permutation_index, unsigned int flags);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void first_person_weapon_draw(void)
 {

@@ -4,6 +4,7 @@
    allocates pixels sized from the pixel count and bits-per-pixel table. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 #include "headers/bitmap_format_tables.h"
 #include "headers/bitmap_format.h"
@@ -11,7 +12,6 @@
 #include "headers/bitmap_type.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *dst, int value, unsigned int size);
 extern int bitmap_get_pixel_count(const bitmap_data *bitmap);
 
 #define BITMAPS_SRC "D:\\Projects\\code\\HCEX\\sources\\bitmaps\\bitmaps.c"

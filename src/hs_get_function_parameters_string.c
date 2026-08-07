@@ -6,12 +6,12 @@
  * of the buffer with a NUL-scan before each append; this is written as strlen/strcat for readability. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hs_function_definition.h"
 #include "headers/blam_data_globals.h"
 
 extern int sprintf_0(char *string, const char *format, ...);
-extern unsigned int strlen(const char *string);
-extern char *strcat(char *destination, const char *source);
+/* strcat declared by <string.h> */
 
 void hs_get_function_parameters_string(int16_t function_index, char *buffer)
 {

@@ -4,12 +4,12 @@
  * equivalent named-field meaning noted in comments. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
 #include "headers/file_reference.h"
 #include "headers/saved_game_files_path_type.h"
 
 #include "headers/file_reference.h"
-extern void *memset(void *, int, unsigned int);
 extern int cache_file_is_open(void);
 extern char *saved_game_files_get_path(int16_t path_type);
 extern int _snprintf_0(char *, unsigned int, const char *, ...);

@@ -2,12 +2,12 @@
  * Status value threaded through r3 is unused; written as a plain sequence. */
 
 /* blam_data_globals.h first: supplies wchar_t before dependent headers are parsed (migration) */
+#include <string.h>
 #include "headers/blam_data_globals.h"
 #include "headers/game_globals.h"
 
 #include "headers/game_variant.h"
 extern void *game_state_malloc(const char *name, const char *type, int size);
-extern void *memset(void *, int, unsigned int);
 extern void real_math_reset_precision(void);
 extern void game_time_initialize(void);
 extern void game_engine_initialize(const game_variant *variant);

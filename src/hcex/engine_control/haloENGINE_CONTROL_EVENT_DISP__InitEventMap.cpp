@@ -11,9 +11,6 @@ void haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL::InitEventMap()
         return;
 
     int eventId = gEventMgr->RegisterEvent(dsSTRID("gsUserConfigChanged", false));
-    // OnConfigChanged is declared with an `unsigned int` first param; RegisterEventEntry wants
-    // `unsigned long` (same 32-bit width, distinct MSVC type). Cast the member-fn pointer to match.
-    RegisterEventEntry(eventId,
-        (void (haloENGINE_CONTROL::*)(unsigned long, const dsPARAM_LIST &)) &haloENGINE_CONTROL::OnConfigChanged);
+    RegisterEventEntry(eventId, &haloENGINE_CONTROL::OnConfigChanged);
     initialized = true;
 }

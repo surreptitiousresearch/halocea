@@ -2,9 +2,9 @@
    Copies the given path into the global cache root directory buffer,
    truncating to 255 characters and guaranteeing NUL termination. */
 
+#include <string.h>
 #include "headers/blam_data_globals.h"
 
-extern char *strncpy(char *dest, const char *src, unsigned int count);
 
 void cache_files_set_root_directory(const char *root_directory)
 {

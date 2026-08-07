@@ -28,6 +28,7 @@
  */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/flag_datum.h"
 #include "headers/flag_definition.h"
 #include "headers/flag_dynamic_vertex.h"
@@ -57,8 +58,7 @@ struct transparent_geometry_group;
 #include "headers/triangle_buffer.h"
 #include "headers/vertex_buffer.h"
 #include "headers/render_sort_filth.h"
-extern void *memset(void *dst, int value, unsigned int size);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 extern double __fabs(double x);
 extern float  __fsqrts(float x);
 extern int rasterizer_dynamic_triangles_new(int count);

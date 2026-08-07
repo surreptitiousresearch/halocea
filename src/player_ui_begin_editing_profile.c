@@ -5,6 +5,7 @@
  * active only when the load succeeds (profile_index left at -1 otherwise). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_ui_globals.h"
 #include "headers/player_profile.h"
 #include "headers/game_variant.h"
@@ -13,7 +14,6 @@
 extern uint16_t saved_game_file_get_type(int index);
 extern uint8_t player_profile_get(int player_profile_index, player_profile *profile);
 extern uint8_t playlist_profile_get(int playlist_profile_index, game_variant *variant);
-extern void *memcpy(void *dest, const void *src, unsigned int count);
 
 void player_ui_begin_editing_profile(int profile_index)
 {

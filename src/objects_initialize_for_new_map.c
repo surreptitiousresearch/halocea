@@ -2,11 +2,11 @@
  * widget, object-type, and light subsystems; revalidate the object header array; clear the name table; reset
  * both object cluster partitions; and zero the PVS/garbage-collection bookkeeping. */
 
+#include <string.h>
 #include "headers/object_globals.h"
 #include "headers/cluster_partition.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void damage_initialize_for_new_map(void);

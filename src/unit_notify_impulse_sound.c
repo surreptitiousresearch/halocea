@@ -6,6 +6,7 @@
  * (unit +1012 flag, +1016 delay reset), then forwards to the hcex bridge for engine-side audio playback. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -22,7 +23,6 @@ extern void ai_communication_packet_new(ai_information_packet *information);
 extern void unit_speak(int unit_index, int16_t play_type, const unit_speech_item *speech_item);
 extern void ai_communication_started(int unit_index, int16_t priority, int16_t vocalization_type, const ai_information_packet *ai_information);
 extern void hcex_on_play_sound(int unit_index, int sound_definition_index, int impulse_sound_index);
-extern void *memset(void *destination, int value, unsigned int size);
 
 void unit_notify_impulse_sound(int unit_index, int sound_definition_index, int impulse_sound_index)
 {

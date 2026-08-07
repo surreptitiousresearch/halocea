@@ -4,10 +4,10 @@
  * the profile out. Returns 1 on success, 0 on any failure. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
 #include "headers/file_reference.h"
 
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern file_reference *file_reference_create_from_path_absolute(file_reference *reference, const char *path, uint8_t directory);
 extern uint8_t file_open(file_reference *file, unsigned int flags);
 extern uint8_t file_read(const file_reference *file, unsigned int count, void *buffer);

@@ -5,6 +5,7 @@
  * ASCII (and, at the highest debug level, the team-mode check is re-run, though its result is discarded). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"
 #include "headers/slayer_globals.h"
@@ -18,7 +19,6 @@ extern uint8_t message_delta_processor_decode_stateless(void *const destination_
 extern uint8_t message_delta_processor_decode_incremental(void *const destination_data, const void *const baseline_data, const message_delta_processor_header *const header, const uint8_t allow_empty_body);
 extern char * wide_to_ascii(uint16_t *unicode, char *ascii, unsigned int ascii_length_bytes);
 extern uint8_t game_engine_has_teams(void);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void slayer_engine_replicate_game_mode_state_from_network(message_delta_processor_header *header,
         network_game_client *client)

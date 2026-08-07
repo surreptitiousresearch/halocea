@@ -1,11 +1,11 @@
 /* hud_draw_bitmap_with_meter @0x8379F550 — resolves a HUD placement to a screen anchor point and
  * draw bounds, then hands off to hud_draw_bitmap_internal to emit the actual quad.
  *
- * DEVIATION: the DB decompiler failed local-variable allocation for this function and emitted a
- * garbage 31-parameter signature; the real 11-parameter signature and body below were reconstructed
- * entirely from disasm_range(0x8379F550, 0x8379F694), using the dead-GPR-shadow rule for the two
- * float args (scale/theta) to recover true argument positions.
- *
+ * DEVIATION: the DB decompiler failed local-variable allocation and emitted a garbage 31-parameter
+ * signature; the real one is TEN parameters, recovered from disasm_range(0x8379F550, 0x8379F694) with
+ * the dead-GPR-shadow rule for the two float args (scale/theta). The prologue reads exactly two stack
+ * bytes — arg_57 = param 9 in_multiplayer @0x8379F5EC, arg_5F = param 10 is_interface_bitmap @0x8379F564;
+ * a prior 11-param recon used params 10 and 11 for those two roles, so both were off by one slot.
  * `hud_calculate_point` (now fully reconstructed in its own file) takes the drawn bitmap as its 4th
  * argument, used to fold the bitmap's registration point into the anchor point; this call site passes
  * a literal NULL since the point is fed straight to hud_calculate_bitmap_bounds/hud_draw_bitmap_internal
@@ -35,7 +35,7 @@ extern void hud_calculate_bitmap_bounds(const bitmap_data *bitmap, int16_t place
 
 extern void hud_draw_bitmap_internal(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const point2d *point, const real_rectangle2d *clip, const real_rectangle2d *bounds, const real_vector2d *xy_scale, float theta, unsigned int color);
 
-void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap)
+void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap)
 {
     real_rectangle2d default_clip;
     default_clip.__s1.x0 = 0.0f;
@@ -43,7 +43,7 @@ void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, c
     default_clip.__s1.y0 = 0.0f;
     default_clip.__s1.y1 = 1.0f;
 
-    if (is_crosshair_bitmap)
+    if (is_interface_bitmap)
     {
         default_clip.__s1.x1 = (float)bitmap->width;
         default_clip.__s1.y1 = (float)bitmap->height;
@@ -57,7 +57,7 @@ void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, c
     xy_scale.__s1.j = placement->scale.__s1.j * scale;
 
     unsigned char use_multiplayer_scaling;
-    if (is_interface_bitmap && !(placement->multiplayer_scaling_flags & (1u << _hud_dont_scale_offset_bit)))
+    if (in_multiplayer && !(placement->multiplayer_scaling_flags & (1u << _hud_dont_scale_offset_bit)))
         use_multiplayer_scaling = 1;
     else
         use_multiplayer_scaling = 0;
@@ -67,7 +67,7 @@ void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, c
                          use_multiplayer_scaling, 0.0f, &point);
 
     real_rectangle2d bounds;
-    hud_calculate_bitmap_bounds(bitmap, absolute_placement->corner, clip, &bounds, is_crosshair_bitmap);
+    hud_calculate_bitmap_bounds(bitmap, absolute_placement->corner, clip, &bounds, is_interface_bitmap);
 
     /* unused_flags: unset at this call site (dead r9); hud_draw_bitmap_internal's own body never reads it */
     hud_draw_bitmap_internal(meter_parameters, bitmap, &point, clip, &bounds, &xy_scale, theta, color32); /* attested 8-param: phantom trailing arg dropped */

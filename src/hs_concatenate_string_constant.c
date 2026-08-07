@@ -3,9 +3,9 @@
  * copy, or -1 if it doesn't fit. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hs_compile_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 extern int hs_find_string_constant(const char *string);
 int hs_concatenate_string_constant(const char *string)

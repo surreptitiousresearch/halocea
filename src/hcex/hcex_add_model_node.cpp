@@ -5,12 +5,15 @@
 
 #include "../headers/hcex/hcex_ds_boundary.h"
 
-extern "C" void hcex_add_model_node(char *mdl, const char *node_name)
+/* DEVIATION: `mdl` was `char *`. DB funcs hcex_add_model_node says `void *mdl` (the sibling
+ * hcex_add_model_reg already spells it that way; hcex_add_model_perm's mangled symbol
+ * `?hcex_add_model_perm@@YAXPAXHPBD@Z` carries PAX = void* for the same slot). */
+extern "C" void hcex_add_model_node(void *mdl, const char *node_name)
 {
     dsTSTRING_flat node; node.pBuffer = nullptr;
 
     dsTSTRING_UnsafeInit(&node, node_name, -1, 0);
-    dsVECTOR_TSTRING_PushBack(mdl + 12, &node);   /* mdl+0x0C: dsVECTOR<dsTSTRING<char>,8> node list */
+    dsVECTOR_TSTRING_PushBack((char *)mdl + 12, &node); /* mdl+0x0C: dsVECTOR<dsTSTRING<char>,8> */
 
     if ( node.pBuffer->refCount-- == 1 )
         dlFree(node.pBuffer);

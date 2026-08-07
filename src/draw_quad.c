@@ -10,6 +10,7 @@
  * decompiler also mis-shows the params-struct zeroing loop as per-vertex texcoord stores; here the
  * parameters are zero-initialized then the named fields are set, matching the bulk memset. */
 
+#include <string.h>
 #include "headers/game_globals_tag.h"
 #include "headers/game_globals_rasterizer_data.h"
 #include "headers/global_tag_instances.h"
@@ -21,7 +22,6 @@
 #include "headers/rasterizer_dynamic_screen_geometry_parameters.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_lock_operation.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);

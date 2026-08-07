@@ -13,9 +13,9 @@
 #include <stdint.h>
 #include "headers/shader_environment.h"
 
-extern float periodic_function_evaluate(int16_t function_type, float time);
-
-void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value,
+extern float periodic_function_evaluate(int16_t function_type, double time);
+/* DEVIATION: time_value is a double, not a float — `fdiv f1, f1, f0` @0x83755C0C with no entry frsp; callers load it with `lfd f1` (@0x837A5158). */
+void shader_environment_texture_animation_evaluate(const struct shader *shader, double time_value,
                                                    float *u_offset, float *v_offset)
 {
     const shader_environment *environment_shader = (const shader_environment *)shader;

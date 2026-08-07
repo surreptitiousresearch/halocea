@@ -13,6 +13,7 @@
  * with the object-datum index idiom (object data ptr = ((int*)object_header_data->data)[3*(u16)index + 2]). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bit_vector.h"
 #include "headers/encounter_datum.h"
 #include "headers/encounter_definition.h"
@@ -36,7 +37,6 @@
 /* actor_data / prop_data come from blam_data_globals.h (data_array *) */
 extern int object_get_ultimate_parent(int object_index);
 extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
-extern void *memset(void *dest, int c, unsigned int count);
 
 void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, uint8_t update_actor_dormancy,
                                                      int bit_vector_size, const unsigned int *active_area,

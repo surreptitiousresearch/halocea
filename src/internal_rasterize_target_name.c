@@ -7,11 +7,11 @@
  * DEVIATION: decompiler wrote pow(v10, v9) — disasm shows pow(f1=fade, f2=1.9); args corrected. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include <math.h>
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern int find_closest_player_index(int player_index);

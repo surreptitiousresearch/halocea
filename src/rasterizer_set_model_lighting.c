@@ -9,6 +9,7 @@
  * address-vs-zero compare rather than "fixed" to a single count check. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_lighting.h"
 #include "headers/rasterizer_model_lighting_constants.h"
 #include "headers/d3d_render_boundary.h"
@@ -17,7 +18,6 @@
 
 
 extern void rasterizer_set_model_lighting_point_light(int light_index, int16_t light_num, rasterizer_model_lighting_constants *lighting_constants);
-extern void *memset(void *dest, int value, unsigned int size);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
                                                 uint64_t PendingMask0);

@@ -8,6 +8,7 @@
  * threaded-r3 nesting). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/network_game_data.h"
 #include "headers/network_player.h"
 #include "headers/game_options.h"
@@ -16,7 +17,6 @@
 
 #include "headers/network_game_server.h"
 extern void game_options_new(game_options *options);
-extern char *strncpy(char *destination, const char *source, unsigned int count);
 extern int16_t game_connection(void);
 extern uint32_t network_game_get_random_seed(void);
 extern void game_precache_new_map(const char *map_name, uint8_t blocking);

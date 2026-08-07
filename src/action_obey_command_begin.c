@@ -18,6 +18,7 @@
  * and are written that way; the opcode-0xD flag goto-lattice is expanded into its equivalent switch. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/ai_animation_reference_definition.h"
 #include "headers/biped_definition.h"
 #include "headers/biped_definition_flags.h"
@@ -80,7 +81,6 @@
 #include "headers/actor_position_data.h"
 #include "headers/scenario.h"
 
-extern void  *memset(void *dst, int value, unsigned int n);
 extern void   qsort(void *base, unsigned int num, unsigned int width,
                     int (*comp)(const void *, const void *));
 extern int vehicle_possibility_qsort(const void *p1, const void *p2);

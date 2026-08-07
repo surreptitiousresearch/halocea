@@ -2,10 +2,10 @@
  * and select player 1's last-used (or first available) profile. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_ui_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *, int, unsigned int);
 extern void player_profile_build_default_profile(player_profile *profile, int player_index, uint8_t try_inherit);
 extern void set_local_player_controls_from_player_profile(int16_t local_player_index);
 extern void player_profiles_enumerate_available_to_local_player_index(int16_t local_player_index, uint16_t *number_of_profiles, int *player_profile_indices, uint8_t include_default_profiles);

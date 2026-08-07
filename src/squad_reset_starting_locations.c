@@ -5,6 +5,7 @@
  * squads address; 232-byte squad stride); each starting location is 28 bytes, byte 19 bit 0 = required. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/squad_definition.h"
 #include "headers/encounter_definition.h"
 #include "headers/actor_starting_location_definition.h"
@@ -14,7 +15,6 @@
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 #include "headers/bit_vector.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 void squad_reset_starting_locations(uint16_t encounter_index, int16_t squad_index)

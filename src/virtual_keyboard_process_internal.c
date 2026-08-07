@@ -6,6 +6,7 @@
  * last recorded event differs or the button is a fresh press. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/virtual_keyboard_globals_t.h"
 #include "headers/event_record.h"
 #include "headers/event_type.h"
@@ -21,7 +22,6 @@ extern int virtual_keyboard_select(void);
 extern uint8_t virtual_keyboard_cancel(void);
 extern void virtual_keyboard_backspace(void);
 extern const char virtual_keyboard_layout_table[5][11];
-extern void *memset(void *dest, int value, unsigned int count);
 
 void virtual_keyboard_process_internal(void)
 {

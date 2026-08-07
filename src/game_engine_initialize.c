@@ -7,12 +7,12 @@
  * These are reproduced faithfully with their literal strides and marked below. */
 
 /* blam_data_globals.h first: supplies wchar_t before dependent headers are parsed (migration) */
+#include <string.h>
 #include "headers/blam_data_globals.h"
 #include "headers/game_globals.h"
 #include "headers/game_engine_globals.h"
 
-extern void *memcpy(void *, const void *, unsigned int);
-extern void *memset(void *, int, unsigned int);
+/* memset declared by <string.h> */
 extern void game_engine_variant_cleanup(game_variant *variant);
 
 /* game_engine: canonical decl from game_engine.h (via blam_data_globals.h) */

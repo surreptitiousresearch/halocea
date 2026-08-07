@@ -7,10 +7,10 @@
  * The source profile index is stored in _player_data.profile_index (@1980). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_ui_globals.h"
 #include "headers/rasterizer_settings_parameters.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern void set_local_player_controls_from_player_profile(int16_t local_player_index);
 extern void video_settings_construct_rasterizer_parameters(player_profile *profile, rasterizer_settings_parameters *parameters);
 extern void player_ui_remember_player1_profile(uint8_t write_to_disk);

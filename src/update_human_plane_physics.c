@@ -14,6 +14,7 @@
  *     bank-angle / quaternion-angle double-splits are decompiler fcfid artifacts. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -30,7 +31,6 @@
 
 
 #include "headers/powered_mass_point_datum.h"
-extern void *memset(void *dst, int value, unsigned int count);
 extern float normalize3d(real_vector3d *v);
 extern void yaw_vectors(real_vector3d *forward, const real_vector3d *up, float sine, float cosine);
 extern void matrix4x3_rotation_from_vectors(real_matrix4x3 *matrix, const real_vector3d *forward, const real_vector3d *up);

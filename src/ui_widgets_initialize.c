@@ -1,12 +1,12 @@
 /* ui_widgets_initialize @ 0x837306F0 — allocate the 128 KiB widget pool and
  * reset widget globals to their "no deferred error" defaults. */
 
+#include <string.h>
 #include "headers/widget_globals.h"
 
 #include "headers/stack_memory_pool.h"
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void stack_memory_pool_reset(stack_memory_pool *pool);
-extern void *memset(void *, int, unsigned int);
 
 void ui_widgets_initialize(void)
 {

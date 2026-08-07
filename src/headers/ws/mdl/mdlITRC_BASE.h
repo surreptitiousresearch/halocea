@@ -8,8 +8,8 @@
 // 33-slot vtable is DB-verified (types_members mdlITRC_BASE_vtbl); pointer params are forward-declared
 // boundary types (the next frontier). Only the slots this drain actually calls carry inline wrappers.
 
-enum ITRC_ST;             // mdl — per-itrc state flags (boundary)
-enum MP_ITRC_TYPE;        // mdl — multiplayer itrc kind (boundary)
+#include "ITRC_ST.h"      // mdl — per-itrc state flags (DB types_enum_values)
+#include "MP_ITRC_TYPE.h" // mdl — multiplayer itrc kind (DB types_enum_values)
 // mdl — hideout corner position kind.
 // DB-verified: types_enum_values ITRC_HO_POS_TYPE carries all four names and values verbatim.
 // The previous body was INFERRED and wrong, under a comment asserting "the DB carries the tag but
@@ -58,7 +58,7 @@ struct mdlITRC_BASE {
 
 // DB-verified 33-slot vtable (types_members mdlITRC_BASE_vtbl).
 struct mdlITRC_BASE_vtbl {
-    void   (*dtr_mdlITRC_BASE)(mdlITRC_BASE *self);                                  // 0
+    void   (*dtr_mdlITRC_BASE)(mdlITRC_BASE *self, int deleteFlag);                                  // 0 — deleting dtor: vftable+0x00 holds ??_GmdlITRC_BASE@@UAAPAXI@Z
     void   (*Update)(mdlITRC_BASE *self, const mdlITRC_BASE::UPDATE_INFO *updateInfo, m3dTR *); // 1
     unsigned int (*PredictMovement)(mdlITRC_BASE *self, const m3dV *);               // 2
     bool   (*GetSnapMatr)(mdlITRC_BASE *self, m3dMATR *);                            // 3

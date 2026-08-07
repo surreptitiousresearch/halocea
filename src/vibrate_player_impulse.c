@@ -8,10 +8,10 @@
  * unrolled if-ladder is restored to a loop over the eight impulse slots. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/vibrate_global_data.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memcpy(void *dest, const void *src, unsigned int count);
 
 
 void vibrate_player_impulse(int16_t local_player_index, const vibrate_definition *definition, float scale,

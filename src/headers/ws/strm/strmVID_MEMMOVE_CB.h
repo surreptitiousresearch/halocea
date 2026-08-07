@@ -8,7 +8,7 @@ struct strmVID_BUFFER;
 struct strmVID_MEMMOVE_CB;
 
 typedef struct strmVID_MEMMOVE_CB_vtbl {
-    void (*dtr_strmVID_MEMMOVE_CB)(strmVID_MEMMOVE_CB *self);              // 0x00
+    void (*dtr_strmVID_MEMMOVE_CB)(strmVID_MEMMOVE_CB *self, int deleteFlag);              // 0x00 — deleting dtor: vftable+0x00 holds ??_EstrmVID_MEMMOVE_CB@@UAAPAXI@Z
     void (*OnMemmoveNotify)(strmVID_MEMMOVE_CB *self, strmVID_BUFFER *);   // 0x04
 } strmVID_MEMMOVE_CB_vtbl;
 

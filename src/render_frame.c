@@ -22,13 +22,13 @@
 #include "headers/rasterizer_target.h"
 #include "headers/blam_data_globals.h"
 #include <stddef.h>   /* NULL */
+#include <string.h>
 #include "headers/game_time_constants.h"
 
 
 #include "headers/real_rectangle2d.h"
 #include "headers/render_frustum.h"
-extern void *memset(void *dst, int value, unsigned int count);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
+/* memcpy declared by <string.h> */
 extern int game_time_get(void);
 extern void rasterizer_frame_begin(const rasterizer_frame_begin_parameters *parameters);
 extern uint8_t rasterizer_windows_begin(void);

@@ -11,11 +11,11 @@
  * hs_arguments_evaluate). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_thread.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
 

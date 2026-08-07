@@ -3,6 +3,7 @@
  * the header is zeroed; if the read never completed the slot's handle is invalidated. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/win32_async_io_boundary.h"
 #include "headers/cache_file_globals.h"
 #include "headers/async_read_request.h"
@@ -19,7 +20,6 @@ extern int sprintf_0(char *string, const char *format, ...);
 extern void cached_map_issue_async_request(int (*async_fn)(void *, void *, uint32_t, _OVERLAPPED *, void (*)(uint32_t, uint32_t, _OVERLAPPED *)), void *file, _OVERLAPPED *overlapped, void *buffer, uint32_t size, uint32_t offset, void (*completion)(uint32_t, uint32_t, _OVERLAPPED *));
 extern void cache_file_blocking_io_completion_routine(uint32_t error_code, uint32_t bytes_transferred, _OVERLAPPED *overlapped);
 extern uint8_t cache_file_header_verify(const cache_file_header *header, const char *name, uint8_t fatal);
-extern void *memset(void *dst, int c, unsigned int n);
 
 void cached_map_file_read_header(int16_t map_file_index)
 {

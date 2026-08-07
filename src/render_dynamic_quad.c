@@ -15,6 +15,7 @@
  *    disasm sets up no argument between them — the decompiler's v25 return-threading is a stale-r3 artifact). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/model_vertex_uncompressed.h"
 #include "headers/rasterizer_model_begin_parameters.h"
 #include "headers/rasterizer_triangle.h"
@@ -40,8 +41,7 @@ struct transparent_geometry_group;
 #include "headers/triangle_buffer.h"
 #include "headers/vertex_buffer.h"
 #include "headers/render_sort_filth.h"
-extern void *memset(void *dst, int value, unsigned int size);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 extern int rasterizer_dynamic_triangles_new(int count);
 extern int rasterizer_dynamic_vertices_new(int16_t type, int count);
 extern void * rasterizer_dynamic_vertices_lock(int dynamic_vertex_buffer_index);

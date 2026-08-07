@@ -7,12 +7,12 @@
  * &input_state.edit.selection_start_index; reproduced here via the previous_commands ring. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/console_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern char  *strncpy(char *dst, const char *src, unsigned int n);
-extern char  *strchr(const char *s, int c);
-extern int    stricmp(const char *a, const char *b);
+/* strchr declared by <string.h> */
+/* stricmp declared by <string.h> */
 extern int16_t hs_tokens_enumerate(const char *substring, int type_flags, const char **results, int16_t maximum_count, uint16_t console_flags_to_test);
 extern uint16_t get_console_test_flags(uint16_t extra_flags);
 extern int hs_compile_and_evaluate(const char *expression);

@@ -16,6 +16,7 @@
  * standard datum-address pattern. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_control_globals.h"
 #include "headers/player_action.h"
 #include "headers/game_globals_tag.h"
@@ -30,7 +31,6 @@
 
 typedef struct input_blob input_blob;
 
-extern void *memset(void *dst, int c, unsigned int n);
 
 
 extern void get_local_player_input_blob(int16_t local_player_index, float seconds_elapsed, input_blob *input);

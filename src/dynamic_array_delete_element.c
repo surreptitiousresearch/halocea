@@ -1,9 +1,9 @@
 /* dynamic_array_delete_element @0x83784988 — remove the element at `index`, shifting the tail down to keep
  * the array contiguous, then shrink the backing allocation to the new count. */
 
+#include <string.h>
 #include "headers/dynamic_array.h"
 
-extern void *memmove(void *dest, const void *src, unsigned int count);
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
 
 void dynamic_array_delete_element(dynamic_array *array, int index)

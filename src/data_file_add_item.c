@@ -8,13 +8,13 @@
  * The name length copied includes the terminating null (the strlen loop leaves the pointer one past it).
  * When the file is not writable, no item is appended and the function falls through to record a miss. */
 
+#include <string.h>
 #include "headers/data_file_s.h"
 #include "headers/blam_data_globals.h"
 
 
 extern int data_file_find_item(unsigned int data_file_id, const char *item_name);
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern int WriteFile(void *file, const void *buffer, unsigned int count, unsigned int *written, void *overlapped);
 
 int data_file_add_item(unsigned int data_file_id, const char *item_name, void *data, unsigned int data_size)

@@ -7,6 +7,7 @@
  * form below — color, impulse_field and deterministic are the trailing three. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/effect_datum.h"
 #include "headers/effect_marker_list.h"
 #include "headers/effect_vector_field.h"
@@ -20,7 +21,6 @@
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
 #include "headers/data_array.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void hcex_init_effect(int definition_index, int obj_follow, int plr_idx, real_point3d *points,

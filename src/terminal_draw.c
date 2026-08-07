@@ -14,6 +14,7 @@
  * factor (fcfid int->float of the age, then 4 - age/30 clamped to [0,1]) is restored as plain float math. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/terminal_globals.h"
 #include "headers/font_header.h"
 #include "headers/output_line_datum.h"
@@ -29,9 +30,8 @@
 #include "headers/point2d.h"
 extern const int16_t terminal_tab_stops[];
 
-extern char *strcpy(char *destination, const char *source);
-extern char *strcat(char *destination, const char *source);
-extern unsigned int strlen(const char *string);
+/* strcat declared by <string.h> */
+/* strlen declared by <string.h> */
 
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern rectangle2d convert_to_title_safe_pixel_bounds(rectangle2d *bounds);

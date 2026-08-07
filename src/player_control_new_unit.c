@@ -6,6 +6,7 @@
  * no side effects; elided. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_control_globals.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
@@ -15,7 +16,6 @@
 #include "headers/math_constants.h"
 
 #include "headers/real_euler_angles2d.h"
-extern void *memset(void *dst, int value, unsigned int size);
 extern real_euler_angles2d *euler_angles2d_from_vector3d(real_euler_angles2d *angles, const real_vector3d *vector);
 
 void player_control_new_unit(int16_t local_player_index, int unit_index)

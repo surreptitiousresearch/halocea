@@ -7,11 +7,11 @@
  * the loop writes 9 dwords = the full 36-byte simple_control, i.e. a plain zero-init, reproduced here as memset. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"
 #include "headers/obey_metadata_flags.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
 
 void action_obey_individual_setup(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data)
 {

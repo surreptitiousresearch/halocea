@@ -6,11 +6,11 @@
  * field (offset == -1) still advances the stream by its size without writing anywhere. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/unit_control_data.h"
 #include "headers/unit_control_data_entry.h"
 #include "headers/blam_data_globals.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern void *memset(void *dst, int value, unsigned int n);
+/* memset declared by <string.h> */
 
 
 void recorded_animation_initialize_unit_control(unit_control_data *control, const char **playback_stream, uint8_t unit_version)

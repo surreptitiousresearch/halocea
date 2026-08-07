@@ -3,15 +3,15 @@
  * should never appear in a multiplayer map list), or if it's found by substring in the runtime
  * multiplayer_maps list (mirrors map_list_find_map.c). */
 
+#include <string.h>
 #include "headers/multiplayer_map_s.h"
 #include "headers/blam_data_globals.h"
 
 
 extern void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext);
-extern char *strlwr(char *string);
-extern int stricmp(const char *a, const char *b);
-extern char *strncpy(char *dest, const char *src, unsigned int n);
-extern char *strstr(const char *haystack, const char *needle);
+/* stricmp declared by <string.h> */
+/* strncpy declared by <string.h> */
+/* strstr declared by <string.h> */
 
 BOOL map_list_should_ignore(const char *map_path)
 {

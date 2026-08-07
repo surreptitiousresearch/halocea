@@ -1,10 +1,10 @@
 /* vibrate_dispose_from_old_map @ 0x83739118-adjacent (0x83739528) — stop controller
  * rumble and zero the vibrate globals. */
 #include <stdint.h>
+#include <string.h>
 #include "headers/vibrate_global_data.h"
 extern void input_set_gamepad_vibrater_state(int, int, int);
 extern uint8_t input_has_gamepad(int16_t gamepad_index);
-extern void *memset(void *, int, unsigned int);
 void vibrate_dispose_from_old_map(void)
 {
     int i;

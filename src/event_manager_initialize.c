@@ -1,9 +1,9 @@
 /* event_manager_initialize @ 0x83726380 — reset the event/error queue */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/event_manager_globals.h"
 
-extern void *memset(void *, int, unsigned int);
 extern uint32_t system_milliseconds(void);
 
 void event_manager_initialize(void)

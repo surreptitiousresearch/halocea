@@ -10,7 +10,7 @@ HCEX_INIT_STAT::~HCEX_INIT_STAT()
 {
     if ( snd_SystemCustom )
     {
-        snd_SYSTEM_CUSTOM_vtbl *vftable = *reinterpret_cast<snd_SYSTEM_CUSTOM_vtbl **>(snd_SystemCustom);
+        snd::SYSTEM_CUSTOM_vtbl *vftable = *reinterpret_cast<snd::SYSTEM_CUSTOM_vtbl **>(snd_SystemCustom);
         vftable->dtr_SYSTEM_CUSTOM(snd_SystemCustom, 1);
     }
     snd_SystemCustom = nullptr;

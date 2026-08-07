@@ -23,9 +23,9 @@ void widget_instance_render_column_list(widget_instance *widget, ui_widget_defin
         extended_description->alpha_modifier = alpha;
 
         {
-            uint8_t focus = 0;
+            uint8_t extended_description_focus = 0;   /* li r6,0 @0x83735378 — never the widget's own focus */
             uint8_t use_nifty_plasma_fx = 1;
-            widget_instance_render_recursive(extended_description, clip_rect, offset, focus, use_nifty_plasma_fx);
+            widget_instance_render_recursive(extended_description, clip_rect, offset, extended_description_focus, use_nifty_plasma_fx);
         }
     }
 

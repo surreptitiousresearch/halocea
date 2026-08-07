@@ -8,6 +8,7 @@
  * pass the two scratch slots in opposite order, so index_a/index_b swap roles between branches as in the original. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/edit_text.h"
 #include "headers/key_modifier_flags.h"
 #include "headers/key_stroke.h"
@@ -18,7 +19,6 @@ extern uint8_t edit_text_get_selection_indices(edit_text *edit, int16_t *start_i
 extern uint16_t get_previous_character(const unsigned char *string, int16_t *index);
 extern uint16_t get_next_character(const unsigned char *string, int16_t *index);
 extern void align_to_character(const unsigned char *string, int16_t *index);
-extern void *memmove(void *dest, const void *src, unsigned int count);
 
 void edit_text_handle_key(edit_text *edit, const key_stroke *key)
 {

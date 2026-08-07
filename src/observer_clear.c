@@ -8,12 +8,12 @@
  * the camera-state block through its flat positions[14] overlay); expressed here as the equivalent vector
  * assignment to the named `up` member. The field-of-view constant 0.87266463 is ~50 degrees in radians. */
 
+#include <string.h>
 #include "headers/observer.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dst, int value, unsigned int count);
 
 void observer_clear(observer *observer)
 {

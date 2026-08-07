@@ -3,10 +3,10 @@
  * no light was assigned (light_index == -1). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_model_lighting_constants.h"
 #include "headers/rasterizer_lights_t.h"
 
-extern void *memset(void *dest, int value, unsigned int size);
 
 void rasterizer_set_model_lighting_point_light(int light_index, int16_t light_num,
                                                rasterizer_model_lighting_constants *lighting_constants)

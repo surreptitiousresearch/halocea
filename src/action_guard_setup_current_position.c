@@ -4,13 +4,13 @@
  * by actor_move_update.c/actor_combat_reaim_grenade.c/actor_input_update.c). Always returns 1. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/data_array.h"
 #include "headers/guard_state_data.h"
 #include "headers/real_vector3d.h"
 #include "headers/actor_guard_location_type.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 uint8_t action_guard_setup_current_position(uint16_t actor_index, guard_state_data *state_data)

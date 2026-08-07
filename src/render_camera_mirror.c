@@ -10,12 +10,12 @@
  * DEVIATION: the original sets result->mirrored via (_cntlzw(camera->mirrored) & 0x20) != 0, which is the
  * count-leading-zeros idiom for "== 0"; reproduced as a boolean negation. */
 
+#include <string.h>
 #include "headers/render_camera.h"
 #include "headers/render_mirror.h"
 #include "headers/real_vector3d.h"
 extern float __fsqrts(float);
 
-extern void *memcpy(void *destination, const void *source, unsigned int count);
 extern float normalize3d(real_vector3d *v);
 extern real_vector3d *reflect_vector3d(const real_vector3d *incident, const real_vector3d *normal, real_vector3d *reflection);
 

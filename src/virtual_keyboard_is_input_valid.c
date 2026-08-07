@@ -4,11 +4,11 @@
  * not in the global invalid_keys blacklist. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/virtual_keyboard_validate_mode.h"
 #include "headers/blam_data_globals.h"
 
 extern unsigned short *__pctype_func(void);   /* CRT ctype table accessor */
-extern const char     *strchr(const char *str, int ch);
 
 uint8_t virtual_keyboard_is_input_valid(int ascii_code, int validate_mode)
 {

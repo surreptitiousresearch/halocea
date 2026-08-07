@@ -25,6 +25,7 @@
  * and both callers (motion_sensor_tick @0x837BD7AC/0x837BD7D0) discard r3. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
@@ -41,7 +42,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memcpy(void *dest, const void *src, unsigned int size);
 extern uint8_t game_engine_running(void);
 extern int game_time_get(void);
 extern int16_t local_player_count(void);

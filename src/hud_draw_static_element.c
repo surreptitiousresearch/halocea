@@ -7,12 +7,13 @@
  * scrambled) decompiler arg ordering, using the same dead-GPR-shadow rule established for those two
  * functions' own reconstructions.
  *
- * `is_crosshair_bitmap` here is `bitmap_group->type == 4` (bitmap_group.h's `type` enum — value 4 is
- * the "Interface Bitmap" usage) — the same boolean role already named `is_crosshair_bitmap` in
- * hud_draw_bitmap_with_meter.c/hud_draw_weapon_overlays.c; kept consistent with that established name.
+ * `is_interface_bitmap` here is `bitmap_group->type == 4` (bitmap_group.h's `type` enum — value 4 is
+ * the "Interface Bitmap" usage) — what the binary stores at r1+0x5F @0x837A0448, i.e. param 10.
  *
- * FAITHFUL QUIRK: the `is_interface_bitmap` stack slot passed to the first hud_draw_bitmap_with_meter
- * call is never written at this call site either (same gap as hud_draw_weapon_overlays.c). */
+ * DEVIATION: there is no uninitialized slot at this call site. hud_draw_bitmap_with_meter takes TEN
+ * parameters and this call writes exactly the two stack bytes it has — r1+0x57 = (draw_flags >> 2) & 1
+ * @0x837A045C and r1+0x5F = the interface-bitmap flag @0x837A0448; r1+0x60 is this function's own
+ * `point` local (@0x837A0548), which settles the arity. */
 
 #include <stdint.h>
 #include "headers/hud_absolute_placement_definition.h"
@@ -44,7 +45,7 @@ extern void hud_calculate_point(int16_t local_player_index, const hud_absolute_p
 
 extern void hud_calculate_bitmap_bounds(const bitmap_data *bitmap, int16_t placement_type, const real_rectangle2d *clip, real_rectangle2d *bounds, uint8_t is_interface_bitmap);
 
-extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
+extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap);
 
 extern void hud_draw_multitexture_overlay(const multitexture_overlay_hud_element_definition *overlay,
         int16_t local_player_index, const point2d *point, const real_rectangle2d *clip,
@@ -69,15 +70,14 @@ void hud_draw_static_element(int16_t local_player_index, const hud_absolute_plac
     else
         color = static_element->colors.color;
 
-    int is_crosshair_bitmap = (*bitmap_group_header == 4);
+    int is_interface_bitmap = (*bitmap_group_header == 4);
 
     float scale = hcex_hud_globals_scale;
     if (static_element->placement.multiplayer_scaling_flags & (1u << _hud_use_high_resolution_scale_bit))
         scale = hcex_hud_globals_scale * 0.5f;
 
-    unsigned char is_interface_bitmap; /* FAITHFUL QUIRK: uninitialized at this call site */
     hud_draw_bitmap_with_meter(0, bitmap, absolute_placement, &static_element->placement, clip, scale, 0.0f, color,
-                                (draw_flags & (1u << _hud_draw_in_multiplayer_bit)) != 0, is_interface_bitmap, is_crosshair_bitmap);
+                                (draw_flags & (1u << _hud_draw_in_multiplayer_bit)) != 0, is_interface_bitmap);
 
     int overlay_count = static_element->multitexture_overlays.count;
     if (overlay_count <= 0)
@@ -95,7 +95,7 @@ void hud_draw_static_element(int16_t local_player_index, const hud_absolute_plac
                 &((const multitexture_overlay_hud_element_definition *)
                   static_element->multitexture_overlays.address)[i];
 
-        if (is_crosshair_bitmap)
+        if (is_interface_bitmap)
         {
             default_clip.__s1.x1 = (float)bitmap->width;
             default_clip.__s1.y1 = (float)bitmap->height;
@@ -119,7 +119,7 @@ void hud_draw_static_element(int16_t local_player_index, const hud_absolute_plac
                              use_multiplayer_scaling, 0.0f, &point);
 
         real_rectangle2d bounds;
-        hud_calculate_bitmap_bounds(bitmap, absolute_placement->corner, clip, &bounds, is_crosshair_bitmap);
+        hud_calculate_bitmap_bounds(bitmap, absolute_placement->corner, clip, &bounds, is_interface_bitmap);
 
         hud_draw_multitexture_overlay(overlay, local_player_index, &point, clip, &bounds, &xy_scale, 0.0f, color);
     }

@@ -5,8 +5,8 @@
  * 1 on success, 0 if a needed relocation could not be allocated. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/memory_pool.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 extern uint8_t memory_pool_block_allocate(memory_pool *pool, void **reference, int size);
 extern void memory_pool_block_free(memory_pool *pool, void **reference);

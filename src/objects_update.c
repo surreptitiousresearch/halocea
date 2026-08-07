@@ -14,6 +14,7 @@
  * [2] cluster index; the int at byte +8 is the object data pointer. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/object_globals.h"
 #include "headers/object_type.h"
 #include "headers/structure_bsp.h"
@@ -36,7 +37,6 @@ extern void object_delete(int object_index);
 extern int object_update(int object_index);
 extern void object_delete_recursive(int object_index, uint8_t delete_siblings);
 extern void objects_garbage_collection(void);
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 void objects_update(void)
 {

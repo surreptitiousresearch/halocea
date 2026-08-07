@@ -12,6 +12,7 @@
  * directly). hill_id/hill_state are genuinely 0 (the accumulated hill count lives in a different register). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/king_globals.h"
 #include "headers/scenario.h"
 #include "headers/scenario_netgame_flag.h"
@@ -22,7 +23,6 @@
 
 extern int16_t king_engine_hill_count;
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern void find_hill(void);
 
 uint8_t king_engine_initialize_for_new_map(void)

@@ -7,13 +7,13 @@
  * reproduced as memcpy. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/action_queue.h"
 
 #include "headers/simple_circular_queue.h"
 #include "headers/simple_circular_queue.h"
 extern uint8_t simple_circular_queue_peek(simple_circular_queue *queue, void **user_data);
 extern int simple_circular_queue_read(simple_circular_queue *queue, void **user_data);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 /* return attested uint8_t: 2/4 callers clrlwi r3,24 (others ignore) */
 uint8_t action_queue_read(action_queue *queue, player_action *action, int *completed_client_update_id)

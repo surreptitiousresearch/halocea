@@ -5,6 +5,7 @@
  * disabled), from most-recent frame down to levels_to_ignore. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/win32_boundary.h"
 #include "headers/stack_walk_globals.h"
 
@@ -15,7 +16,6 @@ extern void walk_stack(unsigned int *routine_addresses, unsigned int number_of_l
 extern void walk_stack_context(unsigned int *routine_addresses, unsigned int number_of_levels, unsigned int ignore_levels, unsigned int *levels_dumped);
 extern char * symbol_name_from_address(unsigned int fake_address, debug_symbol_table *symbol_table);
 extern int fprintf(struct _iobuf *stream, const char *format, ...);
-extern void *memset(void *destination, int value, unsigned int size);
 
 void stack_walk_with_context(struct _iobuf *error_stream, int16_t levels_to_ignore, _CONTEXT *context_pointer)
 {

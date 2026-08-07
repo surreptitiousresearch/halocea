@@ -9,6 +9,7 @@
  * as typed object_datum members. The routing header is shared with the position update. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_datum.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_datum.h"
@@ -26,7 +27,6 @@ extern int game_time_get(void);
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern int message_delta_processor_encode_incremental(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, const void *baseline_data, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 int build_remote_player_vehicle_update(player_datum *source_player, int player_index, uint8_t *is_reliable_send)
 {

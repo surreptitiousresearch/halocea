@@ -15,15 +15,15 @@
 #include "headers/blam_data_globals.h"
 
 extern unsigned char periodic_functions_built_flag;                    /* periodic/transition tables built flag */
-
-float periodic_function_evaluate(int16_t function_type, float time)
+/* DEVIATION: `time` (and `scaled`) is a double, not a float — no entry frsp; `fmul f31, f1, f0` @0x837B6E90 against an `lfd` 25.6. */
+float periodic_function_evaluate(int16_t function_type, double time)
 {
     if ( !function_type )
         return 1.0f;
     if ( !periodic_functions_built_flag )
         return 0.0f;
 
-    float scaled = time * 25.60000038146973f;
+    double scaled = time * 25.60000038146973f;
     float fraction = (float)fmod(scaled, 1.0);          /* interpolation weight */
     int index = (int)(scaled - fraction) & 0x3FF;
 

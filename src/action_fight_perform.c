@@ -11,6 +11,7 @@
  * (firing_position_evaluation_context is a big local) — dropped, they are not program logic. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/actor_datum.h"
@@ -43,7 +44,6 @@ extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
 extern void actor_perception_unreachable(int actor_index, int prop_index, uint8_t unreachable);
-extern void *memset(void *dest, int value, unsigned int count);
 
 
 uint8_t action_fight_perform(int actor_index)
@@ -111,14 +111,20 @@ reselect:
         firing_position_evaluation_context context;
         firing_position selected;
         int selected_a4;
-        uint8_t path_bytes[8];
+        /* DEVIATION: an 8-byte `path_bytes[8]` stood in for the 65,676-byte `path_state`
+         * out-parameter (DB types path_state) and doubled as the 1-byte validity flag — a ~65 KB
+         * stack overwrite. The frame the binary reserves is 66,188 bytes (lis r12,-2 / ori
+         * r12,r12,0xFF74 -> 0xFFFEFF74 @0x83826184, _RtlCheckStack12 @0x8382618C), which only the
+         * real object accounts for; the sibling action_avoid_perform declares it correctly. */
+        path_state area_path_state;
+        uint8_t cached_path_available;
 
         memset(&context, 0, sizeof(context));
         context.evaluation_mode = _firing_point_evaluation_mode_fight;
         int16_t selection = actor_active_select_firing_position(actor_index, &context, &selected, &selected_a4,
-                (path_state *)path_bytes, path_bytes);
+                &area_path_state, &cached_path_available);
         int16_t new_position = actor_change_firing_position(actor_index, selection, &selected, selected_a4,
-                (path_state *)path_bytes, path_bytes[0]);
+                &area_path_state, cached_path_available);
         if ( new_position == -1 )
         {
             actor->state.action_data.___u0.fight.firing_position_timer = 0;

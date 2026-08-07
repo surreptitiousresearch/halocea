@@ -20,7 +20,7 @@ struct rendORD;
 
 // DB-verified (types_members rendORD_vtbl): dtor@0, Duplicate@4, GetSize@8.
 typedef struct rendORD_vtbl {
-    void (*dtr_rendORD)(rendORD *self);          // 0x00
+    void (*dtr_rendORD)(rendORD *self, int deleteFlag);          // 0x00 — deleting dtor: vftable+0x00 holds ??_ErendORD@@UAAPAXI@Z
     int  (*Duplicate)(rendORD *self, objOBJ *);  // 0x04
     int  (*GetSize)(rendORD *self);              // 0x08
 } rendORD_vtbl;

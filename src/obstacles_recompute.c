@@ -21,9 +21,9 @@
  * already established in obstacles.h. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bit_vector.h"
 #include "headers/obstacles.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 void obstacles_recompute(obstacles *obstacles, float radius)
 {

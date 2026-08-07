@@ -6,10 +6,10 @@
  * (equivalent). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/network_constants.h"
 #include "headers/network_game_data.h"
 #include "headers/network_player.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 extern uint8_t network_player_is_valid(network_player *player);
 

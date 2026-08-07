@@ -10,6 +10,7 @@
  * time_scale). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/player_effect_globals.h"
@@ -20,7 +21,6 @@
 #include "headers/render_screen_flash_type.h"
 #include "headers/screen_flash_priority.h"
 
-extern void                  *memset(void *dst, int value, unsigned int size);
 
 extern void vibrate_player_continuous(int16_t local_player_index, float low_frequency_strength, float high_frequency_strength);
 extern void player_effect_update_screen_flash(player_effect_datum *effect_state, const screen_flash_definition *screen_flash, float scale, float time_scale);

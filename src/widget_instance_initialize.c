@@ -7,6 +7,7 @@
  * the 6th (back-inhibit flag from the loader) is unused here. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_group.h"
 #include "headers/bitmap_group_sequence.h"
 #include "headers/widget_globals.h"
@@ -19,7 +20,6 @@
 #include "headers/global_tag_instances.h"
 #include "headers/game_connection.h"
 
-extern void *memset(void *dst, int value, unsigned int count);
 extern int ui_widget_load_children_recursive(widget_instance *widget, ui_widget_definition *widget_definition);
 extern void event_handler_dispatch(widget_instance *widget, ui_widget_definition *definition, event_record *event, event_handler_reference *event_handler, unsigned char *calling_widget_deleted);
 extern void widget_instance_give_focus_directly(widget_instance *widget, widget_instance *target);

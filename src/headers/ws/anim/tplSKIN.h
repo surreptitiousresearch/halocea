@@ -6,7 +6,7 @@
 // (types_members tplSKIN) — size 96 (0x60).
 
 struct cdtSKEL;        // collision skeleton (pointer only)  boundary
-enum TPL_SKIN_STATE;   // tpl subsystem — skin state-flag enum (bit meanings are a boundary)
+#include "TPL_SKIN_STATE.h" // tpl subsystem — skin state-flag enum (DB types_enum_values)
 
 typedef struct tplSKIN {
     struct CAPSULE_2_VERTICES;      // nested tplSKIN::CAPSULE_2_VERTICES (pointer only)  boundary

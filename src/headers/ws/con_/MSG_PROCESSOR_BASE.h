@@ -18,7 +18,7 @@ typedef int (*MSG_PROC_POLL_CB)();
 struct MSG_PROCESSOR_BASE; // forward decl for vtbl fn-ptr signatures
 
 typedef struct MSG_PROCESSOR_BASE_vtbl {
-    void (*dtr_MSG_PROCESSOR_BASE)(MSG_PROCESSOR_BASE *self);                    // 0x00
+    void (*dtr_MSG_PROCESSOR_BASE)(MSG_PROCESSOR_BASE *self, int deleteFlag);                    // 0x00 — deleting dtor: vftable+0x00 holds ??_GMSG_PROCESSOR_BASE@con@@UAAPAXI@Z
     void (*Disconnect)(MSG_PROCESSOR_BASE *self, const dsTSTRING<char> *reason); // 0x04 // boundary
 } MSG_PROCESSOR_BASE_vtbl;
 

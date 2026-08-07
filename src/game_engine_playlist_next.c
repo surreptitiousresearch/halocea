@@ -1,11 +1,11 @@
 /* game_engine_playlist_next @0x837494E4 — advances the multiplayer playlist cursor (wrapping at the
  * end) and copies the now-playing entry's map name and variant into the launch stage. */
 
+#include <string.h>
 #include "headers/game_engine_playlist_s.h"
 #include "headers/play_stage.h"
 
-extern char *strncpy(char *dst, const char *src, unsigned int count);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 
 void game_engine_playlist_next(void)
 {

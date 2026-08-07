@@ -61,9 +61,9 @@ extern "C" void  hcex_enum_model_nodes(int model_index, void (*cb)(void *mdl, co
 extern "C" void  hcex_enum_model_regions(int model_index, void (*cb)(void *mdl, const char *region), void *mdl);
 extern "C" void  hcex_enum_model_perm(int model_index, int region_index,
                  void (*cb)(void *mdl, int region_index, const char *permutation), void *mdl);
-extern "C" void  hcex_add_model_node(char *mdl, const char *node_name);
+extern "C" void  hcex_add_model_node(void *mdl, const char *node_name);
 extern void  hcex_add_model_reg(void *mdl, const char *reg_name);
-extern void  hcex_add_model_perm(char *mdl, int idx, const char *perm_name);
+extern void  hcex_add_model_perm(void *mdl, int idx, const char *perm_name);
 
 /* --- Blam-side lookups --- */
 extern "C" int player_index_from_unit_index(int unit_index);
@@ -258,10 +258,10 @@ animINST *hcex_inst_create(int modelId, int id, bool isFP, int *pModelIdx)
     if (foundIdx < 0) {
         HCEX_MODEL newModel;
         newModel.modelId = modelId;
-        hcex_enum_model_nodes(modelId, (void (*)(void *, const char *))hcex_add_model_node, &newModel);
-        hcex_enum_model_regions(modelId, (void (*)(void *, const char *))hcex_add_model_reg, &newModel);
+        hcex_enum_model_nodes(modelId, hcex_add_model_node, &newModel);
+        hcex_enum_model_regions(modelId, hcex_add_model_reg, &newModel);
         for (int r = 0; r < newModel.regions.nElem; ++r)
-            hcex_enum_model_perm(modelId, r, (void (*)(void *, int, const char *))hcex_add_model_perm, &newModel);
+            hcex_enum_model_perm(modelId, r, hcex_add_model_perm, &newModel);
 
         dsTSTRING<char> haloNameTs; haloNameTs.pBuffer = 0;
         haloNameTs.UnsafeInit(haloName, -1, 0);

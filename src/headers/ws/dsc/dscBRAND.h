@@ -16,7 +16,7 @@ struct dscDESC_FAMILY;
 // DB-verified (types_members dscBRAND_vtbl): dtr_dscBRAND@0, InitFromParent@4 — size 8
 // (only these two slots observed so far; accrete further slots here as they're reversed).
 typedef struct dscBRAND_vtbl {
-    void (*dtr_dscBRAND)(dscBRAND *self);                    // 0x00 (deleting dtr; takes a free flag)
+    void (*dtr_dscBRAND)(dscBRAND *self, int deleteFlag);                    // 0x00 (deleting dtr; takes a free flag) — deleting dtor: vftable+0x00 holds ??_EdscBRAND@@UAAPAXI@Z
     void (*InitFromParent)(dscBRAND *self, dscBRAND *parent); // 0x04
 } dscBRAND_vtbl;
 

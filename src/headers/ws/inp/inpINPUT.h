@@ -8,7 +8,7 @@ struct inpINPUT;
 
 // DB-verified vtable (types_members inpINPUT_vtbl).
 typedef struct inpINPUT_vtbl {
-    void (*dtr_inpINPUT)(inpINPUT *self);                                  // 0x00
+    void (*dtr_inpINPUT)(inpINPUT *self, int deleteFlag);                                  // 0x00 — deleting dtor: vftable+0x00 holds ??_GinpINPUT@@UAAPAXI@Z
     bool (*Init)(inpINPUT *self);                                          // 0x04
     void (*Term)(inpINPUT *self);                                          // 0x08
     void (*Clear)(inpINPUT *self);                                         // 0x0C

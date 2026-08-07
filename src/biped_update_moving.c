@@ -17,6 +17,7 @@
  * outputs are written to unit_animation_update_data (animation_update->state_desired / animation_update->crouching). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/biped_datum.h"
 #include "headers/collision_test_flags.h"
 #include "headers/unit_definition_flags.h"
@@ -87,7 +88,6 @@ extern double          __fabs(double x);
 extern float           __fsqrts(float x);
 extern double          sin(double x);
 extern double          cos(double x);
-extern void           *memcpy(void *dst, const void *src, unsigned int size);
 
 #define SECONDS_PER_TICK 0.033333335f  /* 1/30 */
 

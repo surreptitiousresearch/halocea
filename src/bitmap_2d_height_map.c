@@ -16,6 +16,7 @@
  * bitmap->height (not width), reproduced as shipped. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 
 extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
@@ -23,7 +24,6 @@ extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, 
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
-extern void *memcpy(void *dest, const void *src, unsigned int size);
 extern float __fsqrts(float x);
 extern float __fabs(float x);
 

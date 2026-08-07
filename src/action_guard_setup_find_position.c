@@ -6,12 +6,12 @@
  * position be found (find_new_guard_position, guard_location_type 0). Always returns 1. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/guard_state_data.h"
 #include "headers/actor_guard_location_type.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 uint8_t action_guard_setup_find_position(uint16_t actor_index, int16_t delay_timer, guard_state_data *state_data)

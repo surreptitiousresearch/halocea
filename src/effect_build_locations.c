@@ -13,7 +13,7 @@
 #include "headers/object_marker.h"
 #include "headers/blam_data_globals.h"
 #include <stdint.h>
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+#include <string.h>
 
 
 extern int datum_new(data_array *data);

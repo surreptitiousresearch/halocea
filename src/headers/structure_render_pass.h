@@ -4,10 +4,18 @@
  * callback signatures it invokes. The structure_render_* entry points each call this with a different
  * draw_triangles / draw_transparent_triangles callback for their pass. Forward declarations only; the
  * callbacks treat the geometry types opaquely here.
- * DEVIATION: draw_transparent_triangles's REAL impl (rasterizer_environment_transparent_geometry_submit)
- * has an 11-arg signature, but structure_render_pass's single call site casts the pointer down to 8 args
- * and only ever supplies those — the trailing plane/offset/render_lighting/geometry_flags are never set
- * up by this caller. Declared here with the 8 args actually passed. */
+ * CAVEAT (2026-08-07): the 8-arg draw_transparent_triangles below is INCOMPLETE, and the note that used
+ * to stand here — "the trailing plane/offset/render_lighting/geometry_flags are never set up by this
+ * caller" — is refuted by the disassembly. structure_render_pass sets all four up immediately before its
+ * `bctrl` at 0x837C67D0: four stack stores at r1+0x54/0x5C/0x64/0x6C (0x837C679C-0x837C67BC) on top of
+ * the eight register args, i.e. a 12-argument call. Resolved so far, against types_members
+ * structure_material: arg9 `const real_plane3d *` = (flags & 1) ? &material->plane (+0x9C) : r20;
+ * arg11 `const render_lighting *` = &material->lighting (+0x28); arg10 `const real_vector3d *` =
+ * (flags & 2) ? r15+0xC : *(<stack var_A0> + 0x6F54); arg12 `unsigned int` = r20. r15, r20 and the
+ * var_A0 base still need deriving before the signature can be widened, so the declaration stays at the
+ * 8 args the reconstruction actually passes rather than promising four values it cannot yet supply.
+ * src/structure_render_shadow.c already declares the 12-arg form; the two disagree on purpose until
+ * this is closed. */
 
 struct shader;
 struct bitmap_data;

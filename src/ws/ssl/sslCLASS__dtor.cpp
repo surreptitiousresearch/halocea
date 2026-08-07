@@ -80,9 +80,10 @@ sslCLASS::~sslCLASS()
             // the vtable here.
             if (element.pVoid)
             {
-                typedef void (*DeletingDtorFn)(sslBASE_VAR *, int);
-                DeletingDtorFn deletingDtor = reinterpret_cast<DeletingDtorFn>(element.pVar->__vftable->dtr_sslBASE_VAR); // vtable slot 0 fn ptr
-                deletingDtor(element.pVar, 1);
+                // DEVIATION 2026-08-07: was a reinterpret_cast to `void (*)(sslBASE_VAR *, int)`,
+                // because sslBASE_VAR.h copied the DB's single-argument slot type. ??_7sslBASE_VAR@@6B@+0x00
+                // holds ??_EsslBASE_VAR@@UAAPAXI@Z, so the slot takes the flag and the cast is gone.
+                element.pVar->__vftable->dtr_sslBASE_VAR(element.pVar, 1); // vtable slot 0 fn ptr
             }
         }
         else // TYPE_CB_FUNC (0)

@@ -6,6 +6,7 @@
  * thread+16 = active frame; frame+4 = current expression; frame+12 = frame size (int16). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_thread.h"
 #include "headers/data_array.h"
@@ -13,7 +14,6 @@
 
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
 extern void hs_return(uint16_t thread_index, int value);
-extern void *memset(void *dst, int value, unsigned int count);
 
 void hs_evaluate_debug_string(int16_t function_index, int thread_index, uint8_t initialize)
 {

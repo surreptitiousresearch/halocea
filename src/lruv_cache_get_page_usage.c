@@ -4,11 +4,11 @@
  * was touched this frame (last_used_frame_index == cache frame), bit2 set if it is old
  * (last_used_frame_index + 30 < cache frame). */
 
+#include <string.h>
 #include "headers/lruv_cache.h"
 #include "headers/lruv_cache_block.h"
 #include "headers/data_iterator.h"
 
-extern void *memset(void *dst, int value, unsigned int n);
 
 void lruv_cache_get_page_usage(lruv_cache *cache, unsigned char *page_usage)
 {

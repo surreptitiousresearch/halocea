@@ -21,7 +21,7 @@
 #include "headers/actor_panic_type.h"
 #include "headers/blam_data_globals.h"
 #include <stdint.h>
-extern void *memset(void *dst, int value, unsigned int n);
+#include <string.h>
 
 extern uint8_t actor_situation_try_new_target(int actor_index, int prop_index);
 extern void action_flee_find_flee_position(int actor_index, flee_state_data *state_data);

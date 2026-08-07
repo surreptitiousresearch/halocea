@@ -12,6 +12,7 @@
  * shuffles; restored to plain float math. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_window.h"
 #include "headers/observer_result.h"
 #include "headers/real_matrix4x3.h"
@@ -31,7 +32,6 @@ extern void player_effect_get_camera_effect_matrix(int16_t local_player_index, r
 extern void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);
 extern void matrix4x3_to_point_and_vectors(const real_matrix4x3 *matrix, real_point3d *point, real_vector3d *forward, real_vector3d *up);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void set_window_camera_values(struct render_window *current_window, const observer_result *observer)
 {

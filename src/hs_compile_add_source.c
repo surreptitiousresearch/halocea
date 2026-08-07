@@ -2,8 +2,8 @@
  * source buffer (reallocated to fit + a null terminator). Returns a pointer to where the new chunk begins
  * within the buffer, or null on allocation failure. */
 
+#include <string.h>
 #include "headers/hs_compile_globals.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
 

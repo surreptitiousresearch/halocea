@@ -1,3 +1,4 @@
+#include <string.h>
 #include "../headers/havok/hkThreadMemory.h"
 
 /* Raw hkArray header view (matches hkArray<T>: data ptr, size, capacityAndFlags). */
@@ -8,7 +9,6 @@ struct hkArrayHeader
     int   m_capacityAndFlags; /* 0x08 */
 };
 
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 /* hkArrayUtil::_reserve — reallocate an array's storage to hold exactly numElem
    elements: allocate the new buffer, copy the existing m_size elements, release

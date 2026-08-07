@@ -14,7 +14,7 @@ struct sslBASE_VAR;
 
 // DB types_members sslBASE_VAR_vtbl: dtor@0, Get@4, Set@8.
 typedef struct sslBASE_VAR_vtbl {
-    void (*dtr_sslBASE_VAR)(sslBASE_VAR *self);                                              // 0x00
+    void (*dtr_sslBASE_VAR)(sslBASE_VAR *self, int deleteFlag);                                              // 0x00 — deleting dtor: vftable+0x00 holds ??_EsslBASE_VAR@@UAAPAXI@Z
     sslERROR *(*Get)(sslBASE_VAR *self, sslERROR *result, sslOBJECT *, int, dsDATA *);       // 0x04
     sslERROR *(*Set)(sslBASE_VAR *self, sslERROR *result, sslOBJECT *, int, const dsDATA *); // 0x08
 } sslBASE_VAR_vtbl;

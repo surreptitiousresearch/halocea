@@ -8,6 +8,7 @@
  * zeros pattern (cntlzw returns 32, the 0x20 bit, only when x == 0); simplified accordingly. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/object_header_datum.h"
@@ -25,7 +26,6 @@ extern int local_player_get_player_index(int16_t local_player_index);
 extern int player_index_from_unit_index(int unit_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
-extern int strncmp(const char *str1, const char *str2, unsigned int max_count);
 
 uint8_t blip_type_get(int object_index, int local_player_index)
 {

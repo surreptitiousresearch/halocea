@@ -18,6 +18,7 @@
  * live-edit code and the quirk is shipped. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/squad_definition.h"
 #include "headers/data_array.h"
 #include "headers/scenario.h"
@@ -47,8 +48,7 @@ extern void encounter_actor_iterator_new(encounter_actor_iterator *iterator, int
 extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iterator);
 extern void action_obey_flush_command_indices(int actor_index);
 extern void actor_flush_position_indices(uint16_t actor_index);
-extern void *memmove(void *dest, const void *src, unsigned int count);
-extern void *memset(void *dest, int value, unsigned int count);
+/* memset declared by <string.h> */
 
 void ai_handle_editing(int encounter_index)
 {

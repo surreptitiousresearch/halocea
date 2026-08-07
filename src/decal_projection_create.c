@@ -12,13 +12,13 @@
  * @0x821145B4 is const __int16[3][2][2], so the two leading subscripts are (axis, sign). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/real_matrix4x3.h"
 #include "headers/real_rectangle2d.h"
 #include "headers/decal_projection.h"
 #include "headers/blam_data_globals.h"
 
 
-extern void *memcpy(void *dest, const void *src, unsigned int count);
 extern float __fabs(float x);
 
 void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d *extent,

@@ -4,10 +4,10 @@
  * read and cleared. Returns 1 on success, 0 otherwise. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 #include "headers/reference_info_flags.h"
 
-extern void *memset(void *dst, int value, unsigned int count);
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
 extern int SetFileAttributesA(const char *path, unsigned int attributes);
 extern int DeleteFileA(const char *path);

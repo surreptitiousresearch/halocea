@@ -5,13 +5,13 @@
    dialog. Dev tooling path. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_dx9_shader_tables.h"
 #include "headers/d3dx_boundary.h"
 #include "headers/win32_boundary.h"
 #include "headers/blam_data_globals.h"
 
 extern int sprintf_0(char *string, const char *format, ...);
-extern char *strncat(char *dst, const char *src, unsigned int count);
 extern int DisplayErrorDialog(int Error, int ErrorURL, int ForceExit);
 
 uint8_t rasterizer_dx9_shaders_vshader9_write_effect(int shaderIndex, void *fileHandle)

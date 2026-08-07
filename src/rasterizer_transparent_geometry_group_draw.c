@@ -126,7 +126,7 @@ extern void rasterizer_dx9_transparent_chicago_draw(const transparent_geometry_g
 extern void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry_group *group, uint8_t dirty);
 /* deviation: rasterizer_water_draw/glass_draw_* are function-pointer globals (blam_data_globals.h) */
 extern void rasterizer_plasma_energy_draw(const transparent_geometry_group *group);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 
 void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group *group, uint8_t dirty)
 {

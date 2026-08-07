@@ -18,7 +18,7 @@
 
 #define DEGREES_TO_RADIANS DEG_TO_RAD
 
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 
 void shader_texture_animation_evaluate(
         const shader_texture_animation *texture_animation,

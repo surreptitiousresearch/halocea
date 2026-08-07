@@ -2,9 +2,9 @@
  * reference begins with the 'file' signature ("file" = 0x66696C65) and stores the location code at byte 6. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 file_reference *file_reference_create(file_reference *reference, int16_t location)
 {

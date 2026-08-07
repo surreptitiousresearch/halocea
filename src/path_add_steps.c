@@ -21,13 +21,13 @@
  * `path_add_step`'s `surface_index` argument. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bit_vector.h"
 #include "headers/obstacle_path.h"
 #include "headers/path_test_pill2d_result.h"
 #include "headers/structure_test_ray2d_result.h"
 #include "headers/structure_bsp.h"
 #include "headers/structure_bsp.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern void obstacles_disc_tangents(const obstacles *obstacles, int16_t disc_index, const real_point2d *point, float radius, real_vector2d *right_direction, real_vector2d *left_direction, float *tangent_distance);
 extern uint8_t path_test_pill2d(const structure_bsp *structure, uint8_t ignore_broken_surfaces, const obstacles *obstacles, int16_t ignore_disc_index, const real_point2d *point, int surface_index, const real_vector2d *direction, float radius, float distance, uint8_t ignore_structure, uint8_t endpoint_is_goal, uint8_t ignore_optional, path_test_pill2d_result *result);

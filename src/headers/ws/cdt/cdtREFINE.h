@@ -16,7 +16,7 @@ struct cdtREFINE;
 
 // DB-verified vtbl (types_members cdtREFINE_vtbl).
 typedef struct cdtREFINE_vtbl {
-    void (*dtr_cdtREFINE)(cdtREFINE *self);                       // 0x00
+    void (*dtr_cdtREFINE)(cdtREFINE *self, int deleteFlag);                       // 0x00 — deleting dtor: vftable+0x00 holds ??_GcdtREFINE@@UAAPAXI@Z
     int  (*IsInclInst)(cdtREFINE *self, animINST *inst);          // 0x04
     void (*Modify)(cdtREFINE *self);                              // 0x08
     int  (*IsInclObjActors)(cdtREFINE *self, objOBJ *obj);        // 0x0C

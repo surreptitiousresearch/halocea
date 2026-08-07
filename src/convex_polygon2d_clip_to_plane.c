@@ -16,10 +16,10 @@
  * output_count`. Output index `output_count` is compared as __int16 throughout (it carries the -1 sentinel). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/real_point2d.h"
 #include "headers/real_plane2d.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 extern float __fabs(float x);
 
 int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points, const real_plane2d *plane,

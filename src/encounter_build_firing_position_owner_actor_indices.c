@@ -9,6 +9,7 @@
  * same flag and never executes on that path. Reproduced as a 0-init to keep the code well-defined. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/encounter_definition.h"
 #include "headers/ai_globals.h"
@@ -17,7 +18,6 @@
 #include "headers/actor_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 void encounter_build_firing_position_owner_actor_indices(int encounter_index,
         int *firing_position_owner_actor_indices)

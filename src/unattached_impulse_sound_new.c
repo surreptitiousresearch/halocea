@@ -4,9 +4,9 @@
 
 #include <stdint.h>
 #include <stddef.h>   /* NULL */
+#include <string.h>
 #include "headers/sound_source.h"   /* sound_source + sound_location */
 #include "headers/spatialization_mode.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 extern int sound_new_impulse(int definition_index, sound_source *source, int source_identifier, uint8_t (*track_proc)(int, const void *, sound_source *), const void *track_data, int16_t track_data_size, uint8_t is_local_player);
 

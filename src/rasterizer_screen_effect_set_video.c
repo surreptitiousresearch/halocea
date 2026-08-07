@@ -4,6 +4,7 @@
  * reference is null. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/cinematic_screen_effect_globals.h"
 #include "headers/game_globals_rasterizer_data.h"
 #include "headers/bitmap_data.h"
@@ -11,7 +12,6 @@
 #include "headers/global_tag_instances.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 
 void rasterizer_screen_effect_set_video(int16_t video_overbright_mode, float video_noise_intensity)
 {

@@ -18,7 +18,7 @@
 #include "headers/game_connection.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
-
+#include "headers/player_update_history.h"
 
 #include "headers/network_game_client.h"
 extern void hcex_fire_plr_event(const char *event_name, int local_player); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
@@ -28,7 +28,7 @@ extern int16_t game_connection(void);
 extern void update_server_player_died(uint16_t player_index);
 extern void simple_circular_queue_empty(simple_circular_queue *queue);
 extern network_game_client *global_network_game_client_get(void);
-extern void player_update_history_clear(struct player_update_history *history);
+extern void player_update_history_clear(player_update_history *history);
 
 void players_handle_deleted_object(int object_index)
 {

@@ -15,6 +15,7 @@
  *     ignore_object_index, ignore_team_index, maximum_target_count - found, &targets[found]). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/aim_assist_parameters.h"
 #include "headers/aim_assist_target.h"
 #include "headers/global_tag_instances.h"
@@ -34,7 +35,6 @@
 extern uint8_t sphere_intersects_cone3d(const real_point3d *center, float radius, const real_point3d *base, const real_vector3d *direction, float distance, float sine, float cosine);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern uint8_t aim_assist_compute_target(const aim_assist_parameters *parameters, int object_index, const real_point3d *position, const real_vector3d *direction, aim_assist_target *target);
-extern void *memcpy(void *destination, const void *source, unsigned int count);
 
 int16_t find_aim_assist_targets_recursive(const aim_assist_parameters *parameters, int object_index,
                                           const real_point3d *position, const real_vector3d *direction,

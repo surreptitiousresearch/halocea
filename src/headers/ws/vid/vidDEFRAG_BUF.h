@@ -21,7 +21,7 @@ typedef struct vidDEFRAG_BUF_vtbl {
     char *(*FitIntoFreeBlock)(vidDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk, int align);
     bool  (*MoveChunk)(vidDEFRAG_BUF *self, int block, apDEFRAG_CHUNK *chunk);
     void  (*DefragAllInside)(vidDEFRAG_BUF *self);
-    void  (*dtr_vidDEFRAG_BUF)(vidDEFRAG_BUF *self);
+    void  (*dtr_vidDEFRAG_BUF)(vidDEFRAG_BUF *self, int deleteFlag); // deleting dtor: vftable+0x10 holds ??_EvidDEFRAG_BUF@@UAAPAXI@Z
 } vidDEFRAG_BUF_vtbl;
 
 struct vidDEFRAG_BUF : apDEFRAG_BUF {

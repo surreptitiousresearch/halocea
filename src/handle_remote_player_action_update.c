@@ -17,6 +17,7 @@
  * arguments — not `update_data->action.desired_weapon_index` as the decompiler's flattened view implies. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/remote_player_action_update_header.h"
 #include "headers/remote_player_action_update_network_data.h"
 #include "headers/player_datum.h"
@@ -24,7 +25,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern void *datum_try_and_get(const data_array *data, int index);
 extern real_euler_angles2d *euler_angles2d_from_vector3d(real_euler_angles2d *angles, const real_vector3d *vector);
 extern void player_update_client_log_specific_remote_player(player_datum *remote_player, int log_level, const char *format, ...);

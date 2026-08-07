@@ -12,7 +12,7 @@ struct apPROFILER_DESC; // boundary — not decompiled here
 // DB-verified layout (types_members apPROFILER_vtbl): dtr@0, Start@4, Stop@8, StartFrame@12,
 // EndFrame@16, SaveProfileResult@20, SetDesc@24 — all boundary (bodies not decompiled here).
 typedef struct apPROFILER_vtbl {
-    void (*dtr_apPROFILER)(apPROFILER *thisPtr);
+    void (*dtr_apPROFILER)(apPROFILER *thisPtr, int deleteFlag); // deleting dtor: vftable+0x00 holds ??_GapPROFILER@@UAAPAXI@Z
     void (*Start)(apPROFILER *thisPtr);
     void (*Stop)(apPROFILER *thisPtr);
     void (*StartFrame)(apPROFILER *thisPtr);

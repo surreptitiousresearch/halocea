@@ -9,6 +9,7 @@
  * (the obey/wander union, 36 bytes); reproduced as a memset of that union. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/swarm_component_flags.h"
 #include "headers/data_array.h"
@@ -18,7 +19,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/obey_individual_iterator.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
 
 void action_obey_individuals_iterate(int actor_index, uint8_t initialize_structures, obey_state_data *state_data, obey_individual_iterator iterator, void *user_data)
 {

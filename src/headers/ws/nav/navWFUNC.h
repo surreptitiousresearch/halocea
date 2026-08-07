@@ -10,7 +10,7 @@ struct navWFUNC;
 
 // DB-verified (types_members navWFUNC_vtbl).
 struct navWFUNC_vtbl {
-    void  (*dtr)(navWFUNC *self);                                              // 0x00
+    void  (*dtr)(navWFUNC *self, int deleteFlag);                                              // 0x00 — deleting dtor: vftable+0x00 holds ??_GnavWFUNC@@UAAPAXI@Z
     bool  (*IsExcluded)(navWFUNC *self, navWP *wp, short wpid);                // 0x04
     float (*GetWeight)(navWFUNC *self, navWP *wp, const m3dV *pos, short wpid); // 0x08
 };

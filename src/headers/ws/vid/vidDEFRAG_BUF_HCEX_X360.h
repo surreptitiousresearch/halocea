@@ -15,7 +15,7 @@ typedef struct vidDEFRAG_BUF_HCEX_X360_vtbl {
     char *(*FitIntoFreeBlock)(vidDEFRAG_BUF_HCEX_X360 *self, apDEFRAG_CHUNK *chunk, int align);
     bool  (*MoveChunk)(vidDEFRAG_BUF_HCEX_X360 *self, int block, apDEFRAG_CHUNK *chunk);
     void  (*DefragAllInside)(vidDEFRAG_BUF_HCEX_X360 *self);
-    void  (*dtr_vidDEFRAG_BUF_HCEX_X360)(vidDEFRAG_BUF_HCEX_X360 *self);
+    void  (*dtr_vidDEFRAG_BUF_HCEX_X360)(vidDEFRAG_BUF_HCEX_X360 *self, int deleteFlag); // deleting dtor: vftable+0x10 holds ??_GvidDEFRAG_BUF_HCEX_X360@@UAAPAXI@Z
 } vidDEFRAG_BUF_HCEX_X360_vtbl;
 
 struct vidDEFRAG_BUF_HCEX_X360 : vidDEFRAG_BUF {

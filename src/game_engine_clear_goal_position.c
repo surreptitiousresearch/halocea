@@ -6,10 +6,10 @@
  * matching sizeof(netgame_goal) exactly) — reproduced as the equivalent memset. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/netgame_goal.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
 
 void game_engine_clear_goal_position(int16_t index)
 {

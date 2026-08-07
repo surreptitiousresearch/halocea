@@ -8,6 +8,7 @@
  * multiplayer_player_info (types_members). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/network_player.h"
 #include "headers/player_datum.h"
@@ -20,8 +21,7 @@ extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L""
 extern int datum_new(data_array *data);
 extern int datum_new_at_plain_index_hack_for_player_data(data_array *data, int index);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
-extern void *memset(void *dst, int value, unsigned int size);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 
 int player_new(int machine_index, int player_index, uint16_t local_player_index, network_player *network_player_data)
 {

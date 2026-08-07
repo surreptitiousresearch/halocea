@@ -25,18 +25,18 @@ void hs_evaluate_inequality(int16_t function_index, int thread_index, uint8_t in
     int first_argument = HS_SYNTAX_NODE(HS_SYNTAX_NODE(call_expression).data).next_node_index;
     int16_t operand_type = HS_SYNTAX_NODE(first_argument).type;
 
-    int16_t parameter_types[2] = { operand_type, operand_type };
+    parameter_types[0] = parameter_types[1] = operand_type;  /* DEVIATION: shared .data array @0x8441E64C, not a stack copy */
     void *values = hs_arguments_evaluate(thread_index, 2, parameter_types, initialize);
     if ( !values )
         return;
 
     float left, right;
-    if ( operand_type == hs_type_real )
+    if ( parameter_types[0] == hs_type_real )      /* reloaded from the global at 0x8368FAD4 */
     {
         left = ((float *)values)[0];
         right = ((float *)values)[1];
     }
-    else if ( operand_type == hs_type_long_integer )
+    else if ( parameter_types[0] == hs_type_long_integer )
     {
         left = (float)((int *)values)[0];
         right = (float)((int *)values)[1];

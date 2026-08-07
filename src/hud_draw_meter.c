@@ -10,11 +10,11 @@
  * DEVIATIONS (disasm-resolved, 0x8379F770-0x8379FB7C):
  *  - reference_time / reference_value are float (f1/f2); the decompiler widened them to double via the
  *    Xbox360 FPR-shadow ABI.
- *  - The tint/fade color is stored to meter_parameters.tint_color AND passed as the color32 argument (the
- *    decompiler folded the store since both use the same register).
- *  - in_multiplayer is 0: the argument register holds a <<8 color intermediate whose low byte (all that a
- *    u8 arg reads) is always 0.
- *  - is_crosshair_bitmap is passed uninitialized (no store to the outgoing slot) — a faithful shipped quirk.
+ *  - The tint/fade color is stored to meter_parameters.tint_color ONLY: color32 (arg 8 = r10) is the
+ *    literal 0xFFFFFFFF (`li r10,-1` @0x8379FB20). r8/r9 are dead float-shadow GPR slots, and the
+ *    decompiler mistook the tint intermediate living in r8 for the argument.
+ *  - in_multiplayer (arg 9, stb r1+0x57 @0x8379FB10) is (draw_flags >> 2) & 1, not 0; is_interface_bitmap
+ *    (arg 10, stb r1+0x5F @0x8379FB08) is the meter bitmap tag's type == 4. The callee has no param 11.
  *  - float->byte conversions are truncating (fctidz), rendered by the decompiler as __int64/__ROL4__ puns. */
 
 #include <stdint.h>
@@ -31,13 +31,13 @@
 #include "headers/hud_draw_flags.h"
 
 
-#include "headers/hud_placement_definition.h"
+#include "headers/global_tag_instances.h"
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern const real_rectangle2d *get_sprite_clip_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame);
 extern real_rgb_color *pixel32_to_real_rgb_color(unsigned int pixel, real_rgb_color *color);
 extern real_rgb_color *rgb_colors_interpolate(real_rgb_color *rgb_result, unsigned int flags, const real_rgb_color *rgb_lower_bound, const real_rgb_color *rgb_upper_bound, float u);
-extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
+extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap);
 
 /* meter->{alpha_multiplier,bias} shape a 0..255 input; clamp to [0,255] then floor at minimum_value. */
 static int hud_meter_shape_alpha(const meter_hud_element_definition *meter, uint8_t value)
@@ -144,7 +144,10 @@ void hud_draw_meter(int16_t local_player_index, const hud_absolute_placement_def
     /* stored to tint_color and reused as the color32 argument (decompiler folded the field store) */
     meter_parameters.tint_color = tint_color;
 
-    uint8_t is_crosshair_bitmap;   /* passed uninitialized — faithful shipped quirk */
+    /* meter bitmap tag header word 0 is bitmap_group.type; 4 = the "Interface Bitmap" usage
+     * (`lhz r11,0(r29)` / `addi r7,r11,-4` / `cntlzw` / `extrwi r26,r5,1,26` @0x8379F7EC-0x8379F81C) */
+    uint16_t *bitmap_group_header = TAG_GET(uint16_t, meter->meter_bitmap.index);
     hud_draw_bitmap_with_meter(&meter_parameters, bitmap, placement, &meter->placement, clip, scale, 0.0f,
-            tint_color, 0, 0xFFu, is_crosshair_bitmap);
+            0xFFFFFFFFu, (draw_flags & (1u << _hud_draw_in_multiplayer_bit)) != 0,
+            *bitmap_group_header == 4);
 }

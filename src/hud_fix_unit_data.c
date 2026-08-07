@@ -3,9 +3,9 @@
  * unit_hud_state record. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/unit_hud_globals_definition.h"
 
-extern void *memcpy(void *dest, const void *src, unsigned int count);
 
 void hud_fix_unit_data(int16_t old_local_player_index, int16_t new_local_player_index)
 {

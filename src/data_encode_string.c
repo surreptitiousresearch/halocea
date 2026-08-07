@@ -3,10 +3,10 @@
  * fit. Returns no-overflow. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_encoding_state.h"
-extern char *strncpy(char *dst, const char *src, unsigned int n);
 
-extern unsigned int strnlen(const char *s, unsigned int maxlen);
+/* strnlen declared by <string.h> */
 
 int data_encode_string(data_encoding_state *state, const char *source_string, int16_t maximum_string_length)
 {

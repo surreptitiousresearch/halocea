@@ -6,6 +6,7 @@
  * (byte +152). Mirrors action_search_setup_pursuit.c's identical setup path. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/data_array.h"
 #include "headers/scenario.h"
@@ -15,7 +16,6 @@
 #include "headers/pursuit_location_type.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 uint8_t action_uncover_setup_pursuit(uint16_t actor_index, int16_t firing_position_index, uncover_state_data *state_data)
 {

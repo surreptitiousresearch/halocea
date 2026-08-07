@@ -26,6 +26,7 @@
        in plain float accumulators.
    ========================================================================= */
 #include <stdint.h>
+#include <string.h>
 #include "headers/physics_definition.h"
 #include "headers/mass_point_definition.h"
 #include "headers/mass_point_datum.h"
@@ -50,7 +51,6 @@
 
 
 #include "headers/real_quaternion.h"
-extern void *memset(void *dst, int value, unsigned int count);
 extern double sin(double x);
 extern double cos(double x);
 extern float __fsqrts(float x);

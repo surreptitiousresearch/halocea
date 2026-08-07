@@ -21,6 +21,7 @@
  * checkpoint index, not a player team. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/scenario_netgame_flag.h"
 #include "headers/netgame_flag_type.h"
@@ -31,7 +32,6 @@
 
 
 #include "headers/real_point3d.h"
-extern void *memset(void *destination, int value, unsigned int size);
 extern int race_flags_make_unique(void);
 extern game_variant *game_engine_get_variant(void);
 extern void game_engine_set_goal_position(int16_t index, real_point3d *position, float vertical_offset, char *descriptor, int player_index, int16_t team_index, int ignore_player_index);

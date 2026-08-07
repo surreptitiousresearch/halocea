@@ -1,10 +1,10 @@
 /* input_abstraction_initialize @ 0x83725648 — probe gamepads, reset input state */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/input_abstraction_globals.h"
 #include "headers/input_abstraction_mode_flags.h"
 
-extern void *memset(void *, int, unsigned int);
 extern uint8_t input_has_gamepad(int16_t gamepad_index);
 extern uint32_t system_milliseconds(void);
 

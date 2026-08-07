@@ -14,6 +14,7 @@
  * r3 and declares it void. Declared void. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_variant.h"
 #include "headers/file_reference.h"
 #include "headers/playlist_profile_globals.h"
@@ -23,7 +24,6 @@ extern int tag_loaded(uint32_t group_tag, const char *name);
 extern char *saved_game_files_get_path(int16_t path_type);
 extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);
 extern void directory_create_or_delete_contents(const char *directory_name);
-extern char *strncat(char *dest, const char *src, unsigned int count);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 extern void saved_game_file_generate_checksum(const void *buffer, uint16_t buffer_size, uint8_t *checksum);
@@ -34,7 +34,7 @@ extern uint8_t file_set_position(const file_reference *file, unsigned int positi
 extern uint8_t file_write(const file_reference *file, unsigned int count, const void *buffer);
 extern uint8_t file_close(file_reference *file);
 extern void saved_game_files_notify_memory_units_changed(void);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 
 extern game_variant *(*default_variant_building_functions[])(game_variant *);
 extern int first_time_0; /* end-of-array sentinel immediately following default_variant_building_functions */

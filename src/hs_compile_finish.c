@@ -4,6 +4,7 @@
  * string-constant block with a 1KB zero tail. Bails early on a failing tag_data_resize. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_syntax_node_flags.h"
@@ -19,7 +20,6 @@ extern uint8_t tag_data_resize(tag_data *data, int size);
 extern int hs_concatenate_string_constant(const char *string);
 extern void hs_concatenate_expression(int expression_index);
 extern void hs_node_gc(void);
-extern void *memset(void *dst, int value, unsigned int n);
 
 /* scenario hs_globals / hs_scripts entries are 92-byte typed elements. */
 #define HS_GLOBAL_INITIALIZER(scn, i)  (((hs_global_internal *)(scn)->hs_globals.address)[i].initialization_expression_index)

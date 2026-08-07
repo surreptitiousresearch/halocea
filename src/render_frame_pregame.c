@@ -5,6 +5,7 @@
  * rasterizer_frame_end form a threaded-r3 chain of independent no-arg calls. screenshot_bitmap is unused. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/render_window.h"
 #include "headers/render_globals.h"
 #include "headers/rasterizer_window_begin_parameters.h"
@@ -12,13 +13,12 @@
 #include "headers/rectangle2d.h"
 #include "headers/rasterizer_target.h"
 
-typedef struct rasterizer_frame_begin_parameters rasterizer_frame_begin_parameters;
+#include "headers/rasterizer_frame_begin_parameters.h"
 
 #include "headers/real_rectangle2d.h"
 #include "headers/render_frustum.h"
 #include "headers/rectangle2d.h"
-extern void *memset(void *dst, int value, unsigned int count);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
+/* memcpy declared by <string.h> */
 extern void rasterizer_frame_begin(const rasterizer_frame_begin_parameters *parameters);
 extern uint8_t rasterizer_windows_begin(void);
 extern void render_camera_build_frustum(const render_camera *camera, const real_rectangle2d *frustum_bounds, render_frustum *frustum, uint8_t build_projection);
@@ -36,8 +36,13 @@ void render_frame_pregame(const struct render_window *window, bitmap_data *scree
 {
     ++render.frame_index;
 
-    char frame_begin_parameters[16];
-    rasterizer_frame_begin((const rasterizer_frame_begin_parameters *)frame_begin_parameters);
+    /* DEVIATION: this was `char frame_begin_parameters[16]` punned to a
+     * `rasterizer_frame_begin_parameters *`, which is 0x20 bytes (DB / PDB) -- the callee was handed
+     * half an object. The buffer existed only because the TU forward-declared the type instead of
+     * including it, so no object could be declared. Left uninitialised, as the binary leaves it:
+     * `addi r3, r1, var_280` @0x83707638 passes the raw stack slot with no stores before the call. */
+    rasterizer_frame_begin_parameters frame_begin_parameters;
+    rasterizer_frame_begin(&frame_begin_parameters);
     if ( rasterizer_windows_begin() )
     {
         rasterizer_window_begin_parameters window_parameters;

@@ -25,7 +25,7 @@ typedef struct msgSUBSCRIBER {
 } msgSUBSCRIBER;
 
 typedef struct msgSUBSCRIBER_vtbl {
-    void (*dtr_msgSUBSCRIBER)(msgSUBSCRIBER *self); // 0x00
+    void (*dtr_msgSUBSCRIBER)(msgSUBSCRIBER *self, int deleteFlag); // 0x00 — deleting dtor: vftable+0x00 holds ??_EmsgSUBSCRIBER@@UAAPAXI@Z
 } msgSUBSCRIBER_vtbl;
 
 // ?_msgSubscr — the singleton subscription registry the message system dispatches through.

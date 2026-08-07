@@ -5,6 +5,7 @@
  * any failure, deletes the enumerated slot and returns -1; otherwise returns its index. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_variant.h"
 #include "headers/game_variant_flags.h"
 #include "headers/file_reference.h"
@@ -20,8 +21,7 @@ extern void saved_game_file_generate_checksum(const void *buffer, uint16_t buffe
 extern uint8_t file_set_position(const file_reference *file, unsigned int position);
 extern uint8_t file_write(const file_reference *file, unsigned int count, const void *buffer);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
-extern void *memset(void *destination, int value, unsigned int size);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
+/* memcpy declared by <string.h> */
 
 int playlist_profile_new(int16_t local_player_index, uint16_t *name)
 {

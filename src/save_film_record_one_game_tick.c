@@ -8,6 +8,7 @@
  * on this big-endian target that is a plain memcmp over 32*player_count bytes, written as such here. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/saved_film.h"
 #include "headers/saved_film_mode.h"
 #include "headers/saved_film_game_tick.h"
@@ -20,8 +21,7 @@
 extern uint32_t game_state_calculate_crc(void);
 extern uint8_t data_packet_group_encode_packet(data_packet_group_definition *group_definition, void *decoded_packet, unsigned char *encoded_packet, int16_t *encoded_packet_size, int16_t packet_type, int16_t packet_version);
 extern uint8_t saved_film_write(void *buffer, int16_t size);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern int  memcmp(const void *a, const void *b, unsigned int size);
+/* memcmp declared by <string.h> */
 
 uint8_t save_film_record_one_game_tick(unsigned int update_number, unsigned int random_seed, int16_t player_count, player_action *action_updates)
 {

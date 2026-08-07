@@ -7,15 +7,15 @@
  * *ai_index_reference. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/encounter_definition.h"
 #include "headers/ai_index_scope.h"
 
 typedef struct encounter_definition encounter_definition;
 
-extern int stricmp(const char *a, const char *b);
-extern char *strrchr(const char *s, int c);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
+/* strrchr declared by <string.h> */
+/* strncpy declared by <string.h> */
 extern int scenario_get_encounter_by_name(scenario *scenario, const char *encounter_name);
 extern int encounter_definition_get_squad_by_name(encounter_definition *encounter, const char *squad_name);
 extern int encounter_definition_get_platoon_by_name(encounter_definition *encounter, const char *platoon_name);

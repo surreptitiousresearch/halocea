@@ -4,12 +4,12 @@
  * elapsed tick. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/update_client_globals.h"
 #include "headers/player_action_collection.h"
 #include "headers/game_update.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 extern void update_server_handle_client_update(int machine_index, player_action_collection *action_collection, int ticks_to_apply_update_to, int client_update_id);
 extern void update_server_next_update(void);
 extern void update_server_build_server_update(int machine_index, game_update *update, int *update_number);

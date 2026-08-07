@@ -8,6 +8,7 @@
  * single-parameter function. The swarm-unit control setup mirrors actor_freeze_unit's body. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/swarm_datum.h"
@@ -16,7 +17,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/unit_desired_animation_state.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
 extern void actor_freeze_unit(int actor_index);
 extern void unit_get_facing_vector(int unit_index, real_vector3d *facing_vector);
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);

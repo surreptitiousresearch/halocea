@@ -3,11 +3,11 @@
    Same field setup as data_new but without allocating. */
 
 #include <stdint.h>
+#include <string.h>
 
 #include "headers/data_array.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
-extern char *strncpy(char *dst, const char *src, unsigned int count);
+/* strncpy declared by <string.h> */
 
 void data_initialize(data_array *data, const char *name, int16_t maximum_count, int16_t size)
 {

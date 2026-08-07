@@ -4,10 +4,10 @@
  * the in-place counterpart prepare_buffer_to_send@0x83810638. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/message_header_flags.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memcpy(void *dest, const void *src, unsigned int size);
 
 uint16_t * create_message(uint8_t type, void *data, uint16_t data_size, uint16_t *buffer, uint16_t buffer_size)
 {

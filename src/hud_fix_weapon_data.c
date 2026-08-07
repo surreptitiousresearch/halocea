@@ -7,9 +7,9 @@
  * of weapon_hud_state[old] into weapon_hud_state[new], i.e. hud_state[new] = hud_state[old]. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/weapon_hud_globals_definition.h"
 
-extern void *memcpy(void *dest, const void *src, unsigned int count);
 
 void hud_fix_weapon_data(int16_t old_local_player_index, int16_t new_local_player_index)
 {

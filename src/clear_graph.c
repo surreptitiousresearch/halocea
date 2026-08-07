@@ -5,10 +5,10 @@
  * vertex coordinate conversions; recovered from disassembly. the per-vertex conversions were recovered from disassembly and now use the
  * DB dynamic_screen_vertex struct. */
 
+#include <string.h>
 #include "headers/net_graph.h"
 #include "headers/dynamic_screen_vertex.h"
 
-extern void *memset(void *dst, int value, unsigned int count);
 
 void clear_graph(net_graph *graph)
 {

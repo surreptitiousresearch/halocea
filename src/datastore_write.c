@@ -8,12 +8,12 @@
  * The record-key match is an inlined strcmp (reproduced faithfully). 102000 == 200 * 510 == 0x18E70. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/datastore_entry.h"
 #include "headers/file_reference.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
-extern void *memcpy(void *dest, const void *src, unsigned int count);
-extern char *strcpy(char *dest, const char *src);
+/* memcpy declared by <string.h> */
+/* strcpy declared by <string.h> */
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
 

@@ -2,10 +2,10 @@
  * and the pool header, then restore the persistent fields (name, base address, block count, pool size) and
  * point the first block slot back at the block table base. */
 
+#include <string.h>
 #include "headers/stack_memory_pool.h"
 #include "headers/memory_block.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 
 void stack_memory_pool_reset(stack_memory_pool *pool)
 {

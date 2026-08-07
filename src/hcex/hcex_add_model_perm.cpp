@@ -6,13 +6,15 @@
 #include "../headers/hcex/hcex_ds_boundary.h"
 #include "../headers/hcex/HCEX_MODEL.h"
 
-void hcex_add_model_perm(char *mdl, int idx, const char *perm_name)
+/* DEVIATION: `mdl` was `char *`. The binary's mangled symbol is
+ * `?hcex_add_model_perm@@YAXPAXHPBD@Z` — PAX = `void *`, not `char *`. */
+void hcex_add_model_perm(void *mdl, int idx, const char *perm_name)
 {
     dsTSTRING_flat name; name.pBuffer = nullptr;
     dsTSTRING_UnsafeInit(&name, perm_name, -1, 0);
 
     /* typed (was raw mdl+52 vector-header walk with a stride-48 region cursor) */
-    HCEX_MODEL *model = (HCEX_MODEL *)mdl; /* DB prototype keeps char*; see file header */
+    HCEX_MODEL *model = (HCEX_MODEL *)mdl;
     HCEX_MODEL_REGION *region = &model->regions.pData[idx];
     dsVECTOR_TSTRING_PushBack(&region->objNames, &name);
 

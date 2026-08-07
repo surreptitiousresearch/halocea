@@ -6,6 +6,7 @@
  * failure in the grow path. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/stack_memory_pool.h"
 #include "headers/blam_data_globals.h"
 
@@ -13,8 +14,7 @@
 extern unsigned int ustrlen(const wchar_t *string);
 extern wchar_t *ustrstr(const wchar_t *haystack, const wchar_t *needle);
 extern void *pool_resize_pointer(stack_memory_pool *pool, void *p, unsigned int new_size);
-extern void *memmove(void *dest, const void *src, unsigned int size);
-extern void *memcpy(void *dest, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 
 int search_and_replace(const wchar_t *search, const wchar_t *replace, uint16_t **in_buffer)
 {

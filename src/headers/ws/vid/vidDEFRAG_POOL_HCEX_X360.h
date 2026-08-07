@@ -12,7 +12,7 @@ struct vidDEFRAG_POOL_HCEX_X360; // fwd
 // vtable — DB-verified (types_members vidDEFRAG_POOL_HCEX_X360_vtbl). Same shape as
 // apDEFRAG_POOL_vtbl, overridden for this leaf class.
 typedef struct vidDEFRAG_POOL_HCEX_X360_vtbl {
-    void          (*dtr_vidDEFRAG_POOL_HCEX_X360)(vidDEFRAG_POOL_HCEX_X360 *self);
+    void          (*dtr_vidDEFRAG_POOL_HCEX_X360)(vidDEFRAG_POOL_HCEX_X360 *self, int deleteFlag); // deleting dtor: vftable+0x00 holds ??_EvidDEFRAG_POOL_HCEX_X360@@UAAPAXI@Z
     void         *(*AllocBuf)(vidDEFRAG_POOL_HCEX_X360 *self, int size, int *outIdx);
     bool          (*FreeBuf)(vidDEFRAG_POOL_HCEX_X360 *self, apDEFRAG_BUF *buf);
     const char   *(*Id)(vidDEFRAG_POOL_HCEX_X360 *self);

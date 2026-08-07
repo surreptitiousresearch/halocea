@@ -8,6 +8,7 @@
  * 0x836E3F38-0x836E3F3C (mr r30,r9 / mr r29,r10). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/effect_datum.h"
 #include "headers/effect_vector_field.h"
 #include "headers/data_array.h"
@@ -17,7 +18,6 @@
 #include "headers/object_marker.h"
 #include "headers/object_marker.h"
 #include "headers/data_array.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 /* passed as the get_markers_by_name callback to effect_build_locations — they are functions,
    not char* data (prior recon mis-declared them; the __fastcall typedef was masking it) */

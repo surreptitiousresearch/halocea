@@ -37,7 +37,7 @@ void contrail_update_points(uint16_t contrail_index, float dt)
     contrail_definition *definition =
         TAG_GET(contrail_definition, contrail->definition_index);
     int list;
-    int16_t *collision_material_type;   /* decompiler reads this output pointer uninitialized */
+    /* DEVIATION @0x8373F9B4: arg 9 collision_material_type is `li r23,0`@0x8373F780 -> null, not uninit. */
     /* recovered: was `_BYTE visited[144]` written only through 4-byte casts — a 36-entry
      * int array, not a byte buffer (144 = 36*4). The byte spelling hid the stride from
      * every offset detector. */
@@ -134,7 +134,7 @@ void contrail_update_points(uint16_t contrail_index, float dt)
                         &point->velocity,
                         NULL,
                         NULL,
-                        collision_material_type,
+                        0,
                         (record->width * 0.5f),
                         dt);
             }

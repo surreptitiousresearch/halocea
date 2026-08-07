@@ -3,10 +3,10 @@
    rasterizer, and marks the cache initialized. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hardware_character_cache.h"
 #include "headers/bitmap_format.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern bitmap_data *bitmap_2d_new(int16_t width, int16_t height, int16_t mipmap_count, int16_t format);
 extern uint8_t rasterizer_bitmap_new(bitmap_data *bitmap);
 extern void rasterizer_bitmap_changed(bitmap_data *bitmap);

@@ -9,6 +9,7 @@
  * platoons at def dword 36, 172-byte platoon stride). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/encounter_definition.h"
 #include "headers/platoon_flags.h"
 #include "headers/encounter_flags.h"
@@ -21,7 +22,6 @@
 #include "headers/platoon_datum.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void data_make_valid(data_array *data);

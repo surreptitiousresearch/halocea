@@ -13,11 +13,11 @@
  * sub-structs; restored to a for loop over the named parameter_flags/parameter_timers arrays. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/observer_globals.h"
 #include "headers/observer_command_flags.h"
 #include "headers/observer_command.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 void observer_update_command(int16_t local_player_index)
 {

@@ -17,8 +17,8 @@
 extern rectangle2d *offset_rectangle2d(rectangle2d *rectangle, int16_t dx, int16_t dy);
 extern void draw_string_set_format(int16_t style, int16_t justification, unsigned int flags);
 extern void rasterizer_draw_unicode_string(const rectangle2d *bounds, const rectangle2d *clip, point2d *cursor_reference, int16_t height_adjust, const wchar_t *string);
-
-void drawline(const wchar_t *text, int16_t line, int16_t justification)
+/* DEVIATION: `line` is an int, not an int16_t — r4 is never sign-extended (`mr r31, r4` @0x83746560, then `slwi`/`add` @0x837465A0 for line*18). */
+void drawline(const wchar_t *text, int line, int16_t justification)
 {
     rectangle2d bounds;
     bounds.n[2] = render.camera.window_bounds.n[2]; /* y1 */

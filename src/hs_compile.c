@@ -3,6 +3,7 @@
  * the first parse failure it records the error message/offset and stops. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/hs_syntax_node.h"
 #include "headers/hs_syntax_node_flags.h"
 #include "headers/hs_compile_globals.h"
@@ -12,7 +13,6 @@
 #include "headers/blam_data_globals.h"
 
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 extern void skip_whitespace(char **c);
 extern int hs_tokenize(hs_tokenizer *state);
 extern uint8_t hs_parse_primitive(int expression_index);

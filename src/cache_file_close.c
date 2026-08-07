@@ -4,12 +4,12 @@
  * Deviation: the decompiler returns the memset result (void* `result`, uninitialized when no map is open);
  * the engine function is void. */
 /* removed <windows.h>: canonical blam_data_globals.h provides self-contained Win32 type shims (tagRECT/HWND__/_OVERLAPPED/_FILETIME); system windows.h collided. Win32 fn protos resolve via project headers/implicit-decl. */
+#include <string.h>
 #include "headers/cache_file_globals.h"
 #include "headers/blam_data_globals.h"
 
 extern int CloseHandle(void *handle);
 extern void Sleep(unsigned int milliseconds);
-extern void *memset(void *dst, int c, unsigned int n);
 void cache_file_close(void)
 {
     if ( cache_file_globals_0.open_map_file_index != -1 )

@@ -3,9 +3,9 @@
  * against the player machine index; otherwise it is treated as a (wide-converted) name and matched
  * against each valid player's name.
  *
- * The network_player table is addressed absolutely (0x142..0x542, 32-byte stride) — these are the
- * players[] field of the network_game_data global based at address 0; reproduced verbatim per the
- * convention established in sv_players.c. */
+ * 0x142..0x542 stride 32 IS network_game_data.players[32] (DB types_members) over a NULL base the compiler
+ * folded in: both loop inits (3BE00142 @0x8376642C, 3BE0015E @0x8376649C) and the return `addi r3, r11,
+ * 0x142` @0x83766478 carry no base register. Mechanism: see network_game_server_get_game.c. */
 
 #include <stdint.h>
 #include "headers/network_player.h"

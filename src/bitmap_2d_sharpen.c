@@ -16,11 +16,11 @@
  *  - The horizontal wrap indices keep the shipped (__int16) truncation of (row_stride +/- x). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
 extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t mipmap_index);
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);

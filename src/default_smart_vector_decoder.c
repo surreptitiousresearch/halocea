@@ -13,6 +13,7 @@
  * real operation is a plain float copy, not a numeric conversion — reproduced as a direct field access. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/field_properties_definition.h"
 #include "headers/field_type_smart_vector_parameters.h"
 #include "headers/bitstream_t.h"
@@ -21,7 +22,6 @@
 #include "headers/message_delta_encoding_class.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 extern int bitstream_read_bits(bitstream_t *const bit_stream, void *value, int bit_count);
 extern unsigned int bitstream_read_bit(bitstream_t *const bit_stream, uint8_t *const value);
 extern void convert_to_real_vector(const quantized_smart_vector *const in, real_vector3d *const out, const _field_type_smart_vector_parameters *const parameters);

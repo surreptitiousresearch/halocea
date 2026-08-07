@@ -11,12 +11,12 @@
  *   - All int<->float conversions are fcfid/fctiwz round-trips; restored as plain casts. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/fg_graph.h"
 #include "headers/rasterizer_globals.h"
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 void fg_init(void)
 {

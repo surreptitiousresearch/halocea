@@ -21,6 +21,7 @@
  * becomes {-1, 0}; reproduced with explicit 64-bit stores. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/players_globals.h"
 #include "headers/unit_control_data.h"
 #include "headers/player_action.h"
@@ -54,7 +55,6 @@ extern void unit_delete_current_equipment(int unit_index);
 extern void player_aiming_vector_from_facing(int player_index, real_vector3d *aiming_vector, const real_euler_angles2d *desired_facing);
 extern void unit_control(int unit_index, const unit_control_data *control_data, int completed_client_update_id);
 extern void players_compute_combined_pvs(unsigned int *combined_pvs, uint8_t local_only);
-extern void *memset(void *dest, int value, unsigned int count);
 
 /* object data pointer for an object handle */
 static unit_datum *object_data_ptr(int object_handle)

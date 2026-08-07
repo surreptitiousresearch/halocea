@@ -12,6 +12,7 @@
  * and are narrowed to float on store. (int)camera_impulse_time_left -> float is an fcfid artifact. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/real_vector2d.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_euler_angles2d.h"
@@ -21,7 +22,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
 extern double cos(double x);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern double sin(double x);
 
 

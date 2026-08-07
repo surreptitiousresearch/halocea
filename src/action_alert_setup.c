@@ -3,11 +3,11 @@
  * `move_position_order` is overridden to 0 rather than honored. Always returns 1. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/alert_state_data.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 uint8_t action_alert_setup(uint16_t actor_index, int16_t move_position_order, int16_t initial_move_position_index, alert_state_data *state_data)

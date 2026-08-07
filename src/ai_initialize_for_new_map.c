@@ -2,8 +2,8 @@
  * the active/control/grenade/dialogue flags and per-player chatter timers, then init the path, actor, prop,
  * encounter, script, and communication subsystems and clear the spatial-effects ring. */
 
+#include <string.h>
 #include "headers/ai_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern void paths_initialize_for_new_map(void);
 extern void actors_initialize_for_new_map(void);

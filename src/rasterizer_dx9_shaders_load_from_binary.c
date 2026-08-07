@@ -9,13 +9,13 @@
    matching the binary (length-prefixed records consumed in place). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_dx9_shader_table.h"
 #include "headers/chicago_shaders.h"
 #include "headers/win32_boundary.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
-extern void *memset(void *dst, int value, unsigned int size);
 extern uint8_t rasterizer_dx9_shaders_create_effect_from_binary(unsigned int shaderIndex, uint8_t *buffer, unsigned int bufferSize);
 extern uint8_t rasterizer_dx9_shaders_init_effect(int index);
 extern void rasterizer_dx9_shaders_unload_effects(void);

@@ -6,15 +6,15 @@
  * step failed (element/tag_data allocation), else 1. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/hs_source_file.h"
 #include "headers/tag_data.h"
 #include "headers/tag_block.h"
 extern int16_t tag_block_add_element(tag_block *block);
 
-extern int stricmp(const char *a, const char *b);
-extern char *strcpy(char *destination, const char *source);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
+/* strcpy declared by <string.h> */
+/* memcpy declared by <string.h> */
 
 int hs_scenario_merge(scenario *master, const scenario *slave)
 {

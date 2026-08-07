@@ -2,9 +2,9 @@
  * write_position and advancing it (with wraparound). Returns 0 (full) when the queue already holds
  * max_size-1 elements, else 1. */
 
+#include <string.h>
 #include "headers/simple_circular_queue.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 int simple_circular_queue_write(simple_circular_queue *queue, void *user_data)
 {

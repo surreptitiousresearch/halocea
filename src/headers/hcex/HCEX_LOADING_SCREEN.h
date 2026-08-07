@@ -16,7 +16,7 @@ struct m3dRECT;        // boundary — m3d subsystem
 struct HCEX_LOADING_SCREEN;
 
 typedef struct HCEX_LOADING_SCREEN_vtbl {
-    void (*dtr_HCEX_LOADING_SCREEN)(HCEX_LOADING_SCREEN *self);                                // 0x00
+    void (*dtr_HCEX_LOADING_SCREEN)(HCEX_LOADING_SCREEN *self, int freeMemory);                                // 0x00 — deleting dtor: vftable+0x00 holds ??_GHCEX_LOADING_SCREEN@@UAAPAXI@Z
     void (*ParsePS)(HCEX_LOADING_SCREEN *self, psSECTION *section);                             // 0x04
     void (*Init)(HCEX_LOADING_SCREEN *self);                                                    // 0x08
     void (*Term)(HCEX_LOADING_SCREEN *self);                                                    // 0x0C

@@ -5,10 +5,10 @@
    segment, giving exactly 1024 slots). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_occlusion_globals.h"
 #include "headers/rasterizer_engine_globals.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 
 uint8_t rasterizer_occulsion_test_initialize(void) /* re-attested: extrwi bool + both callers clrlwi24 */
 {

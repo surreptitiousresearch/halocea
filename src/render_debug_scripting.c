@@ -9,6 +9,7 @@
  * sentinel @+24). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/hs_runtime_globals.h"
 #include "headers/hs_thread.h"
@@ -22,8 +23,7 @@ extern int game_time_get(void);
 extern const char * hs_thread_format(uint16_t thread_index);
 extern const char * expression_get_function_name(uint16_t thread_index, int expression_index);
 extern int sprintf_0(char *string, const char *format, ...);
-extern char *strcat(char *dst, const char *src);
-extern unsigned int strlen(const char *string);
+/* strlen declared by <string.h> */
 extern void draw_string_set_tab_stops(const int16_t *tab_stops, int16_t count);
 
 void render_debug_scripting(void)

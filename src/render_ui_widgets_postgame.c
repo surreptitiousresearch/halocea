@@ -11,13 +11,13 @@
  * The clip rect's fused dword store decodes to {y0=0, x0=0, y1=height, x1=width}. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/widget_globals.h"
 #include "headers/rectangle2d.h"
 #include "headers/point2d.h"
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *dst, int value, unsigned int count);
 extern uint8_t virtual_keyboard_active(void);
 extern int16_t local_player_count(void);
 extern void widget_instance_render_recursive(widget_instance *widget, rectangle2d *clip_rect, point2d offset, uint8_t focus, uint8_t use_nifty_plasma_fx);

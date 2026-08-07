@@ -4,6 +4,7 @@
  * copy of the raw control data. The completed-client-update id is recorded (or marked absent). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/unit_control_data.h"
@@ -12,7 +13,6 @@
 #include "headers/unit_control_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern int16_t game_connection(void);
 
 void unit_control(int unit_index, const unit_control_data *control_data, int completed_client_update_id)

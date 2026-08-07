@@ -14,7 +14,7 @@
 
 // DB-verified (types_members dscDESC_FAMILY_vtbl), size 24 (6 slots).
 typedef struct dscDESC_FAMILY_vtbl {
-    void            (*dtr_dscDESC_FAMILY)(dscDESC_FAMILY *self);                       // 0x00
+    void            (*dtr_dscDESC_FAMILY)(dscDESC_FAMILY *self, int deleteFlag);                       // 0x00 — deleting dtor: vftable+0x00 holds ??_EdscDESC_FAMILY@@UAAPAXI@Z
     void            (*PostRegisterBrands)(dscDESC_FAMILY *self);                        // 0x04
     dsTSTRING<char> *(*GetExtension)(dscDESC_FAMILY *self, dsTSTRING<char> *result);     // 0x08
     void            (*Init)(dscDESC_FAMILY *self);                                      // 0x0C

@@ -7,10 +7,10 @@
  * same short-circuit. The trailing `return 1` is unconditional (decompiler), reproduced verbatim. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
 #include "headers/file_reference.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern uint8_t saved_game_file_open(file_reference *saved_game_file, int index);
 extern void saved_game_file_generate_checksum(const void *buffer, uint16_t buffer_size, uint8_t *checksum);
 extern uint8_t file_set_position(const file_reference *file, unsigned int position);

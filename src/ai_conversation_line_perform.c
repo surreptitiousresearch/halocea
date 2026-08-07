@@ -12,6 +12,7 @@
  * `state - 6 - (state - 7 + (state == 6))`, which reduces to `(state != 6)`; written directly. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/conversation_datum.h"
 #include "headers/unit_datum.h"
 #include "headers/ai_conversation.h"
@@ -28,7 +29,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *destination, int value, unsigned int count);
 extern uint8_t sound_scripted_dialog_is_playing(void);
 extern void scripted_sound_new(int definition_index, int source_object_index, float scale);
 extern int scripted_sound_time(int definition_index);

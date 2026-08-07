@@ -18,6 +18,7 @@
  * the now-resolved headers/player_update_server_data.h baseline fields. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_datum.h"
 #include "headers/data_array.h"
 #include "headers/field_properties_definition.h"
@@ -39,7 +40,6 @@ extern int field_translated_index_translate_index(const _field_properties_defini
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern network_game_server *global_network_game_server_get(void);
 extern uint8_t network_game_server_send_message_to_machine(struct network_game_server *server, int machine_index, int type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 void player_update_server_remote_player_update_baseline_to_new_player(int existing_player_index, int machine_index)
 {

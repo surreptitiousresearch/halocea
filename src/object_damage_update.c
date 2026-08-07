@@ -13,6 +13,7 @@
  * "destroyed-region mask" description was wrong). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/game_globals_tag.h"
@@ -42,7 +43,6 @@ extern int effect_new_from_object(int definition_index, int owner_object_index, 
 extern void object_permutation_shield_regions(int object_index, uint8_t active);
 extern void hud_tick_shield(int player_index, float amount);
 extern uint8_t game_engine_running(void);
-extern void  *memset(void *dst, int value, unsigned int count);
 
 void object_damage_update(int object_index)
 {

@@ -1,7 +1,7 @@
 /* main_queue_map_name @0x83689330 — set (or clear) the map name queued for the next load. */
 
+#include <string.h>
 #include "headers/main_globals.h"
-extern char *strncpy(char *dst, const char *src, unsigned int n);
 
 void main_queue_map_name(const char *new_name)
 {

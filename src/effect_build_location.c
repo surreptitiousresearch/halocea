@@ -5,12 +5,12 @@
  * location pool is full. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/effect_datum.h"
 #include "headers/effect_location_datum.h"
 #include "headers/object_marker.h"
 #include "headers/blam_data_globals.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 extern int datum_new(data_array *data);
 

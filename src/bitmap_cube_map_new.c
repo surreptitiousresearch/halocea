@@ -4,13 +4,13 @@
  * for width*height pixels at the format's bits-per-pixel. Returns NULL if the initial allocation fails. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 #include "headers/bitmap_type.h"
 #include "headers/bitmap_format.h"
 #include "headers/bitmap_flags.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *destination, int value, unsigned int size);
 extern int bitmap_get_pixel_count(const bitmap_data *bitmap);
 extern const int8_t bitmap_format_bits_per_pixel_table[];  /* lbzx+extsb stride-1 byte table (all 15 binary access sites) */
 

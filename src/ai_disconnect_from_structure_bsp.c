@@ -25,6 +25,7 @@
 #include "headers/prop_iterator.h"
 #include "headers/ai_globals.h"
 #include "headers/prop_perception_state.h"
+#include "headers/actor_default_state.h"
 #include "headers/actor_target_type.h"
 #include "headers/game_team.h"
 #include "headers/blam_data_globals.h"
@@ -132,15 +133,15 @@ void ai_disconnect_from_structure_bsp(void)
                                     {
                                         int unit_handle = detached_units[m];
                                         actor_swarm_detach_from_unit(it.index, unit_handle);
-                                        /* initial_state/default_state/command_list/sequence are read
-                                         * uninitialized — faithful to shipped code */
-                                        int16_t initial_state, default_state, initial_command_list_index;
-                                        char noncombat_sequence_id;
+                                        /* DEVIATION: all four stack-passed args ARE written @0x836EA0A4-0x836EA0B0
+                                         * (sth r22=2 @+0x56, sth r25=0 @+0x5E, sth r21=-1 @+0x66, stb r25=0 @+0x6F),
+                                         * matching the arg_56/5E/66/6F reads in the callee prologue @0x8372151C-48;
+                                         * the decompiler dropped the four stores and read them uninitialized. */
                                         if ( actor_create_for_unit(1u, unit_handle,
                                                 actor->meta.variant_definition_index, actor->meta.encounter_index,
                                                 actor->meta.squad_index, 0, it.index, 0,
-                                                initial_state, default_state, initial_command_list_index,
-                                                noncombat_sequence_id) == -1 )
+                                                actor_default_state_alert, actor_default_state_none, -1,
+                                                0) == -1 )
                                             object_delete(unit_handle);
                                     }
                                 }

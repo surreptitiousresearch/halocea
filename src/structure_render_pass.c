@@ -16,11 +16,15 @@ extern uint8_t breakable_surface_extant(int16_t breakable_surface_index);
 extern uint8_t shader_type_is_transparent(int16_t shader_type);
 extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int16_t bitmap_index);
 
-/* DEVIATION: the DB's stored callback type for draw_transparent_triangles is the 11-arg impl
- * signature (matches rasterizer_environment_transparent_geometry_submit's own prototype), but the
- * call site below explicitly casts the pointer to an 8-arg signature and supplies only 8 values —
- * plane/offset/render_lighting/geometry_flags are left as whatever garbage sits in this function's
- * stack frame at those offsets. Typed here to match what is actually invoked. */
+/* CAVEAT (2026-08-07): the draw_transparent_triangles call below supplies 8 of the binary's 12
+ * arguments. The previous note here claimed the trailing four "are left as whatever garbage sits in
+ * this function's stack frame"; the disassembly refutes that. At 0x837C679C-0x837C67BC, four values
+ * are computed and stored to r1+0x54/0x5C/0x64/0x6C right before the `bctrl` at 0x837C67D0, on top of
+ * the eight register args. Against types_members structure_material: arg9 `const real_plane3d *` =
+ * (material->flags & 1) ? &material->plane : r20, arg10 `const real_vector3d *` =
+ * (material->flags & 2) ? r15+0xC : *(<var_A0> + 0x6F54), arg11 `const render_lighting *` =
+ * &material->lighting, arg12 `unsigned int` = r20. r15/r20/var_A0 are not yet derived, so the four
+ * are NOT passed rather than being guessed — see src/headers/structure_render_pass.h. */
 void structure_render_pass(
         int    *surface_indices,
         int16_t surface_count,

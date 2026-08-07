@@ -4,10 +4,10 @@
  * The 0x66696C6F magic and location word (-1) are the file_reference location header written verbatim. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 
 #include "headers/file_last_modification_date.h"
-extern void *memset(void *dst, int value, unsigned int count);
 extern void file_path_add_name(char *path, const char *name);
 extern uint8_t file_exists(const file_reference *file);
 extern void find_files_start(unsigned int flags, const file_reference *directory);

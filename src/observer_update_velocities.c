@@ -7,11 +7,11 @@
  * Velocity array is strided by observer_parameter_derivative_real_counts (group sizes summing to 11). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/observer_globals.h"
 #include "headers/observer_command_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dst, int c, unsigned int n);
 
 void observer_update_velocities(int16_t local_player_index)
 {

@@ -1,7 +1,7 @@
 /* event_manager_dispose @ 0x837263D8 — zero the event-manager globals */
 
+#include <string.h>
 #include "headers/event_manager_globals.h"
-extern void *memset(void *, int, unsigned int);
 
 void event_manager_dispose(void)
 {

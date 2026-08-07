@@ -11,6 +11,7 @@
  * looping sound tag @44 (dword[11]). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/structure_bsp.h"
 #include "headers/structure_cluster.h"
 #include "headers/structure_fog_region.h"
@@ -25,7 +26,6 @@
 #include "headers/global_tag_instances.h"
 #include "headers/location.h"
 #include "headers/real_point3d.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 extern int local_player_get_player_index(int16_t local_player_index);
 extern const observer_result *observer_get_camera(int16_t local_player_index);

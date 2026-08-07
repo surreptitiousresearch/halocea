@@ -1,6 +1,6 @@
+#include <string.h>
 #include "headers/input_abstraction_globals.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 
 void input_mode_handle_keyboard(void)
 {

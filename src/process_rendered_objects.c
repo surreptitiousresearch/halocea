@@ -14,6 +14,7 @@
  * is performed in double precision (the float dot-product result vs a float promoted to double), per the disasm. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/object_render_data.h"
 #include "headers/render_object_globals.h"
 #include "headers/render_globals.h"
@@ -40,7 +41,6 @@ extern void render_object_list(object_render_data *data, render_model_effect *pa
 extern void render_object_shadow_end(object_render_data *data);
 extern uint8_t widgets_need_lighting(int widget_index);
 extern uint8_t editor_preprocess_rendered_object(int object_index, render_lighting *lighting);
-extern void *memset(void *dst, int value, unsigned int count);
 
 void process_rendered_objects(object_render_data *data)
 {

@@ -12,6 +12,7 @@
  * at all. Renamed here to match actual behavior, confirmed via this function's own decompiled body. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/statistic_buffer.h"
 #include "headers/postgame_statistic.h"
 #include "headers/data_array.h"
@@ -24,8 +25,7 @@
 /* postgame_statistic is an enum tag (not a typedef) — must write `enum` in C. */
 extern int populate_statistic_buffer(statistic_buffer *statistic_buffer, enum postgame_statistic statistic, uint8_t inverse);
 extern void terminal_printf(const real_argb_color *color, const char *format, ...);
-extern void *memmove(void *dest, const void *src, unsigned int count);
-extern void *memcpy(void *dest, const void *src, unsigned int count);
+/* memcpy declared by <string.h> */
 
 int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic,
         int requested_count, int unused_max_capacity)

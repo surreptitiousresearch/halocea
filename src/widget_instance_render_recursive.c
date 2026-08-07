@@ -14,6 +14,7 @@
  * 64-bit temporary holding the rectangle copy). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/widget_globals.h"
 #include "headers/ui_widget_definition.h"
 #include "headers/game_data_input_reference.h"
@@ -26,7 +27,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *dest, int value, unsigned int count);
 extern double cos(double x);
 extern void ui_widget_game_data_function_invoke(widget_instance *widget, uint16_t function);
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);

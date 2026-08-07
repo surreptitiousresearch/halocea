@@ -5,6 +5,7 @@
  * Returns 1 on success; on any read/decode failure the film file is closed and 0 returned. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/network_game_data.h"
 #include "headers/network_player.h"
 #include "headers/saved_film.h"
@@ -17,7 +18,6 @@
 #include "headers/data_packet_group_definition.h"
 extern data_packet_definition saved_film_header_packet;
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern void network_game_invalidate(network_game_data *game);
 extern uint8_t saved_film_read(void *buffer, int16_t *size);
 extern uint8_t data_packet_group_decode_packet(data_packet_group_definition *group_definition, void *decoded_packet, char *encoded_packet, int16_t *encoded_packet_size, int16_t *packet_type, int16_t *packet_version, int16_t expected_packet_class);

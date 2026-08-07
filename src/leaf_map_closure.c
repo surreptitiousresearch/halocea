@@ -5,12 +5,12 @@
  * bitsets (one bit per leaf index); marked_leaves may alias result, in which case no initial copy is
  * needed. Always returns 1. */
 
+#include <string.h>
 #include "headers/leaf_map.h"
 #include "headers/map_leaf.h"
 #include "headers/leaf_portal.h"
 #include "headers/bit_vector.h"
 
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern void leaf_map_family_mark(const leaf_map *leaf_map, unsigned int *marked_leaves, int leaf_index);
 
 int leaf_map_closure(const leaf_map *leaf_map, unsigned int *marked_leaves, unsigned int *result)

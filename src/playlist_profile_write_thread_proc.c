@@ -6,9 +6,9 @@
  * string, and deletes the enumerated file on any failure. Always returns 0. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern uint8_t saved_game_files_take_mutex(void);
 extern void saved_game_files_release_mutex(void);
 extern uint8_t saved_game_file_open(file_reference *saved_game_file, int index);

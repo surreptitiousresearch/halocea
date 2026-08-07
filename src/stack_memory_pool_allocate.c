@@ -4,9 +4,9 @@
  * searches the inter-block gaps. On success a memory_block is reserved in the block table and
  * linked into the address-ordered block list. Returns null if it can't fit. */
 
+#include <string.h>
 #include "headers/stack_memory_pool.h"
 
-extern void *memmove(void *dst, const void *src, unsigned int n);
 
 memory_block *stack_memory_pool_allocate(stack_memory_pool *pool, int size)
 {

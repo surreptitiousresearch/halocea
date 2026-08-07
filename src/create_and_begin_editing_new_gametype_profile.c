@@ -6,6 +6,7 @@
  * on failure, shows an error and plays the failure sound. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
 #include "headers/game_variant.h"
@@ -22,7 +23,6 @@ extern void player_ui_end_editing_profile(void);
 extern int preview_list_get_list_index_for_item(int index);
 extern void * preview_list_get_data_for_item(int index);
 extern game_variant * build_game_variant_slayer(game_variant *result);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 extern uint8_t virtual_keyboard_launch(uint16_t *text_buffer, uint16_t buffer_size, int16_t caption_index);
 extern void virtual_keyboard_set_validation(int validate_mode);

@@ -8,8 +8,9 @@
  * (spawn_header int[4] immediately followed by spawn_body __int16[48]); the encoder reads the whole payload
  * starting at spawn_header. The 32-bit translated weapon-object indices are written into spawn_body through an
  * int* cursor that overlaps the 16-bit body fields, exactly as in the original packed layout.
- * DEVIATION 2: the to-machine send passes a priority argument that the original reads from an uninitialized
- * stack slot (the decompiler's v16); reproduced as an uninitialized local so the call shape matches. */
+ * DEVIATION 2: the to-machine send's 9th argument (priority) is NOT read from an uninitialized stack slot —
+ * the binary materializes it as `li r11, 3` @0x836A94FC and stores it into the caller parameter save area at
+ * r1+0x54 (`stw r11, 0xD0+var_7C(r1)` @0x836A9508), the same priority the all-machines twin passes in r10. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -43,7 +44,6 @@ void player_spawn_to_network(int player_index, int unit_index, int team_index, i
     player_datum *player;
     int encoded_size_in_bits;
     network_game_server *server;
-    int priority_to_machine;
     int spawn_header[4];
     int16_t spawn_body[48];
 
@@ -89,6 +89,6 @@ void player_spawn_to_network(int player_index, int unit_index, int team_index, i
                 g_message_encode_buffer, encoded_size_in_bits, 1u, 0, 0, 3);
         else
             network_game_server_send_message_to_machine(server, machine_index, network_message_type_message_delta,
-                g_message_encode_buffer, encoded_size_in_bits, 1u, 0, 1u, priority_to_machine);
+                g_message_encode_buffer, encoded_size_in_bits, 1u, 0, 1u, 3);
     }
 }

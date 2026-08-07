@@ -5,6 +5,7 @@
  * after a distance-based delay). Returns the new sound instance index, or -1 if it didn't play. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/sound_definition.h"
 #include "headers/sound_datum.h"
 #include "headers/sound_pitch_range.h"
@@ -33,7 +34,6 @@ extern int datum_new(data_array *data);
 extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound, float pitch, int16_t current_range);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
 extern int    _sound_cache_sound_request(sound_permutation *sound, unsigned char block, unsigned char load, unsigned char reference);
-extern void  *memcpy(void *dst, const void *src, unsigned int n);
 
 
 extern int16_t sound_definition_promote(int definition_index);

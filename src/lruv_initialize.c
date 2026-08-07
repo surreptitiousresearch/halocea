@@ -5,13 +5,13 @@
    starts empty (first/last = -1). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/lruv_cache.h"
 #include "headers/lruv_cache_block.h"
 
 extern void data_initialize(data_array *data, const char *name, int16_t maximum_count, int16_t size);
 extern void data_make_valid(data_array *data);
-extern void *memset(void *dst, int value, unsigned int size);
-extern char *strncpy(char *dst, const char *src, unsigned int count);
+/* strncpy declared by <string.h> */
 
 /* maximum_block_count: extsh r7 @0x8371C068 pins signed 16-bit */
 void lruv_initialize(lruv_cache *cache, const char *name, int page_count,

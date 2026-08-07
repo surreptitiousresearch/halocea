@@ -1,6 +1,6 @@
+#include <string.h>
 #include "headers/input_blob.h"
 
-extern void *memset(void *dst, int value, unsigned int count);
 
 void clear_input_blob(input_blob *input)
 {

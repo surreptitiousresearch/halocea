@@ -6,9 +6,9 @@
  * (1, -2, -4, -8) are produced by callers, so the default is left as an unreachable size of 0. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_encoding_state.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
-extern void *memset(void *dst, int value, unsigned int n);
+/* memset declared by <string.h> */
 
 int data_encode_memory(data_encoding_state *state, const void *buffer, int16_t count, int code)
 {

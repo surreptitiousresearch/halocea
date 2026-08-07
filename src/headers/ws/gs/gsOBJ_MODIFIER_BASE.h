@@ -13,7 +13,7 @@ struct gsOBJ_MODIFIER_BASE;
 
 // DB-verified (types_members gsOBJ_MODIFIER_BASE_vtbl), slots 0-6.
 typedef struct gsOBJ_MODIFIER_BASE_vtbl {
-    void (*dtr_gsOBJ_MODIFIER_BASE)(gsOBJ_MODIFIER_BASE *self);                                  // 0x00
+    void (*dtr_gsOBJ_MODIFIER_BASE)(gsOBJ_MODIFIER_BASE *self, int deleteFlag);                                  // 0x00 — deleting dtor: vftable+0x00 holds ??_GgsOBJ_MODIFIER_BASE@@UAAPAXI@Z
     void (*OnInit)(gsOBJ_MODIFIER_BASE *self, animINST *);                                       // 0x04
     void (*OnUpdate)(gsOBJ_MODIFIER_BASE *self, float);                                          // 0x08
     void (*OnTerm)(gsOBJ_MODIFIER_BASE *self);                                                    // 0x0C

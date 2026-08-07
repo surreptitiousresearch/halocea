@@ -4,12 +4,12 @@
  * the expected-update counter. Returns 1 on success, 0 if the file could not be opened. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/saved_film.h"
 #include "headers/saved_film_mode.h"
 #include "headers/blam_data_globals.h"
 
 extern void saved_film_flush_buffer(void);
-extern void *memset(void *dst, int value, unsigned int count);
 extern void ufclose(FILE *stream);
 /* fopen provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 

@@ -3,14 +3,14 @@
  * alternative directory. Returns the chosen relative directory string. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 #include "headers/xc_language.h"
 #include "headers/blam_data_globals.h"
 
 
 extern int   XTLGetLanguage(void);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
-extern char *strncat(char *dst, const char *src, unsigned int n);
+/* strncat declared by <string.h> */
 extern file_reference *file_reference_create_from_path(file_reference *reference, const char *path, uint8_t directory);
 extern uint8_t file_exists(const file_reference *file);
 

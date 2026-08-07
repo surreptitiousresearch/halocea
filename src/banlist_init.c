@@ -2,6 +2,7 @@
  * Each line is "name,id"; entries already banned are skipped. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/dynamic_array.h"
 #include "headers/banned_player_s.h"
 
@@ -10,9 +11,8 @@
 
 extern int _snprintf_0(char *, unsigned int, const char *, ...);
 extern void trim_whitespace(char **str);
-extern char *strchr(const char *, int);
 extern uint8_t _banlist_player_is_banned(const char *hash);
-extern char *strncpy(char *, const char *, unsigned int);
+/* strncpy declared by <string.h> */
 
 void banlist_init(void)
 {

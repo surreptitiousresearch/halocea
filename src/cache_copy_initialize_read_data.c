@@ -4,6 +4,7 @@
  * indices to NONE, and zero the sequence counters. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/simple_decompressor_definition.h"
 
 /* Win32 boundary */
@@ -11,7 +12,6 @@ extern void *CreateFileA(const char *file_name, unsigned int desired_access, uns
         void *security_attributes, unsigned int creation_disposition, unsigned int flags_and_attributes,
         void *template_file);
 extern unsigned int GetFileSize(void *file, unsigned int *file_size_high);
-extern void *memset(void *destination, int value, unsigned int size);
 
 void cache_copy_initialize_read_data(simple_decompressor_definition *self)
 {

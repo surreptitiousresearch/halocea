@@ -9,6 +9,7 @@
  * 12-argument signature is from the database. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/effect_datum.h"
 #include "headers/effect_marker_list.h"
 #include "headers/effect_vector_field.h"
@@ -32,7 +33,6 @@ extern void *datum_get(data_array *data, int index);
 extern int effect_allocate(int definition_index, int owner_object_index, uint8_t can_be_deterministic);
 extern uint8_t effects_object_is_corpse(int object_index);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
-extern void *memset(void *dst, int value, unsigned int size);
 extern int16_t effect_marker_list_get_markers_by_name(int object_index, const char *name, object_marker *results, int16_t maximum_count);
 extern void effect_build_locations(effect_datum *effect, int16_t (*get_markers_by_name)(int, const char *, object_marker *, int16_t));
 extern void effect_update(int effect_index, float dt);

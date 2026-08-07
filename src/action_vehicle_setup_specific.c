@@ -22,11 +22,11 @@
  * action_flee_find_flee_position's identical unset-trailing-register pattern. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/data_array.h"
 #include "headers/vehicle_state_data.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index, uint8_t scripted_request, float attempt_start_distance, float attempt_continue_distance, uint8_t already_inside, uint8_t already_attempting_entry);
 extern uint8_t unit_has_animation_to_enter_seat(int unit_index, int vehicle_index, int16_t seat_index);

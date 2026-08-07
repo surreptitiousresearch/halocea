@@ -6,25 +6,13 @@
 // DB-verified size (types_members HCEX_INIT_STAT) — 1 (empty class; all state lives in the
 // globals it touches, listed as externs at each call site).
 
-namespace snd { struct SYSTEM_CUSTOM; } // snd subsystem: custom sound backend — boundary, only its
-                                          // deleting-dtor vtable slot is modeled (needed by ~HCEX_INIT_STAT)
+// DEVIATION: this header carried a third copy of snd::SYSTEM_CUSTOM_vtbl (as `snd_SYSTEM_CUSTOM_vtbl`)
+// that declared `namespace snd { enum INIT; }`. The DB (types_members snd::INIT) says INIT is a
+// STRUCT of 8 bytes (waveOutput/enableEax/enableHW/hrtf), not an enum, and slot 0 takes it BY VALUE.
+// SYSTEM_CUSTOM.h is the sole home for snd::HRTF / snd::INIT / snd::SYSTEM_CUSTOM / SYSTEM_CUSTOM_vtbl.
+#include "../ws/snd/SYSTEM_CUSTOM.h"
 struct HALO_SOUND_SYSTEM;                // Blam-bridge sound backend implementing snd::SYSTEM_CUSTOM — boundary
 struct d3dDRIVER;                        // ws-engine rend: D3D driver instance — boundary
-
-namespace snd { enum INIT; } // snd init-mode enum — boundary
-template<class T> struct dsTSTRING;
-
-// Full DB vtable (types_members snd::SYSTEM_CUSTOM_vtbl): the deleting dtor is the LAST
-// slot (0x18), after the 6 backend entry points.
-struct snd_SYSTEM_CUSTOM_vtbl {
-    bool (*Init)(snd::SYSTEM_CUSTOM *self, snd::INIT initMode);            // 0x00
-    void (*Term)(snd::SYSTEM_CUSTOM *self);                                // 0x04
-    void (*Update)(snd::SYSTEM_CUSTOM *self);                              // 0x08
-    void (*InitLevel)(snd::SYSTEM_CUSTOM *self, const dsTSTRING<char> *levelName); // 0x0C
-    void (*TermLevel)(snd::SYSTEM_CUSTOM *self);                           // 0x10
-    void (*DbgRenderSounds)(snd::SYSTEM_CUSTOM *self);                     // 0x14
-    void (*dtr_SYSTEM_CUSTOM)(snd::SYSTEM_CUSTOM *self, int freeMemory);   // 0x18 deleting dtor
-};
 
 typedef struct HCEX_INIT_STAT {
     // 0x823E3B4C — clear the force-feedback default, install CrateHaloD3dDrv as the D3D driver

@@ -6,6 +6,7 @@
  * chained them through r3. Unchained. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 #include "headers/game_options.h"
 #include "headers/scenario.h"
@@ -14,7 +15,6 @@
 #include "headers/game_variant.h"
 extern void game_precache_new_map(const char *map_name, uint8_t blocking);
 extern void game_options_new(game_options *options);
-extern char *strncpy(char *, const char *, unsigned int);
 extern void game_dispose_from_old_map(void);
 extern void game_unload(void);
 extern void game_engine_dispose(void);

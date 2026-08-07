@@ -10,12 +10,12 @@
  * time_scale). The decompiler mis-typed the definition as a player_effect_datum, so its
  * direction/jitter/screen_flash members are the definition's priority / duration / type / intensities. */
 
+#include <string.h>
 #include "headers/player_effect_globals.h"
 #include "headers/screen_flash_definition.h"
 #include "headers/screen_flash_just_started_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 void player_effect_update_screen_flash(player_effect_datum *effect_state,
                                        const screen_flash_definition *screen_flash,

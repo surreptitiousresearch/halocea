@@ -1,9 +1,9 @@
 /* game_engine_intialize_queued_sounds @0x837B6CE0 — clear the multiplayer queued-sound ring and prime the
  * first slot (empty, 60-tick lifetime). [Name retains the binary's misspelling of "initialize".] */
 
+#include <string.h>
 #include "headers/queued_mp_sound.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern int game_engine_queued_sound_count; /* queued-sound dirty/initialized flag (no symbol in DB) */
 

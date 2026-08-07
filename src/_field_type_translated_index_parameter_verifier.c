@@ -5,11 +5,11 @@
  * to 1 per the compiled initializer). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/field_properties_definition.h"
 #include "headers/_field_type_translated_index_parameters.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *dst, int value, unsigned int n);
 extern void index_resolution_initialize(index_resolution_table *table, int number_of_slots);
 extern void index_resolution_set(index_resolution_table *table, int server_object_index, int local_object_index);
 

@@ -18,6 +18,7 @@
  * value (both attested void-consumed). Attested `void (void)`. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/update_server_globals.h"
 #include "headers/update_client_globals.h"
 #include "headers/update_server_queue_datum.h"
@@ -25,7 +26,6 @@
 
 
 extern int game_time_get(void);
-extern void *memset(void *destination, int value, unsigned int size);
 extern void update_server_start(void);
 extern void update_client_start(void);
 

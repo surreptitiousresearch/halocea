@@ -19,7 +19,7 @@
 // sfxList, stateEnt, and pInst are the fields the ent batch (GetNumSfx/OnRegister/Register)
 // actually touches and are fully typed.
 
-enum ENT_ST; // ent subsystem — entENTITY state-flag enum (bit meanings are a boundary)
+#include "ENT_ST.h" // ent subsystem — entENTITY state-flag enum (DB types_enum_values)
 struct gsDOM_SPAWN;       // gs subsystem — dominant-spawn info (pointer only)                boundary
 struct propFLOOR_INFO;    // prop subsystem — floor-standing info (pointer only)              boundary
 struct apCOUNTER_TIME_CALL; // ap subsystem — per-entity timing counter (pointer only)        boundary

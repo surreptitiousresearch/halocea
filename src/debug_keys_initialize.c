@@ -1,11 +1,11 @@
 /* debug_keys_initialize @ 0x836EABB0 — clear all bound debug-key variables and
  * allocate a bitset of "is-down" flags, one bit per registered debug key. */
 
+#include <string.h>
 #include "headers/bit_vector.h"
 #include "headers/debug_key.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *, int, unsigned int);
 
 void debug_keys_initialize(void) /* attested void: memset r3-thread, 0/1 callers consume */
 {

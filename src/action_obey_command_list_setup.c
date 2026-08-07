@@ -9,6 +9,7 @@
  * the command list index at actor+0x90 when not yet running (actor+0x8 == 0). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/ai_command_list_flags.h"
 #include "headers/data_array.h"
@@ -18,7 +19,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/obey_individual_iterator.h"
 
-extern void *memset(void *dest, int value, unsigned int count);
 extern void actor_look_secondary_stop(uint16_t actor_index);
 
 extern void action_obey_individual_setup(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data);

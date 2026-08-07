@@ -21,7 +21,7 @@ typedef struct apDEFRAG_BUF_vtbl {
     char *(*FitIntoFreeBlock)(apDEFRAG_BUF *self, apDEFRAG_CHUNK *chunk, int align);
     bool  (*MoveChunk)(apDEFRAG_BUF *self, int block, apDEFRAG_CHUNK *chunk);
     void  (*DefragAllInside)(apDEFRAG_BUF *self);
-    void  (*dtr_apDEFRAG_BUF)(apDEFRAG_BUF *self);
+    void  (*dtr_apDEFRAG_BUF)(apDEFRAG_BUF *self, int deleteFlag); // deleting dtor: vftable+0x10 holds ??_GapDEFRAG_BUF@@UAAPAXI@Z
 } apDEFRAG_BUF_vtbl;
 
 /* free/reclaimable span inside the buffer. DB types_members apDEFRAG_BUF::MEM_BLOCK. */

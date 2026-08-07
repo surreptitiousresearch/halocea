@@ -12,6 +12,7 @@
  * is 0 for the origin test and prop->line_of_sight (prop+0x38) for the prop test. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/ai_sound_volume.h"
 #include "headers/encoded_sound_distance.h"
 #include "headers/bit_vector.h"
@@ -26,7 +27,6 @@
 #include "headers/unit_datum.h"
 #include "headers/prop_datum.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern int object_get_ultimate_parent(int object_index);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);

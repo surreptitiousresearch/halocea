@@ -3,6 +3,7 @@
  * owning object's unit datum when present (player/team index), and initializes all four change-color slots
  * to white. */
 
+#include <string.h>
 #include "headers/object_placement_data.h"
 #include "headers/data_array.h"
 #include "headers/real_vector3d.h"
@@ -11,7 +12,6 @@
 #include "headers/blam_data_globals.h"
 
 extern void *datum_try_and_get(const data_array *data, int index);
-extern void *memset(void *dst, int value, unsigned int n);
 
 void object_placement_data_new(object_placement_data *data, int definition_index, int owner_object_index)
 {

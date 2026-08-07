@@ -301,6 +301,10 @@ void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t s
         fog_atmos_g = 0.0f;
         fog_clamped_g = 0.0f;
         fog_delta_g = 0.0f;
+        /* DEVIATION @0x8378BD8C: the block zeroes ten fog locals, not nine — f31 (fog_atmos_b,
+         * stored to c[3].z @0x8378BE88) already holds __real_00000000 from 0x8378BB04 and is the
+         * source of the nine fmr's, so the decompiler dropped its own assignment. */
+        fog_atmos_b = 0.0f;
         fog_alpha = 1.0f;
         fog_clamped_b = 0.0f;
         fog_delta_b = 0.0f;

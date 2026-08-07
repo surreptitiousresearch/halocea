@@ -10,6 +10,7 @@
  * `client` is unused by this handler. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"
 #include "headers/real_point3d.h"
@@ -26,7 +27,6 @@ extern uint8_t message_delta_processor_decode_incremental(void *const destinatio
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
 extern void gearbox_object_translate(int object_index, const real_point3d *new_position);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 void weapon_process_update_delta(int object_index, message_delta_processor_header *header,
         network_game_client *client)

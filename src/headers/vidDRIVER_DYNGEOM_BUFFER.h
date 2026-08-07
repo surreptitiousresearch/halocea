@@ -30,7 +30,7 @@ enum { CHUNKS_COUNT = 4 };
 
 typedef struct vidDRIVER_DYNGEOM_BUFFER_vtbl
 {
-    void (*dtr)(vidDRIVER_DYNGEOM_BUFFER *self);                                         /* 0x00 */
+    void (*dtr)(vidDRIVER_DYNGEOM_BUFFER *self, int deleteFlag);                                         /* 0x00 — deleting dtor: vftable+0x00 holds ??_GvidDRIVER_DYNGEOM_BUFFER@@UAAPAXI@Z */
     vidDRIVER_DYNGEOM_CHUNK *(*Begin)(vidDRIVER_DYNGEOM_BUFFER *self, unsigned int);     /* 0x04 */
     bool (*WriteVerticesBegin)(vidDRIVER_DYNGEOM_BUFFER *self, vidDRIVER_DYNGEOM_CHUNK *, unsigned int, int, unsigned int *, void **); /* 0x08 */
     void (*WriteVerticesEnd)(vidDRIVER_DYNGEOM_BUFFER *self, vidDRIVER_DYNGEOM_CHUNK *);  /* 0x0C */

@@ -8,6 +8,7 @@
  * once past the vehicle-driver check. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/guard_state_data.h"
@@ -17,7 +18,6 @@
 #include "headers/actor_vehicle_driver_type.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 
 extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);

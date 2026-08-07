@@ -24,7 +24,7 @@ struct animTPL;              // ../anim/animTPL.h — animation template (pointe
 struct gsLVL_SYSTEM; /* fwd: vtbl slots take gsLVL_SYSTEM* */
 typedef struct gsLVL_SYSTEM_vtbl {
     dsTYPE_ID   *(*TypeID)(gsLVL_SYSTEM *self, dsTYPE_ID *result);                      // 0x00
-    void         (*dtr_gsLVL_SYSTEM)(gsLVL_SYSTEM *self);                               // 0x04
+    void         (*dtr_gsLVL_SYSTEM)(gsLVL_SYSTEM *self, int deleteFlag);                               // 0x04 — deleting dtor: vftable+0x04 holds ??_EgsLVL_SYSTEM@@UAAPAXI@Z
     msgRES       (*ProcessMsg)(gsLVL_SYSTEM *self, int msg, void *pInfo, msgADDR *pSend);      // 0x08
     int          (*PreProcessMsg)(gsLVL_SYSTEM *self, int msg, void *pInfo, msgADDR *pSend);   // 0x0C
     int          (*PostProcessMsg)(gsLVL_SYSTEM *self, int msg, void *pInfo, msgADDR *pSend);  // 0x10

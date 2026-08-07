@@ -5,11 +5,11 @@
  * Returns the new profile index, or -1. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
 #include "headers/file_reference.h"
 #include "headers/saved_game_file_type.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 
 extern int create_enumerated_saved_game_file(uint16_t saved_game_file_type, int16_t local_player_index, const uint16_t *display_name);

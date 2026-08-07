@@ -1,6 +1,7 @@
 /* main_loop_init1 @ 0x83688B78 — first-pass standalone loop init; calls game_initialize */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 
 #include "headers/SYSTEMTIME.h"   /* GetLocalTime / SYSTEMTIME (avoid <windows.h> stub clash) */
@@ -8,7 +9,6 @@ extern void GetLocalTime(SYSTEMTIME *lpSystemTime);
 #include "headers/blam_data_globals.h"
 
 extern uint8_t game_in_editor(void);
-extern char *strncpy(char *, const char *, unsigned int);
 extern uint32_t system_milliseconds(void);
 extern void console_initialize(void);
 extern int net_graph_initialize(void);

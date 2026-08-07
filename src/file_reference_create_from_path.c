@@ -2,9 +2,9 @@
  * (location magic at [0], drive/path id word = -1 at [6]), then set either a directory path or a file name. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 
-extern void *memset(void *dst, int c, unsigned int n);
 extern void file_path_add_name(char *path, const char *name);
 extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
 

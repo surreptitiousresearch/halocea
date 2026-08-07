@@ -60,7 +60,7 @@ extern int game_engine_did_player_win_default(int player_index);
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void usnprintf(wchar_t *string, unsigned int size, const wchar_t *format, ...);
-extern void drawline(const wchar_t *text, int16_t line, int16_t justification);
+extern void drawline(const wchar_t *text, int line, int16_t justification);
 extern int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic, int requested_count, int unused_max_capacity);
 extern int postgame_statistic_get_rating(int player_index, enum postgame_statistic statistic, uint8_t inverse);
 extern rectangle2d *offset_rectangle2d(rectangle2d *rectangle, int16_t dx, int16_t dy);
@@ -76,7 +76,7 @@ void game_engine_post_rasterize_post_game(void)
     if (!game_engine)
         return;
 
-    const wchar_t *empty_string = empty_wide_string;
+    const wchar_t *blank_wide = empty_wide_string;
 
     /* Column tab stops shared by the header and player rows. */
     int16_t tab_stops[6] = { 50, 125, 250, 350, 410, 500 };
@@ -107,7 +107,7 @@ void game_engine_post_rasterize_post_game(void)
 
     /* The background rect's first dword is repurposed as a scratch pointer holding the empty-string
      * fallback (used as the "tag not loaded" instring for the rank column and the final caption). */
-    *(const wchar_t **)background_rect.n = empty_string;
+    *(const wchar_t **)background_rect.n = blank_wide;
 
     if (global_variant.universal_variant.teams)
     {
@@ -143,10 +143,10 @@ after_winner:;
 
         int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
         const wchar_t *team_message_format[2];
-        team_message_format[0] = (text_tag == -1) ? empty_string
+        team_message_format[0] = (text_tag == -1) ? blank_wide
                 : unicode_string_list_get_string(text_tag, _string_tab_red_team_tab_string);
         text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-        team_message_format[1] = (text_tag == -1) ? empty_string
+        team_message_format[1] = (text_tag == -1) ? blank_wide
                 : unicode_string_list_get_string(text_tag, _string_tab_blue_team_tab_string);
 
         if (!winner)
@@ -170,19 +170,19 @@ after_winner:;
     /* Column headers: rank / name / score / kills / assists / deaths (strings 67..71 plus the
      * engine-provided score-column header). */
     int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *header_rank = (text_tag == -1) ? empty_string
+    const wchar_t *header_rank = (text_tag == -1) ? blank_wide
             : unicode_string_list_get_string(text_tag, _string_place);
     text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *header_name = (text_tag == -1) ? empty_string
+    const wchar_t *header_name = (text_tag == -1) ? blank_wide
             : unicode_string_list_get_string(text_tag, _string_name);
     text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *header_col3 = (text_tag == -1) ? empty_string
+    const wchar_t *header_col3 = (text_tag == -1) ? blank_wide
             : unicode_string_list_get_string(text_tag, _string_kills);
     text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *header_col4 = (text_tag == -1) ? empty_string
+    const wchar_t *header_col4 = (text_tag == -1) ? blank_wide
             : unicode_string_list_get_string(text_tag, _string_assists);
     text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-    const wchar_t *header_col5 = (text_tag == -1) ? empty_string
+    const wchar_t *header_col5 = (text_tag == -1) ? blank_wide
             : unicode_string_list_get_string(text_tag, _string_deaths);
 
     wchar_t score_header[512];
@@ -306,14 +306,14 @@ after_winner:;
     {
         caption_rect.n[1] = 280;
         int caption_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-        caption = (caption_tag == -1) ? empty_string
+        caption = (caption_tag == -1) ? blank_wide
                 : unicode_string_list_get_string(caption_tag, _string_server_post_game_stats_footer);
     }
     else
     {
         caption_rect.n[1] = 420;
         int caption_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
-        caption = (caption_tag == -1) ? empty_string
+        caption = (caption_tag == -1) ? blank_wide
                 : unicode_string_list_get_string(caption_tag, _string_client_post_game_stats_footer);
     }
     draw_string_and_hack_in_icons(&caption_rect, nullptr, nullptr, 0, caption, 0);

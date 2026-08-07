@@ -16,10 +16,10 @@
  * updating that register at the bottom of the loop body, after the push. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bit_vector.h"
 #include "headers/obstacles.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 
 static uint8_t disc_flag_test(uint32_t *disc_words, int16_t disc_index)
 {

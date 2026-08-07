@@ -13,6 +13,7 @@
  * behaviour is identical). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
 #include "headers/object_header_datum.h"
@@ -50,7 +51,6 @@ extern void matrix4x3_translation(real_matrix4x3 *matrix, const real_point3d *po
 extern void matrix4x3_rotation_from_vectors(real_matrix4x3 *matrix, const real_vector3d *forward, const real_vector3d *up);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void object_compute_node_matrices(int object_index)
 {

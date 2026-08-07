@@ -1,5 +1,6 @@
 #include <wchar.h>
 #include <stdint.h>
+#include <string.h>
 #include "headers/blam_data_globals.h"
 /* sv_name @0x83766870 — "sv_name" server console command. With no argument it just echoes the current
  * server name. With one argument it validates the name (1–15 characters, ASCII, and renderable by the
@@ -7,7 +8,6 @@
 
 
 #include "headers/network_game_server.h"
-extern unsigned int strlen(const char *s);
 extern wchar_t *ascii_to_wide(const char *ascii, wchar_t *unicode, unsigned int unicode_length_bytes);
 extern uint8_t string_is_ui_compatible(const char *str, const wchar_t *wstr, int validate_mode);
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);

@@ -9,6 +9,7 @@
  * underwater-exit sound. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/sound_manager_globals.h"
 #include "headers/platform_sound_listener_properties.h"
 #include "headers/observer_globals.h"
@@ -30,7 +31,6 @@ extern uint8_t scenario_location_underwater(const location *location, const real
 extern int sound_new_impulse(int definition_index, sound_source *source, int source_identifier, uint8_t (*track_proc)(int, const void *, sound_source *), const void *track_data, int16_t track_data_size, uint8_t is_local_player);
 extern void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
 extern real_vector3d *matrix4x3_inverse_transform_vector(const real_matrix4x3 *matrix, const real_vector3d *vector, real_vector3d *result);
-extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 void refresh_listener(void)
 {

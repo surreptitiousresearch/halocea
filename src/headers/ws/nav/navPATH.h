@@ -8,7 +8,7 @@
 //   navWP_DATA (size 72): a single waypoint entry along a path.
 //   navPATH   (size 24): a built path = list of navWP_DATA + reach distance.
 
-enum WP_DATA_ST;             // nav — per-waypoint-datum state flags (boundary)
+#include "WP_DATA_ST.h"      // nav — per-waypoint-datum state flags (DB types_enum_values)
 struct navGPH_CELL_DATA;     // nav — graph cell edge data          boundary (ptr)
 
 struct navWP_DATA {

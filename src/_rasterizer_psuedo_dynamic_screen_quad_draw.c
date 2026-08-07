@@ -36,6 +36,7 @@
  *     as a struct; headers/rasterizer_dynamic_screen_geometry_parameters.h leaves the pointee unresolved. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_dynamic_screen_geometry_parameters.h"
 #include "headers/dynamic_screen_vertex.h"
 #include "headers/rasterizer_dx9_shader_table.h"
@@ -53,7 +54,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *dest, int value, unsigned int count);
 
 extern void rasterizer_set_framebuffer_blend_function(int16_t framebuffer_blend_function);
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);

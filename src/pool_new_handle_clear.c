@@ -1,8 +1,8 @@
 /* pool_new_handle_clear @0x83803B24 — pool_new_handle.c, but zero-fills the allocated payload first. */
 
+#include <string.h>
 #include "headers/stack_memory_pool.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern memory_block *stack_memory_pool_allocate(stack_memory_pool *pool, int size);
 
 void **pool_new_handle_clear(stack_memory_pool *pool, unsigned int size)

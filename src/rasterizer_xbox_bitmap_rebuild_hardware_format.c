@@ -6,6 +6,7 @@
  * up to a 128-byte boundary. Returns 1 (0 if the scratch allocation fails). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bitmap_data.h"
 #include "headers/bitmap_type.h"
 #include "headers/bitmap_flags.h"
@@ -19,8 +20,7 @@ extern int16_t rasterizer_xbox_bitmap_get_max_mipmap_count(const bitmap_data *bi
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);
 extern int bitmap_mipmap_get_pixel_data_size(const bitmap_data *bitmap, int16_t mipmap_index);
 extern int bitmap_mipmap_get_row_pitch(const bitmap_data *bitmap, int16_t mipmap_index);
-extern void *memcpy(void *dest, const void *src, unsigned int count);
-extern void *memset(void *dest, int value, unsigned int count);
+/* memset declared by <string.h> */
 
 int rasterizer_xbox_bitmap_rebuild_hardware_format(bitmap_data *bitmap)
 {

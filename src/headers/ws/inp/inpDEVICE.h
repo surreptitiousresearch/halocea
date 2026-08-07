@@ -11,7 +11,7 @@ struct inpFORCE_FEEDBACK_CTRL_BASE; // boundary, only pointed to here
 // DB-verified (types_members inpDEVICE_vtbl, 16 slots / 64 bytes).
 typedef struct inpDEVICE_vtbl
 {
-    void (*dtr_inpDEVICE)(struct inpDEVICE *self);                    // 0x00
+    void (*dtr_inpDEVICE)(struct inpDEVICE *self, int deleteFlag);                    // 0x00 — deleting dtor: vftable+0x00 holds ??_GinpDEVICE@@UAAPAXI@Z
     bool (*Init)(struct inpDEVICE *self);                             // 0x04
     void (*Term)(struct inpDEVICE *self);                             // 0x08
     void (*Clear)(struct inpDEVICE *self);                            // 0x0C

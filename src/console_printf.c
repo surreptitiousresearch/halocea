@@ -7,12 +7,12 @@
 
 #include <stdint.h>
 #include <stdarg.h>
+#include <string.h>
 #include "headers/blam_data_globals.h"
 
 extern void terminal_clear(void);
 extern int vsprintf_0(char *buffer, const char *format, va_list args);
 extern void terminal_printf(const real_argb_color *color, const char *format, ...);
-extern char *strncat(char *dst, const char *src, unsigned int count);
 extern void write_to_error_file(char *string, uint8_t date);
 
 void console_printf(uint8_t clear, const char *format, ...)

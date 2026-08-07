@@ -14,6 +14,7 @@
  * fill loops are the walking-struct-pointer idiom seen elsewhere this session, restored to plain indexing. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/oddball_globals.h"
 #include "headers/game_variant.h"
 #include "headers/oddball_ball_type.h"
@@ -23,7 +24,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *destination, int value, unsigned int size);
 extern game_variant *game_engine_get_variant(void);
 extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type, int16_t team);
 extern int16_t game_connection(void);

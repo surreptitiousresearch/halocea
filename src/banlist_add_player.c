@@ -3,12 +3,12 @@
  * (banned_player_s: 13-byte name + 33-byte hash). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/dynamic_array.h"
 #include "headers/banned_player_s.h"
 #include "headers/blam_data_globals.h"
 
 extern uint8_t _banlist_player_is_banned(const char *hash);
-extern char *strncpy(char *destination, const char *source, unsigned int count);
 
 uint8_t banlist_add_player(const char *name, const char *hash)
 {

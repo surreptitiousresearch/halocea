@@ -4,12 +4,12 @@
  * completion routines run — verify it, and position both streams past the 2048-byte header block. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/simple_decompressor_definition.h"
 
 extern void cache_copy_issue_write_internal(simple_decompressor_definition *self, void *buffer, int size, int offset, int16_t write_buffer_index);
 extern void cache_copy_issue_read_internal(simple_decompressor_definition *self, void *buffer, unsigned int size, int offset, int16_t read_buffer_index);
 extern uint8_t cache_file_header_verify(const cache_file_header *header, const char *name, uint8_t fatal);
-extern void *memset(void *destination, int value, unsigned int size);
 
 /* Win32 boundary */
 extern unsigned int WaitForSingleObjectEx(void *handle, unsigned int milliseconds, int alertable);

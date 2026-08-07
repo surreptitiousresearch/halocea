@@ -16,7 +16,7 @@ struct msgDATA;  // ../msg/msgDATA.h — init-message payload (pointer only, bou
 // DB-verified dispatch vtable (types_members msgADDR_vtbl).
 typedef struct msgADDR_vtbl {
     dsTYPE_ID   *(*TypeID)(msgADDR *self, dsTYPE_ID *result);              // 0x00
-    void         (*dtr_msgADDR)(msgADDR *self);                           // 0x04
+    void         (*dtr_msgADDR)(msgADDR *self, int deleteFlag);                           // 0x04 — deleting dtor: vftable+0x04 holds ??_GmsgADDR@@MAAPAXI@Z
     msgRES       (*ProcessMsg)(msgADDR *self, int msg, void *pInfo, msgADDR *pSend);     // 0x08
     int          (*PreProcessMsg)(msgADDR *self, int msg, void *pInfo, msgADDR *pSend);  // 0x0C
     int          (*PostProcessMsg)(msgADDR *self, int msg, void *pInfo, msgADDR *pSend); // 0x10

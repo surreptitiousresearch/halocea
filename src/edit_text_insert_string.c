@@ -4,10 +4,10 @@
  * snapped to a character boundary. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/console_globals.h"
 
 extern uint8_t edit_text_get_selection_indices(edit_text *edit, int16_t *start_index, int16_t *end_index);
-extern void *memmove(void *dst, const void *src, unsigned int n);
 extern void align_to_character(const unsigned char *string, int16_t *index);
 
 static int string_length(const char *s)

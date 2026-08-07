@@ -12,6 +12,7 @@
  * (x >> 16) & 0xFF. Now AI_INDEX_SUB_INDEX. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/scenario.h"
 #include "headers/encounter_definition.h"
 #include "headers/platoon_definition.h"
@@ -19,7 +20,6 @@
 #include "headers/ai_index.h"
 
 extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);
-extern char *strncpy(char *dst, const char *src, unsigned int n);
 
 void ai_index_to_string(unsigned int ai_index, scenario *scenario, char *buffer, unsigned int bufsize)
 {

@@ -11,6 +11,7 @@
  * resume/exhaust control flow is reproduced structurally (a single resume label per loop iteration). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/find_files_globals.h"
 #include "headers/find_files_flags.h"
 #include "headers/file_reference.h"
@@ -24,9 +25,8 @@
 extern void *FindFirstFileA(const char *pattern, WIN32_FIND_DATAA *find_data);
 extern int   FindNextFileA(void *find_handle, WIN32_FIND_DATAA *find_data);
 extern int   CloseHandle(void *handle);
-extern void *memset(void *dst, int value, unsigned int count);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
-extern int   strcmp(const char *a, const char *b);
+/* memcpy declared by <string.h> */
+/* strcmp declared by <string.h> */
 
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
 extern void file_path_add_name(char *path, const char *name);

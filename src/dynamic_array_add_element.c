@@ -2,10 +2,10 @@
  * storage), zero-initializes the new element, and returns its index (or -1 on overflow/allocation failure).
  */
 
+#include <string.h>
 #include "headers/dynamic_array.h"
 
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
-extern void *memset(void *dest, int value, unsigned int size);
 
 int dynamic_array_add_element(dynamic_array *array)
 {

@@ -31,7 +31,7 @@
 
 #include "headers/network_game_client.h"
 #include "headers/networked_set_action_result_type.h"
-
+#include "headers/player_update_history.h"
 extern void unit_drop_current_equipment(int unit_index);
 extern uint8_t unit_add_equipment_to_inventory(int unit_index, int equipment_index, int16_t mode);
 extern void hud_picked_up_powerup(int16_t local_player_index, int8_t machine_index, int powerup_definition_index);
@@ -42,7 +42,7 @@ extern uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t se
 extern void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit, uint8_t should_allow_clients, uint8_t should_replicate_if_appropriate);
 extern void simple_circular_queue_empty(simple_circular_queue *queue);
 extern network_game_client *global_network_game_client_get(void);
-extern void player_update_history_clear(struct player_update_history *history);
+extern void player_update_history_clear(player_update_history *history);
 extern uint8_t ai_try_vehicle_eviction(int actor_index, int requesting_unit_index, uint8_t actually_evict);
 extern void device_touched(int device_index, int unit_index);
 extern int game_time_get(void);

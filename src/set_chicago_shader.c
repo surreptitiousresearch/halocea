@@ -15,13 +15,13 @@
    (0x836A15E0..0x836A1648, cntlzw/extrwi == compares). The only observed
    callers pass zeroed configs. */
 
+#include <string.h>
 #include "headers/chicago_shaders.h"
 #include "headers/d3dx_effect_boundary.h"      /* _D3DXMACRO, ID3DXBuffer, D3DXCompileShaderFromFileA */
 #include "headers/win32_boundary.h"
 #include "headers/rasterizer_engine_globals.h" /* global_d3d_device */
 
 extern int sprintf_0(char *string, const char *format, ...);
-extern void *memset(void *dst, int value, unsigned int size);
 
 void set_chicago_shader(int is_cube, shader_stage_cfg s1, shader_stage_cfg s2,
                         shader_stage_cfg s3, int s4_arg, int s4_op)

@@ -1,9 +1,9 @@
+#include <string.h>
 #include "headers/blam_data_globals.h"
 /* ai_initialize @ 0x836E7620 — allocate AI globals (2268 bytes) and init AI subsystems */
 
 typedef struct ai_globals_t ai_globals_t;
 extern void *game_state_malloc(const char *name, const char *type, int size);
-extern void *memset(void *, int, unsigned int);
 
 extern void paths_initialize(void);
 extern void actors_initialize(void);

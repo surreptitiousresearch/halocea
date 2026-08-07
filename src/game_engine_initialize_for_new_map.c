@@ -4,10 +4,10 @@
  * when no game engine is active. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_engine.h"
 #include "headers/game_engine_globals.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 /* game_engine: canonical decl from game_engine.h (via blam_data_globals.h) */
 

@@ -9,6 +9,7 @@
  * else 2. The event/widget_deleted callback params are unused. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
 #include "headers/game_variant.h"
@@ -17,7 +18,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *dest, int value, unsigned int count);
 extern uint8_t has_spinner_as_first_child(widget_instance *widget);
 extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern void playlist_profiles_enumerate_available_to_local_player_index(int16_t local_player_index, uint16_t *number_of_profiles, int *playlist_profile_indices);

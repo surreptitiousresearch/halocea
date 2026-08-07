@@ -3,9 +3,9 @@
  * 33 bytes decrypted to all zeroes. Returns 1 when valid; buffers of 33 bytes or fewer are rejected. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/DecryptBuffer.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 
 uint8_t rasterizer_dx9_decrypt_buffer(uint8_t *buffer, unsigned int bufferSize)
 {

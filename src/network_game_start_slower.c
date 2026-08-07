@@ -2,11 +2,11 @@
  * network_game_start_faster: when a network game client exists, scan the fixed network-player slot table
  * for the first valid, unmarked slot owned by the event's controller. The result is unused; returns 1.
  *
- * DEVIATION/NOTE: raw slot-address iteration (0x15E..0x55E, stride 0x20 = sizeof(network_player))
- * reproduced verbatim from the disassembly; the slot base passed to network_player_is_valid is
- * (cursor - 0x1C), so the cursor points at network_player.machine_index (+0x1C) and cursor+1 is
- * controller_index (+0x1D) — DB-verified (an earlier comment called these a marked flag). The scan
- * has no effect on the return value. */
+ * DEVIATION/NOTE: cursor 0x15E..0x55E, stride 0x20 = sizeof(network_player); the slot base passed to
+ * network_player_is_valid is (cursor - 0x1C), so the cursor sits on network_player.machine_index (+0x1C)
+ * and cursor+1 is controller_index (+0x1D) — DB-verified. NOT a base this reconstruction dropped:
+ * `li r31, 0x15E` @0x8369720C is 3BE0015E, rA = r0; 0x142 + 32k IS network_game_data.players[k] over the
+ * NULL the network_game_client_get_game() stub folds in (network_game_server_get_game.c). Scan is a no-op. */
 
 #include <stdint.h>
 #include "headers/widget_instance.h"

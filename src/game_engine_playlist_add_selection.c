@@ -7,6 +7,7 @@
  * forms of strlen/strcpy. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_engine_playlist_s.h"
 #include "headers/game_variant.h"
 
@@ -15,11 +16,10 @@ extern uint8_t game_engine_get_variant_by_name(const char *name, game_variant *v
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
-extern char *strcpy(char *destination, const char *source);
-extern unsigned int strlen(const char *string);
+/* strlen declared by <string.h> */
 extern unsigned int ustrlen(const wchar_t *string);
 extern char * wide_to_ascii(uint16_t *unicode, char *ascii, unsigned int ascii_length_bytes);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 
 static const char SOURCE_FILE[] = "D:\\Projects\\code\\HCEX\\sources\\game\\game_engine.c";
 

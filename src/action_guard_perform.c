@@ -17,6 +17,7 @@
  * (TAG_INSTANCE of actor+88) +952/+956 = guard delay min/max seconds. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/actor_definition.h"
 #include "headers/data_array.h"
@@ -36,7 +37,6 @@ extern int16_t actor_select_firing_position(int actor_index, firing_position_eva
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
-extern void *memset(void *dst, int value, unsigned int size);
 
 uint8_t action_guard_perform(int actor_index)
 {

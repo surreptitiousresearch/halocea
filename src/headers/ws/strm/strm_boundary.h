@@ -54,3 +54,11 @@ extern "C" {
     void osResetSignal(osHANDLE_DUMMY *signal);  // boundary
     void osSleep(unsigned int milliseconds);      // boundary
 }
+
+// The binary ALSO carries the template instantiation
+// ??$osCreateThread@VstrmSTREAMING_QUEUE@@@@YAPAUosHANDLE_DUMMY@@P6AXPAVstrmSTREAMING_QUEUE@@@Z0PBDH@Z
+// = osCreateThread<T>(void (*)(T *), T *, const char *, int). Only the erased `void *` overload above
+// was modelled, so strmSTREAMING_QUEUE::CreateThread had to reinterpret_cast its thread proc — a cast
+// the original source never wrote. C++ linkage by construction, so it cannot sit in the block above.
+template <class T>
+osHANDLE_DUMMY *osCreateThread(void (*proc)(T *), T *arg, const char *name, int stackSize);

@@ -2,11 +2,11 @@
  * control, zero the globals and set the per-local-player / network sentinels to -1, and revalidate the player,
  * team, and machine-to-player tables. */
 
+#include <string.h>
 #include "headers/players_global_data.h"
 #include "headers/data_array.h"
 #include "headers/player_respawn_failure.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void player_control_dispose(void);

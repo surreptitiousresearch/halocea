@@ -29,6 +29,7 @@
  */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"
@@ -75,7 +76,6 @@ extern float __fsqrts(float x);
 extern float __fabs(float x);
 extern double cos(double x);
 extern double sin(double x);
-extern void *memset(void *destination, int value, unsigned int size);
 
 /* Address of the live object-pool datum pointer for an object index (salted 12-byte entry, pointer at +2 dwords). */
 

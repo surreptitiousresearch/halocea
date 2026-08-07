@@ -16,11 +16,14 @@ extern int _sound_cache_sound_request(sound_permutation *permutation, int block,
 int16_t channel_get_state(int16_t channel_index)
 {
     sound_channel_datum *channel = &sound_channels[channel_index];
-    /* Faithful original-binary calling-convention pun: disasm 0x83715EFC (bctrl) invokes the vtable
-     * slot with NO argument set up and reads a short return, even though the installed function
-     * (dsound_virtual_get_state, short(short)) declares a channel-index parameter. The funcptr cast
-     * reproduces the binary's short(void) invocation; the vtable member type stays correct. Kept. */
-    int state = ((int (*)(void))sound_manager_globals.platform->get_channel_state)();
+    /* DEVIATION: this was a `((int (*)(void))…)()` cast under a note claiming the bctrl at
+     * 0x83715EFC "invokes the vtable slot with NO argument set up". It does — because it needs no
+     * instruction: r3 still holds this function's own `channel_index` parameter, which nothing
+     * writes between the prologue at 0x83715EC0 and the call (`extsh r11, r3` only reads it). The
+     * argument is passed. DB types_members platform_sound_manager_definition.get_channel_state is
+     * `__int16 (*)(__int16)` and funcs dsound_virtual_get_state takes one arg; the cast was a
+     * fabricated calling convention and is dropped. */
+    int state = sound_manager_globals.platform->get_channel_state(channel_index);
     sound_permutation *playing_permutation;
 
     if ( channel->queued_permutation && (int16_t)state < 2 )

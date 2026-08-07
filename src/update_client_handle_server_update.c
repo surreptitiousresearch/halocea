@@ -5,6 +5,7 @@
  * the main menu, records the tick into the demo/film, ending the recording if the writer is full. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_update.h"
 #include "headers/update.h"
 #include "headers/update_client_globals.h"
@@ -21,7 +22,6 @@ extern uint8_t main_menu_is_active(void);
 extern uint32_t get_random_seed(void);
 extern uint8_t save_film_record_one_game_tick(unsigned int update_number, unsigned int random_seed, int16_t player_count, player_action *action_updates);
 extern void save_film_end_recording(void);
-extern void   *memcpy(void *dst, const void *src, unsigned int size);
 
 extern int s_fake_update_number;
 

@@ -37,6 +37,7 @@
  *     stride 220 with flags@0, u/v scale@84, u/v/r offsets@92/96/100, bitmap group@120, tex-anim@164. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/shader_transparent_chicago_extra_flags.h"
 #include "headers/point2d.h"
 #include "headers/bitmap_group.h"
@@ -99,7 +100,6 @@ extern void shader_texture_animation_evaluate(const shader_texture_animation *te
 extern int16_t numeric_countdown_timer_get(int16_t digit_index);
 extern int shader_transparent_chicago_create(const shader *shader, int use_additional_op);
 extern double floor(double x);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void rasterizer_dx9_transparent_chicago_draw(const transparent_geometry_group *group, uint8_t dirty)
 {

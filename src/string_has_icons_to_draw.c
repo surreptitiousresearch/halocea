@@ -1,12 +1,12 @@
 #include <stdint.h>
+#include <wchar.h>
 #include "headers/blam_data_globals.h"
 /* string_has_icons_to_draw @0x83731B90 — scan a wide string for any "%<icon-name>" escape recognized by
  * icon_names[40] (see get_icon_type.c). Returns true as soon as one matches. */
 
 
-extern wchar_t *wcschr(const wchar_t *string, wchar_t character);
-extern unsigned int wcslen(const wchar_t *wcs);
-extern int wcsnicmp(const wchar_t *first, const wchar_t *last, unsigned int count);
+/* wcslen declared by <wchar.h> */
+/* wcsnicmp declared by <wchar.h> */
 
 uint8_t string_has_icons_to_draw(const wchar_t *string)
 {

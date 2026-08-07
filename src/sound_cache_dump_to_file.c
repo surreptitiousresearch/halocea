@@ -8,6 +8,7 @@
  * state 0 = allocated, 1 = used this frame, 2 = old, 3 = locked. used_bytes = size * allocated/total. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/pc_sound_cache_globals.h"
 #include "headers/data_iterator.h"
 #include "headers/cache_sound_datum.h"
@@ -21,7 +22,6 @@ extern void lruv_cache_get_page_usage(lruv_cache *cache, unsigned char *page_usa
 extern char *tag_get_name(int16_t tag_index);
 
 #include <stdio.h> /* fopen/fwrite/fclose: use CRT decls to avoid signature conflict */
-extern void *memset(void *dst, int value, unsigned int n);
 extern int sprintf_0(char *string, const char *format, ...);
 
 void sound_cache_dump_to_file(void)

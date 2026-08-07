@@ -2,10 +2,10 @@
  * input to the active mode handler (events / in-game xbox), or clear control settings.
  * active_modes is a bitset: 1=events only, 2=game, 4=clear-settings, 8=mode 3. */
 #include <stdint.h>
+#include <string.h>
 #include "headers/input_abstraction_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *dst, int value, unsigned int size);
 extern uint32_t main_get_mseconds(void);
 extern void input_key_debounce_update(void);
 extern uint8_t input_key_is_down(int16_t key_code);

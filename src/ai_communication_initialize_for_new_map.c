@@ -3,11 +3,11 @@
  * event's throttle, clear the recent-conversation ring, and revalidate the conversation datum array. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/ai_globals.h"
 #include "headers/dialogue_event_status.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern void data_make_valid(data_array *data);

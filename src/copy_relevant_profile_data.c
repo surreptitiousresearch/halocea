@@ -3,8 +3,8 @@
  * "seen" (bit 0xF) in `dst->single_player_map_flags`. Always reports success. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_profile.h"
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 uint8_t copy_relevant_profile_data(int type, player_profile *dst, const player_profile *profile)
 {

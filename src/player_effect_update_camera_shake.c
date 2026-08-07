@@ -10,11 +10,11 @@
  * as a player_effect_datum, so its `direction.n[0]`/`screen_flash.duration` are the definition's
  * duration / zero_scale_factor. */
 
+#include <string.h>
 #include "headers/player_effect_globals.h"
 #include "headers/camera_shake_definition.h"
 #include "headers/screen_flash_just_started_flags.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern int game_time_get(void);
 
 void player_effect_update_camera_shake(player_effect_datum *effect_state,

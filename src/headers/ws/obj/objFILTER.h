@@ -9,7 +9,7 @@ struct objOBJ; // ../obj/objOBJ.h — pointer only
 
 // DB-verified layout (types_members objFILTER_vtbl): dtr_objFILTER@0, IsUse@4.
 typedef struct objFILTER_vtbl {
-    void (*dtr_objFILTER)(struct objFILTER *self);
+    void (*dtr_objFILTER)(struct objFILTER *self, int deleteFlag); // deleting dtor: vftable+0x00 holds ??_EobjFILTER@@UAAPAXI@Z
     int  (*IsUse)(struct objFILTER *self, objOBJ *obj);
 } objFILTER_vtbl;
 

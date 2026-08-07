@@ -8,6 +8,7 @@
  * point into a guard location and aim direction. Always returns 1. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/global_tag_instances.h"
@@ -19,7 +20,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *dest, int value, unsigned int count);
 extern float normalize3d(real_vector3d *v);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);

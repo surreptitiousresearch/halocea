@@ -11,6 +11,7 @@
    transcribed verbatim.
    ========================================================================= */
 #include <stdint.h>
+#include <string.h>
 #include "headers/physics_instance.h"
 #include "headers/physics_definition.h"
 #include "headers/mass_point_definition.h"
@@ -31,7 +32,6 @@
 #include "headers/collision_test_flags.h"
 
 
-extern void *memset(void *dst, int value, unsigned int count);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);

@@ -30,11 +30,11 @@
  *  - The new elbow position is computed from the final shoulder frame and buffered (the shipped code stages it
  *    through a stack qword/float) before being stored after the elbow basis is rebuilt. */
 
+#include <string.h>
 #include "headers/real_matrix4x3.h"
 
 extern float __fsqrts(float x);
 extern float fabsf(float x);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 void inverse_kinematics_adjust_matrices(real_matrix4x3 *desired_hand_matrix, real_matrix4x3 *shoulder_matrix,
         real_matrix4x3 *elbow_matrix, real_matrix4x3 *hand_matrix)

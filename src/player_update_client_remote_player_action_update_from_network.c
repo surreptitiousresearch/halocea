@@ -8,6 +8,7 @@
  * header/client are real — a6's "zero" literal is just the value used to memset the local scratch buffer. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"
 #include "headers/remote_player_action_update_header.h"
@@ -25,8 +26,7 @@ extern uint8_t message_delta_processor_discard_iteration_body(const message_delt
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_decode_incremental(void *const destination_data, const void *const baseline_data, const message_delta_processor_header *const header, const uint8_t allow_empty_body);
 extern void handle_remote_player_action_update(remote_player_action_update_header *player_update_header, remote_player_action_update_network_data *update_data, uint8_t is_stateless);
-extern void *memset(void *destination, int value, unsigned int size);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
+/* memcpy declared by <string.h> */
 
 void player_update_client_remote_player_action_update_from_network(message_delta_processor_header *header,
         network_game_client *client)

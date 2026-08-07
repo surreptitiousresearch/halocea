@@ -7,11 +7,11 @@
  * packed value, scaled by 2.015748 to recover world units. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/bit_vector.h"
 #include "headers/structure_bsp.h"
 #include "headers/observer_result.h"
 #include "headers/blam_data_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern int local_player_get_player_index(int16_t local_player_index);

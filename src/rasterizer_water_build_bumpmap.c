@@ -42,6 +42,7 @@
  * the SetVertexShaderConstantFN upload spanning exactly 8 registers (128 bytes) starting at &v83. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/shader.h"
 #include "headers/shader_transparent_water.h"
 #include "headers/rasterizer_dx9_shader_index.h"
@@ -78,8 +79,7 @@ typedef struct water_bumpmap_layer
 
 
 #include "headers/point2d.h"
-extern void *memset(void *dst, int value, unsigned int n);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
+/* memcpy declared by <string.h> */
 /* cos provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 /* sin provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 

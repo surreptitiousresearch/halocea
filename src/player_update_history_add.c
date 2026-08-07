@@ -16,6 +16,7 @@
  *    into one dword store. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_update_history.h"
 #include "headers/player_update.h"
 #include "headers/player_action.h"
@@ -31,7 +32,6 @@ extern int game_time_get(void);
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern uint8_t player_is_vehicle_driver(int player_index);
 extern void player_update_client_log(client_log_subject subject, int log_level, const char *format, ...);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 extern void get_history_list_length_stats(const player_update_history *history, int *number_of_updates, int *number_of_ticks);
 
 uint8_t player_update_history_add(player_update_history *history, int ticks, player_action action, int player_unit_index, int *update_id)

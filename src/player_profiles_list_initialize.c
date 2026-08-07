@@ -7,6 +7,7 @@
  * last-used profile if present; defaults the selection to the first entry otherwise. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
 #include "headers/global_tag_instances.h"
@@ -15,7 +16,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memset(void *destination, int value, unsigned int size);
 extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern void player_profiles_enumerate_available_to_local_player_index(int16_t local_player_index, uint16_t *number_of_profiles, int *player_profile_indices, uint8_t include_default_profiles);
 extern void preview_list_create(void);

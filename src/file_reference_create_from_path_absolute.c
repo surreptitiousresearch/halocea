@@ -3,9 +3,9 @@
  * path is appended as a directory component; otherwise it is set as the file name. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/file_reference.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 extern void file_path_add_name(char *path, const char *name);
 extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
 

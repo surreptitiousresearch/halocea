@@ -7,12 +7,12 @@
  * copy into global_self->src_name, restored as such. destination_file_size is unused, matching the DB's own
  * prototype (never referenced in the decompiled body either). */
 
+#include <string.h>
 #include "headers/simple_decompressor_definition.h"
 
 extern unsigned int WaitForSingleObject(void *handle, unsigned int milliseconds);
 extern int ResetEvent(void *hEvent);
 extern int SetEvent(void *hEvent);
-extern void *memset(void *dst, int value, unsigned int size);
 
 void cache_copy_begin(void *buffer, int size, void *destination_file, int destination_file_size, const char *source_file_name)
 {

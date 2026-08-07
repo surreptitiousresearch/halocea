@@ -22,6 +22,7 @@
  * comments were mislabelled — those float runs begin at the refraction_amount / distance_falloff members. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/transparent_geometry_group.h"
 #include "headers/shader.h"
 #include "headers/shader_model.h"
@@ -47,8 +48,7 @@
 
 
 #include "headers/vertex_buffer.h"
-extern void *memcpy(void *dest, const void *src, unsigned int count);
-extern void *memset(void *dest, int value, unsigned int count);
+/* memset declared by <string.h> */
 
 extern void rasterizer_set_frustum_z(float z_near, float z_far);
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);

@@ -12,6 +12,7 @@
  * float math is reproduced directly. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/fog_definition_flags.h"
 #include "headers/render_planar_fog_mode.h"
@@ -23,7 +24,6 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void *memcpy(void *destination, const void *source, unsigned int count);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
                                                 uint64_t PendingMask0);

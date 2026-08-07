@@ -1,14 +1,14 @@
 /* saved_game_files_initialize @ 0x83726970 — set up save-game paths and mutexes */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/saved_game_files_globals.h"
 #include "headers/saved_game_files_path_type.h"
 #include "headers/blam_data_globals.h"
 
 #include "headers/mutex.h"
-extern void *memset(void *, int, unsigned int);
 extern char *system_get_scratch_disk_root(void);
-extern char *strncpy(char *, const char *, unsigned int);
+/* strncpy declared by <string.h> */
 extern int _snprintf_0(char *, unsigned int, const char *, ...);
 extern uint8_t create_mutex(mutex **mutex_reference);
 extern void player_profiles_initialize(void);

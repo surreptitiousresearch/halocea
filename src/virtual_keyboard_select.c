@@ -11,6 +11,7 @@
  * reproduced as a literal 0, matching the convention used for this exact quirk elsewhere in this codebase. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/virtual_keyboard_globals_t.h"
 #include "headers/ui_audio_feedback_sound.h"
 #include "headers/error_type.h"
@@ -18,8 +19,7 @@
 
 extern const char virtual_keyboard_layout_table[5][11];
 
-extern void *memset(void *dest, int value, unsigned int size);
-extern void *memmove(void *dest, const void *src, unsigned int count);
+/* memmove declared by <string.h> */
 extern unsigned int ustrlen(const wchar_t *string);
 extern int ustrcmp(const wchar_t *string1, const wchar_t *string2);
 extern void ustrcpy(wchar_t *dest, const wchar_t *src);

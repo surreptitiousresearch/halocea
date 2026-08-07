@@ -6,11 +6,11 @@
  * Object header datum: running data size in ->data_size, payload pointer in ->datum. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/blam_data_globals.h"
 #include "headers/memory_pool.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern uint8_t memory_pool_block_reallocate(memory_pool *pool, void **reference, int new_size);
 

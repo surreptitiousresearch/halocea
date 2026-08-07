@@ -9,6 +9,7 @@
  * wait_state_data starting at its own base, i.e. a plain zero-fill — restored as a memset. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/actor_datum.h"
 #include "headers/data_array.h"
 #include "headers/wait_state_data.h"
@@ -17,7 +18,6 @@
 extern int game_time_get(void);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
-extern void *memset(void *dst, int value, unsigned int n);
 
 uint8_t action_wait_setup(uint16_t actor_index, uint8_t actively_searching, wait_state_data *state_data)
 {

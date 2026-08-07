@@ -37,7 +37,7 @@ struct scnSCENE;         // boundary -- full type in src/headers/ws/scn/scnSCENE
 typedef struct vidVBUF_MNG_vtbl
 {
     /* ??1vidVBUF_MNG@@UAA@XZ */
-    void             (*dtr_vidVBUF_MNG)(vidVBUF_MNG *self);                        /* 0x00 */
+    void             (*dtr_vidVBUF_MNG)(vidVBUF_MNG *self, int freeMemory);                        /* 0x00 — deleting dtor: vftable+0x00 holds ??_EvidVBUF_MNG@@UAAPAXI@Z */
     /* ?ReleaseAll@vidMEM_MNG@@UAAXXZ */
     void             (*ReleaseAll)(vidVBUF_MNG *self);                             /* 0x04 */
     /* ?DumpStat@vidMEM_MNG@@UAAXHPBD@Z */

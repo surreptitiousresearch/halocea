@@ -13,7 +13,7 @@ struct cdtHO_PARAMS;
 struct gmHO_CTRL_BASE;
 struct mdlITRC_HO;
 struct hoEDGE;
-enum HO_CHANGE_TYPE;
+#include "../ho/HO_CHANGE_TYPE.h"
 struct hoOBJECT; // ho — hideout object (fwd, boundary; GetPointsNearBody arg)
 struct propFSM;  // prop — per-body FSM state (fwd, boundary; GetPointsNearBody args)
 

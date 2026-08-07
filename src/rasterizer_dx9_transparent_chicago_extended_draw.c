@@ -26,6 +26,7 @@
  *      reinterpret / stale read; disasm 0x8382F7F0 `lwz r31, var_210`), otherwise it is 1 with the alpha calc. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/shader_transparent_chicago_extra_flags.h"
 #include "headers/bitmap_group.h"
 #include "headers/transparent_geometry_group.h"
@@ -85,7 +86,6 @@ extern void shader_texture_animation_evaluate(const shader_texture_animation *te
 extern int16_t numeric_countdown_timer_get(int16_t digit_index);
 extern int shader_transparent_chicago_extended_create(const shader *shader, int use_additional_op);
 extern double floor(double x);
-extern void *memcpy(void *destination, const void *source, unsigned int size);
 
 void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry_group *group, uint8_t dirty)
 {

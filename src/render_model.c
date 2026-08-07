@@ -15,6 +15,7 @@
  * trailing arguments; corrected here. The signature matches the extern first_person_weapon_draw was written to. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/model.h"
 #include "headers/model_node.h"
 #include "headers/rasterizer_model_begin_parameters.h"
@@ -38,7 +39,6 @@ extern void rasterizer_environment_shadow_model_begin(const rasterizer_model_beg
 extern void render_model_parts(const model *model, const char *region_permutation_indices, const render_skinning *skinning, int object_index, int16_t geometry_detail_level_index, int16_t forced_shader_permutation_index, int flags);
 extern void rasterizer_model_end(void);
 extern void rasterizer_environment_shadow_model_end(void);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 void render_model(int model_index, float level_of_detail_pixels, const real_matrix4x3 *node_matrices,
                   const char *region_permutation_indices, const real_rgb_color *change_colors,

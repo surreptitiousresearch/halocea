@@ -2,9 +2,9 @@
  * copies it out and returns true; otherwise returns false. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/player_ui_globals.h"
 
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 
 uint8_t player_ui_game_variant_specified(game_variant *variant)
 {

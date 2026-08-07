@@ -10,10 +10,10 @@
  * two-slot ping-pong buffer array; each slot holds up to maximum_count (<= 512) vertices, matching the stride. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/real_point2d.h"
 #include "headers/real_plane2d.h"
 
-extern void *memcpy(void *destination, const void *source, unsigned int count);
 extern real_plane2d *plane2d_from_points(real_plane2d *plane, const real_point2d *point0, const real_point2d *point1);
 extern int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points, const real_plane2d *plane, int16_t maximum_count, real_point2d *result, uint32_t *clip_flags, uint8_t *clipped, float epsilon);
 

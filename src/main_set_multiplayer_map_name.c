@@ -2,9 +2,9 @@
  * label, and begin precaching that map's cache file. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/main_globals.h"
 
-extern char *strncpy(char *, const char *, unsigned int);
 extern void ui_loading_set_map(const char *map);
 extern int cache_files_give_time_to_precache(const char *map_name, uint8_t fatal);
 

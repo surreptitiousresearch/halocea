@@ -2,8 +2,8 @@
  * client queue. Returns 1 on success, or the (still-zero) initialized flag on allocation/client failure. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/update_server_globals.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern data_array *data_new(const char *name, int16_t maximum_count, int16_t size);
 extern uint8_t update_client_new(void);

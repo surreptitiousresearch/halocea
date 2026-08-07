@@ -7,6 +7,7 @@
  * profile buffer (r5) is written. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/tag_iterator.h"
 #include "headers/global_tag_instances.h"
 #include "headers/input_device_defaults.h"
@@ -15,7 +16,6 @@
 extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
 extern int tag_iterator_next(tag_iterator *iterator);
 
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 
 int input_device_defaults_find(_GUID id, player_profile *profile)
 {

@@ -1,9 +1,9 @@
 /* cluster_partition_make_valid @0x837DFBF8 — reset a cluster partition: clear the per-cluster first-reference
  * heads (2KB of -1) and revalidate the cluster-reference and data-reference datum arrays. */
 
+#include <string.h>
 #include "headers/cluster_partition.h"
 #include "headers/data_array.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 extern void data_make_valid(data_array *data);
 

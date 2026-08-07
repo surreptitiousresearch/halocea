@@ -9,13 +9,13 @@
  * control_data's unrolled memset. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/unit_control_data.h"
 #include "headers/unit_control_flags.h"
 #include "headers/unit_desired_animation_state.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
 
-extern void *memset(void *destination, int value, unsigned int size);
 extern int game_time_get(void);
 extern void unit_get_facing_vector(int unit_index, real_vector3d *facing_vector);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);

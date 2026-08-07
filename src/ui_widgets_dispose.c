@@ -1,8 +1,8 @@
 /* ui_widgets_dispose @ 0x837306F0 — close widgets, free the widget pool, zero globals */
+#include <string.h>
 #include "headers/widget_globals.h"
 extern void ui_widgets_close_all(void);
 extern void dlFree(void *ptr);
-extern void *memset(void *, int, unsigned int);
 void ui_widgets_dispose(void)
 {
     ui_widgets_close_all();

@@ -5,6 +5,7 @@
  * The leading ui_widgets_close_all / dispose_* calls are independent no-arg calls (threaded-r3 artifact). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/game_variant.h"
 #include "headers/player_ui_globals.h"
 #include "headers/game_connection.h"
@@ -15,7 +16,6 @@ extern void dispose_global_network_game_client(void);
 extern void game_connection_set(int16_t new_connection);
 extern void main_set_multiplayer_map_name(const char *name);
 extern uint8_t game_engine_get_variant_by_name(const char *name, game_variant *variant);
-extern void *memcpy(void *dst, const void *src, unsigned int size);
 typedef struct widget_instance widget_instance;
 extern widget_instance *ui_widget_load_by_name_or_tag(const char *name, int tag_index, widget_instance *parent, int16_t local_player_index, int invoking_widget_tag, int focused_child_parent_widget_tag, int16_t focused_child_index);
 extern int game_engine_playlist_initialize(uint8_t force_begin_playlist);

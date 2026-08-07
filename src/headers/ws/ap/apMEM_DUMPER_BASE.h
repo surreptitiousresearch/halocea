@@ -8,7 +8,7 @@ struct apMEM_DUMPER_BASE;
 
 // vtable — DB-verified (types_members apMEM_DUMPER_BASE_vtbl).
 typedef struct apMEM_DUMPER_BASE_vtbl {
-    void (*dtr_apMEM_DUMPER_BASE)(apMEM_DUMPER_BASE *self);
+    void (*dtr_apMEM_DUMPER_BASE)(apMEM_DUMPER_BASE *self, int deleteFlag); // deleting dtor: vftable+0x00 holds ??_GapMEM_DUMPER_BASE@@UAAPAXI@Z
     void (*Write)(apMEM_DUMPER_BASE *self, const char *fileName, char *text, ...);
     void (*coreDump)(apMEM_DUMPER_BASE *self, const char *fileName, unsigned int typesMask);
 } apMEM_DUMPER_BASE_vtbl;

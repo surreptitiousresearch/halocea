@@ -13,6 +13,7 @@
  * game_team_is_enemy exactly as the original does (its team args equal the player slot in free-for-all). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/game_statistics_globals.h"
 #include "headers/damage_history_record.h"
@@ -26,7 +27,6 @@ extern int player_index_from_unit_index(int unit_index);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern int game_time_get(void);
 extern void *datum_try_and_get(const data_array *data, int index);
-extern void *memcpy(void *dst, const void *src, unsigned int count);
 extern void game_engine_player_killed(int killing_player_index, int killing_object_index, int dead_player_index, uint8_t friendly_fire);
 
 #define PLAYER_DATUM(player_index) DATA_ARRAY_ELEMENT(player_data, player_datum, player_index)

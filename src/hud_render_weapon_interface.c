@@ -10,6 +10,7 @@
  * unit.parent_seat_index@752 and unit.current_weapon_index@754 confirmed against _unit_datum's DB layout. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/player_datum.h"
@@ -34,7 +35,6 @@ extern void render_weapon_hud(int hud_index, int16_t local_player_index, const w
 extern int local_player_get_player_index(int16_t local_player_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern void render_grenade_hud(int16_t local_player_index, int unit_index);
-extern void *memset(void *dest, int value, unsigned int size);
 
 void hud_render_weapon_interface(player_datum *player)
 {

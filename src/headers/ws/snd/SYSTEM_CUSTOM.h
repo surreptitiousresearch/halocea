@@ -41,7 +41,7 @@ typedef struct SYSTEM_CUSTOM_vtbl { // DB types_members snd::SYSTEM_CUSTOM_vtbl
     void (*InitLevel)(SYSTEM_CUSTOM *self, const dsTSTRING<char> *);      // 0x0C
     void (*TermLevel)(SYSTEM_CUSTOM *self);                                // 0x10
     void (*DbgRenderSounds)(SYSTEM_CUSTOM *self);                          // 0x14
-    void (*dtr_SYSTEM_CUSTOM)(SYSTEM_CUSTOM *self);                        // 0x18
+    void (*dtr_SYSTEM_CUSTOM)(SYSTEM_CUSTOM *self, int deleteFlag);                        // 0x18 — deleting dtor: vftable+0x18 holds ??_GSYSTEM_CUSTOM@snd@@UAAPAXI@Z
 } SYSTEM_CUSTOM_vtbl;
 
 typedef struct SYSTEM_CUSTOM {

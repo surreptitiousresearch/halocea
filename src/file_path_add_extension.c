@@ -4,7 +4,7 @@
  *
  * Deviation: the decompiler inlines two strlen byte-loops; reproduced with a strlen helper for clarity. */
 
-extern char *strncpy(char *dst, const char *src, unsigned int n);
+#include <string.h>
 
 static int path_length(const char *s)
 {

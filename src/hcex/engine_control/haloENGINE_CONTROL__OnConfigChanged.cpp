@@ -7,7 +7,7 @@
 // DEVIATION: the decompiler additionally stores `v6->id.id` into a dead local (`v4[1]`) that is
 // never read again before the function returns — a stack-slot-reuse artifact of the same kind
 // documented in ApplySettings.cpp's CAVEAT, not an observable side effect. Omitted here.
-void haloENGINE_CONTROL::OnConfigChanged(unsigned int eventUserId, const dsPARAM_LIST &paramList)
+void haloENGINE_CONTROL::OnConfigChanged(unsigned long eventUserId, const dsPARAM_LIST &paramList)
 {
     (void)eventUserId;
 

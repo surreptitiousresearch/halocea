@@ -11,6 +11,7 @@
  * Object data pointers are fetched through the object-header datum (data ptr at int element 3*idx+2). */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/players_globals.h"
 #include "headers/player_datum.h"
 #include "headers/unit_datum.h"
@@ -26,7 +27,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_euler_angles2d.h"
-extern void *memset(void *dst, int value, unsigned int n);
 
 
 extern uint8_t update_client_dequeue(player_action *actions, int *completed_client_update_ids);

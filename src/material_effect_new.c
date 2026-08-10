@@ -49,11 +49,11 @@ void material_effect_new(int effects_definition_index, int16_t effect_index, int
     {
         int effect_tag = material->effect.index;
         if ( effect_tag != -1 )
-            /* color arg is a fixed sentinel address in the decompiler output; impulse-field and
-             * deterministic args are left uninitialized there. */
+            /* DEVIATION: color is NULL, not 0x82000000. The binary stores 0 to the color stack slot (caller `stw r11` @0x836EAA00 -> r1+0x5C, read by the callee as arg_5C @0x836E42AC), and the callee then substitutes global_real_rgb_white @0x836E42D4.
+             * The literal was Hex-Rays float-slot-skip residue: r10 holds `lis __real@00000000@ha` (0x82001A34 -> 0x82000000), the address base for scale_b's `lfs f2`, and was mis-read as the color argument. impulse_field/deterministic are the real 0 stores at r1+0x64 (arg_64) and r1+0x6F (arg_6F). */
             effect_new_unattached_from_markers(effect_tag, -1, NULL, 1, NULL, &spawn_point,
                     (real_vector3d *)normal, /* marker_forwards is non-const (stored into markers.forwards) */
-                    scale, 0.0, (const real_rgb_color *)0x82000000, NULL, 0);
+                    scale, 0.0, NULL, NULL, 0);
     }
 
     {

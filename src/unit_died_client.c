@@ -29,7 +29,7 @@ extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
 extern void player_died(int player_index);
 extern void actor_died(int actor_index);
-extern void actor_swarm_unit_died(uint16_t actor_index, int unit_index);
+extern void actor_swarm_unit_died(int actor_index, int unit_index);
 extern int game_time_get(void);
 extern void weapon_owner_update(int weapon_index, uint16_t control_flags, float primary_trigger);
 extern void unit_detach_from_parent(int object_index);

@@ -72,10 +72,10 @@ void hs_evaluate_sleep(int16_t function_index, int thread_index, uint8_t initial
 
     if ( *phase )
     {
-        int16_t ticks = (int16_t)*ticks_slot;
-        if ( *(int16_t *)ticks_slot )
+        int16_t ticks;   /* DEVIATION: ONE `lhz r11, 0(r6)` + `extsh` @0x8368FE6C — the HS short is the slot's */
+        if ( (ticks = *(int16_t *)ticks_slot) != 0 )   /* FIRST halfword; narrowing the word read the other half. */
         {
-            uint16_t script_index = (uint16_t)*script_slot;
+            uint16_t script_index = *(uint16_t *)script_slot;   /* `lhz r3, 0(r7)` @0x8368FE7C — halfword 0 likewise. */
             if ( script_index != 0xFFFF )
                 target_thread = hs_find_thread_by_script(script_index);
             if ( target_thread != -1 )

@@ -13,7 +13,7 @@
 
 
 extern int datum_new(data_array *data);
-extern void actor_swarm_detach_from_unit(uint16_t actor_index, int unit_index);
+extern void actor_swarm_detach_from_unit(int actor_index, int unit_index);
 extern void actor_delete(int actor_index, uint8_t died);
 extern void actor_detach_from_unit(uint16_t actor_index);
 extern void actor_swarm_component_setup(uint16_t swarm_index, int unit_index, uint16_t swarm_component_index);

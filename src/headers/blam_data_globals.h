@@ -2248,6 +2248,7 @@ extern float sPROJECTILE_CLIENT_TO_SERVER_POSITION_TOLERANCE_0;
 extern float sPROJECTILE_CLIENT_TO_SERVER_POSITION_TOLERANCE_1;
 extern _LARGE_INTEGER s_ClockFrequency;
 extern char *s_file_name;
+extern const char *s_file_name_0;
 extern int s_local_update_id;
 extern const uint8_t s_one_masks[9];
 extern int s_vehicle_waiting_time;

@@ -2,8 +2,8 @@
  * The flag's 2D euler facing (cutscene flag +0x30) is converted to a forward vector and the effect is placed
  * at the flag position (cutscene flag +0x24).
  *
- * DEVIATION: the trailing color / impulse-vector-field / flag arguments are uninitialized in the decompiler
- * (the binary leaves them as scratch registers); passed as null/0 here. */
+ * DEVIATION: the three trailing stack args are stored at sp+0x5C/0x64/0x6F (Hex-Rays mis-models them as
+ * dead locals): color=0, impulse_field=0, deterministic=1 (`li r6,1` / `stb r6,0x6F(r1)` @0x837F85A8). */
 
 #include <stdint.h>
 #include "headers/scenario.h"
@@ -30,5 +30,5 @@ void hs_effect_new(int definition_index, int16_t flag_index)
 
     effect_new_unattached_from_markers(definition_index, -1, global_zero_vector3d, 1, nullptr,
                                        &flag->position, &forward, 1.0f, 1.0f,
-                                       nullptr, nullptr, 0);
+                                       nullptr, nullptr, 1);
 }

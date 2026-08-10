@@ -17,7 +17,6 @@
  *   [1] init_function = 0x836E7B68 -> ai_find_inactive_encounters
  *       function      = 0x836E7D30 -> ai_release_inactive_encounters
  *   [2] init_function = 0x00000000, function = 0x00000000  -> terminator
- * /
  */
 #include <stdint.h>
 #include "../headers/object_memory_release_function.h"

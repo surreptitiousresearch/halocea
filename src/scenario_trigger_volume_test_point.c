@@ -1,7 +1,14 @@
 /* scenario_trigger_volume_test_point @0x83703D8C — tests whether a world position lies inside a scenario
  * trigger volume. Type 0 is an axis-aligned box (min/max at float offsets 18..23); type 1 is an oriented
  * box: the position is transformed into the volume's local frame (origin + forward/up vectors) and tested
- * against [0, extents]. Any other type is never inside. Returns 1 if inside, 0 otherwise. */
+ * against [0, extents]. Any other type is never inside. Returns 1 if inside, 0 otherwise.
+ *
+ * AS-BUILT NOTE (bounds sense verified against ours — do not re-litigate): the oriented arm requires
+ * each local coordinate strictly inside (0, extent). 0x83703DD8/DE4/DF0 `fcmpu` local x/y/z against
+ * +0.0 with `ble` -> return 0 (so each must be > 0); 0x83703DFC/E08/E14 `fcmpu` the same three against
+ * extents.n[0..2] at volume +0x54/+0x58/+0x5C with `bge` -> return 0 / final `blt` -> 1 (so each must be
+ * < its positive extent). There is no [-extent, 0] arm in this binary for any axis, X included; a port
+ * that flips the local-X sign is diverging from HCEX, not correcting it. */
 
 #include <stdint.h>
 #include "headers/scenario.h"

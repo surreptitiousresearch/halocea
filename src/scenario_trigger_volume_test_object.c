@@ -1,5 +1,13 @@
 /* scenario_trigger_volume_test_object @0x83703EA0 — true if the object's origin lies inside the given
- * trigger volume. Returns false for a null object. The origin is the real_point3d at object data +160. */
+ * trigger volume. Returns false for a null object. The origin is the real_point3d at object data +160.
+ *
+ * GAME-VERSION NOTE (as-built, not a defect — do not "fix"): this build tests the object's BOUNDING
+ * SPHERE CENTER, not its position. Ours emits `addi r4, r11, 0xA0` at 0x83703EC8, immediately before
+ * the tail `b scenario_trigger_volume_test_point`; 0xA0 == object_datum.object.bounding_sphere_center
+ * (0x04 + 0x9C, types_members). A NEWER PC build ("Tag Test", same function @0x00872980) adds 0x5C
+ * instead, which in this identical layout is object_datum.object.position (0x04 + 0x58) — a later
+ * semantic change, not a correction. Bipeds whose collision center sits above their origin therefore
+ * gate differently between the two builds; that behavioural delta is expected here. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

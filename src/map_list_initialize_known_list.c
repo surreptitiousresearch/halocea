@@ -6,10 +6,10 @@
 #include "headers/multiplayer_map_s.h"
 #include "headers/blam_data_globals.h"
 
-/* DEVIATION: the decompiler rendered the table-end compare (table+19, 0x8417EEA4) as the
- * ADDRESS OF THE ADJACENT GLOBAL s_file_name_0 (a char* that happens to sit right after
- * the table) — an address-adjacency pun that also conflicted with the symbol's real char*
- * type. Same address, expressed as the array bound. */
+/* DEVIATION: the decompiler rendered the loop bound as the ADDRESS OF s_file_name_0
+ * (0x8417EEC8) — the binary's own `addi r10, r23, (s_file_name_0 - 0x8417EDE0)` @0x837675F8,
+ * i.e. &builtin_multiplayer_maps[19].map_name (0x8417EDE0 + 19*12 + 4), which lands on an
+ * unrelated global. An address pun; re-expressed here as the array bound. */
 
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);
 extern char *strlwr(char *string);

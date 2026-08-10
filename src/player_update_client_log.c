@@ -14,8 +14,8 @@
 
 /* Attestation fix: binary does `lwz r3, s_file_name_0` then fopen(r3) @0x8376DB40 — the global is a
  * char* POINTER to "ClientPlayerUpdateHistory.log", not a char array (the old `extern char []` decl
- * would have passed the global's own address). */
-extern char *s_file_name_0;
+ * would have passed the global's own address). Storage: src/data/s_file_name_0.c @0x8417EEC8; the
+ * canonical extern now comes from headers/blam_data_globals.h, so the inline one is gone. */
 extern int vsprintf_0(char *buffer, const char *format, va_list args);
 
 void player_update_client_log(client_log_subject subject, int log_level, const char *format, ...)

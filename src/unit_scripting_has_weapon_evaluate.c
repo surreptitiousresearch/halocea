@@ -1,4 +1,5 @@
-/* unit_scripting_has_weapon_evaluate @0x83728F10 — HaloScript builtin wrapper for unit_scripting_has_weapon; packs a boolean result. */
+/* unit_scripting_has_weapon_evaluate @0x83728F10 — HaloScript builtin wrapper for unit_scripting_has_weapon;
+ * packs a boolean result into byte 0 of the 4-byte HaloScript value slot. */
 
 #include <stdint.h>
 
@@ -12,7 +13,9 @@ void unit_scripting_has_weapon_evaluate(int16_t function_index, int thread_index
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = unit_scripting_has_weapon(arguments[0], arguments[1]);
+        /* DEVIATION: `stb r3, 0x50(r1)` @0x83728F44 shares the displacement of the word-zeroing
+         * `stw r11, 0x50(r1)` @0x83728F28 — byte offset +0, not +3. */
+        *(unsigned char *)&result = unit_scripting_has_weapon(arguments[0], arguments[1]);
         hs_return(thread_index, result);
     }
 }

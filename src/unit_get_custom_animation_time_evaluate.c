@@ -1,4 +1,4 @@
-/* unit_get_custom_animation_time_evaluate @0x837285A0 — HaloScript builtin wrapper; packs a short result. */
+/* unit_get_custom_animation_time_evaluate @0x837285A0 — wrapper; packs a short into the value slot's first halfword. */
 
 #include <stdint.h>
 
@@ -8,12 +8,12 @@ extern int16_t unit_get_custom_animation_time(int unit_index);
 
 void unit_get_custom_animation_time_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result;
-    *((int16_t *)&result) = 0;
+    int result = 0;   /* DEVIATION: `li r11,0 / stw r11, 0x50(r1)` @0x837285B8 zeroes the WHOLE word, not a halfword. */
+    /* DEVIATION: `sth r3, 0x50(r1)` @0x837285D0 repeats that displacement — the short is the slot's FIRST halfword. */
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((int16_t *)&result + 1) = unit_get_custom_animation_time(arguments[0]);
+        *(int16_t *)&result = unit_get_custom_animation_time(arguments[0]);
         hs_return(thread_index, result);
     }
 }

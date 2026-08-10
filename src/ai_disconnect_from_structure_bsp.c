@@ -35,7 +35,7 @@
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern unsigned int *players_get_combined_pvs(void);
 extern int object_get_ultimate_parent(int object_index);
-extern void actor_swarm_detach_from_unit(uint16_t actor_index, int unit_index);
+extern void actor_swarm_detach_from_unit(int actor_index, int unit_index);
 extern int actor_create_for_unit(uint8_t swarm, int unit_index, int actor_variant_definition_index, int encounter_index, int16_t squad_index, uint8_t allow_addition_to_other_squads, int disallow_actor_index, uint8_t initially_braindead, int16_t initial_state, int16_t default_state, int16_t initial_command_list_index, char noncombat_sequence_id);
 extern void object_delete(int object_index);
 extern void actor_flush_position_indices(uint16_t actor_index);

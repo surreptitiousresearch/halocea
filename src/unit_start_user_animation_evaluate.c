@@ -12,14 +12,14 @@ void unit_start_user_animation_evaluate(int16_t function_index, int thread_index
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        /* DEVIATION: the decompiler packed the uint8 return via `*((unsigned char *)&result + 3)`.
-         * Byte +3 of a 32-bit word is the LOW byte only on big-endian PPC; on x64 it is the HIGH
-         * byte, so the literal spelling silently breaks the port. `result` starts at 0 and only
-         * that byte is written, so a plain widening assignment is identical on PPC and correct
-         * everywhere (same endian-unsafe class as the E4 round).
-         * HS packed arg block: byte +12 is the boolean interpolate arg — slot[3]'s first byte,
-         * matching the slot-byte-0 boolean convention of the other _evaluate shims. */
-        result = unit_start_user_animation(
+        /* DEVIATION: `stb r3, 0x50(r1)` @0x8372867C — a BYTE store at the same displacement as the
+         * word-zeroing `stw r11, 0x50(r1)` @0x83728650, i.e. slot byte +0. A previous round replaced
+         * this with a plain widening `result = ...` on the belief that byte +3 was the faithful
+         * transcription; that emits a full-word store and puts the boolean at byte +3 on big-endian
+         * PPC — the opposite end from the image. Slot byte 0 is what every consumer reads
+         * (hs_evaluate_if's `*(char *)condition_result`), and is correct on x64 as well.
+         * HS packed arg block: byte +12 is the boolean interpolate arg — `lbz r6, 0xC(r3)` @0x83728668. */
+        *(unsigned char *)&result = unit_start_user_animation(
             arguments[0], arguments[1], (const char *)arguments[2], ((unsigned char *)arguments)[12]);
         hs_return(thread_index, result);
     }

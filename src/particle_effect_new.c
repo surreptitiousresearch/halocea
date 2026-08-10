@@ -36,43 +36,43 @@ void particle_effect_new(particle_datum *particle, unsigned int group_tag, int e
 
     if ( group_tag == 0x65666665u /* 'effe' */ )
     {
-        real_vector3d facing;
-        real_rgb_color down_color;
-        /* color resolves to the global down vector stored on the stack here; the decompiler leaves the
-         * impulse-field and deterministic args as uninitialized stack values. */
-        const real_rgb_color *color = &down_color;
-        const effect_vector_field *impulse_field = NULL;
-        uint8_t deterministic = 0;
+        real_point3d  marker_points[2];
+        real_vector3d marker_forwards[2];
+        /* DEVIATION: color is NULL, not a pointer to a stack real_rgb_color. The binary stores 0 to the
+         * color slot (`li r11, 0` @0x8373DC5C, `stw r11, 0x5C(r1)` @0x8373DC80 — the slot the callee reads
+         * as arg_5C @0x836E42AC), and the *global_down3d copy Hex-Rays aliased onto that argument is really
+         * marker_forwards[1], the "gravity" marker: its three stores (var_74/70/6C @0x8373DC40-48) sit
+         * directly above marker_forwards[0] (var_80/7C/78), and `addi r9, r1, var_80` @0x8373DC64 hands the
+         * pair over. marker_count is 2, so the old single `facing` also under-sized the forwards buffer. */
+        marker_forwards[0].n[0] = particle->direction.n[0];
+        marker_forwards[0].n[1] = particle->direction.n[1];
+        marker_forwards[0].n[2] = particle->direction.n[2];
 
-        facing.n[0] = particle->direction.n[0];
-        facing.n[1] = particle->direction.n[1];
-        facing.n[2] = particle->direction.n[2];
+        marker_points[1].n[0] = particle->position.n[0];
+        marker_points[1].n[1] = particle->position.n[1];
+        marker_points[1].n[2] = particle->position.n[2];
+        marker_points[0].n[0] = particle->position.n[0];
+        marker_points[0].n[2] = particle->position.n[2];
+        marker_points[0].n[1] = particle->position.n[1];
 
-        effect_location.forward.n[0] = particle->position.n[0];
-        effect_location.forward.n[1] = particle->position.n[1];
-        effect_location.forward.n[2] = particle->position.n[2];
-        effect_location.position.n[0] = particle->position.n[0];
-        effect_location.position.n[2] = particle->position.n[2];
-        effect_location.position.n[1] = particle->position.n[1];
+        marker_forwards[1].n[0] = global_down3d->n[0];
+        marker_forwards[1].n[1] = global_down3d->n[1];
+        marker_forwards[1].n[2] = global_down3d->n[2];
 
-        down_color.n[0] = global_down3d->n[0];
-        down_color.n[1] = global_down3d->n[1];
-        down_color.n[2] = global_down3d->n[2];
-
-        normalize3d(&facing);
+        normalize3d(&marker_forwards[0]);
         effect_new_unattached_from_markers(
             effect_index,
             -1,
             &velocity_per_second,
             2,
             particle_effect_marker_names,
-            &effect_location.position, /* marker_points is non-const (stored into markers.points) */
-            &facing,
+            marker_points,
+            marker_forwards,
             scale,
             0.0f,
-            color,
-            impulse_field,
-            deterministic);
+            NULL,    /* color */
+            NULL,    /* impulse_field */
+            0);      /* deterministic */
     }
     else if ( group_tag == 0x736E6421u /* 'snd!' */ )
     {

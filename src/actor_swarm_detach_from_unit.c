@@ -16,7 +16,14 @@ extern void object_set_automatic_deactivation(int object_index, uint8_t automati
 extern void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled);
 extern void datum_delete(data_array *data, int index);
 
-void actor_swarm_detach_from_unit(uint16_t actor_index, int unit_index)
+/* DEVIATION: actor_index is a full 32-bit datum handle, not a uint16_t index. @0x8371D874 the
+ * prologue makes a narrowed copy (`clrlwi r6, r3, 16`) that feeds ONLY the actor_data index
+ * (`mulli r9, r6, 0x724`), while the guard below compares the FULL register: `lwz r4, 0x1F8(r30)`
+ * / `cmpw cr6, r4, r3` @0x8371D89C-A0. unit.swarm_actor_index is a 32-bit word written whole by
+ * actor_swarm_attach_unit (`stw r30, 0x1F8(r28)` @0x83720F34), and callers hand that word straight
+ * back in r3 (@0x83720EF8-F08). Truncating the parameter dropped the identifier salt, so the guard
+ * rejected every live actor. DATA_ARRAY_ELEMENT applies the (uint16_t) index extract internally. */
+void actor_swarm_detach_from_unit(int actor_index, int unit_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     unit_datum *object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);

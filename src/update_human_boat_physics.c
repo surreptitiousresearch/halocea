@@ -23,7 +23,7 @@
 #include "headers/blam_data_globals.h"
 extern double cos(double x);
 extern double sin(double x);
-
+extern float fabsf(float x);  /* DEVIATION: fabs @0x8375EA5C feeds fsubs/fmuls with no frsp - single-precision abs; @0x8375EC70 is fmul+frsp on a double constant and stays __fabs */
 
 extern float normalize3d(real_vector3d *v);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
@@ -49,10 +49,10 @@ void update_human_boat_physics(int vehicle_index, powered_mass_point_datum *powe
     float half_steer = vehicle->vehicle.turn * 0.5f;
 
     /* speed (clamped to 1) attenuates the steering rotation */
-    float speed = __fabs(__fsqrts(vehicle->object.translational_velocity.n[2] * vehicle->object.translational_velocity.n[2]
-                                  + (vehicle->object.translational_velocity.n[0] * vehicle->object.translational_velocity.n[0]
-                                     + vehicle->object.translational_velocity.n[1] * vehicle->object.translational_velocity.n[1]))
-                         * 2.5f);
+    float speed = fabsf(__fsqrts(vehicle->object.translational_velocity.n[2] * vehicle->object.translational_velocity.n[2]
+                                 + (vehicle->object.translational_velocity.n[0] * vehicle->object.translational_velocity.n[0]
+                                    + vehicle->object.translational_velocity.n[1] * vehicle->object.translational_velocity.n[1]))
+                        * 2.5f);
     if (speed > 1.0f)
         speed = 1.0f;
 

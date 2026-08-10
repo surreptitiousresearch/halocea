@@ -80,7 +80,7 @@ uint8_t collision_surface_test_pill(test_pill_data *data, int surface_index)
             }
 
             struck = 1;
-            data->result->plane.distance = 3.4028235e38;
+            data->result->plane.distance = 3.4028235e38f;
             data->result->surface_index = surface_index;
             data->result->material_index = surface->material_index;
         }

@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include "headers/real_point2d.h"
 #include "headers/real_vector2d.h"
-
+#include "headers/ppc_intrinsics.h"
 extern uint8_t point_in_pill2d(const real_point2d *point, const real_point2d *base, const real_vector2d *height, float width);
 
 uint8_t vector_intersects_pill2d(const real_point2d *point, const real_vector2d *vector, const real_point2d *base, const real_vector2d *height, float width)

@@ -18,7 +18,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/location.h"
-
+#include "headers/ppc_intrinsics.h"
 extern const float sine_region_angle;
 
 extern void scenario_location_from_point(location *location, const real_point3d *point);

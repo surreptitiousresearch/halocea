@@ -23,8 +23,12 @@ typedef struct dsEVENT_MGR dsEVENT_MGR;
 extern dsEVENT_MGR *gEventMgr;
 
 /* --- ws container / utility methods (free-function form of the C++ thiscall) --- */
-extern void       dsTSTRING_UnsafeInit(dsTSTRING_flat *s, const char *src, int len, int flags);
-extern void       dsTSTRING_UnsafeInitEmpty(dsTSTRING_flat *s); /* dsTSTRING<char>::UnsafeInitEmpty() -- adopt the
+/* _Out_ on the string out-parameters is a statement of the reversed body, not a suppression:
+ * dsTSTRING<char>::UnsafeInit stores pBuffer on every return path (src/ws/ds/dsTSTRING_char__UnsafeInit.cpp)
+ * and UnsafeInitEmpty adopts the shared singleton unconditionally. Without it /analyze keeps the
+ * caller's `s.pBuffer = 0` seed live across the call and reports C6011 on the release that follows. */
+extern void       dsTSTRING_UnsafeInit(_Out_ dsTSTRING_flat *s, const char *src, int len, int flags);
+extern void       dsTSTRING_UnsafeInitEmpty(_Out_ dsTSTRING_flat *s); /* dsTSTRING<char>::UnsafeInitEmpty() -- adopt the
                                                              * process-wide shared empty-string singleton
                                                              * (lazily allocated on first use via a function-
                                                              * local static guard inside UnsafeInitEmpty itself;

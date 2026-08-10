@@ -17,7 +17,7 @@ extern uint8_t collision_prism_test_vector(const collision_prism *prism, const r
 uint8_t collision_features_test_vector(const collision_feature_list *features, const real_point3d *point,
                                        const real_vector3d *vector, collision_plane *collision)
 {
-    float best_t = 3.4028235e38;
+    float best_t = 3.4028235e38f;
     int16_t best_kind = -1;
     int16_t best_index = -1;
     real_plane3d best_plane;

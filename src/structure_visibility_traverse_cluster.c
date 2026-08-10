@@ -145,7 +145,7 @@ void structure_visibility_traverse_cluster(int16_t cluster_index, const portal_h
 
                 int intersection_count = convex_hull2d_intersect(visible_region->vertex_count,
                     visible_region->vertices, projected_portal.vertex_count, projected_portal.vertices,
-                    256, clipped_hull.vertices, 0.000099999997);
+                    256, clipped_hull.vertices, 0.000099999997f);
                 clipped_hull.vertex_count = intersection_count;
                 if (intersection_count > 0)
                 {

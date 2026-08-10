@@ -46,7 +46,7 @@ extern "C" dbgVAR_SIMPLE<bool, 1> dbg_mute2dSounds;     // HALO_CHANNEL::UpdateP
 // ---- ds string helpers (template dsTSTRING<char> convention) ----
 extern const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 // Strips the name+extension off a path (result written to *out). boundary.
-extern dsTSTRING<char> *fnmGetNameExtStr(dsTSTRING<char> *out, const dsTSTRING<char> *path);
+extern dsTSTRING<char> *fnmGetNameExtStr(_Out_ dsTSTRING<char> *out, const dsTSTRING<char> *path); /* _Out_ : sret slot, always constructed */
 
 // dsTSTRING<char> concatenation (sret out-param first) -- two overloads observed at
 // HALO_CHANNEL::CheckNotReady's debug "PLAY ..." log line: literal + dsTSTRING, and

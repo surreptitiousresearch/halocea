@@ -28,8 +28,8 @@ extern const dsTSTRING_flat *haloENGINE_CONTROL_GetPathToCheckpoints(haloENGINE_
 extern int  haloENGINE_CONTROL_IsCoop(haloENGINE_CONTROL *self);
 
 /* dsTSTRING<char> operations (ws-engine boundary; free-function form of the C++ thiscall/operators) */
-extern dsTSTRING_flat *fnmGetNameStr(dsTSTRING_flat *out, const dsTSTRING_flat *in);   /* leaf name of a path */
-extern void       dsTSTRING_UnsafeInitEmpty(dsTSTRING_flat *out);            /* = shared empty, +1 ref */
+extern dsTSTRING_flat *fnmGetNameStr(_Out_ dsTSTRING_flat *out, const dsTSTRING_flat *in);   /* leaf name of a path */
+extern void       dsTSTRING_UnsafeInitEmpty(_Out_ dsTSTRING_flat *out);      /* = shared empty, +1 ref */
 extern dsTSTRING_flat *dsSPrintf(dsTSTRING_flat *result, const char *fmt, ...);
 extern void       dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src);                 /* operator= */
 extern void       dsTSTRING_ReleaseBuffer(dsTSTRING_flat *self, dsTSTRING_BUF_HEADER<char> *buffer);

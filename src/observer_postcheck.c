@@ -87,7 +87,7 @@ void observer_postcheck(int16_t local_player_index)
 
     if ( !suppress_penetration && distance != 0.0 )
     {
-        observer_check_penetration(&target, &obs->forward, &obs->up, &distance_f, 0.02);
+        observer_check_penetration(&target, &obs->forward, &obs->up, &distance_f, 0.02f);
         distance = distance_f;
     }
 

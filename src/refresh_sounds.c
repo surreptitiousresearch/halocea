@@ -118,7 +118,7 @@ void refresh_sounds(void)
                     if ( channel == 0xFFFF )
                         stop = 1;
                     else
-                        sound_start_fade(_sound_fade_mode_linear, 0.30000001, -1, -1);
+                        sound_start_fade(_sound_fade_mode_linear, 0.30000001f, -1, -1);
                 }
                 else if ( dead_class == _sound_class_scripted_dialog_to_other && channel == 0xFFFF )
                 {

@@ -26,7 +26,7 @@
 #include "headers/ai_line_of_sight.h"
 #include "headers/actor_perception_type.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
 extern float scenario_fog_at_point(const location *viewer_location, const real_point3d *viewer_point, const real_point3d *point);

@@ -30,7 +30,7 @@
 #include "headers/object_datum.h"
 #include "headers/blam_data_globals.h"
 #include "headers/collision_test_flags.h"
-
+#include "headers/ppc_intrinsics.h"
 
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);

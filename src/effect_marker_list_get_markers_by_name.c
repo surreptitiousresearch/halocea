@@ -16,7 +16,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern int  strcmp(const char *a, const char *b);

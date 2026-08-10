@@ -34,7 +34,7 @@ void channel_set_properties_hardware(int16_t channel_index, platform_sound_chann
     {
         float ducked = properties->gain * 1.2;
         if ( ducked > 0.6 )
-            ducked = 0.6;
+            ducked = 0.6f;
         properties->gain = ducked;
     }
 

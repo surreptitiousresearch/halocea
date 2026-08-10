@@ -31,7 +31,7 @@ void dead_camera_new(dead_camera *camera, int16_t local_player_index, int unit_i
 
     camera->distance = real_seed_random_range(get_global_local_random_seed_address(), 2.0, 6.0);
     camera->orientation.n[0] = real_seed_random_range(get_global_local_random_seed_address(), 0.0, TWO_PI);
-    camera->orientation.n[1] = -real_seed_random_range(get_global_local_random_seed_address(), 0.47123894, 1.0995574);
+    camera->orientation.n[1] = -real_seed_random_range(get_global_local_random_seed_address(), 0.47123894f, 1.0995574f);
     camera->timer = 3.0f;
 
     if ( unit_index == -1 )

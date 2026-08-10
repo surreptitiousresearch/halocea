@@ -53,8 +53,10 @@ struct SYSTEM_FMOD : SYSTEM {
     unsigned char _fmodHead[84];             // 0x034..0x088 system/master/reverb/projects/lstPos/
                                              //             nativeCategories/events (boundary)
     ds::LIST<BUFFER_FMOD *> buffers;         // 0x088 live playing buffers
-    unsigned char _counters[16];             // 0x09C mostAudible/numPlaying/numStreamPlaying/
-                                             //       getBufferCounter (boundary)
+    float                    mostAudible;    // 0x09C loudest audible instance this frame
+    int                      numPlaying;     // 0x0A0 live buffers
+    int                      numStreamPlaying; // 0x0A4 live streamed buffers
+    int                      getBufferCounter; // 0x0A8 GetBuffer call counter
     ds::LIST<BUFFER_FMOD *> virtualEvents;   // 0x0AC buffers that started virtual (silent)
     unsigned char _mid[880];                 // 0x0C0..0x430 streamedLowPriority/maps/timers/
                                              //             resources/reverb state (boundary)

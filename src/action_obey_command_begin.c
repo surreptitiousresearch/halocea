@@ -298,8 +298,8 @@ uint8_t action_obey_command_begin(
                 }
                 case _ai_atom_look_player:   /* look at nearest interesting prop, else nearest player */
                 {
-                    float best_prop_distance = 3.4028235e38;
-                    float best_player_distance_sq = 3.4028235e38;
+                    float best_prop_distance = 3.4028235e38f;
+                    float best_player_distance_sq = 3.4028235e38f;
                     prop_iterator prop_cursor;
                     prop_iterator_new(&prop_cursor, actor_index);
                     prop_datum *prop = prop_iterator_next(&prop_cursor);

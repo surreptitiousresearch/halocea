@@ -19,7 +19,7 @@
 #include "headers/real_matrix4x3.h"
 #include "headers/portal_hull.h"
 #include "headers/portal_hull_from_portal_result.h"
-
+#include "headers/ppc_intrinsics.h"
 extern real_plane3d screen_plane;
 
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);

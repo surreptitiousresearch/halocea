@@ -113,7 +113,7 @@ void first_person_weapon_draw(void)
         (game_globals_first_person_interface *)global_game_globals->first_person_interface.address;
     if ( !hcex_model_rend_disable )
     {
-        cached_lighting = object_get_cached_render_lighting(unit_index, 3.4028235e38);
+        cached_lighting = object_get_cached_render_lighting(unit_index, 3.4028235e38f);
         render_disabled = hcex_model_rend_disable;
     }
 

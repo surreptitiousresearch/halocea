@@ -40,7 +40,7 @@ extern "C" int sprintf_0(char *string, const char *format, ...);
 
 /* fnmGetName / fnmGetNameStr (fname.h path-splitting helpers) — boundary. */
 extern void             fnmGetName(const char *path, char *out /* [272] */);
-extern dsTSTRING<char> *fnmGetNameStr(dsTSTRING<char> *out, const dsTSTRING<char> *path);
+extern dsTSTRING<char> *fnmGetNameStr(_Out_ dsTSTRING<char> *out, const dsTSTRING<char> *path); /* _Out_ : sret slot, always constructed */
 
 extern haloRAW_INPUT_X360 hcex_coop_u1_inp_remote;
 extern dsEVENT_MGR       *gEventMgr;

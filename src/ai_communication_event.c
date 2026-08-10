@@ -622,7 +622,7 @@ resolve_done:
                             actor_datum *actor = DATUM_GET(actor_data, actor_datum, subject_actor_index);
                             if ( actor->danger_zone.danger_type > actor_danger_zone_none )
                             {
-                                look_unit_index = actor->danger_zone.position.__s1.x;
+                                look_unit_index = actor->danger_zone.object_index;  /* DEVIATION: decompiler read position.x (0x2B0); binary loads 0x28C = object_index (lwz r15, 0x28C(r11) @0x837D110C) */
                                 look_target_type = _ai_information_look_object;
                             }
                         }

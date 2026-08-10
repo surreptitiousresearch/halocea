@@ -8,7 +8,7 @@
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 #include <stdint.h>
-
+#include "headers/ppc_intrinsics.h"
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
 

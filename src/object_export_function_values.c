@@ -26,7 +26,7 @@
 #include "headers/object_export_function_mode.h"
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
-
+#include "headers/ppc_intrinsics.h"
 
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);

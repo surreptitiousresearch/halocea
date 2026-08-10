@@ -130,7 +130,7 @@ void unit_throw_grenade_release(int unit_index, uint8_t premature)
                              / (float)object_data->unit.grenade_throw_full_power_ticks;
         if ( throw_fraction < 1.0f )
         {
-            float weak = real_seed_random_range(get_global_random_seed_address(), 0.020000001, 0.046666667);
+            float weak = real_seed_random_range(get_global_random_seed_address(), 0.020000001f, 0.046666667f);
             launch_velocity.n[0] = (object_data->unit.aiming_vector.n[0] * weak) * (1.0f - throw_fraction)
                                  + (launch_velocity.n[0] * throw_fraction);
             launch_velocity.n[1] = (object_data->unit.aiming_vector.n[1] * weak) * (1.0f - throw_fraction)

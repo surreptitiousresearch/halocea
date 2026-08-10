@@ -202,7 +202,7 @@ run_timeline:
         }
         else
         {
-            event_completed = 1;
+            new_event_time = effect->event_duration; event_completed = 1;  /* DEVIATION @0x836E3A9C: the shared `stfs f0, 0x50(r31)` store runs with f0 still holding the event_duration loaded at 0x836E3A6C — not an uninitialized slot */
             dt = (dt - (effect->event_duration - effect->event_time));
         }
         effect->event_time = new_event_time;

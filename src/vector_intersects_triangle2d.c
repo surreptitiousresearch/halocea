@@ -10,7 +10,7 @@
 
 #include "headers/real_point2d.h"
 #include "headers/real_vector2d.h"
-
+#include "headers/ppc_intrinsics.h"
 int vector_intersects_triangle2d(
     const real_point2d *point,
     const real_vector2d *vector,

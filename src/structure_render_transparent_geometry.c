@@ -24,9 +24,6 @@ void structure_render_transparent_geometry(void)
     structure_render_pass(render.environment_surface_indices, render.environment_surface_count,
                           structure_render_globals.environment_triangles_index,
                           nullptr, nullptr, nullptr,
-                          /* cast the real 11-arg impl down to the 8-arg callback this caller supplies */
-                          (void (*)(const struct shader *, int16_t, struct bitmap_data *, int, int, int,
-                                    const struct vertex_buffer *, const union real_point3d *))
-                              rasterizer_environment_transparent_geometry_submit);
+                          rasterizer_environment_transparent_geometry_submit);
     rasterizer_environment_transparent_geometry_end();
 }

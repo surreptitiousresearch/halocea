@@ -108,7 +108,7 @@ void item_accelerate(int item_index, const real_vector3d *acceleration, uint8_t 
             settle.n.n[1] = global_up3d->n[1];
             settle.n.n[2] = global_up3d->n[2];
         }
-        float spin = real_seed_random_range(get_global_random_seed_address(), -1.5707964, 1.5707964);
+        float spin = real_seed_random_range(get_global_random_seed_address(), -1.5707964f, 1.5707964f);
         item->object.angular_velocity.n[0] += settle.n.n[0] * spin;
         item->object.angular_velocity.n[1] += settle.n.n[1] * spin;
         item->object.angular_velocity.n[2] += settle.n.n[2] * spin;

@@ -26,7 +26,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
 #include "headers/datum_index.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);

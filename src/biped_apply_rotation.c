@@ -13,7 +13,7 @@
 #include "headers/biped_datum.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);

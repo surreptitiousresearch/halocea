@@ -20,7 +20,7 @@
 #include "headers/unit_definition_flags.h"
 #include "headers/game_globals_tag.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern void object_compute_autoaim_target(int object_index, const real_point3d *position, const real_vector3d *direction, real_point3d *target);

@@ -30,7 +30,7 @@
 #include "headers/unit_definition_flags.h"
 #include "headers/collision_test_flags.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 /* 0xC221: front-facing | structure | object vehicles/scenery/machines (bit indices per collision_test_flags.h;
  * no DB composite enum names this exact mask) */

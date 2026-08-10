@@ -39,7 +39,7 @@
 #include "headers/base_seat.h"
 #include "headers/blam_data_globals.h"
 #include "headers/animation_update_kind.h"
-
+#include "headers/ppc_intrinsics.h"
 
 extern uint8_t game_engine_running(void);
 extern int16_t game_connection(void);

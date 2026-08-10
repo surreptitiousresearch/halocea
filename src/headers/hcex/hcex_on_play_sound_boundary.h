@@ -25,7 +25,9 @@ extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3
 
 /* dsTSTRING<char> flat helpers / allocator (C++ view of haloENGINE_CONTROL.h does not pull the
  * C-only hcex_ds_boundary.h, so declare the two this TU uses directly). */
-extern void dsTSTRING_UnsafeInit(dsTSTRING_flat *s, const char *src, int len, int flags);
+/* _Out_ : UnsafeInit stores pBuffer on every return path (see hcex_ds_boundary.h). Must stay
+ * identical on every redeclaration of this symbol or /analyze raises C28251. */
+extern void dsTSTRING_UnsafeInit(_Out_ dsTSTRING_flat *s, const char *src, int len, int flags);
 extern "C" void dlFree(void *ptr);
 
 /* --- ws / CRT / bridge helpers --- */

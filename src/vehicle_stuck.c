@@ -15,7 +15,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern uint8_t physics_instance_new(physics_instance *instance, int object_index);

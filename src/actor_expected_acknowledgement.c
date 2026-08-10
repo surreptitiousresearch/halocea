@@ -8,7 +8,7 @@
 #include "headers/prop_iterator.h"
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
-
+#include "headers/ppc_intrinsics.h"
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 

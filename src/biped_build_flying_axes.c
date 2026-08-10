@@ -6,7 +6,7 @@
 
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 extern float normalize3d(real_vector3d *v);
 

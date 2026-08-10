@@ -39,8 +39,8 @@ uint8_t collision_test_pill(unsigned int flags, const real_point3d *point, const
     int struck = 0;
 
     collision->type = -1;
-    collision->t = 3.4028235e38;
-    if ( collision_bsp_test_pill(global_collision_bsp, point, vector, radius, 3.4028235e38, &bsp_result) )
+    collision->t = 3.4028235e38f;
+    if ( collision_bsp_test_pill(global_collision_bsp, point, vector, radius, 3.4028235e38f, &bsp_result) )
     {
         collision->t = bsp_result.t;
         if ( (flags & (1u << _collision_test_structure_bit)) != 0 )

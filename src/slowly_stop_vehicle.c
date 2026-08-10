@@ -17,7 +17,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/real_matrix4x3.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern double sin(double x);

@@ -15,7 +15,7 @@
 #include "headers/collision_result.h"
 #include "headers/blam_data_globals.h"
 #include "headers/collision_test_flags.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern uint32_t *get_global_random_seed_address(void);

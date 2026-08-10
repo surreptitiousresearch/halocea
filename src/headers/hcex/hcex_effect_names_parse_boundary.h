@@ -17,7 +17,7 @@
 #include "../ws/ps/psSECTION.h"
 
 /* dsTSTRING<char>::UnsafeInitEmpty — adopt the shared empty-string singleton (boundary). */
-extern void dsTSTRING_UnsafeInitEmpty(dsTSTRING_flat *out);
+extern void dsTSTRING_UnsafeInitEmpty(_Out_ dsTSTRING_flat *out); /* _Out_ per hcex_ds_boundary.h */
 
 /* psSTD_TYPEID, psSECTION_KEY_REF and psITERATOR each used to have a SECOND body here, which is
  * `error: redefinition` in the header_layout probe TU and made the visible layout depend on

@@ -28,7 +28,7 @@
 #include <math.h>
 #include "headers/device_datum_flags.h"
 #include "headers/blam_data_globals.h"
-
+#include "headers/ppc_intrinsics.h"
 
 extern uint8_t accelerate_to_position(float *position_reference, float *velocity_reference, float position_desired, float acceleration_maximum, float velocity_maximum, float position_lower_bound, float position_upper_bound, uint8_t circular_position);
 extern void device_effect_new(int device_index, int effect_index);

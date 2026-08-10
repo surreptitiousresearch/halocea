@@ -29,13 +29,13 @@ extern const dsTSTRING_flat *haloENGINE_CONTROL_GetPathToCheckpoints(haloENGINE_
 extern int  haloENGINE_CONTROL_IsCoop(haloENGINE_CONTROL *self);
 
 /* dsTSTRING<char> operations (ws-engine boundary; free-function form of the C++ thiscall/operators) */
-extern void      dsTSTRING_UnsafeInitEmpty(dsTSTRING_flat *out);                          /* = shared empty, +1 ref */
+extern void      dsTSTRING_UnsafeInitEmpty(_Out_ dsTSTRING_flat *out);                    /* = shared empty, +1 ref */
 extern void      dsTSTRING_ReleaseBuffer(dsTSTRING_flat *s, dsTSTRING_BUF_HEADER<char> *buf);
 extern void      dsTSTRING_Insert(dsTSTRING_flat *s, int at, const char *src, int len);   /* Insert(int, char const *, int) */
 extern void      dsTSTRING_InsertString(dsTSTRING_flat *s, int at, const dsTSTRING_flat *src);  /* Insert(int, dsTSTRING_flat const &) */
 extern void      dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src);              /* operator= */
 extern void      dsTSTRING_dtor(dsTSTRING_flat *s);                                        /* ~dsTSTRING_flat */
-extern dsTSTRING_flat *fnmGetNameStr(dsTSTRING_flat *out, const dsTSTRING_flat *path);               /* strip to base name */
+extern dsTSTRING_flat *fnmGetNameStr(_Out_ dsTSTRING_flat *out, const dsTSTRING_flat *path);         /* strip to base name */
 
 extern "C" int  verify_dir(const dsTSTRING_flat *dir);   /* HCEX sibling */
 extern void _apLog(const char *format, ...);

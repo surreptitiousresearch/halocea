@@ -78,8 +78,11 @@ extern int         _apForceLog(const char *path, const char *fmt, ...);
 extern "C" int16_t game_difficulty_level_get(void);
 
 /* dsSTRID / dsTSTRING_flat template ops beyond hcex_ds_boundary.h's base set */
-extern dsTSTRING_flat *dsTSTRING_concat(dsTSTRING_flat *out, const dsTSTRING_flat *a, const dsTSTRING_flat *b);      /* operator+ */
-extern dsTSTRING_flat *dsTSTRING_concat_cstr(dsTSTRING_flat *out, const dsTSTRING_flat *a, const char *b);      /* operator+ */
+/* _Out_ on the sret slot: operator+ returns by value, so the hidden result pointer is fully
+ * constructed on every return by the ABI. Without it /analyze keeps the caller's `out.pBuffer = 0`
+ * seed live and reports C6011 on the release that follows. */
+extern dsTSTRING_flat *dsTSTRING_concat(_Out_ dsTSTRING_flat *out, const dsTSTRING_flat *a, const dsTSTRING_flat *b);      /* operator+ */
+extern dsTSTRING_flat *dsTSTRING_concat_cstr(_Out_ dsTSTRING_flat *out, const dsTSTRING_flat *a, const char *b);      /* operator+ */
 extern void        dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src);                       /* operator= */
 extern void        dsTSTRING_Insert(dsTSTRING_flat *s, int at, const char *src, int len);
 
@@ -106,7 +109,7 @@ extern int dsVECTOR_int_InsertSorted(dsVECTOR_int_hdr *v, const int *val, dsCMP 
 /* dsVECTOR<entENTITY*,8> indexed access on gsANITEC_SYS::ownedActors */
 extern entENTITY **dsVECTOR_ent_index(dsVECTOR_ent_hdr *v, int position);
 /* entENTITY's virtual GetName()-equivalent (vtable slot used at the ownedActors call site) */
-extern void entENTITY_GetName(entENTITY *self, dsTSTRING_flat *out);
+extern void entENTITY_GetName(entENTITY *self, _Out_ dsTSTRING_flat *out); /* _Out_ : sret slot, always constructed */
 
 /* dsVECTOR<T,8>::operator[] inlines a STRONG_ASSERT2(idx>=0 && idx<nElem) in ds_vector.hpp:567;
  * reproduced here as the flattened helper the decompiler shows inlined at the cineHiddenHcexObjKeys

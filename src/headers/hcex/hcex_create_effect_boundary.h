@@ -33,7 +33,7 @@ typedef dsTSTRING<char> dsTSTRING_flat;
 /* --- ent / anim object model: canonical animTPL / animINST included above. The former flat
  * partial models (state2/pEnt/pTpl at raw offsets) are superseded by the DB-verified headers. --- */
 #include "../ws/ent/entENTITY.h"      /* full entENTITY (pInst@0x15C) — .cpp reads ent->pInst */
-typedef struct sml_STATE sml_STATE;   /* opaque; 12 bytes */
+typedef sml::STATE sml_STATE;   /* canonical (12B), reached via entENTITY -> iaIACTOR -> sml/STATE.h. DEVIATION: was `typedef struct sml_STATE sml_STATE;`, which is a DIFFERENT type from hcex_obj_state_boundary.h's `typedef sml::STATE sml_STATE;` — one typedef name, two types (C2371), and the redefinition truncated header_layout's C++ probe. */
 
 /* FP_MODEL (24 bytes) / HCEX_OBJ (56 bytes) — canonical bodies (types_members). HCEX_OBJ.h spells
  * `followers` with its own boundary WEAK_PTR<T> shim rather than ds::WEAK_PTR<T>; both are
@@ -98,7 +98,9 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 
 /* --- ws container methods (free-function form of the C++ thiscall) --- */
 extern dsTSTRING_BUF_HEADER<char> *dsTSTRING_AllocBuffer(dsTSTRING_flat *s, int len, int maxLen);
-extern void  dsTSTRING_UnsafeInit(dsTSTRING_flat *s, const char *src, int len, int flags);
+/* _Out_ : UnsafeInit stores pBuffer on every return path (see hcex_ds_boundary.h). Must stay
+ * identical on every redeclaration of this symbol or /analyze raises C28251. */
+extern void  dsTSTRING_UnsafeInit(_Out_ dsTSTRING_flat *s, const char *src, int len, int flags);
 extern void  dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src);            /* operator= */
 extern void  dsTSTRING_Insert(dsTSTRING_flat *s, int at, const char *src, int len);
 extern void  dsTSTRING_InsertRepeat(dsTSTRING_flat *s, int at, int count);          /* Insert(at, n) overload */

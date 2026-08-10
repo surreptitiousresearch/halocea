@@ -3,6 +3,7 @@
 #include "headers/structure_bsp.h"
 #include "headers/structure_lightmap.h"
 #include "headers/structure_material.h"
+#include "headers/structure_material_flags.h"
 #include "headers/global_tag_instances.h"
 #include "headers/shader.h"
 #include "headers/bitmap_data.h"
@@ -11,20 +12,19 @@
 #include "headers/real_plane3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/render_lighting.h"
+#include "headers/structure_render_globals.h"
+#include "headers/blam_data_globals.h"
 
 extern uint8_t breakable_surface_extant(int16_t breakable_surface_index);
 extern uint8_t shader_type_is_transparent(int16_t shader_type);
 extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int16_t bitmap_index);
 
-/* CAVEAT (2026-08-07): the draw_transparent_triangles call below supplies 8 of the binary's 12
- * arguments. The previous note here claimed the trailing four "are left as whatever garbage sits in
- * this function's stack frame"; the disassembly refutes that. At 0x837C679C-0x837C67BC, four values
- * are computed and stored to r1+0x54/0x5C/0x64/0x6C right before the `bctrl` at 0x837C67D0, on top of
- * the eight register args. Against types_members structure_material: arg9 `const real_plane3d *` =
- * (material->flags & 1) ? &material->plane : r20, arg10 `const real_vector3d *` =
- * (material->flags & 2) ? r15+0xC : *(<var_A0> + 0x6F54), arg11 `const render_lighting *` =
- * &material->lighting, arg12 `unsigned int` = r20. r15/r20/var_A0 are not yet derived, so the four
- * are NOT passed rather than being guessed — see src/headers/structure_render_pass.h. */
+/* DEVIATION (disasm 0x837C6764-0x837C67D0): draw_transparent_triangles is a TWELVE-argument call; a
+ * previous rendering passed 8 and called the trailing four underived. They resolve: r20 is `li r20, 0`
+ * @0x837C65CC, r15 is `addi r15, r10, structure_render_globals@l` @0x837C6610, and the split-lis load
+ * *(0x84176F54) is global_zero_vector3d. The four go in the Xbox 360 parameter slots at
+ * r1+0x54/0x5C/0x64/0x6C; the 0x836A62D8 thunk reloads exactly those offsets and the callee reads
+ * arg_54/arg_6C. The DB prototype independently declares the same twelve-parameter callback. */
 void structure_render_pass(
         int    *surface_indices,
         int16_t surface_count,
@@ -32,8 +32,8 @@ void structure_render_pass(
         void (*begin_lightmap)(bitmap_data *),
         void (*draw_triangles)(const shader *, int16_t, int, int, int, const vertex_buffer *),
         void (*end_lightmap)(void),
-        void (*draw_transparent_triangles)(const shader *, int16_t, bitmap_data *, int, int, int,
-                                            const vertex_buffer *, const real_point3d *))
+        void (*draw_transparent_triangles)(const shader *, int16_t, const bitmap_data *, int, int, int,
+                                            const vertex_buffer *, const real_point3d *, const real_plane3d *, const real_vector3d *, const render_lighting *, unsigned int))
 {
     structure_bsp *bsp                = global_structure_bsp;
     int           *surface_cursor     = surface_indices;
@@ -102,7 +102,14 @@ void structure_render_pass(
                                     first_triangle_index,
                                     chunk_count,
                                     &material->vertices,
-                                    &material->centroid);
+                                    &material->centroid,
+                                    (material->flags & (1u << _structure_material_coplanar_bit)) != 0
+                                            ? &material->plane : nullptr,
+                                    (material->flags & (1u << _structure_material_fog_plane_bit)) != 0
+                                            ? &structure_render_globals.fog_offset_vector
+                                            : global_zero_vector3d,
+                                    &material->lighting,
+                                    0);
                     }
                     else if (draw_triangles)
                     {

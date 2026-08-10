@@ -13,7 +13,7 @@
 #include <stdint.h>
 #include "headers/bitmap_data.h"
 #include <string.h>
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);

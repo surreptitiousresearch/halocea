@@ -31,7 +31,7 @@ uint8_t collision_model_test_pill(const collision_model_instance *instance, cons
     int struck = 0;
     int16_t node_index = 0;
 
-    result->bsp_result.t = 3.4028235e38;
+    result->bsp_result.t = 3.4028235e38f;
     const collision_model *model = instance->model;
     if ( model->nodes.count > 0 )
     {

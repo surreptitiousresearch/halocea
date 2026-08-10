@@ -24,7 +24,7 @@
 #include "headers/game_connection.h"
 #include "headers/unit_grenade_throw_state.h"
 #include "headers/blam_data_globals.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern uint8_t game_engine_infinite_grenades(int player_index);

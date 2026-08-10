@@ -28,9 +28,9 @@ extern const dsTSTRING_flat *haloENGINE_CONTROL_GetPathToCheckpoints(haloENGINE_
 extern int  haloENGINE_CONTROL_IsCoop(haloENGINE_CONTROL *self);
 
 /* dsTSTRING<char> operations (ws-engine boundary; free-function form of the C++ thiscall/operators) */
-extern void dsTSTRING_UnsafeInitEmpty(dsTSTRING_flat *out);                                    /* = shared empty, +1 ref */
-extern dsTSTRING_flat *dsTSTRING_concat(dsTSTRING_flat *out, const dsTSTRING_flat *a, const dsTSTRING_flat *b);   /* operator+ */
-extern dsTSTRING_flat *dsTSTRING_concat_cstr(dsTSTRING_flat *out, const dsTSTRING_flat *a, const char *b);   /* operator+ */
+extern void dsTSTRING_UnsafeInitEmpty(_Out_ dsTSTRING_flat *out);                              /* = shared empty, +1 ref */
+extern dsTSTRING_flat *dsTSTRING_concat(_Out_ dsTSTRING_flat *out, const dsTSTRING_flat *a, const dsTSTRING_flat *b);   /* operator+ */
+extern dsTSTRING_flat *dsTSTRING_concat_cstr(_Out_ dsTSTRING_flat *out, const dsTSTRING_flat *a, const char *b);   /* operator+ */
 extern void dsTSTRING_assign(dsTSTRING_flat *dst, const dsTSTRING_flat *src);                       /* operator= */
 extern void dsTSTRING_Insert(dsTSTRING_flat *s, int at, const char *src, int len);
 extern void dsTSTRING_InsertString(dsTSTRING_flat *s, int at, const dsTSTRING_flat *src);           /* Insert(at, dsTSTRING_flat) */

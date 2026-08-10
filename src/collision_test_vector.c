@@ -111,7 +111,7 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
                         : bsp_flags & ~(1u << _collision_bsp_test_ignore_breakable_surfaces_bit);
 
         if ( collision_bsp_test_vector(bsp_flags, global_collision_bsp, 256, breakable_surface_flags_get(),
-                                       point, vector, 3.4028235e38, &bsp_result)
+                                       point, vector, 3.4028235e38f, &bsp_result)
           && (effective_flags & (1u << _collision_test_structure_bit)) != 0 )
         {
             const real_plane3d *plane = bsp_result.plane;

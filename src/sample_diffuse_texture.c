@@ -49,6 +49,6 @@ void sample_diffuse_texture(const structure_material *material, const bitmap_dat
     sample_uv.n[1] = (((tc1.n[1] - tc0.n[1]) * s)
                    + ((tc2.n[1] - tc0.n[1]) * t)) + tc0.n[1];
 
-    pixel = rasterizer_bitmap_2d_get_pixel(bitmap, &sample_uv, 0.30000001);
+    pixel = rasterizer_bitmap_2d_get_pixel(bitmap, &sample_uv, 0.30000001f);
     pixel32_to_real_rgb_color(pixel, out_color);
 }

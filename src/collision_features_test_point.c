@@ -17,7 +17,7 @@ uint8_t collision_features_test_point(const collision_feature_list *features, co
                                       collision_plane *collision)
 {
     int16_t best_kind = -1;
-    float best_depth = -3.4028235e38;
+    float best_depth = -3.4028235e38f;
     int16_t best_index = -1;
     real_plane3d best_plane;
 

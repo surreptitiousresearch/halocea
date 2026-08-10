@@ -24,7 +24,7 @@
 #include "headers/effect_vector_field.h"
 #include "headers/real_rgb_color.h"
 #include "headers/effect_vector_field.h"
-extern float __fsqrts(float);
+#include "headers/ppc_intrinsics.h"
 
 
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);

@@ -8,12 +8,12 @@ extern uint16_t recorded_animation_get_time_left(int unit_index);
 
 void recorded_animation_get_time_left_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result;
-    *((int16_t *)&result) = 0;
+    int result = 0;   /* DEVIATION: `stw r11, 0x50(r1)` @0x83727DB0 zeroes the WHOLE word — the halfword */
+    /* form left slot bytes 2-3 uninitialised; `sth 0x50(r1)` @0x83727DD0 puts the short at slot halfword 0. */
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((int16_t *)&result + 1) = recorded_animation_get_time_left(*arguments);
+        *(int16_t *)&result = recorded_animation_get_time_left(*arguments);
         hs_return(thread_index, result);
     }
 }

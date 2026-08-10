@@ -12,7 +12,7 @@ void unit_get_current_flashlight_state_evaluate(int16_t function_index, int thre
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = unit_get_current_flashlight_state(arguments[0]);
+        *(unsigned char *)&result = unit_get_current_flashlight_state(arguments[0]);
         hs_return(thread_index, result);
     }
 }

@@ -9,6 +9,6 @@ extern uint8_t game_safe_to_save(void);
 void game_safe_to_save_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((unsigned char *)&result + 3) = game_safe_to_save();
+    *(unsigned char *)&result = game_safe_to_save();
     hs_return(thread_index, result);
 }

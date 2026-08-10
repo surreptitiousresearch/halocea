@@ -12,7 +12,7 @@ void unit_scripting_has_weapon_readied_evaluate(int16_t function_index, int thre
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = unit_scripting_has_weapon_readied(arguments[0], arguments[1]);
+        *(unsigned char *)&result = unit_scripting_has_weapon_readied(arguments[0], arguments[1]);
         hs_return(thread_index, result);
     }
 }

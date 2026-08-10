@@ -7,6 +7,6 @@ extern uint16_t scripted_camera_time(void);
 void scripted_camera_time_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((int16_t *)&result + 1) = scripted_camera_time();
+    *(int16_t *)&result = scripted_camera_time();
     hs_return(thread_index, result);
 }

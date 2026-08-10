@@ -12,7 +12,7 @@ void unit_scripting_vehicle_test_seat_list_evaluate(int16_t function_index, int 
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = unit_scripting_vehicle_test_seat_list(
+        *(unsigned char *)&result = unit_scripting_vehicle_test_seat_list(
             arguments[0], (const char *)arguments[1], arguments[2]);
         hs_return(thread_index, result);
     }

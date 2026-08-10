@@ -12,7 +12,7 @@ void lights_enable_evaluate(int16_t function_index, int thread_index, uint8_t in
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = lights_enable(((unsigned char *)arguments)[0]);
+        *(unsigned char *)&result = lights_enable(((unsigned char *)arguments)[0]);
         hs_return(thread_index, result);
     }
 }

@@ -14,7 +14,7 @@ void net_graph_change_display_evaluate(int16_t function_index, int thread_index,
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = net_graph_change_display((const char *)arguments[0], (const char *)arguments[1]);
+        *(unsigned char *)&result = net_graph_change_display((const char *)arguments[0], (const char *)arguments[1]);
         hs_return(thread_index, result);
     }
 }

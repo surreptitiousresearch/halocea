@@ -9,12 +9,12 @@ extern int16_t unit_scripting_get_grenade_count(int unit_index);
 
 void unit_scripting_get_grenade_count_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result;
-    *((int16_t *)&result) = 0;
+    int result = 0;   /* DEVIATION: `stw r11, 0x50(r1)` @0x83728ED0 zeroes the WHOLE word — the halfword */
+    /* form left slot bytes 2-3 uninitialised; `sth 0x50(r1)` @0x83728EE8 puts the short at slot halfword 0. */
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((int16_t *)&result + 1) = unit_scripting_get_grenade_count(arguments[0]);
+        *(int16_t *)&result = unit_scripting_get_grenade_count(arguments[0]);
         hs_return(thread_index, result);
     }
 }

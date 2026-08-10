@@ -12,7 +12,7 @@ void unit_scripting_vehicle_test_seat_evaluate(int16_t function_index, int threa
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = unit_scripting_vehicle_test_seat(
+        *(unsigned char *)&result = unit_scripting_vehicle_test_seat(
             arguments[0], (const char *)arguments[1], arguments[2]);
         hs_return(thread_index, result);
     }

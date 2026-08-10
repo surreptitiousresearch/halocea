@@ -8,6 +8,6 @@ extern uint8_t player0_look_pitch_is_inverted(void);
 void player0_look_pitch_is_inverted_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((unsigned char *)&result + 3) = player0_look_pitch_is_inverted();
+    *(unsigned char *)&result = player0_look_pitch_is_inverted();
     hs_return(thread_index, result);
 }

@@ -14,7 +14,7 @@ void device_group_set_desired_value_evaluate(int16_t function_index, int thread_
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = device_group_set_desired_value(*(int16_t *)arguments, ((float *)arguments)[1]);
+        *(unsigned char *)&result = device_group_set_desired_value(*(int16_t *)arguments, ((float *)arguments)[1]);
         hs_return(thread_index, result);
     }
 }

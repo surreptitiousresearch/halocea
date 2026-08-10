@@ -9,6 +9,6 @@ extern int16_t global_structure_bsp_index_get(void);
 void global_structure_bsp_index_get_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((int16_t *)&result + 1) = global_structure_bsp_index_get();
+    *(int16_t *)&result = global_structure_bsp_index_get();
     hs_return(thread_index, result);
 }

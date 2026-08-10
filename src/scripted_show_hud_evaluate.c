@@ -9,5 +9,5 @@ void scripted_show_hud_evaluate(int16_t function_index, int thread_index, uint8_
 {
     int result = 0;
     unsigned char *arguments = (unsigned char *)hs_macro_function_evaluate(function_index, thread_index, initialize);
-    if ( arguments ) { *((unsigned char *)&result + 3) = scripted_show_hud(*arguments); hs_return(thread_index, result); }
+    if ( arguments ) { *(unsigned char *)&result = scripted_show_hud(*arguments); hs_return(thread_index, result); }
 }

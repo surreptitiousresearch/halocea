@@ -13,7 +13,7 @@ void ai_scripting_allegiance_broken_evaluate(int16_t function_index, int thread_
     if ( arguments )
     {
         int result = 0;
-        *((unsigned char *)&result + 3) = ai_scripting_allegiance_broken(arguments[0], arguments[2]);
+        *(unsigned char *)&result = ai_scripting_allegiance_broken(arguments[0], arguments[2]);
         hs_return(thread_index, result);
     }
 }

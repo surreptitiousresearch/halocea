@@ -8,6 +8,6 @@ extern uint8_t player_control_action_test_zoom(void);
 void player_control_action_test_zoom_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((unsigned char *)&result + 3) = player_control_action_test_zoom();
+    *(unsigned char *)&result = player_control_action_test_zoom();
     hs_return(thread_index, result);
 }

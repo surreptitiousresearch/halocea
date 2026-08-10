@@ -11,7 +11,7 @@ void scripted_player_control_set_camera_control_evaluate(int16_t function_index,
     unsigned char *arguments = (unsigned char *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = scripted_player_control_set_camera_control(*arguments);
+        *(unsigned char *)&result = scripted_player_control_set_camera_control(*arguments);
         hs_return(thread_index, result);
     }
 }

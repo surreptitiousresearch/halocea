@@ -10,6 +10,6 @@ extern uint8_t unit_solo_player_integrated_night_vision_is_active(void);
 void unit_solo_player_integrated_night_vision_is_active_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
     int result = 0;
-    *((unsigned char *)&result + 3) = unit_solo_player_integrated_night_vision_is_active();
+    *(unsigned char *)&result = unit_solo_player_integrated_night_vision_is_active();
     hs_return(thread_index, result);
 }

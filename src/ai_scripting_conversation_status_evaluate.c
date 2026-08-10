@@ -14,7 +14,7 @@ void ai_scripting_conversation_status_evaluate(int16_t function_index, int threa
     if ( arguments )
     {
         int result = 0;   /* LOWORD = 0 */
-        *((int16_t *)&result + 1) = ai_scripting_conversation_status(arguments[0]);
+        *(int16_t *)&result = ai_scripting_conversation_status(arguments[0]);
         hs_return(thread_index, result);
     }
 }

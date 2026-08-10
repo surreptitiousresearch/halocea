@@ -11,7 +11,7 @@ void object_list_count_evaluate(int16_t function_index, int thread_index, uint8_
     if ( arguments )
     {
         int result = 0;
-        *((int16_t *)&result + 1) = object_list_count(arguments[0]);
+        *(int16_t *)&result = object_list_count(arguments[0]);
         hs_return(thread_index, result);
     }
 }

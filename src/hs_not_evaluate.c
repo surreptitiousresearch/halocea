@@ -9,5 +9,5 @@ void hs_not_evaluate(int16_t function_index, int thread_index, uint8_t initializ
 {
     int result = 0;
     unsigned char *arguments = (unsigned char *)hs_macro_function_evaluate(function_index, thread_index, initialize);
-    if ( arguments ) { *((unsigned char *)&result + 3) = hs_not(*arguments); hs_return(thread_index, result); }
+    if ( arguments ) { *(unsigned char *)&result = hs_not(*arguments); hs_return(thread_index, result); }
 }

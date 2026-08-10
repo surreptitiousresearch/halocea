@@ -12,7 +12,7 @@ void hs_objects_can_see_object_evaluate(int16_t function_index, int thread_index
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *((unsigned char *)&result + 3) = hs_objects_can_see_object(arguments[0], arguments[1], ((float *)arguments)[2]);
+        *(unsigned char *)&result = hs_objects_can_see_object(arguments[0], arguments[1], ((float *)arguments)[2]);
         hs_return(thread_index, result);
     }
 }

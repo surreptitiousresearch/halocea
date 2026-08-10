@@ -13,7 +13,7 @@ void ai_scripting_is_attacking_evaluate(int16_t function_index, int thread_index
     if ( arguments )
     {
         int result = 0;
-        *((unsigned char *)&result + 3) = ai_scripting_is_attacking(arguments[0]);
+        *(unsigned char *)&result = ai_scripting_is_attacking(arguments[0]);
         hs_return(thread_index, result);
     }
 }

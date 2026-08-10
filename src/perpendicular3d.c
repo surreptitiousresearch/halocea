@@ -4,7 +4,7 @@
 
 #include "headers/real_vector3d.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result)
 {

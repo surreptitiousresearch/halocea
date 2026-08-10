@@ -110,7 +110,9 @@ leaf:
     if ( data->last_plane_designator == -1 )
         return 0;
 
-    float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[data->last_plane_designator];
+    /* DEVIATION: designator bit 31 is the facing flag; the binary's 16-byte stride shift discards it
+     * (slwi r10,r11,4 @0x837E0DF8) and tests it separately (clrrwi r6,r7,31 @0x837E0E0C) — x64 no-op */
+    float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[data->last_plane_designator & 0x7FFFFFFF];
     *data->t = t0;
     real_vector3d *normal = data->normal;
     if ( data->last_plane_designator < 0 )

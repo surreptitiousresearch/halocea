@@ -39,7 +39,7 @@ extern uint8_t actor_look_valid_look_vector(float yaw_deviation, const real_vect
 
 extern double cos(double angle);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 uint8_t actor_look_idle_find_prop(int actor_index, uint8_t free_facing, uint8_t aim_at_prop, direction_specification *direction, uint8_t *interesting_prop)
 {

@@ -8,7 +8,7 @@
 
 #include "headers/euler_axis_plan.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float __fsqrts(float x);
 
 void unit_euler_axis_couple(euler_axis_plan *plan1, euler_axis_plan *plan2, float velocity_limit,

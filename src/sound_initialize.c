@@ -51,11 +51,11 @@ void sound_initialize(void)
 
     sound_manager_globals.platform = platform_definitions[platform_code];
 
-    sound_data = data_new("sounds", 512, 176);
+    sound_data = data_new("sounds", 512, 176);
     if ( !sound_data )
         return;
 
-    looping_sound_data = data_new("looping sounds", 128, 228);
+    looping_sound_data = data_new("looping sounds", 128, 228);
     if ( !looping_sound_data )
         return;
 

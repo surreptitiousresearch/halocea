@@ -66,7 +66,7 @@ void unit_died(int unit_index, uint8_t feigned)
         {
             actor_datum *actor = DATUM_GET(actor_data, actor_datum, unit->unit.actor_index);
             unit->unit.fake_encounter_index = actor->meta.encounter_index;
-            unit->unit.fake_squad_index = actor->meta.disconnected_squad_index;
+            unit->unit.fake_squad_index = actor->meta.squad_index;  /* DEVIATION: lhz r7, 0x3A(r11) @0x836D3494 = meta.squad_index (meta 0x36), not disconnected_squad_index (actor+0x38) */
             actor_died(actor_index);
             unit->unit.actor_index = -1;
         }
@@ -76,7 +76,7 @@ void unit_died(int unit_index, uint8_t feigned)
         {
             actor_datum *swarm_actor = DATUM_GET(actor_data, actor_datum, unit->unit.swarm_actor_index);
             unit->unit.fake_encounter_index = swarm_actor->meta.encounter_index;
-            unit->unit.fake_squad_index = swarm_actor->meta.disconnected_squad_index;
+            unit->unit.fake_squad_index = swarm_actor->meta.squad_index;  /* DEVIATION: lhz r7, 0x3A(r11) @0x836D34D0 = meta.squad_index (meta 0x36), not disconnected_squad_index (actor+0x38) */
             actor_swarm_unit_died(swarm_index, unit_index);
             unit->unit.swarm_actor_index = -1;
         }

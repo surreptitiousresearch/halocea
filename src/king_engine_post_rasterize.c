@@ -38,7 +38,7 @@
 #include "headers/render_animation.h"
 extern float __fsqrts(float x);
 extern double floor(double x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern void render_dynamic_quad(model_vertex_uncompressed *verts, int shader_index, const render_lighting *lighting, const render_animation *animation, float u_scale, float v_scale);
 
 void king_engine_post_rasterize(void)

@@ -48,7 +48,7 @@ extern void unit_get_head_position(int unit_index, real_point3d *head_position);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 extern float normalize3d(real_vector3d *v);
 extern double atan2(double y, double x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void player_effect_start_client(int player_index, const damage_data *damage, const real_vector3d *direction,
                                 float scale, float total_damage)

@@ -12,7 +12,7 @@
 #include "headers/real_vector2d.h"
 #include "headers/math_constants.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float angle_between_vectors2d(const real_vector2d *a, const real_vector2d *b);
 
 BOOL convex_hull2d_verify(int16_t point_count, const real_point2d *points, int16_t hull_count, const int16_t *hull_indices)

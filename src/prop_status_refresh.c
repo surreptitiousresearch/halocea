@@ -455,11 +455,11 @@ done_target:;
                         sound_unit = prop->unit_index;
                     unit_datum *sound_object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, sound_unit)->datum);
                     unit_definition *sound_def = TAG_GET(unit_definition, sound_object->definition_index);
-                    prop->audibility = actor_audibility_at_point(
-                        actor_index, sense_position, &prop->body_position,
-                        &prop->body_location,
-                        sound_def->unit.constant_sound,
-                        1.0f, (int)sound_object);  /* deviation: decompiler passed the object pointer here */
+                    /* DEVIATION: arg7 = r9 (float arg6 skips r8) = `lhz r9,0x38(r31)` @0x837DAE90 =
+                     * line_of_sight; callee `mr r28,r9` @0x837D56B8 compares 0/1 @0x837D5828. */
+                    prop->audibility = actor_audibility_at_point(actor_index, sense_position,
+                        &prop->body_position, &prop->body_location, sound_def->unit.constant_sound,
+                        1.0f, prop->line_of_sight);
                 }
             }
 

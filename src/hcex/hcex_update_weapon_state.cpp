@@ -22,7 +22,7 @@ extern "C" int hcex_arifle_ammo[];
 extern "C" float hcex_arifle_compass[];
 
 extern "C" int strcmp(const char *a, const char *b);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern "C" void hcex_dbg_add_float(const char *name, float v);
 extern "C" void hcex_print_compass(int idx, float compass_magnitude);
 extern "C" float hcex_update_heat(int modelId, int16_t local_player_index, float heat_level);

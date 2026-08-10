@@ -73,7 +73,7 @@ extern uint8_t unit_is_busy(int object_index);
 extern void unit_control(int unit_index, const unit_control_data *control_data, int completed_client_update_id);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern double cos(double x);
 extern double sin(double x);
 

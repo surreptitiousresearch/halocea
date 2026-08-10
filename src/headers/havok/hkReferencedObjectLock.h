@@ -1,14 +1,14 @@
 #pragma once
 #include "hkReferencedObject.h"
 
-/* hkReferencedObject::LockMode (used by the global refcount lock). Only
-   LOCK_MODE_AUTO is read at the reversed call sites; the others are present
-   for completeness of the enum the DB names. */
+/* hkReferencedObject::LockMode. DEVIATION: MANUAL/AUTO were transposed — DB
+   types_enum_values and the binary agree AUTO=1, MANUAL=2 (ctor @0x838D3378
+   stores 1; addReference @0x838D2D58 / removeReference @0x838D2E3C test == 1). */
 typedef enum hkReferencedObject_LockMode
 {
     LOCK_MODE_NONE = 0,
-    LOCK_MODE_MANUAL = 1,
-    LOCK_MODE_AUTO = 2
+    LOCK_MODE_AUTO = 1,
+    LOCK_MODE_MANUAL = 2
 } hkReferencedObject_LockMode;
 
 /* _RTL_CRITICAL_SECTION is the Win32/CRT type (external boundary). */
@@ -60,7 +60,7 @@ extern void hkMultiThreadCheck_enableChecks(hkMultiThreadCheck *c); /* hkMultiTh
 
 /* boundary — Xbox 360 per-thread reentrancy tag. DEVIATION: at the call sites
    this is the raw TLS deref *(int*)(*(int*)r13 + 700) compared against the
-   sentinel 601834836 (0x23E5D454); wrapped here as owns/set/clear accessors so
+   sentinel 601834836 (0x23DF4554); wrapped here as owns/set/clear accessors so
    the recursion-guard logic reads intelligibly. */
 extern int  hkRefLock_threadOwns(void);
 extern void hkRefLock_setThreadOwns(void);

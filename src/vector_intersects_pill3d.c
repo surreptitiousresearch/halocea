@@ -26,7 +26,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern uint8_t fast_vector_intersects_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
 
 uint8_t vector_intersects_pill3d(const real_point3d *point, const real_vector3d *vector,

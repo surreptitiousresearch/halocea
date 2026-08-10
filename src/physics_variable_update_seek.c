@@ -17,7 +17,7 @@
 #include "headers/physics_variable.h"
 #include "headers/physics_variable_speed.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern void physics_variable_speed_update(float *speed, const physics_variable_speed *definition, float magnitude);
 
 uint8_t physics_variable_update_seek(float *position, float *speed, const physics_variable *definition, uint8_t cyclical_position, float desired_position, float magnitude)

@@ -20,7 +20,7 @@
 #include "headers/real_point2d.h"
 #include "headers/real_plane2d.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points, const real_plane2d *plane,
                                        int16_t maximum_count, real_point2d *result, uint32_t *clip_flags,

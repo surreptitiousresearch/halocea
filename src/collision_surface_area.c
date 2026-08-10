@@ -5,8 +5,13 @@
  * the next edge from the winding side (this surface as the edge's left vs right surface).
  *
  * DEVIATION: register-pun doubles are plain float math; the returned `*((float*)&v5+1)` is the float held in
- * fp1 = max(0, area). The plane designator is used raw for the byte offset — `16 * plane` wraps mod 2^32, so
- * the facing bit (sign) drops out of the address while separately selecting normal negation. */
+ * fp1 = max(0, area).
+ *
+ * DEVIATION: plane_designator bit 31 is the facing flag, not index data. The binary never masks before
+ * indexing because the 16-byte stride shift discards that bit in 32-bit arithmetic (`slwi r10, r3, 4`
+ * @0x837E0234), and isolates it separately for the facing test (`clrrwi r10, r3, 31` @0x837E0244). The
+ * `& 0x7FFFFFFF` below is therefore a proven no-op on the as-built target and keeps the index in range
+ * where ptrdiff_t is wider (x64); the facing test still reads the unmasked value. */
 
 #include "headers/collision_bsp.h"
 #include "headers/real_plane3d.h"
@@ -18,7 +23,7 @@ float collision_surface_area(const collision_bsp *bsp, int surface_index)
     const collision_vertex *vertices = (const collision_vertex *)bsp->vertices.address;
     const collision_surface *surface = &((const collision_surface *)bsp->surfaces.address)[surface_index];
 
-    const float *plane = (const float *)&((const real_plane3d *)bsp->bsp3d.planes.address)[surface->plane_designator];
+    const float *plane = (const float *)&((const real_plane3d *)bsp->bsp3d.planes.address)[surface->plane_designator & 0x7FFFFFFF];
     real_vector3d normal;
     if ( surface->plane_designator >= 0 )
     {

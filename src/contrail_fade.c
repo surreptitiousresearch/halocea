@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float __fsqrts(float x);
 extern float transition_function_evaluate(int16_t function_type, float value);
 

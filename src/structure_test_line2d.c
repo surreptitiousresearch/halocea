@@ -7,7 +7,32 @@
  * Clean 7-param signature (no float args, no GPR-shadow hazard) — verified directly against the decompile, no
  * scramble found. Recurses into itself once (guarded by `recursed`) as a self-correction: if the segment
  * appears to exit every tested edge's outer half-plane but none of them is the actual crossing edge, it retries
- * from the surface's boundary-vertex centroid back toward p0 to re-derive a fallback surface index. */
+ * from the surface's boundary-vertex centroid back toward p0 to re-derive a fallback surface index.
+ *
+ * BINARY BUG (kept faithful; verified instruction-by-instruction 2026-08-10): the neighbor surface index is
+ * passed to the passability test with NO sentinel test and NO bound test, so a boundary edge — whose absent
+ * neighbor is the -1 sentinel — reaches pathfinding_surfaces[-1]. The index is `edge->surface_indices[!on_right_side]`
+ * (lwzx r14,r6,r11 @0x8381C7E0, r6 = 16 + !on_right_side*4), reloaded into r11 at the crossing branch
+ * (lwzx r11,r6,r11 @0x8381C920) and used three instructions later as the table subscript
+ * (lbzx r9,r11,r16 @0x8381C92C, r16 = structure->pathfinding_surfaces.address from lwz r16,0x1E8(r3) @0x8381C6D4).
+ * The only compare on that index anywhere ahead of the read is cmpw cr6,r14,r23 @0x8381C7E8 — against
+ * p1_surface_index, which merely sets `reached_target`; it is neither a -1 test nor a range test. The sole
+ * compare between the reload and the read is cmplwi cr6,r10,0 @0x8381C928 on ignore_broken_surfaces (r19),
+ * not on r11. The block has exactly one entry (bgt cr6,loc_8381C920 @0x8381C880) and no branch target lies
+ * between 0x8381C920 and 0x8381C97C, so no guard can have been dropped from an unseen predecessor. The
+ * passability test is inlined — the function's only calls are breakable_surface_flags_get, itself and
+ * collision_surface_project_point2d — so there is no callee-side guard either. If the byte read out of bounds
+ * happens to have bit 6 set, mr r30,r11 @0x8381C98C adopts -1 as the current surface and the next iteration
+ * indexes surfaces[-1] as well (add r4,r11,r28 @0x8381C764, stride 12).
+ * This is an as-built asymmetry, NOT a branch the decompiler dropped: the sibling structure_test_ray2d
+ * @0x8381C420 runs the byte-identical inlined passability idiom and DOES carry a -1 test
+ * (cmpwi cr6,r11,-1 @0x8381C4FC and @0x8381C580) — but placed AFTER the same unguarded read
+ * (lbzx r9,r11,r24 @0x8381C490 and @0x8381C514), so even the guarded sibling reads pathfinding_surfaces[-1]
+ * and only then rejects the sentinel. structure_test_line2d carries no -1 test at all.
+ * Sentinel spelling: collision_edge::surface_indices is int[2] (DB types_members) and every compare on these
+ * indices is signed (cmpw @0x8381C7E8, cmpwi ...,-1 @0x8381CA6C), while the read is an indexed lbzx — base
+ * plus a 32-bit-wrapped index. A signed int subscript reproduces the shipped base-1 address exactly; spelling
+ * it unsigned would compute base + 0xFFFFFFFF on a 64-bit host and diverge from the binary. */
 
 #include <stdint.h>
 #include "headers/structure_bsp.h"

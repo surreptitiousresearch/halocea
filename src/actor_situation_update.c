@@ -156,8 +156,11 @@ void actor_situation_update(int actor_index)
                   && controlling_actor
                   && my_target != -1
                   && (ally_target = controlling_actor->target.target_prop_index) != -1
-                  && ((prop_datum *)prop_data->data)[my_target].unit_index
-                       == ((prop_datum *)prop_data->data)[ally_target].unit_index) )
+                  /* DEVIATION: both prop handles address prop_data by their LOW WORD only —
+                   * 837D78E8/837D78EC clrlwi r10,r10,16 / clrlwi r4,r9,16 feed the mulli 0x138.
+                   * The decompiler dropped the mask and subscripted the full salted handle. */
+                  && DATA_ARRAY_ELEMENT(prop_data, prop_datum, my_target)->unit_index
+                       == DATA_ARRAY_ELEMENT(prop_data, prop_datum, ally_target)->unit_index) )
                 near_or_same_target = 1;
 
             if ( prop->line_of_sight == _ai_line_of_sight_clear || prop->line_of_sight == _ai_line_of_sight_occluded )
@@ -204,11 +207,15 @@ select_target:
         actor->target.target_prop_index   = best_index;
         actor->target.target_type = actor_target_none;
         actor->target.target_last_visible_time = -1;
+        /* DEVIATION: 837D7AD0 clrlwi r10,r4,16 and 837D7AF8 clrlwi r10,r24,16 precede each mulli 0x138 —
+         * the stored-to slot is the handle's low word. The weight-recompute ARGUMENT stays the raw
+         * handle (r4 = untouched 0x270 load at 837D7AE4 / reloaded at 837D7B00), so only the subscript
+         * masks; the decompiler had dropped the mask from both. */
         if ( prev_target != -1 )
-            ((prop_datum *)prop_data->data)[prev_target].target_weight =
+            DATA_ARRAY_ELEMENT(prop_data, prop_datum, prev_target)->target_weight =
                 actor_compute_prop_target_weight(actor_index, prev_target);
         if ( best_index != -1 )
-            ((prop_datum *)prop_data->data)[best_index].target_weight =
+            DATA_ARRAY_ELEMENT(prop_data, prop_datum, best_index)->target_weight =
                 actor_compute_prop_target_weight(actor_index, actor->target.target_prop_index);
     }
 

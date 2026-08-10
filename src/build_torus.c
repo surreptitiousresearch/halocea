@@ -23,7 +23,7 @@
 #include "headers/blam_data_globals.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 

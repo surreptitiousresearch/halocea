@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include "headers/unit_datum.h"
 #include "headers/data_array.h"
+#include "headers/datum_index.h"
 #include "headers/actor_datum.h"
 #include "headers/encounter_datum.h"
 #include "headers/encounter_actor_iterator.h"
@@ -89,10 +90,14 @@ resolved:
             {
                 if ( (encounter_index & 0xFFFF0000) == 0 )
                 {
-                    unsigned int encounter_identifier =
-                        (unsigned int)DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->identifier;
-                    encounter_index = ((encounter_identifier << 16) | (encounter_identifier >> 16))
-                        | (uint16_t)encounter_index;
+                    /* DEVIATION: the identifier is loaded ZERO-extended (lhzx r7, r9, r8 @0x837214C4), so
+                     * rotrwi r6, r7, 16 @0x837214C8 is a plain <<16 and or r29, r6, r10 @0x837214CC leaves the
+                     * encounter index intact in the low word. The earlier spelling widened the int16_t
+                     * identifier SIGNED and modelled the rotate literally, so an identifier >= 0x8000 ORed
+                     * 0xFFFF over the index that encounter_attach_actor masks out (clrlwi r8, r4, 16). */
+                    encounter_index = BUILD_DATUM_INDEX(
+                        DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index)->identifier,
+                        encounter_index);
                 }
                 encounter_attach_actor(index, encounter_index, squad_index, 0);
             }

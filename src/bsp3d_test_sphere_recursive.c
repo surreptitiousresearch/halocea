@@ -13,7 +13,7 @@
 #include "headers/real_point2d.h"
 #include "headers/blam_data_globals.h"
 
-extern float __fabs(float);
+extern double __fabs(double x);
 extern void bsp2d_test_sphere_recursive(test_sphere_data *data, int child_index);
 
 void bsp3d_test_sphere_recursive(test_sphere_data *data, int child_index)

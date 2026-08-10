@@ -13,7 +13,7 @@
 #include "headers/test_pill_data.h"
 
 extern float __fsqrts(float);
-extern float __fabs(float);
+extern double __fabs(double x);
 extern uint8_t pill_test_vector(const real_point3d *base, const real_vector3d *edge, float width, const real_point3d *vertices, const real_point3d *origin, const real_vector3d *direction, float *results);
 
 uint8_t collision_surface_test_pill(test_pill_data *data, int surface_index)

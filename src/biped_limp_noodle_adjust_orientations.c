@@ -35,7 +35,7 @@ extern void validate_real_vector3d_axes3(real_vector3d *forward, real_vector3d *
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern float normalize3d(real_vector3d *v);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern double acos(double x);
 extern double sin(double x);
 

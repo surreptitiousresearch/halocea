@@ -16,7 +16,7 @@
 #include "headers/blam_data_globals.h"
 
 extern float __fsqrts(float);
-extern float __fabs(float);
+extern double __fabs(double x);
 extern real_vector2d *perpendicular2d(const real_vector2d *a, real_vector2d *result);
 extern int16_t projection_from_vector3d(const real_vector3d *n);
 

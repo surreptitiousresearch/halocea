@@ -10,7 +10,7 @@
 #include "headers/real_vector2d.h"
 #include "headers/real_rectangle2d.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 uint8_t vector_intersects_rectangle2d(const real_point2d *point, const real_vector2d *vector, const real_rectangle2d *bounds)
 {

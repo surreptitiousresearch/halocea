@@ -1,24 +1,6 @@
 #include "../headers/havok/hkpConvexVerticesShape.h"
-#include "../headers/havok/hkGeomHull.h"
+#include "../headers/havok/hkGeomConvexHull.h"
 #include "../headers/havok/hkThreadMemory.h"
-
-extern void hkpConvexVerticesShape_getOriginalVertices(hkpConvexVerticesShape *shape, hkArray<hkVector4> *out); /* hkpConvexVerticesShape::getOriginalVertices */
-extern const hkArray<hkVector4> *hkpConvexVerticesShape_getPlaneEquations(hkpConvexVerticesShape *shape);        /* hkpConvexVerticesShape::getPlaneEquations */
-
-extern void hkGeomHull_construct(hkGeomHull *self);   /* hkGeomHull::hkGeomHull */
-
-/* hkGeomConvexHullMode — DB types_enum_values. */
-enum hkGeomConvexHullMode
-{
-    HK_GEOM_CONVEXHULL_MODE_INVALID            = 0,
-    HK_GEOM_CONVEXHULL_MODE_FAST               = 1,
-    HK_GEOM_CONVEXHULL_MODE_ACCURATE_BUT_SLOW  = 2,
-    HK_GEOM_CONVEXHULL_MODE_MAX_ID             = 3,
-};
-
-extern void hkGeomConvexHullBuilder_generateConvexHull(const hkVector4 *vertices, int numVertices,
-                                                       hkGeomHull *hullOut, hkArray<hkVector4> *hullVerticesOut,
-                                                       enum hkGeomConvexHullMode mode); /* hkGeomConvexHullBuilder::generateConvexHull */
 
 /* The free-function worker (?_findConnectivity@@YA...@Z @0x83F92E38, sourced in
    src/havok/hkpConvexVerticesConnectivityUtil__findConnectivity_impl.cpp). Builds
@@ -34,7 +16,13 @@ extern hkpConvexVerticesConnectivity *hkpConvexVerticesConnectivityUtil__findCon
    Rebuild a shape's per-vertex adjacency: extract its original vertices and plane
    equations, run the convex-hull builder, hand both to the private worker, then
    release the three working buffers (edge array, hull vertices, original
-   vertices) that were not consumed. */
+   vertices) that were not consumed.
+
+   Both hkArray locals start empty with only the DONT_DEALLOCATE sign bit set
+   (`li r31,0` / `lis r30,-0x8000` @0x83F937BC); the only inline storage is the
+   hull's own hkInplaceArray edge buffer. The three frees use the element sizes
+   the binary shifts by: 8 for hkGeomEdge (`slwi r5,r11,3` @0x83F9384C) and 16 for
+   hkVector4 (`slwi r5,r11,4` @0x83F93878/0x83F938A4). */
 hkpConvexVerticesConnectivity *hkpConvexVerticesConnectivityUtil_findConnectivity(hkpConvexVerticesShape *shape)
 {
     hkThreadMemory *mem = hkThreadMemory_getCurrent();

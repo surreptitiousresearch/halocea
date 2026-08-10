@@ -10,10 +10,22 @@
  * sibling damage_dealt_to_network.c's established "+4" field-offset convention; without that correction
  * the raw indices land mid-field in the wrong _object_datum members.
  *
- * The damage_part argument to unit_ping_animation is only ever assigned (from damage_flags & (1u << _object_shield_depleted_bit)) inside
- * the shield_damage>0 branch; disasm shows the register it's passed in (r9) is left untouched on the
- * shield_damage<=0 path, i.e. the shipped code passes a stale/garbage value there. Reconstructed here as
- * a 0-initialized local — the closest defensible C equivalent of "whatever was last in r9". */
+ * DEVIATION: the decompiler's inflated prototype for `unit_ping_animation` maps arg8 to r9 and arg9 to
+ * r10, shifting every trailing argument by one. `angle` (arg7) travels in f1 and only *reserves* its GPR
+ * shadow r9, which the callee never reads — its incoming-argument reads are r3-r8, r10 and f1. So the r9
+ * this caller leaves live (`rlwinm r9, r11, 0,28,28` at 0x836B27B0, i.e. damage_flags & (1u <<
+ * _object_shield_depleted_bit)) is not an argument at all: it is the condition of the `cmplwi`/`bne` pair
+ * at 0x836B27B4-0x836B27BC, which is the current_shield_damage baseline test spelled below. The real
+ * trailing args are r10 = -1 (`li r10, -1` at 0x836B2808 — the body_part sentinel the callee sign-extends
+ * with `extsh r11, r10` at 0x836D1C50 and folds branchlessly through addi/subfic/subfe), the stack word at
+ * +0x54 = 0 (NULL alignment_vector, `stw r31, 0x54(r1)` at 0x836B281C with r31 zeroed at 0x836B2794) and
+ * the stack byte at +0x5F = 0 (gate, `stb r31, 0x5F(r1)` at 0x836B2814). Xbox 360 parameter slots are 8
+ * bytes wide from r1+0x10, so arg9's word lands at 0x50+4 and arg10's byte at 0x58+7.
+ *
+ * A prior revision passed that r9 expression as body_part and 0xFFFFFFFF as alignment_vector. The callee
+ * reloads the stack word into r10 at 0x836D21E0 and its only guard is `cmplwi cr6, r10, 0` (0x836D21E4),
+ * so a 0xFFFFFFFF pointer is non-null and walks straight into the `lfs f0, 0(r10)` / `lfs f13, 4(r10)`
+ * dereference at 0x836D22B4. Same defect, same callee, as the one fixed in unit_place.c. */
 
 #include <stdint.h>
 #include "headers/message_delta_processor_header.h"
@@ -49,7 +61,6 @@ void damage_dealt_from_network(message_delta_processor_header *header)
 
     int object_index = field_translated_index_get_local_index(&field_properties_object_index_definition,
         data.damaged_object_index);
-    uint16_t damage_flags = 0;
 
     if ( object_index != -1 )
     {
@@ -58,7 +69,7 @@ void damage_dealt_from_network(message_delta_processor_header *header)
         {
             if ( data.shield_damage > 0.0f )
             {
-                damage_flags = object->object.damage_flags;
+                uint16_t damage_flags = object->object.damage_flags;
                 object->object.shield_damage_decay_timer = 0;
 
                 if ( (damage_flags & (1u << _object_shield_depleted_bit)) == 0 )
@@ -76,7 +87,7 @@ void damage_dealt_from_network(message_delta_processor_header *header)
             if ( data.shields_depleted == 1 )
                 object_deplete_shield(object_index);
 
-            unit_ping_animation(object_index, 0, 0, 0, 0, 0, 0.0f, damage_flags & (1u << _object_shield_depleted_bit), (real_vector2d *)0xFFFFFFFF, 0);
+            unit_ping_animation(object_index, 0, 0, 0, 0, 0, 0.0f, -1, nullptr, 0);
         }
     }
 

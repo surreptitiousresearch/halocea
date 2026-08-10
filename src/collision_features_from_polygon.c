@@ -16,7 +16,7 @@
 #include "headers/collision_feature_list.h"
 #include "headers/blam_data_globals.h"
 
-extern float __fabs(float);
+extern double __fabs(double x);
 
 void collision_features_from_polygon(int16_t point_count, const real_point3d *points, const real_plane3d *plane,
                                      float height, float width, int object_index, int surface_index,

@@ -11,7 +11,7 @@
 #include "headers/real_point3d.h"
 #include "headers/blam_data_globals.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 /* attested: return is uint8_t — both callers re-normalize with clrlwi r3,24
  * (structure_render_surface_from_point_and_leaf @837447E4/@83744894). */

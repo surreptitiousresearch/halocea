@@ -64,11 +64,11 @@ extern double sin(double x);
 extern double floor(double x);
 extern float sqrtf(float x);
 
-/* Resolve a plane designator (collision_surface::plane_designator / bsp3d planes) into a plane, negating it when
- * the designator's high bit marks the surface as back-facing (0x83742230-0x83742270 idiom). */
+/* Resolve a plane designator into a plane, negating it when bit 31 marks the surface back-facing (0x83742230-
+ * 0x83742270 idiom). DEVIATION: `slwi r9,r4,4` @0x83742230 discards bit 31, so the mask is an x64-only no-op. */
 static void resolve_surface_plane(const collision_bsp *bsp, int plane_designator, real_plane3d *out_plane)
 {
-    const real_plane3d *plane = (const real_plane3d *)((char *)bsp->bsp3d.planes.address + (plane_designator << 4));
+    const real_plane3d *plane = (const real_plane3d *)((char *)bsp->bsp3d.planes.address + ((plane_designator & 0x7FFFFFFF) << 4));
     if (plane_designator < 0)
     {
         out_plane->normal.i = -plane->normal.i;

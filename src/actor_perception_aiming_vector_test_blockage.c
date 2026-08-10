@@ -13,7 +13,7 @@
 #include "headers/real_vector3d.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 int16_t actor_perception_aiming_vector_test_blockage(const real_point3d *source_position,
                                                      const real_vector3d *source_vector,

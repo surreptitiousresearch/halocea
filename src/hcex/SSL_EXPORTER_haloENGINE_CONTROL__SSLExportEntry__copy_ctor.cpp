@@ -5,7 +5,7 @@
 
 // SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry::SSLExportEntry(const SSLExportEntry&) @ 0x823C4560
 // Copy-construct: adopt cb/id verbatim and share `other`'s sslDecl buffer (ref-counted), under the
-// dsTSTRING processor-affinity lock.
+// dsTSTRING processor-affinity lock — the shape every dsTSTRING-copying ctor in this corpus takes.
 SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry::SSLExportEntry(const SSLExportEntry &other)
 {
     this->cb = other.cb;

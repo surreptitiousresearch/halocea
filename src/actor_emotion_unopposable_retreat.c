@@ -57,8 +57,8 @@ void actor_emotion_unopposable_retreat(uint16_t actor_index)
     for (prop_datum *prop = prop_iterator_next(&iter); prop; prop = prop_iterator_next(&iter))
     {
         int prop_index = iter.index;
-        /* DEVIATION: collapsed verbatim-inlined copy of zero-xref donor actor_emotion_assess_unopposable_danger@0x837D81D8 (disasm-confirmed field-for-field match at prop offsets 0x24/0xA4/0x74/0x12F/0x122/0x32); donor's actor_index param is itself dead/unused (per the donor's own header comment), so it folds through unchanged, and prop_index is this loop's live index. */
-        int16_t unopposable_type = actor_emotion_assess_unopposable_danger(actor_index, prop_index);
+        /* DEVIATION: collapsed verbatim-inlined copy of zero-xref donor actor_emotion_assess_unopposable_danger@0x837D81D8 (field-for-field match at prop offsets 0x24/0xA4/0x74/0x12F/0x122/0x32). The donor subscripts prop_data with its FIRST parameter (clrlwi r11,r3,16 @0x837D81DC -> mulli r10,r11,0x138 @0x837D81E4; r4 is never read), and the inlined copy here feeds that same stride from r28 = iter.index, reloaded per iteration (lwz r28,var_238(r1) @0x837D82F8 -> clrlwi @0x837D82FC -> mulli 0x138 @0x837D8304) and stored as record->prop_index by stw r28,4(r11) @0x837D83D0 — NOT from actor_index, which lives in r25 (mr r25,r3 @0x837D82A0, used only for prop_get_active_by_unit_index @0x837D8468). So prop_index takes the first slot; the trailing arg is the donor's dead second parameter, kept to preserve the recovered prototype. */
+        int16_t unopposable_type = actor_emotion_assess_unopposable_danger(prop_index, actor_index);
 
         if (unopposable_type <= 0)
         {

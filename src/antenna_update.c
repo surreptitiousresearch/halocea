@@ -29,7 +29,7 @@
 #include "headers/blam_data_globals.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern void antenna_update_attachment(antenna_datum *antenna, antenna_definition *antenna_definition, location *attachment_location, real_point3d *attachment_point, real_vector3d *attachment_vector);
 extern float angle_between_vectors3d(const real_vector3d *a, const real_vector3d *b);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);

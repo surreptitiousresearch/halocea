@@ -12,10 +12,19 @@
  * with NO callee extsh (contrast weapon_rotate_zoom_level's extsh-before-blr); callers re-extend on their
  * side. Params mode/animation_type/shotgun_reload_type are int16_t (extsh r4/r5/r6).
  *
- * BINARY BUG (kept faithful): when the animation set lacks the shotgun-enter entry the binary loads
- * reload_animation_index = -1 (li r11,-1 @0x836D9594) and still reads animations[-1].frame_count
- * (0x836D9598/0x836D95B4) for shotgun_reload_type 0/2 — an out-of-bounds read one element before the
- * animation block. */
+ * BINARY BUG (kept faithful; re-verified instruction-by-instruction 2026-08-10): reload_animation_index
+ * reaches -1 two ways — the animation set is shorter than _first_person_weapon_animation_shotgun_enter
+ * (cmpwi cr6,r11,0x17 / ble @0x836D9580 -> li r11,-1 @0x836D9594), or its slot 23 holds the -1 sentinel
+ * (lhz r10,0x2E(r11) @0x836D9588). Neither is guarded: the element address is formed unconditionally
+ * (mulli r10,r11,0xB4 @0x836D9598 = -180, add r10,r10,r9 @0x836D95A0), and r11 is then overwritten with
+ * shotgun_reload_type (extsh r11,r6 @0x836D959C), so no index test can survive to the load at
+ * 0x836D95B4 — for shotgun_reload_type 0/2 the binary reads animations[-1].frame_count, one element
+ * before the animation block, and weapon_magazine_start_reload stores it unclamped (sth r3,2(r26) /
+ * sth r3,4(r26) @0x836DC04C).
+ * This is an as-built asymmetry, NOT a branch the decompiler dropped: the primary animation_index,
+ * produced by the identical table-lookup-or-(-1) idiom, IS guarded 22 instructions earlier
+ * (cmpwi cr6,r11,-1 / beqlr cr6 @0x836D9534). The whole function is 75 straight-line instructions with
+ * no calls; there is no -1 test anywhere between 0x836D9594 and 0x836D95B4. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -74,7 +83,9 @@ uint16_t weapon_get_first_person_animation_time(int weapon_index, int16_t mode, 
             else
                 reload_animation_index = ((int16_t *)weapon_animations->animations.address)
                                              [_first_person_weapon_animation_shotgun_enter];
-            /* BINARY BUG: no -1 guard — animations[-1] is read when the shotgun-enter entry is absent. */
+            /* BINARY BUG: no -1 guard here — contrast the guarded animation_index above
+             * (cmpwi cr6,r11,-1 / beqlr cr6 @0x836D9534). animations[-1] is read whenever the
+             * shotgun-enter slot is absent (short table) or holds the -1 sentinel. */
             if ( !shotgun_reload_type || shotgun_reload_type == _shotgun_reload_type_first_and_last_round )
                 return (uint16_t)animations[reload_animation_index].frame_count;
         }

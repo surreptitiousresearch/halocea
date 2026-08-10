@@ -28,7 +28,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float __fsqrts(float x);
 extern void component_vectors_from_normal3d(const real_vector3d *vector, const real_vector3d *normal, real_vector3d *parallel, real_vector3d *perpendicular);
 

@@ -35,7 +35,7 @@
 
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern uint8_t actor_firing_position_discarded(uint16_t actor_index, int16_t firing_position_index);
 extern float point_to_line_distance_squared3d(const real_point3d *point, const real_point3d *base, const real_vector3d *height);
 extern float vector_to_line_distance_squared3d(const real_point3d *point, const real_vector3d *vector, const real_point3d *base, const real_vector3d *height);

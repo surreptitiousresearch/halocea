@@ -22,6 +22,7 @@
 #include "headers/structure_fog_region.h"
 #include "headers/structure_fog_palette_entry.h"
 #include "headers/structure_fog_plane.h"
+#include "headers/fog_designator.h"
 #include "headers/fog_definition.h"
 #include "headers/collision_result.h"
 #include "headers/collision_bsp_test_vector_result.h"
@@ -174,12 +175,16 @@ uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, con
             int16_t cluster_index = collision->location.cluster_index;
             if ( cluster_index != -1 )
             {
-                int16_t fog_plane_index = ((structure_cluster *)bsp->clusters.address)[cluster_index].fog_designator;
-                if ( fog_plane_index != -1
-                  && (((structure_cluster *)bsp->clusters.address)[cluster_index].fog_designator & 0x8000) != 0 )
+                int16_t fog_designator = ((structure_cluster *)bsp->clusters.address)[cluster_index].fog_designator;
+                if ( fog_designator != -1
+                  && FOG_DESIGNATOR_IS_PLANE(fog_designator) )
                 {
+                    /* DEVIATION: the fog-plane index is masked to 15 bits before the 32-byte stride —
+                     * clrlslwi r11,r11,17,5 @0x83773488 is (designator & 0x7FFF) << 5. The decompiler
+                     * indexed with the still-encoded designator, and bit 15 (the plane flag, tested
+                     * unmasked by rlwinm r10,r10,0,16,16 @0x83773478) makes that int16_t negative. */
                     structure_fog_plane *fog_plane =
-                        &((structure_fog_plane *)bsp->fog_planes.address)[fog_plane_index];
+                        &((structure_fog_plane *)bsp->fog_planes.address)[FOG_DESIGNATOR_TO_INDEX(fog_designator)];
                     if ( (uint16_t)fog_plane->runtime_material_type != 0xFFFF )
                     {
                         float nx = fog_plane->plane.normal.n[0];

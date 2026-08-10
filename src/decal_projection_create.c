@@ -19,7 +19,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void decal_projection_create(const real_matrix4x3 *basis, const real_rectangle2d *extent,
         decal_projection *projection)

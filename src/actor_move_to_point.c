@@ -1,4 +1,4 @@
-/* actor_move_to_point @0x837CB4C8 — orders an actor to path toward a destination point on a given
+/* actor_move_to_point @0x837CB4A0 — orders an actor to path toward a destination point on a given
  * surface. If the actor is already pathing to (essentially) the same point on the same surface, it
  * just refreshes the existing path; otherwise it latches the new path request and rebuilds the path
  * from scratch. Returns the result of actor_path_refresh (or 1 if no refresh was needed). */

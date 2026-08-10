@@ -1,5 +1,5 @@
 /* =========================================================================
-   physics_update_old — legacy single-step rigid-body integrator for a Blam
+   physics_update_old @0x837C0268 — legacy single-step rigid-body integrator for a Blam
    object. Rebuilds the object world matrix from its current basis, accumulates
    the per-mass-point forces/torques exactly as physics_compute_new does (ground
    contact, water pressure/friction, air friction, powered thrust/lift/antigrav),
@@ -12,18 +12,18 @@
    (1) The object datum runtime payload is reached as (_object_datum *)(object + 4)
        (the 4-byte definition-index wrapper); every field used here is DB-verified
        against object_datum.h at that +4 base.
-   (2) friction_evaluate's middle two pointer args are the friction_datum being
-       filled and the mass point velocity; the decompiler left the corresponding
-       registers (r4/r5) unlabelled, so &mp->{phase}_friction and &mp->velocity
-       are passed, matching physics_compute_new. Only r6 (the friction_out) is
-       disasm-confirmed (= mp + 0x90 at the ground call site).
-   (3) The powered-mass-point DEFINITION is a raw tag block with no reconstructed
+   (2) The powered-mass-point DEFINITION is a raw tag block with no reconstructed
        struct in the corpus, so its fields are read at raw byte offsets (flags@32,
        radius@44, antigrav_scale@36, damp@48, k0@52/k1@56) exactly as the sibling.
-   (4) The decompiler spilled the running torque accumulator into the int16 words
+   (3) The decompiler spilled the running torque accumulator into the int16 words
        of the stack `location` slot that is later reused as the translation
        location output; those dead spill writes are dropped and the torque is kept
        in plain float accumulators.
+   DEVIATION: friction_evaluate's last two args were mis-transcribed as (&mp->velocity,
+       &mp-><phase>_friction.friction) — the guess the old caveat (2) flagged. Disasm
+       arbitrates: all three binary call sites set r7 = mp+0x10 (forward) and r8 =
+       mp+0x28 (up), the decomposition axes, with r6 = the phase's friction_datum
+       (mp+0x90 / +0xC4 / +0xE8). The callee reads r4/r5 nowhere — six args exactly.
    ========================================================================= */
 #include <stdint.h>
 #include <string.h>
@@ -49,12 +49,12 @@
 #include "headers/collision_test_flags.h"
 #include "headers/material_type.h"
 
-
 #include "headers/real_quaternion.h"
 extern double sin(double x);
 extern double cos(double x);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
+extern float fabsf(float x);  /* DEVIATION: fabs @0x837C0A24/@0x837C0B80 feed fmuls with no frsp - single-precision abs, not the double __fabs */
 
 extern void matrix4x3_from_point_and_vectors(real_matrix4x3 *matrix, const real_point3d *point, const real_vector3d *forward, const real_vector3d *up);
 extern real_matrix4x3 *matrix4x3_rotation_from_quaternion(real_matrix4x3 *matrix, const real_quaternion *quaternion);
@@ -67,8 +67,8 @@ extern void scenario_location_from_point(location *location, const real_point3d 
 extern void scenario_location_from_line(location *out_location, const location *start_location, const real_point3d *start_point, const real_point3d *end_point);
 extern float scenario_location_water_depth(const location *location, const real_point3d *position);
 extern void compute_ground_plane(int object_index, mass_point_datum *mp, const mass_point_definition *def);
-extern void friction_evaluate(int friction_type, float parallel_scale, float perpendicular_scale,
-                              friction_datum *friction, real_vector3d *velocity, real_vector3d *friction_out);
+extern void friction_evaluate(int16_t type, float parallel_scale, float perpendicular_scale,
+                              friction_datum *components, real_vector3d *primary, real_vector3d *secondary);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);
 
@@ -298,12 +298,12 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                     friction_evaluate(def->friction_type,
                                       (def->friction_parallel_scale * (float)0.125),
                                       (def->friction_perpendicular_scale * (float)0.125),
-                                      &mp->ground_friction, &mp->velocity, ground_friction_out);
+                                      &mp->ground_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837C08A0 */
                 }
                 else
                 {
                     friction_evaluate(def->friction_type, def->friction_parallel_scale, def->friction_perpendicular_scale,
-                                      &mp->ground_friction, &mp->velocity, ground_friction_out);
+                                      &mp->ground_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837C08A0 */
                 }
             }
 
@@ -338,12 +338,12 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                     mp->water_friction.friction.n[2] = scale * mp->velocity.n[2];
                 }
                 friction_evaluate(def->friction_type, def->friction_parallel_scale, def->friction_perpendicular_scale,
-                                  &mp->water_friction, &mp->velocity, &mp->water_friction.friction);
+                                  &mp->water_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837C09C8 */
 
                 /* water lift (powered) */
                 if (pmp_def && (pmp_def->flags & (1u << _powered_mass_point_water_lift_bit)) != 0 && pmp->water_lift_ratio != 0.0)
                 {
-                    float speed_along = __fabs(((mp_forward[0] * mp->velocity.n[0])
+                    float speed_along = fabsf(((mp_forward[0] * mp->velocity.n[0])
                                                      + ((mp_forward[2] * mp->velocity.n[2]) + (mp_forward[1] * mp->velocity.n[1]))));
                     float lift = ((((speed_along * pmp->water_lift_ratio) * physics->mass) * depth_fraction));
                     mp->powered_force.n[0] = ((((speed_along * pmp->water_lift_ratio) * physics->mass) * depth_fraction) * mp_up[0])
@@ -369,12 +369,12 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                 mp->air_friction.friction.n[2] = scale * mp->velocity.n[2];
             }
             friction_evaluate(def->friction_type, def->friction_parallel_scale, def->friction_perpendicular_scale,
-                              &mp->air_friction, &mp->velocity, &mp->air_friction.friction);
+                              &mp->air_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837C0B24 */
 
             /* air lift (powered) */
             if (pmp_def && (pmp_def->flags & (1u << _powered_mass_point_air_lift_bit)) != 0 && pmp->air_lift_ratio != 0.0)
             {
-                float speed_along = __fabs(((mp_forward[0] * mp->velocity.n[0])
+                float speed_along = fabsf(((mp_forward[0] * mp->velocity.n[0])
                                                  + ((mp_forward[2] * mp->velocity.n[2]) + (mp_forward[1] * mp->velocity.n[1]))));
                 float lift = ((speed_along * pmp->air_lift_ratio) * physics->mass);
                 mp->powered_force.n[0] = (((speed_along * pmp->air_lift_ratio) * physics->mass) * mp_up[0]) + mp->powered_force.n[0];

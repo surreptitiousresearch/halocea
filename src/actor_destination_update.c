@@ -104,6 +104,10 @@ resolve_destination:
 
     if ( actor->control.path.path.valid && (actor->control.moving || !actor->control.path.at_destination) )
     {
+        /* DEVIATION: restored a dropped store — the binary marks the leg active here with
+         * `stb r5, 0x504(r31)` (r5=1, `li r5,1` @0x837CA6F4) at 0x837CA864, i.e. actor+0x504 =
+         * control(+0x46C).moving; the prior transcription emitted the point/vector below but not this. */
+        actor->control.moving = 1;
         /* destination = position of the current waypoint */
         /* BUGFIX vs prior transcription: the +306-int read was actor-relative (steps[idx].point),
          * not step-relative; the old code indexed 1224 bytes past the step. */

@@ -19,7 +19,7 @@
 
 extern int16_t points_dimension2d(int16_t count, const real_point2d *points);
 /* atan2 provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 int16_t convex_hull2d(int16_t vertex_count, const real_point2d *points, int16_t *hull_vertex_indices)
 {

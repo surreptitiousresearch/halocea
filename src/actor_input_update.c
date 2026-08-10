@@ -161,7 +161,7 @@ void actor_input_update(int actor_index)
                 int16_t vehicle_squad = vehicle_object->unit.fake_squad_index;
                 if ( vehicle_squad != -1 )
                 {
-                    int16_t actor_squad = actor->meta.disconnected_squad_index;
+                    int16_t actor_squad = actor->meta.squad_index;  /* DEVIATION: lhz r8, 0x3A(r31) @0x8371F2E4 = meta.squad_index (meta 0x36), not disconnected_squad_index (actor+0x38) */
                     if ( actor_squad != vehicle_squad )
                     {
                         encounter_datum *encounter = DATUM_GET(encounter_data, encounter_datum,
@@ -185,7 +185,7 @@ void actor_input_update(int actor_index)
             {
                 if ( !actor->meta.stored_prevehicle_encounter )
                 {
-                    int16_t actor_squad = actor->meta.disconnected_squad_index;
+                    int16_t actor_squad = actor->meta.squad_index;  /* DEVIATION: lhz r11, 0x3A(r31) @0x8371F378 = meta.squad_index (meta 0x36), not disconnected_squad_index (actor+0x38) */
                     actor->meta.prevehicle_encounter_index = actor_encounter;  /* remember original encounter */
                     actor->meta.stored_prevehicle_encounter = 1;
                     actor->meta.prevehicle_squad_index = actor_squad;          /* remember original squad */

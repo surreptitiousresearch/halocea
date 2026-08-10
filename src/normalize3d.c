@@ -4,7 +4,7 @@
 #include "headers/real_vector3d.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 float normalize3d(real_vector3d *v)
 {

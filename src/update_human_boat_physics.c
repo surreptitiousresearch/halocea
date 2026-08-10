@@ -30,7 +30,7 @@ extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, f
 extern float angle_between_vectors3d(const real_vector3d *a, const real_vector3d *b);
 extern void physics_update(int object_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points, const real_vector3d *magic_force, const real_vector3d *magic_torque);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void update_human_boat_physics(int vehicle_index, powered_mass_point_datum *powered_mass_points,
                                mass_point_datum *mass_points)

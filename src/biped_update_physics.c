@@ -156,10 +156,17 @@ void biped_update_physics(biped_physics *physics)
                                    * ((physics->forward.__s1.j * physics->movement_desired.__s1.i)
                                            + (physics->movement_desired.__s1.j * physics->forward.__s1.i)))
                                    - physics->velocity.__s1.j);
+        clamped_x = horizontal_accel.__s1.i;
+        clamped_y = horizontal_accel.__s1.j;
         if (normalize2d(&horizontal_accel) <= physics->airborne_acceleration_maximum)
         {
-            clamped_x = horizontal_accel.__s1.i;
-            clamped_y = horizontal_accel.__s1.j;
+            /* magnitude within budget — normalize2d already left the unit vector, so restore raw.
+             * DEVIATION: the binary saves the (i,j) pair as one fused 64-bit slot (ld r29 @0x837AF148)
+             * and writes it back on this arm (std r29 @0x837AF170); the decompiler dropped the fused
+             * save/restore, so this arm was reading the normalized vector. The flying and grounded
+             * branches save the same way with separate lwz/stw (@0x837AF054, @0x837AF604). */
+            horizontal_accel.__s1.i = clamped_x;
+            horizontal_accel.__s1.j = clamped_y;
         }
         else
         {

@@ -125,3 +125,12 @@ void hs_evaluate_sleep_until(int16_t function_index, int thread_index, uint8_t i
         }
     }
 }
+
+/* DEVIATION (documentation, not code): the third argument is SHIPPED behaviour, contradicting the definition
+ * record's own doc string. sleep_until_definition @0x82119238 carries parameters "<boolean> [<short>]" with
+ * formal_parameter_count 0 — with a custom parse fn that string is documentation, not arity, and the parse fn
+ * is the authority: hs_parse_sleep_until @0x837797F8 parses a third node as hs_type_long_integer (li r4,8
+ * @0x837798D0). This evaluator walks it: 8369016C..83690184 index hs_syntax_data by period_argument, 83690188
+ * lwz r4,8(r7) loads its next_node_index, 8369018C tests -1, 8369019C evaluates it into r26 = timeout_slot
+ * (the slot 83690130 seeds to -1 and 836901C0/83690254 read). Exactly three next_node_index loads exist
+ * (836900EC, 83690104, 83690188). Do not delete the timeout evaluation or the wake clamp. */

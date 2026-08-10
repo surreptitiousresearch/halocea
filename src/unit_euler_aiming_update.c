@@ -24,8 +24,9 @@
  * FAITHFUL: `unit_euler_axis_doplan`'s `out_location` pointer is passed as the SAME stack slot backing
  * its own `current_location` argument for both axes (disasm: `stfs f31, var_138` then later
  * `addi r6, r1, var_138` for both the float-load and the out-pointer) — i.e. each axis's pending delta
- * angle is updated in place. The `out_velocity` outputs are written to slots that are never read again
- * (dead outputs); modeled here as throwaway locals. */
+ * angle is updated in place. The two `out_velocity` pointers likewise alias a single
+ * `real_euler_angles2d` slot pair (var_140/var_13C) that is read back to build the next-tick angles —
+ * see `axis_angles` below. They are NOT dead outputs. */
 
 #include <stdint.h>
 #include <math.h>
@@ -98,8 +99,15 @@ void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *
     real_vector3d bounded_desired_vector;
     if (within_bounds)
     {
-        /* Already inside the bounds: use the caller's vector as-is (avoids a redundant angle round-trip). */
-        bounded_desired_vector = local_desired_vector;
+        /* Already inside the bounds: use the caller's vector as-is (avoids a redundant angle round-trip).
+         * DEVIATION: this read `local_desired_vector` (var_E0). Disasm 0x836C7A78 loads `0(r30)`, and r30
+         * is the untouched incoming `desired_aiming_vector` (set once at 0x836C7944, never rewritten), so
+         * the value taken is WORLD space, not local. Both branches of this if/else therefore leave a
+         * world-space vector in `bounded_desired_vector` — the clamped branch by transforming out of local
+         * space, this branch by taking the caller's vector directly. With `orientation` non-NULL the old
+         * form stored a local-space vector straight into the world-space aiming vector at the completion
+         * branch below. (With `orientation` NULL the two are bit-identical, so only the matrix path moved.) */
+        bounded_desired_vector = *desired_aiming_vector;
     }
     else
     {
@@ -117,12 +125,18 @@ void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *
      * over one tick: rotate the current aiming vector by aiming_velocity's own magnitude/direction, then
      * diff the resulting angles against the un-rotated current angles.
      *
-     * FAITHFUL QUIRK: `rotated_angles` is only written on the non-degenerate path below. When the
-     * velocity is near zero, disasm_range(0x836C7B18, 0x836C7BC4) shows the euler_angles2d_from_vector3d
-     * call that would populate it is skipped entirely, and its backing stack slots are never written by
-     * anything earlier in the function either — so the original code reads uninitialized stack memory
-     * into `next_angles` below in that case. Reproduced as-is (uninitialized), not "fixed" with a zero. */
-    real_euler_angles2d rotated_angles;
+     * DEVIATION: one real_euler_angles2d slot pair (var_140/var_13C) serves three roles in sequence, and
+     * the old reconstruction split it into three unrelated locals. In order: (1) the angles of the
+     * velocity-rotated aiming vector, written here only on the non-degenerate path (0x836C7B88);
+     * (2) the two `unit_euler_axis_doplan` out_velocity outputs, written unconditionally (0x836C7C44 and
+     * 0x836C7C64 pass `&var_140` / `&var_13C`, and doplan's `*out_velocity = velocity` is on every path);
+     * (3) the next-tick angles, formed in place at 0x836C7DA4-0x836C7DB0. Kept as one variable so role (2)
+     * reaches role (3) the way the binary does.
+     *
+     * The earlier "reads uninitialized stack memory when velocity is zero" note is retracted with it:
+     * role (2) always writes both floats before the only read at 0x836C7D8C, so the degenerate-velocity
+     * path leaves nothing uninitialized. */
+    real_euler_angles2d axis_angles;
     real_vector3d rotated_vector = local_aiming_vector;
     real_vector3d velocity_axis = *aiming_velocity;
     float velocity_length = sqrtf(velocity_axis.k * velocity_axis.k
@@ -150,9 +164,9 @@ void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *
         else
         {
             rotate_vector_about_axis(&rotated_vector, &velocity_axis, sinf(velocity_length), cosf(velocity_length));
-            euler_angles2d_from_vector3d(&rotated_angles, &rotated_vector);
-            yaw_velocity = rotated_angles.yaw - current_angles.yaw;
-            pitch_velocity = rotated_angles.pitch - current_angles.pitch;
+            euler_angles2d_from_vector3d(&axis_angles, &rotated_vector);
+            yaw_velocity = axis_angles.yaw - current_angles.yaw;
+            pitch_velocity = axis_angles.pitch - current_angles.pitch;
         }
     }
 
@@ -172,11 +186,12 @@ void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *
     /* FAITHFUL QUIRK: passes acceleration_limit where couple() expects velocity_limit — see file header. */
     unit_euler_axis_couple(&yaw_plan, &pitch_plan, angular_acceleration_limit, yaw_velocity);
 
-    float dead_velocity_out1, dead_velocity_out2;
+    /* DEVIATION: out_velocity is `&axis_angles.yaw` / `&axis_angles.pitch` (disasm r8 = &var_140 /
+     * &var_13C), not a throwaway — both values are consumed when the next-tick angles are built below. */
     uint8_t yaw_plan_done = unit_euler_axis_doplan(&yaw_plan, 1.0f, yaw_delta, &yaw_delta,
-            yaw_velocity, &dead_velocity_out1);
+            yaw_velocity, &axis_angles.yaw);
     uint8_t pitch_plan_done = unit_euler_axis_doplan(&pitch_plan, 1.0f, pitch_delta, &pitch_delta,
-            pitch_velocity, &dead_velocity_out2);
+            pitch_velocity, &axis_angles.pitch);
 
     if (yaw_plan_done && pitch_plan_done)
     {
@@ -210,14 +225,14 @@ void unit_euler_aiming_update(const real_matrix4x3 *orientation, real_vector3d *
     real_vector3d new_vector;
     vector3d_from_euler_angles2d(&new_vector, &new_angles);
 
-    /* Re-derive the angular velocity as the axis/angle between the new-target vector and a second vector
-     * offset from it by `new_angles` again (i.e. `rotated_angles + new_angles`, NOT `current_angles +
-     * new_angles` — confirmed via disasm: this reuses the same `rotated_angles` struct from the
-     * velocity-estimate step above, including its possibly-uninitialized value per the note above). */
-    real_euler_angles2d next_angles = { .yaw = rotated_angles.yaw + new_angles.yaw,
-                                         .pitch = rotated_angles.pitch + new_angles.pitch };
+    /* Re-derive the angular velocity as the axis/angle between the new-target vector and the vector one
+     * more tick along the plan: `axis_angles` holds the per-axis velocities the two doplan calls just
+     * emitted, so advancing `new_angles` by them gives the next tick's angles. Formed in place, matching
+     * 0x836C7D8C-0x836C7DB0 (load var_140/var_13C, `fadds` new_angles, `stfs` back, then convert). */
+    axis_angles.yaw = axis_angles.yaw + new_angles.yaw;
+    axis_angles.pitch = axis_angles.pitch + new_angles.pitch;
     real_vector3d next_vector;
-    vector3d_from_euler_angles2d(&next_vector, &next_angles);
+    vector3d_from_euler_angles2d(&next_vector, &axis_angles);
 
     double cos_angle = new_vector.k * next_vector.k + new_vector.j * next_vector.j + new_vector.i * next_vector.i;
     if (cos_angle < -1.0)

@@ -10,7 +10,16 @@
  * decompiler's `v24` arg does not exist.
  *
  * Cluster records are 104 bytes (portal_count @+92, portal-index-list pointer @+96); portal records are
- * 64 bytes (neighbor cluster ids @+0/+2, bounding sphere center @+8, radius @+20). */
+ * 64 bytes (neighbor cluster ids @+0/+2, bounding sphere center @+8, radius @+20).
+ *
+ * position_cluster_index reaches the seed stamp below unvalidated: extsh r10,r3 @0x83745010 and
+ * slwi r10,r10,2 @0x83745018 feed lwzx r5,r10,r11 @0x83745040 with no compare in between. This is an
+ * as-built asymmetry, NOT a branch the decompiler dropped: the sibling structure_clusters_in_sphere
+ * @0x837451B8 opens with exactly the -1 rejection this function lacks (cmpwi cr6,r10,-1 @0x837451D4,
+ * beq to the li r3,0 return), while the cone entry has no such test. The seed stamp is nonetheless
+ * inert for -1 — cluster_magic_numbers[-1] aliases cluster_marker (+0x04 vs +0x08), and the marker was
+ * already incremented and stored @0x83745038 before the load, so the compare is equal and the store at
+ * 0x83745050 is skipped. */
 
 #include <stdint.h>
 #include "headers/structure_cluster.h"

@@ -12,7 +12,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 int vector_intersects_triangle3d(const real_point3d *point, const real_vector3d *vector, const real_point3d *p0,
     const real_point3d *p1, const real_point3d *p2, float *t_reference)

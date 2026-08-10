@@ -5,12 +5,16 @@
  * up a death-pose animation frame offset from its animation graph tag, reset vitality/shield, deplete its
  * shield, and recompute its node matrices.
  *
- * DEVIATION: the decompiler shows `unit_ping_animation`'s trailing `should_do_actual_damage` argument as an
- * uninitialized-looking stack local (`v9`); disasm confirms it's a literal `1` spilled to the stack (9th
- * arg, past the 8-GPR window) — same class as the `priority` argument bug in
- * oddball_engine_replicate_game_mode_state_to_network.c. `damage_part`'s `12 * unit_index` is genuinely
- * correct (confirmed via disasm): it's the same `3*idx` term the object_header_data idiom itself computes,
- * reused verbatim after being left-shifted by 2 for the dereference. */
+ * DEVIATION: the decompiler's inflated prototype maps `damage_part` to r9 and `alignment_vector` to r10; the
+ * registers say otherwise. `angle` (arg7) takes f1 and only *reserves* its GPR shadow r9, so the r9 the
+ * caller leaves live (`slwi r9, r8, 2` = 12*unit_index, leftover object_header_data address math at
+ * 0x836D2790) is dead — the callee redefines r9 at 0x836D1B40 without ever reading it. The real trailing
+ * args are r10 = -1 (body_part sentinel, `li r10, -1` at 0x836D27E4), the stack word at +0x54 = 0 (NULL
+ * alignment_vector, 0x836D27F0) and the stack byte at +0x5F = 1 (gate, 0x836D27E8); Xbox 360 parameter
+ * slots are 8 bytes wide, so a word lands at slot+4 and a byte at slot+7. unit_handle_forced_player_kill
+ * (0x836D6058) and unit_kill_from_network (0x836D57B8) drive the identical +0x54 / +0x5F pair.
+ * A prior revision passed 12*unit_index as body_part and 0xFFFFFFFF as alignment_vector; the callee's only
+ * guard is a `cmplwi r10, 0` null test (0x836D21E4), so 0xFFFFFFFF walks straight into the dereference. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -50,7 +54,7 @@ void unit_place(int unit_index, scenario_unit_datum *scenario_unit)
     if ( (scenario_unit->flags & (1u << _scenario_unit_dead_bit)) == 0 )
         return;
 
-    unit_ping_animation(unit_index, 1u, 0, 0, 0, 0, 0.0f, (int16_t)(12 * unit_index), (real_vector2d *)0xFFFFFFFF, 1u);
+    unit_ping_animation(unit_index, 1u, 0, 0, 0, 0, 0.0f, -1, nullptr, 1u);
 
     if ( (unsigned char)unit->unit.animation.state != _unit_state_dying )
         return;

@@ -3,9 +3,10 @@
 
 #include <string.h> // memset — CRT boundary
 
-// HALO_CHANNEL::HALO_CHANNEL(int index) @ 0x836B59A8
+// HALO_CHANNEL::HALO_CHANNEL(int index) @ 0x836B59A8 — ??0HALO_CHANNEL@@QAA@H@Z
 // Initialize a virtual channel: record its slot index, mark both current and queued slots
-// unbound/invalid (field-by-field, matching the inlined HALO_PERM_SOUND init), and zero props.
+// unbound/invalid (field-by-field, matching the inlined HALO_PERM_SOUND init: fsbIndex == -1,
+// every FMOD pointer null), and zero props.
 HALO_CHANNEL::HALO_CHANNEL(int index)
     : index(index)
 {

@@ -33,7 +33,7 @@ void compute_combined_pas(void)
 
         {
             const observer_result *camera = observer_get_camera(local_player_index);
-            int16_t camera_cluster = (uint16_t)camera->location.cluster_index; /* recovered: *(_WORD *)((char *)camera + 16) -> location.cluster_index */
+            uint16_t camera_cluster = (uint16_t)camera->location.cluster_index; /* DEVIATION: was int16_t — the narrowing undid the cast, and promotion then made `== 0xFFFF` always false, so an invalid cluster was never rejected. The binary's pair is unsigned: lhz r11,0x10(r3) @837142FC + cmplwi r11,0xFFFF @83714304. +16 = location.cluster_index */
             int cluster;
 
             if ( camera_cluster == 0xFFFF )

@@ -32,7 +32,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 /* cos provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 /* sin provided by CRT via <math.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void editor_camera_flying_update(flying_camera *camera, const camera_control *controls, observer_command *result)
 {

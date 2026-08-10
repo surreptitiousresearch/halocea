@@ -56,7 +56,7 @@ extern uint32_t *get_global_local_random_seed_address(void);
 extern real_vector3d *seed_random_direction3d(uint32_t *seed, real_vector3d *direction);
 extern unsigned int point_physics_update(unsigned int flags, const point_physics_definition *definition, location *location, int16_t force_weather_palette_index, real_point3d *position, real_vector3d *translational_velocity, const real_vector3d *translational_force, real_vector3d *collision_normal, int16_t *collision_material_type, float radius, float dt);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void flag_update(flag_datum *flag, flag_definition *flag_definition, float time)
 {

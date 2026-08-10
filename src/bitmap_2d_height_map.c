@@ -25,7 +25,7 @@ extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_in
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void bitmap_2d_height_map(bitmap_data *bitmap, float bump_height)
 {

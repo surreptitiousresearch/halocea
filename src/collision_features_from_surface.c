@@ -7,7 +7,12 @@
  * The forwarded call maps to from_polygon(point_count, points, plane, height, width, object_index, surface_index,
  * surface.flags, surface.breakable_surface_index, surface.material_index, features) where the reported
  * surface_index is (object_index==-1) ? surface_index : -1. The decompiler's `SLODWORD(v15)` object_index
- * argument is the plane distance float misread and is dropped. */
+ * argument is the plane distance float misread and is dropped.
+ *
+ * Deviation: plane_designator bit 31 is the facing flag, not index data. The binary scales the raw word
+ * (`slwi r11, r9, 4` @0x83804C68), which discards bit 31 in 32-bit arithmetic, and isolates that bit
+ * separately for the negation test (`clrrwi r8, r9, 31` @0x83804C6C). The mask below is what that fused
+ * shift means; it is a no-op at 32-bit ptrdiff_t and keeps the index in range where ptrdiff_t is wider. */
 
 #include <stdint.h>
 #include "headers/collision_bsp.h"
@@ -30,7 +35,7 @@ void collision_features_from_surface(const collision_bsp *bsp, int surface_index
     real_point3d points[8];
     int16_t point_count = collision_surface_polygon(bsp, surface_index, points);
 
-    const float *plane_data = (const float *)&((const real_plane3d *)bsp->bsp3d.planes.address)[surface->plane_designator];
+    const float *plane_data = (const float *)&((const real_plane3d *)bsp->bsp3d.planes.address)[surface->plane_designator & 0x7FFFFFFF];
     real_plane3d plane;
     if ( surface->plane_designator >= 0 )
     {

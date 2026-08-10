@@ -16,7 +16,7 @@
 #include "headers/real_vector3d.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern uint8_t accelerate_to_velocity3d(real_vector3d *velocity, const real_vector3d *velocity_desired, float acceleration_maximum);
 
 uint8_t accerate_to_position3d(real_point3d *position, real_vector3d *velocity,

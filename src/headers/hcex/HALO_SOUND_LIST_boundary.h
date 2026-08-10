@@ -28,10 +28,13 @@
 #include "../ws/dbg/STRONG_ASSERT2_HELPER.h"
 
 // ---- os-layer helpers (real bodies in src/ws/os/; narrow redeclare, see note above) ----
-extern "C" {
-    unsigned int osGetCurThreadId();                        // src/ws/os/osGetCurThreadId.cpp
-    void         osOutputDebugString(const char *fmt, ...); // boundary
-}
+// DEVIATION: these two do NOT share a linkage. `?osGetCurThreadId@@YAHXZ` is a mangled C++ symbol
+// returning `int` (`H`), matching its definition in src/ws/os/osGetCurThreadId.cpp; the old
+// `extern "C" unsigned int` spelling here named a different symbol and the wrong signedness
+// (sigcheck flagged the same defect on the TU-local copy). `osOutputDebugString` really is
+// unmangled in the DB, so it alone keeps C linkage.
+int osGetCurThreadId();                                     // src/ws/os/osGetCurThreadId.cpp
+extern "C" void osOutputDebugString(const char *fmt, ...);  // boundary
 
 // ---- ws-engine dbg boundary globals (shared with the HALO_CHANNEL cluster) ----
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */

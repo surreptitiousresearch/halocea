@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "headers/physics_variable_position.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 int physics_variable_position_update_seek(float *position, const physics_variable_position *definition, uint8_t cyclical_position, float desired_position, float speed)
 {

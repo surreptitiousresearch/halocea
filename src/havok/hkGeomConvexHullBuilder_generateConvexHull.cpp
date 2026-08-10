@@ -64,7 +64,7 @@ void hkGeomConvexHullBuilder_generateConvexHull(const hkVector4 *verts, int numV
     tol.m_postFilter.m_bool           = 0;
     tol.m_degenerate_tolerance        = 0.000004f;
     tol.m_runConvertToUnitCube.m_bool = 0;
-    tol.m_accurateButSlow.m_bool      = (mode == HK_GEOM_CONVEXHULL_MODE_ACCURATE) ? 1 : 0;
+    tol.m_accurateButSlow.m_bool      = (mode == HK_GEOM_CONVEXHULL_MODE_ACCURATE_BUT_SLOW) ? 1 : 0;
 
     /* private x-sorted copy of the input */
     for (i = 0; i < numVertices; ++i)

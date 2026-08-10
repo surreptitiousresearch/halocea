@@ -47,7 +47,7 @@ extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, f
 extern uint8_t collision_test_sphere(const real_point3d *center, float radius, int ignore_object_index);
 extern double acos(double x);
 extern double sin(double x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 int biped_limp_noodle_valid_joint_rotation(int biped_index, int node_index, real_matrix4x3 *node_matrices,
         real_point3d *current_world_pos, real_point3d *new_world_pos, int *moved_nodes_flags)

@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 float evaluate_piecewise_linear_function(int16_t count, const float *function, float x)
 {

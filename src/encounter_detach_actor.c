@@ -40,11 +40,14 @@ void encounter_detach_actor(int actor_index, uint8_t died)
 
     if ( !died )
     {
-        int16_t squad_index = actor->meta.disconnected_squad_index + encounter->squad_base;
+        /* DEVIATION: the squad-array index comes from actor+0x3A (meta.squad_index, meta 0x36) — the
+         * decompiler's raw *((_WORD *)actor + 29) — not from meta.disconnected_squad_index at actor+0x38.
+         * Must be read before the clear below, which writes -1 to that same halfword (0x83709738). */
+        int16_t squad_array_index = actor->meta.squad_index + encounter->squad_base;
         --encounter->original_count;
         if ( actor->meta.unique_leader )
             --encounter->unique_leader_count;
-        --squad_array[squad_index].original_count;
+        --squad_array[squad_array_index].original_count;
         int platoon_index = (uint16_t)actor->meta.platoon_index;
         if ( platoon_index != 0xFFFF )
             --platoon_array[(int16_t)(encounter->platoon_base + platoon_index)].original_count;
@@ -53,6 +56,6 @@ void encounter_detach_actor(int actor_index, uint8_t died)
     actor->meta.next_actor_index = -1;
     actor->meta.encounter_index = -1;
     actor->meta.platoon_index = -1;
-    actor->meta.disconnected_squad_index = -1;
+    actor->meta.squad_index = -1;  /* sth -1, 0x3A(actor) — squad_index, not disconnected_squad_index (0x38) */
     encounter->status_dirty = 1;  /* encounter +0x28 dirty flag */
 }

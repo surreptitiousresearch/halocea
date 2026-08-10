@@ -6,11 +6,11 @@
 
 #include "headers/physics_variable_speed.h"
 
-extern double __fabs(double x);
+extern float fabsf(float x);  /* DEVIATION: fabs @0x838106C8 takes the float arg in f1 and feeds fmuls with no frsp - single-precision abs, not the double __fabs */
 
 void physics_variable_speed_update(float *speed, const physics_variable_speed *definition, float magnitude)
 {
-    float scale = (float)__fabs(magnitude);
+    float scale = fabsf(magnitude);
     float decel_step = definition->deceleration * scale;
     float accel_step = definition->acceleration * scale;
 

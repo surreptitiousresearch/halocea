@@ -29,7 +29,7 @@
 #include "headers/path_collision_result.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern uint8_t structure_test_line2d(const structure_bsp *structure, uint8_t ignore_broken_surfaces, const real_point2d *p0, int p0_surface_index, const real_point2d *p1, int p1_surface_index, path_collision_result *result);
 
 uint8_t structure_test_pill2d(const structure_bsp *structure, uint8_t ignore_broken_surfaces,

@@ -20,7 +20,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern float __fabs(float);
+extern double __fabs(double x);
 extern int bsp2d_test_point(const bsp2d *bsp, const real_point2d *point, int child_index);
 extern uint8_t collision_surface_test_point(const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, int surface_index, int16_t projection_axis, uint8_t projection_sign, const real_point2d *point);
 extern uint8_t bsp2d_test_pill_recursive(test_pill_data *data, int child_index);

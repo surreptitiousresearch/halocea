@@ -12,7 +12,7 @@
 #include "headers/bitmap_data.h"
 #include "headers/bitmap_format_tables.h"
 #include "headers/bitmap_group.h"
-#include "headers/cache_file_tag_instance.h"
+#include "headers/global_tag_instances.h"
 
 extern bitmap_data *hardware_character_cache_get_bitmap(void);
 extern char *tag_get_name(int16_t tag_index);
@@ -46,8 +46,12 @@ uint8_t rasterizer_bitmap_new(bitmap_data *bitmap)
         name = tag_get_name(bitmap->tag_index);
         index_within_tag = 0;
 
-        /* the tag instance's data block holds the bitmap group */
-        bitmap_group *group = (bitmap_group *)global_tag_instances[bitmap->tag_index].base_address;
+        /* the tag instance's data block holds the bitmap group.
+           DEVIATION: bitmap_data.tag_index (0x20, 32-bit) is a full tag datum handle with salt in
+           the high word. @0x8379353C `clrlslwi r10, r10, 16,5` clears the high 16 bits before the
+           <<5 (32-byte cache_file_tag_instance) stride, so the subscript is (uint16_t)tag_index —
+           i.e. TAG_GET. The recovered source indexed with the whole 32-bit handle. */
+        bitmap_group *group = TAG_GET(bitmap_group, bitmap->tag_index);
         if ( group->bitmaps.count > 0 )
         {
             bitmap_data *elements = (bitmap_data *)group->bitmaps.address;

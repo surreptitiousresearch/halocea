@@ -88,15 +88,15 @@ void object_damage_update(int object_index)
                 {
                     damage_data damage;
 
-                    /* Faithful reproduction of the binary's struct prelude: 10 qwords of {10, 0}
-                     * followed by a trailing int = 0, before the explicit field overrides below. */
-                    char *cursor = (char *)&damage - 8;
-                    for ( int i = 10; i; --i )
-                    {
-                        cursor += 8;
-                        *(long long *)cursor = 0xA00000000LL;
-                    }
-                    ((int *)cursor)[2] = 0;
+                    /* DEVIATION: the old prelude transcribed Hex-Rays' 64-bit store of
+                     * 0xA00000000 verbatim, but that constant is the "local variable
+                     * allocation has failed" fusion of two registers: @0x836B42CC the binary
+                     * sets li r9,0xA (the ctr trip count) and li r10,0 (the stored value), so
+                     * the 10 stdu doublewords + the trailing stw @0x836B42E4 zero exactly
+                     * sizeof(damage_data) = 84 and stop at material_response (+0x50), its
+                     * last member. Same fill damage_data_new @0x836B13A0 does out of line,
+                     * via a real memset call; it is inlined here, so no call is emitted. */
+                    memset(&damage, 0, sizeof(damage));
 
                     damage.multiplier = 1.0f;
                     unsigned int flags = damage.flags | (1u << _damage_kill_instantly_bit);

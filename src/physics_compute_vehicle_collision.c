@@ -26,7 +26,7 @@
 #include "headers/blam_data_globals.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern uint8_t unit_driver_seat_is_filled(int unit_index);
 

@@ -24,7 +24,7 @@ void hs_global_reconcile_write(int16_t global_designator)
         return;
 
     hs_global_external *descriptor = hs_external_globals[HS_GLOBAL_DESIGNATOR_TO_INDEX(global_designator)];
-    hs_global_datum *slot = DATA_ARRAY_ELEMENT(hs_global_data, hs_global_datum, global_designator);
+    hs_global_datum *slot = DATA_ARRAY_ELEMENT(hs_global_data, hs_global_datum, HS_GLOBAL_DESIGNATOR_TO_INDEX(global_designator)); /* DEVIATION: masked slot index, per clrlslwi r10,r3,17,3 @0x8368DF40 (was the raw flagged designator) */
     void *backing = descriptor->pointer; /* recovered: descriptor->address -> pointer (member at 0x08) */
 
     switch ( hs_global_get_type(global_designator) )

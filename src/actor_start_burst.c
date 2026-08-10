@@ -49,7 +49,7 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 extern uint16_t seed_random(uint32_t *seed);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern double tan(double x);
 extern double cos(double x);
 extern double sin(double x);
@@ -118,8 +118,8 @@ void actor_start_burst(int actor_index)
         error_angle = firing_pattern->error_angle_modifier * (error_team_value * projectile_error_angle);
     if ( actor->external_orders.playfighting )
         error_angle = error_angle * 2.0f + DEG_TO_RAD;   /* berserk: double + 1 degree */
-    actor->control.burst_error = 0.0f;                          /* damage per projectile (+0x68C) */
-    actor->control.burst_aim_vector.n[2] = error_angle;
+    actor->control.burst_damage_modifier = 0.0f;  /* DEVIATION: stfs 0x69C(r31); was burst_error */
+    actor->control.burst_error = error_angle;     /* DEVIATION: stfs 0x698(r31); was burst_aim_vector.z */
 
     /* per-projectile damage (+423) */
     if ( firing_variant->ranged_combat.weapon_damage_modifier <= 0.0f )
@@ -137,24 +137,24 @@ void actor_start_burst(int actor_index)
                 if ( rate_of_fire > 0.0f && rounds_per_second > rate_of_fire )
                     rounds_per_second = firing_variant->ranged_combat.rate_of_fire;
                 if ( rounds_per_second * damage_potential > 0.0f )
-                    actor->control.burst_error = firing_variant->ranged_combat.damage_per_second
-                            / (rounds_per_second * damage_potential);
+                    actor->control.burst_damage_modifier = firing_variant->ranged_combat.damage_per_second
+                            / (rounds_per_second * damage_potential);   /* stfs 0x69C(r31) */
             }
         }
     }
     else
     {
-        actor->control.burst_error = firing_variant->ranged_combat.weapon_damage_modifier;
+        actor->control.burst_damage_modifier = firing_variant->ranged_combat.weapon_damage_modifier;
     }
 
     /* special-fire damage / error bumps */
     if ( actor->control.fire_burst_secondary || actor->control.overcharging_weapon )
     {
         if ( firing_variant->ranged_combat.special_damage_modifier > 0.0f )
-            actor->control.burst_error = firing_variant->ranged_combat.special_damage_modifier
-                    * actor->control.burst_error;
-        actor->control.burst_aim_vector.n[2] = firing_variant->ranged_combat.special_projectile_error
-                + actor->control.burst_aim_vector.n[2];
+            actor->control.burst_damage_modifier = firing_variant->ranged_combat.special_damage_modifier
+                    * actor->control.burst_damage_modifier;              /* lfs/stfs 0x69C(r31) */
+        actor->control.burst_error = firing_variant->ranged_combat.special_projectile_error
+                + actor->control.burst_error;                            /* lfs/stfs 0x698(r31) */
     }
 
     /* bombardment target search when armed for it and the prop target is a live "combat" prop */

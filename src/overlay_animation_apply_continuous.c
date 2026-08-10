@@ -35,7 +35,7 @@
 
 extern double fmod(double x, double y);
 extern double floor(double x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern void *animation_get_frame_data(const animation *animation, int16_t frame_index);
 extern void animation_get_keyframe_rotation(const animation *animation, float real_frame_index, int16_t adjusted_node_index, int16_t node_index, real_quaternion *result);
 extern void animation_get_keyframe_translation(const animation *animation, float real_frame_index, int16_t adjusted_node_index, int16_t node_index, real_point3d *result);

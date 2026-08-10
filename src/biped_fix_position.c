@@ -31,7 +31,7 @@
 extern const real_vector3d fudge_vectors[];
 
 extern float __fsqrts(float);
-extern float __fabs(float);
+extern double __fabs(double x);
 extern void biped_get_physics_pill(int biped_index, real_point3d *base, float *height, float *width);
 extern uint8_t collision_model_instance_new(collision_model_instance *instance, int object_index);
 extern int16_t scenario_cluster_index_from_point(const real_point3d *point);

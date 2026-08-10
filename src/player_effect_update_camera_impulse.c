@@ -36,7 +36,7 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 extern float normalize3d(real_vector3d *v);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void player_effect_update_camera_impulse(int16_t local_player_index, player_effect_datum *datum,
                                          const camera_impulse_definition *camera_impulse,

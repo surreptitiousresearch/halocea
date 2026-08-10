@@ -29,7 +29,6 @@
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 
-
 #include "headers/powered_mass_point_datum.h"
 extern float normalize3d(real_vector3d *v);
 extern void yaw_vectors(real_vector3d *forward, const real_vector3d *up, float sine, float cosine);
@@ -40,7 +39,8 @@ extern void matrix4x3_rotation_to_quaternion(const real_matrix4x3 *matrix, real_
 extern void quaternion_to_angle_and_vector(const real_quaternion *q, float *angle, real_vector3d *axis);
 extern void physics_update(int object_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points, const real_vector3d *magic_force, const real_vector3d *magic_torque);
 extern void create_pelican_effect(int vehicle_index);
-extern float __fabs(float x);
+extern double __fabs(double x);
+extern float fabsf(float x);  /* DEVIATION: fabs @0x837612B0 feeds fmadds with no frsp - single-precision abs; @0x8376130C is fdiv+frsp and stays __fabs */
 extern double sin(double x);
 extern double cos(double x);
 
@@ -115,7 +115,7 @@ void update_human_plane_physics(int vehicle_index, mass_point_datum *mass_points
         float forward_speed = vehicle->object.translational_velocity.n[0] * vehicle->object.forward.n[0]
                               + (vehicle->object.translational_velocity.n[2] * vehicle->object.forward.n[2]
                                  + vehicle->object.translational_velocity.n[1] * vehicle->object.forward.n[1]);
-        float speed_fraction = __fabs(forward_speed / max_speed);
+        float speed_fraction = fabsf(forward_speed / max_speed);
         float throttle_force = ((vehicle->vehicle.speed - forward_speed) * lift_scale
                                 * vehicle->vehicle.thrust) * 0.050000001f;
         float lift = ((speed_fraction * 1.05f + vehicle->vehicle.hover * 1.3f) * lift_scale) * global_gravity;

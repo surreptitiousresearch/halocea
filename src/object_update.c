@@ -31,7 +31,7 @@ extern void object_compute_change_colors(int object_index);
 extern void object_connect_lights(int object_index, uint8_t disconnect, uint8_t reconnect);
 extern void object_postprocess_node_matrices(int object_index);
 
-extern float __fabs(float);
+extern double __fabs(double x);
 
 int object_update(int object_index)
 {

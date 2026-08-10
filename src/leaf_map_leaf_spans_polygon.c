@@ -24,7 +24,7 @@
 #include "headers/real_point2d.h"
 #include "headers/blam_data_globals.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern uint8_t convex_hull2d_test_point(int16_t count, const real_point2d *points, const real_point2d *point, float epsilon);
 
 int leaf_map_leaf_spans_polygon(const leaf_map *leaf_map, int leaf_index, real_plane3d *plane, int16_t projection, uint8_t projection_sign, int16_t vertex_count, real_point2d *vertices2d)

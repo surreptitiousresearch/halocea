@@ -16,6 +16,11 @@ This is a corpus to help in-progress Halo: Combat Evolved decompilation efforts,
 
 It is a point of reference for earlier Halo CE (Halo Xbox NTCS/PAL/PC Custom Edition) and more modern Halo CE (Halo MCC variants) decomplication efforts.
 
+![Description of image](silentc_wireframe_cine.png)
+
+Contributors:
+Jojo (discord: .lolcat), credits: bugfix reporting, silentc_wireframe_cine.png
+
 Context:
 
 [Halo: Combat Evolved Anniversary (Jun 24, 2011 prototype) - Hidden Palace](https://hiddenpalace.org/Halo:_Combat_Evolved_Anniversary_\(Jun_24,_2011_prototype\))

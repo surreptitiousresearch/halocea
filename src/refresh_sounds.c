@@ -52,7 +52,7 @@ void refresh_sounds(void)
         if ( channel != 0xFFFF && !channel_get_state(channel) )
         {
             int loop_state = datum->type;
-            if ( loop_state == _sound_loop_track || loop_state == _sound_stopping_track )
+            if ( loop_state != _sound_loop_track && loop_state != _sound_stopping_track ) /* DEVIATION: recovered test was inverted; 0x83717404/0x8371740C branch AWAY from the stop path on type 2/3 */
                 stop = 1;
         }
         if ( !stop && !refresh_sound(i) && !sound_manager_globals.paused )

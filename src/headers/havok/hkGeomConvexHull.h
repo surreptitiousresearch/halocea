@@ -4,13 +4,17 @@
 #include "hkBool.h"
 #include "hkGeomHull.h"
 
-/* hkGeomConvexHullMode — DB exposes the type but not enumerator values. The
-   builder treats mode == 2 as "accurate but slow"; FAST is 0 (the value passed by
-   hkpConvexVerticesConnectivityUtil::findConnectivity). */
+/* hkGeomConvexHullMode — DEVIATION: FAST was 0 and ACCURATE was an abbreviated
+   spelling; DB types_enum_values carries all four enumerators verbatim
+   (INVALID=0, FAST=1, ACCURATE_BUT_SLOW=2, MAX_ID=3) and the binary agrees
+   (findConnectivity @0x83F937FC passes li r7,1; generateConvexHull @0x83FDEB8C
+   tests mode-2 for m_accurateButSlow). */
 typedef enum hkGeomConvexHullMode
 {
-    HK_GEOM_CONVEXHULL_MODE_FAST     = 0,
-    HK_GEOM_CONVEXHULL_MODE_ACCURATE = 2
+    HK_GEOM_CONVEXHULL_MODE_INVALID           = 0,
+    HK_GEOM_CONVEXHULL_MODE_FAST              = 1,
+    HK_GEOM_CONVEXHULL_MODE_ACCURATE_BUT_SLOW = 2,
+    HK_GEOM_CONVEXHULL_MODE_MAX_ID            = 3
 } hkGeomConvexHullMode;
 
 /* hkGeomConvexHullTolerances (size 52, DB types_members). */

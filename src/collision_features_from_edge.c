@@ -7,7 +7,17 @@
  * assignment from register reuse — dropped. True forwarded mapping (from disasm) is from_line(point, vector,
  * height, width, object_index, surface_index, surface.flags, surface.breakable_surface_index,
  * surface.material_index, features). Plane pointers use the masked plane index (the orientation sign bit is
- * shifted out by the *16 stride and is read separately for the silhouette test). */
+ * shifted out by the *16 stride and is read separately for the silhouette test).
+ *
+ * Deviation: the two silhouette rejections are EXCLUSIVE, not sequential. 83804AE8 `bne cr6, loc_83804B40`
+ * sends the opposite-facing case straight to the second cross block, so the same-facing block at 83804AEC
+ * runs only when the signs match. Its reject path is 83804B34 `bgt cr6, loc_83804B8C` (cross > -eps =>
+ * accept) falling into 83804B38 `cmplw cr6, r7, r8` / 83804B3C `beq cr6, loc_83804C00`: r7/r8 are the two
+ * sign bytes and are unwritten by the block, so on this path they are provably equal and the beq to the
+ * epilogue always fires. The fallthrough from 83804B3C into the second block is therefore DEAD, and reading
+ * it as a live edge is what previously made this a sequential pair — which rejected every same-facing edge
+ * whose cross was >= +eps, leaving only the near-coplanar band. Both blocks compute the same cross value
+ * with different operand orderings; the binary genuinely duplicates it per arm, so both are kept. */
 
 #include <stdint.h>
 #include "headers/collision_bsp.h"
@@ -58,17 +68,20 @@ void collision_features_from_edge(const collision_bsp *bsp, int edge_index, cons
     {
         if ( left_sign == right_sign )
         {
-            float cross1 = ((((right->n.n[0] * left->n.n[2]) - (left->n.n[0] * right->n.n[2])) * edge_vector.n[1])
+            float cross_same_facing = ((((right->n.n[0] * left->n.n[2]) - (left->n.n[0] * right->n.n[2])) * edge_vector.n[1])
                                  + (((left->n.n[1] * right->n.n[2]) - (left->n.n[2] * right->n.n[1])) * edge_vector.n[0])
                                  + ((left->n.n[0] * right->n.n[1]) - (right->n.n[0] * left->n.n[1])) * edge_vector.n[2]);
-            if ( cross1 <= -0.000099999997 )
+            if ( cross_same_facing <= -0.000099999997 )
                 return;
         }
-        float cross2 = ((((left->n.n[2] * right->n.n[0]) - (right->n.n[2] * left->n.n[0])) * edge_vector.n[1])
-                             + (((left->n.n[1] * right->n.n[2]) - (left->n.n[2] * right->n.n[1])) * edge_vector.n[0])
-                             + ((right->n.n[1] * left->n.n[0]) - (left->n.n[1] * right->n.n[0])) * edge_vector.n[2]);
-        if ( cross2 >= 0.000099999997 )
-            return;
+        else
+        {
+            float cross_opposite_facing = ((((left->n.n[2] * right->n.n[0]) - (right->n.n[2] * left->n.n[0])) * edge_vector.n[1])
+                                 + (((left->n.n[1] * right->n.n[2]) - (left->n.n[2] * right->n.n[1])) * edge_vector.n[0])
+                                 + ((right->n.n[1] * left->n.n[0]) - (left->n.n[1] * right->n.n[0])) * edge_vector.n[2]);
+            if ( cross_opposite_facing >= 0.000099999997 )
+                return;
+        }
     }
 
     int surface_index = (object_index == -1) ? edge->surface_indices[0] : -1;

@@ -82,7 +82,7 @@
 extern post_evaluator_table_entry global_post_evaluator_table[];
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float normalize3d(real_vector3d *v);
 extern float point_to_line_distance_squared3d(const real_point3d *point, const real_point3d *base, const real_vector3d *height);
 extern void encounter_build_firing_position_owner_actor_indices(int encounter_index, int *firing_position_owner_actor_indices);

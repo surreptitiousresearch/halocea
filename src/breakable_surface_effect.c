@@ -109,9 +109,9 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
         int surface_index = surface_worklist[worklist_index];
         const collision_surface *surface = &surfaces[surface_index];
         int current_edge = surface->first_edge_index;
-        /* designator indexes the plane table UNMASKED; its sign selects orientation below —
-         * the same convention as bsp3d_get_plane_from_designator */
-        const float *plane = (const float *)&planes[surface->plane_designator];
+        /* DEVIATION: designator bit 31 is the facing flag; the binary's 16-byte stride shift discards it
+         * (slwi r9,r4,4 @0x83743320) and tests it separately (clrrwi r3,r4,31 @0x83743328) — mask is an x64 no-op */
+        const float *plane = (const float *)&planes[surface->plane_designator & 0x7FFFFFFF];
         float plane_signed[4];   /* indexed by projection axis */
         float pn_x, pn_y, pn_z, pd;
         int projection_axis;

@@ -50,7 +50,7 @@ extern int player_aim_projectile(int player_index, const real_point3d *position,
 extern float normalize3d(real_vector3d *v);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern void object_placement_data_new(object_placement_data *data, int definition_index, int owner_object_index);
 extern uint32_t *get_global_random_seed_address(void);
 extern real_vector3d *seed_random_vector_in_cone3d(uint32_t *seed, const real_vector3d *axis, float inner_cone_angle, float outer_cone_angle, real_vector3d *result);

@@ -11,7 +11,7 @@
 #include "headers/real_plane3d.h"
 #include "headers/real_point3d.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 /* attested: return is uint8_t (li r3,1 @836FFFB4 / li r3,0 @837000AC; caller
  * collision_move_point re-normalizes with clrlwi r3,24 @837747D0). */

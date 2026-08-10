@@ -165,7 +165,11 @@ void actor_move_update(int actor_index)
     }
 
     /* movement-animation index (actor+1756) from steering/action state */
-    int movement_animation = actor->orders.move.override_movement_type;
+    /* DEVIATION: the override sentinel test is ZERO-extended in the binary —
+     * `lhz r11, 0x42C(r31)` / `cmplwi cr6, r11, 0xFFFF` @ 0x837CACD0-0x837CACD4 (actor+0x42C =
+     * orders 0x3E8 + move 0x18 + 0x2C). override_movement_type is __int16, so an uncast promotion
+     * yields -1 and the 0xFFFF compare can never be true; the cast restores lhz's zero extension. */
+    int movement_animation = (uint16_t)actor->orders.move.override_movement_type;
     if ( movement_animation == 0xFFFF )
     {
         movement_animation = actor_movement_type_combat;
@@ -188,8 +192,12 @@ void actor_move_update(int actor_index)
 
     override_facing = actor->orders.move.override_movement_facing;
     uint8_t crouch;
-    if ( actor->control.path.path.valid                                /* path active — opaque path block offset */
-      && actor->control.path.destination_distance >= (double)character_def->moving.stationary_moving_distance )
+    /* DEVIATION: the moving-crouch threshold reads destination_ORIGINAL_distance, not
+     * destination_distance — `lfs f0, 0x4A0(r31)` @ 0x837CAD58 (actor+0x4A0 = control 0x46C +
+     * path 0x00 + 0x34); control.path.destination_distance (+0x30 => actor+0x49C) is never read
+     * anywhere in this function. Guard is `lbz r10, 0x4A8(r11)` = control.path.path.valid. */
+    if ( actor->control.path.path.valid                                /* path active — actor+0x4A8 */
+      && actor->control.path.destination_original_distance >= (double)character_def->moving.stationary_moving_distance )
         crouch = actor->orders.move.moving_crouch;
     else
         crouch = actor->orders.move.stationary_crouch;

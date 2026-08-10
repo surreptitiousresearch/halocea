@@ -13,7 +13,7 @@
 #include "headers/real_vector2d.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float normalize2d(real_vector2d *v);
 
 uint8_t actor_look_valid_look_vector(float yaw_deviation, const real_vector2d *cone_limits,

@@ -3,19 +3,26 @@
  * a 2-bit delta-width tag (0/1 = implicit delta 1, header is 1 byte; 2 = delta in the next byte, header 2
  * bytes; 3 = delta in the next 2 bytes, header 3 bytes) in bits 0-1, and an event id in bits 2-7 (id 1 is
  * the end-of-stream marker) used as `apply_funcs_0[id]` — the id is already byte-scaled via `byte & 0xFC`
- * since apply_funcs_0 is a table of 4-byte function pointers. The stream cursor is advanced before the
- * handler runs (handlers here take just animation_state/control, unlike the v1 codec's handlers which
- * advance the cursor themselves). Playback is finished (returns 0) exactly when the cursor sits on the end
- * marker with *ticks equal to its delta; otherwise more remains (returns 1). Sibling of
- * recorded_animation_apply_event_stream_v1.c. */
+ * since apply_funcs_0 is a table of 4-byte function pointers. This codec splits the cursor advance with its
+ * handlers: the caller advances it past the event header, then the handler reads its operand from there and
+ * advances it past the operand (the v1 codec's handlers do the whole advance themselves). Playback is
+ * finished (returns 0) exactly when the cursor sits on the end marker with *ticks equal to its delta;
+ * otherwise more remains (returns 1). Sibling of recorded_animation_apply_event_stream_v1.c.
+ *
+ * DEVIATION: the decompiler rendered the dispatch as a 2-arg call (animation_state, control). Disasm shows
+ * 4 args: r5 still holds the event-header pointer loaded at the top of the loop (`lwz r5, 0(r30)`), so the
+ * compiler elided a `mr r5, ...` and only r3/r4/r6 are re-materialized at the bctrl. Every apply_funcs_0
+ * handler dereferences both — `lbz r11, 0(r5)` for the event id and `lwz r11, 0(r6)` for the cursor. */
 #include <stdint.h>
 
+#include "headers/animation_event_header.h"
 #include "headers/animation_playback_controller.h"
 #include "headers/recorded_animation_time_delta.h"
 
 typedef struct unit_control_data unit_control_data;
 
-extern void (*apply_funcs_0[])(animation_playback_controller *animation_state, unit_control_data *control);
+extern void (*apply_funcs_0[])(animation_playback_controller *animation_state, unit_control_data *control,
+        const animation_event_header *header, const char **playback_stream);
 
 uint8_t recorded_animation_apply_event_stream(animation_playback_controller *animation_state,
         unit_control_data *control, int *ticks, const char **playback_stream)
@@ -59,10 +66,10 @@ uint8_t recorded_animation_apply_event_stream(animation_playback_controller *ani
 
         *playback_stream = (const char *)event + header_size;
 
-        void (*apply)(animation_playback_controller *, unit_control_data *) =
-            apply_funcs_0[(event_byte & ~0x3u) >> 2];
+        void (*apply)(animation_playback_controller *, unit_control_data *, const animation_event_header *,
+                const char **) = apply_funcs_0[(event_byte & ~0x3u) >> 2];
         if ( apply )
-            apply(animation_state, control);
+            apply(animation_state, control, (const animation_event_header *)event, playback_stream);
 
         *ticks -= delta;
     }

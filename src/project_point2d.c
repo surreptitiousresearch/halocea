@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 real_point3d *project_point2d(const real_point2d *p2d, const real_plane3d *plane, int16_t projection,
                               uint8_t sign, real_point3d *p3d)

@@ -7,8 +7,13 @@
  *
  * DEVIATION: register-pun doubles are plain float math. The sphere-test result buffer (Hex-Rays rendered its
  * count/index array as free-standing locals with a lost pointer) is the &result passed to collision_bsp_test_sphere
- * per the call-site disasm; surface plane designator negation follows the standard collision facing-bit idiom
- * (16*plane wraps mod 2^32 so the sign only selects negation). */
+ * per the call-site disasm.
+ *
+ * DEVIATION: plane_designator bit 31 is the facing flag, not index data. The binary never masks before
+ * indexing because the 16-byte stride shift discards that bit in 32-bit arithmetic (`slwi r10, r3, 4`
+ * @0x837B0508), and isolates it separately for the facing test (`clrrwi r4, r3, 31` @0x837B050C). The
+ * `& 0x7FFFFFFF` below is therefore a proven no-op on the as-built target and keeps the index in range
+ * where ptrdiff_t is wider (x64); the facing test still reads the unmasked value. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -51,7 +56,7 @@ void biped_find_nearby_support_surface(int biped_index)
     {
         int surface_index = result.surface_indices[i];
         int plane_designator = ((collision_surface *)bsp->surfaces.address)[surface_index].plane_designator;
-        const float *plane = (const float *)&((const real_plane3d *)bsp->bsp3d.planes.address)[plane_designator];
+        const float *plane = (const float *)&((const real_plane3d *)bsp->bsp3d.planes.address)[plane_designator & 0x7FFFFFFF];
 
         float nx, ny, nz, d;
         if ( plane_designator >= 0 )

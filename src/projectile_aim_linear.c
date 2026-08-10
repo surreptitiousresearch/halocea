@@ -11,7 +11,7 @@
 #include "headers/real_vector3d.h"
 
 extern float __fsqrts(float x);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 /* return attested int: li r3,1 on the only return path, 0 sampled consumers (net_graph_initialize precedent) */
 int projectile_aim_linear(

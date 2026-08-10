@@ -1,4 +1,4 @@
-/* hcexHALO_CUSTOM_OBJ_LIST::hcexHALO_CUSTOM_OBJ_LIST @0x823D952C — install this class's vftable
+/* hcexHALO_CUSTOM_OBJ_LIST::hcexHALO_CUSTOM_OBJ_LIST @0x823D9518 — install this class's vftable
  * and default-construct cdList (adopting the "halo_main.cpp":222 allocation call-site cookie). */
 
 #include "../../headers/hcex/hcexHALO_CUSTOM_OBJ_LIST.h"

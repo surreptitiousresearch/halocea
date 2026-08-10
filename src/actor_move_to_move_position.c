@@ -35,7 +35,7 @@ uint8_t actor_move_to_move_position(int actor_index, int16_t move_position_index
     actor->orders.move.destination.___u3.move_position_index = move_position_index;
     actor->orders.move.destination.ignore_target_object_index = -1;
     actor->orders.move.destination.destination_type = _destination_move_position;
-
+    actor->orders.move.destination.keep_moving = 0;    /* DEVIATION: dropped store `stb r7, 0x402(r31)` (r7=0) @0x837CB69C; all three sibling actor_move_to_* carry it */
     int *source = (int *)&actor->orders.move.destination.destination_type - 1;
     int *destination = (int *)&actor->control.path.destination_orders.destination_type - 1;
     for ( int i = 0; i < 6; i++ )

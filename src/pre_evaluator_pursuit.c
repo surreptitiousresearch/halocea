@@ -16,7 +16,7 @@
 #include "headers/firing_position.h"
 #include "headers/firing_position_evaluation_context.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 void pre_evaluator_pursuit(int actor_index, firing_position_evaluation_context *evaluation_context, int16_t firing_position_count, firing_position *firing_positions)
 {

@@ -27,7 +27,7 @@
 #include "headers/object_damage_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern float __fabs(float x);
+extern double __fabs(double x);
 extern float normalize3d(real_vector3d *v);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 

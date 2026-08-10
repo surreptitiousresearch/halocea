@@ -1,6 +1,6 @@
-/* obstacles_add_disc @0x8382F9AC — appends a new disc to an obstacles working set (capacity 128), projecting
+/* obstacles_add_disc @0x8382F9A8 — appends a new disc to an obstacles working set (capacity 128), projecting
  * the 3D center onto the pathfinding XY plane via the standard projection-axis/sign mapping table (axis=2,
- * sign=1 — always ground-plane projection here). Returns 0 if the set is already full.
+ * sign=1 — ground-plane; component [0] -> center.n[0], [1] -> center.n[1]). Returns 0 if the set is full.
  *
  * DEVIATION note: the decompile computes a base pointer `v7 = (char*)obstacles + 20*disc_count` (8 bytes
  * short of the real `&obstacles->discs[disc_count]`) and folds the missing +8 into each field's offset
@@ -29,8 +29,8 @@ int obstacles_add_disc(obstacles *obstacles, int object_index, int16_t flags,
     new_disc->flags = flags;
     new_disc->object_index = object_index;
     new_disc->obstacle_index = -1;
-    new_disc->center.n[0] = center->n[global_projection3d_mappings[2][1][1]];
-    new_disc->center.n[1] = center->n[global_projection3d_mappings[2][1][0]];
+    new_disc->center.n[0] = center->n[global_projection3d_mappings[2][1][0]];
+    new_disc->center.n[1] = center->n[global_projection3d_mappings[2][1][1]];
     new_disc->radius = radius;
     return 1;
 }

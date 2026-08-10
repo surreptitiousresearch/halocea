@@ -66,7 +66,13 @@ uint8_t path_iterate(obstacle_path *path)
 
         if (result.edge_index == -1)
         {
-            if (result.disc_index == 0xFFFF)
+            /* DEVIATION: the no-disc sentinel test is ZERO-extended in the binary —
+             * `lhz r5, 0xC0+var_34(r1)` / `cmplwi cr6, r5, 0xFFFF` @ 0x8381DDC4-0x8381DDC8 (var_34 =
+             * result+0xC = disc_index, __int16 per types_members). Promoting the signed field yields
+             * -1, so the 0xFFFF compare can never be true; the cast restores lhz's zero extension.
+             * The edge_index test one line up is genuinely the other form — a 32-bit signed
+             * `lwz` / `cmpwi cr6, r10, -1` @ 0x8381DDB8-0x8381DDBC — and stays uncast. */
+            if ((uint16_t)result.disc_index == 0xFFFF)
             {
                 uint8_t reached_goal;
                 if (result.surface_index == path->goal_surface_index)

@@ -580,11 +580,11 @@ aim_solve:
     {
         primary = 1;
         analog = 1.0f;
-        float rate = game_difficulty_get_team_value(_game_difficulty_rate_of_fire_scale, actor->meta.team_index);
+        float rate = game_difficulty_get_team_value(_game_difficulty_rate_of_fire_scale, actor->meta.team_index)
+                   * firing_variant_definition->ranged_combat.rate_of_fire;  /* DEVIATION: fmuls f0,f1,f31 @0x837BA5FC (f31 = lfs 0x78(r23) = ranged_combat.rate_of_fire) — this factor had been dropped */
         actor_burst_geometry *burst_geometry;
         actor_firing_pattern *firing_pattern;
-        actor_combat_get_firing_parameters(actor_index, firing_variant_definition, &burst_geometry,
-                                           &firing_pattern);
+        actor_combat_get_firing_parameters(actor_index, firing_variant_definition, &burst_geometry, &firing_pattern);
         if ( firing_pattern && firing_pattern->rate_of_fire_modifier > 0.0f )
             rate = firing_pattern->rate_of_fire_modifier * rate;
         int16_t reload = (int)(30.0f / rate);

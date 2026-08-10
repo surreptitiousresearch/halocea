@@ -3,7 +3,7 @@
 
 #include "headers/real_vector2d.h"
 extern float __fsqrts(float);
-extern float __fabs(float);
+extern double __fabs(double x);
 
 float normalize2d(real_vector2d *v)
 {

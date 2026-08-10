@@ -13,7 +13,7 @@
 
 extern real_hsv_color *real_rgb_color_to_real_hsv_color(const real_rgb_color *rgb, real_hsv_color *hsv);
 extern real_rgb_color *real_hsv_color_to_real_rgb_color(const real_hsv_color *hsv, real_rgb_color *rgb);
-extern float __fabs(float x);
+extern double __fabs(double x);
 
 /* attested: flags is only bit-tested (clrlwi ...,31 / extrwi 1,30) — width-agnostic, so plain
  * unsigned int; the previous `char` claimed an 8-bit width the binary never pins. */

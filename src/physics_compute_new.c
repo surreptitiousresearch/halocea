@@ -1,14 +1,14 @@
-/* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
-/* =========================================================================
-   NOTE / CAVEAT: clean decompile, faithfully reconstructed, but two things are
-   best-effort. (1) The object-datum velocity/position/angular-velocity vectors
-   are read at the raw float offsets 23/26/35 (bytes 92/104/140) established by
-   the update_alien_scout_physics sibling; object_datum.h models these ~4 bytes
-   earlier, so raw offsets are kept here to stay consistent with the physics
-   sibling. (2) friction_evaluate's two middle pointer args (a friction_datum and
-   a velocity vector) could not be pinned exactly from the decompile; &mp->
-   <phase>_friction and &mp->velocity are passed. The force/torque math itself is
-   transcribed verbatim.
+/* physics_compute_new @0x837BE4E0 — accumulate per-mass-point force/torque for the new vehicle
+   physics. Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md
+   =========================================================================
+   NOTE / CAVEAT: clean decompile, faithfully reconstructed, but one thing is best-effort:
+   the object-datum velocity/position/angular-velocity vectors are read at the raw float
+   offsets 23/26/35 (bytes 92/104/140) established by the update_alien_scout_physics sibling;
+   object_datum.h models these ~4 bytes earlier, so raw offsets are kept here to stay
+   consistent with the physics sibling. The force/torque math itself is transcribed verbatim.
+   DEVIATION: friction_evaluate's last two args were mis-transcribed as (&mp->velocity,
+   &mp-><phase>_friction.friction) — the guess the old caveat flagged. Disasm arbitrates: all
+   three call sites load r7 = mp+0x10 (forward) and r8 = mp+0x28 (up), the decomposition axes.
    ========================================================================= */
 #include <stdint.h>
 #include <string.h>
@@ -30,7 +30,7 @@
 #include "headers/object_datum.h"
 #include "headers/blam_data_globals.h"
 #include "headers/collision_test_flags.h"
-#include "headers/ppc_intrinsics.h"
+extern float fabsf(float x);  /* DEVIATION: fabs @0x837BEB98/@0x837BECF4 feed fmuls with no frsp - single-precision abs, not the double __fabs */
 
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
@@ -40,8 +40,8 @@ extern void compute_ground_plane(int object_index, mass_point_datum *mp, const m
 extern float scenario_location_water_depth(const location *location, const real_point3d *position);
 extern material_definition *scenario_material_definition_get(int16_t material_type);
 extern float pin_fraction(float value, float lo, float hi);
-extern void friction_evaluate(int friction_type, float parallel_scale, float perpendicular_scale,
-                              friction_datum *friction, real_vector3d *velocity, real_vector3d *friction_out);
+extern void friction_evaluate(int16_t type, float parallel_scale, float perpendicular_scale,
+                              friction_datum *components, real_vector3d *primary, real_vector3d *secondary);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 
 void physics_compute_new(const physics_instance *instance, const powered_mass_point_datum *powered_mass_points,
@@ -189,7 +189,7 @@ void physics_compute_new(const physics_instance *instance, const powered_mass_po
                 }
 
                 friction_evaluate(def->friction_type, def->friction_parallel_scale, def->friction_perpendicular_scale,
-                                  &mp->ground_friction, &mp->velocity, &mp->ground_friction.friction);
+                                  &mp->ground_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837BEA0C */
             }
         }
 
@@ -224,13 +224,13 @@ void physics_compute_new(const physics_instance *instance, const powered_mass_po
                 mp->water_friction.friction.n[2] = scale * mp->velocity.n[2];
             }
             friction_evaluate(def->friction_type, def->friction_parallel_scale, def->friction_perpendicular_scale,
-                              &mp->water_friction, &mp->velocity, &mp->water_friction.friction);
+                              &mp->water_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837BEB3C */
 
             /* water lift (powered) */
             if (pmp_def && (pmp_def->flags & (1u << _powered_mass_point_water_lift_bit)) != 0 && pmp->water_lift_ratio != 0.0)
             {
                 float *fwd = mp->forward.n;
-                float speed_along = __fabs(((fwd[0] * mp->velocity.n[0])
+                float speed_along = fabsf(((fwd[0] * mp->velocity.n[0])
                                                  + ((fwd[2] * mp->velocity.n[2]) + (fwd[1] * mp->velocity.n[1]))));
                 float lift = (((speed_along * pmp->water_lift_ratio) * physics->mass) * depth_fraction);
                 mp->powered_force.n[0] += lift * mp->up.n[0];
@@ -256,13 +256,13 @@ void physics_compute_new(const physics_instance *instance, const powered_mass_po
             mp->air_friction.friction.n[2] = scale * mp->velocity.n[2];
         }
         friction_evaluate(def->friction_type, def->friction_parallel_scale, def->friction_perpendicular_scale,
-                          &mp->air_friction, &mp->velocity, &mp->air_friction.friction);
+                          &mp->air_friction, &mp->forward, &mp->up); /* DEVIATION: r7=mp+0x10, r8=mp+0x28 @0x837BEC98 */
 
         /* air lift (powered) */
         if (pmp_def && (pmp_def->flags & (1u << _powered_mass_point_air_lift_bit)) != 0 && pmp->air_lift_ratio != 0.0)
         {
             float *fwd = mp->forward.n;
-            float speed_along = __fabs(((fwd[0] * mp->velocity.n[0])
+            float speed_along = fabsf(((fwd[0] * mp->velocity.n[0])
                                              + ((fwd[2] * mp->velocity.n[2]) + (fwd[1] * mp->velocity.n[1]))));
             float lift = ((speed_along * physics->mass) * pmp->air_lift_ratio);
             mp->powered_force.n[0] += lift * mp->up.n[0];

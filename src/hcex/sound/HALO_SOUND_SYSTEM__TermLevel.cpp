@@ -13,7 +13,7 @@ void HALO_SOUND_SYSTEM::TermLevel()
         playToEnd[i].Stop();
 
     if (!IGNORE_STRONG_ASSERT && tagInfoPool.usedNodes.nElem)
-        STRONG_ASSERT_DUMMY().Crash("tagInfoPool.IsEmpty()",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("tagInfoPool.IsEmpty()",
                                      "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                      1448, empty_string);
 

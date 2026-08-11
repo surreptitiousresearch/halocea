@@ -15,7 +15,7 @@ void *vidDEFRAG_POOL_HCEX_X360::AllocBuf(int minSize, int *bufSize)
     *bufSize = 0x1000000;
 
     if (!IGNORE_STRONG_ASSERT && minSize > 0x1000000)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "minSize <= bufSize",
             "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp",
             131,

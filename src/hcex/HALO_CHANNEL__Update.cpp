@@ -16,7 +16,7 @@ void HALO_CHANNEL::Update()
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_CHANNEL::Update", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1962, empty_string);
         return;
     }
@@ -53,7 +53,7 @@ void HALO_CHANNEL::Update()
         if (this->state == ST_CROSSFADE)
         {
             if (!IGNORE_STRONG_ASSERT && this->queued.fsbIndex == -1)
-                STRONG_ASSERT_DUMMY::Crash(nullptr, "queued.IsValid()",
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("queued.IsValid()",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1988, empty_string);
             memcpy(&this->current, &this->queued, sizeof(this->current));
             this->current.ResetFadeIn();
@@ -68,7 +68,7 @@ void HALO_CHANNEL::Update()
     if (this->queued.fsbIndex != -1)
     {
         if (!IGNORE_STRONG_ASSERT && this->current.soundBank)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "current.soundBank == 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("current.soundBank == 0",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2003, empty_string);
         memcpy(&this->current, &this->queued, sizeof(this->current));
         this->queued.Reset();
@@ -91,7 +91,7 @@ advance_machine: // LABEL_24
             this->state = ST_PLAYING_TO_END;
             haloSoundSystem->playToEnd.PushBack(*this);
             if (!IGNORE_STRONG_ASSERT && this->queued.fsbIndex != -1)
-                STRONG_ASSERT_DUMMY::Crash(nullptr, "!queued.IsValid()",
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("!queued.IsValid()",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2023, empty_string);
             this->current.Reset();
             this->queued.Reset();

@@ -19,7 +19,7 @@ uint8_t actor_action_deny_transition(uint16_t actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int deny = 0;
-    if ( actor->state.command_list_index != 0xFFFF )
+    if ( (uint16_t)actor->state.command_list_index != 0xFFFF )   /* DEVIATION: int16_t field — uncast, the promoted -1 made `!= 0xFFFF` always TRUE and the delay timer was read with no command list; binary zero-extends, lhz r8,0x90(r31) @0x837F22D8 + cmplwi cr6,r8,0xFFFF @0x837F22DC */
         deny = actor->state.command_list_delay_timer > 0;
 
     int encounter_index = actor->meta.encounter_index;

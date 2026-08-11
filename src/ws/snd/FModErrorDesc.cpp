@@ -9,7 +9,7 @@ const char *FModErrorDesc(FMOD_RESULT res, bool info)
 
     // On corrupt/mismatched sound data the caller-facing assert fires before the lookup.
     if (res == FMOD_ERR_EVENT_MISMATCH && !IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "Invalid sound data. Get latest version or rebuild sounds.",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("Invalid sound data. Get latest version or rebuild sounds.",
             "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd_buf_fmod.cpp", 1318, empty_string);
 
     switch (res)
@@ -396,7 +396,7 @@ const char *FModErrorDesc(FMOD_RESULT res, bool info)
         break;
     default:
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "false",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("false",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd_buf_fmod.cpp", 1420, empty_string);
         result = "Unknown error";
         break;

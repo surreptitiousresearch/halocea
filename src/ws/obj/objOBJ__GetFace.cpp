@@ -14,7 +14,7 @@ objFACE *objOBJ::GetFace(int faceNmb)
         (faceNmb < 0 || faceNmb >= this->nFace ||
          ((pGeom = this->pGeom) != nullptr &&
           (pGeom->pSharedGeom->stateCompr.state & 0xC0) != 0)))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "faceNmb >= 0 && faceNmb < nFace && !IsStateCompr(OBJ_ST_COMPR_FACE | OBJ_ST_COMPR_FACE_32)",
             "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 749,
             empty_string);

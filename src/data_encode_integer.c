@@ -1,4 +1,4 @@
-/* data_encode_integer @0x83830640 — encode an integer into the buffer using the smallest element that holds
+/* data_encode_integer @0x83830628 — encode an integer into the buffer using the smallest element that holds
  * maximum_value (1 byte for <=255, 2 bytes for <=65535, otherwise 4 bytes), big-endian. Returns no-overflow.
  *
  * Deviation: the decompiler's HIBYTE/HIWORD stores place the value in the high-order bytes of a temp int; on

@@ -43,7 +43,7 @@ vidDEFRAG_CHUNK *d3dVBUF_MNG::AllocStatDataImpl(vidBUF_CONTENT cont, apSTATE_T<u
     }
 
     if (!IGNORE_STRONG_ASSERT && !chunk)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("pChunk",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pChunk",
             "D:\\Projects\\code\\common\\src.sys\\drv\\video\\d3d_8\\d3d_rnd_vbuf_8_xenon.cpp",
             842, empty_string);
 

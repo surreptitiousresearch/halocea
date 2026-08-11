@@ -10,7 +10,7 @@ dsDATA_MATH_RES dsDATA::Math(dsDATA_UNARY_OP op)
 {
     if (!IGNORE_STRONG_ASSERT && !this->type)
         // Crash is invoked on a null this-pointer by the STRONG_ASSERT macro.
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "type != 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
             371,

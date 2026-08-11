@@ -11,7 +11,7 @@ template<>
 haloPLAYER_ACTIONS_ENV *dsDEQUE<haloPLAYER_ACTIONS_ENV>::Front()
 {
     if (!IGNORE_STRONG_ASSERT && this->length <= 0)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "Length() > 0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("Length() > 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_deque.hpp", 298, empty_string);
     return &this->data[this->head];
 }

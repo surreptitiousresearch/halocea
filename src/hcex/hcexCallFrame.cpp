@@ -102,7 +102,7 @@ void hcexCallFrame()
     bool doSwapBuffers = true;
     gsMsgMTConfig = 4;
     if (!IGNORE_STRONG_ASSERT && gsJobManager.threads.nEntry < 6)
-        STRONG_ASSERT_DUMMY_Crash(nullptr, "gsJobManager.GetNThreads() >= 6",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("gsJobManager.GetNThreads() >= 6",
                                   "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 3384, 0);
 
     dsUpdateEventMgr();

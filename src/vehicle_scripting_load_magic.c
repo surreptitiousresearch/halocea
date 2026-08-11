@@ -61,7 +61,7 @@ int16_t vehicle_scripting_load_magic(int unit_index, const char *seat_substring_
                 && (rider->object.type == object_type_vehicle
                     || unit_set_or_test_seat_and_weapon_label(i, seat_label, nullptr, 0)))
             {
-                if (rider->object.parent_object_index != -1 && rider->unit.parent_seat_index != 0xFFFF)
+                if (rider->object.parent_object_index != -1 && (uint16_t)rider->unit.parent_seat_index != 0xFFFF)   /* DEVIATION: parent_seat_index is int16_t — uncast, the promoted -1 made this always TRUE, so unit_exit_seat_end ran for a parented rider that held no seat. Binary zero-extends: lhz r11,0x2F0(r30) @0x836D3B64 + cmplwi cr6,r11,0xFFFF @0x836D3B68; the parent_object_index test one term over is genuinely the 32-bit form, lwz r11,0x11C(r30) @0x836D3B58 + cmpwi cr6,r11,-1 @0x836D3B5C */
                     unit_exit_seat_end(i, 0, 0, 1u);
                 if (rider->object.parent_object_index == -1 && unit_enter_seat(i, unit_index, seat_index))
                 {

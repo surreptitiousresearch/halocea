@@ -10,7 +10,7 @@ extern "C" vidDRIVER_DYNGEOM_CHUNK *hcex_dyn_chunk;
 
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
+#include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 
 vidDRIVER_DYNGEOM_CHUNK *hcex_get_dyn_chunk(void)
 {
@@ -24,7 +24,7 @@ vidDRIVER_DYNGEOM_CHUNK *hcex_get_dyn_chunk(void)
 
         if ( !IGNORE_STRONG_ASSERT && !chunk )
         {
-            STRONG_ASSERT_DUMMY_Crash(0, "hcex_dyn_chunk", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("hcex_dyn_chunk", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp",
                                       404, empty_string);
             return hcex_dyn_chunk;
         }

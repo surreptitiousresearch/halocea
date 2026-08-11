@@ -22,7 +22,7 @@ void dsERASE_MANAGER<StrIntLineEraser>::CheckThread()
     int threadId = dsERASE_MANAGER_LINE_ERASER_int__GetThreadId();
     // STRONG_ASSERT(GetThreadId() >= 0 && GetThreadId() < 32)
     if ((unsigned)threadId < 0x20u ||
-        (STRONG_ASSERT_DUMMY().Crash(
+        (static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
              "GetThreadId() >= 0 && GetThreadId() < 32",
              "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_lf_map.h",
              584,
@@ -30,7 +30,7 @@ void dsERASE_MANAGER<StrIntLineEraser>::CheckThread()
          !IGNORE_STRONG_ASSERT)) {
         // STRONG_ASSERT((threadAllocMask) & (1 << GetThreadId()))
         if (((1 << threadId) & this->threadAllocMask) == 0)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "((threadAllocMask) & (1 << GetThreadId()))",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_lf_map.h",
                 585,

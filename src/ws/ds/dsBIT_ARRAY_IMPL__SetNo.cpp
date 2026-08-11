@@ -6,7 +6,7 @@
 void dsBIT_ARRAY_IMPL::SetNo(int i, unsigned int *array, int n_elem)
 {
     if (!IGNORE_STRONG_ASSERT && (i < 0 || (i >> 5) >= n_elem))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "i >= 0 && Bit2Idx(i) < n_elem",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_bit_array.h",
             31,

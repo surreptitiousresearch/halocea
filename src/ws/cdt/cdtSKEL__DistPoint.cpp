@@ -15,8 +15,8 @@ int cdtSKEL::DistPoint(animINST *pInst, const m3dV *point, float radius,
                        cdtREFINE *pRefine, cdtINFO *pInfo) const
 {
     if ( !IGNORE_STRONG_ASSERT && !this )
-        STRONG_ASSERT_DUMMY().Crash(
-            nullptr, "this != 0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
+            "this != 0",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim_cdt.cpp", 169,
             empty_string);
 

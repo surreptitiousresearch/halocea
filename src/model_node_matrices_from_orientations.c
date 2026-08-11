@@ -39,9 +39,9 @@ void model_node_matrices_from_orientations(const model *model, real_matrix4x3 *n
         matrix4x3_from_orientation(&local_matrix, &node_orientations[current]);
         matrix4x3_multiply(parent_matrix, &local_matrix, &node_matrices[current]);
 
-        if ( node->next_sibling_node_index != 0xFFFF )
+        if ( (uint16_t)node->next_sibling_node_index != 0xFFFF )   /* DEVIATION: int16_t field — uncast, the promoted -1 made this always TRUE and -1 was pushed onto the walk stack; binary zero-extends, lhz r11,0x20(r30) @0x83798F18 + cmplwi cr6,r11,0xFFFF @0x83798F1C */
             node_stack[tail++] = node->next_sibling_node_index;
-        if ( node->first_child_node_index != 0xFFFF )
+        if ( (uint16_t)node->first_child_node_index != 0xFFFF )   /* DEVIATION: same shape — lhz r10,0x22(r30) @0x83798F3C + cmplwi cr6,r10,0xFFFF @0x83798F40 */
             node_stack[tail++] = node->first_child_node_index;
     }
     while ( head != tail );

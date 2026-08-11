@@ -25,7 +25,7 @@ void scnSCENE::AddJustCreatedInstances(int id)
     }
     else if (!IGNORE_STRONG_ASSERT && threadNmb != osGetCurThreadProcessor())
     {
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "threadNmb == osGetCurThreadProcessor()",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Scene.cpp",
             853,

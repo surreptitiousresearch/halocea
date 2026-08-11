@@ -46,8 +46,7 @@ int __apMemoryDebugAdd(void *memBlock, unsigned int memSize, const char *fileNam
             {
                 apDumpNoMemLeft();
                 if (!IGNORE_STRONG_ASSERT)
-                    reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
-                        nullptr,
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "0",
                         "D:\\Projects\\code\\common\\src.sys\\Ap\\ap_dlstat.cpp",
                         205,

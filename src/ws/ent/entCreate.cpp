@@ -59,7 +59,7 @@ entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info)
 {
     if (gsSysLevel && !IGNORE_STRONG_ASSERT && (gsSysLevel->stateLvl.state & 4) != 0)
         // Crash is a non-static member (this passed null by the original); call on a null instance
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "!gsSysLevel->IsProcessDestroyLevel()",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\entity\\entity.cpp",
             585,

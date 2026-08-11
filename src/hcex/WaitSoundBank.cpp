@@ -19,7 +19,7 @@ void WaitSoundBank(FMOD::Sound *sound)
     if (res)
     {
         if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound->getOpenState(&state, NULL, NULL)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1142, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",
@@ -33,7 +33,7 @@ void WaitSoundBank(FMOD::Sound *sound)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound->getOpenState(&state, NULL, NULL)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1145, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",

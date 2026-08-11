@@ -19,7 +19,7 @@ extern void rasterizer_environment_specular_lights_begin(void);
 extern void rasterizer_environment_specular_lights_end(void);
 extern uint8_t game_engine_allow_dynamic_lighting(void);
 extern int light_build_cluster_array(uint16_t light_index, int16_t maximum_count, int16_t *cluster_indices);
-extern void light_compute_bounding_sphere(uint16_t light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
+extern void light_compute_bounding_sphere(int light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
 extern void structure_render_specular_light(int rasterizer_light_index, const real_point3d *bounding_sphere_center, float bounding_sphere_radius, int16_t cluster_count, int16_t *cluster_indices);
 
 void lights_render_specular(void)

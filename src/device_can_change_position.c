@@ -1,4 +1,4 @@
-/* device_can_change_position @0x837B5198 — decides whether a device (door/lift/etc.) is currently
+/* device_can_change_position @0x837B5188 — decides whether a device (door/lift/etc.) is currently
  * allowed to move toward its desired position. Requires: the device's "position can change" override
  * (flag 0x2 of the device-state word) is clear; its device group either permits change or is not in a
  * "one-shot already triggered" state; and its power group is fully powered (value == 1.0). */

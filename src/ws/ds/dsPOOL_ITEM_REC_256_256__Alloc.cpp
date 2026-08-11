@@ -13,7 +13,7 @@ int dsPOOL<dsEVENT_MGR::ITEM_REC, 256, 256>::Alloc()
     if (this->emptyChain < 0)
         this->AllocChunk();
     if (!IGNORE_STRONG_ASSERT && this->emptyChain < 0)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             128,

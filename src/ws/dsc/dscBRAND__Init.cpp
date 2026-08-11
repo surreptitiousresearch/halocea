@@ -41,7 +41,7 @@ void dscBRAND::Init(dscDESC_FAMILY *pFamily)
 
     if (!IGNORE_STRONG_ASSERT && sectionIter.IsDone())
         // called through a null this-pointer, matching the disasm's `li r3,0` before the branch
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "!it.IsDone()",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\dsc_family.cpp",
             396,

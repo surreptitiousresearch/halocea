@@ -64,7 +64,7 @@ void HALO_PERM_SOUND::Init(const sound_permutation *info_, int identifier_,
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_PERM_SOUND::Init", snd::THREAD_ID, curThreadId);
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 1093,

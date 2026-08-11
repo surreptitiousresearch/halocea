@@ -1,9 +1,9 @@
 #pragma once
 #include "../fio/fio_boundary.h"
-// fio_boundary.h supplies the shared STRONG_ASSERT_DUMMY::Crash(ctx, expr, file, line, msgCtx)
-// stub and IGNORE_STRONG_ASSERT / g_assertContextByte globals used by the fnm asserts below --
-// this is the same shape the fnm decompiles call (explicit-nullptr-context, empty_string tail
-// arg), matching fio's convention rather than ds_assert_boundary.h's this-call form.
+// fio_boundary.h supplies STRONG_ASSERT_DUMMY (whose one real Crash is the 4-arg member at
+// 0x825202A8) and the IGNORE_STRONG_ASSERT / empty_string globals the fnm asserts below use.
+// The fnm decompiles call it exactly as every other subsystem does: through a null this
+// pointer, with empty_string as the trailing `info` argument.
 // Boundary declarations for helpers called by the fnm (filename/directory) subsystem functions
 // but external to this batch.
 

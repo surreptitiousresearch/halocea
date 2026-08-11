@@ -6,8 +6,8 @@
  *
  * Deviations:
  *   - The profile control bytes are player_data[idx].profile.controller_settings (@298).
- *   - The decompiler assigns the pitch rate from the first table and the yaw rate from the second
- *     (apparent table swap); reproduced verbatim.
+ *   - Table binding verified against the stores, NOT a swap: preferences+0 is yaw_rate and +4 is
+ *     pitch_rate, and lfsx/stfs 0x836995F4-0x83699600 write the 80..260 table to +0 and 40..130 to +4.
  *   - The control-scheme button mapping is a goto/fallthrough graph: each preset writes only the
  *     slots it changes and then jumps into the shared tail of the standard map. Reproduced
  *     literally to preserve the exact fallthrough semantics; the four join points carry their

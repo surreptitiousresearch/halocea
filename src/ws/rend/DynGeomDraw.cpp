@@ -30,14 +30,14 @@ void DynGeomDraw(REND_PRIMTYPE primType, void *vertList, int nVert,
 {
     vidDRIVER_DYNGEOM_BUFFER *buffer = vidDriver->drvInterface->dynGeomBuffer;
     if (!IGNORE_STRONG_ASSERT && !buffer)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "buffer",
             "D:\\Projects\\code\\common\\src.sys\\render\\rend_vis.cpp", 34,
             empty_string); // instance-call, 4 args (dropped stray leading this)
 
     vidFVF_DESCR *descr = vidVBUF_MNG_FitFVF(vidVBMng, fvf);
     if (!IGNORE_STRONG_ASSERT && !descr)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "descr",
             "D:\\Projects\\code\\common\\src.sys\\render\\rend_vis.cpp", 37,
             empty_string); // instance-call, 4 args (dropped stray leading this)

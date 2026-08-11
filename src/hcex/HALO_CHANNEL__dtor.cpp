@@ -13,11 +13,11 @@ HALO_CHANNEL::~HALO_CHANNEL()
     if (!IGNORE_STRONG_ASSERT)
     {
         if (this->queued.prevFadeOut || this->queued.fadeIn)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "prevFadeOut == 0 && fadeIn == 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("prevFadeOut == 0 && fadeIn == 0",
                 "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, empty_string);
 
         if (!IGNORE_STRONG_ASSERT && (this->current.prevFadeOut || this->current.fadeIn))
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "prevFadeOut == 0 && fadeIn == 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("prevFadeOut == 0 && fadeIn == 0",
                 "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, empty_string);
     }
 }

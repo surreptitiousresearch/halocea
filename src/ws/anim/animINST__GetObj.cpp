@@ -6,7 +6,7 @@
 objOBJ *animINST::GetObj(int id) const
 {
     if (!IGNORE_STRONG_ASSERT && (id < 0 || id >= this->nObj))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "id >=0 && id < nObj",
             "D:\\Projects\\code\\common\\INCL.SYS\\anim.h",
             834,

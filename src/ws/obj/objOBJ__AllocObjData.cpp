@@ -11,7 +11,7 @@ objOBJ::DataAllocProc objOBJ::dataAlloc = nullptr;
 void *objOBJ::AllocObjData(unsigned int data, int size, void *oldData)
 {
     if (!IGNORE_STRONG_ASSERT && data >= OBJ_DATA_MAX)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "data >= 0 && data < OBJ_DATA_MAX",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_alloc.cpp", 1316,
             empty_string);

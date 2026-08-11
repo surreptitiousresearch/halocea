@@ -245,7 +245,7 @@ animINST *hcex_inst_create(int modelId, int id, bool isFP, int *pModelIdx)
     }
 
     if (!IGNORE_STRONG_ASSERT && tpl->id > 0xFFFF)
-        STRONG_ASSERT_DUMMY().Crash("pTpl->id <= 65535",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pTpl->id <= 65535",
             "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 716, empty_string);
 
     unsigned int modelKey = ((unsigned int)tpl->id << 16) | (unsigned short)modelId;

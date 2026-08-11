@@ -4,7 +4,7 @@
  * name list so the next cinematic starts with a clean slate. Called from hcex_stop_cine.
  *
  * The bounds check the decompiler inlines from dsVECTOR<int,8>::operator[] (ds_vector.hpp:567) is
- * reproduced faithfully via STRONG_ASSERT2_asserd_int, matching the STRONG_ASSERT_DUMMY_Crash idiom already
+ * reproduced faithfully via STRONG_ASSERT2_asserd_int, matching the strong-assert idiom already
  * used elsewhere in this bridge layer (e.g. hcex_on_play_sound). */
 
 #include "../headers/hcex/hcex_cine_tick_boundary.h"

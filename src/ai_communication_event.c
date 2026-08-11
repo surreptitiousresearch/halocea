@@ -794,7 +794,7 @@ next_row:
     unit_speak(speaker_unit, chosen->considered_vocalization, &speech);
 
     int16_t animation_impulse = (uint16_t)chosen->animation_type;
-    if ( animation_impulse != 0xFFFF )
+    if ( (uint16_t)animation_impulse != 0xFFFF )   /* DEVIATION: the (uint16_t) load cast was undone by the int16_t local, so the promoted -1 made this always TRUE and unit_start_animation_impulse ran with -1; binary zero-extends, lhz r27,0xA(r31) @0x837D15F4 + cmplwi cr6,r27,0xFFFF @0x837D15F8 */
     {
         unit_datum *speaker_object = (unit_datum *)object_from_index(speaker_unit);
         real_vector2d facing = *(real_vector2d *)&speaker_object->object.forward;

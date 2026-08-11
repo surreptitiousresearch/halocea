@@ -1,4 +1,4 @@
-/* device_delete @0x837B55C4 — drop a device's membership in up to two device groups
+/* device_delete @0x837B5598 — drop a device's membership in up to two device groups
  * (device.power_group_index and device.position_group_index) — each is deleted from
  * device_groups_data only if its flags word (bit 0x4) is set. */
 

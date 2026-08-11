@@ -46,7 +46,7 @@ extern detail_object_cell_definition * get_upper_bound_cell(detail_object_cell_d
 void structure_render_detail_objects(void)
 {
     int16_t local_players = local_player_count();
-    if (local_players != 1 || render.local_player_index == 0xFFFF)
+    if (local_players != 1 || (uint16_t)render.local_player_index == 0xFFFF)   /* DEVIATION: int16_t field — uncast, the promoted -1 never matched, so detail objects were rendered with no local player; binary zero-extends, lhz render_globals.local_player_index(r11) @0x83711A54 + cmplwi cr6,r10,0xFFFF @0x83711A58 */
         return;
 
     detail_object_bsp_cell_table *table = global_structure_bsp->detail_object_data.count

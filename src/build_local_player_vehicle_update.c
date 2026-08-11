@@ -1,4 +1,4 @@
-/* build_local_player_vehicle_update @0x83757064 — server-side: build the message-delta body announcing
+/* build_local_player_vehicle_update @0x83757050 — server-side: build the message-delta body announcing
  * the vehicle state for the vehicle this local player currently rides. Mirrors
  * build_local_player_position_update but carries the ridden vehicle's translated object index and full
  * kinematic state (position, linear/angular velocity, forward/up basis). Throttled by

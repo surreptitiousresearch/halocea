@@ -32,8 +32,12 @@
 #include "headers/math_constants.h"
 
 
-extern void (*particle_creation_functions[])(particle_system_datum *system, int type_index,
-        ps_particle_datum *particle, const object_marker *marker);
+/* DEVIATION: the element signature was re-declared here with `int type_index` and a `const`
+ * marker; the handler definition TUs (particle_system_new_particle_default/_explosion/_jet) and
+ * the DB applied type at 0x8211D4F4 both spell it
+ * `(const particle_system_datum *, int16_t, ps_particle_datum *, object_marker *)`. */
+extern void (*particle_creation_functions[])(const particle_system_datum *system, int16_t type_index,
+        ps_particle_datum *particle, object_marker *marker);
 
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);

@@ -15,7 +15,7 @@ int dsLF_SORTED_MAP<const char *, dsSTRID, dsSTR_HASH, dsSTR_CMP>::GetHash(const
 {
     unsigned int bucketHash = dsSTR_HASH_hash(*key, this->a, this->b);
     if (!IGNORE_STRONG_ASSERT && bucketHash > 0x55555560)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "val >= 0 && val < ds::BIG_PRIME",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             300,

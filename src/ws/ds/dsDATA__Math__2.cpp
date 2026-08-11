@@ -16,7 +16,7 @@
 dsDATA_MATH_RES dsDATA::Math(dsDATA_BINARY_OP op, const dsDATA &right, dsDATA &ret) const
 {
     if (!IGNORE_STRONG_ASSERT && !this->type)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "type != 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
             389,

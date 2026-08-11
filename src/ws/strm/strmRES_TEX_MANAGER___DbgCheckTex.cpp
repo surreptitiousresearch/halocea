@@ -26,12 +26,12 @@ void strmRES_TEX_MANAGER::_DbgCheckTex(txmTEXTURE *pTex)
     // 31 - countLeadingZeros(largerSize) == the mip index whose dimension equals largerSize.
     if (31 - __cntlzw(largerSize) == pTex->strmResource->minMip) {
         if (!IGNORE_STRONG_ASSERT && pD3DTex->lpSysSurf != pD3DTex->lpSysSurfLowRes)
-            STRONG_ASSERT_DUMMY().Crash("pTex->lpSysSurf == pTex->lpSysSurfLowRes",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pTex->lpSysSurf == pTex->lpSysSurfLowRes",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 729,
                 empty_string);
     } else {
         if (!IGNORE_STRONG_ASSERT && pD3DTex->lpSysSurf != pD3DTex->lpSysSurfHiRes)
-            STRONG_ASSERT_DUMMY().Crash("pTex->lpSysSurf == pTex->lpSysSurfHiRes",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pTex->lpSysSurf == pTex->lpSysSurfHiRes",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 731,
                 empty_string);
 
@@ -40,7 +40,7 @@ void strmRES_TEX_MANAGER::_DbgCheckTex(txmTEXTURE *pTex)
                             nullptr, &mipSize);
 
         if (!IGNORE_STRONG_ASSERT && (uintptr_t)pD3DTex->memHandle->offset != baseSize)
-            STRONG_ASSERT_DUMMY().Crash("pTex->memHandle->offset == (BYTE*)base",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pTex->memHandle->offset == (BYTE*)base",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 735,
                 empty_string);
     }

@@ -389,10 +389,10 @@ void breakable_surface_effect(int16_t breakable_surface_index, const damage_data
                                 {
                                     float t = 1.0f - dist / damage_def->breaking_effect.forward_radius;
                                     t = (t >= 0.0f) ? (t > 1.0f ? 1.0f : t) : 0.0f;
-                                    /* deviation: original reuses the outward_exponent here (not forward_exponent);
-                                     * forward_exponent only gates whether the pow is applied. */
+                                    /* DEVIATION(corrected): the forward block loads breaking_effect+0x08 ONCE
+                                     * -- lfs f2,0x19C(r30) @0x83743C98 -- as both zero gate and pow exponent. */
                                     if ( damage_def->breaking_effect.forward_exponent != 0.0f )
-                                        t = (float)pow(t, damage_def->breaking_effect.outward_exponent);
+                                        t = (float)pow(t, damage_def->breaking_effect.forward_exponent);
                                     impulse.n[0] = damage_def->breaking_effect.forward_velocity * t * damage_data->direction.n[0] + impulse.n[0];
                                     impulse.n[1] = damage_data->direction.n[1] * (damage_def->breaking_effect.forward_velocity * t) + impulse.n[1];
                                     impulse.n[2] = damage_data->direction.n[2] * (damage_def->breaking_effect.forward_velocity * t) + impulse.n[2];

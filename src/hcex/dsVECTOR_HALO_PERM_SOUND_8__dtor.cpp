@@ -17,7 +17,7 @@ dsVECTOR<HALO_PERM_SOUND, 8>::~dsVECTOR()
     {
         HALO_PERM_SOUND *pElem = &this->pData[i];
         if (!IGNORE_STRONG_ASSERT && (pElem->prevFadeOut || pElem->fadeIn)) // inlined ~HALO_PERM_SOUND
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "prevFadeOut == 0 && fadeIn == 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("prevFadeOut == 0 && fadeIn == 0",
                 "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, empty_string);
     }
     dlFree(this->pData);

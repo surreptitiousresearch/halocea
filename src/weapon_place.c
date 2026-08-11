@@ -4,7 +4,11 @@
  * and reserve limit (word +10) and stores them (weapon object word +694/+696). Sets/clears object flags
  * bit 0x20 at +16 (tracking placement flag 0x1) and +500 (tracking placement flag 0x4, inverted), always
  * ORs in +16 bit 0x20000, and — only when the "starts loaded" placement flag (0x1) is clear — nudges the
- * object's spawn-stagger float (+100) by 0.05. Returns weapon_index unchanged. */
+ * object's spawn-stagger float (+100) by 0.05.
+ * DEVIATION: returns void, not the `int` the decompiler infers. The body never writes r3, so the
+ * `weapon_index` still sitting in it at the blr is incoming-parameter residue, not a return value.
+ * object_type_definition.datum_place (+0x2C) is `void (__fastcall *)(int, void *)` per DB
+ * types_members, all eight sibling *_place functions are void, and no caller reads r3. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -20,7 +24,7 @@
 #include "headers/blam_data_globals.h"
 
 
-int weapon_place(int weapon_index, scenario_weapon_datum *scenario_weapon)
+void weapon_place(int weapon_index, scenario_weapon_datum *scenario_weapon)
 {
     weapon_datum *weapon =
         (weapon_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
@@ -58,6 +62,4 @@ int weapon_place(int weapon_index, scenario_weapon_datum *scenario_weapon)
 
     if ( (scenario_weapon->flags & (1u << _weapon_created_at_rest_bit)) == 0 )
         weapon->object.position.n[2] = weapon->object.position.n[2] + 0.050000001f;
-
-    return weapon_index;
 }

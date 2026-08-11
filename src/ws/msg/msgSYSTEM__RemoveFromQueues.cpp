@@ -8,7 +8,7 @@
 void msgSYSTEM::RemoveFromQueues(msgADDR *pAddr)
 {
     if (!IGNORE_STRONG_ASSERT && !pAddr)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "pAddr",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
             627,

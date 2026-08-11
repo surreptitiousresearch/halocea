@@ -22,7 +22,7 @@ uint8_t actor_action_handle_pending_command_list(int actor_index)
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     uint8_t entered_obey = 0;
 
-    if ( actor->state.command_list_index == 0xFFFF )
+    if ( (uint16_t)actor->state.command_list_index == 0xFFFF )   /* DEVIATION: int16_t field — uncast, the promoted -1 never matched, so the no-command-list early-out never fired; binary zero-extends, lhz r9,0x90(r31) @0x837F4324 + cmplwi cr6,r9,0xFFFF @0x837F4328 */
         return 0;
 
     uint8_t blocked = 0;

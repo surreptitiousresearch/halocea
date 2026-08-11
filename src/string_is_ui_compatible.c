@@ -37,7 +37,7 @@ uint8_t string_is_ui_compatible(const char *str, const wchar_t *wstr, int valida
         while (1)
         {
             char c = str[i];
-            if (c < 32 || c == 255
+            if (c < 32 || c == 255   /* FAITHFUL-AS-BUILT (CS-1 sentinel-promotion sweep): `c` is signed char, so `== 255` can never be true — and the binary's compare is dead the same way: lbzx r11,r30,r31 @0x837666F0 + extsb r10,r11 @0x837666F4 + cmpwi cr6,r10,0xFF @0x83766700. A SIGN-extending narrow read against a positive 255, so the shipped build carries the same dead test; adding a (uint8_t) cast here would introduce behaviour the binary does not have. */
                 || !font_get_character_by_ascii_code(font, c)
                 || !virtual_keyboard_is_input_valid(str[i], validate_mode))
             {

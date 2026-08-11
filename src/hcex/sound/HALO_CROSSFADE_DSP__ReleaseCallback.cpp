@@ -25,7 +25,7 @@ FMOD_RESULT HALO_CROSSFADE_DSP::ReleaseCallback(FMOD_DSP_STATE *dsp_state)
 
     HALO_CROSSFADE_DSP *state = static_cast<HALO_CROSSFADE_DSP *>(userdata);
     if (!IGNORE_STRONG_ASSERT && !state->dsp)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "state->dsp != 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
             456,

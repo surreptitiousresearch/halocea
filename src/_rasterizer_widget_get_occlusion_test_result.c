@@ -1,4 +1,4 @@
-/* _rasterizer_widget_get_occlusion_test_result @0x837864C8 — read back the pixel-visibility count for a
+/* _rasterizer_widget_get_occlusion_test_result @0x837864A8 — read back the pixel-visibility count for a
  * lens-flare occlusion query slot. Returns 1 when occlusion testing is disabled (treat as fully visible),
  * 2 when the slot has no query or the index is out of range, otherwise the GPU-reported visible-pixel
  * count (spinning until the asynchronous query result is available). */

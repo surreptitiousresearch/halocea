@@ -68,7 +68,7 @@ hcexJOB_SYNC_INST *hcexJOB_SYNC_INST::VectorDeletingDtor(unsigned char deleteFla
 void hcexJOB_SYNC_INST::AddInstJob(int instListStart, int instListEnd)
 {
     if (!IGNORE_STRONG_ASSERT && this->batchNum >= 200)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "batchNum < (sizeof(batches)/sizeof((batches)[0]))",
             "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 1336, empty_string);
 
@@ -100,7 +100,7 @@ void hcexJOB_SYNC_INST::Execute(int threadID)
         hcex_obj_sync(obj);
 
         if (!IGNORE_STRONG_ASSERT && syncedIdx.nEntry >= 2048)
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "Length() < size", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
                 175, empty_string);
 

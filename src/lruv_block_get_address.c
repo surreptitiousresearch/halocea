@@ -1,4 +1,4 @@
-/* lruv_block_get_address 0x8371C238 — byte address of a cache block's page: its first page index
+/* lruv_block_get_address @0x8371C238 — byte address of a cache block's page: its first page index
  * scaled up by the cache's page size in bits. */
 
 #include <stdint.h>

@@ -20,7 +20,7 @@ dsLF_SORTED_MAP<const char *, dsSTRID, dsSTR_HASH, dsSTR_CMP>::InsertItem(
     if (!IGNORE_STRONG_ASSERT) {
         int length = line ? line->length : 0;
         if (index < 0 || index > length)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "index >= 0 && index <= ((line == 0) ? 0 : line->length)",
                 "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
                 308,

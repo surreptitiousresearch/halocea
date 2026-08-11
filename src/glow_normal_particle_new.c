@@ -41,21 +41,21 @@ glow_particle * glow_normal_particle_new(glow_datum *glow, int16_t index, int16_
     glow_particle *particle = datum_get(glow_globals.glow_particle_data, particle_index);
     particle->index = particle_index;
 
-    if ( definition->distance_to_object_attachment_index == 0xFFFF )
+    if ( (uint16_t)definition->distance_to_object_attachment_index == 0xFFFF )   /* DEVIATION: int16_t field — uncast, the promoted -1 never matched, so the unattached randomisation was dead; binary zero-extends, lhz r11,0x80(r31) @0x8380C530 + cmplwi cr6,r11,0xFFFF @0x8380C538 */
     {
         unsigned int *seed = get_global_local_random_seed_address();
         particle->distance_to_object = real_seed_random_range(seed, definition->minimum_distance_glow_particle_to_object,
                                                               definition->maximum_distance_glow_particle_to_object);
     }
 
-    if ( definition->particle_size_attachment_index == 0xFFFF )
+    if ( (uint16_t)definition->particle_size_attachment_index == 0xFFFF )   /* DEVIATION: same shape — lhz r11,0x9C(r31) @0x8380C55C + cmplwi cr6,r11,0xFFFF @0x8380C560 */
     {
         unsigned int *seed = get_global_local_random_seed_address();
         particle->initial_size = real_seed_random_range(seed, definition->particle_size_lower_bound,
                                                         definition->particle_size_upper_bound) / (float)glow->bitmap_dimension;
     }
 
-    if ( definition->color_attachment_index == 0xFFFF && (definition->flags & (1u << _glow_interpolate_color_per_particle_bit)) == 0 )
+    if ( (uint16_t)definition->color_attachment_index == 0xFFFF && (definition->flags & (1u << _glow_interpolate_color_per_particle_bit)) == 0 )   /* DEVIATION: same shape — lhz r10,0xB0(r31) @0x8380C5A8 + cmplwi cr6,r10,0xFFFF @0x8380C5AC */
     {
         unsigned int *seed = get_global_local_random_seed_address();
         float t = real_seed_random_range(seed, 0.0f, 1.0f);

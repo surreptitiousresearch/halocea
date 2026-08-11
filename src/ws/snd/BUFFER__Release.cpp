@@ -11,7 +11,7 @@ extern "C" int osLockedDecrement(int *value);
 void snd::BUFFER::Release()
 {
     if (!IGNORE_STRONG_ASSERT && refCount < 0)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("refCount >= 0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("refCount >= 0",
                                                  "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd.cpp",
                                                  80,
                                                  empty_string);

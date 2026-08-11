@@ -66,7 +66,7 @@ float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_si
         {
             int16_t unit_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(unit_index))->datum)->object.location.cluster_index;
             int16_t player_cluster = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_get_ultimate_parent(player_unit))->datum)->object.location.cluster_index;
-            if ( unit_cluster == 0xFFFF || player_cluster == -1 || scenario_test_pvs(unit_cluster, player_cluster) )
+            if ( (uint16_t)unit_cluster == 0xFFFF || player_cluster == -1 || scenario_test_pvs(unit_cluster, player_cluster) )   /* DEVIATION: unit_cluster is int16_t, so the uncast 0xFFFF compare promoted -1 and was always false. The two halves are genuinely different forms in the binary: lhz r31,0x9C(r7) @0x837CCB38 + cmplwi cr6,r31,0xFFFF @0x837CCB48 (zero-extended) vs lhz r4,0x9C(r3) @0x837CCB64 + extsh r11,r4 @0x837CCB6C + cmpwi cr6,r11,-1 @0x837CCB70 (sign-extended) — so player_cluster keeps the raw -1 */
             {
                 real_vector3d delta;
                 delta.n[0] = unit_head.n[0] - player_head.n[0];

@@ -23,7 +23,7 @@ extern "C" void hcex_init_light(int lightId)
     if ( !object_try_and_get_and_verify_type(light->object_index, object_mask_all) )
         return;
 
-    int attachment_index = light->attachment_marker_index;
+    int attachment_index = (uint16_t)light->attachment_marker_index;   /* DEVIATION: the int16_t field sign-extended into the int local, so the `== 0xFFFF` guard below never matched and an unattached light queried marker -1; binary zero-extends, lhz r4,0x5C(r31) @0x83681F24 + cmplwi cr6,r4,0xFFFF @0x83681F28. hcex_obj_collect.cpp:44 already carries this cast on the same field. */
     if ( attachment_index == 0xFFFF )
         return;
 

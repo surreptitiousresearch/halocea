@@ -7,7 +7,7 @@ template<>
 apMEM_DL_STAT &dsCONST_ARRAY<apMEM_DL_STAT, 32>::Back()
 {
     if (!IGNORE_STRONG_ASSERT && (this->nEntry <= 0 || this->nEntry > 32))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "nEntry > 0 && nEntry <= size",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             39,

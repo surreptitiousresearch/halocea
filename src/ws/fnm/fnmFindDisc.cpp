@@ -32,7 +32,7 @@ char *fnmFindDisc(const char *path_, const char *name, const char *ext, char *ou
     if (!IGNORE_STRONG_ASSERT)
     {
         if (strlen(name) >= 64 * 2)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "strlen(name) < 64 * 2", "D:\\Projects\\code\\common\\src.sys\\fileio\\fdir.cpp", 892, g_assertContextByte);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("strlen(name) < 64 * 2", "D:\\Projects\\code\\common\\src.sys\\fileio\\fdir.cpp", 892, empty_string);
     }
 
     const char *nameWithExt = fnmAddExt(name, ext, outBuffer);

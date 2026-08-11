@@ -11,7 +11,7 @@ const dsVECTOR<objOBJ *, 8> &ds::impl::MAP_CONST_ITERATOR<objOBJ *, dsVECTOR<obj
     ITEM *matchedItem = reinterpret_cast<ITEM *>(this->item);
     if (!IGNORE_STRONG_ASSERT) {
         if (!matchedItem)
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("item != 0", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 147, empty_string);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("item != 0", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 147, empty_string);
         matchedItem = reinterpret_cast<ITEM *>(this->item);
     }
     return matchedItem->value;

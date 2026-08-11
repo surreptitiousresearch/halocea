@@ -39,19 +39,19 @@ void m3dOBB::Expand(float value)
 
     sx = sx + grow;
     if (!IGNORE_STRONG_ASSERT && sx < 0.0f)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "sx >= 0.f", "D:\\Projects\\code\\common\\src.sys\\m3d\\m3d_obb.cpp", 767,
             m3dStrongAssertMessage);
 
     sy = sy + grow;
     if (!IGNORE_STRONG_ASSERT && sy < 0.0f)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "sy >= 0.f", "D:\\Projects\\code\\common\\src.sys\\m3d\\m3d_obb.cpp", 769,
             m3dStrongAssertMessage);
 
     sz = sz + grow;
     if (!IGNORE_STRONG_ASSERT && sz < 0.0f)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "sz >= 0.f", "D:\\Projects\\code\\common\\src.sys\\m3d\\m3d_obb.cpp", 771,
             m3dStrongAssertMessage);
 }

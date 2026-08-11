@@ -31,7 +31,7 @@ bool HALO_SOUND_SYSTEM::FindSoundByName(const sound_permutation *perm, int ident
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
             "HALO_SOUND_SYSTEM::FindSoundByName", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                 SND_SRC, 679, empty_string);
         return false;
     }

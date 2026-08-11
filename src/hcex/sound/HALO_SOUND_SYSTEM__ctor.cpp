@@ -88,7 +88,7 @@ HALO_SOUND_SYSTEM::HALO_SOUND_SYSTEM()
 
     // Singleton registration -- see file-header DEVIATION note re: the dead vftable-slot branch.
     if (!IGNORE_STRONG_ASSERT && haloSoundSystem)
-        STRONG_ASSERT_DUMMY().Crash("haloSoundSystem == 0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("haloSoundSystem == 0",
                                      "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                      563, empty_string);
     haloSoundSystem = this;

@@ -22,7 +22,7 @@ void animINST::ApplyModifiers(int stateVld)
         if (pObj)
         {
             if (!IGNORE_STRONG_ASSERT && !pObj->pGeom)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "po->IsGeom()",
                     "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
                     2146,

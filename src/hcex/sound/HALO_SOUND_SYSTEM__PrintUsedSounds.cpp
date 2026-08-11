@@ -78,7 +78,7 @@ void HALO_SOUND_SYSTEM::PrintUsedSounds(const char *prefix)
     for (int i = 0; i < preloadList.nElem; ++i) {
         HALO_PERM_SOUND &c = preloadList[i];
         if (!IGNORE_STRONG_ASSERT && c.info->cache_block_index == -1)
-            STRONG_ASSERT_DUMMY().Crash("c.info->cache_block_index != -1",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("c.info->cache_block_index != -1",
                                          "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                          2363, empty_string);
         if (!c.isUsed) {

@@ -36,7 +36,7 @@ animINST *scnSCENE::AllocInst(animTPL *pTpl, int isAttach)
 
         if (!IGNORE_STRONG_ASSERT)
         {
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "0",
                 "D:\\Projects\\code\\common\\src.sys\\objects\\Scene.cpp",
                 872,

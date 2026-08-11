@@ -276,8 +276,12 @@ scoring:
         }
         else
         {
-            game_statistics_record_damage(object_index, shield_damage + body_damage, 0,
-                                          damage_data->owner_player_index, damage_data->owner_object_index);
+            /* DEVIATION: args were shifted one slot behind a phantom 0 (float-slot-skip: the f1 `damage`
+             * consumes no GPR). Binary @0x836B20E4-F8: r5=lwz 8(damage_data), r6=lwz 0xC, r7=lhz 0x10 --
+             * the identical triple the record_kill call 3 lines below already passed correctly. */
+            game_statistics_record_damage(object_index, shield_damage + body_damage,
+                                          damage_data->owner_player_index,
+                                          damage_data->owner_object_index, damage_data->owner_team_index);
             if ( (being_damaged_flags & (1u << _object_being_damaged_body_depleted_bit)) != 0 )
                 game_statistics_record_kill(object_index, damage_data->owner_player_index,
                                             damage_data->owner_object_index, damage_data->owner_team_index);

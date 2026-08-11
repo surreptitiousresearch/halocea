@@ -23,7 +23,7 @@ bool HALO_SOUND_LIST::ParseBin(const char *lst)
     file.ReadData(&version, 4, 4);
     if (version != 1) {
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "!\"Lst-bin: Old program version\"",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("!\"Lst-bin: Old program version\"",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1238, empty_string);
         return false;
@@ -45,12 +45,12 @@ bool HALO_SOUND_LIST::ParseBin(const char *lst)
         unsigned int nameLength = 0;
         file.ReadData(&nameLength, 4, 4);
         if (!IGNORE_STRONG_ASSERT && nameLength >= sizeof(buf))
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "nameLength < sizeof(buf)",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("nameLength < sizeof(buf)",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1254, empty_string);
         file.ReadData(buf, nameLength, 1);
         if (!IGNORE_STRONG_ASSERT && buf[nameLength - 1])
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "buf[nameLength - 1] == 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("buf[nameLength - 1] == 0",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1257, empty_string);
         tag.name = dsSTRID(buf, false);
@@ -76,7 +76,7 @@ bool HALO_SOUND_LIST::ParseBin(const char *lst)
                 ++cur;
             } while (!diff);
             if (diff >= 0)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                                            "strcmp(tags[i - 1].name.CStr(), tags[i].name.CStr()) < 0",
                                            "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                            1272, empty_string);

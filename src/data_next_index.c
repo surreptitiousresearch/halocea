@@ -1,4 +1,4 @@
-/* data_next_index @ 0x836FAE80 — iterate occupied slots of a data_array. Given the previous absolute
+/* data_next_index @ 0x836FAE78 — iterate occupied slots of a data_array. Given the previous absolute
  * index (or -1 to start), scan forward for the next non-empty slot (salt word != 0) and return its
  * packed handle (salt in the high word, absolute index in the low word), or -1 when none remain. */
 

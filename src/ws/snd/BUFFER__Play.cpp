@@ -12,7 +12,7 @@
 void snd::BUFFER::Play()
 {
     if (!IGNORE_STRONG_ASSERT && (state.val & BST_STOPPED) != 0)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("!IsStopped()",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("!IsStopped()",
                                                 "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd.cpp",
                                                 91,
                                                 empty_string);

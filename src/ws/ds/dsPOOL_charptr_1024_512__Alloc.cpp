@@ -10,7 +10,7 @@ int dsPOOL<const char *, 1024, 512>::Alloc(const char *const &value)
     if (this->emptyChain < 0)
         this->AllocChunk();
     if (!IGNORE_STRONG_ASSERT && this->emptyChain < 0)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "emptyChain >= 0",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_pool.h",
             147,

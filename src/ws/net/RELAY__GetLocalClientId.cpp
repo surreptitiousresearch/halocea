@@ -8,7 +8,7 @@ namespace net {
 CLIENT_ID RELAY::GetLocalClientId() const
 {
     if (!IGNORE_STRONG_ASSERT && idxLocalClient < 0)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "idxLocalClient >= 0",
             "D:\\Projects\\code\\common\\incl.sys\\DRV\\net_relay.h",
             188,

@@ -12,7 +12,7 @@ void haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL::OnEvent(const dsEVENT *e
     auto *eventMap = GetEventMap();
     int idx = eventMap->FindSorted<int>(event->id);
     if (!IGNORE_STRONG_ASSERT && idx < 0)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "idx >= 0", "d:\\projects\\code\\hcex\\sources\\halo_engine_ctrl.h", 64, "");
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("idx >= 0", "d:\\projects\\code\\hcex\\sources\\halo_engine_ctrl.h", 64, "");
 
     auto &entry = (*GetEventMap())[idx];
     (pObj->*entry.val)(event->userId, event->paramList);

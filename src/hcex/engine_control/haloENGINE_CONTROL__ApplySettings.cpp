@@ -89,7 +89,7 @@ void haloENGINE_CONTROL::ApplySettings(bool isPrimary)
     else if (strcmp(button, "hero") == 0)
         profile->controller_settings.button_preset = _button_preset_hero;
     else if (!IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "0", "D:\\Projects\\code\\HCEX\\sources\\halo_engine_ctrl.cpp", 789, "");
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0", "D:\\Projects\\code\\HCEX\\sources\\halo_engine_ctrl.cpp", 789, "");
 
     dsTSTRING<char> stickLayout;
     stickLayout.pBuffer = nullptr;
@@ -107,7 +107,7 @@ void haloENGINE_CONTROL::ApplySettings(bool isPrimary)
     else if (strcmp(stick, "legacysouthpaw") == 0)
         profile->controller_settings.joystick_preset = _joystick_preset_legacy_south_paw;
     else if (!IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "0", "D:\\Projects\\code\\HCEX\\sources\\halo_engine_ctrl.cpp", 804, "");
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0", "D:\\Projects\\code\\HCEX\\sources\\halo_engine_ctrl.cpp", 804, "");
 
     set_local_player_controls_from_player_profile(isSecondary);
 

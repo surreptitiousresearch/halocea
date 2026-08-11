@@ -10,7 +10,7 @@ template<>
 dsEVENT_MGR::PENDING_ITEM &dsPOOL<dsEVENT_MGR::PENDING_ITEM, 256, 64>::Get(int idx)
 {
     if (!IGNORE_STRONG_ASSERT && idx < 0)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "idx >= 0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
             175,
@@ -19,13 +19,13 @@ dsEVENT_MGR::PENDING_ITEM &dsPOOL<dsEVENT_MGR::PENDING_ITEM, 256, 64>::Get(int i
     int idxElem = idx % 256;
     if (!IGNORE_STRONG_ASSERT) {
         if (idxChunk >= this->numChunks)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "idxChunk < numChunks",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 180,
                 empty_string);
         else if (idxElem >= 256)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "idxElem < CHUNK_SIZE",
                 "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_pool.h",
                 181,

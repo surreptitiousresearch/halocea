@@ -39,7 +39,7 @@ void dsAFFIX_READER::Init()
             int newCount = this->nSubStr + 1;
             this->nSubStr = newCount;
             if (!IGNORE_STRONG_ASSERT && newCount > 64)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "nSubStr <= subStrCount",
                     "D:\\Projects\\code\\common\\src.sys\\ds\\ds_affixes.cpp",
                     555,

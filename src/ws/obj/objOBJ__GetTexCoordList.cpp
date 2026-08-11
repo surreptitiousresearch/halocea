@@ -7,7 +7,7 @@
 m3dVTX *objOBJ::GetTexCoordList(unsigned int tcInd)
 {
     if (!IGNORE_STRONG_ASSERT && tcInd > 4)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "tcInd >= 0 && tcInd < 5",
             "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 823,
             empty_string);

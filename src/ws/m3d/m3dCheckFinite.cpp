@@ -12,7 +12,7 @@ bool m3dCheckFinite(float value)
         return fabsf(value) <= 4000000.0f;
 
     if (!IGNORE_STRONG_ASSERT)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "!\"Invalid float value\"",
             "D:\\Projects\\code\\common\\INCL.SYS\\m3d.h", 213, m3dStrongAssertMessage);
 

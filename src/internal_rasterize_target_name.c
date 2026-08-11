@@ -24,7 +24,7 @@ void internal_rasterize_target_name(int player_index)
     player_datum *player = DATA_ARRAY_ELEMENT(player_data, player_datum, player_index);
 
     int closest_player_index = -1;
-    if ( player->local_player_index != (uint16_t)0xFFFF && player->unit_index != -1 )
+    if ( (uint16_t)player->local_player_index != 0xFFFF && player->unit_index != -1 )   /* DEVIATION: the cast sat on the LITERAL, which is a no-op ((uint16_t)0xFFFF promotes straight back to int 65535) while the int16_t field still promoted to -1 — always TRUE. Moved onto the operand that needs it; binary zero-extends, lhz r10,2(r31) @0x8374C03C + cmplwi cr6,r10,0xFFFF @0x8374C040. The unit_index test one term over is genuinely the 32-bit form, lwz r11,0x34(r31) @0x8374C048 + cmpwi cr6,r11,-1 @0x8374C04C */
     {
         closest_player_index = find_closest_player_index(player_index);
         if ( closest_player_index == player_index )

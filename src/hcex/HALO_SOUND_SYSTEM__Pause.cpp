@@ -26,7 +26,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
             "HALO_SOUND_SYSTEM::Pause", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 833, empty_string);
@@ -45,7 +45,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPClock(&pauseTime.hi, &pauseTime.lo)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     842, empty_string);
@@ -76,7 +76,7 @@ void HALO_SOUND_SYSTEM::Pause(bool pause)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPClock(&currentTime.hi, &currentTime.lo)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     863, empty_string);

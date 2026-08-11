@@ -5,7 +5,7 @@
 #include "../../headers/ws/os/OS_THREAD_PRIORITY.h"
 
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *self, const char *condition, const char *file, int line, const char *info); /* ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z @0x825202A8: r3=dead this, info=empty string (disasm) */
+#include "../../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 extern "C" void SetThreadPriority(osHANDLE_DUMMY *thread, int priority);
 
@@ -15,7 +15,7 @@ void osSetThreadPriority(osHANDLE_DUMMY *ptrThread, unsigned int prior)
 
     if (prior > OS_THREAD_PRIORITY_TIME_CRITICAL) {
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY_Crash(0, "0", "D:\\Projects\\code\\common\\src.sys\\ap\\ap_os_xenon.cpp", 1375, empty_string);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0", "D:\\Projects\\code\\common\\src.sys\\ap\\ap_os_xenon.cpp", 1375, empty_string);
         win32Priority = 0; // DEVIATION: decompiler leaves this branch's value uninitialized
                             // (reads an uninitialized stack slot); 0 (NORMAL) substituted here.
     } else {

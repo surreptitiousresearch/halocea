@@ -12,7 +12,7 @@ template<>
 int ds_data::dsDATA_TYPE_STATIC<haloPLAYER_ACTIONS_ENV>::Save(const haloPLAYER_ACTIONS_ENV &data, fioFILE *pFile)
 {
     if (!IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_data_type_impl.hpp", 186, empty_string); /* backslashes escaped 2026-07-30 */
     return 0;
 }

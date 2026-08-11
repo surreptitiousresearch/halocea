@@ -42,7 +42,7 @@ void dsDATA::SetValue<dsTSTRING<char>>(const dsTSTRING<char> *val)
         stringType->Destroy(&srcStorage);
         this->type->Destroy(&convStorage[0]);
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "0",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
                 138,

@@ -14,7 +14,7 @@ int ds_data::dsDATA_TYPE_IMPL<haloPLAYER_ACTIONS_ENV>::Save(const unsigned int *
 {
     ds_data::dsDATA_TYPE_CONSTRUCT<haloPLAYER_ACTIONS_ENV>::GetPtr(storage);
     if (!IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_data_type_impl.hpp", 186, empty_string);
     return 0;
 }

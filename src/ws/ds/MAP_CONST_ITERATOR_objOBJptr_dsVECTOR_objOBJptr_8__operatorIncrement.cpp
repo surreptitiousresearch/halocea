@@ -16,7 +16,7 @@ ds::impl::MAP_CONST_ITERATOR<objOBJ *, dsVECTOR<objOBJ *, 8>, ds::HASH, ds::CMP,
     ITEM *current = reinterpret_cast<ITEM *>(this->item);
     if (!current) {
         if (!IGNORE_STRONG_ASSERT)
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Trying to increment iterator that's already done\"",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 63, empty_string);
         return *this;
@@ -42,7 +42,7 @@ ds::impl::MAP_CONST_ITERATOR<objOBJ *, dsVECTOR<objOBJ *, 8>, ds::HASH, ds::CMP,
             return *this;
         }
     } else if (!IGNORE_STRONG_ASSERT) {
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "!\"Invalid iterator: reference to empty map\"",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 73, empty_string);
     }

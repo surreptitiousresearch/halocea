@@ -115,7 +115,7 @@ void _gsMsgCalcElapsedTime()
 
     if (!IGNORE_STRONG_ASSERT && _gsElapsedTimeScaleCur != 1.0f)
         // The decompiler's leading nullptr is the (null) `this` the STRONG_ASSERT macro calls on.
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "_gsElapsedTimeScaleCur == 1.f",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\gs_msg.cpp", 481,
             empty_string);

@@ -16,7 +16,7 @@ extern "C" void dsound_virtual_set_properties(short virtual_channel_index,
         HALO_CHANNEL *channel = haloSoundSystem->GetChannel(virtual_channel_index, true);
         channel->SetProperties(properties, gain_only != 0, class_index);
     } else if (!IGNORE_STRONG_ASSERT && !gain_only) {
-        STRONG_ASSERT_DUMMY().Crash("gain_only",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("gain_only",
                                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", /* backslashes escaped 2026-07-30 */
                                     2726, empty_string);
     }

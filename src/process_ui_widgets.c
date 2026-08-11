@@ -26,7 +26,7 @@ extern void bink_playback_stop(void);
 extern void display_error(int16_t error_code, int16_t local_player_index, uint8_t modal, uint8_t pause_game_time);
 extern uint8_t progress_bar_is_active(void);
 extern uint8_t virtual_keyboard_active(void);
-extern int virtual_keyboard_process(void);
+extern void virtual_keyboard_process(void);
 extern void event_manager_flush(void);
 extern uint8_t attract_mode_should_start(void);
 extern void attract_mode_start(void);
@@ -73,8 +73,8 @@ void process_ui_widgets(void)
 
     if ( virtual_keyboard_active() )
     {
-        /* binary-faithful: virtual_keyboard_process()'s (uninitialized) r3 is left live into
-         * event_manager_flush — an original-binary quirk; the flush ignores it (void(void)). */
+        /* 0x83737124/0x83737128: two bare calls, no argument setup between them. Both are void(void)
+         * (virtual_keyboard_process tail-calls a void callee and never defines r3). */
         virtual_keyboard_process();
         event_manager_flush();
         return;

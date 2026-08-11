@@ -9,7 +9,7 @@ template<>
 jbmJOB **dsDEQUE<jbmJOB *>::Back()
 {
     if (!IGNORE_STRONG_ASSERT && this->length <= 0)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "Length() > 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_deque.hpp",
             318,

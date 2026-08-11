@@ -1,4 +1,4 @@
-/* firing_positions_get_post_evaluation_bound @0x837EF7E0 — resets the evaluation context's post-evaluation
+/* firing_positions_get_post_evaluation_bound @0x837EF7B8 — resets the evaluation context's post-evaluation
  * bound to zero, then runs the registered post-evaluation passes with no firing position (nullptr) so each
  * applicable pass can populate `post_evaluation_bound`/`post_evaluation_bounded` on the context itself.
  * Mirrors firing_position_post_evaluate.c's dispatch loop. */

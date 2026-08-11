@@ -1,4 +1,4 @@
-/* data_encode_string @0x8383084C — encode a null-terminated string (clamped to maximum_string_length) into the
+/* data_encode_string @0x83830830 — encode a null-terminated string (clamped to maximum_string_length) into the
  * buffer, writing the characters followed by a terminator. Sets the overflow flag and fails if it would not
  * fit. Returns no-overflow. */
 

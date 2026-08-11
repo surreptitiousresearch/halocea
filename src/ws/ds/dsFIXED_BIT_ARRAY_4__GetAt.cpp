@@ -7,7 +7,7 @@ template<>
 unsigned int dsFIXED_BIT_ARRAY<4>::GetAt(unsigned int index) const
 {
     if (!IGNORE_STRONG_ASSERT && index >= 4)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "i >= 0 && i < NELEM",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_bit_array.h",
             132,

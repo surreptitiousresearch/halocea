@@ -17,7 +17,7 @@
 
 extern int datum_new(data_array *data);
 extern int game_time_get(void);
-extern void light_reconnect_to_map(uint16_t light_index);
+extern void light_reconnect_to_map(int light_index);
 
 int light_new_unattached(int definition_index, int object_index, int16_t node_index,
         real_point3d *position, real_vector3d *forward, float scale)

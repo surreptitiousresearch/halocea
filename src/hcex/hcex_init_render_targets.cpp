@@ -16,7 +16,7 @@
 extern "C" int sprintf_0(char *string, const char *format, ...);
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
+#include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 
 extern "C" unsigned int hcex_init_render_targets(void)
 {
@@ -44,11 +44,11 @@ extern "C" unsigned int hcex_init_render_targets(void)
 
                 _D3DFORMAT format = global_render_targets[i].format;
                 if ( format != D3DFMT_X8R8G8B8 && format != D3DFMT_A8R8G8B8 && !IGNORE_STRONG_ASSERT )
-                    STRONG_ASSERT_DUMMY_Crash(0, "0", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 293, empty_string);
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 293, empty_string);
 
                 int created = tex->Create(global_render_targets[i].width, global_render_targets[i].height, 1, 22, 1, 1);
                 if ( !IGNORE_STRONG_ASSERT && !created )
-                    STRONG_ASSERT_DUMMY_Crash(0, "rc", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 297, empty_string);
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("rc", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 297, empty_string);
             }
         }
 

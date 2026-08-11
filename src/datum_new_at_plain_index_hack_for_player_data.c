@@ -1,4 +1,4 @@
-/* datum_new_at_plain_index_hack_for_player_data @0x836FB344 — allocate a data_array element at a specific
+/* datum_new_at_plain_index_hack_for_player_data @0x836FB330 — allocate a data_array element at a specific
  * (plain) index rather than the next free slot, used so player data lands at a network-stable index.
  * Fails if the index is out of range or already occupied. Grows the array's high-water count as needed and
  * returns the packed datum id (identifier in the high word, index in the low word), or -1 on failure. */

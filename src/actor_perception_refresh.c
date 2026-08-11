@@ -91,7 +91,7 @@ void actor_perception_refresh(int actor_index)
     }
     else
     {
-        int cluster = actor->input.position.body_location.cluster_index;
+        int cluster = (uint16_t)actor->input.position.body_location.cluster_index;   /* DEVIATION: int16_t field sign-extended into the int local, so the `!= 0xFFFF` guard below was always TRUE and pvs was fetched for cluster -1; binary zero-extends, lhz r4,0x148(r27) @0x837DB3E0 + cmplwi cr6,r4,0xFFFF @0x837DB3E4 (matches the cast the swarm arm above already carries) */
         if ( cluster != 0xFFFF )
             pvs = structure_bsp_get_cluster_pvs(global_structure_bsp, (int16_t)cluster);
     }

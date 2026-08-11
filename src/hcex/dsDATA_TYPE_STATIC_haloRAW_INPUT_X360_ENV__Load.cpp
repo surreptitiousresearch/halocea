@@ -12,7 +12,7 @@ template<>
 int ds_data::dsDATA_TYPE_STATIC<haloRAW_INPUT_X360_ENV>::Load(fioFILE *pFile, haloRAW_INPUT_X360_ENV &data)
 {
     if (!IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_data_type_impl.hpp", 187, empty_string);
     return 0;
 }

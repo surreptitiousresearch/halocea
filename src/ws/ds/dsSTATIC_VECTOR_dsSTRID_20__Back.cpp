@@ -8,7 +8,7 @@ template<>
 dsSTRID &dsSTATIC_VECTOR<dsSTRID, 20>::Back()
 {
     if (!IGNORE_STRONG_ASSERT && this->nElem <= 0)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "nElem > 0",
             "D:\\Projects\\code\\common\\src.sys\\ps\\ps_section.cpp",
             28,

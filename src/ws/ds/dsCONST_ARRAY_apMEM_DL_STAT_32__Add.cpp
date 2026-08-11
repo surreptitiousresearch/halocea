@@ -10,7 +10,7 @@ template<>
 void dsCONST_ARRAY<apMEM_DL_STAT, 32>::Add(const apMEM_DL_STAT &val)
 {
     if (!IGNORE_STRONG_ASSERT && this->nEntry >= 32)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "Length() < size",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             175,

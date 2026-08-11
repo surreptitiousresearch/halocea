@@ -31,5 +31,5 @@ void _apLog(const char *fmt, ...);
 
 // Strong-assert stub — Crash() aborts; guarded by the IGNORE_STRONG_ASSERT global.
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
-extern unsigned char g_assertContextByte; // boundary — assert message context byte @ 0x8200155A
-#include "../dbg/STRONG_ASSERT_DUMMY.h" // canonical (member + static Crash overloads) — avoids C2011
+extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
+#include "../dbg/STRONG_ASSERT_DUMMY.h" // canonical STRONG_ASSERT_DUMMY::Crash member — avoids C2011

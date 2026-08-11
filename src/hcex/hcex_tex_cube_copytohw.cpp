@@ -12,7 +12,7 @@
 #include "../headers/hcex/hcex_texture_upload.h"
 
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
+#include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
 extern "C" void hcex_tex_cube_copytohw(unsigned int *tex, char *tex_data, int width, int height,
@@ -26,7 +26,7 @@ extern "C" void hcex_tex_cube_copytohw(unsigned int *tex, char *tex_data, int wi
     pctGetMemFaceSize(&pic->hdr);
 
     if ( !IGNORE_STRONG_ASSERT && !tex_size )
-        STRONG_ASSERT_DUMMY_Crash(0, "tex_size != 0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("tex_size != 0",
                                  "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 634, empty_string);
 
     for ( int mipmap = 0; mipmap < pic->hdr.nMipMap; ++mipmap )

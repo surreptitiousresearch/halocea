@@ -9,7 +9,7 @@ template<>
 dsSTRID &dsSTATIC_VECTOR<dsSTRID, 20>::PushBack(const dsSTRID &val)
 {
     if (!IGNORE_STRONG_ASSERT && this->nElem >= 20)
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "nElem < size",
             "D:\\Projects\\code\\common\\src.sys\\ps\\ps_section.cpp",
             29,

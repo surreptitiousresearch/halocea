@@ -22,7 +22,7 @@ void STATE::Set(int idxState)
         {
             // D:\Projects\code\common\src.sys\gm_sys\entity\ia_sml_state.cpp line 250 —
             // unconditional STRONG_ASSERT(false) on the out-of-range branch.
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "false",
                 "D:\\Projects\\code\\common\\src.sys\\gm_sys\\entity\\ia_sml_state.cpp",
                 250,

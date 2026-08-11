@@ -52,7 +52,7 @@ int strmRES_TEX_MANAGER::UpdateResource2(strmRESOURCE_TEXTURE *strmResource, int
 
     if (streamingBehavior >= 3) {
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY().Crash("0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 419,
                 empty_string);
         // Unreachable in a well-formed build: falls straight through to the curMip/reqMip

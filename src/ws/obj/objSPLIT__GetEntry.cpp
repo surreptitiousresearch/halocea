@@ -9,7 +9,7 @@
 objSPLIT_ENTRY *objSPLIT::GetEntry(int i)
 {
     if (!IGNORE_STRONG_ASSERT && (i < 0 || i >= this->nEntry))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "i >= 0 && i < nEntry",
             "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 512,
             empty_string);

@@ -19,7 +19,7 @@ bool msgADDR::Register(msgDATA *pInitData)
         msgSystem.RemoveFromQueues(this);
         if (!IGNORE_STRONG_ASSERT
             && ((this->stateAddr.state & 8) != 0 || (this->stateAddr.state & 2) != 0))
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!stateAddr.Is(MSG_ADDR_ST_TERM_POSTED) && !stateAddr.Is(MSG_ADDR_ST_TERMED)",
                 "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
                 83,

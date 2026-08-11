@@ -20,7 +20,7 @@ void dsERASE_MANAGER<StrStridMap::LINE_ERASER>::SafelyEraseObject(const StrStrid
     p_accessLock->Lock("D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h", 534);
 
     if (!IGNORE_STRONG_ASSERT && this->eraseQueue.length >= 0x2000)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "eraseQueue.Length() < 8192",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             536,

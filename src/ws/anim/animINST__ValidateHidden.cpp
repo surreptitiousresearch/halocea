@@ -51,7 +51,7 @@ void animINST::ValidateHidden()
             objSPLIT_ENTRY *entry = pSplitRe->GetEntry(e);
             objOBJ *pCompObj = this->GetObj(entry->skinCompoundId);
             if (!IGNORE_STRONG_ASSERT && (pCompObj->state & 8) == 0)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "pObjSkin->IsSkinCompound()",
                     "D:\\Projects\\code\\common\\src.sys\\objects\\obj_skin.cpp",
                     1348,

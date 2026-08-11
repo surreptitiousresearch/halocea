@@ -7,7 +7,7 @@
 void animINST::DetachObj(objOBJ *pObj)
 {
     if (!IGNORE_STRONG_ASSERT && pObj->pInst != this)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "_pObj->pInst == this",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             792,

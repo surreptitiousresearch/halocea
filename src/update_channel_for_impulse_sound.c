@@ -57,7 +57,7 @@ void update_channel_for_impulse_sound(int16_t channel_index, float fade)
         properties.outer_cone_angle = def->outer_cone_angle;
         properties.outer_cone_gain = def->outer_cone_gain;
         properties.reverb_damping_factor =
-            sound_classes[(uint16_t)def->class_index].reverb_damping_factor;
+            sound_classes[def->class_index].reverb_damping_factor; /* DEVIATION: signed subscript — one lhz 4(r31) @0x83717964 feeds both, extsh+mulli 0x2C only here */
         properties.maximum_distance = 3.4028235e38f; /* FLT_MAX */
 
         channel_set_properties(channel_index, &properties, 0, (uint16_t)def->class_index);

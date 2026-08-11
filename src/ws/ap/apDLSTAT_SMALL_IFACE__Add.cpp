@@ -17,7 +17,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
     {
         unsigned int chunkSize = dlChunkSize(memBlock);
         if (!IGNORE_STRONG_ASSERT && memSize > chunkSize)
-            reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "memSize <= chunkSize",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                 128,
@@ -59,7 +59,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
             {
                 if (IGNORE_STRONG_ASSERT)
                     return false;
-                reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Too many allocates! Debug stats array is full. Reserve more memory\"",
                     "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                     162,
@@ -74,7 +74,7 @@ bool apDLSTAT_SMALL_IFACE::Add(void *memBlock, unsigned int memSize, const char 
     {
         if (IGNORE_STRONG_ASSERT)
             return false;
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "0",
             "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
             168,

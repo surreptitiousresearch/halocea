@@ -16,7 +16,7 @@ const char *dsSTRID_POOL::AllocStr(const char *str)
     int len = (int)strlen(str);
 
     if (!IGNORE_STRONG_ASSERT && len + 1 >= STRING_BLOCK_SIZE)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "len + 1 < STRING_BLOCK_SIZE",
             "D:\\Projects\\code\\common\\src.sys\\ds\\ds_strid.cpp",
             403,
@@ -27,7 +27,7 @@ const char *dsSTRID_POOL::AllocStr(const char *str)
         this->posStorage = 0;
         this->idxStorage = this->idxStorage + 1;
         if (!IGNORE_STRONG_ASSERT && this->idxStorage >= 0x100)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "idxStorage < (sizeof(strStorage)/sizeof((strStorage)[0]))",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_strid.cpp",
                 409,

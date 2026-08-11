@@ -18,7 +18,7 @@ void objOBJ::_AllocInterleavedData(int nVert, unsigned char size, uint64_t fvf)
         return;
 
     if (!IGNORE_STRONG_ASSERT && (this->stateShare.state & 0x400000) != 0)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "!stateShare.Is(OBJ_ST_SHARED_INTERLEAVED_DATA)",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_alloc.cpp", 1435,
             empty_string);

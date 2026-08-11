@@ -11,13 +11,13 @@ void HALO_CHANNEL::Play(HALO_PERM_SOUND *sound, HALO_PERM_SOUND *previous)
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_CHANNEL::Play", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1642, empty_string);
         return;
     }
 
     if (!IGNORE_STRONG_ASSERT && sound->fsbIndex == -1)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "sound.fsbIndex != -1",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("sound.fsbIndex != -1",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1644, empty_string);
 
     bool borrowedBanks = false;

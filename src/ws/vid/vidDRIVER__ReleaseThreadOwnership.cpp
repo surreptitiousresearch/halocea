@@ -16,7 +16,7 @@ void vidDRIVER::ReleaseThreadOwnership()
     {
         osGetCurThreadProcessor();
         if (this->suspendCounter > 0)
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!IsSuspended()",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\video\\vid.cpp",
                 1121,

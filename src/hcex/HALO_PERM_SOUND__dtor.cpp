@@ -9,6 +9,6 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 HALO_PERM_SOUND::~HALO_PERM_SOUND()
 {
     if (!IGNORE_STRONG_ASSERT && (this->prevFadeOut || this->fadeIn))
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "prevFadeOut == 0 && fadeIn == 0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("prevFadeOut == 0 && fadeIn == 0",
             "d:\\projects\\code\\hcex\\sources\\sound\\fmod\\sound_dsound_fmod.h", 260, empty_string);
 }

@@ -10,13 +10,13 @@
 void animTRACKER::GetInstMatrix(animINST *pInst, m3dMATR *out) const
 {
     if (!IGNORE_STRONG_ASSERT && !pInst)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "pInst",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim_tracker.cpp",
             500,
             empty_string);
     if (!IGNORE_STRONG_ASSERT && !out)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "out",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim_tracker.cpp",
             501,

@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 #include "headers/sound_permutation.h"
-#include "headers/sound_cache_sound.h"
+#include "headers/cache_sound_datum.h"
 #include "headers/pc_sound_cache_globals.h"
 #include "headers/data_array.h"
 #include "headers/lruv_cache.h"
@@ -54,35 +54,35 @@ uint8_t _sound_cache_sound_request(
         else
         {
             datum_new_at_index(pc_sound_cache_globals.cache_sounds, block_index);
-            sound_cache_sound *record =
-                &((sound_cache_sound *)pc_sound_cache_globals.cache_sounds->data)[block_index];
+            cache_sound_datum *record =
+                &((cache_sound_datum *)pc_sound_cache_globals.cache_sounds->data)[(uint16_t)block_index]; /* DEVIATION: low-word extract — clrlslwi r11,r30,16,4 @0x837E7F00 fuses the mask into the x16 stride; the raw subscript dropped it */
             sound->cache_block_index = block_index;
             sound->cache_base_address = nullptr;
             record->sound = sound;
-            record->_unused08 = 0;
-            record->allocated = 1;
+            record->request_index = 0;
+            record->available = 1;
         }
     }
 
     int cache_block_index = sound->cache_block_index;
     if (cache_block_index != -1)
     {
-        sound_cache_sound *record =
-            &((sound_cache_sound *)pc_sound_cache_globals.cache_sounds->data)[cache_block_index];
+        cache_sound_datum *record =
+            &((cache_sound_datum *)pc_sound_cache_globals.cache_sounds->data)[(uint16_t)cache_block_index]; /* DEVIATION: same extract on the stored handle — clrlslwi r11,r11,16,4 @0x837E7F3C after lwz 0x2C(r31) */
         int loaded = preload_sound_fmod(sound, load);
         lruv_block_touch(pc_sound_cache_globals.cache, sound->cache_block_index);
         do
         {
-            if (record->allocated)
+            if (record->available)
             {
-                if (!record->loaded)
+                if (!record->postprocessed)
                 {
-                    record->loaded = 1;
-                    record->reference_count = 0;
-                    record->_unknown06 = 0;
+                    record->postprocessed = 1;
+                    record->software_reference_count = 0;
+                    record->hardware_reference_count = 0;
                 }
                 if ((uint8_t)loaded && reference)
-                    ++record->reference_count;
+                    ++record->software_reference_count;
                 available = loaded;
             }
             else

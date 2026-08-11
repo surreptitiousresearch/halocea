@@ -6,9 +6,9 @@
  *
  * DEVIATION: `caps_active`/`symbols_active` used a `_cntlzw(x) == 32` (clz-based zero test) idiom instead of
  * the `shift_active == 0` comparison the very next case uses for the same toggle — algebraically identical,
- * collapsed to the same `== 0` form. FAITHFUL QUIRK: the `event_manager_flush` call here never sets up its
- * `controller_index` argument in the disassembly (stale register left over from the preceding void call) —
- * reproduced as a literal 0, matching the convention used for this exact quirk elsewhere in this codebase. */
+ * collapsed to the same `== 0` form. (A stale note here claimed event_manager_flush takes a `controller_index`
+ * left stale by the caller; it does not — 0x837263F8-0x8372640C is void(void) and overwrites r3 with its own
+ * memset Dst before using it, so the call takes no argument and the code below correctly passes none.) */
 
 #include <stdint.h>
 #include <string.h>

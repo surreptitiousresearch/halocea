@@ -62,7 +62,7 @@ void HALO_PERM_SOUND::Stop()
                         goto preloadNotFound;
                 }
                 if (!IGNORE_STRONG_ASSERT && !preloaded->isUsed)
-                    STRONG_ASSERT_DUMMY().Crash(
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "p.isUsed",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1772,
@@ -119,7 +119,7 @@ void HALO_PERM_SOUND::Stop()
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_PERM_SOUND::Stop", snd::THREAD_ID, curThreadId);
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 1733,

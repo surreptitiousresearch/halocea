@@ -14,7 +14,7 @@ int dsTYPE_ID::IsDerivedFrom(const dsTYPE_ID &baseTypeID) const
         zero.array[2] = 0;
         zero.array[3] = 0;
         if (!(baseTypeID.id != zero)) // base id equals zero => not initialised
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "baseTypeID.IsInited()",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_typeid.cpp",
                 52,

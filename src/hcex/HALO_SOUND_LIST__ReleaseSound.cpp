@@ -9,11 +9,11 @@ void HALO_SOUND_LIST::ReleaseSound(FMOD::Sound *sound)
         if (this->isMemory) {
             if (!IGNORE_STRONG_ASSERT) {
                 if (!this->isLoaded)
-                    STRONG_ASSERT_DUMMY::Crash(nullptr, "isLoaded",
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("isLoaded",
                                                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                                1619, empty_string);
                 if (this->streams[0] != sound)
-                    STRONG_ASSERT_DUMMY::Crash(nullptr, "streams[0] == sound",
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("streams[0] == sound",
                                                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                                1620, empty_string);
             }
@@ -23,13 +23,13 @@ void HALO_SOUND_LIST::ReleaseSound(FMOD::Sound *sound)
                 ++i;
             if (i >= this->streams.nElem) {
                 if (!IGNORE_STRONG_ASSERT)
-                    STRONG_ASSERT_DUMMY::Crash(nullptr, "false",
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("false",
                                                "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                                1633, empty_string);
                 return;
             }
             if (!IGNORE_STRONG_ASSERT && !this->streamUsed[i])
-                STRONG_ASSERT_DUMMY::Crash(nullptr, "streamUsed[i]",
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("streamUsed[i]",
                                            "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                            1627, empty_string);
             this->streamUsed[i] = false;
@@ -38,7 +38,7 @@ void HALO_SOUND_LIST::ReleaseSound(FMOD::Sound *sound)
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_SOUND_LIST::ReleaseSound", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1616, empty_string);
     }

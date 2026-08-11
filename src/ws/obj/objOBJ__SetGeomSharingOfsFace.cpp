@@ -6,7 +6,7 @@
 void objOBJ::SetGeomSharingOfsFace(int ofs)
 {
     if (!IGNORE_STRONG_ASSERT && !pGeom)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsGeom()", "D:\\Projects\\code\\common\\INCL.SYS\\objects.h", 1221,
             empty_string);
     pGeom->sharingOfsFace = ofs;

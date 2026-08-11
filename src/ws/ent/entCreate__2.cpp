@@ -68,7 +68,7 @@ entENTITY *entCreate(scnSCENE *pScn, entCREATE_INFO *info)
             // always-true literal used both as the crash gate and the logged message).
             if (!IGNORE_STRONG_ASSERT)
                 // Crash is a non-static member (this passed null by the original); call on a null instance
-                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"empty class name\"",
                     "D:\\Projects\\code\\common\\src.sys\\gm_sys\\entity\\entity.cpp",
                     675,

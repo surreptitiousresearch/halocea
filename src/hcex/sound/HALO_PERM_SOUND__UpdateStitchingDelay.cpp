@@ -40,7 +40,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
     {
         previousFreq = previousFrequency;
         if (!IGNORE_STRONG_ASSERT && !previousChannel)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "previousChannel != 0",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 1823,
@@ -51,7 +51,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"subSound->getLength(&lengthPcm, FMOD_TIMEUNIT_PCM)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1826,
@@ -67,7 +67,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
             // needs recomputing to account for drift -- keep both crossfade DSPs bypassed while
             // we do the math.
             if (!IGNORE_STRONG_ASSERT && (!prevFadeOut || !fadeIn))
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "prevFadeOut != 0 && fadeIn != 0",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1844,
@@ -80,7 +80,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
             if (res)
             {
                 if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                    STRONG_ASSERT_DUMMY().Crash(
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"haloSoundSystem->system->getDSPClock(&startTime.hi, &startTime.lo)\"",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1848,
@@ -95,7 +95,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
             if (res)
             {
                 if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                    STRONG_ASSERT_DUMMY().Crash(
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"previousChannel->getPosition(&positionPcm, FMOD_TIMEUNIT_PCM)\"",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1851,
@@ -121,7 +121,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
             // channel starts CROSSFADE_TIME samples before the previous one's remaining length
             // runs out.
             if (!IGNORE_STRONG_ASSERT && (prevFadeOut || fadeIn))
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "prevFadeOut == 0 && fadeIn == 0",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1829,
@@ -152,7 +152,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
             if (res)
             {
                 if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                    STRONG_ASSERT_DUMMY().Crash(
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"previousChannel->getDelay(FMOD_DELAYTYPE_DSPCLOCK_START, &startTime.hi, &startTime.lo)\"",
                         "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                         1836,
@@ -166,7 +166,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
                 (int64_t)((float)((float)haloSoundSystem->outputRate / previousFrequency) * (float)lengthPcm + 0.5f);
 
             if (!IGNORE_STRONG_ASSERT && (unsigned int)lengthAtOutputRate <= (unsigned int)CROSSFADE_TIME.value)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "lengthPcm > CROSSFADE_TIME",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1841,
@@ -204,7 +204,7 @@ void HALO_PERM_SOUND::UpdateStitchingDelay(bool isRecalc)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"haloSoundSystem->system->getDSPClock(&startTime.hi, &startTime.lo)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     1818,

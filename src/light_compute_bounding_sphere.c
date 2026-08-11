@@ -17,7 +17,7 @@
 
 #include <stdint.h>
 
-void light_compute_bounding_sphere(uint16_t light_index, uint8_t maximum,
+void light_compute_bounding_sphere(int light_index, uint8_t maximum,
     uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center,
     float *bounding_sphere_radius)
 {

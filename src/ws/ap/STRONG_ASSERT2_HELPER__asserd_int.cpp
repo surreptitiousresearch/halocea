@@ -9,9 +9,9 @@
 extern dsTSTRING<char> dsSPrintf(const char *fmt, ...); // 0x825210C0
 namespace ds { dsTSTRING<char> ToString(int value); }   // int -> decimal string
 
-namespace STRONG_ASSERT_DUMMY {
-    void Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
-}
+// DEVIATION: this TU declared `namespace STRONG_ASSERT_DUMMY { void Crash(void*, ...); }` — a
+// free function that mangles to ?Crash@STRONG_ASSERT_DUMMY@@YAX...@Z, a symbol the image does not
+#include "../../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // contain. The one real Crash is the member.
 
 struct STRONG_ASSERT2_HELPER {
     template<class T>
@@ -45,6 +45,6 @@ void STRONG_ASSERT2_HELPER::asserd<int>(const char *cond, const char *file, int 
     message.Insert(at, line1.pBuffer->strLen);
     memcpy(&message.pBuffer->str[at], line1.pBuffer->str, line1.pBuffer->strLen);
 
-    STRONG_ASSERT_DUMMY::Crash(nullptr, cond, file, line, message.pBuffer->str);
+    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(cond, file, line, message.pBuffer->str);
     // (message / line1 / valueStr release their shared buffers via dsTSTRING's destructor)
 }

@@ -15,7 +15,7 @@ int ds_data::dsDATA_TYPE_IMPL<haloRAW_INPUT_X360_ENV>::Load(
 {
     ds_data::dsDATA_TYPE_CONSTRUCT<haloRAW_INPUT_X360_ENV>::GetPtr(storage);
     if (!IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "0",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_data_type_impl.hpp", 187, empty_string);
     return 0;
 }

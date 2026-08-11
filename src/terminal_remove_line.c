@@ -1,4 +1,4 @@
-/* terminal_remove_line @0x836A3000 — unlink a terminal output line from the doubly-linked list (fixing up the
+/* terminal_remove_line @0x836A2FF0 — unlink a terminal output line from the doubly-linked list (fixing up the
  * neighbours' links or the oldest/newest indices) and delete its datum.
  *
  * Records are the DB output_line_datum (292 bytes): newer_line_index @+4 (dword 1), older_line_index @+8

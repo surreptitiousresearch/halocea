@@ -10,7 +10,7 @@ void HALO_CROSSFADE_DSP::Release()
     bool ignoreAssert = IGNORE_STRONG_ASSERT;
     if (!IGNORE_STRONG_ASSERT && newRefCount < 0)
     {
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "refCount >= 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
             433,
@@ -33,7 +33,7 @@ void HALO_CROSSFADE_DSP::Release()
                     goto pushBack;
             }
             if (idx != -1)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "ds::FindNonSorted(cache, this) == -1",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                     439,

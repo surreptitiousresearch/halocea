@@ -20,7 +20,7 @@ void jbmMANAGER::WaitThreadsDone(apSTATE_T<unsigned long> threadMask)
             if (!IGNORE_STRONG_ASSERT &&
                 ((unsigned int)threadIdx >= 0x10 || threadIdx >= threads.nEntry))
             {
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "IsValidIdx(idx)",
                     "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
                     166,

@@ -1,4 +1,4 @@
-/* player_delete @0x836A7D08 — remove a player: notify the game engine, and on a client (connection 1)
+/* player_delete @0x836A7CF0 — remove a player: notify the game engine, and on a client (connection 1)
  * shut down the player's remote-update action/position queues when it was not a local player;
  * on a server (connection 2) notify the network server. Then clear the machine->player table slot and
  * delete the player datum. */

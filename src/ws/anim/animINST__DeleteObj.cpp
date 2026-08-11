@@ -19,7 +19,7 @@ void animSetObjInstRef(objOBJ *pObj, animINST *pInst); // boundary (0x82683xxx)
 void animINST::DeleteObj(objOBJ *obj)
 {
     if (!IGNORE_STRONG_ASSERT && obj->pInst != this)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "pObj_->pInst == this",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             778,

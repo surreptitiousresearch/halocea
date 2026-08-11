@@ -118,8 +118,8 @@ void objDEPENDENCY_CACHE::Init(objOBJ *obj)
             if (hostObj) {
                 DependencyMapConstIter hostInfo = map->Find(&hostObj);
                 if (!IGNORE_STRONG_ASSERT && hostInfo.item == nullptr) {
-                    STRONG_ASSERT_DUMMY *assertHelper = nullptr;
-                    assertHelper->Crash("!hostInfo.IsDone()",
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
+                                        "!hostInfo.IsDone()",
                                         "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_misc.cpp",
                                         2120, empty_string);
                 }

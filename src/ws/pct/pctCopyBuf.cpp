@@ -250,7 +250,7 @@ void pctCopyBuf(pctPICTURE *pPict, int face, int mipMapNmb, pctFORMAT *pDstFmt, 
             // non-identical conversion only supports a single depth slice
             // call through a null this-pointer (canonical 4-arg member Crash); matches the decompile's
             // static-style STRONG_ASSERT_DUMMY::Crash(nullptr, ...) invocation.
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("sz == 1",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("sz == 1",
                 "D:\\Projects\\code\\common\\src.sys\\picture\\picture.cpp",
                 2637, empty_string);
         }

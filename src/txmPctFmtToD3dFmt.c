@@ -47,7 +47,7 @@ _D3DFORMAT txmPctFmtToD3dFmt(int pctFmt, int isSwizzledFormatReq)
         case 47:
             // Unsupported pct format -- fires a strong-assert crash in debug builds.
             if (!IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "0",
                     "D:\\Projects\\code\\common\\src.sys\\drv\\video\\d3d_8\\d3d_txm_8.cpp",
                     438,

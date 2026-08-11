@@ -15,7 +15,7 @@
 void objOBJ::SetVertColorList(unsigned int vcInd, unsigned int *list)
 {
     if (!IGNORE_STRONG_ASSERT && vcInd > 2)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "vcInd >= 0 && vcInd < 3",
             "D:\\Projects\\code\\common\\src.sys\\objects\\obj_access.cpp", 1392,
             empty_string);

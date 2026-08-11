@@ -61,7 +61,7 @@ void hcex_check_crc(void)
          * the STRONG_ASSERT macro's condition check got folded into this already-taken branch.
          * Elided; the assert fires unconditionally once IGNORE_STRONG_ASSERT is false. */
         if (!IGNORE_STRONG_ASSERT) {
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"crc deviation\"",
                 "D:\\Projects\\code\\HCEX\\sources\\halo_coop.cpp",
                 244,

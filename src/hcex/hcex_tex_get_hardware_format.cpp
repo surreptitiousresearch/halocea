@@ -31,7 +31,7 @@ extern "C" int hcex_tex_get_hardware_format(txmD3D_TEX *tex, int block, int load
 
     int loaded = txmMANAGER_Load(txmManager, tex, 1);
     if ( !IGNORE_STRONG_ASSERT && !loaded )
-        STRONG_ASSERT_DUMMY_Crash(0, "rc", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 720,
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("rc", "D:\\Projects\\code\\HCEX\\sources\\halo_render.cpp", 720,
                                  empty_string);
 
     D3DBaseTexture *hw = txmD3D_TEX__GetD3DTex(tex);

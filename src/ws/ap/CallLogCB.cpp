@@ -17,7 +17,7 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 
 /* boundary -- STRONG_ASSERT_DUMMY::Crash(this, condition, file, line, info); see
  * src/dlDumpNoMemLeft.c for the established signature/call convention this mirrors. */
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *unused, const char *condition, const char *file, int line, const char *info);
+#include "../../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 
 void CallLogCB(const char *text)
 {
@@ -33,8 +33,7 @@ void CallLogCB(const char *text)
     for (int idx = 0; idx < LOG_CALLBACKS_COUNT; ++idx)
     {
         if (!IGNORE_STRONG_ASSERT && idx >= LOG_CALLBACKS_COUNT)
-            STRONG_ASSERT_DUMMY_Crash(
-                0,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "idx < LOG_CALLBACKS_COUNT",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_log.cpp",
                 86,

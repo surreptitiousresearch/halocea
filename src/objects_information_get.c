@@ -1,4 +1,4 @@
-/* objects_information_get @0x836EC8B8 — tally the live object table: total objects, active objects, and the
+/* objects_information_get @0x836EC8A8 — tally the live object table: total objects, active objects, and the
  * fraction of the object memory pool currently in use. A nonzero object_header_datum.identifier marks a
  * live slot; object_header_datum.flags _object_header_active_bit marks active.
  * DEVIATION: the soft-float __SPAIR64__ idiom is the int->float conversion of the contiguous free size;

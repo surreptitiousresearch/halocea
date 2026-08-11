@@ -1,4 +1,4 @@
-/* font_get_character_by_ascii_code @0x83812324 — resolve a Unicode code point to its cached glyph in a
+/* font_get_character_by_ascii_code @0x83812320 — resolve a Unicode code point to its cached glyph in a
  * font tag. The font's character_tables block is indexed by the code point's high byte to find a page;
  * a populated page (count==256) maps the low byte to a global character index, which in turn selects a
  * 20-byte font_character from the characters block. Returns nullptr when no glyph exists.

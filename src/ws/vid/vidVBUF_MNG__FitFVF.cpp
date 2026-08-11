@@ -70,7 +70,7 @@ vidFVF_DESCR *vidVBUF_MNG::FitFVF(unsigned long long fvf)
     }
 
     if (!IGNORE_STRONG_ASSERT)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "0",
             "D:\\Projects\\code\\common\\src.sys\\drv\\video\\vid_vbuf.cpp", 178, empty_string);
     return nullptr;

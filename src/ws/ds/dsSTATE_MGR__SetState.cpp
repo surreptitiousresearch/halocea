@@ -24,7 +24,7 @@ void dsSTATE_MGR::SetState(int id, const dsDATA *data)
     if (!IGNORE_STRONG_ASSERT) {
         int threadId = dsSTATE_MGR_GetThreadId();
         if (threadId < 0 || !this->threadInfo[threadId].isActive)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "GetThreadId() >= 0 && threadInfo[GetThreadId()].isActive",
                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
                 1147,

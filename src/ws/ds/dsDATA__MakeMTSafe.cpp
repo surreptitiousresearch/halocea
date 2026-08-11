@@ -22,7 +22,7 @@ int dsDATA::MakeMTSafe()
     const dsDATA_TYPE *mtSafeType = storedType->MTSafeAnalog();
     if (!mtSafeType) {
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "_type",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_data_impl.hpp",
                 254,

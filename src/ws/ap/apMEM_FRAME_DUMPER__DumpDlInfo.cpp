@@ -23,7 +23,7 @@ void apMEM_FRAME_DUMPER::DumpDlInfo(apMEM_DL_ALLOC_TYPE type)
     {
         // Original repeats this IsValidIdx bounds assert around every list access; kept once.
         if (!IGNORE_STRONG_ASSERT && ((unsigned int)logicalIdx >= 0x20 || logicalIdx >= this->dlStat.nEntry))
-            reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "IsValidIdx(idx)",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
                 166,

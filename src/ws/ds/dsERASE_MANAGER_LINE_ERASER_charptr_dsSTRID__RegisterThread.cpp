@@ -44,7 +44,7 @@ void dsERASE_MANAGER<StrStridLineEraser>::RegisterThread()
     }
 
     if (!IGNORE_STRONG_ASSERT && (numAllocated >= 32 || idx < 0))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "numAllocated < 32 && idx >= 0",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             501,

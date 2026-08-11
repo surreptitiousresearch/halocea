@@ -29,7 +29,7 @@ bool HALO_SOUND_SYSTEM::Init(snd::INIT init)
     FMOD_RESULT result = snd::SystemFMod->system->getSystemObject(&system);
     if (result) {
         if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"snd::SystemFMod->system->getSystemObject(&this->system)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2277, empty_string);
         const char *desc = FModErrorDesc(result, 0);
@@ -41,7 +41,7 @@ bool HALO_SOUND_SYSTEM::Init(snd::INIT init)
     result = system->getDSPBufferSize(&minDelay, nullptr);
     if (result) {
         if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getDSPBufferSize(&minDelay, NULL)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2279, empty_string);
         const char *desc = FModErrorDesc(result, 0);
@@ -55,7 +55,7 @@ bool HALO_SOUND_SYSTEM::Init(snd::INIT init)
     result = system->getSoftwareFormat(&outputRate, nullptr, nullptr, nullptr, nullptr, nullptr);
     if (result) {
         if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->getSoftwareFormat(&outputRate, NULL, NULL, NULL, NULL, NULL)\"",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2282, empty_string);
         const char *desc = FModErrorDesc(result, 0);

@@ -83,7 +83,7 @@ void particle_system_render(uint16_t system_index)
         particle_type *emitter_type = &system->types[type_index];
         particle_system_type *type_def = &emitter_type_defs[type_index];
 
-        if (emitter_type->state_index == 0xFFFF || (type_def->flags & (1u << _particle_system_type_disabled_bit)) != 0)
+        if ((uint16_t)emitter_type->state_index == 0xFFFF || (type_def->flags & (1u << _particle_system_type_disabled_bit)) != 0)   /* DEVIATION: int16_t field — uncast, the promoted -1 never matched, so a stateless emitter type was rendered instead of skipped; binary zero-extends, lhz r11,0x58(r24) @0x8373AF08 + cmplwi cr6,r11,0xFFFF @0x8373AF0C */
             continue;
 
         particle_system_particle_state_render_info *particle_state_defs =

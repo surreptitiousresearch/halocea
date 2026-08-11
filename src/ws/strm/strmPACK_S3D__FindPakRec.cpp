@@ -11,7 +11,7 @@ int strmPACK_S3D::FindPakRec(const dsSTRID &name, int pakId)
     int idx = recTable.FindSorted<PAK_RECORD::CMP, dsSTRID>(name, cmp);
 
     if (idx >= 0 && !IGNORE_STRONG_ASSERT && name.id != recTable[idx].name.id) {
-        STRONG_ASSERT_DUMMY().Crash("recTable[id].name == name",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("recTable[id].name == name",
             "D:\\Projects\\code\\common\\src.sys\\drv\\strm_resource.cpp", 305,
             empty_string);
     }

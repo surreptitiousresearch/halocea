@@ -24,7 +24,7 @@ HALO_CROSSFADE_DSP *HALO_CROSSFADE_DSP::Acquire()
     }
 
     if (!IGNORE_STRONG_ASSERT && result->refCount)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "res->refCount == 0",
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
             421,

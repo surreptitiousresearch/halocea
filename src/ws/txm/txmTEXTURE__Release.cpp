@@ -18,7 +18,7 @@ unsigned int txmTEXTURE::Release()
 
     if ( !IGNORE_STRONG_ASSERT && *refCountPtr < -1 )
     {
-        reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "refCount >= -1",
             "d:\\projects\\code\\common\\incl.sys\\drv\\txm.h",
             247,

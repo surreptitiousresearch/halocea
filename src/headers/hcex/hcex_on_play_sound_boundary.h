@@ -36,7 +36,7 @@ extern void        hcex_cine_on_play_sound(const char *name);
 extern "C" char       *strstr(const char *haystack, const char *needle);
 extern "C" char       *strrchr(const char *s, int c);
 extern HCEX_OBJ   *hcex_obj_get(int id);
-extern "C" void        STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
+#include "../ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 
 /* placement operator new(size, file, line) */
 extern void *operator new(size_t size, const char *file, unsigned int line);

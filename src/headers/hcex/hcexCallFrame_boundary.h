@@ -76,4 +76,4 @@ extern int  gsMsgIsMode(unsigned int mode);
 extern int  apProcLock_GetGameLogicThread(void);
 extern void apProcLock_SetGameLogicThread(int threadId);
 extern void hcex_obj_sync_matrices(void);
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
+#include "../ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol

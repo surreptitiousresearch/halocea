@@ -53,7 +53,7 @@ sslCLASS::~sslCLASS()
         if (type > 5)
         {
             if (!IGNORE_STRONG_ASSERT)
-                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("0", kSslClassCpp, 167, empty_string); // instance-call, 4 args
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0", kSslClassCpp, 167, empty_string); // instance-call, 4 args
         }
         else if (type == sslCLASS_ELEMENT::TYPE_SSL_FUNC)
         {

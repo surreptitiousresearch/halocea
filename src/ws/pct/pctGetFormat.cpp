@@ -11,13 +11,13 @@ pctFORMAT *pctGetFormat(unsigned int format)
     if (!IGNORE_STRONG_ASSERT)
     {
         if (format < (unsigned int)PCT_FORMAT_MAX
-            || (((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+            || (static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "format > PCT_FORMAT_UNKNOWN && format < PCT_FORMAT_MAX",
                     "D:\\Projects\\code\\common\\src.sys\\picture\\picture.cpp",
                     2193, empty_string), !IGNORE_STRONG_ASSERT))
         {
             if (pctFormatList[format].bpp <= 0)
-                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "_pctFormatList[format].bpp > 0",
                     "D:\\Projects\\code\\common\\src.sys\\picture\\picture.cpp",
                     2195, empty_string);

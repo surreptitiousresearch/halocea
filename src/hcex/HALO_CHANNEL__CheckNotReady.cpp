@@ -22,7 +22,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_CHANNEL::CheckNotReady", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1874, empty_string);
         return false;
     }
@@ -56,7 +56,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         if (r)
         {
             if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getOpenState(&openState, NULL, NULL)\"",
                     fileNotFound, 1902, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1902, r, FModErrorDesc(r, false));
@@ -69,7 +69,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         if (r)
         {
             if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getNumSubSounds(&count)\"",
                     fileNotFound, 1908, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1908, r, FModErrorDesc(r, false));
@@ -94,7 +94,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
         if (r)
         {
             if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getSubSound(sound.fsbIndex, &sound.subSound)\"",
                     fileNotFound, 1911, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1911, r, FModErrorDesc(r, false));
@@ -106,7 +106,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
     if (r)
     {
         if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.subSound->getOpenState(&openState, NULL, NULL)\"",
                 fileNotFound, 1916, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1916, r, FModErrorDesc(r, false));
@@ -123,7 +123,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
     if (r)
     {
         if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"haloSoundSystem->system->playSound(FMOD_CHANNEL_FREE, sound.subSound, true, &sound.channel)\"",
                 fileNotFound, 1928, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1928, r, FModErrorDesc(r, false));
@@ -144,7 +144,7 @@ bool HALO_CHANNEL::CheckNotReady(HALO_PERM_SOUND *sound)
     if (r)
     {
         if (r == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setChannelGroup(channelGroup)\"",
                 fileNotFound, 1942, empty_string);
         osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", fileNotFound, 1942, r, FModErrorDesc(r, false));

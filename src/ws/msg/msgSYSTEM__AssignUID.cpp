@@ -22,7 +22,7 @@ void msgSYSTEM::AssignUID(msgADDR *pComm)
     ds::impl::MAP_ITERATOR<int, msgADDR *, ds::HASH, ds::CMP, dsNODE_CACHE_ALLOCATOR> found =
         uidMap->Find(&uniqueID);
     if (!IGNORE_STRONG_ASSERT && !found.IsDone() && *found.value() != pComm)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "it.IsDone() || it.value() == pComm",
             "D:\\Projects\\code\\common\\src.sys\\gm_sys\\msg\\msgaddr.cpp",
             835,

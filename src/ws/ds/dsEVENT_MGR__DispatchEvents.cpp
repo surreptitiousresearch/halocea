@@ -72,7 +72,7 @@ void dsEVENT_MGR::DispatchEvents()
                                         dsPARAM *param = &event.params.list[paramIdx];
                                         // decompiler shows extra args to IsMTSafe; the virtual takes none.
                                         if (param->data.type && !param->data.type->IsMTSafe())
-                                            STRONG_ASSERT_DUMMY().Crash(
+                                            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                                                 "ev.params[i].data.IsMTSafe()",
                                                 "D:\\Projects\\code\\common\\src.sys\\ds\\ds_event_mgr.cpp",
                                                 740, empty_string);

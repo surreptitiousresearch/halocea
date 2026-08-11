@@ -68,7 +68,7 @@ extern float sqrtf(float x);
  * 0x83742270 idiom). DEVIATION: `slwi r9,r4,4` @0x83742230 discards bit 31, so the mask is an x64-only no-op. */
 static void resolve_surface_plane(const collision_bsp *bsp, int plane_designator, real_plane3d *out_plane)
 {
-    const real_plane3d *plane = (const real_plane3d *)((char *)bsp->bsp3d.planes.address + ((plane_designator & 0x7FFFFFFF) << 4));
+    const real_plane3d *plane = &((const real_plane3d *)bsp->bsp3d.planes.address)[plane_designator & 0x7FFFFFFF];
     if (plane_designator < 0)
     {
         out_plane->normal.i = -plane->normal.i;

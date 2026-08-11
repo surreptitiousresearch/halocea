@@ -9,7 +9,7 @@ void HALO_SOUND_LIST::Preload()
         osFILE_HANDLE_DUMMY *file = osFileOpen(this->fileName.pBuffer->str,
                                                dsFLAGS<OS_FILE, int>{OS_FILE_READ});
         if (!IGNORE_STRONG_ASSERT && !file)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "file != 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("file != 0",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1355, empty_string);
 

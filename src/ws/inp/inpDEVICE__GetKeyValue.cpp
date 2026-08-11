@@ -11,7 +11,7 @@ float inpDEVICE::GetKeyValue(int key) const
         bool isValidKey = (key >= 340 || key < 0) ? false : true;
         if (!isValidKey)
             // Null-this call matches the decompiler's leading-nullptr this arg; Crash is a member.
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "IsValidKey(key)",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\input\\inp.cpp",
                 177, empty_string);

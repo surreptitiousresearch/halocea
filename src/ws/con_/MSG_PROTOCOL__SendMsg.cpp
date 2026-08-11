@@ -58,7 +58,7 @@ void MSG_PROTOCOL::SendMsg(fioFILE &f)
             const char *streamName = f.GetStreamName();
             if (!streamName || strcmp(streamName, "memory buffer") != 0)
             {
-                STRONG_ASSERT_DUMMY().Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "f.GetStreamName() && strcmp(f.GetStreamName(), \"memory buffer\") == 0",
                     "D:\\Projects\\code\\common\\src.sys\\console\\conComm.cpp",
                     274,

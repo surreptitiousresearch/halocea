@@ -36,7 +36,7 @@ char *fnmResolvePathWithGivenBase(char *dst, const char *name)
     if (!IGNORE_STRONG_ASSERT)
     {
         if (strlen(dst) >= 0x104)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "strlen(dst) < 260", "D:\\Projects\\code\\common\\src.sys\\fileio\\fname.cpp", 795, g_assertContextByte);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("strlen(dst) < 260", "D:\\Projects\\code\\common\\src.sys\\fileio\\fname.cpp", 795, empty_string);
     }
 
     return dst;

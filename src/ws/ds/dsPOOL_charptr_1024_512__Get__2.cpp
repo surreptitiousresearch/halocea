@@ -9,7 +9,7 @@ template<>
 const char *const &dsPOOL<const char *, 1024, 512>::Get(int idx) const
 {
     if (!IGNORE_STRONG_ASSERT && (idx < 0 || idx / 1024 >= this->numChunks))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsIndexValid(idx)",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_pool.h",
             189,

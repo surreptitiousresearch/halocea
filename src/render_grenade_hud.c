@@ -53,7 +53,7 @@ void render_grenade_hud(int16_t local_player_index, int unit_index)
 
     int weapon = unit_inventory_get_weapon(unit_index, obj->unit.current_weapon_index);
 
-    if (hcex_off_hud_element == 4 || weapon_prevents_grenade_throwing(weapon) || obj->unit.current_grenade_index == 255)
+    if (hcex_off_hud_element == 4 || weapon_prevents_grenade_throwing(weapon) || (uint8_t)obj->unit.current_grenade_index == 255)   /* DEVIATION: the int8 sibling of the same class — current_grenade_index is `char` (DB types_members _unit_datum+0x128, size 1, member_type char), so the uncast compare promoted -1 and never matched 255 and the no-grenade early-out was dead. Binary zero-extends: lbz r11,0x31C(r26) @0x836AF8E4 + cmplwi cr6,r11,0xFF @0x836AF8E8 */
         return;
 
     unit_datum *parent_vehicle = object_try_and_get_and_verify_type(obj->object.parent_object_index, object_mask_unit);

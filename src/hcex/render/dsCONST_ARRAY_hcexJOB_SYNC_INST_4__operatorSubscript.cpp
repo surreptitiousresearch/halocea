@@ -9,11 +9,10 @@ template<>
 hcexJOB_SYNC_INST &dsCONST_ARRAY<hcexJOB_SYNC_INST, 4>::operator[](int idx)
 {
     if (!IGNORE_STRONG_ASSERT && ((unsigned int)idx >= 4 || idx >= this->nEntry))
-        STRONG_ASSERT_DUMMY::Crash(
-            nullptr,
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsValidIdx(idx)",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             166,
-            (unsigned char)empty_string[0]);
+            empty_string);
     return this->list[idx];
 }

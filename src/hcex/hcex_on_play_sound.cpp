@@ -30,7 +30,7 @@ extern "C" void hcex_on_play_sound(int unit_index, int sound_definition_index, i
 
     HCEX_OBJ *obj = hcex_obj_get(unit_index);
     if ( !IGNORE_STRONG_ASSERT && !obj )
-        STRONG_ASSERT_DUMMY_Crash(0, "obj", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 2586, empty_string);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("obj", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 2586, empty_string);
 
     lipsync_pair entry;
     dsCMP cmp;

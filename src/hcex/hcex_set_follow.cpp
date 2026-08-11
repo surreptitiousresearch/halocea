@@ -7,7 +7,7 @@
 
 #include "../headers/hcex/hcex_follow_boundary.h"
 
-extern "C" void STRONG_ASSERT_DUMMY_Crash(void *a, const char *expr, const char *file, int line, const char *msg);
+#include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h" // the only Crash is a C++ member, not a C symbol
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
 
@@ -16,7 +16,7 @@ void hcex_set_follow(entENTITY *pFollower, int objFollowId)
     HCEX_OBJ *obj = hcex_obj_get(objFollowId);
 
     if ( !IGNORE_STRONG_ASSERT && !obj )
-        STRONG_ASSERT_DUMMY_Crash(0, "obj", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 1979, empty_string);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("obj", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 1979, empty_string);
 
     if ( obj->pInst )
     {

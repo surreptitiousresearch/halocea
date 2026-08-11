@@ -24,7 +24,7 @@ void haloENGINE_CONTROL::OnConfigChanged(unsigned long eventUserId, const dsPARA
     int changedUserId = 0;
     bool isRet = userIdParam->data.GetValue<int>(changedUserId, DSD_CONV_RETRIEVE);
     if (!IGNORE_STRONG_ASSERT && !isRet)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "isRet", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_param.h", 28, "");
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("isRet", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_param.h", 28, "");
 
     ApplySettings(changedUserId == gsUserMng->PrimaryUserIdx());
 }

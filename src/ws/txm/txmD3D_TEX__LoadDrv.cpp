@@ -79,10 +79,10 @@ int txmD3D_TEX::LoadDrv(pctPICTURE *pPict)
         // Volume textures: DXN/DXT5A block formats are unsupported for the volume path.
         if (!IGNORE_STRONG_ASSERT) {
             if (pPict->hdr.format != PCT_FORMAT_DXT5A)
-                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "pPict->hdr.format!=PCT_FORMAT_DXT5A", D3D_TXM_CPP, 1331, empty_string);
             if (pPict->hdr.format == PCT_FORMAT_DXN)
-                ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "pPict->hdr.format!=PCT_FORMAT_DXN", D3D_TXM_CPP, 1332, empty_string);
         }
         for (int mip = 0; mip < this->nMipMap; ++mip) {

@@ -142,7 +142,7 @@ void glow_update(glow_datum *glow, int object_index)
     float effect_translational_velocity = definition->glow_effect_translational_velocity;
     if ( found_marker_count > 1 )
     {
-        if ( definition->effect_rotational_velocity_attachment_index != 0xFFFF )
+        if ( (uint16_t)definition->effect_rotational_velocity_attachment_index != 0xFFFF )   /* DEVIATION: int16_t field — uncast, the promoted -1 made this always TRUE, so object_get_function_value was queried with -1 and the unattached constant-velocity path was dead; binary zero-extends, lhz r4,0x60(r26) @0x8380CDB4 + cmplwi cr6,r4,0xFFFF @0x8380CDBC */
         {
             float t = 0.0f;
             object_get_function_value(object_index, definition->effect_rotational_velocity_attachment_index, &t);
@@ -151,7 +151,7 @@ void glow_update(glow_datum *glow, int object_index)
                     + definition->glow_effect_rotational_velocity_scale_lower_bound)
                     * definition->glow_effect_rotational_velocity;
         }
-        if ( definition->effect_translational_velocity_attachment_index != 0xFFFF )
+        if ( (uint16_t)definition->effect_translational_velocity_attachment_index != 0xFFFF )   /* DEVIATION: same shape — lhz r4,0x70(r26) @0x8380CDFC + cmplwi cr6,r4,0xFFFF @0x8380CE04 */
         {
             float t = 0.0f;
             object_get_function_value(object_index, definition->effect_translational_velocity_attachment_index, &t);

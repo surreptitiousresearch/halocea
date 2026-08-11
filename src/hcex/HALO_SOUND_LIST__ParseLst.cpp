@@ -64,7 +64,7 @@ void HALO_SOUND_LIST::ParseLst(const char *lst)
                 ++cur;
             } while (!diff);
             if (diff > 0)
-                STRONG_ASSERT_DUMMY::Crash(nullptr, "i == 0 || list[i - 1].name <= list[i].name",
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("i == 0 || list[i - 1].name <= list[i].name",
                                            "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                            1325, empty_string);
         }
@@ -77,7 +77,7 @@ void HALO_SOUND_LIST::ParseLst(const char *lst)
             tag->startIndex = subSounds[j].index;
 
             if (!IGNORE_STRONG_ASSERT && usedTags.Contains(&tag->name, nullptr))
-                STRONG_ASSERT_DUMMY::Crash(nullptr, "!usedTags.Contains(tag->name)",
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("!usedTags.Contains(tag->name)",
                                            "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                            1333, empty_string);
             int zero = 0;
@@ -85,7 +85,7 @@ void HALO_SOUND_LIST::ParseLst(const char *lst)
         }
 
         if (!IGNORE_STRONG_ASSERT && tag->startIndex + tag->count != subSounds[j].index)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "tag->startIndex + tag->count == list[i].index",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("tag->startIndex + tag->count == list[i].index",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1338, empty_string);
         ++tag->count;

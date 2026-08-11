@@ -83,9 +83,9 @@ void HCEX_ANIM_MNG_FP::ApplyAnim(unsigned char typeValidation)
             hcex_make_matr(&sync_data.node_matrices[nodeIdx], &nodeMatr);
             if ( !IGNORE_STRONG_ASSERT && !nodeMatr.Check() )
             {
-                STRONG_ASSERT_DUMMY assertHelper; // this-pointer is unused garbage in the binary (r3==0 here)
-                assertHelper.Crash("matrLT.Check()", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp",
-                                    3971, empty_string);
+                // DEVIATION: was a named STRONG_ASSERT_DUMMY temp, which emits `addi r3, r1, off`;
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash( // the binary emits `li r3, 0`
+                    "matrLT.Check()", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 3971, empty_string);
             }
 
             m3dMultiplyMatr(&nodeMatr, &parentLTInv, &cur->matrModel);

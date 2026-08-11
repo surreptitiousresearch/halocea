@@ -36,7 +36,7 @@ uint8_t post_evaluator_global(int actor_index, firing_position_evaluation_contex
             return 1;
         }
 
-        actor_datum *actor = &((actor_datum *)actor_data->data)[actor_index];
+        actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index); /* DEVIATION: actor_index is a full salted handle and the binary extracts its low word before the stride (clrlwi r9,r3,16 @0x837EF124 -> mulli r9,0x724 @0x837EF12C); the raw subscript dropped that. Accessor spelling per the binary neighbour post_evaluator_pursuit @0x837EF220 (same clrlwi16+mulli 0x724). The handle stays whole where it is PASSED — r3 reaches actor_path_3d_available unmodified. */
         float avoidance_distance = 0.0f;
 
         /* recovered: (const real_point3d *)definition -> &definition->position (leading member @0x0) */

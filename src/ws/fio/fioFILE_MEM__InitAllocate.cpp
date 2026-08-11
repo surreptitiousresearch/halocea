@@ -13,7 +13,7 @@ int fioFILE_MEM::InitAllocate(unsigned int buflen, dsFLAGS<FIO_OPEN,int> state_)
     if ( (state_.val & FIO_OPEN_W) == 0 )
     {
         if ( !IGNORE_STRONG_ASSERT )
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "0", kFileIoCpp, 1957, g_assertContextByte);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("0", kFileIoCpp, 1957, empty_string);
         return 0;
     }
 

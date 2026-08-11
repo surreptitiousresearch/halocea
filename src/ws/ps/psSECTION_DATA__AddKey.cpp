@@ -32,8 +32,7 @@ int psSECTION_DATA::AddKey(dsDATA obj, unsigned int flags, int lineNmb, psCOMPLE
         value.StoreValue(obj);
 
         if (!IGNORE_STRONG_ASSERT && complexKey._psKeysArr.nElem <= 0)
-            STRONG_ASSERT_DUMMY().Crash(
-                nullptr,
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "idx >= 0 && idx < nElem",
                 "D:\\Projects\\code\\common\\src.sys\\ps\\ps_section.cpp",
                 26,

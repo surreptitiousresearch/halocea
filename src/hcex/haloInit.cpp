@@ -75,7 +75,7 @@ int haloInit()
         }
 
         if (!IGNORE_STRONG_ASSERT && instManager)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "!instManager",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("!instManager",
                                         "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp", 4208, empty_string);
 
         hcexHALO_CUSTOM_OBJ_LIST *customObjList = (hcexHALO_CUSTOM_OBJ_LIST *)operator new(

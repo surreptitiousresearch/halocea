@@ -1,4 +1,4 @@
-/* iterated_message_initialize @0x837A0BD8 — set up an iterated_message over `buffer` for the given message
+/* iterated_message_initialize @0x837A0B98 — set up an iterated_message over `buffer` for the given message
  * definition/mode: sizes the iteration-independent bitstream from the definition, zeroes the running bit
  * counters, and initializes the iteration-independent stream in write mode. Sets `initialized` and returns
  * whether the bitstream setup succeeded. Mirrors the equivalent setup in encode_iterations.c. */

@@ -25,13 +25,13 @@ void objOBJ::GetOBB(m3dOBB *pOBB)
             if ( !IGNORE_STRONG_ASSERT )
             {
                 if ( this->pGeom
-                  || (STRONG_ASSERT_DUMMY().Crash(
+                  || (static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "pGeom",
                         "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 37,
                         empty_string), !IGNORE_STRONG_ASSERT) )
                 {
                     if ( !this->pGeom->pSharedGeom )
-                        STRONG_ASSERT_DUMMY().Crash(
+                        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                             "pGeom->pSharedGeom",
                             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 38,
                             empty_string);
@@ -46,13 +46,13 @@ void objOBJ::GetOBB(m3dOBB *pOBB)
         if ( !IGNORE_STRONG_ASSERT )
         {
             if ( this->pGeom
-              || (STRONG_ASSERT_DUMMY().Crash(
+              || (static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "pGeom",
                     "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 22,
                     empty_string), !IGNORE_STRONG_ASSERT) )
             {
                 if ( !this->pGeom->pSharedGeom )
-                    STRONG_ASSERT_DUMMY().Crash(
+                    static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                         "pGeom->pSharedGeom",
                         "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_anim.cpp", 23,
                         empty_string);

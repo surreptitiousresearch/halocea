@@ -40,7 +40,7 @@ void dsERASE_MANAGER<StrIntLineEraser>::UpdateThread()
 
     while (this->eraseQueue.length) {
         if (!IGNORE_STRONG_ASSERT && this->eraseQueue.length <= 0)
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "Length() > 0",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_deque.hpp",
                 298,

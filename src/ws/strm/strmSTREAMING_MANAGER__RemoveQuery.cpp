@@ -7,7 +7,7 @@ bool strmSTREAMING_MANAGER::RemoveQuery(strmRESOURCE *resource)
 {
     if (!IGNORE_STRONG_ASSERT &&
         (resource->GetQueueId() < STRM_QUEUE_DVD || resource->GetQueueId() >= STRM_QUEUE_COUNT))
-        STRONG_ASSERT_DUMMY().Crash("resource->GetQueueId() >= 0 && resource->GetQueueId() < STRM_QUEUE_COUNT",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("resource->GetQueueId() >= 0 && resource->GetQueueId() < STRM_QUEUE_COUNT",
             "D:\\Projects\\code\\common\\src.sys\\drv\\strm_resource.cpp", 783, empty_string);
 
     STRM_QUEUE_ID queueId = resource->GetQueueId();

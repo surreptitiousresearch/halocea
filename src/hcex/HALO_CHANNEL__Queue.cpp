@@ -13,7 +13,7 @@ void HALO_CHANNEL::Queue(const sound_permutation *perm, int identifier)
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_CHANNEL::Queue", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1685, empty_string);
         return;
     }
@@ -33,7 +33,7 @@ void HALO_CHANNEL::Queue(const sound_permutation *perm, int identifier)
     if (this->state == ST_IDLE)
     {
         if (!IGNORE_STRONG_ASSERT && (this->current.soundBank || this->current.channel))
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "current.soundBank == 0 && current.channel == 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("current.soundBank == 0 && current.channel == 0",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 1706, empty_string);
         memcpy(&this->current, &this->queued, sizeof(this->current));
         this->queued.Reset();

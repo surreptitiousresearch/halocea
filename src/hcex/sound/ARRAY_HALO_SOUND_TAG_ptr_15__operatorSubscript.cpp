@@ -13,8 +13,7 @@ template<>
 const HALO_SOUND_TAG *&ds::ARRAY<const HALO_SOUND_TAG *, 15>::operator[](int i)
 {
     if (!IGNORE_STRONG_ASSERT && (unsigned)i > 0xE)
-        STRONG_ASSERT_DUMMY::Crash(
-            nullptr,
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "index >= 0 && index < Size",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h",
             115,

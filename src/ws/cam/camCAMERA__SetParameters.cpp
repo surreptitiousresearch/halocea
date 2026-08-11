@@ -37,13 +37,13 @@ void camCAMERA::SetParameters(m3dV *pOrg, m3dV *pUp, m3dV *pRight, m3dV *pForw)
     // dummy-singleton pattern — reproduced verbatim rather than default-constructing an
     // instance.
     if (!IGNORE_STRONG_ASSERT && !_m3dCheckValid(pOrg))
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("_m3dCheckValid(pOrg)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 792, m3dStrongAssertMessage);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("_m3dCheckValid(pOrg)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 792, m3dStrongAssertMessage);
     if (!IGNORE_STRONG_ASSERT && !_m3dCheckValid(pUp))
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("_m3dCheckValid(pUp)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 793, m3dStrongAssertMessage);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("_m3dCheckValid(pUp)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 793, m3dStrongAssertMessage);
     if (!IGNORE_STRONG_ASSERT && !_m3dCheckValid(pRight))
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("_m3dCheckValid(pRight)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 794, m3dStrongAssertMessage);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("_m3dCheckValid(pRight)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 794, m3dStrongAssertMessage);
     if (!IGNORE_STRONG_ASSERT && !_m3dCheckValid(pForw))
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("_m3dCheckValid(pForw)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 795, m3dStrongAssertMessage);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("_m3dCheckValid(pForw)", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 795, m3dStrongAssertMessage);
     if (!IGNORE_STRONG_ASSERT && !matrC2W.Check())
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("pMatrC2W->Check()", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 796, m3dStrongAssertMessage);
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pMatrC2W->Check()", "D:\\Projects\\code\\common\\src.sys\\m3d\\cam.cpp", 796, m3dStrongAssertMessage);
 }

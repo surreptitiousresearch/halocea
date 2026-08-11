@@ -88,7 +88,7 @@ void HALO_SOUND_SYSTEM::LoadTagParams()
     if (!IGNORE_STRONG_ASSERT) {
         HALO_SOUND_PARAMS::CMP dupCmp{};
         if (ds::RemoveDuplicates(&params, &dupCmp))
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "ds::RemoveDuplicates(params, HALO_SOUND_PARAMS::CMP()) == 0",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                 2262, empty_string);

@@ -54,7 +54,7 @@ extern real_vector3d *seed_random_vector_in_cone3d(uint32_t *seed, const real_ve
 extern real_vector3d *reflect_vector3d(const real_vector3d *incident, const real_vector3d *normal, real_vector3d *reflection);
 extern float __fsqrts(float x);
 extern void projectile_calculate_deceleration(int projectile_index);
-extern void projectile_effect_new(int projectile_index, int definition_index, collision_result *collision, real_point3d *points, real_vector3d *vectors, float scale, float __noop);
+extern void projectile_effect_new(int projectile_index, int definition_index, collision_result *collision, real_point3d *points, real_vector3d *vectors, float scale, float material_effect_scale);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);
 extern void object_attach_to_node(int parent_object_index, int child_object_index, int16_t parent_node_index);
 extern int field_translated_index_translate_index(const _field_properties_definition *const field_properties_definition, int local_index);

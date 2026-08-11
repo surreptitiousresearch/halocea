@@ -50,7 +50,7 @@ bool hcexJOB_SYNC_INST_MNG::AddInst(animINST *pInst)
         return false;
 
     if (!IGNORE_STRONG_ASSERT && this->instListEnd >= 2500 /* SCN_MAX_INST */)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "instListEnd < SCN_MAX_INST", "D:\\Projects\\code\\HCEX\\sources\\halo_main.cpp",
             1217, empty_string);
 
@@ -143,19 +143,19 @@ void hcexJOB_SYNC_INST_MNG::StartSync()
     }
 
     if (!IGNORE_STRONG_ASSERT && this->jobs.nEntry <= 1)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsValidIdx(idx)", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166,
             empty_string);
     gsJobManager.AddJob(apSTATE_T<unsigned long>{4u}, &this->jobs.list[1]);
 
     if (!IGNORE_STRONG_ASSERT && this->jobs.nEntry <= 2)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsValidIdx(idx)", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166,
             empty_string);
     gsJobManager.AddJob(apSTATE_T<unsigned long>{0x10u}, &this->jobs.list[2]);
 
     if (!IGNORE_STRONG_ASSERT && this->jobs.nEntry <= 3)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsValidIdx(idx)", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166,
             empty_string);
     gsJobManager.AddJob(apSTATE_T<unsigned long>{0x20u}, &this->jobs.list[3]);
@@ -178,7 +178,7 @@ void hcexJOB_SYNC_INST_MNG::StopSync()
     osSetSignal(this->stopJobs);
 
     if (!IGNORE_STRONG_ASSERT && this->jobs.nEntry <= 0)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "IsValidIdx(idx)", "d:\\projects\\code\\common\\incl.sys\\ds\\ds_const_list.h", 166,
             empty_string);
     this->jobs.list[0].Execute(0); // worker 0 never gets a job-manager dispatch; run it inline

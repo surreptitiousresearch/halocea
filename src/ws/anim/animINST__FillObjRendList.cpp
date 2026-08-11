@@ -51,7 +51,7 @@ void animINST::FillObjRendList(bool runtimeUpdate)
     }
 
     if (!IGNORE_STRONG_ASSERT && nVisible != nFilled)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "nObjRend1 == nObjRend2",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             912,

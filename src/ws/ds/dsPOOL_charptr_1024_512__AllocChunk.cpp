@@ -12,7 +12,7 @@ template<>
 void dsPOOL<const char *, 1024, 512>::AllocChunk()
 {
     if (!IGNORE_STRONG_ASSERT && this->numChunks >= 512)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "numChunks < MAX_CHUNKS",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_pool.h",
             200,

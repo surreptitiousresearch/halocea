@@ -17,7 +17,7 @@ int dsLF_SORTED_MAP<const char *, int, dsSTR_HASH, dsSTR_CMP>::GetHash(const cha
     // compiled literal was `> 0x55555560`, i.e. `>= BIG_PRIME` with ds::BIG_PRIME == 0x55555561
     // (prime; exact negation of the asserted `val < ds::BIG_PRIME`)
     if (!IGNORE_STRONG_ASSERT && bucketHash >= ds::BIG_PRIME)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "val >= 0 && val < ds::BIG_PRIME",
             "D:\\Projects\\code\\common\\INCL.SYS\\ds/ds_lf_map.h",
             300,

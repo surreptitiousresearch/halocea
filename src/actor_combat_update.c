@@ -154,7 +154,7 @@ void actor_combat_update(int actor_index)
     if ( actor->orders.combat.throw_grenade )                     /* throw grenade this frame */
     {
         int16_t grenade_type = (uint16_t)unit_state->grenade_combat.grenade_type;
-        if ( grenade_type != 0xFFFF && !unit_get_grenade_count(actor->meta.unit_index, grenade_type) )
+        if ( (uint16_t)grenade_type != 0xFFFF && !unit_get_grenade_count(actor->meta.unit_index, grenade_type) )   /* DEVIATION: the (uint16_t) load cast was undone by the int16_t local, so the promoted -1 made `!= 0xFFFF` always TRUE and unit_get_grenade_count was called with -1; binary zero-extends, lhz r4,0x180(r28) @0x837B99E4 + cmplwi cr6,r4,0xFFFF @0x837B99E8 */
             unit_add_grenade_type_to_inventory(actor->meta.unit_index, unit_state->grenade_combat.grenade_type, 1);
         actor_unit_control_throw_grenade(actor_index);
         ai_communication_event(_ai_communication_grenade_throwing, actor->meta.unit_index, -1, -1, -1, -1, NULL);

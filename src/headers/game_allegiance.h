@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /* game_allegiance — a single AI team-alliance record and the incident state that can
  * break it (friendly fire etc.) (game_allegiance.c). The composite globals block that
  * embeds these lives in struct_game_allegiance_globals.h. */
@@ -21,5 +22,4 @@ typedef struct game_allegiance
 
 /* Composite globals block embeds game_allegiance (defined above); include after the
  * leaf definition to preserve the type set this header historically exposed. */
-#include <stdint.h>
 #include "struct_game_allegiance_globals.h"

@@ -14,7 +14,7 @@ con::SINGLE_ENTRY_CHECKER::SINGLE_ENTRY_CHECKER(int &nEntry_)
 {
     this->nEntry = &nEntry_;
     if (!IGNORE_STRONG_ASSERT && osLockedCompareAndSwap(&nEntry_, 0, 0))
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "osLockedRead(&nEntry) == 0",
             "D:\\Projects\\code\\common\\src.sys\\console\\conComm.cpp",
             307,

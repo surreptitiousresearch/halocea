@@ -49,7 +49,7 @@ void players_reconnect_to_structure_bsp(void)
 
         int16_t cutscene_flag_index =
             ((const scenario_bsp_switch_trigger_volume *)global_scenario->bsp_switch_trigger_volumes.address)
-                [(uint16_t)players_globals->bsp_switch_trigger_index].safe_flag_index;
+                [players_globals->bsp_switch_trigger_index].safe_flag_index; /* DEVIATION: signed subscript per extsh r10,r11 + slwi 3 @0x836ACBA8 (the 0xFFFF guard above is cmplwi) */
         if ( cutscene_flag_index != -1 )
         {
             destination = ((const scenario_cutscene_flag *)global_scenario->cutscene_flags.address)

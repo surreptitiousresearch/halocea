@@ -69,7 +69,7 @@ void gsRendPrepareRenderNextFrame()
     {
         if (!IGNORE_STRONG_ASSERT)
             // Null-this call matches the decompiler's leading-nullptr this arg; Crash is a member.
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "0",
                 "D:\\Projects\\code\\common\\src.sys\\gm_sys\\gs_msg.cpp", 612,
                 empty_string);

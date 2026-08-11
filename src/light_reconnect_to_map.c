@@ -7,7 +7,13 @@
  *   - otherwise leave the cached transform as-is.
  * Then, if the light is map-relevant (flags bit1), compute its bounding sphere, resolve a scenario or
  * object location for it, and reconnect it to the partition (setting the "connected" bit2). Light datum
- * stride 124 bytes; owner object index at int[11], marker/node index at short[46], partition link at int[4]. */
+ * stride 124 bytes; owner object index at int[11], marker/node index at short[46], partition link at int[4].
+ *
+ * DEVIATION: light_index is the full 32-bit datum handle (DB proto: `int light_index`), not a uint16_t. The
+ * clrlwi at 0x836F8890 feeds only the datum subscript; `mr r28, r3` @0x836F8894 keeps the whole word and
+ * forwards it unmasked to cluster_partition_reconnect's datum_index (`mr r4, r28` @0x836F89F8), which stores
+ * it whole (`stw r25, 4(r11)` @0x837DFED8). Callers supply whole handles — object_connect_lights loads one
+ * with `lwzx r3` @0x836EDFF8 under a full-word `cmpwi r3, -1` guard. */
 
 #include <stdint.h>
 #include "headers/light_datum.h"
@@ -31,12 +37,12 @@ extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, con
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
 extern float normalize3d(real_vector3d *v);
-extern void light_compute_bounding_sphere(uint16_t light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
+extern void light_compute_bounding_sphere(int light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
 extern void scenario_location_from_point(location *location, const real_point3d *point);
 extern location *object_get_location(int object_index, location *location_out);
 extern void cluster_partition_reconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference, const real_point3d *position, float radius, const location *location);
 
-void light_reconnect_to_map(uint16_t light_index)
+void light_reconnect_to_map(int light_index)
 {
     light_datum *light = DATA_ARRAY_ELEMENT(light_data, light_datum, light_index);
     int owner_object_index = light->object_index;

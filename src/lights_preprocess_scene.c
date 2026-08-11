@@ -60,8 +60,8 @@ extern int game_time_get(void);
 extern int data_next_index(const data_array *data, int16_t index);
 extern void datum_delete(data_array *data, int index);
 extern void cluster_partition_disconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference);
-extern void light_disconnect_from_map(uint16_t light_index);
-extern void light_reconnect_to_map(uint16_t light_index);
+extern void light_disconnect_from_map(int light_index);
+extern void light_reconnect_to_map(int light_index);
 extern void   hcex_destroy_light(int light_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 

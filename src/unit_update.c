@@ -401,8 +401,8 @@ uint8_t unit_update(int unit_index)
                 if ( zoom_level == -1 )
                     unit->unit.integrated_night_vision_power = 0.0f;
                 if ( player_index_from_unit_index(unit_index) != -1
-                    && DATA_ARRAY_ELEMENT(player_data, player_datum, player_index_from_unit_index(unit_index))
-                        ->local_player_index != 0xFFFF )
+                    && (uint16_t)DATA_ARRAY_ELEMENT(player_data, player_datum, player_index_from_unit_index(unit_index))
+                        ->local_player_index != 0xFFFF )   /* DEVIATION: int16_t field — uncast, the promoted -1 made this always TRUE, so the zoom-change HUD refresh ran for non-local players; binary zero-extends, lhz r9,2(r10) @0x836D4B24 + cmplwi cr6,r9,0xFFFF @0x836D4B28 */
                 {
                     int16_t weapon_slot = unit->unit.current_weapon_index;
                     if ( weapon_slot != -1 )

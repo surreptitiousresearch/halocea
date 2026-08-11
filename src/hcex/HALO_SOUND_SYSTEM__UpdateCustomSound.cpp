@@ -29,13 +29,13 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.soundBank->getSubSound(sound.fsbIndex, &sound.subSound)\"",
                     SND_SRC, 1036, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", SND_SRC, 1036, res, FModErrorDesc(res, false));
         }
         if (!IGNORE_STRONG_ASSERT && !sound.subSound)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "sound.subSound != 0", SND_SRC, 1037, empty_string);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("sound.subSound != 0", SND_SRC, 1037, empty_string);
     }
 
     if (!sound.channel)
@@ -49,19 +49,19 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"system->playSound(FMOD_CHANNEL_FREE, sound.subSound, true, &sound.channel)\"",
                     SND_SRC, 1048, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", SND_SRC, 1048, res, FModErrorDesc(res, false));
         }
         if (!IGNORE_STRONG_ASSERT && !sound.channel)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "sound.channel != 0", SND_SRC, 1049, empty_string);
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("sound.channel != 0", SND_SRC, 1049, empty_string);
 
         res = sound.channel->setMode(FMOD_2D); // li r4, 8 @0x836BE8BC
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setMode(FMOD_2D)\"",
                     SND_SRC, 1051, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", SND_SRC, 1051, res, FModErrorDesc(res, false));
@@ -71,7 +71,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setVolume(sound_manager_globals.master_gain)\"",
                     SND_SRC, 1052, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", SND_SRC, 1052, res, FModErrorDesc(res, false));
@@ -81,7 +81,7 @@ bool HALO_SOUND_SYSTEM::UpdateCustomSound(HALO_CUSTOM_SOUND &sound)
         if (res)
         {
             if (res == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" \"sound.channel->setPaused(false)\"",
                     SND_SRC, 1054, empty_string);
             osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n", SND_SRC, 1054, res, FModErrorDesc(res, false));

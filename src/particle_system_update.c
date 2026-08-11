@@ -34,8 +34,18 @@
 #include "headers/particle_system_type_particle_state_interpolated_randomized_variables.h"
 
 
-extern void (*system_update_functions[])(particle_system_datum *system, double dtime);
-extern void (*particle_update_functions[])(particle_system_datum *system, int type_index, double dtime);
+/* DEVIATION: both dispatch tables were re-declared here with the wrong element signature —
+ * `particle_update_functions` with THREE parameters and `dtime` as `double` in both. The binary
+ * settles both: at the particle dispatch (`bctrl` @0x8373ADEC) it materializes r3=system,
+ * r4=type_index, f1=dtime AND `mr r6, r31` — the current particle, r6 being the 4th slot once
+ * `dtime` consumes the r5 one (the float-slot-skip ABI, which is exactly why the decompiler lost
+ * it); `fmr f1, f29` with f29 built by `fmuls`/`stfs` throughout is single precision, not double.
+ * The DB applied types at 0x8211D4EC/0x8211D500 and the handler definition TUs
+ * (particle_system_update_default, particle_system_update_particle_default) agree with the
+ * disassembly on every component. */
+extern void (*system_update_functions[])(particle_system_datum *system, float dtime);
+extern void (*particle_update_functions[])(const particle_system_datum *system, int16_t type_index,
+        float dtime, ps_particle_datum *particle);
 
 extern uint8_t object_get_function_value(int object_index, int16_t function_index, float *value_reference);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
@@ -104,7 +114,7 @@ void particle_system_update(float dtime, int particle_system_index)
 
                     {
                         float lower, upper, span;
-                        if ( transition_state_index == 0xFFFF )
+                        if ( (uint16_t)transition_state_index == 0xFFFF )   /* DEVIATION: the (uint16_t) load cast was undone by the int16_t local, so the promoted -1 never matched and the no-transition arm was dead. The local stays SIGNED because the binary loads it once (lhz r11,2(r30) @0x8373A8EC) and derives BOTH forms: cmplwi cr6,r11,0xFFFF @0x8373A8F4 here, extsh r11,r11 @0x8373A970 + cmpwi cr6,r11,-1 @0x8373A978 for the `== -1` test further down — which must keep its raw -1 */
                         {
                             particle_system_next_type_state_index(system, type, type_definition);
                             upper = current_state->transition_time_upper_bound;
@@ -233,7 +243,7 @@ type_state_done:
                             span = real_seed_random_range(get_global_local_random_seed_address(), lower, upper);
                             particle->time_left_in_state = span + particle->time_left_in_state;
                             particle->state_length = span;
-                            if ( particle_transition == 0xFFFF )
+                            if ( (uint16_t)particle_transition == 0xFFFF )   /* DEVIATION: (uint16_t) load cast undone by the int16_t local — the promoted -1 never matched, so the carry-over memcpy never ran and randomize_particle_variables was called with -1; binary zero-extends, lhz r11,0xA(r31) @0x8373ABF8 + cmplwi cr6,r11,0xFFFF @0x8373ABFC (the same field's tests at lines 216/258 already use this spelling) */
                                 memcpy(&particle->randomized_variables, &particle->transition_randomized_variables, 28); /* 7 dwords */
                             else
                                 randomize_particle_variables(type_definition, &particle->transition_randomized_variables, particle_transition);
@@ -278,7 +288,8 @@ type_state_done:
                                 particle->sprite_index = ((animation_rate
                                                 * type->variables.particle_state_randomized_multipliers.animation_rate) * dtime) + particle->sprite_index;
                             }
-                            particle_update_functions[type_state->particle_update_physics](system, type_index, dtime);
+                            particle_update_functions[type_state->particle_update_physics](
+                                    system, (int16_t)type_index, dtime, particle);
                             previous = particle;
                             particle_index = (int16_t)particle->next_particle_index;
                         }

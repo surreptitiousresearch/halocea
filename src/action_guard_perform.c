@@ -56,7 +56,7 @@ uint8_t action_guard_perform(int actor_index)
         return 0;
     }
 
-    if ( guard->guard_location_type == _actor_guard_location_firing_position && actor->firing_positions.current_position_index == 0xFFFF )
+    if ( guard->guard_location_type == _actor_guard_location_firing_position && (uint16_t)actor->firing_positions.current_position_index == 0xFFFF )   /* DEVIATION: int16_t field — the uncast compare promoted to -1 and was always false, so the stale-firing-position reset never ran; binary zero-extends, lhz r11,0x3B8(r10) @0x83823E9C + cmplwi cr6,r11,0xFFFF @0x83823EA0 */
     {
         guard->guard_location_type = _actor_guard_location_none;
         guard->find_new_guard_position = 1;

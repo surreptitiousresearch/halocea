@@ -12,7 +12,7 @@ objOBJ::DataFreeProc objOBJ::dataFree = nullptr;
 void objOBJ::FreeObjData(unsigned int data, void *oldData)
 {
     if (!IGNORE_STRONG_ASSERT && data >= OBJ_DATA_MAX)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "data >= 0 && data < OBJ_DATA_MAX",
             "D:\\Projects\\code\\common\\src.sys\\objects\\Obj_alloc.cpp", 1330,
             empty_string);

@@ -17,7 +17,7 @@ bool apDLSTAT_SMALL_IFACE::Remove(void *memBlock, bool isAllocator, apMEM_ALLOC_
     if (isAllocator)
     {
         if (!IGNORE_STRONG_ASSERT && !check_ptr(memBlock))
-            reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "check_ptr(memBlock)",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                 226,
@@ -38,7 +38,7 @@ bool apDLSTAT_SMALL_IFACE::Remove(void *memBlock, bool isAllocator, apMEM_ALLOC_
     {
         apMEM_ALLOC_INFO *realInfo = apDlstatSmallRemove(memBlock);
         if (!IGNORE_STRONG_ASSERT && !realInfo)
-            reinterpret_cast<STRONG_ASSERT_DUMMY *>(0)->Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "realInfo",
                 "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dlstat_small.cpp",
                 237,

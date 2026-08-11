@@ -8,7 +8,7 @@ template<>
 msgADDR **ds::impl::MAP_ITERATOR<int, msgADDR *, ds::HASH, ds::CMP, dsNODE_CACHE_ALLOCATOR>::value() const
 {
     if (!IGNORE_STRONG_ASSERT && !item) {
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "item != 0",
             "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp",
             169,

@@ -12,7 +12,7 @@ void HALO_SOUND_LIST::Init(const char *levelName, const char *lst, const char *f
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_SOUND_LIST::Init", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1155, empty_string);
         return;
@@ -30,7 +30,7 @@ void HALO_SOUND_LIST::Init(const char *levelName, const char *lst, const char *f
 
     if (prepareStreams != -1) {
         if (!IGNORE_STRONG_ASSERT && prepareStreams <= 0)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "prepareStreams > 0",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("prepareStreams > 0",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1173, empty_string);
         this->streams.Resize(prepareStreams);

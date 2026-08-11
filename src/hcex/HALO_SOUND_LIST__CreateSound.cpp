@@ -14,7 +14,7 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_SOUND_LIST::CreateSound", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1580, empty_string);
         return nullptr;
@@ -44,8 +44,7 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
             &exinfo, &sound);
         if (result) {
             if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(
-                    nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                     "\"haloSoundSystem->system->createSound((char *)data, FMOD_OPENMEMORY_POINT | "
                     "FMOD_CREATECOMPRESSEDSAMPLE | flags, &exinfo, &sound)\"",
@@ -59,8 +58,7 @@ FMOD::Sound *HALO_SOUND_LIST::CreateSound()
         result = haloSoundSystem->system->createStream(this->fileName.pBuffer->str, flags, &exinfo, &sound);
         if (result) {
             if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(
-                    nullptr,
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                     "!\"Sound file not found. Check perforce settings.\\nInfo: \" "
                     "\"haloSoundSystem->system->createStream(fileName.CStr(), flags, &exinfo, &sound)\"",
                     "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",

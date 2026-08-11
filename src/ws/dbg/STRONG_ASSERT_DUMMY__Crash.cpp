@@ -3,7 +3,7 @@
 #include "../../headers/ws/ds/dsTSTRING_BUF_HEADER.h"
 
 // STRONG_ASSERT_DUMMY::Crash @ 0x825202A8 — the Saber strong-assertion crash reporter, and the
-// concrete body behind the hcex bridge's flattened extern STRONG_ASSERT_DUMMY_Crash.
+// only definition of it in the corpus (?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z, one symbol).
 //
 // Fires at most once (bHappend latch). Builds a message from the failed condition, source
 // location and caller-supplied info (optionally suffixed with the shared assert-context string),

@@ -22,7 +22,7 @@ unsigned int ds::MAP<dsSTRID, DBG_CINE_ACTOR_INFO, ds::HASH, ds::CMP, dsNODE_CAC
     int val = (int)(unsigned int)((unsigned long long)h - q * 1431655777ULL);
     if (!IGNORE_STRONG_ASSERT) {
         if (val < 0 || (unsigned int)val >= 1431655777u)
-            ((STRONG_ASSERT_DUMMY *)nullptr)->Crash("val >= 0 && (unsigned) val < ds::BIG_PRIME",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("val >= 0 && (unsigned) val < ds::BIG_PRIME",
                 "d:\\projects\\code\\common\\incl.sys\\ds\\ds_map.hpp", 243, empty_string);
     }
     return (unsigned int)val;

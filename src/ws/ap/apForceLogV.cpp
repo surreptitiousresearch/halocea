@@ -23,12 +23,12 @@ extern void osFileSetNormal(const char *name);
 // boundary — strong-assert stub and its context byte / suppression flag.
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */
-namespace STRONG_ASSERT_DUMMY {
-    // DEVIATION: slot 5 was `char msgCtx`, an artefact of empty_string having been declared here
-    // as a scalar `char`. ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z is (const char*, const char*,
-    // int, const char*) after the implicit this — the trailing arg is the "info" string pointer.
-    void Crash(void *ctx, const char *expr, const char *file, int line, const char *info);
-}
+// ?Crash@STRONG_ASSERT_DUMMY@@QAAXPBD0H0@Z is a PUBLIC NON-STATIC member taking (const char*,
+// const char*, int, const char*) after the implicit this — the trailing arg is the "info" string
+// pointer. DEVIATION: this TU declared it as a namespace-scope free function with a leading
+// context slot (and, before that, a `char msgCtx` tail, an artefact of empty_string having been
+// declared here as a scalar `char`). Neither mangles to a symbol the image contains.
+#include "../../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 
 // Adjacent global marking the end of the _apLogList table (see apLOG.h).
 extern "C" int gs_prefix; // referenced only for &gs_prefix as the scan bound
@@ -101,8 +101,8 @@ int apForceLogV(const char *name, char *string, char *argPtr)
         if (vsnprintf(message, 0x800, string, argPtr) == -1)
         {
             if (!IGNORE_STRONG_ASSERT)
-                STRONG_ASSERT_DUMMY::Crash(
-                    nullptr, "!\"Trying to print too large message\"",
+                static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
+                    "!\"Trying to print too large message\"",
                     "D:\\Projects\\code\\common\\src.sys\\ap\\ap_log.cpp", 398, empty_string);
             return 0;
         }

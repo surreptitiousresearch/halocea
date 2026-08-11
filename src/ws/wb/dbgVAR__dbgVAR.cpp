@@ -23,7 +23,7 @@ dbgVAR::dbgVAR(const dsTSTRING<char> &_name, int _typeId)
     dbgVAR_MANAGER *manager = dbgVAR_MANAGER::GetManager();
     dbgVAR *existing = manager->FindFirst(_name);
     if (existing && _typeId != existing->typeId && !IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "0",
             "D:\\Projects\\code\\common\\src.sys\\ap\\ap_dbg_var.cpp",
             533,

@@ -13,7 +13,7 @@ int HALO_CHANNEL::GetState()
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_CHANNEL::GetState", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2045, empty_string);
         return 0;
     }
@@ -24,7 +24,7 @@ int HALO_CHANNEL::GetState()
     if ((unsigned int)state > (unsigned int)ST_CROSSFADE)
     {
         if (!IGNORE_STRONG_ASSERT)
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "false",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("false",
                 "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", 2062, empty_string);
         return 0;
     }

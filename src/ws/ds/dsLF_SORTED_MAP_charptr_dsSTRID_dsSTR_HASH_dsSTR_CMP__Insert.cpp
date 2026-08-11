@@ -24,7 +24,7 @@ void dsLF_SORTED_MAP<const char *, dsSTRID, dsSTR_HASH, dsSTR_CMP>::Insert(
     int index = this->FindKeyGE(line, &key);
 
     if (!IGNORE_STRONG_ASSERT && line && index != line->length && line->items[index].key == key)
-        ((STRONG_ASSERT_DUMMY *)nullptr)->Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "line == 0 || index == line->length || line->items[index].key != key",
             "D:\\Projects\\code\\common\\incl.sys\\ds\\ds_lf_map.h",
             261,

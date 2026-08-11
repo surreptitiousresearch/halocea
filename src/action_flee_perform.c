@@ -55,7 +55,7 @@ uint8_t action_flee_perform(int actor_index)
         {
             flee->find_new_flee_position = 1;
         }
-        else if ( actor->firing_positions.current_position_index == 0xFFFF )   /* actor lost its current firing position */
+        else if ( (uint16_t)actor->firing_positions.current_position_index == 0xFFFF )   /* actor lost its current firing position. DEVIATION: the field is int16_t, so the uncast compare promoted -1 and was always false; the binary zero-extends — lhz r11,0x3B8(r29) @0x838259C8 + cmplwi cr6,r11,0xFFFF @0x838259CC */
         {
             flee->flee_firing_position_index = -1;
             flee->find_new_flee_position = 1;

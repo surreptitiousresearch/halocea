@@ -29,7 +29,7 @@ void animINST::CalcOrthoL2W(m3dMATR *matrOrthoL2W)
 
     int normalizedOk = _m3dNormalize(&upAxis) & _m3dNormalize(&rightAxis);
     if (!IGNORE_STRONG_ASSERT && !normalizedOk)
-        STRONG_ASSERT_DUMMY().Crash(
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
             "rc",
             "D:\\Projects\\code\\common\\src.sys\\animation\\anim.cpp",
             1550,

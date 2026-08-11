@@ -17,7 +17,7 @@
 
 
 extern int datum_new(data_array *data);
-extern void light_reconnect_to_map(uint16_t light_index);
+extern void light_reconnect_to_map(int light_index);
 extern void hcex_init_light(int light_index);
 
 int light_new(int definition_index, int object_index, int16_t object_attachment_index,

@@ -1,4 +1,4 @@
-/* unit_throw_grenade_begin @0x836CFC0C — start a unit's grenade-throw. Fails if the unit has no
+/* unit_throw_grenade_begin @0x836CFBE0 — start a unit's grenade-throw. Fails if the unit has no
  * grenades of the current type, is already busy in an animation, or holds a weapon that blocks grenade
  * throwing. On success it stops any reload/melee, enters the throw animation state (33), seeds the
  * throw timing from the animation's key frame, aligns the unit's facing (to the supplied vector, or to

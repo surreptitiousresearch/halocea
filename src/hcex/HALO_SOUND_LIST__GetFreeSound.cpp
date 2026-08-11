@@ -14,14 +14,14 @@ FMOD::Sound *HALO_SOUND_LIST::GetFreeSound(bool tryToUsePreloaded)
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "HALO_SOUND_LIST::GetFreeSound", snd::THREAD_ID, osGetCurThreadId());
         if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
-            STRONG_ASSERT_DUMMY::Crash(nullptr, "snd::THREAD_ID == osGetCurThreadId()",
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                                        "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                        1463, empty_string);
         return nullptr;
     }
 
     if (!IGNORE_STRONG_ASSERT && !this->isLoaded)
-        STRONG_ASSERT_DUMMY::Crash(nullptr, "isLoaded",
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("isLoaded",
                                    "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp",
                                    1465, empty_string);
 

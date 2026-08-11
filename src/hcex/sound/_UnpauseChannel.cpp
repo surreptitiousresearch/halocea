@@ -19,7 +19,7 @@
 static void report_fmod_error(FMOD_RESULT result, int line, const char *info)
 {
     if (result == FMOD_ERR_FILE_NOTFOUND && !IGNORE_STRONG_ASSERT)
-        STRONG_ASSERT_DUMMY().Crash(info,
+        static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(info,
             "D:\\Projects\\code\\HCEX\\sources\\sound\\fmod\\sound_dsound_fmod.cpp", line, empty_string);
     const char *desc = FModErrorDesc(result, 0);
     osOutputDebugString("%s(%d): FMOD error 0x%08x (%s)\n",

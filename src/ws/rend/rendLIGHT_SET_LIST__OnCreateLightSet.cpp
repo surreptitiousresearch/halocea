@@ -15,7 +15,7 @@ void rendLIGHT_SET_LIST::OnCreateLightSet(rendLIGHT_SET *pLS)
     {
         if (!IGNORE_STRONG_ASSERT && lightSets[lightSetIndex] == pLS)
         {
-            STRONG_ASSERT_DUMMY().Crash(
+            static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash(
                 "lightSets[i] != pLS",
                 "D:\\Projects\\code\\common\\src.sys\\render\\Rend_light_set.cpp",
                 208,

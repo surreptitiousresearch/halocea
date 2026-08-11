@@ -1,14 +1,15 @@
 #include "headers/blam_data_globals.h"
 
-/* DEVIATION: decompiler shows loop over 28 field_type_definition structs at 24-byte stride;
-   sets initialized flag (1 byte past the 6th int of each struct) to 0 */
+/* DEVIATION: the base symbol was read off IDA's DISPLACEMENT spelling. @0x837A1130 the binary does
+ * `addi r11, r11, (gITEM_PLACEMENT_BITS_Z - 0x84182E10)` -- that expression is IDA printing the
+ * constant -4, not a reference to gITEM_PLACEMENT_BITS_Z (a 4-byte int at 0x84182E0C, which happens
+ * to sit exactly 4 bytes below the real base). r11 comes from
+ * `lis/addi _message_delta_global_field_type_list` @0x837A1124-1128 (0x84182E10), so the 28
+ * `stbu r10, 0x18(r11)` @0x837A1138 clear byte 0x14 -- `initialized` -- of each 24-byte row of
+ * message_delta_global_field_type_list[28], which is what the old comment already described. The
+ * old transcription walked 672 bytes off a 4-byte global. Byte-for-byte the same 28 stores. */
 void dispose_types(void)
 {
-    int *v = &gITEM_PLACEMENT_BITS_Z;
-    int n = 28;
-    do {
-        v += 6;
-        *(char *)v = 0;
-        --n;
-    } while (n);
+    for ( int type_index = 0; type_index < 28; type_index++ )
+        message_delta_global_field_type_list[type_index].initialized = 0;
 }

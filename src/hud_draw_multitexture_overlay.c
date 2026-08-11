@@ -25,6 +25,7 @@
  *     64-bit values; unwound to the individual int/float/pointer they carry. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/multitexture_overlay_hud_element_definition.h"
 #include "headers/multitexture_overlay_hud_element_effector_definition.h"
 #include "headers/hud_multitexture_overlay_effector_source.h"
@@ -111,15 +112,18 @@ void hud_draw_multitexture_overlay(
         vertices[i].position.n[1] = (float)py;
     }
 
-    /* bulk-initialise the geometry params to the 0x00000011,0x00000000 dword pattern the compiler emits (139 bytes) */
+    /* DEVIATION: the old prelude transcribed Hex-Rays' 64-bit store of 0x1100000000 verbatim, but
+     * that constant is the "local variable allocation has failed" fusion of two registers:
+     * @0x8379EF24 the binary sets li r9,0x11 -- the ctr trip count -- and @0x8379EF2C mr r10,r28
+     * with r28 = 0 (li r28,0 @0x8379EE0C, not rewritten until 0x8379F524). The fill zeroes; it does
+     * not write {17,0} pairs. Extent: r11 = &params - 8 @0x8379EF28, then 17 stdu doublewords
+     * @0x8379EF34 plus the trailing stw @0x8379EF3C cover exactly 17*8 + 4 = 140 bytes =
+     * sizeof(rasterizer_dynamic_screen_geometry_parameters) (DB and header_sizes agree); the old
+     * comment's "139 bytes" was wrong too. On PPC/BE the old store poisoned every EVEN word with
+     * 17 -- and on x64/LE it would poison the ODD ones instead. Same fusion as object_damage_update
+     * (9989fe960, UR-8). */
     rasterizer_dynamic_screen_geometry_parameters params;
-    char *init_cursor = (char *)&params - 8;
-    for ( int n = 17; n; --n )
-    {
-        init_cursor += 8;
-        *(long long *)init_cursor = 0x1100000000LL;
-    }
-    ((int *)init_cursor)[2] = 0;   /* faithful tail dword of the 139-byte bulk init */
+    memset(&params, 0, sizeof(params));
 
     params.map_texture_scale[0].n[1] = 1.0f;
     params.map_texture_scale[0].n[0] = 1.0f;

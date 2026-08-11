@@ -16,9 +16,12 @@
  * per-player completed-client-update id comes from the action queue (local) or is -1 (remote) rather than
  * from a dequeued machine-index array.
  *
- * DEVIATION (disasm 0x836ADB40-0x836ADB50): the "no action available" default packet is written as four
- * 64-bit stores of the constant {HIDWORD=-1, LODWORD=0} (0xFFFFFFFF00000000), i.e. each aligned dword pair
- * becomes {-1, 0}; reproduced with explicit 64-bit stores. */
+ * DEVIATION (disasm 0x836ADB40-0x836ADB50): the "no action available" default packet is four 64-bit
+ * stores of r30 over the 32-byte player_action, and r30 is ZERO (li r30,0 @0x836ADA40, unmodified
+ * until well past the loop). Hex-Rays printed the constant 0xFFFFFFFF00000000 -- its "local variable
+ * allocation has failed" fusion of two unrelated registers, r29 = -1 (completed_client_update_id,
+ * li r29,-1 @0x836ADA9C) over r30 = 0 -- and an earlier transcription reproduced that literal, which
+ * poisoned every even word of the packet with -1. It is a plain clear; see the site. */
 
 #include <stdint.h>
 #include <string.h>
@@ -97,14 +100,15 @@ void players_update_before_game_client(void)
                 }
                 else
                 {
-                    /* no action available → default "empty" packet (see DEVIATION): overwrite the whole
-                     * 32-byte player_action as four aligned {HIDWORD=-1, LODWORD=0} doublewords */
-                    uint64_t empty_fill = 0xFFFFFFFF00000000ULL;
-                    uint64_t *action_words = (uint64_t *)&action;
-                    action_words[0] = empty_fill;
-                    action_words[1] = empty_fill;
-                    action_words[2] = empty_fill;
-                    action_words[3] = empty_fill;
+                    /* DEVIATION: the "empty" packet was transcribed from Hex-Rays' 64-bit literal
+                     * 0xFFFFFFFF00000000, which is the documented "local variable allocation has
+                     * failed" fusion of two UNRELATED registers -- li r29,-1 @0x836ADA9C (that is
+                     * completed_client_update_id, assigned just below) merged with li r30,0
+                     * @0x836ADA40. The binary's own stores are four `std r30, {0,8,0x10,0x18}(r11)`
+                     * @0x836ADB44-50 with r11 = &action @0x836ADB40, and r30 is 0 throughout: the
+                     * default packet is the all-zero 32-byte player_action. The old form wrote -1
+                     * into every EVEN word on PPC/BE (and into the ODD ones on x64/LE). */
+                    memset(&action, 0, sizeof(action));
                 }
             }
         }

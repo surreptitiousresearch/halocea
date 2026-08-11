@@ -50,6 +50,7 @@
 #include "headers/material_type.h"
 
 #include "headers/real_quaternion.h"
+#include "headers/friction_datum.h"
 extern double sin(double x);
 extern double cos(double x);
 extern float __fsqrts(float x);
@@ -66,9 +67,8 @@ extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, f
 extern void scenario_location_from_point(location *location, const real_point3d *point);
 extern void scenario_location_from_line(location *out_location, const location *start_location, const real_point3d *start_point, const real_point3d *end_point);
 extern float scenario_location_water_depth(const location *location, const real_point3d *position);
-extern void compute_ground_plane(int object_index, mass_point_datum *mp, const mass_point_definition *def);
-extern void friction_evaluate(int16_t type, float parallel_scale, float perpendicular_scale,
-                              friction_datum *components, real_vector3d *primary, real_vector3d *secondary);
+extern void compute_ground_plane(int object_index, mass_point_datum *mass_point, const struct mass_point_definition *mass_point_definition);
+extern void friction_evaluate(int16_t type, float parallel_scale, float perpendicular_scale, friction_datum *components, real_vector3d *primary, real_vector3d *secondary);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);
 

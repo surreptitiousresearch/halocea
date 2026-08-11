@@ -70,7 +70,7 @@ extern void object_header_delete(data_array *data, int object_index);
 extern int effect_new_from_object(int definition_index, int owner_object_index, int object_index, int16_t force_local_player_index, float scale_a, float scale_b, const real_rgb_color *color, const effect_vector_field *impulse_field);
 extern network_game_server *global_network_game_server_get(void);
 extern uint8_t network_game_server_send_message_to_all_loaded_machines(struct network_game_server *server, int type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern const char *tag_name_strip_path(const char *name);
 extern void console_printf(uint8_t clear, const char *format, ...);
 

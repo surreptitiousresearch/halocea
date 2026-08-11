@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 extern "C" int global_scenario_index;
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 extern "C" const char *hcex_get_autosave_name(const char *scenario_name);
 extern "C" void hcex_set_current_checkpoint(const char *autosave_name);
 extern "C" void *CreateFileA(const char *name, unsigned int access, unsigned int share, void *security,

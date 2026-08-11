@@ -10,7 +10,7 @@
 #include "headers/game_state_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern uint32_t cache_files_get_checksum(void);
 
 uint8_t game_state_header_valid(game_state_header *header, uint8_t fatal)

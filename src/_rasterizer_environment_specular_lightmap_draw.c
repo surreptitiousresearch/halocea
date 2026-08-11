@@ -42,7 +42,7 @@ extern int rasterizer_set_texture_direct_for_effect(int16_t stage, int bitmap_gr
 extern int rasterizer_set_texture_bitmap_data_for_effect(int16_t stage, bitmap_data *bitmap, rasterizer_dx9_shader *dxeffect_shader);
 extern void D3DDevice_SetTexture(D3DDevice *device, unsigned int Sampler, struct D3DBaseTexture *texture,
                                  uint64_t fetch_constant);
-extern void shader_environment_texture_animation_evaluate(const struct shader *shader, double time_value, float *u_offset, float *v_offset);
+extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
                                                 uint64_t PendingMask0);

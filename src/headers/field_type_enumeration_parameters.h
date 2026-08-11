@@ -2,7 +2,7 @@
 /* _field_type_enumeration_parameters — the `parameters` blob for an enumeration field (12 bytes, DB layout). */
 
 /* DB-verified (types_enum_values _field_width): storage widths for enumeration/flag fields.
- * 0 = 1 byte, 1 = 2 bytes, else 4 bytes (per field_type_enumeration_size_calculator). */
+ * 0 = 1 byte, 1 = 2 bytes, else 4 bytes (per _field_type_enumeration_size_calculator). */
 typedef enum _field_width
 {
     _field_width_small  = 0,

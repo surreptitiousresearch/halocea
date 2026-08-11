@@ -25,8 +25,8 @@ extern void object_add_to_dump(int object_index, dump_datum *dump);
 extern void object_dump_write(struct _iobuf *stream, dump_datum *dump);
 extern void objects_information_get(objects_information *information);
 extern const char * object_type_get_name(int16_t object_type);
-extern char *tag_get_name(int16_t tag_index);
-extern int sort_dumps(const void *dump1, const void *dump2);   /* CRT-conformant comparator slot; see src/sort_dumps.c */
+extern char *tag_get_name(int tag_index);
+extern int sort_dumps(const void *p1, const void *p2);   /* CRT-conformant comparator slot; see src/sort_dumps.c */
 
 void objects_dump_memory(void)
 {

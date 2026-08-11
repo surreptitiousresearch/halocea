@@ -32,7 +32,7 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/render_skinning.h"
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);
 extern void rasterizer_model_begin(const rasterizer_model_begin_parameters *parameters, uint8_t do_not_change_z_stencil_states);
 extern void rasterizer_environment_shadow_model_begin(const rasterizer_model_begin_parameters *parameters);

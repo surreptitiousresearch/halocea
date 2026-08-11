@@ -75,13 +75,13 @@ extern void update_human_tank_physics(int vehicle_index, powered_mass_point_datu
 extern void update_human_jeep_physics(int vehicle_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points);
 extern void update_human_boat_physics(int vehicle_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points);
 extern void update_human_plane_physics(int vehicle_index, mass_point_datum *mass_points);
-extern void update_alien_scout_physics(int vehicle_index, float steering_angle, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points);
+extern void update_alien_scout_physics(int vehicle_index, float steering, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points);
 extern void update_alien_fighter_physics_new(int vehicle_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points);
 extern void update_alien_fighter_physics_old(int vehicle_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points);
 extern void physics_update(int object_index, powered_mass_point_datum *powered_mass_points, mass_point_datum *mass_points, const real_vector3d *magic_force, const real_vector3d *magic_torque);
 extern void create_ghost_effect(int vehicle_index);
 extern void create_slipping_effects(int vehicle_index, mass_point_datum *mass_points);
-extern void create_crashing_effects(int vehicle_index, real_vector3d *old_velocity, mass_point_datum *mass_points);
+extern void create_crashing_effects(int vehicle_index, const real_vector3d *old_velocity, mass_point_datum *mass_points);
 extern void compute_airborne_ticks(int vehicle_index, mass_point_datum *mass_points);
 extern int16_t unit_update_animation(int unit_index, unit_animation_update_data *data);
 extern void damage_data_new(damage_data *damage_data, int definition_index);

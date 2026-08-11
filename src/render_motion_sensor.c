@@ -33,8 +33,7 @@
 extern int16_t director_get_perspective(int16_t local_player_index);
 extern void rasterizer_hud_motion_sensor_blip_begin(void);
 extern void rasterizer_hud_motion_sensor_blip_end(const real_point2d *center_point, float theta);
-extern void render_blip(motion_sensor_datum *sensor_datum, char blip_type, char blip_size_type,
-        const real_point2d *point, float relative_scale, float fade, float radius);
+extern void render_blip(motion_sensor_datum *sensor_datum, char blip_type, char blip_size_type, const real_point2d *point, float relative_scale, float fade, float radius);
 extern uint8_t game_engine_running(void);
 extern game_variant *game_engine_get_variant(void);
 extern uint8_t game_engine_get_goal_in_use(int16_t index);

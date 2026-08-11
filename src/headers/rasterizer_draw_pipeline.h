@@ -23,7 +23,7 @@ extern "C" {
 extern void rasterizer_water_draw_pp(const transparent_geometry_group *group);
 extern void rasterizer_environment_diffuse_light_draw_pp(const shader *shader, int16_t shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer);
 extern void rasterizer_environment_diffuse_texture_draw_pp(const shader *shader, int16_t shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer);
-extern void rasterizer_environment_lightmap_draw_pp(const shader *shader, short shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer);
+extern void _rasterizer_environment_lightmap_draw_pp(const shader *shader, short shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer);
 extern void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t shader_permutation_index, const triangle_buffer *triangle_buffer, int dynamic_triangle_buffer_index, int triangle_count, const vertex_buffer *vertex_buffer, int dynamic_vertex_buffer_index);
 extern void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t shader_permutation_index, const triangle_buffer *triangle_buffer, int dynamic_triangle_buffer_index, int triangle_count, const vertex_buffer *vertex_buffer, int dynamic_vertex_buffer_index);
 extern void rasterizer_glass_draw_tint_pp(const transparent_geometry_group *group);

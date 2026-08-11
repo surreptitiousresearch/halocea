@@ -14,7 +14,7 @@
 
 struct collision_bsp;
 
-extern uint8_t collision_bsp_test_vector_recursive(test_vector_data *data, int child_index, float t0, float t1);
+extern uint8_t collision_bsp_test_vector_recursive(test_vector_data *data, int child_index, double t0, double t1);
 
 /* Return is 8-bit: all 10 callers normalize the result with clrlwi rN,r3,24. */
 uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp,

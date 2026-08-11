@@ -12,7 +12,7 @@
 extern int rasterizer_dynamic_triangles_new(int count);
 extern rasterizer_triangle *rasterizer_dynamic_triangles_lock(int dynamic_triangle_buffer_index);
 extern void rasterizer_dynamic_triangles_unlock(int dynamic_triangle_buffer_index);
-extern void qsort_4byte(void *base, unsigned int num, int (*compare)(int, int));
+extern void qsort_4byte(int *base, unsigned int num, int (*compare)(int, int));
 extern int compare_surface_indices(int index1, int index2);
 /* DB prototype for this callee is mislabeled (lists a surface_count + a 4th triangles arg); the call site
  * passes exactly (surface_indices, surface_flags, locked_buffer) in r3/r4/r5. */

@@ -38,7 +38,7 @@ struct decal_editor_geometry;
 
 #include "headers/sound_location.h"
 #include "headers/decal_editor_geometry.h"
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern uint32_t *get_global_random_seed_address(void);
 extern uint32_t *get_global_local_random_seed_address(void);
 extern void effect_random_translational_velocity(uint32_t *seed, const effect_datum *effect, const real_vector3d *forward, real_vector3d *direction, real_vector3d *velocity, float lower_bound, float upper_bound, float cone_angle, unsigned int a_scale_flags, unsigned int b_scale_flags);

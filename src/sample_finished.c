@@ -9,7 +9,7 @@
 extern void add_finished_data_sample(net_graph *graph, int sample);
 extern uint32_t system_milliseconds(void);
 
-extern void calculate_average(net_graph *graph);
+extern void calculate_average(net_graph *const graph);
 void sample_finished(net_graph *const graph)
 {
     add_finished_data_sample(graph, graph->current_sample_data);

@@ -26,7 +26,7 @@ extern int16_t channel_get_state(int16_t channel_index);
 extern uint8_t refresh_sound(uint16_t sound_index);
 extern float sound_definition_get_maximum_distance(int sound_definition_index);
 extern int16_t source_audible(sound_source *source, float maximum_distance);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int sprintf_0(char *string, const char *format, ...);
 extern float sound_calculate_fade(uint16_t sound_index);
 extern void sound_start_fade(int16_t mode, float seconds, int fade_out_sound_index, int fade_up_sound_index);

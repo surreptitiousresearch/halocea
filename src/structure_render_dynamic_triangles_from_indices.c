@@ -7,7 +7,7 @@
 #include "headers/structure_bsp.h"
 #include "headers/rasterizer_triangle.h"
 
-extern void qsort_4byte(void *base, unsigned int num, int (*compare)(int, int));
+extern void qsort_4byte(int *base, unsigned int num, int (*compare)(int, int));
 extern int compare_surface_indices(int index1, int index2);
 
 void structure_render_dynamic_triangles_from_indices(int16_t surface_count, int *surface_indices, rasterizer_triangle *triangles)

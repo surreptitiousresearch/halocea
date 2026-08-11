@@ -16,8 +16,7 @@
 #include "headers/player_profile.h"
 
 extern uint8_t player_profile_get_string(uint16_t *out, int index, void *list_items);
-extern void single_preview_column_list_update(widget_instance *widget,
-        uint8_t (*get_string)(uint16_t *, int, void *));
+extern void single_preview_column_list_update(widget_instance *widget, uint8_t (*func)(uint16_t *, int, void *));
 extern void player_ui_get_active_player_profile(int16_t local_player_index, player_profile *profile);
 extern void set_profile_name(widget_instance *text_widget, const wchar_t *name);
 extern uint16_t player_profile_number_of_available_primary_colors(void);

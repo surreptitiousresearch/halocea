@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern void sv_banlist(void);
+extern int sv_banlist(void);
 
 void sv_banlist_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

@@ -21,7 +21,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern const char *tag_name_strip_path(const char *name);
 extern int sprintf_0(char *string, const char *format, ...);
 extern void actor_erase(int actor_index, uint8_t immediate);

@@ -42,7 +42,7 @@ extern const float vsh_constants__screenproj[]; /* screen-projection matrix cons
 
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int16_t bitmap_index);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);
 extern int rasterizer_set_texture_bitmap_data(int16_t stage, bitmap_data *bitmap);

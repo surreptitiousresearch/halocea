@@ -10,7 +10,7 @@
 #include "../headers/real_point3d.h"
 #include "../headers/real_vector3d.h"
 
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 extern "C" void hcex_output_dbg(const char *text, ...);
 extern "C" void hcex_pix_begin_event(const char *text, ...);
 extern "C" void hcex_pix_end_event(void);

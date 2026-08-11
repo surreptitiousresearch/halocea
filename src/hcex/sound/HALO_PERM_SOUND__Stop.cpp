@@ -10,7 +10,7 @@
 
 extern "C" unsigned int osGetCurThreadId();
 extern "C" void         osOutputDebugString(const char *fmt, ...);
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 extern void hcex_notify_sound_stop(const char *tag_name);
 
 void HALO_PERM_SOUND::Stop()

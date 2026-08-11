@@ -4,7 +4,8 @@
  * DEVIATION: the database types this entry as void; it returns int (the implementation's pixel count, used by
  * the lens-flare occlusion path). */
 struct real_point3d;
-extern int _rasterizer_widget_submit_occlusion_test(const struct real_point3d *point, float radius, int index);
+#include "headers/real_point3d.h"
+extern int _rasterizer_widget_submit_occlusion_test(const real_point3d *point, float radius, int index);
 
 int rasterizer_widget_submit_occlusion_test(const struct real_point3d *point, float radius, int index)
 {

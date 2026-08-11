@@ -25,7 +25,7 @@
 extern const int8_t bitmap_format_bits_per_pixel_table[];  /* lbzx+extsb stride-1 byte table (all 15 binary access sites) */
 
 extern void * bitmap_mipmap_address(const bitmap_data *bitmap, int16_t mipmap_index);
-extern unsigned int bitmap_format_to_a8r8g8b8(int16_t format, const void *mipmap_address, int pixel_index);
+extern unsigned int bitmap_format_to_a8r8g8b8(int16_t format, void *mipmap_address, int pixel_index);
 extern void bitmap_swizzle_vector2d(int16_t dim_x, int16_t dim_y, int16_t x, int16_t y, int *result);
 extern void DecodeBlockRGB__single_pixel(const S3TCBlockRGB *pblockSrc, S3TC_COLOR *colorDst, int16_t u, int16_t v);
 extern void DecodeBlockAlpha4__single_pixel(const S3TCBlockAlpha4 *pblockSrc, S3TC_COLOR *colorDst, int16_t u, int16_t v);

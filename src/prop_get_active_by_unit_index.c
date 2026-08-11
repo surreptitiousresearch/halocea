@@ -1,7 +1,14 @@
 /* prop_get_active_by_unit_index @0x837D1F10 — find an actor's active prop (knowledge record) for a given unit.
  * Walks the actor's prop list (meta.first_prop_index head, prop next_prop_index) for a perceived prop
  * (state >= 2) that either directly references the unit, or, if the prop is a swarm, references the unit's
- * controlling actor. Returns the prop index, or -1. */
+ * controlling actor. Returns the prop index, or -1.
+ *
+ * DEVIATION: actor_index is `int`, per the DB (`int prop_get_active_by_unit_index(int actor_index,
+ * int unit_index)`) and value-neutral in the body — `clrlwi r10, r3, 16` @0x837D1F4C is r3's ONLY use as
+ * the incoming argument (`li r3, -1` @0x837D1F50 redefines the register on the very next instruction), so
+ * the whole word never leaves this function. The uint16_t spelling it carried was the sibling-convention
+ * rule UR-37 / #112b(C) refuted as a class; the low-word extract the clrlwi performs stays explicit as
+ * DATA_ARRAY_ELEMENT's own `(uint16_t)(index)` — zero-extending, which is what a clrlwi site requires. */
 
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
@@ -13,7 +20,7 @@
 #include <stdint.h>
 
 
-int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index)
+int prop_get_active_by_unit_index(int actor_index, int unit_index)
 {
     unit_datum *unit = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     int controlling_actor = unit->unit.swarm_actor_index;

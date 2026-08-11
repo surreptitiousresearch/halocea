@@ -13,7 +13,7 @@ extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void index_resolution_initialize(index_resolution_table *table, int number_of_slots);
 extern void index_resolution_set(index_resolution_table *table, int server_object_index, int local_object_index);
 
-uint8_t field_type_translated_index_parameter_verifier(const _field_properties_definition *const field_properties_definition)
+uint8_t _field_type_translated_index_parameter_verifier(const _field_properties_definition *const field_properties_definition)
 {
     _field_type_translated_index_parameters *parameters =
         (_field_type_translated_index_parameters *)field_properties_definition->parameters;

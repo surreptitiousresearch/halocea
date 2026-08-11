@@ -61,8 +61,7 @@ extern int16_t local_player_count(void);
 extern int game_time_get(void);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 extern int get_flash_duration(const hud_color_definition *hud_color);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
-        uint8_t load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern float hud_globals_get_scale(uint8_t in_multiplayer);
 extern void hud_draw_bitmap(const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color, uint8_t in_multiplayer, uint8_t is_interface_bitmap, uint8_t is_crosshair_bitmap);
 

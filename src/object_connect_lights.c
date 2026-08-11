@@ -12,7 +12,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void light_disconnect_from_map(int light_index);
+extern void light_disconnect_from_map(uint16_t light_index);
 extern void light_reconnect_to_map(int light_index);
 
 void object_connect_lights(int object_index, uint8_t disconnect, uint8_t reconnect)

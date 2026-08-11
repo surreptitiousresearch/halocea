@@ -9,11 +9,17 @@
 
 // ---- os-layer (real bodies already exist in src/ws/os/, declared via os_boundary.h normally;
 // redeclared here narrowly since those .cpp files don't expose a shared prototype header) ----
+// DEVIATION: osGetCurThreadId does NOT share the C linkage of the helpers below it. The DB carries
+// one symbol for it, `?osGetCurThreadId@@YAHXZ` — a mangled C++ name returning `H` (int) — matching
+// its definition in src/ws/os/osGetCurThreadId.cpp. The `extern "C" unsigned int` spelling used here
+// named a symbol that does not exist and got the signedness wrong; the canonical form settled in
+// HALO_SOUND_LIST_boundary.h is used instead.
+int osGetCurThreadId();                                // src/ws/os/osGetCurThreadId.cpp
+
 extern "C" {
-    unsigned int osGetCurThreadId();                  // src/ws/os/osGetCurThreadId.cpp
     unsigned int osGetTime();                          // src/ws/os/osGetTime.cpp
     void         osOutputDebugString(const char *fmt, ...); // boundary — printf-style wrapper over _osOutputDebugString
-    char        *tag_get_name(short tag_index);         // src/tag_get_name.c
+    char        *tag_get_name(int tag_index);           // src/tag_get_name.c
 }
 
 // dbg-console tunables with change-detection (Update() compares .value against .prevValue to

@@ -27,9 +27,7 @@
 
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
-extern point_physics_definition *point_physics_definition_interpolate(
-    const point_physics_definition *physics1, const point_physics_definition *physics2, float t,
-    point_physics_definition *result);
+extern point_physics_definition * point_physics_definition_interpolate(const point_physics_definition *physics1, const point_physics_definition *physics2, float t, point_physics_definition *out);
 extern unsigned int point_physics_update(unsigned int flags, const point_physics_definition *definition, location *location, int16_t force_weather_palette_index, real_point3d *position, real_vector3d *translational_velocity, const real_vector3d *translational_force, real_vector3d *collision_normal, int16_t *collision_material_type, float radius, float dt);
 
 void particle_system_update_particle_default(const particle_system_datum *system, int16_t type_index, float dtime, ps_particle_datum *particle)

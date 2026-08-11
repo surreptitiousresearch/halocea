@@ -5,12 +5,13 @@
 
 #include "headers/net_graph.h"
 #include "headers/net_graph.h"
+#include "headers/net_graph.h"
 extern void clear_graph(net_graph *graph);
 extern uint32_t system_milliseconds(void);
 extern void add_finished_data_sample(net_graph *graph, int sample);
 extern void update_cumulative(net_graph *graph);
 
-extern void calculate_average(net_graph *graph);
+extern void calculate_average(net_graph *const graph);
 void net_graph_update(void)
 {
     unsigned int now;

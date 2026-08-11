@@ -10,7 +10,7 @@
  * discards the result (the actual send is folded/inlined elsewhere); reproduced verbatim. */
 
 extern int16_t game_connection(void);
-extern void hud_add_item_message_client(short local_player_index, int item_definition_index, short quantity, char message_offset);
+extern void hud_add_item_message_client(int16_t local_player_index, int item_definition_index, int16_t quantity, char message_offset);
 /* deviation: was `extern int _message_hud_add_item;` — binary emits li r3,6 @0x836A5C64 (immediate),
  * so this is the enum constant _message_hud_add_item = 6 (headers_ref
  * message_delta_processor_message_definition_type), not a global load. Belongs in

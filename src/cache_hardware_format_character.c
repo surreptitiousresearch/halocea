@@ -19,7 +19,7 @@
 typedef struct bitmap_data bitmap_data;
 extern char *bitmap_2d_address(const bitmap_data *bitmap, int16_t x, int16_t y, int16_t mipmap_index);
 extern void rasterizer_bitmap_changed(bitmap_data *bitmap);
-extern void _byte_swap_memory(char *memory, int count, uint64_t code);
+extern void _byte_swap_memory(void *memory, int count, int code);
 extern void flush_hardware_character(hardware_character *hardware_character);
 
 void cache_hardware_format_character(font_header *font_header, font_character *font_character)

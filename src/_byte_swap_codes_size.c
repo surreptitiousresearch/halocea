@@ -5,8 +5,7 @@
 
 #include "headers/byte_swap_definition.h"
 
-extern void _byte_swap_data(byte_swap_definition *definition, void *data, int *codes,
-        int *total_size_in_bytes, int *total_size_in_codes);
+extern void _byte_swap_data(byte_swap_definition *definition, void *data, int *codes, int *total_size_in_bytes, int *total_size_in_codes);
 
 int _byte_swap_codes_size(char *name, int *codes)
 {

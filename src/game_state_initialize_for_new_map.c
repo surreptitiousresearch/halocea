@@ -9,7 +9,7 @@
 /* strcpy declared by <string.h> */
 
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int16_t game_difficulty_level_get(void);
 extern uint32_t cache_files_get_checksum(void);
 

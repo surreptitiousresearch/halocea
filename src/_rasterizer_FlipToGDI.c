@@ -6,7 +6,7 @@
 extern unsigned char InsideScene;
 extern void D3DDevice_Present(D3DDevice *device);
 
-void rasterizer_FlipToGDI(void)
+void _rasterizer_FlipToGDI(void)
 {
     if ( use_fullscreen && global_d3d_device )
     {

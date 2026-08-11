@@ -31,8 +31,7 @@
 extern uint8_t message_delta_processor_discard_iteration_body(const message_delta_processor_header *const header);
 extern uint8_t message_delta_processor_decode_stateless(void *const destination_data, const message_delta_processor_header *const header);
 
-extern void hud_add_item_message_client(int16_t local_player_index, int item_definition_index,
-        int16_t quantity, char message_offset);
+extern void hud_add_item_message_client(int16_t local_player_index, int item_definition_index, int16_t quantity, char message_offset);
 extern int16_t game_connection(void);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern void player_over_shield_screen_effect(int player_index);

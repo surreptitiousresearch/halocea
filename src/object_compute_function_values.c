@@ -25,7 +25,7 @@
 
 
 extern int game_time_get(void);
-extern float periodic_function_evaluate(int16_t function_type, double time);
+extern float periodic_function_evaluate(int16_t function_type, float time);
 extern float transition_function_evaluate(int16_t function_type, float value);
 extern double floor(double x);
 extern double fmod(double x, double y);

@@ -11,7 +11,7 @@
 extern uint32_t system_milliseconds(void);
 extern void add_finished_data_sample(net_graph *graph, int sample);
 
-extern void calculate_average(net_graph *graph);
+extern void calculate_average(net_graph *const graph);
 void process_samples(net_graph *const graph)
 {
     unsigned int now = system_milliseconds();

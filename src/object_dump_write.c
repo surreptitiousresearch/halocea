@@ -9,7 +9,7 @@
 
 struct _iobuf;
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern const char * object_type_get_name(int16_t object_type);
 extern int fprintf(struct _iobuf *stream, const char *format, ...);
 

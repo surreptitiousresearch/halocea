@@ -33,7 +33,7 @@ extern int16_t source_audible(sound_source *source, float maximum_distance);
 extern int datum_new(data_array *data);
 extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound, float pitch, int16_t current_range);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
-extern int    _sound_cache_sound_request(sound_permutation *sound, unsigned char block, unsigned char load, unsigned char reference);
+extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 
 
 extern int16_t sound_definition_promote(int definition_index);

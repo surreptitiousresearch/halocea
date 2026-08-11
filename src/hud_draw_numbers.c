@@ -46,8 +46,7 @@
 #include "headers/hud_placement_definition.h"
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
-        uint8_t load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern int16_t abs16(int16_t value);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 extern void hud_calculate_point(int16_t local_player_index, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const bitmap_data *bitmap, uint8_t in_multiplayer, float override_scale, point2d *result);

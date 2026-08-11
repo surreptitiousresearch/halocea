@@ -4,6 +4,7 @@
  * the "colors_list" unicode_string_list tag, one preview-list bank-0 entry per available color, marking
  * the entry matching the current selection as default. Always returns 1. */
 
+#include <wchar.h>
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/player_profile.h"
@@ -14,8 +15,7 @@ extern void preview_list_create(void);
 extern void * ui_widget_realloc(void *ptr, uint16_t size);
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
-extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data,
-    unsigned int data_len, char is_default);
+extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data, unsigned int data_len, char is_default);
 
 uint8_t player_profile_color_picker_menu_initialize(widget_instance *widget, event_record *event,
     uint8_t *widget_deleted)

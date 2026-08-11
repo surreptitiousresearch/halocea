@@ -37,8 +37,7 @@ typedef struct multitexture_overlay_hud_element_definition multitexture_overlay_
 #include "headers/hud_placement_definition.h"
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);
 extern const real_rectangle2d *get_sprite_clip_rect(int bitmap_group_index, int16_t sequence_index, int16_t frame);
-extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block,
-        uint8_t load);
+extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern unsigned int get_flash_color(const hud_color_definition *hud_color_def, int reference_value);
 
 extern void hud_calculate_point(int16_t local_player_index, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const bitmap_data *bitmap, uint8_t in_multiplayer, float override_scale, point2d *result);
@@ -47,9 +46,7 @@ extern void hud_calculate_bitmap_bounds(const bitmap_data *bitmap, int16_t place
 
 extern void hud_draw_bitmap_with_meter(rasterizer_meter_parameters *meter_parameters, const bitmap_data *bitmap, const hud_absolute_placement_definition *absolute_placement, const hud_placement_definition *placement, const real_rectangle2d *clip, float scale, float theta, unsigned int color32, uint8_t in_multiplayer, uint8_t is_interface_bitmap);
 
-extern void hud_draw_multitexture_overlay(const multitexture_overlay_hud_element_definition *overlay,
-        int16_t local_player_index, const point2d *point, const real_rectangle2d *clip,
-        const real_rectangle2d *bounds, const real_vector2d *xy_scale, float theta, unsigned int color);
+extern void hud_draw_multitexture_overlay(const multitexture_overlay_hud_element_definition *overlay, int16_t local_player_index, const point2d *point, const real_rectangle2d *clip, const real_rectangle2d *bounds, const real_vector2d *xy_scale, float rotation, unsigned int color);
 
 void hud_draw_static_element(int16_t local_player_index, const hud_absolute_placement_definition *absolute_placement, const static_hud_element_definition *static_element, int16_t draw_flags, int flash_reference_time)
 {

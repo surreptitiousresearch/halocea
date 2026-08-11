@@ -60,7 +60,7 @@ extern int game_engine_did_player_win_default(int player_index);
 extern int tag_loaded(uint32_t group_tag, const char *name);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
 extern void usnprintf(wchar_t *string, unsigned int size, const wchar_t *format, ...);
-extern void drawline(const wchar_t *text, int line, int16_t justification);
+extern void drawline(const wchar_t *text, int16_t line, int16_t justification);
 extern int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic, int requested_count, int unused_max_capacity);
 extern int postgame_statistic_get_rating(int player_index, enum postgame_statistic statistic, uint8_t inverse);
 extern rectangle2d *offset_rectangle2d(rectangle2d *rectangle, int16_t dx, int16_t dy);

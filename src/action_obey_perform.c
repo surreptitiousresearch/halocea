@@ -24,10 +24,7 @@
 
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"
-extern void action_obey_individuals_iterate(int actor_index, uint8_t initialize_structures,
-        obey_state_data *state_data,
-        void (*iterator)(int, int, int16_t, obey_individual_simple_control *, obey_individual_complex_control *, void *),
-        void *user_data);
+extern void action_obey_individuals_iterate(int actor_index, uint8_t initialize_structures, obey_state_data *state_data, obey_individual_iterator iterator, void *user_data);
 extern void action_obey_individual_perform(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *user_data);
 extern int game_time_get(void);
 

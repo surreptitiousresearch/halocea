@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include "headers/widget_globals.h"
 
-extern uint8_t create_thread(uint16_t flags, unsigned int (*function)(void *),
-    void *function_input, thread **thread_reference);
+#include "headers/thread.h"
+extern uint8_t create_thread(uint16_t flags, unsigned int (*function)(void *), void *function_input, thread **thread_reference);
 extern unsigned int filesystem_initialization_thread_proc(void *input);
 
 void perform_filesystem_initialization(void)

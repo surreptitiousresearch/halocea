@@ -9,7 +9,7 @@
 #include "headers/scenario.h"
 #include "headers/scenario_structure_bsp_reference.h"
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int strcmp(const char *a, const char *b);
 
 int16_t scenario_get_structure_reference_index_from_tag_index(scenario *scenario, int structure_bsp_index)

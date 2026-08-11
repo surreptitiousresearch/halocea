@@ -23,8 +23,7 @@
 
 extern void *datum_get(data_array *data, int index);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern void rasterizer_widget_submit(int object_index, int widget_index, const real_point3d *centroid,
-        void (*render_proc)(int, int));
+extern void rasterizer_widget_submit(int object_index, int widget_index, const real_point3d *centroid, void (*render_proc)(int, int));
 extern void light_volume_render(int object_index, int widget_index);
 
 void light_volume_submit(int object_index, int widget_index, const render_lighting *lighting,

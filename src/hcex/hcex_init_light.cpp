@@ -12,7 +12,7 @@ extern "C" data_array *light_data;
 
 extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern "C" const char *object_get_attachment_marker_name(int object_index, int16_t attachment_index);
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 extern "C" void        hcex_create_light(int lightId, int object_index, const char *name);
 
 extern "C" int strcmp(const char *a, const char *b);

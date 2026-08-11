@@ -24,8 +24,7 @@ extern uint8_t render_camera_view_to_screen(const render_camera *camera, const r
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index, int16_t sequence_index, int16_t frame_index);
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
-extern void interface_draw_bitmap(const bitmap_data *bitmap, const point2d *point, const real_rectangle2d *clip,
-                                  float scale, float theta, float fade);
+extern void interface_draw_bitmap(const bitmap_data *bitmap, const point2d *point, const real_rectangle2d *clip, float scale, float theta, float fade);
 
 void hud_draw_friendly_indicator(int player_index)
 {

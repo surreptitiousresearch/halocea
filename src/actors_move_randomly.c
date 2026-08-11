@@ -27,7 +27,7 @@
 
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
-extern void actor_randomly_control_unit(int unit_index);   /* DB 2nd param phantom (r4 unread) */
+extern void actor_randomly_control_unit(int actor_index);   /* DB 2nd param phantom (r4 unread) */
 extern void unit_get_facing_vector(int unit_index, real_vector3d *facing_vector);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern int game_time_get(void);

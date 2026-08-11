@@ -8,8 +8,8 @@
 /* DEVIATION: the decompiler modeled {initialized_flag@0, fields@4}; the DB-verified layout has
  * initialized_flag@0x10 and fields@0xC. Reusing the canonical header corrects the offsets. */
 
-extern void _data_packet_verify(const data_packet_definition *packet_definition, int16_t *byte_count_reference,
-                                data_packet_field *first_field, int16_t *field_count_reference);
+#include "headers/data_packet_field.h"
+extern void _data_packet_verify(const data_packet_definition *packet_definition, int16_t *byte_count_reference, data_packet_field *first_field, int16_t *field_count_reference);
 
 void data_packet_verify(data_packet_definition *packet_definition)
 {

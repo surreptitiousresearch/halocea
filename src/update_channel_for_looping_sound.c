@@ -39,7 +39,7 @@ extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition
 extern int16_t channel_get_state(int16_t channel_index);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
 extern void sound_set_definition_end(uint16_t sound_index);
-extern int _sound_cache_sound_request(sound_permutation *sound, unsigned char block, unsigned char load, unsigned char reference);
+extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 extern int get_object_by_looping_sound(int sound_index);
 extern void channel_queue_sound(int16_t channel_index, sound_permutation *permutation, int identifier, uint8_t is_local_player, int16_t class_index, uint8_t lapping);
 

@@ -21,7 +21,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t particle_next_frame(int particle_index);
+extern int particle_next_frame(int particle_index);
 
 uint8_t particle_update_frame_time(int particle_index, float dt)
 {

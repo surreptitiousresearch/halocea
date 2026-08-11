@@ -26,9 +26,7 @@ extern int player_control_get_target_object_index(int16_t local_player_index);
 extern int player_index_from_unit_index(int unit_index);
 extern void unit_get_camera_position(int unit_index, real_point3d *camera_position);
 extern real_vector3d *player_control_get_facing_direction(int16_t local_player_index, real_vector3d *direction);
-extern int    find_objects_from_point_vector(const real_point3d *position, const real_vector3d *direction,
-        uint8_t (*add_object_function)(int, void *), void *custom_data,
-        int maximum_object_count, int *object_indices);
+extern int find_objects_from_point_vector(const real_point3d *position, const real_vector3d *direction, uint8_t (*add_object_function)(int, void *), void *custom_data, int maximum_object_count, int *object_indices);
 extern uint8_t find_closest_player_callback(int object_index, int *custom_data);
 extern uint8_t autoaim_compute_target(int object_index, const real_point3d *position, const real_vector3d *direction, int ignore_object_index, real_point3d *target_position, real_vector3d *target_direction, float *target_distance, float *target_angle);
 

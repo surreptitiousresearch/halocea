@@ -39,14 +39,10 @@
 
 
 
-extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index,
-    uint8_t scripted_request, float attempt_start_distance, float attempt_continue_distance,
-    uint8_t already_inside, uint8_t already_attempting_entry);
+extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index, uint8_t scripted_request, float attempt_start_distance, float attempt_continue_distance, uint8_t already_inside, uint8_t already_attempting_entry);
 extern int16_t action_vehicle_find_impromptu_seat(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point);
 extern uint8_t unit_has_animation_to_enter_seat(int unit_index, int vehicle_index, int16_t seat_index);
-extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index,
-    real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point,
-    real_point3d *destination_point, int *surface_index_reference);
+extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, real_point3d *destination_point, int *surface_index_reference);
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
 
 uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float attempt_distance, float continue_distance, vehicle_state_data *state_data)

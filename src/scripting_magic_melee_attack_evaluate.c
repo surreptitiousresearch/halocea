@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 extern void hs_return(uint16_t thread_index, int value);
-extern void scripting_magic_melee_attack(void);
+extern uint8_t scripting_magic_melee_attack(void);
 
 void scripting_magic_melee_attack_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

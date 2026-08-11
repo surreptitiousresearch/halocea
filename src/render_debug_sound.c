@@ -7,7 +7,7 @@
 #include "headers/sound_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int sprintf_0(char *string, const char *format, ...);
 
 void render_debug_sound(uint16_t sound_index)

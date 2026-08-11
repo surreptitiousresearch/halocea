@@ -11,7 +11,7 @@
 #include "headers/sound_permutation.h"
 
 extern void sound_cache_sound_finished(sound_permutation *sound);
-extern int _sound_cache_sound_request(sound_permutation *permutation, int block, int load, int reference);
+extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 
 int16_t channel_get_state(int16_t channel_index)
 {

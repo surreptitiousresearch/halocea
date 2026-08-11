@@ -4,5 +4,5 @@
 
 void rasterizer_environment_lightmaps_initialize_pipeline(void)
 {
-    rasterizer_environment_lightmaps_draw_function = rasterizer_environment_lightmap_draw_pp;
+    rasterizer_environment_lightmaps_draw_function = _rasterizer_environment_lightmap_draw_pp;
 }

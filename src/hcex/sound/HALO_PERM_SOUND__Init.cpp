@@ -11,7 +11,7 @@
 extern "C" unsigned int osGetTime();
 extern "C" unsigned int osGetCurThreadId();
 extern "C" void         osOutputDebugString(const char *fmt, ...);
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 
 void HALO_PERM_SOUND::Init(const sound_permutation *info_, int identifier_,
                             const HALO_CHANNEL_PROPERTIES &channelProps)

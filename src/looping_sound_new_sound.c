@@ -31,7 +31,7 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound, float pitch, int16_t current_range);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
 extern uint8_t check_is_local_player_by_loop(uint16_t looping_sound_index);
-extern int _sound_cache_sound_request(sound_permutation *permutation, int block, int load, int reference);
+extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 
 int looping_sound_new_sound(int looping_sound_index, int definition_index, int16_t track_index, int16_t type)
 {

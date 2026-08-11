@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 /* real DB signature (0x837E7E8C): int __fastcall _sound_cache_sound_request(sound_permutation*, unsigned __int8 block, unsigned __int8 load, unsigned __int8 reference); */
-extern int _sound_cache_sound_request(sound_permutation *sound, unsigned char block, unsigned char load, unsigned char reference);
+extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 
 void scripted_foley_predict(int definition_index)
 {

@@ -4,8 +4,7 @@
 
 #include "headers/real_point3d.h"
 
-extern void _rasterizer_widget_submit(int object_index, int widget_index, const real_point3d *centroid,
-                                      void (*render_proc)(int, int));
+extern void _rasterizer_widget_submit(int object_index, int widget_index, const real_point3d *centroid, void (*render_proc)(int, int));
 
 void rasterizer_widget_submit(int object_index, int widget_index, const real_point3d *centroid,
                               void (*render_proc)(int, int))

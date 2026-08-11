@@ -27,7 +27,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/collision_bsp_test_vector_result.h"
 #include "headers/collision_bsp.h"
-extern uint8_t collision_bsp_test_vector(unsigned int flags, const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, float maximum_t, collision_bsp_test_vector_result *result);
+extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
 
 uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point,
         float avoidance_distance, const real_point3d *end_point,

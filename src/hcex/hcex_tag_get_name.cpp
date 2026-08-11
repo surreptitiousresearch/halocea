@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 
 extern "C" char *hcex_tag_get_name(int tag_index)
 {

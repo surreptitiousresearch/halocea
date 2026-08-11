@@ -36,7 +36,7 @@
 #include "headers/structure_bsp.h"
 extern void actor_find_pathfinding_location(uint16_t actor_index);
 extern uint8_t structure_test_pill2d(const structure_bsp *structure, uint8_t ignore_broken_surfaces, const real_point2d *start_point, int start_surface_index, const real_point2d *end_point, int end_surface_index, float radius, unsigned int flags, path_collision_result *result);
-extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, float maximum_t, collision_bsp_test_vector_result *result);
+extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
 
 uint8_t actor_move_try_evasion_vector(int actor_index, real_vector2d *evasion_vector, float evade_distance, float maximum_ledge_height, uint8_t *evasion_is_ledge_reference, path_collision_result *result)
 {

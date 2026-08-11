@@ -33,7 +33,7 @@
 extern int local_player_get_player_index(int16_t local_player_index);
 extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
 extern int tag_iterator_next(tag_iterator *iterator);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern char *strstr(const char *haystack, const char *needle);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);

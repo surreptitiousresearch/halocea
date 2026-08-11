@@ -11,8 +11,7 @@
 #include "headers/bank_item_s.h"
 #include "headers/blam_data_globals.h"
 
-extern void single_preview_column_list_update(widget_instance *widget,
-        uint8_t (*func)(uint16_t *, int, void *));
+extern void single_preview_column_list_update(widget_instance *widget, uint8_t (*func)(uint16_t *, int, void *));
 extern uint8_t gametype_select_get_string(uint16_t *out, int index, void *list_items);
 extern void multiplayer_settings_select_list_update_item(widget_instance *item, game_variant *variant);
 extern widget_instance *widget_instance_get_nth_child(widget_instance *widget, int n);

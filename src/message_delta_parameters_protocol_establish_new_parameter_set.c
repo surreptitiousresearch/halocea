@@ -4,6 +4,7 @@
  * Only commits the new protocol number if the broadcast succeeds. Guarded by the changeover-enabled flag
  * and brackets the work with the changeover-message flag. */
 
+#include <stdint.h>
 #include "headers/packed_parameter.h"
 #include "headers/blam_data_globals.h"
 #include "headers/message_delta_message_ids.h"
@@ -15,7 +16,7 @@ extern void dump_to_parameters_set(void);
 extern void pack_parameter_set_for_transmission(packed_parameter *params);
 extern int message_delta_processor_encode_stateless(message_delta_processor_message_definition_type definition_type, const void *source_header, const void *source_data, void *buffer, int buffer_size_in_bits);
 extern network_game_server *global_network_game_server_get(void);
-extern unsigned char network_game_server_send_message_to_all_machines(network_game_server *server, int type, void *message, int size_in_bits, unsigned char reliable, unsigned char immediate, unsigned char including_local_client, int priority);
+extern uint8_t network_game_server_send_message_to_all_machines(network_game_server *server, network_message_type type, void *message, int size_in_bits, uint8_t reliable, uint8_t immediate, uint8_t including_local_client, int priority);
 
 void message_delta_parameters_protocol_establish_new_parameter_set(void)
 {

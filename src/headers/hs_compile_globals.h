@@ -1,7 +1,18 @@
 #pragma once
 // DB-verified via types_members _303708F16CCD5B5D084E785631C2CA68 (anonymous PDB type)
 /* hs_compile_globals — HaloScript compiler state. Layout taken verbatim from the database anonymous struct
- * type (_303708F16CCD5B5D084E785631C2CA68); field names and offsets are authoritative. */
+ * type (_303708F16CCD5B5D084E785631C2CA68); field names and offsets are authoritative.
+ *
+ * `__noop` at 0x01C is the DB's OWN member name, not a placeholder this reconstruction chose:
+ * types_members $303708F16CCD5B5D084E785631C2CA68 member_index 7 is literally `__noop`, `const char *`,
+ * and IDA prints it that way in the code too (`stw r11, $303708F1....__noop(r30)` @0x83776B0C in
+ * hs_parse_ai, @0x83778C78 in hs_parse_begin). It IS an IDA-ism and it DOES collide with the MSVC
+ * `__noop` intrinsic, but the name is layout provenance, so it is kept and annotated here — the same
+ * decision antenna_datum.h, flag_datum.h and trigger_create_projectiles.c:240 already record for the other
+ * three DB members spelled `__noop`. (The projectile_effect_new.c precedent renames a PARAMETER, whose
+ * name carries no layout evidence; a member is not that.) Its role is settled by its DB neighbours
+ * error_since_initialize@0x18 / error_offset@0x20 / error_buffer@0x24 and by hs_compile.c:64, which uses
+ * `== nullptr` on it as the whole compiler's success predicate: it is the current error message. */
 
 typedef struct hs_compile_globals_t
 {

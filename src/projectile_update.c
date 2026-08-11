@@ -40,7 +40,7 @@ extern void projectile_export_function_values(int projectile_index);
 extern float game_difficulty_get_value(int16_t value_type);
 extern void unit_get_center_of_mass(int unit_index, real_point3d *center_of_mass);
 extern int game_time_get(void);
-extern float periodic_function_evaluate(int16_t function_type, double time);
+extern float periodic_function_evaluate(int16_t function_type, float time);
 extern real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const real_euler_angles2d *angles);
 extern float normalize3d(real_vector3d *v);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);

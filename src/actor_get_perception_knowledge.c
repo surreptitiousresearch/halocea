@@ -1,7 +1,14 @@
 /* actor_get_perception_knowledge @0x837D5480 — classify how much "combat knowledge" the actor has about a
  * prop's target (0..3), used to scale visibility tests. Acknowledged/searching props, audible-class props and
  * live non-enemies grade as full knowledge (3); an orphaned prop inherits from its orphan; otherwise the
- * answer falls back to the actor's own awareness level. */
+ * answer falls back to the actor's own awareness level.
+ *
+ * DEVIATION: actor_index is `int`, per the DB (`__int16 actor_get_perception_knowledge(int actor_index,
+ * int prop_index)`) and value-neutral in the body — `clrlwi r11, r3, 16` @0x837D5484 is r3's ONLY use as
+ * the incoming argument (`li r3, -1` @0x837D5488 redefines the register on the very next instruction), so
+ * the whole word never leaves this function. The uint16_t spelling it carried was the sibling-convention
+ * rule UR-37 / #112b(C) refuted as a class; the low-word extract the clrlwi performs stays explicit as
+ * DATA_ARRAY_ELEMENT's own `(uint16_t)(index)` — zero-extending, which is what a clrlwi site requires. */
 
 #include "headers/prop_datum.h"
 #include "headers/data_array.h"
@@ -15,7 +22,7 @@
 #include <stdint.h>
 
 
-int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index)
+int16_t actor_get_perception_knowledge(int actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int result = -1;

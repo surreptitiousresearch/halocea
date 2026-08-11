@@ -43,8 +43,7 @@
 
 extern uint8_t game_time_get_paused(void);
 extern float normalize3d(real_vector3d *v);
-extern void biped_update_moving_simulated(unsigned int real_biped_index, biped_datum *biped,
-                                          unit_animation_update_data *animation_update);
+extern void biped_update_moving_simulated(unsigned int real_biped_index, biped_datum *biped, unit_animation_update_data *animation_update);
 
 uint8_t biped_predicted_movement_localplayer(real_point3d *position, real_vector3d *forward,
                                          real_vector3d *up, float time_since_tick_sec)

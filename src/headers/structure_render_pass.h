@@ -17,14 +17,11 @@ union real_vector3d;  /* likewise real_vector3d */
 struct real_plane3d;
 struct render_lighting;
 
-extern void structure_render_pass(
-    int *surface_indices,
-    int16_t surface_count,
-    int dynamic_triangles_index,
-    void (*begin_lightmap)(struct bitmap_data *),
-    void (*draw_triangles)(const struct shader *, int16_t, int, int, int, const struct vertex_buffer *),
-    void (*end_lightmap)(void),
-    void (*draw_transparent_triangles)(const struct shader *, int16_t, const struct bitmap_data *, int, int,
-                                       int, const struct vertex_buffer *, const union real_point3d *,
-                                       const struct real_plane3d *, const union real_vector3d *,
-                                       const struct render_lighting *, unsigned int));
+#include "headers/bitmap_data.h"
+#include "headers/shader.h"
+#include "headers/vertex_buffer.h"
+#include "headers/real_point3d.h"
+#include "headers/real_plane3d.h"
+#include "headers/real_vector3d.h"
+#include "headers/render_lighting.h"
+extern void structure_render_pass(int *surface_indices, int16_t surface_count, int dynamic_triangles_index, void (*begin_lightmap)(bitmap_data *), void (*draw_triangles)(const shader *, int16_t, int, int, int, const vertex_buffer *), void (*end_lightmap)(void), void (*draw_transparent_triangles)(const shader *, int16_t, const bitmap_data *, int, int, int, const vertex_buffer *, const real_point3d *, const real_plane3d *, const real_vector3d *, const render_lighting *, unsigned int));

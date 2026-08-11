@@ -2,12 +2,27 @@
 #define WIDGET_EVENT_FLAGS_H
 
 /* widget_event_flags — widget_event flags.
- * DB-verified: types_enum_values _2A6EDA2781F91EF7130057E6B1F8497E carries these named
- * values verbatim. Values are BIT INDICES — use as (1u << _bit).
+ * DB-verified: types_enum_values _2A6EDA2781F91EF7130057E6B1F8497E carries every name and value
+ * below verbatim. Values are BIT INDICES — use as (1u << _bit).
  *
- * The list sub-block of the same $2A6EDA27 blob has a canonical home of its own; it was defined
- * a second time here until 2026-08-07 (an ODR redefinition of five enumerators). Included rather
- * than repeated, so the enumerators have exactly one body. */
+ * PROVENANCE IS PER SUB-BLOCK, not per file. That blob is one anonymous IDA enum holding SIX
+ * compiled sub-blocks, 69 enumerators at value_index 0..68. The body below is 64 of them:
+ *
+ *   value_index  0..35   the event sub-block          (_widget_event_* .. NUMBER_OF_WIDGET_EVENTS)
+ *   value_index 36..52   the widget-flag sub-block    (shared with ui_widget_definition_flags.h)
+ *   value_index 53..57   the text-box sub-block
+ *   value_index 63..68   the controller sub-block
+ *
+ * The remaining five — value_index 58..62, the LIST sub-block (_list_items_generated_in_code = 0
+ * .. NUMBER_OF_LIST_FLAGS = 4) — are equally DB-carried and live in ui_widget_list_flags.h, which
+ * this header includes; they were defined a second time here until 2026-08-07 (an ODR
+ * redefinition of five enumerators) and are included rather than repeated so each enumerator has
+ * exactly one body. That split is why db_verify, which diffs this ONE file against the WHOLE
+ * blob, reports those five as MISSING_MEMBERS here: the members exist, in the sibling header, and
+ * every one of the 69 is name-and-value compared against the binary by the enum_values HARD class
+ * (which reads .sweep/header_layouts.json, i.e. the whole include closure, not one file).
+ * headers_ref is NOT evidence for any enumerator here: it dumps struct layouts only and carries
+ * no body for this enum at all. */
 #include "ui_widget_list_flags.h"
 enum widget_event_flags {
 	_widget_event_button_a = 0,
@@ -73,7 +88,7 @@ enum widget_event_flags {
 	_text_box_flashing_text_bit = 2,
 	_text_box_no_weird_focus_test = 3,
 	NUMBER_OF_TEXT_BOX_FLAGS = 4,
-	/* the list sub-block lives in ui_widget_list_flags.h, included above */
+	/* the list sub-block (DB value_index 58..62) lives in ui_widget_list_flags.h, included above */
 	_widget_controller0 = 0,
 	_widget_controller1 = 1,
 	_widget_controller2 = 2,

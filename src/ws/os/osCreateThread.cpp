@@ -15,7 +15,13 @@ void *operator new(size_t size, const char *file, unsigned int line);
 
 osHANDLE_DUMMY *osCreateThread(void (*func)(void *), void *param, const char *name, int stackSize)
 {
-    void **args = (void **)operator new(8, "D:\\Projects\\code\\common\\src.sys\\ap\\ap_os_xenon.cpp", 0x533);
+    /* The block holds exactly two pointers: the binary asks for a literal 8 (`li r3, 8`
+       @0x825E6394) and then stores both of them into it (`stw r28, 0(r3)` @0x825E63A4 = func,
+       `stw r27, 4(r3)` @0x825E63A8 = param). 8 is that count times the 4-byte pointer of this
+       PPC32 target, so it is sized from the element type here per the x64-portability directive:
+       the request is still 8 on PPC32, and the `args[1]` store no longer runs past the end of the
+       block where pointers are 8 bytes wide. */
+    void **args = (void **)operator new(2 * sizeof(void *), "D:\\Projects\\code\\common\\src.sys\\ap\\ap_os_xenon.cpp", 0x533);
     args[0] = (void *)func;
     args[1] = param;
 

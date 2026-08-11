@@ -18,7 +18,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int16_t animation_graph_get_animation_by_name(int animation_graph_index, const char *animation_name);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern void console_warning(const char *format, ...);
 
 void scenery_animation_start_private(int scenery_index, int animation_graph_index, const char *animation_name, int16_t frame_index)

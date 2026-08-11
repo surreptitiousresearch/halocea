@@ -26,7 +26,7 @@ extern "C" void  hcex_obj_init(int id);
 extern "C" void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern "C" void  hcex_obj_customize(int id, int tag_index);
 extern "C" const char *object_get_attachment_marker_name(int object_index, int16_t attachment_index);
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 extern "C" void  hcex_create_light(int light_id, int object_index, const char *name);
 extern "C" effect_datum *effect_try_and_get(int index);
 extern "C" void  hcex_init_effect_by_locations(int effect_index, int object_index, float scale);

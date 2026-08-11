@@ -30,18 +30,18 @@
 #include "headers/object_datum.h"
 #include "headers/blam_data_globals.h"
 #include "headers/collision_test_flags.h"
+#include "headers/friction_datum.h"
 extern float fabsf(float x);  /* DEVIATION: fabs @0x837BEB98/@0x837BECF4 feed fmuls with no frsp - single-precision abs, not the double __fabs */
 
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);
 extern void scenario_location_from_point(location *location, const real_point3d *point);
-extern void compute_ground_plane(int object_index, mass_point_datum *mp, const mass_point_definition *def);
+extern void compute_ground_plane(int object_index, mass_point_datum *mass_point, const struct mass_point_definition *mass_point_definition);
 extern float scenario_location_water_depth(const location *location, const real_point3d *position);
 extern material_definition *scenario_material_definition_get(int16_t material_type);
-extern float pin_fraction(float value, float lo, float hi);
-extern void friction_evaluate(int16_t type, float parallel_scale, float perpendicular_scale,
-                              friction_datum *components, real_vector3d *primary, real_vector3d *secondary);
+extern float pin_fraction(float value, float value0, float value1);
+extern void friction_evaluate(int16_t type, float parallel_scale, float perpendicular_scale, friction_datum *components, real_vector3d *primary, real_vector3d *secondary);
 extern uint8_t collision_test_vector(unsigned int flags, const real_point3d *point, const real_vector3d *vector, int ignore_object_index, collision_result *collision);
 
 void physics_compute_new(const physics_instance *instance, const powered_mass_point_datum *powered_mass_points,

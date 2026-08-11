@@ -8,8 +8,8 @@
  * DEVIATION: the decompiler's redundant cursor writes (dead `v7 = v3` stores) are dropped; the opcode dispatch,
  * a degenerate switch whose only case falls through to the loop, is reduced to the terminator test. */
 
-extern void recorded_animation_byteswap_unit_control(char **data, uint8_t unit_control_version);
-extern void _byte_swap_memory(void *address, int count, int element_size);
+extern void recorded_animation_byteswap_unit_control(char **playback_stream, uint8_t unit_version);
+extern void _byte_swap_memory(void *memory, int count, int code);
 
 #include <stdint.h>
 #include "headers/byte_swap_definition.h"

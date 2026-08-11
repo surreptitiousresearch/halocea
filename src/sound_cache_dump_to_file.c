@@ -19,7 +19,7 @@
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 extern void dlFree(void *ptr);
 extern void lruv_cache_get_page_usage(lruv_cache *cache, unsigned char *page_usage);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 
 #include <stdio.h> /* fopen/fwrite/fclose: use CRT decls to avoid signature conflict */
 extern int sprintf_0(char *string, const char *format, ...);

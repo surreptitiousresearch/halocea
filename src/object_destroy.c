@@ -19,7 +19,7 @@
 #include "headers/real_rgb_color.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern void hcex_init_effect_simple(const char *eff_name, const real_point3d *point, const real_vector3d *vector);
 extern void object_deplete_body(int object_index);
 typedef struct effect_vector_field effect_vector_field;

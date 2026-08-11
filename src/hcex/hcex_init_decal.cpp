@@ -5,7 +5,7 @@
 #include "../headers/real_point3d.h"
 #include "../headers/hcex/hcex_float3.h"
 
-extern "C" char *tag_get_name(int16_t tag_index);
+extern "C" char *tag_get_name(int tag_index);
 /* hcex render-bridge primitives — boundary into the ws-engine decal/scorch system, not reversed here. */
 extern "C" void hcex_pix_begin_event(const char *fmt, ...); /* DEVIATION: variadic (std r4..r10 save-area prologue @0x823CED10) */
 extern "C" void hcex_pix_end_event(void);

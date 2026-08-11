@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 /* boundary: snd::SYSTEM_DBG_FMOD::IsSkipped(&snd::SystemFMod->dbg, name) */
 extern int snd_system_dbg_is_skipped(const char *name);
 

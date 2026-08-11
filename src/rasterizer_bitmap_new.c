@@ -15,7 +15,7 @@
 #include "headers/global_tag_instances.h"
 
 extern bitmap_data *hardware_character_cache_get_bitmap(void);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern void *hcex_tex_new(const char *name, int index_within_tag);
 
 /* device presence is checked via the rasterizer engine global */

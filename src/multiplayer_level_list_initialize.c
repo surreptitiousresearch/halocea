@@ -3,6 +3,7 @@
  * (falling back to the first entry), then (re)build the preview list bank with each map's friendly name,
  * marking the selected entry as default. Always returns 1. */
 
+#include <wchar.h>
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/multiplayer_map_s.h"
@@ -15,8 +16,7 @@ extern int stricmp(const char *a, const char *b);
 extern void preview_list_create(void);
 extern char * map_list_get_level_name(int index);
 extern void map_list_get_friendly_level_name(const char *map_name, uint16_t *name_buf, int name_buf_len);
-extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data,
-    unsigned int data_len, char is_default);
+extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data, unsigned int data_len, char is_default);
 
 uint8_t multiplayer_level_list_initialize(widget_instance *list_widget, event_record *event,
     uint8_t *widget_deleted)

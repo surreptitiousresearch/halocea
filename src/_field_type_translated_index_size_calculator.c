@@ -1,4 +1,4 @@
-/* field_type_translated_index_size_calculator — maximum_size_calculator for the "translated index"
+/* _field_type_translated_index_size_calculator — maximum_size_calculator for the "translated index"
  * field type: serialized width is the number of bits needed to represent maximum_active_at_once,
  * cached back into the parameters' number_of_bits field. */
 
@@ -7,7 +7,7 @@
 
 extern int bits_needed_for_value(int value);
 
-int field_type_translated_index_size_calculator(_field_properties_definition *const field_properties_definition)
+int _field_type_translated_index_size_calculator(_field_properties_definition *const field_properties_definition)
 {
     _field_type_translated_index_parameters *parameters =
         (_field_type_translated_index_parameters *)field_properties_definition->parameters;

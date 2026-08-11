@@ -69,7 +69,7 @@ extern void actor_stimulus_abandon_stationary_facing(uint16_t actor_index);
 extern void actor_unit_control_exact_facing(uint16_t actor_index, uint8_t exact_facing);
 extern float normalize2d(real_vector2d *v);
 extern int actor_get_weapon(uint16_t actor_index);
-extern actor_idle_looking *actor_look_get_looking_definition(uint16_t actor_index);
+extern actor_idle_looking * actor_look_get_looking_definition(uint16_t actor_index);
 
 void actor_look_update(int actor_index)
 {

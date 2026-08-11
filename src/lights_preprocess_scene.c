@@ -56,22 +56,17 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_argb_color.h"
+#include "headers/real_point3d.h"
 extern int game_time_get(void);
 extern int data_next_index(const data_array *data, int16_t index);
 extern void datum_delete(data_array *data, int index);
 extern void cluster_partition_disconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference);
-extern void light_disconnect_from_map(int light_index);
+extern void light_disconnect_from_map(uint16_t light_index);
 extern void light_reconnect_to_map(int light_index);
 extern void   hcex_destroy_light(int light_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
-extern int16_t structure_visibility_find_objects(
-    int *result_indices, int16_t maximum_count,
-    int (*cluster_get_first)(int *, int16_t),
-    int (*cluster_get_next)(int *),
-    void (*get_bounding_sphere)(int, real_point3d *, float *),
-    int (*unmarked)(uint16_t),
-    int (*mark)(uint16_t));
+extern int16_t structure_visibility_find_objects(int *result_indices, int16_t maximum_count, int (*cluster_get_first)(int *, int16_t), int (*cluster_get_next)(int *), void (*get_bounding_sphere)(int, real_point3d *, float *), int (*unmarked)(uint16_t), int (*mark)(uint16_t));
 extern int cluster_get_first_light(int *state, int16_t cluster_index);
 extern int cluster_get_next_light(int *state);
 extern void light_get_bounding_sphere(int light_index, real_point3d *position, float *radius);

@@ -19,7 +19,7 @@ extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, f
 extern double cos(double x);
 extern double sin(double x);
 
-extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, char bit_index);
+extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, int16_t bit_index);
 void effect_random_translational_velocity(uint32_t *seed, const effect_datum *effect,
         const real_vector3d *forward, real_vector3d *direction, real_vector3d *velocity, float lower_bound,
         float upper_bound, float cone_angle, unsigned int a_scale_flags, unsigned int b_scale_flags)

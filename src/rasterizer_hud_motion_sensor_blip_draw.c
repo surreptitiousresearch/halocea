@@ -23,7 +23,7 @@
 #include "headers/bitmap_data.h"
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int16_t bitmap_index);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern void D3DDevice_DrawVerticesUP(D3DDevice *device, unsigned int primitive_type, unsigned int vertex_count,
                                      const void *vertex_data, unsigned int vertex_stride);
 

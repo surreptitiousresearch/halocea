@@ -18,7 +18,7 @@ extern void DBG_CINE_actor_map_copyctor(void *dst, const void *src);
 extern void dsNODE_CACHE_Term(void *allocator);
 
 extern int   osFileMakeDir(const char *path);         /* ws os: create the capture directory tree */
-extern "C" void  main_save_map_nonsafe(void);         /* Blam bridge: force a checkpoint save */
+extern "C" void main_save_map_nonsafe(void);         /* Blam bridge: force a checkpoint save */
 extern float gsElapsedTimeCineDump;                   /* cine-dump frame clock (-1 idle, 1/30 armed) */
 extern haloENGINE_CONTROL *haloEngineCtrl;            /* Blam engine control object */
 

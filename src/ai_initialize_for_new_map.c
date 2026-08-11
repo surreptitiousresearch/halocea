@@ -12,7 +12,7 @@ extern void encounters_initialize_for_new_map(void);
 extern void ai_script_initialize_for_new_map(void);
 extern void ai_communication_initialize_for_new_map(void);
 
-extern void *ai_flush_spatial_effects(void);
+extern void * ai_flush_spatial_effects(void);
 void ai_initialize_for_new_map(void)
 {
     memset(ai_globals, 0, sizeof(ai_globals_t));

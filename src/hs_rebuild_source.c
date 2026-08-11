@@ -13,7 +13,7 @@
 
 #include "headers/tag_block.h"
 extern uint8_t tag_block_resize(tag_block *block, int element_count);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int sprintf_0(char *string, const char *format, ...);
 extern file_reference *file_reference_create_from_path(file_reference *reference, const char *path, uint8_t directory);
 extern uint8_t file_exists(const file_reference *file);

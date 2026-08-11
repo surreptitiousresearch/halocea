@@ -30,7 +30,7 @@ extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, c
 extern uint8_t effect_allowed_by_environment(int16_t environment, const location *location, const real_point3d *world_point);
 extern void effect_generate_part(const effect_datum *effect, const effect_part_definition *part_definition, effect_location_datum *location_instance, const real_point3d *world_point, const real_vector3d *world_forward, const real_vector3d *world_up, float scale);
 
-extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, char bit_index);
+extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, int16_t bit_index);
 void effect_generate_parts(effect_datum *effect)
 {
     effect_definition *definition = TAG_GET(effect_definition, effect->definition_index);

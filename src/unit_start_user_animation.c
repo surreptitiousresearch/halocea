@@ -21,7 +21,7 @@
 #include "headers/animation_update_kind.h"
 
 extern int16_t animation_graph_get_animation_by_name(int animation_graph_index, const char *animation_name);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern void console_warning(const char *format, ...);
 extern int16_t animation_choose_random_permutation_internal(int render_or_affects_game_state, int animation_graph_index, int16_t animation_index);
 extern void object_start_interpolation(int object_index, int16_t frame_count);

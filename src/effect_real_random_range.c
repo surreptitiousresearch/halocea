@@ -11,7 +11,7 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 /* DEVIATION: prior reconstruction carried two phantom leading flag params (unused_a/unused_b) that
  * shifted the mapping; disasm shows only 7 args — r7=scale_a_flags, r8=scale_b_flags, r9(extsh)=
  * first_bit_index (f1/f2 shadow r5/r6). Removed the phantom params. */
-extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, char bit_index);
+extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, int16_t bit_index);
 float effect_real_random_range(uint32_t *seed, const effect_datum *effect, float lower_bound,
         float upper_bound, unsigned int scale_a_flags, unsigned int scale_b_flags,
         int16_t first_bit_index)

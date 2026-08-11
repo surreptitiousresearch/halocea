@@ -30,10 +30,16 @@ extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" lite
 
 #include "../ws/dbg/STRONG_ASSERT_DUMMY.h" // canonical STRONG_ASSERT_DUMMY::Crash (avoids C2011)
 
+// DEVIATION: osGetCurThreadId does NOT share the C linkage of its neighbours. The DB carries one
+// symbol for it, `?osGetCurThreadId@@YAHXZ` — a mangled C++ name returning `H` (int) — matching its
+// definition in src/ws/os/osGetCurThreadId.cpp. The `extern "C" unsigned int` spelling this block
+// used named a symbol that does not exist and got the signedness wrong; the canonical form settled
+// in HALO_SOUND_LIST_boundary.h is used here.
+int osGetCurThreadId();                 // src/ws/os/osGetCurThreadId.cpp
+
 extern "C" {
     void  dlFree(void *p);          // ws-engine allocator free
     void  osDebugBreak();           // os-layer debugger break
-    unsigned int osGetCurThreadId(); // src/ws/os/osGetCurThreadId.cpp
     void  osOutputDebugString(const char *fmt, ...); // printf-style debug output
-    char *tag_get_name(short tag_index); // Blam tag-name lookup (src/tag_get_name.c)
+    char *tag_get_name(int tag_index); // Blam tag-name lookup (src/tag_get_name.c)
 }

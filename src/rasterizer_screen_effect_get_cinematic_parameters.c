@@ -25,7 +25,7 @@
 
 extern int game_time_get(void);
 extern void scalars_interpolate(float a, float b, float t, float *result);
-extern void scalars_interpolate_and_clamp_0_to_1(float a, float b, float t, float *result);
+extern void scalars_interpolate_and_clamp_0_to_1(float a, float b, float t, float *out);
 extern int16_t main_get_window_count(void);
 
 static float ramp_fraction(int game_time, const float *time_range)

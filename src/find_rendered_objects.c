@@ -8,15 +8,10 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_point3d.h"
+#include "headers/real_point3d.h"
 extern void object_marker_begin(void);
 extern void object_marker_end(void);
-extern int16_t structure_visibility_find_objects(
-    int *result_indices, int16_t maximum_count,
-    int (*cluster_get_first)(int *, int16_t),
-    int (*cluster_get_next)(int *),
-    void (*get_bounding_sphere)(int, real_point3d *, float *),
-    int (*unmarked)(uint16_t),
-    int (*mark)(uint16_t));
+extern int16_t structure_visibility_find_objects(int *result_indices, int16_t maximum_count, int (*cluster_get_first)(int *, int16_t), int (*cluster_get_next)(int *), void (*get_bounding_sphere)(int, real_point3d *, float *), int (*unmarked)(uint16_t), int (*mark)(uint16_t));
 
 extern int cluster_get_first_collideable_object(int *reference_index, int16_t cluster_index);
 extern int cluster_get_next_collideable_object(int *reference_index);

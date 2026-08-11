@@ -69,7 +69,7 @@ static float effect_scaled_random_range(const effect_datum *effect, float lower,
     return real_seed_random_range(get_global_local_random_seed_address(), 0.0f, span) + base;
 }
 
-extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, char bit_index);
+extern float effect_scale(const effect_datum *effect, float value, unsigned int scale_a_flags, unsigned int scale_b_flags, int16_t bit_index);
 void effect_generate_particles(effect_datum *effect)
 {
     float last_event_fraction;

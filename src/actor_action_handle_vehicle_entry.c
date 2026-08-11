@@ -39,14 +39,14 @@
 #include "headers/blam_data_globals.h"
 
 
+#include "headers/vehicle_state_data.h"
 extern int game_time_get(void);
 extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint8_t actor_action_allowed_to_enter_vehicle(int actor_index, int vehicle_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
-extern uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float attempt_distance,
-        float continue_distance, vehicle_state_data *state_data);
+extern uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float attempt_distance, float continue_distance, vehicle_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 
 #define VEHICLE_ENTRY_FLT_MAX 3.4028235e38f

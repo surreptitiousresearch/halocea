@@ -28,7 +28,7 @@
 typedef struct _iobuf _iobuf;
 
 /* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 
 
 extern int global_structure_bsp_tag_index_get(void);

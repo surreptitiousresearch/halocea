@@ -59,7 +59,7 @@ extern effect_location_datum *effect_location_get_next_instance(const effect_dat
 extern real_matrix4x3 *first_person_weapon_get_node_matrix(int16_t local_player_index, int16_t node_index);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 
 void effect_update(int effect_index, float dt) /* was: double dt — DB prototype (f1 single-precision: fmr/fsubs/stfs) */
 {

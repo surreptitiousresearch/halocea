@@ -35,13 +35,14 @@
 #include "headers/structure_bsp.h"
 #include "headers/render_globals.h"
 
+#include "headers/detail_object_cell_definition.h"
 extern int16_t local_player_count(void);
 extern void rasterizer_detail_objects_begin(void);
 extern void rasterizer_detail_objects_rebuild_vertices(const detail_object_view_data *detail_object_view_data);
 extern void rasterizer_detail_objects_draw(const detail_object_view_data *detail_object_view_data);
 extern void rasterizer_detail_objects_end(void);
 
-extern detail_object_cell_definition *get_lower_bound_cell(detail_object_cell_definition *begin, detail_object_cell_definition *end, detail_object_cell_coord *key);
+extern detail_object_cell_definition * get_lower_bound_cell(detail_object_cell_definition *begin, detail_object_cell_definition *end, detail_object_cell_coord *key);
 extern detail_object_cell_definition * get_upper_bound_cell(detail_object_cell_definition *begin, detail_object_cell_definition *end, detail_object_cell_coord *key);
 void structure_render_detail_objects(void)
 {

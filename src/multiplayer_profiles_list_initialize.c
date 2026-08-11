@@ -8,6 +8,7 @@
  * bank category: for a spinner list, non-"built-in" variants (flag 0x100 clear) map to 1 when flag 0x80 is set,
  * else 2. The event/widget_deleted callback params are unused. */
 
+#include <wchar.h>
 #include <stdint.h>
 #include <string.h>
 #include "headers/widget_instance.h"
@@ -25,8 +26,7 @@ extern void preview_list_create(void);
 extern uint8_t saved_game_file_retrieve_last_used_multiplayer_variant_directory(char *directory_path);
 extern int saved_game_file_find_profile_index_for_directory_path(char *directory_path, int16_t saved_game_file_type);
 extern uint8_t playlist_profile_get(int playlist_profile_index, game_variant *variant);
-extern void preview_list_add_item_to_bank(
-    int bank, const wchar_t *description, int item_index, game_variant *variant, int item_size, uint8_t selected);
+extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data, unsigned int data_len, char is_default);
 
 uint8_t multiplayer_profiles_list_initialize(
     widget_instance *list_widget, event_record *event, uint8_t *widget_deleted)

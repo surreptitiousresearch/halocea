@@ -79,6 +79,9 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
+#include "headers/structure_bsp.h"
+#include "headers/real_point3d.h"
+#include "headers/collision_bsp_test_vector_result.h"
 extern post_evaluator_table_entry global_post_evaluator_table[];
 
 extern float __fsqrts(float x);
@@ -94,7 +97,7 @@ extern uint8_t actor_perception_friend_prop_is_attacking(uint16_t actor_index, u
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
 extern void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only);
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
 extern void actor_path_input_new(uint16_t actor_index, path_input *input);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);
 extern void path_input_set_start(path_input *input, const real_point3d *start_point, int start_surface_index);
@@ -108,7 +111,7 @@ extern int firing_position_compare(int index1, int index2);
 extern uint8_t firing_position_forced_evaluation(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 extern void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 extern uint8_t firing_position_post_evaluate(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
-extern void qsort_4byte(void *base, unsigned int num, int (*compare)(int, int));
+extern void qsort_4byte(int *base, unsigned int num, int (*compare)(int, int));
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 

@@ -1,4 +1,4 @@
-/* field_type_pointer_parameter_verifier @0x8379B6C0 — field_parameters_verifier for the "pointer" field
+/* _field_type_pointer_parameter_verifier @0x8379B6C0 — field_parameters_verifier for the "pointer" field
  * type: `parameters` holds a pointer to the pointed-to field's own _field_properties_definition, whose
  * type-specific verifier is consulted.
  *
@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t field_type_pointer_parameter_verifier(const _field_properties_definition *const field_properties_definition)
+uint8_t _field_type_pointer_parameter_verifier(const _field_properties_definition *const field_properties_definition)
 {
     const _field_properties_definition *inner = *(const _field_properties_definition **)field_properties_definition->parameters;
 

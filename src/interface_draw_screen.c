@@ -34,7 +34,7 @@ extern void scalars_interpolate(float a, float b, float t, float *result);
 extern float rasterizer_script_screen_effect_get_value(int16_t index);
 extern void rasterizer_screen_effect(const rasterizer_screen_effect_parameters *parameters);
 extern void hud_draw_screen(void);
-extern void game_engine_post_rasterize(void);
+extern int game_engine_post_rasterize(void);
 
 void interface_draw_screen(void)
 {

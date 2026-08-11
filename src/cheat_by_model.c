@@ -12,7 +12,7 @@
 
 extern void tag_iterator_new(tag_iterator *iterator, uint32_t key_group_tag);
 extern int tag_iterator_next(tag_iterator *iterator);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern int hcex_cmp_mdl_names(const char *n1, const char *n2);
 extern void cheat_objects(const game_globals_tag_reference *references, int16_t name_count);
 

@@ -42,7 +42,7 @@
 
 extern double __fabs(double x);
 extern const uint8_t *breakable_surface_flags_get(void);
-extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, float maximum_t, collision_bsp_test_vector_result *result);
+extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
 extern void structure_cluster_marker_begin(void);
 extern void object_marker_begin(void);
 extern uint8_t structure_cluster_mark(int16_t cluster_index);

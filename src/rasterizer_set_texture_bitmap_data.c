@@ -16,7 +16,7 @@
 
 
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
-extern char *tag_get_name(int16_t tag_index);
+extern char *tag_get_name(int tag_index);
 extern D3DBaseTexture *rasterizer_bitmap_get_hw(bitmap_data *bitmap, const char *name);
 extern void *rasterizer_get_bitmap_default_hardware_format(const bitmap_data *bitmap);
 

@@ -45,10 +45,9 @@ extern int16_t unit_inventory_next_weapon(int unit_index, int16_t current_index,
 extern void weapon_build_weapon_interface_state(int weapon_index, weapon_interface_state *state);
 extern uint8_t game_engine_get_state_message(int player_index, uint16_t *buffer, int buffer_length);
 extern void hud_set_state_message(int16_t local_player_index, int16_t message_index);
-extern void hud_set_state_message_text(int16_t local_player_index, int16_t custom_icon_index,
-        int16_t icon_string_index, uint8_t uses_scenario_names);
+extern void hud_set_state_message_text(int16_t local_player_index, int16_t custom_icon_index, int16_t icon_string_index, char uses_scenario_names);
 extern void hud_set_state_message_icon(int16_t local_player_index, int16_t custom_icon_index, const icon_hud_element_definition *icon);
-extern void hud_enable_custom_state_message(int16_t local_player_index, uint8_t enabled);
+extern void hud_enable_custom_state_message(int16_t local_player_index, char enabled);
 extern void hud_set_state_text(int16_t local_player_index, const wchar_t *message);
 
 /* datum pointer for object `idx` from the object header array (salted table index, +2 = data pointer). */

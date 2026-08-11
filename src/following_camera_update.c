@@ -22,7 +22,7 @@
 extern void player_control_get_unit_camera_info(int16_t local_player_index, unit_camera_info *camera_info);
 extern const real_euler_angles2d *player_control_get_facing_angles(int16_t local_player_index);
 extern real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const real_euler_angles2d *angles);
-extern void camera_track_splut(unit_camera *unit_camera, float pitch, real_vector3d *out_track);
+extern void camera_track_splut(const unit_camera *camera, float pitch, real_vector3d *offset);
 extern void object_get_velocities(int object_index, real_vector3d *translational_velocity, real_vector3d *angular_velocity);
 extern void observer_up_from_forward(const real_vector3d *forward, real_vector3d *up);
 extern double cos(double x);

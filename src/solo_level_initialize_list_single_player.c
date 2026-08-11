@@ -13,6 +13,7 @@
  * symbol (demo_scenario_0) — the standard address-sentinel idiom, kept literal; it covers the 10 campaign
  * levels. single_player_level_data entries are 8 bytes {scenario_tag_path, level_completed[4]}. */
 
+#include <wchar.h>
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"
@@ -34,8 +35,7 @@ extern void player_profile_get_highest_completed_solo_level(player_profile *prof
 extern void preview_list_create(void);
 extern int16_t player_ui_get_last_single_player_level_played(int16_t local_player_index);
 extern unsigned short *unicode_string_list_get_string(int tag_index, int16_t string_index);
-extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data,
-        int data_len, uint8_t is_selected);
+extern void preview_list_add_item_to_bank(int bank, const wchar_t *name, int list_index, void *data, unsigned int data_len, char is_default);
 /* stricmp provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern void display_error_deferred(int16_t error_code, int16_t local_player_index, uint8_t modal, uint8_t pause_game_time);
 

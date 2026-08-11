@@ -10,7 +10,7 @@ extern "C" int   hcex_do_legacy_render;
 extern "C" int64_t system_clocks(void);
 extern "C" float game_time_get_since_tick(void);
 extern "C" double system_clock_delta_seconds_real(int64_t a, int64_t b);
-extern "C" void  main_game_render(float time_delta_since_tick_sec, float time_delta_since_last_render_sec);
+extern "C" void main_game_render(float time_delta_since_tick_sec, float time_delta_since_last_render_sec);
 extern "C" void main_present_frame(void);
 
 extern "C" void hcex_legacy_render(void)

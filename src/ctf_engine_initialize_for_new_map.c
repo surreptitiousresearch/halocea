@@ -26,9 +26,9 @@
 #include "headers/blam_data_globals.h"
 
 
+#include "headers/real_point3d.h"
 extern game_variant *game_engine_get_variant(void);
-extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type,
-        int16_t team);
+extern int find_netgame_flag(real_point3d *location, float distance, float height_delta, int16_t type, int16_t team);
 extern int16_t game_connection(void);
 extern int get_flag_definition_index(void);
 extern void object_placement_data_new(object_placement_data *data, int definition_index, int owner_object_index);

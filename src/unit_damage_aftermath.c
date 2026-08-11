@@ -189,7 +189,7 @@ void unit_damage_aftermath(int unit_index, damage_data *damage_data, char being_
         /* attested 10-param: phantom r9-shadow arg dropped; angle precedes body_part (f1 shadows r9) */
         unit_ping_animation(unit_index, lethal_flag, feign_death, died_flying, ignore_hard_pings,
                             force_hard_pings, ping_angle, body_part,
-                            alignment_valid ? &alignment_vector : 0, unit_is_alive_gate);
+                            alignment_valid ? &alignment_vector : nullptr, unit_is_alive_gate);
     }
 
     /* Restored (dropped-call scan): the binary latches the victim player's respawn timer into the

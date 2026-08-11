@@ -1,7 +1,13 @@
 /* hcex_obj_collect @0x83681FD0 — one-time bridge pass that mirrors the Blam world into the hcex render
  * layer after a map loads. For every object it initializes and customizes the hcex proxy; for every light
  * attached to a valid object at a "flashlight" marker it creates an hcex light; and for every effect it
- * seeds the hcex location-based effect proxy. */
+ * seeds the hcex location-based effect proxy.
+ *
+ * DEVIATION (#119): `void`, not `int` — the earlier `return k;` published loop residue as a result.
+ * r3 at the epilogue is the value of the loop's own `bl data_next_index` @0x8368212C, which the exit
+ * test `cmpwi cr6, r3, -1` / `bne cr6` @0x83682134-0x83682138 has just proven to be -1, and the sole
+ * caller (game_state_call_after_load_procs, `bl` @0x83684594) ignores r3 — its extern already spelled
+ * `void`, so the definition was the half that diverged. */
 
 #include <stdint.h>
 #include "../headers/data_array.h"
@@ -26,7 +32,7 @@ extern "C" effect_datum *effect_try_and_get(int index);
 extern "C" void  hcex_init_effect_by_locations(int effect_index, int object_index, float scale);
 extern "C" int   strcmp(const char *a, const char *b);
 
-extern "C" int hcex_obj_collect(void)
+extern "C" void hcex_obj_collect(void)
 {
     for (int i = data_next_index(object_header_data, -1); i != -1; i = data_next_index(object_header_data, i))
     {
@@ -62,5 +68,4 @@ extern "C" int hcex_obj_collect(void)
             hcex_init_effect_by_locations(k, effect->object_index, effect->scale_a);
         k = data_next_index(effect_data, k);
     }
-    return k;
 }

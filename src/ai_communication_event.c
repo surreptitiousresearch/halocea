@@ -20,12 +20,39 @@
  * the line is selected); they do not overlap in time, so distinct buffers are behaviourally equivalent.
  *
  * Deviations: Hex-Rays widens single-precision math to double (fpN) and packs pairs of values into __int64
- * temporaries (v73/v77) — reconstructed as plain float/scalar locals. */
+ * temporaries (v73/v77) — reconstructed as plain float/scalar locals.
+ *
+ * DEVIATION (2026-08-11, #121b): all FOUR actor-search calls had their trailing arguments shifted one slot
+ * left of the truth. Both callees take a float mid-list, which consumes a GPR shadow slot Hex-Rays does not
+ * model: ai_communication_find_global_actor_to_talk reads r3,r4,r5,r6,f1,r8,r9,r10 and the stack halfwords
+ * at +0x56/+0x5E/+0x66 — never r7 — so its slots are 0-3=r3-r6, 4=f1 (shadow r7), 5-7=r8-r10, 8-10=stack;
+ * ai_communication_find_specific_actor_to_talk reads r3,r4,r5,r7,r8,r9,r10,f1 — never r6 — so 0-2=r3-r5,
+ * 3=f1 (shadow r6), 4-7=r7-r10, 8-9=stack. Every IDA argument comment at these call sites is one slot left
+ * of that, and the old reconstruction followed the comments.
+ *   line 211 (0x837D03A4): li r9,6 @0x837D0384 is slot 6 (ai_communication_priority = _yell), li r10,-1
+ *     @0x837D037C is slot 7, and the three stack halfwords are r26=-1 (li @0x837D00AC, never rewritten)
+ *     twice and r17=0 (li @0x837D00A4) — sth @0x837D0388/@0x837D0380/@0x837D0378. The old spelling put
+ *     _unit_speech_scripted (also 6) at slot 7 and zeroed slots 9 and 10.
+ *   line 436 (0x837D0C94) and line 475 (0x837D0D44): slot 5 is the incoming communication_type
+ *     (lhz arg_16), 6 = priority (r22 = lhz 2(r27) @0x837D0A2C), 7 = speech_priority
+ *     (r20 = lhzx communication_speech_priorities[priority] @0x837D0B48), 8 = row->vocalization_type
+ *     (lhz 4(r27)), 9 = row->animation_type (lhz 6(r27)), 10 = the find_actor flags word built from
+ *     row->flags at 0x837D0BC4..0x837D0C20 / 0x837D0CC0..0x837D0D14. row->animation_type had been passed
+ *     at slot 5 and slots 9/10 were zeroed, so the flags word was dropped entirely.
+ *   line 440 (0x837D0C58, the specific-encounter arm): same shift from slot 4 on — the old spelling
+ *     repeated cause_unit_index at slot 4. It shares the flags word with line 436 because the binary
+ *     computes it once, before the beq @0x837D0C2C that chooses the arm.
+ * The two flag spaces are distinct and both DB-verified: dialogue_usage_flags bits 0/4/5 map to
+ * find_actor_flags bits 0/2/3, plus _find_actor_near_to_players_bit always, plus
+ * _find_actor_allow_cause_bit on the friend path only (the ori r11,0x10 @0x837D0C20 that the enemy path
+ * at 0x837D0D14 does not have). The three find_actor_mode literals 0/1/2 corroborate the whole mapping:
+ * they are exactly _find_actor_mode_same_team / _friend / _enemy for the death, friend and enemy branches. */
 
 #include <stdint.h>
 #include "headers/ppc_intrinsics.h"
 #include "headers/ai_communication_candidate.h"
 #include "headers/dialogue_usage_flags.h"
+#include "headers/find_actor_flags.h"
 #include "headers/unit_datum.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
@@ -210,7 +237,8 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                 }
                 global_actor_to_talk = ai_communication_find_global_actor_to_talk(
                     subject_team, 0, subject_unit_index, cause_unit_index, 18.0f,
-                    communication_type /* _ai_communication_death in this branch */, 0, _unit_speech_scripted, -1, 0, 0);
+                    communication_type /* _ai_communication_death in this branch */,
+                    _ai_communication_priority_yell, -1, -1, -1, 0);
                 if ( global_actor_to_talk != -1 )
                 {
                     need_global_actor = 0;
@@ -432,16 +460,23 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
             recipient_unit_index = cause_unit_index;
             if ( need_global_actor )
             {
+                /* both arms share one flags word, computed once at 0x837D0BC4..0x837D0C20 */
+                int16_t find_actor_flags = (int16_t)
+                    ( (row->flags & (1u << _dialogue_usage_lookup_bit) ? (1 << _find_actor_allow_lookup_bit) : 0)
+                    | (1 << _find_actor_near_to_players_bit)
+                    | (row->flags & (1u << _dialogue_usage_same_vehicle_bit) ? (1 << _find_actor_same_vehicle_bit) : 0)
+                    | (row->flags & (1u << _dialogue_usage_allow_subject_bit) ? (1 << _find_actor_allow_subject_bit) : 0)
+                    | (1 << _find_actor_allow_cause_bit) );
                 if ( subject_encounter_index == -1 )
                     actor_to_talk = ai_communication_find_global_actor_to_talk(
-                        subject_team, 1, subject_unit_index, cause_unit_index, 10.0f, row->animation_type,
-                        communication_type, priority, speech_priority, 0, 0);
+                        subject_team, 1, subject_unit_index, cause_unit_index, 10.0f,
+                        communication_type, priority, speech_priority,
+                        row->vocalization_type, row->animation_type, find_actor_flags);
                 else
                     actor_to_talk = ai_communication_find_specific_actor_to_talk(
                         (uint16_t)subject_encounter_index, subject_unit_index, cause_unit_index, 10.0f,
-                        cause_unit_index, communication_type, priority,
-                        communication_speech_priorities[priority],
-                        row->vocalization_type, 0);
+                        communication_type, priority, speech_priority,
+                        row->vocalization_type, row->animation_type, find_actor_flags);
                 global_actor_to_talk = actor_to_talk;
                 need_global_actor = 0;
             }
@@ -472,9 +507,17 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
             recipient_unit_index = cause_unit_index;
             if ( need_other_actor )
             {
+                /* same flags word as the friend path minus _find_actor_allow_cause_bit
+                 * (0x837D0CC0..0x837D0D14 repeats the computation without the trailing ori 0x10) */
+                int16_t find_actor_flags = (int16_t)
+                    ( (row->flags & (1u << _dialogue_usage_lookup_bit) ? (1 << _find_actor_allow_lookup_bit) : 0)
+                    | (1 << _find_actor_near_to_players_bit)
+                    | (row->flags & (1u << _dialogue_usage_same_vehicle_bit) ? (1 << _find_actor_same_vehicle_bit) : 0)
+                    | (row->flags & (1u << _dialogue_usage_allow_subject_bit) ? (1 << _find_actor_allow_subject_bit) : 0) );
                 actor_to_talk = ai_communication_find_global_actor_to_talk(
-                    subject_team, 2, subject_unit_index, cause_unit_index, 12.0f, row->animation_type,
-                    communication_type, priority, speech_priority, 0, 0);
+                    subject_team, 2, subject_unit_index, cause_unit_index, 12.0f,
+                    communication_type, priority, speech_priority,
+                    row->vocalization_type, row->animation_type, find_actor_flags);
                 need_other_actor = 0;
                 subject_actor_index = actor_to_talk;  /* v206 reuse */
             }

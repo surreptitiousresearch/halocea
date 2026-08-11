@@ -1,4 +1,4 @@
-/* internal_rasterize_target_name 0x8374C010 — render the name of the closest player to the local
+/* internal_rasterize_target_name @0x8374C010 — render the name of the closest player to the local
  * player with a fade-in / fade-out alpha. Uses hysteresis: multiplayer.player_display_index stores the
  * displayed player index, multiplayer.player_display_count stores a 0-15 fade counter that ramps up when
  * the closest player matches and

@@ -665,10 +665,15 @@ uint8_t unit_update(int unit_index)
         unit->unit.delayed_damage_timer = remaining;
         if ( !remaining )
         {
-            /* DEVIATION: the damage_velocity argument is a stale register the decompiler could not track
-             * (r6 is not set at the call site); the original value is unrecoverable, so NULL is passed. */
+            /* DEVIATION: ai_handle_damage's `float fraction` consumes the r6 GPR slot as well as f1, so
+             * damage_velocity is r7 and delayed is r8 — not r6/r7. r6 is the float's dead shadow, which is
+             * why it is unset at the call site; the values are not unrecoverable at all. 0x836D534C-
+             * 0x836D5354 sets r8 = 1 and r7 = 0: damage_velocity = NULL (proven, not assumed) and
+             * delayed = 1. A prior revision read the decompiler's one-register-left mapping, took the
+             * unset r6 for damage_velocity, and passed delayed = 0 — the opposite of the flag this
+             * deferred-notification path exists to raise. */
             ai_handle_damage(unit_index, unit->unit.delayed_damage_attacker_object_index,
-                unit->unit.last_damage_category, unit->unit.delayed_damage_peak, nullptr, 0);
+                unit->unit.last_damage_category, unit->unit.delayed_damage_peak, nullptr, 1);
             unit->unit.delayed_damage_peak = 0.0f;
             unit->unit.last_damage_category = 0;
             unit->unit.delayed_damage_attacker_object_index = -1;

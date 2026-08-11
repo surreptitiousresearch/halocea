@@ -2,7 +2,14 @@
  * rendering, and `debug_detail_objects` is enabled, nudge every detail-object cell's Z reference vector's
  * W component by an eighth of the accumulated `fudge_offset` (once per frame the pulse is "active", per
  * `fudge_vector`), for player 0's current view. Resets `fudge_offset` to `final_offset` and clears
- * `fudge_vector` afterward, priming the next pulse. Returns whatever `local_player_count()` returned. */
+ * `fudge_vector` afterward, priming the next pulse.
+ *
+ * DEVIATION (#119): `void`, not `int` — the earlier `return result;` claimed a value the binary does
+ * not carry. `lbz r3, fudge_vector(r4)` @0x83711708 overwrites r3 with the pulse byte before the loop
+ * (the compiler only allocates the return register to a local when the return value is dead), so on the
+ * working path r3 at `blr` @0x837117BC is `fudge_vector`, not `local_player_count`'s result, which is
+ * consumed once as `extsh r11, r3` @0x837116B8 and never preserved. The function has no code xrefs
+ * (its only xref is the .pdata entry), so nothing consumes r3 on any path. */
 
 #include <stdint.h>
 #include "headers/detail_object_global_runtime_data.h"
@@ -12,7 +19,7 @@
 
 extern int16_t local_player_count(void);
 
-int render_debug_detail_objects(void)
+void render_debug_detail_objects(void)
 {
     int16_t result = local_player_count();
 
@@ -43,6 +50,4 @@ int render_debug_detail_objects(void)
         fudge_offset = final_offset;
         fudge_vector = 0;
     }
-
-    return result;
 }

@@ -78,11 +78,16 @@ void structure_decals_update(const uint32_t *old_combined_pvs, const uint32_t *n
                 real_vector3d direction;
                 vector3d_from_euler_angles2d(&direction, &angles);
 
-                /* DEVIATION: the decompiler left decal_new's `permanent` arg uninitialized; the binary
-                 * passes through r6 (the decal-palette index byte). These are permanent decals, so the
-                 * value is always non-zero — passed as the palette index to match the binary exactly. */
-                decal_new(definition_index, &decal->position, &direction, 1.0f,
-                    palette_index, 1, (decal_editor_geometry *)-1);
+                /* DEVIATION: decal_new's `float radius_modifier` consumes the r6 GPR slot as well as f1,
+                 * so its trailing args are r7/r8/r9 (decal_new never reads r6 — see src/decal_new.c).
+                 * 0x837E2FF0-0x837E2FFC sets r9 = 0, r8 = -1, f1 = __real_3f800000 (1.0f) and r7 = 1:
+                 * permanent = 1, forced_sequence_index = -1, editor_geometry = NULL. A prior revision
+                 * read the decompiler's one-register-left mapping and concluded that r6 (the palette
+                 * index loaded by `lbz r6, 0xC(r31)` for the `rotlwi r11, r6, 4` palette lookup two
+                 * instructions later) was the `permanent` argument; it is the float's dead shadow slot,
+                 * and the 0xFFFFFFFF editor_geometry pointer it produced is dereferenced by
+                 * decal_new_from_collision whenever it is non-null. */
+                decal_new(definition_index, &decal->position, &direction, 1.0f, 1, -1, nullptr);
             }
         }
     }

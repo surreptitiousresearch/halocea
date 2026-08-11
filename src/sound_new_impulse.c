@@ -209,7 +209,11 @@ int sound_new_impulse(int definition_index, sound_source *source, int source_ide
         memcpy(snd->track_data, track_data, track_data_size);
 
     {
-        int16_t pitch_range = sound_definition_find_pitch_range_by_pitch(def, snd->pitch, 0);
+        /* DEVIATION: `float pitch` consumes the r4 GPR slot as well as f1, so current_range is r5, not
+         * r4. `li r5, -1` at 0x837189FC is the argument; the decompiler's one-register-left mapping read
+         * the unset r4 and invented 0, which would have made a brand-new sound KEEP pitch range 0
+         * whenever range 0's bend band happens to contain the pitch, instead of scanning for the best. */
+        int16_t pitch_range = sound_definition_find_pitch_range_by_pitch(def, snd->pitch, -1);
         int16_t perm;
         sound_definition *snd_def;
         sound_pitch_range *ranges;

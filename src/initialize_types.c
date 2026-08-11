@@ -1,5 +1,5 @@
+/* initialize_types @0x837A10F8 — mark every message_delta_global_field_type_list row initialized. */
 #include "headers/blam_data_globals.h"
-
 /* DEVIATION: the base symbol was read off IDA's DISPLACEMENT spelling. @0x837A1108 the binary does
  * `addi r11, r11, (gITEM_PLACEMENT_BITS_Z - 0x84182E10)` -- that expression is IDA printing the
  * constant -4, not a reference to gITEM_PLACEMENT_BITS_Z (a 4-byte int at 0x84182E0C, which happens

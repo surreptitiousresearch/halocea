@@ -166,9 +166,14 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
             placement.translational_velocity.n[1] = effect->velocity.n[1] + placement.translational_velocity.n[1];
             placement.translational_velocity.n[2] = effect->velocity.n[2] + placement.translational_velocity.n[2];
             seed = get_global_random_seed_address();
+            /* DEVIATION: same float-shadow mis-map. effect_real_random_range takes two floats, so its
+             * trailing three args are r7/r8/r9: 0x836E1C20-0x836E1C2C sets r7 = [part_definition+0x60]
+             * (a_scales), r8 = [part_definition+0x64] (b_scales) and r9 = 3. A prior revision dropped
+             * b_scales to 0 and passed first_bit_index = 0, so the angular-velocity scaling read the
+             * wrong flag pair and scale_b never applied. */
             angular_speed = effect_real_random_range(seed, effect,
                     part_definition->angular_velocity_lower_bound, part_definition->angular_velocity_upper_bound,
-                    part_definition->a_scales, 0, 0);
+                    part_definition->a_scales, part_definition->b_scales, 3);
             if ( angular_speed == 0.0 )
             {
                 placement.angular_velocity.n[0] = global_zero_vector3d->n[0];
@@ -195,8 +200,14 @@ void effect_generate_part(const effect_datum *effect, const effect_part_definiti
                     part_definition->a_scales, part_definition->b_scales);
             radius_modifier = real_seed_random_range(get_global_local_random_seed_address(),
                     part_definition->radius_modifier_lower_bound, part_definition->radius_modifier_upper_bound);
-            decal_new(part_definition->reference.index, world_point, &velocity, radius_modifier, 0, 0,
-                    (struct decal_editor_geometry *)0xFFFFFFFF);
+            /* DEVIATION: decal_new's `float radius_modifier` consumes the r6 GPR slot as well as f1, so its
+             * trailing args are r7/r8/r9, not r6/r7/r8 (decal_new never reads r6 — see src/decal_new.c).
+             * The binary's argument block at 0x836E1B18-0x836E1B24 is `li r9,0` / `li r8,-1` / `li r7,0`,
+             * i.e. permanent=0, forced_sequence_index=-1, editor_geometry=NULL. A prior revision read the
+             * decompiler's one-register-left mapping and passed forced_sequence_index=0 with 0xFFFFFFFF as
+             * the editor_geometry pointer; decal_new_from_collision dereferences that pointer whenever it
+             * is non-null. Same defect and same cause as unit_place.c / damage_dealt_from_network.c. */
+            decal_new(part_definition->reference.index, world_point, &velocity, radius_modifier, 0, -1, nullptr);
             break;
         }
 

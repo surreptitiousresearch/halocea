@@ -8,7 +8,13 @@
  * the `shift_active == 0` comparison the very next case uses for the same toggle — algebraically identical,
  * collapsed to the same `== 0` form. (A stale note here claimed event_manager_flush takes a `controller_index`
  * left stale by the caller; it does not — 0x837263F8-0x8372640C is void(void) and overwrites r3 with its own
- * memset Dst before using it, so the call takes no argument and the code below correctly passes none.) */
+ * memset Dst before using it, so the call takes no argument and the code below correctly passes none.)
+ *
+ * DEVIATION (#119): the return is `uint8_t`, not `int`. The sole caller narrows it to a byte before
+ * testing — `mr r30, r3` @0x8378475C then `clrlwi r11, r30, 24` @0x83784760, `cmplwi cr6, r11, 1`
+ * @0x83784764 — which is what MSVC emits only when the callee's declared return is byte-wide; the same
+ * epilogue serves `bl virtual_keyboard_cancel` @0x83784758, already `uint8_t` here. Value-identical
+ * (every path reaches the single `li r3, 1` @0x83784270). */
 
 #include <stdint.h>
 #include <string.h>
@@ -32,7 +38,7 @@ extern uint8_t virtual_keyboard_cancel(void);
 extern void virtual_keyboard_backspace(void);
 extern void event_manager_flush(void);
 
-int virtual_keyboard_select(void)
+uint8_t virtual_keyboard_select(void)
 {
     int index = 11 * virtual_keyboard_globals.row + virtual_keyboard_globals.column;
     unsigned char key = virtual_keyboard_layout_table[0][index];

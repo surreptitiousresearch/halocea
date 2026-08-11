@@ -11,8 +11,16 @@
  *
  * DEVIATION: the decompiler emitted the cadence test as branchless sign-bit arithmetic
  * ((-x & ~x) >> 31 and an xor-sign/compare pair); both reduce to the frame-age comparisons written below.
- * The 4th parameter (r5) is never referenced by the function body — kept only to preserve the register ABI so
- * the 5th argument (the full-rebuild flag) lands in r6 as the callers pass it. */
+ *
+ * DEVIATION (2026-08-11, #121a): FOUR parameters, not five. `level_of_detail_pixels` is a float, and on
+ * this ABI a float argument consumes its GPR shadow slot as well as an FPR — so slot 2 takes r5 and the
+ * full-rebuild flag is slot 3 = r6, with no dummy needed. The old 4th `unused_dirty` parameter did not
+ * preserve the ABI, it INVERTED it: it pushed the flag out to r7, which this function never reads and
+ * neither caller writes. Evidence: the callee reads r3 @0x836E6A84, r4 @0x836E6A8C, f1 @0x836E6A7C and
+ * r6 @0x836E6B74 (clrlwi r29, r6, 24 — reached with r6 still incoming when the beq @0x836E6B6C is taken);
+ * r5 is dead-written @0x836E6AAC and r7 @0x836E6A98 before either could be read. Both call sites in
+ * object_get_cached_render_state set exactly r3/r4/f1/r6 (li r6,1 @0x836E6E40 before bl @0x836E6E50;
+ * li r6,0 @0x836E6E6C before bl @0x836E6E7C) and nothing at r5 or r7. */
 
 #include <string.h>
 #include <stdint.h>
@@ -39,10 +47,8 @@ extern void interpolate_real_argb_color(real_argb_color *current, const real_arg
 extern void interpolate_normal(real_vector3d *current, const real_vector3d *desired, float maximum_speed);
 
 void object_render_state_refresh(int cache_index, int object_index, float level_of_detail_pixels,
-                                 uint8_t unused_dirty, uint8_t force_full_rebuild)
+                                 uint8_t force_full_rebuild)
 {
-    (void)unused_dirty;
-
     object_render_state *state = DATA_ARRAY_ELEMENT(cached_object_render_states, object_render_state, cache_index);
 
     int scene_age = render.scene_index - state->render_scene_index;

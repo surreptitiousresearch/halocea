@@ -8,8 +8,10 @@
  * (wrapped) age as the maximum age of 1000. The chosen slot is refreshed and recorded back on the object.
  *
  * DEVIATION: the decompiler invented two phantom parameters (a3, a4) from the soft-float pairing; the true
- * signature takes only (object_index, level_of_detail_pixels). The fourth argument to object_render_state_refresh
- * is a literal: 0 when refreshing an existing slot, 1 when the slot was newly allocated/recycled. */
+ * signature takes only (object_index, level_of_detail_pixels). The last argument to object_render_state_refresh
+ * is a literal: 0 when refreshing an existing slot, 1 when the slot was newly allocated/recycled — the binary
+ * spells it li r6,1 @0x836E6E40 and li r6,0 @0x836E6E6C, r6 being slot 3 because the float ahead of it
+ * consumes the r5 shadow. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -21,8 +23,7 @@
 #include "headers/data_array.h"
 extern int datum_new(data_array *data);
 extern int data_next_index(const data_array *data, int16_t index);
-/* The 4th parameter (r5) is unused by the callee; the newly-allocated flag is the 5th argument (r6). */
-extern void object_render_state_refresh(int cache_index, int object_index, float level_of_detail_pixels, uint8_t unused_dirty, uint8_t force_full_rebuild);
+extern void object_render_state_refresh(int cache_index, int object_index, float level_of_detail_pixels, uint8_t force_full_rebuild);
 
 int object_get_cached_render_state(int object_index, float level_of_detail_pixels)
 {
@@ -33,7 +34,7 @@ int object_get_cached_render_state(int object_index, float level_of_detail_pixel
       && DATA_ARRAY_ELEMENT(cached_object_render_states, object_render_state, cache_index)->object_index
              == object_index )
     {
-        object_render_state_refresh(cache_index, object_index, level_of_detail_pixels, 0, 0);
+        object_render_state_refresh(cache_index, object_index, level_of_detail_pixels, 0);
         return cache_index;
     }
 
@@ -60,7 +61,7 @@ int object_get_cached_render_state(int object_index, float level_of_detail_pixel
             return new_index;
     }
 
-    object_render_state_refresh(new_index, object_index, level_of_detail_pixels, 0, 1);
+    object_render_state_refresh(new_index, object_index, level_of_detail_pixels, 1);
     object->object.cached_render_state_index = new_index;
     return new_index;
 }

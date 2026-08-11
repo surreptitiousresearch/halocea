@@ -74,7 +74,7 @@ void unit_kill_from_network(message_delta_processor_header *header, network_game
     {
         /* DB field is should_alignment_vector_be_null (inverse of has_alignment_vector); writer sets it
          * alignment_valid?0:1 — preserve: pass vector when NOT flagged null. */
-        real_vector2d *alignment_vector = message.should_alignment_vector_be_null ? 0 : &message.alignment_vector;
+        real_vector2d *alignment_vector = message.should_alignment_vector_be_null ? nullptr : &message.alignment_vector;
         unit_ping_animation(unit_index, message.died, message.feign_death, message.died_flying,
                 message.ignore_hard_pings, message.force_hard_pings, message.angle, message.damage_part,
                 alignment_vector, 1u);

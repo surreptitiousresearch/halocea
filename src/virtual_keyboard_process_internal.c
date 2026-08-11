@@ -18,7 +18,7 @@
 extern uint32_t system_milliseconds(void);
 extern uint8_t get_next_event(event_record *event, int16_t local_player_index);
 extern void ui_play_audio_feedback_sound(int16_t audio_feedback);
-extern int virtual_keyboard_select(void);
+extern uint8_t virtual_keyboard_select(void);
 extern uint8_t virtual_keyboard_cancel(void);
 extern void virtual_keyboard_backspace(void);
 extern const char virtual_keyboard_layout_table[5][11];

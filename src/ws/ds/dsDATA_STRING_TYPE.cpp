@@ -2,7 +2,7 @@
 #include "ds_boundary.h"
 #include "dsTSTRING.h"
 
-// 0x823B4180 — dsDATA_TYPE::GetType<dsTSTRING<char>>()
+// @0x823B4180 — dsDATA_TYPE::GetType<dsTSTRING<char>>()
 // Disasm (3 insns): lis r11, dataType@ha ; lwz r3, dataType@l(r11) ; blr — a single load of the
 // static singleton pointer dsDATA_TYPE_STORAGE<dsTSTRING<char>>::dataType
 // (mangled _dataType___dsDATA_TYPE_STORAGE_V__dsTSTRING_D____2PBVdsDATA_TYPE__B) and return.

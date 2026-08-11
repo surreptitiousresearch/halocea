@@ -1,4 +1,4 @@
-/* ui_start_main_menu_music @0x83731154 — start the looping main-menu title music, unless it is already
+/* ui_start_main_menu_music @0x83731130 — start the looping main-menu title music, unless it is already
  * playing or a menu fade is in progress.
  *
  * DEVIATION: the sound scale arrives as a double via the soft-float ABI; it is a float (1.0). */

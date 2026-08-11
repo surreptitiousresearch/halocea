@@ -1,4 +1,4 @@
-/* rasterizer_transparent_geometry_group_draw_internal @0x838129F4 — draw one transparent geometry group's
+/* rasterizer_transparent_geometry_group_draw_internal @0x838129E8 — draw one transparent geometry group's
  * triangles, dispatching to the static/dynamic triangle-buffer x static/dynamic vertex-buffer variant
  * implied by which of triangle_buffer/vertex_buffers are present. With no triangle buffer and no vertex
  * buffer, dynamic_triangle_buffer_index doubles as either a real buffer index (>=0) or, when negative, an

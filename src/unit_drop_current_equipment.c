@@ -1,4 +1,4 @@
-/* unit_drop_current_equipment @0x836CF548 — drop (eject into the world) the equipment object a unit is
+/* unit_drop_current_equipment @0x836CF518 — drop (eject into the world) the equipment object a unit is
  * currently holding (unit.equipment_object_index), and clear the slot. */
 
 #include "headers/data_array.h"

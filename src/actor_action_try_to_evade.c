@@ -27,11 +27,11 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_move_animation_busy(uint16_t actor_index);
+extern uint8_t actor_move_animation_busy(int actor_index);
 extern float normalize2d(real_vector2d *v);
 extern uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignment_vector, float evade_distance, int16_t *evade_direction_reference, float maximum_ledge_height, path_collision_result *evasion_is_ledge, path_collision_result *result);
 extern uint8_t unit_test_animation_impulse(int unit_index, int16_t animation_impulse);
-extern uint8_t actor_move_animation_impulse(uint16_t actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
+extern uint8_t actor_move_animation_impulse(int actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
 
 uint8_t actor_action_try_to_evade(int actor_index)
 {

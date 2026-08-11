@@ -1,7 +1,7 @@
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/ws/os/os_boundary.h"
 
-// HALO_SOUND_SYSTEM::~HALO_SOUND_SYSTEM() @ 0x836C0BB4
+// HALO_SOUND_SYSTEM::~HALO_SOUND_SYSTEM() @ 0x836C0B90
 // Resets the vtable back to the snd::SYSTEM_CUSTOM base (standard destructor vptr unwind),
 // then tears down every owned container. tagInfoPool and customSounds hold trivially-
 // destructible elements (raw TAG_INFO*/HALO_CUSTOM_SOUND with no owned sub-resources of their

@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__DbgRenderSounds @0x836BD880
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/ws/rend/rendDRIVER.h"
 

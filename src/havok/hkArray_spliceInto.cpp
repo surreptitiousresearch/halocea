@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkArray_spliceInto @0x83844FE0 (?spliceInto@?$hkArray@UhkdShapeInstanceInfo@@@@QAAXHHPBUhkdShapeInstanceInfo@@H@Z)
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 

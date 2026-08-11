@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-int action_search_setup_undirected(uint16_t actor_index, uint8_t tenacious, search_state_data *state_data)
+int action_search_setup_undirected(int actor_index, uint8_t tenacious, search_state_data *state_data)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

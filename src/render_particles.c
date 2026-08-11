@@ -50,7 +50,7 @@
 extern int data_next_index(const data_array *data, int16_t index);
 extern uint8_t local_player_is_first_person(int16_t local_player_index);
 extern void render_sort_particles(rendered_particle_datum *rendered_particles, unsigned int rendered_particles_count);
-extern float particle_get_radius(uint16_t particle_index);
+extern float particle_get_radius(int16_t particle_index);
 extern void particle_delete(int particle_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_matrix4x3 *object_get_node_matrix(int object_index, int16_t node_index);

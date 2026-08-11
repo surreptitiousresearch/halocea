@@ -1,6 +1,6 @@
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 
-// haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL::RegisterEventEntry @ 0x823CC488 — construct
+// haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL::RegisterEventEntry @ 0x823CC478 — construct
 // one (id, handler) pair and InsertSorted it into GetEventMap() (INS_DUP_IGNORE: a duplicate id
 // keeps the first registration).
 // DEVIATION: the DB's raw decompile shows this taking 14 parameters (a13/handler duplicated,

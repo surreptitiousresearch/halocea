@@ -1,4 +1,4 @@
-/* actor_destination_tolerance @0x8371EDCC — how close (world units) an actor must get to its destination
+/* actor_destination_tolerance @0x8371EDB8 — how close (world units) an actor must get to its destination
  * to consider it reached. Defaults to 0.5; if the actor is riding a vehicle, uses that vehicle
  * definition's ai_destination_radius. actor_action_obey (11) with the override flag
  * (action_data.obey.complex_control.destination_radius_valid) set uses the actor's own stored tolerance
@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-float actor_destination_tolerance(uint16_t actor_index)
+float actor_destination_tolerance(int actor_index)
 {
     float tolerance = 0.5f;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

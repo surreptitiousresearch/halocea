@@ -40,6 +40,7 @@ void particle_system_update_particle_default(const particle_system_datum *system
     const particle_type *type = &system->types[type_index]; /* const: points into const system's inline types[] array, read-only here 2026-07-31 (C4090) */
 
     const point_physics_definition *physics;
+    point_physics_definition interpolated_physics;   /* frame-local blend target (r1+0x70), see below */
     float radius;
 
     if ( next_state_index == -1 )
@@ -67,12 +68,16 @@ void particle_system_update_particle_default(const particle_system_datum *system
                     * system->types[type_index].variables.particle_state_multipliers.radius)
                 * type_runtime->variables.radius);
 
+        /* DEVIATION 3: the `out` slot is r6 = addi r6,r1,0xE0+var_70 @0x8373B630 — a 64-byte stack
+         * local, exactly sizeof(point_physics_definition). The tag-instance record IDA labels
+         * `# result` (add r5,r8,r11 @0x8373B628) is the UN-SHIFTED slot 3, and only supplies
+         * physics2 via lwz r4,0x14(r5); writing the blend there would overwrite the loaded tag
+         * instance table every frame. */
         physics = point_physics_definition_interpolate(
             TAG_GET(const point_physics_definition, current_state->point_physics.index),
             TAG_GET(const point_physics_definition, next_state->point_physics.index),
             state_fraction,
-            /* interpolated result stashed in the next state's tag-instance record base (scratch) */
-            (point_physics_definition *)TAG_INSTANCE_ELEMENT(next_state->point_physics.index));
+            &interpolated_physics);
     }
 
     unsigned int collision = point_physics_update(0, physics, &particle->location, -1,

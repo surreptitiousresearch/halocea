@@ -1,4 +1,4 @@
-/* hs_find_string_constant @0x83775DA4 — searches the HS string-constant buffer for an existing copy of
+/* hs_find_string_constant @0x83775DA0 — searches the HS string-constant buffer for an existing copy of
  * `string`; returns its byte offset, or -1 if not found (including an empty/absent buffer).
  *
  * DEVIATION: the decompiler renders the comparison as an inlined byte-difference loop; it is a plain

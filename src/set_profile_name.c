@@ -1,4 +1,4 @@
-/* set_profile_name @0x83732AFC — sets a text widget's buffer to "<label> <name>", where <label> is string
+/* set_profile_name @0x83732AC8 — sets a text widget's buffer to "<label> <name>", where <label> is string
  * index 7 of the "common_button_captions" string list (reallocated to fit; the buffer is left null on
  * allocation failure). */
 

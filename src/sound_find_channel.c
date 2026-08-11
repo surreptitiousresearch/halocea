@@ -17,11 +17,11 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void sound_channel_summary_build(sound_channel_summary *summary, uint16_t sound_index);
-extern int16_t sound_find_like_channel(uint16_t sound_index, const int16_t *channel_indices, int16_t channel_count);
-extern int16_t sound_find_best_channel(uint16_t sound_index);
+extern void sound_channel_summary_build(sound_channel_summary *summary, int sound_index);
+extern int16_t sound_find_like_channel(int sound_index, const int16_t *channel_indices, int16_t channel_count);
+extern int16_t sound_find_best_channel(int sound_index);
 
-int16_t sound_find_channel(uint16_t sound_index)
+int16_t sound_find_channel(int sound_index)
 {
     sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     int assigned = (uint16_t)datum->playing_channel_index;

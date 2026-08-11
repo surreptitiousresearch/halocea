@@ -1,4 +1,4 @@
-/* game_engine_did_team_win @0x8374E760 — find the first active player on `team_index` (player record dword
+/* game_engine_did_team_win @0x8374E738 — find the first active player on `team_index` (player record dword
  * +8, i.e. +32 bytes) and defer to game_engine_did_player_win for that player's index. False if no player
  * is on that team.
  *

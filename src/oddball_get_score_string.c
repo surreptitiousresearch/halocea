@@ -1,4 +1,4 @@
-/* oddball_get_score_string @0x83816AB0 — formats a player's oddball individual score into `buffer`: a raw
+/* oddball_get_score_string @0x83816A88 — formats a player's oddball individual score into `buffer`: a raw
  * number for oddball-terminator variants, or a ticks-to-time string otherwise. */
 
 #include <stdint.h>

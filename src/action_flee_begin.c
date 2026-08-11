@@ -13,7 +13,7 @@
 
 extern void unit_start_running_blindly(int unit_index);
 
-void action_flee_begin(uint16_t actor_index)
+void action_flee_begin(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int16_t flee_mode_value = actor->state.action_data.___u0.flee.panic_type;

@@ -1,4 +1,4 @@
-/* game_show_score_all_extended_except_player @0x8374D994 — broadcasts a scoring/status message to every
+/* game_show_score_all_extended_except_player @0x8374D968 — broadcasts a scoring/status message to every
  * in-use player except `excepted_player`. Mirrors the broadcast half of game_show_score_extended.c. */
 
 #include <stdint.h>

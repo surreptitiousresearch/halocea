@@ -1,4 +1,4 @@
-// iaIACTOR::GetProperty<P>() — reversed for P = propHALO_OBJ (@0x823DB164), propINST_CONSTRUCTOR
+// iaIACTOR::GetProperty<P>() — reversed for P = propHALO_OBJ (@0x823DB158), propINST_CONSTRUCTOR
 // (@0x823DB06C), propOBJ_MODIFIER_LIST (@0x823DFC6C). Identical shape for all three: if
 // propContainer.typeId itself derives from P's DESC::TYPE_ID, this actor's propContainer IS the
 // property (reinterpreted as P*). Otherwise, only when propContainer.typeId derives from

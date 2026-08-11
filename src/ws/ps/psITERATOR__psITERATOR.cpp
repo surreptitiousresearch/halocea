@@ -3,7 +3,7 @@
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsTSTRING.h"
 #include "../apCL.h"
-// 0x8251B600 (??0psITERATOR@@QAA@XZ) — default ctor: an empty, unfiltered iterator positioned
+// @0x8251B600 (??0psITERATOR@@QAA@XZ) — default ctor: an empty, unfiltered iterator positioned
 // before any records. The name filter adopts the shared empty-string singleton and the record
 // vector is built with the ps_section.cpp allocation call-site cookie.
 

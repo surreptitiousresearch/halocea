@@ -1,4 +1,4 @@
-/* local_player_get_next @ 0x836A80DC — iterate local players in ascending index order. Pass
+/* local_player_get_next @ 0x836A80D8 — iterate local players in ascending index order. Pass
  * -1 to start; returns the next occupied local-player slot index, or -1 when exhausted. */
 
 #include <stdint.h>

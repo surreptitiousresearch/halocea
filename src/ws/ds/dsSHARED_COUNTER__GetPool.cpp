@@ -1,3 +1,4 @@
+// dsSHARED_COUNTER__GetPool @0x82B8F890
 // dsSHARED_COUNTER::GetPool @0x82B8F8A8 — lazily heap-allocate the process-wide recycled-slot
 // pool on first use, caching it in the static `pool` global thereafter.
 #include "../../headers/ws/ds/dsSHARED_COUNTER.h"

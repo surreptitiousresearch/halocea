@@ -29,11 +29,11 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void actor_find_pathfinding_location(uint16_t actor_index);
+extern void actor_find_pathfinding_location(int actor_index);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);
 extern void path_input_set_start(path_input *input, const real_point3d *start_point, int start_surface_index);
 
-void actor_path_input_new(uint16_t actor_index, path_input *input)
+void actor_path_input_new(int actor_index, path_input *input)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

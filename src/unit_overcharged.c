@@ -1,4 +1,4 @@
-/* unit_overcharged @0x836CF350 — true when the weapon a unit is currently holding is in an overcharged
+/* unit_overcharged @0x836CF330 — true when the weapon a unit is currently holding is in an overcharged
  * state. Resolves the held weapon from the unit's current weapon slot and inventory array, returning false
  * when the unit has no current weapon. */
 

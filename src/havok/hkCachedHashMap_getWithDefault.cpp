@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkCachedHashMap_getWithDefault @0x838E8980 (?getWithDefault@?$hkCachedHashMap@UhkStringMapOperations@@@@QBAKKK@Z)
 #include "../headers/havok/hkStringMap.h"
 
 /* hkCachedHashMap<hkStringMapOperations>::findKey — probe the table for key and

@@ -1,4 +1,4 @@
-/* virtual_keyboard_tab_left @0x837835C8 — moves keyboard focus left, wrapping from column 0 to column 10,
+/* virtual_keyboard_tab_left @0x837835A0 — moves keyboard focus left, wrapping from column 0 to column 10,
  * skipping over any column whose key code matches the starting column's key code (merged/blank cells). */
 
 #include <stdint.h>

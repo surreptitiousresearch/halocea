@@ -1,4 +1,4 @@
-/* weapon_put_away @0x836DCDC0 — lower/holster a weapon. Unless `immediate`, it refuses (returns 0) while
+/* weapon_put_away @0x836DCD80 — lower/holster a weapon. Unless `immediate`, it refuses (returns 0) while
  * the weapon is mid-action (either trigger state, either magazine state, or the weapon state nonzero).
  * It then enters weapon state 10 (put-away), runs the hcex "put_away" object state, clears the control
  * flags, resets the weapon, deletes any active overheated effect, and sends the first-person "put away"

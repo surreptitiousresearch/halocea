@@ -1,4 +1,4 @@
-/* unit_definition_get_active_hud_index @0x837BC5C4 — pick which of a unit's HUD references is active and
+/* unit_definition_get_active_hud_index @0x837BC5A8 — pick which of a unit's HUD references is active and
  * return that HUD's globals tag index. Single-player (and split-screen co-op) use HUD slot 0; other
  * multiplayer uses slot 1. The slot is clamped to the last available reference. Returns -1 when the unit
  * defines no HUDs (or the clamped slot is negative). */

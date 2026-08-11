@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern uint8_t hs_trigger_volume_test_objects_all(int16_t trigger_volume_index, int object_list_index);
 void hs_trigger_volume_test_objects_all_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

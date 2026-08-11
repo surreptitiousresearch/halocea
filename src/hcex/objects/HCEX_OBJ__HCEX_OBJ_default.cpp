@@ -1,4 +1,4 @@
-/* HCEX_OBJ default ctor @0x823EDA0C — default-construct: no tracked Blam object (id=-1), empty
+/* HCEX_OBJ default ctor @0x823EDA00 — default-construct: no tracked Blam object (id=-1), empty
  * instance pointer, empty followers/followersOfs vectors (adopting the "ds_vector.h":24 allocation
  * call-site cookie for both), and flags cleared.
  *

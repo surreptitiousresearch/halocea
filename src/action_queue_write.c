@@ -1,4 +1,4 @@
-/* action_queue_write @0x837AAFFC — enqueue a player action to replay. Builds a 44-byte queue entry
+/* action_queue_write @0x837AAFF0 — enqueue a player action to replay. Builds a 44-byte queue entry
  * { client_update_id, repeat_count, ticks, player_action } — repeat_count and ticks both start at
  * ticks_to_apply_update_to (repeat_count is decremented as the action is consumed) — and pushes it onto the
  * queue's circular buffer.

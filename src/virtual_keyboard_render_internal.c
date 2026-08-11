@@ -1,4 +1,4 @@
-/* virtual_keyboard_render_internal @0x83783C88 — draw the on-screen virtual keyboard: the background
+/* virtual_keyboard_render_internal @0x83783C58 — draw the on-screen virtual keyboard: the background
  * bitmap (if present), the caption string for the current special-key set, the static "done" label
  * (special key 14), and the editable text box. All text is drawn in the off-white tint {1.0,0.9,0.9,0.9}
  * with the keyboard's caption font.

@@ -21,10 +21,10 @@
 extern int actor_action_handle_initial_action(int actor_index);
 extern uint8_t actor_action_handle_pending_command_list(int actor_index);
 extern int actor_action_handle_surprise(int actor_index, int16_t minimum_surprise_level);
-extern uint8_t actor_action_deny_transition(uint16_t actor_index);
+extern uint8_t actor_action_deny_transition(int actor_index);
 extern uint8_t actor_action_handle_panic_from_damage(int actor_index);
-extern uint8_t actor_action_handle_panic_from_attached_projectiles(uint16_t actor_index);
-extern int actor_action_handle_panic_from_attached_melee_attackers(uint16_t actor_index);
+extern uint8_t actor_action_handle_panic_from_attached_projectiles(int actor_index);
+extern int actor_action_handle_panic_from_attached_melee_attackers(int actor_index);
 extern uint8_t actor_action_handle_panic_from_burning_to_death(int actor_index);
 extern int actor_action_handle_panic_transition(int actor_index, int16_t minimum_panic_level, uint8_t enforced_calm, int16_t force_panic_level);
 extern uint8_t actor_action_handle_combat_transition(int actor_index);

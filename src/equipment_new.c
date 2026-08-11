@@ -1,4 +1,4 @@
-/* equipment_new @0x837B5D80 — on server/local games, clear the equipment's 3 usage-tracking bytes (+580..582)
+/* equipment_new @0x837B5D50 — on server/local games, clear the equipment's 3 usage-tracking bytes (+580..582)
  * and its "in-use" byte (+9). Same object_header_data 12-byte-datum idiom as garbage_new.c. */
 
 #include <stdint.h>

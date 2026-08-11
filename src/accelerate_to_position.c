@@ -1,4 +1,4 @@
-/* accelerate_to_position @0x837001E4 — advances a 1-D position toward a desired value under a maximum
+/* accelerate_to_position @0x837001E0 — advances a 1-D position toward a desired value under a maximum
  * acceleration and speed, optionally wrapping within [lower,upper] for a circular (angular) coordinate.
  * If the position is already within one acceleration step of the target it snaps to it (clamped) and
  * returns 1 (arrived); otherwise it integrates one step of velocity/position and returns 0.

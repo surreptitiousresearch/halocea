@@ -1,3 +1,4 @@
+// lgtLIGHT__CalcAttenuation @0x82A7A1C8
 #include <math.h>
 #include "../../headers/ws/lgt/lgtLIGHT.h"
 #include "../../headers/ws/m3d/m3dV.h"

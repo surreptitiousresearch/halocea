@@ -1,3 +1,4 @@
+// rendSR_DATA__StartLampsUpdate @0x829EC380
 #include "../../headers/ws/rend/rendSR_DATA.h"
 #include "../../headers/ws/rend/rendSR_LAMP_DATA.h"
 #include "../../headers/ws/m3d/m3dV.h"

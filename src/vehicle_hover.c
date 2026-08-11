@@ -1,4 +1,4 @@
-/* vehicle_hover @0x8375D9B8 — enable or disable a vehicle's hover mode (object flag bit 0x2 at object
+/* vehicle_hover @0x8375D9A0 — enable or disable a vehicle's hover mode (object flag bit 0x2 at object
  * word +1228). When enabling, capture the current origin as the hover anchor point (object +1276). */
 
 #include <stdint.h>

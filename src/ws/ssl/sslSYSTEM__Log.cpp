@@ -4,7 +4,7 @@
 // Global printf-into-dsTSTRING helper (returns the formatted string by reference); not reversed here.
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 
-// 0x825CC270 — sslSYSTEM::Log (const char* base overload). Emit a line through the global sslLogCb
+// @0x825CC270 — sslSYSTEM::Log (const char* base overload). Emit a line through the global sslLogCb
 // sink of the form <indent><logPref><text><logPost>, preceded (once per accumulated batch) by a
 // frame/timing banner. No-op when no sink is installed.
 //

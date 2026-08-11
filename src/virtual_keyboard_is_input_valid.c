@@ -1,4 +1,4 @@
-/* virtual_keyboard_is_input_valid @0x837834E8 — decide whether a typed character is acceptable for a
+/* virtual_keyboard_is_input_valid @0x837834D0 — decide whether a typed character is acceptable for a
  * given on-screen-keyboard field mode. Mode 4 (numeric/address) accepts '.', '-', ':' and any
  * alphanumeric/hex character; mode 5 accepts only digits; all other modes accept any character that is
  * not in the global invalid_keys blacklist. */

@@ -1,4 +1,4 @@
-/* vibrate_clear_all_now @0x83739320 — clear all controller vibration immediately: zero the vibrate
+/* vibrate_clear_all_now @0x83739300 — clear all controller vibration immediately: zero the vibrate
  * globals and force every connected gamepad's rumble motors off. */
 
 #include <stdint.h>

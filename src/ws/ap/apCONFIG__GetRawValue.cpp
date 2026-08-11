@@ -1,3 +1,4 @@
+// apCONFIG__GetRawValue @0x82623110
 // apCONFIG::GetRawValue @0x82623188 — resolve `complexKey`: if it's registered in `exportMap`
 // (and gStateMgr is live), return a copy of the tracked dsSTATE_MGR state directly; otherwise
 // fall back to a plain psSECTION lookup on `ps`.

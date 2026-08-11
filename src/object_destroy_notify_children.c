@@ -1,4 +1,4 @@
-/* object_destroy_notify_children @0x836B151C — when an object is destroyed, notify each child (and,
+/* object_destroy_notify_children @0x836B1500 — when an object is destroyed, notify each child (and,
  * recursively, their children) so they can react (e.g. detach). Each child that doesn't handle the
  * parent-destroyed event itself has its own children notified. Walks first_child_object_index and
  * the next_object_index sibling chain. */

@@ -56,6 +56,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 #include "headers/networked_datum_role.h"
+#include "headers/tag_groups.h"
 
 
 extern int16_t game_connection(void);
@@ -63,7 +64,6 @@ extern game_variant *game_engine_get_variant(void);
 extern int game_time_get(void);
 extern void object_reset(int object_index);
 extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, int16_t object_type, int *size);
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern real_vector3d *vector3d_from_angle(real_vector3d *vector, float angle);
 extern void object_set_position(int object_index, const real_point3d *position, const real_vector3d *forward, const real_vector3d *up);
 extern uint8_t unit_driver_seat_is_filled(int unit_index);

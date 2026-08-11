@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osGetPerfCounter @0x825E5850 (?osGetPerfCounter@@YA_KXZ)
 #include <stdint.h>
 #include "../../headers/ws/os/os_boundary.h"
 

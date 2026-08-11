@@ -1,4 +1,4 @@
-/* copy_relevant_profile_data @0x83802768 — for `type == 2` (name/appearance sync?), copies the player's
+/* copy_relevant_profile_data @0x83802748 — for `type == 2` (name/appearance sync?), copies the player's
  * name and primary color from `profile` into `dst`, and marks every single-player map's low nibble as
  * "seen" (bit 0xF) in `dst->single_player_map_flags`. Always reports success. */
 

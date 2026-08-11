@@ -1,4 +1,4 @@
-/* object_set_position @0x836F154C — place an object at a position with an explicit orientation. Disconnects
+/* object_set_position @0x836F1508 — place an object at a position with an explicit orientation. Disconnects
  * the object from the map's spatial partition, writes position (object data floats [23..25]) and the
  * forward/up basis vectors (forward [29..31], up [32..34]); when no up vector is supplied, derives one
  * orthogonal to forward, then recomputes node matrices and reconnects to the map. */

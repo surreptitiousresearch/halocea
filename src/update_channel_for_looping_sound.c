@@ -1,4 +1,4 @@
-/* update_channel_for_looping_sound @ 0x83717E88 — drive a looping sound's hardware channel each
+/* update_channel_for_looping_sound @ 0x83717E58 — drive a looping sound's hardware channel each
  * update. Computes the faded, distance-attenuated gain and bent pitch from the sound definition and
  * the owning looping-sound track, advances the loop state machine (intro -> loop -> outro), queues
  * the next permutation when the platform channel needs feeding, and pushes the properties. On the
@@ -38,7 +38,7 @@ extern void sound_start_fade(int16_t mode, float seconds, int fade_out_sound_ind
 extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound, float pitch, int16_t current_range);
 extern int16_t channel_get_state(int16_t channel_index);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
-extern void sound_set_definition_end(uint16_t sound_index);
+extern void sound_set_definition_end(int sound_index);
 extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 extern int get_object_by_looping_sound(int sound_index);
 extern void channel_queue_sound(int16_t channel_index, sound_permutation *permutation, int identifier, uint8_t is_local_player, int16_t class_index, uint8_t lapping);
@@ -127,7 +127,9 @@ void update_channel_for_looping_sound(int16_t channel_index, float fade)
         /* if the bent pitch crossed into a different pitch range, start a crossfade to a new child sound */
         if ( (uint16_t)datum->type == _sound_loop_track
           && (datum->fade_start_time == datum->fade_stop_time || datum->fade_interpolation_end != 0.0)
-          && sound_definition_find_pitch_range_by_pitch(def, bent_pitch, 9 * pitch_range_index) != datum->pitch_range_index
+          /* DEVIATION: current_range is r5 = lhz r5,0x8E(r30) @0x83718170 = pitch_range_index; the
+           * `9 *` scale Hex-Rays printed here is fabricated — there is no multiply in the binary. */
+          && sound_definition_find_pitch_range_by_pitch(def, bent_pitch, pitch_range_index) != datum->pitch_range_index
           && sound_channels[channel_index_s].sound_index == loop_datum->tracks[loop_track_index].primary_sound_index
           && !sound_manager_globals.idling )
         {

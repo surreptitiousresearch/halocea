@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkNextPowerOf2 @0x838D3470 (?hkNextPowerOf2@@YAII@Z) */
 /* Round up to the next power of two via bit smearing. DEVIATION: the decompiler
    emits the smears in 16,8,4,2,1 order fused into two nested expressions; the
    result is the standard (in-1) | >>1.. | >>16, +1. */

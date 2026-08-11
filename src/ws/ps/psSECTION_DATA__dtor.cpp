@@ -1,7 +1,7 @@
 #include "psSECTION_DATA.h"
 #include "../ds/dsDATA.h"
 #include "../ds/dsVECTOR.h"
-// 0x82519848 — release/free every owned sub-section (recursively deleting bodies this section owns
+// @0x82519828 — release/free every owned sub-section (recursively deleting bodies this section owns
 // directly), then tear down the record and parent-list vectors. `__nPsData` is the global live-count
 // of allocated psSECTION_DATA bodies, decremented here.
 

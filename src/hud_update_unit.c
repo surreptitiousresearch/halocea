@@ -1,4 +1,4 @@
-/* hud_update_unit @0x836D8258 — advance the shield/body HUD fade state for every local player's unit each
+/* hud_update_unit @0x836D8240 — advance the shield/body HUD fade state for every local player's unit each
  * frame. For each local player with a live unit, the unit_hud_state (one per local player) tracks the last
  * seen shield/body vitality and a fade timer driven by recent shield damage:
  *   - shield dropped this frame: (re)start the hit timer if the fade is out of [0,1]; once at least 15

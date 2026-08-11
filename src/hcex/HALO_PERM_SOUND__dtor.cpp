@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: HALO_PERM_SOUND::~HALO_PERM_SOUND() @0x836B4FC0 (??1HALO_PERM_SOUND@@QAA@XZ)
 #include "../headers/hcex/HALO_PERM_SOUND.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 

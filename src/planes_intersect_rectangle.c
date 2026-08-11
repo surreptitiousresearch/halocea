@@ -1,4 +1,4 @@
-/* planes_intersect_rectangle @0x837C4BD8 — classify a 3D AABB against a set of cull planes (half-spaces).
+/* planes_intersect_rectangle @0x837C4BC8 — classify a 3D AABB against a set of cull planes (half-spaces).
  * Tests all eight box corners against every plane: if all eight fall behind one plane the box is fully outside
  * (returns 0); if no corner is behind any plane it is fully inside (returns 2); otherwise it straddles
  * (returns 1). With no planes the box is trivially inside. Rectangle layout is [x0,x1,y0,y1,z0,z1]. */

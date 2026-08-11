@@ -13,7 +13,7 @@
 extern void object_set_automatic_deactivation(int object_index, uint8_t automatic_deactivation);
 extern void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled);
 
-void actor_detach_from_unit(uint16_t actor_index)
+void actor_detach_from_unit(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int unit_index = actor->meta.unit_index;

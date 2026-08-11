@@ -13,7 +13,7 @@
 
 extern float normalize3d(real_vector3d *v);
 
-uint8_t actor_get_running_blind_vector(uint16_t actor_index, real_vector3d *run_vector)
+uint8_t actor_get_running_blind_vector(int actor_index, real_vector3d *run_vector)
 {
     int have_vector = 0;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

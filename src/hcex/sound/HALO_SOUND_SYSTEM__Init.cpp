@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__Init @0x836C5228
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/hcex/HALO_SOUND_SYSTEM_globals.h"
 

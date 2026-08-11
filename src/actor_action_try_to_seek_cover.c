@@ -1,4 +1,4 @@
-/* actor_action_try_to_seek_cover @0x837F3324 — attempts to transition the actor into the flee action to seek
+/* actor_action_try_to_seek_cover @0x837F32D8 — attempts to transition the actor into the flee action to seek
  * cover from its currently-tracked hostile prop (actor+0x270, same "closest hostile prop" index as
  * actor_action_handle_berserking_from_proximity.c). Mirrors actor_action_try_to_panic.c's setup-then-change
  * pattern, with panic_type = _actor_panic_none and force_state_entry=0. */

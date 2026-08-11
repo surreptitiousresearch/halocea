@@ -1,4 +1,4 @@
-/* ai_test_line_of_fire @0x836E80F4 — tests whether a shot from origin along vector would pass any
+/* ai_test_line_of_fire @0x836E80D0 — tests whether a shot from origin along vector would pass any
  * friendly unit's collision pill. Returns 1 when the line of fire is clear, 0 when a friend blocks it;
  * the blocking friend's prop index is written through prop_index_reference (when supplied). */
 

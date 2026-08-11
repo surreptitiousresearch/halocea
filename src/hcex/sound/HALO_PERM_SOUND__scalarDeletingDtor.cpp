@@ -1,4 +1,4 @@
-// ??_GHALO_PERM_SOUND@@QAAPAXI@Z -- 0x836B50A0
+// ??_GHALO_PERM_SOUND@@QAAPAXI@Z -- @0x836B5068
 // The destructor's body (prevFadeOut/fadeIn STRONG_ASSERT) is inlined at this address in the
 // binary; reproduced here as a call to ~HALO_PERM_SOUND() -- identical semantics, compilable.
 #include "../../headers/hcex/HALO_PERM_SOUND.h"

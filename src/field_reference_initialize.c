@@ -1,4 +1,4 @@
-/* field_reference_initialize @0x837A1E8C — one-time lazy init of a field reference: initializes its
+/* field_reference_initialize @0x837A1E80 — one-time lazy init of a field reference: initializes its
  * properties definition inline (same verify + cache-max-size steps as field_properties_initialize.c) before
  * marking the reference itself initialized. */
 

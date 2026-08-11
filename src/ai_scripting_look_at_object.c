@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
 void ai_scripting_look_at_object(int unit_index, int object_index)
 {

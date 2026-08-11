@@ -1,4 +1,4 @@
-/* decode_digital_vector @0x8379D174 — decode a packed 4-bit-per-axis "digital" direction (2 bits per axis,
+/* decode_digital_vector @0x8379D170 — decode a packed 4-bit-per-axis "digital" direction (2 bits per axis,
  * y then x, each bit0=negative/bit1=positive) into a unit real_vector3d, normalizing the result. Zero input
  * yields the zero vector. */
 

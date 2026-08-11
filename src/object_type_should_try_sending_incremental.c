@@ -1,4 +1,4 @@
-/* object_type_should_try_sending_incremental @0x8370296C — walks the object's type's part_definitions chain
+/* object_type_should_try_sending_incremental @0x83702948 — walks the object's type's part_definitions chain
  * from the most-derived type (index 15) down to the first entry with a non-null should_try_sending_incremental
  * callback, and returns its result. Defaults to true (1) if no part in the chain defines the callback. */
 

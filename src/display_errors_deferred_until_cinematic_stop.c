@@ -1,4 +1,4 @@
-/* display_errors_deferred_until_cinematic_stop @0x83736BB8 — flush the queue of error messages that
+/* display_errors_deferred_until_cinematic_stop @0x83736BA8 — flush the queue of error messages that
  * were deferred while a cinematic played: display each valid entry (error code < NUMBER_OF_ERROR_CODES) for both local
  * players, then clear the slot. */
 

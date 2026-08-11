@@ -1,4 +1,4 @@
-/* dispose_mutex @0x83800350 — release a named mutex: close its Win32 handle and clear the record. */
+/* dispose_mutex @0x83800338 — release a named mutex: close its Win32 handle and clear the record. */
 
 #include "headers/mutex.h"
 

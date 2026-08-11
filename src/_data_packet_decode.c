@@ -1,4 +1,4 @@
-/* _data_packet_decode @0x8381FDAC — recursive per-field packet decoder, the counterpart to
+/* _data_packet_decode @0x8381FD90 — recursive per-field packet decoder, the counterpart to
  * `_data_packet_encode`. Walks a field list (terminated by a type-9 field), decoding each field whose version
  * range includes `version` into the decoded buffer; fields outside the version range are zero-filled instead.
  * Nested arrays (type 7) recurse over the following sub-field list. Reports the consumed field count and

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <wchar.h>
-/* wide_to_ascii @0x8376D94C — convert a wide (UTF-16) string to ASCII, substituting a space for any code
+/* wide_to_ascii @0x8376D940 — convert a wide (UTF-16) string to ASCII, substituting a space for any code
  * unit that doesn't fit in a byte. Fails (returns null) if the source doesn't fit in the destination
  * (including the NUL). Returns the destination on success. */
 

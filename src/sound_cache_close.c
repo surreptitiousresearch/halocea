@@ -10,7 +10,7 @@
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
 extern void unload_sound_fmod(sound_permutation *sound);
-extern void lruv_block_delete(lruv_cache *cache, uint16_t block_index);
+extern void lruv_block_delete(lruv_cache *cache, int block_index);
 extern void data_make_invalid(data_array *data);
 void sound_cache_close(void)
 {

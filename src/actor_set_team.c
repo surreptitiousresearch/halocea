@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_set_team(uint16_t actor_index, int16_t team_index)
+void actor_set_team(int actor_index, int16_t team_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->meta.swarm )

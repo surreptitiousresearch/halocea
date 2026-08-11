@@ -1,4 +1,4 @@
-/* trim_whitespace @0x837664F4 — strip leading and trailing whitespace (CRT _SPACE class, plus explicit
+/* trim_whitespace @0x837664E0 — strip leading and trailing whitespace (CRT _SPACE class, plus explicit
  * CR/LF) from a string in place. Trailing whitespace is overwritten with NULs; leading whitespace is
  * likewise NUL'd and *str is advanced past it. */
 

@@ -1,6 +1,6 @@
 #include "headers/ws/txm/txm_functions.h"
 
-// 0x827BBC48 -- computes the tiled hardware size (in bytes) of a 2D texture via the XDK's
+// @0x827BBC28 -- computes the tiled hardware size (in bytes) of a 2D texture via the XDK's
 // XGSetTextureHeader, returning only the base-size out-param. DEVIATION: the decompiler left
 // the trailing 4 XGSetTextureHeader out-params (BaseOffset/MipOffset/pTexture/pMipSize slots)
 // as uninitialised locals with unresolved types; reconstructed here as the real XDK parameter

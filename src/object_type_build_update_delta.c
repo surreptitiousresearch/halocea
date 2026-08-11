@@ -1,4 +1,4 @@
-/* object_type_build_update_delta @0x83702654 — find the most-specific part definition (searching
+/* object_type_build_update_delta @0x83702620 — find the most-specific part definition (searching
  * part_definitions[15] down to [0]) that actually implements build_update_delta, and call it. Returns 0 if
  * none do. */
 

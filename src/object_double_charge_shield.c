@@ -1,4 +1,4 @@
-/* object_double_charge_shield @0x836B14A4 — grant an overshield to an object. Only acts when the
+/* object_double_charge_shield @0x836B1478 — grant an overshield to an object. Only acts when the
  * current shield vitality is at or below full (<= 1.0). It raises the overshield flag (damage_flags
  * 0x10), nudges a fully-depleted shield off zero so it can recharge, clears the shield recharge delay
  * (shield_stun_ticks), and marks the shield as changed (force_shield_update). Returns whether the

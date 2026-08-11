@@ -23,7 +23,7 @@ extern int datum_new_at_plain_index_hack_for_player_data(data_array *data, int i
 extern void ustrncpy(wchar_t *dest, const wchar_t *src, unsigned int count);
 /* memcpy declared by <string.h> */
 
-int player_new(int machine_index, int player_index, uint16_t local_player_index, network_player *network_player_data)
+int player_new(int machine_index, int player_index, int16_t local_player_index, network_player *network_player_data)
 {
     int new_player_index;
     if (player_index == -1)

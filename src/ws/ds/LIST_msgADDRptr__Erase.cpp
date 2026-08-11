@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::Erase(ITERATOR) — 0x82AC59D0
+// ds::LIST<msgADDR *>::Erase(ITERATOR) — @0x82AC59D0
 // Deviation: the raw decompile swapped the sret-return-slot register (r3) and `this` (r4),
 // labeling the sret slot "this" and `this` as "result[1]/result[2]" — an OVERLAPPED-looking
 // artifact that is really just misattributed register roles. Verified against disasm: r3 is the

@@ -1,4 +1,4 @@
-/* player_control_get_facing_direction @0x836DE6B4 — output the unit-space facing direction a local
+/* player_control_get_facing_direction @0x836DE688 — output the unit-space facing direction a local
  * player is currently aiming toward, derived from that player's desired look angles. */
 
 #include <stdint.h>

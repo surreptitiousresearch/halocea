@@ -24,7 +24,7 @@
 #include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
 extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
-extern int16_t sound_find_channel(uint16_t sound_index);
+extern int16_t sound_find_channel(int sound_index);
 extern void sound_stop(int sound_index);
 /* declared to the generic callback-slot signature (matches sound_datum.track_proc) so the
  * funcptr identity comparison below needs no cast */

@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_path_has_path(uint16_t actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
 extern uint8_t actor_look_decode_direction(int actor_index, direction_specification *specification, real_vector3d *direction);
 
 void actor_look_affect_movement(int actor_index)

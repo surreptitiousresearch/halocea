@@ -1,7 +1,7 @@
 #include "../../headers/vidDRIVER.h"
 #include "../../headers/ws/txm/txmTEXTURE.h"
 
-// 0x82668D70 -- ?UnsetRenderTarget@vidDRIVER@@QAAXPAVtxmTEXTURE@@0@Z
+// @0x82668D70 -- ?UnsetRenderTarget@vidDRIVER@@QAAXPAVtxmTEXTURE@@0@Z
 // Public convenience wrapper: build a render-target stack entry naming the color/depth textures to
 // unbind (def-use state fixed to 3) and apply it through the virtual
 // UnsetRenderTarget(const vidRT_STACK_ENTRY *) slot.

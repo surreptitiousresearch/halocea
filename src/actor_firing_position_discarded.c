@@ -4,7 +4,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t actor_firing_position_discarded(uint16_t actor_index, int16_t firing_position_index)
+uint8_t actor_firing_position_discarded(int actor_index, int16_t firing_position_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

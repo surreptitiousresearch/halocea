@@ -1,4 +1,4 @@
-/* player_effect_screen_fade_out @0x83737A48 — start a full-screen color fade-OUT over `ticks` ticks,
+/* player_effect_screen_fade_out @0x83737A30 — start a full-screen color fade-OUT over `ticks` ticks,
  * timestamped to the current game time.
  *
  * DEVIATION: the decompiler invents extra integer params (a5/a6/a7) from the soft-float GPR-skip; the

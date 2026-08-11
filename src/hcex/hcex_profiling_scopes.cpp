@@ -5,7 +5,7 @@
  * the inline apCOUNTER_TIME_CALL_WRP construct/destruct pair the compiler emitted at each scope;
  * they resolve to apCOUNTER_TIME_CALL::Start / ::Stop on the corresponding counter.
  *
- * The counters are constructed by their dynamic initializers (0x8409D2F0..0x8409D3F0 for the four
+ * The counters are constructed by their dynamic initializers (@0x8409D2F0..0x8409D3F0 for the four
  * globals) and the outer scope's local static; see the DB. */
 
 #include "../headers/hcex/hcex_profiling_scopes.h"

@@ -27,10 +27,10 @@
 
 
 #include "headers/ai_information_data.h"
-extern int actor_target_unit_index(uint16_t actor_index);
+extern int actor_target_unit_index(int actor_index);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 
-void action_search_update(uint16_t actor_index)
+void action_search_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     search_state_data *search_resolved = &actor->state.action_data.___u0.search;

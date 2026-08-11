@@ -21,7 +21,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern int biped_find_pathfinding_surface_index(int biped_index, real_point3d *pathfinding_point);
 extern int vehicle_find_pathfinding_surface_index(int vehicle_index, real_point3d *pathfinding_point);
 
-void actor_find_pathfinding_location(uint16_t actor_index)
+void actor_find_pathfinding_location(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

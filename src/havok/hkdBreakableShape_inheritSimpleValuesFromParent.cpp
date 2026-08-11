@@ -1,3 +1,4 @@
+// hkdBreakableShape_inheritSimpleValuesFromParent @0x8384A230
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdProperties.h"
 #include "../headers/havok/hkArray.h"

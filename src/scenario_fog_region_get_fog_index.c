@@ -1,4 +1,4 @@
-/* scenario_fog_region_get_fog_index @0x83703948 — resolve a structure-BSP fog region to its fog
+/* scenario_fog_region_get_fog_index @0x83703938 — resolve a structure-BSP fog region to its fog
  * palette index: fog_region -> palette slot (word @ region +36) -> fog tag index (dword @ palette
  * entry +44). Returns -1 for any unset link. */
 

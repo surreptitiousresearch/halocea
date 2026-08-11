@@ -13,7 +13,7 @@
 
 /* attested: dt is float (fsubs directly on f1, no frsp @0x8373F318); return int16_t
  * (callee extsh r3 @0x8373F328, caller contrail_owner_collision re-extsh) */
-int16_t contrail_compute_new_point_count(uint16_t contrail_index, float dt)
+int16_t contrail_compute_new_point_count(int contrail_index, float dt)
 {
     contrail_datum *contrail = DATA_ARRAY_ELEMENT(contrail_data, contrail_datum, contrail_index);
     contrail_definition *definition = TAG_GET(contrail_definition, contrail->definition_index);

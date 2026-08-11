@@ -12,7 +12,7 @@
 
 /* attested uint8_t(uint16_t): caller byte-normalizes r3 (clrlwi 24 @837D5FE8); param first-use is
  * the datum-index mask clrlwi r10,r3,16 @8375D7FC */
-uint8_t vehicle_causes_collision_damage(uint16_t vehicle_index)
+uint8_t vehicle_causes_collision_damage(int vehicle_index)
 {
     int definition_index = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum->definition_index;
     vehicle_definition *definition = TAG_GET(vehicle_definition, definition_index);

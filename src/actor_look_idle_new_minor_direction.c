@@ -1,4 +1,4 @@
-/* actor_look_idle_new_minor_direction @0x837FB8C4 — pick the next idle "minor" look direction for an
+/* actor_look_idle_new_minor_direction @0x837FB898 — pick the next idle "minor" look direction for an
  * actor. It first tries to look at an interesting prop; failing that it samples a random look vector
  * within the actor definition's idle yaw/pitch bounds (using the tighter "minor" yaw limits, or the wider set when
  * the actor is not in look mode 3), records it as the new look target (direction type 4), and starts the

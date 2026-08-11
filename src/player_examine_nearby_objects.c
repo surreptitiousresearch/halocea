@@ -1,4 +1,4 @@
-/* player_examine_nearby_objects @0x836AE26C — for the player's on-foot unit, gathers nearby objects in a
+/* player_examine_nearby_objects @0x836AE248 — for the player's on-foot unit, gathers nearby objects in a
  * sphere around the unit and dispatches each to the appropriate "examine" handler by object type
  * (vehicle, item, device) so the player can pick up / board / use them. No-op if the player has no unit
  * or the unit is itself riding something.

@@ -33,7 +33,7 @@
 
 
 extern int16_t first_person_animation_type_from_weapon_state(int16_t state);
-extern void sound_stop_impulse(uint16_t sound_index);
+extern void sound_stop_impulse(int sound_index);
 extern void first_person_weapon_start_interpolation(int16_t local_player_index, int16_t frame_count);
 
 void first_person_weapon_set_state(int16_t local_player_index, int16_t new_state, uint8_t reset_sounds)

@@ -1,4 +1,4 @@
-/* input_key_is_down @0x836FBB9C — return the down-duration (ticks held) for a key. Key codes 110-113 are
+/* input_key_is_down @0x836FBB90 — return the down-duration (ticks held) for a key. Key codes 110-113 are
  * the generic modifier keys (shift/ctrl/alt/win) that map to either physical side; for these it returns
  * the larger tick count of the two physical keys. All other codes index key_ticks directly. */
 

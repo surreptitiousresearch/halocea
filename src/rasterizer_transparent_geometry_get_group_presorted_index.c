@@ -1,4 +1,4 @@
-/* rasterizer_transparent_geometry_get_group_presorted_index @0x83768498 — returns a group's index within
+/* rasterizer_transparent_geometry_get_group_presorted_index @0x83768480 — returns a group's index within
  * the main transparent_geometry_groups pool (see rasterizer_transparent_geometry_new_group.c), or -1 if the
  * group doesn't belong to that pool (e.g. it's the group2 pool, or the decal/camouflage singleton). */
 

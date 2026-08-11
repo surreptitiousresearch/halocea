@@ -1,4 +1,4 @@
-/* rasterizer_transparent_geometry_new_group2 @0x837683AC — sibling pool to rasterizer_transparent_geometry_new_group
+/* rasterizer_transparent_geometry_new_group2 @0x837683A8 — sibling pool to rasterizer_transparent_geometry_new_group
  * (see that file): allocates the next transparent-geometry group from a second, smaller static pool
  * (capacity 32) used for the camouflage/skinned immediate-draw path. Returns null when full. */
 

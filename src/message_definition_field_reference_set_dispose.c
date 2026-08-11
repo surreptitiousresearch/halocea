@@ -1,4 +1,4 @@
-/* message_definition_field_reference_set_dispose @0x837A1DCC — tears down every initialized field reference
+/* message_definition_field_reference_set_dispose @0x837A1DB8 — tears down every initialized field reference
  * in a header/body field-reference set: for any field whose type's properties were themselves initialized,
  * invokes that field type's destructor callback, then clears both initialized flags. */
 

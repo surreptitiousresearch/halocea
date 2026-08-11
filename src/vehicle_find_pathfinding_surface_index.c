@@ -1,4 +1,4 @@
-/* vehicle_find_pathfinding_surface_index @0x8375DA74 — for ground-based vehicle types, casts a short
+/* vehicle_find_pathfinding_surface_index @0x8375DA40 — for ground-based vehicle types, casts a short
  * ray straight down from just above the vehicle's origin and returns the collision-BSP surface index
  * it lands on, writing the contact point to pathfinding_point. Returns -1 (and leaves pathfinding_point
  * at the raw origin) for vehicle motion types that don't use a pathfinding surface, or on a miss.

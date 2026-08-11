@@ -3,7 +3,7 @@
 // boundary — zero-vector constant (m3d subsystem global), not reversed here.
 extern const m3dV m3dVZero;
 
-// 0x823D64D8 (snd::BUFFER_PARAMS::BUFFER_PARAMS, default ctor).
+// @0x823D64D8 (snd::BUFFER_PARAMS::BUFFER_PARAMS, default ctor).
 // Zero-initializes the position/timing/blocking/callback/userData fields, then default-constructs
 // `dbgInfo` as an empty string. The DB shows dsTSTRING<char>::UnsafeInitEmpty's lazy-init
 // machinery (the function-local-static guard + emptyStr singleton + atexit destructor

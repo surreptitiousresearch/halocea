@@ -27,11 +27,11 @@
 
 #include "headers/ai_information_data.h"
 extern float normalize2d(real_vector2d *v);
-extern uint8_t actor_move_animation_impulse(uint16_t actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
+extern uint8_t actor_move_animation_impulse(int actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
-extern void actor_combat_fire_wildly(uint16_t actor_index, int16_t fire_ticks);
-extern void actor_combat_disable_bursts(uint16_t actor_index, int disable_timer);
-extern void actor_stimulus_was_surprised(uint16_t actor_index);
+extern void actor_combat_fire_wildly(int actor_index, int16_t fire_ticks);
+extern void actor_combat_disable_bursts(int actor_index, int disable_timer);
+extern void actor_stimulus_was_surprised(int actor_index);
 extern uint8_t actor_situation_try_new_target(int actor_index, int prop_index);
 
 int actor_action_handle_surprise(int actor_index, int16_t minimum_surprise_level)

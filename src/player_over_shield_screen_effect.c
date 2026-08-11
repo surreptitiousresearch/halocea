@@ -1,4 +1,4 @@
-/* player_over_shield_screen_effect @0x836AA1A0 — flash the overshield pickup screen effect for a
+/* player_over_shield_screen_effect @0x836AA168 — flash the overshield pickup screen effect for a
  * local player. No-op for an invalid player or one with no local-player slot (+2 == 0xFFFF). The flash
  * parameters are pooled rodata constants (resolved and inlined here): a purple (R=B=0.8) full-screen
  * flash, priority 2, type 5, fade function 0, duration 2.0, max intensity 1.0. */

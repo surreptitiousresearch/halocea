@@ -9,7 +9,7 @@
 
 #include "headers/data_array.h"
 extern uint32_t system_milliseconds(void);
-extern float sound_calculate_fade(uint16_t sound_index);
+extern float sound_calculate_fade(int sound_index);
 extern void sound_idle(void);
 extern void sound_stop_all(void);
 extern void data_delete_all(data_array *data);

@@ -3,7 +3,7 @@
 #include "../../headers/ws/m3d/m3dV.h"
 #include "../../headers/ws/wb/dbgVAR_boundary.h"
 
-// rendLIGHT_SET::Update @ 0x82ABEE10
+// rendLIGHT_SET::Update @ 0x82ABEE00
 // Advance the light set one frame toward its desired static-lighting state. Skipped entirely
 // while the set is both active (state bit 0) and has bit 3 set (the "fully settled / no lerp
 // needed" flag); otherwise, under the set's lock, it re-samples the update position and lerps

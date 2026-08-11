@@ -20,7 +20,7 @@
 
 
 
-extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
+extern void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index);
 
 uint8_t action_guard_setup_postcombat(int actor_index, guard_state_data *state_data)
 {

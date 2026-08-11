@@ -1,4 +1,4 @@
-/* hud_dispose @0x83707DAC — one-time teardown of the HUD: tears down the motion sensor, nav points, weapon
+/* hud_dispose @0x83707DA0 — one-time teardown of the HUD: tears down the motion sensor, nav points, weapon
  * interface, unit interface, and messaging in order.
  * DEVIATION: the decompiler threaded r3 through these as if each consumed the previous return value; they
  * are independent no-argument dispose calls. */

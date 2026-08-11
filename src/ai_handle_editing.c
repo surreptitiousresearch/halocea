@@ -47,7 +47,7 @@ extern void ai_initialize_for_new_map(void);
 extern void encounter_actor_iterator_new(encounter_actor_iterator *iterator, int encounter_index);
 extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iterator);
 extern void action_obey_flush_command_indices(int actor_index);
-extern void actor_flush_position_indices(uint16_t actor_index);
+extern void actor_flush_position_indices(int actor_index);
 /* memset declared by <string.h> */
 
 void ai_handle_editing(int encounter_index)

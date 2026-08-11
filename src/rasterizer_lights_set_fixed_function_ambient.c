@@ -1,4 +1,4 @@
-/* rasterizer_lights_set_fixed_function_ambient @0x838026A0 — set the fixed-function ambient light
+/* rasterizer_lights_set_fixed_function_ambient @0x83802680 — set the fixed-function ambient light
  * color to an opaque grayscale value built from one intensity level (level replicated into A/R/G/B). */
 
 #include "headers/rasterizer_globals.h"

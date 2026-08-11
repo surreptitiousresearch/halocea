@@ -1,4 +1,4 @@
-/* unit_throw_grenade_move_to_hand @0x836CB698 — during a grenade-throw animation, spawn the thrown grenade
+/* unit_throw_grenade_move_to_hand @0x836CB670 — during a grenade-throw animation, spawn the thrown grenade
  * object into the unit's left hand. First it consumes a grenade of the current type from the unit's count
  * (unless ammo/grenades are unlimited via cheat, game engine, or actor). Then, on the host/local side
  * (not a pure network client), it creates the grenade object at the "left hand" marker, oriented along the

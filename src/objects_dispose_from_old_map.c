@@ -1,5 +1,5 @@
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
-/* objects_dispose_from_old_map @ 0x836EEA68-adjacent (0x836EEC20) — free every live
+/* objects_dispose_from_old_map @ 0x836EEC20 — free every live
  * object's pool block, delete its header datum, then invalidate the pool and partitions.
  * The per-datum address math (raw offsets into object_header_data->data) is reproduced
  * from the decompiler. */

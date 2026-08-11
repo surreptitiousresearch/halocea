@@ -2,7 +2,7 @@
 #include "../dbg/DBG_CINE_ACTOR_INFO.h"
 #include "dsSTRID.h"
 
-// ds::MAP<dsSTRID,DBG_CINE_ACTOR_INFO,...>::InsertNew(const K*, const V*) @ 0x823B9EFC
+// ds::MAP<dsSTRID,DBG_CINE_ACTOR_INFO,...>::InsertNew(const K*, const V*) @ 0x823B9EF0
 // Unconditional insert (caller has already verified the key is absent): lazily HashResize(17) if
 // the table has no buckets yet, compute the new node's bucket via GetHash<dsSTRID>(key) %
 // data.nElem, bump `count`, prepend the node onto that bucket's chain via the 3-arg Insert

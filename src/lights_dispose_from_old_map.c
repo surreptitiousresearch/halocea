@@ -1,4 +1,4 @@
-/* lights_dispose_from_old_map @0x836F7AD4 — per-map light teardown: invalidate the light datum
+/* lights_dispose_from_old_map @0x836F7AC0 — per-map light teardown: invalidate the light datum
  * array and its cluster partition. */
 
 #include "headers/data_array.h"

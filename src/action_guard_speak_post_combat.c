@@ -23,7 +23,7 @@
 extern uint8_t game_team_is_ally(int16_t our_team, int16_t other_team);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 
-int action_guard_speak_post_combat(uint16_t actor_index)
+int action_guard_speak_post_combat(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

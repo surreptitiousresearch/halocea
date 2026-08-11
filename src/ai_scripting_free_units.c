@@ -13,7 +13,7 @@
 extern int object_list_get_first(int object_list_index, int *reference_index);
 extern int object_list_get_next(int object_list_index, int *reference_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern void actor_flush_position_indices(uint16_t actor_index);
+extern void actor_flush_position_indices(int actor_index);
 extern void encounter_detach_actor(int actor_index, uint8_t died);
 extern void encounterless_attach_actor(int actor_index);
 extern void encounters_update_dirty_status(void);

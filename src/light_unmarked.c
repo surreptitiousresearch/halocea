@@ -6,7 +6,7 @@
 #include "headers/light_datum.h"
 #include "headers/blam_data_globals.h"
 
-int light_unmarked(uint16_t light_index)
+int light_unmarked(int light_index)
 {
     light_datum *light = DATA_ARRAY_ELEMENT(light_data, light_datum, light_index);
     return lights_globals.marker != light->marker;

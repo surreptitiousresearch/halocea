@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_guard_flush_structure_indices(uint16_t actor_index)
+void action_guard_flush_structure_indices(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->state.action_data.___u0.guard.guard_location_type == _actor_guard_location_point )

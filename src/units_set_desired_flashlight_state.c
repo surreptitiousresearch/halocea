@@ -1,4 +1,4 @@
-/* units_set_desired_flashlight_state @0x836CF3F4 — for every biped (object type 3) in an object list,
+/* units_set_desired_flashlight_state @0x836CF3D0 — for every biped (object type 3) in an object list,
  * set the desired-flashlight-on (0x10000000) or desired-flashlight-off (0x20000000) request bit in the
  * unit's flags dword (object datum +516). */
 

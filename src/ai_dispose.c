@@ -1,4 +1,4 @@
-/* ai_dispose @ 0x836E7620 — tear down AI subsystems (reverse of ai_initialize) */
+/* ai_dispose @ 0x836E7680 — tear down AI subsystems (reverse of ai_initialize) */
 extern void ai_communication_dispose(void);
 extern void ai_script_dispose(void);
 extern void encounters_dispose(void);

@@ -23,7 +23,7 @@
 extern void unit_get_facing_vector(int unit_index, real_vector3d *facing_vector);
 extern float normalize3d(real_vector3d *v);
 
-void action_obey_directmovement_update_facing(uint16_t actor_index, int unit_index, obey_individual_simple_control *simple_control)
+void action_obey_directmovement_update_facing(int actor_index, int unit_index, obey_individual_simple_control *simple_control)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

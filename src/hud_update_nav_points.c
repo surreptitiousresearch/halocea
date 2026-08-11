@@ -1,4 +1,4 @@
-/* hud_update_nav_points @0x837EE3E8 — refresh every active HUD nav-point for every local player. For
+/* hud_update_nav_points @0x837EE3D8 — refresh every active HUD nav-point for every local player. For
  * each player's four nav-point slots, resolve the world position the marker should point at (from its
  * type: 0 = scenario cutscene flag, 1 = tracked object, 2 = game-engine goal), add the slot's vertical
  * offset, then recompute the on-screen render category via hud_get_nav_point_render_type and store it in

@@ -1,4 +1,4 @@
-/* sv_map_restart @0x83765D30 — server console command: restart the current map by closing UI, stepping
+/* sv_map_restart @0x83765D18 — server console command: restart the current map by closing UI, stepping
  * the playlist back one, ending the game and closing the console. Rejected off the server.
  *
  * DEVIATION: the decompiler threads r3 between the four teardown calls as if chained; the disassembly

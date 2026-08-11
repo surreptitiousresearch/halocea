@@ -7,7 +7,7 @@
 #include "headers/sound_definition.h"
 #include "headers/blam_data_globals.h"
 
-extern void sound_stop_impulse(uint16_t sound_index);
+extern void sound_stop_impulse(int sound_index);
 
 void scripted_sound_stop(int definition_index)
 {

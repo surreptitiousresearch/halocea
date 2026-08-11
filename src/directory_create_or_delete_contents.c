@@ -1,4 +1,4 @@
-/* directory_create_or_delete_contents @0x83767E10 — ensure a directory exists and is empty. Builds a
+/* directory_create_or_delete_contents @0x83767DF0 — ensure a directory exists and is empty. Builds a
  * file_reference for the named directory; if it already exists, enumerates and deletes every file in it,
  * otherwise creates the directory.
  * The 0x66696C6F magic and location word (-1) are the file_reference location header written verbatim. */

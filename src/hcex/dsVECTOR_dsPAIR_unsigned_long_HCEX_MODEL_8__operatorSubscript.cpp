@@ -3,7 +3,7 @@
 #include "../headers/hcex/HCEX_MODEL.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-// dsVECTOR<dsPAIR<unsigned long,HCEX_MODEL>,8>::operator[] (non-const) @ 0x823DAC58
+// dsVECTOR<dsPAIR<unsigned long,HCEX_MODEL>,8>::operator[] (non-const) @ 0x823DAC40
 // Bounds-checked mutable access into the global hcexModels table; returns a reference to the
 // idx-th (modelKey, HCEX_MODEL) pair.
 typedef dsPAIR<unsigned long, HCEX_MODEL> hcex_model_pair;

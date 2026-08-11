@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hk1AxisSweep_AabbInt_set @0x83945AA0 (?set@AabbInt@hk1AxisSweep@@QAAXABVhkAabb@@H@Z) */
 #include "../headers/havok/hk1AxisSweep.h"
 #include "../headers/havok/hkAabb.h"
 

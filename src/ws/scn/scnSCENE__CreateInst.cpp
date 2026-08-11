@@ -11,7 +11,7 @@ struct MTL_DESC_DB {
 };
 extern MTL_DESC_DB *mtlManager; // boundary — ?mtlManager@@3PAVMTL_DESC_DB@@A
 
-// ?CreateInst@scnSCENE@@QAAPAVanimINST@@PAVanimTPL@@PAVanimCREATE_DATA@@@Z  (0x82540DD0) —
+// ?CreateInst@scnSCENE@@QAAPAVanimINST@@PAVanimTPL@@PAVanimCREATE_DATA@@@Z  (@0x82540DD0) —
 // allocate an instance from `pTpl` (or `pTplDummy` when null) via AllocInst (unattached),
 // duplicate the template's model-object tree if it has one (destroying the fresh instance and
 // bailing on a duplicate failure or if the template's root object is already bound to an

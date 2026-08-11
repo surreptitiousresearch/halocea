@@ -1,4 +1,4 @@
-/* game_engine_update_player_always_invis @0x8374D2C0 — keep a player permanently cloaked when the
+/* game_engine_update_player_always_invis @0x8374D2A0 — keep a player permanently cloaked when the
  * active-camo "always on" condition holds: either the universal variant's always-invis flag (0x10) is
  * set, or the game engine's trait test grants invisibility (trait 1) to this player. When so, and the
  * player has a living unit (player datum +52), refresh the minor active-camouflage powerup (type 15). */

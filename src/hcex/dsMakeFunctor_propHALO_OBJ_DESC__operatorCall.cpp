@@ -1,7 +1,7 @@
 #include "../headers/ws/prop/propHALO_OBJ_DESC.h"
 #include "../headers/ws/ds/ds_new.h"
 
-// 0x823D0878 — ??R?$dsMakeFunctor@VpropHALO_OBJ_DESC@@$0A@@@QBAPAVpropHALO_OBJ_DESC@@PBDH@Z
+// @0x823D0868 — ??R?$dsMakeFunctor@VpropHALO_OBJ_DESC@@$0A@@@QBAPAVpropHALO_OBJ_DESC@@PBDH@Z
 // dsMakeFunctor<propHALO_OBJ_DESC,0>::operator()(const char *file, unsigned line): the branded-new
 // factory the dscMAKE_FAMILY machinery calls to construct a propHALO_OBJ_DESC on the tracked heap.
 // Allocates 0x60 (96) bytes via the (size,file,line) placement operator new, then base-constructs

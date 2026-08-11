@@ -19,11 +19,11 @@
 
 
 extern int game_time_get(void);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients);
 
-int actor_action_handle_vehicle_exit(uint16_t actor_index)
+int actor_action_handle_vehicle_exit(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int exited = 0;

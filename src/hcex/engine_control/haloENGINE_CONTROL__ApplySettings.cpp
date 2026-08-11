@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__ApplySettings @0x823C7F20
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 #include "../../headers/button_preset_flags.h"

@@ -1,4 +1,4 @@
-/* _field_type_fixed_width_normal_vector_parameter_verifier @0x8379C658 — field_parameters_verifier for the
+/* _field_type_fixed_width_normal_vector_parameter_verifier @0x8379C640 — field_parameters_verifier for the
  * "fixed width normal vector" field type. While the protocol changeover config system is active, registers
  * the theta/phi bit-width parameters (parameters[0]/[1]) as tunable integers. Valid only if all 4 parameter
  * slots (theta/phi bit widths plus 2 more) are positive. */

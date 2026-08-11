@@ -1,4 +1,4 @@
-/* actor_aim_jump @0x837C7894 — let an actor steer/clamp a biped's jump velocity. Only acts when the
+/* actor_aim_jump @0x837C7870 — let an actor steer/clamp a biped's jump velocity. Only acts when the
  * actor is not mounted (actor +344 == -1). Swarm actors defer to actor_type_swarm_aim_jump. A normal
  * actor that wants to jump (flag +1328) builds a desired jump velocity from its stored jump direction
  * (+1332,+1336) scaled by jump speed (+1340) with vertical component (+1344); unless leaping, the
@@ -19,9 +19,9 @@
 #include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 
-extern void actor_type_swarm_aim_jump(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity);
+extern void actor_type_swarm_aim_jump(int actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity);
 
-uint8_t actor_aim_jump(uint16_t actor_index, int unit_index, uint8_t leap, float jump_magnitude, real_vector3d *jump_velocity)
+uint8_t actor_aim_jump(int actor_index, int unit_index, uint8_t leap, float jump_magnitude, real_vector3d *jump_velocity)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

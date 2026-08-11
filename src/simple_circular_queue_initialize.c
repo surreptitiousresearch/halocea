@@ -1,4 +1,4 @@
-/* simple_circular_queue_initialize @0x837AB194 — allocate the queue's entry array (one 4-byte pointer per
+/* simple_circular_queue_initialize @0x837AB168 — allocate the queue's entry array (one 4-byte pointer per
  * slot) and point each entry at its slot in the caller-supplied user-data array. Resets read/write
  * positions to empty. */
 

@@ -1,4 +1,4 @@
-/* rasterizer_screen_effect_set_convolution @0x837243B4 — script entry point arming the convolution
+/* rasterizer_screen_effect_set_convolution @0x83724398 — script entry point arming the convolution
  * (radial blur) screen effect: stores the radius interpolation endpoints, the extra-pass count and type,
  * clears the video-feedback parameters, and sets the [start, end] interpolation times relative to the
  * current game time (ticks * 1/30 s).

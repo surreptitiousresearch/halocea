@@ -1,4 +1,4 @@
-/* network_game_update_player @0x83783120 — applies a network_player update to its slot in the game's
+/* network_game_update_player @0x83783100 — applies a network_player update to its slot in the game's
  * player table, after verifying the update is for a still-valid, still-same (machine, controller) slot.
  *
  * DEVIATION: the decompiler computed the destination as `32 * player->player_list_index + <lost base>`

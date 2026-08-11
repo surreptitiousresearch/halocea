@@ -4,7 +4,7 @@
 #define M(col, lane) ((col).m_quad.___u0.vector4_f32[(lane)])
 
 /* hkMatrix4_storeScaledAdjugate — inline-only helper reconstructed from the
-   tail of ?invert@hkMatrix4@@QAA?AW4hkResult@@M@Z (0x838E72C0). It writes the
+   tail of ?invert@hkMatrix4@@QAA?AW4hkResult@@M@Z (@0x838E72C0). It writes the
    invDet-scaled adjugate (classical adjoint) of the 4x4 back into m's columns.
    Cited block: 0x838E7408..0x838E75BC (success path of invert).
 

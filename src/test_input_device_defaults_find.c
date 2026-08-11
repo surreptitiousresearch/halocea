@@ -1,4 +1,4 @@
-/* test_input_device_defaults_find @0x838027F4 — debug console command: look up the default profile tag
+/* test_input_device_defaults_find @0x838027D0 — debug console command: look up the default profile tag
  * for a device GUID and print the result.
  *
  * DEVIATION: the disassembly passes input_device_defaults_find a _GUID-by-value and a profile buffer

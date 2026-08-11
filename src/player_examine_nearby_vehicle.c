@@ -1,4 +1,4 @@
-/* player_examine_nearby_vehicle @0x836ABF00 — when a player is looking at a nearby vehicle, decide which
+/* player_examine_nearby_vehicle @0x836ABED8 — when a player is looking at a nearby vehicle, decide which
  * "enter/flip" action prompt (if any) to offer. If the player is looking at the vehicle's underside (pitch
  * past the control deadzone) and the vehicle isn't already flipping and is unoccupied, offer the flip
  * action (11). Otherwise, provided neither the player's unit nor the vehicle is moving and the player

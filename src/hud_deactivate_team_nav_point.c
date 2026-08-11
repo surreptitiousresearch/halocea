@@ -1,4 +1,4 @@
-/* hud_deactivate_team_nav_point @0x837ED4EC — deactivates a nav point matching type+reference for every
+/* hud_deactivate_team_nav_point @0x837ED4C8 — deactivates a nav point matching type+reference for every
  * player on the given team. For each such player it finds the nav slot whose type nibble and reference
  * index match, clears it (reference/nav index -1) and marks its type nibble deactivated (0xF). */
 

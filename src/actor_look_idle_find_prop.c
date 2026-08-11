@@ -1,4 +1,4 @@
-/* actor_look_idle_find_prop @0x837FA9C8 — while idle, have an actor pick the most interesting nearby "prop"
+/* actor_look_idle_find_prop @0x837FAF08 — while idle, have an actor pick the most interesting nearby "prop"
  * (a point/object of interest) to glance at. Each prop in the actor's prop list is scored by its base interest
  * (prop+84) scaled by a freshness factor that decays as the prop's look timer (prop+88) runs down and recovers
  * the longer it has been since it was last looked at (prop+92, in 1/600s ticks). Props of the wrong type, with
@@ -30,7 +30,7 @@
 
 
 extern int game_time_get(void);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 /* extern corrected to match def (actor_look_valid_look_vector.c): 5 params in def order —
  * (double yaw, cone_limits, aiming_vector, attempted_looking_vector, look_vector), returns int.

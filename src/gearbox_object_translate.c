@@ -1,4 +1,4 @@
-/* gearbox_object_translate @0x836F2128 — move an object directly to a new position, recomputing its world
+/* gearbox_object_translate @0x836F2110 — move an object directly to a new position, recomputing its world
  * location: resolve the cluster/leaf for the point, disconnect from the map, write the new origin (+92),
  * and reconnect at the resolved location. */
 

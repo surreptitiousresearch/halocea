@@ -1,4 +1,4 @@
-// dsVECTOR<HCEX_OBJ,8>::~dsVECTOR() @ 0x823EE0D4
+// dsVECTOR<HCEX_OBJ,8>::~dsVECTOR() @ 0x823EE0C0
 //
 // Destroy the hcexObjects sorted vector. For each live element the HCEX_OBJ destructor is inlined:
 // free the followersOfs (dsVECTOR<m3dMATR,8>) backing store, then run the followers

@@ -18,7 +18,7 @@
 #include "headers/ai_index.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t encounter_spawn_actor(uint16_t encounter_index, int16_t squad_index);
+extern uint8_t encounter_spawn_actor(int encounter_index, int16_t squad_index);
 
 void ai_scripting_spawn_actor(unsigned int ai_index)
 {

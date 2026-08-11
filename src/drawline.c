@@ -1,4 +1,4 @@
-/* drawline @0x83746574 — draw one line of debug/console-style text at a fixed 18px line height (26px tall
+/* drawline @0x83746550 — draw one line of debug/console-style text at a fixed 18px line height (26px tall
  * bounds), positioned within the camera's viewport (offset by the viewport's own origin so window_bounds'
  * y1/x1 edges become viewport-relative).
  *

@@ -1,4 +1,4 @@
-/* message_delta_processor_discard_iteration_body @0x837A1D24 — decode one iteration body into a throwaway
+/* message_delta_processor_discard_iteration_body @0x837A1D10 — decode one iteration body into a throwaway
  * scratch buffer without exposing the result, just to advance the bitstream cursor past it (used to skip an
  * iteration a caller isn't interested in). In incremental mode, decodes against the same scratch buffer as
  * its own baseline (so delta-encoded fields still decode structurally) and always counts as decoded, even

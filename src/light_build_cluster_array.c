@@ -13,7 +13,7 @@
 extern int16_t cluster_partition_get_first_cluster(const cluster_partition *partition, int *reference_index, int first_cluster_reference);
 extern int16_t cluster_partition_get_next_cluster(const cluster_partition *partition, int *reference_index);
 
-int light_build_cluster_array(uint16_t light_index, int16_t maximum_count, int16_t *cluster_indices)
+int light_build_cluster_array(int light_index, int16_t maximum_count, int16_t *cluster_indices)
 {
     int count = 0;
     int reference_index[12];

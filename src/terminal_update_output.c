@@ -1,4 +1,4 @@
-/* terminal_update_output @0x836A327C — ages the console output lines once per frame. Each line record
+/* terminal_update_output @0x836A3260 — ages the console output lines once per frame. Each line record
  * (DB output_line_datum, 292 bytes) carries a timer; once a line has been shown > 150 frames it is
  * unlinked from the newest<->oldest doubly-linked list and its datum freed. Records are walked from
  * newest toward oldest via older_line_index (@+8). newer_line_index is @+4, timer is @+288. */

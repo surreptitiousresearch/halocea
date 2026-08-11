@@ -1,4 +1,4 @@
-/* default_flags_decoder @0x8379C21C — decodes a bitfield: for each bit position flagged "networked" in the
+/* default_flags_decoder @0x8379C210 — decodes a bitfield: for each bit position flagged "networked" in the
  * field's parameters blob (dword count at +0, per-bit usage bytes at +4), reads one bit from the stream and
  * sets/clears that bit in *destination_data. Returns the total bits consumed. */
 

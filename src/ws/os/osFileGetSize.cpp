@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osFileGetSize @0x825E5C38 (?osFileGetSize@@YAHPAUosFILE_HANDLE_DUMMY@@@Z)
 #include "../../headers/ws/os/os_boundary.h"
 #include "../../headers/ws/os/osFILE_HANDLE_DUMMY.h"
 

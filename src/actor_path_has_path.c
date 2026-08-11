@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t actor_path_has_path(uint16_t actor_index)
+uint8_t actor_path_has_path(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     return actor->control.path.path.valid;

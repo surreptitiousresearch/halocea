@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* numeric_countdown_timer_get @0x83755C90 — extract a single display field from the global numeric
+/* numeric_countdown_timer_get @0x83755C68 — extract a single display field from the global numeric
  * countdown timer (a millisecond count). digit_index -1 returns the raw millisecond value (as a signed
  * 16-bit); 0..8 return individual clock digits: 0=centiseconds ones, 1=tens, 2=deciseconds, 3=seconds
  * ones, 4=tens-of-seconds (0..5), 5=minutes ones, 6=tens-of-minutes (0..5), 7=hours ones, 8=tens-of-hours. */

@@ -1,4 +1,4 @@
-/* unit_delete_current_equipment @0x836CB2E0 — immediately delete the equipment object a unit is
+/* unit_delete_current_equipment @0x836CB2B0 — immediately delete the equipment object a unit is
  * currently holding (unit.equipment_object_index), and clear the slot. */
 
 #include "headers/data_array.h"

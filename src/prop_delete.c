@@ -7,7 +7,7 @@
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 
-extern void prop_remove(uint16_t actor_index, int prop_index);
+extern void prop_remove(int actor_index, int prop_index);
 extern void datum_delete(data_array *data, int index);
 
 void prop_delete(int actor_index, int prop_index)

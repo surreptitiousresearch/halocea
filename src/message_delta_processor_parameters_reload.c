@@ -1,4 +1,4 @@
-/* message_delta_processor_parameters_reload @0x837A1AD8 — re-runs the per-field-type parameter verifier for
+/* message_delta_processor_parameters_reload @0x837A1AC0 — re-runs the per-field-type parameter verifier for
  * every field of every registered message-delta message (both header and body field sets). Walks the global
  * message list over its 47-entry extent; each field's verifier is looked up by the field-type id at the
  * front of its properties block.

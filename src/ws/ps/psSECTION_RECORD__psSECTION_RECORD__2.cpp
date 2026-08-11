@@ -1,6 +1,6 @@
 #include "psSECTION_RECORD.h"
 #include "../ds/dsDATA.h"
-// 0x8251760C — referenced copy: shares the interned key id, deep-copies the value (via
+// @0x825175E0 — referenced copy: shares the interned key id, deep-copies the value (via
 // dsDATA::StoreValue), and copies the sort/line bookkeeping fields verbatim.
 
 psSECTION_RECORD::psSECTION_RECORD(const psSECTION_RECORD &that)

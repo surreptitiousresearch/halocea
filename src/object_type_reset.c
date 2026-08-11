@@ -1,4 +1,4 @@
-/* object_type_reset @0x837021A0 — invoke the reset callback of every part definition (super-type plus
+/* object_type_reset @0x83702158 — invoke the reset callback of every part definition (super-type plus
  * sub-types) registered for an object's type, walking the null-terminated part_definitions chain.
  * The object's type code lives at object datum +180. */
 

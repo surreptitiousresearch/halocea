@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/game_connection.h"
-/* hud_picked_up_weapon @0x837088BC — show the "picked up weapon" HUD item message for a player. Fires
+/* hud_picked_up_weapon @0x83708898 — show the "picked up weapon" HUD item message for a player. Fires
  * the script event, then routes the message through the client path (on clients, or for client-side
  * pickups) or the server path otherwise. */
 

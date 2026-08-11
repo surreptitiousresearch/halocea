@@ -7,7 +7,7 @@
 #include "headers/hs_stack_frame.h"
 #include "headers/blam_data_globals.h"
 
-void hs_stack_pop(uint16_t thread_index)
+void hs_stack_pop(int thread_index)
 {
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
     thread->stack = thread->stack->parent;

@@ -1,4 +1,4 @@
-/* actor_combat_allow_special_fire_situation @0x837B8900 — gate the "strafing" special-fire situation
+/* actor_combat_allow_special_fire_situation @0x837B88E8 — gate the "strafing" special-fire situation
  * (_actor_special_fire_situation_strafing = 3): always allowed for other situations. For strafing, look up
  * the actor's perceived enemy prop (actor->control.current_fire_target_type, used as prop index). If that
  * prop is mounted in a vehicle (vehicle_index at +0x110 != -1), allow. Otherwise, if the prop is a player
@@ -17,7 +17,7 @@
 
 extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
 
-uint8_t actor_combat_allow_special_fire_situation(uint16_t actor_index, int16_t special_fire_situation)
+uint8_t actor_combat_allow_special_fire_situation(int actor_index, int16_t special_fire_situation)
 {
     if ( special_fire_situation != _actor_special_fire_situation_strafing )
         return 1;

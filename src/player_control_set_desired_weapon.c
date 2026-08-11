@@ -1,4 +1,4 @@
-/* player_control_set_desired_weapon @0x836E04A4 — record the inventory slot a unit's controlling player
+/* player_control_set_desired_weapon @0x836E0480 — record the inventory slot a unit's controlling player
  * wants to switch to. Resolves the unit's controlling player (unit.player_index) and maps it to a local
  * player slot; if there is one, stores the desired weapon index into that player's control state. */
 

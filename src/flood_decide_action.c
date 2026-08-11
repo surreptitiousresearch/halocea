@@ -28,8 +28,8 @@
 extern int actor_action_handle_initial_action(int actor_index);
 extern uint8_t actor_action_handle_pending_command_list(int actor_index);
 extern int actor_action_handle_surprise(int actor_index, int16_t minimum_surprise_level);
-extern uint8_t actor_action_deny_transition(uint16_t actor_index);
-extern uint8_t actor_action_handle_berserking_from_damage(uint16_t actor_index);
+extern uint8_t actor_action_deny_transition(int actor_index);
+extern uint8_t actor_action_handle_berserking_from_damage(int actor_index);
 extern int actor_action_handle_berserk_transition(int actor_index, int16_t berserk_level);
 extern uint8_t actor_action_handle_combat_transition(int actor_index);
 extern int actor_action_handle_danger_avoidance(int actor_index);

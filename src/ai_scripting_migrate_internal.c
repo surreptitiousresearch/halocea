@@ -37,7 +37,7 @@ extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iter
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
 extern void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index);
-extern void actor_stimulus_maneuvering(uint16_t actor_index, uint8_t advancing, uint8_t flee);
+extern void actor_stimulus_maneuvering(int actor_index, uint8_t advancing, uint8_t flee);
 extern int16_t global_structure_bsp_index_get(void);
 extern void encounterless_detach_actor(int actor_index);
 extern void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_index, uint8_t has_previous_team);

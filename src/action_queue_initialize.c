@@ -1,4 +1,4 @@
-/* action_queue_initialize @0x837AAF74 — allocate the action queue's entry bank (0x14A0 bytes =
+/* action_queue_initialize @0x837AAF50 — allocate the action queue's entry bank (0x14A0 bytes =
  * 120 entries x 44 bytes), zero it, wire it into the circular queue, and clear the
  * last-valid-action flag. */
 

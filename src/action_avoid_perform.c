@@ -1,4 +1,4 @@
-/* action_avoid_perform @0x838212C0 — per-tick "avoid" action update: if the actor has a pending obstacle to
+/* action_avoid_perform @0x83821298 — per-tick "avoid" action update: if the actor has a pending obstacle to
  * avoid (+76 flag), re-evaluate its firing position (forcing evaluation_mode 6, "avoid") via
  * actor_active_select_firing_position and commit the result via actor_change_firing_position. Returns
  * whether the actor still has no assigned firing position (+0x280 word == 0).

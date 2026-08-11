@@ -2,7 +2,7 @@
 #include "../headers/hcex/HCEX_DECAL.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-// dsVECTOR<HCEX_DECAL,8>::operator[] (non-const) @ 0x823DAE60
+// dsVECTOR<HCEX_DECAL,8>::operator[] (non-const) @ 0x823DAE48
 // Bounds-checked mutable access; returns a reference to the idx-th decal.
 template<>
 HCEX_DECAL &dsVECTOR<HCEX_DECAL, 8>::operator[](int idx)

@@ -1,4 +1,4 @@
-/* multiplayer_edit_profile_set_ruleset_textbox_string_index @0x8378006C — sets a textbox widget's string
+/* multiplayer_edit_profile_set_ruleset_textbox_string_index @0x83780058 — sets a textbox widget's string
  * list index to the ruleset name matching the currently-edited playlist profile's game engine (falls back
  * to a generic index if there's no profile being edited, or the engine index is out of the known range). */
 

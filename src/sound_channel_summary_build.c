@@ -17,7 +17,7 @@
 
 extern uint8_t sound_valid_for_channel(int16_t compression, int16_t encoding, int16_t sample_rate, int16_t spatialization_mode, int16_t channel_type_flags);
 
-void sound_channel_summary_build(sound_channel_summary *summary, uint16_t sound_index)
+void sound_channel_summary_build(sound_channel_summary *summary, int sound_index)
 {
     sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     sound_definition *def = TAG_GET(sound_definition, datum->definition_index);

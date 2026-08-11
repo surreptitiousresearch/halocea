@@ -1,4 +1,4 @@
-/* unit_has_weapon_definition_index @0x836CB3C8 — true if any of a unit's 4 weapon slots (object dwords
+/* unit_has_weapon_definition_index @0x836CB3B8 — true if any of a unit's 4 weapon slots (object dwords
  * +760 + 4*slot, i.e. dword index 190+slot) holds a weapon object whose definition tag index equals
  * weapon_definition_index. */
 

@@ -1,4 +1,4 @@
-/* render_ui_widgets @0x83735604 — draw the active UI widget trees for a local player, then the global
+/* render_ui_widgets @0x837355F8 — draw the active UI widget trees for a local player, then the global
  * fade-to-black overlay. Publishes the player index used by draw-string/icon helpers (clamped -1 -> 0),
  * suppresses all UI while Bink video inhibits it, and short-circuits to the virtual keyboard when it is up.
  * For each of the two controller slots a widget is rendered when it is eligible: render-regardless widgets

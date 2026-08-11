@@ -1,4 +1,4 @@
-/* vehicle_set_position_and_correct_children @0x8375CF7C — move a vehicle to a new position while keeping
+/* vehicle_set_position_and_correct_children @0x8375CF60 — move a vehicle to a new position while keeping
  * its seated children consistent: shift each child object (in seats node 0/1) by the same delta applied to
  * the vehicle, then translate the vehicle itself. The child position offset lives at +844/+848/+852. */
 

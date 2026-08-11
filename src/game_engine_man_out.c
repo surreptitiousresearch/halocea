@@ -1,4 +1,4 @@
-/* game_engine_man_out @0x83748C4C — true if a player is permanently "manned out" (used up all lives in a
+/* game_engine_man_out @0x83748C30 — true if a player is permanently "manned out" (used up all lives in a
  * lives-limited game variant, or already flagged out, or the current "odd man out" target). Checks, in order:
  * a cached flag (byte +213), whether the lives-limited variant has exhausted the player's lives (dead and
  * score has reached the lives cap), and finally game_engine_player_is_odd_man_out. Shares the player_data

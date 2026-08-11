@@ -16,8 +16,8 @@
 extern void game_looping_sound_delete(int looping_sound_index);
 extern void effect_delete(int effect_index);
 extern void object_compute_node_matrices(int object_index);
-extern void contrail_owner_collision(uint16_t contrail_index, uint8_t object_dying, float dt);
-extern void particle_system_orphan(uint16_t system_index);
+extern void contrail_owner_collision(int contrail_index, uint8_t object_dying, float dt);
+extern void particle_system_orphan(int system_index);
 extern void light_delete(int light_index);
 
 void attachments_delete(int object_index)

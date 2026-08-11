@@ -1,4 +1,4 @@
-/* game_engine_predict_resources @0x8374A0D0 — precache the object/weapon resources the active netgame variant
+/* game_engine_predict_resources @0x8374A0A8 — precache the object/weapon resources the active netgame variant
  * will need: the selected vehicle set (or all vehicles for the "random/all" preset), the engine-specific
  * objective weapons (oddball/flag), and the standard multiplayer weapon set (remapped per variant).
  *

@@ -1,4 +1,4 @@
-/* action_avoid_control @0x83821374 — sets up an actor's "avoid" maneuver targets and timers. If the actor's
+/* action_avoid_control @0x83821360 — sets up an actor's "avoid" maneuver targets and timers. If the actor's
  * threat/danger level (target.target_type) is below 5, picks a mild avoid mode
  * (orders.look.primary_direction.type = _direction_specification_target or _danger, depending on whether
  * danger_zone.danger_type is positive) and sets

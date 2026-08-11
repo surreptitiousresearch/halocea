@@ -1,4 +1,4 @@
-/* playlist_profiles_dispose @0x83781EF8 — shut down the async playlist-profile subsystem: wait for its
+/* playlist_profiles_dispose @0x83781EE0 — shut down the async playlist-profile subsystem: wait for its
  * worker thread to exit, dispose it, and clear all globals.
  *
  * The trailing memset residue lands in r3 but no caller consumes it (saved_game_files_dispose ignores

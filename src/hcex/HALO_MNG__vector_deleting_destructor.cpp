@@ -1,6 +1,6 @@
 #include "../headers/hcex/HALO_MNG.h"
 
-// 0x823D26DC — HALO_MNG::`vector deleting destructor'(char a2). This is the standard MSVC
+// @0x823D26C0 — HALO_MNG::`vector deleting destructor'(char a2). This is the standard MSVC
 // compiler-synthesized thunk that exists automatically for any class with a virtual destructor
 // (here, inherited from iaIACTOR): it runs ~HALO_MNG() [-> ~iaIACTOR()], then conditionally calls
 // operator delete(this) when bit 0 of `a2` is set. There is no separate hand-written C++ source

@@ -1,4 +1,4 @@
-/* track_object_impulse_sound @ 0x837141CC — resolve the world-space position, orientation, velocity
+/* track_object_impulse_sound @ 0x837141B0 — resolve the world-space position, orientation, velocity
  * and BSP location of a sound attached to an object node, filling out the sound_source. Returns 0 if
  * the object is gone or sits outside the BSP (no cluster); 1 on success. The attachment's local
  * position/forward are transformed by the object's node matrix (the body node when node_index == -1).

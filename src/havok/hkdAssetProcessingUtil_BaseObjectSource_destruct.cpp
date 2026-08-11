@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkdAssetProcessingUtil_BaseObjectSource_destruct @0x838445B8 (??1hkdAssetProcessingUtil_BaseObjectSource@@QAA@XZ)
 #include "../headers/havok/hkdAssetProcessingUtil_BaseObjectSource.h"
 #include "../headers/havok/hkThreadMemory.h"
 

@@ -32,12 +32,12 @@
 #include "headers/ai_line_of_sight.h"
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 
 
 extern float actor_compute_prop_target_weight(int actor_index, int prop_index);
-extern void actor_situation_update_target_status(uint16_t actor_index);
-extern void actor_situation_combat_status_update(uint16_t actor_index);
+extern void actor_situation_update_target_status(int actor_index);
+extern void actor_situation_combat_status_update(int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 void actor_situation_update(int actor_index)

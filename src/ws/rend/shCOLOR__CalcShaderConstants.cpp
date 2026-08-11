@@ -1,3 +1,4 @@
+// shCOLOR__CalcShaderConstants @0x83095A88
 #include "../../headers/ws/rend/shCOLOR.h"
 #include "../../headers/ws/rend/shSHD_COEFFS.h"
 

@@ -32,9 +32,9 @@ extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 extern void unit_get_center_of_mass(int unit_index, real_point3d *center_of_mass);
 extern int object_get_ultimate_parent(int object_index);
 extern uint8_t scenario_location_underwater(const location *location, const real_point3d *position, int16_t *optional_weather_palette_index);
-extern uint8_t vehicle_causes_collision_damage(uint16_t vehicle_index);
+extern uint8_t vehicle_causes_collision_damage(int vehicle_index);
 extern float normalize3d(real_vector3d *v);
-extern void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
+extern void actor_perception_find_sense_position(int actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
 
 void prop_position_refresh(int actor_index, int prop_index, actor_position_data *sense_position,
                            uint8_t forced_position_update, uint8_t full_status_update)

@@ -28,7 +28,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern int actor_new(int variant_definition_index);
 extern void encounterless_attach_actor(int actor_index);
 extern void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_index, uint8_t has_previous_team);
-extern void actor_set_dormant(uint16_t actor_index, uint8_t dormant);
+extern void actor_set_dormant(int actor_index, uint8_t dormant);
 extern uint16_t actor_action_get_default_state(int16_t initial_state);
 extern uint8_t actor_type_get_swarm(int16_t actor_type);
 extern void actor_delete(int actor_index, uint8_t died);

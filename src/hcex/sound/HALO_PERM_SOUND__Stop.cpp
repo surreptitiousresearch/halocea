@@ -8,7 +8,9 @@
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 #include "../../headers/sound_permutation.h"
 
-extern "C" unsigned int osGetCurThreadId();
+// DEVIATION: osGetCurThreadId does not share its neighbours' C linkage — the DB carries only
+// `?osGetCurThreadId@@YAHXZ`, a mangled C++ name returning int (src/ws/os/osGetCurThreadId.cpp).
+int osGetCurThreadId();
 extern "C" void         osOutputDebugString(const char *fmt, ...);
 extern "C" char *tag_get_name(int tag_index);
 extern void hcex_notify_sound_stop(const char *tag_name);

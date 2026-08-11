@@ -1,4 +1,4 @@
-/* find_nav_point @0x837ECE78 — looks up a HUD waypoint-arrow definition index by name (case-insensitive)
+/* find_nav_point @0x837ECE60 — looks up a HUD waypoint-arrow definition index by name (case-insensitive)
  * within hud_globals->waypoint.arrows (104-byte entries, name string at each entry's start). Returns -1 if
  * hud_globals isn't loaded, the list is empty, or no entry matches. */
 

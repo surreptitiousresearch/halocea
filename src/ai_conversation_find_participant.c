@@ -45,7 +45,7 @@ extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t up
 extern float __fsqrts(float x);
 
 uint8_t ai_conversation_find_participant(
-        uint16_t conversation_index,
+        int conversation_index,
         int16_t participant_index,
         uint8_t *found_specific_unit_reference,
         uint8_t *try_alternate_reference,

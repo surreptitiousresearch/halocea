@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* rasterizer_active_camouflage_set_visibility @0x83794BB0 — latches the active-camouflage visibility
+/* rasterizer_active_camouflage_set_visibility @0x83794BA8 — latches the active-camouflage visibility
  * flag; clears the debug cache state when camouflage is turned off. */
 
 

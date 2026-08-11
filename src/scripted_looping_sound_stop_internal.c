@@ -1,4 +1,4 @@
-/* scripted_looping_sound_stop_internal @0x837145A4 — stop a scripted looping sound: on its live game
+/* scripted_looping_sound_stop_internal @0x837145A0 — stop a scripted looping sound: on its live game
  * looping-sound datum clear the scripted bit, set the "unattached stop requested" bit, unlink the
  * datum, and optionally request a fixed fadeout. */
 

@@ -11,13 +11,29 @@
 #include "headers/render_frustum.h"
 extern int16_t render_frustum_sphere_visible(const render_frustum *frustum, const real_point3d *point, float radius);
 
-/* unmarked/mark slots respelled u8(*)(int)->int(*)(uint16_t) 2026-07-30: all four attested impls are
- * int(uint16_t) (clrlwi16 param first-use, width-agnostic li 0/1 returns); u8 was the decompiler hint
- * (C4113/C4133 at find_rendered_objects + lights_preprocess_scene) */
+/* DEVIATION (2026-08-12, #134): the unmarked/mark slots are `int (*)(int object_index)`. This REFUTES
+ * the 2026-07-30 note that stood here, which narrowed them to `uint16_t` because "all four attested
+ * impls are int(uint16_t) (clrlwi16 param first-use)" — and the four impls had in turn been narrowed
+ * by citing each other (object_mark_function.c carried "matches its three visibility-callback
+ * siblings"). Four functions narrowed in a circle, on the first-use mask that #130 showed is
+ * DATA_ARRAY_ELEMENT's own truncation (data_array.h), not an ABI width.
+ *
+ * The binary decides it here, in this function's own body @0x837C4DA8:
+ *     837C4E10  bctrl                       ; cluster_get_first -> index in r3
+ *     837C4E14  mr     r31, r3
+ *     837C4E18  cmpwi  cr6, r31, -1         ; a full 32-bit sentinel test
+ *     837C4E20  mr     r3, r31
+ *     837C4E28  bctrl                       ; unmarked(r31)  -- the WHOLE word
+ *     837C4E44  mr     r3, r31
+ *     837C4E48  bctrl                       ; get_bounding_sphere(int, ...) -- same r31
+ *     837C4E98  stwx   r31, r11, r25        ; stored WHOLE into `int *result_indices`
+ *     837C4E9C  bctrl                       ; mark(r31)      -- the WHOLE word
+ * One value reaches an `int` array, an `int` callback parameter and both mark callbacks. It travels
+ * at 32 bits; only two of the five slots claimed otherwise. */
 int16_t structure_visibility_find_objects(int *result_indices, int16_t maximum_count,
     int (*cluster_get_first)(int *, int16_t), int (*cluster_get_next)(int *),
-    void (*get_bounding_sphere)(int, real_point3d *, float *), int (*unmarked)(uint16_t),
-    int (*mark)(uint16_t))
+    void (*get_bounding_sphere)(int, real_point3d *, float *), int (*unmarked)(int object_index),
+    int (*mark)(int object_index))
 {
     int16_t found_count = 0;
     if (render.rendered_cluster_count <= 0)

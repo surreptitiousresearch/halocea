@@ -22,7 +22,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void actor_get_weapon_vector(uint16_t actor_index, real_vector3d *weapon_vector);
+extern void actor_get_weapon_vector(int actor_index, real_vector3d *weapon_vector);
 extern float normalize3d(real_vector3d *v);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);

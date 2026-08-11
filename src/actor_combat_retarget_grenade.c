@@ -1,4 +1,4 @@
-/* actor_combat_retarget_grenade @0x837B947C — re-validates a grenade throw against the actor VARIANT tag's
+/* actor_combat_retarget_grenade @0x837B9450 — re-validates a grenade throw against the actor VARIANT tag's
  * grenade_combat enemy/collateral-damage radii (floats abs +392/+412) at a new desired target point, and
  * if still acceptable, overwrites the actor's stored grenade target (dword triplet +1704).
  *

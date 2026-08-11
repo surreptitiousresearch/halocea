@@ -39,7 +39,7 @@
 
 
 #include "headers/real_point3d.h"
-extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
+extern void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
 
 void actor_action_determine_pursuit_options(int actor_index, int16_t desire_target_search, int16_t desire_pursuit, int16_t desire_pursuit_search, uint8_t controlling_group_pursuit, uint8_t controlled_by_group_pursuit, uint8_t stand_down, uint8_t *must_charge, uint8_t *allow_target_uncover, uint8_t *allow_indefinite_target_uncover, uint8_t *allow_target_search, uint8_t *allow_pursuit, uint8_t *allow_pursuit_search, uint8_t *allow_waiting)   /* param 14 — unused by this function; caller default preserved */

@@ -1,4 +1,4 @@
-// cdtINFO::cdtINFO @0x82C16020 — zero the whole record (bitfields, the three opaque id fields,
+// cdtINFO::cdtINFO @0x82C16018 — zero the whole record (bitfields, the three opaque id fields,
 // vClosest, distMin, state); the raw decompile's 9-word zero loop covers the entire 36-byte object.
 #include "../../headers/ws/cdt/cdtINFO.h"
 

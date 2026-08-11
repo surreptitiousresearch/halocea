@@ -1,4 +1,4 @@
-/* game_engine_playlist_next @0x837494E4 — advances the multiplayer playlist cursor (wrapping at the
+/* game_engine_playlist_next @0x837494C8 — advances the multiplayer playlist cursor (wrapping at the
  * end) and copies the now-playing entry's map name and variant into the launch stage. */
 
 #include <string.h>

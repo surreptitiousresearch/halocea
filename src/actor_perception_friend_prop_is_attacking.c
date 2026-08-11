@@ -1,4 +1,4 @@
-/* actor_perception_friend_prop_is_attacking @0x837D7C44 — decide whether a friendly prop (a unit this
+/* actor_perception_friend_prop_is_attacking @0x837D7C10 — decide whether a friendly prop (a unit this
  * actor is aware of) is currently attacking, and fill attack_vector with the attack direction. Swarm props
  * never count. For a player-controlled friend, the attack vector is its aiming vector; if the friend is
  * already flagged as shooting that is reported directly, otherwise — when the actor is itself engaged — the
@@ -17,12 +17,12 @@
 
 
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);
-extern int actor_attacking_target(uint16_t actor_index, real_vector3d *attack_vector);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern int actor_attacking_target(int actor_index, real_vector3d *attack_vector);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern float normalize3d(real_vector3d *v);
 
-uint8_t actor_perception_friend_prop_is_attacking(uint16_t actor_index, uint16_t friend_prop_index,
+uint8_t actor_perception_friend_prop_is_attacking(int actor_index, int friend_prop_index,
                                                   real_vector3d *attack_vector)
 {
     prop_datum *friend_prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, friend_prop_index);

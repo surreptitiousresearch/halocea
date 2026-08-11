@@ -1,4 +1,4 @@
-/* effects_dispose @ 0x836E0C78 — drop effect + effect-location pool pointers */
+/* effects_dispose @ 0x836E0D40 — drop effect + effect-location pool pointers */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 void effects_dispose(void)

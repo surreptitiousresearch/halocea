@@ -1,4 +1,4 @@
-/* projectile_new_to_network @0x8375A5F0 — server-side encoder: snapshots a newly-created projectile
+/* projectile_new_to_network @0x8375A5A8 — server-side encoder: snapshots a newly-created projectile
  * object's networked state (definition, owner identity, position/orientation, velocities, baseline)
  * into a projectile_new_data body and message-delta-encodes it into the supplied buffer. The owner
  * object/player indices are run through the field-translated-index tables (registering a fresh server

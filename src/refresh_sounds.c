@@ -23,12 +23,12 @@
 extern uint8_t players_are_all_dead(void);
 extern int data_next_index(const data_array *data, int16_t index);
 extern int16_t channel_get_state(int16_t channel_index);
-extern uint8_t refresh_sound(uint16_t sound_index);
+extern uint8_t refresh_sound(int sound_index);
 extern float sound_definition_get_maximum_distance(int sound_definition_index);
 extern int16_t source_audible(sound_source *source, float maximum_distance);
 extern char *tag_get_name(int tag_index);
 extern int sprintf_0(char *string, const char *format, ...);
-extern float sound_calculate_fade(uint16_t sound_index);
+extern float sound_calculate_fade(int sound_index);
 extern void sound_start_fade(int16_t mode, float seconds, int fade_out_sound_index, int fade_up_sound_index);
 extern void sound_stop(int sound_index);
 

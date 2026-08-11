@@ -1,4 +1,4 @@
-/* sound_cache_flush @0x837E74EC — evict every currently-loaded, non-in-use, non-locked cached sound
+/* sound_cache_flush @0x837E74D0 — evict every currently-loaded, non-in-use, non-locked cached sound
  * permutation (datum+5/+6 both clear): unload its FMOD data, delete its LRU cache block, and clear its cache
  * fields. Unlike sound_cache_close.c, the data_array itself is left valid — only matching entries are evicted. */
 
@@ -12,7 +12,7 @@
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
 extern void unload_sound_fmod(sound_permutation *sound);
-extern void lruv_block_delete(lruv_cache *cache, uint16_t block_index);
+extern void lruv_block_delete(lruv_cache *cache, int block_index);
 
 void sound_cache_flush(void)
 {

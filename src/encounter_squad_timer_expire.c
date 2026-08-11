@@ -14,7 +14,7 @@
 
 extern void ai_scripting_magically_see_players(int ai_index);
 
-void encounter_squad_timer_expire(uint16_t encounter_index, int16_t squad_index)
+void encounter_squad_timer_expire(int encounter_index, int16_t squad_index)
 {
     /* encounter def squads block (element 232 bytes); flags @0x28, bit 0x10 = "magically aware on timer". */
     squad_definition *squad_def =

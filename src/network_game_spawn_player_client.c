@@ -1,4 +1,4 @@
-/* network_game_spawn_player_client @0x837828C4 — client-side player spawn: creates the local player_datum
+/* network_game_spawn_player_client @0x837828A8 — client-side player spawn: creates the local player_datum
  * slot for a network_player (using its real controller index if it belongs to this local machine, else -1),
  * and records the resulting player_list_index back onto the network_player. */
 

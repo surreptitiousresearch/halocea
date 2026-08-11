@@ -1,6 +1,6 @@
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
-// 0x8251EB3C — value under `key` coerced to bool, or `def` when absent/uncoercible.
+// @0x8251EB30 — value under `key` coerced to bool, or `def` when absent/uncoercible.
 
 extern int psDataToBool(const dsDATA *obj, int *val);
 

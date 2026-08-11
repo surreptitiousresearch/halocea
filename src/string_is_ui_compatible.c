@@ -1,4 +1,4 @@
-/* string_is_ui_compatible @0x83766688 — checks that an ASCII string can be displayed and (for some
+/* string_is_ui_compatible @0x83766660 — checks that an ASCII string can be displayed and (for some
  * modes) entered through the Halo UI: every character must be printable, present in the small_ui font,
  * and accepted by the on-screen keyboard for the given validate_mode. Mode 3 additionally rejects an
  * empty string and a leading space. Mode 1 also requires the wide form to contain visible characters.

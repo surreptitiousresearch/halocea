@@ -1,4 +1,4 @@
-/* find_like_crossing @0x8381A990 — scans leaf_map_globals' node stack (top-down) for an entry whose bsp3d
+/* find_like_crossing @0x8381A980 — scans leaf_map_globals' node stack (top-down) for an entry whose bsp3d
  * node references `plane_index`, and reports which side of the plane that node's entry represents.
  *
  * DEVIATION: the node-array index expression `2*node + (node & 0x7FFFFFFF)` (int units) is exactly

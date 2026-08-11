@@ -1,7 +1,7 @@
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/apCL.h"
 
-// haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL::GetEventMap @ 0x823C4B78 — the shared
+// haloENGINE_CONTROL::EVENT_DISP_haloENGINE_CONTROL::GetEventMap @ 0x823C4B58 — the shared
 // (id -> handler) sorted table for every event this class subscribes to. Function-local-static
 // Meyers singleton (guard + atexit-registered destructor, per the usual C++ static-local-with-
 // nontrivial-dtor lowering; not reproduced as separate guard/atexit statements here — `static`

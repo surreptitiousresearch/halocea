@@ -25,10 +25,10 @@
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
+extern uint8_t actor_perception_desire_prop(int actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
 extern int datum_new(data_array *data);
-extern void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_prop_index);
-extern void prop_remove(uint16_t actor_index, int prop_index);
+extern void actor_switch_props(int actor_index, int prop_index, int replacement_prop_index);
+extern void prop_remove(int actor_index, int prop_index);
 extern void prop_add(int actor_index, int unit_index, int prop_index);
 
 int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy)

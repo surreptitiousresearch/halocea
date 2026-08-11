@@ -1,4 +1,4 @@
-/* local_player_set_player_index @0x836A805C — bind a local player slot to a player datum index:
+/* local_player_set_player_index @0x836A8050 — bind a local player slot to a player datum index:
  * clear the back-reference on the previously-bound player, store the new player index in the slot,
  * and write this local-player index into the new player datum's local-player field (player datum +2). */
 

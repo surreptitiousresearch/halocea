@@ -30,17 +30,17 @@
 #include "headers/defensive_crouch_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/ai_information_data.h"
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 
 
-extern void actor_berserk(uint16_t actor_index, uint8_t berserk);
+extern void actor_berserk(int actor_index, uint8_t berserk);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
-extern uint8_t actor_perception_friend_prop_is_attacking(uint16_t actor_index, uint16_t friend_prop_index, real_vector3d *attack_vector);
+extern uint8_t actor_perception_friend_prop_is_attacking(int actor_index, int friend_prop_index, real_vector3d *attack_vector);
 extern int16_t actor_perception_aiming_vector_test_blockage(const real_point3d *source_position, const real_vector3d *source_vector, const real_point3d *friend_position, real_vector3d *friend_direction_to_aiming_vector);
 extern float normalize3d(real_vector3d *v);
-extern void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position_index, uint8_t temporary);
+extern void actor_discard_firing_position(int actor_index, int16_t firing_position_index, uint8_t temporary);
 extern uint8_t actor_type_flood_desire_shamble(int actor_index);
-extern void actor_emotion_unopposable_retreat(uint16_t actor_index);
+extern void actor_emotion_unopposable_retreat(int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 void actor_emotion_update(int actor_index)

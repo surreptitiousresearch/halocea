@@ -1,4 +1,4 @@
-/* game_engine_player_has_stealth_weapon @0x83749ADC — true if the player's unit's currently-selected
+/* game_engine_player_has_stealth_weapon @0x83749AD0 — true if the player's unit's currently-selected
  * weapon (player unit_index -> unit.current_weapon_index -> unit.weapon_object_indices slot -> weapon
  * object's tag) has the "stealth" weapon flag (weapon.flags bit 13) set. False at any missing link in
  * the chain (no unit, no selection, no weapon, no tag). */

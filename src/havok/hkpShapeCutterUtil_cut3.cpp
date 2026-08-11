@@ -10,7 +10,7 @@ struct hkpConvexVerticesShape;
 extern "C" const hkpConvexVerticesShape *hkpShapeCutterUtil_cut(hkpShape *shapeIn, const hkVector4 *plane,
                                                                 float extraConvexRadiusForImplicitShapes);
 
-/* hkpShapeCutterUtil::cut (0x83F97D40) — the two-sided convenience overload:
+/* hkpShapeCutterUtil::cut (@0x83F97D40) — the two-sided convenience overload:
    split shapeIn by planeIn, delivering the positive-side piece in positiveOut and
    the negative-side piece in negativeOut (obtained by cutting again with the
    flipped plane). When the plane does not actually divide the shape the returned

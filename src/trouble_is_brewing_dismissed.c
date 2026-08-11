@@ -1,5 +1,5 @@
 #include "headers/blam_data_globals.h"
-/* trouble_is_brewing_dismissed @0x83732BB0 — reset the "trouble is brewing" warning state
+/* trouble_is_brewing_dismissed @0x83732B98 — reset the "trouble is brewing" warning state
  * (clears the per-frame flag, disarms the timer, hides the dialog). */
 
 

@@ -4,7 +4,7 @@
 
 /* extern corrected to match def (hs_macro_function_evaluate.c): returns int*. */
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void xbox_set_machine_name(const char *name);
 
 void xbox_set_machine_name_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

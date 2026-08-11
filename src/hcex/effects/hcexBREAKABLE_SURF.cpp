@@ -6,7 +6,7 @@
 
 #include "../../headers/hcex/hcex_breakable_surf.h"
 
-// 0x823B16F8 — default-construct: default-construct the embedded scnINST_CREATE_DATA. bsp/idx/
+// @0x823B16E0 — default-construct: default-construct the embedded scnINST_CREATE_DATA. bsp/idx/
 // pInst are left uninitialized, matching the disassembly.
 hcexBREAKABLE_SURF::hcexBREAKABLE_SURF()
 {

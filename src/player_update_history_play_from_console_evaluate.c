@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void player_update_history_play_from_console(int last_completed_update_id, uint8_t destructive);
 
 void player_update_history_play_from_console_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

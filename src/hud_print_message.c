@@ -1,4 +1,4 @@
-/* hud_print_message @0x836A5894 — post a text message to a local player's HUD message area. Picks the
+/* hud_print_message @0x836A5880 — post a text message to a local player's HUD message area. Picks the
  * first free message slot (of 4), or the oldest one if all are in use, then stores the text, stamps the
  * game time and a fresh magic number, marks it valid, and clears the leave-first-line-blank flag.
  * message_data is a hud_messaging_datum[2] in the globals, indexed by local player. */

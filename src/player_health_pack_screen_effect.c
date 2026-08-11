@@ -1,4 +1,4 @@
-/* player_health_pack_screen_effect @0x836AA350 — flash the health-pack pickup screen effect for a
+/* player_health_pack_screen_effect @0x836AA318 — flash the health-pack pickup screen effect for a
  * local player. No-op for an invalid player or one with no local-player slot (+2 == 0xFFFF). A near-
  * white (0.917647) flash, priority 2, type tint, fade function 1, duration 2.0, max intensity 0.5. */
 

@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkdDeformableBreakableShape_construct @0x838644A8 (??0hkdDeformableBreakableShape@@QAA@PBVhkdBreakableShape@@PBUhkdShapeInstanceInfo@@HW4ConstructorFlags@hkdCompoundBreakableShape@@@Z)
 #include "../headers/havok/hkdDeformableBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkBaseObject.h"

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 

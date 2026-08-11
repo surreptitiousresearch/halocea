@@ -5,7 +5,7 @@
 #include "headers/prop_datum.h"
 #include "headers/prop_iterator.h"
 
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 void actor_perception_forget_recent_damage(int actor_index)

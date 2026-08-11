@@ -1,4 +1,4 @@
-/* input_abstraction_set_enabled_mode_keyboard @0x83724CE0 — enable/disable the "keyboard" input mode
+/* input_abstraction_set_enabled_mode_keyboard @0x83724CD0 — enable/disable the "keyboard" input mode
  * (bit 0x4 of the active-modes mask). */
 
 #include <stdint.h>

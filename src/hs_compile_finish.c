@@ -15,8 +15,8 @@
 #include "headers/hs_global_internal.h"
 #include "headers/hs_script.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
-extern uint8_t tag_data_resize(tag_data *data, int size);
 extern int hs_concatenate_string_constant(const char *string);
 extern void hs_concatenate_expression(int expression_index);
 extern void hs_node_gc(void);

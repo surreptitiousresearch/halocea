@@ -1,4 +1,4 @@
-/* biped_start_landing @0x837AECA4 — evaluate a fall's landing_velocity (in game units/tick, scaled from
+/* biped_start_landing @0x837AEC88 — evaluate a fall's landing_velocity (in game units/tick, scaled from
  * world units/sec by 1/30) against the biped definition's soft/hard landing thresholds and, if it's at
  * least a soft landing, set up the landing recovery: a hard landing (velocity 1) scales its recovery time
  * across [minimum_hard_landing_velocity, maximum_hard_landing_velocity] using maximum_hard_landing_time; a

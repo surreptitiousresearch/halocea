@@ -1,4 +1,4 @@
-/* vibrate_dispose_from_old_map @ 0x83739118-adjacent (0x83739528) — stop controller
+/* vibrate_dispose_from_old_map @ 0x83739528 — stop controller
  * rumble and zero the vibrate globals. */
 #include <stdint.h>
 #include <string.h>

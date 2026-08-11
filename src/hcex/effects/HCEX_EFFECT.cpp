@@ -4,7 +4,7 @@
 
 #include "../../headers/hcex/HCEX_EFFECT.h"
 
-// 0x823D6AA4 — default-construct: locations adopts the ds_vector.h:24 call-site cookie (empty
+// @0x823D6A88 — default-construct: locations adopts the ds_vector.h:24 call-site cookie (empty
 // vector), hcexName adopts the shared empty-string singleton via UnsafeInitEmpty().
 HCEX_EFFECT::HCEX_EFFECT()
     : locations(apCL{"D:\\Projects\\code\\common\\INCL.SYS\\ds\\ds_vector.h", 24})

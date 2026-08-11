@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_path_clear(uint16_t actor_index)
+void actor_path_clear(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor->control.path.destination_original_distance = 0.0f;

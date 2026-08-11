@@ -20,7 +20,7 @@
 
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 
-int actor_perception_assess_suicide_danger(uint16_t actor_index, int unit_index, float suicide_radius,
+int actor_perception_assess_suicide_danger(int actor_index, int unit_index, float suicide_radius,
                                            float current_distance, uint8_t enemy,
                                            uint8_t currently_perceived)
 {

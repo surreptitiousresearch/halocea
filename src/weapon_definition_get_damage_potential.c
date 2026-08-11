@@ -1,4 +1,4 @@
-/* weapon_definition_get_damage_potential @0x8381A360 — estimate a weapon's damage-per-second potential:
+/* weapon_definition_get_damage_potential @0x8381A350 — estimate a weapon's damage-per-second potential:
  * reads trigger[0]'s final_rate_of_fire (rounds_per_second out-param) and, from its projectile
  * definition, averages the impact_damage and detonation_damage effects' damage bounds and sums them.
  * Fully typed: +560/+544 are the projectile definition's impact_damage/detonation_damage reference

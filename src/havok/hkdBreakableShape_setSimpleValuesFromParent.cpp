@@ -1,3 +1,4 @@
+// hkdBreakableShape_setSimpleValuesFromParent @0x8384A0C0
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkThreadMemory.h"
 #include <math.h>

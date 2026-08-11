@@ -14,7 +14,7 @@
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern void *datum_try_and_get(const data_array *data, int index);
 
-uint8_t check_is_local_player_by_loop(uint16_t looping_sound_index)
+uint8_t check_is_local_player_by_loop(int looping_sound_index)
 {
     object_datum *object = object_try_and_get_and_verify_type(
                       DATA_ARRAY_ELEMENT(game_looping_sound_data, game_looping_sound_datum, looping_sound_index)->object_index, object_mask_all);

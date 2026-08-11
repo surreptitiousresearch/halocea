@@ -1,4 +1,4 @@
-/* cinematic_dispose_from_old_map @ 0x83690E18 — clear cinematic letterbox/progress flags */
+/* cinematic_dispose_from_old_map @ 0x83690EA8 — clear cinematic letterbox/progress flags */
 #include "headers/cinematic_globals.h"
 void cinematic_dispose_from_old_map(void)
 {

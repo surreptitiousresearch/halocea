@@ -1,6 +1,6 @@
 #include "../../headers/hcex/HALO_SOUND_LIST.h"
 
-// HALO_SOUND_LIST::HALO_SOUND_LIST() @ 0x836B7760
+// HALO_SOUND_LIST::HALO_SOUND_LIST() @ 0x836B7748
 //
 // CAVEAT: the raw decompile inlines the local-static-guard body of
 // dsTSTRING<char>::UnsafeInitEmpty() directly at each of levelName/fileName's initializations

@@ -1,4 +1,4 @@
-/* structure_visibility_find_camera @0x837C46A0 — resolve which BSP leaf, cluster and sky the render camera is
+/* structure_visibility_find_camera @0x837C4680 — resolve which BSP leaf, cluster and sky the render camera is
  * in, storing the results in the render globals. The camera position is point-tested against the structure's
  * collision BSP; on a miss the previous leaf is reused unless it is now out of range. From the leaf the cluster
  * index is read, and from the cluster the visible sky index; if that sky has a model the visible_sky_model flag

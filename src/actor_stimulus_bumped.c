@@ -8,7 +8,7 @@
 #include "headers/secondary_look_priority.h"
 
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
 void actor_stimulus_bumped(int actor_index, int prop_index)
 {

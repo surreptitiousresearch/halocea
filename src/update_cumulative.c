@@ -1,4 +1,4 @@
-/* update_cumulative @0x83763B8C — recompute a net_graph's cumulative bits-per-second figures from the
+/* update_cumulative @0x83763B78 — recompute a net_graph's cumulative bits-per-second figures from the
  * running bit totals and the elapsed time since cumulative_start_ms. When not yet started (start==0) the
  * rates are zeroed.
  * DEVIATION: the decompiler bailed ("local variable allocation has failed") on the soft-float __int64

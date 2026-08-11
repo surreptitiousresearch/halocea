@@ -1,4 +1,4 @@
-/* ai_conversation_line_begin @0x837CD8CC — begin the current line of a running AI conversation. Resolves
+/* ai_conversation_line_begin @0x837CD8A8 — begin the current line of a running AI conversation. Resolves
  * the scenario conversation definition and its current line, then (if the line's speaker participant is
  * valid and present in the conversation's participant bitmask) latches the runtime line state:
  *   - speaker actor/unit (or -1 if the speaker slot is empty, which also forces unspatialized playback),
@@ -28,7 +28,7 @@ static int conversation_actor_unit_index(int actor_index)
     return actor->meta.unit_index;
 }
 
-int ai_conversation_line_begin(uint16_t conversation_index)
+int ai_conversation_line_begin(int conversation_index)
 {
     conversation_datum *conversation =
         DATA_ARRAY_ELEMENT(conversation_data, conversation_datum, conversation_index);

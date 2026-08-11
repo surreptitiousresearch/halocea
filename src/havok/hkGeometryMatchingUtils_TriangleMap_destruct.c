@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkGeometryMatchingUtils_TriangleMap_destruct @0x83845950 (??1TriangleMap@hkGeometryMatchingUtils@@QAA@XZ) */
 #include "../headers/havok/hkGeometryMatchingUtils_TriangleMap.h"
 #include "../headers/havok/hkThreadMemory.h"
 

@@ -1,4 +1,4 @@
-/* game_state_read_from_persistent_storage @0x8371B988 — read the saved game-state arena back from its
+/* game_state_read_from_persistent_storage @0x8371B970 — read the saved game-state arena back from its
  * persistent-storage file into buffer. On any failure (open, seek, short read), the local player's profile
  * directory copy is deleted so the corrupt save isn't reused. */
 

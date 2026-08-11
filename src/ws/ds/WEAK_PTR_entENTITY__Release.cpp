@@ -1,4 +1,4 @@
-// ds::WEAK_PTR<entENTITY>::Release @0x823D39CC — drop this handle's reference; free the handle
+// ds::WEAK_PTR<entENTITY>::Release @0x823D39B8 — drop this handle's reference; free the handle
 // once its refcount reaches 0; always null pHandle afterwards.
 #include "../../headers/ws/ds/WEAK_PTR.h"
 

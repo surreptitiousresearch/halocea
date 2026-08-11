@@ -1,4 +1,4 @@
-/* sv_status @0x83765F88 — server console command: print the dedicated server's current map, player count,
+/* sv_status @0x83765F68 — server console command: print the dedicated server's current map, player count,
  * and whether the game is ending. Server-only; rejected on a client.
  * DEVIATION: 0x13D IS network_game_data.maximum_players (DB types_members), read off a NULL base the
  * compiler folded in (`lbz r11, 0x13D` = 8960013D, rA = r0) — see network_game_server_get_game.c. */

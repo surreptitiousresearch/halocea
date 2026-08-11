@@ -8,7 +8,7 @@
 
 extern void ai_conversation_finish(int conversation_index, uint8_t unable_to_begin, uint8_t success);
 
-void action_converse_end(uint16_t actor_index)
+void action_converse_end(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int conversation_index = actor->external_orders.conversation_index;

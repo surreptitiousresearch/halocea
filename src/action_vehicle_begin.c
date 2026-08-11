@@ -5,7 +5,7 @@
 
 extern int game_time_get(void);
 
-void action_vehicle_begin(uint16_t actor_index)
+void action_vehicle_begin(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

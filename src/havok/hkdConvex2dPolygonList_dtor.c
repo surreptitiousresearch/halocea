@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkdConvex2dPolygonList_dtor @0x83877098 (??1hkdConvex2dPolygonList@@QAA@XZ) */
 #include "../headers/havok/hkdConvex2dPolygonList.h"
 #include "../headers/havok/hkThreadMemory.h"
 

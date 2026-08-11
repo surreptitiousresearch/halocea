@@ -20,7 +20,7 @@
 
 extern int actor_action_handle_initial_action(int actor_index);
 extern uint8_t actor_action_handle_pending_command_list(int actor_index);
-extern uint8_t actor_action_deny_transition(uint16_t actor_index);
+extern uint8_t actor_action_deny_transition(int actor_index);
 extern uint8_t actor_action_handle_combat_transition(int actor_index);
 extern uint8_t actor_action_handle_done_fleeing(int actor_index);
 extern uint8_t actor_action_can_stop_guarding(int actor_index, int16_t guard_investigate_threshold, int16_t cower_investigate_threshold);

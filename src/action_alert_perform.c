@@ -28,8 +28,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_path_has_path(uint16_t actor_index);
-extern float actor_destination_tolerance(uint16_t actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
+extern float actor_destination_tolerance(int actor_index);
 extern int16_t action_alert_next_position(int actor_index, int16_t move_position_order, int16_t current_position_index, uint8_t *direction_increasing);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);

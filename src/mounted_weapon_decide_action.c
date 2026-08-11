@@ -15,7 +15,7 @@
 
 extern int actor_action_handle_initial_action(int actor_index);
 extern uint8_t actor_action_handle_pending_command_list(int actor_index);
-extern uint8_t actor_action_deny_transition(uint16_t actor_index);
+extern uint8_t actor_action_deny_transition(int actor_index);
 extern uint8_t actor_action_handle_combat_transition(int actor_index);
 extern uint8_t actor_action_handle_combat_status(int actor_index, uint8_t allow_initiative, uint8_t force_decision);
 extern uint8_t actor_action_handle_exit_pursuit(int actor_index);

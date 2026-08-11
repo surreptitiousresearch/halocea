@@ -1,4 +1,4 @@
-/* game_engine_playlist_verify @0x83752450 — validate a map/variant selection: the map's leaf name (after
+/* game_engine_playlist_verify @0x83752430 — validate a map/variant selection: the map's leaf name (after
  * any backslash) must be in the map list, the cache file must exist, and — if a variant name is given — it
  * must resolve to a known game variant. Returns nonzero when valid.
  * DEVIATION: game_engine_get_variant_by_name returns a found/not-found result here (other call sites use it

@@ -16,7 +16,7 @@
 
 extern int unit_inventory_get_weapon(int unit_index, int16_t index);
 
-int actor_get_weapon(uint16_t actor_index)
+int actor_get_weapon(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int result = -1;

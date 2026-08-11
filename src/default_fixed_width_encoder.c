@@ -1,4 +1,4 @@
-/* default_fixed_width_encoder @0x8379C418 — quantize source_data to a fixed-width value over [0,1] (using
+/* default_fixed_width_encoder @0x8379C400 — quantize source_data to a fixed-width value over [0,1] (using
  * field_properties->parameters+4 as the range) and write it via bitstream_write_bits (bit count from
  * parameters+0). If baseline_data is supplied and quantizes to the same value, writes nothing and reports 0
  * bits written (delta-against-baseline elision).

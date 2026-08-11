@@ -39,9 +39,9 @@ extern unsigned int *structure_bsp_get_cluster_pvs(structure_bsp *structure_bsp,
 extern void bit_vector_or(int16_t count, const unsigned int *a, const unsigned int *b, unsigned int *result);
 extern void object_marker_begin(void);
 extern void object_marker_end(void);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
+extern uint8_t actor_perception_desire_prop(int actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
 extern int16_t object_get_first_cluster(object_cluster_iterator *iterator, int object_index);
 extern int16_t object_get_next_cluster(object_cluster_iterator *iterator, int object_index);
 extern int cluster_get_first_collideable_object(int *reference_index, int16_t cluster_index);
@@ -52,7 +52,7 @@ extern void actor_perception_refresh_test_object(int actor_index, int object_ind
 extern int actor_perception_qsort_compare_optional_props(const void *p1, const void *p2);
 extern int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy);
 extern void prop_position_refresh(int actor_index, int prop_index, actor_position_data *sense_position, uint8_t forced_position_update, uint8_t full_status_update);
-extern void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_prop_index);
+extern void actor_switch_props(int actor_index, int prop_index, int replacement_prop_index);
 extern void prop_delete(int actor_index, int prop_index);
 
 void actor_perception_refresh(int actor_index)

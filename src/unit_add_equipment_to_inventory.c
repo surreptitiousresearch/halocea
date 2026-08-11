@@ -1,4 +1,4 @@
-/* unit_add_equipment_to_inventory @0x836CB200 — give a unit a piece of equipment (the inventory slot
+/* unit_add_equipment_to_inventory @0x836CB1C8 — give a unit a piece of equipment (the inventory slot
  * unit.equipment_object_index). In _unit_add_equipment_as_only_equipment mode any existing equipment is deleted first. Fails (returns 0) if the
  * slot is still occupied. Otherwise the equipment is disconnected from the map and hidden, a pickup is
  * registered for a local player holding it, it is marked as in the unit's inventory, and stored in the slot.

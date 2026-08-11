@@ -1,4 +1,4 @@
-/* default_wide_string_encoder @0x8379AD28 — encode a wide string field: writes nothing (and reports 0 bits)
+/* default_wide_string_encoder @0x8379AD10 — encode a wide string field: writes nothing (and reports 0 bits)
  * if it exactly matches baseline_data; otherwise writes the character count (field_properties->overhead_bits
  * wide, via bitstream_write_bits) followed by each character as a raw 16-bit value. Returns total bits
  * written. */

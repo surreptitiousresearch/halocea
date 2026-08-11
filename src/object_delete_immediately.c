@@ -1,4 +1,4 @@
-/* object_delete_immediately @0x836F2220 — delete an object and its children this frame: run the
+/* object_delete_immediately @0x836F2208 — delete an object and its children this frame: run the
  * initial recursive teardown pass, then the final recursive delete. */
 
 #include <stdint.h>

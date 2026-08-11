@@ -1,4 +1,4 @@
-/* sound_cache_start_loading_sound @0x837E7B50 — reserve a cache block for `sound` and begin loading it: the
+/* sound_cache_start_loading_sound @0x837E7B38 — reserve a cache block for `sound` and begin loading it: the
  * requested size is the raw sample size, except duplicate_compression==1 also stashes that size in
  * unused0[0] (a second copy the decoder consults later). If no cache block is free, dumps cache stats to
  * disk and deliberately crashes (`*(int*)0 = 1`, a debug-assert-by-null-write — this should never happen in

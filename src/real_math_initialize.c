@@ -1,3 +1,4 @@
+/* real_math_initialize @0x836FC100 */
 extern void random_math_initialize(void);
 extern void periodic_functions_initialize(void);
 

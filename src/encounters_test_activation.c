@@ -32,8 +32,8 @@
 extern unsigned int *players_get_combined_pvs(void);
 extern int object_get_ultimate_parent(int object_index);
 extern uint8_t game_in_editor(void);
-extern int actor_set_active(uint16_t actor_index, uint8_t active);
-extern void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, uint8_t update_actor_dormancy, int bit_vector_size, const unsigned int *active_area, unsigned int *bit_vector);
+extern int actor_set_active(int actor_index, uint8_t active);
+extern void encounter_compute_activation_cluster_bit_vector(int encounter_index, uint8_t update_actor_dormancy, int bit_vector_size, const unsigned int *active_area, unsigned int *bit_vector);
 extern uint8_t bit_vector_and(int16_t count, const unsigned int *a, const unsigned int *b, unsigned int *result);
 extern uint8_t encounter_activate(int encounter_index);
 extern void encounter_deactivate(int encounter_index);

@@ -1,4 +1,4 @@
-/* player_update_client_is_position_tracked_remote_player @0x8376DB9C — true when this remote player's name
+/* player_update_client_is_position_tracked_remote_player @0x8376DB78 — true when this remote player's name
  * matches the debug "track position updates" filter, used to gate verbose position-update logging. */
 
 #include <stdint.h>

@@ -53,10 +53,10 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern int game_time_get(void);
 extern int actor_perception_assess_vehicle_danger(int actor_index, int vehicle_index, actor_position_data *sense_position, uint8_t currently_perceived);
-extern void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
+extern void actor_perception_find_sense_position(int actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
 extern int actor_perception_unit_from_swarm(actor_position_data *sense_position, int actor_index, int preferred_unit_index, uint8_t mark_units);
-extern int actor_perception_assess_suicide_danger(uint16_t actor_index, int unit_index, float suicide_radius, float current_distance, uint8_t enemy, uint8_t currently_perceived);
-extern uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
+extern int actor_perception_assess_suicide_danger(int actor_index, int unit_index, float suicide_radius, float current_distance, uint8_t enemy, uint8_t currently_perceived);
+extern uint8_t actor_perception_desire_prop(int actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
 extern int prop_new_unacknowledged(int actor_index, int unit_index, uint8_t enemy);
 extern void prop_position_refresh(int actor_index, int prop_index, actor_position_data *sense_position, uint8_t forced_position_update, uint8_t full_status_update);
 

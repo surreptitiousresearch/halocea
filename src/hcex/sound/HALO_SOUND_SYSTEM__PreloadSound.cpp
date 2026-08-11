@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__PreloadSound @0x836B5800
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 
 // HALO_SOUND_SYSTEM::PreloadSound(sound_permutation const*, bool) @ 0x836B5804

@@ -1,3 +1,4 @@
+// vidDEFRAG_POOL_HCEX_X360__Id @0x823F13A0
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 
 // vidDEFRAG_POOL_HCEX_X360::Id @ 0x823F13A8

@@ -1,4 +1,4 @@
-/* structure_render_dynamic_triangles_from_indices @0x837C640C — sort surface_indices (via compare_surface_indices)
+/* structure_render_dynamic_triangles_from_indices @0x837C63F0 — sort surface_indices (via compare_surface_indices)
  * and expand each into a rasterizer_triangle's three vertex indices, read from the current structure BSP's
  * surfaces tag_block (6-byte structure_surface records, same layout as rasterizer_triangle). No-op if
  * `triangles` is null. */

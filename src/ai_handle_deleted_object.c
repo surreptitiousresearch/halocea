@@ -22,7 +22,7 @@
 
 extern void actor_delete(int actor_index, uint8_t died);
 extern void actor_swarm_unit_died(int actor_index, int unit_index);
-extern void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_prop_index);
+extern void actor_switch_props(int actor_index, int prop_index, int replacement_prop_index);
 extern void prop_delete(int actor_index, int prop_index);
 extern void ai_conversation_unit_died(int unit_index, uint8_t deleted);
 

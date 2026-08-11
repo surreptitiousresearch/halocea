@@ -1,4 +1,4 @@
-/* field_translated_index_server_register_local_index @0x8379BADC — server-side: assigns a translated
+/* field_translated_index_server_register_local_index @0x8379BAD0 — server-side: assigns a translated
  * (network) index to a local index for an index-translated field, if it doesn't already have one. It
  * scans the translation slot array as a ring starting at the rolling cursor for the first free slot
  * (value -1), records the mapping in both the index_resolution_table and the slot array, and advances

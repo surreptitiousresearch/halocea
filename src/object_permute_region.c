@@ -1,4 +1,4 @@
-/* object_permute_region @0x836EC3F4 — sets the active permutation (by name) for one or all of an object's
+/* object_permute_region @0x836EC3B8 — sets the active permutation (by name) for one or all of an object's
  * model regions. For each region matching desired_region_index (-1 = all), it looks up the named
  * permutation in the region's permutation list and stores its index in the object's per-region
  * permutation byte (region_permutations[region]). When active_flag is 0 the region is reset to permutation 0. */

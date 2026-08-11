@@ -1,4 +1,4 @@
-/* actor_unit_control_exact_facing @0x8371FCF4 — set or clear the actor's "exact facing" unit-control
+/* actor_unit_control_exact_facing @0x8371FCD8 — set or clear the actor's "exact facing" unit-control
  * flag (bit 0x20 of the flags dword at actor record index 436). Actor records are stride 1828. */
 
 #include <stdint.h>
@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_unit_control_exact_facing(uint16_t actor_index, uint8_t exact_facing)
+void actor_unit_control_exact_facing(int actor_index, uint8_t exact_facing)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     unsigned int flags = actor->output.control_flags;

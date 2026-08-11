@@ -1,4 +1,4 @@
-// entCREATE_DATA::entCREATE_DATA @0x8252FFCC — default-construct: base animCREATE_DATA, then
+// entCREATE_DATA::entCREATE_DATA @0x8252FFB8 — default-construct: base animCREATE_DATA, then
 // install entCREATE_DATA's own vtable and null pDomSpawn.
 #include "../../headers/entCREATE_DATA.h"
 #include "../../headers/ws/anim/animCREATE_DATA.h"

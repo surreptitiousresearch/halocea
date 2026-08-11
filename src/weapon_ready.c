@@ -1,4 +1,4 @@
-/* weapon_ready @0x836DCCF8 — bring a weapon to the ready/equipped state: reset it, set weapon state 9
+/* weapon_ready @0x836DCCC0 — bring a weapon to the ready/equipped state: reset it, set weapon state 9
  * (ready), send the first-person "ready" message (12), spawn the definition's ready_effect, and record
  * the first-person ready-animation duration in weapon.state_timer. If the weapon is locally simulated
  * (datum_role == 0 — the old comment's "no parent" was wrong), set flag 0x4000000 so it shows

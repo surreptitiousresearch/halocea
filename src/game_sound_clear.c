@@ -1,4 +1,4 @@
-/* game_sound_clear @0x83713830 — clear the back-reference from every looping-sound definition to its
+/* game_sound_clear @0x83713810 — clear the back-reference from every looping-sound definition to its
  * live game looping-sound datum, so the next map's sounds re-bind cleanly. */
 
 #include <stdint.h>

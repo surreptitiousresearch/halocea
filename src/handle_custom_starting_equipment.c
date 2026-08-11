@@ -1,4 +1,4 @@
-/* handle_custom_starting_equipment @0x8374DA34 — apply the scenario's custom starting-equipment profile
+/* handle_custom_starting_equipment @0x8374DA10 — apply the scenario's custom starting-equipment profile
  * (the first whose game-type list matches the active game engine type) to a unit. For each of the
  * profile's five weapon slots it spawns a random item from the slot's item collection and adds it to the
  * unit's inventory; the first accepted weapon is the held one (mode 2), the rest are stowed (mode 0), and

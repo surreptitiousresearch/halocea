@@ -2,7 +2,7 @@
 #include "../anim/animINST.h"
 #include "../os/osLOCK.h"
 #include "obj_free_functions.h"
-// 0x82A72390  ?objValidateLTM@@YAXPAVobjOBJ@@@Z
+// @0x82A72390  ?objValidateLTM@@YAXPAVobjOBJ@@@Z
 // Lazily validate a node's LTM chain. If the owning animINST already has a CDT skeleton
 // driving it (state bit 0x4000000 set and GetCDTSkeleton() non-null), the skeleton owns LTM
 // validation, so defer to animINST::Validate(0x2000). Otherwise, if the instance isn't

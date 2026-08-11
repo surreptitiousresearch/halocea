@@ -8,9 +8,9 @@
 #include "headers/swarm_component_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_swarm_component_refresh(int unit_index, uint16_t swarm_component_index);
+extern void actor_swarm_component_refresh(int unit_index, int swarm_component_index);
 
-void actor_swarm_component_setup(uint16_t swarm_index, int unit_index, uint16_t swarm_component_index)
+void actor_swarm_component_setup(int swarm_index, int unit_index, int swarm_component_index)
 {
     swarm_datum *swarm = DATA_ARRAY_ELEMENT(swarm_data, swarm_datum, swarm_index);
     DATA_ARRAY_ELEMENT(swarm_component_data, swarm_component_datum, swarm_component_index)->combat_target_prop_index = -1;

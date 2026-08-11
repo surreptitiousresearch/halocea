@@ -27,7 +27,7 @@ extern float __fsqrts(float);
 extern uint8_t scenario_location_deafening(const location *location);
 extern uint8_t structure_bsp_get_cluster_encoded_sound_distance(structure_bsp *structure_bsp, int16_t from_cluster_index, int16_t to_cluster_index);
 
-int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sense_position,
+int16_t actor_audibility_at_point(int actor_index, actor_position_data *sense_position,
                               const real_point3d *position, const location *location, int16_t sound_volume,
                               float perception_factor, int16_t line_of_sight)
 {

@@ -1,4 +1,4 @@
-/* team_change_to_server @0x83802960 — request a team change from a client: find the first local player's
+/* team_change_to_server @0x83802938 — request a team change from a client: find the first local player's
  * current team (player datum +103), build a "team change" message body {current_team, new_team_choice},
  * encode it as a stateless message-delta, and (when it produced bits) hand it to the network client.
  * DEVIATION: the disassembly issues a single bl to global_network_game_client_get with the encode result

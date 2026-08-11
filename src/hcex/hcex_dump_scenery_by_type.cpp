@@ -20,11 +20,11 @@
 
 #include "headers/scenario.h"
 #include "../headers/scenario_object_palette_entry.h"
+#include "../headers/tag_groups.h"
 extern "C" scenario *global_scenario;
 
 extern "C" tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, int16_t object_type, int *size);
 extern "C" tag_block * scenario_get_object_type_scenario_palette(scenario *scenario, int16_t object_type);
-extern "C" char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern "C" void vectors3d_from_euler_angles3d(real_vector3d *forward, real_vector3d *up, const real_euler_angles3d *angles);
 extern "C" void hcex_scenery_output(int obj_id, int obj_type, const char *model_name, hcex_float3 *pos, hcex_float3 *fw,
     hcex_float3 *up);

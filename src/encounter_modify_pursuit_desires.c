@@ -1,4 +1,4 @@
-/* encounter_modify_pursuit_desires @0x83709EC0 — adjusts a squad's pursuit-desire out-parameters based on
+/* encounter_modify_pursuit_desires @0x83709EA0 — adjusts a squad's pursuit-desire out-parameters based on
  * the encounter's default pursuit-search value (word +0x28, not otherwise modeled) — forced to 1 if the
  * squad's flags (squad_definition.flags) bit 0x2 is set. */
 
@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void encounter_modify_pursuit_desires(uint16_t encounter_index, int16_t squad_index, uint8_t *pursue_tenacious, int16_t *group_pursuit_restriction, uint8_t *group_pursuit_controller, int16_t *desired_target_search, int16_t *desired_pursuit, int16_t *desired_pursuit_search)
+void encounter_modify_pursuit_desires(int encounter_index, int16_t squad_index, uint8_t *pursue_tenacious, int16_t *group_pursuit_restriction, uint8_t *group_pursuit_controller, int16_t *desired_target_search, int16_t *desired_pursuit, int16_t *desired_pursuit_search)
 {
     encounter_definition *encounter = (encounter_definition *)global_scenario->ai_encounters.address + encounter_index;
     squad_definition *squads = (squad_definition *)encounter->squads.address;

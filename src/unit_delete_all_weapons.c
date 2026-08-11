@@ -1,4 +1,4 @@
-/* unit_delete_all_weapons @0x836CB328 — delete every weapon a unit is carrying except the one currently
+/* unit_delete_all_weapons @0x836CB310 — delete every weapon a unit is carrying except the one currently
  * held. Each non-held, valid inventory entry is deleted and cleared, and the current/desired weapon slot
  * fields are reset when they referenced a deleted slot. */
 

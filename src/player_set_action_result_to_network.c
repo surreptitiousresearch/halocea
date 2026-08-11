@@ -1,4 +1,4 @@
-/* player_set_action_result_to_network @0x836A9990 — replicate a player action result (e.g. picked up /
+/* player_set_action_result_to_network @0x836A9958 — replicate a player action result (e.g. picked up /
  * swapped a weapon, entered a seat) to all loaded client machines: build the message body with wire-
  * translated player/object/weapon indices, encode it as a stateless "set action result" message-delta,
  * and if encoding produced bits, send it reliably to every machine. */

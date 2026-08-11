@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: ds_data::dsDATA_TYPE_STATIC<haloPLAYER_ACTIONS_ENV>::Load @0x823BDAA8 (?Load@?$dsDATA_TYPE_STATIC@UhaloPLAYER_ACTIONS_ENV@@@ds_data@@SAHPAVfioFILE@@AAUhaloPLAYER_ACTIONS_ENV@@@Z)
 #include "../headers/ws/ds/ds_boundary.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/hcex/halo_ds_data_type_boundary.h"

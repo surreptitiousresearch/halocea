@@ -1,5 +1,5 @@
 #include "headers/blam_data_globals.h"
-/* _rasterizer_decals_dispose @0x83710FAC — internal decal-system shutdown: free the shared D3D vertex
+/* _rasterizer_decals_dispose @0x83710FA0 — internal decal-system shutdown: free the shared D3D vertex
  * buffer used to draw decals. (Public guard wrapper: rasterizer_decals_dispose.) */
 
 extern void dlFree(void *ptr);

@@ -1,4 +1,4 @@
-/* save_film_open_recording @0x836EB6F4 — open a saved-film file for playback ("recording" here means
+/* save_film_open_recording @0x836EB6E0 — open a saved-film file for playback ("recording" here means
  * the recorded film being replayed): flush any pending buffer, reset the per-frame action state, close
  * any film currently open, then open the file read-binary. On success enter playback mode (2) and reset
  * the expected-update counter. Returns 1 on success, 0 if the file could not be opened. */

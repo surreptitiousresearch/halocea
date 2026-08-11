@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int ai_conversation_new(int16_t conversation_definition_index, char scripted);
-extern uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_trying);
+extern uint8_t ai_conversation_begin(int conversation_index, uint8_t *continue_trying);
 extern void ai_conversation_finish(int conversation_index, uint8_t unable_to_begin, uint8_t success);
 
 int ai_conversation(int16_t conversation_definition_index, uint8_t scripted)

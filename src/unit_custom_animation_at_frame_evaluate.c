@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern uint8_t unit_custom_animation_at_frame(int unit_index, int animation_graph_index, const char *animation_name, uint8_t interpolate, int16_t frame_index);
 
 void unit_custom_animation_at_frame_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

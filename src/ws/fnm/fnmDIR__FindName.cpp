@@ -1,3 +1,4 @@
+// fnmDIR__FindName @0x828F65D0
 #include "../../headers/ws/fnm/fnmDIR.h"
 #include "../../headers/ws/fnm/fnm.h"
 

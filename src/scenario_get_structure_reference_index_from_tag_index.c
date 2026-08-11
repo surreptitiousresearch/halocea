@@ -1,4 +1,4 @@
-/* scenario_get_structure_reference_index_from_tag_index @0x83703CB8 — find the index of `structure_bsp_index`'s
+/* scenario_get_structure_reference_index_from_tag_index @0x83703CA0 — find the index of `structure_bsp_index`'s
  * tag name within the scenario's structure_bsp_references list (matched by comparing the tag's name string
  * against each reference's structure_bsp.name), or -1 if not present.
  *

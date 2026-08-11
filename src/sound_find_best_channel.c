@@ -19,9 +19,9 @@
 
 extern float source_distance_squared(int16_t listener_index, const sound_source *source);
 extern uint8_t sound_valid_for_channel(int16_t compression, int16_t encoding, int16_t sample_rate, int16_t spatialization_mode, int16_t channel_type_flags);
-extern uint8_t sound_preempts_sound(uint16_t challenger_sound_index, uint16_t champion_sound_index, float challenger_distance_squared);
+extern uint8_t sound_preempts_sound(int challenger_sound_index, int champion_sound_index, float challenger_distance_squared);
 
-int16_t sound_find_best_channel(uint16_t sound_index)
+int16_t sound_find_best_channel(int sound_index)
 {
     sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     sound_definition *def = TAG_GET(sound_definition, datum->definition_index);

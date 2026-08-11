@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::`scalar deleting destructor' — 0x82AC5E28
+// ds::LIST<msgADDR *>::`scalar deleting destructor' — @0x82AC5E28
 // Compiler-generated (MSVC ??_G) thunk: not user-representable in the LIST<T> template, so it is
 // reconstructed here as the free-standing thunk it actually is rather than a declared member.
 // bit 0 of `flags` selects "delete the object too" vs "destroy in place only".

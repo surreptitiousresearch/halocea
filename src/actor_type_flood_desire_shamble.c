@@ -64,10 +64,10 @@
 
 
 extern uint8_t unit_is_busy(int object_index);
-extern uint8_t actor_path_has_path(uint16_t actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);

@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::Clear() — 0x82556838
+// ds::LIST<msgADDR *>::Clear() — @0x82556838
 #include "LIST.h"
 #include "../msg/msgADDR.h"
 

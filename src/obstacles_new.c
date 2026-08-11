@@ -1,4 +1,4 @@
-/* obstacles_new @0x8382F994 — resets an obstacles working set to empty. */
+/* obstacles_new @0x8382F990 — resets an obstacles working set to empty. */
 
 #include "headers/obstacles.h"
 

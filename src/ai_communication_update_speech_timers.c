@@ -21,8 +21,8 @@
 /* DEVIATION: global_reply_table was declared here as `const dialogue_usage[]` — wrong element type. The
  * binary strides it by 36 and reads +0x1C (0x837CC7C8..0x837CC7EC); dialogue_usage gives 40 and +0x14. */
 extern int game_time_get(void);
-extern void actor_reset_idle_vocalization_timer(uint16_t actor_index);
-extern int16_t actor_communication_team(uint16_t actor_index);
+extern void actor_reset_idle_vocalization_timer(int actor_index);
+extern int16_t actor_communication_team(int actor_index);
 
 /* Attestation: the binary reads only r3-r6 (four params); callers set up only four
  * arguments. The stale DB prototype's 5th param `reply_table_index` was a phantom and
@@ -40,7 +40,18 @@ void ai_communication_update_speech_timers(int unit_index, int16_t priority, int
     int now = game_time_get();
     /* +1018 / +1008 in _unit_datum's speech block */
     int post_delay = unit->unit.speech.sound_timer - 45;
-    int next_speech_time = (__CFADD__(post_delay, 0x80000000) ? 0 : post_delay) + now;
+    /* DEVIATION (2026-08-12, #134): was `__CFADD__(post_delay, 0x80000000) ? 0 : post_delay` — a
+     * Hex-Rays intrinsic that no compiler declares, and a hard error under the /we4013 promotion.
+     * It is the carry-out idiom for a clamp at zero, and the disassembly proves the identity:
+     *   837CC658  xoris  r9, r11, 0x8000   ; r11 = 0, so r9 = 0x80000000
+     *   837CC65C  addi   r10, r10, -0x2D   ; post_delay = sound_timer - 45
+     *   837CC66C  addc   r7, r8, r9        ; carry out of post_delay + 0x80000000
+     *   837CC670  subfe  r5, r6, r6        ; r5 = CA - 1  -> 0 if CA, else 0xFFFFFFFF
+     *   837CC674  and    r11, r5, r10      ; -> 0 if CA, else post_delay
+     * Carry out of `x + 0x80000000` is set exactly when (uint32_t)x >= 0x80000000, i.e. when x is
+     * negative as a signed word. So the mask selects 0 for a negative post_delay and post_delay
+     * otherwise — a plain clamp, written as one. */
+    int next_speech_time = (post_delay < 0 ? 0 : post_delay) + now;
     unit->unit.speech.last_speech_finished_time = next_speech_time;
 
     if ( actor )

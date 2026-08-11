@@ -1,4 +1,4 @@
-/* game_engine_picking_up @0x837481FC — let the active multiplayer game mode react to a unit picking up a
+/* game_engine_picking_up @0x837481D8 — let the active multiplayer game mode react to a unit picking up a
  * weapon item, and decide whether the pickup is allowed. With no game engine (single-player) the pickup is
  * always allowed. Only flag weapons are handled: if the item was already flagged as picked up
  * (_weapon_multiplayer_inventory_flag, bit 5), it is first dropped via the game engine's weapon_drop

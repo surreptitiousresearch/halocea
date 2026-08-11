@@ -1,4 +1,4 @@
-/* color_picker_get_string @0x83781CFC — fetches the display string for row `index` of the color-picker's
+/* color_picker_get_string @0x83781CD8 — fetches the display string for row `index` of the color-picker's
  * preview list, truncated into caller's 64-wchar_t `out` buffer. Near-identical to
  * single_preview_column_list_get_string.c (same preview_list_array_bank plumbing); `list_items` is unused
  * here too. */

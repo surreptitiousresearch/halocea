@@ -1,4 +1,4 @@
-/* sphere_intersects_cone3d @0x836FF75C — test whether a sphere (center, radius) overlaps a cone defined by
+/* sphere_intersects_cone3d @0x836FF750 — test whether a sphere (center, radius) overlaps a cone defined by
  * apex `base`, unit axis `direction`, length `distance`, and half-angle whose sine/cosine are supplied.
  * First rejects on the axial slab (projection outside [-radius, radius+distance]), then applies the
  * standard sphere-vs-cone angular test. Returns 1 on intersection, 0 otherwise.

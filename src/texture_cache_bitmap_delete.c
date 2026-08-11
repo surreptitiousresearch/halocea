@@ -1,4 +1,4 @@
-/* texture_cache_bitmap_delete @0x836F3EC8 — evict a cached bitmap from the streaming texture cache: if
+/* texture_cache_bitmap_delete @0x836F3EA8 — evict a cached bitmap from the streaming texture cache: if
  * it owns a cache block (_bitmap_cached_bit), delete that LRU block and clear the bitmap's cache linkage. */
 
 #include <stdint.h>
@@ -7,7 +7,7 @@
 #include "headers/pc_texture_cache_globals.h"
 
 #include "headers/lruv_cache.h"
-extern void lruv_block_delete(lruv_cache *cache, uint16_t block_index);
+extern void lruv_block_delete(lruv_cache *cache, int block_index);
 
 void texture_cache_bitmap_delete(bitmap_data *bitmap)
 {

@@ -1,4 +1,4 @@
-/* game_engine_prespawn_player_update @0x83747704 — give the active game engine a chance to update a
+/* game_engine_prespawn_player_update @0x837476F8 — give the active game engine a chance to update a
  * player just before respawn. Falls back, when the engine provides no hook, to recording the player's
  * respawn parity (player->team_index = player->local_player_index % 2).
  *

@@ -1,4 +1,4 @@
-/* update_server_handle_client_update @0x836F6150 — on the server, deliver a client's per-tick actions into
+/* update_server_handle_client_update @0x836F6130 — on the server, deliver a client's per-tick actions into
  * the per-player action queues. Iterates the machine's (up to 2) local-player slots; for each valid player
  * it writes that player's action (action_collection->actions[0], advancing the collection by one action per
  * delivered player) into the player's action queue (update_server_globals.queues datum +40, stride 100).

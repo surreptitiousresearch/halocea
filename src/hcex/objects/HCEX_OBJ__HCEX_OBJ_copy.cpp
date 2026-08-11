@@ -1,4 +1,4 @@
-/* HCEX_OBJ copy ctor @0x823EED04 — copy id/pInst/modelIdx verbatim, adopt `that`'s two vectors'
+/* HCEX_OBJ copy ctor @0x823EECE0 — copy id/pInst/modelIdx verbatim, adopt `that`'s two vectors'
  * call-site cookies and Insert-copy their full ranges, then copy the flags bitfield word from
  * `that` (preserving whatever `HCEX_OBJ_FLAGS(obj)` already held in the reserved low bits, since the word
  * is otherwise uninitialized on entry).

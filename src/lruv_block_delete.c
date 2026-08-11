@@ -9,10 +9,14 @@
 #include "headers/data_array.h"
 extern void datum_delete(data_array *data, int index);
 
-void lruv_block_delete(lruv_cache *cache, uint16_t block_index)
+void lruv_block_delete(lruv_cache *cache, int block_index)
 {
     lruv_cache_block *blocks = (lruv_cache_block *)cache->blocks->data;
-    lruv_cache_block *block = &blocks[block_index];
+    /* DEVIATION: block_index is a datum HANDLE (salt<<16 | absolute index), so the subscript takes
+       the low word exactly as the binary does (clrlwi r8,r4,16 @0x8371C158) and exactly as the two
+       unlink subscripts below already spell it. This cast was implicit while the parameter was
+       declared uint16_t; widening the parameter is what makes it load-bearing. */
+    lruv_cache_block *block = &blocks[(unsigned short)block_index];
 
     if ( cache->delete_block_proc )
         cache->delete_block_proc(block_index);

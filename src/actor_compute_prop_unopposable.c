@@ -12,7 +12,7 @@
 #include <stdint.h>
 
 
-uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index)
+uint8_t actor_compute_prop_unopposable(int actor_index, int prop_index)
 {
     prop_datum *prop = DATUM_GET(prop_data, prop_datum, prop_index);
     int16_t state = prop->state;

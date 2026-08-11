@@ -1,3 +1,4 @@
+// vidDEFRAG_POOL_HCEX_X360__FreeBuf @0x823F13B0
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 
 // vidDEFRAG_POOL_HCEX_X360::FreeBuf @ 0x823F13B4

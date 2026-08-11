@@ -1,3 +1,4 @@
+/* ctf_get_score_header_string @0x83806DE8 */
 #include <stdint.h>
 #include <stddef.h>
 #include "headers/multiplayer_game_text_string.h"

@@ -1,4 +1,4 @@
-/* hcex_checkpoint_read @0x83684F94 — read the current HCEX checkpoint file into `buffer`. The whole file
+/* hcex_checkpoint_read @0x83684F80 — read the current HCEX checkpoint file into `buffer`. The whole file
  * must read (bytes read == buffer_size) for success. On a successful read, if the checkpoint is not itself
  * the "_autosave.sav" file, the checkpoint is mirrored into "<checkpoint-dir>\_autosave.sav": that file is
  * created (OPEN_ALWAYS), pre-sized to 0x480000 bytes via SetEndOfFile, rewound, and the buffer written to

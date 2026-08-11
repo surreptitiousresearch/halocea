@@ -32,7 +32,15 @@ int16_t ai_communication_consider_speech(int unit_index, int16_t communication_p
     {
         int now = game_time_get();
         int elapsed_raw = now - last_speech_time;
-        int16_t elapsed = __CFADD__(elapsed_raw, 0x80000000) ? 0 : (int16_t)elapsed_raw;
+        /* DEVIATION (2026-08-12, #134): was `__CFADD__(elapsed_raw, 0x80000000) ? 0 : ...` — the
+         * Hex-Rays carry-out spelling of a clamp at zero, and the last live occurrence of that
+         * intrinsic in the corpus. Disasm: `li r11,0 / xoris r8,r11,0x8000` builds 0x80000000,
+         * `addc r6, r7, r8` @0x837CC4D4 takes the carry out of elapsed_raw + 0x80000000, and
+         * `subfe r4, r5, r5` @0x837CC4D8 turns it into 0 / 0xFFFFFFFF for the following mask.
+         * Carry is set exactly when (uint32_t)elapsed_raw >= 0x80000000, i.e. when elapsed_raw is
+         * negative as a signed word — so the whole idiom is `max(elapsed_raw, 0)`. Same correction
+         * as bitmap_draw_string.c and ai_communication_event.c already carry in comments. */
+        int16_t elapsed = elapsed_raw < 0 ? 0 : (int16_t)elapsed_raw;
         int16_t threshold =
             (int16_t)(int)(communication_timer_tolerances[communication_priority][0][2] * 30.0f
                                   + (float)delay_ticks);

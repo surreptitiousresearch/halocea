@@ -1,4 +1,4 @@
-/* game_engine_has_shield @0x83748518 — does the given player's unit have a shield in the current game?
+/* game_engine_has_shield @0x83748510 — does the given player's unit have a shield in the current game?
  * In single-player (no game engine) or for an invalid player, the answer is always yes. In a multiplayer
  * game the variant's universal flags decide it: shields are present unless flag 0x8 ("no shields") is set
  * — i.e. the inverted bit 3 of the flags. */

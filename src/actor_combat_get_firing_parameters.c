@@ -1,4 +1,4 @@
-/* actor_combat_get_firing_parameters @0x837B7EC0 — select the burst geometry and firing pattern an
+/* actor_combat_get_firing_parameters @0x837B7EA8 — select the burst geometry and firing pattern an
  * actor should use this combat frame, based on its state flags (emotions.berserk, control.firing_at_new_target,
  * control.firing_while_moving). The burst geometry is always the variant's ranged-combat geometry;
  * the firing pattern is chosen by state (null when idle). */

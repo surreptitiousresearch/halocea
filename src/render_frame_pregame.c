@@ -1,4 +1,4 @@
-/* render_frame_pregame @0x83707644 — render one pre-game frame (loading screen / Bink intro). Begins the
+/* render_frame_pregame @0x83707618 — render one pre-game frame (loading screen / Bink intro). Begins the
  * rasterizer frame and windows, builds the render and rasterizer frustums from the window's cameras, renders
  * the UI widgets, any Bink video, and the loading progress bar, then ends the windows and frame.
  * DEVIATION: ui_loading_update_and_render / rasterizer_window_end / rasterizer_windows_end /

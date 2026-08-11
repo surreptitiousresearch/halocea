@@ -5,10 +5,12 @@
  * computes a freshness rating (time since last spoken, scaled to [0,1]) and rejects the actor if its line is
  * still disabled. Returns the chosen actor index (or -1) and writes the rating to *reply_rating_reference.
  *
- * Deviation: the ai_communication_find_global_actor_to_talk calls have trailing arguments mis-attributed by
- * Hex-Rays (float-arg GPR shuffle); reconstructed from the reply row (ai_communication_type = vocalization_type,
- * unit_speech_priority = communication_priority, vocalization_type = derived speech priority, animation_type =
- * row animation_type, flags = 0), matching the sibling reply dispatcher. */
+ * DEVIATION: the ai_communication_find_global_actor_to_talk calls have trailing arguments mis-attributed by
+ * Hex-Rays — the float max_distance consumes r7 as its GPR shadow slot, so slots 5-7 are r8-r10 and slots 8-10
+ * are the stack halfwords at +0x56/+0x5E/+0x66. IDA's per-register comments encode the SAME un-shifted map and
+ * must not be transcribed; taken from the binary instead: li r8,-1 (ai_communication_type = "any"),
+ * lhz r9,8(r31) = row->communication_priority, mr r10,r29 = speech_priority, then row->vocalization_type,
+ * row->animation_type, 0 — matching the corrected control sites in ai_communication_event.c field for field. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -30,7 +32,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern uint8_t sound_scripted_dialog_is_playing(void);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
-extern int16_t actor_communication_team(uint16_t actor_index);
+extern int16_t actor_communication_team(int actor_index);
 extern int game_time_get(void);
 
 int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_unit_index,
@@ -64,8 +66,9 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
             {
                 case _comm_protagonist_friend:
                     actor = ai_communication_find_global_actor_to_talk(
-                        unit->object.owner_team_index, 1, unit_index, -1, 9.0f, row->vocalization_type, -1,
-                        row->communication_priority, speech_priority, row->animation_type, 0);
+                        unit->object.owner_team_index, 1, unit_index, -1, 9.0f, -1,
+                        row->communication_priority, speech_priority,
+                        row->vocalization_type, row->animation_type, 0);
                     break;
                 case _comm_protagonist_target:
                 {
@@ -76,8 +79,9 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
                 }
                 case _comm_protagonist_enemy:
                     actor = ai_communication_find_global_actor_to_talk(
-                        unit->object.owner_team_index, 2, unit_index, -1, 9.0f, row->vocalization_type, -1,
-                        row->communication_priority, speech_priority, row->animation_type, 0);
+                        unit->object.owner_team_index, 2, unit_index, -1, 9.0f, -1,
+                        row->communication_priority, speech_priority,
+                        row->vocalization_type, row->animation_type, 0);
                     break;
                 default:
                     break;

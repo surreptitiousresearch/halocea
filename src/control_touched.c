@@ -1,4 +1,4 @@
-/* control_touched @0x837E9C94 — a unit touched a device control: toggle it only when its definition's
+/* control_touched @0x837E9C58 — a unit touched a device control: toggle it only when its definition's
  * control.trigger (definition +0x292) is 0 (touch-triggered). unit_index is unused here. */
 
 #include "headers/data_array.h"

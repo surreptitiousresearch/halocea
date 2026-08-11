@@ -1,4 +1,4 @@
-/* players_set_local_player_unit @0x836A833C — bind a local player to a unit. Releases the player's previous
+/* players_set_local_player_unit @0x836A8328 — bind a local player to a unit. Releases the player's previous
  * unit (clears its unit.player_index and marks it not actively controlled), then takes control of the new
  * unit (marks it actively controlled, writes the player's global index into unit.player_index). The player
  * datum's unit fields are updated (unit_index = unit, dead_unit_index = -1) and player_control is told about

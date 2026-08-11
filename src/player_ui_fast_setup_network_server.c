@@ -1,4 +1,4 @@
-/* player_ui_fast_setup_network_server @0x83698D50 — fast path to host a multiplayer game: tears down
+/* player_ui_fast_setup_network_server @0x83698D38 — fast path to host a multiplayer game: tears down
  * any existing server/client, loads the requested map and variant, opens the connected-pregame screen,
  * then creates a fresh server (and client). If anything fails it disposes and returns to the main menu.
  *

@@ -1,4 +1,4 @@
-/* observer_find_displacement @0x8370FC50 — compute the delta between two observer_derivative-shaped 14-float
+/* observer_find_displacement @0x8370FC38 — compute the delta between two observer_derivative-shaped 14-float
  * states (focus_position/focus_offset/focus_distance/field_of_view as flat scalar differences, plus a
  * rotation delta from the trailing forward/up vector pair via matrix4x3_rotation_from_vectors +
  * vector_from_matrices4x3, mirroring observer_rotational_displacement.c). The inputs are raw float arrays

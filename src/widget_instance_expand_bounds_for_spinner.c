@@ -1,4 +1,4 @@
-/* widget_instance_expand_bounds_for_spinner @0x837314C0 — for a spinner-list widget whose UI tag has both
+/* widget_instance_expand_bounds_for_spinner @0x837314B8 — for a spinner-list widget whose UI tag has both
  * list header/footer bitmaps SET (list_header_bitmap/list_footer_bitmap indices != -1) and at most one
  * child widget reference, widens the widget's bounds rectangle leftward by 10 pixels (offset by the tag's
  * list_header_bounds.x0 inset) and rightward if the tag's list_footer_bounds.x1 inset would otherwise clip.

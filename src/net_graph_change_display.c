@@ -1,4 +1,4 @@
-/* net_graph_change_display @0x83764344 — console command: reconfigure the on-screen network graph to a
+/* net_graph_change_display @0x83764320 — console command: reconfigure the on-screen network graph to a
  * new data type ("bytes"/"packets") and direction ("sent"/"received") looked up by name. Resets the
  * graph's accumulators and re-lays it out. Returns 0 if the graph is disabled or either name is unknown.
  *

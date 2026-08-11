@@ -1,4 +1,4 @@
-/* object_type_notify_impulse_sound @0x83702470 — notify every part definition (super-type plus sub-types)
+/* object_type_notify_impulse_sound @0x83702420 — notify every part definition (super-type plus sub-types)
  * registered for an object's type that an impulse sound played. The object's type code lives at object
  * datum +180. */
 

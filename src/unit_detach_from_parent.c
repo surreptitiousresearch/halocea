@@ -1,4 +1,4 @@
-/* unit_detach_from_parent @0x836CAA94 — eject a unit from the object it is riding/attached to. Computes a
+/* unit_detach_from_parent @0x836CAA50 — eject a unit from the object it is riding/attached to. Computes a
  * separation direction (parent origin -> unit origin, falling back to the unit's forward vector when the
  * origins coincide), detaches the object, re-seats it at its current position clamped into the world, adds
  * a small outward velocity impulse, clears the "attached" and parented flags, and recomputes node

@@ -1,4 +1,4 @@
-/* actor_look_valid_aim_vector @0x837FACC0 — true if an attempted aiming vector points within the
+/* actor_look_valid_aim_vector @0x837FACB8 — true if an attempted aiming vector points within the
  * allowed yaw deviation of a facing direction: normalize the attempted aiming vector's horizontal
  * (x,y) components and test whether its dot with the facing vector's (x,y) exceeds yaw_deviation.
  *

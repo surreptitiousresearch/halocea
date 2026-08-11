@@ -1,4 +1,4 @@
-/* player_telefrag_effect_start @0x83738698 — kicks off the local-player feedback effects for a
+/* player_telefrag_effect_start @0x83738668 — kicks off the local-player feedback effects for a
  * telefrag (being killed by a teleporting/spawning player): a white screen flash and a camera shake
  * scaled by `scale`, plus a continuous controller vibration. Only fires for a player with a valid
  * local-player slot.

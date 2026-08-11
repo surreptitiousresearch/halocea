@@ -1,4 +1,4 @@
-/* add_pool @0x83818A38 — grows an index_resolution_table's free list by allocating one more pool of 50
+/* add_pool @0x83818A10 — grows an index_resolution_table's free list by allocating one more pool of 50
  * index_entry records, linking the pool into the table's pool list, and pushing every record (initialized
  * empty) onto the free list. The original loop is unrolled 5x (10 iterations of 5 entries); reproduced as
  * a single 50-iteration loop. */

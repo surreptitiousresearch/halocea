@@ -1,4 +1,4 @@
-/* biped_update_dead @0x837B28C0 — per-frame animation update for a dead biped. While the corpse is
+/* biped_update_dead @0x837B2888 — per-frame animation update for a dead biped. While the corpse is
  * still settling (limp flag 0x20 set and the relax counter hasn't reached its limit) it relaxes the
  * ragdoll nodes onto the environment. Once settled it requests either the "dead" (24) or "dead settled"
  * (25) animation state depending on whether the body has come to rest, snapping its facing when it has. */

@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: dsDEQUE<haloPLAYER_ACTIONS_ENV>::Reconstruct(int oldSize) @0x823C01C8 (?Reconstruct@?$dsDEQUE@UhaloPLAYER_ACTIONS_ENV@@@@AAAXH@Z)
 #include <string.h>
 #include "../headers/ws/ds/dsDEQUE.h"
 #include "../headers/ws/dbg/STRONG_ASSERT2_HELPER.h"

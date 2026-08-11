@@ -1,4 +1,4 @@
-/* object_compute_autoaim_target @0x836C5A44 — compute the autoaim "stick" point for a target object given
+/* object_compute_autoaim_target @0x836C5A18 — compute the autoaim "stick" point for a target object given
  * an aim ray (position + direction). The target's autoaim volume is a capsule (pill): a segment from
  * `base` along `height`, with radius `width`. This finds the point on that segment closest to the aim
  * ray, then pulls it perpendicularly toward the ray so it lies at most `width` from the aim line. The

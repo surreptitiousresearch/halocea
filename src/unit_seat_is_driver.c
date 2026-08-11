@@ -1,4 +1,4 @@
-/* unit_seat_is_driver @0x836CADA4 — true if the given seat of a vehicle is its driver seat. Reads the
+/* unit_seat_is_driver @0x836CAD88 — true if the given seat of a vehicle is its driver seat. Reads the
  * vehicle object's definition tag, bounds-checks the seat index against the seat block count and returns
  * the seat's driver flag (bit 0x4). */
 

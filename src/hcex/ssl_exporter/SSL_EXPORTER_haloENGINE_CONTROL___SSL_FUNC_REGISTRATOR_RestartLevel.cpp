@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823CBBC0 — pushes the SSLExportEntry describing haloENGINE_CONTROL::RestartLevel. `id` is
+// @0x823CBB98 — pushes the SSLExportEntry describing haloENGINE_CONTROL::RestartLevel. `id` is
 // the byte offset of the paired `sslFuncId_RestartLevel` slot (@ 0x28).
 SSL_EXPORTER_haloENGINE_CONTROL::_SSL_FUNC_REGISTRATOR_RestartLevel::_SSL_FUNC_REGISTRATOR_RestartLevel()
 {

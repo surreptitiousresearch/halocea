@@ -1,4 +1,4 @@
-/* actor_perception_create_orphan_from_friend @0x837DBBD0 — promote an actor's perception of a unit into an
+/* actor_perception_create_orphan_from_friend @0x837DBBB0 — promote an actor's perception of a unit into an
  * "orphan" prop (knowledge that outlives direct sensing), optionally seeded from a friend's acknowledged
  * prop. Resolves the base prop for the unit; unless it is mid-engagement (state 2 or 3, which forces a 0
  * return) it either creates a new orphan (via prop_orphan_transition, or prop_orphan_from_friend when a
@@ -22,7 +22,7 @@ extern int prop_orphan_from_friend(int actor_index, int unacknowledged_prop_inde
 extern void prop_orphan_update_information(int actor_index, int orphan_prop_index, int friend_acknowledged_prop_index);
 extern void prop_position_refresh(int actor_index, int prop_index, actor_position_data *sense_position, uint8_t forced_position_update, uint8_t full_status_update);
 extern void prop_status_refresh(int actor_index, int prop_index, actor_position_data *sense_position);
-extern uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index);
+extern uint8_t actor_compute_prop_unopposable(int actor_index, int prop_index);
 extern float actor_compute_prop_target_weight(int actor_index, int prop_index);
 
 static prop_datum *prop_from_index(int prop_index)

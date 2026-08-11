@@ -36,7 +36,7 @@
 #include "headers/ai_information_data.h"
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
 extern weapon_definition *actor_get_weapon_definition(int actor_index);
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern int game_time_get(void);
 extern float normalize3d(real_vector3d *v);
 extern float normalize2d(real_vector2d *v);
@@ -44,11 +44,11 @@ extern uint8_t projectile_aim_ballistic(float base_velocity, float gravity_scale
 extern uint8_t unit_is_busy(int object_index);
 extern uint8_t unit_melee_attack_begin(int unit_index, uint8_t continuous, const real_vector2d *alignment_vector);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
-extern float action_charge_find_target_range(uint16_t actor_index, int16_t goal, charge_state_data *state_data);
+extern float action_charge_find_target_range(int actor_index, int16_t goal, charge_state_data *state_data);
 extern uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, float accept_radius);
-extern void actor_move_keep_moving_past_destination(uint16_t actor_index);
-extern uint8_t actor_move_halt(uint16_t actor_index);
-extern uint8_t actor_path_has_path(uint16_t actor_index);
+extern void actor_move_keep_moving_past_destination(int actor_index);
+extern uint8_t actor_move_halt(int actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
 extern void actor_perception_unreachable(int actor_index, int prop_index, uint8_t unreachable);
 
 extern float __fsqrts(float x);

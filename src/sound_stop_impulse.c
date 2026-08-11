@@ -12,7 +12,7 @@
 extern void *datum_try_and_get(const data_array *data, int index);
 extern void sound_start_fade(int16_t mode, float seconds, int fade_out_sound_index, int fade_up_sound_index);
 
-void sound_stop_impulse(uint16_t sound_index)
+void sound_stop_impulse(int sound_index)
 {
     /* the raw read `*((__int16 *)elem + 1)` is sound_datum.type @+2 (DB: type @2) — not a flag word */
     if ( sound_data && datum_try_and_get(sound_data, sound_index)

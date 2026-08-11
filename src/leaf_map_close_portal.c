@@ -1,4 +1,4 @@
-/* leaf_map_close_portal @0x8381AE18 — mark `portal_index` closed in both leaves it connects: for each side
+/* leaf_map_close_portal @0x8381AE08 — mark `portal_index` closed in both leaves it connects: for each side
  * (portal record +4 and +8, a leaf index with a high "flag" bit that must be masked off), scan that leaf's
  * portal-reference list (leaf record +0xC count, +0x10 list) for an entry matching `portal_index` (also
  * masked) and OR 0x80000000 into it to flag the portal closed.

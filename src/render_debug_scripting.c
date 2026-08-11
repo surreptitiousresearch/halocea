@@ -20,8 +20,8 @@
 #include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
 extern int game_time_get(void);
-extern const char * hs_thread_format(uint16_t thread_index);
-extern const char * expression_get_function_name(uint16_t thread_index, int expression_index);
+extern const char * hs_thread_format(int thread_index);
+extern const char * expression_get_function_name(int thread_index, int expression_index);
 extern int sprintf_0(char *string, const char *format, ...);
 /* strlen declared by <string.h> */
 extern void draw_string_set_tab_stops(const int16_t *tab_stops, int16_t count);

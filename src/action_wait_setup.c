@@ -1,4 +1,4 @@
-/* action_wait_setup @0x83822734 — zero a wait_state_data block and, unless the actor is scripted to wait
+/* action_wait_setup @0x83822710 — zero a wait_state_data block and, unless the actor is scripted to wait
  * forever (+352), populate it: carry over `actively_searching`, snapshot whether this actor is the
  * encounter's wait coordinator (+460, the same opaque flag byte documented in action_wait_control.c),
  * start the look/query timers, and request a move. Returns whether setup actually happened (false if the
@@ -19,7 +19,7 @@ extern int game_time_get(void);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 
-uint8_t action_wait_setup(uint16_t actor_index, uint8_t actively_searching, wait_state_data *state_data)
+uint8_t action_wait_setup(int actor_index, uint8_t actively_searching, wait_state_data *state_data)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

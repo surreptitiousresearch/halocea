@@ -1,4 +1,4 @@
-/* input_abstraction_set_enabled_mode_configuration @0x83724D38 — toggle the "controller configuration" input
+/* input_abstraction_set_enabled_mode_configuration @0x83724D20 — toggle the "controller configuration" input
  * mode. Enabling it sets the mode-active bit and snapshots all 4 gamepads' current state (zeroing the
  * snapshot slot for any disconnected controller); disabling it clears the bit and zeroes the whole snapshot
  * array. */

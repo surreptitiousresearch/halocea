@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: dsVECTOR<HALO_PERM_SOUND,8>::~dsVECTOR() @0x836B6BE8 (??1?$dsVECTOR@UHALO_PERM_SOUND@@$07@@QAA@XZ)
 #include "../headers/ws/ds/dsVECTOR.h"
 #include "../headers/hcex/HALO_PERM_SOUND.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"

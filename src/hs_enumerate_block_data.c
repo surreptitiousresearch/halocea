@@ -1,4 +1,4 @@
-/* hs_enumerate_block_data @0x8372F2DC — for each element of a tag_block, treat the string at element+element_offset
+/* hs_enumerate_block_data @0x8372F2C0 — for each element of a tag_block, treat the string at element+element_offset
  * as a HaloScript global name and register it with the tokenizer's enumeration, unless it names an external
  * global that is NOT currently registered in hs_external_globals.
  *
@@ -12,8 +12,8 @@
 #include "headers/tag_block.h"
 #include "headers/hs_global_definition.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern int16_t hs_find_global_by_name(const char *name);
 extern void hs_tokens_enumerate_add_string(const char *string);
 
@@ -24,7 +24,9 @@ void hs_enumerate_block_data(tag_block *block, int16_t element_offset, int eleme
 
     for ( int16_t i = 0; i < block->count; i++ )
     {
-        const char *name = tag_block_get_element_with_size(block, i, element_size) + element_offset;
+        /* DEVIATION: the cast is required, not cosmetic — the DB decl returns `void *`
+         * (the local extern retired in B12b-2 spelled it `char *`), which cannot be offset. */
+        const char *name = (const char *)tag_block_get_element_with_size(block, i, element_size) + element_offset;
         int global_by_name = hs_find_global_by_name(name);
 
         if ( global_by_name == -1 || (global_by_name < 0 && hs_external_globals[global_by_name]) )

@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkpConvexVerticesShape_construct @0x83610BF8 (??0hkpConvexVerticesShape@@QAA@ABUhkStridedVertices@@ABV?$hkArray@VhkVector4@@@@M@Z)
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkStridedVertices.h"
 #include "../headers/havok/hkThreadMemory.h"

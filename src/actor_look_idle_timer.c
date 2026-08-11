@@ -1,4 +1,4 @@
-/* actor_look_idle_timer @0x837FB26C — pick how long (ticks) an actor holds an idle look/aim/face pose.
+/* actor_look_idle_timer @0x837FB248 — pick how long (ticks) an actor holds an idle look/aim/face pose.
  * Chooses the time range by timer_type (0 = facing, 1 = aim, 2 = look; >=3 degenerate), randomizes within
  * it (defaulting to 0.5s when the range is empty), scales by the held weapon's AI idle-look modifier
  * (weapon.ai_idle_look_time_modifier) and by 1.5 when looking toward something interesting, then converts

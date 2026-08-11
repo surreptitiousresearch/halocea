@@ -1,3 +1,4 @@
+// lgtLIGHT__GetOBB @0x82A79E48
 #include <math.h>
 #include "../../headers/ws/lgt/lgtLIGHT.h"
 #include "../../headers/ws/m3d/m3dOBB.h"

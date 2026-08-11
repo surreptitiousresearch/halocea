@@ -1,4 +1,4 @@
-/* field_translated_index_translate_index_no_default @0x8379BC4C — like
+/* field_translated_index_translate_index_no_default @0x8379BC48 — like
  * field_translated_index_translate_index, but returns the index_resolution_table's raw result (which may be
  * -1) instead of defaulting an unresolved index to 0. A local index of -1 maps to 0. */
 

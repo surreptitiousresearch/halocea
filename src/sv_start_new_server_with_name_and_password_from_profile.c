@@ -1,4 +1,4 @@
-/* sv_start_new_server_with_name_and_password_from_profile @0x83766D70 — start a dedicated server using the
+/* sv_start_new_server_with_name_and_password_from_profile @0x83766D50 — start a dedicated server using the
  * profile's configured name/password. On this build the server-start path is stubbed: it only defaults an
  * unset server name to "Halo" and always returns 0 (not started). */
 

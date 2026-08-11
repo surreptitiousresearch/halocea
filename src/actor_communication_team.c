@@ -10,7 +10,7 @@
 
 extern uint16_t actor_type_get_race(int16_t actor_type);
 
-int16_t actor_communication_team(uint16_t actor_index)
+int16_t actor_communication_team(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     char race = actor_type_get_race(actor->meta.type);

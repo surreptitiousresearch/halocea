@@ -1,4 +1,4 @@
-/* player_effect_update_screen_flash @0x83737F7C — merge a new screen-flash definition into a local
+/* player_effect_update_screen_flash @0x83737F50 — merge a new screen-flash definition into a local
  * player's live effect state. The new flash is rejected when an existing higher-priority flash is still
  * running longer than the new one would, or when the flash type is not renderable. On acceptance the
  * definition is copied into the state block, its duration is pre-scaled by the per-tick time factor, and

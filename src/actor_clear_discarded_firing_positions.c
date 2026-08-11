@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 
-void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only)
+void actor_clear_discarded_firing_positions(int actor_index, uint8_t clear_temporary_only)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor->firing_positions.next_discarded_firing_positions_entry = 0;  /* recovered: *((_WORD*)actor+483) -> +966 */

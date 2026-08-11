@@ -1,4 +1,4 @@
-/* vehicle_update_queue_read @0x837B4704 — pop the buffered remote-player vehicle update matching a given
+/* vehicle_update_queue_read @0x837B46E8 — pop the buffered remote-player vehicle update matching a given
  * client update id. Mirrors position_queue_read: matches the head's update id (copying out the full entry
  * and consuming it), waits when the head is still within its validity window, or discards a stale head and
  * retries. Returns 1 on success, 0 when not yet available. */

@@ -15,7 +15,7 @@ extern double pow(double base, double exponent);
 
 /* attested: r3 first use clrlwi 16 @ 0x83716398 => uint16_t datum index; float return (fmr/fmadds
  * into f1, callers consume f1 or call for the window-clearing side effect only) */
-float sound_calculate_fade(uint16_t sound_index)
+float sound_calculate_fade(int sound_index)
 {
     sound_datum *snd = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     int fade_stop_time = snd->fade_stop_time;

@@ -1,4 +1,4 @@
-// osLOCK::osLOCK(const char*) @0x823D092C — zero isInited/threadNmb(-1)/locker_file/
+// osLOCK::osLOCK(const char*) @0x823D0910 — zero isInited/threadNmb(-1)/locker_file/
 // locker_line(-1), adopt `name` (or "Unknown" when null), then finish platform init via Init().
 #include "../../headers/ws/os/osLOCK.h"
 

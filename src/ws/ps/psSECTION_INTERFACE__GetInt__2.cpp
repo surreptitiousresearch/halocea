@@ -1,6 +1,6 @@
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
-// 0x8251EADC — value under `key` coerced to int, or `def` when absent/uncoercible.
+// @0x8251EAD0 — value under `key` coerced to int, or `def` when absent/uncoercible.
 
 extern int psDataToInt(const dsDATA *obj, int *val);
 

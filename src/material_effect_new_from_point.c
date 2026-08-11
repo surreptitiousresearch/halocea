@@ -1,4 +1,4 @@
-/* material_effect_new_from_point @0x836EAAD0 — spawns a material effect (e.g. a footstep/impact decal)
+/* material_effect_new_from_point @0x836EAA90 — spawns a material effect (e.g. a footstep/impact decal)
  * by casting a short ray straight down (0.3 world units along global_down3d) from just above the given
  * point. If it hits a surface, the effect is created there using that surface's material type, or the
  * "water" material (28) when the impact location is underwater. No-op if effect_index is out of range. */

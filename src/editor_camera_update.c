@@ -1,4 +1,4 @@
-/* editor_camera_update @0x837C3D04 — per-frame update for the free-fly editor camera. When a scripted
+/* editor_camera_update @0x837C3CD8 — per-frame update for the free-fly editor camera. When a scripted
  * camera is active and the controls are not, it defers to the scripted camera. Otherwise, if scripted, it
  * snaps the editor camera onto the active render camera (position + facing), refreshes its unit focus and
  * runs the camera-mode translate hook; then it always runs the camera-mode update hook, and for scripted

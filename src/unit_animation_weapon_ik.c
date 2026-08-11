@@ -1,4 +1,4 @@
-/* unit_animation_weapon_ik @0x836C811C — should the weapon (arm) inverse-kinematics be applied for the
+/* unit_animation_weapon_ik @0x836C8110 — should the weapon (arm) inverse-kinematics be applied for the
  * unit's current animation state? True only when no action/overlay ping is playing and the state is not
  * one of the states that suppress weapon IK. Pure predicate over unit_animation. */
 

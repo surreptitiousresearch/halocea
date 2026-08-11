@@ -1,4 +1,4 @@
-/* simple_circular_queue_read @0x837AB358 — dequeue the head user-data pointer. Sets *user_data and returns
+/* simple_circular_queue_read @0x837AB350 — dequeue the head user-data pointer. Sets *user_data and returns
  * 1 when non-empty (advancing read_position with wraparound), else clears *user_data and returns 0. */
 
 #include <stdint.h>

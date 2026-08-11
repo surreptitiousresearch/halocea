@@ -1,4 +1,4 @@
-/* netgame_verify_spawn_points @0x8374E7F4 — walk every scenario player starting location (used to validate
+/* netgame_verify_spawn_points @0x8374E7E8 — walk every scenario player starting location (used to validate
  * netgame spawn points). The declared parameters are unused by the body — the function always iterates the
  * full starting-location list. */
 

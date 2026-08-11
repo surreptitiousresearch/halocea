@@ -1,4 +1,4 @@
-/* bsp_register_vbufs @0x8375484C — registers a newly loaded structure BSP's vertex buffers with the
+/* bsp_register_vbufs @0x83754828 — registers a newly loaded structure BSP's vertex buffers with the
  * rasterizer, first freeing any previously registered HCEX BSP vertex buffer. */
 
 #include "headers/cache_file_structure_bsp_header.h"

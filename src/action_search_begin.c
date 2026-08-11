@@ -1,4 +1,4 @@
-/* action_search_begin @0x83822D50 — arm an actor's "search" action timer: pick a (min,max) bound pair from
+/* action_search_begin @0x83822D20 — arm an actor's "search" action timer: pick a (min,max) bound pair from
  * the actor's character definition (actor->meta.definition_index, opaque float array — one of two pairs
  * selected by an action_data flag word at action_data+8) and set a randomized tick count (seconds * 30)
  * into the DB-named search_state_data arm's search_desired_time / search_remaining_time fields. */
@@ -13,7 +13,7 @@
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-void action_search_begin(uint16_t actor_index)
+void action_search_begin(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);

@@ -1,4 +1,4 @@
-/* apply_multi_vector @0x837F6B78 — apply an animation event's trailing real_vector3d payload (immediately
+/* apply_multi_vector @0x837F6B70 — apply an animation event's trailing real_vector3d payload (immediately
  * following the 4-byte animation_event_v1 header) to whichever of the unit's facing/aiming/looking vectors
  * the event type does NOT equal, then advance the playback stream past the 16-byte event. */
 

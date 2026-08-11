@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__Update @0x836C4350
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/hcex/HALO_SOUND_SYSTEM_globals.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"

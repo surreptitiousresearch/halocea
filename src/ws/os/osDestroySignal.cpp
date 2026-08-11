@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osDestroySignal @0x825E6278 (?osDestroySignal@@YAXPAUosHANDLE_DUMMY@@@Z)
 #include "../../headers/ws/os/os_boundary.h"
 #include "../../headers/ws/os/osHANDLE_DUMMY.h"
 

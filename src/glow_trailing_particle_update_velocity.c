@@ -1,4 +1,4 @@
-/* glow_trailing_particle_update_velocity @0x8380B74C — update a trailing glow particle's velocity: if the
+/* glow_trailing_particle_update_velocity @0x8380B728 — update a trailing glow particle's velocity: if the
  * glow definition's "fade over lifetime" flag (definition+40, bit 0x8 — same flag as
  * glow_trailing_particle_update_color.c) is set, present_velocity = initial_velocity scaled by the
  * remaining-lifetime fraction (1 - ticks_in_existence/lifetime, clamped to >= 0, no upper clamp here);

@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkReferenceCountError @0x838D7798 (?hkReferenceCountError@@YAXPBVhkReferencedObject@@PBD@Z)
 #include "../headers/havok/hkError.h"
 
 /* Build the verbose reference-count diagnostic for an object and route it to the

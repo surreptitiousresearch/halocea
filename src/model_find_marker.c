@@ -1,4 +1,4 @@
-/* model_find_marker @0x83798F94 — binary-search a model (gbxmodel) tag's marker array for a marker by name
+/* model_find_marker @0x83798F80 — binary-search a model (gbxmodel) tag's marker array for a marker by name
  * (case-insensitive). Returns the marker index, or -1 if not found / bad args. */
 
 #include <stdint.h>

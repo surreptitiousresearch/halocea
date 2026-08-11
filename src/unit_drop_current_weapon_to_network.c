@@ -1,4 +1,4 @@
-/* unit_drop_current_weapon_to_network @0x836CF8D0 — replicate a unit dropping its current weapon to all
+/* unit_drop_current_weapon_to_network @0x836CF898 — replicate a unit dropping its current weapon to all
  * loaded client machines: build the message body with the wire-translated unit and dropped-weapon object
  * indices plus the immediate flag, encode it as a stateless "drop current weapon" message-delta, and send
  * it reliably when encoding produced bits. The dropped weapon is the unit's current weapon-slot object

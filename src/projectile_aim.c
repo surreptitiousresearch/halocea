@@ -1,4 +1,4 @@
-/* projectile_aim @0x83759690 — choose the projectile aiming solver. Uses a ballistic (lobbed) solve when
+/* projectile_aim @0x83759680 — choose the projectile aiming solver. Uses a ballistic (lobbed) solve when
  * the projectile definition is flagged ballistic (flags @+0x17C bit 0x2) and has a positive gravity scale
  * (+0x1CC); otherwise a straight-line solve. The base velocity is the caller's override (when provided)
  * or the definition's default muzzle velocity (+0x1E4). The chosen solver fills the result outputs; the

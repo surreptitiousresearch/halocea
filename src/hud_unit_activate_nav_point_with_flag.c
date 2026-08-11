@@ -1,4 +1,4 @@
-/* hud_unit_activate_nav_point_with_flag @0x837EE08C — activate a flag-anchored HUD nav point for the
+/* hud_unit_activate_nav_point_with_flag @0x837EE060 — activate a flag-anchored HUD nav point for the
  * player controlling the given unit (no-op if the unit isn't player-controlled).
  *
  * DEVIATION: vertical_offset arrives as a double via the soft-float ABI; it is a float. */

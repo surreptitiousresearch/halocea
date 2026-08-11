@@ -1,4 +1,4 @@
-/* network_game_generate_local_machine_name @0x837829AC — fills `name` (a 16-wchar buffer) with the console's
+/* network_game_generate_local_machine_name @0x83782988 — fills `name` (a 16-wchar buffer) with the console's
  * Xbox Live gamertag if one is set, otherwise falls back to a randomly chosen default player name (and
  * pushes that choice back to the system as the console's nickname). Always null-terminates at index 15. */
 

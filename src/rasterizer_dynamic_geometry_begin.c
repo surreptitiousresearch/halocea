@@ -1,4 +1,4 @@
-/* rasterizer_dynamic_geometry_begin @0x837912A4 — resets the per-frame dynamic vertex and triangle
+/* rasterizer_dynamic_geometry_begin @0x837912A0 — resets the per-frame dynamic vertex and triangle
  * pools: clears every dynamic vertex group's vertex count and both buffer counts. */
 
 #include "headers/dynamic_vertices.h"

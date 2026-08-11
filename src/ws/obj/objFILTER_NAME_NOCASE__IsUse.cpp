@@ -1,3 +1,4 @@
+// objFILTER_NAME_NOCASE__IsUse @0x823CE480
 #include "../../headers/ws/obj/objFILTER_NAME_NOCASE.h"
 #include "../../headers/ws/obj/objOBJ.h"
 

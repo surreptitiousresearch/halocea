@@ -1,4 +1,4 @@
-/* queue_event @0x8372658C — push an input event onto a local player's event queue (a fixed shift
+/* queue_event @0x83726568 — push an input event onto a local player's event queue (a fixed shift
  * register of 8 entries per player, 8 bytes each). Drops the head, shifts the rest down, and writes the
  * new event; the queue timestamp is updated for non-null events. No-op while events are suppressed.
  *

@@ -1,4 +1,4 @@
-/* actor_clear_output @0x8371EC68 — reset an actor's communication/animation output state: clears a request
+/* actor_clear_output @0x8371EC40 — reset an actor's communication/animation output state: clears a request
  * flag and a scalar (+1744/+1824), shifts a 9-dword block (+372..404) into a history slot one struct-width
  * further out (+1788..1820, following the same "current" value copied to +1788), zeroes a direction vector
  * (+1760), and marks a cached index invalid (+1772).
@@ -12,7 +12,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_clear_output(uint16_t actor_index)
+void actor_clear_output(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

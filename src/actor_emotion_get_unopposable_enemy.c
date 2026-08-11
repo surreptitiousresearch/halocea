@@ -1,4 +1,4 @@
-/* actor_emotion_get_unopposable_enemy @0x837D8128 — finds the existing actor_unopposable_enemy record for
+/* actor_emotion_get_unopposable_enemy @0x837D8120 — finds the existing actor_unopposable_enemy record for
  * `unit_index` in `enemies` (linear search keyed by record.unit_index), or creates one (default-initialized:
  * unopposable_type=0, prop_index=-1, prop=nullptr, friends_retreating=0, closest_retreating_friend_dist_sq=
  * FLT_MAX, closest_retreating_friend_actor_index=-1) if there's room under `maximum_enemy_count` and bumps *enemy_count.

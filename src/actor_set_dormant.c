@@ -14,7 +14,7 @@
 extern void object_activate(int object_index);
 extern void object_deactivate(int object_index);
 
-void actor_set_dormant(uint16_t actor_index, uint8_t dormant)
+void actor_set_dormant(int actor_index, uint8_t dormant)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( !actor->meta.active )

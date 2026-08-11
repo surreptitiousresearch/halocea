@@ -1,4 +1,4 @@
-// dsVECTOR<HCEX_EFFECT,8>::~dsVECTOR() @ 0x823DAEF4
+// dsVECTOR<HCEX_EFFECT,8>::~dsVECTOR() @ 0x823DAEE0
 //
 // Destroy the effect table. Per element, the compiler inlined the HCEX_EFFECT destructor: release
 // hcexName's shared buffer (freeing at a zero refcount), then destroy the locations vector. Finally

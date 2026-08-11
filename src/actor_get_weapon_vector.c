@@ -1,4 +1,4 @@
-/* actor_get_weapon_vector @0x837B7A7C — get the direction an actor's weapon points. If the actor is using
+/* actor_get_weapon_vector @0x837B7A50 — get the direction an actor's weapon points. If the actor is using
  * a special weapon-aim object (actor +353 set) whose definition has the "use object forward" flag
  * (tag +752, bit 0x100), use that object's forward vector (object +116). Otherwise fall back to the unit's
  * aiming vector, clipped to the unit's aiming bounds.
@@ -18,7 +18,7 @@
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);
 extern int unit_clip_to_aiming_bounds(int unit_index, real_vector3d *vector, uint8_t use_aiming_screen);
 
-void actor_get_weapon_vector(uint16_t actor_index, real_vector3d *weapon_vector)
+void actor_get_weapon_vector(int actor_index, real_vector3d *weapon_vector)
 {
     char have_vector = 0;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

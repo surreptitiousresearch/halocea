@@ -1,4 +1,4 @@
-/* compute_composite_attenuation @0x836C5794 — combined angle/distance falloff factor in [0,1]. Each axis
+/* compute_composite_attenuation @0x836C5778 — combined angle/distance falloff factor in [0,1]. Each axis
  * is full strength (1.0) up to half its maximum, falls off linearly from half-max to max, and is zero at
  * or beyond max. The result is the product of the two factors (so a target beyond the maximum distance
  * yields 0 regardless of angle).

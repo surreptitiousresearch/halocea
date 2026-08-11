@@ -54,22 +54,22 @@
 extern double cos(double x);
 extern double __fabs(double x);
 
-extern uint8_t actor_combat_currently_firing_burst(uint16_t actor_index);
+extern uint8_t actor_combat_currently_firing_burst(int actor_index);
 extern direction_specification *direction_get_empty(direction_specification *result);
 extern uint8_t actor_look_decode_direction(int actor_index, direction_specification *specification, real_vector3d *direction);
-extern int16_t actor_action_class(uint16_t actor_index);
+extern int16_t actor_action_class(int actor_index);
 extern uint8_t actor_look_valid_aim_vector(float yaw_deviation, const real_vector3d *facing_vector, const real_vector3d *attempted_aiming_vector);
 extern uint8_t actor_look_valid_look_vector(float yaw_deviation, const real_vector2d *cone_limits, const real_vector2d *aiming_vector, const real_vector2d *attempted_looking_vector, const real_vector2d *look_vector);
-extern uint8_t actor_move_force_stop(uint16_t actor_index);
+extern uint8_t actor_move_force_stop(int actor_index);
 extern int actor_look_idle_timer(int actor_index, actor_idle_looking *looking_definition, int16_t timer_type, uint8_t interesting_direction);
 extern uint8_t actor_look_idle_new_major_direction(int actor_index, actor_idle_looking *looking_definition, const real_vector3d *base_vector, uint8_t free_facing, uint8_t major_is_aiming, uint8_t has_minor_variation);
 extern void actor_look_idle_new_minor_direction(int actor_index, actor_idle_looking *looking_definition, const real_vector3d *base_vector);
 extern uint8_t unit_is_busy(int object_index);
-extern void actor_stimulus_abandon_stationary_facing(uint16_t actor_index);
-extern void actor_unit_control_exact_facing(uint16_t actor_index, uint8_t exact_facing);
+extern void actor_stimulus_abandon_stationary_facing(int actor_index);
+extern void actor_unit_control_exact_facing(int actor_index, uint8_t exact_facing);
 extern float normalize2d(real_vector2d *v);
-extern int actor_get_weapon(uint16_t actor_index);
-extern actor_idle_looking * actor_look_get_looking_definition(uint16_t actor_index);
+extern int actor_get_weapon(int actor_index);
+extern actor_idle_looking * actor_look_get_looking_definition(int actor_index);
 
 void actor_look_update(int actor_index)
 {

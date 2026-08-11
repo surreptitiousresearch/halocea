@@ -1,4 +1,4 @@
-/* device_frontfacing @0x837B5248 — returns true unless the supplied direction vector points into the
+/* device_frontfacing @0x837B5230 — returns true unless the supplied direction vector points into the
  * back face of the device's "front" marker. Used to decide whether a player is approaching a device
  * (e.g. a door) from the operable side. Devices with no "front" marker, or that are usable from
  * both sides (_control_usable_from_both_sides_bit of control_datum control.flags @+0x214), are

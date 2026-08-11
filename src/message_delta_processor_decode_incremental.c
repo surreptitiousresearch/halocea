@@ -1,4 +1,4 @@
-/* message_delta_processor_decode_incremental @0x837A1C84 — decodes one incremental message body into
+/* message_delta_processor_decode_incremental @0x837A1C70 — decodes one incremental message body into
  * `destination_data` against `baseline_data`. Considered decoded if any bits were consumed OR the caller
  * allows an empty body; on success advances the decoding-information's state and marks the body decoded, on
  * failure rewinds the input stream back to its position when decoding began. Mirrors

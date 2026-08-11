@@ -1,4 +1,4 @@
-/* unit_flying_through_air @0x836CD880 — true when a unit is airborne. Units carrying an animation
+/* unit_flying_through_air @0x836CD858 — true when a unit is airborne. Units carrying an animation
  * graph state (object.type nonzero, i.e. not a biped) are never considered "flying"; otherwise defer to
  * the biped-specific airborne test. */
 

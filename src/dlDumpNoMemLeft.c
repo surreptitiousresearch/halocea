@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: dlDumpNoMemLeft @0x82506568 (?dlDumpNoMemLeft@@YAXXZ) */
 extern int noMemLeftInDl;
 extern int IGNORE_STRONG_ASSERT; /* .data @0x841DB148 - ?IGNORE_STRONG_ASSERT@@3HA (def: src/data/IGNORE_STRONG_ASSERT.cpp) */
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */

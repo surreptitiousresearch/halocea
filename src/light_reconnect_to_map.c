@@ -37,7 +37,7 @@ extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, con
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern real_vector3d *perpendicular3d(const real_vector3d *a, real_vector3d *result);
 extern float normalize3d(real_vector3d *v);
-extern void light_compute_bounding_sphere(uint16_t light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
+extern void light_compute_bounding_sphere(int light_index, uint8_t maximum, uint8_t specular, uint8_t lens_flare_only, real_point3d *bounding_sphere_center, float *bounding_sphere_radius);
 extern void scenario_location_from_point(location *location, const real_point3d *point);
 extern location *object_get_location(int object_index, location *location_out);
 extern void cluster_partition_reconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference, const real_point3d *position, float radius, const location *location);

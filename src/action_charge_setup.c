@@ -44,9 +44,9 @@ extern int game_time_get(void);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
 extern uint8_t unit_get_melee_range_and_ticks(int unit_index, uint8_t airborne, int16_t *start_tick_count, float *start_range, int16_t *end_tick_count, float *end_range);
-extern float action_charge_find_target_range(uint16_t actor_index, int16_t goal, charge_state_data *state_data);
+extern float action_charge_find_target_range(int actor_index, int16_t goal, charge_state_data *state_data);
 extern uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, float accept_radius);
-extern void actor_move_keep_moving_past_destination(uint16_t actor_index);
+extern void actor_move_keep_moving_past_destination(int actor_index);
 extern uint8_t action_charge_valid_melee_destination(int actor_index, real_point3d *goal, real_point3d *melee_target_point);
 
 uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_data *state_data)

@@ -1,4 +1,4 @@
-/* dynamic_array_add_element @0x837848E0 — grows a dynamic_array by one element (reallocating its backing
+/* dynamic_array_add_element @0x837848D0 — grows a dynamic_array by one element (reallocating its backing
  * storage), zero-initializes the new element, and returns its index (or -1 on overflow/allocation failure).
  */
 

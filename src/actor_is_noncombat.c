@@ -12,7 +12,7 @@
 
 /* return attested uint8_t: callee bool-normalizes (clrlwi r3,31 @0x8371DB84); caller
  * prop_status_refresh stores it as a byte (stb r29,0x12B @0x837DABE8). */
-uint8_t actor_is_noncombat(uint16_t actor_index)
+uint8_t actor_is_noncombat(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     /* the DB's branchless (sign + threshold) test reduces exactly to a signed compare: noncombat iff

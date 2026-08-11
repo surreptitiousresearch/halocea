@@ -1,4 +1,4 @@
-/* scripted_show_hud @0x83707E98 — script override for overall HUD visibility; returns the new state. */
+/* scripted_show_hud @0x83707E90 — script override for overall HUD visibility; returns the new state. */
 
 #include <stdint.h>
 #include "headers/hud_scripted_globals.h"

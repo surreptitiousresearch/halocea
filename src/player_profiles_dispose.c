@@ -1,4 +1,4 @@
-/* player_profiles_dispose @0x83764DA8 — shut down the async player-profile subsystem: wait for its
+/* player_profiles_dispose @0x83764D90 — shut down the async player-profile subsystem: wait for its
  * worker thread to exit, dispose it, and clear all globals.
  *
  * The trailing memset residue lands in r3 but no caller consumes it (saved_game_files_dispose ignores

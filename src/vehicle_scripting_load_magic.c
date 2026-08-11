@@ -1,4 +1,4 @@
-/* vehicle_scripting_load_magic @0x836D3A34 — script command: instantly seat a list of units into a
+/* vehicle_scripting_load_magic @0x836D3A20 — script command: instantly seat a list of units into a
  * vehicle. Finds the vehicle's available seats matching seat_substring_name, then for each object in the
  * object list tries each free seat in turn: a seat is taken if the rider is itself a vehicle or its
  * seat/weapon label matches the seat. A rider already in a seat is ejected first; on a successful enter the

@@ -1,4 +1,4 @@
-/* weapon_can_be_fired @0x836D8FDC — decide whether a weapon may currently fire. Fully aged weapons
+/* weapon_can_be_fired @0x836D8F98 — decide whether a weapon may currently fire. Fully aged weapons
  * (age >= 1.0) can't. Outside a running game engine, or for weapons whose definition has no
  * magazines / a non-positive loaded-rounds maximum on the first magazine, firing is allowed
  * unconditionally. Otherwise it is allowed only while magazine 0 has loaded or total rounds. */

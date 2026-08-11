@@ -1,4 +1,4 @@
-/* biped_vehicle_speech @0x837AE31C — make an AI biped riding a "speechful" vehicle (definition flag
+/* biped_vehicle_speech @0x837AE2E8 — make an AI biped riding a "speechful" vehicle (definition flag
  * 0x40 at def word 95) shout during airborne jumps. Gated on: the rider has an actor (+500), is not in
  * the exiting state (29), its mount timer (+802) exceeds 120, the vehicle is moving fast enough
  * (+1232 > 30), and a 15-tick speech throttle (+1272) has elapsed. It probes straight down for ground

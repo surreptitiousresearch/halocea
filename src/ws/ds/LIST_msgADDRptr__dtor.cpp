@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::~LIST() — 0x82557B40
+// ds::LIST<msgADDR *>::~LIST() — @0x82557B40
 #include "LIST.h"
 #include "../msg/msgADDR.h"
 

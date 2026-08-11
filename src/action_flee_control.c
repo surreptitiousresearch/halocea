@@ -24,9 +24,9 @@
 
 
 #include "headers/path_state.h"
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern uint8_t actor_move_to_firing_position(int actor_index, int16_t firing_position_index, path_state *cached_path_state);
-extern void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position_index, uint8_t temporary);
+extern void actor_discard_firing_position(int actor_index, int16_t firing_position_index, uint8_t temporary);
 
 void action_flee_control(int actor_index)
 {

@@ -25,10 +25,10 @@
 
 
 extern float __fsqrts(float);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint8_t actor_pursuit_consider_nearby_actor(uint8_t actor_index, int pursuit_coordinator, int friend_actor_index);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern int prop_get_base_by_unit_index(int actor_index, int unit_index, uint8_t acquire, uint8_t refresh_upon_acquisition);
 
 int actor_pursuit_find_nearby_actors(int actor_index, int pursuit_coordinator)

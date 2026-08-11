@@ -1,4 +1,4 @@
-/* director_is_first_person_player @0x836E4580 — true if the first valid local player's camera is the
+/* director_is_first_person_player @0x836E4568 — true if the first valid local player's camera is the
  * first-person camera. Scans local player slots 0..1 for one with a valid player index.
  *
  * DEVIATION: the decompiler emits a dead "if (!&local_players[idx])" null check (the address of an

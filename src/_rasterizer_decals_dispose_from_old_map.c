@@ -1,4 +1,4 @@
-/* _rasterizer_decals_dispose_from_old_map @0x83710F44 — internal per-map decal teardown: permanently
+/* _rasterizer_decals_dispose_from_old_map @0x83710F28 — internal per-map decal teardown: permanently
  * unlock decals and flush the decal vertex cache. (Public guard wrapper:
  * rasterizer_decals_dispose_from_old_map.) */
 

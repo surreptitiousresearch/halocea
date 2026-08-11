@@ -14,7 +14,7 @@
 
 #include "headers/lruv_cache.h"
 extern int lruv_block_new(lruv_cache *cache, int size);
-extern void lruv_block_touch(lruv_cache *cache, uint16_t block_index);
+extern void lruv_block_touch(lruv_cache *cache, int block_index);
 extern int datum_new_at_index(data_array *data, int index);
 extern void sound_cache_dump_to_file(void);
 extern uint8_t preload_sound_fmod(sound_permutation *sound, uint8_t load);

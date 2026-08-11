@@ -1,4 +1,4 @@
-// ds::WEAK_PTR<entENTITY>::WEAK_PTR() @0x823CF3CC — default-construct: no referent.
+// ds::WEAK_PTR<entENTITY>::WEAK_PTR() @0x823CF3C8 — default-construct: no referent.
 #include "../../headers/ws/ds/WEAK_PTR.h"
 
 struct entENTITY; // boundary — only referenced through the handle pointer

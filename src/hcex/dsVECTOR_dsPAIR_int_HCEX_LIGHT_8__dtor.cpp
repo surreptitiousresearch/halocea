@@ -1,4 +1,4 @@
-// dsVECTOR<dsPAIR<int,HCEX_LIGHT>,8>::~dsVECTOR() @ 0x823DA980
+// dsVECTOR<dsPAIR<int,HCEX_LIGHT>,8>::~dsVECTOR() @ 0x823DA968
 //
 // Destroy the light-binding table. Per element, the compiler inlined the dsPAIR<int,HCEX_LIGHT>
 // destructor (which is itself the inlined HCEX_LIGHT destructor): drop the weak entity handle's

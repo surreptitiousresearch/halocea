@@ -18,7 +18,7 @@
 
 extern int actor_pursuit_find_nearby_actors(int actor_index, int pursuit_coordinator);
 extern int game_time_get(void);
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern uint8_t actor_move_to_prop(int actor_index, unsigned int prop_index, float accept_radius);
 
 uint8_t action_wait_perform(int actor_index)

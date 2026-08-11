@@ -1,4 +1,4 @@
-/* game_engine_playlist_begin @0x8374D1BC — starts the multiplayer playlist from the top: resets the
+/* game_engine_playlist_begin @0x8374D1A0 — starts the multiplayer playlist from the top: resets the
  * now-playing cursor, advances to the first stage, applies that stage's map name and game variant, and
  * if no network game is active resets the map locally.
  *

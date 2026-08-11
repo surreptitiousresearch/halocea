@@ -12,7 +12,7 @@
 #include "headers/data_array.h"
 extern void *datum_get(data_array *data, int index);
 
-float particle_get_radius(uint16_t particle_index)
+float particle_get_radius(int16_t particle_index)
 {
     particle_datum *particle = datum_get(particle_data, particle_index);
     particle_definition *definition = TAG_GET(particle_definition, particle->definition_index);

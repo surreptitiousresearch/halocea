@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-int object_unmarked_function(uint16_t object_index)
+int object_unmarked_function(int object_index)
 {
     object_datum *object_data = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     return global_object_marker != object_data->object.magic_number;

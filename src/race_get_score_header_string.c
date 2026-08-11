@@ -1,4 +1,4 @@
-/* race_get_score_header_string @0x8382B090 — fills `buffer` with the score-header string for the current
+/* race_get_score_header_string @0x8382B070 — fills `buffer` with the score-header string for the current
  * race variant: "laps" (string 178) normally, or "score" (string 25) when race is being played in the
  * "any" (terminator-style) scoring mode. */
 

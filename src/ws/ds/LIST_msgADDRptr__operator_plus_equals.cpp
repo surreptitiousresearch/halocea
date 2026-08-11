@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::operator+=(msgADDR *const &) — 0x82AC5F10
+// ds::LIST<msgADDR *>::operator+=(msgADDR *const &) — @0x82AC5F10
 #include "LIST.h"
 #include "../msg/msgADDR.h"
 

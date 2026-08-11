@@ -1,7 +1,7 @@
 #include "../headers/ws/vid/vidDEFRAG_CHUNK_OBJ_HCEX_X360.h"
 #include "../headers/ws/ds/ds_new.h"
 
-// 0x823F1728 — ??R?$dsMakeFunctor@UvidDEFRAG_CHUNK_OBJ_HCEX_X360@@$0A@@@QBAPAUvidDEFRAG_CHUNK_OBJ_HCEX_X360@@PBDH@Z
+// @0x823F1728 — ??R?$dsMakeFunctor@UvidDEFRAG_CHUNK_OBJ_HCEX_X360@@$0A@@@QBAPAUvidDEFRAG_CHUNK_OBJ_HCEX_X360@@PBDH@Z
 // dsMakeFunctor<vidDEFRAG_CHUNK_OBJ_HCEX_X360,0>::operator()(const char *file, unsigned line): the
 // branded-new factory the dscMAKE_FAMILY machinery calls to construct a chunk object on the
 // tracked heap. Allocates 0x20 (32) bytes via the (size,file,line) placement operator new, then

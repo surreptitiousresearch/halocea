@@ -1,4 +1,4 @@
-// ds::WEAK_PTR<entENTITY>::SetPtr @0x823D575C — Release() the current handle, then, if `pPtr` is
+// ds::WEAK_PTR<entENTITY>::SetPtr @0x823D5750 — Release() the current handle, then, if `pPtr` is
 // non-null, adopt pPtr's weak handle (bumping its refcount). DEVIATION: the raw decompile
 // resolves the new handle via `ds::WEAK_PTR_BASE<iaIACTOR>::GetHandle(&pPtr->WEAK_PTR_BASE<iaIACTOR>)`
 // — entENTITY's weak identity is provided by its iaIACTOR base's WEAK_PTR_BASE<iaIACTOR>

@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkMath_hkFloorToInt @0x838E2388 (?hkFloorToInt@hkMath@@YAHM@Z) */
 /* hkMath::hkFloorToInt — branchless floor-to-int. DEVIATION: reproduced
    verbatim from the decompiler's bit expression (float arg shown as double via
    FP promotion). As hkFloatToInt but the mantissa build biases negative

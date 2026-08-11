@@ -1,4 +1,4 @@
-/* real_rgb_color_to_real_hsv_color @0x8377D490 — standard RGB→HSV conversion. Value is the channel
+/* real_rgb_color_to_real_hsv_color @0x8377D488 — standard RGB→HSV conversion. Value is the channel
  * maximum; saturation is chroma/value; hue is computed from whichever channel is the maximum and
  * normalised to [0,1) (the 1/6 scale folds the 0..6 sextant hue into a fraction). */
 

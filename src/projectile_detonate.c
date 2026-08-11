@@ -59,7 +59,7 @@ extern void object_translate(int object_index, const real_point3d *new_position,
 extern uint8_t object_force_inside_bsp(int object_index, int ignore_object_index, const real_point3d *known_good_point);
 extern void object_compute_node_matrices(int object_index);
 extern void object_compute_node_matrices_recursive(int object_index);
-extern void contrail_owner_collision(uint16_t contrail_index, uint8_t object_dying, float dt);
+extern void contrail_owner_collision(int contrail_index, uint8_t object_dying, float dt);
 extern int effect_new_unattached_from_markers(int definition_index, int owner_object_index, const real_vector3d *translational_velocity, int16_t marker_count, const char **marker_names, real_point3d *marker_points, real_vector3d *marker_forwards, float scale_a, float scale_b, const real_rgb_color *color, const effect_vector_field *impulse_field, uint8_t deterministic);
 extern void damage_data_new(damage_data *damage_data, int definition_index);
 extern void object_cause_damage(damage_data *damage_data, int object_index, int16_t node_index, int16_t region_index, int16_t material_index, const real_vector3d *object_normal);

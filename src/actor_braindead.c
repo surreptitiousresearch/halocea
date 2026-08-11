@@ -10,9 +10,9 @@
 #include "headers/actor_mode.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_delete_props(uint16_t actor_index);
-extern void actor_freeze(uint16_t actor_index);
-extern void actor_set_dormant(uint16_t actor_index, uint8_t dormant);
+extern void actor_delete_props(int actor_index);
+extern void actor_freeze(int actor_index);
+extern void actor_set_dormant(int actor_index, uint8_t dormant);
 
 void actor_braindead(int actor_index, uint8_t braindead)
 {

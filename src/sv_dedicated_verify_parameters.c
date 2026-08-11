@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* sv_dedicated_verify_parameters @0x8376700C — validate/report dedicated-server init.txt settings at startup:
+/* sv_dedicated_verify_parameters @0x83766FF0 — validate/report dedicated-server init.txt settings at startup:
  * defaults sv_name to "Halo" (with a warning) if left blank, then logs the effective sv_name, sv_maxplayers,
  * and sv_public_value to the ship terminal. */
 

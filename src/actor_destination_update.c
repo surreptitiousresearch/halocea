@@ -25,8 +25,8 @@
 
 #include "headers/path_state.h"
 extern uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state *cached_path_state);
-extern uint8_t actor_test_destination(uint16_t actor_index);
-extern void actor_path_clear(uint16_t actor_index);
+extern uint8_t actor_test_destination(int actor_index);
+extern void actor_path_clear(int actor_index);
 
 void actor_destination_update(int actor_index)
 {

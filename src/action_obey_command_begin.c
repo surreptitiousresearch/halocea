@@ -86,8 +86,8 @@ extern void   qsort(void *base, unsigned int num, unsigned int width,
 extern int vehicle_possibility_qsort(const void *p1, const void *p2);
 
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
-extern void actor_move_keep_moving_past_destination(uint16_t actor_index);
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern void actor_move_keep_moving_past_destination(int actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 extern real_vector3d *vector3d_from_angle(real_vector3d *vector, float angle);
 extern float normalize3d(real_vector3d *v);
@@ -95,16 +95,16 @@ extern float normalize2d(real_vector2d *v);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
 extern int object_index_from_name_index(int16_t name_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 /* direction_get_empty is __cdecl variadic in the DB; called here with (result, actor_def_index,
  * command_type, variant_definition_data). */
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 extern int16_t unit_add_grenade_type_to_inventory(int unit_index, int16_t grenade_type, int16_t grenade_count);
 extern void object_iterator_new(object_iterator *iterator, uint32_t type_flags, uint8_t flags);
 extern void *object_iterator_next(object_iterator *iterator);
@@ -116,7 +116,7 @@ extern uint8_t recorded_animation_play(int unit_index, int16_t animation_index);
 extern int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursive_lookup, uint8_t allow_queue, int *unit_last_speech_time, int16_t *vocalization_type_reference, int *sound_definition_index_reference);
 extern void ai_communication_packet_new(ai_information_packet *information);
 extern void unit_speak(int unit_index, int16_t play_type, const unit_speech_item *speech_item);
-extern void action_obey_directmovement_update_facing(uint16_t actor_index, int unit_index, obey_individual_simple_control *simple_control);
+extern void action_obey_directmovement_update_facing(int actor_index, int unit_index, obey_individual_simple_control *simple_control);
 extern void unit_get_facing_vector(int unit_index, real_vector3d *facing_vector);
 extern void object_set_position(int object_index, const real_point3d *position, const real_vector3d *forward, const real_vector3d *up);
 extern void object_reset(int object_index);

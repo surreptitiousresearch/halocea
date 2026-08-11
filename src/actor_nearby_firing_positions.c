@@ -37,16 +37,14 @@ struct path_debug_storage;
 #include "headers/path_debug_storage.h"
 #include "headers/structure_bsp.h"
 #include "headers/real_vector3d.h"
-#include "headers/structure_bsp.h"
-#include "headers/collision_bsp_test_vector_result.h"
-extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
+extern unsigned int actor_get_firing_position_group(int actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);
 extern void path_input_set_start(path_input *input, const real_point3d *start_point, int start_surface_index);
 extern void path_input_set_search_bounds(path_input *input, float maximum_distance);
 extern void path_state_new(const path_input *input, path_state *state, path_debug_storage *debug);
 extern uint8_t path_state_find(path_state *state);
 extern int path_state_estimated_distance(path_state *state, const real_point3d *end_point, int end_surface_index, float *distance_reference, float *closest_approach_to_attractor_reference, real_vector3d *estimated_direction_reference);
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
 
 uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode)
 {

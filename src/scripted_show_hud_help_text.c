@@ -1,4 +1,4 @@
-/* scripted_show_hud_help_text @0x83707EB0 — script override for HUD help-text visibility; returns the new
+/* scripted_show_hud_help_text @0x83707EA8 — script override for HUD help-text visibility; returns the new
  * state. */
 
 #include <stdint.h>

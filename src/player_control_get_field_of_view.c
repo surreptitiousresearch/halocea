@@ -1,4 +1,4 @@
-/* player_control_get_field_of_view @0x836DE798 — compute the camera field of view (radians) for a local
+/* player_control_get_field_of_view @0x836DE778 — compute the camera field of view (radians) for a local
  * player. Defaults to 1.2217305 (70 deg). If the player has a unit, start from the unit definition's
  * camera_field_of_view; if the unit has a weapon in hand, let the weapon adjust it for the current zoom
  * level. */

@@ -1,4 +1,4 @@
-/* any_player_is_in_the_air @0x836A84A0 — returns true if any player's controlled unit is currently
+/* any_player_is_in_the_air @0x836A8488 — returns true if any player's controlled unit is currently
  * airborne. A unit counts as airborne if: its ultimate parent object carries the
  * _object_outside_of_map_bit object flag (0x200000, bit 21); or, on foot, a biped that
  * biped_flying_through_air reports as flying; or, in/at a

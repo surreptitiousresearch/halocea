@@ -2,7 +2,7 @@
 #include "../anim/animINST.h"
 #include "../m3d/m3dMATR.h"
 #include "obj_free_functions.h"
-// 0x82660938  ?objCalcNodeLTM@@YAXPAVobjOBJ@@@Z
+// @0x82660938  ?objCalcNodeLTM@@YAXPAVobjOBJ@@@Z
 // Recompute a single node's local-to-model matrix (matrLT), without recursing into children.
 // Called by objCalcLTMGroup/objCalcLTMGroupExcl/objCalcLTM to do the actual per-node work:
 //   - objOBJ::state bit 0x4 ("root/identity" node)         -> matrLT = identity

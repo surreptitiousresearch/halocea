@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only);
+extern void actor_clear_discarded_firing_positions(int actor_index, uint8_t clear_temporary_only);
 
 void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data)
 {

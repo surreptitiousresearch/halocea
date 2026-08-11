@@ -1,4 +1,4 @@
-/* player_handle_powerup_to_network @0x836AA410 — replicate a timed powerup pickup to all loaded client
+/* player_handle_powerup_to_network @0x836AA3E0 — replicate a timed powerup pickup to all loaded client
  * machines. Builds the message body (network-translated player index, powerup type, duration), encodes it
  * as a stateless message-delta, and if encoding produced bits sends it reliably to every machine. */
 

@@ -3,8 +3,8 @@
  * _rasterizer_hud_motion_sensor_blip_end. Only draws when radar debug drawing is on and blip_begin
  * actually started the pass (rasterizer_motion_sensor_begin_said_to_draw). The blip is a screen-aligned
  * quad centred at blip_position (scaled into the target's -1/32 units) sized by radius, tinted by
- * blip_color modulated by fade, and rasterized as a triangle fan of four 6-float vertices
- * (x, y, z, packed ARGB, u, v).
+ * blip_color modulated by fade, and rasterized as a triangle fan of four dynamic_screen_vertex
+ * (position, packed ARGB, texcoord — 24 bytes, the 0x18 stride handed to D3DDevice_DrawVerticesUP).
  *
  * The interface_get_tag_index / bitmap_group_try_and_get_bitmap / tag_get_name calls up front mirror the
  * begin/end siblings — they touch the motion-blip (12) and iface-map1 (13) interface bitmaps so the tag
@@ -19,6 +19,7 @@
 #include "headers/interface_tag_index.h"
 #include "headers/real_point2d.h"
 #include "headers/real_rgb_color.h"
+#include "headers/dynamic_screen_vertex.h"
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/D3DDevice.h"
 #include "headers/d3d_render_boundary.h"
@@ -64,16 +65,35 @@ void _rasterizer_hud_motion_sensor_blip_draw(const real_point2d *blip_position, 
     float top    = (center_y + half);
     float bottom = (center_y - half);
 
-    /* Vertex stream: {x,y,z, packed ARGB dword written into the float slot, u,v}. */
-    float quad[24];
-    quad[0]  = left;  quad[1]  = top;    quad[2]  = 0.0f;
-    *(unsigned int *)&quad[3]  = packed_color; quad[4]  = 0.0f; quad[5]  = 0.0f;
-    quad[6]  = right; quad[7]  = top;    quad[8]  = 0.0f;
-    *(unsigned int *)&quad[9]  = packed_color; quad[10] = 1.0f; quad[11] = 0.0f;
-    quad[12] = right; quad[13] = bottom; quad[14] = 0.0f;
-    *(unsigned int *)&quad[15] = packed_color; quad[16] = 1.0f; quad[17] = 1.0f;
-    quad[18] = left;  quad[19] = bottom; quad[20] = 0.0f;
-    *(unsigned int *)&quad[21] = packed_color; quad[22] = 0.0f; quad[23] = 1.0f;
+    /* Vertex stream, four dynamic_screen_vertex. DEVIATION: the decompiler renders this frame slice as a
+     * flat float array with the packed colour punned through a float slot; the stores at
+     * 0x837AA430-0x837AA4E4 are a 24-byte stride off `addi r6,r1,var_90` (0x837AA448) with the colour at
+     * +0x0C of each — i.e. the rasterizer's dynamic_screen_vertex, verified store-by-store. */
+    dynamic_screen_vertex vertices[4];
+    vertices[0].position.n[0] = left;
+    vertices[0].position.n[1] = top;
+    vertices[0].position.n[2] = 0.0f;
+    vertices[0].color = packed_color;
+    vertices[0].texcoord.n[0] = 0.0f;
+    vertices[0].texcoord.n[1] = 0.0f;
+    vertices[1].position.n[0] = right;
+    vertices[1].position.n[1] = top;
+    vertices[1].position.n[2] = 0.0f;
+    vertices[1].color = packed_color;
+    vertices[1].texcoord.n[0] = 1.0f;
+    vertices[1].texcoord.n[1] = 0.0f;
+    vertices[2].position.n[0] = right;
+    vertices[2].position.n[1] = bottom;
+    vertices[2].position.n[2] = 0.0f;
+    vertices[2].color = packed_color;
+    vertices[2].texcoord.n[0] = 1.0f;
+    vertices[2].texcoord.n[1] = 1.0f;
+    vertices[3].position.n[0] = left;
+    vertices[3].position.n[1] = bottom;
+    vertices[3].position.n[2] = 0.0f;
+    vertices[3].color = packed_color;
+    vertices[3].texcoord.n[0] = 0.0f;
+    vertices[3].texcoord.n[1] = 1.0f;
 
-    D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4, quad, 0x18);
+    D3DDevice_DrawVerticesUP(global_d3d_device, D3DPT_TRIANGLEFAN, 4, vertices, 0x18);
 }

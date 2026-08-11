@@ -1,4 +1,4 @@
-/* slowly_stop_vehicle @0x8375F668 — ease a vehicle to a halt over a countdown. Each tick decrements the
+/* slowly_stop_vehicle @0x8375F620 — ease a vehicle to a halt over a countdown. Each tick decrements the
  * stop countdown (object +1230) and damps both linear (+104) and angular (+140) velocity to 83.5%. The
  * position is advanced by the damped linear velocity, and the orientation (forward +116, up +128) is
  * rotated by the residual angular velocity (treated as an axis-angle, the angle being the spin magnitude).

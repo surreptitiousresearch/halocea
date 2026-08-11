@@ -26,7 +26,7 @@ extern double cos(double x);
 extern uint8_t actor_look_valid_aim_vector(float yaw_deviation, const real_vector3d *facing_vector, const real_vector3d *attempted_aiming_vector);
 extern uint8_t actor_look_valid_look_vector(float yaw_deviation, const real_vector2d *cone_limits, const real_vector2d *aiming_vector, const real_vector2d *attempted_looking_vector, const real_vector2d *look_vector);
 
-void actor_looking_test_validity(uint16_t actor_index, real_vector3d *test_vector, uint8_t *valid_aiming, uint8_t *valid_looking)
+void actor_looking_test_validity(int actor_index, real_vector3d *test_vector, uint8_t *valid_aiming, uint8_t *valid_looking)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *definition = TAG_GET(actor_definition, actor->meta.definition_index);

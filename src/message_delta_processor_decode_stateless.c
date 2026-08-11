@@ -1,4 +1,4 @@
-/* message_delta_processor_decode_stateless @0x837A1BFC — decodes one stateless message body into
+/* message_delta_processor_decode_stateless @0x837A1BE8 — decodes one stateless message body into
  * `destination_data` (no baseline data). On success, advances the decoding-information's state by the
  * number of bits consumed and marks the body decoded; on failure, rewinds the input stream back to its
  * position when decoding began. */

@@ -18,7 +18,7 @@
 #include <stdint.h>
 
 
-void actor_berserk(uint16_t actor_index, uint8_t berserk)
+void actor_berserk(int actor_index, uint8_t berserk)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

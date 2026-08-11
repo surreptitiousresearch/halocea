@@ -27,7 +27,7 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 extern const float global_secondary_look_times[];
 extern const int16_t global_secondary_look_priorities[];
 
-uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority,
+uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority,
                                      direction_specification *direction)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

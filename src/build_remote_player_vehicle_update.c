@@ -1,4 +1,4 @@
-/* build_remote_player_vehicle_update @0x83757374 — on the server, encode an outgoing vehicle-state update
+/* build_remote_player_vehicle_update @0x83757360 — on the server, encode an outgoing vehicle-state update
  * for one remote player (the vehicle they currently ride). A full baseline (stateless) update is sent
  * reliably whenever the baseline interval has elapsed (or none was ever sent), stashing the new state as
  * the delta baseline; otherwise, once the regular update interval has elapsed, an incremental

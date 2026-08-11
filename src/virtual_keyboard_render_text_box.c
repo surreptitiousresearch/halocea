@@ -1,4 +1,4 @@
-/* virtual_keyboard_render_text_box @0x83783A58 — draw the editable text field of the on-screen keyboard:
+/* virtual_keyboard_render_text_box @0x83783A28 — draw the editable text field of the on-screen keyboard:
  * the current buffer text (centered, off-white), an optional full-buffer selection highlight, and a
  * blinking insertion caret. When first_key_replaces_buffer is set the whole buffer is shown selected
  * (a translucent bitmap behind the text). Otherwise, while not selecting, a 1px caret bitmap blinks at

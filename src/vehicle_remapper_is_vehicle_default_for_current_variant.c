@@ -1,4 +1,4 @@
-/* vehicle_remapper_is_vehicle_default_for_current_variant @0x83700C28 — true if this vehicle placement is
+/* vehicle_remapper_is_vehicle_default_for_current_variant @0x83700C10 — true if this vehicle placement is
  * flagged as the default vehicle for the currently active game engine variant (one spawn_flags bit per
  * engine: slayer=bit0, ctf=bit1, king=bit2, oddball=bit3 — see multiplayer_spawn_game_type.h). False if
  * there is no active variant, or the engine isn't one of the four recognized indices. */

@@ -1,4 +1,4 @@
-/* ticks_to_unicode_time_string @0x83749CF8 — wide-string counterpart of ticks_to_time_string.c: formats a
+/* ticks_to_unicode_time_string @0x83749CC8 — wide-string counterpart of ticks_to_time_string.c: formats a
  * tick count (30 ticks/sec) as "H:MM".
  *
  * DEVIATION: the decompiler dropped the integer value argument from both usnprintf(..., L"%d") calls,

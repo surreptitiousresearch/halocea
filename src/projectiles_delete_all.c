@@ -1,4 +1,4 @@
-/* projectiles_delete_all @0x837590E8 — delete every projectile object (type mask 0x20) in the world.
+/* projectiles_delete_all @0x837590D0 — delete every projectile object (type mask 0x20) in the world.
  *
  * DEVIATION: the decompiler types the result as void* (the trailing null iterator result); r3 at the
  * epilogue is only object_iterator_next's threaded value and the sole caller (cinematic_start

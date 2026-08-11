@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osFileOpen @0x825E7078 (?osFileOpen@@YAPAUosFILE_HANDLE_DUMMY@@PBDV?$dsFLAGS@W4OS_FILE@@H@@@Z)
 #include "../../headers/ws/os/os_boundary.h"
 #include "../../headers/ws/os/osFILE_HANDLE_DUMMY.h"
 #include "../../headers/ws/os/OS_FILE.h"

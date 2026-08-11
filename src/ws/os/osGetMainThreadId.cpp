@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osGetMainThreadId @0x82612B68 (?osGetMainThreadId@@YAHXZ)
 #include "../../headers/ws/os/os_boundary.h"
 
 // Returns the thread id captured for the process's main thread at startup.

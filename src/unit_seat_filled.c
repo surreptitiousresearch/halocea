@@ -1,4 +1,4 @@
-/* unit_seat_filled @0x836CAC1C — true if some unit currently occupies the given seat of a parent
+/* unit_seat_filled @0x836CABF8 — true if some unit currently occupies the given seat of a parent
  * object. Scans all unit objects (type mask 3) for one whose parent (dword +284) is parent_object_index
  * and whose seat (word +752) matches seat_index. */
 

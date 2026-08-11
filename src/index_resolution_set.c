@@ -1,4 +1,4 @@
-/* index_resolution_set @0x83818B38 — inserts, updates, or removes a server->local object-index mapping in
+/* index_resolution_set @0x83818B18 — inserts, updates, or removes a server->local object-index mapping in
  * a hash table keyed by server object index. Passing local_object_index == -1 removes the mapping (and
  * recycles its entry to the free list); otherwise an existing entry is updated in place, or a new entry
  * is taken from the free list (growing the pool if empty) and pushed onto the slot's chain. No-op if the

@@ -7,7 +7,7 @@
 #include "headers/unit_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_look_secondary_stop(uint16_t actor_index);
+extern void actor_look_secondary_stop(int actor_index);
 
 void ai_scripting_stop_looking(int unit_index)
 {

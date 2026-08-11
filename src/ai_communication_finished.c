@@ -5,11 +5,14 @@
  * reply_to_player) and an optional reply_filter callback, then if the reply unit can speak, voices the reply
  * (unit_speak), updates its reply timers and makes it glance back at the original speaker.
  *
- * Deviations: the calls to ai_communication_find_*_actor_to_talk and ai_communication_consider_speech have
- * trailing arguments mis-attributed by Hex-Rays (a float arg shuffles the GPR assignment); the true arguments
- * were recovered from the disassembly's per-register prototype annotations — in particular the talk-finder
- * animation_type comes from the reply row and the flags argument is 0 (r25), and consider_speech's last two
- * arguments are &sound_definition_index and a null debug string. */
+ * DEVIATIONS: the calls to ai_communication_find_*_actor_to_talk and ai_communication_consider_speech have
+ * trailing arguments mis-attributed by Hex-Rays — the float max_distance consumes a GPR shadow slot (r7 for
+ * the _global_ finder, r6 for the _specific_ one), shifting every later argument. The disassembly's
+ * per-register prototype annotations encode that SAME un-shifted map, so they are not the oracle; the slots
+ * are taken from the registers: li r8/r7,-1 = ai_communication_type ("any"), lhz 0xA(r31) =
+ * row->communication_priority, r27 = speech_priority, then row->vocalization_type, row->animation_type and
+ * flags 0 (r25) in the trailing slots. consider_speech's last two arguments are &sound_definition_index and
+ * a null debug string. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -80,13 +83,14 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
                 case _comm_protagonist_friend:
                     if ( !speaker_actor || speaker_actor->meta.encounter_index == -1 )
                         found_actor = ai_communication_find_global_actor_to_talk(
-                            unit->object.owner_team_index, 1, unit_index, -1, 9.0f, row->vocalization_type, -1,
-                            row->communication_priority, speech_priority, row->animation_type, 0);
+                            unit->object.owner_team_index, 1, unit_index, -1, 9.0f, -1,
+                            row->communication_priority, speech_priority,
+                            row->vocalization_type, row->animation_type, 0);
                     else
                         found_actor = ai_communication_find_specific_actor_to_talk(
                             (uint16_t)speaker_actor->meta.encounter_index, unit_index, -1, 9.0f,
-                            row->animation_type, -1, row->communication_priority, speech_priority,
-                            row->vocalization_type, 0);
+                            -1, row->communication_priority, speech_priority,
+                            row->vocalization_type, row->animation_type, 0);
                     if ( found_actor == -1 )
                         goto next_row;
                     {
@@ -101,8 +105,9 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
                     break;
                 case _comm_protagonist_enemy:
                     found_actor = ai_communication_find_global_actor_to_talk(
-                        unit->object.owner_team_index, 2, unit_index, -1, 9.0f, row->vocalization_type, -1,
-                        row->communication_priority, speech_priority, row->animation_type, 0);
+                        unit->object.owner_team_index, 2, unit_index, -1, 9.0f, -1,
+                        row->communication_priority, speech_priority,
+                        row->vocalization_type, row->animation_type, 0);
                     if ( found_actor == -1 )
                         goto next_row;
                     {

@@ -1,4 +1,4 @@
-/* build_game_variant_team_oddball @0x8374F064 — populate `result` with the default "Team Oddball" game
+/* build_game_variant_team_oddball @0x8374F050 — populate `result` with the default "Team Oddball" game
  * variant settings (game engine 3): 1 life pool disabled, radar on, 300-tick respawn, score-to-win 2,
  * suicide penalty 150, classic weapon set, friendly fire on, vehicles preset = none, one spawning ball with
  * no traits. universal_variant.flags: config bits 0-5 reset then allow_motion_tracker | allow_friendly_

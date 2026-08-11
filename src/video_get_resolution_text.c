@@ -1,3 +1,4 @@
+/* video_get_resolution_text @0x83785208 */
 #include <stdint.h>
 #include "headers/video_resolution_s.h"
 

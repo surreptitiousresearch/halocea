@@ -1,4 +1,4 @@
-/* unit_dialogue_setup @0x837BB34C — resolve which dialogue variant a unit should use: tries its requested
+/* unit_dialogue_setup @0x837BB310 — resolve which dialogue variant a unit should use: tries its requested
  * variant number (+190) if positive, falling back to variant 0, then variant -1 ("any") if each attempt
  * fails to find a match. Stores the resolved variant index at object+900.
  *

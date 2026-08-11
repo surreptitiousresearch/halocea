@@ -1,4 +1,4 @@
-// ?cmp@CMP@HALO_SOUND_PARAMS@@SAHABU2@PBD@Z -- 0x836B4E58
+// ?cmp@CMP@HALO_SOUND_PARAMS@@SAHABU2@PBD@Z -- @0x836B4E40
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"
 
 int HALO_SOUND_PARAMS::CMP::cmp(const HALO_SOUND_PARAMS &a, const char *name)

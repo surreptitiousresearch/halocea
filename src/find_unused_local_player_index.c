@@ -1,4 +1,4 @@
-/* find_unused_local_player_index @0x836A7BE4 — picks a local player slot (0..3) not yet claimed by an
+/* find_unused_local_player_index @0x836A7BD8 — picks a local player slot (0..3) not yet claimed by an
  * existing player. It first prefers a slot whose gamepad is plugged in but has no player; failing that,
  * any slot 0..3 with no player. Returns -1 if every slot is taken. Each player_data record stores its
  * owning local/controller index at +2. */

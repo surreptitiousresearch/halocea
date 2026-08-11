@@ -1,4 +1,4 @@
-/* multiplayer_message_to_network @0x83747220 — encode a "multiplayer HUD message" delta (translating the
+/* multiplayer_message_to_network @0x837471F0 — encode a "multiplayer HUD message" delta (translating the
  * recipient player index) and, if it encoded successfully, fetch the network game server (send is a no-op
  * here beyond that fetch — matches the decompiler exactly, which never uses the returned server pointer). */
 

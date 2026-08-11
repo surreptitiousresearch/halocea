@@ -1,4 +1,4 @@
-/* race_flags_make_unique @0x8382A18C — ensure every "race flag" (netgame_flags[i].type == 3) has a unique
+/* race_flags_make_unique @0x8382A188 — ensure every "race flag" (netgame_flags[i].type == 3) has a unique
  * flag_index in [0,32): for each race flag whose bit is already taken, hunt for the lowest free bit and
  * store that as the flag's new flag_index — but note the tracking bitmask itself gets OR'd with the
  * *original* (colliding) bit, not the newly assigned one (confirmed via disasm at 0x8382A1E8-0x8382A218:

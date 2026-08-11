@@ -11,9 +11,9 @@
 
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index);
+extern uint8_t actor_compute_prop_unopposable(int actor_index, int prop_index);
 extern float actor_compute_prop_target_weight(int actor_index, int prop_index);
 extern void game_allegiance_notify_change(int16_t aggressor_team_index, int16_t victim_team_index);
 

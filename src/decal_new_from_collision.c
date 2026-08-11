@@ -1,4 +1,4 @@
-/* decal_new_from_collision — spawn a decal (and its whole next_decal_in_chain chain) at a collision
+/* decal_new_from_collision @0x83741948 — spawn a decal (and its whole next_decal_in_chain chain) at a collision
  * point: build the projection basis from the surface normal (optionally velocity-aligned or randomly
  * rotated), clip it onto the touched BSP surfaces, wrap it across the "deviant" surfaces whose angle
  * exceeds the decal type's minimum_wrap_angle, then emit the clipped triangle fans into a freshly

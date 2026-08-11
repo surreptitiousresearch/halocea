@@ -1,4 +1,4 @@
-/* input_abstraction_get_pitch_rate @0x83725000 — configured look pitch sensitivity for a local player.
+/* input_abstraction_get_pitch_rate @0x83724FE0 — configured look pitch sensitivity for a local player.
  * DEVIATION: float return routed through a double (soft-float ABI); the real return is the float. Player
  * index biased by -1 to match the binary's slot addressing. */
 

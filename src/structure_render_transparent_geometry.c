@@ -8,12 +8,11 @@
 #include "headers/render_globals.h"
 #include "headers/structure_render_pass.h"
 #include "headers/render_lighting.h"
+#include "headers/real_point3d.h"
+#include "headers/real_vector3d.h"
 extern void rasterizer_environment_transparent_geometry_begin(void);
 extern void rasterizer_environment_transparent_geometry_end(void);
-extern void rasterizer_environment_transparent_geometry_submit(
-    const struct shader *, int16_t, const struct bitmap_data *, int, int, int, const struct vertex_buffer *,
-    const union real_point3d *, const struct real_plane3d *, const union real_vector3d *,
-    const render_lighting *, unsigned int);          /* real_point3d/real_vector3d are union tags */
+extern void rasterizer_environment_transparent_geometry_submit(const struct shader *shader, int16_t shader_permutation_index, const struct bitmap_data *lightmap, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const struct vertex_buffer *vertex_buffers, const real_point3d *centroid, const struct real_plane3d *plane, const real_vector3d *offset, const struct render_lighting *render_lighting, unsigned int geometry_flags);          /* real_point3d/real_vector3d are union tags */
 
 void structure_render_transparent_geometry(void)
 {

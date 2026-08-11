@@ -1,4 +1,4 @@
-// ??0HALO_CROSSFADE_DSP@@QAA@XZ -- 0x836BC850
+// ??0HALO_CROSSFADE_DSP@@QAA@XZ -- @0x836BC840
 #include <string.h>
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"

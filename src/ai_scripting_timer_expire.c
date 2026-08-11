@@ -7,7 +7,7 @@
 
 extern void ai_index_squad_iterator_new(unsigned int ai_index, ai_index_squad_iterator *iterator);
 extern squad_datum *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator);
-extern void encounter_squad_timer_expire(uint16_t encounter_index, int16_t squad_index);
+extern void encounter_squad_timer_expire(int encounter_index, int16_t squad_index);
 
 void ai_scripting_timer_expire(int ai_index)
 {

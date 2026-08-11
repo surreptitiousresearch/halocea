@@ -1,4 +1,4 @@
-/* draw_unicode_string_compute_bounds @0x8376B3E0 — measure a unicode string laid out within `bounds`,
+/* draw_unicode_string_compute_bounds @0x8376B3A0 — measure a unicode string laid out within `bounds`,
  * returning the tight text bounding rectangle (text_bounds) and the end-of-string cursor rectangle
  * (cursor_bounds). It resolves the active font (applying the current style's font variant if any),
  * runs the normal layout pass with a measuring callback that accumulates min/max extents into

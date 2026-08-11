@@ -46,9 +46,9 @@ extern float normalize3d(real_vector3d *v);
 extern float normalize2d(real_vector2d *v);
 extern void actor_move_calculate_free(uint8_t move_in_3d, const real_vector3d *movement_direction, const real_vector3d *facing_direction, real_vector3d *throttle);
 extern void actor_move_calculate_controlled_by_aiming(uint8_t move_in_3d, const real_vector3d *movement_vector, const real_vector3d *forced_aim_direction, const real_vector3d *current_facing_vector, real_vector3d *desired_facing_vector, int16_t *desired_facing_direction);
-extern void actor_find_pathfinding_location(uint16_t actor_index);
+extern void actor_find_pathfinding_location(int actor_index);
 extern uint8_t structure_test_line2d(const structure_bsp *structure, uint8_t ignore_broken_surfaces, const real_point2d *p0, int p0_surface_index, const real_point2d *p1, int p1_surface_index, path_collision_result *result);
-extern float actor_destination_tolerance(uint16_t actor_index);
+extern float actor_destination_tolerance(int actor_index);
 extern void actor_get_stopping_distances(int actor_index, float *current_stopping_distance_reference, float *maximum_stopping_distance_reference);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 

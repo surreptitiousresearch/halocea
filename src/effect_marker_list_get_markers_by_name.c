@@ -1,4 +1,4 @@
-/* effect_marker_list_get_markers_by_name @0x836E2968 — collect the markers of the active effect
+/* effect_marker_list_get_markers_by_name @0x836E2950 — collect the markers of the active effect
  * marker list whose name matches `name`, writing up to maximum_count object_markers into results
  * and returning the count found. If the list has a name table and a non-empty query, each named
  * marker is compared and matches are resolved via effect_marker_list_get_marker.

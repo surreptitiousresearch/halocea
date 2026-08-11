@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_combat_disable_bursts(uint16_t actor_index, int disable_timer)
+void actor_combat_disable_bursts(int actor_index, int disable_timer)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int16_t *timer = &actor->control.burst_disable_timer;  /* word offset 763 = byte 1526, opaque control region */

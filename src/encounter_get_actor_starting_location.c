@@ -25,7 +25,7 @@
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 
-int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squad_index, uint8_t spawn)
+int16_t encounter_get_actor_starting_location(int encounter_index, int squad_index, uint8_t spawn)
 {
     (void)spawn;
 

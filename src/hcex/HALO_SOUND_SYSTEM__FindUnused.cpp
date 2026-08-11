@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__FindUnused @0x836BEE50
 #include "../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../headers/hcex/HALO_SOUND_SYSTEM_globals.h"
 #include "../headers/ws/snd/snd_fmod_boundary.h"

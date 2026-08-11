@@ -1,4 +1,4 @@
-/* rasterizer_set_near_clip_distance @0x8372492C — set the near clip distance used by the cinematic screen
+/* rasterizer_set_near_clip_distance @0x83724920 — set the near clip distance used by the cinematic screen
  * effect, if that subsystem is present. */
 
 #include "headers/cinematic_screen_effect_globals.h"

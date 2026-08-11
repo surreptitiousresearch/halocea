@@ -1,4 +1,4 @@
-/* update_client_queue_push @0x836F5FD0 — push an empty client action set onto the update-client queue,
+/* update_client_queue_push @0x836F5FA0 — push an empty client action set onto the update-client queue,
  * to apply "nothingness" (no input) for the given number of ticks. */
 
 #include "headers/update_client_globals.h"

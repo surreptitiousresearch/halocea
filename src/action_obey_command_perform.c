@@ -36,11 +36,11 @@
 #include "headers/unit_speech_priority.h"
 
 
-extern uint8_t actor_path_at_destination(uint16_t actor_index);
-extern float actor_destination_tolerance(uint16_t actor_index);
+extern uint8_t actor_path_at_destination(int actor_index);
+extern float actor_destination_tolerance(int actor_index);
 extern float normalize3d(real_vector3d *v);
 extern float normalize2d(real_vector2d *v);
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 extern uint8_t unit_is_busy(int object_index);
 extern uint8_t unit_flying_through_air(int unit_index);

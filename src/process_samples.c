@@ -1,4 +1,4 @@
-/* process_samples @0x83763ACC — advance a net_graph's sample period(s): while enough time has elapsed
+/* process_samples @0x83763AB8 — advance a net_graph's sample period(s): while enough time has elapsed
  * (possibly more than one period at once, e.g. after a stall), push the accumulated current_sample_data as
  * a finished sample, recompute the rolling average from the last 4 samples, and start a new period.
  *

@@ -1,4 +1,4 @@
-/* devices_initialize_for_new_map @0x837B5500 — per-map device_groups_data setup: marks the data_array valid,
+/* devices_initialize_for_new_map @0x837B54E8 — per-map device_groups_data setup: marks the data_array valid,
  * then allocates and seeds one device_group_datum per scenario_device_group exactly like
  * create_initial_device_groups.c (cont63). */
 

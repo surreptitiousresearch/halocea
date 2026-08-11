@@ -1,4 +1,4 @@
-/* player_handle_powerup @0x836AC54C — apply a timed powerup to a player. powerup_type is 0 (active
+/* player_handle_powerup @0x836AC528 — apply a timed powerup to a player. powerup_type is 0 (active
  * camo) or 1 (the other timed powerup); anything else is rejected. Camo additionally requires a living
  * unit that is not already camouflaged (unit.flags 0x10). The per-type timer (powerup_durations[type])
  * is extended by duration_in_ticks; if it was inactive the powerup is turned on, and a non-multiplayer

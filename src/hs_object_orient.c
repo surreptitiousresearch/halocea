@@ -1,4 +1,4 @@
-/* hs_object_orient @0x837F8070 — scripting command: place and/or aim an object at a scenario cutscene
+/* hs_object_orient @0x837F8058 — scripting command: place and/or aim an object at a scenario cutscene
  * flag. The flag record (92 bytes, in scenario->cutscene_flags) carries a position (+36) and a 2D
  * facing euler (+48). When repositioning an object that is currently attached/seated it is first
  * detached (units exit their seat, other objects detach). The object is reset, then for a unit the

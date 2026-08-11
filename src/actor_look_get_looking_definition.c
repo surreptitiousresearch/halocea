@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-actor_idle_looking * actor_look_get_looking_definition(uint16_t actor_index)
+actor_idle_looking * actor_look_get_looking_definition(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int variant_definition_index = actor->meta.definition_index;

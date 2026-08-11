@@ -1,4 +1,4 @@
-/* input_get_key @0x836FBCB4 — pops the next buffered keystroke from the input ring, if any. Copies the
+/* input_get_key @0x836FBCA8 — pops the next buffered keystroke from the input ring, if any. Copies the
  * modifier flags + ascii code (one 16-bit word) and the key code into *key and advances the read index.
  * Returns 1 if a key was returned, 0 if the buffer is empty. */
 

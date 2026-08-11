@@ -1,4 +1,4 @@
-/* object_type_handle_parent_destroyed @0x83701F68 — notify every part definition (super-type plus
+/* object_type_handle_parent_destroyed @0x83701F38 — notify every part definition (super-type plus
  * sub-types) registered for an object's type that the object's parent was destroyed. Returns 1 if any
  * part handler consumed the event, 0 otherwise. The object's type code lives at object datum +180. */
 

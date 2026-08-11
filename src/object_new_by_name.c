@@ -1,4 +1,4 @@
-/* object_new_by_name @0x836F2CC4 — instantiate the scenario object referred to by a scenario object
+/* object_new_by_name @0x836F2CA8 — instantiate the scenario object referred to by a scenario object
  * name. The name entry (object_names block, stride 36) carries the object type (word +32) and the
  * scenario-datum index (word +34); the object is created from that scenario datum and its type palette.
  * global_object_scenario_index is set to (datum index + 1) during creation, as the engine expects. */
@@ -12,9 +12,9 @@
 
 #include "headers/scenario.h"
 #include "headers/scenario.h"
+#include "headers/tag_groups.h"
 extern tag_block *scenario_get_object_type_scenario_datums(scenario *scenario, int16_t object_type, int *size);
 extern tag_block * scenario_get_object_type_scenario_palette(scenario *scenario, int16_t object_type);
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern int object_new_from_scenario(scenario_object_datum *scenario_object, tag_block *palette);
 
 void object_new_by_name(int16_t name_index)

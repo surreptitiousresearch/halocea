@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkpCollidable_BoundingVolumeData_construct @0x83600340 (??0BoundingVolumeData@hkpCollidable@@QAA@XZ) */
 #include "../headers/havok/hkpCollidable.h"
 
 /* hkpCollidable::BoundingVolumeData::BoundingVolumeData — default constructor.

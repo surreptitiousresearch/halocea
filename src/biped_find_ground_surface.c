@@ -1,4 +1,4 @@
-/* biped_find_ground_surface @0x837AD1F0 — casts a ray from just above a biped's origin along a given
+/* biped_find_ground_surface @0x837AD1C8 — casts a ray from just above a biped's origin along a given
  * direction and reports the collision-BSP surface it hits. Returns the hit surface index (or -1 if
  * nothing was hit); optionally outputs the intersection point and the hit surface's plane normal.
  *

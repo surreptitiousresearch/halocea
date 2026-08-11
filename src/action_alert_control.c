@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_alert_control(uint16_t actor_index)
+void action_alert_control(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *actor_def = TAG_GET(actor_definition, actor->meta.definition_index);

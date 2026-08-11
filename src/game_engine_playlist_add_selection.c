@@ -1,4 +1,4 @@
-/* game_engine_playlist_add_selection @0x837524E8 — append a (map, variant) pair to the multiplayer
+/* game_engine_playlist_add_selection @0x837524C0 — append a (map, variant) pair to the multiplayer
  * playlist. The variant name is taken from in_variant_name, or derived from the supplied variant's
  * human-readable description. The variant itself is either copied from in_variant or looked up by name.
  * The playlist array is grown by 4 entries when full. Returns 1 on success, 0 if validation/lookup fails.

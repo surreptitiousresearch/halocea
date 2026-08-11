@@ -1,4 +1,4 @@
-/* widgets_dispose_from_old_map @0x837560E0 — per-map widget teardown: call each of the 5 widget type
+/* widgets_dispose_from_old_map @0x837560C8 — per-map widget teardown: call each of the 5 widget type
  * definitions' dispose-from-old-map hooks, then invalidate the widget datum array. */
 
 #include "headers/widget_type_definition.h"

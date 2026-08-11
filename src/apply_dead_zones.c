@@ -1,4 +1,4 @@
-/* apply_dead_zones @0x836FB69C — apply per-axis and radial dead zones to a raw analog stick reading.
+/* apply_dead_zones @0x836FB678 — apply per-axis and radial dead zones to a raw analog stick reading.
  * The stick components arrive as signed 16-bit values in roughly [-32767, 32767]. Each axis first
  * gets a linear dead zone at +/-4095, with the live range rescaled back out to full scale
  * (32767/(32767-4095) ~= 1.1428). The dead-zoned axes are then converted to polar form: a radial

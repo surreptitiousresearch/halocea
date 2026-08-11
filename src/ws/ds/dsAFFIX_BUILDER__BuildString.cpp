@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: dsAFFIX_BUILDER::BuildString() const @0x82A79510 (?BuildString@dsAFFIX_BUILDER@@QBA?AV?$dsTSTRING@D@@XZ)
 #include "dsAFFIX_BUILDER.h"
 #include "dsVECTOR.h"
 #include "dsTSTRING.h"

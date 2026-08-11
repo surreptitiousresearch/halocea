@@ -1,4 +1,4 @@
-/* game_state_free_buffer @0x8371B16C — release the physically-allocated game-state backing buffer. */
+/* game_state_free_buffer @0x8371B150 — release the physically-allocated game-state backing buffer. */
 
 #include "headers/xbox_game_state_globals.h"
 

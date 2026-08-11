@@ -19,11 +19,11 @@
 #include "headers/bitmap_group_sequence.h"
 #include "headers/tag_block.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
 
 extern uint8_t bitmap_verify(const bitmap_data *bitmap, uint8_t import);
 extern void texture_cache_bitmap_new(int tag_index, bitmap_data *bitmap);
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
 
 int postprocess_bitmap_group(int bitmap_group_index, uint8_t editing)
 {

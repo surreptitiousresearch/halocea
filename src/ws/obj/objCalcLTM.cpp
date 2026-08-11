@@ -1,7 +1,7 @@
 #include "objOBJ.h"
 #include "../anim/animINST.h"
 #include "obj_free_functions.h"
-// 0x82661040  ?objCalcLTM@@YAXPAVobjOBJ@@@Z
+// @0x82661040  ?objCalcLTM@@YAXPAVobjOBJ@@@Z
 // General-purpose LTM propagation entry point. Unlike objCalcLTMGroup/objCalcLTMGroupExcl,
 // this is null-tolerant on `pObjFrom` and additionally skips a node if its owning animINST
 // has state2 bit 0x4 set (externally-driven / frozen LTM). Otherwise recomputes this node's

@@ -23,7 +23,7 @@
 #include "headers/bit_vector.h"
 
 
-extern uint8_t encounter_spawn_actor(uint16_t encounter_index, int16_t squad_index);
+extern uint8_t encounter_spawn_actor(int encounter_index, int16_t squad_index);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 

@@ -1,3 +1,4 @@
+// shCOLOR__AddLightAmb @0x830959D0
 #include <math.h>
 #include "../../headers/ws/rend/shCOLOR.h"
 #include "../../headers/ws/m3d/m3dCOLOR.h"

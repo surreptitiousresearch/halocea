@@ -1,4 +1,4 @@
-/* dispose_chicago_shaders @0x836A146C — release every compiled Chicago (multitexture) pixel shader in
+/* dispose_chicago_shaders @0x836A1458 — release every compiled Chicago (multitexture) pixel shader in
  * chicago_shader_table and reset the table count, then release the decal pixel shader.
  *
  * DEVIATION: the decompiler models the table base with a -4 bias base and `[9]`/`+= 9` (dword) strides;

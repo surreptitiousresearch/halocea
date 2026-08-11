@@ -1,4 +1,4 @@
-/* object_type_process_update_delta @0x837026F4 — apply a network update delta to an object: verifies the
+/* object_type_process_update_delta @0x837026D8 — apply a network update delta to an object: verifies the
  * object exists (any type), then finds the LAST (highest-index) part definition in its type's chain that has
  * a process_update_delta callback set and calls only that one (searches part_definitions[15] down to [0],
  * unlike the export_function_values/disconnect_from_structure_bsp fan-outs which call every part in forward

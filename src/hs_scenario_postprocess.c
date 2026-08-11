@@ -10,10 +10,9 @@
 
 #include "headers/tag_block.h"
 #include "headers/tag_data.h"
+#include "headers/tag_groups.h"
 extern void hs_allocate(void);
 extern void data_delete_all(data_array *data);
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
-extern uint8_t tag_data_resize(tag_data *data, int size);
 extern uint8_t hs_compile_postprocess(const char **error_message_pointer, const char **error_source_pointer);
 extern uint8_t hs_compile_source(void);
 

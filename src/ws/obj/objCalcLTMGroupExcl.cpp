@@ -1,6 +1,6 @@
 #include "objOBJ.h"
 #include "obj_free_functions.h"
-// 0x82B0B780  ?objCalcLTMGroupExcl@@YAXPAVobjOBJ@@@Z
+// @0x82B0B780  ?objCalcLTMGroupExcl@@YAXPAVobjOBJ@@@Z
 // Exclusive-locked variant of objCalcLTMGroup(): recomputes this node's matrLT only if
 // objOBJ::state bit 0x2 is NOT already set (i.e. skip if already validated), but then always
 // recurses into every child unconditionally (no per-child state-bit gate) — unlike

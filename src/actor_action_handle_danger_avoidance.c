@@ -63,13 +63,13 @@ struct ai_information_data;
 #include "headers/avoid_state_data.h"
 extern action_specification global_action_functions[];
 
-extern uint8_t actor_move_animation_busy(uint16_t actor_index);
-extern uint8_t actor_path_has_path(uint16_t actor_index);
-extern uint8_t actor_path_at_destination(uint16_t actor_index);
+extern uint8_t actor_move_animation_busy(int actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
+extern uint8_t actor_path_at_destination(int actor_index);
 extern float point_to_line_distance_squared3d(const real_point3d *point, const real_point3d *base, const real_vector3d *height);
 extern float vector_to_line_distance_squared3d(const real_point3d *point, const real_vector3d *vector, const real_point3d *base, const real_vector3d *height);
 extern float fast_vector_intersection_with_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
-extern void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position_index, uint8_t temporary);
+extern void actor_discard_firing_position(int actor_index, int16_t firing_position_index, uint8_t temporary);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern int actor_action_find_escape_from_danger(int actor_index, int16_t *escape_direction_reference, float *escape_distance_reference, real_vector2d *alignment_vector_reference, uint8_t *escape_is_ledge_reference);
 extern uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, float dive_distance, real_vector2d *alignment_vector, float maximum_ledge_height);

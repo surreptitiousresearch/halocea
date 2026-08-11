@@ -23,7 +23,7 @@
 extern float __fsqrts(float);
 
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
-extern void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
+extern void actor_perception_find_sense_position(int actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 
 int actor_perception_assess_vehicle_danger(int actor_index, int vehicle_index,

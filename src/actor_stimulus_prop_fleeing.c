@@ -1,4 +1,4 @@
-/* actor_stimulus_prop_fleeing @0x837D5004 — stimulus handler fired when one of an actor's props (a unit
+/* actor_stimulus_prop_fleeing @0x837D4FD8 — stimulus handler fired when one of an actor's props (a unit
  * it is aware of) starts fleeing. If the actor's character allows it (variant flag 0x20) and its flee
  * cooldown has elapsed, the actor may join the rout — either because a friend is already fleeing
  * (actor_emotion_flee_with_friends) or by a random roll under the variant's flee chance. When it does,
@@ -21,9 +21,9 @@ extern int game_time_get(void);
 extern uint8_t actor_emotion_flee_with_friends(int actor_index, float *flee_chance);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 
-void actor_stimulus_prop_fleeing(uint16_t actor_index, uint16_t prop_index)
+void actor_stimulus_prop_fleeing(int actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);

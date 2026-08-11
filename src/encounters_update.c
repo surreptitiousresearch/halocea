@@ -22,7 +22,7 @@ extern void encounter_update_platoons(int encounter_index);
 extern void encounter_update_follow(int encounter_index);
 extern void encounter_control_actors(int encounter_index);
 
-extern void encounter_update_timers(uint16_t encounter_index);
+extern void encounter_update_timers(int encounter_index);
 void encounters_update(void)
 {
     encounter_iterator iterator;

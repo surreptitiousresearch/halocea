@@ -1,4 +1,4 @@
-/* data_file_append_name @0x838094B4 — append item_name (with its NUL terminator) to a data_file_s's name pool,
+/* data_file_append_name @0x838094A0 — append item_name (with its NUL terminator) to a data_file_s's name pool,
  * growing the pool via dlRealloc (doubling to 2x the new required length) when it would overflow
  * max_names_len. Returns the byte offset within the pool where item_name was appended (i.e. its offset
  * before this call). */

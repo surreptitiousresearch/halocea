@@ -1,4 +1,4 @@
-/* widgets_dispose @0x83756160 — one-time shutdown: call each of the 5 widget type definitions' dispose
+/* widgets_dispose @0x83756148 — one-time shutdown: call each of the 5 widget type definitions' dispose
  * hooks.
  *
  * The dispose hooks are void(void) (widget_type_definition.dispose; disasm-confirmed: the sole caller

@@ -1,4 +1,4 @@
-/* message_write_iteration_independent_header_post_encoding @0x837A1704 — after all of a multi-iteration
+/* message_write_iteration_independent_header_post_encoding @0x837A16D8 — after all of a multi-iteration
  * message's per-iteration data has been encoded, writes the iteration-count field (iterations_written - 1,
  * bit-width from bits_needed[]) into the iteration-independent header stream. No-op (returns true) for
  * single-iteration messages. */

@@ -1,4 +1,4 @@
-/* build_local_player_position_update @0x83756F54 — builds the message-delta body that tells the server
+/* build_local_player_position_update @0x83756F40 — builds the message-delta body that tells the server
  * this local player's latest completed-update id and position, throttled by local_player_update_rate.
  * Returns the encoded size in bits (0 if there is nothing valid to send or the rate limit blocks it).
  * Advances the local-player update sequence number and records the ack bookkeeping.

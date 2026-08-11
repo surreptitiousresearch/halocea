@@ -1,4 +1,4 @@
-/* create_the_flag @0x83805FB8 — spawns a team's CTF flag object at its scenario netgame flag placement, if
+/* create_the_flag @0x83805FA8 — spawns a team's CTF flag object at its scenario netgame flag placement, if
  * one exists for that team, and records the resulting object index. Automatic deactivation is disabled so
  * the flag object persists (dropped/carried) independent of the normal object lifetime rules. */
 

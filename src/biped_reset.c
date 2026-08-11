@@ -1,4 +1,4 @@
-/* biped_reset @0x837AC798 — clears a biped's 132-byte _biped_datum block (+1228), resets its ground plane
+/* biped_reset @0x837AC760 — clears a biped's 132-byte _biped_datum block (+1228), resets its ground plane
  * to a sentinel "no ground" plane (`depths_of_hell`), and clears its last-falling-communication timer
  * (+1272) to -1 (none). */
 

@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkAlgorithm_quickSortRecursive_HalfEdge @0x838539C0 (??$quickSortRecursive@UHalfEdge@hkdGeometry@@P6A_NABU12@0@Z@hkAlgorithm@@YAXPAUHalfEdge@hkdGeometry@@HHP6A_NABU12@1@Z@Z) */
 #include "../headers/havok/hkdGeometry_HalfEdge.h"
 
 /* hkAlgorithm::quickSortRecursive<hkdGeometry::HalfEdge, bool(*)(const HalfEdge&,

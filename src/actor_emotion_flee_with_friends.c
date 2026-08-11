@@ -1,4 +1,4 @@
-/* actor_emotion_flee_with_friends @0x837D7F90 — scale an actor's flee chance by how its squadmates are
+/* actor_emotion_flee_with_friends @0x837D7F60 — scale an actor's flee chance by how its squadmates are
  * behaving. It scans the actor's props for living, same-species allies: an ally already fleeing (or about
  * to retreat) counts toward "fleeing friends", while an ally still fighting counts toward "combat friends".
  * Two or more fleeing friends forces a flee (returns 1). Otherwise the flee chance is boosted when friends
@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 uint8_t actor_emotion_flee_with_friends(int actor_index, float *flee_chance)

@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkpCollisionFilter_construct @0x83600230 (??0hkpCollisionFilter@@QAA@XZ)
 #include "../headers/havok/hkpNullCollisionFilter.h"
 
 /* hkpCollisionFilter's own multiply-inherited vtables (one thunk table per

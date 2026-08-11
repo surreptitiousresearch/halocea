@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-int actor_path_get_destination_firing_position_index(uint16_t actor_index)
+int actor_path_get_destination_firing_position_index(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->control.path.destination_orders.destination_type == _destination_firing_position )

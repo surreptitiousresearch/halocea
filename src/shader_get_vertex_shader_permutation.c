@@ -1,4 +1,4 @@
-/* shader_get_vertex_shader_permutation 0x83755638 — select the vertex-shader permutation index for a
+/* shader_get_vertex_shader_permutation @0x83755638 0x83755638 — select the vertex-shader permutation index for a
  * shader based on its class (base.type) and fields of the *concrete* shader tag. Returns 0 for an
  * invalid/null shader or a class that has no permutations.
  *

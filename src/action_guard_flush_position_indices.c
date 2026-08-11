@@ -1,4 +1,4 @@
-/* action_guard_flush_position_indices @0x83824638 — resets a guarding actor's cached firing/position group
+/* action_guard_flush_position_indices @0x83824620 — resets a guarding actor's cached firing/position group
  * indices (word +168, word +196) and associated flag bytes (+164, +166, +352, +170) when its guard state
  * (word +192) is "waiting to move" (3) or "moving" (1, unless byte +352 is set). Shares the +164/+166 color
  * flag bytes with action_guard_modify_color.c. */

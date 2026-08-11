@@ -1,3 +1,4 @@
+// objFILTER_NAME__IsUse @0x82680440
 #include "../../headers/ws/obj/objFILTER_NAME.h"
 #include "../../headers/ws/obj/objOBJ.h"
 

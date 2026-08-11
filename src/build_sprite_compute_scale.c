@@ -1,5 +1,11 @@
-/* build_sprite_compute_scale @0x837EC054 (real entry; the funcs-table address 0x837EC064 is mid-body — see
- * disasm_range(0x837EC030,0x837EC064) for the true prologue at 0x837EC054) — computes/caches a sprite's
+/* build_sprite_compute_scale @0x837EC058 — DEVIATION (this file's own earlier note is refuted, re-derived
+ * 2026-08-12): it claimed a "real entry" at 0x837EC054 and that the funcs table said 0x837EC064. Neither
+ * holds. `bytes` reads 00 00 00 00 at 0x837EC054 and `instructions` decodes NO instruction there — it is
+ * inter-function padding, build_sprite_compute_basis ending at 0x837EC054 with `b __restgprlr_27`. The
+ * funcs row is 0x837EC058-0x837EC0F0 named build_sprite_compute_scale (also .sweep/all_funcs.tsv), and
+ * 0x837EC058 holds `lwz r11, 0x10(r3)`: a leaf with no save-prologue, which is why it did not look like an
+ * entry. 0x837EC064 is `beq cr6, loc_837EC08C`, genuinely mid-body but never what funcs reported.
+ * The function — computes/caches a sprite's
  * perspective scale factor into *scale: a flag-forced default of 1.0, or (for non-screen-space mode) a
  * perspective factor derived from the origin's depth (origin->n[2]) and the screen-projection focal term —
  * then multiplies the result by the bitmap's width.

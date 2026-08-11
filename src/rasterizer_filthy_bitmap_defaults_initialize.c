@@ -1,4 +1,4 @@
-/* rasterizer_filthy_bitmap_defaults_initialize @0x8369... — create the rasterizer's fallback ("filthy", i.e.
+/* rasterizer_filthy_bitmap_defaults_initialize @0x8369B598 @0x8369... — create the rasterizer's fallback ("filthy", i.e.
  * placeholder) textures used whenever a real bitmap is missing: a 4x4 fully-white 2D texture, a 4x4 2D, a
  * 4x4x4 volume and a 4x4x6 cube texture, the latter three filled with an alternating two-colour pattern in
  * A4R4G4B4. The four textures are stored in rasterizer_globals as the default white / 2D / 3D / cube formats.

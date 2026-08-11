@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osFileMakeDir @0x825E6C28 (?osFileMakeDir@@YAHPBD@Z)
 #include "../../headers/ws/os/os_boundary.h"
 
 // Recursively creates every missing directory component of `fileName`'s path (mkdir -p style).

@@ -17,7 +17,7 @@
 #include <stdint.h>
 
 
-unsigned int actor_get_firing_position_group(uint16_t actor_index,
+unsigned int actor_get_firing_position_group(int actor_index,
                                              int16_t evaluation_mode,
                                              int16_t group_selection_mode)
 {

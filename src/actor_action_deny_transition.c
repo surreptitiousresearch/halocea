@@ -1,4 +1,4 @@
-/* actor_action_deny_transition @0x837F22C4 — decide whether an actor's current action forbids a state
+/* actor_action_deny_transition @0x837F22A8 — decide whether an actor's current action forbids a state
  * transition this frame. An active timed action (word @ actor +144 set, remaining @ +146 > 0) denies;
  * an active encounter squad delay timer denies while the actor's action stage (word @ actor +110) is
  * still early (< 5), otherwise it expires the squad timer. A guard/charge action (word @ +108 == 11)
@@ -13,9 +13,9 @@
 #include "headers/actor_combat_status.h"
 #include "headers/blam_data_globals.h"
 
-extern void encounter_squad_timer_expire(uint16_t encounter_index, int16_t squad_index);
+extern void encounter_squad_timer_expire(int encounter_index, int16_t squad_index);
 
-uint8_t actor_action_deny_transition(uint16_t actor_index)
+uint8_t actor_action_deny_transition(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int deny = 0;

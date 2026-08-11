@@ -1,3 +1,4 @@
+// decorateConnection @0x83857710
 #include "../headers/havok/hkdDecorateFractureFaceAction.h"
 #include "../headers/havok/hkdDecorateFractureFaceActionInternalInfo.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"

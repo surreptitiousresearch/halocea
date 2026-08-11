@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL_GetCurCheckpoint @0x823C1340
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
 // haloENGINE_CONTROL::GetCurCheckpoint @ 0x823C1344 — authored def TU for the flattened

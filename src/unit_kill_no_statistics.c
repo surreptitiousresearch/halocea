@@ -1,4 +1,4 @@
-/* unit_kill_no_statistics @0x836C6C30 — flag a unit to be killed without recording a death
+/* unit_kill_no_statistics @0x836C6C10 — flag a unit to be killed without recording a death
  * statistic (object damage_flags bit 0x2000). */
 
 #include "headers/data_array.h"

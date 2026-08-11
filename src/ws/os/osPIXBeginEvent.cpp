@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osPIXBeginEvent @0x825E56D0 (?osPIXBeginEvent@@YAXPBD@Z)
 #include "../../headers/ws/os/os_boundary.h"
 
 // Pushes a PIX named-event scope. An empty/null name is replaced with a fallback label so PIX

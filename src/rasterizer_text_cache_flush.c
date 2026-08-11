@@ -1,4 +1,4 @@
-/* rasterizer_text_cache_flush @0x83768B40 — invalidate the hardware glyph cache: detach every cached font
+/* rasterizer_text_cache_flush @0x83768B30 — invalidate the hardware glyph cache: detach every cached font
  * character (marking its hardware slot index invalid) and clear the cache slots. */
 
 #include <stdint.h>

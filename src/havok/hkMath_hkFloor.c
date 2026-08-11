@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkMath_hkFloor @0x838E22F8 (?hkFloor@hkMath@@YAMM@Z) */
 /* hkMath::hkFloor — branchless IEEE-754 floor. DEVIATION: reproduced verbatim
    from the decompiler's bit expression; the argument is a float (shown as
    double due to FP promotion) and the result is rebuilt from raw bits. The

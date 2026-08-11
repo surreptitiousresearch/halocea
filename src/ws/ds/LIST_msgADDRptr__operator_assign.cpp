@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::operator=(const LIST<msgADDR *> &) — 0x82AC61E8
+// ds::LIST<msgADDR *>::operator=(const LIST<msgADDR *> &) — @0x82AC61E8
 // Mangle (QAAXABV01@) marks the return type void, not the usual LIST&, so the reconstruction
 // keeps a void return to match. Disasm: after Clear(), the compiler placement-reconstructs `this`
 // via the copy ctor (the decompiler's `if (this)` around that call is a residual, always-true

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* trouble_is_brewing_update @0x83734334 — per-frame watchdog: if "trouble" (a hang/long-frame
+/* trouble_is_brewing_update @0x83734310 — per-frame watchdog: if "trouble" (a hang/long-frame
  * condition) was flagged this frame, show the warning dialog once 10 seconds (0x2710 ms) have elapsed
  * since it first started and the dialog isn't already up; otherwise reset the timer. */
 

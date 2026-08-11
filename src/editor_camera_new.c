@@ -1,4 +1,4 @@
-/* editor_camera_new @0x837C36A4 — create the free-fly editor camera. The first time, it seeds the focus
+/* editor_camera_new @0x837C3680 — create the free-fly editor camera. The first time, it seeds the focus
  * point from the scenario's first player spawn (position + facing), or the origin if there are none. It then
  * builds a flying camera looking along the focus angles, records it as the active editor camera for the
  * primary local player, and runs the current camera-mode's per-frame translate hook.

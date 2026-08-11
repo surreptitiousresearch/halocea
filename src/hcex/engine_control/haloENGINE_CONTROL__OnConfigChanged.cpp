@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__OnConfigChanged @0x823C89A0
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

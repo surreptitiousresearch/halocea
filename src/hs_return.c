@@ -18,7 +18,7 @@
 
 extern int hs_cast(int thread_index, int16_t actual_type, int16_t desired_type, int value);
 
-void hs_return(uint16_t thread_index, int value)
+void hs_return(int thread_index, int value)
 {
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
     hs_syntax_node *syntax_node = &HS_SYNTAX_NODE(thread->stack->expression_index);

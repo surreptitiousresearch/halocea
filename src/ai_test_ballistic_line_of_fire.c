@@ -1,4 +1,4 @@
-/* ai_test_ballistic_line_of_fire @0x836E8650 — test whether an actor has a clear line of fire along a
+/* ai_test_ballistic_line_of_fire @0x836E8610 — test whether an actor has a clear line of fire along a
  * ballistic arc (e.g. a thrown grenade or lobbed projectile). The arc starts at `origin` with velocity
  * `arc_initial_velocity` under constant `arc_acceleration` (gravity on z) and is marched in segments of up
  * to 6 seconds out to `arc_time`. Each segment is raycast against world geometry (collision_test_vector,

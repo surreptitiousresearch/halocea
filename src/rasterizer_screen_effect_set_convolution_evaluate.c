@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void rasterizer_screen_effect_set_convolution(int16_t convolution_extra_passes, int16_t convolution_type, float convolution_radius_lower_bound, float convolution_radius_upper_bound, float convolution_time);
 
 void rasterizer_screen_effect_set_convolution_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

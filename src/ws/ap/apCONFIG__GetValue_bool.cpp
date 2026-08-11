@@ -5,7 +5,7 @@
 // boundary — variadic logger (declared in several ws boundary headers).
 void _apLog(const char *fmt, ...);
 
-// 0x823C4290 — apCONFIG::GetValue<bool>. Resolve `complexKey` to a raw dsDATA, then try a fast
+// @0x823C4290 — apCONFIG::GetValue<bool>. Resolve `complexKey` to a raw dsDATA, then try a fast
 // retrieve conversion; if that fails and the key exists, try an explicit conversion. On any
 // failure, log why and return false. The local raw dsDATA's destructor releases its value at each
 // return (the decompiler's explicit dsDATA::~dsDATA calls).

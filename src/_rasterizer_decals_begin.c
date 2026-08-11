@@ -1,4 +1,4 @@
-/* _rasterizer_decals_begin @0x83711084 — set up the D3D pipeline for a decal layer. Records the layer, resets
+/* _rasterizer_decals_begin @0x83711068 — set up the D3D pipeline for a decal layer. Records the layer, resets
  * the decal batch caches, binds a clamped point-sampled stage 0, and configures additive alpha blending with
  * depth test on / depth write off plus the decal z-bias. Layer 3 (the alpha-tested overlay layer) uses a 0x7F
  * alpha reference and stencil mode 4; other layers enable alpha testing only when the "filthy" decal fog hack

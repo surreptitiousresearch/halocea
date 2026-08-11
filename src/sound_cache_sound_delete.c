@@ -7,7 +7,7 @@
 
 #include "headers/lruv_cache.h"
 extern void unload_sound_fmod(sound_permutation *sound);
-extern void lruv_block_delete(lruv_cache *cache, uint16_t block_index);
+extern void lruv_block_delete(lruv_cache *cache, int block_index);
 
 void sound_cache_sound_delete(sound_permutation *sound)
 {

@@ -1,4 +1,4 @@
-/* _rasterizer_window_begin @0x8369D8F8 — platform rasterizer window-begin implementation (called through
+/* _rasterizer_window_begin @0x8369D8E8 — platform rasterizer window-begin implementation (called through
  * the rasterizer_window_begin thunk). Resets default render state, latches the window parameters, opens each
  * per-window rasterizer subsystem, configures fog/stencil/visibility, and sets the render target (clearing
  * to the packed atmospheric fog color unless drawing in wireframe debug mode). Finally applies the fill mode.

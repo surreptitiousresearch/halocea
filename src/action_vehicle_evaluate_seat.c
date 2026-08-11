@@ -50,7 +50,7 @@ extern uint8_t unit_seat_allow_noncombatants(int vehicle_index, int16_t seat_ind
 extern uint8_t unit_seat_is_gunner(int vehicle_index, int16_t seat_index);
 extern uint8_t unit_seat_is_driver(int vehicle_index, int16_t seat_index);
 extern uint8_t unit_get_seat_entrance_point(int unit_index, int parent_unit_index, int16_t seat_index, real_point3d *entrance_point, real_point3d *seat_point, real_point3d *hint_point);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern void *datum_try_and_get(const data_array *data, int index);
 

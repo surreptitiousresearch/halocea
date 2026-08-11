@@ -43,7 +43,7 @@
 extern int weapon_get_owner_object_index(int weapon_index);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern uint8_t actor_firing_blindly(uint16_t actor_index);
+extern uint8_t actor_firing_blindly(int actor_index);
 extern void unit_adjust_projectile_ray(int unit_index, real_point3d *origin, real_vector3d *forward, float *inherited_velocity, uint8_t offset_origin, uint8_t offset_aim);
 extern int actor_aim_projectile(int actor_index, const real_point3d *origin, real_vector3d *vector, float *error_reference);
 extern int player_aim_projectile(int player_index, const real_point3d *position, real_vector3d *direction);

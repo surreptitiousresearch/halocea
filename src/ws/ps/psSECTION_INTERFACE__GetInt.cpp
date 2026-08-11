@@ -1,6 +1,6 @@
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
-// 0x8251DB98 — value under `key` coerced to int into `*val`; returns whether it existed.
+// @0x8251DB78 — value under `key` coerced to int into `*val`; returns whether it existed.
 
 extern int psDataToInt(const dsDATA *obj, int *val);
 

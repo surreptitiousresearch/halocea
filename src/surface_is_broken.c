@@ -1,4 +1,4 @@
-/* surface_is_broken @0x837D2920 — true if a breakable surface has been broken: only meaningful for surfaces
+/* surface_is_broken @0x837D2910 — true if a breakable surface has been broken: only meaningful for surfaces
  * with the "breakable" flag (bit 3) set, checked against the global breakable_surface_flags bit vector,
  * indexed by the surface's breakable_surface_index. Surface element layout (12 bytes: plane_designator@0,
  * flags@8, breakable_surface_index@9) per collision_bsp.h's own comment on `surfaces`. */

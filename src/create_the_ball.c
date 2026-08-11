@@ -1,4 +1,4 @@
-/* create_the_ball @0x83816F48 — spawn a physical oddball object, unless the variant's ball type is "magic"
+/* create_the_ball @0x83816F30 — spawn a physical oddball object, unless the variant's ball type is "magic"
  * or "terminator" (those modes track the oddball without a real object). Places it at
  * find_position_for_ball's chosen spot, tags it with owner_team_index = ball_index (the ball's own slot
  * index, reused as a team-index-shaped field), and disables automatic deactivation so it never despawns.

@@ -29,7 +29,7 @@
 
 extern int game_time_get(void);
 extern float game_difficulty_get_team_value(int16_t value_type, int16_t team_index);
-extern uint8_t actor_combat_find_grenade_target(uint16_t actor_index, real_point3d *grenade_target, int *grenade_target_prop_index, int *grenade_ignore_object_index);
+extern uint8_t actor_combat_find_grenade_target(int actor_index, real_point3d *grenade_target, int *grenade_target_prop_index, int *grenade_ignore_object_index);
 /* def (src/actor_combat_check_collateral_damage.c) types the point arg `const float *`; matched here. */
 extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
 extern uint8_t actor_combat_plan_grenade_trajectory(int actor_index, int16_t trajectory_type, const real_point3d *grenade_target, int grenade_target_prop_index, int grenade_ignore_object_index);

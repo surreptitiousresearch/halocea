@@ -1,4 +1,4 @@
-/* player_ui_clear_multiplayer_variant @0x836989BC — reset the selected multiplayer variant: clear the
+/* player_ui_clear_multiplayer_variant @0x836989A0 — reset the selected multiplayer variant: clear the
  * UI selection, drop the game connection, tear down the game engine, and clear the active variant. */
 
 #include <stdint.h>

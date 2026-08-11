@@ -27,11 +27,11 @@
 #include "headers/ai_information_data.h"
 extern int game_time_get(void);
 extern uint8_t action_flee_at_flee_position(int actor_index);
-extern uint8_t action_flee_current_position_exposed(uint16_t actor_index, flee_state_data *flee_state_data);
+extern uint8_t action_flee_current_position_exposed(int actor_index, flee_state_data *flee_state_data);
 extern void action_flee_find_flee_position(int actor_index, flee_state_data *state_data);
-extern void actor_situation_update_target_status(uint16_t actor_index);
-extern void actor_situation_combat_status_update(uint16_t actor_index);
-extern uint8_t unit_is_speaking(uint16_t unit_index);
+extern void actor_situation_update_target_status(int actor_index);
+extern void actor_situation_combat_status_update(int actor_index);
+extern uint8_t unit_is_speaking(int unit_index);
 extern int unit_scream(int unit_index, int16_t scream_type);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 

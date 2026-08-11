@@ -27,7 +27,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_search_control(uint16_t actor_index)
+void action_search_control(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     const unsigned int *definition_tag = TAG_GET(const unsigned int, actor->meta.definition_index);

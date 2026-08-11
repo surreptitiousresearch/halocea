@@ -1,4 +1,4 @@
-/* game_engine_force_single_screen @0x837477A4 — true when the active game engine is in a postgame
+/* game_engine_force_single_screen @0x837477A0 — true when the active game engine is in a postgame
  * rasterize phase (mode in [postgame_rasterize_delay, postgame_rasterize]), during which the renderer is
  * forced to a single (non-split) screen. */
 

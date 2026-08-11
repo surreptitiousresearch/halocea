@@ -1,4 +1,4 @@
-/* rasterizer_sort_external @0x8376880C — sort this frame's transparent geometry groups for external
+/* rasterizer_sort_external @0x837687F8 — sort this frame's transparent geometry groups for external
  * (non-portal-local) draw order: seed the sorted-indices array with identity order, qsort it via
  * group_sorted_indices_cmpfn, then stamp each group's resulting rank into its own sorted_index field. */
 

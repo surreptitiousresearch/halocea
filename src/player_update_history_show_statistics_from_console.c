@@ -1,4 +1,4 @@
-/* player_update_history_show_statistics_from_console @0x837ABD5C — console command hook that dumps
+/* player_update_history_show_statistics_from_console @0x837ABD50 — console command hook that dumps
  * the local update-history statistics. Reduces to fetching the active network game client.
  *
  * DEVIATION: the decompiler renders the body as two calls to global_network_game_client_get() (the

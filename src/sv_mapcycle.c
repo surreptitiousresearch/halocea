@@ -1,4 +1,4 @@
-/* sv_mapcycle @0x83765CD4 — console command stub: dedicated-server-only on this build. */
+/* sv_mapcycle @0x83765CC8 — console command stub: dedicated-server-only on this build. */
 
 typedef struct real_argb_color real_argb_color;
 extern void ship_terminal_printf(const real_argb_color *color, const char *format, ...);

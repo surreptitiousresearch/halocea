@@ -1,4 +1,4 @@
-/* actor_perception_find_killer_prop_index @0x837D69E0 — given a prop the actor just saw killed, look at the
+/* actor_perception_find_killer_prop_index @0x837D69A8 — given a prop the actor just saw killed, look at the
  * killed object's recent-damage history (4 records) and return the actor's perception prop for whichever
  * damager dealt the most damage, provided that damager resolves to a known unit, has a prop the actor
  * currently perceives, that prop is in an active perception state (2..3), and — unless skip_friendlies is
@@ -19,9 +19,9 @@
 #include "headers/blam_data_globals.h"
 
 extern int ai_get_responsible_unit(int object_index, uint8_t responsible_for_weapon_fire);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 
-int actor_perception_find_killer_prop_index(int actor_index, uint16_t killed_prop_index, uint8_t skip_friendlies)
+int actor_perception_find_killer_prop_index(int actor_index, int killed_prop_index, uint8_t skip_friendlies)
 {
     int best_prop_index = -1;
     unsigned int best_attack_time = 0;

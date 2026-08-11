@@ -1,6 +1,6 @@
 #include "headers/ws/vid/vidDIP.h"
 
-// 0x8266A850 -- DEVIATION: the decompiler's `v1.file` (the apCL cookie's source-file pointer)
+// @0x8266A838 -- DEVIATION: the decompiler's `v1.file` (the apCL cookie's source-file pointer)
 // gets clobbered by an unrelated refcount-bump on the shared empty-string singleton due to a
 // stack-slot-reuse artifact, obscuring the literal. Inferred from the identical pattern in the
 // adjacent vidDIP_CLASS::vidDIP_CLASS (0x8266A92C, same file/header, cookie line 454) which shows

@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_alert_flush_position_indices(uint16_t actor_index)
+void action_alert_flush_position_indices(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor->state.action_data.___u0.alert.target_move_position_index = -1;

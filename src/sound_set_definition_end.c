@@ -18,11 +18,11 @@
 
 extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound, float pitch, int16_t current_range);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
-extern void sound_channel_summary_build(sound_channel_summary *summary, uint16_t sound_index);
-extern int16_t sound_find_like_channel(uint16_t sound_index, const int16_t *channel_indices, int16_t channel_count);
+extern void sound_channel_summary_build(sound_channel_summary *summary, int sound_index);
+extern int16_t sound_find_like_channel(int sound_index, const int16_t *channel_indices, int16_t channel_count);
 extern void sound_stop(int sound_index);
 
-void sound_set_definition_end(uint16_t sound_index)
+void sound_set_definition_end(int sound_index)
 {
     sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     int end_definition_index = datum->next_definition_index;
@@ -38,7 +38,10 @@ void sound_set_definition_end(uint16_t sound_index)
     datum->next_definition_index = -1;
     datum->flags = flags | (1u << _sound_waiting_for_cache_bit);
 
-    pitch_range = sound_definition_find_pitch_range_by_pitch(definition, pitch_modifier, flags);
+    /* DEVIATION: current_range is r5 = lhz r5,0x8E(r31) @0x83717D4C = pitch_range_index, not the
+     * flags word at +0x04 that Hex-Rays attributed to this slot. */
+    pitch_range = sound_definition_find_pitch_range_by_pitch(definition, pitch_modifier,
+                                                             datum->pitch_range_index);
     datum->pitch_range_index = pitch_range;
     permutation = sound_definition_next_permutation(definition, pitch_range, -1);
     assigned_channel = (uint16_t)datum->playing_channel_index;

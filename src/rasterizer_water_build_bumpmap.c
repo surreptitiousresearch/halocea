@@ -1,4 +1,4 @@
-/* rasterizer_water_build_bumpmap @0x83787718 -- render the animated bump/normal map used by water shading:
+/* rasterizer_water_build_bumpmap @0x837876F0 -- render the animated bump/normal map used by water shading:
  * a fullscreen quad blended additively through up to `layer_count` passes (one render-target mip per pass,
  * targets 0..layer_count-1 of render target 8), each pass rotating and scrolling a sub-layer's texture by
  * its own angle/amplitude/base-offset over game time. The per-pass pixel constant is a fixed

@@ -8,7 +8,7 @@ void operator delete(void *ptr); // boundary -- CRT operator delete
 
 extern vidLOCK vidLock;
 
-// 0x823F08DC
+// @0x823F08C8
 hcexJBM_JOB_LEGACY_RENDER::hcexJBM_JOB_LEGACY_RENDER()
 {
     this->name = "legacy_render";

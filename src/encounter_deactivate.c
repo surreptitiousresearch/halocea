@@ -1,4 +1,4 @@
-/* encounter_deactivate @0x8370AAB8 — deactivate an AI encounter: clear its active flag (encounter datum
+/* encounter_deactivate @0x8370AAA0 — deactivate an AI encounter: clear its active flag (encounter datum
  * active flag), drop any pursuit, then walk its actor chain and set each active actor inactive. The chain
  * head is the encounter's first_actor_index, or the global encounterless-actor list when encounter_index is -1.
  * DEVIATION: when AI isn't initialized for the map the decompiler leaves the head index uninitialized; the
@@ -11,8 +11,8 @@
 #include "headers/ai_globals.h"
 #include "headers/blam_data_globals.h"
 
-extern void encounter_clear_pursuit(uint16_t encounter_index);
-extern int actor_set_active(uint16_t actor_index, uint8_t active);
+extern void encounter_clear_pursuit(int encounter_index);
+extern int actor_set_active(int actor_index, uint8_t active);
 
 void encounter_deactivate(int encounter_index)
 {

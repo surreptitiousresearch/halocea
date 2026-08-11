@@ -1,3 +1,4 @@
+// HALO_SOUND_LIST__CreateSound @0x836B6958
 #include "../headers/hcex/HALO_SOUND_LIST_boundary.h"
 
 // 0x836B6958 — ?CreateSound@HALO_SOUND_LIST@@AAAPAVSound@FMOD@@XZ

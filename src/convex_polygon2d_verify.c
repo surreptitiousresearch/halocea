@@ -1,4 +1,4 @@
-/* convex_polygon2d_verify @0x837FE274 — checks that every point in a 2D polygon is a valid (non-NaN)
+/* convex_polygon2d_verify @0x837FE268 — checks that every point in a 2D polygon is a valid (non-NaN)
  * point; empty polygons (count <= 0) trivially pass. */
 
 #include <stdint.h>

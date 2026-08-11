@@ -1,4 +1,4 @@
-/* rasterizer_lights_begin_for_new_frame @0x8379226C — folds this frame's lens-flare occlusion query
+/* rasterizer_lights_begin_for_new_frame @0x83792250 — folds this frame's lens-flare occlusion query
  * results into each flare's smoothed visibility byte, then resets the per-frame flare list. The new
  * per-flare visibility (0..255) is the fraction of the flare's pixels that passed the occlusion test;
  * it is blended toward the previous value (fading in slowly — average — and out faster — 3:1) so flares

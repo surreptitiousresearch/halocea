@@ -1,4 +1,4 @@
-/* slayer_engine_adjust_score @0x83815620 — adds `adjustment` to a player's individual slayer score and to
+/* slayer_engine_adjust_score @0x838155F8 — adds `adjustment` to a player's individual slayer score and to
  * their team's team score, skipped when game_connection() == _game_connection_network_client (this function's own role gate; left
  * unlabeled since other Blam call sites disagree on which network role that connection value denotes). */
 

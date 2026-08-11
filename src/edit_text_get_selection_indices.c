@@ -1,4 +1,4 @@
-/* edit_text_get_selection_indices @0x83799754 — output the ordered [start, end] character indices of
+/* edit_text_get_selection_indices @0x83799738 — output the ordered [start, end] character indices of
  * the current selection, returning 0 when there is no selection. start is the lower of the selection
  * anchor and the insertion point; end is the higher. */
 

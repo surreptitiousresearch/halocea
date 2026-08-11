@@ -1,4 +1,4 @@
-// ds::FindNonSorted<ds::LIST<msgADDR *>::ITERATOR, msgADDR *> — 0x82AC6018
+// ds::FindNonSorted<ds::LIST<msgADDR *>::ITERATOR, msgADDR *> — @0x82AC6018
 // Default-comparator overload (2 template args): forwards to the explicit-CMP form using the
 // default ds::CMP.
 #include "LIST.h"

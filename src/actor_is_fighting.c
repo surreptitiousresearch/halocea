@@ -16,7 +16,7 @@
 
 /* return attested uint8_t: 4/5 callers byte-normalize r3 with clrlwi 24
  * (encounter_update_status @0x8370D764, reply_filter_*, actor_perception_update). */
-uint8_t actor_is_fighting(uint16_t actor_index)
+uint8_t actor_is_fighting(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int status = actor->state.combat_status;

@@ -1,4 +1,4 @@
-/* object_type_handle_deleted_object @0x83701E1C — notify `object_index`'s object-type chain (super-type
+/* object_type_handle_deleted_object @0x83701DD0 — notify `object_index`'s object-type chain (super-type
  * then sub-types via part_definitions[]) that `deleted_object_index` was deleted, so each part can drop any
  * reference it holds to it.
  *

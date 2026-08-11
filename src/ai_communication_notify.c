@@ -35,10 +35,10 @@ extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern int prop_get_base_by_unit_index(int actor_index, int unit_index, uint8_t acquire, uint8_t refresh_upon_acquisition);
-extern void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
-extern int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
+extern void actor_perception_find_sense_position(int actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
+extern int16_t actor_audibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
 extern void actor_handle_communication(int actor_index, int prop_index, ai_information_packet *ai_information);
-extern void ai_communication_handle_received_looking(int actor_index, uint16_t prop_index, ai_information_packet *information);
+extern void ai_communication_handle_received_looking(int actor_index, int prop_index, ai_information_packet *information);
 
 void ai_communication_notify(int unit_index, int16_t priority, int16_t vocalization_type,
                              ai_information_packet *ai_information)

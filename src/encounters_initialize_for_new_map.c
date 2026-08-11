@@ -1,4 +1,4 @@
-/* encounters_initialize_for_new_map @0x8370CE0C — build the runtime AI encounter table from the scenario:
+/* encounters_initialize_for_new_map @0x8370CDF0 — build the runtime AI encounter table from the scenario:
  * allocate an encounter datum per scenario encounter, copy its perception/team setup, then lay out its squads
  * (delay timers, migration, respawn, starting locations) and platoons (defending flag) into the global squad
  * and platoon arrays, assigning each encounter a contiguous squad/platoon base range.
@@ -26,7 +26,7 @@
 
 extern void data_make_valid(data_array *data);
 extern int datum_new(data_array *data);
-extern void squad_reset_starting_locations(uint16_t encounter_index, int16_t squad_index);
+extern void squad_reset_starting_locations(int encounter_index, int16_t squad_index);
 
 void encounters_initialize_for_new_map(void)
 {

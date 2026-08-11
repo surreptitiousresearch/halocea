@@ -1,4 +1,4 @@
-/* path_find @0x8381DEE8 — seeds an obstacle_path search at `start` and repeatedly calls path_iterate until
+/* path_find @0x8381DEC8 — seeds an obstacle_path search at `start` and repeatedly calls path_iterate until
  * the search exhausts, then resolves the best reachable step toward `goal` (an exact hit if one was found,
  * otherwise the closest blocked step, if any). Returns whether a usable goal step was found.
  *

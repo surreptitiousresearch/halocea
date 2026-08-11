@@ -1,4 +1,4 @@
-/* unit_leap_begin @0x836CEEC0 — start a unit's leap (e.g. flood/hunter pounce). Fails if the unit's
+/* unit_leap_begin @0x836CEE80 — start a unit's leap (e.g. flood/hunter pounce). Fails if the unit's
  * animation is busy (animation block @ object +664), or if the unit is grounded with the leap-inhibit flag
  * clear path blocked (state word @ +180 zero and flags bit0 @ +1228 set), or if the leap animation state
  * (39) can't be entered. On success, optionally aligns the unit's facing to alignment_vector. Returns 1 on

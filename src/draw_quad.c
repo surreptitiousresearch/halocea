@@ -1,4 +1,4 @@
-/* draw_quad @0x83691058 — fill an axis-aligned screen rectangle with a single solid color, using the
+/* draw_quad @0x83691038 — fill an axis-aligned screen rectangle with a single solid color, using the
  * rasterizer's dynamic screen-geometry path and the engine's default (white) bitmap. The rectangle's
  * four signed-int corners are converted to floats and emitted as a 4-vertex quad (clockwise from the
  * top-left), all at z=0 with zero texture coordinates and the same packed ARGB color. The default

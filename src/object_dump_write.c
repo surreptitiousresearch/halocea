@@ -1,4 +1,4 @@
-/* object_dump_write @0x836EE5F4 — write one object-memory-dump row to a text stream:
+/* object_dump_write @0x836EE5D0 — write one object-memory-dump row to a text stream:
  * resolve the row's name (tag name when keyed by a definition index, else the object-type name,
  * else "unknown") and print the per-group counts and sizes.
  * DEVIATION: the decompiler lost the name assignment and the maximum_size/total_size fprintf args;

@@ -1,4 +1,4 @@
-/* update_server_start @0x836F646C — (re)initialize the server update queues at game start: validate and
+/* update_server_start @0x836F6450 — (re)initialize the server update queues at game start: validate and
  * clear the queue array, allocate and initialize one action queue per existing player, then start the
  * client-side queues too. */
 

@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkVector4_setSub4 @0x82918628 (?setSub4@hkVector4@@QAAXABV1@0@Z) */
 #include "../headers/havok/hkVector4.h"
 
 /* hkVector4::setSub4 — this = x - y over all four lanes.

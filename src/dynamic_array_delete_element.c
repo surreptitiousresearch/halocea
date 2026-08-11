@@ -1,4 +1,4 @@
-/* dynamic_array_delete_element @0x83784988 — remove the element at `index`, shifting the tail down to keep
+/* dynamic_array_delete_element @0x83784970 — remove the element at `index`, shifting the tail down to keep
  * the array contiguous, then shrink the backing allocation to the new count. */
 
 #include <string.h>

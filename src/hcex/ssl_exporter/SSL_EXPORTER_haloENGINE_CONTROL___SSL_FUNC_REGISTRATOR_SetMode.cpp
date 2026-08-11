@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823CBDF8 — pushes the SSLExportEntry describing haloENGINE_CONTROL::SetMode. `id` is the
+// @0x823CBDD0 — pushes the SSLExportEntry describing haloENGINE_CONTROL::SetMode. `id` is the
 // byte offset of the paired `sslFuncId_SetMode` slot (@ 0x48).
 SSL_EXPORTER_haloENGINE_CONTROL::_SSL_FUNC_REGISTRATOR_SetMode::_SSL_FUNC_REGISTRATOR_SetMode()
 {

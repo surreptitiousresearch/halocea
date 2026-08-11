@@ -1,4 +1,4 @@
-// ??0REPLACE_INFO@HALO_SOUND_PARAMS@@QAA@XZ -- 0x836B559C
+// ??0REPLACE_INFO@HALO_SOUND_PARAMS@@QAA@XZ -- @0x836B5588
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"
 
 // Default-construct a replace-rule entry: both tag-name slots start empty.

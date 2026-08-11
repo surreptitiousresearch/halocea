@@ -1,4 +1,4 @@
-/* game_engine_update_purge @0x837469B8 — periodic multiplayer cleanup. Deletes dropped items that have
+/* game_engine_update_purge @0x837469A8 — periodic multiplayer cleanup. Deletes dropped items that have
  * been idle for more than 900 ticks (skipping held items, networked-deleted items, and the CTF flag
  * weapon), then deletes any garbage objects that have been pending deletion for over 900 ticks. */
 

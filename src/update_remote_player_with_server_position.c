@@ -1,4 +1,4 @@
-/* update_remote_player_with_server_position @0x836A8C78 — move a remote player's unit to the authoritative
+/* update_remote_player_with_server_position @0x836A8C68 — move a remote player's unit to the authoritative
  * server position. If the correction is large (more than 1.1 world units) the unit's translational
  * velocity is zeroed and its "at rest invalid" flag set so it doesn't keep coasting, then the object is
  * translated to the new position. */

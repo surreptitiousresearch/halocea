@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 
-const char * hs_thread_format(uint16_t thread_index)
+const char * hs_thread_format(int thread_index)
 {
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
 

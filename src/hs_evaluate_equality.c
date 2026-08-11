@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int * hs_arguments_evaluate(int thread_index, int16_t formal_parameter_count, const int16_t *formal_parameters, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern const int16_t hs_type_sizes[];
 
 void hs_evaluate_equality(int16_t function_index, int thread_index, uint8_t initialize)

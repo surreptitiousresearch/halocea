@@ -9,7 +9,7 @@ extern "C" void dlFree(void *ptr);
 // extern spells it txmTexDescDB; the DB-verified name is used here to match the reference).
 extern "C" txmTEX_DESC_DB g_TexDescDB;
 
-// 0x826FBDD0 -- ?Add@txmMANAGER@@QAAPAVtxmTEXTURE@@PBDHH@Z
+// @0x826FBDD0 -- ?Add@txmMANAGER@@QAAPAVtxmTEXTURE@@PBDHH@Z
 // Get-or-create the named texture. If it already exists, only its state flags are updated;
 // otherwise the texture is allocated, its descriptor filled from the default-desc table (for a
 // procedurally-generated texture, flags&0x20) or from its on-disk ".td" sidecar, and SetDesc is

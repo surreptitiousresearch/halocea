@@ -1,4 +1,4 @@
-/* player_control_set_facing @0x836DE2A0 — point a local player's desired look angles along a forward
+/* player_control_set_facing @0x836DE278 — point a local player's desired look angles along a forward
  * vector, normalizing the yaw into [0, 2pi). */
 
 #include <stdint.h>

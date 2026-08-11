@@ -1,4 +1,4 @@
-/* actor_move_halt @0x837CB91C — stop an actor's current movement. If the actor is in movement state 4
+/* actor_move_halt @0x837CB908 — stop an actor's current movement. If the actor is in movement state 4
  * If the actor is a mode-4 vehicle driver (input.vehicle_driver_type == 4) and is currently moving, it
  * re-issues a move to its own body position to settle in place. Otherwise it clears the current path target (+952 = -1), and unless already in path state 1,
  * marks a repath (+1024) and copies the 6-dword pending-goal block (+1024..) over the active goal block
@@ -17,7 +17,7 @@
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
 extern uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state *cached_path_state);
 
-uint8_t actor_move_halt(uint16_t actor_index)
+uint8_t actor_move_halt(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

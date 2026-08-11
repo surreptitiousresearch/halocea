@@ -1,4 +1,4 @@
-/* index_resolution_initialize @0x83818798 — one-time setup of an index_resolution_table: allocate its slot
+/* index_resolution_initialize @0x83818788 — one-time setup of an index_resolution_table: allocate its slot
  * array, zero every slot's bucket, and reset the entry pool bookkeeping. No-op if already initialized. */
 
 #include "headers/index_resolution_table.h"

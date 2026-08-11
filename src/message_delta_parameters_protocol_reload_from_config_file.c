@@ -1,4 +1,4 @@
-/* message_delta_parameters_protocol_reload_from_config_file @0x83811A70 — when protocol changeover is
+/* message_delta_parameters_protocol_reload_from_config_file @0x83811A58 — when protocol changeover is
  * enabled, read the entire "parameters.cfg" file into the message-delta parameter string. */
 
 #include <stdio.h>

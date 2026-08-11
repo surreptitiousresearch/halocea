@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t action_uncover_setup_pursuit(uint16_t actor_index, int16_t firing_position_index, uncover_state_data *state_data)
+uint8_t action_uncover_setup_pursuit(int actor_index, int16_t firing_position_index, uncover_state_data *state_data)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

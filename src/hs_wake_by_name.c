@@ -12,7 +12,7 @@
 
 #include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
-extern void hs_wake(uint16_t thread_index);
+extern void hs_wake(int thread_index);
 extern int  stricmp(const char *a, const char *b);
 
 int hs_wake_by_name(const char *script_name)

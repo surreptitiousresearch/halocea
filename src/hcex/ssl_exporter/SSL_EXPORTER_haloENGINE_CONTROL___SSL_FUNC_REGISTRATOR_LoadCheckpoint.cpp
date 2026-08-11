@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823CBAB0 — pushes the SSLExportEntry describing haloENGINE_CONTROL::LoadCheckpoint. `id` is
+// @0x823CBA88 — pushes the SSLExportEntry describing haloENGINE_CONTROL::LoadCheckpoint. `id` is
 // the byte offset of the paired `sslFuncId_LoadCheckpoint` slot (@ 0x18).
 SSL_EXPORTER_haloENGINE_CONTROL::_SSL_FUNC_REGISTRATOR_LoadCheckpoint::_SSL_FUNC_REGISTRATOR_LoadCheckpoint()
 {

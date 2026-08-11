@@ -1,4 +1,4 @@
-/* editor_camera_set_unit_focus @0x837C3B7C — points the editor camera at a unit. Records the focus unit
+/* editor_camera_set_unit_focus @0x837C3B70 — points the editor camera at a unit. Records the focus unit
  * and caches the offset from the unit's position to the current camera position (so the camera can track
  * the unit). With unit_index == -1 the offset is zeroed. No-op if there is no editor camera. */
 

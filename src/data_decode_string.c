@@ -1,4 +1,4 @@
-/* data_decode_string @0x83830D04 — returns a pointer to the next NUL-terminated string in the decode stream
+/* data_decode_string @0x83830D00 — returns a pointer to the next NUL-terminated string in the decode stream
  * (in place, no copy), or NULL (setting `state->overflow_flag`) if the stream runs out before a terminator is
  * found. `maximum_string_length` is genuinely unused here — confirmed via disasm (r4 is never read) — decode
  * only needs to find the terminator within the buffer; the length cap is enforced on the encode side. */

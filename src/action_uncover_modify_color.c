@@ -5,7 +5,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_uncover_modify_color(uint16_t actor_index, real_argb_color *color)
+void action_uncover_modify_color(int actor_index, real_argb_color *color)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     const real_argb_color *source = actor->state.action_data.___u0.uncover.sneaking

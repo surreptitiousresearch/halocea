@@ -1,4 +1,4 @@
-/* hud_play_unit_sounds @0x836D681C — drive the unit HUD's warning sounds (shield low/recharge/empty,
+/* hud_play_unit_sounds @0x836D6800 — drive the unit HUD's warning sounds (shield low/recharge/empty,
  * health low/recharge/damage) for one player. It builds a bitfield of currently-active sound conditions by
  * comparing the unit's live shield/body vitality against the values cached in the player's unit_hud_state,
  * then hands that bitfield to hud_play_sound, which starts/stops looping sounds and remembers what is
@@ -26,8 +26,9 @@ struct unit_definition;
 
 
 #include "headers/tag_block.h"
+#include "headers/unit_definition.h"
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern int  unit_definition_get_active_hud_index(const struct unit_definition *unit_definition, uint8_t in_multiplayer);
+extern int unit_definition_get_active_hud_index(const unit_definition *unit_definition, uint8_t in_multiplayer);
 extern int16_t local_player_count(void);
 extern uint8_t cinematic_in_progress(void);
 extern int local_player_get_player_index(int16_t local_player_index);

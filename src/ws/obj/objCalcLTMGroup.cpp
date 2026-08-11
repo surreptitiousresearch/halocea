@@ -1,6 +1,6 @@
 #include "objOBJ.h"
 #include "obj_free_functions.h"
-// 0x82B0B6F0  ?objCalcLTMGroup@@YAXPAVobjOBJ@@@Z
+// @0x82B0B6F0  ?objCalcLTMGroup@@YAXPAVobjOBJ@@@Z
 // Recompute local-to-model matrices for the object group rooted at `pObjFrom`: updates this
 // node's matrLT via objCalcNodeLTM(), then recurses into each child whose objOBJ::state has
 // bit 0x2 set. Skips the whole subtree if stateProc bit 0x800 (locked/frozen group) is set.

@@ -1,4 +1,4 @@
-/* convex_hull3d @0x837FF52C — build a 3D convex hull incrementally: begin with an initial hull, then expand
+/* convex_hull3d @0x837FF500 — build a 3D convex hull incrementally: begin with an initial hull, then expand
  * by adding each remaining point one at a time. Returns whether the hull was built successfully. */
 
 #include <stdint.h>

@@ -1,4 +1,4 @@
-/* object_type_should_send_incremental_to_player @0x837029F4 — walks the object's type's part_definitions
+/* object_type_should_send_incremental_to_player @0x837029D0 — walks the object's type's part_definitions
  * chain from the most-derived type (index 15) down to the first entry with a non-null
  * should_send_incremental_to_player callback, and returns its result. Defaults to true (1) if no part in
  * the chain defines the callback. */

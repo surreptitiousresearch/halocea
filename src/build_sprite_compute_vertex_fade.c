@@ -1,3 +1,4 @@
+/* build_sprite_compute_vertex_fade @0x837EC0F0 */
 #include <stdint.h>
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"

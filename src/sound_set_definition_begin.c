@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void sound_set_definition_begin(uint16_t sound_index, int definition_index)
+void sound_set_definition_begin(int sound_index, int definition_index)
 {
     sound_datum *sound = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     if (sound->definition_index != definition_index)

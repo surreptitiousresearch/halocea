@@ -1,4 +1,4 @@
-/* render_dynamic_quad_initialize @0x8382C97C — resets the default dynamic-quad animation state: all 4
+/* render_dynamic_quad_initialize @0x8382C950 — resets the default dynamic-quad animation state: all 4
  * animation colors default to white, all 4 animation values default to 0.
  *
  * DEVIATION: the decompiler renders the 4th color's copy as split LODWORD/float-register punning

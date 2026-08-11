@@ -1,4 +1,4 @@
-/* hcexHALO_OBJECT::hcexHALO_OBJECT @0x823D1240 — install this class's vftable (no other state to
+/* hcexHALO_OBJECT::hcexHALO_OBJECT @0x823D1238 — install this class's vftable (no other state to
  * init; entMANAGER_HANDLER's own ctor already ran as the base subobject). */
 
 #include "../../headers/hcex/hcexHALO_OBJECT.h"

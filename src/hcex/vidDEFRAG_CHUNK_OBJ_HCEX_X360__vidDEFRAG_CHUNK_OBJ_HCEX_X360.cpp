@@ -1,6 +1,6 @@
 #include "../headers/ws/vid/vidDEFRAG_CHUNK_OBJ_HCEX_X360.h"
 
-// vidDEFRAG_CHUNK_OBJ_HCEX_X360::vidDEFRAG_CHUNK_OBJ_HCEX_X360 @ 0x823F12DC
+// vidDEFRAG_CHUNK_OBJ_HCEX_X360::vidDEFRAG_CHUNK_OBJ_HCEX_X360 @ 0x823F12D0
 // Zero every apDEFRAG_CHUNK base field (pDesc/pBuf/ptr/size/ptrPrev/state) and install this
 // class's vtable. `content` (vidDEFRAG_CHUNK's own field) is left uninitialized, matching the
 // disasm exactly (no store to offset 0x1C).

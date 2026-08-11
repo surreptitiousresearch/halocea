@@ -1,4 +1,4 @@
-/* mp_level_select_list_update_displayed_items @0x83781E00 — refreshes the multiplayer map-select spinner
+/* mp_level_select_list_update_displayed_items @0x83781DE8 — refreshes the multiplayer map-select spinner
  * list: stamps the active player's name on the description widget, determines which 3 map indices the
  * spinner should show, and updates each shown item's 3 sub-widgets (pic name text, frame icon, gametype name
  * text) to match. Mirrors solo_level_select_list_update_displayed_items.c's structure, inlining the per-item

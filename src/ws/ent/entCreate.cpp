@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: entCreate(animINST*, const entCREATE_INFO&) @0x82536290 (?entCreate@@YAPAVentENTITY@@PAVanimINST@@ABUentCREATE_INFO@@@Z)
 #include "../../headers/ws/ent/entENTITY.h"
 #include "../../headers/ws/ent/entCREATE_INFO.h"
 #include "../../headers/ws/ent/entDESC.h"
@@ -32,7 +33,7 @@ extern "C" apCOUNTER_TIME_CALL cnt_wpn;
 // ia (interactive actor) subsystem: process-wide actor-family factory registry. BOUNDARY — not
 // reversed in this batch; only the one instantiation entCreate needs is modeled.
 struct iaFAMILY {
-    // ??$CreateIA@VentENTITY@@@iaFAMILY@@QAAPAVentENTITY@@ABV?$dsTSTRING@D@@@Z @ 0x82535FF0 —
+    // ??$CreateIA@VentENTITY@@@iaFAMILY@@QAAPAVentENTITY@@ABV?$dsTSTRING@D@@@Z @ 0x825338F0 —
     // allocate and construct a fresh entENTITY registered under the named class brand.
     entENTITY *CreateIA(const dsTSTRING<char> &nameClass); // boundary
 };

@@ -1,4 +1,4 @@
-/* dump_to_parameters_set @0x83811B20 — serialize all exposed tuning parameters into the g_parameters_string
+/* dump_to_parameters_set @0x83811B08 — serialize all exposed tuning parameters into the g_parameters_string
  * text buffer, one "<name> <value>\n" line each (integer values via %d when type==1, else float via %f),
  * NUL-terminating the result. Used to snapshot the parameter set for network transmission.
  * The 12-byte record is DB type `exposed_parameter`: { char *parameter_name; parameter_type type;

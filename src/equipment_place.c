@@ -1,4 +1,4 @@
-/* equipment_place @0x837B5DF4 — applies the scenario placement's misc_flags to a newly-placed equipment
+/* equipment_place @0x837B5DC8 — applies the scenario placement's misc_flags to a newly-placed equipment
  * object's runtime flags: scenario flag _equipment_created_at_rest_bit mirrors into object.flags as
  * _object_at_rest_bit and (unconditionally) the cannot-be-garbage|shadowless pair, and scenario flag
  * _equipment_does_accelerate_bit clears item.flags _item_does_not_accelerate_bit; when not created at rest,

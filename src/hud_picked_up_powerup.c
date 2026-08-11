@@ -1,4 +1,4 @@
-/* hud_picked_up_powerup @0x83708934 — show the "picked up powerup" HUD message (server path) and fire
+/* hud_picked_up_powerup @0x83708928 — show the "picked up powerup" HUD message (server path) and fire
  * the matching script event for overshield (powerup type 2) or health (type 5). The powerup type is a
  * word at the equipment definition +776. */
 

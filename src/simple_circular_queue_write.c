@@ -1,4 +1,4 @@
-/* simple_circular_queue_write @0x837AB2A8 — enqueue a user element by copying user_data into the slot at
+/* simple_circular_queue_write @0x837AB298 — enqueue a user element by copying user_data into the slot at
  * write_position and advancing it (with wraparound). Returns 0 (full) when the queue already holds
  * max_size-1 elements, else 1. */
 

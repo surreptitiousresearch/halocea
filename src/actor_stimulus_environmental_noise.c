@@ -1,4 +1,4 @@
-/* actor_stimulus_environmental_noise @0x837D46F4 — unless the actor is already in a particular state
+/* actor_stimulus_environmental_noise @0x837D46C0 — unless the actor is already in a particular state
  * (action-state word +106 == 1), make it glance toward a one-off environmental noise at `position` as a
  * secondary look direction (type 3 = explicit point).
  *
@@ -20,7 +20,7 @@
 
 
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
 void actor_stimulus_environmental_noise(int actor_index, int object_index, const real_point3d *position, int16_t count)
 {

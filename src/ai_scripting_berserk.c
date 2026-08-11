@@ -7,7 +7,7 @@
 #include "headers/actor_datum.h"
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
-extern void actor_berserk(uint16_t actor_index, uint8_t berserk);
+extern void actor_berserk(int actor_index, uint8_t berserk);
 
 void ai_scripting_berserk(int ai_index, uint8_t berserk)
 {

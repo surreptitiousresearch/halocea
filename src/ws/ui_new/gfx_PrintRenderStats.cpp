@@ -2,7 +2,7 @@
 #include "../../headers/ws/ui_new/gfx_render_stats.h"
 #include "../../headers/ws/ui_new/ui_stat_boundary.h"
 
-// 0x8331C774 — format the GFx renderer's current counters into a string and print it to the
+// @0x8331C758 — format the GFx renderer's current counters into a string and print it to the
 // given debug page. DEVIATION: the decompiled call site shows several extra registers (`v4..v13`)
 // forwarded into wb::Printf's variadic slots, but none of them are ever assigned by this
 // function (dead/uninitialized reads) — wb::Printf is passed a plain already-formatted string

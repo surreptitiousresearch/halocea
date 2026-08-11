@@ -36,7 +36,7 @@ extern void scenario_location_from_line(location *out_location, const location *
 extern void object_get_velocities(int object_index, real_vector3d *translational_velocity, real_vector3d *angular_velocity);
 extern int datum_new(data_array *data);
 
-void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, uint8_t force)
+void contrail_add_points(int contrail_index, int16_t contrail_point_count, uint8_t force)
 {
     contrail_datum *contrail = DATA_ARRAY_ELEMENT(contrail_data, contrail_datum, contrail_index);
     contrail_definition *definition =

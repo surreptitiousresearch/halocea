@@ -1,4 +1,4 @@
-/* biped_stop_limp_body_physics @0x837AD640 — stop ragdoll ("limp body") physics on a biped: if the
+/* biped_stop_limp_body_physics @0x837AD618 — stop ragdoll ("limp body") physics on a biped: if the
  * biped definition allows it (biped.flags bit 0x200), clear the biped's limp-body state bit
  * (biped.flags bit 0x20) and the matching object flag (object.flags bit 0x00800000). */
 

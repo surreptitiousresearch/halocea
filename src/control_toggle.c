@@ -1,4 +1,4 @@
-/* control_toggle @0x837E9B70 — actuates a control (device) object: computes the desired device-group
+/* control_toggle @0x837E9B30 — actuates a control (device) object: computes the desired device-group
  * value from the control definition's toggle type, drives it, and spawns the matching device effect
  * (on / off / failure). No-op if the control has no device group.
  *

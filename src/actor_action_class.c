@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 
-int16_t actor_action_class(uint16_t actor_index)
+int16_t actor_action_class(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     return (uint16_t)global_action_functions[actor->state.action].action_class;

@@ -1,4 +1,4 @@
-/* first_person_weapon_message_from_unit @0x836A02AC — route a first-person weapon HUD/animation message
+/* first_person_weapon_message_from_unit @0x836A0290 — route a first-person weapon HUD/animation message
  * for the weapon a unit is wielding. When the unit has no first-person weapon instance, fall back to
  * playing the message sound directly on the unit's current weapon object. */
 

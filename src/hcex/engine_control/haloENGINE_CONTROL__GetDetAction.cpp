@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__GetDetAction @0x823C1440
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

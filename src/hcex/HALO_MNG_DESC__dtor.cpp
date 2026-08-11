@@ -1,7 +1,7 @@
 #include "../headers/hcex/HALO_MNG_DESC.h"
 #include "../headers/ws/os/os_boundary.h" // dlFree
 
-// 0x823E5518 — HALO_MNG_DESC has no fields of its own. The disassembly shows this address
+// @0x823E5500 — HALO_MNG_DESC has no fields of its own. The disassembly shows this address
 // releasing six inherited iaDESC/sslDESC sub-objects in sequence: spSndData, smlDesc's
 // name-index vector storage, smlProg, psCustomSection, propContainerDesc, then sslClass -- this
 // is the compiler's inlined *complete* destructor epilogue for the whole base chain (iaDESC has

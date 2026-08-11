@@ -2,7 +2,7 @@
 
 extern "C" void dlFree(void *ptr); // boundary -- dlmalloc allocator free
 
-// HALO_SOUND_LIST::~HALO_SOUND_LIST() @ 0x836B6D90
+// HALO_SOUND_LIST::~HALO_SOUND_LIST() @ 0x836B6D78
 // Free the three dsVECTOR backing stores directly (streamUsed/streams/tags hold no owned
 // sub-objects needing per-element teardown -- bool/FMOD::Sound*/HALO_SOUND_TAG are all
 // trivially destructible here), then drop levelName/fileName's shared-string references,

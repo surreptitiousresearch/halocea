@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-action_queue *update_server_get_player_action_queue(uint16_t player_index)
+action_queue *update_server_get_player_action_queue(int player_index)
 {
     return &DATA_ARRAY_ELEMENT(update_server_globals.queues, update_server_queue, player_index)->queue;
 }

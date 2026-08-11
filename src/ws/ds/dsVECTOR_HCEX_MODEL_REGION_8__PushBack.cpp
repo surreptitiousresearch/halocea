@@ -2,7 +2,7 @@
 #include "dsVECTOR.h"
 #include "../../headers/hcex/HCEX_MODEL_REGION.h"
 
-// dsVECTOR<HCEX_MODEL_REGION,8>::PushBack @ 0x823E50B8
+// dsVECTOR<HCEX_MODEL_REGION,8>::PushBack @ 0x823E50A8
 // Append a copy of `val` (a non-trivial element: a dsTSTRING name plus two dsVECTOR sub-lists), via
 // the copy-constructor. When there is spare capacity the copy is made directly into the next slot;
 // otherwise `val` is first copy-constructed into a stack temporary (val may alias storage that

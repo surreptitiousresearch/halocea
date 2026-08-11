@@ -1,4 +1,4 @@
-/* ai_handle_enter_vehicle @0x836E9548 — when a unit enters a vehicle, fire an AI communication event
+/* ai_handle_enter_vehicle @0x836E9518 — when a unit enters a vehicle, fire an AI communication event
  * (type 36) if the unit is an AI actor (object+500 != -1). vehicle_index is unused. */
 
 #include <stdint.h>

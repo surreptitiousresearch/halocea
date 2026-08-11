@@ -1,4 +1,4 @@
-/* clear_graph @0x837631A0 — reset a net_graph: lay out the 320 baseline grid vertices along the bottom of
+/* clear_graph @0x83763188 — reset a net_graph: lay out the 320 baseline grid vertices along the bottom of
  * the graph extents (x spread evenly across [x0,x1], y fixed at the baseline y1, color -1), clear the
  * sample ring, and zero all running stats.
  * DEVIATION: the decompiler bailed ("local variable allocation has failed") on the soft-float int->float

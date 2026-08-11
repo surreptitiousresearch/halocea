@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__CreateCheckpointList @0x823CA010
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

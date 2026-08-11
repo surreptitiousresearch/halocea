@@ -1,3 +1,4 @@
+// _flattenRecursiveCompounds @0x83844268
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkTransform.h"

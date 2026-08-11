@@ -1,4 +1,4 @@
-/* pool_new_handle_clear @0x83803B24 — pool_new_handle.c, but zero-fills the allocated payload first. */
+/* pool_new_handle_clear @0x83803B10 — pool_new_handle.c, but zero-fills the allocated payload first. */
 
 #include <string.h>
 #include "headers/stack_memory_pool.h"

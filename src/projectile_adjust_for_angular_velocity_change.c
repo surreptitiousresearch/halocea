@@ -1,4 +1,4 @@
-/* projectile_adjust_for_angular_velocity_change @0x83759C4C — recompute a projectile's cached spin axis and
+/* projectile_adjust_for_angular_velocity_change @0x83759C10 — recompute a projectile's cached spin axis and
  * per-tick rotation sin/cos from its current angular velocity vector. When the angular velocity is zero,
  * the spin flag (projectile.flags bit 0) is cleared and the rotation is set to identity (sin 0, cos 1). Otherwise the axis is normalized and the rotation angle is the angular speed.
  * DEVIATION: the decompiler shows a phantom 2nd param (a2); it is overwritten with the computed magnitude

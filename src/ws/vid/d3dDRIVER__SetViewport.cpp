@@ -4,10 +4,13 @@
 
 // boundary -- the video-driver critical-section singleton.
 extern vidLOCK vidLock;
-// boundary -- Xbox 360 D3D SDK: set the device viewport.
-extern "C" void D3DDevice_SetViewport(D3DDevice *pDevice, _D3DVIEWPORT9 *pViewport);
+// boundary -- Xbox 360 D3D SDK: set the device viewport. Declared in d3d_render_boundary.h (reached
+// transitively via d3d_driver.h); no local extern, so there is one spelling of this symbol.
+// DEVIATION: the pre-#140 local extern here dropped the `const` the DB decl carries
+// (void __fastcall D3DDevice_SetViewport(D3DDevice *, const _D3DVIEWPORT9 *) at 0x8241A090); that
+// drift is what blocked const-qualifying the shared declaration (error C2733 on the extern "C" pair).
 
-// 0x8268E518 -- ?SetViewport@d3dDRIVER@@... (virtual)  D3d_drv_8.cpp:2298
+// @0x8268E518 -- ?SetViewport@d3dDRIVER@@... (virtual)  D3d_drv_8.cpp:2298
 // Set the D3D viewport. Guarded by the device-ready state bit 0x04000000 (bit 26) and serialized
 // on the video lock. A non-positive width or height requests the full-mode viewport (the render
 // mode's sx/sy with a 0..1 depth range); otherwise the supplied rectangle and depth range are used.

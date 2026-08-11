@@ -1,6 +1,6 @@
 #include "../headers/hcex/HALO_SOUND_PARAMS.h"
 
-// 0x836BFC88 — ??4HALO_SOUND_PARAMS@@QAAAAU0@ABU0@@Z (operator=). Copies every scalar/dsSTRID/
+// @0x836BFC88 — ??4HALO_SOUND_PARAMS@@QAAAAU0@ABU0@@Z (operator=). Copies every scalar/dsSTRID/
 // dsFLAGS field, then delegates `replace` to dsVECTOR::operator= (which resizes+copies in place).
 HALO_SOUND_PARAMS &HALO_SOUND_PARAMS::operator=(const HALO_SOUND_PARAMS &that)
 {

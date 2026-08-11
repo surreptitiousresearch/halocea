@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkBsdNetworkInit @0x838EE148 (?hkBsdNetworkInit@@YAXXZ)
 #include "../headers/havok/hkError.h"
 #include "../headers/havok/hkBool.h"
 #include "../headers/havok/xbox_net_boundary.h"

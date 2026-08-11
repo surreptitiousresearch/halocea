@@ -1,4 +1,4 @@
-/* scripted_music_stop_all @0x837146D0 — stop every scripted looping sound whose tag is a music sound.
+/* scripted_music_stop_all @0x837146B8 — stop every scripted looping sound whose tag is a music sound.
  * Walks game_looping_sound_data; for each scripted entry (object_index == -1) it inspects the looping-sound
  * tag's tracks and treats it as music if any track's loop sound has sound class _sound_class_music. Matching sounds are
  * faded out. */

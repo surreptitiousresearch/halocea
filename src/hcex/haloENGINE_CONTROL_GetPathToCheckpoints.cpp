@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL_GetPathToCheckpoints @0x823C1348
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
 // haloENGINE_CONTROL::GetPathToCheckpoints @ 0x823C134C — authored def TU for the flattened

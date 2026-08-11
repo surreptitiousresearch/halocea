@@ -1,4 +1,4 @@
-/* effects_dispose_from_old_map @ 0x836E0C78 — invalidate effect + effect-location pools */
+/* effects_dispose_from_old_map @ 0x836E0D08 — invalidate effect + effect-location pools */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 extern void data_make_invalid(data_array *data);

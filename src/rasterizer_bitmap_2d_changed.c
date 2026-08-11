@@ -1,4 +1,4 @@
-/* rasterizer_bitmap_2d_changed @0x837935E0 — pushes a modified 2D bitmap's pixel data to the hardware
+/* rasterizer_bitmap_2d_changed @0x837935C0 — pushes a modified 2D bitmap's pixel data to the hardware
  * texture, if a D3D device is active and the bitmap has both a base address and a hardware format. */
 
 #include "headers/bitmap_data.h"

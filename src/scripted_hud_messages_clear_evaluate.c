@@ -4,7 +4,7 @@
  * DEVIATION: the decompiler shows the engine call with three leftover-register arguments; scripted_hud_messages_clear takes none. */
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void scripted_hud_messages_clear(void);
 void scripted_hud_messages_clear_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

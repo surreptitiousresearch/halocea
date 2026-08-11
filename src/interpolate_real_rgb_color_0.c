@@ -1,4 +1,4 @@
-/* interpolate_real_rgb_color_0 @0x8370405C — duplicate/sibling of interpolate_real_rgb_color.c (identical
+/* interpolate_real_rgb_color_0 @0x83704058 — duplicate/sibling of interpolate_real_rgb_color.c (identical
  * per-channel clamped-delta logic, distinct address). */
 
 #include "headers/real_rgb_color.h"

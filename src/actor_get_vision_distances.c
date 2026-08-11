@@ -17,7 +17,7 @@
 #include <stdint.h>
 
 
-void actor_get_vision_distances(uint16_t actor_index, float maximum_vision_distance,
+void actor_get_vision_distances(int actor_index, float maximum_vision_distance,
                                 float perception_factor, float horizontal_angle,
                                 float *full_distance_reference, float *partial_distance_reference)
 {

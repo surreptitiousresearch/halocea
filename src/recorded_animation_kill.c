@@ -1,4 +1,4 @@
-/* recorded_animation_kill @0x83712378 — flag the recorded-animation thread playing on a unit to stop
+/* recorded_animation_kill @0x83712358 — flag the recorded-animation thread playing on a unit to stop
  * (set finished + killed bits of animation_thread.flags). No-op if the unit has no recorded animation. */
 
 #include "headers/animation_thread.h"

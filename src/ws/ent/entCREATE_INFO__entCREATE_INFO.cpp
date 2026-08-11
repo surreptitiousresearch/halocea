@@ -7,7 +7,7 @@ extern "C" void dlFree(void *ptr);
 // Same-family free function, not reversed in this batch. boundary.
 extern char *entGetClassTplName(const dsTSTRING<char> &nameClass);
 
-// entCREATE_INFO::entCREATE_INFO(const char*, const char*, entCREATE_DATA*, msgDATA*) — 0x82533DB8
+// entCREATE_INFO::entCREATE_INFO(const char*, const char*, entCREATE_DATA*, msgDATA*) — @0x82533DB8
 //
 // CAVEAT: dsTSTRING<char>::operator= is compiler-INLINED at every adoption point below (no `bl`
 // in the disasm) rather than called — reconstructed as the equivalent manual

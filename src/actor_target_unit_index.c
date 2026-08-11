@@ -5,7 +5,7 @@
 #include "headers/blam_data_globals.h"
 
 
-int actor_target_unit_index(uint16_t actor_index)
+int actor_target_unit_index(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int prop_index = actor->target.target_prop_index;

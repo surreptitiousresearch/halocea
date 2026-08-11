@@ -1,4 +1,4 @@
-// 0x82746F08  ??0mdlLIP_SYNCER@@QAA@XZ  — default constructor.
+// @0x82746F08  ??0mdlLIP_SYNCER@@QAA@XZ  — default constructor.
 // Clears all 5 phoneme slots (seq ids = -1, coef = 0, spline = null), empties objList, zeroes the
 // timers, sets isClosedOnly=true, useClosedAsIdle=false, pInst=null, sampleRate=44100, status=OFF.
 // The compiler-emitted vptr store (mdlLIP_SYNCER vftable) is implicit in this C++ ctor.

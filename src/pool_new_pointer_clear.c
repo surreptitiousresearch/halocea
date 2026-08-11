@@ -1,4 +1,4 @@
-/* pool_new_pointer_clear @0x83803DD0 — same as pool_new_pointer.c, but zero-fills the returned payload
+/* pool_new_pointer_clear @0x83803DB8 — same as pool_new_pointer.c, but zero-fills the returned payload
  * before updating the pool statistics. Kept as its own function (rather than pool_new_pointer + memset)
  * to match the compiled call site exactly, but the statistics bookkeeping is identical. */
 

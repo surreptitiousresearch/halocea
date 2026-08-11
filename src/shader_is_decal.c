@@ -1,4 +1,4 @@
-/* shader_is_decal 0x837557F0 — true when the shader is a decal-style transparent shader that should be
+/* shader_is_decal @0x837557F0 0x837557F0 — true when the shader is a decal-style transparent shader that should be
  * routed through the decal pass. Only the transparent shader types (transparent_generic..transparent_meter,
  * 5..10) qualify; the answer is the concrete tag's own "decal" flag, and never set for transparent_water.
  *

@@ -1,4 +1,4 @@
-/* text_bounds_draw_character @0x8376994C — the per-character callback used by draw_unicode_string when
+/* text_bounds_draw_character @0x83769910 — the per-character callback used by draw_unicode_string when
  * measuring (rather than drawing) a string. It does not render; instead it grows the accumulated
  * bounding rectangle in text_bounds_globals to include this glyph's box (origin x0,y0; extent dx,dy) and
  * records the glyph's font header as the last one seen.

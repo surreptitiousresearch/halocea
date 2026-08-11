@@ -1,4 +1,4 @@
-/* user_mode_safe_fopen @0x83766618 — open a file by copying the path into a shared bounded buffer (max 0x104)
+/* user_mode_safe_fopen @0x837665F0 — open a file by copying the path into a shared bounded buffer (max 0x104)
  * before calling fopen, guarding against an over-long path.
  *
  * Boundary: _snprintf_0 / fopen are CRT externs. */

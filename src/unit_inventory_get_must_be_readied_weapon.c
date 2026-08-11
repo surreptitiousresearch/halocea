@@ -1,4 +1,4 @@
-/* unit_inventory_get_must_be_readied_weapon @0x836CD204 — return the slot (0-3) of the first weapon in
+/* unit_inventory_get_must_be_readied_weapon @0x836CD1E0 — return the slot (0-3) of the first weapon in
  * a unit's inventory that must be readied (e.g. picked up but not yet drawn), or -1 if none. Weapon
  * slots are object dwords +760 + 4*slot (dword index 190+slot). */
 

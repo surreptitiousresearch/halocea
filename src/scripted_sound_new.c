@@ -18,7 +18,7 @@
 struct sound_source;
 
 #include "headers/sound_source.h"
-extern void sound_stop_impulse(uint16_t sound_index);
+extern void sound_stop_impulse(int sound_index);
 extern int game_time_get(void);
 extern int sound_new_impulse(int definition_index, sound_source *source, int source_identifier, uint8_t (*track_proc)(int, const void *, sound_source *), const void *track_data, int16_t track_data_size, uint8_t is_local_player);
 extern int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);

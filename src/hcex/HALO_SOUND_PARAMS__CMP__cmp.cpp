@@ -1,6 +1,6 @@
 #include "../headers/hcex/HALO_SOUND_PARAMS.h"
 
-// 0x836B4DD0 — ?cmp@CMP@HALO_SOUND_PARAMS@@SAHABU2@0@Z
+// @0x836B4DD0 — ?cmp@CMP@HALO_SOUND_PARAMS@@SAHABU2@0@Z
 // Stateless ascending-by-tag comparator used by dsVECTOR<HALO_SOUND_PARAMS,8>::FindSorted / ds::Sort
 // over haloSoundSystem->params / ->paramsWildcard. A plain ordinal strcmp over the interned tag
 // names (a->tag vs b->tag), returning a-b of the first differing byte.

@@ -1,6 +1,6 @@
 #include "headers/ws/vid/vidPASS_OBJ_MTL.h"
 
-// 0x827269BC
+// @0x827269B8
 vidPASS_OBJ_MTL::LAYER2::LAYER2()
 {
     this->texDiff.ptr = nullptr;

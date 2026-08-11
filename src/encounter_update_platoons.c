@@ -21,7 +21,7 @@
 
 
 #include "headers/platoon_rule.h"
-extern uint8_t encounter_test_rule(uint16_t encounter_index, platoon_rule *rule);
+extern uint8_t encounter_test_rule(int encounter_index, platoon_rule *rule);
 
 void encounter_update_platoons(int encounter_index)
 {

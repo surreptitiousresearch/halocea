@@ -26,7 +26,7 @@
 
 
 extern void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index);
-extern void actor_stimulus_maneuvering(uint16_t actor_index, uint8_t advancing, uint8_t flee);
+extern void actor_stimulus_maneuvering(int actor_index, uint8_t advancing, uint8_t flee);
 extern void encounters_update_dirty_status(void);
 
 void encounter_control_actors(int encounter_index)

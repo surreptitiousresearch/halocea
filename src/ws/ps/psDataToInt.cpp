@@ -1,7 +1,7 @@
 #include "../ds/dsDATA.h"
 #include "../ds/ds_boundary.h"
 #include "../ds/dsCONVERTION_TYPE.h"
-// 0x825B0EB0 — retrieve `obj`'s value as an int. When the stored value is a float, an explicit
+// @0x825B0EA0 — retrieve `obj`'s value as an int. When the stored value is a float, an explicit
 // (narrowing) conversion is used; otherwise the normal retrieve-conversion path is used (matching
 // dsDATA::GetValue<int>'s int<-various converter table).
 

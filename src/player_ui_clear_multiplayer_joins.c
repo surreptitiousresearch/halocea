@@ -1,4 +1,4 @@
-/* player_ui_clear_multiplayer_joins @0x83698978 — clear the pending "join next multiplayer game"
+/* player_ui_clear_multiplayer_joins @0x83698968 — clear the pending "join next multiplayer game"
  * state for both local player slots.
  *
  * DEVIATION: the decompiler walks a raw -4 bias base off &player_ui_globals by the 1988-byte

@@ -34,15 +34,15 @@
 #include "headers/blam_data_globals.h"
 
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
-extern void actor_find_pathfinding_location(uint16_t actor_index);
+extern void actor_find_pathfinding_location(int actor_index);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
-extern float actor_destination_tolerance(uint16_t actor_index);
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern float actor_destination_tolerance(int actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern int16_t actor_active_select_firing_position(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *best_firing_position, int *current_owner, path_state *area_path_state, uint8_t *area_path_state_valid);
 extern int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern void actor_perception_unreachable(int actor_index, int prop_index, uint8_t unreachable);
 
 

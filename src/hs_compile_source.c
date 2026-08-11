@@ -8,9 +8,9 @@
 #include "headers/scenario.h"
 #include "headers/hs_source_file.h"
 #include <string.h>
+#include "headers/tag_groups.h"
 
 extern void hs_compile_initialize(uint8_t permanent);
-extern char *tag_data_get_pointer(const tag_data *data, int offset, int size);
 extern void hs_compile(int source_file_size, const char *source_file_data, const char **error_message_pointer, const char **error_source_pointer);
 extern void console_printf(uint8_t clear, const char *format, ...);
 extern void hs_compile_dispose(void);

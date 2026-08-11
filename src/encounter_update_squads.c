@@ -18,7 +18,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void encounter_squad_timer_expire(uint16_t encounter_index, int16_t squad_index);
+extern void encounter_squad_timer_expire(int encounter_index, int16_t squad_index);
 
 void encounter_update_squads(int encounter_index)
 {

@@ -1,4 +1,4 @@
-/* player_ui_set_game_variant @0x83698ADC — copy a game variant into the player-UI globals and flag it as
+/* player_ui_set_game_variant @0x83698AB8 — copy a game variant into the player-UI globals and flag it as
  * user-selected. */
 
 #include <string.h>

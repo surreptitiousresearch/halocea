@@ -1,4 +1,4 @@
-/* game_engine_player_is_odd_man_out @0x8374727C — in an "odd man out" variant, decide whether a dead,
+/* game_engine_player_is_odd_man_out @0x83747268 — in an "odd man out" variant, decide whether a dead,
  * awaiting-respawn player is the lone survivor's target (the single odd man). False unless the variant is
  * odd-man-out and the player is currently dead. On a client the server-computed cached flag
  * (multiplayer.is_odd_man_out) is trusted. On the server a player that has never died is never the odd

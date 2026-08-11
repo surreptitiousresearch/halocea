@@ -1,4 +1,4 @@
-/* translate_orbiting_to_flying @0x837C4438 — transitions the editor camera from orbit mode to flying mode:
+/* translate_orbiting_to_flying @0x837C4428 — transitions the editor camera from orbit mode to flying mode:
  * archives the current (orbiting) camera state into persisted_cameras[0], then either restores a
  * previously-saved flying camera from persisted_cameras[1] (if one was saved) or resets to a default
  * flying camera facing the active render camera's forward direction.

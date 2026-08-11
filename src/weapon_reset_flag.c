@@ -1,4 +1,4 @@
-/* weapon_reset_flag @0x83807224 — if a weapon object is a placed CTF flag (its team index +184 selects a
+/* weapon_reset_flag @0x838071E0 — if a weapon object is a placed CTF flag (its team index +184 selects a
  * ctf_globals.flags[] slot), clear that team's flag-warning state and, if the flag is still registered, reset
  * it to its scenario spawn position and clear its "at base"/mark its "flag returned" object flags.
  *

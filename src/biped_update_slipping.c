@@ -1,4 +1,4 @@
-/* biped_update_slipping @0x837B2ABC — if the biped is in a "past landing recovery" state (state > 3,
+/* biped_update_slipping @0x837B2A88 — if the biped is in a "past landing recovery" state (state > 3,
  * see biped_datum.h) and its ground velocity (+104..+112, see biped_jump.c) exceeds ~1/30 units/tick,
  * emit both slipping footstep sounds (unless running a simulated update). `animation` is unused by this
  * function despite being a parameter (matches the compiled prototype). */

@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__RestartLevel @0x823C14E8
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

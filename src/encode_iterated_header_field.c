@@ -1,4 +1,4 @@
-/* encode_iterated_header_field @0x837A0C80 — encode one header field of the current message-delta iteration
+/* encode_iterated_header_field @0x837A0C50 — encode one header field of the current message-delta iteration
  * by invoking the field type's encode callback over the field's value, writing into the iteration data
  * stream. Returns whether any bits were written; on success, tallies the bits into
  * iteration_header_bits_written. Mirrors encode_iterated_body_field.c's header-field counterpart. */

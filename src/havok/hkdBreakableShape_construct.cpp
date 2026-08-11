@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkdBreakableShape_construct @0x83849EF8 (??0hkdBreakableShape@@QAA@PBVhkpShape@@PBUhkpMassProperties@@PBVhkdGeometry@@@Z)
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkReferencedObject.h"
 #include <string.h>

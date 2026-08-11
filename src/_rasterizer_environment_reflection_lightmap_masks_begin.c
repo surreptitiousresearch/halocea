@@ -1,4 +1,4 @@
-/* _rasterizer_environment_reflection_lightmap_masks_begin @0x837A65E0 — open the reflection lightmap-mask
+/* _rasterizer_environment_reflection_lightmap_masks_begin @0x837A6590 — open the reflection lightmap-mask
  * batch: when the relevant debug toggles are on and no lightmap mode is forced, set the D3D pipeline up to
  * accumulate the mask into the alpha channel (cull none, alpha-only color writes, additive alpha blend, depth
  * test on but no depth write) with a clamped, point-filtered sampler 0. Always selects mask shader 36 into

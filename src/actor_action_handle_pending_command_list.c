@@ -13,7 +13,7 @@
 
 
 #include "headers/action_state_data.h"
-extern uint8_t actor_action_deny_transition(uint16_t actor_index);
+extern uint8_t actor_action_deny_transition(int actor_index);
 extern uint8_t action_obey_command_list_setup(int actor_index, int16_t command_list_index, obey_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 

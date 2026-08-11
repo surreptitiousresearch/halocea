@@ -1,3 +1,4 @@
+// dsSTATE_MGR::SetState @0x826193D0
 #include "dsSTATE_MGR.h"
 #include "dsDATA.h"
 #include "dsPARAM.h"

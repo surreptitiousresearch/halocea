@@ -1,4 +1,4 @@
-/* game_engine_get_distance_rating_for_spawn @0x83747D0C — penalize a spawn point for being too close to other
+/* game_engine_get_distance_rating_for_spawn @0x83747CE8 — penalize a spawn point for being too close to other
  * players' objects. Starts at a perfect rating of 1.0 and, walking every player with a controlled object,
  * drives it down: any object within 0.25 units zeroes it; enemies (in team games) additionally require a
  * 2..5 unit gap and fade the rating in linearly across that band. */

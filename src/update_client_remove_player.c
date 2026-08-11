@@ -1,4 +1,4 @@
-/* update_client_remove_player @0x836F5F50 — drop a player's client-side update queue. */
+/* update_client_remove_player @0x836F5F40 — drop a player's client-side update queue. */
 
 #include "headers/update_client_globals.h"
 

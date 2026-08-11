@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::IsEmpty() const — 0x82AC58B0
+// ds::LIST<msgADDR *>::IsEmpty() const — @0x82AC58B0
 #include "LIST.h"
 #include "../msg/msgADDR.h"
 

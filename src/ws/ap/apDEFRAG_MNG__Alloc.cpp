@@ -1,4 +1,4 @@
-// apDEFRAG_MNG::Alloc<T>() @0x823F198C (instantiated for T=vidDEFRAG_CHUNK_OBJ_HCEX_X360) —
+// apDEFRAG_MNG::Alloc<T>() @0x823F1968 (instantiated for T=vidDEFRAG_CHUNK_OBJ_HCEX_X360) —
 // heap-allocate a T (installing T's vtable over the zeroed apDEFRAG_CHUNK base fields, matching
 // T's own default ctor), then AllocImpl() it into the matching pool/descriptor; on failure (either
 // the allocation or AllocImpl), tear the chunk back down via its own scalar-deleting-dtor slot and

@@ -6,7 +6,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_clear_orders(uint16_t actor_index)
+void actor_clear_orders(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

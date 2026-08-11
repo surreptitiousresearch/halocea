@@ -2,7 +2,7 @@
  * Always returns 0 (failure). */
 
 #include <stdint.h>
-#include "headers/tag_data.h"
+#include "headers/tag_groups.h"
 
 /* attested: uint8_t return — callers byte-normalize (clrlwi r11, r3, 24 @ 8372EBF8 et al.) */
 uint8_t tag_data_resize(tag_data *data, int size)

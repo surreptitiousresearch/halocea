@@ -1,4 +1,4 @@
-// cdtOFL::cdtOFL(nID, nID2) @0x827E4F24 — zero the record, allocate idList (nID ushorts); if
+// cdtOFL::cdtOFL(nID, nID2) @0x827E4F08 — zero the record, allocate idList (nID ushorts); if
 // nID2==0, mark state bit 0x1 (single-level mode) and commit nIDMax=nID/nID2Max=0. Otherwise also
 // allocate nID2List (nID ushorts), startID2List (nID uints), id2List (nID2 ushorts) — nIDMax/
 // nID2Max are only committed once every allocation has succeeded.

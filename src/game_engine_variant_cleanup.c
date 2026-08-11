@@ -1,4 +1,4 @@
-/* game_engine_variant_cleanup @0x83749EB8 — sanitize a loaded game variant in place: clamp the engine
+/* game_engine_variant_cleanup @0x83749EB0 — sanitize a loaded game variant in place: clamp the engine
  * index to [1,5], normalize boolean flags to 0/1, clamp the respawn/penalty/lives counts to non-negative,
  * the health multiplier to [0.25, 4.0], the weapon set to [0,13], and the vehicle set's top-nibble index
  * to <=8. CTF (engine 1) forces teams on and clamps single-flag time; the slayer path (engine 2) just

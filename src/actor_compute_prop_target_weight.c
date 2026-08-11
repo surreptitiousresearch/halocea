@@ -25,7 +25,7 @@
 #include "headers/ai_line_of_sight.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern weapon_definition *actor_get_weapon_definition(int actor_index);
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
 

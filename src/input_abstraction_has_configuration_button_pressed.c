@@ -1,4 +1,4 @@
-/* input_abstraction_has_configuration_button_pressed @0x83724EA0 — true if input is currently in
+/* input_abstraction_has_configuration_button_pressed @0x83724E90 — true if input is currently in
  * "configuration" active-mode (bit 0x8, taking priority over the other active-mode bits) and a
  * configuration button press has actually been captured (device_type != 0). */
 

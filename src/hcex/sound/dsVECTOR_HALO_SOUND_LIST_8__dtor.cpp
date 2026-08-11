@@ -3,7 +3,7 @@
 
 extern "C" void dlFree(void *ptr); // boundary -- dlmalloc allocator free
 
-// dsVECTOR<HALO_SOUND_LIST,8>::~dsVECTOR @ 0x836B70FC
+// dsVECTOR<HALO_SOUND_LIST,8>::~dsVECTOR @ 0x836B70E8
 // Destroy each live list element (the compiler inlined ~HALO_SOUND_LIST: free the three dsVECTOR
 // backing stores, then drop levelName/fileName's shared-string references, freeing each buffer
 // only on the last reference), then free this vector's own element storage.

@@ -1,4 +1,4 @@
-/* game_load @0x83687A44 — load a map for play from the given options: log the RNG seed, precache the
+/* game_load @0x83687A30 — load a map for play from the given options: log the RNG seed, precache the
  * map, copy the options into game globals, run the scenario load, and record whether the map loaded. */
 
 #include <stdint.h>

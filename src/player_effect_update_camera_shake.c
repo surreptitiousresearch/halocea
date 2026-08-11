@@ -1,4 +1,4 @@
-/* player_effect_update_camera_shake @0x8373845C — merge a new camera-shake definition into a local
+/* player_effect_update_camera_shake @0x83738430 — merge a new camera-shake definition into a local
  * player's live effect state. The new shake replaces the current one when it is stronger (its magnitude
  * exceeds the current impulse) or its scale dominates the current scale. On replacement the definition is
  * copied into the state block and its magnitude/period fields are pre-scaled by the per-tick time factor.

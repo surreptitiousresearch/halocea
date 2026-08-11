@@ -1,4 +1,4 @@
-/* get_active_player_profile_color_index @0x8377F880 — sets a widget's animation frame index to the active
+/* get_active_player_profile_color_index @0x8377F860 — sets a widget's animation frame index to the active
  * local player's chosen primary color index, clamped to the number of colors currently available (or 0 if
  * the profile has no color chosen). */
 

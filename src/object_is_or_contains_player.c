@@ -1,4 +1,4 @@
-/* object_is_or_contains_player @0x837F7BCC — true if the object is a player's unit, or transitively
+/* object_is_or_contains_player @0x837F7BA0 — true if the object is a player's unit, or transitively
  * contains/parents a player. It checks: the object itself, each child object (recursively), the parent
  * chain, and finally whether the object is an item type (type bits 2-4: weapon/equipment/garbage)
  * whose item flags bit 0x2 marks it as held by a player. */

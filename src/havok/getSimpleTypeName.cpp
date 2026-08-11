@@ -1,3 +1,4 @@
+// getSimpleTypeName @0x838E8E00
 #include "../headers/havok/hkString.h"
 #include "../headers/havok/hkClassMemberTypeProperties.h"
 

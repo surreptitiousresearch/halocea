@@ -1,4 +1,4 @@
-/* multiplayer_game_set_text_box_for_score_limit_type @0x8377FCCC — picks the string describing what kind
+/* multiplayer_game_set_text_box_for_score_limit_type @0x8377FCB8 — picks the string describing what kind
  * of "score limit" the current game variant uses (points, time, kills, etc.), keyed off the variant's game
  * engine and, for king/oddball, sub-mode. */
 

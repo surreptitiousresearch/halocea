@@ -2,7 +2,7 @@
  * time and cannot be resized at runtime. Always returns 0 (failure). */
 
 #include <stdint.h>
-#include "headers/tag_block.h"
+#include "headers/tag_groups.h"
 
 /* attested: uint8_t return — callers byte-normalize (clrlwi r11, r3, 24 @ 83730024 et al.) */
 uint8_t tag_block_resize(tag_block *block, int element_count)

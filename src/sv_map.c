@@ -1,4 +1,4 @@
-/* sv_map @0x83766DDC — console command to change map/variant. Validates the map+variant against the
+/* sv_map @0x83766DB0 — console command to change map/variant. Validates the map+variant against the
  * playlist. On a running server (connection 2) it replaces the playlist with the single selection, resets
  * it, closes UI, and ends the current game. Off-network it starts a fresh server on that map/variant. As a
  * client (other connection) it's rejected. Invalid input prints an error.

@@ -1,4 +1,4 @@
-/* rasterizer_screen_effect_set_video @0x83724524 — turns on the cinematic "video" screen effect
+/* rasterizer_screen_effect_set_video @0x83724508 — turns on the cinematic "video" screen effect
  * (scanlines + noise). Resets the live parameter block and binds the scanline / noise bitmaps from
  * the game-globals rasterizer data. No-op if the effect globals aren't allocated or either map tag
  * reference is null. */

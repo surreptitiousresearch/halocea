@@ -37,16 +37,16 @@
 
 
 #include "headers/converse_state_data.h"
-extern uint8_t ai_conversation_find_participant(uint16_t conversation_index, int16_t participant_index, uint8_t *found_specific_unit_reference, uint8_t *try_alternate_reference, uint8_t *success_with_better_player_rating_reference, float *best_distance_reference);
+extern uint8_t ai_conversation_find_participant(int conversation_index, int16_t participant_index, uint8_t *found_specific_unit_reference, uint8_t *try_alternate_reference, uint8_t *success_with_better_player_rating_reference, float *best_distance_reference);
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern uint8_t unit_can_see_point(int unit_index, const real_point3d *point, float theta);
 extern void object_set_object_index_for_name_index(int16_t name_index, int object_index);
-extern uint8_t action_converse_setup(uint16_t actor_index, int conversation_index, converse_state_data *state_data);
+extern uint8_t action_converse_setup(int actor_index, int conversation_index, converse_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 
-uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_trying)
+uint8_t ai_conversation_begin(int conversation_index, uint8_t *continue_trying)
 {
     conversation_datum *conversation =
         DATA_ARRAY_ELEMENT(conversation_data, conversation_datum, conversation_index);

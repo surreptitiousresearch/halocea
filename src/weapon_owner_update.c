@@ -1,4 +1,4 @@
-/* weapon_owner_update @0x836D8C6C — push the owner's control state into a weapon object: store the
+/* weapon_owner_update @0x836D8C38 — push the owner's control state into a weapon object: store the
  * control flags and the eased primary-trigger value (via transition function 4).
  *
  * DEVIATION: primary_trigger arrives as a double via the soft-float ABI; it is a float. */

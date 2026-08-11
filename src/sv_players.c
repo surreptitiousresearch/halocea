@@ -1,4 +1,4 @@
-/* sv_players @0x83765E08 — server console command: print the number, team, and name of every connected
+/* sv_players @0x83765DF0 — server console command: print the number, team, and name of every connected
  * network player. Server-only. 0x142..0x542 stride 32 IS network_game_data.players[32] (DB types_members)
  * read off a NULL base the compiler folded in — mechanism in network_game_server_get_game.c. Verbatim. */
 

@@ -23,15 +23,19 @@ void apply_latest_server_data_to_local_player(int player_index)
     /* The by-value 12-byte real_point3d starting_position (decompiler artifact) is read as a raw blob
      * anchored on the server_update_data.last_completed_update_id member (player+260); it spans that int
      * and the following position_as_of_last_completed_update.x/.y. Kept as an exact-byte reinterpret, not
-     * member access. The 5th arg is the pointer stored at player+264. */
+     * member access.
+     * DEVIATION: the aggregate occupies TWO doubleword slots (ld r6,0x100(r11) + lwz r7,0x108(r11)), so
+     * vehicle_starting_info is r8, destructive r9 and show_results r10 — one slot right of IDA's own
+     * per-register comments, which the earlier reconstruction followed. The binary sets li r8,0
+     * @0x8376DBF0 (a null pointer, not a read of player+264), li r9,1 and li r10,0 — the same
+     * (nullptr, 1u, 0u) tail the sibling caller player_update_client_local_player_update_from_network.c:96
+     * already spells at identical registers. */
     player_update_history_play(
         0,
         player->unit_index,
         player->___u26.server_update_data.time_of_last_ack,
         *(real_point3d *)&player->___u26.server_update_data.last_completed_update_id,
-        /* player+264 anchored on its DB member (position_as_of_last_completed_update.x reinterpreted
-         * as the pointer slot — exact-byte reinterpret per the by-value blob note above) */
-        *(local_player_vehicle_update_network_data **)&player->___u26.server_update_data.position_as_of_last_completed_update,
         0,
-        1u);
+        1u,
+        0u);
 }

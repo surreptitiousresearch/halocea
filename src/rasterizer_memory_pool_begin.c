@@ -1,5 +1,5 @@
 #include "headers/blam_data_globals.h"
-/* rasterizer_memory_pool_begin @0x83791DA8 — resets the per-frame rasterizer scratch-memory
+/* rasterizer_memory_pool_begin @0x83791DA0 — resets the per-frame rasterizer scratch-memory
  * allocation cursor. */
 
 

@@ -30,7 +30,7 @@ extern uint32_t *get_global_local_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 extern int16_t sound_definition_find_pitch_range_by_pitch(const sound_definition *sound, float pitch, int16_t current_range);
 extern int16_t sound_definition_next_permutation(sound_definition *sound, int16_t pitch_range_index, int16_t looping_last_permutation_index);
-extern uint8_t check_is_local_player_by_loop(uint16_t looping_sound_index);
+extern uint8_t check_is_local_player_by_loop(int looping_sound_index);
 extern uint8_t _sound_cache_sound_request(sound_permutation *sound, uint8_t block, uint8_t load, uint8_t reference);
 
 int looping_sound_new_sound(int looping_sound_index, int definition_index, int16_t track_index, int16_t type)
@@ -90,12 +90,14 @@ int looping_sound_new_sound(int looping_sound_index, int definition_index, int16
         new_datum->fade_start_time = 0;
         new_datum->next_definition_index = -1;
 
+        /* DEVIATION: current_range is slot 2 = r5 (the float pitch at slot 1 eats r4); the binary
+         * materialises li r5,-1 @0x83717C00, not the datum's flags word Hex-Rays attributed here. */
         pitch_range = sound_definition_find_pitch_range_by_pitch(
                           definition,
                           (((definition->scale_upper_bound.pitch - definition->scale_lower_bound.pitch)
                                           * distance_scale)
                                   + definition->scale_lower_bound.pitch) * pitch_modifier,
-                          new_datum->flags);
+                          -1);
         new_datum->pitch_range_index = pitch_range;
         new_datum->permutation_index = sound_definition_next_permutation(definition, pitch_range, -1);
 

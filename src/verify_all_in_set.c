@@ -1,4 +1,4 @@
-/* verify_all_in_set @0x837A107C — verifies every field in a message field-reference set by dispatching to
+/* verify_all_in_set @0x837A1068 — verifies every field in a message field-reference set by dispatching to
  * each field's type-specific field_parameters_verifier (see field_properties_verify_parameters.c — the
  * decompiler renders this dispatch as a zero-arg call, but disasm there confirms it's a real tail call
  * passing the field's properties through unchanged; applied identically here). Stops early at a zeroed

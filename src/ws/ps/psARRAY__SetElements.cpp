@@ -4,7 +4,7 @@
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsDATA.h"
 #include "../../headers/apCL.h"
-// 0x827B01C0 — replace this array's contents with a copy of `data`'s elements. Lazily allocates the
+// @0x827B01C0 — replace this array's contents with a copy of `data`'s elements. Lazily allocates the
 // ref-counted backing store on first use (nothing to do for an empty source with no store), then
 // clears, reserves, splices the elements in, and shrinks capacity to the live count.
 

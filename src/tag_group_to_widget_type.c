@@ -1,4 +1,4 @@
-/* tag_group_to_widget_type @0x83755F50 — linear-searches widget_type_definitions for the entry whose
+/* tag_group_to_widget_type @0x83755F48 — linear-searches widget_type_definitions for the entry whose
  * group_tag matches, returning its index (or -1 if none of the 5 object widget types match). */
 
 #include "headers/widget_type_definition.h"

@@ -1,4 +1,4 @@
-/* object_reset @0x836EBCB0 — zero an object's linear/angular velocity, clear the
+/* object_reset @0x836EBC80 — zero an object's linear/angular velocity, clear the
  * "at rest" flag bit in its object flags, and reset its type-specific state. */
 
 #include "headers/data_array.h"

@@ -1,4 +1,4 @@
-/* event_manager_queue_null_event @0x837268C8 — queue a placeholder ("null") input event for a player,
+/* event_manager_queue_null_event @0x837268B0 — queue a placeholder ("null") input event for a player,
  * used to keep the per-player event stream advancing. No-op until the event manager is initialized. */
 
 #include <stdint.h>

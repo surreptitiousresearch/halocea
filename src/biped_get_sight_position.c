@@ -1,4 +1,4 @@
-/* biped_get_sight_position @0x837AC85C — compute the world point a biped sights/aims from. Starts at the
+/* biped_get_sight_position @0x837AC820 — compute the world point a biped sights/aims from. Starts at the
  * biped's origin (or an estimated body position), then adjusts for eye height. For estimate_mode 3 the
  * desired gun offset is rotated into the desired-facing frame and added. Otherwise the eye height is
  * interpolated between biped.standing_camera_height and biped.crouching_camera_height by a crouch fraction: 0

@@ -1,4 +1,4 @@
-/* rasterizer_screen_effect_start @0x83724340 — begin script control of the full-screen post-process
+/* rasterizer_screen_effect_start @0x83724328 — begin script control of the full-screen post-process
  * effect: optionally (or on first use) reset its parameter block, then take control. */
 
 #include <stdint.h>

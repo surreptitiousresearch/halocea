@@ -1,4 +1,4 @@
-/* hcexHALO_MODEL::`scalar deleting destructor' @0x823D342C — reset __vftable to the
+/* hcexHALO_MODEL::`scalar deleting destructor' @0x823D3410 — reset __vftable to the
  * entMANAGER_HANDLER base slot, then conditionally operator-deletes `this` when bit 0 of
  * `deleteFlags` is set (compiler-generated `??_G` thunk). */
 

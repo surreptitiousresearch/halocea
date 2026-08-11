@@ -1,6 +1,6 @@
 #include "../headers/hcex/HALO_SOUND_PARAMS.h"
 
-// 0x836BFBC0 — ??0HALO_SOUND_PARAMS@@QAA@ABU0@@Z (copy ctor). Copies every scalar/dsSTRID/
+// @0x836BFBC0 — ??0HALO_SOUND_PARAMS@@QAA@ABU0@@Z (copy ctor). Copies every scalar/dsSTRID/
 // dsFLAGS field, then deep-copies the `replace` vector: the new vector starts empty (adopting
 // only the source's allocation call-site cookie) and Inserts the full source range at index 0.
 HALO_SOUND_PARAMS::HALO_SOUND_PARAMS(const HALO_SOUND_PARAMS &that)

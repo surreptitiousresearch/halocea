@@ -1,4 +1,4 @@
-/* draw_string_dispose_from_old_map @0x83769900 — per-map teardown: clear the bound
+/* draw_string_dispose_from_old_map @0x837698F8 — per-map teardown: clear the bound
  * string-list reference used by text drawing. */
 
 #include "headers/font_drawing_globals.h"

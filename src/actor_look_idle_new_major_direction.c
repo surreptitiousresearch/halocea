@@ -1,4 +1,4 @@
-/* actor_look_idle_new_major_direction @0x837FB694 — pick a new "major" idle look/aim direction for an
+/* actor_look_idle_new_major_direction @0x837FB660 — pick a new "major" idle look/aim direction for an
  * actor. Unless a minor variation was requested, it first tries to look at an interesting prop
  * (actor_look_idle_find_prop). Failing that it builds a random direction within the actor definition's
  * yaw/pitch limits (aiming vs looking limits chosen by major_is_aiming; free-facing allows a full PI yaw,

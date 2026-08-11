@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void hs_wake(uint16_t thread_index)
+void hs_wake(int thread_index)
 {
     hs_thread *thread = (hs_thread *)hs_thread_data->data + thread_index;
 

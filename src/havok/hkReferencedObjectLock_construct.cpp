@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkReferencedObjectLock_construct @0x838D3330 (??0hkReferencedObjectLock@@QAA@XZ)
 #include "../headers/havok/hkReferencedObjectLock.h"
 
 /* boundary — this object's vtable symbol (hkReferencedObjectLock::`vftable'). */

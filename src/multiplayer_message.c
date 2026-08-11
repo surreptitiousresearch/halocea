@@ -1,4 +1,4 @@
-/* multiplayer_message @0x8374D5D8 — present a multiplayer HUD/chat message to a recipient player and, on
+/* multiplayer_message @0x8374D5B0 — present a multiplayer HUD/chat message to a recipient player and, on
  * the server, replicate it to clients. Builds the localized message text for the subject player; routes
  * chat-style messages (kill/quit/score notifications) to the chat box and the rest to the HUD print line.
  * When running as the server and replication is requested, the message is encoded as a stateless message

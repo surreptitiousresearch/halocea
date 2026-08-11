@@ -1,4 +1,4 @@
-/* cache_file_map_exists @0x8375436C — test whether a map's cache file is present on disc by stripping the
+/* cache_file_map_exists @0x83754360 — test whether a map's cache file is present on disc by stripping the
  * path to the bare map name and reading its cache file header from the DVD. */
 
 #include <stdint.h>

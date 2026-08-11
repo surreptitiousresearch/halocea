@@ -1,4 +1,4 @@
-/* unattached_looping_sound_stop @0x83713E44 — request that an unattached looping sound stop, by setting
+/* unattached_looping_sound_stop @0x83713E30 — request that an unattached looping sound stop, by setting
  * the stop flag (bit 1) in its datum. The mixer tears the sound down on the next update. */
 
 #include "headers/data_array.h"

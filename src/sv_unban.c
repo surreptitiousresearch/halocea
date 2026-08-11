@@ -1,4 +1,4 @@
-/* sv_unban @0x83766F44 — remove the ban-list entry at the given index and rewrite the ban-list file.
+/* sv_unban @0x83766F30 — remove the ban-list entry at the given index and rewrite the ban-list file.
  * Each entry is 46 bytes: a 12-wide right-justified name field at +0 and a 32-wide left-justified hash
  * field at +13, written back as "name,hash" lines. */
 

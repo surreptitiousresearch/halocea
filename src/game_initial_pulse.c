@@ -1,4 +1,4 @@
-/* game_initial_pulse @0x83688248 — fire the initial game-engine events at game start: announce each
+/* game_initial_pulse @0x83688230 — fire the initial game-engine events at game start: announce each
  * existing player, then signal that the game is starting. */
 
 #include "headers/data_iterator.h"

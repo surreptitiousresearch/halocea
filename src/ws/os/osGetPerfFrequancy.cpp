@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osGetPerfFrequancy @0x825E5878 (?osGetPerfFrequancy@@YA_KXZ)
 #include <stdint.h>
 #include "../../headers/ws/os/os_boundary.h"
 

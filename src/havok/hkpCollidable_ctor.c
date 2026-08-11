@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkpCollidable_ctor @0x829197F8 (??0hkpCollidable@@QAA@PBVhkpShape@@PBVhkTransform@@H@Z) */
 #include "../headers/havok/hkpCollidable.h"
 #include "../headers/havok/hkTransform.h"
 

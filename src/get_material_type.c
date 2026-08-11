@@ -1,4 +1,4 @@
-/* get_material_type @0x837BE098 — resolve a material index to its damage_material.type (see
+/* get_material_type @0x837BE090 — resolve a material index to its damage_material.type (see
  * damage_material.h / damage_resistance.h). With no object (object_index == -1), looks up the current
  * structure BSP's own 20-byte collision-material records instead. -1 for an invalid material_index.
  *

@@ -1,4 +1,4 @@
-/* lights_preprocess_scene @0x836F9508 — per-frame dynamic light pipeline. Retires expired/dead lights,
+/* lights_preprocess_scene @0x836F94E8 — per-frame dynamic light pipeline. Retires expired/dead lights,
  * gathers the point lights visible from the current view, submits each visible light to the rasterizer
  * (computing its runtime color from its driving object function or an active flicker/transition, and its
  * radius from either the tag default or a transition-weighted blend), and submits lens flares (per-light,
@@ -61,17 +61,17 @@ extern int game_time_get(void);
 extern int data_next_index(const data_array *data, int16_t index);
 extern void datum_delete(data_array *data, int index);
 extern void cluster_partition_disconnect(cluster_partition *partition, int datum_index, int *first_cluster_reference);
-extern void light_disconnect_from_map(uint16_t light_index);
+extern void light_disconnect_from_map(int light_index);
 extern void light_reconnect_to_map(int light_index);
 extern void   hcex_destroy_light(int light_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
-extern int16_t structure_visibility_find_objects(int *result_indices, int16_t maximum_count, int (*cluster_get_first)(int *, int16_t), int (*cluster_get_next)(int *), void (*get_bounding_sphere)(int, real_point3d *, float *), int (*unmarked)(uint16_t), int (*mark)(uint16_t));
+extern int16_t structure_visibility_find_objects(int *result_indices, int16_t maximum_count, int (*cluster_get_first)(int *, int16_t), int (*cluster_get_next)(int *), void (*get_bounding_sphere)(int, real_point3d *, float *), int (*unmarked)(int object_index), int (*mark)(int object_index));
 extern int cluster_get_first_light(int *state, int16_t cluster_index);
 extern int cluster_get_next_light(int *state);
 extern void light_get_bounding_sphere(int light_index, real_point3d *position, float *radius);
-extern int light_unmarked(uint16_t light_index);
-extern int light_mark(uint16_t light_index);
+extern int light_unmarked(int light_index);
+extern int light_mark(int light_index);
 
 extern void rasterizer_lights_begin(void);
 extern void rasterizer_lens_flare_submit_for_cluster(int16_t cluster_index);

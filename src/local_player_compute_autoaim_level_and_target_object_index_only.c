@@ -1,4 +1,4 @@
-/* local_player_compute_autoaim_level_and_target_object_index_only @0x836C68F0 — run aim assist for a local
+/* local_player_compute_autoaim_level_and_target_object_index_only @0x836C68D8 — run aim assist for a local
  * player and return only the chosen target object index and autoaim level (no magnetism application). Only
  * valid in first/third-person camera perspectives (0 or 1). Resolves the player's aiming unit and zoom
  * level, fetches its aim-assist parameters, then runs aim_assist from the camera position/forward, ignoring

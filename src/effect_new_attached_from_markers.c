@@ -1,4 +1,4 @@
-/* effect_new_attached_from_markers @0x836E40D8 — spawn an effect attached to a set of named markers on an
+/* effect_new_attached_from_markers @0x836E4088 — spawn an effect attached to a set of named markers on an
  * object (or an explicit point/forward list). Mirrors the effect into the hcex render layer, allocates the
  * effect datum, seeds its scale/color/impulse-field, tags it non-violent when attached to a corpse, builds
  * its per-marker locations from the resolved object node matrix, and runs the first update. Returns the new

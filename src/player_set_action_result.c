@@ -1,4 +1,4 @@
-/* player_set_action_result @0x836A9830 — records the "action" (e.g. enter-vehicle / pick-up prompt)
+/* player_set_action_result @0x836A9810 — records the "action" (e.g. enter-vehicle / pick-up prompt)
  * currently offered to a player, but only when the new action outranks the one already stored. An
  * action_result of _player_action_result_flip_vehicle (11) always wins. When the new result ties the stored one, the closer action object
  * (to the player's unit) wins. Otherwise a signed/priority comparison of the result codes decides. */

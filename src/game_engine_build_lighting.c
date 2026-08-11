@@ -1,4 +1,4 @@
-/* game_engine_build_lighting @0x83746064 — derive the lighting/quality "scene complexity" flags for the
+/* game_engine_build_lighting @0x83746048 — derive the lighting/quality "scene complexity" flags for the
  * current multiplayer scene from the player count and a secondary count (territory-style netgame flags of
  * race-vehicle netgame flags (type 4) for the race engine, otherwise the number of vehicle objects). The
  * resulting bits in game_engine_globals.flags gate progressively heavier lighting as the scene gets busier

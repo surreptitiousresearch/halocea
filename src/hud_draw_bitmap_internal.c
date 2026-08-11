@@ -1,3 +1,4 @@
+/* hud_draw_bitmap_internal @0x8379EA20 */
 #include <math.h>
 #include <string.h>
 #include "headers/bitmap_data.h"

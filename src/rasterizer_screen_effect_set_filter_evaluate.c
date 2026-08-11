@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void rasterizer_screen_effect_set_filter(float filter_light_enhancement_intensity_lower_bound, float filter_light_enhancement_intensity_upper_bound, float filter_desaturation_intensity_lower_bound, float filter_desaturation_intensity_upper_bound, uint8_t filter_desaturation_is_additive, float filter_time);
 
 void rasterizer_screen_effect_set_filter_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

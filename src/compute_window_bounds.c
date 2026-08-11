@@ -1,4 +1,4 @@
-/* compute_window_bounds @0x836897A0 — compute the pixel and safe-frame rectangles for one player's
+/* compute_window_bounds @0x83689788 — compute the pixel and safe-frame rectangles for one player's
  * split-screen viewport. Players are packed into the smallest rows*cols grid that holds them (columns
  * balanced first); a leftover slot (e.g. 3 players in a 2x2 grid) lets player 0 span two columns while
  * the remaining players shift down a row. The viewport cell is derived from rasterizer_globals.frame_bounds;

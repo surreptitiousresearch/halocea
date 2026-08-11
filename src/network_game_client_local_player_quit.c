@@ -1,4 +1,4 @@
-/* network_game_client_local_player_quit @0x83756AE0 — when a network client session is active, scans the
+/* network_game_client_local_player_quit @0x83756AC0 — when a network client session is active, scans the
  * network_game_data.players[32] table (0x142..0x542, 32-byte stride, DB types_members) for the valid,
  * non-disconnected entry whose controller_index matches local_player_index; unless it lands on the loop's
  * own final slot count, flags a networking teardown and closes the chat UI. NOT a base this reconstruction

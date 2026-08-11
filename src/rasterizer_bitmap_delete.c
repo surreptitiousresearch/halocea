@@ -1,4 +1,4 @@
-/* rasterizer_bitmap_delete @0x8379377C — release a bitmap's rasterizer-side resources: drop it from the
+/* rasterizer_bitmap_delete @0x83793768 — release a bitmap's rasterizer-side resources: drop it from the
  * texture cache, then free its hardware texture handle. */
 
 #include "headers/bitmap_data.h"

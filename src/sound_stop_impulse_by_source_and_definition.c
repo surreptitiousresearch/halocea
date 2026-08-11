@@ -1,4 +1,4 @@
-/* sound_stop_impulse_by_source_and_definition @0x83718BE0 — finds the first active, non-looping sound
+/* sound_stop_impulse_by_source_and_definition @0x83718BC0 — finds the first active, non-looping sound
  * whose definition index and source identifier match, and stops it as an impulse sound.
  *
  * Sound datum (176 bytes, see refresh_sound.c): +2 (word) type (_sound_impulse for one-shots),
@@ -12,7 +12,7 @@
 
 #include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
-extern void sound_stop_impulse(uint16_t sound_index);
+extern void sound_stop_impulse(int sound_index);
 
 void sound_stop_impulse_by_source_and_definition(int source_identifier, int definition_index)
 {

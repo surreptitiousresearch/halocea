@@ -27,8 +27,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_move_halt(uint16_t actor_index);
-extern void actor_look_secondary_stop(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
+extern void actor_look_secondary_stop(int actor_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 
 void action_obey_command_end(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, uint8_t *next_command_index)

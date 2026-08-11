@@ -1,4 +1,4 @@
-/* player_is_vehicle_driver @0x836A8B80 — true if the player is currently driving a vehicle: their unit
+/* player_is_vehicle_driver @0x836A8B60 — true if the player is currently driving a vehicle: their unit
  * (player record dword +13) must be a unit object whose parent vehicle (dword +71) exists and whose
  * occupied seat (word +376) is that vehicle's driver seat. */
 

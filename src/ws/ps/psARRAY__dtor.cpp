@@ -2,7 +2,7 @@
 #include "psARRAY_DATA.h"
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsDATA.h"
-// 0x827AEE80 — destructor: drop a reference on the backing store, freeing its element vector and
+// @0x827AEE70 — destructor: drop a reference on the backing store, freeing its element vector and
 // itself at zero.
 
 psARRAY::~psARRAY()

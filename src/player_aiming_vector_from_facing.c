@@ -1,4 +1,4 @@
-/* player_aiming_vector_from_facing @0x836A7E9C — convert a player's desired 2D facing into a world-space
+/* player_aiming_vector_from_facing @0x836A7E68 — convert a player's desired 2D facing into a world-space
  * aiming vector. Normally the aim is just the facing direction. When the player is riding a vehicle whose
  * occupied seat is not flagged "aim in world space" (seat flag 0x10 clear), the aim is reoriented into the
  * vehicle's frame: a side vector is built as up x right (falling back to up x down when degenerate), a

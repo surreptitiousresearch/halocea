@@ -1,4 +1,4 @@
-/* actor_perception_tried_to_uncover @0x837D9AD0 — marks a prop's tried_to_uncover flag when the actor makes
+/* actor_perception_tried_to_uncover @0x837D9AB8 — marks a prop's tried_to_uncover flag when the actor makes
  * an uncover attempt against it; if the prop is the actor's current target (dword +156, "actor's active
  * prop" per actor_situation_update.c), refreshes the actor's target/combat situation status. */
 
@@ -8,8 +8,8 @@
 #include "headers/prop_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_situation_update_target_status(uint16_t actor_index);
-extern void actor_situation_combat_status_update(uint16_t actor_index);
+extern void actor_situation_update_target_status(int actor_index);
+extern void actor_situation_combat_status_update(int actor_index);
 
 void actor_perception_tried_to_uncover(int actor_index, int prop_index)
 {

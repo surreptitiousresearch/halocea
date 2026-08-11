@@ -1,4 +1,4 @@
-/* actor_situation_combat_status_update @0x837D73E8 — recompute an actor's combat status for the frame.
+/* actor_situation_combat_status_update @0x837D73D0 — recompute an actor's combat status for the frame.
  * First it folds any externally-injected pending status (stimuli.suspicion_combat_status) into the
  * running status (state.suspicion_combat_status) and its timestamp (state.suspicion_timer /
  * stimuli.suspicion_timer), keeping the strongest. Then it combines the current alertness
@@ -18,7 +18,7 @@
 
 extern const int16_t   global_combat_status_table[12];
 
-void actor_situation_combat_status_update(uint16_t actor_index)
+void actor_situation_combat_status_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

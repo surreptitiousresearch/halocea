@@ -1,3 +1,4 @@
+/* structure_render_pass @0x837C65B0 */
 #include <stdint.h>
 #include <stddef.h>   /* NULL */
 #include "headers/structure_bsp.h"

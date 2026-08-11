@@ -8,7 +8,7 @@ extern "C" void dlFree(void *ptr);
 // Declared in entCreate.cpp (the animINST-overload, lowest address). Same free-function family.
 entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info);
 
-// entCreate(char*, animINST*, msgDATA*) — 0x82536DC8
+// entCreate(char*, animINST*, msgDATA*) — @0x82536DC8
 //
 // Convenience overload: builds a default entCREATE_INFO, adopts `nameClass` and `pMsgData` into
 // it, then forwards to entCreate(animINST*, const entCREATE_INFO&).

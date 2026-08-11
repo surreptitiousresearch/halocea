@@ -12,7 +12,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t action_converse_setup(uint16_t actor_index, int conversation_index, converse_state_data *state_data)
+uint8_t action_converse_setup(int actor_index, int conversation_index, converse_state_data *state_data)
 {
     conversation_datum *conversation =
         DATA_ARRAY_ELEMENT(conversation_data, conversation_datum, conversation_index);

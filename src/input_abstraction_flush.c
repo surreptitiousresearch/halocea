@@ -1,4 +1,4 @@
-/* input_abstraction_flush @0x83724A64 — flush pending input edge state: mark all controls idle, clear
+/* input_abstraction_flush @0x83724A48 — flush pending input edge state: mark all controls idle, clear
  * the aux-button tick counters, and zero player 0's abstracted input state. */
 
 #include <string.h>

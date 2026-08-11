@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void particle_system_orphan(uint16_t system_index)
+void particle_system_orphan(int system_index)
 {
     particle_system_datum *system = DATA_ARRAY_ELEMENT(particle_systems, particle_system_datum, system_index);
     system->object_index = -1;                     /* owner object index → none */

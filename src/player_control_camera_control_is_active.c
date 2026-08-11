@@ -1,4 +1,4 @@
-/* player_control_camera_control_is_active @0x836DE494 — true when the player may steer the camera:
+/* player_control_camera_control_is_active @0x836DE470 — true when the player may steer the camera:
  * not while the control-disable flag is set, and not while the game clock is paused. */
 
 #include <stdint.h>

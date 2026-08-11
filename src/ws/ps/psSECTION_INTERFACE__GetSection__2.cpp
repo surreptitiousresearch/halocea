@@ -2,7 +2,7 @@
 #include "psSECTION.h"
 #include "psSECTION_DATA.h"
 #include "psSECTION_BRANCH.h"
-// 0x8251EDB0 — the section handle stored under `key`, returned BY VALUE as a fresh reference. When
+// @0x8251EDB0 — the section handle stored under `key`, returned BY VALUE as a fresh reference. When
 // `key` is null the result is a referenced copy of this handle. sret return: the decompiler swaps
 // the sret slot with `this` (the real `this` is spelled `result` there). Overload of the out-param
 // GetSection.

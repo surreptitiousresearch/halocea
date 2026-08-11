@@ -1,4 +1,4 @@
-/* ai_generate_line_of_fire_pill @0x836E7E8C — build one line-of-fire pill from a unit's physics capsule.
+/* ai_generate_line_of_fire_pill @0x836E7E68 — build one line-of-fire pill from a unit's physics capsule.
  * biped_get_physics_pill returns the capsule base point, its height, and its radius. A zero height makes
  * the pill a sphere; otherwise it is a vertical capsule whose directed height is (0,0,height). The pill's
  * width is the capsule radius padded by 0.15 world units, and it is tagged with the prop and unit it

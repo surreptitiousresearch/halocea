@@ -31,9 +31,9 @@ extern int16_t global_state_move_position_orders[];
 extern action_specification global_action_functions[];
 
 extern int game_time_get(void);
-extern uint8_t action_alert_setup(uint16_t actor_index, int16_t move_position_order, int16_t initial_move_position_index, alert_state_data *state_data);
-extern uint8_t action_guard_setup_current_position(uint16_t actor_index, guard_state_data *state_data);
-extern uint8_t action_guard_setup_find_position(uint16_t actor_index, int16_t delay_timer, guard_state_data *state_data);
+extern uint8_t action_alert_setup(int actor_index, int16_t move_position_order, int16_t initial_move_position_index, alert_state_data *state_data);
+extern uint8_t action_guard_setup_current_position(int actor_index, guard_state_data *state_data);
+extern uint8_t action_guard_setup_find_position(int actor_index, int16_t delay_timer, guard_state_data *state_data);
 extern uint8_t action_flee_setup(int actor_index, int16_t panic_type, int panic_prop_index, uint8_t force_state_entry, uint8_t flee_from_last_visible_location, uint8_t allow_occluded_points, flee_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 extern uint8_t actor_action_handle_lost_contact(int actor_index);

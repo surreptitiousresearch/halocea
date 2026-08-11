@@ -1,3 +1,4 @@
+/* hkpConvexVerticesConnectivityUtil::findConnectivity @0x83F937B0 -- entry; see the notes below. */
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkGeomConvexHull.h"
 #include "../headers/havok/hkThreadMemory.h"

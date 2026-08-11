@@ -1,4 +1,4 @@
-/* virtual_keyboard_tab_up @0x837836F4 — moves keyboard focus up, wrapping from row 0 to row 4, skipping
+/* virtual_keyboard_tab_up @0x837836D0 — moves keyboard focus up, wrapping from row 0 to row 4, skipping
  * over any row whose key code (at the current column) matches the starting row's key code. Mirrors
  * virtual_keyboard_tab_left.c. */
 

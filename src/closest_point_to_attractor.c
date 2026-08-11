@@ -1,4 +1,4 @@
-/* closest_point_to_attractor @0x837D2AF0 — project attractor point `q` onto the infinite line through
+/* closest_point_to_attractor @0x837D2AE0 — project attractor point `q` onto the infinite line through
  * segment [p0,p1], parameterized by t in [0,1]; if the projection falls outside the segment, returns p1,
  * otherwise the projected point. */
 

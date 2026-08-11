@@ -26,8 +26,8 @@
 #include "headers/real_vector3d.h"
 #include "headers/ai_information_data.h"
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
-extern void actor_stimulus_surprise(uint16_t actor_index, int16_t surprise_level, int prop_index, const real_vector3d *surprise_vector);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern void actor_stimulus_surprise(int actor_index, int16_t surprise_level, int prop_index, const real_vector3d *surprise_vector);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern void actor_kill(int actor_index, uint8_t silent, uint8_t delayed);
 

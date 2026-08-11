@@ -1,4 +1,4 @@
-// ??0HALO_SOUND_PARAMS@@QAA@XZ -- 0x836B6EA4 (default ctor)
+// ??0HALO_SOUND_PARAMS@@QAA@XZ -- @0x836B6E88 (default ctor)
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"
 
 HALO_SOUND_PARAMS::HALO_SOUND_PARAMS()

@@ -1,4 +1,4 @@
-/* field_properties_initialize @0x837A11CC — one-time lazy init of a field-properties definition: verifies
+/* field_properties_initialize @0x837A11B8 — one-time lazy init of a field-properties definition: verifies
  * its parameters and caches its maximum serialized size. Mirrors field_properties_verify_parameters.c's fix
  * for the decompiler's "renders a real tail-call as a zero-arg call" artifact. */
 

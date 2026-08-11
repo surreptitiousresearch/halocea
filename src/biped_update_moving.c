@@ -1,4 +1,4 @@
-/* biped_update_moving — per-frame movement/physics update for a biped (character) unit. This is the
+/* biped_update_moving @0x837B2FC8 — per-frame movement/physics update for a biped (character) unit. This is the
  * authoritative (non-simulated) sibling of biped_update_moving_simulated: it fills a biped_physics scratch
  * block from the biped's current state and the biped tag definition, resolves the desired movement vector
  * (from the throttle-driven analog input, a locomotion-animation frame delta, or the flying model), runs
@@ -69,7 +69,7 @@ extern float game_difficulty_get_value(int16_t value_type);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 extern uint8_t cinematic_in_progress(void);
 extern uint8_t game_players_are_double_speed(void);
-extern uint8_t actor_is_leaping(uint16_t actor_index);
+extern uint8_t actor_is_leaping(int actor_index);
 extern void biped_update_physics(biped_physics *physics);
 extern void biped_snap_facing(biped_datum *biped, const biped_definition *biped_definition);
 extern void biped_start_landing(biped_datum *biped, const biped_definition *biped_definition, float landing_velocity);

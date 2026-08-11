@@ -1,4 +1,4 @@
-/* player_handle_powerup_equipment @0x836AD2D8 — apply a powerup pickup (equipment object) to a player.
+/* player_handle_powerup_equipment @0x836AD2B0 — apply a powerup pickup (equipment object) to a player.
  * The equipment definition gives a duration (seconds*30 = ticks) and a powerup kind. Kind 1 grants
  * double speed, kind 2 an overshield, kind 5 a health restore, and kinds 3/4 route through
  * player_handle_powerup (active camo / other timed powerup). Successful pickups that are locally owned

@@ -7,7 +7,7 @@ extern "C" void *memmove(void *dst, const void *src, unsigned int n); // boundar
 extern "C" long osLockedDecrement(volatile int *value);              // boundary — atomic decrement
 void operator delete(void *p);                                       // boundary — global operator delete
 
-// dsVECTOR<dsPAIR<int,HCEX_LIGHT>,8>::Erase @ 0x823DAA0 (fn 0x823DA9F0)
+// dsVECTOR<dsPAIR<int,HCEX_LIGHT>,8>::Erase @ 0x823DAA0 (fn @0x823DA9F0)
 // Remove `n` elements starting at `pos`. Each pair's HCEX_LIGHT holds a ds_WEAK_PTR to the bound
 // entity; erasing releases that weak reference (atomic decref, delete the shared handle at zero) and
 // nulls the handle. Then the 16-byte elements are shifted down over the gap and the count dropped.

@@ -1,4 +1,4 @@
-/* render_frame @0x83707A60 — render one display frame across all render windows. Stamps the per-frame
+/* render_frame @0x83707A40 — render one display frame across all render windows. Stamps the per-frame
  * time deltas, opens the rasterizer frame, then for each window dispatches by kind: console windows draw
  * only the fullscreen interface overlays and debug geometry; player windows render the full player view
  * (optionally tagged with a screenshot tile index); other windows run the non-player post-rasterize pass.

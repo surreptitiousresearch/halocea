@@ -1,4 +1,4 @@
-/* physics_variable_speed_update_seek @0x838107D4 — step a variable-speed value toward a target: accelerate
+/* physics_variable_speed_update_seek @0x838107C8 — step a variable-speed value toward a target: accelerate
  * or decelerate *speed by magnitude (via physics_variable_speed_update) in whichever direction closes the
  * gap, clamping to desired_speed once reached. Returns 1 when the target is reached (this step or already),
  * 0 while still seeking.

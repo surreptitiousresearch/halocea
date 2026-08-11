@@ -1,3 +1,4 @@
+// apCOUNTER__AddValue @0x82715C18
 // apCOUNTER::AddValue @0x82715C34 — accumulate a sample into counterUnits[index]: add `value` to
 // the running `value`, bump numValueChanged, recompute the running average
 // ((old average * (n-1)) + new value) / n, and raise valuePeak when the new value exceeds it.

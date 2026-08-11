@@ -1,4 +1,4 @@
-/* hs_enumerate_function_names @0x8372F3FC — one of hs_tokens_enumerate's per-kind callbacks: offers every
+/* hs_enumerate_function_names @0x8372F3F0 — one of hs_tokens_enumerate's per-kind callbacks: offers every
  * built-in HaloScript function's name to the in-progress results collection.
  *
  * DEVIATION: the decompiler inlined hs_tokens_enumerate_add_string's own substring-length/strnicmp/append

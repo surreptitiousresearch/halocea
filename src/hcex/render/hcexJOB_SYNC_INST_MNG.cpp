@@ -22,7 +22,7 @@ extern bool       hcex_obj_sync_matrices_in_progress; // boundary -- gates AddIn
 // convention (do not invent a name for it).
 #define ANIMINST_STATE2_NEEDS_SYNC 0x200000
 
-// 0x823D2D1C
+// @0x823D2D00
 hcexJOB_SYNC_INST_MNG::hcexJOB_SYNC_INST_MNG()
 {
     this->objIdxSyncMatr = 0;

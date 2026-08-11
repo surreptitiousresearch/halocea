@@ -17,7 +17,7 @@
 
 extern float source_distance_squared(int16_t listener_index, const sound_source *source);
 
-uint8_t sound_preempts_sound(uint16_t challenger_sound_index, uint16_t champion_sound_index,
+uint8_t sound_preempts_sound(int challenger_sound_index, int champion_sound_index,
                           float challenger_distance_squared)
 {
     sound_datum *champion = DATA_ARRAY_ELEMENT(sound_data, sound_datum, champion_sound_index);

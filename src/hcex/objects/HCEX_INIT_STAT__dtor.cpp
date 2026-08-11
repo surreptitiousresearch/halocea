@@ -1,4 +1,4 @@
-/* HCEX_INIT_STAT::~HCEX_INIT_STAT @0x823CEB94 — if a custom sound backend is installed, invoke
+/* HCEX_INIT_STAT::~HCEX_INIT_STAT @0x823CEB78 — if a custom sound backend is installed, invoke
  * its deleting destructor (freeMemory=1) via the snd::SYSTEM_CUSTOM vtable slot, then clear the
  * global pointer. */
 

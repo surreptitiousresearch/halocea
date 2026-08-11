@@ -1,4 +1,4 @@
-/* find_player_matching_string @0x837663B8 — resolves a console-typed player reference to a network
+/* find_player_matching_string @0x837663A0 — resolves a console-typed player reference to a network
  * player slot. If the string is all digits/hyphens it is treated as a 1-based player number and matched
  * against the player machine index; otherwise it is treated as a (wide-converted) name and matched
  * against each valid player's name.

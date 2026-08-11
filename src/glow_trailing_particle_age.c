@@ -1,4 +1,4 @@
-/* glow_trailing_particle_age @0x8380B840 — ages a glow's trailing particle: once past its lifetime, unlinks
+/* glow_trailing_particle_age @0x8380B818 — ages a glow's trailing particle: once past its lifetime, unlinks
  * it from the glow's doubly-linked particle list and deletes its datum. */
 
 #include "headers/glow_datum.h"

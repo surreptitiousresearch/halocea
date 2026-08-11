@@ -1,4 +1,4 @@
-/* play_multiplayer_hit_sound @0x836B164C — play the multiplayer "you hit something" feedback sound,
+/* play_multiplayer_hit_sound @0x836B1618 — play the multiplayer "you hit something" feedback sound,
  * rate-limited to once every 2 game ticks. */
 
 #include <stdint.h>

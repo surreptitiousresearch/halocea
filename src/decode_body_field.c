@@ -1,4 +1,4 @@
-/* decode_body_field @0x837A0DF8 — decodes one message body field via its field-reference's decode callback
+/* decode_body_field @0x837A0DD0 — decodes one message body field via its field-reference's decode callback
  * (at offset +84 within the field reference), and records decode metrics. Mirrors decode_header_field.c's
  * indexing but reads a field_reference array directly rather than through a header_fields block. */
 

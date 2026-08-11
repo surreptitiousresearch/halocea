@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::ITERATOR::ITERATOR(const ITERATOR &) — copy ctor — 0x82AC58E0
+// ds::LIST<msgADDR *>::ITERATOR::ITERATOR(const ITERATOR &) — copy ctor — @0x82AC58E0
 #include "LIST.h"
 #include "../msg/msgADDR.h"
 

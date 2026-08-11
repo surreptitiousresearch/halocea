@@ -1,3 +1,4 @@
+// apMEM_FRAME_DUMPER__NotifyAp @0x82C4BF30
 #include "apMEM_FRAME_DUMPER.h"
 
 // Boundary rodata: apMEM_DL_ALLOC_TYPE -> label string, indexed by allocType. This is the

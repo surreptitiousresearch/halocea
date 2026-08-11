@@ -1,4 +1,4 @@
-/* rasterizer_dx9_shaders_dispose @0x836A1C84 — tear down the DX9 pixel-shader table. Disposes the
+/* rasterizer_dx9_shaders_dispose @0x836A1C78 — tear down the DX9 pixel-shader table. Disposes the
  * Chicago (multitexture) shaders, frees the constant-handle arrays held by several disjoint runs of
  * shader_table entries, unloads the compiled effects, and releases the shared effect pool. */
 

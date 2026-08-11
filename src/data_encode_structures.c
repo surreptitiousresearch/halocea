@@ -1,4 +1,4 @@
-/* data_encode_structures @0x838306D0 — append structure_count structures (each bs_definition->size bytes) from
+/* data_encode_structures @0x838306B0 — append structure_count structures (each bs_definition->size bytes) from
  * source_structures to the encoding buffer as a flat memcpy (byte-swapping itself happens elsewhere; this just
  * moves the raw bytes). Sets the overflow flag and fails if the write would exceed the buffer. Mirrors
  * data_encode_memory.c's overflow-check structure. */

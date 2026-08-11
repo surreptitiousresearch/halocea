@@ -1,4 +1,4 @@
-/* hs_dispose_from_old_map @ 0x83730078-adjacent (0x837300E8) — release HaloScript syntax
+/* hs_dispose_from_old_map @ 0x837300E8 — release HaloScript syntax
  * pool (if self-allocated) and tear down runtime + object lists. */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"

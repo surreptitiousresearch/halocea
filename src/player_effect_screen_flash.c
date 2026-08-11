@@ -1,4 +1,4 @@
-/* player_effect_screen_flash @0x8373861C — flash a screen-flash definition for the local player that
+/* player_effect_screen_flash @0x83738618 — flash a screen-flash definition for the local player that
  * owns `player_index`. No-op for an invalid player (-1) or one with no local-player slot (player datum
  * +2 == -1). The owning local player's live effect state (player_effect_globals->local_player_effect_data
  * [local_player_index], 236-byte stride) is merged with the definition via player_effect_update_screen_flash

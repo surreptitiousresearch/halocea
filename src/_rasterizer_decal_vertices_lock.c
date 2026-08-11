@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern unsigned int lruv_block_get_address(const lruv_cache *cache, uint16_t block_index);
+extern unsigned int lruv_block_get_address(const lruv_cache *cache, int block_index);
 
 void *_rasterizer_decal_vertices_lock(int cache_index, int cache_size)
 {

@@ -1,4 +1,4 @@
-/* actor_situation_update_target_status @0x837D71EC — derive an actor's perceived target-status code
+/* actor_situation_update_target_status @0x837D71D8 — derive an actor's perceived target-status code
  * (actor +616) from the state of the prop (perception record) it is currently tracking (+624). With no
  * tracked prop the status is cleared. Otherwise the prop's engagement state (prop +36) plus assorted
  * prop flags select a status code (0..11) describing how the actor sees that target (e.g. just-seen,
@@ -22,7 +22,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_situation_update_target_status(uint16_t actor_index)
+void actor_situation_update_target_status(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

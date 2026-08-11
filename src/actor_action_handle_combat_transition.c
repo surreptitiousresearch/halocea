@@ -1,4 +1,4 @@
-/* actor_action_handle_combat_transition @0x837F6948 — while an actor hasn't yet entered a late-stage action
+/* actor_action_handle_combat_transition @0x837F6928 — while an actor hasn't yet entered a late-stage action
  * state (state.mode < _actor_mode_combat) and has a pending combat-transition request flagged (stimuli.combat_transition),
  * consumes that flag and enters the guard action (falling back to plain combat selection if the guard setup
  * can't produce a valid state). Returns 1 if the transition was handled, 0 otherwise. */

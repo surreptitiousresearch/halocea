@@ -1,4 +1,4 @@
-// ??0HALO_SOUND_TAG@@QAA@XZ -- 0x836B4EAC
+// ??0HALO_SOUND_TAG@@QAA@XZ -- @0x836B4E98
 #include "../../headers/hcex/HALO_SOUND_TAG.h"
 
 HALO_SOUND_TAG::HALO_SOUND_TAG()

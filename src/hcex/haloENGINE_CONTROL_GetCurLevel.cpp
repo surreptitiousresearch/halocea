@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL_GetCurLevel @0x823B2B68
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
 // haloENGINE_CONTROL::GetCurLevel @ 0x823B2B6C — authored def TU for the flattened C-flattening

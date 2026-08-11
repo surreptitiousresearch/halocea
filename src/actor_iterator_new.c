@@ -1,4 +1,4 @@
-/* actor_iterator_new @0x83709B84 — initialise a cursor that walks every actor across all encounters (and the
+/* actor_iterator_new @0x83709B60 — initialise a cursor that walks every actor across all encounters (and the
  * encounterless list). active_only restricts iteration to active encounters/actors. No-op if AI is not
  * initialised for the current map. */
 

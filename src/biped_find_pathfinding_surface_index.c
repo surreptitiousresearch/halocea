@@ -1,4 +1,4 @@
-/* biped_find_pathfinding_surface_index @0x837AD374 — resolve the pathfinding (floor) surface under a biped,
+/* biped_find_pathfinding_surface_index @0x837AD338 — resolve the pathfinding (floor) surface under a biped,
  * caching the result in the biped datum (pathfinding_surface_index / pathfinding_point /
  * support_surface_index / last_pathfinding_attempt_time / last_pathfinding_surface_index). Flying/non-grounded biped types (definition flag 0x4 set,
  * object flag 0x4 clear) skip pathfinding and just report the raw origin. Otherwise, when the cache is

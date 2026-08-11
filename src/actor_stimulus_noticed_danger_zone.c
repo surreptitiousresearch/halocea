@@ -1,4 +1,4 @@
-/* actor_stimulus_noticed_danger_zone @0x837D5128 — react to noticing a dangerous area (e.g. a grenade or
+/* actor_stimulus_noticed_danger_zone @0x837D5110 — react to noticing a dangerous area (e.g. a grenade or
  * hazard). For a projectile danger (actor_danger_zone_projectile) the actor broadcasts a danger AI-communication scaled by
  * hostility, and if close enough and not already in combat it triggers a surprise. In all cases a
  * not-yet-in-combat actor with a low-priority current stimulus latches a "flee the danger" stimulus
@@ -27,10 +27,10 @@
 #include "headers/ai_information_data.h"
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern float normalize3d(real_vector3d *v);
-extern void actor_stimulus_surprise(uint16_t actor_index, int16_t surprise_level, int prop_index, const real_vector3d *surprise_vector);
+extern void actor_stimulus_surprise(int actor_index, int16_t surprise_level, int prop_index, const real_vector3d *surprise_vector);
 extern void actor_stimulus_combat(int actor_index, int16_t transition_type, const real_point3d *guard_point, int guard_point_surface_index, float guard_distance, int guard_timer, const real_vector3d *transition_vector, int prop_index, int prop_look_timer, uint8_t prop_look_while_moving);
 
-void actor_stimulus_noticed_danger_zone(uint16_t actor_index, int16_t danger_type, int16_t danger_hostility,
+void actor_stimulus_noticed_danger_zone(int actor_index, int16_t danger_type, int16_t danger_hostility,
                                         int danger_object_index, const real_point3d *position)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

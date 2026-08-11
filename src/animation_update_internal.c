@@ -1,4 +1,4 @@
-/* animation_update_internal @0x837969D8 — advance one animation by a frame and report what happened.
+/* animation_update_internal @0x837969A0 — advance one animation by a frame and report what happened.
  * Optionally reports the sound a frame triggers (via triggered_sound_index). Advances the frame; if still
  * within the clip it returns a key-frame code (0/1 from the two key frames, or 2 on the last-but-one frame
  * with no loop). At the clip end it either jumps to the loop frame (return 4) or chooses a random next

@@ -1,4 +1,4 @@
-/* actor_move_force_stop @0x837C8A70 — force an actor to stop moving: clear its move-animation impulse
+/* actor_move_force_stop @0x837C8A48 — force an actor to stop moving: clear its move-animation impulse
  * (byte @ actor +1284), zero its desired velocity (vector @ actor +1760), and cancel any unit-control
  * animation impulse. Fails (returns 0) if a movement animation is busy or an action denies the
  * transition. Actor records are stride 1828. */
@@ -9,11 +9,11 @@
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_move_animation_busy(uint16_t actor_index);
-extern uint8_t actor_action_deny_transition(uint16_t actor_index);
-extern void actor_unit_control_stop_animation_impulse(uint16_t actor_index);
+extern uint8_t actor_move_animation_busy(int actor_index);
+extern uint8_t actor_action_deny_transition(int actor_index);
+extern void actor_unit_control_stop_animation_impulse(int actor_index);
 
-uint8_t actor_move_force_stop(uint16_t actor_index)
+uint8_t actor_move_force_stop(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor_move_animation_busy(actor_index) || actor_action_deny_transition(actor_index) )

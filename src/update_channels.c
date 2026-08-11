@@ -21,7 +21,7 @@
 
 #include "headers/sound_permutation.h"
 #include "headers/sound_attachment_data.h"
-extern float sound_calculate_fade(uint16_t sound_index);
+extern float sound_calculate_fade(int sound_index);
 extern void sound_stop(int sound_index);
 extern real_point3d *matrix4x3_inverse_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern void update_channel_for_looping_sound(int16_t channel_index, float fade);

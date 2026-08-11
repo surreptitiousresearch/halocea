@@ -1,4 +1,4 @@
-/* index_resolution_shutdown @0x83818848 — tear down an index_resolution_table: clear every slot's bucket,
+/* index_resolution_shutdown @0x83818830 — tear down an index_resolution_table: clear every slot's bucket,
  * free every pool block in the entry-pool chain, then free the slot array itself. No-op if not
  * initialized (mirrors index_resolution_initialize.c). */
 

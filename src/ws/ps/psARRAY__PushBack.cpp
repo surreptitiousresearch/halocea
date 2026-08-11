@@ -3,7 +3,7 @@
 #include "psARRAY_DATA.h"
 #include "../ds/dsDATA.h"
 #include "../../headers/apCL.h"
-// 0x827AFC78 — append `data` to the array, lazily allocating and initialising the ref-counted
+// @0x827AFC78 — append `data` to the array, lazily allocating and initialising the ref-counted
 // backing store (an empty element vector, refCount 1) on first use.
 
 // Placement/debug global allocator the ws build links in: operator new(size, file, line).

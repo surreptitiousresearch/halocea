@@ -10,8 +10,8 @@
 #include "headers/object_type_definition.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 
 void object_names_postprocess(scenario *scenario, uint8_t editing)
 {

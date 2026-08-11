@@ -1,3 +1,4 @@
+// vidDEFRAG_POOL_HCEX_X360__AllocBuf @0x823F13B8
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 

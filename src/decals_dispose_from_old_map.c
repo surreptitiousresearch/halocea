@@ -1,4 +1,4 @@
-/* decals_dispose_from_old_map @ 0x83740470 — rasterizer decals + invalidate pool */
+/* decals_dispose_from_old_map @ 0x83740538 — rasterizer decals + invalidate pool */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 extern void rasterizer_decals_dispose_from_old_map(void);

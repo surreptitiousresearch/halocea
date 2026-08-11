@@ -14,7 +14,7 @@
 
 
 
-const real_argb_color * actor_activation_debug_color(uint16_t actor_index)
+const real_argb_color * actor_activation_debug_color(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

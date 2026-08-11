@@ -1,4 +1,4 @@
-/* hud_play_sound @0x837BC49C — reconcile the HUD's looping/impulse sounds against a freshly computed set
+/* hud_play_sound @0x837BC478 — reconcile the HUD's looping/impulse sounds against a freshly computed set
  * of active conditions (type_flags), one bit per sound entry. For each entry (56-byte stride): if its
  * condition is no longer active, stop it (looping sounds are explicitly stopped) and clear its handle/flag;
  * if active, ensure it is playing — looping sounds are started once and left running, impulse sounds are
@@ -14,7 +14,7 @@
 
 extern void unattached_looping_sound_stop(int looping_sound_index);
 extern int unattached_looping_sound_start(int definition_index, int source_object_index, float scale);
-extern void sound_stop_impulse(uint16_t sound_index);
+extern void sound_stop_impulse(int sound_index);
 extern int unspatialized_impulse_sound_new(int definition_index, float scale);
 
 void hud_play_sound(int16_t local_player_index, int type_flags, tag_block *sounds, int *sound_handles, uint16_t *sound_flags)

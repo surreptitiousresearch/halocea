@@ -4,7 +4,7 @@
 
 namespace sml {
 
-// ?Set@STATE@sml@@QAAXH@Z (0x826661F0) — set the active state by numeric id: a direct
+// ?Set@STATE@sml@@QAAXH@Z (@0x826661F0) — set the active state by numeric id: a direct
 // bit-set into the 64-bit (dsFIXED_BIT_ARRAY<2>) active-state mask. Bounds-checked; an
 // out-of-range id (>= 64) hits the strong-assert crash path instead of being set.
 void STATE::Set(int idxState)

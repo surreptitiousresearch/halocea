@@ -1,4 +1,4 @@
-// scnINST_CREATE_DATA::scnINST_CREATE_DATA() @0x823B1598 — default-construct: state=0,
+// scnINST_CREATE_DATA::scnINST_CREATE_DATA() @0x823B1580 — default-construct: state=0,
 // nameInst/nameTpl/nameClass each adopt the process-wide shared empty-string singleton
 // (dsTSTRING<char>::UnsafeInitEmpty, ref-bumped), then default-construct affixes/ps.
 #include "../../headers/ws/scn/scnINST_CREATE_DATA.h"

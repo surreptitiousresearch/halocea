@@ -1,4 +1,4 @@
-/* ai_communication_initialize_for_new_map @0x837CBBA4 — reset the AI dialogue/communication state for a new
+/* ai_communication_initialize_for_new_map @0x837CBB80 — reset the AI dialogue/communication state for a new
  * map: enable dialogue triggers, clear the per-team chatter/talk/shout timers, reset every dialogue and reply
  * event's throttle, clear the recent-conversation ring, and revalidate the conversation datum array. */
 

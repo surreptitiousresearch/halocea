@@ -1,4 +1,4 @@
-/* difficulty_select_menu_update_extended_description @0x8377E58C — refresh the difficulty-select list's
+/* difficulty_select_menu_update_extended_description @0x8377E570 — refresh the difficulty-select list's
  * extended-description panel: if a difficulty is selected, stamps its index onto the description's icon
  * frame and its title text's string_list_index; always stamps the active player's name onto the next text
  * widget, then highlights (frame index 1/0) whichever of the 4 difficulty child widgets matches the

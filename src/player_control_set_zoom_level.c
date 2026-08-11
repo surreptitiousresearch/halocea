@@ -1,4 +1,4 @@
-/* player_control_set_zoom_level @0x836DEFC8 — request a zoom level for a local player's controlled unit. */
+/* player_control_set_zoom_level @0x836DEFC0 — request a zoom level for a local player's controlled unit. */
 
 #include <stdint.h>
 #include "headers/player_control_globals.h"

@@ -1,4 +1,4 @@
-/* actor_derive_target_information @0x8371DF3C — copy a fighting friend's current target to this actor by
+/* actor_derive_target_information @0x8371DF20 — copy a fighting friend's current target to this actor by
  * creating an "orphan" perception of the unit the friend's target prop refers to. No-op if the friend has
  * no current target prop. */
 
@@ -11,7 +11,7 @@
 
 extern int actor_perception_create_orphan_from_friend(int actor_index, int unit_index, int friend_actor_index, int friend_prop_index);
 
-void actor_derive_target_information(int actor_index, uint16_t friend_actor_index)
+void actor_derive_target_information(int actor_index, int friend_actor_index)
 {
     actor_datum *friend_actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, friend_actor_index);
     int prop_index = friend_actor->target.target_prop_index;

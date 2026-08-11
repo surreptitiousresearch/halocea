@@ -27,7 +27,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern int choose_random_array_element(char *array, int16_t element_size, int16_t element_count, int16_t weight_field_offset, unsigned int *used_bit_vector);
 extern int game_time_get(void);

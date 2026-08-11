@@ -1,4 +1,4 @@
-/* hcexHALO_CUSTOM_OBJ_LIST::`vector deleting destructor' @0x823DCBA8 — same teardown as the real
+/* hcexHALO_CUSTOM_OBJ_LIST::`vector deleting destructor' @0x823DCB88 — same teardown as the real
  * destructor, then conditionally operator-deletes `self` when bit 0 of `deleteFlags` is set
  * (compiler-generated `??_E` thunk). */
 

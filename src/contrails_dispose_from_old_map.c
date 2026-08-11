@@ -1,4 +1,4 @@
-/* contrails_dispose_from_old_map @ 0x8373FB18 — invalidate contrail pools */
+/* contrails_dispose_from_old_map @ 0x8373EFF0 — invalidate contrail pools */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 extern void data_make_invalid(data_array *data);

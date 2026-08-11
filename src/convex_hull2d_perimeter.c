@@ -1,4 +1,4 @@
-/* convex_hull2d_perimeter @0x837FDCC4 — sums the edge lengths of a closed 2D convex hull (points[count-1]
+/* convex_hull2d_perimeter @0x837FDCB0 — sums the edge lengths of a closed 2D convex hull (points[count-1]
  * back to points[0], then each consecutive pair). */
 
 #include <stdint.h>

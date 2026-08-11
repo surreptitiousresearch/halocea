@@ -1,4 +1,4 @@
-/* player_reset_flag @0x838072C0 — drops the player's controlled unit's current weapon (networked, if the
+/* player_reset_flag @0x83807288 — drops the player's controlled unit's current weapon (networked, if the
  * unit isn't already in a vehicle — dword +4 of the unit object) and resets the given flag/weapon object. */
 
 #include <stdint.h>

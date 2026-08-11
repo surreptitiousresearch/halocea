@@ -14,7 +14,7 @@
 
 extern void actor_swarm_detach_from_unit(int actor_index, int unit_index);
 extern void actor_delete(int actor_index, uint8_t died);
-extern void actor_detach_from_unit(uint16_t actor_index);
+extern void actor_detach_from_unit(int actor_index);
 extern void encounter_attach_unit(int encounter_index, int unit_index);
 extern void actor_input_update(int actor_index);
 extern void object_set_automatic_deactivation(int object_index, uint8_t automatic_deactivation);

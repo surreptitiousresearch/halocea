@@ -1,4 +1,4 @@
-/* data_packet_group_decode_packet @0x837DF830 — decode one packet from a packet group. The last byte of
+/* data_packet_group_decode_packet @0x837DF810 — decode one packet from a packet group. The last byte of
  * the encoded buffer is the packet type index; it is validated against the group, its class must match the
  * expected class, then the type's definition decodes the payload (header byte stripped) into decoded_packet.
  * On success packet_type is filled and TRUE is returned; on any failure an error string is recorded and

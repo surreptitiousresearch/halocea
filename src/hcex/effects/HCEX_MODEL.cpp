@@ -4,7 +4,7 @@
 
 #include "../../headers/hcex/HCEX_MODEL.h"
 
-// 0x823D9834 — default-construct: haloName/hcexName adopt the shared empty-string singleton via
+// @0x823D9818 — default-construct: haloName/hcexName adopt the shared empty-string singleton via
 // UnsafeInitEmpty(), objNames/nodeIndices/regions adopt the ds_vector.h:24 call-site cookie
 // (empty vectors). modelId is left uninitialized, matching the disassembly.
 HCEX_MODEL::HCEX_MODEL()

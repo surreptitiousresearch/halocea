@@ -2,7 +2,7 @@
 #include "sslOBJ_REF.h"
 #include "sslERROR.h"
 
-// 0x825CE508 — sslSYSTEM::FindObject. Reset lastErr, then linearly scan the object table for the
+// @0x825CE508 — sslSYSTEM::FindObject. Reset lastErr, then linearly scan the object table for the
 // object whose uid matches `uid`; return a ref to it (empty on miss). Returns sslOBJ_REF by value
 // (sret): the decompiler swaps this/result (r3 = return slot sslOBJ_REF*, r4 = this sslSYSTEM*).
 sslOBJ_REF sslSYSTEM::FindObject(int uid)

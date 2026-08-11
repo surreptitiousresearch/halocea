@@ -1,4 +1,4 @@
-/* actor_iterator_next @0x83709BEC — advance the actor cursor. Walks the next-actor chain of the current
+/* actor_iterator_next @0x83709BD0 — advance the actor cursor. Walks the next-actor chain of the current
  * encounter; when exhausted, moves to the next (optionally active) encounter, and finally the encounterless list.
  * With active_only set, skips inactive encounters and inactive actors. Returns the next matching actor, or null. */
 

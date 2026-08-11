@@ -36,9 +36,9 @@
 
 /* actor_data / prop_data come from blam_data_globals.h (data_array *) */
 extern int object_get_ultimate_parent(int object_index);
-extern unsigned int actor_get_firing_position_group(uint16_t actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
+extern unsigned int actor_get_firing_position_group(int actor_index, int16_t evaluation_mode, int16_t group_selection_mode);
 
-void encounter_compute_activation_cluster_bit_vector(uint16_t encounter_index, uint8_t update_actor_dormancy,
+void encounter_compute_activation_cluster_bit_vector(int encounter_index, uint8_t update_actor_dormancy,
                                                      int bit_vector_size, const unsigned int *active_area,
                                                      unsigned int *bit_vector)
 {

@@ -1,4 +1,4 @@
-/* index_resolution_remove_local_index @0x83818930 — search every slot's hash chain for an entry mapping to
+/* index_resolution_remove_local_index @0x83818928 — search every slot's hash chain for an entry mapping to
  * `local_object_index`, and if found, unlink it, clear both its indices, and return it to the table's free
  * list (also decrementing the slot and table entry counts). No-op if the table isn't initialized or no
  * entry matches. */

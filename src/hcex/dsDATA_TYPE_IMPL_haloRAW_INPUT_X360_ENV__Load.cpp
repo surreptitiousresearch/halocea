@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: ds_data::dsDATA_TYPE_IMPL<haloRAW_INPUT_X360_ENV>::Load @0x823BF3F0 (?Load@?$dsDATA_TYPE_IMPL@UhaloRAW_INPUT_X360_ENV@@@ds_data@@UBAHPAVfioFILE@@PAK@Z)
 #include "../headers/ws/ds/dsDATA_TYPE_IMPL.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/hcex/halo_ds_data_type_boundary.h"

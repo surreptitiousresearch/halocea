@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_action_flush_structure_indices(uint16_t actor_index)
+void actor_action_flush_structure_indices(int actor_index)
 {
     /* recovered: (int16_t *)actor_data->data + 914*idx + 54 -> actor_datum.state.action
      * (914*2 = 1828 = sizeof(actor_datum), +54*2 = +108 = 0x6C). */

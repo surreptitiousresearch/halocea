@@ -1,4 +1,4 @@
-/* _field_type_structure_parameter_verifier @0x8379B2E8 — field_parameters_verifier for the "structure"
+/* _field_type_structure_parameter_verifier @0x8379B2D8 — field_parameters_verifier for the "structure"
  * field type: parameters is a count followed inline by that many _field_reference_definition entries;
  * every entry's properties pointer must be non-null and pass its own type's field_parameters_verifier.
  *

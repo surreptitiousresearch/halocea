@@ -1,4 +1,4 @@
-/* rasterizer_frame_statistics_get_fps @0x83790310 — push the current frame's timestamp onto the rolling
+/* rasterizer_frame_statistics_get_fps @0x837902D8 — push the current frame's timestamp onto the rolling
  * FPS sample window and, when enabled, fill out the frame-rate statistics for the existing samples. The
  * window is a stack of up to 60 entries with the newest at index 0; each call shifts the existing samples
  * up by one and inserts the new timestamp/dropped flag at the front. Statistics are computed over the

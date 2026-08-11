@@ -1,4 +1,4 @@
-/* biped_get_autoaim_pill @0x837ACB3C — produce the autoaim capsule (base point, axis vector, radius) for
+/* biped_get_autoaim_pill @0x837ACAE8 — produce the autoaim capsule (base point, axis vector, radius) for
  * a biped. When the biped definition names a pair of aiming nodes, the capsule spans between those two
  * node positions (or collapses to their midpoint as a sphere when the definition's "use midpoint" flag is
  * set). When no aiming nodes are defined, it falls back to the biped's physics pill: a vertical capsule

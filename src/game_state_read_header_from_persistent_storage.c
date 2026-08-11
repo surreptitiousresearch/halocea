@@ -1,4 +1,4 @@
-/* game_state_read_header_from_persistent_storage @0x8371B688 — read and validate the saved-game header
+/* game_state_read_header_from_persistent_storage @0x8371B668 — read and validate the saved-game header
  * from the local player's persistent-storage file. Opens the file, reads `header_size` bytes into `header`,
  * then verifies the whole file's CRC: the checksum stored in the header (at *header_checksum) is captured,
  * the field is zeroed, and a CRC is accumulated over the header followed by the remaining file in 128 KB

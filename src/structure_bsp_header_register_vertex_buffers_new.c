@@ -1,4 +1,4 @@
-/* structure_bsp_header_register_vertex_buffers_new @0x83754640 — stream a structure BSP's vertex-buffer
+/* structure_bsp_header_register_vertex_buffers_new @0x83754630 — stream a structure BSP's vertex-buffer
  * block from the cache file into a freshly created static vertex buffer, then patch every lightmap
  * material's render-data record to point at the new GPU vertex buffer (and, where present, its separate
  * lightmap vertex stream). Blocks on the asynchronous read before patching. */

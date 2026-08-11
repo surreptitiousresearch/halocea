@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL_SetDetAction @0x823C1478
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
 // haloENGINE_CONTROL::SetDetAction @ 0x823C1490 — authored def TU for the flattened C-flattening

@@ -1,4 +1,4 @@
-/* encounter_update_timers @0x8370BC78 — per-tick decay of an encounter's timers: two countdown timers
+/* encounter_update_timers @0x8370BC60 — per-tick decay of an encounter's timers: two countdown timers
  * (+80, +84) reset to 0 while their associated "active" flags (+69, +68) are set, otherwise incremented by
  * 15 (ticks) unless already at the -1 "stopped" sentinel; a third timer (word +74) decays by 15 (floored at
  * 0) whenever both +71 and +72 flags are set.
@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void encounter_update_timers(uint16_t encounter_index)
+void encounter_update_timers(int encounter_index)
 {
     encounter_datum *encounter = (encounter_datum *)encounter_data->data + encounter_index;
 

@@ -1,6 +1,6 @@
 #include "headers/ws/vid/vidPASS_OBJ_MTL.h"
 
-// 0x82728944
+// @0x82728940
 vidPASS_OBJ_MTL::vidPASS_OBJ_MTL()
 {
     this->base.tex.ptr = nullptr;

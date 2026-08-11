@@ -8,7 +8,7 @@ struct objOBJ {
     int           stateProc;    // 0x1C process-state flags (bit 0 = hidden)
 };
 
-// ?SetVisibility@LOD_INFO@animLOD@@QAAX_N@Z  (0x82B0DAF8) — show/hide every object in this LOD
+// ?SetVisibility@LOD_INFO@animLOD@@QAAX_N@Z  (@0x82B0DAF8) — show/hide every object in this LOD
 // level by toggling bit 0 of each object's stateProc word.
 void animLOD::LOD_INFO::SetVisibility(bool show)
 {

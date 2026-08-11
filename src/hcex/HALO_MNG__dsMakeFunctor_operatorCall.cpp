@@ -1,7 +1,7 @@
 #include "../headers/hcex/HALO_MNG.h"
 #include "../headers/ws/ds/ds_new.h"
 
-// 0x823D2608 — ??R?$dsMakeFunctor@VHALO_MNG@@$0A@@@QBAPAVHALO_MNG@@PBDH@Z
+// @0x823D2608 — ??R?$dsMakeFunctor@VHALO_MNG@@$0A@@@QBAPAVHALO_MNG@@PBDH@Z
 // dsMakeFunctor<HALO_MNG,0>::operator()(const char *file, unsigned line): the branded-new factory
 // the dscMAKE_FAMILY machinery calls to construct a HALO_MNG on the tracked heap. Allocates 0xC8
 // (200) bytes via the (size,file,line) placement operator new, base-constructs iaIACTOR and

@@ -1,4 +1,4 @@
-/* hcexHALO_MODEL::hcexHALO_MODEL @0x823D33F8 — install this class's vftable (no other state to
+/* hcexHALO_MODEL::hcexHALO_MODEL @0x823D33F0 — install this class's vftable (no other state to
  * init). */
 
 #include "../../headers/hcex/hcexHALO_MODEL.h"

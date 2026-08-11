@@ -1,4 +1,4 @@
-/* data_decode_short @0x83830A7C — reads one little-endian 16-bit value from the decode stream (via
+/* data_decode_short @0x83830A68 — reads one little-endian 16-bit value from the decode stream (via
  * data_decode_memory), or 0 if the stream is exhausted/overflowed. */
 
 #include <stdint.h>

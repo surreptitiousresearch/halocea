@@ -43,7 +43,7 @@ extern int16_t rasterizer_decal_cached_bitmap_index;       /* cached decal bitma
 extern int rasterizer_decal_cached_bitmap_group_index;          /* cached decal bitmap_group_index */
 
 extern int decal_get_first_decal_index(int16_t cluster_index, int16_t layer);
-extern unsigned int lruv_block_get_address(const lruv_cache *cache, uint16_t block_index);
+extern unsigned int lruv_block_get_address(const lruv_cache *cache, int block_index);
 extern point2d *rasterizer_set_texture(int16_t stage, int16_t type, int16_t usage, int bitmap_group_index, int16_t bitmap_index);
 extern void rasterizer_set_framebuffer_blend_function(int16_t framebuffer_blend_function);
 extern void set_decal_shader(int16_t local_framebuffer_blend_function);

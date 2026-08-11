@@ -1,3 +1,4 @@
+// rendSR_DATA__IsLampVisible @0x829ED048
 #include "../../headers/ws/rend/rendSR_DATA.h"
 #include "../../headers/ws/rend/rendSR_LAMP_DATA.h"
 #include "../../headers/ws/lgt/lgtID.h"

@@ -1,7 +1,7 @@
 #include "psSECTION_INTERFACE.h"
 #include "psARRAY.h"
 #include "../ds/dsDATA.h"
-// 0x8251ED48 — the array value stored under `key`: fetch the raw dsDATA value then coerce it into a
+// @0x8251ED48 — the array value stored under `key`: fetch the raw dsDATA value then coerce it into a
 // psARRAY (empty when the key is absent or not array-typed). sret return (swapped with `this`).
 
 // ?psDataToArray@@YAHABVdsDATA@@PAVpsARRAY@@@Z — coerce a dsDATA into a psARRAY. boundary.

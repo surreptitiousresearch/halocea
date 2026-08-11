@@ -36,8 +36,8 @@ extern float ai_communication_get_player_rating(int unit_index, uint8_t test_lin
 extern uint8_t unit_test_animation_impulse(int unit_index, int16_t animation_impulse);
 extern int16_t ai_communication_consider_speech(int unit_index, int16_t communication_priority, int16_t speech_priority, int16_t delay_ticks, uint8_t allow_vocalization_lookup, uint8_t allow_recent_disabling, int16_t *vocalization_type, float *weight, int *sound_definition_index_reference, char *debugstring);
 extern int prop_get_base_by_unit_index(int actor_index, int unit_index, uint8_t acquire, uint8_t refresh_upon_acquisition);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
-extern int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
+extern int16_t actor_get_perception_knowledge(int actor_index, int prop_index);
 extern int16_t actor_visibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, char lighting, int16_t line_of_sight, uint8_t use_frustum, uint8_t store_debugging_information, int16_t combat_knowledge_type);
 
 float ai_communication_actor_talk_weight(int actor_index, int subject_unit_index, real_point3d *subject_point,

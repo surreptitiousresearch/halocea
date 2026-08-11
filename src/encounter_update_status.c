@@ -27,8 +27,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_in_combat(uint16_t actor_index);
-extern uint8_t actor_is_fighting(uint16_t actor_index);
+extern uint8_t actor_in_combat(int actor_index);
+extern uint8_t actor_is_fighting(int actor_index);
 extern uint8_t game_team_is_ally(int16_t our_team, int16_t other_team);
 extern void encounter_post_combat(int encounter_index);
 extern void encounter_stand_down(int encounter_index);

@@ -1,4 +1,4 @@
-/* accelerate_to_velocity3d @0x83700628 — move `velocity` toward `velocity_desired` at up to
+/* accelerate_to_velocity3d @0x83700618 — move `velocity` toward `velocity_desired` at up to
  * acceleration_maximum per tick. Returns 1 and snaps directly to velocity_desired if the remaining distance
  * is within one tick's acceleration; otherwise steps velocity by acceleration_maximum along the direction to
  * velocity_desired and returns 0. */

@@ -16,9 +16,9 @@
 #include "headers/charge_goal.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 
-float action_charge_find_target_range(uint16_t actor_index, int16_t goal, charge_state_data *state_data)
+float action_charge_find_target_range(int actor_index, int16_t goal, charge_state_data *state_data)
 {
     float range = 0.0f;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

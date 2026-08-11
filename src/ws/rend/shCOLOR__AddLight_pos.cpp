@@ -3,7 +3,7 @@
 #include "../../headers/ws/m3d/m3dCOLOR.h"
 #include "../../headers/ws/m3d/m3d_boundary.h"
 
-// shCOLOR::AddLight @ 0x8309627C  (?AddLight@shCOLOR@@QAAXPAUm3dV@@0MPAVm3dCOLOR@@@Z)
+// shCOLOR::AddLight @ 0x83096240  (?AddLight@shCOLOR@@QAAXPAUm3dV@@0MPAVm3dCOLOR@@@Z)
 //
 // Positional overload: derive the unit direction from receiver `pos` to `lightPos`, scale the
 // light colour by `intensity`, then forward to the directional AddLight.

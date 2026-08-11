@@ -1,4 +1,4 @@
-/* actor_action_handle_berserking_from_proximity @0x837F219C — transitions into berserking when a hostile
+/* actor_action_handle_berserking_from_proximity @0x837F2190 — transitions into berserking when a hostile
  * prop is within the actor_definition's berserk-from-proximity distance threshold (float +928) and the
  * actor's awareness is high (combat_status word +0x6E >= 5, see
  * actor_action_handle_berserking_from_attacking_mode.c). Ensures the berserk timer (word +392) is at least 2.
@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t actor_action_handle_berserking_from_proximity(uint16_t actor_index)
+uint8_t actor_action_handle_berserking_from_proximity(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

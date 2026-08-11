@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: gfx_ResetRenderStats @0x833188D0 (?gfx_ResetRenderStats@ui_new@@YAXH@Z)
 #include "../../headers/ws/ui_new/GFX_SYSTEM.h"
 #include "../../headers/ws/ui_new/gfx_render_stats.h"
 #include "../../headers/ws/ui_new/ui_stat_boundary.h"

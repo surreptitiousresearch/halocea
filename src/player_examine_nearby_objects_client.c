@@ -1,4 +1,4 @@
-/* player_examine_nearby_objects_client @0x836AD19C — client-side variant of player_examine_nearby_objects:
+/* player_examine_nearby_objects_client @0x836AD178 — client-side variant of player_examine_nearby_objects:
  * gathers nearby objects around the player's on-foot unit and dispatches each by type. Items go through
  * the client item-examine path; vehicles and devices share the common handlers. No-op if the player has
  * no unit or the unit is riding something.

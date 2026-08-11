@@ -1,4 +1,4 @@
-/* matrix3x3_transform_vector @0x83706E50 — transform `vector` by a 3x3 matrix into `result` (row-vector *
+/* matrix3x3_transform_vector @0x83706E48 — transform `vector` by a 3x3 matrix into `result` (row-vector *
  * matrix). Safe for in-place use (vector == result): the input is fully copied to a stack scratch buffer
  * first, since the component writes below would otherwise clobber it mid-computation.
  *

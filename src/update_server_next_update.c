@@ -1,4 +1,4 @@
-/* update_server_next_update @0x836F6AF8 — build the next outgoing numbered server update by draining one
+/* update_server_next_update @0x836F6AE0 — build the next outgoing numbered server update by draining one
  * action from each player's action queue. For each player: if a fresh action is available it is cached in
  * the player record (at +8) and appended to the update with its completed-client-update id; otherwise the
  * player's last cached action is re-sent with a completed id of -1. The finished update is handed to the

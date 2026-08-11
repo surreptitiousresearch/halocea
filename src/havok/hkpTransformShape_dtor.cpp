@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkpTransformShape_dtor @0x835FD8D0 (??1hkpTransformShape@@UAA@XZ)
 #include "../headers/havok/hkpTransformShape.h"
 #include "../headers/havok/hkpTransformShapeLayout.h"
 

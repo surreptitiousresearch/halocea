@@ -1,4 +1,4 @@
-/* device_effect_new @0x837B52E8 — spawns a device's feedback effect when it actuates. If the referenced
+/* device_effect_new @0x837B52D0 — spawns a device's feedback effect when it actuates. If the referenced
  * tag is an effect ('effe') it is created on the device (scaled by the device's power/position fields); if
  * it is a sound ('snd!') an impulse sound is played at the device. No-op for an unset effect index.
  *

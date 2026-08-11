@@ -22,7 +22,7 @@ static bool animInstIsObjRenderable(const objOBJ *pObj, bool runtimeUpdate)
     return true;
 }
 
-// ?FillObjRendList@animINST@@QAAX_N@Z  (0x825E2280) — rebuild ppObjListRend to hold exactly the
+// ?FillObjRendList@animINST@@QAAX_N@Z  (@0x825E2280) — rebuild ppObjListRend to hold exactly the
 // renderable objects from ppObjList. Two passes (count then fill) with a consistency assert.
 void animINST::FillObjRendList(bool runtimeUpdate)
 {

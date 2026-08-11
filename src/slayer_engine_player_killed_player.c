@@ -1,4 +1,4 @@
-/* slayer_engine_player_killed_player @0x838156A0 — slayer scoring on a kill: if the dead player wasn't
+/* slayer_engine_player_killed_player @0x83815680 — slayer scoring on a kill: if the dead player wasn't
  * already marked dead (player record +213, opaque flag byte) and there's a real killer, either penalize a
  * friendly-fire kill (-1) or credit a normal kill (+1, after updating momentum-based speed and, in CTF with
  * a "flag must reset" variant on a dedicated server, redirecting the flag carrier's target if the dead

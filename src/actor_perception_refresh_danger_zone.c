@@ -42,13 +42,13 @@
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 extern int object_get_ultimate_parent(int object_index);
-extern void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern void actor_perception_find_sense_position(int actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern int16_t unit_get_animation_frames_remaining(int unit_index, short *animation_state);
 extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index, const real_point3d *p1, int16_t p1_cluster_index, int16_t mode, uint8_t test_line_of_fire, int ignore_object_index, uint8_t ignore_vehicles);
 extern int16_t actor_visibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, char lighting, int16_t line_of_sight, uint8_t use_frustum, uint8_t store_debugging_information, int16_t combat_knowledge_type);
-extern int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern int16_t actor_audibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 extern direction_specification *direction_get_empty(direction_specification *result);
 extern float __fsqrts(float x);
 

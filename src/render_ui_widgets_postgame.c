@@ -1,4 +1,4 @@
-/* render_ui_widgets_postgame @0x83735428 — render the active UI widgets over a player's window during the
+/* render_ui_widgets_postgame @0x83735410 — render the active UI widgets over a player's window during the
  * postgame (carnage report) sequence. For each of the two active widget slots it decides whether the
  * widget belongs to this player — widgets that render regardless of controller, widgets owned by this
  * player (or unowned), and error dialogs (shown to the matching player, or to anyone at the main menu) —

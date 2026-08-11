@@ -4,7 +4,7 @@
 #include "../../headers/ws/m3d/m3dPOLY.h"
 #include "../../headers/ws/txm/txmTEXTURE.h"
 
-// rendDRIVER::RenderPoly(m3dPOLY*, BLENDMODE, unsigned long, txmTEXTURE*) @ 0x827C9F40
+// rendDRIVER::RenderPoly(m3dPOLY*, BLENDMODE, unsigned long, txmTEXTURE*) @ 0x827C9F30
 // ?RenderPoly@rendDRIVER@@QAAXPAVm3dPOLY@@W4BLENDMODE@PASS_DESC_BASE@@KPAVtxmTEXTURE@@@Z
 //
 // As the rendV3D overload, but the source geometry is an m3dPOLY. Each polygon vertex is copied

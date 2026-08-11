@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkCriticalSection_construct @0x838EB698 (??0hkCriticalSection@@QAA@HH@Z)
 #include "../headers/havok/hkReferencedObjectLock.h"
 
 /* Win32/NT critical-section primitives (external boundary). */

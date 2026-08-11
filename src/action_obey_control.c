@@ -35,9 +35,9 @@
 
 
 #include "headers/ai_information_data.h"
-extern uint8_t actor_path_at_destination(uint16_t actor_index);
-extern uint8_t actor_move_animation_busy(uint16_t actor_index);
-extern uint8_t actor_move_animation_impulse(uint16_t actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
+extern uint8_t actor_path_at_destination(int actor_index);
+extern uint8_t actor_move_animation_busy(int actor_index);
+extern uint8_t actor_move_animation_impulse(int actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
 extern float normalize2d(real_vector2d *v);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern uint8_t unit_is_busy(int object_index);

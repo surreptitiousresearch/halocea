@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__RestartCheckpoint @0x823C62F0
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

@@ -1,4 +1,4 @@
-/* king_engine_player_added @0x8382BF2C — on a networked client (game_connection() == _game_connection_network_server) in a teamless King
+/* king_engine_player_added @0x8382BF08 — on a networked client (game_connection() == _game_connection_network_server) in a teamless King
  * of the Hill game, resets the newly-added player's own per-team score/score-tick slot (indexed by the
  * player's team_index, which for a teamless game engine doubles as a per-player slot). */
 

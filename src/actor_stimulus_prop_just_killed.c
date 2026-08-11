@@ -1,4 +1,4 @@
-/* actor_stimulus_prop_just_killed @0x837D4E2C — react to a perception prop being killed. Flags the kill on
+/* actor_stimulus_prop_just_killed @0x837D4E10 — react to a perception prop being killed. Flags the kill on
  * the actor, then (only when the killed prop was a friend) decides how the actor responds based on its
  * actor definition: it may switch its glance/emotion toward the killer prop with a definition-driven
  * probability, and — if the killer is an enemy prop that is sufficiently fresh/close — it may flee with
@@ -18,13 +18,13 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int actor_perception_find_killer_prop_index(int actor_index, uint16_t killed_prop_index, uint8_t skip_friendlies);
+extern int actor_perception_find_killer_prop_index(int actor_index, int killed_prop_index, uint8_t skip_friendlies);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
 extern int game_time_get(void);
 extern uint8_t actor_emotion_flee_with_friends(int actor_index, float *flee_chance);
 
-void actor_stimulus_prop_just_killed(uint16_t actor_index, uint16_t prop_index)
+void actor_stimulus_prop_just_killed(int actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);

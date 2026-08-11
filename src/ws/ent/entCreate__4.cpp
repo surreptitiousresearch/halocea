@@ -6,7 +6,7 @@
 // Declared in entCreate__2.cpp (the scnSCENE/entCREATE_INFO& overload). Same free-function family.
 entENTITY *entCreate(scnSCENE *pScn, entCREATE_INFO *info);
 
-// entCreate(scnSCENE*, const char*, const char*, entCREATE_DATA*, msgDATA*) — 0x82536ED8
+// entCreate(scnSCENE*, const char*, const char*, entCREATE_DATA*, msgDATA*) — @0x82536ED8
 //
 // Convenience overload: builds an entCREATE_INFO from the raw class/template/create-data/init
 // arguments, then forwards to entCreate(scnSCENE*, entCREATE_INFO*).

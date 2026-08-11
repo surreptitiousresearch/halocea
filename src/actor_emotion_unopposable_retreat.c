@@ -31,16 +31,16 @@
 #include <stdint.h>
 
 
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern int16_t actor_emotion_get_unopposable_enemy(int unit_index, int16_t *enemy_count, int16_t maximum_enemy_count, actor_unopposable_enemy *enemies);
 extern int game_time_get(void);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
 extern int16_t actor_emotion_assess_unopposable_danger(int actor_index, int prop_index);
-void actor_emotion_unopposable_retreat(uint16_t actor_index)
+void actor_emotion_unopposable_retreat(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *props = (prop_datum *)prop_data->data;

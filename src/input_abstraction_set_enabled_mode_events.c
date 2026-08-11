@@ -1,4 +1,4 @@
-/* input_abstraction_set_enabled_mode_events @0x83724CA8 — enable/disable the "events" input mode
+/* input_abstraction_set_enabled_mode_events @0x83724C98 — enable/disable the "events" input mode
  * (bit 0x2 of the active-modes mask). */
 
 #include <stdint.h>

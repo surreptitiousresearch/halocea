@@ -1,4 +1,4 @@
-/* find_aim_assist_targets_recursive @0x836C6000 — walk an object and its child/sibling chain collecting
+/* find_aim_assist_targets_recursive @0x836C5FB8 — walk an object and its child/sibling chain collecting
  * aim-assist targets that fall inside the aiming cone. For each object whose bounding sphere
  * (center +160, radius +172) intersects the cone (apex = position, axis = direction), a living enemy
  * unit (type bit 0 at +180, not dead per flag 4 at +262, not the ignore object, on an enemy team, and

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* trouble_is_brewing_load_icon @0x83732BE0 — optionally load the "trouble brewing" UI bitmap tag, then
+/* trouble_is_brewing_load_icon @0x83732BC0 — optionally load the "trouble brewing" UI bitmap tag, then
  * cache its resolved tag index (or -1 if not loaded) in trouble_is_brewing_bitmap_tag for the renderer. */
 
 

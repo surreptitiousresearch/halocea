@@ -1,4 +1,4 @@
-/* player_get_starting_location @0x836A8FC4 — return the scenario_player at the given starting-location index,
+/* player_get_starting_location @0x836A8FC0 — return the scenario_player at the given starting-location index,
  * or null if the index is out of range. */
 
 #include <stdint.h>

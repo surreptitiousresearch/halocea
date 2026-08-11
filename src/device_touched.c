@@ -1,4 +1,4 @@
-/* device_touched @0x837B5164 — dispatch a unit's "use" interaction on a device object to the right handler
+/* device_touched @0x837B5140 — dispatch a unit's "use" interaction on a device object to the right handler
  * based on the device's object type (machine = 7, control = 8). */
 
 #include <stdint.h>

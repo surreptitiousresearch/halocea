@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823CBD70 — pushes the SSLExportEntry describing haloENGINE_CONTROL::SetPause. `id` is the
+// @0x823CBD48 — pushes the SSLExportEntry describing haloENGINE_CONTROL::SetPause. `id` is the
 // byte offset of the paired `sslFuncId_SetPause` slot (@ 0x40).
 SSL_EXPORTER_haloENGINE_CONTROL::_SSL_FUNC_REGISTRATOR_SetPause::_SSL_FUNC_REGISTRATOR_SetPause()
 {

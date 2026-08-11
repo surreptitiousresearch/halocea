@@ -1,4 +1,4 @@
-/* _field_type_translated_index_parameter_verifier @0x8379B934 — field_parameters_verifier for the
+/* _field_type_translated_index_parameter_verifier @0x8379B920 — field_parameters_verifier for the
  * "translated index" field type: validates maximum_active_at_once/initial_translation_table_size are both
  * positive, then (one-time, guarded by the field properties' own `initialized` flag) sets up the
  * translation table and the parallel translated-index allocation array (all slots -1 = free, slot 0 seeded

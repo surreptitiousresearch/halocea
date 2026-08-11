@@ -24,7 +24,7 @@ extern float normalize3d(real_vector3d *v);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-int action_guard_setup_from_fleeing(uint16_t actor_index, flee_state_data *flee_state_data, guard_state_data *state_data)
+int action_guard_setup_from_fleeing(int actor_index, flee_state_data *flee_state_data, guard_state_data *state_data)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *definition = TAG_GET(actor_definition, actor->meta.definition_index);

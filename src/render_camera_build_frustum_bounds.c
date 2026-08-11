@@ -1,4 +1,4 @@
-/* render_camera_build_frustum_bounds @0x8376BB28 — derive the normalized projection-plane rectangle for a
+/* render_camera_build_frustum_bounds @0x8376BB18 — derive the normalized projection-plane rectangle for a
  * camera whose pixel viewport sits inside a larger window. Each edge is expressed as the viewport edge's
  * offset from the window centre (2*edge - near_window_edge - far_window_edge), scaled by the inverse window
  * height so the result is aspect-independent; the horizontal edges are additionally multiplied by the

@@ -1,4 +1,4 @@
-/* director_dispose_from_old_map @ 0x836E44A0-adjacent (0x836E4C40) — reset both local
+/* director_dispose_from_old_map @ 0x836E4C40 — reset both local
  * players' director (camera) state. */
 #include "headers/director.h"
 #include "headers/blam_data_globals.h"

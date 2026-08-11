@@ -31,7 +31,7 @@
 extern void data_iterator_new(data_iterator *iterator, data_array *data);
 extern void *data_iterator_next(data_iterator *iterator);
 extern void *datum_try_and_get(const data_array *data, int index);
-extern action_queue *update_server_get_player_action_queue(uint16_t player_index);
+extern action_queue *update_server_get_player_action_queue(int player_index);
 extern int simple_circular_queue_get_number_of_queued_entries(const simple_circular_queue *queue);
 extern uint8_t action_queue_read(action_queue *queue, player_action *action, int *completed_client_update_id);
 extern uint8_t unit_controllable(int unit_index);

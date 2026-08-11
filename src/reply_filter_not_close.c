@@ -1,4 +1,4 @@
-/* reply_filter_not_close @0x837CC0A8 — ai_conversation reply filter: true if `reply_actor_index` has a prop
+/* reply_filter_not_close @0x837CC010 — ai_conversation reply filter: true if `reply_actor_index` has a prop
  * (prop_datum) NOT close to `original_unit_index` (prop->distance over 5.0 or prop->line_of_sight >= 2).
  * Exact inverse threshold of reply_filter_close. */
 

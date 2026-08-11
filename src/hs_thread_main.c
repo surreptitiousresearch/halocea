@@ -32,7 +32,7 @@ extern hs_runtime_globals_t hs_runtime_globals;
 
 extern void hcex_on_start_script(const char *script_name);
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern uint8_t game_in_progress(void);
 extern int game_time_get(void);
 extern void datum_delete(data_array *data, int index);

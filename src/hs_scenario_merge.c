@@ -11,8 +11,7 @@
 #include "headers/hs_source_file.h"
 #include "headers/tag_data.h"
 #include "headers/tag_block.h"
-extern int16_t tag_block_add_element(tag_block *block);
-
+#include "headers/tag_groups.h"
 /* strcpy declared by <string.h> */
 /* memcpy declared by <string.h> */
 

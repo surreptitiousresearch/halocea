@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__Init @0x823CCAE8
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

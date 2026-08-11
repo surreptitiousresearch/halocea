@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* attract_mode_start @0x83784F8C — begin attract-mode (idle demo) playback: pick a random movie 0-2
+/* attract_mode_start @0x83784F38 — begin attract-mode (idle demo) playback: pick a random movie 0-2
  * different from the last one shown, stop the menu music, and start its localized Bink movie. If
  * playback fails to start, arm the retry countdown timer. */
 

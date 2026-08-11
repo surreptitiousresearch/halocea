@@ -1,4 +1,4 @@
-/* director_is_first_person @0x836E4468 — true when a local player's camera director is running the
+/* director_is_first_person @0x836E4450 — true when a local player's camera director is running the
  * first-person camera and is not currently blending out of a camera change (camera_change_pause <= 0). */
 
 #include <stdint.h>

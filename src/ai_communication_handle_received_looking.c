@@ -16,9 +16,9 @@
 extern void ai_communication_look_secondary_at_unit(int actor_index, int16_t type, int16_t priority, int look_unit_index, int prop_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
-void ai_communication_handle_received_looking(int actor_index, uint16_t prop_index,
+void ai_communication_handle_received_looking(int actor_index, int prop_index,
                                               ai_information_packet *information)
 {
     int16_t look_type = information->look_type;

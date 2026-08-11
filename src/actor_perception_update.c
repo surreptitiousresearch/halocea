@@ -34,31 +34,31 @@
 #include "headers/secondary_look_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/real_point3d.h"
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 
 
 extern const int16_t global_acknowledgement_speeds[4][4];
 
 extern void actor_perception_refresh(int actor_index);
 extern void actor_perception_refresh_danger_zone(int actor_index);
-extern void actor_stimulus_noticed_danger_zone(uint16_t actor_index, int16_t danger_type, int16_t danger_hostility, int danger_object_index, const real_point3d *position);
+extern void actor_stimulus_noticed_danger_zone(int actor_index, int16_t danger_type, int16_t danger_hostility, int danger_object_index, const real_point3d *position);
 extern void prop_position_refresh(int actor_index, int prop_index, actor_position_data *sense_position, uint8_t forced_position_update, uint8_t full_status_update);
 extern void prop_status_refresh(int actor_index, int prop_index, actor_position_data *sense_position);
-extern uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
-extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
+extern uint8_t actor_perception_desire_prop(int actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
+extern void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index);
 extern int prop_orphan_transition(int actor_index, int parent_prop_index);
-extern void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_prop_index);
-extern int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index);
+extern void actor_switch_props(int actor_index, int prop_index, int replacement_prop_index);
+extern int16_t actor_get_perception_knowledge(int actor_index, int prop_index);
 extern uint8_t actor_perception_become_acknowledged(int actor_index, int prop_index, uint8_t *expected_reference);
-extern uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index);
+extern uint8_t actor_compute_prop_unopposable(int actor_index, int prop_index);
 extern float actor_compute_prop_target_weight(int actor_index, int prop_index);
 extern void prop_delete(int actor_index, int prop_index);
-extern void actor_stimulus_prop_just_killed(uint16_t actor_index, uint16_t prop_index);
-extern void actor_stimulus_prop_sighted(uint16_t actor_index, uint16_t prop_index, uint8_t new_enemy);
-extern void actor_stimulus_enter_combat_perceived_enemy(uint16_t actor_index, uint16_t prop_index);
-extern void actor_stimulus_enter_combat_found_body(uint16_t actor_index, uint16_t prop_index);
-extern uint8_t actor_in_combat(uint16_t actor_index);
-extern uint8_t actor_is_fighting(uint16_t actor_index);
+extern void actor_stimulus_prop_just_killed(int actor_index, int prop_index);
+extern void actor_stimulus_prop_sighted(int actor_index, int prop_index, uint8_t new_enemy);
+extern void actor_stimulus_enter_combat_perceived_enemy(int actor_index, int prop_index);
+extern void actor_stimulus_enter_combat_found_body(int actor_index, int prop_index);
+extern uint8_t actor_in_combat(int actor_index);
+extern uint8_t actor_is_fighting(int actor_index);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern int game_time_get(void);

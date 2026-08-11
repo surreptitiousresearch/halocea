@@ -1,4 +1,4 @@
-/* actor_discard_firing_position @0x837EFD68 — record a firing position the actor is abandoning so it
+/* actor_discard_firing_position @0x837EFD60 — record a firing position the actor is abandoning so it
  * won't immediately re-pick it. Pushes (temporary flag, firing_position_index) into the actor's 4-entry
  * recently-discarded ring buffer (actor +968, stride 4, index word +966 advanced mod 4), then stashes the
  * discarded position's world point (firing position +0, 3 floats, from the actor's encounter firing-
@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position_index, uint8_t temporary)
+void actor_discard_firing_position(int actor_index, int16_t firing_position_index, uint8_t temporary)
 {
     if ( firing_position_index != -1 )
     {

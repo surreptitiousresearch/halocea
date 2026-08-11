@@ -2,7 +2,7 @@
 #include "../headers/hcex/HCEX_EFFECT.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-// dsVECTOR<HCEX_EFFECT,8>::operator[] (non-const) @ 0x823DAFD8
+// dsVECTOR<HCEX_EFFECT,8>::operator[] (non-const) @ 0x823DAFC0
 // Bounds-checked mutable access; returns a reference to the idx-th effect.
 template<>
 HCEX_EFFECT &dsVECTOR<HCEX_EFFECT, 8>::operator[](int idx)

@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int actor_set_active(uint16_t actor_index, uint8_t active);
+extern int actor_set_active(int actor_index, uint8_t active);
 extern int game_time_get(void);
 
 uint8_t encounter_activate(int encounter_index)

@@ -1,4 +1,4 @@
-/* game_state_calculate_crc @0x83684A28 — checksum the live actor table (stride 1828) to a single CRC,
+/* game_state_calculate_crc @0x83684A18 — checksum the live actor table (stride 1828) to a single CRC,
  * used to detect game-state desync. */
 
 #include <stdint.h>

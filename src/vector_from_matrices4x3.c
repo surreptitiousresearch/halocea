@@ -1,4 +1,4 @@
-/* vector_from_matrices4x3 @0x8370710C — compute the rotation between two 4x3 transforms as a scaled
+/* vector_from_matrices4x3 @0x837070E8 — compute the rotation between two 4x3 transforms as a scaled
  * axis vector: form the relative transform a * inverse(b), convert its rotation to a quaternion, then
  * to angle-axis, and return the axis scaled by the angle (an exponential-map / rotation vector).
  *

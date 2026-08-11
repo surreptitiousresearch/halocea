@@ -1,4 +1,4 @@
-/* game_engine_progress_to_postgame_rasterize @0x8374A7A8 — advance the game engine into the
+/* game_engine_progress_to_postgame_rasterize @0x8374A798 — advance the game engine into the
  * postgame-rasterize phase, then arm (or disable) the map-cycle countdown depending on whether the
  * server is force-stopping and on the configured timeout.
  *

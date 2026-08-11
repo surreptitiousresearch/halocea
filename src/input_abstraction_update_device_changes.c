@@ -1,4 +1,4 @@
-/* input_abstraction_update_device_changes @0x83724B68 — on a device (controller) change, stop any Bink
+/* input_abstraction_update_device_changes @0x83724B48 — on a device (controller) change, stop any Bink
  * video playback once the device-enumeration startup window (2000ms) has elapsed since either the
  * subsystem's own startup timer or the first device insertion; and latch the first-insertion timestamp the
  * first time a "real" device (mask 0xFFF000) change is seen. */

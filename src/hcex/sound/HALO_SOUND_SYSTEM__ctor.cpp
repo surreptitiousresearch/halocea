@@ -3,7 +3,7 @@
 
 HALO_SOUND_SYSTEM *haloSoundSystem; // singleton pointer, set below
 
-// HALO_SOUND_SYSTEM::HALO_SOUND_SYSTEM() @ 0x836C1CB0
+// HALO_SOUND_SYSTEM::HALO_SOUND_SYSTEM() @ 0x836C1C90
 // Default-constructs every owned container (zeroed dsVECTORs, each stamped with its own
 // allocation call-site cookie) and registers the process-wide singleton.
 // DEVIATION: the eight dsVECTOR fields' `__cl` allocation-cookie initializers are shuffled

@@ -23,14 +23,13 @@
 #include "headers/tag_data.h"
 #include <stdio.h>
 #include <string.h>
+#include "headers/tag_groups.h"
 
 typedef struct _iobuf _iobuf;
 extern _iobuf *__iob_func(void);
 /* fprintf provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 /* fflush provided by CRT via <stdio.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern int bitmap_get_pixel_data_size(const bitmap_data *bitmap);
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
-extern uint8_t tag_data_resize(tag_data *data, int size);
 
 int16_t bitmap_group_add_bitmap(bitmap_group *group, int16_t width, int16_t height, int16_t depth, int16_t type, int16_t format, int16_t mipmap_count)
 {

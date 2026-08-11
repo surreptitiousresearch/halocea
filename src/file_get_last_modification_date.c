@@ -1,4 +1,4 @@
-/* file_get_last_modification_date @0x837E6F8C — resolve the file_reference to a full path and read its last
+/* file_get_last_modification_date @0x837E6F78 — resolve the file_reference to a full path and read its last
  * write time via GetFileAttributesExA. Zeroes *date defensively before the call and leaves it zeroed if the
  * attributes query fails. Always returns 1 (the success/failure is only used to decide whether to clear the
  * last error, not reflected in the return value) — reproduced faithfully.

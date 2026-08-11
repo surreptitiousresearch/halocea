@@ -1,4 +1,4 @@
-/* dangerous_items_near_player @0x83757C60 — true if any "dangerous" item object (type mask 0x1C,
+/* dangerous_items_near_player @0x83757C48 — true if any "dangerous" item object (type mask 0x1C,
  * connected-objects flag set) currently has a positive danger value (short @ object word +252). */
 
 #include <stdint.h>

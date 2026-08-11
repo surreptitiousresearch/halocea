@@ -1,6 +1,6 @@
 #include "sslSTACK.h"
 
-// 0x82AF1AB8 — sslSTACK::GetTop. Reference to the top operand-stack entry, or a shared function-
+// @0x82AF1AB8 — sslSTACK::GetTop. Reference to the top operand-stack entry, or a shared function-
 // local default (TYPE_INT / 0) returned when the operand stack is empty.
 sslSTACK_DATA &sslSTACK::GetTop()
 {

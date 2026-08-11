@@ -1,4 +1,4 @@
-/* actor_stimulus_enter_combat_friend_in_combat @0x837D42F8 — stimulus applied to an actor when a friendly
+/* actor_stimulus_enter_combat_friend_in_combat @0x837D42E8 — stimulus applied to an actor when a friendly
  * prop (a known threat/target shared by the squad) reports being in combat. If the actor isn't already in
  * a higher combat state it transitions into combat, latching the prop's last position and a set of combat
  * timers. It then raises the actor's combat-awareness level toward the referenced actor's level, refreshing
@@ -20,7 +20,12 @@
 
 extern void actor_stimulus_combat(int actor_index, int16_t transition_type, const real_point3d *guard_point, int guard_point_surface_index, float guard_distance, int guard_timer, const real_vector3d *transition_vector, int prop_index, int prop_look_timer, uint8_t prop_look_while_moving);
 
-void actor_stimulus_enter_combat_friend_in_combat(uint16_t actor_index, uint16_t prop_index)
+/* DEVIATION (2026-08-12, #134): prop_index is `int`, a full datum handle, NOT the `uint16_t` this was
+ * declared with. `clrlwi r9, r4, 16` @0x837D42F4 is only the prop_data subscript (DATA_ARRAY_ELEMENT's
+ * own truncation, data_array.h); r4 is never rewritten across the 71-instruction body, and
+ * `stw r4, 0x340(r11)` @0x837D4384 persists the WHOLE word into the actor datum. Same field, same
+ * mechanism as the perceived_enemy and found_body siblings. */
+void actor_stimulus_enter_combat_friend_in_combat(int actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);

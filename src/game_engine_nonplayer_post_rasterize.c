@@ -1,4 +1,4 @@
-/* game_engine_nonplayer_post_rasterize @0x837515E4 — after the scene has been rasterized but outside any
+/* game_engine_nonplayer_post_rasterize @0x837515B0 — after the scene has been rasterized but outside any
  * player window, run the postgame presentation: the engine's post-rasterize postgame pass, then for each
  * of the (up to two) local players draw the postgame UI widgets over the full screen and clear any
  * controller vibration. Only runs once the game engine has entered the postgame-rasterize-delay state.

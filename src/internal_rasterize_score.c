@@ -1,3 +1,4 @@
+/* internal_rasterize_score @0x8374C178 */
 #include <stdint.h>
 #include "headers/player_datum.h"
 #include "headers/game_engine.h"

@@ -18,7 +18,7 @@
 
 /* attested: r3 first use clrlwi 16 @ 0x83715844 => uint16_t datum index; caller
  * refresh_sounds byte-normalizes the return (clrlwi r3,24 @ 0x83717418) => uint8_t */
-uint8_t refresh_sound(uint16_t sound_index)
+uint8_t refresh_sound(int sound_index)
 {
     sound_datum *datum = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     uint8_t (*track_proc)(int, const void *, sound_source *);

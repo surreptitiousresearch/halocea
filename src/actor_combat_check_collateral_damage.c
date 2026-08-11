@@ -22,7 +22,7 @@
 #include "headers/real_point3d.h"
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 

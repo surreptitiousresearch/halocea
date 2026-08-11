@@ -1,4 +1,4 @@
-/* sv_kick @0x837667F8 — server console command: kick the player matching a name/hash string. Rejected
+/* sv_kick @0x837667D8 — server console command: kick the player matching a name/hash string. Rejected
  * off the server.
  *
  * DEVIATION: the binary issues three sequential calls to the symbol resolved as

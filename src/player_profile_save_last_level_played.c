@@ -1,4 +1,4 @@
-/* player_profile_save_last_level_played @0x83765B78 — record the current solo (campaign) level as the
+/* player_profile_save_last_level_played @0x83765B68 — record the current solo (campaign) level as the
  * "last level played" in a local player's active profile, persisting it if it changed. */
 
 #include <stdint.h>

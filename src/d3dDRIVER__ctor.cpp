@@ -1,7 +1,7 @@
 #include "headers/d3d_driver.h"
 #include <string.h> // memset
 
-// 0x8268F140 -- d3dDRIVER constructor. Chains the vidDRIVER base ctor (56 = video-driver
+// @0x8268F140 -- d3dDRIVER constructor. Chains the vidDRIVER base ctor (56 = video-driver
 // category tag), installs the d3dDRIVER vtable, clears the D3D caps / present-parameter
 // blocks and every device/surface/query pointer, and enables PWL gamma by default.
 d3dDRIVER::d3dDRIVER()

@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void ai_scripting_try_to_fight_nothing(int ai_index);
 
 void ai_scripting_try_to_fight_nothing_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

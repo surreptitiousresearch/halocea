@@ -14,8 +14,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_move_halt(uint16_t actor_index);
-extern void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position_index, uint8_t temporary);
+extern uint8_t actor_move_halt(int actor_index);
+extern void actor_discard_firing_position(int actor_index, int16_t firing_position_index, uint8_t temporary);
 extern uint8_t actor_move_to_firing_position(int actor_index, int16_t firing_position_index, path_state *cached_path_state);
 
 int16_t actor_change_firing_position(int actor_index, int16_t firing_position_index, firing_position *firing_position, int previous_owner, path_state *cached_path_state, uint8_t cached_path_available)

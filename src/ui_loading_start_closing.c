@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* ui_loading_start_closing @0x83764518 — begin (or force) closing the loading screen. When forced
+/* ui_loading_start_closing @0x83764500 — begin (or force) closing the loading screen. When forced
  * ("just go"), the loading-screen state is hard-reset. Otherwise, if a loading screen is up, schedule its
  * close ~1.75s out, padding the delay so the screen stays up for a minimum of 2s (0x7D0) since it opened
  * (unless already in the closing state 1). */

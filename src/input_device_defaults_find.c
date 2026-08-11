@@ -1,4 +1,4 @@
-/* input_device_defaults_find @0x838026C8 — locate the first input-device tag ('devc', 0x64657663) whose
+/* input_device_defaults_find @0x838026A8 — locate the first input-device tag ('devc', 0x64657663) whose
  * device type is mouse/keyboard or joystick, and copy its default-bindings block
  * (a player_profile control block) into the destination buffer. Returns the tag index,
  * or -1 if none found.

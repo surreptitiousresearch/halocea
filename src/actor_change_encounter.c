@@ -10,7 +10,7 @@
 #include "headers/destination_type.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_action_flush_position_indices(uint16_t actor_index);
+extern void actor_action_flush_position_indices(int actor_index);
 extern void encounterless_detach_actor(int actor_index);
 extern void encounter_detach_actor(int actor_index, uint8_t died);
 extern void encounterless_attach_actor(int actor_index);

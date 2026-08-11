@@ -16,10 +16,10 @@
 #include "headers/_object_definition.h"
 #include "headers/scenario_object_location_placement_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
 
 extern uint8_t game_in_editor(void);
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern void matrix4x3_rotation_from_angles(real_matrix4x3 *matrix, float yaw, float pitch, float roll);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern int scenario_leaf_index_from_point(const real_point3d *point);

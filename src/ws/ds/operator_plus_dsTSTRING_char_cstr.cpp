@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: operator+<char>(const dsTSTRING<char>&, const char*) @0x823B5518 (??$?HD@@YA?AV?$dsTSTRING@D@@ABV0@PBD@Z)
 #include "dsTSTRING.h"
 
 extern "C" const char empty_string[]; /* .rdata @0x8200155A - the shared "" literal (def: src/data/empty_string.c) */

@@ -1,3 +1,4 @@
+// rendSR_DATA__FinishLampsUpdate @0x829ECFB8
 #include "../../headers/ws/rend/rendSR_DATA.h"
 #include "../../headers/ws/rend/rendSR_LAMP_DATA.h"
 

@@ -12,7 +12,7 @@
 
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 
-void actor_swarm_component_refresh(int unit_index, uint16_t swarm_component_index)
+void actor_swarm_component_refresh(int unit_index, int swarm_component_index)
 {
     int spawn_surface_index = -1;
     swarm_component_datum *component =

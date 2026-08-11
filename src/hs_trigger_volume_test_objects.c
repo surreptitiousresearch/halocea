@@ -1,4 +1,4 @@
-/* hs_trigger_volume_test_objects @0x837F7830 — script primitive: test every object in an object list
+/* hs_trigger_volume_test_objects @0x837F7810 — script primitive: test every object in an object list
  * against a trigger volume. With `and` set, returns true only if all objects are inside (short-circuit
  * false on the first miss); with `and` clear (OR), returns true if any object is inside (short-circuit
  * true on the first hit). An empty list returns `and`. */

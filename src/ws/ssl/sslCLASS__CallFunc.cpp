@@ -26,7 +26,7 @@ extern apCOUNTER_TIME_RECUR sslCallFuncTimeCounter; // boundary — static "ssl/
 extern apDATA_TRACKER sslTracker;                   // boundary — SSL call statistics tracker
 extern int cbdeep;                                  // boundary — CallFunc recursion depth
 
-// 0x82A3BA50 — sslCLASS::CallFunc. Public function dispatch. Returns sslERROR by value (sret): the
+// @0x82A3BA50 — sslCLASS::CallFunc. Public function dispatch. Returns sslERROR by value (sret): the
 // decompiler swaps this/result (r3 = return slot sslERROR*, r4 = this sslCLASS*) and mistypes pSelf as
 // dsTSTRING<char>*. Routes element `idx` to the native-callback path (kind 0), the scripted-function
 // path (kind 1), or reports "is not a function" for any other kind; out-of-range indices report a

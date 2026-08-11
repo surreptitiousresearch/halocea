@@ -1,4 +1,4 @@
-/* action_queue_shutdown @0x837AAFD0 — free an action queue's entry bank and null the pointer. */
+/* action_queue_shutdown @0x837AAFB8 — free an action queue's entry bank and null the pointer. */
 
 #include "headers/action_queue.h"
 

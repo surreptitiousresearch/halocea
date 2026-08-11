@@ -1,4 +1,4 @@
-/* ui_stop_main_menu_music @0x837311D0 — stop the looping main-menu title music if it is playing, and
+/* ui_stop_main_menu_music @0x837311B0 — stop the looping main-menu title music if it is playing, and
  * clear the active flag. */
 
 #include <stdint.h>

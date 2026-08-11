@@ -19,7 +19,7 @@ extern void ai_communication_event(int16_t communication_type, int subject_unit_
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 
-void action_wait_update(uint16_t actor_index)
+void action_wait_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     wait_state_data *wait = &actor->state.action_data.___u0.wait;

@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "headers/hud_nav_point_type.h"
 
-extern void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int reference_index, float vertical_offset);
+extern void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int16_t reference_index, float vertical_offset);
 
 void hud_activate_global_nav_point_with_game_engine_flag(int16_t nav_index, int16_t flag_index, float vertical_offset)
 {

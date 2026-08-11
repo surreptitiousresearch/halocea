@@ -1,4 +1,4 @@
-/* HCEX_OBJ_CMP::cmp(const HCEX_OBJ&, int) @0x823ED708 — same ascending 3-way compare, against a
+/* HCEX_OBJ_CMP::cmp(const HCEX_OBJ&, int) @0x823ED700 — same ascending 3-way compare, against a
  * raw id key (used by dsVECTOR<HCEX_OBJ,8>::FindSorted's key search).
  *
  * DEVIATION: same overflow-safe-XOR-compare-to-plain-signed-compare simplification as

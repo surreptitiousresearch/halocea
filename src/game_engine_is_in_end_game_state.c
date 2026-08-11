@@ -1,4 +1,4 @@
-/* game_engine_is_in_end_game_state @0x8374621C — true when the game engine is in any post-game phase
+/* game_engine_is_in_end_game_state @0x83746208 — true when the game engine is in any post-game phase
  * (mode other than active). */
 
 #include <stdint.h>

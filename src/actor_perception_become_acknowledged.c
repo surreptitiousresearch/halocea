@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int actor_expected_acknowledgement(int actor_index, int prop_index);
-extern void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_prop_index);
+extern void actor_switch_props(int actor_index, int prop_index, int replacement_prop_index);
 extern void prop_delete(int actor_index, int prop_index);
 extern void actor_stimulus_prop_acknowledged(int actor_index, int prop_index, uint8_t reappearance, uint8_t expected);
 

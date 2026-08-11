@@ -3,7 +3,7 @@
 #include "headers/obey_individual_complex_control.h"
 #include "headers/obey_simple_control_flags.h"
 
-extern void action_obey_directmovement_update_facing(uint16_t actor_index, int unit_index, obey_individual_simple_control *simple_control);
+extern void action_obey_directmovement_update_facing(int actor_index, int unit_index, obey_individual_simple_control *simple_control);
 
 void action_obey_individual_update(int actor_index, int unit_index, int16_t command_list_index, obey_individual_simple_control *simple_control, obey_individual_complex_control *complex_control, void *user_data)
 {

@@ -1,4 +1,4 @@
-/* weapon_overcharged @0x836D95E4 — true when a weapon object is in an overcharged/charging-overflow state
+/* weapon_overcharged @0x836D95C0 — true when a weapon object is in an overcharged/charging-overflow state
  * (its primary trigger state, weapon.triggers[0].state, is charging or charged). */
 
 #include "headers/data_array.h"

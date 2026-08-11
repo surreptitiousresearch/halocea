@@ -1,4 +1,4 @@
-/* hud_deactivate_team_nav_point_with_object @0x837ED608 — thunk deactivating an object-anchored
+/* hud_deactivate_team_nav_point_with_object @0x837ED600 — thunk deactivating an object-anchored
  * (_nav_point_object) team nav point, forwarding to hud_deactivate_team_nav_point. */
 
 #include <stdint.h>

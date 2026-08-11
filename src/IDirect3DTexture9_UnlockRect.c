@@ -1,4 +1,5 @@
 #include "headers/d3d_boundary.h"
+#include "headers/d3d_render_boundary.h"
 
 HRESULT IDirect3DTexture9_UnlockRect(D3DTexture *pThis, unsigned int Level)
 {

@@ -1,4 +1,4 @@
-/* scenario_trigger_volume_test_point @0x83703D8C — tests whether a world position lies inside a scenario
+/* scenario_trigger_volume_test_point @0x83703D58 — tests whether a world position lies inside a scenario
  * trigger volume. Type 0 is an axis-aligned box (min/max at float offsets 18..23); type 1 is an oriented
  * box: the position is transformed into the volume's local frame (origin + forward/up vectors) and tested
  * against [0, extents]. Any other type is never inside. Returns 1 if inside, 0 otherwise.

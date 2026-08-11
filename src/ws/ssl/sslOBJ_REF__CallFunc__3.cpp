@@ -10,7 +10,7 @@
 // Global printf-into-dsTSTRING helper (returns the formatted string by reference); not reversed here.
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 
-// 0x82526578 — sslOBJ_REF::CallFunc (dsSTRID-name overload __3). Returns sslERROR by value (sret):
+// @0x82526578 — sslOBJ_REF::CallFunc (dsSTRID-name overload __3). Returns sslERROR by value (sret):
 // the decompiler swaps this/result (r3 = return slot sslERROR*, r4 = this sslOBJ_REF*). Resolve
 // `name` to an element index on the object's class, then dispatch it; error when the ref is empty
 // or the name is unknown. `caller` is passed by value (its ref is released on return).

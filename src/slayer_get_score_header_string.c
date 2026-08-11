@@ -1,3 +1,4 @@
+/* slayer_get_score_header_string @0x83815810 */
 #include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 #include "headers/multiplayer_game_text_string.h"

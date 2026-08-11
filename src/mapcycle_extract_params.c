@@ -1,4 +1,4 @@
-/* mapcycle_extract_params @0x83766C78 — splits one mapcycle config line "map, variant" in place at the
+/* mapcycle_extract_params @0x83766C58 — splits one mapcycle config line "map, variant" in place at the
  * first comma, trims whitespace from both halves, and reports whether both a map name and a variant name
  * were present. */
 

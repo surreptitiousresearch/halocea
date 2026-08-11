@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osLockedCompareAndSwap @0x825E6828 (?osLockedCompareAndSwap@@YAHPAHHH@Z)
 // DEVIATION: hand-written PowerPC lwarx/stwcx. lock-free primitive (see osLockedSet.cpp note),
 // not a call to a Win32 InterlockedCompareExchange export.
 

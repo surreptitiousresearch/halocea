@@ -1,4 +1,4 @@
-/* find_files_next @0x837E70E0 — advance a recursive directory walk by one entry, returning the next
+/* find_files_next @0x837E70B8 — advance a recursive directory walk by one entry, returning the next
  * matching file (or directory) into `file` and, optionally, its last-write time into `date`. The walk
  * keeps a per-depth stack of FindFirstFile handles in find_files_globals; each call resumes from the
  * current depth, opening directories on first visit (FindFirstFileA "*.*"), advancing within them

@@ -38,10 +38,10 @@
 
 #include "headers/ai_information_data.h"
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
-extern uint8_t actor_combat_allow_special_fire_situation(uint16_t actor_index, int16_t special_fire_situation);
+extern uint8_t actor_combat_allow_special_fire_situation(int actor_index, int16_t special_fire_situation);
 extern void actor_combat_get_firing_parameters(int actor_index, actor_variant_definition *firing_variant_definition, actor_burst_geometry **burst_geometry_reference, actor_firing_pattern **firing_pattern_reference);
 extern float game_difficulty_get_team_value(int16_t value_type, int16_t team_index);
-extern int actor_get_weapon(uint16_t actor_index);
+extern int actor_get_weapon(int actor_index);
 extern float weapon_definition_get_damage_potential(int weapon_definition_index, float *rounds_per_second);
 extern void actor_combat_find_nearby_target(real_point3d *target_point, float miss_distance);
 extern uint32_t *get_global_random_seed_address(void);

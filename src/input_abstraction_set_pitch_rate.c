@@ -1,4 +1,4 @@
-/* input_abstraction_set_pitch_rate @0x83724FB0 — set the configured look pitch sensitivity for a local
+/* input_abstraction_set_pitch_rate @0x83724F90 — set the configured look pitch sensitivity for a local
  * player. DEVIATION: value typed double by the decompiler (soft-float ABI); it is a float. Player index
  * biased by -1 to match the binary's slot addressing. */
 

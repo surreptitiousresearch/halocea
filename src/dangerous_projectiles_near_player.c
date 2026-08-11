@@ -1,4 +1,4 @@
-/* dangerous_projectiles_near_player @0x83759788 — true if any projectile object (type mask 0x20)
+/* dangerous_projectiles_near_player @0x83759770 — true if any projectile object (type mask 0x20)
  * currently exists in the world. */
 
 #include <stdint.h>

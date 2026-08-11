@@ -33,7 +33,7 @@ extern float normalize2d(real_vector2d *v);
 extern float __fsqrts(float x);
 extern uint8_t projectile_aim_ballistic(float base_velocity, float gravity_scale, const real_point3d *origin, const real_point3d *target_point, float *target_velocity_min, float *target_ballistic_fraction_min, float *forced_velocity, uint8_t lob, real_vector3d *result_aim_vector, float *result_velocity, float *result_ticks, float *result_distance, float *result_vertical_velocity, float *result_horizontal_velocity);
 
-void infection_swarm_aim_jump(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity)
+void infection_swarm_aim_jump(int actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->meta.swarm_cache_index == -1 )

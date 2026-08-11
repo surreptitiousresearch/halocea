@@ -11,10 +11,10 @@
 
 extern void encounterless_detach_actor(int actor_index);
 extern void encounter_detach_actor(int actor_index, uint8_t died);
-extern void actor_swarm_cache_delete(uint16_t actor_index);
+extern void actor_swarm_cache_delete(int actor_index);
 extern void actor_swarm_detach_from_unit(int actor_index, int unit_index);
-extern void actor_detach_from_unit(uint16_t actor_index);
-extern void actor_delete_props(uint16_t actor_index);
+extern void actor_detach_from_unit(int actor_index);
+extern void actor_delete_props(int actor_index);
 extern void ai_conversation_actor_deleted(int actor_index);
 extern void datum_delete(data_array *data, int index);
 

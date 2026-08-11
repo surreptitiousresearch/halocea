@@ -1,4 +1,4 @@
-// ds::WEAK_PTR_BASE<iaIACTOR>::GetHandle @0x823D1BE0 — lazily allocate pHandle {refCount=1,
+// ds::WEAK_PTR_BASE<iaIACTOR>::GetHandle @0x823D1BD0 — lazily allocate pHandle {refCount=1,
 // pPtr=owning object} on first use. DEVIATION: the raw decompile computes pPtr as `this - 8`,
 // i.e. the owning iaIACTOR's `this` recovered from this WEAK_PTR_BASE subobject's own address
 // (WEAK_PTR_BASE<iaIACTOR> sits at iaIACTOR+0x20, but `this - 8` here is pointer *word* arithmetic

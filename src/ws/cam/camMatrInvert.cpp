@@ -1,6 +1,6 @@
 #include "../../headers/ws/m3d/m3dMATR.h"
 
-// 0x827026CC  _camMatrInvert
+// @0x827026B8  _camMatrInvert
 // Invert a rigid (rotation + translation) camera matrix in place. The rotation part is inverted
 // by transpose (its 3x3 upper-left is orthonormal), the translation is negated and composed on
 // the transposed rotation:  pMat = Translate(-t) * transpose(R).

@@ -1,4 +1,4 @@
-/* any_player_is_dead @0x836A85E8 — true if at least one active player currently has no unit (dead).
+/* any_player_is_dead @0x836A85D0 — true if at least one active player currently has no unit (dead).
  * The player's controlled unit index lives at player record dword +13 (+52 bytes); -1 means dead. */
 
 #include <stdint.h>

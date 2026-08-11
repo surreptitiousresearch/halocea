@@ -1,4 +1,4 @@
-/* banlist_print_to_console @0x83766060 — print the ban list to the console, four entries per line, each
+/* banlist_print_to_console @0x83766048 — print the ban list to the console, four entries per line, each
  * formatted "[<index> <12-wide name>]". Entries are 46 bytes; the name is at offset 0. Each line is built
  * by appending the per-entry strings (inline strcat) and printed in green. */
 

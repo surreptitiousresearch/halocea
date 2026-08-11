@@ -1,4 +1,4 @@
-/* game_engine_player_removed @0x837505D4 — announce a player's departure: for every active player, build
+/* game_engine_player_removed @0x837505B8 — announce a player's departure: for every active player, build
  * the localized "player left" chat message (multiplayer message 28) and post it to the HUD chat box, then
  * invoke the game engine's player_removed hook (message = game_engine_message_quit).
  * DEVIATION: the bare game_connection() call has its result discarded (side-effect/ICF-folded), reproduced. */

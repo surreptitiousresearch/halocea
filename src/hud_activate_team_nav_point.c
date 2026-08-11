@@ -1,4 +1,4 @@
-/* hud_activate_team_nav_point @0x837ED0D8 — activates (or refreshes) a HUD nav point for every local
+/* hud_activate_team_nav_point @0x837ED0A8 — activates (or refreshes) a HUD nav point for every local
  * player on a given team. For each such player it updates the matching type+reference slot in place,
  * or fills the last deactivated slot (type nibble 0xF) with the new nav point. Mirrors
  * hud_activate_nav_point's per-player slot logic. */

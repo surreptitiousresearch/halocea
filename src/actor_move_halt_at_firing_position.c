@@ -16,11 +16,11 @@
 
 #include "headers/path_state.h"
 #include "headers/path_state.h"
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern uint8_t actor_move_to_firing_position(int actor_index, int16_t firing_position_index, path_state *cached_path_state);
 extern uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state *cached_path_state);
 
-uint8_t actor_move_halt_at_firing_position(uint16_t actor_index)
+uint8_t actor_move_halt_at_firing_position(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

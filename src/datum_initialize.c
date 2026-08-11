@@ -1,4 +1,4 @@
-/* datum_initialize @0x836FB1A4 — initialize a freshly-allocated datum: zero its record and stamp it
+/* datum_initialize @0x836FB178 — initialize a freshly-allocated datum: zero its record and stamp it
  * with the array's next identifier, advancing (and wrapping past -1 to 0x8000) the identifier counter. */
 
 #include "headers/data_array.h"

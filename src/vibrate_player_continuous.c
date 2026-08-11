@@ -1,4 +1,4 @@
-/* vibrate_player_continuous @0x83739380 — set a local player's continuous (sustained) controller
+/* vibrate_player_continuous @0x83739370 — set a local player's continuous (sustained) controller
  * rumble levels.
  *
  * DEVIATION: the strengths arrive as doubles via the soft-float ABI; the stored fields are floats. */

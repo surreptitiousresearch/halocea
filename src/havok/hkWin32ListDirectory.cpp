@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkWin32ListDirectory @0x838EF948 (?hkWin32ListDirectory@@YA?AW4hkResult@@PBDAAUDirectoryListing@hkFileSystem@@@Z)
 #include "../headers/havok/hkFileSystem_boundary.h"
 #include "../headers/havok/win32_file_boundary.h"
 #include "../headers/havok/hkThreadMemory.h"

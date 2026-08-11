@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 
 void debug_sound_classes_set_wet_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

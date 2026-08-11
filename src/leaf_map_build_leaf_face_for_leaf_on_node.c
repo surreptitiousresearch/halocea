@@ -28,8 +28,7 @@
 
 
 #include "headers/real_point2d.h"
-extern int16_t tag_block_add_element(tag_block *block);
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
+#include "headers/tag_groups.h"
 extern int16_t intersect_planes3d(const real_plane3d *plane, const real_plane3d *reference_plane, real_plane2d *result);
 extern int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points, const real_plane2d *plane, int16_t maximum_count, real_point2d *result, uint32_t *clip_flags, uint8_t *clipped, float epsilon);
 

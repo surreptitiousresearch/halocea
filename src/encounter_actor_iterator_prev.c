@@ -1,4 +1,4 @@
-/* encounter_actor_iterator_prev @0x83709AC8 — move the cursor to the actor preceding the current one in its
+/* encounter_actor_iterator_prev @0x83709AC0 — move the cursor to the actor preceding the current one in its
  * encounter's actor chain, returning that actor's datum (or null if the current actor is already first, or if
  * it isn't found in the chain at all). Walks the chain from its head looking for the node whose
  * meta.next_actor_index equals the current index.

@@ -1,3 +1,4 @@
+// rendLGT_MNG__GetStaticLight @0x8275AC38
 #include "../../headers/ws/rend/rendLGT_MNG.h"
 #include "../../headers/ws/ds/dsVECTOR.h"
 

@@ -1,4 +1,4 @@
-/* first_person_weapon_index_from_unit_index @0x8369EA78 — find the local-player slot whose controlled
+/* first_person_weapon_index_from_unit_index @0x8369EA68 — find the local-player slot whose controlled
  * unit (player record dword +52) is the given unit, i.e. the unit's first-person weapon index. Returns
  * -1 if no local player controls the unit. Player records are stride 512. */
 

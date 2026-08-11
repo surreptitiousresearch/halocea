@@ -12,7 +12,7 @@
 #include <string.h>
 
 #include "headers/tag_block.h"
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
+#include "headers/tag_groups.h"
 extern char *tag_get_name(int tag_index);
 extern int sprintf_0(char *string, const char *format, ...);
 extern file_reference *file_reference_create_from_path(file_reference *reference, const char *path, uint8_t directory);

@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t action_alert_setup(uint16_t actor_index, int16_t move_position_order, int16_t initial_move_position_index, alert_state_data *state_data)
+uint8_t action_alert_setup(int actor_index, int16_t move_position_order, int16_t initial_move_position_index, alert_state_data *state_data)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

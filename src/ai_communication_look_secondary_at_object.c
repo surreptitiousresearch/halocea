@@ -1,4 +1,4 @@
-/* ai_communication_look_secondary_at_object @0x837CC96C — make an actor glance toward an object
+/* ai_communication_look_secondary_at_object @0x837CC938 — make an actor glance toward an object
  * (_direction_specification_object) as a secondary look, provided the actor/object indices are valid, priority is positive,
  * and the object can actually be resolved (object_try_and_get_and_verify_type with an "any type" mask). */
 
@@ -9,7 +9,7 @@
 
 extern direction_specification *direction_get_empty(direction_specification *result);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
 void ai_communication_look_secondary_at_object(int actor_index, int16_t type, int16_t priority, int object_index)
 {

@@ -1,4 +1,4 @@
-/* player_spawn_to_network 0x836A93B0 — encode a player-spawn message-delta for a unit and send it to the
+/* player_spawn_to_network @0x836A93B0 0x836A93B0 — encode a player-spawn message-delta for a unit and send it to the
  * network (to a single machine, or to all loaded machines when machine_index == -1). The message carries the
  * spawning player/unit/team, the unit's secondary (vehicle) object, its grenade counts, its weapon-inventory
  * object indices, and the player's two powerup-duration words. Object/player indices are translated to their

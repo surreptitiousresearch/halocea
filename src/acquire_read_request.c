@@ -1,4 +1,4 @@
-/* acquire_read_request @0x838082FC — find the read_requests[] slot (of 8) matching `read_sequence_index`
+/* acquire_read_request @0x838082E8 — find the read_requests[] slot (of 8) matching `read_sequence_index`
  * whose I/O has completed (overlapped_completed_flags bit for that slot set), make its read buffer
  * writable again (XPhysicalProtect), and return it. Null if no such slot exists.
  *

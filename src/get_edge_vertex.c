@@ -1,3 +1,4 @@
+/* get_edge_vertex @0x837FF770 */
 #include <stdint.h>
 #include "headers/geosphere.h"
 

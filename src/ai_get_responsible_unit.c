@@ -1,4 +1,4 @@
-/* ai_get_responsible_unit @0x836E8904 — map an object to the unit accountable for it. When
+/* ai_get_responsible_unit @0x836E88E8 — map an object to the unit accountable for it. When
  * responsible_for_weapon_fire is set and the object records a weapon-fire controller, that controller is
  * returned; otherwise the object's general responsible unit is used. If neither is recorded the object is
  * its own responsible unit. Returns -1 for a missing object or a non-unit. */

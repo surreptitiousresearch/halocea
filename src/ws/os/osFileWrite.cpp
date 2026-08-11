@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osFileWrite @0x825E6BA0 (?osFileWrite@@YAHPAUosFILE_HANDLE_DUMMY@@PBXH@Z)
 #include "../../headers/ws/os/os_boundary.h"
 #include "../../headers/ws/os/osFILE_HANDLE_DUMMY.h"
 

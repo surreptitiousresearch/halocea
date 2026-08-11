@@ -1,4 +1,4 @@
-/* update_client_handle_server_update @0x836F6870 — client-side receipt of one numbered game update
+/* update_client_handle_server_update @0x836F6858 — client-side receipt of one numbered game update
  * from the server. Stores the update in the client's ring of pending updates, and if it advances the
  * latest-received sequence number, fills any skipped slots with empty updates (number_of_actions = -1)
  * while bumping the fake-update counter when actively connected. Finally, while connected and not in

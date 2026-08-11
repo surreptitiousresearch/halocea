@@ -15,7 +15,7 @@
 
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
-extern uint8_t actor_get_running_blind_vector(uint16_t actor_index, real_vector3d *run_vector);
+extern uint8_t actor_get_running_blind_vector(int actor_index, real_vector3d *run_vector);
 extern real_euler_angles2d *euler_angles2d_from_vector3d(real_euler_angles2d *angles, const real_vector3d *vector);
 
 void unit_start_running_blindly(int unit_index)

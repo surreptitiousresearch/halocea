@@ -1,4 +1,4 @@
-/* terminal_update_input @0x836A3188 — pumps keyboard input into the active console gets() session:
+/* terminal_update_input @0x836A3170 — pumps keyboard input into the active console gets() session:
  * buffers each keystroke (up to 32), feeds it to the inline edit-text field, and blinks the insertion
  * caret on a 500ms timer. Returns 1 while a session is active, 0 otherwise. */
 

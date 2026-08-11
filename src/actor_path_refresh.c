@@ -56,10 +56,10 @@
 
 
 #include "headers/structure_bsp.h"
-extern uint8_t actor_test_destination(uint16_t actor_index);
-extern uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destination_point, float *avoidance_distance_reference);
-extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
-extern void actor_path_input_new(uint16_t actor_index, path_input *input);
+extern uint8_t actor_test_destination(int actor_index);
+extern uint8_t actor_path_3d_available(int actor_index, const real_point3d *destination_point, float *avoidance_distance_reference);
+extern void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index);
+extern void actor_path_input_new(int actor_index, path_input *input);
 extern void path_input_set_target_object(path_input *input, int target_object_index);
 extern void path_input_set_attractor(path_input *input, const real_point3d *attractor_point, float radius, int object_index, float weight);
 extern uint8_t path_3d_build_path(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, path_result *path);
@@ -67,7 +67,7 @@ extern void path_state_new(const path_input *input, path_state *state, path_debu
 extern void path_state_destination(path_state *state, const real_point3d *destination_point, int destination_surface_index, float destination_accept_radius);
 extern uint8_t path_state_build_path(path_state *state, path_result *path);
 extern uint8_t path_state_find(path_state *state);
-extern void actor_path_clear(uint16_t actor_index);
+extern void actor_path_clear(int actor_index);
 
 uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state *cached_path_state)
 {

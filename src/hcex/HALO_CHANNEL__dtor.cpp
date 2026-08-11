@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: HALO_CHANNEL::~HALO_CHANNEL() @0x836B5A80 (??1HALO_CHANNEL@@QAA@XZ)
 #include "../headers/hcex/HALO_CHANNEL.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 

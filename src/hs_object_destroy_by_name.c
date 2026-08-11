@@ -1,4 +1,4 @@
-/* hs_object_destroy_by_name @0x837F7D88 — script hook: delete the object bound to a scenario object
+/* hs_object_destroy_by_name @0x837F7D70 — script hook: delete the object bound to a scenario object
  * name, unless it is (or carries) a player. No-op for an unset name or missing object. */
 
 #include <stdint.h>

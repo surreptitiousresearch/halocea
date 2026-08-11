@@ -1,4 +1,4 @@
-/* scenario_get_atmospheric_fog @0x83704330 — produce the atmospheric fog for a render window, easing a
+/* scenario_get_atmospheric_fog @0x83704320 — produce the atmospheric fog for a render window, easing a
  * per-local-player interpolator toward the active sky's fog so fog changes are smoothed as the camera moves.
  * The sky definition is resolved (explicit sky_index, or the scenario's first sky reference when -1). The
  * indoor or outdoor fog block of that sky is the easing target; each fog parameter is moved toward the target

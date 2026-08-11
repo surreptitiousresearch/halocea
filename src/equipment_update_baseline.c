@@ -1,4 +1,4 @@
-/* equipment_update_baseline @0x837B62B8 — snapshots network-baseline scratch fields for an equipment
+/* equipment_update_baseline @0x837B62A8 — snapshots network-baseline scratch fields for an equipment
  * object: copies 6 consecutive dwords (+92..+112, i.e. indices 23-28) and 3 more (+140..+148, indices
  * 35-37) into a 9-dword baseline block at +584 (indices 146-154), then advances the baseline generation
  * byte (+581), marks +580 dirty, and clears +582.

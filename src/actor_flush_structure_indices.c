@@ -14,9 +14,9 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void actor_action_flush_structure_indices(uint16_t actor_index);
+extern void actor_action_flush_structure_indices(int actor_index);
 
-void actor_flush_structure_indices(uint16_t actor_index)
+void actor_flush_structure_indices(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

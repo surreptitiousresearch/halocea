@@ -1,6 +1,6 @@
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
-// 0x8251DC08 — value under `key` coerced to bool into `*val`; returns whether it existed.
+// @0x8251DBE8 — value under `key` coerced to bool into `*val`; returns whether it existed.
 
 extern int psDataToBool(const dsDATA *obj, int *val);
 

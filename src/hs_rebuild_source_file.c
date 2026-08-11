@@ -11,12 +11,10 @@
 #include "headers/tag_data.h"
 
 #include "headers/tag_block.h"
+#include "headers/tag_groups.h"
 extern uint8_t file_exists(const file_reference *file);
-extern int16_t tag_block_add_element(tag_block *block);
 extern void *file_read_into_memory(file_reference *reference, unsigned int *size);
-extern uint8_t tag_data_resize(tag_data *data, int size);
 extern char *file_reference_get_name(const file_reference *reference, unsigned int flags, char *name);
-extern char *tag_data_get_pointer(const tag_data *data, int offset, int size);
 /* memcpy declared by <string.h> */
 
 uint8_t hs_rebuild_source_file(file_reference *script_file)

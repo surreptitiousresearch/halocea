@@ -1,4 +1,4 @@
-/* biped_falling_danger @0x837AE198 — once a biped has been airborne long enough, throttled to roughly
+/* biped_falling_danger @0x837AE160 — once a biped has been airborne long enough, throttled to roughly
  * once every 15 ticks, makes it scream if it is falling toward a drop that would exceed the global
  * falling-damage killing velocity (estimated from its current downward speed plus the gravity it would
  * gain over the distance to the ground below). Bipeds whose tag opts out (_biped_flying_bit /

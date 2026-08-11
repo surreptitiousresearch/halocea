@@ -1,4 +1,4 @@
-/* virtual_keyboard_get_character @0x837838CC — resolve a virtual-keyboard keycode to the character for the
+/* virtual_keyboard_get_character @0x837838A0 — resolve a virtual-keyboard keycode to the character for the
  * current shift/caps/symbols modifier combination (each 80-byte virtual_key record holds several wchar_t
  * alternates at word offsets 1-7, selected below). Returns 127 (DEL) if the resolved slot is the
  * null/unmapped placeholder.

@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void prop_remove(uint16_t actor_index, int prop_index)
+void prop_remove(int actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *props = (prop_datum *)prop_data->data;

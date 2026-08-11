@@ -1,4 +1,4 @@
-/* ai_globals_ai_active @0x836E7710 — enable/disable the AI simulation globally (ai_globals->ai_active). */
+/* ai_globals_ai_active @0x836E7708 — enable/disable the AI simulation globally (ai_globals->ai_active). */
 
 #include <stdint.h>
 #include "headers/ai_globals.h"

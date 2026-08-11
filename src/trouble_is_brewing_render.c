@@ -1,4 +1,4 @@
-/* trouble_is_brewing_render @0x83732C48 — draw the "trouble is brewing" network-trouble icon in the
+/* trouble_is_brewing_render @0x83732C28 — draw the "trouble is brewing" network-trouble icon in the
  * lower-right of the screen while the trouble timer is active. Loads the icon bitmap on demand; if the
  * bitmap tag is unset or the bitmap cannot be fetched, falls back to a translucent red quad in its place.
  *

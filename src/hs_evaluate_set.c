@@ -24,7 +24,7 @@ extern int hs_global_evaluate(int16_t global_designator);
 extern void object_list_add_reference(int object_list_index);
 extern void object_list_remove_reference(int object_list_index);
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 
 void hs_evaluate_set(int16_t function_index, int thread_index, uint8_t initialize)
 {

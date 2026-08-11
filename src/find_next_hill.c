@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* find_next_hill @0x8382BAF8 — king-of-the-hill: picks a random hill (from `king_engine_hills`, sized by
+/* find_next_hill @0x8382BAE0 — king-of-the-hill: picks a random hill (from `king_engine_hills`, sized by
  * `king_engine_hill_count`) different from `hill_id`, scanning forward from a random starting index and wrapping
  * around the hill count. Returns an uninitialized value (matching the original) if there are no hills or
  * every hill scanned equals `hill_id`. */

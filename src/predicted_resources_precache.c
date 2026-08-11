@@ -1,4 +1,4 @@
-/* predicted_resources_precache @0x8370E6D0 — walk a tag's predicted-resources block and precache each bitmap
+/* predicted_resources_precache @0x8370E6A8 — walk a tag's predicted-resources block and precache each bitmap
  * resource into the texture cache (skipped entirely when drawing is disabled). */
 
 #include <stdint.h>

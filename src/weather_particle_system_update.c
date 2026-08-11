@@ -27,7 +27,7 @@
 
 
 extern void weather_particle_system_update_particle_count(int16_t system_index, int16_t type_index, float scale);
-extern void weather_particle_update_physics(int16_t system_index, int16_t type_index, uint16_t particle_index);
+extern void weather_particle_update_physics(int16_t system_index, int16_t type_index, int16_t particle_index);
 
 static float weather_fade_fraction(float value, float start, float end)
 {

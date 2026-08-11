@@ -1,4 +1,4 @@
-/* add_update_to_super_remote_players_action_update @0x837578F8 — appends one remote player's action update
+/* add_update_to_super_remote_players_action_update @0x837578E8 — appends one remote player's action update
  * (header + network data) to a batched super-update; flushes the batch to the network once it fills to 32
  * entries. */
 

@@ -3,7 +3,7 @@
 #include "dsSTRID.h"
 
 // ds::impl::MAP_CONST_ITERATOR<dsSTRID,int,ds::HASH,ds::CMP,dsNODE_CACHE_ALLOCATOR>::value()
-// @ 0x82766AE8 (used by apCONFIG::GetRawValue). Same STRONG_ASSERT(item != 0) (ds_map.hpp:169)
+// @ 0x8261F510 (used by apCONFIG::GetRawValue). Same STRONG_ASSERT(item != 0) (ds_map.hpp:169)
 // shape as the DBG_CINE_ACTOR_INFO instantiation's ::value() — see
 // MAP_CONST_ITERATOR_dsSTRID_DBG_CINE_ACTOR_INFO__value.cpp.
 template<>

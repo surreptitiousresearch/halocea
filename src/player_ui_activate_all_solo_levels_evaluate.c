@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void player_ui_activate_all_solo_levels(void);
 
 void player_ui_activate_all_solo_levels_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

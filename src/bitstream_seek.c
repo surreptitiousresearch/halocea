@@ -1,4 +1,4 @@
-/* bitstream_seek @0x8380F9C0 — reposition a bitstream_t's cursor by `offset` bits relative to `origin`
+/* bitstream_seek @0x8380F9B8 — reposition a bitstream_t's cursor by `offset` bits relative to `origin`
  * (beginning/current/end-of-valid-data). Rejects the seek (returns 0, cursor unchanged) if the offset
  * over/underflows the unsigned bit-position arithmetic, or if the resulting position falls outside
  * [first_bit, last_bit] and isn't exactly one past last_bit (the valid "append" position). */

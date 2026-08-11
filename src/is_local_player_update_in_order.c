@@ -1,4 +1,4 @@
-/* is_local_player_update_in_order @0x8376DC4C — sequence-number gate for local player acks: always in
+/* is_local_player_update_in_order @0x8376DC30 — sequence-number gate for local player acks: always in
  * order if there's no prior ack (-1), or if the new sequence number is within a small forward/backward
  * window (16) of the last one; anything further out is logged and thrown away. */
 

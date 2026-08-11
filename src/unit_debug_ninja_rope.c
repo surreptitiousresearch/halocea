@@ -1,4 +1,4 @@
-/* unit_debug_ninja_rope @0x836CA634 — debug movement aid. Casts a ray from the unit's camera along
+/* unit_debug_ninja_rope @0x836CA5F8 — debug movement aid. Casts a ray from the unit's camera along
  * its current velocity (scaled x25); if it strikes a near-horizontal surface, snaps the unit onto
  * that point (lifted 0.25 world units). */
 

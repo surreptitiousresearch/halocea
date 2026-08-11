@@ -1,4 +1,4 @@
-/* game_state_close_file @0x8371B1B4 — close the game-state save file handle and mark it closed. */
+/* game_state_close_file @0x8371B198 — close the game-state save file handle and mark it closed. */
 
 #include "headers/xbox_game_state_globals.h"
 

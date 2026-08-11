@@ -1,4 +1,4 @@
-/* player_has_allies @0x837C32C4 — true if any OTHER active player shares this player's team. */
+/* player_has_allies @0x837C3298 — true if any OTHER active player shares this player's team. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

@@ -15,7 +15,7 @@
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 
-extern float sound_calculate_fade(uint16_t sound_index);
+extern float sound_calculate_fade(int sound_index);
 
 void sound_start_fade(int16_t mode, float seconds, int fade_out_sound_index, int fade_up_sound_index)
 {

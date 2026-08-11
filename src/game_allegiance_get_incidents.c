@@ -1,4 +1,4 @@
-/* game_allegiance_get_incidents @0x837454F0 — find the allegiance pair for (our_team_index,
+/* game_allegiance_get_incidents @0x837454E0 — find the allegiance pair for (our_team_index,
  * other_team_index) in either order and return its current_incidents count, writing its
  * incident_threshold out through `incident_threshold` (or -1 if no such pair exists). */
 

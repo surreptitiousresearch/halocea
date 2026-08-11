@@ -18,9 +18,9 @@
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
 
-extern int16_t actor_action_class(uint16_t actor_index);
+extern int16_t actor_action_class(int actor_index);
 
-uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_target_state,
+uint8_t actor_perception_desire_prop(int actor_index, int16_t desired_target_state,
                                              int unit_index, int unit_actor_index, uint8_t in_use,
                                              uint8_t player, uint8_t enemy, uint8_t dead,
                                              int16_t dead_ticks, float suicide_radius, float distance_squared,

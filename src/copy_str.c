@@ -1,4 +1,4 @@
-/* copy_str @0x837662B8 — allocates a heap copy of a null-terminated string via dlMalloc. */
+/* copy_str @0x837662A0 — allocates a heap copy of a null-terminated string via dlMalloc. */
 
 #include <string.h>
 

@@ -1,4 +1,4 @@
-/* rasterizer_bitmap_3d_changed @0x8379366C — if a D3D device is active and the bitmap has both a base
+/* rasterizer_bitmap_3d_changed @0x83793650 — if a D3D device is active and the bitmap has both a base
  * address and an allocated hardware format, re-uploads its 3D texture data to the GPU. */
 
 #include "headers/bitmap_data.h"

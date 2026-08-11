@@ -1,4 +1,4 @@
-/* glow_trailing_particle_update_color @0x8380B614 — update a trailing glow particle's fade: if the glow
+/* glow_trailing_particle_update_color @0x8380B5F0 — update a trailing glow particle's fade: if the glow
  * definition's "fade over lifetime" flag (definition+40, bit 0x8) is set, fade = 1.0 - ticks_in_existence /
  * lifetime, clamped to [0,1]; otherwise fade stays at 1.0 (fully opaque, no fade-out).
  *

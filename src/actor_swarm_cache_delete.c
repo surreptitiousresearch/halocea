@@ -10,7 +10,7 @@
 
 extern void datum_delete(data_array *data, int index);
 
-void actor_swarm_cache_delete(uint16_t actor_index)
+void actor_swarm_cache_delete(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->meta.swarm_cache_index == -1 )

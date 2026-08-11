@@ -15,7 +15,7 @@
 
 extern int game_time_get(void);
 
-extern int encounter_find_pursuit(uint16_t encounter_index, int16_t firing_position_index, int history_start_time, uint8_t force_create);
+extern int encounter_find_pursuit(int encounter_index, int16_t firing_position_index, int history_start_time, uint8_t force_create);
 
 uint8_t encounter_mark_examined_pursuit_position(int encounter_index, int actor_index, int16_t firing_position_index, int history_start_time)
 {

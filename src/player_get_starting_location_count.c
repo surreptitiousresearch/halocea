@@ -1,4 +1,4 @@
-/* player_get_starting_location_count @0x836A8FB8 — number of player starting locations in the scenario. */
+/* player_get_starting_location_count @0x836A8FA8 — number of player starting locations in the scenario. */
 
 #include <stdint.h>
 #include "headers/scenario.h"

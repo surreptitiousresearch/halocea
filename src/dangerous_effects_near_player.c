@@ -1,4 +1,4 @@
-/* dangerous_effects_near_player @0x836E2230 — return 1 if any live effect with a non-zero danger radius
+/* dangerous_effects_near_player @0x836E2210 — return 1 if any live effect with a non-zero danger radius
  * (and not flagged 0x8) has a location instance within (unit_radius + effect_radius) of any player's unit.
  * For each dangerous effect it walks every player's unit and every effect location instance, resolving the
  * instance's world position from its node designator: 0xFFFF is already world-space (the matrix

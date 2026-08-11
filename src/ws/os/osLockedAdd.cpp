@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osLockedAdd @0x825E5528 (?osLockedAdd@@YAHPAHH@Z)
 // DEVIATION: hand-written PowerPC lwarx/stwcx. lock-free primitive (see osLockedSet.cpp note),
 // not a call to a Win32 InterlockedExchangeAdd export.
 

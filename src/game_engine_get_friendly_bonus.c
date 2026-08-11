@@ -1,4 +1,4 @@
-/* game_engine_get_friendly_bonus @0x83747EAC — score how desirable a spawn point is by proximity to living
+/* game_engine_get_friendly_bonus @0x83747E78 — score how desirable a spawn point is by proximity to living
  * teammates. For each player on the same team that has a controlled object, the distance from the spawn point
  * to that object contributes a falloff weight (only when between 1 and 6 world units). The accumulated weight
  * is clamped to 3, scaled, and offset: bonus = min(weight, 3) * 3 + 1. */

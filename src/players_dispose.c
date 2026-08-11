@@ -1,4 +1,4 @@
-/* players_dispose @ 0x836A78A8 — drop player/team/globals pointers */
+/* players_dispose @ 0x836A7A40 — drop player/team/globals pointers */
 #include "headers/data_array.h"
 #include "headers/players_global_data.h"
 #include "headers/blam_data_globals.h"

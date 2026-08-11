@@ -1,4 +1,4 @@
-/* structure_clusters_in_cone @0x83745018 — flood-fill the structure BSP's cluster graph starting at
+/* structure_clusters_in_cone @0x83744FE0 — flood-fill the structure BSP's cluster graph starting at
  * position_cluster_index, crossing each cluster portal whose bounding sphere intersects the cone (apex
  * `position`, axis `direction`, length `distance`, half-angle given by sine/cosine). Visited clusters are
  * stamped with a per-call magic marker so each is emitted once into cluster_indices (up to

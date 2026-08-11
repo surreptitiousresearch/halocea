@@ -24,7 +24,7 @@ extern void unit_get_looking_vector(int unit_index, real_vector3d *looking_vecto
 extern void unit_control(int unit_index, const unit_control_data *control_data, int completed_client_update_id);
 extern void unit_set_actively_controlled(int unit_index, uint8_t actively_controlled);
 
-void actor_freeze(uint16_t actor_index)
+void actor_freeze(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

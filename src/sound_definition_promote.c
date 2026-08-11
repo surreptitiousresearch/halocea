@@ -1,4 +1,4 @@
-/* sound_definition_promote @0x83715524 — per-tick "promotion" bookkeeping for a sound tag's playback-limit
+/* sound_definition_promote @0x83715520 — per-tick "promotion" bookkeeping for a sound tag's playback-limit
  * throttle: accumulates elapsed render time into a decaying counter (runtime_maximum_play_time rate,
  * runtime_promotion_counter accumulator, runtime_promotion_time snapshot) and, if the accumulator exceeds
  * rate*promotion_count, returns a sound_promotion_result: when no promotion (replacement) sound is present

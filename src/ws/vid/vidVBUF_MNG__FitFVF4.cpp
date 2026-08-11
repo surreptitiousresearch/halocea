@@ -5,7 +5,7 @@
 // empty_string). empty_string was the decompiler's char view of empty_string.
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-// 0x827B7A88 -- ?FitFVF@vidVBUF_MNG@@...  vid_vbuf.cpp
+// @0x827B7A88 -- ?FitFVF@vidVBUF_MNG@@...  vid_vbuf.cpp
 // The four-mask overload of FitFVF: find (or create) the cached descriptor matching an explicit
 // (full, multistream, interleaved, instanced) fvf key.
 //

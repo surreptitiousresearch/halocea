@@ -2,7 +2,7 @@
 #include "headers/ws/ds/ds_assert_boundary.h"
 #include "headers/pct_format.h"
 
-// 0x827BA828 -- pctFmt is a PCT_FORMAT code (DB anon enum $51480BAEEE82B19C82C3F71B9FE6487B).
+// @0x827BA818 -- pctFmt is a PCT_FORMAT code (DB anon enum $51480BAEEE82B19C82C3F71B9FE6487B).
 // Cases 0..37 use the named PCT_FORMAT_* labels; cases 38..48 are the driver's HDR/float format
 // extension past PCT_FORMAT_MAX (no DB names -- kept as raw case labels, see pct_format.h).
 _D3DFORMAT txmPctFmtToD3dFmt(int pctFmt, int isSwizzledFormatReq)

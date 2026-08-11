@@ -1,4 +1,4 @@
-/* game_engine_allow_integrated_lights @0x8374A2FC — decide whether an object may show its integrated lights
+/* game_engine_allow_integrated_lights @0x8374A2E0 — decide whether an object may show its integrated lights
  * (e.g. flashlight glow). Always allowed when no game engine is active. Disallowed when the variant forbids
  * it (game_engine_globals.flags bit 0x2) or effects are off (rasterizer_effects_level <= 0). At the highest
  * effects level (>= 2) it's allowed unconditionally; at the intermediate level it's allowed only for units

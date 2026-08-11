@@ -1,4 +1,4 @@
-/* object_type_disconnect_from_structure_bsp @0x83702248 — fan the "disconnect from structure BSP" callback
+/* object_type_disconnect_from_structure_bsp @0x83702200 — fan the "disconnect from structure BSP" callback
  * out to every part definition of the object's type, stopping at the null terminator. Mirrors
  * object_type_export_function_values.c's part-definitions fan-out exactly, for a different callback slot.
  *

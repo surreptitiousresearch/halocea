@@ -1,7 +1,7 @@
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_DATA.h"
 #include "psCOMPLEX_KEY_DATA.h"
-// 0x8251C138 — remove the (possibly dotted) key named by `key`: split it into a complex-key chain,
+// @0x8251C118 — remove the (possibly dotted) key named by `key`: split it into a complex-key chain,
 // remove it via psSECTION_DATA::RemoveKey, then drop this handle's own body reference if that left
 // the section with neither records nor parents.
 

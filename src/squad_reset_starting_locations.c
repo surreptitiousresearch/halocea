@@ -1,4 +1,4 @@
-/* squad_reset_starting_locations @0x8370A220 — reset a squad's starting-location bitvectors from its scenario
+/* squad_reset_starting_locations @0x8370A1D0 — reset a squad's starting-location bitvectors from its scenario
  * definition: mark every location unused, then flag the "required" ones (scenario location flag bit 0).
  *
  * The scenario squad definition is reached through the encounter's squads block (encounter def dword 33 =
@@ -17,7 +17,7 @@
 #include "headers/bit_vector.h"
 
 
-void squad_reset_starting_locations(uint16_t encounter_index, int16_t squad_index)
+void squad_reset_starting_locations(int encounter_index, int16_t squad_index)
 {
     squad_definition *scenario_squad =
         &((squad_definition *)((encounter_definition *)global_scenario->ai_encounters.address)[encounter_index].squads.address)[squad_index];

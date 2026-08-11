@@ -1,4 +1,4 @@
-// ?pctDuplicate@@YAPAUpctPICTURE@@PAU1@@Z  (0x827C67EC)
+// ?pctDuplicate@@YAPAUpctPICTURE@@PAU1@@Z  (@0x827C67D8)
 // Deep-copy a picture: create a new picture with the same header, then memcpy each face's pixel
 // buffer (one mip-chain-sized block per face).
 // Source: D:\Projects\code\common\src.sys\picture\picture.cpp

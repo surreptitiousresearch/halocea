@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern uint8_t hs_macro_function_strings_evaluate(int thread_index, uint8_t initialize, int *count_out, const char ***strings_out);
 extern void sv_password(int count, char **strings);
 

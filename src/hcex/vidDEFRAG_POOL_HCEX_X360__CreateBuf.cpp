@@ -1,3 +1,4 @@
+// vidDEFRAG_POOL_HCEX_X360__CreateBuf @0x823F1808
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 #include "../headers/ws/vid/vidDEFRAG_BUF_HCEX_X360.h"
 #include "../headers/d3d_render_boundary.h" // D3DFMT_INDEX16

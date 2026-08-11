@@ -1,4 +1,4 @@
-/* player_control_get_unit_camera_info @0x836DE844 — fills out the camera context for a local player's
+/* player_control_get_unit_camera_info @0x836DE828 — fills out the camera context for a local player's
  * unit. It records the unit and its camera origin, and if the unit is riding a vehicle seat, resolves
  * the seat's camera definition from the vehicle's seat block. If the unit is not in a (verified vehicle)
  * seat, it falls back to the unit definition's default camera. */

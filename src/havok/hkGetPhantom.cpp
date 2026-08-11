@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkGetPhantom @0x838F56B0 (?hkGetPhantom@@YAPAVhkpPhantom@@PBVhkpCollidable@@@Z)
 #include "../headers/havok/hkpCollidable.h"
 #include "../headers/havok/hkpPhantom.h"
 #include "../headers/havok/hkpWorldObject_BroadPhaseType.h"

@@ -1,3 +1,4 @@
+// fnmDIR__FindSubDir @0x828F3FE8
 #include "../../headers/ws/fnm/fnmDIR.h"
 
 #include <cstring>

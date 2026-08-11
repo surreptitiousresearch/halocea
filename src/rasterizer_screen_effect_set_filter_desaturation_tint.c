@@ -1,4 +1,4 @@
-/* rasterizer_screen_effect_set_filter_desaturation_tint @0x837244EC — set the RGB tint applied by the
+/* rasterizer_screen_effect_set_filter_desaturation_tint @0x837244E8 — set the RGB tint applied by the
  * screen-effect desaturation filter, when a cinematic screen effect is active.
  * DEVIATION: the decompiler typed the components as double (soft-float ABI); they are floats. The DB
  * models the color as {r,g,b}, equivalent to the decompiler's .n[0..2]. */

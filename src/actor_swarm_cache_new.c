@@ -19,7 +19,7 @@
 extern int datum_new(data_array *data);
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
 
-int actor_swarm_cache_new(uint16_t actor_index)
+int actor_swarm_cache_new(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->meta.swarm_cache_index == -1 )

@@ -1,4 +1,4 @@
-/* gt_select_single_preview_column_list_update @0x837814F4 — refresh the gametype-select preview list
+/* gt_select_single_preview_column_list_update @0x837814D8 — refresh the gametype-select preview list
  * widget: runs the generic single-preview-column update, stamps the active player's name onto the extended
  * description panel, then looks up the selected row's game_variant (preview_list_array_bank record slot 1,
  * see color_picker_get_string.c for the same 16-byte-stride array) and hands it to

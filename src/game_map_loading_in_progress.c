@@ -1,4 +1,4 @@
-/* game_map_loading_in_progress @0x83687A10 — report whether a map load is underway, optionally returning
+/* game_map_loading_in_progress @0x83687A08 — report whether a map load is underway, optionally returning
  * the current loading progress [0,1] through `progress`. */
 
 #include <stdint.h>

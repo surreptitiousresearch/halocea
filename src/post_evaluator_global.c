@@ -22,7 +22,7 @@
 #include "headers/real_point3d.h"
 #include "headers/structure_bsp.h"
 #include "headers/real_point3d.h"
-extern uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destination_point, float *avoidance_distance_reference);
+extern uint8_t actor_path_3d_available(int actor_index, const real_point3d *destination_point, float *avoidance_distance_reference);
 extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
 
 uint8_t post_evaluator_global(int actor_index, firing_position_evaluation_context *evaluation_context,

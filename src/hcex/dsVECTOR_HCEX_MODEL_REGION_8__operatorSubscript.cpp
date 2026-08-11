@@ -2,7 +2,7 @@
 #include "../headers/hcex/HCEX_MODEL_REGION.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 
-// dsVECTOR<HCEX_MODEL_REGION,8>::operator[] (non-const) @ 0x823DA6D0
+// dsVECTOR<HCEX_MODEL_REGION,8>::operator[] (non-const) @ 0x823DA6B8
 // Bounds-checked mutable access; returns a reference to the idx-th region.
 template<>
 HCEX_MODEL_REGION &dsVECTOR<HCEX_MODEL_REGION, 8>::operator[](int idx)

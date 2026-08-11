@@ -1,4 +1,4 @@
-/* update_server_remove_player @0x836F5CF8 — drop a player's server-side update state: shut down their
+/* update_server_remove_player @0x836F5CC0 — drop a player's server-side update state: shut down their
  * pending action queue (embedded at queue datum +40, records stride 100) and free the datum. */
 
 #include "headers/update_server_globals.h"

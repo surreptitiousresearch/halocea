@@ -1,4 +1,4 @@
-/* glow_submit @0x8380D260 — updates and renders one glow effect widget attached to an object: resolves the
+/* glow_submit @0x8380D240 — updates and renders one glow effect widget attached to an object: resolves the
  * glow's tag name via its definition's tag index, re-resolves the glow's marker (by that name) against the
  * current object, then updates and renders the glow. No-op if either index is -1 (none). */
 

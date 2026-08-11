@@ -4,7 +4,7 @@
 
 #include "../../headers/hcex/d3dHCEX_DRIVER.h"
 
-// 0x823CEA04
+// @0x823CE9F0
 d3dHCEX_DRIVER::d3dHCEX_DRIVER()
 {
     d3dDRIVER_ctor(this);

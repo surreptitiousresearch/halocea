@@ -1,4 +1,4 @@
-/* game_engine_progress_to_postgame_rasterize_delay @0x8374A724 — enter the postgame-rasterize-delay
+/* game_engine_progress_to_postgame_rasterize_delay @0x8374A6F0 — enter the postgame-rasterize-delay
  * phase: reset the fade, arm the 5-second game-ending timer, then walk every player and kill its unit
  * (player datum +52) and clear its controller vibration (player datum +2).
  * DEVIATION: the decompiler's _DWORD* return is the null loop terminator from data_iterator_next; the

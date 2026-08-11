@@ -2,7 +2,7 @@
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-// dsVECTOR<HALO_SOUND_PARAMS::REPLACE_INFO,8>::operator[] (const) @ 0x836BA070
+// dsVECTOR<HALO_SOUND_PARAMS::REPLACE_INFO,8>::operator[] (const) @ 0x836BA058
 // Bounds-checked read-only access; returns a const reference to the idx-th replace-rule entry.
 template<>
 const HALO_SOUND_PARAMS::REPLACE_INFO &

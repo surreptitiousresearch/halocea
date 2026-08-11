@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 
-pursuit_location * actor_get_pursuit_location(uint16_t actor_index)
+pursuit_location * actor_get_pursuit_location(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int16_t action_state = actor->state.action;

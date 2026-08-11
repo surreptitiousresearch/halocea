@@ -9,7 +9,7 @@ struct sslCMP_NAMES {};
 // Global printf-into-dsTSTRING helper (returns the formatted string by reference); not reversed here.
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 
-// 0x825CE368 — sslSYSTEM::FindObject (by-name overload __2). Returns sslOBJ_REF by value (sret): the
+// @0x825CE368 — sslSYSTEM::FindObject (by-name overload __2). Returns sslOBJ_REF by value (sret): the
 // decompiler swaps this/result (r3 = return slot sslOBJ_REF*, r4 = this sslSYSTEM*). Reset lastErr,
 // binary-search the name-sorted object table; on a miss record an SSL_ERR_UNKNOWN_NAME error and
 // return an empty ref.

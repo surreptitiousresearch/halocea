@@ -22,10 +22,10 @@
 
 extern int game_time_get(void);
 
-extern uint8_t ai_conversation_begin(uint16_t conversation_index, uint8_t *continue_trying);
+extern uint8_t ai_conversation_begin(int conversation_index, uint8_t *continue_trying);
 extern void ai_conversation_finish(int conversation_index, uint8_t unable_to_begin, uint8_t success);
 extern uint8_t ai_conversation_line_perform(int conversation_index);
-extern int ai_conversation_line_begin(uint16_t conversation_index);
+extern int ai_conversation_line_begin(int conversation_index);
 
 void ai_conversation_update(void)
 {

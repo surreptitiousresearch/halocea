@@ -54,11 +54,11 @@ extern uint8_t vehicle_stuck(int vehicle_index, real_vector3d *approximate_direc
 extern float normalize3d(real_vector3d *v);
 extern float normalize2d(real_vector2d *v);
 extern void actor_move_calculate_movement(int actor_index, uint8_t move_in_3d, int16_t override_facing, uint8_t free_movement, float free_movement_dist_sq, uint8_t allow_all_moving_turns, float steering_maximum_angle, float oversteer_minimum_angle, float oversteer_maximum_angle, float rotation_emergency_amount, float maximum_throttle, const real_vector3d *desired_movement_vector, real_vector3d *desired_facing_vector, int16_t *desired_facing_direction, real_vector3d *desired_throttle, uint8_t *movement_thwarted, uint8_t *movement_complete);
-extern void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only);
-extern void actor_unit_control_crouch(uint16_t actor_index, uint8_t crouch);
-extern uint8_t actor_move_animation_busy(uint16_t actor_index);
-extern uint8_t actor_move_animation_impulse(uint16_t actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
-extern void actor_unit_control_jump(uint16_t actor_index);
+extern void actor_clear_discarded_firing_positions(int actor_index, uint8_t clear_temporary_only);
+extern void actor_unit_control_crouch(int actor_index, uint8_t crouch);
+extern uint8_t actor_move_animation_busy(int actor_index);
+extern uint8_t actor_move_animation_impulse(int actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
+extern void actor_unit_control_jump(int actor_index);
 extern uint8_t unit_leap_begin(int unit_index, const real_vector2d *alignment_vector);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 

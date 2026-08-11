@@ -1,4 +1,4 @@
-/* units_debug_get_next_unit @0x836CA3C8 — debug helper: returns the next "free" unit after unit_index in
+/* units_debug_get_next_unit @0x836CA3B0 — debug helper: returns the next "free" unit after unit_index in
  * iteration order, wrapping around to the start if needed. A unit is eligible only if it has no owners
  * recorded at +500/+504 (both -1) and lacks flag 0x4 in its header word at +0x106. Returns -1 if there
  * are no eligible units. */

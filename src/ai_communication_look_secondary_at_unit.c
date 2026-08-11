@@ -14,9 +14,9 @@
 #include "headers/real_point3d.h"
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
 void ai_communication_look_secondary_at_unit(int actor_index, int16_t type, int16_t priority,
                                              int look_unit_index, int prop_index)

@@ -11,7 +11,7 @@
 #include "headers/data_array.h"
 extern int data_next_index(const data_array *data, int16_t index);
 extern uint8_t scenario_location_potentially_visible_local(const location *location);
-extern void particle_system_render(uint16_t system_index);
+extern void particle_system_render(int system_index);
 
 void particle_systems_render(void)
 {

@@ -1,3 +1,4 @@
+// hcexHALO_MODEL__OnLoadInst @0x823D6F38
 #include "../headers/hcex/hcexHALO_MODEL.h"
 #include "../headers/animINST.h"
 

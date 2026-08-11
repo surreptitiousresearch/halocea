@@ -1,4 +1,4 @@
-/* send_super_remote_players_action_update @0x83756DE0 — flush the accumulated batch of remote-player
+/* send_super_remote_players_action_update @0x83756DD0 — flush the accumulated batch of remote-player
  * action updates to the network. For each queued update whose target player datum still exists, collect
  * pointers to its header, action body, and the player's action delta baseline, and translate the player
  * index in place. The surviving set is then encoded as one iterated message-delta (stateless when the

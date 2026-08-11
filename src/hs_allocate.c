@@ -8,11 +8,10 @@
 
 #include "headers/tag_data.h"
 #include "headers/tag_block.h"
+#include "headers/tag_groups.h"
 extern data_array *data_new(const char *name, int16_t maximum_count, int16_t size);
 extern void data_make_valid(data_array *data);
 extern void dlFree(void *ptr);
-extern uint8_t tag_data_resize(tag_data *data, int size);
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
 
 
 void hs_allocate(void)

@@ -1,4 +1,4 @@
-/* game_engine_flag_reset @0x83749E34 — returns a CTF flag (weapon object) to a reset position/orientation:
+/* game_engine_flag_reset @0x83749E18 — returns a CTF flag (weapon object) to a reset position/orientation:
  * re-places it, resets its object state, clears the multiplayer-inventory flag (weapon flags bit 5), stamps
  * the reset time (last_owned_time), and clears its carrier (ignore_object_index, -1 = none). */
 

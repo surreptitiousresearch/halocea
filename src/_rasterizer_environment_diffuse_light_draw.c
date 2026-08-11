@@ -1,3 +1,4 @@
+/* _rasterizer_environment_diffuse_light_draw @0x837897D0 */
 #include <stdint.h>
 /* _rasterizer_environment_diffuse_light_draw 0x837897D0 (thunk) — tail-call thunk to the active
  * diffuse-light draw function pointer (selected at pass-begin time by shader/lighting permutation). */

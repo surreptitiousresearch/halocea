@@ -1,4 +1,4 @@
-/* hcex_init_effect_simple @0x83683E10 — bridge helper: spawn an HCEX effect by name at a point with an
+/* hcex_init_effect_simple @0x83683E00 — bridge helper: spawn an HCEX effect by name at a point with an
  * orientation vector, using a single default marker string.
  *
  * DEVIATION: the point/vector components are routed through doubles by the soft-float ABI; they are

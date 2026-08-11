@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkGetHardwareInfo @0x838DE308 (?hkGetHardwareInfo@@YAXAAUhkHardwareInfo@@@Z) */
 #include "../headers/havok/hkHardwareInfo.h"
 
 /* Havok hardware-info query. Reports a fixed 6-thread configuration — the

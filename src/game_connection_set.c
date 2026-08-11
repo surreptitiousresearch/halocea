@@ -1,4 +1,4 @@
-/* game_connection_set @0x83688E18 — set the active game connection mode (none / client / server / film). */
+/* game_connection_set @0x83688E10 — set the active game connection mode (none / client / server / film). */
 
 #include <stdint.h>
 #include "headers/main_globals.h"

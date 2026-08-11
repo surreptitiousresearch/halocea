@@ -1,4 +1,4 @@
-/* position_queue_read @0x837AAEA4 — pop the buffered remote-player position matching a given client update
+/* position_queue_read @0x837AAE88 — pop the buffered remote-player position matching a given client update
  * id. Peeks the head entry: if its update id matches, the position is returned and the entry consumed.
  * If the head is older than the requested id (within its validity window), nothing is read yet; otherwise
  * the stale head is discarded and the read retried. Returns 1 on success, 0 when not yet available. */

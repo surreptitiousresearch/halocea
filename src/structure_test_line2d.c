@@ -1,4 +1,4 @@
-/* structure_test_line2d @0x8381C6CC — tests whether the straight 2D segment p0->p1 (p0 known to lie inside
+/* structure_test_line2d @0x8381C6B8 — tests whether the straight 2D segment p0->p1 (p0 known to lie inside
  * `p0_surface_index`) stays within the structure BSP's collision surface boundary, walking each surface's edge
  * loop and hopping into "passable" neighbor surfaces (same pathfinding-surface bit6/bit7 breakable-refinement
  * test as `find_turning_point`/`structure_test_ray2d`) whenever the segment crosses one. Returns 0 (no

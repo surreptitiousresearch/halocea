@@ -1,4 +1,4 @@
-/* data_decode_integer @0x83830B58 — reads a value from the decode stream sized to fit `maximum_value`: a byte
+/* data_decode_integer @0x83830B48 — reads a value from the decode stream sized to fit `maximum_value`: a byte
  * if it fits in 8 bits, a short if it fits in 16 bits, else a full 32-bit int. Returns 0 if the stream is
  * exhausted/overflowed. Mirrors the encode-side tiering in `data_encode_integer`. */
 

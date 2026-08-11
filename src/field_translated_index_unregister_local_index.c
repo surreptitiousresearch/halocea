@@ -1,4 +1,4 @@
-/* field_translated_index_unregister_local_index @0x8379BCD4 — for an index-translated network field,
+/* field_translated_index_unregister_local_index @0x8379BCC8 — for an index-translated network field,
  * release the mapping for one local index: look up the server index it resolves to, clear the
  * back-reference slot, and unset the resolution entry. Returns 1 if a mapping was removed, else 0.
  *

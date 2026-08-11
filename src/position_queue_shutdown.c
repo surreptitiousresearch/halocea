@@ -1,4 +1,4 @@
-/* position_queue_shutdown @0x837AAE0C — shut down a position queue: tear down its circular queue and free
+/* position_queue_shutdown @0x837AADF8 — shut down a position queue: tear down its circular queue and free
  * the entry bank. */
 
 #include "headers/position_queue.h"

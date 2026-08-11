@@ -1,4 +1,4 @@
-/* vehicle_moving_near_any_player @0x83760C00 — return true if any vehicle is moving and close to an
+/* vehicle_moving_near_any_player @0x83760BE8 — return true if any vehicle is moving and close to an
  * on-foot player. First it snapshots every local player who is on foot (their unit's
  * object.parent_object_index at +284 is -1), recording the unit index and bounding-sphere center. Then it
  * walks every vehicle object: for each recorded player (skipping the vehicle that player is riding) it

@@ -1,4 +1,4 @@
-/* aim_assist @0x836C6398 — finds the best aim-assist target for a shot from position along direction.
+/* aim_assist @0x836C6368 — finds the best aim-assist target for a shot from position along direction.
  * Gathers candidate targets in the shooter's cluster, sorts them by priority, and returns the first
  * one with a clear line of sight. Returns 1 and fills *target on success, 0 if none qualifies. */
 

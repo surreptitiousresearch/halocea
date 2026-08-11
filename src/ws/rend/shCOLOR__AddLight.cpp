@@ -2,7 +2,7 @@
 #include "../../headers/ws/m3d/m3dV.h"
 #include "../../headers/ws/m3d/m3dCOLOR.h"
 
-// shCOLOR::AddLight @ 0x83095698  (?AddLight@shCOLOR@@QAAXPAUm3dV@@PAVm3dCOLOR@@@Z)
+// shCOLOR::AddLight @ 0x83095690  (?AddLight@shCOLOR@@QAAXPAUm3dV@@PAVm3dCOLOR@@@Z)
 //
 // Project a directional light of colour `color` arriving from unit direction `dir` onto the
 // 9-coefficient (bands 0..2) SH basis and accumulate it into each colour channel.

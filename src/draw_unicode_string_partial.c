@@ -1,4 +1,4 @@
-/* draw_unicode_string_partial @0x8376A718 — wide-character counterpart of draw_string_partial. Identical
+/* draw_unicode_string_partial @0x8376A6F8 — wide-character counterpart of draw_string_partial. Identical
  * layout/clip/blit logic, differing only in the string element type and that it tokenizes through
  * parse_unicode_string. See draw_string_partial for the algorithm. rectangle2d layout is [y0, x0, y1, x1].
  *

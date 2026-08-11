@@ -1,4 +1,4 @@
-/* hud_add_item_message_client @0x836A596C — add (or merge into) a HUD item-pickup message for a local
+/* hud_add_item_message_client @0x836A5950 — add (or merge into) a HUD item-pickup message for a local
  * player: find a free/matching message slot, accumulate the quantity, and stamp it with the current
  * time and a fresh magic number so it animates in.
  *

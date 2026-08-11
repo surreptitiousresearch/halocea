@@ -1,4 +1,4 @@
-// ??_GHALO_SOUND_PARAMS@@QAAPAXI@Z -- 0x836B7028
+// ??_GHALO_SOUND_PARAMS@@QAAPAXI@Z -- @0x836B7008
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"
 
 extern "C" void dlFree(void *ptr);

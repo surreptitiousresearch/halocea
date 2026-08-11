@@ -1,4 +1,4 @@
-/* scenario_structure_bsp_unload @0x836F74DC — unload the active structure BSP: quiesce render jobs and
+/* scenario_structure_bsp_unload @0x836F74C8 — unload the active structure BSP: quiesce render jobs and
  * defrag, drop the BSP tag's loaded data pointer, and clear the cached BSP header. */
 
 #include "headers/scenario_structure_bsp_reference.h"

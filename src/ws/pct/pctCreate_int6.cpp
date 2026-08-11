@@ -1,4 +1,4 @@
-// ?pctCreate@@YAPAUpctPICTURE@@HHHHHH@Z  (0x827C6300)
+// ?pctCreate@@YAPAUpctPICTURE@@HHHHHH@Z  (@0x827C62F0)
 // Convenience overload: fill a stack pctHEADER from six explicit parameters and forward to
 // pctCreate(pctHEADER*).
 // Source: D:\Projects\code\common\src.sys\picture\picture.cpp

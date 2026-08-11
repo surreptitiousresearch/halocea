@@ -1,3 +1,4 @@
+// sslOBJ_REF_CallFunc @0x82523BE0
 // Flattened bridges for the hcex boundary headers' two spellings of the dsSTRID-keyed
 // sslOBJ_REF::CallFunc overload (0x82526578, re-sourced in sslOBJ_REF__CallFunc__3.cpp).
 // Both binary call sites (hcex_kill_breakable_surface @0x823B21AC, hcex_obj_sync_game_state

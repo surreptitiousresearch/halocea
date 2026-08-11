@@ -1,4 +1,4 @@
-/* weapon_estimate_time_to_target @0x836D8F58 — estimate the flight time for a weapon's projectile (from
+/* weapon_estimate_time_to_target @0x836D8F10 — estimate the flight time for a weapon's projectile (from
  * the given trigger) to reach a target at target_distance. Returns 0 for an out-of-range trigger.
  *
  *

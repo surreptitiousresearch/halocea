@@ -1,4 +1,4 @@
-/* preview_list_free @0x83780738 — free the two dlMalloc'd pointers (name/data, offsets +0/+4) of every row
+/* preview_list_free @0x83780728 — free the two dlMalloc'd pointers (name/data, offsets +0/+4) of every row
  * in each of the 3 preview list banks (16-byte elements, see preview_list_create.c/
  * preview_list_get_data_for_item.c), then dispose the banks themselves. */
 

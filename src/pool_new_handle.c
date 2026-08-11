@@ -1,4 +1,4 @@
-/* pool_new_handle @0x83803A7C — allocate `size` bytes from a stack memory pool as a relocation-stable
+/* pool_new_handle @0x83803A68 — allocate `size` bytes from a stack memory pool as a relocation-stable
  * "handle" (the block header pointer itself, unlike pool_new_pointer.c which returns the payload pointer
  * past the header), updating the pool's running/peak statistics. Returns null if the pool is full. */
 

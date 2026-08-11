@@ -15,7 +15,7 @@
 #include "headers/data_iterator.h"
 
 extern int datum_new(data_array *data);
-extern void lruv_block_delete(lruv_cache *cache, uint16_t block_index);
+extern void lruv_block_delete(lruv_cache *cache, int block_index);
 
 #include "headers/lruv_window.h"
 

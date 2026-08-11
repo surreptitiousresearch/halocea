@@ -1,4 +1,4 @@
-/* game_engine_player_changed_team @0x837492D8 — force-kills the player (with at least a 90-tick respawn
+/* game_engine_player_changed_team @0x837492B8 — force-kills the player (with at least a 90-tick respawn
  * delay) then notifies the active game engine's player_changed_team callback, if the current variant
  * defines one. */
 

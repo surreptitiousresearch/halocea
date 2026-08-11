@@ -11,7 +11,7 @@
 extern "C" int osLockedIncrement(int *pVar); // boundary -- src/ws/os/osLockedIncrement.cpp
 extern "C" int osLockedDecrement(int *pVar); // boundary -- src/ws/os/osLockedDecrement.cpp
 
-// 0x823D69AC — default-construct: null the weak-pointer handle. id/entLight are left
+// @0x823D69A8 — default-construct: null the weak-pointer handle. id/entLight are left
 // uninitialized, matching the disassembly.
 HCEX_LIGHT::HCEX_LIGHT()
 {

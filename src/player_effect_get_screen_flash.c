@@ -1,4 +1,4 @@
-/* player_effect_get_screen_flash 0x83737A80 — compute the screen-flash/fade overlay for a local player this
+/* player_effect_get_screen_flash @0x83737A80 0x83737A80 — compute the screen-flash/fade overlay for a local player this
  * frame. A pending global screen fade (screen_fade.ticks != 0xFFFF, and either fading out or still within its
  * tick window) takes priority and produces a white-tinted fade whose intensity ramps via the cosine transition
  * function (_transition_function_cosine, inverted while fading in). Otherwise, once the fade has elapsed, the local player's own active screen flash

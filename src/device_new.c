@@ -1,4 +1,4 @@
-/* device_new @0x837B4EB8 — initialize a freshly placed device object: clear its position/power group
+/* device_new @0x837B4A58 — initialize a freshly placed device object: clear its position/power group
  * indices (device.position_group_index / device.power_group_index) and set the object.flags
  * shadowless bit (_object_shadowless_bit, 0x12 => 0x40000). */
 #include <stdint.h>

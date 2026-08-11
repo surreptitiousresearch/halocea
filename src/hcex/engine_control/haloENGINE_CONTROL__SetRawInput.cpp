@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__SetRawInput @0x823C14A8
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 #include "../../headers/hcex/engine_control/haloENGINE_CONTROL_boundary.h"
 

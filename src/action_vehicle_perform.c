@@ -45,7 +45,7 @@ extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index, uint
 extern uint8_t action_vehicle_evaluate_seat(int actor_index, int vehicle_index, int16_t seat_index, uint8_t allow_any_seat, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, float *seat_weight_reference, uint8_t *within_range_reference, uint8_t *correct_facing_reference, uint8_t *could_potentially_fake_reference);
 extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, real_point3d *destination_point, int *surface_index_reference);
 extern uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_index);
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
 
 uint8_t action_vehicle_perform(int actor_index)

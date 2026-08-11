@@ -1,4 +1,4 @@
-/* structure_get_planar_fog @0x83744B4C — gather the planar/screen fog affecting a given structure cluster
+/* structure_get_planar_fog @0x83744B38 — gather the planar/screen fog affecting a given structure cluster
  * into the render fog block. The cluster's fog definition is looked up (preferring the primary fog, then the
  * "screen" fog); a screen-fog definition just latches its flags and screen parameters, while a planar-fog
  * definition fills in the fog plane (from the cluster's referenced fog plane, or planar_mode 2 when the cluster

@@ -1,4 +1,4 @@
-/* garbage_new @0x837EA0C4 — mark an object as garbage (about to be discarded/despawned): set its
+/* garbage_new @0x837EA090 — mark an object as garbage (about to be discarded/despawned): set its
  * "garbage" object-header flag, raise the object flags _object_shadowless_bit (18) and
  * _object_deleted_when_deactivated_bit (19), and seed a randomized despawn timer (300-600 ticks). */
 

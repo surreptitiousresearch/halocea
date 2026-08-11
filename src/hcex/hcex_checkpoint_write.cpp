@@ -1,4 +1,4 @@
-/* hcex_checkpoint_write @0x83684DF0 — write a checkpoint/autosave blob to the autosave file for the current
+/* hcex_checkpoint_write @0x83684DD8 — write a checkpoint/autosave blob to the autosave file for the current
  * scenario. Resolves the autosave path from the scenario tag name, (re)creates the file, truncates it to
  * 4.5 MB, writes the buffer from the start, and on a fully-written buffer records it as the current
  * checkpoint. Returns TRUE on success. */

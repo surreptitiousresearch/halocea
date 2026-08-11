@@ -1,4 +1,4 @@
-/* game_time_start @0x8369AA00 — start the game clock at normal speed and start the appropriate network
+/* game_time_start @0x8369A9D8 — start the game clock at normal speed and start the appropriate network
  * time sync: client-side for client roles, server-side otherwise.
  *
  * DEVIATION: the decompiler's tangled role test reduces to "connection is a client role"

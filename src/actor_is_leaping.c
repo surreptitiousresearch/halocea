@@ -10,7 +10,7 @@
 
 extern uint8_t action_charge_is_leaping(int actor_index);
 
-uint8_t actor_is_leaping(uint16_t actor_index)
+uint8_t actor_is_leaping(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->state.action == actor_action_charge )

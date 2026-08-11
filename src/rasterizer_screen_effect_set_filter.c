@@ -1,4 +1,4 @@
-/* rasterizer_screen_effect_set_filter @0x8372445C — script entry point arming the colour-filter screen
+/* rasterizer_screen_effect_set_filter @0x83724440 — script entry point arming the colour-filter screen
  * effect: stores the light-enhancement and desaturation intensity interpolation endpoints, the
  * desaturation-additive flag, clears the convolution-mask and video-feedback parameters, and sets the
  * [start, end] interpolation times relative to the current game time (ticks * 1/30 s).

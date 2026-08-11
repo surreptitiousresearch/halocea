@@ -9,8 +9,8 @@
 #include "headers/tag_block.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern int stricmp(const char *a, const char *b);
 extern int sprintf_0(char *string, const char *format, ...);
 

@@ -1,4 +1,4 @@
-/* get_upper_bound_cell @0x8371193C — std::upper_bound counterpart of get_lower_bound_cell.c: returns the
+/* get_upper_bound_cell @0x83711938 — std::upper_bound counterpart of get_lower_bound_cell.c: returns the
  * first element strictly greater than `key`, over the same (cell_x, cell_y, cell_z) ordering. */
 
 #include <stdint.h>

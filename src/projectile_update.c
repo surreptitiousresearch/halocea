@@ -54,7 +54,7 @@ extern void component_vectors_from_direction3d(const real_vector3d *vector, cons
 extern int unattached_impulse_sound_new(int definition_index, const sound_location *location, float scale, uint8_t is_player);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);
 extern void object_compute_node_matrices(int object_index);
-extern void contrail_owner_collision(uint16_t contrail_index, uint8_t object_dying, float dt);
+extern void contrail_owner_collision(int contrail_index, uint8_t object_dying, float dt);
 extern void object_delete(int object_index);
 extern void projectile_detonate(int projectile_index, uint8_t first_collision, float time_left);
 extern void projectile_detonate_to_network(int object_index);

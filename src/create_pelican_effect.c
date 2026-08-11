@@ -1,4 +1,4 @@
-/* create_pelican_effect @0x8375F8A0 — spawn the Pelican dropship's thruster wash effects. Collects both the
+/* create_pelican_effect @0x8375F860 — spawn the Pelican dropship's thruster wash effects. Collects both the
  * "hover thrusters" and "jet thrusters" markers on the vehicle into one array, and for each one chooses a
  * random direction inside a ~15-degree cone about the thruster's forward axis and traces it against the world
  * along a distance scaled by that thruster's current intensity (object+1260 hover / object+1264 jet, x6 + 2).

@@ -1,4 +1,4 @@
-/* game_engine_player_score_get_slot_index_for_player @0x8374A544 — find the score-table slot (0-31) of
+/* game_engine_player_score_get_slot_index_for_player @0x8374A540 — find the score-table slot (0-31) of
  * a player, or -1 if none. Scans all 32 slots for one that is in use and owns the player index.
  *
  * DEVIATION: the binary unrolls the scan 4 slots per iteration; reproduced as a plain loop. Like the

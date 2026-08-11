@@ -1,4 +1,4 @@
-/* player_cleanup_after_player_has_quit_game_and_no_longer_attached_to_unit @0x836A7E08 — final cleanup
+/* player_cleanup_after_player_has_quit_game_and_no_longer_attached_to_unit @0x836A7DE0 — final cleanup
  * for a player who has left and whose unit is already gone: remove them from the client (and server, if
  * hosting) update lists, free the player datum (machine index at player record +100), drop their
  * network field-index mapping, and remove them from the game-engine score table. Player records are

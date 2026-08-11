@@ -1,4 +1,4 @@
-/* flag_render @0x8380F610 — per-frame flag (cloth) render: reseat the flag's object index, re-simulate its
+/* flag_render @0x8380F5E8 — per-frame flag (cloth) render: reseat the flag's object index, re-simulate its
  * cloth physics if it's been more than 5 renders since the last update (or it was never initialized), then
  * render it unless the tag's `__noop` byte suppresses rendering. */
 

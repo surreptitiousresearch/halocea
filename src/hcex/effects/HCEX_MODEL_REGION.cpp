@@ -4,7 +4,7 @@
 
 #include "../../headers/hcex/HCEX_MODEL_REGION.h"
 
-// 0x823D6800 — default-construct: objIds/objNames adopt the ds_vector.h:24 call-site cookie
+// @0x823D67E8 — default-construct: objIds/objNames adopt the ds_vector.h:24 call-site cookie
 // (empty vectors), name adopts the shared empty-string singleton via UnsafeInitEmpty().
 // objRegId is left uninitialized, matching the disassembly.
 HCEX_MODEL_REGION::HCEX_MODEL_REGION()

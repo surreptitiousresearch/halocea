@@ -1,4 +1,4 @@
-/* biped_try_to_make_footsteps @0x837B2D6C — emit footstep effects driven by the biped's current
+/* biped_try_to_make_footsteps @0x837B2D40 — emit footstep effects driven by the biped's current
  * animation. While in a grounded movement state (675 in [2,7]) it either flags an air-contact landing
  * (states 2/3) or measures whether the biped is moving (animation velocity at +632/+636/+640, speed^2
  * > 0.25). With a valid animation (+208) it looks up the animation record (180-byte stride in the

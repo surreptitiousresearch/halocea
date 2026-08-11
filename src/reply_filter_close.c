@@ -1,4 +1,4 @@
-/* reply_filter_close @0x837CBFF8 — ai_conversation reply filter: true if `reply_actor_index` has a prop
+/* reply_filter_close @0x837CBF60 — ai_conversation reply filter: true if `reply_actor_index` has a prop
  * (prop_datum) close to `original_unit_index` (prop->distance under 5.0 and prop->line_of_sight <= 1). */
 
 #include <stdint.h>

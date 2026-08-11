@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL_SetCurCheckpoint @0x823C4B50
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
 // haloENGINE_CONTROL::SetCurCheckpoint @ 0x823C4B54 — authored def TU for the flattened

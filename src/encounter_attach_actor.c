@@ -20,10 +20,10 @@
 
 
 extern uint8_t encounter_activate(int encounter_index);
-extern int actor_set_active(uint16_t actor_index, uint8_t active);
-extern void actor_set_dormant(uint16_t actor_index, uint8_t dormant);
+extern int actor_set_active(int actor_index, uint8_t active);
+extern void actor_set_dormant(int actor_index, uint8_t dormant);
 extern void encounter_attach_unit(int encounter_index, int unit_index);
-extern void actor_set_team(uint16_t actor_index, int16_t team_index);
+extern void actor_set_team(int actor_index, int16_t team_index);
 extern void ai_update_team_status(void);
 
 void encounter_attach_actor(int actor_index, int encounter_index, int16_t squad_index,

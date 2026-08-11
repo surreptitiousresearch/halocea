@@ -1,4 +1,4 @@
-/* objects_get_activating_cluster_index @0x836ECA98 — return the structure-BSP cluster that is currently
+/* objects_get_activating_cluster_index @0x836ECA78 — return the structure-BSP cluster that is currently
  * driving PVS activation, or -1 if none. With a cluster activation source (type 2) the stored cluster is
  * returned directly; with an object activation source (type 1) the object's ultimate parent is resolved
  * and its cluster index returned (provided the object is valid and flagged as occupying a cluster).

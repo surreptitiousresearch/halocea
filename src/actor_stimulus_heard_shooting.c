@@ -1,4 +1,4 @@
-/* actor_stimulus_heard_shooting @0x837D4C60 — react to hearing weapon fire reported by a perception prop.
+/* actor_stimulus_heard_shooting @0x837D4C38 — react to hearing weapon fire reported by a perception prop.
  * If the prop is an enemy the actor enters combat against it directly; otherwise the firing is from a
  * friend, so the actor enters "friend in combat" and tries to inherit the friend's target: either the
  * friend's combat target (when sufficiently engaged) or, if a player recently fired at an enemy, an
@@ -20,16 +20,16 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void actor_stimulus_enter_combat_perceived_enemy(uint16_t actor_index, uint16_t prop_index);
-extern void actor_stimulus_enter_combat_friend_in_combat(uint16_t actor_index, uint16_t prop_index);
-extern void actor_derive_target_information(int actor_index, uint16_t friend_actor_index);
+extern void actor_stimulus_enter_combat_perceived_enemy(int actor_index, int prop_index);
+extern void actor_stimulus_enter_combat_friend_in_combat(int actor_index, int prop_index);
+extern void actor_derive_target_information(int actor_index, int friend_actor_index);
 extern uint8_t game_team_is_enemy(int16_t our_team, int16_t other_team);
 extern int actor_perception_create_orphan_from_friend(int actor_index, int unit_index, int friend_actor_index, int friend_prop_index);
 extern int game_time_get(void);
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
-void actor_stimulus_heard_shooting(uint16_t actor_index, uint16_t prop_index)
+void actor_stimulus_heard_shooting(int actor_index, int prop_index)
 {
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
     if (prop->enemy)

@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::ITERATOR::ITERATOR(DATA *) — private, cell-wrapping ctor — 0x82AC5960
+// ds::LIST<msgADDR *>::ITERATOR::ITERATOR(DATA *) — private, cell-wrapping ctor — @0x82AC5960
 #include "LIST.h"
 #include "../msg/msgADDR.h"
 

@@ -1,4 +1,4 @@
-/* player_ui_get_path_to_local_player_profile_directory @0x83698C10 — resolve the on-disk profile directory
+/* player_ui_get_path_to_local_player_profile_directory @0x83698C08 — resolve the on-disk profile directory
  * path for a local player (0 or 1) from its active profile index. Returns 0 for an out-of-range index.
  * The profile index is read from player_ui_globals.player_data[idx].profile_index (@1980). */
 

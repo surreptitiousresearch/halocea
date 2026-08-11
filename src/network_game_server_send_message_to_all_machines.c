@@ -1,5 +1,5 @@
 #include <stdint.h>
-/* network_game_server_send_message_to_all_machines @0x837565E4 — stub in this build (server-side network
+/* network_game_server_send_message_to_all_machines @0x837565E0 — stub in this build (server-side network
  * messaging is compiled out); always reports failure (0). */
 
 typedef struct network_game_server network_game_server;

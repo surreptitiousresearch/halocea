@@ -13,8 +13,7 @@
 #include "headers/tag_block.h"
 #include "headers/tag_data.h"
 #include "headers/data_array.h"
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
-extern uint8_t tag_data_resize(tag_data *data, int size);
+#include "headers/tag_groups.h"
 extern void data_delete_all(data_array *data);
 
 void hs_compile_initialize(uint8_t permanent)

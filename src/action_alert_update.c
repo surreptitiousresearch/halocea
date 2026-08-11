@@ -25,10 +25,10 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_path_at_destination(uint16_t actor_index);
+extern uint8_t actor_path_at_destination(int actor_index);
 extern uint8_t unit_start_user_animation(int unit_index, int animation_graph_index, const char *animation_name, uint8_t interpolate);
 
-void action_alert_update(uint16_t actor_index)
+void action_alert_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     alert_state_data *alert = &actor->state.action_data.___u0.alert;

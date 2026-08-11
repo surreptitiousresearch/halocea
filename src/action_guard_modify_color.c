@@ -1,4 +1,4 @@
-/* action_guard_modify_color @0x838246FC — pick a debug color for an actor's "guard" state: violet/pink/
+/* action_guard_modify_color @0x838246E8 — pick a debug color for an actor's "guard" state: violet/pink/
  * purple by flag combination (action_data[8]/[9]/[10]) when the primary flag is set, salmon otherwise. */
 
 #include <stdint.h>
@@ -8,7 +8,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_guard_modify_color(uint16_t actor_index, real_argb_color *color)
+void action_guard_modify_color(int actor_index, real_argb_color *color)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     const real_argb_color *selected;

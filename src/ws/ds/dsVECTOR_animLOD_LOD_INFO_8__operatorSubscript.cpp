@@ -2,7 +2,7 @@
 #include "../anim/animLOD_LOD_INFO.h"
 #include "ds_assert_boundary.h"
 
-// ??A?$dsVECTOR@ULOD_INFO@animLOD@@$07@@QAAAAULOD_INFO@animLOD@@H@Z  (0x82B0D758) — non-const
+// ??A?$dsVECTOR@ULOD_INFO@animLOD@@$07@@QAAAAULOD_INFO@animLOD@@H@Z  (@0x82B0D758) — non-const
 // bounds-checked element access; returns a reference to the idx-th per-LOD object record.
 template<>
 animLOD::LOD_INFO &dsVECTOR<animLOD::LOD_INFO, 8>::operator[](int idx)

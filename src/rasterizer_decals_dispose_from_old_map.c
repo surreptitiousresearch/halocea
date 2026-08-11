@@ -1,4 +1,4 @@
-/* rasterizer_decals_dispose_from_old_map @0x836A605C — per-map decal teardown guard: skip when
+/* rasterizer_decals_dispose_from_old_map @0x836A6050 — per-map decal teardown guard: skip when
  * running the import tool, otherwise perform the real per-map teardown.
  *
  * DEVIATION: the call to _rasterizer_decals_dispose_from_old_map (leading underscore) is rendered as

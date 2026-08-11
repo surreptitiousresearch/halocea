@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t action_guard_setup_current_position(uint16_t actor_index, guard_state_data *state_data)
+uint8_t action_guard_setup_current_position(int actor_index, guard_state_data *state_data)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

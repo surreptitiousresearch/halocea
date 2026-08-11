@@ -1,4 +1,4 @@
-/* sound_set_music_gain @0x8371A654 — change the global music gain and re-apply it to all channels.
+/* sound_set_music_gain @0x8371A630 — change the global music gain and re-apply it to all channels.
  * No-op when unchanged. Muting (was audible, now <=0) disables the "music" sound class and zeroes the gain.
  * Un-muting from silence (was 0, now >0) re-enables the class and clamps gains >=1.0 down to 1.0; otherwise
  * the gain is stored verbatim.

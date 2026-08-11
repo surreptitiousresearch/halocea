@@ -11,7 +11,11 @@
 #include "headers/blam_data_globals.h"
 
 
-void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int reference_index, float vertical_offset)
+/* DEVIATION: reference_index is int16_t, not int -- the binary sign-extends the incoming r5 at
+ * entry (extsh r4, r27 @0x837ED2AC) and every later use (cmpwi r4,-1 @0x837ED2E0;
+ * cmpw r3,r4 @0x837ED340; stw r4,8(r11) @0x837ED38C) reads the narrowed value. funcs.prototype
+ * agrees (__int16). The nav_point field at +8 stays a full word; only the parameter is narrow. */
+void hud_activate_global_nav_point(int16_t nav_index, int16_t type, int16_t reference_index, float vertical_offset)
 {
     data_iterator it;
     data_iterator_new(&it, player_data);

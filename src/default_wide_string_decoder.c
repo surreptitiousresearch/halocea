@@ -1,4 +1,4 @@
-/* default_wide_string_decoder @0x8379ADD0 — decodes a length-prefixed wide-character string field: reads
+/* default_wide_string_decoder @0x8379ADC0 — decodes a length-prefixed wide-character string field: reads
  * the length (in `overhead_bits` bits), then if it's within [0, parameters[0]] (the field's maximum length),
  * reads that many 16-bit characters and null-terminates the buffer. Mirrors
  * default_ascii_string_decoder.c's 8-bit variant. Returns the total bits consumed. */

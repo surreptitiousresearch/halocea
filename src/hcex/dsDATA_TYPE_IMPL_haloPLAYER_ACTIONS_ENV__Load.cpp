@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: ds_data::dsDATA_TYPE_IMPL<haloPLAYER_ACTIONS_ENV>::Load @0x823BEE80 (?Load@?$dsDATA_TYPE_IMPL@UhaloPLAYER_ACTIONS_ENV@@@ds_data@@UBAHPAVfioFILE@@PAK@Z)
 #include "../headers/ws/ds/dsDATA_TYPE_IMPL.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/hcex/halo_ds_data_type_boundary.h"

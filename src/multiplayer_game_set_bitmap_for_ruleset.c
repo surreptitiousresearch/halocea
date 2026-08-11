@@ -1,4 +1,4 @@
-/* multiplayer_game_set_bitmap_for_ruleset @0x8377FF5C — sets a widget's animation frame index to the
+/* multiplayer_game_set_bitmap_for_ruleset @0x8377FF48 — sets a widget's animation frame index to the
  * ruleset bitmap frame matching the active network game's game engine (falls back to a generic frame if
  * there's no active game, or the engine index is out of the known range). */
 

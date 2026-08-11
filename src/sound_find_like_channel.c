@@ -17,7 +17,7 @@
 
 extern float source_distance_squared(int16_t listener_index, const sound_source *source);
 
-int16_t sound_find_like_channel(uint16_t sound_index, const int16_t *channel_indices, int16_t channel_count)
+int16_t sound_find_like_channel(int sound_index, const int16_t *channel_indices, int16_t channel_count)
 {
     sound_datum *candidate = DATA_ARRAY_ELEMENT(sound_data, sound_datum, sound_index);
     char *sound_base = (char *)sound_data->data;

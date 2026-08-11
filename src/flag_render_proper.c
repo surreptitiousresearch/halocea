@@ -1,4 +1,4 @@
-/* flag_render_proper @0x8380E3E8 — render one placed flag's simulated cloth mesh: builds a dynamic
+/* flag_render_proper @0x8380E3A0 — render one placed flag's simulated cloth mesh: builds a dynamic
  * vertex/triangle buffer from the flag's simulated grid (per-vertex tangent from a cross product of the
  * neighboring column/row deltas, plus row/column UV fractions), tesselates each grid cell into 0-2
  * triangles per its stored tesselation level, then submits the result through the model rasterizer using

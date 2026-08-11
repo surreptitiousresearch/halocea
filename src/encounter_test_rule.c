@@ -1,4 +1,4 @@
-/* encounter_test_rule @0x8370CC0C — evaluate an AI platoon rule against an encounter's strength.
+/* encounter_test_rule @0x8370CC08 — evaluate an AI platoon rule against an encounter's strength.
  * The rule targets either a specific platoon within the encounter (platoon_index in range) or the
  * encounter as a whole (platoon_index out of range / negative). It reads that target's original
  * count, current strength fraction, and current count, then applies the rule_type test. Rules only
@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t encounter_test_rule(uint16_t encounter_index, platoon_rule *rule)
+uint8_t encounter_test_rule(int encounter_index, platoon_rule *rule)
 {
     encounter_datum *encounter = DATA_ARRAY_ELEMENT(encounter_data, encounter_datum, encounter_index);
     int16_t platoon_index = rule->platoon_index;

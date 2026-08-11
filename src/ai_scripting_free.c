@@ -7,7 +7,7 @@
 
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
-extern void actor_flush_position_indices(uint16_t actor_index);
+extern void actor_flush_position_indices(int actor_index);
 extern void encounter_detach_actor(int actor_index, uint8_t died);
 extern void encounterless_attach_actor(int actor_index);
 extern void encounters_update_dirty_status(void);

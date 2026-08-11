@@ -10,12 +10,14 @@ struct real_plane3d;
 struct real_vector3d;
 struct render_lighting;
 
-extern void _rasterizer_environment_transparent_geometry_submit(
-    const struct shader *shader, int16_t shader_permutation_index, const struct bitmap_data *lightmap,
-    int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count,
-    const struct vertex_buffer *vertex_buffers, const struct real_point3d *centroid,
-    const struct real_plane3d *plane, const struct real_vector3d *offset,
-    const struct render_lighting *render_lighting, unsigned int geometry_flags);
+#include "headers/shader.h"
+#include "headers/bitmap_data.h"
+#include "headers/vertex_buffer.h"
+#include "headers/real_point3d.h"
+#include "headers/real_plane3d.h"
+#include "headers/real_vector3d.h"
+#include "headers/render_lighting.h"
+extern void _rasterizer_environment_transparent_geometry_submit(const shader *shader, int16_t shader_permutation_index, const bitmap_data *lightmap, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffers, const real_point3d *centroid, const real_plane3d *plane, const real_vector3d *offset, const render_lighting *render_lighting, unsigned int geometry_flags);
 
 void rasterizer_environment_transparent_geometry_submit(const struct shader *shader, int16_t shader_permutation_index, const struct bitmap_data *lightmap, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const struct vertex_buffer *vertex_buffers, const struct real_point3d *centroid, const struct real_plane3d *plane, const struct real_vector3d *offset, const struct render_lighting *render_lighting, unsigned int geometry_flags)
 {

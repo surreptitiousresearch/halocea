@@ -1,4 +1,4 @@
-/* unit_add_weapon_to_inventory @0x836D318C — give a weapon object to a unit, placing it in the first free
+/* unit_add_weapon_to_inventory @0x836D3168 — give a weapon object to a unit, placing it in the first free
  * inventory slot. On a client connection the unit's seat/weapon label is reconciled first (dropping the
  * seat if it no longer matches). The pickup only proceeds if the weapon object is flagged pickup-able
  * (object flag 0x800), is unowned (object.parent_object_index == -1), the unit can use it, and the game

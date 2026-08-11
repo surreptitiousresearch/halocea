@@ -1,4 +1,4 @@
-/* actor_start_pause @0x837B938C — set the actor's between-burst pause timer (word +1524). Picks a random
+/* actor_start_pause @0x837B9358 — set the actor's between-burst pause timer (word +1524). Picks a random
  * separation in the firing variant's burst-separation range (burst geometry +0x1C/+0x20), scales it by the
  * team difficulty value, applies the firing pattern's burst-separation modifier (firing pattern +0x4) when
  * present, adds a 1.7x panic factor when the actor is suppressed (byte +458), and converts seconds to ticks
@@ -20,7 +20,7 @@ extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 extern float game_difficulty_get_team_value(int16_t value_type, int16_t team_index);
 
-void actor_start_pause(uint16_t actor_index)
+void actor_start_pause(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_variant_definition *firing_variant_definition = actor_combat_get_firing_variant_definition(actor_index);

@@ -1,4 +1,4 @@
-/* effect_marker_list_get_marker @0x836E17E8 — resolve a single marker (by index) of an effect marker
+/* effect_marker_list_get_marker @0x836E17D0 — resolve a single marker (by index) of an effect marker
  * list into an object_marker. The marker's point and forward are pulled into node-local space when the
  * list is bound to an object node, otherwise used directly. A perpendicular vector is derived and
  * normalized, and the marker's node_matrix is built from (point, forward, perpendicular). */

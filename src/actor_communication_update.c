@@ -19,8 +19,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_in_combat(uint16_t actor_index);
-extern void actor_reset_idle_vocalization_timer(uint16_t actor_index);
+extern uint8_t actor_in_combat(int actor_index);
+extern void actor_reset_idle_vocalization_timer(int actor_index);
 extern int16_t unit_test_speech(int unit_index, int16_t priority, uint8_t allow_recursive_lookup, uint8_t allow_queue, int *unit_last_speech_time, int16_t *vocalization_type_reference, int *sound_definition_index_reference);
 extern void unit_speak(int unit_index, int16_t play_type, const unit_speech_item *speech_item);
 

@@ -1,4 +1,4 @@
-/* unit_persistent_control @0x836C7048 — arm a unit's persistent control: store the timer and flag bits.
+/* unit_persistent_control @0x836C7028 — arm a unit's persistent control: store the timer and flag bits.
  *
  * FLAG DOMAIN RESOLVED (prior escalation "unit_persistent_control flags" — old absence claim disproved):
  * persistent_control_flags are unit_control_flags bits (see src/headers/unit_control_flags.h,

@@ -1,4 +1,4 @@
-/* rectangle2d_hull_from_rectangles2d @0x8379A1D4 — computes the bounding rectangle (n[0..3] = top, bottom,
+/* rectangle2d_hull_from_rectangles2d @0x8379A1C8 — computes the bounding rectangle (n[0..3] = top, bottom,
  * left, right) enclosing two rectangles. */
 
 #include "headers/rectangle2d.h"

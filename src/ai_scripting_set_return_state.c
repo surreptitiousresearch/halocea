@@ -11,7 +11,7 @@
 
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
-extern int16_t actor_action_class(uint16_t actor_index);
+extern int16_t actor_action_class(int actor_index);
 extern uint8_t actor_action_set_default_state(int actor_index, int16_t override_state);
 
 void ai_scripting_set_return_state(int ai_index, int16_t default_state)

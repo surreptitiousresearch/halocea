@@ -1,4 +1,4 @@
-/* sample_finished @0x83763A48 — closes out the current sampling period for a net_graph: commits the
+/* sample_finished @0x83763A30 — closes out the current sampling period for a net_graph: commits the
  * accumulated sample, then rederives `average` from the newest 5 slots of the 320-sample ring
  * (sum * 0.25, matching the disassembly exactly), and resets the period start time and accumulator for
  * the next period. */

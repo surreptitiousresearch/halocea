@@ -1,4 +1,4 @@
-/* get_lower_bound_cell @0x83711894 — std::lower_bound over a sorted [begin,end) run of
+/* get_lower_bound_cell @0x83711890 — std::lower_bound over a sorted [begin,end) run of
  * detail_object_cell_definition, ordered by (cell_x, cell_y, cell_z). Returns the first element not less than
  * `key`. */
 

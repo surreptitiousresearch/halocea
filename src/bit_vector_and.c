@@ -1,4 +1,4 @@
-/* bit_vector_and @0x8379A4B0 — bitwise-AND two bit vectors of `count` bits (rounded up to whole
+/* bit_vector_and @0x8379A4A8 — bitwise-AND two bit vectors of `count` bits (rounded up to whole
  * 32-bit words). Writes the result into `result` when non-null; returns nonzero if any result word
  * is set. */
 

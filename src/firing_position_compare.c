@@ -1,4 +1,4 @@
-/* firing_position_compare @0x837EF858 — qsort-style comparator over global_temporary_sort_firing_position_array:
+/* firing_position_compare @0x837EF848 — qsort-style comparator over global_temporary_sort_firing_position_array:
  * ranks invalid positions above valid ones, then rejected positions above accepted ones, then lower-evaluation
  * positions above higher-evaluation ones.
  *

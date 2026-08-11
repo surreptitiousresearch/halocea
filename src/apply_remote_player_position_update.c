@@ -1,4 +1,4 @@
-/* apply_remote_player_position_update @0x836A8CF4 — on the client, apply the next buffered server position
+/* apply_remote_player_position_update @0x836A8CE8 — on the client, apply the next buffered server position
  * for a remote player's unit. Reads the position matching the unit's last completed client update id; if
  * available and the unit is an unparented puppet, the unit is snapped toward the server position (and the
  * "waiting for update" counter is reset). If no matching position is ready but the queue is non-empty, the

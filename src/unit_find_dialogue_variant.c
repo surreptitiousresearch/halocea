@@ -1,4 +1,4 @@
-/* unit_find_dialogue_variant @0x837BAAA4 — pick a dialogue variant for a unit. Scans the unit definition's
+/* unit_find_dialogue_variant @0x837BAA90 — pick a dialogue variant for a unit. Scans the unit definition's
  * dialogue_variants block (tag_block @ +0x2B4 count / +0x2B8 address, 24-byte entries: variant id @ +0,
  * dialogue tag index @ +20). Collects all entries matching variant_number (or all when -1), then returns
  * one at random (or the single match). Returns the dialogue tag index, or -1 if none match. */

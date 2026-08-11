@@ -1,4 +1,4 @@
-/* change_team_for_player_in_player_datum @0x83802A88 — finds the player_datum whose embedded
+/* change_team_for_player_in_player_datum @0x83802A60 — finds the player_datum whose embedded
  * network_player_data.player_list_index matches `player_index` and updates both its
  * network_player_data.team_index and its own top-level team_index field to `team_index`. */
 

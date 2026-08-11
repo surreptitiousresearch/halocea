@@ -1,4 +1,4 @@
-/* weather_particle_systems_dispose_from_old_map @ 0x8373C088 — invalidate weather pool */
+/* weather_particle_systems_dispose_from_old_map @ 0x8373C1F0 — invalidate weather pool */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 extern void data_make_invalid(data_array *data);

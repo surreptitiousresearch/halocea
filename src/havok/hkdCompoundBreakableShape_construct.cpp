@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkdCompoundBreakableShape_construct @0x8384D160 (??0hkdCompoundBreakableShape@@QAA@PBVhkdBreakableShape@@PBUhkdShapeInstanceInfo@@HW4ConstructorFlags@0@@Z)
 #include "../headers/havok/hkdCompoundBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkInplaceArray.h"

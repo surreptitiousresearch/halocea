@@ -1,4 +1,4 @@
-/* hcexPARTICLE_SYS::hcexPARTICLE_SYS @0x823CF098 — install this class's vftable (no other state
+/* hcexPARTICLE_SYS::hcexPARTICLE_SYS @0x823CF090 — install this class's vftable (no other state
  * to init). */
 
 #include "../../headers/hcex/hcexPARTICLE_SYS.h"

@@ -1,4 +1,4 @@
-/* biped_flying_through_air @0x837AEA30 — true when a biped is airborne: its airborne tick counter
+/* biped_flying_through_air @0x837AEA10 — true when a biped is airborne: its airborne tick counter
  * (biped.airborne_ticks) is past the grounded threshold (> 3), and either the biped definition does not
  * fly (_biped_flying_bit clear) or the object is dead (_object_dead_bit set). */
 

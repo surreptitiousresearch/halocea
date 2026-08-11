@@ -1,4 +1,4 @@
-/* actor_perception_find_prop_pathfinding_location @0x837D67D4 — lazily resolve and cache the
+/* actor_perception_find_prop_pathfinding_location @0x837D67B0 — lazily resolve and cache the
  * pathfinding surface a prop sits on (prop dword +236). If the prop is on a vehicle (dword +272 != -1)
  * use the vehicle's surface lookup; otherwise, if its unit (dword +24) is a valid object, use the biped
  * surface lookup at the prop's position (real_point3d at prop +80). Prop records are stride 312. */
@@ -15,7 +15,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern int biped_find_pathfinding_surface_index(int biped_index, real_point3d *pathfinding_point);
 extern int vehicle_find_pathfinding_surface_index(int vehicle_index, real_point3d *pathfinding_point);
 
-void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index)
+void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index)
 {
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
     if ( prop->pathfinding_surface_index == -1 )

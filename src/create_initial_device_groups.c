@@ -1,4 +1,4 @@
-/* create_initial_device_groups @0x837B5454 — allocate one device_group_datum per scenario-authored
+/* create_initial_device_groups @0x837B5440 — allocate one device_group_datum per scenario-authored
  * scenario_device_group, seeded with its initial value and its "changes only once" flag (bit 0 of the
  * scenario definition's flags). Silently skips groups that fail to allocate a datum. */
 

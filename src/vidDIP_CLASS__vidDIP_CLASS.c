@@ -1,6 +1,6 @@
 #include "headers/ws/vid/vidDIP.h"
 
-// 0x8266A92C
+// @0x8266A910
 vidDIP_CLASS::vidDIP_CLASS()
     : dipList(apCL{ "D:\\Projects\\code\\common\\incl.sys\\DRV\\vid.h", 454 })
 {

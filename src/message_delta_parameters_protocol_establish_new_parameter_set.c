@@ -1,4 +1,4 @@
-/* message_delta_parameters_protocol_establish_new_parameter_set @0x838121F8 — begin a parameter-set
+/* message_delta_parameters_protocol_establish_new_parameter_set @0x838121E0 — begin a parameter-set
  * protocol changeover: snapshot the current parameters, pack them for transmission, and broadcast a
  * stateless "parameters protocol" message-delta carrying the next protocol number (mod 4) to all machines.
  * Only commits the new protocol number if the broadcast succeeds. Guarded by the changeover-enabled flag

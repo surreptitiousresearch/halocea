@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* compute_swizzle_masks @0x837E30A0 — computes X/Y/Z bit-interleave (swizzle) masks for a
+/* compute_swizzle_masks @0x837E3098 — computes X/Y/Z bit-interleave (swizzle) masks for a
  * width x height x depth volume texture. rasterizer_swizzle_x_mask (the DB's own auto-name; kept verbatim, no better
  * name resolved) holds the X mask, alongside the DB's own ay/az globals for Y/Z. */
 

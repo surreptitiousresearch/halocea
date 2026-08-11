@@ -4,7 +4,7 @@
 // boundary — printf-into-dsTSTRING helper (declared in several ws boundary headers).
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...);
 
-// 0x823D5E48 — apCONFIG::Retrieve<int,int>. Build the composite key "<section>.<key>", look it up
+// @0x823D5E48 — apCONFIG::Retrieve<int,int>. Build the composite key "<section>.<key>", look it up
 // via GetValue<int>, and fall back to `defVal` when the key is absent (or when either name is
 // null). The scratch dsTSTRING is released by its destructor at scope exit.
 // DEVIATION: the decompiler packed section+key into one __int64 and mislabeled the two int refs;

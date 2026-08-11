@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkdExceptionReporter_DebugText_destruct @0x8386E968 (??1DebugText@hkdExceptionReporter@@QAA@XZ)
 #include "../headers/havok/hkdExceptionReporter_DebugText.h"
 #include "../headers/havok/hkThreadMemory.h"
 

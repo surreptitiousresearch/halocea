@@ -15,7 +15,7 @@
 #include "headers/blam_data_globals.h"
 
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 /* hs_type_inspectors: canonical 3-arg proto from blam_data_globals.h */
 extern void ship_terminal_printf(const real_argb_color *color, const char *format, ...);
 

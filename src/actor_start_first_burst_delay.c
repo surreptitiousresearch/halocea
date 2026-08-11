@@ -1,4 +1,4 @@
-/* actor_start_first_burst_delay @0x837B7DE0 — arm an actor's first-burst delay before it opens fire.
+/* actor_start_first_burst_delay @0x837B7DB0 — arm an actor's first-burst delay before it opens fire.
  * Normally a randomized delay (variant's first_burst_delay range @ def +0x80/+0x84, in seconds * 30 ticks)
  * is set into the actor's burst-delay timer (word +1524). But if the actor is set to fire immediately
  * (byte +1111), or its perceived target prop is an orphan (prop->state in
@@ -21,7 +21,7 @@
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-uint8_t actor_start_first_burst_delay(uint16_t actor_index, const actor_variant_definition *firing_variant_definition)
+uint8_t actor_start_first_burst_delay(int actor_index, const actor_variant_definition *firing_variant_definition)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     uint8_t immediate = actor->orders.combat.override_firing_restrictions;

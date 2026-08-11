@@ -7,7 +7,7 @@
 #include "headers/actor_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_is_fighting(uint16_t actor_index);
+extern uint8_t actor_is_fighting(int actor_index);
 
 uint8_t reply_filter_flee_leader(int original_unit_index, ai_information_packet *communication, int reply_actor_index)
 {

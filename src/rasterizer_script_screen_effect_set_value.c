@@ -1,4 +1,4 @@
-/* rasterizer_script_screen_effect_set_value @0x837242D0 — script hook: store one of the four
+/* rasterizer_script_screen_effect_set_value @0x837242B0 — script hook: store one of the four
  * script-controlled screen-effect values, when the effect block exists and the index is in range.
  *
  * DEVIATION: the value arrives as a double via the soft-float ABI; the stored field is a float. */

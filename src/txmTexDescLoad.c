@@ -3,7 +3,7 @@
 
 extern "C" int stricmp(const char *a, const char *b);
 
-// 0x82C66648 -- reconstructed against the by-value-with-default psSECTION_INTERFACE::GetInt/
+// @0x82C66618 -- reconstructed against the by-value-with-default psSECTION_INTERFACE::GetInt/
 // GetBool/GetFloat overloads (psSECTION_INTERFACE.h) rather than the decompiler's literal call
 // sites: those showed each accessor taking 8-16 args (v33/v37/v41/.../g_PFP[208]) which is a
 // known stack-slot-reuse decompiler artifact (the same pattern already documented as a DEVIATION

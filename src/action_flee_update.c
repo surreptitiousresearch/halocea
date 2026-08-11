@@ -16,7 +16,7 @@
 extern int game_time_get(void);
 extern void unit_start_running_blindly(int unit_index);
 
-void action_flee_update(uint16_t actor_index)
+void action_flee_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     flee_state_data *flee_state = &actor->state.action_data.___u0.flee;

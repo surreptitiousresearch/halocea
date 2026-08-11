@@ -1,4 +1,4 @@
-/* physics_variable_position_update_seek @0x83810998 — steps *position one tick (of magnitude `speed`)
+/* physics_variable_position_update_seek @0x83810990 — steps *position one tick (of magnitude `speed`)
  * toward desired_position, honoring the definition's [minimum, maximum] range. When cyclical, the
  * position wraps around the range and always takes the shorter way around. Returns 1 once the target is
  * reached (and snaps *position exactly to desired_position), 0 while still moving. */

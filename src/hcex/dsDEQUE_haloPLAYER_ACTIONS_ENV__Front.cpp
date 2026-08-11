@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: dsDEQUE<haloPLAYER_ACTIONS_ENV>::Front() @0x823C00C8 (?Front@?$dsDEQUE@UhaloPLAYER_ACTIONS_ENV@@@@QAAAAUhaloPLAYER_ACTIONS_ENV@@XZ)
 #include "../headers/ws/ds/dsDEQUE.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"

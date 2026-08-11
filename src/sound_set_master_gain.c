@@ -1,4 +1,4 @@
-/* sound_set_master_gain @0x8371A594 — change the global sound master gain and re-apply it to all channels.
+/* sound_set_master_gain @0x8371A578 — change the global sound master gain and re-apply it to all channels.
  * No-op when unchanged. Muting (was audible, now <=0) stops all sounds and clears the active flag.
  * Un-muting from silence (was 0, now >0) marks the manager active and snaps gains in (0,1] up to 1.0.
  * Otherwise the gain is stored verbatim. update_channels is then called with the (possibly stopped) value.

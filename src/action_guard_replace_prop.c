@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void action_guard_replace_prop(uint16_t actor_index, int invalid_prop_index, int replacement_prop_index)
+void action_guard_replace_prop(int actor_index, int invalid_prop_index, int replacement_prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int *discarded_prop_index = &actor->state.action_data.___u0.guard.guard_look_prop_index;

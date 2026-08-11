@@ -1,3 +1,4 @@
+/* rasterizer_active_camouflage_require_zbuffer_fill @0x83794BE0 */
 #include <stdint.h>
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/rasterizer_debug_options_struct.h"

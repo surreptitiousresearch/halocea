@@ -1,3 +1,4 @@
+/* projectile_collision @0x8375B288 */
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
 #include <stdint.h>
 #include "headers/ppc_intrinsics.h"

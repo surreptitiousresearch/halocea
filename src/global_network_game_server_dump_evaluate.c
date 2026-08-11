@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void global_network_game_server_dump(void);
 
 void global_network_game_server_dump_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

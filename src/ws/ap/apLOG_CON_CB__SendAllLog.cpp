@@ -1,3 +1,4 @@
+// apLOG_CON_CB__SendAllLog @0x82AEF9D8
 #include "apLOG_CON_CB.h"
 
 // --- Boundaries (con message protocol / file I/O / os time). MSG_PROTOCOL and fioFILE layouts

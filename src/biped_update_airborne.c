@@ -1,4 +1,4 @@
-/* biped_update_airborne @0x837AEACC — per-frame airborne update for a biped. When the biped is flying
+/* biped_update_airborne @0x837AEA98 — per-frame airborne update for a biped. When the biped is flying
  * through the air and its definition tumbles in air (biped definition flag 0x100), and it is not
  * already in a dead/ragdoll-ish state (animation.state 31 or 41), a small random rotational impulse is added
  * to the biped's object.angular_velocity: the axis is the cross product of world up and the biped's

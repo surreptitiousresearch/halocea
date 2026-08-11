@@ -1,4 +1,4 @@
-/* file_write_to_position @0x837E6F14 — seeks the open file to an absolute byte position (Win32 HANDLE at
+/* file_write_to_position @0x837E6EF0 — seeks the open file to an absolute byte position (Win32 HANDLE at
  * file->data+264, see file_get_position.c); on a seek failure, clears the last error and bails out without
  * writing. Otherwise writes `count` bytes from `buffer`. */
 

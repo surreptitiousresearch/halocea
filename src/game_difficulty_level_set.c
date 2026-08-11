@@ -1,4 +1,4 @@
-/* game_difficulty_level_set @0x836882B0 — set the current game difficulty in the global game options. */
+/* game_difficulty_level_set @0x836882A8 — set the current game difficulty in the global game options. */
 
 #include <stdint.h>
 #include "headers/game_globals.h"

@@ -79,9 +79,6 @@
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
-#include "headers/structure_bsp.h"
-#include "headers/real_point3d.h"
-#include "headers/collision_bsp_test_vector_result.h"
 extern post_evaluator_table_entry global_post_evaluator_table[];
 
 extern float __fsqrts(float x);
@@ -90,15 +87,15 @@ extern float normalize3d(real_vector3d *v);
 extern float point_to_line_distance_squared3d(const real_point3d *point, const real_point3d *base, const real_vector3d *height);
 extern void encounter_build_firing_position_owner_actor_indices(int encounter_index, int *firing_position_owner_actor_indices);
 extern void unit_estimate_position(int unit_index, int16_t estimate_mode, const real_point3d *body_position, real_vector3d *desired_facing, real_vector3d *desired_gun_offset, real_point3d *estimated_position);
-extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern uint8_t actor_perception_friend_prop_is_attacking(uint16_t actor_index, uint16_t friend_prop_index, real_vector3d *attack_vector);
+extern uint8_t actor_perception_friend_prop_is_attacking(int actor_index, int friend_prop_index, real_vector3d *attack_vector);
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);
 extern uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point, int test_surface_index, int16_t group_selection_mode);
-extern void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only);
-extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const collision_bsp_test_vector_result *destination_reference, uint8_t *path_available_out, float *hit_result_out);
-extern void actor_path_input_new(uint16_t actor_index, path_input *input);
+extern void actor_clear_discarded_firing_positions(int actor_index, uint8_t clear_temporary_only);
+extern uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point, float avoidance_distance, const real_point3d *end_point, uint8_t *path_available_out, real_point3d *path_endpoint);
+extern void actor_path_input_new(int actor_index, path_input *input);
 extern void path_input_new(path_input *input, float pathfinding_radius, uint8_t ignore_broken_surfaces, int ignore_source_object_index);
 extern void path_input_set_start(path_input *input, const real_point3d *start_point, int start_surface_index);
 extern void path_input_set_search_bounds(path_input *input, float maximum_distance);
@@ -109,7 +106,7 @@ extern int path_state_estimated_distance(path_state *state, const real_point3d *
 extern void firing_position_pre_evaluate(int actor_index, firing_position_evaluation_context *evaluation_context, int firing_position_count, firing_position *firing_positions);
 extern int firing_position_compare(int index1, int index2);
 extern uint8_t firing_position_forced_evaluation(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
-extern void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
+extern void firing_position_compute_line_of_sight(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 extern uint8_t firing_position_post_evaluate(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 extern void qsort_4byte(int *base, unsigned int num, int (*compare)(int, int));
 extern uint32_t *get_global_random_seed_address(void);

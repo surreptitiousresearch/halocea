@@ -3,7 +3,7 @@
 #include "../../headers/ws/rend/PASS_DESC_BASE.h"
 #include "../../headers/ws/txm/txmTEXTURE.h"
 
-// rendDRIVER::RenderPoly(int, rendV3D*, BLENDMODE, unsigned long, txmTEXTURE*) @ 0x827C9D8C
+// rendDRIVER::RenderPoly(int, rendV3D*, BLENDMODE, unsigned long, txmTEXTURE*) @ 0x827C9D80
 // ?RenderPoly@rendDRIVER@@QAAXHPAUrendV3D@@W4BLENDMODE@PASS_DESC_BASE@@KPAVtxmTEXTURE@@@Z
 //
 // Draw a screen-space, color-modulated, optionally-textured convex polygon (`nVert` rendV3D

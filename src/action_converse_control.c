@@ -1,4 +1,4 @@
-/* action_converse_control @0x837FCC58 — per-tick "converse" action update: resolve which unit this actor is
+/* action_converse_control @0x837FCC40 — per-tick "converse" action update: resolve which unit this actor is
  * conversing with (an explicit override at +172, else the conversation record's +16 field via
  * prop_get_active_by_unit_index), latch the converse-active flag (+1020 word), and if a target unit was
  * found, stash it in the shared action-state scratch fields (+1008/+1004/+1000 — same fields
@@ -13,9 +13,9 @@
 #include "headers/idle_look_type.h"
 #include "headers/blam_data_globals.h"
 
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 
-void action_converse_control(uint16_t actor_index)
+void action_converse_control(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     conversation_datum *conversation = 0;

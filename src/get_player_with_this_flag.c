@@ -1,4 +1,4 @@
-/* get_player_with_this_flag @0x83806608 — find the player whose current unit is holding the given weapon
+/* get_player_with_this_flag @0x838065E0 — find the player whose current unit is holding the given weapon
  * (e.g. the flag/oddball carrier); returns that player's data-array index, or -1 if none. Player record
  * dword +13 (+52 bytes) is the controlled unit index (-1 = dead), matching any_player_is_dead.c. */
 

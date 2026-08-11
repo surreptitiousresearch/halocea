@@ -1,4 +1,4 @@
-/* mp_map_single_preview_column_list_update @0x83781458 — refreshes a single-column map-preview list widget:
+/* mp_map_single_preview_column_list_update @0x83781440 — refreshes a single-column map-preview list widget:
  * runs the generic single-preview-column update, stamps the active player's name onto the extended
  * description's child text widget, then sets the pic-name string/frame index on the extended
  * description's three preview sub-widgets (name, description-frame, and gametype-name text). */

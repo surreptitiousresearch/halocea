@@ -1,4 +1,4 @@
-/* rasterizer_triangle_buffer_size @0x83807CE0 — index count for a triangle buffer stream by type. */
+/* rasterizer_triangle_buffer_size @0x83807CF8 @0x83807CE0 — index count for a triangle buffer stream by type. */
 
 #include <stdint.h>
 #include "headers/triangle_buffer_type.h"

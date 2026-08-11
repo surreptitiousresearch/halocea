@@ -1,6 +1,6 @@
 #include "../headers/hcex/haloSTORAGE_TASK.h"
 
-// 0x823F4C14 — forwards to the sysUSER_STORAGE_TASK base ctor, then resets error/isReady to 0.
+// @0x823F4BF0 — forwards to the sysUSER_STORAGE_TASK base ctor, then resets error/isReady to 0.
 // DEVIATION: the decompiler shows `u` re-acquired into a fresh local REF_TYPE (bumping its
 // refcount) before the base-ctor call, then Release()'d on `u` afterward -- this is exactly the
 // compiler's by-value-parameter passing convention for a non-trivial-copy type (ds_data::REF_TYPE

@@ -1,4 +1,4 @@
-/* player_telefrag_effect_stop @0x837378B0 — stop the controller vibration started by a player's
+/* player_telefrag_effect_stop @0x83737898 — stop the controller vibration started by a player's
  * telefrag effect, when that player slot maps to a valid local player. Player records are stride 512. */
 
 #include <stdint.h>

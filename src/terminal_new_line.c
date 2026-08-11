@@ -1,4 +1,4 @@
-/* terminal_new_line @0x836A37A0 — allocate a new terminal output-line datum, evicting the oldest line when the
+/* terminal_new_line @0x836A3788 — allocate a new terminal output-line datum, evicting the oldest line when the
  * 32-line buffer is full, and link it as the newest line in the doubly-linked list of output lines. Returns
  * the new line index. */
 
@@ -7,7 +7,7 @@
 #include "headers/output_line_datum.h"
 #include "headers/data_array.h"
 
-extern void terminal_remove_line(uint16_t line_index);
+extern void terminal_remove_line(int line_index);
 extern int datum_new(data_array *data);
 
 int terminal_new_line(void)

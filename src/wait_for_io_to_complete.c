@@ -1,4 +1,4 @@
-/* wait_for_io_to_complete @0x83808460 — block (up to 11 * 10-second alertable sleeps) until every
+/* wait_for_io_to_complete @0x83808448 — block (up to 11 * 10-second alertable sleeps) until every
  * in-flight overlapped read/write buffer finishes, then clear the completed-flags word. This build only
  * has one buffer slot to check (the loop bound is 1), so `overlapped_in_use_flags` (a bitmask per the
  * header, but read here via 4-byte array-element addressing matching the compiled `self + 0x998 + 4*i`) is

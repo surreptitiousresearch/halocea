@@ -1,4 +1,4 @@
-/* encounter_stand_down @0x8370B008 — marks an encounter as stood-down (no longer fighting): sets the
+/* encounter_stand_down @0x8370AFF0 — marks an encounter as stood-down (no longer fighting): sets the
  * encounter's stand-down flag, clears its pursuit, then walks every actor in the encounter and drops
  * each actor's combat props that target an active enemy (prop state 4–5) other than the actor's own
  * current target — orphaning the prop link, switching the actor off it, and deleting it.
@@ -18,10 +18,10 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void encounter_clear_pursuit(uint16_t encounter_index);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void encounter_clear_pursuit(int encounter_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
-extern void actor_switch_props(uint16_t actor_index, int prop_index, int replacement_prop_index);
+extern void actor_switch_props(int actor_index, int prop_index, int replacement_prop_index);
 extern void prop_delete(int actor_index, int prop_index);
 
 void encounter_stand_down(int encounter_index)

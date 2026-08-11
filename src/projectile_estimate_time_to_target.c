@@ -1,4 +1,4 @@
-/* projectile_estimate_time_to_target @0x83759758 — estimate a projectile's flight time to a target at
+/* projectile_estimate_time_to_target @0x83759748 — estimate a projectile's flight time to a target at
  * target_distance: distance / muzzle speed, or 0 for a non-moving projectile.
  *
  * DEVIATION: distance and the return are routed through doubles by the soft-float ABI; they are floats. */

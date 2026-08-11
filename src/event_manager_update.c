@@ -1,4 +1,4 @@
-/* event_manager_update @ 0x83726380-adjacent (0x83726900) — if no event was queued since
+/* event_manager_update @ 0x83726900 — if no event was queued since
  * the last check, queue a null event to keep the queue alive. */
 #include <stdint.h>
 #include "headers/event_manager_globals.h"

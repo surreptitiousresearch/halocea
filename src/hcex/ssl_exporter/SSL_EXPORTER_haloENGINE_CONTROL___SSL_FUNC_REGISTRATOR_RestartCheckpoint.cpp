@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823CBB38 — pushes the SSLExportEntry describing haloENGINE_CONTROL::RestartCheckpoint. `id`
+// @0x823CBB10 — pushes the SSLExportEntry describing haloENGINE_CONTROL::RestartCheckpoint. `id`
 // is the byte offset of the paired `sslFuncId_RestartCheckpoint` slot (@ 0x20).
 SSL_EXPORTER_haloENGINE_CONTROL::_SSL_FUNC_REGISTRATOR_RestartCheckpoint::_SSL_FUNC_REGISTRATOR_RestartCheckpoint()
 {

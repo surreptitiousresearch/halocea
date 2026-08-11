@@ -1,4 +1,4 @@
-/* object_type_handle_region_destroyed @0x83701ED0 — dispatch a region-destroyed event to every part
+/* object_type_handle_region_destroyed @0x83701E80 — dispatch a region-destroyed event to every part
  * definition (super-type plus sub-types) registered for an object's type. The object's type code lives at
  * object datum +180. */
 

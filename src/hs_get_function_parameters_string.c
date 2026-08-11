@@ -1,4 +1,4 @@
-/* hs_get_function_parameters_string @0x8372FCEC — format a script function's call signature into `buffer`
+/* hs_get_function_parameters_string @0x8372FCB8 — format a script function's call signature into `buffer`
  * as "(name ...)". If the function supplies an explicit parameters string it is appended verbatim;
  * otherwise each formal parameter is appended as " <typename>". The string always closes with ")".
  *

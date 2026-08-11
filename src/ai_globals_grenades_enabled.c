@@ -1,4 +1,4 @@
-/* ai_globals_grenades_enabled @0x836E7730 — enable/disable AI grenade use (ai_globals->grenades_enabled). */
+/* ai_globals_grenades_enabled @0x836E7728 — enable/disable AI grenade use (ai_globals->grenades_enabled). */
 
 #include <stdint.h>
 #include "headers/ai_globals.h"

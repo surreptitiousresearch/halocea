@@ -50,9 +50,9 @@
 extern int game_time_get(void);
 extern float game_difficulty_get_value(int16_t value_type);
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern uint8_t actor_action_try_to_seek_cover(int actor_index, uint8_t cover_from_last_visible_location, uint8_t allow_occluded_points);
-extern void actor_berserk(uint16_t actor_index, uint8_t berserk);
+extern void actor_berserk(int actor_index, uint8_t berserk);
 extern uint8_t action_charge_setup(int actor_index, int16_t goal, charge_state_data *state_data);
 extern uint8_t action_fight_setup(int actor_index, fight_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);

@@ -1,4 +1,4 @@
-/* local_player_aim_assist @0x836C675C — compute the aim-assist result for a local player this frame:
+/* local_player_aim_assist @0x836C6738 — compute the aim-assist result for a local player this frame:
  * the autoaim and magnetism strengths, the angular position of the best target relative to the camera,
  * and that target's angular velocity (so the reticle can lead a moving target). Returns the target object
  * index, or -1 when there is no valid target or the player is not in a first/third-person view.

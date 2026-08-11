@@ -1,4 +1,4 @@
-/* game_engine_player_has_flag @0x83748DFC — true if the given player's unit is carrying a CTF flag in any of
+/* game_engine_player_has_flag @0x83748DE8 — true if the given player's unit is carrying a CTF flag in any of
  * its 4 weapon inventory slots (unit+760, see unit_throw_grenade_begin.c for the same inventory offset).
  * False for no player, no unit, or an inventory with no flag weapon. */
 

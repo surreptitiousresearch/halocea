@@ -1,4 +1,4 @@
-/* find_files_start @0x837E6180 — begin a recursive directory enumeration: close any handles left open
+/* find_files_start @0x837E6158 — begin a recursive directory enumeration: close any handles left open
  * from a previous walk (depth..0), then reset state to depth 0 for the given directory, recording its
  * flags, location id, and path. The path copy is an inline strcpy from the file_reference payload
  * (directory->data+8) into find_files_globals.path (same relative offset). */

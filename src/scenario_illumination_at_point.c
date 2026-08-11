@@ -1,4 +1,4 @@
-/* scenario_illumination_at_point @0x83703594 — stub environment-lighting query: always reports straight-up
+/* scenario_illumination_at_point @0x83703590 — stub environment-lighting query: always reports straight-up
  * ambient lighting (surface normal = world up, radiosity direction = world left, radiosity/diffuse color =
  * flat white), for any of the output pointers the caller actually wants. Always succeeds. */
 

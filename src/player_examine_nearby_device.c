@@ -1,4 +1,4 @@
-/* player_examine_nearby_device @0x836AC0DC — checks whether the player is looking at a usable device in
+/* player_examine_nearby_device @0x836AC098 — checks whether the player is looking at a usable device in
  * range and front-on, and if so (and the device can change position, e.g. a door/lever) posts the "use
  * device" action result for the player. */
 

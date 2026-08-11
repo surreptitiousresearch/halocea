@@ -1,4 +1,4 @@
-/* hcexPARTICLE_SYS::`vector deleting destructor' @0x823D158C — reset __vftable to the
+/* hcexPARTICLE_SYS::`vector deleting destructor' @0x823D1570 — reset __vftable to the
  * gsPARTICLE_SYS base slot, then conditionally operator-deletes `this` when bit 0 of
  * `deleteFlags` is set (compiler-generated `??_E` thunk). */
 

@@ -19,7 +19,7 @@ extern double cos(double x);
 extern double sin(double x);
 
 
-extern uint8_t actor_get_running_blind_vector(uint16_t actor_index, real_vector3d *run_vector);
+extern uint8_t actor_get_running_blind_vector(int actor_index, real_vector3d *run_vector);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);

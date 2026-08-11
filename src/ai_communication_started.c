@@ -1,4 +1,4 @@
-/* ai_communication_started @0x837CDE0C — notification that a unit began an AI vocalization. For most
+/* ai_communication_started @0x837CDDE8 — notification that a unit began an AI vocalization. For most
  * priorities nothing is done; for the remaining priorities, refresh the unit's speech timers (unless
  * the dialogue timers were already updated this packet). */
 

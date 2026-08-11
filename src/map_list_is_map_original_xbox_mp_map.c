@@ -1,4 +1,4 @@
-/* map_list_is_map_original_xbox_mp_map @0x8376720C — whether the builtin map at the given index shipped as an
+/* map_list_is_map_original_xbox_mp_map @0x83767200 — whether the builtin map at the given index shipped as an
  * original-Xbox multiplayer map. Returns 0 for out-of-range indices (>= 19). */
 
 #include <stdint.h>

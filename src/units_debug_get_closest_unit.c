@@ -1,4 +1,4 @@
-/* units_debug_get_closest_unit @0x836CA518 — debug helper: returns the object index of the unit nearest
+/* units_debug_get_closest_unit @0x836CA4E8 — debug helper: returns the object index of the unit nearest
  * to unit_index (skipping itself and any object flagged 0x4 in its header word at +0x106). When called
  * with unit_index == -1 every candidate scores distance 0, so it returns the first eligible unit. */
 

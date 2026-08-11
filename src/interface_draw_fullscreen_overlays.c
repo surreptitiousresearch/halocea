@@ -1,4 +1,4 @@
-/* interface_draw_fullscreen_overlays @0x836A765C — draw the full-screen interface layers on top of the
+/* interface_draw_fullscreen_overlays @0x836A7650 — draw the full-screen interface layers on top of the
  * rendered scene, in order: cinematic letterbox, split-screen dividers, the HUD render timer, the loading
  * UI, the developer terminal, and the framerate display.
  *

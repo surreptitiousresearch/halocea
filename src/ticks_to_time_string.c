@@ -1,4 +1,4 @@
-/* ticks_to_time_string @0x83749DA0 — format a tick count (30 ticks/sec) as "H:MM" (hours unpadded, minutes
+/* ticks_to_time_string @0x83749D70 — format a tick count (30 ticks/sec) as "H:MM" (hours unpadded, minutes
  * zero-padded to 2 digits; hours omitted as a blank field when 0). */
 
 extern int _snprintf_0(char *buffer, unsigned int size, const char *format, ...);

@@ -1,4 +1,4 @@
-/* string_has_visible_characters @0x83783444 — true when a wide string contains at least one
+/* string_has_visible_characters @0x83783428 — true when a wide string contains at least one
  * non-whitespace character. An empty string, or one consisting solely of whitespace, returns false. */
 
 #include <stdint.h>

@@ -1,4 +1,4 @@
-/* _rasterizer_environment_transparent_geometry_submit 0x837A8398 — queue (or immediately draw) one transparent
+/* _rasterizer_environment_transparent_geometry_submit @0x837A8398 0x837A8398 — queue (or immediately draw) one transparent
  * environment geometry batch. Builds a transparent_geometry_group from the shader + its triangle/vertex buffers,
  * computes the back-to-front sort key from the centroid relative to the camera, snapshots the clip plane and a
  * copy of the lighting block, and then: for water shaders forces a visibility flag and, when that water shader

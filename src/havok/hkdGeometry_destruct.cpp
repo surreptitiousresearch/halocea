@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkdGeometry_destruct @0x83831758 (??1hkdGeometry@@UAA@XZ)
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkThreadMemory.h"
 

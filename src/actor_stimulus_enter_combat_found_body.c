@@ -1,4 +1,4 @@
-/* actor_stimulus_enter_combat_found_body @0x837D415C — stimulus for an actor discovering an ally's body.
+/* actor_stimulus_enter_combat_found_body @0x837D4140 — stimulus for an actor discovering an ally's body.
  * Stamps the discovery time, finds a pathfinding location to the body's prop, and raises a combat-body
  * transition stimulus guarding at the body's pathfinding point (distance 1.5, timers 90 ticks,
  * look-while-moving).
@@ -18,10 +18,18 @@
 #include "headers/blam_data_globals.h"
 
 extern int game_time_get(void);
-extern void actor_perception_find_prop_pathfinding_location(uint16_t actor_index, uint16_t prop_index);
+extern void actor_perception_find_prop_pathfinding_location(int actor_index, int prop_index);
 extern void actor_stimulus_combat(int actor_index, int16_t transition_type, const real_point3d *guard_point, int guard_point_surface_index, float guard_distance, int guard_timer, const real_vector3d *transition_vector, int prop_index, int prop_look_timer, uint8_t prop_look_while_moving);
 
-void actor_stimulus_enter_combat_found_body(uint16_t actor_index, uint16_t prop_index)
+/* DEVIATION (2026-08-12, #134): prop_index is `int`, a full datum handle, NOT the `uint16_t` this was
+ * declared with. The parameter is saved WHOLE into a callee-saved register (`mr r29, r4` @0x837D4178)
+ * before r4 is reused (`lwz r4, 4(r10)` @0x837D41FC), and `stw r29, 0x340(r11)` @0x837D421C persists
+ * that unmasked copy into the actor datum. `clrlwi r8, r4, 16` @0x837D4158 is only the prop_data
+ * subscript (DATA_ARRAY_ELEMENT's own truncation, data_array.h). The same r29 is also forwarded
+ * unmasked at `mr r4, r29 # prop_index` @0x837D418C into
+ * actor_perception_find_prop_pathfinding_location, whose own parameter widens with the prop family in
+ * the following wave. */
+void actor_stimulus_enter_combat_found_body(int actor_index, int prop_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);

@@ -108,10 +108,10 @@ extern uint8_t game_allegiance_incident(int16_t aggressor_team_index, int16_t vi
 extern void ai_handle_allegiance_broken_notification(int16_t team1_index, int16_t team2_index, uint8_t broken);
 extern uint8_t sound_scripted_dialog_is_playing(void);
 extern float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_sight, int *unit_index_reference, float *distance_reference);
-extern int16_t actor_communication_team(uint16_t actor_index);
+extern int16_t actor_communication_team(int actor_index);
 extern int16_t ai_communication_consider_speech(int unit_index, int16_t communication_priority, int16_t speech_priority, int16_t delay_ticks, uint8_t allow_vocalization_lookup, uint8_t allow_recent_disabling, int16_t *vocalization_type, float *weight, int *sound_definition_index_reference, char *debugstring);
 extern uint8_t unit_test_animation_impulse(int unit_index, int16_t animation_impulse);
-extern int16_t actor_action_class(uint16_t actor_index);
+extern int16_t actor_action_class(int actor_index);
 extern void ai_communication_notify(int unit_index, int16_t priority, int16_t vocalization_type, ai_information_packet *ai_information);
 extern void ai_communication_finished(int unit_index, int16_t priority, int16_t vocalization_type, uint8_t reply_to_player, int preselected_reply_actor_index, ai_information_packet *ai_information);
 extern void unit_speak(int unit_index, int16_t play_type, const unit_speech_item *speech_item);

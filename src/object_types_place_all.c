@@ -18,6 +18,7 @@
 #include "headers/game_connection.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/tag_groups.h"
 
 
 extern uint8_t game_in_editor(void);
@@ -27,7 +28,6 @@ extern void vehicle_remapper_init(void);
 extern void vehicle_remapper_process(void);
 extern uint8_t vehicle_remapper_should_spawn(int vehicle_ref_index, unsigned int scenario_datum_index);
 extern void vehicle_remapper_add_vehicle(unsigned int team, int vehicle_ref_index, unsigned int scenario_datum_index, uint16_t spawn_flags);
-extern char *tag_block_get_element_with_size(const tag_block *block, int index, int element_size);
 extern int object_new_from_scenario(scenario_object_datum *scenario_object, tag_block *palette);
 extern void vehicle_set_scenario_datum_index(int vehicle_index, int16_t scenario_datum_index);
 extern void objects_garbage_collection(void);

@@ -1,4 +1,4 @@
-/* ai_communication_dispose_from_old_map @0x837CBCD0 — per-map teardown: invalidate the
+/* ai_communication_dispose_from_old_map @0x837CBCC8 — per-map teardown: invalidate the
  * conversation data pool. */
 
 #include "headers/data_array.h"

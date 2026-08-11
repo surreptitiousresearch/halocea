@@ -1,4 +1,4 @@
-/* object_add_to_dump @0x836EE4C8 — accumulates one object's stats into a per-type dump_datum: bumps the
+/* object_add_to_dump @0x836EE498 — accumulates one object's stats into a per-type dump_datum: bumps the
  * count and total/maximum datum size, and increments the active/garbage/dead/at-rest tallies from the
  * object's flags. Also counts the object as "outside the map" if its ultimate parent is flagged
  * outside-the-map (0x200000) or has no cluster (cluster index 0xFFFF). */

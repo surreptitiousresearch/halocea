@@ -1,4 +1,4 @@
-/* file_delete @0x837E67F0 — delete the file or directory named by a file_reference. Resolves the full path
+/* file_delete @0x837E67D8 — delete the file or directory named by a file_reference. Resolves the full path
  * from the location id (data+6) and name (data+8); for a file (flag bit 0 @ data+4) it clears the
  * read-only attribute then DeleteFileA, for a directory it RemoveDirectoryA. On failure the Win32 error is
  * read and cleared. Returns 1 on success, 0 otherwise. */

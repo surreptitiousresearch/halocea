@@ -1,4 +1,4 @@
-/* player_active_camo_screen_effect @0x836AA278 — flash the active-camo pickup screen effect for a
+/* player_active_camo_screen_effect @0x836AA240 — flash the active-camo pickup screen effect for a
  * local player. No-op for an invalid player or one with no local-player slot (+2 == 0xFFFF). The flash
  * parameters are pooled rodata constants (resolved and inlined here): a cyan (G=B... R=G=0.35) flash,
  * priority 2, type 2, fade function 0, duration 2.0, max intensity 1.0. */

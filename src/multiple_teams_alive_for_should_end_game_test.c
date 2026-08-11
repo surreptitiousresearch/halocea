@@ -1,5 +1,5 @@
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
-/* multiple_teams_alive_for_should_end_game_test @0x8374B6B4 — part of the game-end evaluation: decide
+/* multiple_teams_alive_for_should_end_game_test @0x8374B6A8 — part of the game-end evaluation: decide
  * whether the surviving players still represent enough living teams to keep the game going.
  *
  * With more than one player in the game, an unlimited-lives non-LMS variant always passes (return 1).

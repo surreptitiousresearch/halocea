@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* rasterizer_water_set_visibility_for_window @0x837876D4 — latches the per-window water-visibility
+/* rasterizer_water_set_visibility_for_window @0x837876D0 — latches the per-window water-visibility
  * flag. */
 
 

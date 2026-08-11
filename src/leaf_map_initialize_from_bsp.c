@@ -10,8 +10,8 @@
 #include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/bsp3d.h"
+#include "headers/tag_groups.h"
 
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
 extern void leaf_map_build_leaf_faces(leaf_map *leaf_map, unsigned int node_index);
 extern void leaf_map_build_portals(leaf_map *leaf_map, int node_index);
 

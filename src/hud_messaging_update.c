@@ -1,4 +1,4 @@
-/* hud_messaging_update @0x836A4C04 — per-frame HUD messaging renderer for one local player.
+/* hud_messaging_update @0x836A4BB8 — per-frame HUD messaging renderer for one local player.
  *
  * Draws, in priority order, the objective message, the scripted help message, or the persistent
  * state message (whichever is active), then the timed pickup/objective message ring

@@ -1,3 +1,4 @@
+/* default_boolean_decoder @0x8379AA40 */
 #include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"

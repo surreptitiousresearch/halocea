@@ -1,4 +1,4 @@
-/* update_server_player_died @0x836F5D70 — reset a player's server-side update queues when the player
+/* update_server_player_died @0x836F5D48 — reset a player's server-side update queues when the player
  * dies. The per-player record is a 100-byte update_server_queue datum: the action queue's ring is
  * emptied and the machine's current action is neutralized (control flags + throttle cleared). */
 
@@ -11,7 +11,7 @@
 
 extern void simple_circular_queue_empty(simple_circular_queue *queue);
 
-void update_server_player_died(uint16_t player_index)
+void update_server_player_died(int player_index)
 {
     /* DEVIATION: decompiler aliased the datum as a simple_circular_queue[] (queues[2]/entries/max_size
      * punning); the writes land on current_action.control_flags and .throttle per the update_server_queue

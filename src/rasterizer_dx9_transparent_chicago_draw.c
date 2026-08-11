@@ -1,4 +1,4 @@
-/* rasterizer_dx9_transparent_chicago_draw @0x8382E85C — draws one presorted transparent-geometry group whose
+/* rasterizer_dx9_transparent_chicago_draw @0x8382E838 — draws one presorted transparent-geometry group whose
  * shader is a shader_transparent_chicago tag. It: (1) binds the vertex shader/declaration for the group's
  * primary vertex type + permutation and clears the pixel shader; (2) recursively draws each of the shader's
  * "extra layers" (sub-shaders) as their own groups; (3) sets the fixed transparent render state (cull, blend,

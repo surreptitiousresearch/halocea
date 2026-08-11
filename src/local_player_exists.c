@@ -1,4 +1,4 @@
-/* local_player_exists @0x836A7B80 — true if a player record exists for the given local-player index
+/* local_player_exists @0x836A7B58 — true if a player record exists for the given local-player index
  * (matched on player_datum.local_player_index). */
 
 #include <stdint.h>

@@ -1,4 +1,4 @@
-/* prop_orphan_transition @0x837D1AD8 — split a child prop off its parent into a new "orphan" prop owned
+/* prop_orphan_transition @0x837D1AB8 — split a child prop off its parent into a new "orphan" prop owned
  * by the actor, and cross-link the two props (each prop's dword +12 points at the other). Prop records
  * are stride 312.
  *
@@ -13,7 +13,7 @@
 
 extern int datum_new(data_array *data);
 extern void prop_add(int actor_index, int unit_index, int prop_index);
-extern void prop_setup_orphan(uint16_t prop_index, uint16_t orphan_prop_index, int acknowledged_prop_index);
+extern void prop_setup_orphan(int prop_index, int orphan_prop_index, int acknowledged_prop_index);
 
 int prop_orphan_transition(int actor_index, int parent_prop_index)
 {

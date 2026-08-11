@@ -1,4 +1,4 @@
-/* firing_position_forced_evaluation @0x837EF904 — evaluates a single firing position "from scratch": resets
+/* firing_position_forced_evaluation @0x837EF8E8 — evaluates a single firing position "from scratch": resets
  * its valid/rejected/evaluation state, runs pre-evaluation for it alone, computes line-of-sight when the
  * context has a target, then post-evaluates. Returns the resulting validity. */
 
@@ -7,7 +7,7 @@
 #include "headers/firing_position_evaluation_context.h"
 
 extern void firing_position_pre_evaluate(int actor_index, firing_position_evaluation_context *evaluation_context, int firing_position_count, firing_position *firing_positions);
-extern void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
+extern void firing_position_compute_line_of_sight(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 extern uint8_t firing_position_post_evaluate(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position);
 
 uint8_t firing_position_forced_evaluation(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position)

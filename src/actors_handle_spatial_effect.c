@@ -17,8 +17,8 @@
 #include "headers/ai_spatial_effect_type.h"
 
 extern void scenario_location_from_point(location *location, const real_point3d *point);
-extern void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
-extern int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
+extern void actor_perception_find_sense_position(int actor_index, const real_point3d *position, int prop_index, actor_position_data *sense_position);
+extern int16_t actor_audibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
 extern void actor_stimulus_weapon_impact(int actor_index, int object_index, const real_point3d *position, int16_t count);
 extern void actor_stimulus_weapon_detonation(int actor_index, int object_index, const real_point3d *position, int16_t count);
 extern void actor_stimulus_environmental_noise(int actor_index, int object_index, const real_point3d *position, int16_t count);

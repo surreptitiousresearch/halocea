@@ -1,4 +1,4 @@
-/* hud_dispose_from_old_map @0x83707E6C — per-map HUD teardown: dispose each HUD subsystem's
+/* hud_dispose_from_old_map @0x83707E60 — per-map HUD teardown: dispose each HUD subsystem's
  * old-map state in turn.
  *
  * DEVIATION: the decompiler threads r3 between the five calls as if chained; they are independent

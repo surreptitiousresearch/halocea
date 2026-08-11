@@ -1,4 +1,4 @@
-/* data_file_find_item @0x83809BE0 — linear search a data file's item table for `item_name` (case-
+/* data_file_find_item @0x83809BD0 — linear search a data file's item table for `item_name` (case-
  * insensitive), returning its index or -1 if not found or the file is empty.
  *
  * DEVIATION: the decompiler inlined data_file_get's own data_file_id-to-data_file_s* selection verbatim;

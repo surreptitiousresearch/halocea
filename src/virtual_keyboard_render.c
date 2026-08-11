@@ -1,4 +1,4 @@
-/* virtual_keyboard_render @0x83783EE4 — render the on-screen virtual keyboard when it is active. */
+/* virtual_keyboard_render @0x83783ED8 — render the on-screen virtual keyboard when it is active. */
 
 #include "headers/virtual_keyboard_globals_t.h"
 #include "headers/blam_data_globals.h"

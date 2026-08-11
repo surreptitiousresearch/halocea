@@ -1,4 +1,4 @@
-/* main_save_map_safe @0x83689158... @0x836891A0 — request a checkpoint save at the next safe interval,
+/* main_save_map_safe @0x836891A0 — request a checkpoint save at the next safe interval,
  * arming the timeout and resetting the save-check counters. No-op if a non-timeout save is already pending. */
 
 #include "headers/main_globals.h"

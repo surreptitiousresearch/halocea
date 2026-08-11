@@ -1,4 +1,4 @@
-/* player_ui_activate_all_solo_levels @0x836991DC — debug/unlock: enable all single-player levels in
+/* player_ui_activate_all_solo_levels @0x836991D8 — debug/unlock: enable all single-player levels in
  * local player 0's profile (unlock all 10 map flags + the "campaign complete" profile flag), then
  * persist the profile.
  *

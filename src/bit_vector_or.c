@@ -1,4 +1,4 @@
-/* bit_vector_or @0x8379A514 — bitwise-OR two equal-length bit vectors into a result vector. `count` is
+/* bit_vector_or @0x8379A508 — bitwise-OR two equal-length bit vectors into a result vector. `count` is
  * the number of bits; the vectors are stored as 32-bit words, so ((count+31)>>5) words are processed.
  * Iterates from the last word down to word 0. */
 

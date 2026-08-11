@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__FindSoundByName @0x836BE1D8
 #include "../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../headers/hcex/HALO_SOUND_SYSTEM_globals.h"
 #include "../headers/hcex/HALO_SOUND_TAG.h"

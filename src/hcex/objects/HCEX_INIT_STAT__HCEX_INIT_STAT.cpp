@@ -1,4 +1,4 @@
-/* HCEX_INIT_STAT::HCEX_INIT_STAT @0x823E3B4C — one-time static bootstrap of a grab-bag of
+/* HCEX_INIT_STAT::HCEX_INIT_STAT @0x823E3B28 — one-time static bootstrap of a grab-bag of
  * independent global subsystems: clear the input force-feedback default, install CrateHaloD3dDrv
  * as the D3D driver factory, heap-allocate and construct the HALO_SOUND_SYSTEM as the active
  * custom sound backend (falling back to null on allocation failure), reserve the physical-memory

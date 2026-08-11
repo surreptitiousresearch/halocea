@@ -14,7 +14,7 @@
 
 extern void actor_input_sample_position(int actor_index, int unit_index, actor_position_data *position);
 
-void actor_perception_find_sense_position(uint16_t actor_index, const real_point3d *position,
+void actor_perception_find_sense_position(int actor_index, const real_point3d *position,
                                           int prop_index, actor_position_data *sense_position)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

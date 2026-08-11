@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: sortEdges @0x8384F848 (_sortEdges) */
 #include "../headers/havok/hkdGeometry_HalfEdge.h"
 
 /* sortEdges — strict-weak "less" comparator over hkdGeometry::HalfEdge, ordering

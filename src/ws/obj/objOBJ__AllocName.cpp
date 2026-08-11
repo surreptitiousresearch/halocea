@@ -1,6 +1,6 @@
 #include "objOBJ.h"
 #include "obj_boundary.h"
-// 0x82A7E3A8  ?_AllocName@objOBJ@@QAAHH@Z
+// @0x82A7E3A8  ?_AllocName@objOBJ@@QAAHH@Z
 // (Re)allocate the name buffer to nameLen+1 bytes and NUL-terminate it.
 // Returns 1 on success (or when a zero-length request needs no buffer), 0 on allocation failure.
 

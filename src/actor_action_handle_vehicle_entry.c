@@ -41,7 +41,7 @@
 
 #include "headers/vehicle_state_data.h"
 extern int game_time_get(void);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint8_t actor_action_allowed_to_enter_vehicle(int actor_index, int vehicle_index);
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);

@@ -1,4 +1,4 @@
-/* game_engine_playlist_initialize @0x837526B4 — prepares the multiplayer playlist. It clears the current
+/* game_engine_playlist_initialize @0x837526A0 — prepares the multiplayer playlist. It clears the current
  * playlist (and, when forcing a begin, reloads the map cycle). If the playlist ends up empty but a game
  * variant has been specified in the UI, it seeds a single-entry playlist from the current multiplayer map
  * and that variant. Returns whether the playlist is non-empty.

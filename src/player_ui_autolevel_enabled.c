@@ -1,4 +1,4 @@
-/* player_ui_autolevel_enabled @0x83698BB4 — whether auto-level (aim assist leveling) is enabled for the
+/* player_ui_autolevel_enabled @0x83698B90 — whether auto-level (aim assist leveling) is enabled for the
  * player on a controller. In a network game the controller index is used directly; otherwise it is
  * mapped to a single-player local-player slot. Returns the per-player autolevel flag.
  *

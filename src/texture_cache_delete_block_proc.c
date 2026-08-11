@@ -1,4 +1,4 @@
-/* texture_cache_delete_block_proc @0x836F3FA8 — LRU eviction callback for a streaming texture cache
+/* texture_cache_delete_block_proc @0x836F3F98 — LRU eviction callback for a streaming texture cache
  * block: wait until the block's I/O is no longer in flight, unlink the owning bitmap (clear its
  * cache_block_index), free the bitmap's backing allocation if any, delete the bitmap's rasterizer
  * resources, then free the cache datum. */

@@ -48,33 +48,33 @@ extern float normalize2d(real_vector2d *v);
 
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
 extern weapon_definition *actor_get_weapon_definition(int actor_index);
-extern int actor_get_weapon(uint16_t actor_index);
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern int actor_get_weapon(int actor_index);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern int16_t unit_get_grenade_count(int unit_index, int16_t grenade_type);
 extern int16_t unit_add_grenade_type_to_inventory(int unit_index, int16_t grenade_type, int16_t grenade_count);
-extern void actor_unit_control_throw_grenade(uint16_t actor_index);
+extern void actor_unit_control_throw_grenade(int actor_index);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
 extern float game_difficulty_get_team_value(int16_t value_type, int16_t team_index);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
-extern uint8_t actor_combat_enable_special_fire_situation(uint16_t actor_index, int16_t special_fire_situation);
-extern uint8_t actor_combat_allow_special_fire_situation(uint16_t actor_index, int16_t special_fire_situation);
+extern uint8_t actor_combat_enable_special_fire_situation(int actor_index, int16_t special_fire_situation);
+extern uint8_t actor_combat_allow_special_fire_situation(int actor_index, int16_t special_fire_situation);
 extern unsigned int *players_get_combined_pvs(void);
 extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index, const real_point3d *p1, int16_t p1_cluster_index, int16_t mode, uint8_t test_line_of_fire, int ignore_object_index, uint8_t ignore_vehicles);
 extern uint8_t weapon_aim(int weapon_index, int16_t trigger_index, const real_point3d *origin, const real_point3d *target_point, uint8_t lob, real_vector3d *result_aim_vector, float *result_ticks, float *result_distance, uint8_t *result_linear);
-extern void actor_get_weapon_vector(uint16_t actor_index, real_vector3d *weapon_vector);
-extern uint8_t actor_move_animation_busy(uint16_t actor_index);
-extern uint8_t actor_start_first_burst_delay(uint16_t actor_index, const actor_variant_definition *firing_variant_definition);
-extern void actor_start_pause(uint16_t actor_index);
+extern void actor_get_weapon_vector(int actor_index, real_vector3d *weapon_vector);
+extern uint8_t actor_move_animation_busy(int actor_index);
+extern uint8_t actor_start_first_burst_delay(int actor_index, const actor_variant_definition *firing_variant_definition);
+extern void actor_start_pause(int actor_index);
 extern void actor_start_burst(int actor_index);
 extern void unit_get_camera_position(int unit_index, real_point3d *camera_position);
 extern float weapon_estimate_time_to_target(int weapon_index, int16_t trigger_index, float target_distance);
 extern void unit_estimate_position(int unit_index, int16_t estimate_mode, const real_point3d *body_position, real_vector3d *desired_facing, real_vector3d *desired_gun_offset, real_point3d *estimated_position);
 extern uint8_t ai_test_line_of_fire(int actor_index, int ignore_unit_index, const real_point3d *origin, const real_vector3d *vector, int *prop_index_reference);
 extern void actor_combat_get_firing_parameters(int actor_index, actor_variant_definition *firing_variant_definition, actor_burst_geometry **burst_geometry_reference, actor_firing_pattern **firing_pattern_reference);
-extern void actor_unit_control_primary_trigger(uint16_t actor_index, uint8_t trigger, float analog_value);
-extern void actor_unit_control_secondary_trigger(uint16_t actor_index, uint8_t trigger);
+extern void actor_unit_control_primary_trigger(int actor_index, uint8_t trigger, float analog_value);
+extern void actor_unit_control_secondary_trigger(int actor_index, uint8_t trigger);
 
 void actor_combat_update(int actor_index)
 {

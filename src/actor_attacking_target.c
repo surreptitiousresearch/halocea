@@ -1,4 +1,4 @@
-/* actor_attacking_target @0x8371DC70 — if an actor is actively attacking (engagement level past the
+/* actor_attacking_target @0x8371DC48 — if an actor is actively attacking (engagement level past the
  * threshold and its current action class is "active"), output the direction of its attack and return 1.
  * When the actor has a discrete shot-target vector that is used; otherwise its aiming vector is used,
  * provided it has a valid target. Returns 0 when the actor is not attacking. */
@@ -12,9 +12,9 @@
 #include "headers/action_class.h"
 #include "headers/blam_data_globals.h"
 
-extern int16_t actor_action_class(uint16_t actor_index);
+extern int16_t actor_action_class(int actor_index);
 
-int actor_attacking_target(uint16_t actor_index, real_vector3d *attack_vector)
+int actor_attacking_target(int actor_index, real_vector3d *attack_vector)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

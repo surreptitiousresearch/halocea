@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int ai_get_responsible_unit(int object_index, uint8_t responsible_for_weapon_fire);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 
 int actor_perception_find_recent_damaging_prop_index(int actor_index, uint8_t skip_friendlies)
 {

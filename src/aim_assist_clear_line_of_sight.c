@@ -1,4 +1,4 @@
-/* aim_assist_clear_line_of_sight @0x836C5810 — tests whether the segment p0->p1 has a clear line of
+/* aim_assist_clear_line_of_sight @0x836C57F0 — tests whether the segment p0->p1 has a clear line of
  * sight to a candidate target. Clear if the ray hits nothing, or if it hits an object that shares the
  * target's ultimate parent (i.e. the target itself). Blocked by world geometry or any other object. */
 

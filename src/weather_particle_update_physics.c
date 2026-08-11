@@ -34,7 +34,7 @@ extern real_vector3d *seed_random_direction3d(uint32_t *seed, real_vector3d *dir
 extern unsigned int point_physics_update(unsigned int flags, const point_physics_definition *definition, location *location, int16_t force_weather_palette_index, real_point3d *position, real_vector3d *translational_velocity, const real_vector3d *translational_force, real_vector3d *collision_normal, int16_t *collision_material_type, float radius, float dt);
 extern void weather_particle_system_wrap_point(float box_width, const real_point3d *point, real_point3d *result);
 
-void weather_particle_update_physics(int16_t system_index, int16_t type_index, uint16_t particle_index)
+void weather_particle_update_physics(int16_t system_index, int16_t type_index, int16_t particle_index)
 {
     weather_particle_system_datum *system = &weather_particle_system_globals.systems[system_index];
     float box_width = system->types[type_index].box_width;

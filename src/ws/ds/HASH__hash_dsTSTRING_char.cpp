@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: HASH__hash_dsTSTRING_char @0x82531EB8 (??$hash@V?$dsTSTRING@D@@@HASH@ds@@SAHABV?$dsTSTRING@D@@II@Z)
 #include "MAP.h" // declares ds::HASH (hash<K> template) alongside ds::CMP/FindPrime/BIG_PRIME
 #include "dsTSTRING.h"
 #include "dsTSTRING_BUF_HEADER.h"

@@ -1,5 +1,5 @@
 #include "headers/blam_data_globals.h"
-/* game_engine_player_score_remove_player @0x8374FF84 — free a player's score-table slot: mark it
+/* game_engine_player_score_remove_player @0x8374FF78 — free a player's score-table slot: mark it
  * unused and decrement the used-slot count. Slots are stride 48; is_slot_used is the slot's first byte. */
 
 extern int game_engine_player_score_get_slot_index_for_player(int player_index);

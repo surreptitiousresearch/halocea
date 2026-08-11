@@ -24,7 +24,7 @@
 
 extern void actor_combat_find_nearby_target(real_point3d *target_point, float miss_distance);
 
-uint8_t actor_combat_find_grenade_target(uint16_t actor_index, real_point3d *grenade_target, int *grenade_target_prop_index, int *grenade_ignore_object_index)
+uint8_t actor_combat_find_grenade_target(int actor_index, real_point3d *grenade_target, int *grenade_target_prop_index, int *grenade_ignore_object_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int found = 0;

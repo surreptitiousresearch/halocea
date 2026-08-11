@@ -1,4 +1,4 @@
-/* leaf_face_get_vertex3d @0x8381B454 — reconstruct the 3D position of one of a leaf face's projected 2D
+/* leaf_face_get_vertex3d @0x8381B428 — reconstruct the 3D position of one of a leaf face's projected 2D
  * vertices: looks up the face's BSP splitting plane, picks the projection axis with the largest-magnitude
  * normal component (preferring z, then y-vs-x), and lifts the 2D vertex back onto that plane via
  * project_point2d. */

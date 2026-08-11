@@ -8,7 +8,7 @@
 #include "headers/weapon_definition.h"
 #include "headers/blam_data_globals.h"
 
-extern int actor_get_weapon(uint16_t actor_index);
+extern int actor_get_weapon(int actor_index);
 
 weapon_definition *actor_get_weapon_definition(int actor_index)
 {

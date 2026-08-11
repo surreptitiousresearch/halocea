@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_stimulus_surprise(uint16_t actor_index, int16_t surprise_level, int prop_index,
+void actor_stimulus_surprise(int actor_index, int16_t surprise_level, int prop_index,
                              const real_vector3d *surprise_vector)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

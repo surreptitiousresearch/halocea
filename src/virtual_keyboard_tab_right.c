@@ -1,4 +1,4 @@
-/* virtual_keyboard_tab_right @0x83783660 — moves keyboard focus right, wrapping from column 10 to column 0,
+/* virtual_keyboard_tab_right @0x83783638 — moves keyboard focus right, wrapping from column 10 to column 0,
  * skipping over any column whose key code matches the starting column's key code. Mirrors
  * virtual_keyboard_tab_left.c. */
 

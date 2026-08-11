@@ -1,4 +1,4 @@
-// ?pctCreate@@YAPAUpctPICTURE@@PAUpctHEADER@@@Z  (0x827C42CC)
+// ?pctCreate@@YAPAUpctPICTURE@@PAUpctHEADER@@@Z  (@0x827C42A8)
 // Allocate a pctPICTURE from a caller-filled pctHEADER: stamps the header with the pct
 // signature, copies it into the new picture, allocates the per-face pointer table and one
 // pixel buffer per face (all zero-filled). On any allocation failure the partially built

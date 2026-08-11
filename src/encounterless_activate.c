@@ -5,7 +5,7 @@
 #include "headers/actor_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern int actor_set_active(uint16_t actor_index, uint8_t active);
+extern int actor_set_active(int actor_index, uint8_t active);
 
 void encounterless_activate(int actor_index)
 {

@@ -1,4 +1,4 @@
-/* interface_splitscreen_render @0x836A6DE0 — draw the black divider bars between split-screen viewports.
+/* interface_splitscreen_render @0x836A6D90 — draw the black divider bars between split-screen viewports.
  * The screen is treated as single-view (no dividers) when the engine forces single screen, during a
  * cinematic, when the UI forces fullscreen, or in co-op. With two players a single horizontal bar splits
  * top/bottom; with three or four players an additional vertical bar is drawn (full height for four

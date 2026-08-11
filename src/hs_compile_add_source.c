@@ -1,4 +1,4 @@
-/* hs_compile_add_source @0x83775D0C — appends a chunk of HaloScript source text to the compiler's growing
+/* hs_compile_add_source @0x83775CE0 — appends a chunk of HaloScript source text to the compiler's growing
  * source buffer (reallocated to fit + a null terminator). Returns a pointer to where the new chunk begins
  * within the buffer, or null on allocation failure. */
 

@@ -1,4 +1,4 @@
-/* biped_stop_melee_attack @0x837AD530 — clear a biped's in-progress melee tick counter
+/* biped_stop_melee_attack @0x837AD520 — clear a biped's in-progress melee tick counter
  * (biped.player_melee_ticks, +1285). No-op if the object is not a biped. */
 
 #include "headers/biped_datum.h"

@@ -25,8 +25,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_path_at_destination(uint16_t actor_index);
-extern float actor_destination_tolerance(uint16_t actor_index);
+extern uint8_t actor_path_at_destination(int actor_index);
+extern float actor_destination_tolerance(int actor_index);
 
 uint8_t action_flee_at_flee_position(int actor_index)
 {

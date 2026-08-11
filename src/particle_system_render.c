@@ -67,7 +67,7 @@ static int16_t particle_system_render_sprite_count(int bitmap_group_index, int16
     return (int16_t)sequences_array[sequence_range].sprites.count;
 }
 
-void particle_system_render(uint16_t system_index)
+void particle_system_render(int system_index)
 {
     particle_system_datum *system = (particle_system_datum *)particle_systems->data + system_index;
     particle_system_definition *definition = TAG_GET(particle_system_definition, system->definition_index);

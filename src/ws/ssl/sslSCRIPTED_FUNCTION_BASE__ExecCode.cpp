@@ -1,3 +1,4 @@
+// sslSCRIPTED_FUNCTION_BASE__ExecCode @0x82ADAB70
 // 0x82ADAB70 — sslSCRIPTED_FUNCTION_BASE::ExecCode
 // The SSL script VM bytecode interpreter: a fetch/decode/execute loop over this function's
 // compiled `bytecode` vector, dispatching on the DB-verified sslBC_CMD opcode set (40 ops).

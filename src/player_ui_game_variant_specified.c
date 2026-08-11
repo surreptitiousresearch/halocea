@@ -1,4 +1,4 @@
-/* player_ui_game_variant_specified @0x83698B20 — if the user has selected a game variant in the UI,
+/* player_ui_game_variant_specified @0x83698B00 — if the user has selected a game variant in the UI,
  * copies it out and returns true; otherwise returns false. */
 
 #include <stdint.h>

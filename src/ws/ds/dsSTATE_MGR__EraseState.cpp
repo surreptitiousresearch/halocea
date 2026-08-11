@@ -1,3 +1,4 @@
+// dsSTATE_MGR::EraseState @0x82615CD8
 #include "dsSTATE_MGR.h"
 #include "ds_assert_boundary.h"
 

@@ -1,4 +1,4 @@
-/* multiplayer_message_internal @0x8374D560 — build a localized multiplayer message string for a player.
+/* multiplayer_message_internal @0x8374D538 — build a localized multiplayer message string for a player.
  * Gives the active game engine's rasterize_score hook first chance to produce it; if that declines (returns
  * 0), falls back to the built-in internal_rasterize_score. Returns nonzero if a message was produced.
  * DEVIATION: the decompiler cast the hook to a 1-arg call; the disassembly leaves message/message_data/

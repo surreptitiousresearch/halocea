@@ -1,4 +1,4 @@
-/* _rasterizer_window_set_fog @0x8369BE10 — translate the window's resolved fog parameters into the vertex
+/* _rasterizer_window_set_fog @0x8369BE50 @0x8369BE10 — translate the window's resolved fog parameters into the vertex
  * shader fog constants. The incoming render_fog is copied into the global window parameters and sanitized:
  * atmospheric density defaults to 1 and is disabled (density 0, far pushed past the camera) when there is no
  * fog distance or atmospheric fog is debug-disabled; planar density defaults to 1. When planar fog is active

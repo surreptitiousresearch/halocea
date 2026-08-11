@@ -1,4 +1,4 @@
-/* props_dispose_from_old_map @0x837D1760 — per-map teardown: invalidate the prop data pool. */
+/* props_dispose_from_old_map @0x837D1758 — per-map teardown: invalidate the prop data pool. */
 
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"

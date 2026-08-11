@@ -1,4 +1,4 @@
-/* random_item @0x83746E70 — pick a random item definition from an item collection, weighted by each
+/* random_item @0x83746E50 — pick a random item definition from an item collection, weighted by each
  * permutation's spawn weight. Draws a random value in [0, total weight), then walks the permutations
  * subtracting each weight until the running value goes negative; that permutation's item is returned.
  * Returns -1 if the collection is empty or the weights do not cover the drawn value. */

@@ -1,4 +1,4 @@
-/* biped_exit_seat_end @0x837AD6D8 — finish a biped's exit from a vehicle seat: flatten and re-normalize
+/* biped_exit_seat_end @0x837AD690 — finish a biped's exit from a vehicle seat: flatten and re-normalize
  * its facing onto the horizontal plane (falling back to global forward if degenerate), reset its up
  * vector to global up, mark its object flags, and resolve its drop-out position against the old vehicle
  * via biped_fix_position. If the first (radius-only) placement fails, retry seeded with the old vehicle's

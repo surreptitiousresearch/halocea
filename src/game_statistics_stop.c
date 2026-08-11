@@ -1,4 +1,4 @@
-/* game_statistics_stop @0x837551AC — finalize per-player statistics at the end of a game: records seconds
+/* game_statistics_stop @0x83755190 — finalize per-player statistics at the end of a game: records seconds
  * online (game_time_get()/30), sets games_played=1, and increments games_won for players on the winning
  * team (disasm-confirmed field offsets: statistics.seconds_online @0xBC, .games_played @0x92,
  * .games_won @0x94). Clears the active flag. */

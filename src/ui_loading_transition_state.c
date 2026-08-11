@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* ui_loading_transition_state @0x83764AAC — request a loading-screen state transition: state 0 always
+/* ui_loading_transition_state @0x83764AA8 — request a loading-screen state transition: state 0 always
  * starts closing; otherwise the transition is only applied from states 1/2/4 (from 4 it also clears the
  * NAT-negotiation cookie), and from 2 only if the target state is 8. */
 

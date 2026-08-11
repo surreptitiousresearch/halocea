@@ -1,5 +1,5 @@
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
-/* race_team_can_win_game @0x8382A610 — a race team "can win" (defaults true) unless single-flag-race mode is
+/* race_team_can_win_game @0x8382A600 — a race team "can win" (defaults true) unless single-flag-race mode is
  * active AND some player on that team is both under the score-to-win threshold and out of lives — any such
  * player eliminates the team's chance to win. Player datum's team_index (+32) and score (+198) accessed by
  * raw offset (see race_engine_did_player_win.c for the same team_index offset). */

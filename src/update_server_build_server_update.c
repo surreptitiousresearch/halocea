@@ -1,4 +1,4 @@
-/* update_server_build_server_update @0x836F6500 — produce the next server update for a machine. When a
+/* update_server_build_server_update @0x836F64E8 — produce the next server update for a machine. When a
  * machine index is given, the update number is taken from that machine's queue datum and advanced;
  * otherwise *update_number is used as-is. If the chosen number is within the live 32-entry update window,
  * the matching update payload is copied out. *update_number is set to -1 when nothing is available.

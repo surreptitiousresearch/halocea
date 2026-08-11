@@ -1,4 +1,4 @@
-/* bitmap_alpha_to_rgb @0x8377A4B0 — replaces every pixel's 4 bytes with its own byte-0 value splatted across
+/* bitmap_alpha_to_rgb @0x8377A488 — replaces every pixel's 4 bytes with its own byte-0 value splatted across
  * all 4 channels (byte 0, in this bitmap's memory byte order, is the alpha channel — hence the name).
  *
  * DEVIATION: the decompiler rendered the splat as a chain of `__ROL4__`/shift/or operations on a

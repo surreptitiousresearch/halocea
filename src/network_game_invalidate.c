@@ -1,4 +1,4 @@
-/* network_game_invalidate @0x83782C74 — reset a network_game_data to an empty 32-slot session: clear it, set
+/* network_game_invalidate @0x83782C58 — reset a network_game_data to an empty 32-slot session: clear it, set
  * each player slot's identity/index fields to the -1 sentinel, set the max player count, and mark whether game
  * objects are already loaded (true only mid client-reconnect).
  *

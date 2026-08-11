@@ -1,4 +1,4 @@
-/* system_unique_identifiers_equal @0x83762ADC — compares two 16-byte system unique identifiers for
+/* system_unique_identifiers_equal @0x83762AD8 — compares two 16-byte system unique identifiers for
  * equality. The null (all-zero) identifier never compares equal to anything, including itself.
  *
  * DEVIATION: the decompiler declared two extra parameters (a3, a4) and rendered the body around a stack

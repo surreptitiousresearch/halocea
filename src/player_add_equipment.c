@@ -1,4 +1,4 @@
-/* player_add_equipment @0x836AAAF0 — give a unit the weapons, ammo, health/shield and grenades from a
+/* player_add_equipment @0x836AAAD8 — give a unit the weapons, ammo, health/shield and grenades from a
  * scenario player-starting-profile. When `reset` is set, existing weapons and the accumulator fields are
  * cleared first. The profile's primary (entry 2) and secondary (entry 3) weapons are created and added to
  * the inventory (deleting the object if it can't be carried); the profile's starting health/shield

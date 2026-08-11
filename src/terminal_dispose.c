@@ -1,4 +1,4 @@
-/* terminal_dispose @0x836A2FB0 — one-time shutdown of the developer terminal: invalidate and free the
+/* terminal_dispose @0x836A2F98 — one-time shutdown of the developer terminal: invalidate and free the
  * output-line datum array, then mark the terminal uninitialized. */
 
 #include "headers/terminal_globals.h"

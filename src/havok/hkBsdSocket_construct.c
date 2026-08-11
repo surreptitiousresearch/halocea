@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkBsdSocket_construct @0x838EE3E0 (??0hkBsdSocket@@QAA@I@Z) */
 #include "../headers/havok/hkBsdSocket.h"
 
 /* boundary — base ctor, vtable, close, and the Berkeley sockets API. */

@@ -1,4 +1,4 @@
-/* sound_class_set_gain @0x837399E4 — set the desired gain (and fade duration in ticks) of every sound
+/* sound_class_set_gain @0x837399C0 — set the desired gain (and fade duration in ticks) of every sound
  * class whose name contains `substring`. Gain is clamped to [0,1]; ticks are floored at 0. Scans all 51
  * sound classes.
  * DEVIATION: the decompiler invented a 4th param (a4); the disassembly stores the 3rd param (ticks, r5).

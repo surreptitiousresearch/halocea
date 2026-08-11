@@ -11,7 +11,7 @@
 #include "headers/blam_data_globals.h"
 
 extern int game_time_get(void);
-extern uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index);
+extern uint8_t actor_compute_prop_unopposable(int actor_index, int prop_index);
 extern float actor_compute_prop_target_weight(int actor_index, int prop_index);
 
 void actor_perception_unreachable(int actor_index, int prop_index, uint8_t unreachable)

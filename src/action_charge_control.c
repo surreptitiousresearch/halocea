@@ -19,7 +19,7 @@
 #include "headers/idle_look_type.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_path_has_path(uint16_t actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
 extern int game_time_get(void);
 
 void action_charge_control(int actor_index)

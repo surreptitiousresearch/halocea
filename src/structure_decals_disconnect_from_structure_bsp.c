@@ -1,4 +1,4 @@
-/* structure_decals_disconnect_from_structure_bsp @0x837E2D70 — when disconnecting from a structure_bsp
+/* structure_decals_disconnect_from_structure_bsp @0x837E2D60 — when disconnecting from a structure_bsp
  * (e.g. unloading the old map), deletes the permanent decals of every cluster that has any runtime decal
  * records. Cluster stride 104 bytes, matching structure_decals_update.c's has_decals test exactly. */
 

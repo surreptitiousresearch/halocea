@@ -1,4 +1,4 @@
-/* ui_widgets_dispose @ 0x837306F0 — close widgets, free the widget pool, zero globals */
+/* ui_widgets_dispose @ 0x837343C0 — close widgets, free the widget pool, zero globals */
 #include <string.h>
 #include "headers/widget_globals.h"
 extern void ui_widgets_close_all(void);

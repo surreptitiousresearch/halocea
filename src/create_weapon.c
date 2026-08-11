@@ -1,4 +1,4 @@
-/* create_weapon @0x836A9158 — spawn a weapon object from a starting-weapon spec, owned by a unit, and
+/* create_weapon @0x836A9148 — spawn a weapon object from a starting-weapon spec, owned by a unit, and
  * preset its magazine-0 ammo. Returns the new object index, or -1 if the spec has no
  * weapon or object creation fails. */
 

@@ -1,4 +1,4 @@
-/* HCEX_OBJ::`scalar deleting destructor' @0x823EDBF0 — same teardown as the HCEX_OBJ dtor, then
+/* HCEX_OBJ::`scalar deleting destructor' @0x823EDBD0 — same teardown as the HCEX_OBJ dtor, then
  * conditionally operator-deletes `obj` when bit 0 of `deleteFlags` is set (compiler-generated
  * `??_G` thunk).
  *

@@ -30,7 +30,7 @@
 
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
 extern float scenario_fog_at_point(const location *viewer_location, const real_point3d *viewer_point, const real_point3d *point);
-extern void actor_get_vision_distances(uint16_t actor_index, float maximum_vision_distance, float perception_factor, float horizontal_angle, float *full_distance_reference, float *partial_distance_reference);
+extern void actor_get_vision_distances(int actor_index, float maximum_vision_distance, float perception_factor, float horizontal_angle, float *full_distance_reference, float *partial_distance_reference);
 
 int16_t actor_visibility_at_point(int actor_index, actor_position_data *sense_position,
                               const real_point3d *position, char lighting, int16_t line_of_sight,

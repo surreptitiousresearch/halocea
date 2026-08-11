@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__PlayCustomSound @0x836C3860
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/hcex/HALO_SOUND_SYSTEM_globals.h"
 #include "../../headers/ws/m3d/m3dRND_GEN.h"

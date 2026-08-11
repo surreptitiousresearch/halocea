@@ -1,3 +1,4 @@
+// HCEX_ANIM_MNG_FP__ApplyAnim @0x823DF1C8
 /* HCEX_ANIM_MNG_FP::ApplyAnim @0x823DF1E4 (overrides animMNG::ApplyAnim) — locate this manager's
  * entry in the global fpModels vector by matching pInst; if it has a resolved HCEX_MODEL, recompute
  * every node whose bridge index is valid: invert the node's parent local transform, compose it with

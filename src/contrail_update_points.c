@@ -31,7 +31,7 @@ extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upp
 extern unsigned int point_physics_update(unsigned int flags, const point_physics_definition *definition, location *location, int16_t force_weather_palette_index, real_point3d *position, real_vector3d *translational_velocity, const real_vector3d *translational_force, real_vector3d *collision_normal, int16_t *collision_material_type, float radius, float dt);
 extern void datum_delete(data_array *data, int index);
 
-void contrail_update_points(uint16_t contrail_index, float dt)
+void contrail_update_points(int contrail_index, float dt)
 {
     contrail_datum *contrail = DATA_ARRAY_ELEMENT(contrail_data, contrail_datum, contrail_index);
     contrail_definition *definition =

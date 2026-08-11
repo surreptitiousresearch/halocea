@@ -1,4 +1,4 @@
-/* player_powerup_on @0x836AA4C0 — turn on a player's powerup state. Only active camo (powerup_type 0)
+/* player_powerup_on @0x836AA480 — turn on a player's powerup state. Only active camo (powerup_type 0)
  * has any on-state to set here: it marks the player's unit invisible (unit.flags 0x10) and clears
  * the camo-regrowth word. Any other powerup type is a no-op. The unit is resolved from the player
  * datum's unit index. */

@@ -1,3 +1,4 @@
+/* king_get_score_header_string @0x8382CF88 */
 #include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 #include "headers/multiplayer_game_text_string.h"

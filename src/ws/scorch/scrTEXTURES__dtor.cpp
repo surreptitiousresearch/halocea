@@ -1,4 +1,4 @@
-// scrTEXTURES::~scrTEXTURES @0x82726F40 — release every non-null texture pointer (cube, hm,
+// scrTEXTURES::~scrTEXTURES @0x82726F28 — release every non-null texture pointer (cube, hm,
 // detNM, nm, dif — in that order) via txmTEXTURE::Release, but only while txmManager is alive.
 #include "../../headers/ws/scorch/scrTEXTURES.h"
 #include "../../headers/ws/txm/txmTEXTURE.h"

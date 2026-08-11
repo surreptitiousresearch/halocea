@@ -1,4 +1,4 @@
-/* item_adjust_for_angular_velocity_change @0x83757EDC — recomputes an item's cached spin axis and
+/* item_adjust_for_angular_velocity_change @0x83757EA0 — recomputes an item's cached spin axis and
  * the sin/cos of its angular speed from its current angular velocity. When the angular velocity is
  * zero the spin is cleared (item _has_nonzero_angular_velocity flag off, sin 0, cos 1); otherwise the
  * axis is normalized (unless the object is at rest, in which case the cached axis is left frozen) and

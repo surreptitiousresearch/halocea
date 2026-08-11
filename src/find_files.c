@@ -1,4 +1,4 @@
-/* find_files @0x83767B94 — enumerate up to maximum_count directory entries matching `flags`, filling
+/* find_files @0x83767B80 — enumerate up to maximum_count directory entries matching `flags`, filling
  * the references array; returns the number found. */
 
 #include <stdint.h>

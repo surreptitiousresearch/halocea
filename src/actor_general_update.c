@@ -25,9 +25,9 @@
 
 
 extern void actor_erase(int actor_index, uint8_t immediate);
-extern void actor_set_dormant(uint16_t actor_index, uint8_t dormant);
-extern int16_t actor_action_class(uint16_t actor_index);
-extern uint8_t actor_path_has_path(uint16_t actor_index);
+extern void actor_set_dormant(int actor_index, uint8_t dormant);
+extern int16_t actor_action_class(int actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
 
 uint8_t actor_general_update(int actor_index)
 {

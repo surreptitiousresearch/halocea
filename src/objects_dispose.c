@@ -1,4 +1,4 @@
-/* objects_dispose @ 0x836EEA68 — tear down object subsystems, pools, cluster partitions */
+/* objects_dispose @ 0x836EECF8 — tear down object subsystems, pools, cluster partitions */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/cluster_partition.h"

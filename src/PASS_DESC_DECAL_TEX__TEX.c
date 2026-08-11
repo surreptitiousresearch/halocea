@@ -1,6 +1,6 @@
 #include "headers/ws/vid/PASS_DESC_DECAL_TEX.h"
 
-// 0x82726D5C
+// @0x82726D58
 PASS_DESC_DECAL_TEX::PASS_DESC_DECAL_TEX()
 {
     this->dif.ptr = nullptr;

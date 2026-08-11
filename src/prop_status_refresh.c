@@ -63,23 +63,23 @@ extern int game_time_get(void);
 extern void object_get_velocities(int object_index, real_vector3d *translational_velocity, real_vector3d *angular_velocity);
 extern void unit_get_aiming_vector(int unit_index, real_vector3d *aiming_vector);
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index, const real_point3d *p1, int16_t p1_cluster_index, int16_t mode, uint8_t test_line_of_fire, int ignore_object_index, uint8_t ignore_vehicles);
-extern uint8_t actor_is_noncombat(uint16_t actor_index);
-extern uint8_t actor_in_combat(uint16_t actor_index);
-extern uint8_t actor_is_fighting(uint16_t actor_index);
-extern int16_t actor_get_perception_knowledge(uint16_t actor_index, int prop_index);
+extern uint8_t actor_is_noncombat(int actor_index);
+extern uint8_t actor_in_combat(int actor_index);
+extern uint8_t actor_is_fighting(int actor_index);
+extern int16_t actor_get_perception_knowledge(int actor_index, int prop_index);
 extern int16_t actor_visibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, char lighting, int16_t line_of_sight, uint8_t use_frustum, uint8_t store_debugging_information, int16_t combat_knowledge_type);
-extern int16_t actor_audibility_at_point(uint16_t actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
+extern int16_t actor_audibility_at_point(int actor_index, actor_position_data *sense_position, const real_point3d *position, const location *location, int16_t sound_volume, float perception_factor, int16_t line_of_sight);
 extern void *datum_try_and_get(const data_array *data, int index);
 extern int actor_perception_assess_vehicle_danger(int actor_index, int vehicle_index, actor_position_data *sense_position, uint8_t currently_perceived);
-extern int actor_perception_assess_suicide_danger(uint16_t actor_index, int unit_index, float suicide_radius, float current_distance, uint8_t enemy, uint8_t currently_perceived);
-extern uint8_t actor_has_ranged_weapon(uint16_t actor_index);
+extern int actor_perception_assess_suicide_danger(int actor_index, int unit_index, float suicide_radius, float current_distance, uint8_t enemy, uint8_t currently_perceived);
+extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern void actor_perception_unreachable(int actor_index, int prop_index, uint8_t unreachable);
-extern uint8_t actor_perception_desire_prop(uint16_t actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
-extern uint8_t actor_compute_prop_unopposable(uint16_t actor_index, int prop_index);
+extern uint8_t actor_perception_desire_prop(int actor_index, int16_t desired_target_state, int unit_index, int unit_actor_index, uint8_t in_use, uint8_t player, uint8_t enemy, uint8_t dead, int16_t dead_ticks, float suicide_radius, float distance_squared, int16_t required_ticks, uint8_t *optional_reference);
+extern uint8_t actor_compute_prop_unopposable(int actor_index, int prop_index);
 extern float actor_compute_prop_target_weight(int actor_index, int prop_index);
-extern float actor_look_compute_prop_interest(uint16_t actor_index, uint16_t prop_index);
+extern float actor_look_compute_prop_interest(int actor_index, int prop_index);
 
 void prop_status_refresh(int actor_index, int prop_index, actor_position_data *sense_position)
 {

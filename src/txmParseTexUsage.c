@@ -1,7 +1,7 @@
 #include "headers/ws/txm/txm_functions.h"
 #include "headers/ws/txm/TEX_USAGE_PROCESSOR.h"
 
-// 0x82C6655C -- tokenizes `usage_str` on ':'/'+' delimiters via ds::Tokenize<TEX_USAGE_PROCESSOR>,
+// @0x82C66548 -- tokenizes `usage_str` on ':'/'+' delimiters via ds::Tokenize<TEX_USAGE_PROCESSOR>,
 // writing the accumulated usage bitmask to *usage. Returns false (leaving *usage untouched) on a
 // tokenize error.
 bool txmParseTexUsage(ENGINE_TEX_DESC::USAGE &usage, const char *usage_str)

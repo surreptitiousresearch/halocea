@@ -1,4 +1,4 @@
-/* oddball_get_score_header_string @0x83816B60 — formats the oddball score-column header string: string 158
+/* oddball_get_score_header_string @0x83816B18 — formats the oddball score-column header string: string 158
  * for non-terminator oddball variants, 154 (the same index ctf_get_score_header_string.c uses) for
  * terminator variants. Mirrors ctf_get_score_header_string.c's fallback-to-empty_wide_string pattern. */
 

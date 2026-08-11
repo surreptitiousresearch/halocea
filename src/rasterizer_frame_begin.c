@@ -1,4 +1,4 @@
-/* rasterizer_frame_begin @0x836A5D28 — apply default near/far clip planes (world and first-person) if they
+/* rasterizer_frame_begin @0x836A5D08 — apply default near/far clip planes (world and first-person) if they
  * haven't been set, then forward to the platform rasterizer frame-begin.
  * DEVIATION: the tail call rendered as self-recursion is actually _rasterizer_frame_begin (underscore alias). */
 

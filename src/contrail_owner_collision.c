@@ -10,10 +10,10 @@
 #include "headers/contrail_active_flags.h"
 #include "headers/blam_data_globals.h"
 
-extern int16_t contrail_compute_new_point_count(uint16_t contrail_index, float dt);
-extern void contrail_add_points(uint16_t contrail_index, int16_t contrail_point_count, uint8_t force);
+extern int16_t contrail_compute_new_point_count(int contrail_index, float dt);
+extern void contrail_add_points(int contrail_index, int16_t contrail_point_count, uint8_t force);
 
-void contrail_owner_collision(uint16_t contrail_index, uint8_t object_dying, float dt)
+void contrail_owner_collision(int contrail_index, uint8_t object_dying, float dt)
 {
     contrail_datum *contrail = DATA_ARRAY_ELEMENT(contrail_data, contrail_datum, contrail_index);
     if ( (contrail->flags & (1u << _contrail_active_bit)) != 0 )

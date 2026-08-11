@@ -1,4 +1,4 @@
-/* hs_enumerate_variable_names @0x8372F4F4 — feeds every engine-external HaloScript global's name, and (if a
+/* hs_enumerate_variable_names @0x8372F4D8 — feeds every engine-external HaloScript global's name, and (if a
  * scenario is loaded) every scenario-local script global's name, into the token enumerator. */
 
 #include <stdint.h>

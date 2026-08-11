@@ -1,4 +1,4 @@
-/* ctf_engine_allow_pick_up @0x83806688 — CTF pickup gate for `item_index` by `unit_index`'s player: always
+/* ctf_engine_allow_pick_up @0x83806670 — CTF pickup gate for `item_index` by `unit_index`'s player: always
  * allowed except on a dedicated server (game_connection() == _game_connection_network_server) for a flag whose "cannot be picked up" flag
  * (item+556, bit 0x40) is set or whose owning team (object.owner_team_index @ item+184, a signed halfword)
  * doesn't match the would-be picker's team (player_datum.team_index @ +32). Non-flag items, unowned items, and

@@ -1,4 +1,4 @@
-/* item_detonate @0x83757DEC — detonate an item (e.g. a dropped grenade/explosive). If its detonation timer
+/* item_detonate @0x83757DC0 — detonate an item (e.g. a dropped grenade/explosive). If its detonation timer
  * (item.detonation_ticks) hasn't been armed, spawn the item definition's detonating_effect from the item
  * and arm the timer to a random duration in [detonation_delay_timer_lower_bound, _upper_bound] * 30 ticks.
  * DEVIATION: the decompiler passed the datum index as the color arg and a stray marker as the impulse field;

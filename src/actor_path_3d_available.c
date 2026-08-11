@@ -27,7 +27,7 @@
 
 extern float normalize3d(real_vector3d *v);
 
-uint8_t actor_path_3d_available(uint16_t actor_index, const real_point3d *destination_point,
+uint8_t actor_path_3d_available(int actor_index, const real_point3d *destination_point,
         float *avoidance_distance_reference)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

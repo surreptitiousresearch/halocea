@@ -1,4 +1,4 @@
-/* render_camera_build_clipped_frustum_bounds @0x8376BD04 — turn a normalized screen clip rectangle into view-
+/* render_camera_build_clipped_frustum_bounds @0x8376BCD8 — turn a normalized screen clip rectangle into view-
  * space frustum bounds for the camera. The clip edges are scaled by 1/tan(vfov/2), with the horizontal edges
  * additionally scaled by the viewport aspect (height/width). Returns 1 with the clipped bounds when the clip
  * is valid and non-degenerate; otherwise writes the full [-1,1] bounds and returns 0. */

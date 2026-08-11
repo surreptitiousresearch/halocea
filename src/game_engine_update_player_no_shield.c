@@ -1,4 +1,4 @@
-/* game_engine_update_player_no_shield @0x8374D20C — if the active game engine's variant disables shields
+/* game_engine_update_player_no_shield @0x8374D208 — if the active game engine's variant disables shields
  * (universal_variant.flags bit 3 clear means shields ARE disabled; no active game engine defaults to
  * "no shield"), zeroes the player's unit's shield/current-shield-damage floats (unit +220/+228). Player
  * record dword +52 is the controlled unit index (see any_player_is_dead.c). */

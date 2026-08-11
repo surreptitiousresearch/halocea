@@ -1,4 +1,4 @@
-/* points_within_distance @0x837C5150 — scans `points` in order for the first one whose signed distance
+/* points_within_distance @0x837C5148 — scans `points` in order for the first one whose signed distance
  * along the render camera's forward vector (from the camera position) does not exceed `distance`.
  *
  * DEVIATION: despite the name, this is not an "all points within distance" test — it returns true as soon

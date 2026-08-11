@@ -1,4 +1,4 @@
-/* input_abstraction_get_key @0x837256E0 — reads a key stroke only when the input abstraction
+/* input_abstraction_get_key @0x837256D0 — reads a key stroke only when the input abstraction
  * is in the text/UI mode that owns the keyboard. The active_modes bitfield selects a mode index
  * (8 -> 3, 4 -> 2, 2 -> 1, exactly 1 -> 0, else 255); only mode 2 forwards to input_get_key. */
 

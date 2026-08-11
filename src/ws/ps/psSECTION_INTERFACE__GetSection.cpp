@@ -1,7 +1,7 @@
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 #include "../ds/dsDATA.h"
-// 0x8251E018 — look up `key`, coerce the value to a section handle into `*val`, and return whether
+// @0x8251E018 — look up `key`, coerce the value to a section handle into `*val`, and return whether
 // it existed. The value dsDATA is a scratch temp (the decompiler's if(v9) tail is its destructor).
 
 // ?psDataToSection@@YAHABVdsDATA@@PAVpsSECTION@@@Z — coerce a dsDATA into a psSECTION. boundary.

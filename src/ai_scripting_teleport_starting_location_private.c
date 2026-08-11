@@ -19,11 +19,11 @@
 extern void ai_index_actor_iterator_new(unsigned int ai_index, ai_index_actor_iterator *iterator);
 extern actor_datum *ai_index_actor_iterator_next(ai_index_actor_iterator *iterator);
 extern int biped_approximate_surface_index(int biped_index, real_point3d *surface_point);
-extern int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squad_index, uint8_t spawn);
+extern int16_t encounter_get_actor_starting_location(int encounter_index, int squad_index, uint8_t spawn);
 extern real_vector3d *vector3d_from_angle(real_vector3d *vector, float angle);
 extern void object_set_position(int object_index, const real_point3d *position, const real_vector3d *forward, const real_vector3d *up);
 extern void object_reset(int object_index);
-extern uint8_t actor_move_halt(uint16_t actor_index);
+extern uint8_t actor_move_halt(int actor_index);
 
 void ai_scripting_teleport_starting_location_private(int ai_index, uint8_t only_if_unsupported)
 {

@@ -1,4 +1,4 @@
-/* actors_dispose_from_old_map @0x8371CD8C — per-map teardown: invalidate the actor, swarm, and
+/* actors_dispose_from_old_map @0x8371CD78 — per-map teardown: invalidate the actor, swarm, and
  * swarm-component data pools. */
 
 #include "headers/data_array.h"

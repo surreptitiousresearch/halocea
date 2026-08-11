@@ -1,4 +1,4 @@
-/* hud_unit_deactivate_nav_point_with_object @0x837EE184 — deactivate an object-anchored HUD nav point
+/* hud_unit_deactivate_nav_point_with_object @0x837EE170 — deactivate an object-anchored HUD nav point
  * for the player controlling the given unit (no-op if the unit isn't player-controlled). */
 
 #include <stdint.h>

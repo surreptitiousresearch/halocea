@@ -1,4 +1,4 @@
-/* object_dead_recon_position @0x836ECC94 — dead-reckon an object's current position from its last
+/* object_dead_recon_position @0x836ECC60 — dead-reckon an object's current position from its last
  * networked update. Requires the object's three prediction-validity flags to be set, a nonzero elapsed
  * time since the last update (ms), and a meaningful speed (> 0.05). The predicted position is
  * last_server_position advanced along the live translational_velocity by elapsed_ms * 0.001 * 30 * speed.

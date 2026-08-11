@@ -1,4 +1,4 @@
-/* ai_find_line_of_fire_friend_pills @0x836E7F08 — collect the friendly collision volumes ("pills") an
+/* ai_find_line_of_fire_friend_pills @0x836E7EE0 — collect the friendly collision volumes ("pills") an
  * actor must avoid shooting through, up to max_pill_count. Two sources:
  *   1. Every other actor in the same encounter that occupies a unit and is not in a vehicle: a pill is
  *      generated for that unit, tagged with the prop index returned by prop_get_active_by_unit_index.
@@ -25,9 +25,9 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern void ai_generate_line_of_fire_pill(int unit_index, int prop_index, line_of_fire_pill *pill);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 int16_t ai_find_line_of_fire_friend_pills(int actor_index, int16_t max_pill_count, line_of_fire_pill *pills)

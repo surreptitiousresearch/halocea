@@ -1,4 +1,4 @@
-/* video_resolution_init @0x837850CC — resets the video resolution table, then sorts the resolution list
+/* video_resolution_init @0x837850A8 — resets the video resolution table, then sorts the resolution list
  * (ascending by width/height) and each resolution's own refresh-rate list. */
 
 #include <string.h>

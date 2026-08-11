@@ -1,4 +1,4 @@
-/* biped_blend_client_and_server @0x837AC4A8 — reconcile a network biped's current position
+/* biped_blend_client_and_server @0x837AC460 — reconcile a network biped's current position
  * with the last position received from the server. The last server position (object.last_server_position,
  * +28..+36) and current position (object.position, +92..+100) are compared: if they differ by more than
  * 5 units, or prediction is disabled, the biped is snapped straight to the last server position. Otherwise

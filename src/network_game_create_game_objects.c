@@ -1,4 +1,4 @@
-/* network_game_create_game_objects @0x83782EF4 — load the map and instantiate the game world for a network
+/* network_game_create_game_objects @0x83782EE0 — load the map and instantiate the game world for a network
  * game session. Builds game options from the session (map name, difficulty, random seed — sourced by
  * connection role), precaches and loads the map (unloading any in-progress game first), applies the game
  * variant, and runs per-map initialization. On a server (connection 2) or film playback (3) it then spawns each

@@ -1,4 +1,4 @@
-/* actors_initialize_for_new_map @0x8371CD4C — revalidate the actor, swarm, and swarm-component datum arrays
+/* actors_initialize_for_new_map @0x8371CD38 — revalidate the actor, swarm, and swarm-component datum arrays
  * for a new map. */
 
 #include "headers/data_array.h"

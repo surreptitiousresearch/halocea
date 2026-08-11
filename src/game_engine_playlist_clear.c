@@ -1,4 +1,4 @@
-/* game_engine_playlist_clear @0x83749434 — free the active playlist: release each item's map and variant
+/* game_engine_playlist_clear @0x83749420 — free the active playlist: release each item's map and variant
  * name strings, free the item array, and reset the playlist to empty (no cursor). */
 
 #include "headers/game_engine_playlist_s.h"

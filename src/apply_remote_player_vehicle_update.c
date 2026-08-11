@@ -1,4 +1,4 @@
-/* apply_remote_player_vehicle_update @0x836A8E3C — on the client, apply the next buffered server vehicle
+/* apply_remote_player_vehicle_update @0x836A8E30 — on the client, apply the next buffered server vehicle
  * state for a remote player. Reads the update matching the unit's last completed client update id; if it
  * targets the vehicle the unit currently rides, the vehicle is snapped to the server position and its
  * position/velocity/orientation are overwritten from the update. The "vehicle waiting" counter resets on

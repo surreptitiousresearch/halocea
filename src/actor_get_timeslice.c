@@ -17,7 +17,7 @@
 
 /* actor_index attested uint16_t: callee normalizes with clrlwi r3,16 @0x8371EB5C.
  * Return stays int: explicit li r3,0/1 but the only caller (actor_update) ignores r3. */
-int actor_get_timeslice(uint16_t actor_index)
+int actor_get_timeslice(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

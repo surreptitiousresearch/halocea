@@ -1,4 +1,4 @@
-/* action_queue_read @0x837AB06C — pop the next buffered action from the queue. Peeks the head entry,
+/* action_queue_read @0x837AB050 — pop the next buffered action from the queue. Peeks the head entry,
  * copies its 32-byte player_action payload (entry->action) into *action, and decrements the entry's repeat
  * count; when the count hits zero the entry is consumed (circular-queue read) and its client update id is
  * returned via completed_client_update_id (otherwise -1). The action is also cached as the queue's

@@ -1,4 +1,4 @@
-/* hs_object_iterate_names_containing @0x837F7FD0 — walks the scenario's object-name table and invokes
+/* hs_object_iterate_names_containing @0x837F7FB8 — walks the scenario's object-name table and invokes
  * the supplied iterator with the index of every object name whose text contains name_string as a
  * substring. Object-name entries are 36 bytes each. */
 

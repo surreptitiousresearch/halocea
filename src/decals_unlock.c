@@ -1,4 +1,4 @@
-/* decals_unlock @0x83740598 — clear the lock bit (and, when `permanent` is set, the permanent bit) on every
+/* decals_unlock @0x83740578 — clear the lock bit (and, when `permanent` is set, the permanent bit) on every
  * decal, decrementing the corresponding global counts. Decal flags live in the datum's word at +2:
  * bit 0 = locked, bit 1 = permanent. */
 

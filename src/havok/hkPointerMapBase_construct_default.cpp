@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkPointerMapBase_construct_default @0x838E54A8 (??0?$hkPointerMapBase@KKU?$hkPointerMapOperations@KK@@@@QAA@XZ)
 #include "../headers/havok/hkPointerMapBase.h"
 #include "../headers/havok/hkThreadMemory.h"
 

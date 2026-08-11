@@ -1,4 +1,4 @@
-/* prop_setup_orphan @0x837D19F0 — repurpose a prop slot as an "orphan" copy of another prop: copy the
+/* prop_setup_orphan @0x837D19D8 — repurpose a prop slot as an "orphan" copy of another prop: copy the
  * source prop (orphan_prop_index) over the target prop slot but preserve the target's identity header
  * (identifier/owner/next/orphan-link, first 16 bytes), then reset the orphan's bookkeeping (state = 4
  * "orphan", lifespan 900 ticks, inspection 0, tried/abandoned-search flags cleared), point the orphan hint
@@ -16,7 +16,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void prop_setup_orphan(uint16_t prop_index, uint16_t orphan_prop_index, int acknowledged_prop_index)
+void prop_setup_orphan(int prop_index, int orphan_prop_index, int acknowledged_prop_index)
 {
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
 

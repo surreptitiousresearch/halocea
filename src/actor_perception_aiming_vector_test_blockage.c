@@ -1,4 +1,4 @@
-/* actor_perception_aiming_vector_test_blockage @0x837D7DF4 — test whether a friendly unit lies along an
+/* actor_perception_aiming_vector_test_blockage @0x837D7DE8 — test whether a friendly unit lies along an
  * actor's aiming vector such that firing would risk hitting it. Projects the source-to-friend offset onto
  * the (horizontally normalized) aiming direction; only friends roughly ahead (within ~30 degrees) are
  * considered. The perpendicular offset from the aim line classifies the blockage: 2 = directly blocking,

@@ -1,4 +1,4 @@
-/* game_time_get_speed @0x8369A970 — current game-clock speed multiplier. Network clients and servers
+/* game_time_get_speed @0x8369A948 — current game-clock speed multiplier. Network clients and servers
  * always run at 1.0; standalone play uses the configurable global speed.
  *
  * DEVIATION: the decompiler routes the float result through a double (soft-float ABI artifact). */

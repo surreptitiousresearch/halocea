@@ -1,4 +1,4 @@
-/* any_unit_is_dangerous @0x836CA700 — true if any unit (type mask 3, connected-objects flag set) is in
+/* any_unit_is_dangerous @0x836CA6E8 — true if any unit (type mask 3, connected-objects flag set) is in
  * a dangerous animation state: mid grenade throw with the grenade not yet released, or being flung as
  * a dead body (airborne-dead / landing-dead) with translation applied (ignore-translation flag clear). */
 

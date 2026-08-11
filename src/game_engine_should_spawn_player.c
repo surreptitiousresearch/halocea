@@ -1,4 +1,4 @@
-/* game_engine_should_spawn_player @0x837473E4 — decides whether a player should (re)spawn this tick.
+/* game_engine_should_spawn_player @0x837473C8 — decides whether a player should (re)spawn this tick.
  * A player that has never spawned spawns immediately; one that has quit, run out of lives, is the odd
  * man out, or is in a post-game state never spawns. Otherwise it counts down the respawn timer (playing
  * the countdown beeps at 90/60/30/1 ticks for local players) and spawns when it reaches zero. When a

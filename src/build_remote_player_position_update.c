@@ -1,4 +1,4 @@
-/* build_remote_player_position_update @0x8375722C — on the server, encode an outgoing position update for
+/* build_remote_player_position_update @0x83757218 — on the server, encode an outgoing position update for
  * one remote player. A full baseline (stateless) update is sent reliably whenever the baseline interval
  * has elapsed (or none was ever sent), stashing the new position as the delta baseline; otherwise, once
  * the regular update interval has elapsed, an incremental (delta-from-baseline) update is sent unreliably.

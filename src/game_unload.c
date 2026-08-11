@@ -1,4 +1,4 @@
-/* game_unload @0x83687AB4 — tear down the currently loaded map. If a precache is still streaming, raise
+/* game_unload @0x83687AA0 — tear down the currently loaded map. If a precache is still streaming, raise
  * the loading-progress widget and pump pregame render frames until the precache reports done (status!=0),
  * closing all widgets afterward and showing the damaged-media error if it failed (status 2). Finally, if a
  * map is loaded, unload the scenario, reset the debug random seed, and clear the map-loaded flag.

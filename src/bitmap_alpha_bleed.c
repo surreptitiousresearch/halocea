@@ -1,4 +1,4 @@
-/* bitmap_alpha_bleed @0x8377DE74 — dispatches an alpha-bleed pass by bitmap type: 2D bitmaps go through
+/* bitmap_alpha_bleed @0x8377DE60 — dispatches an alpha-bleed pass by bitmap type: 2D bitmaps go through
  * bitmap_2d_alpha_bleed, 3D (volume) bitmaps through bitmap_3d_alpha_bleed; cube maps aren't supported and
  * just warn (matching bitmap_cm_alpha_bleed.c's inline warning). No-op if `passes` isn't positive. */
 

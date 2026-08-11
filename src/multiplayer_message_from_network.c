@@ -1,4 +1,4 @@
-/* multiplayer_message_from_network @0x83751528 — decodes a stateless multiplayer-message-delta and routes
+/* multiplayer_message_from_network @0x83751518 — decodes a stateless multiplayer-message-delta and routes
  * it to the local player: translates the network object index back to a local player index and forwards
  * (message, message_data) via multiplayer_message. Mirrors multiplayer_sound_from_network.c's
  * discard-iteration-body-if-incremental / decode-stateless-otherwise structure. */

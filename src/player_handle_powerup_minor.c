@@ -1,4 +1,4 @@
-/* player_handle_powerup_minor @0x836AC6A4 — grant a player a "minor" (timed) powerup, extending its timer
+/* player_handle_powerup_minor @0x836AC690 — grant a player a "minor" (timed) powerup, extending its timer
  * to at least minor_duration. The per-powerup timer is player->powerup_durations[powerup_type]. Powerup
  * type 0 (active camouflage), when first applied, sets the camo flag on the player's unit (unit.flags
  * 0x10) and clears its camo-regrowth word. */

@@ -1,4 +1,4 @@
-/* light_fixture_place @0x837E99EC — places a light-fixture object: links its scenario device information,
+/* light_fixture_place @0x837E99B0 — places a light-fixture object: links its scenario device information,
  * then copies the tag's color/intensity/falloff/cutoff onto the placed object's runtime light-data fields.
  * Uses the standard salted object-header lookup (see object_type_should_force_baseline_update.c).
  *

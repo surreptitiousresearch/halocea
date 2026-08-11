@@ -1,4 +1,4 @@
-/* decals_update @0x83740664 — per-frame decal aging. For every live, non-permanent decal: computes
+/* decals_update @0x83740648 — per-frame decal aging. For every live, non-permanent decal: computes
  * its age in seconds, and either fades its alpha as it approaches the end of its lifetime, or (once
  * expired) unlocks it and frees its rasterizer vertices. Decal age is in game ticks at 30 Hz, hence
  * the 1/30 scale. The decal's alpha byte (offset 40) is reset to 0xFF (fully opaque) each frame and

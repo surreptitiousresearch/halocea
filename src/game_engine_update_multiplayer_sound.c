@@ -1,4 +1,4 @@
-/* game_engine_update_multiplayer_sound @0x837B6AD4 — tick the multiplayer queued-sound ring: count down
+/* game_engine_update_multiplayer_sound @0x837B6AB8 — tick the multiplayer queued-sound ring: count down
  * the head entry, and when it expires, pop it (shifting the rest down) and play the next queued sound.
  *
  * DEVIATION: the decompiler drops the leading underscore on the real callees; the disassembly calls

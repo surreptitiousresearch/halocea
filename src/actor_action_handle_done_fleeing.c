@@ -13,7 +13,7 @@
 
 
 #include "headers/flee_state_data.h"
-extern int action_guard_setup_from_fleeing(uint16_t actor_index, flee_state_data *flee_state_data, guard_state_data *state_data);
+extern int action_guard_setup_from_fleeing(int actor_index, flee_state_data *flee_state_data, guard_state_data *state_data);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
 
 uint8_t actor_action_handle_done_fleeing(int actor_index)

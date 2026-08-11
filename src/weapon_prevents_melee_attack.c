@@ -1,4 +1,4 @@
-/* weapon_prevents_melee_attack @0x836DB16C — true if a weapon blocks melee while readied: a missing
+/* weapon_prevents_melee_attack @0x836DB160 — true if a weapon blocks melee while readied: a missing
  * weapon (-1) counts as preventing; otherwise the result is the weapon definition's "prevents melee"
  * flag (bit 9 of the weapon definition flags), overridden to true when the weapon's primary trigger
  * state is charging or charged. */

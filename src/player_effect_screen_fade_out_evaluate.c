@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void player_effect_screen_fade_out(float red, float green, float blue, int16_t ticks);
 
 void player_effect_screen_fade_out_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

@@ -1,4 +1,4 @@
-/* game_engine_update_weapons @0x83746BB0 — per-tick pass over all item-class objects (type mask 0x1C).
+/* game_engine_update_weapons @0x83746B90 — per-tick pass over all item-class objects (type mask 0x1C).
  * Sets each object's scale to 1.0 when item flags bit 0 is set, otherwise to the item definition's
  * default scale (clamped up from 0 to 1.0). For flag objects (CTF), if the flag is unheld
  * (parent_object_index == -1) and item flags bit 0 is clear and the weapon

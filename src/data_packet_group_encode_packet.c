@@ -1,4 +1,4 @@
-/* data_packet_group_encode_packet @0x837DF990 — encode one packet from a group and append its 1-byte type
+/* data_packet_group_encode_packet @0x837DF970 — encode one packet from a group and append its 1-byte type
  * header. Records a human-readable error string on failure and returns whether encoding succeeded. */
 
 #include <stdint.h>

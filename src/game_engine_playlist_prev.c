@@ -1,4 +1,4 @@
-/* game_engine_playlist_prev @0x8374956C — step the multiplayer playlist cursor back one entry (wrapping
+/* game_engine_playlist_prev @0x83749550 — step the multiplayer playlist cursor back one entry (wrapping
  * to the end), and load the new entry's map name and game variant into the pending play stage.
  *
  * DEVIATION: the decompiler types the result as void* (the trailing memcpy return); r3 at blr is only ever

@@ -1,4 +1,4 @@
-/* actor_look_valid_look_vector @0x837FAD68 — tests whether a candidate (attempted) look direction is an
+/* actor_look_valid_look_vector @0x837FAD30 — tests whether a candidate (attempted) look direction is an
  * acceptable place for an actor to look. The reference look_vector defines a unit frame; the attempted
  * direction must (a) project onto the aiming vector beyond yaw_deviation, and (b) lie inside the cone
  * whose left/right cosine limits are cone_limits->n[0]/n[1] (selected by which side of the frame the

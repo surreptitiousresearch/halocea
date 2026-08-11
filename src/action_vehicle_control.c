@@ -1,4 +1,4 @@
-/* action_vehicle_control @0x838214B8 — enter the "in vehicle" action for an actor: if flagged "prefer parked
+/* action_vehicle_control @0x83821490 — enter the "in vehicle" action for an actor: if flagged "prefer parked
  * destination" (+200), copies the actor's saved destination point (+216..224) into the vehicle action's
  * saved-destination fields (+1008..1016) and enters sub-state 4; otherwise enters sub-state 3 if the actor
  * has a path, or sub-state 0 if not. Always resets the sub-action progress fields.
@@ -15,9 +15,9 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_path_has_path(uint16_t actor_index);
+extern uint8_t actor_path_has_path(int actor_index);
 
-void action_vehicle_control(uint16_t actor_index)
+void action_vehicle_control(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

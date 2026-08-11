@@ -1,4 +1,4 @@
-/* players_compute_combined_pvs @0x836A9548 — ORs together the potential-visible-set (PVS) bit vectors
+/* players_compute_combined_pvs @0x836A9528 — ORs together the potential-visible-set (PVS) bit vectors
  * of the structure-BSP clusters that every player's unit currently occupies, producing the combined
  * set of clusters that must be rendered/simulated. In the editor it uses the free camera's cluster
  * instead. The activating-cluster (a script/trigger-forced cluster) is always folded in as well. When

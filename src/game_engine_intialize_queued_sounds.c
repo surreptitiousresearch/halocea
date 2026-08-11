@@ -1,4 +1,4 @@
-/* game_engine_intialize_queued_sounds @0x837B6CE0 — clear the multiplayer queued-sound ring and prime the
+/* game_engine_intialize_queued_sounds @0x837B6CB8 — clear the multiplayer queued-sound ring and prime the
  * first slot (empty, 60-tick lifetime). [Name retains the binary's misspelling of "initialize".] */
 
 #include <string.h>

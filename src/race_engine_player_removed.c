@@ -1,4 +1,4 @@
-/* race_engine_player_removed @0x8382B570 — as the multiplayer server (game_engine_get_variant()->
+/* race_engine_player_removed @0x8382B550 — as the multiplayer server (game_engine_get_variant()->
  * game_engine_variant, viewed through .ctf.single_flag_time at absolute offset 0x80, holds 2 here — the
  * mode selector, not a real CTF field), credits the leaving player's race score onto their team's
  * persistent total before recomputing team scores. The player's race score is the lap count,

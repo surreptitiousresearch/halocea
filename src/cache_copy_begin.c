@@ -1,4 +1,4 @@
-/* cache_copy_begin @0x83807ED0 — kick off an async cache-file copy: if no copy is already running/completing
+/* cache_copy_begin @0x83807EA8 — kick off an async cache-file copy: if no copy is already running/completing
  * (copy_complete_event not yet signaled), records the destination buffer and source file name, resets the
  * completion/stop events, clears the cached file header, and signals the copy thread to start.
  *

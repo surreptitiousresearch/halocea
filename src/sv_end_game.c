@@ -1,4 +1,4 @@
-/* sv_end_game @0x83765D90 — server console command: force the current game to end. Rejected off the
+/* sv_end_game @0x83765D78 — server console command: force the current game to end. Rejected off the
  * server. */
 
 #include <stdint.h>

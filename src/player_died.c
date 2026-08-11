@@ -18,7 +18,7 @@
 extern void hcex_fire_plr_event(const char *eventName, int plr_idx);
 extern void player_control_new_unit(int16_t local_player_index, int unit_index);
 extern int16_t game_connection(void);
-extern void update_server_player_died(uint16_t player_index);
+extern void update_server_player_died(int player_index);
 extern network_game_client *global_network_game_client_get(void);
 extern void player_update_history_clear(struct player_update_history *history);
 extern void player_cleanup_after_player_has_quit_game_and_no_longer_attached_to_unit(int player_index);

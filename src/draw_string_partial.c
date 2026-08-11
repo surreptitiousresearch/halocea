@@ -1,4 +1,4 @@
-/* draw_string_partial @0x8376A480 — draw one already-laid-out run of text. Intersects the optional bounds and
+/* draw_string_partial @0x8376A460 — draw one already-laid-out run of text. Intersects the optional bounds and
  * clip rectangles into a drawing region, then walks the string a character at a time (via parse_string),
  * looks up each glyph, advances the cursor, and blits the glyph clipped to the region by handing the clipped
  * destination/source offsets to the supplied draw_character callback. Characters inside the highlight range

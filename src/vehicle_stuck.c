@@ -1,4 +1,4 @@
-/* vehicle_stuck @0x83760E54 — if a vehicle currently has mass points in contact ("stuck"), report
+/* vehicle_stuck @0x83760E18 — if a vehicle currently has mass points in contact ("stuck"), report
  * the world-space direction from the vehicle origin toward the centroid of those contacting mass
  * points. The per-mass-point contact bitfield lives in the object datum at +1312; only set bits are
  * accumulated. The local centroid is transformed into world space and the offset from the object

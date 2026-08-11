@@ -1,4 +1,4 @@
-/* file_read_from_position @0x837E6E8C — seeks the open file to an absolute byte position (Win32 HANDLE at
+/* file_read_from_position @0x837E6E68 — seeks the open file to an absolute byte position (Win32 HANDLE at
  * file->data+264, see file_get_position.c); on a seek failure, clears the last error and bails out without
  * reading. Otherwise reads `count` bytes into `buffer`. */
 

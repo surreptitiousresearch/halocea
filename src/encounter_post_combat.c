@@ -52,12 +52,12 @@
 extern const int16_t global_post_combat_translation_table[];
 
 extern float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_sight, int *unit_index_reference, float *distance_reference);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 extern uint8_t encounter_post_combat_add_possibility(post_combat_possibility *possibility_array, int actor_index, float weight, int prop_index, int unit_index);
 extern int16_t encounter_post_combat_select_random_behavior(const post_combat_possibility (*possibilities)[2], post_combat_possibility *selected_possibility);
-extern int16_t actor_communication_team(uint16_t actor_index);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int16_t actor_communication_team(int actor_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 
 static void clear_post_combat_possibility(post_combat_possibility *possibility)
 {

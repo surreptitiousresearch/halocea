@@ -1,4 +1,4 @@
-/* heap_up @0x8381D0C8 — sift-up (bubble toward the root) one entry of an obstacle_path's binary min-heap
+/* heap_up @0x8381D0C0 — sift-up (bubble toward the root) one entry of an obstacle_path's binary min-heap
  * (ordered by step total_distance), used to maintain the pathfinding open list. */
 
 #include <stdint.h>

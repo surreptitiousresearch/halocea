@@ -20,9 +20,9 @@
 #include "headers/blam_data_globals.h"
 
 #include "headers/tag_block.h"
+#include "headers/tag_groups.h"
 extern int16_t string_list_find(const char *string, int16_t list_count, const char **string_list);
 extern int16_t hs_find_script_by_name(const char *name);
-extern int16_t tag_block_add_element(tag_block *block);
 extern int datum_new(data_array *data);
 extern uint8_t hs_parse(int expression_index, int16_t expected_type);
 extern char *strcpy(char *dst, const char *src);

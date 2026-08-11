@@ -34,7 +34,7 @@ extern int          hcex_cur_render_mode; // boundary
 extern unsigned int gsAppState2;          // boundary -- see CLAUDE.md gsAppState flag reference
 #define GS_APP_STATE2_SUSPEND_FRAME_SKIP 0x10000u
 
-// 0x823D0ED0
+// @0x823D0EA8
 hcexJOB_SYNC_INST::hcexJOB_SYNC_INST()
 {
     this->state.state = 0;

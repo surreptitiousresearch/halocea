@@ -1,4 +1,4 @@
-/* real_hsv_color_to_real_rgb_color @0x8377D5F0 — standard HSV→RGB conversion (the inverse of
+/* real_hsv_color_to_real_rgb_color @0x8377D5D8 — standard HSV→RGB conversion (the inverse of
  * real_rgb_color_to_real_hsv_color). Hue is mapped into one of six sextants; saturation 0 yields a
  * pure grey at the value level.
  *

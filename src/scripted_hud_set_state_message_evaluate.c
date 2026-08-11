@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void scripted_hud_set_state_message(int16_t message_index);
 void scripted_hud_set_state_message_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

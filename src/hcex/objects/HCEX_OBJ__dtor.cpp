@@ -1,4 +1,4 @@
-/* HCEX_OBJ dtor @0x823EDA80 — free followersOfs's backing storage directly (dlFree, no
+/* HCEX_OBJ dtor @0x823EDA68 — free followersOfs's backing storage directly (dlFree, no
  * per-element destructor since m3dMATR is trivially destructible) and run the real
  * dsVECTOR<ds::WEAK_PTR<entENTITY>,8> teardown on followers (releases each weak handle, then
  * frees the backing storage) via its already-reversed Clear() instantiation.

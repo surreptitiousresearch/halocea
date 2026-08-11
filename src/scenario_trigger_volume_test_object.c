@@ -1,4 +1,4 @@
-/* scenario_trigger_volume_test_object @0x83703EA0 — true if the object's origin lies inside the given
+/* scenario_trigger_volume_test_object @0x83703E98 — true if the object's origin lies inside the given
  * trigger volume. Returns false for a null object. The origin is the real_point3d at object data +160.
  *
  * GAME-VERSION NOTE (as-built, not a defect — do not "fix"): this build tests the object's BOUNDING

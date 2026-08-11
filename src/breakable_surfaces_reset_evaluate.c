@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void breakable_surfaces_reset(void);
 
 void breakable_surfaces_reset_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

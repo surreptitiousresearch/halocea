@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void scripted_camera_set_first_person(int unit_index);
 void scripted_camera_set_first_person_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {

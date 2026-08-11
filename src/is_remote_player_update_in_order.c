@@ -1,4 +1,4 @@
-/* is_remote_player_update_in_order @0x8376E234 — client-side gate for an incoming remote-player position
+/* is_remote_player_update_in_order @0x8376E228 — client-side gate for an incoming remote-player position
  * update: always accepts the first update (no prior sequence number). Otherwise, a wrapping sequence-number
  * comparison: if the new sequence number looks "behind" the last accepted one (difference in [-8,-4)),
  * that's a genuinely stale duplicate/reorder and is thrown away (logged, path "b"); if it looks "ahead" but

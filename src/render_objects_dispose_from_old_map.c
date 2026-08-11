@@ -1,4 +1,4 @@
-/* render_objects_dispose_from_old_map @0x836E5C84 — per-map teardown: invalidate the cached per-object
+/* render_objects_dispose_from_old_map @0x836E5C78 — per-map teardown: invalidate the cached per-object
  * render-state pool if it is live. */
 
 #include "headers/data_array.h"

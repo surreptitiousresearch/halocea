@@ -28,8 +28,8 @@
 extern int datum_new(data_array *data);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);
-extern void actor_clear_discarded_firing_positions(uint16_t actor_index, uint8_t clear_temporary_only);
-extern void actor_type_initialize(uint16_t actor_index);
+extern void actor_clear_discarded_firing_positions(int actor_index, uint8_t clear_temporary_only);
+extern void actor_type_initialize(int actor_index);
 
 int actor_new(int variant_definition_index)
 {

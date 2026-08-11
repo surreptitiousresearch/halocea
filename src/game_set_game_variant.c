@@ -1,4 +1,4 @@
-/* game_set_game_variant @0x83688310 — install the active game variant: copy it into the global slot
+/* game_set_game_variant @0x836882F0 — install the active game variant: copy it into the global slot
  * (touching the network game server), or clear the slot when given none. */
 
 #include "headers/game_variant.h"

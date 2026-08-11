@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-float actor_look_compute_prop_interest(uint16_t actor_index, uint16_t prop_index)
+float actor_look_compute_prop_interest(int actor_index, int prop_index)
 {
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
     float interest = 0.0f;

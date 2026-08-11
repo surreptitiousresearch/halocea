@@ -30,7 +30,7 @@ extern void carrier_decide_action(int actor_index);         /* 0x838272D8 */
 extern void sentinel_decide_action(int actor_index);        /* 0x83827100 */
 extern void mounted_weapon_decide_action(int actor_index);  /* 0x83826FF8 */
 extern void infection_swarm_control(int actor_index);       /* 0x83827710 */
-extern void infection_swarm_aim_jump(uint16_t actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity); /* 0x83828848 */
+extern void infection_swarm_aim_jump(int actor_index, int unit_index, float jump_magnitude, real_vector3d *jump_velocity); /* 0x83828848 */
 
 /*                                                          name              race wsat wtp wsp pc swarm  init  decide_action                   swarm_control/aim_jump */
 static actor_type_definition actor_type_elite          = { "elite",             _race_covenant, 0,   1,  1,  1, 0,   0, elite_decide_action,          0, 0 };                       /* @0x84186898 */

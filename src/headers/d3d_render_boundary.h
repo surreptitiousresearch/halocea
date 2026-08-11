@@ -15,6 +15,7 @@
 #include "_D3DCUBEMAP_FACES.h"
 #include "_D3DLOCKED_RECT.h"
 #include "_D3DLOCKED_BOX.h"
+#include "_D3DBOX.h"
 
 /* Direct3D render-resource boundary types (Xbox 360 D3D SDK — not decompiled).
  *
@@ -29,9 +30,18 @@ extern "C" {
 #endif
 extern D3DSurface *D3DDevice_GetRenderTarget(D3DDevice *device, unsigned int RenderTargetIndex);
 extern void D3DSurface_GetDesc(D3DSurface *surface, _D3DSURFACE_DESC *desc);
+/* pRect stays `const void *` here (the DB decl spells it `const tagRECT *`) to match the sibling
+ * LockRect/LockBox declarations below and the identical local extern in
+ * rasterizer_render_target_sample_back_buffer.c, which includes this header. */
+extern void D3DSurface_LockRect(D3DSurface *surface, _D3DLOCKED_RECT *pLockedRect,
+                                const void *pRect, unsigned int Flags);
 extern D3DQuery *D3DDevice_CreateQueryTiled(D3DDevice *device, _D3DQUERYTYPE type, unsigned int tiled);
 
-extern void D3DDevice_SetViewport(D3DDevice *device, _D3DVIEWPORT9 *viewport);
+/* DB decl @ 0x8241A090: void __fastcall D3DDevice_SetViewport(D3DDevice *, const _D3DVIEWPORT9 *).
+ * The divergence noted here before #140 is resolved: the drifted non-const `extern "C"` in
+ * src/ws/vid/d3dDRIVER__SetViewport.cpp (which reaches this header through d3d_driver.h and made
+ * const-qualifying `error C2733`) was retired, so this is now the only declaration of the symbol. */
+extern void D3DDevice_SetViewport(D3DDevice *device, const _D3DVIEWPORT9 *viewport);
 extern void D3DDevice_Clear(D3DDevice *device, unsigned int count, const void *rects,
                             unsigned int flags, unsigned int color, float z,
                             unsigned int stencil, int a8);

@@ -1,4 +1,4 @@
-/* metrics_generate_filename @0x83818D04 — build the path for a metrics dump file:
+/* metrics_generate_filename @0x83818CD8 — build the path for a metrics dump file:
  * "message metrics\<timestamp> <base>". */
 
 #include "headers/metrics_globals.h"

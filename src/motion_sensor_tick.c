@@ -1,3 +1,4 @@
+/* motion_sensor_tick @0x837BD730 */
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 #include <stdint.h>

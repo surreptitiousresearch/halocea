@@ -1,4 +1,4 @@
-/* recorded_animation_byteswap_unit_control @0x83826E14 — byte-swaps a unit_control_data record already written
+/* recorded_animation_byteswap_unit_control @0x83826E00 — byte-swaps a unit_control_data record already written
  * into the recording stream, in place, applying every version's field table from 0 up through unit_version (or
  * just version 0 when unit_version is 0/1) cumulatively — same version-table walk as
  * recorded_animation_write_unit_control.c, but swapping bytes at the stream cursor instead of copying from a

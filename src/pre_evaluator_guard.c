@@ -1,4 +1,4 @@
-/* pre_evaluator_guard @0x837EE9B0 — pre-evaluation bonus for the "guard" behavior: for every valid firing
+/* pre_evaluator_guard @0x837EE9A8 — pre-evaluation bonus for the "guard" behavior: for every valid firing
  * position, add a bonus (0 to 8.0, scaled by how close path_distance_from_actor is to
  * maximum_allowable_range) to its running evaluation score — positions near the edge of the allowed range
  * score higher, up to the full +8.0 once at or beyond it; positions within the first half of the range score

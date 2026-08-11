@@ -1,4 +1,4 @@
-/* structure_visibility_build_surfaces_traverse_clusters @0x837C54DC — gather, into surface_indices, the
+/* structure_visibility_build_surfaces_traverse_clusters @0x837C54C8 — gather, into surface_indices, the
  * visible BSP surfaces that fall inside a bounding volume, scanning only a supplied list of clusters. For each
  * cluster's subclusters whose AABB intersects the bounding box and the optional cull planes, each listed
  * surface that is both flagged visible (render.environment_surface_flags) and not yet collected

@@ -38,14 +38,14 @@ extern int object_get_ultimate_parent(int object_index);
 extern void actor_swarm_detach_from_unit(int actor_index, int unit_index);
 extern int actor_create_for_unit(uint8_t swarm, int unit_index, int actor_variant_definition_index, int encounter_index, int16_t squad_index, uint8_t allow_addition_to_other_squads, int disallow_actor_index, uint8_t initially_braindead, int16_t initial_state, int16_t default_state, int16_t initial_command_list_index, char noncombat_sequence_id);
 extern void object_delete(int object_index);
-extern void actor_flush_position_indices(uint16_t actor_index);
+extern void actor_flush_position_indices(int actor_index);
 extern void encounter_detach_actor(int actor_index, uint8_t died);
 extern void encounterless_attach_actor(int actor_index);
 extern void encounter_force_deactivate(int encounter_index);
-extern void actor_flush_structure_indices(uint16_t actor_index);
+extern void actor_flush_structure_indices(int actor_index);
 extern void encounter_actor_iterator_new(encounter_actor_iterator *iterator, int encounter_index);
 extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iterator);
-extern void prop_iterator_new(prop_iterator *iterator, uint16_t actor_index);
+extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 

@@ -1,4 +1,4 @@
-/* rasterizer_model_ambient_reflection_tint @0x8378D244 — set the global model ambient-reflection
+/* rasterizer_model_ambient_reflection_tint @0x8378D240 — set the global model ambient-reflection
  * tint (brightness in alpha slot, then RGB), when the tint block is present.
  *
  * DEVIATION: the four color components arrive as doubles via the soft-float ABI; the stored fields

@@ -1,4 +1,4 @@
-/* weapon_prevents_grenade_throwing @0x836D942C — does the unit's current weapon block grenade throws?
+/* weapon_prevents_grenade_throwing @0x836D9420 — does the unit's current weapon block grenade throws?
  * No weapon (index -1) blocks (returns 1). Otherwise the base answer is the weapon definition flag
  * bit 6, but a weapon mid-action — its weapon state in the range [5,10] — always blocks. */
 

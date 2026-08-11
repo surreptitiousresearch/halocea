@@ -1,4 +1,4 @@
-/* aim_assist_compute_target @0x836C5C78 — fill in the aim-assist geometry for a candidate target object.
+/* aim_assist_compute_target @0x836C5C60 — fill in the aim-assist geometry for a candidate target object.
  * Computes the object's autoaim point (object_compute_autoaim_target), the vector and unit direction from
  * the shooter's position to it, the distance, and the angle between the aim direction and the target
  * direction. With parameters supplied, the autoaim and magnetism levels are the composite angle/distance

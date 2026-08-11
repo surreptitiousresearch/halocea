@@ -1,4 +1,4 @@
-/* compare_rendered_particles::operator() @0x83820330 — qsort-style comparator ordering rendered_particle_datum
+/* compare_rendered_particles::operator() @0x83820328 — qsort-style comparator ordering rendered_particle_datum
  * entries by (definition_index, cluster_index, attached_to_first_person_weapon), used by render_sort_particles
  * to group same-definition/same-cluster/same-attachment particles into contiguous runs. The DB's own body
  * returns a `bool` "particle0 < particle1" (STL strict-weak-order predicate, `v5 >> 31` is a sign-bit less-than

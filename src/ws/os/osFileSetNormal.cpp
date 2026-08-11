@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osFileSetNormal @0x825E6B70 (?osFileSetNormal@@YAHPBD@Z)
 #include "../../headers/ws/os/os_boundary.h"
 
 // Thin wrapper around Win32 SetFileAttributesA(name, FILE_ATTRIBUTE_NORMAL).

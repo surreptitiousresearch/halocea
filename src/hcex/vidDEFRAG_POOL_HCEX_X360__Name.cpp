@@ -1,3 +1,4 @@
+// vidDEFRAG_POOL_HCEX_X360__Name @0x823EF6C0
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 
 // vidDEFRAG_POOL_HCEX_X360::Name @ 0x823EF6C8 — static pool identifier, used by the registration

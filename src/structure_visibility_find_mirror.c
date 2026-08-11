@@ -1,4 +1,4 @@
-/* structure_visibility_find_mirror @0x837C5298 — search the clusters visible from the camera's cluster for a
+/* structure_visibility_find_mirror @0x837C5268 — search the clusters visible from the camera's cluster for a
  * mirror (reflective) surface inside the view frustum. Starting from the camera cluster's PVS bit vector, each
  * visible cluster's mirror list is walked: a portal hull is built from each mirror's screen-projected polygon,
  * and a mirror counts as visible if the projection is fully inside the frustum (portal result 2) or its hull

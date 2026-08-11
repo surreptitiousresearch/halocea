@@ -1,4 +1,4 @@
-/* collision_test_sphere @0x83772E30 — tests whether a sphere at `center` (ignoring one object) collides with
+/* collision_test_sphere @0x83772DF8 — tests whether a sphere at `center` (ignoring one object) collides with
  * the world: first a coarse point-in-bsp3d test (treats "outside the bsp" as a collision), then a precise
  * breakable-surface-aware sphere test against the collision bsp. */
 

@@ -1,4 +1,4 @@
-/* data_delete_all @0x836FAD40 — empty a data array in place: reset the bookkeeping counters, reseed the
+/* data_delete_all @0x836FAD18 — empty a data array in place: reset the bookkeeping counters, reseed the
  * identifier counter from the array name (high bit set), and clear every datum's identifier word so all
  * slots read as free. */
 

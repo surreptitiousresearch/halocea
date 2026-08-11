@@ -1,6 +1,6 @@
 #include "headers/d3d_render_state_boundary.h"
 
-// 0x82695154 -- Xbox 360 EDRAM piecewise-linear gamma-decode curve: `C` (0..1) is scaled to an
+// @0x82695148 -- Xbox 360 EDRAM piecewise-linear gamma-decode curve: `C` (0..1) is scaled to an
 // 8-bit channel value, then mapped through 4 linear segments (breakpoints at 64/96/192) each
 // normalized by 1/1023 (0.00097751711 == 1/1023.0).
 float d3dPWLDeGamma(float C)

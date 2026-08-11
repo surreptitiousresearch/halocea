@@ -1,4 +1,4 @@
-/* player_teleport @0x836AB188 — teleport a player's unit to a position. The unit (player record dword
+/* player_teleport @0x836AB158 — teleport a player's unit to a position. The unit (player record dword
  * +52) must be a valid object; if it currently occupies a seat (dword +71 set), eject it first, then
  * perform the actual teleport. */
 

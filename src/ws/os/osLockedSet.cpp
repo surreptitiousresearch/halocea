@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osLockedSet @0x825E5578 (?osLockedSet@@YAHPAHH@Z)
 // DEVIATION: this is not a wrapper around a Win32/xboxkrnl Interlocked* export -- the disasm
 // shows a hand-written lock-free primitive built directly from PowerPC load-link/store-conditional
 // (lwarx/stwcx.) with interrupts masked around the reservation (mfmsr/mtmsree toggling the MSR[EE]

@@ -5,7 +5,7 @@
 
 /*
  * hkaWaveletCompressedAnimation -- wavelet-compressed animation block decoder
- * (file-static _decompress). Reconstructed from a badly ABI-modelled decompile;
+ * (file-static _decompress @0x838BE290). Reconstructed from a badly ABI-modelled decompile;
  * the disassembly (0x838BE290) is authoritative.
  *
  * CAVEAT (deviations from the decompiler output):

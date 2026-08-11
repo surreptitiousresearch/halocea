@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: dsVECTOR<apCOUNTER_UNIT,8>::CallNew<apCOUNTER_UNIT> @0x82719320 (??$CallNew@UapCOUNTER_UNIT@@@?$dsVECTOR@UapCOUNTER_UNIT@@$07@@QAAPAUapCOUNTER_UNIT@@PAU1@@Z)
 #include "dsVECTOR.h"
 #include "../ap/apCOUNTER_UNIT.h"
 #include <new> // placement new

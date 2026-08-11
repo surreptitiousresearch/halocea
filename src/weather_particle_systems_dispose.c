@@ -1,4 +1,4 @@
-/* weather_particle_systems_dispose @ 0x8373C088 — free the weather particle pool */
+/* weather_particle_systems_dispose @ 0x8373C210 — free the weather particle pool */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 #include "headers/data_array.h"

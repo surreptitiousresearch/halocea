@@ -1,4 +1,4 @@
-/* players_apply_server_position_to_specific_client @0x836AB510 — on a client (game_connection 1) for a
+/* players_apply_server_position_to_specific_client @0x836AB4E0 — on a client (game_connection 1) for a
  * remote player (no local player index), apply the latest server position to that player's unit if the
  * unit just completed a client update. Vehicle drivers use the vehicle update path (when the new scheme is
  * enabled), everyone else the position path; the just-completed flag is then cleared. */

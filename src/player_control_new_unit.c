@@ -1,4 +1,4 @@
-/* player_control_new_unit @0x836DE364 — resets a local player's control state when they take control of a
+/* player_control_new_unit @0x836DE330 — resets a local player's control state when they take control of a
  * new unit. Clears the control block, then seeds the desired look angles from the unit's facing, and the
  * desired weapon/grenade/zoom selections from the unit's current state. Pitch is clamped to ~±85.5°.
  *

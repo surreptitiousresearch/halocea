@@ -1,4 +1,4 @@
-/* game_engine_play_multiplayer_sound_to_specific_player @0x837B6BE8 — plays a multiplayer sound for a
+/* game_engine_play_multiplayer_sound_to_specific_player @0x837B6BB0 — plays a multiplayer sound for a
  * player, queueing it if the sound is marked queueable so that overlapping requests are spaced out. A
  * queued entry records the sound's playback duration (in ticks) plus a 5-tick guard; only when the queue
  * transitions from empty to one entry (or the sound is not queueable) is it played immediately. Sounds

@@ -6,7 +6,7 @@
 #include "../ds/dsVECTOR.h"
 #include "../ds/ds_boundary.h"
 #include "../../headers/apCL.h"
-// 0x8251F480 — deep-copy construct: same interned name, a fresh owning branch (own top-level
+// @0x8251F468 — deep-copy construct: same interned name, a fresh owning branch (own top-level
 // refcount, not shared with `data`'s branch), a referenced copy of the parent list, and a
 // record-by-record copy of the ordered records — sub-section-valued records are recursively
 // deep-copied (and re-owned by this new body); all other records are copied via dsDATA::StoreValue.

@@ -7,7 +7,7 @@
 #include "headers/actor_datum.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_flush_position_indices(uint16_t actor_index);
+extern void actor_flush_position_indices(int actor_index);
 
 void encounterless_attach_actor(int actor_index)
 {

@@ -1,4 +1,4 @@
-/* hcex_obj_collect @0x83681FD0 — one-time bridge pass that mirrors the Blam world into the hcex render
+/* hcex_obj_collect @0x83681FA8 — one-time bridge pass that mirrors the Blam world into the hcex render
  * layer after a map loads. For every object it initializes and customizes the hcex proxy; for every light
  * attached to a valid object at a "flashlight" marker it creates an hcex light; and for every effect it
  * seeds the hcex location-based effect proxy.

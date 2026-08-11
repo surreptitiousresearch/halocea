@@ -1,4 +1,4 @@
-/* director_choose_game_perspective @0x836E504C — picks the camera perspective (first-person vs
+/* director_choose_game_perspective @0x836E5028 — picks the camera perspective (first-person vs
  * following) for a local player's director, based on what the player's unit currently wants. When not
  * forced, it only re-initializes the camera if switching away from the opposite perspective, and it
  * starts a brief camera-change pause. Always latches the desired seat state. */

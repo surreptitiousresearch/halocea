@@ -1,4 +1,4 @@
-/* object_types_dispose @0x8370167C — one-time shutdown: call each registered object type's dispose
+/* object_types_dispose @0x83701660 — one-time shutdown: call each registered object type's dispose
  * hook, walking the object-type definition list.
  *
  * The dispose hooks are void(void) (object_type_definition.dispose; disasm-confirmed: registered

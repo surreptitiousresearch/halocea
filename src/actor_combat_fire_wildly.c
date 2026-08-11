@@ -7,7 +7,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_combat_fire_wildly(uint16_t actor_index, int16_t fire_ticks)
+void actor_combat_fire_wildly(int actor_index, int16_t fire_ticks)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor->control.fire_state = actor_fire_state_wild;

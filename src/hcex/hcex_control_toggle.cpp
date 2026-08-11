@@ -1,4 +1,4 @@
-/* hcex_control_toggle @0x836837A8 — HCEX bridge hook fired when a scenario control (e.g. a lift) is
+/* hcex_control_toggle @0x83683778 — HCEX bridge hook fired when a scenario control (e.g. a lift) is
  * toggled. Identifies the control by its scenario object name and, on the c10 map, fires the
  * corresponding HCEX telemetry event: entering the forerunner-facility lift ("lift_a_cont_a") emits
  * "c10_enter_ff" with the current game time, leaving it ("lift_d_cont_a") emits "c10_exit_ff" with the

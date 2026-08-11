@@ -21,7 +21,7 @@
 
 extern int16_t ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant, actor_definition *source_actor, uint8_t match_by_squad_index, int target_encounter_index, int unused_target_ai_index, const char *unused_debug_description);
 extern void actor_change_encounter(int actor_index, int encounter_index, int16_t squad_index);
-extern void actor_stimulus_maneuvering(uint16_t actor_index, uint8_t advancing, uint8_t flee);
+extern void actor_stimulus_maneuvering(int actor_index, uint8_t advancing, uint8_t flee);
 
 void ai_scripting_migrate_by_unit_internal(int unit_index, int ai_index, uint8_t generate_stimulus, uint8_t advancing_stimulus)
 {

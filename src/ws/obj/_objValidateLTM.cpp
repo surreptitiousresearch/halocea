@@ -2,7 +2,7 @@
 #include "../anim/animINST.h"
 #include "../m3d/m3dMATR.h"
 #include "obj_free_functions.h"
-// 0x82A72030  ?_objValidateLTM@@YAXPAVobjOBJ@@@Z
+// @0x82A72030  ?_objValidateLTM@@YAXPAVobjOBJ@@@Z
 // Internal recursive LTM validator used by objValidateLTM(). Walks up to the root via
 // objOBJ::parent (validating ancestors first), then computes this node's matrLT:
 //   - has a parent   -> inherit parent->matrLT verbatim, or compose matrModel * parent->matrLT

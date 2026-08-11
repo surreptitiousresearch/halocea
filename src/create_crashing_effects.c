@@ -1,4 +1,4 @@
-/* create_crashing_effects @0x8375FE54 — when a vehicle's velocity changes abruptly (a crash/landing),
+/* create_crashing_effects @0x8375FE00 — when a vehicle's velocity changes abruptly (a crash/landing),
  * spawn the crash damage effect and impulse sound. The impact speed is the magnitude of the velocity
  * delta (current object velocity minus the velocity before the physics step). Effects only fire if the
  * speed exceeds a small threshold AND at least one of the collision model's mass points is flagged as a

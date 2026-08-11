@@ -1,4 +1,4 @@
-/* biped_update_baseline @0x837ADC50 — snapshot a biped object's network-baseline copy: record body/shield
+/* biped_update_baseline @0x837ADC40 — snapshot a biped object's network-baseline copy: record body/shield
  * vitality (shield scaled by 1/3), grenade counts and the shield-stun sign flag, advance the baseline
  * generation index, mark the baseline valid, and reset the message index.
  *

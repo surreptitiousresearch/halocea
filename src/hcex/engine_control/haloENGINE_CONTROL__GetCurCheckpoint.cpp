@@ -1,3 +1,4 @@
+// haloENGINE_CONTROL__GetCurCheckpoint @0x823C1340
 #include "../../headers/hcex/haloENGINE_CONTROL.h"
 
 // haloENGINE_CONTROL::GetCurCheckpoint @ 0x823C1344 — name of the most recently loaded/saved checkpoint.

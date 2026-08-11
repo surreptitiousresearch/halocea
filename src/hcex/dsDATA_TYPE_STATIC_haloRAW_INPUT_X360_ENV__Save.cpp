@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: ds_data::dsDATA_TYPE_STATIC<haloRAW_INPUT_X360_ENV>::Save @0x823BDF00 (?Save@?$dsDATA_TYPE_STATIC@UhaloRAW_INPUT_X360_ENV@@@ds_data@@SAHABUhaloRAW_INPUT_X360_ENV@@PAVfioFILE@@@Z)
 #include "../headers/ws/ds/ds_boundary.h"
 #include "../headers/ws/dbg/STRONG_ASSERT_DUMMY.h"
 #include "../headers/hcex/halo_ds_data_type_boundary.h"

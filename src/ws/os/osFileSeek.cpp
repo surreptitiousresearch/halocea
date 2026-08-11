@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osFileSeek @0x825E5BD8 (?osFileSeek@@YAHPAUosFILE_HANDLE_DUMMY@@HW4OS_FILE_SEEK@@@Z)
 #include "../../headers/ws/os/os_boundary.h"
 #include "../../headers/ws/os/osFILE_HANDLE_DUMMY.h"
 #include "../../headers/ws/os/OS_FILE_SEEK.h"

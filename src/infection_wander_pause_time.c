@@ -1,4 +1,4 @@
-/* infection_wander_pause_time @0x838275CC — pick a randomized pause duration (in ticks, clamped to a byte,
+/* infection_wander_pause_time @0x838275B0 — pick a randomized pause duration (in ticks, clamped to a byte,
  * 0xFF = "no limit" on overflow) for an infection-form wander movement type: 4-5s type 1, 2-2.8s type 2,
  * 0.4-1s type 3, else a flat 1s (no randomization). */
 

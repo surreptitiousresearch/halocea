@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkpConvexVerticesConnectivityUtil__findConnectivity_impl @0x83F92E38 (?_findConnectivity@@YAPAVhkpConvexVerticesConnectivity@@ABV?$hkArray@VhkVector4@@@@00AAVhkGeomHull@@@Z)
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkGeomHull.h"

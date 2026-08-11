@@ -9,7 +9,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_look_secondary_stop(uint16_t actor_index)
+void actor_look_secondary_stop(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor->control.secondary_look_type     = _secondary_look_none;            /* word index 674 */

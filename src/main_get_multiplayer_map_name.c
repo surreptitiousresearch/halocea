@@ -1,4 +1,4 @@
-/* main_get_multiplayer_map_name @0x83688FDC — return the currently selected multiplayer map name. */
+/* main_get_multiplayer_map_name @0x83688FD0 — return the currently selected multiplayer map name. */
 
 #include "headers/main_globals.h"
 

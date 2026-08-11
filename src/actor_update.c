@@ -23,18 +23,18 @@
 
 #include "headers/action_state_data.h"
 extern uint8_t actor_general_update(int actor_index);
-extern int actor_get_timeslice(uint16_t actor_index);
+extern int actor_get_timeslice(int actor_index);
 extern void actor_input_update(int actor_index);
 extern void actor_perception_update(int actor_index);
 extern void actor_situation_update(int actor_index);
 extern void actor_emotion_update(int actor_index);
-extern void actor_type_decide_action(uint16_t actor_index);
+extern void actor_type_decide_action(int actor_index);
 extern void actor_stimulus_clear(int actor_index);
-extern uint8_t actor_action_perform(uint16_t actor_index);
+extern uint8_t actor_action_perform(int actor_index);
 extern void actor_action_change(int actor_index, int new_action_type, action_state_data *new_action_data);
-extern void actor_action_update(uint16_t actor_index);
-extern void actor_type_swarm_control(uint16_t actor_index);
-extern void actor_action_control(uint16_t actor_index);
+extern void actor_action_update(int actor_index);
+extern void actor_type_swarm_control(int actor_index);
+extern void actor_action_control(int actor_index);
 extern void actor_communication_update(int actor_index);
 extern void actor_conversation_control(int actor_index);
 extern void actor_destination_update(int actor_index);

@@ -1,6 +1,6 @@
 #include "../../headers/ws/gs/gsSTRINGS.h"
 
-// 0x826B4DD0 — copy `text` into `buf` (up to bufLen-1 chars, NUL-terminated), widening each byte.
+// @0x826B4DC8 — copy `text` into `buf` (up to bufLen-1 chars, NUL-terminated), widening each byte.
 void gsSTRINGS::AsciiToUnicode(const char *text, wchar_t *buf, int bufLen)
 {
     wchar_t *dst = buf;

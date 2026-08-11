@@ -1,4 +1,4 @@
-/* match_game_type @0x8374CD78 — does the active game engine type satisfy any entry in a game-type list?
+/* match_game_type @0x8374CD68 — does the active game engine type satisfy any entry in a game-type list?
  * Each list entry is either a concrete engine type (matched directly) or one of three category codes:
  * 12 matches all types; 13 matches every type except ctf; 14 matches every type except ctf and race. With no
  * game engine (single-player), the list matches only if every entry is 0. Returns nonzero on a match. */

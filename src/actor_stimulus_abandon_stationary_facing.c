@@ -1,4 +1,4 @@
-/* actor_stimulus_abandon_stationary_facing @0x837D5390 — if an actor is holding a stationary facing and
+/* actor_stimulus_abandon_stationary_facing @0x837D5378 — if an actor is holding a stationary facing and
  * its character definition allows abandoning it (abandon time @ tag +820 > 0), clear the holding flag and
  * arm the abandon timer (time * 30 ticks, actor word +858). If the actor's perceived enemy prop is very
  * close (prop->distance < 4.0), bump the actor's reaction value (emotions.perceived_danger) up to at
@@ -13,7 +13,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void actor_stimulus_abandon_stationary_facing(uint16_t actor_index)
+void actor_stimulus_abandon_stationary_facing(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *character = TAG_GET(actor_definition, actor->meta.definition_index);

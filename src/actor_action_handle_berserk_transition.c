@@ -10,7 +10,7 @@
 #include "headers/actor_combat_status.h"
 #include "headers/blam_data_globals.h"
 
-extern void actor_berserk(uint16_t actor_index, uint8_t berserk);
+extern void actor_berserk(int actor_index, uint8_t berserk);
 extern uint8_t actor_action_handle_combat_selection(int actor_index);
 
 int actor_action_handle_berserk_transition(int actor_index, int16_t berserk_level)

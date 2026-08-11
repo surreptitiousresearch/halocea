@@ -1,4 +1,4 @@
-/* sound_stop @ 0x83716BF0 — tear down a playing/queued sound instance. Releases its hardware
+/* sound_stop @ 0x83716BC8 — tear down a playing/queued sound instance. Releases its hardware
  * channel (returning cached permutations), and frees the sound's cache pages. For a music outro
  * (class 32, state 4) that owns a looping-sound definition, it walks every track's start/loop/
  * alt-loop/end/alt-end sound reference and evicts all of their unlocked cached permutations.

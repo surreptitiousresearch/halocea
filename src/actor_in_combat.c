@@ -11,7 +11,7 @@
 
 /* return attested uint8_t: callee byte-normalizes (clrlwi r3,24 @0x8371DBD4) and callers
  * re-normalize with clrlwi 24 (encounter_update_status @0x8370D748, actor_perception_update). */
-uint8_t actor_in_combat(uint16_t actor_index)
+uint8_t actor_in_combat(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     if ( actor->state.mode != _actor_mode_combat )

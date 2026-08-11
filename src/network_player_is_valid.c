@@ -1,4 +1,4 @@
-/* network_player_is_valid @0x83782C14 — a network player is valid when present, with a controller index of
+/* network_player_is_valid @0x83782C10 — a network player is valid when present, with a controller index of
  * 0 or 1 and a machine index in [0, 16). */
 
 #include <stdint.h>

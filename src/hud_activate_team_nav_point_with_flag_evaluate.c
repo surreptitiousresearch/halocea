@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 extern int * hs_macro_function_evaluate(int16_t function_index, int thread_index, uint8_t initialize);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void hud_activate_team_nav_point_with_flag(int16_t nav_index, int16_t team_index, int16_t flag_index, float vertical_offset);
 
 void hud_activate_team_nav_point_with_flag_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

@@ -1,4 +1,4 @@
-/* stack_memory_pool_compact @0x838032D0 — slide every free (not-in-use) block in the pool's block chain down
+/* stack_memory_pool_compact @0x838032C0 — slide every free (not-in-use) block in the pool's block chain down
  * to close the gap left by the block before it, coalescing free space toward the end of the pool. No-op if
  * the pool is empty or locked. */
 

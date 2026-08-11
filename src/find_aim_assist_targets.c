@@ -1,4 +1,4 @@
-/* find_aim_assist_targets @0x836C6200 — gather candidate auto-aim / magnetism targets along an aiming ray.
+/* find_aim_assist_targets @0x836C61D8 — gather candidate auto-aim / magnetism targets along an aiming ray.
  * Picks the larger of the autoaim/magnetism distance and angle, bails if either is non-positive, then
  * finds all structure clusters inside the resulting cone, collects the objects in those clusters, and runs
  * each object through find_aim_assist_targets_recursive to accumulate up to maximum_target_count results.

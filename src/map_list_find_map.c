@@ -1,4 +1,4 @@
-/* map_list_find_map @0x8376724C — find the multiplayer map list index whose name contains the given map name
+/* map_list_find_map @0x83767230 — find the multiplayer map list index whose name contains the given map name
  * (case-insensitive substring match). Returns -1 if not found. */
 
 #include <string.h>

@@ -1,4 +1,4 @@
-/* hud_unit_deactivate_nav_point_with_flag @0x837EE144 — deactivate a flag-anchored HUD nav point for
+/* hud_unit_deactivate_nav_point_with_flag @0x837EE130 — deactivate a flag-anchored HUD nav point for
  * the player controlling the given unit (no-op if the unit isn't player-controlled). */
 
 #include <stdint.h>

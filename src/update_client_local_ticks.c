@@ -1,4 +1,4 @@
-/* update_client_local_ticks @0x836F6C74 — in a local (non-networked) game, feed the client's saved
+/* update_client_local_ticks @0x836F6C60 — in a local (non-networked) game, feed the client's saved
  * action collection to the server-update path for the elapsed ticks: allocate a wrapping local update id
  * (mod 64), submit the actions as one client update, then drive the server to build one server update per
  * elapsed tick. */

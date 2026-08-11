@@ -1,4 +1,4 @@
-/* texture_cache_locked_block_proc @0x836F3F90 — predicate for the texture cache's locked-block
+/* texture_cache_locked_block_proc @0x836F3F70 — predicate for the texture cache's locked-block
  * scan: returns true when the cache block at the given index is unlocked (lock count byte == 0).
  * Block records are a stride-16 datum array; the lock byte lives at +4. */
 

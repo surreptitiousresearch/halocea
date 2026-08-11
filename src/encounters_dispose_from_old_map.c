@@ -1,4 +1,4 @@
-/* encounters_dispose_from_old_map @0x83709184 — per-map teardown: invalidate the encounter and pursuit
+/* encounters_dispose_from_old_map @0x83709170 — per-map teardown: invalidate the encounter and pursuit
  * data pools. */
 
 #include "headers/data_array.h"

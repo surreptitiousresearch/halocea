@@ -1,4 +1,4 @@
-/* hud_unit_activate_nav_point_with_object @0x837EE0F4 — activate an object-anchored HUD nav point for
+/* hud_unit_activate_nav_point_with_object @0x837EE0C8 — activate an object-anchored HUD nav point for
  * the player controlling the given unit (no-op if the unit isn't player-controlled).
  *
  * DEVIATION: vertical_offset arrives as a double via the soft-float ABI; it is a float. */

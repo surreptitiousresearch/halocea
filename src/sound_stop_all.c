@@ -1,4 +1,4 @@
-/* sound_stop_all @0x8371985C — stop every active sound: halt each playing sound, drop all looping
+/* sound_stop_all @0x83719840 — stop every active sound: halt each playing sound, drop all looping
  * sounds, flush the platform mixer, and reset the scripted-dialog gate. No-op until sound init. */
 
 #include <stdint.h>

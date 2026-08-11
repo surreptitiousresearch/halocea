@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "headers/hs_runtime_globals.h"
 
-extern const char * hs_thread_format(uint16_t thread_index);
+extern const char * hs_thread_format(int thread_index);
 
 const char * hs_runtime_get_executing_thread_name(void)
 {

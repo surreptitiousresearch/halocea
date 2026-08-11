@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 
-void actor_action_control(uint16_t actor_index)
+void actor_action_control(int actor_index)
 {
     /* recovered: (int16_t *)actor_data->data + 914*idx + 54 -> actor_datum.state.action
      * (914*2 = 1828 = sizeof(actor_datum), +54*2 = +108 = 0x6C). */

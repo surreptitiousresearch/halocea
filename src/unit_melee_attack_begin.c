@@ -1,4 +1,4 @@
-/* unit_melee_attack_begin @0x836CED80 — starts a unit's melee (or continuous melee) attack. Fails if the
+/* unit_melee_attack_begin @0x836CED40 — starts a unit's melee (or continuous melee) attack. Fails if the
  * unit's animation is busy. It selects the melee animation state (continuous -> 32; otherwise the "overheat"
  * state 41 when already in state 40, else 30/31 depending on a biped flag), applies it, optionally forces
  * the throwing state, aligns facing toward the target, and arms the melee-impact counters. Returns 1 if the

@@ -1,4 +1,4 @@
-/* model_find_node @0x837991CC — finds a model's node index by name (case-sensitive exact match). Returns
+/* model_find_node @0x837991C8 — finds a model's node index by name (case-sensitive exact match). Returns
  * -1 if the model index is -1, the model has no nodes, or no node matches. */
 
 #include <string.h>

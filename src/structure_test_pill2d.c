@@ -1,4 +1,4 @@
-/* structure_test_pill2d @0x8381CB54 — tests a "pill" (thickened 2D segment: start_point/end_point offset by
+/* structure_test_pill2d @0x8381CB28 — tests a "pill" (thickened 2D segment: start_point/end_point offset by
  * +-radius along the segment's perpendicular) against the structure BSP by casting two straight edge lines
  * (`structure_test_line2d`) on the right and left sides. Both offset points are first clipped into their
  * surface via a same-surface probe cast (so the pill's edges start from valid structure-relative positions even

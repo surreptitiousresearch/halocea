@@ -1,4 +1,4 @@
-/* rasterizer_dx9_dynamic_vertex_buffer_set @0x83724064 — bind the dynamic vertex buffer (or none, if
+/* rasterizer_dx9_dynamic_vertex_buffer_set @0x83724048 — bind the dynamic vertex buffer (or none, if
  * vertex_buffer_index is 0) to a D3D stream, computing the same PendingMask3 bit as the
  * D3DDevice_SetStreamSource_Inline_N family: (1ULL<<63) >> (((95-stream_index)*0x5556)>>16 + 32).
  *

@@ -38,7 +38,7 @@ extern void unit_estimate_position(int unit_index, int16_t estimate_mode, const 
 extern float normalize2d(real_vector2d *v);
 extern int16_t ai_test_line_of_sight(const real_point3d *p0, int16_t p0_cluster_index, const real_point3d *p1, int16_t p1_cluster_index, int16_t mode, uint8_t test_line_of_fire, int ignore_object_index, uint8_t ignore_vehicles);
 
-void firing_position_compute_line_of_sight(uint16_t actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position)
+void firing_position_compute_line_of_sight(int actor_index, firing_position_evaluation_context *evaluation_context, firing_position *firing_position)
 {
     int16_t evaluation_mode = evaluation_context->evaluation_mode;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);

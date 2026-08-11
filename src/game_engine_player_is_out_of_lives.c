@@ -1,4 +1,4 @@
-/* game_engine_player_is_out_of_lives @0x8374737C — true when a finite-lives variant is active, the
+/* game_engine_player_is_out_of_lives @0x83747370 — true when a finite-lives variant is active, the
  * player slot is unoccupied by a living unit (object index -1), and the player's death count has reached
  * the variant's life limit. Players are never out of lives in an unlimited-lives variant. */
 

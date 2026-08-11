@@ -1,4 +1,4 @@
-/* game_state_try_and_load_from_persistent_storage @0x836852A4 — at startup, attempt to restore the
+/* game_state_try_and_load_from_persistent_storage @0x83685238 — at startup, attempt to restore the
  * saved game state from persistent storage. Skipped during a timedemo. Only proceeds when the stored
  * header reads back, validates, and its difficulty matches the current difficulty; then runs the
  * before-load procs, reads the 0x448000-byte arena into game_state_globals.base_address, reapplies the

@@ -1,6 +1,6 @@
 #include "../headers/ws/vid/vidDEFRAG_POOL_HCEX_X360.h"
 
-// vidDEFRAG_POOL_HCEX_X360::vidDEFRAG_POOL_HCEX_X360 @ 0x823F1354
+// vidDEFRAG_POOL_HCEX_X360::vidDEFRAG_POOL_HCEX_X360 @ 0x823F1348
 // Zero the `buffers` and `descs` dsVECTORs and install this class's vtable. Both vectors adopt the
 // same allocation call-site cookie {file="...ap_defrag_mng.h", line=123}.
 // DEVIATION: the decompiler mis-rendered `buffers.__cl.file` as a cast of the class's own vtable

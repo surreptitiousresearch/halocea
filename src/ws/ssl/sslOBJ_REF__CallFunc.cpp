@@ -9,7 +9,7 @@
 // Global printf-into-dsTSTRING helper (returns the formatted string by reference); not reversed here.
 const dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...); // boundary
 
-// 0x82523BE0 — sslOBJ_REF::CallFunc. Dispatch function/callback `idx` on the referenced object via
+// @0x82523BE0 — sslOBJ_REF::CallFunc. Dispatch function/callback `idx` on the referenced object via
 // its class (passing the object as self and `caller`'s object as the caller). When this ref is empty
 // (the script was never parsed) build a formatted error instead. Returns sslERROR by value (sret):
 // the decompiler swaps this/result (r3 = return slot sslERROR*, r4 = this sslOBJ_REF*). `caller` is

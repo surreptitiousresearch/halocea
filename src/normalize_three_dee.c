@@ -1,4 +1,4 @@
-/* normalize_three_dee @0x8381B594 — normalize a 3D vector in place; returns its original length, or 0.0 if
+/* normalize_three_dee @0x8381B558 — normalize a 3D vector in place; returns its original length, or 0.0 if
  * the reciprocal length is NaN or the normalized result fails valid_real_normal3d.
  *
  * DEVIATION: the decompiler fabricated a phantom second parameter ("long double a2") purely to hold the

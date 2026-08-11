@@ -1,4 +1,4 @@
-/* oddball_test_trait @0x83816A0C — tests whether `trait` (a game_engine_trait id) matches the active
+/* oddball_test_trait @0x838169F0 — tests whether `trait` (a game_engine_trait id) matches the active
  * oddball variant's trait-with-ball (if the player currently has the ball) or trait-without-ball. A trait
  * id of 0 (none) never matches. */
 

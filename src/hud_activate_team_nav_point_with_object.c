@@ -1,4 +1,4 @@
-/* hud_activate_team_nav_point_with_object @0x837ED250 — thunk activating a team nav point
+/* hud_activate_team_nav_point_with_object @0x837ED248 — thunk activating a team nav point
  * anchored to a game object (object_type 1), forwarding to hud_activate_team_nav_point.
  * DEVIATION: decompiler typed vertical_offset as double (soft-float ABI artifact); it is a float. */
 

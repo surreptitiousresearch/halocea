@@ -33,12 +33,12 @@
 #include "headers/real_point3d.h"
 #include "headers/path_state.h"
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
-extern uint8_t actor_move_halt(uint16_t actor_index);
-extern void actor_stimulus_suspicion(uint16_t actor_index, int16_t suspicion_combat_status, int suspicion_timer);
+extern uint8_t actor_move_halt(int actor_index);
+extern void actor_stimulus_suspicion(int actor_index, int16_t suspicion_combat_status, int suspicion_timer);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
-extern int action_guard_speak_post_combat(uint16_t actor_index);
+extern int action_guard_speak_post_combat(int actor_index);
 extern uint8_t actor_move_to_firing_position(int actor_index, int16_t firing_position_index, path_state *cached_path_state);
-extern void actor_discard_firing_position(uint16_t actor_index, int16_t firing_position_index, uint8_t temporary);
+extern void actor_discard_firing_position(int actor_index, int16_t firing_position_index, uint8_t temporary);
 
 void action_guard_control(int actor_index)
 {

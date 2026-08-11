@@ -1,4 +1,4 @@
-// ds::LIST<msgADDR *>::LIST(const LIST<msgADDR *> &) — 0x82AC6058
+// ds::LIST<msgADDR *>::LIST(const LIST<msgADDR *> &) — @0x82AC6058
 // Deviation: decompiler mangled the __cl copy into
 // `cl.file = (const char *)this; *(apCL *)(cl.file + 12) = cl;`. Disasm shows a plain 64-bit
 // `ld`/`std` of other->__cl into this->__cl (whole-struct copy), same as the apCL(cl) ctor.

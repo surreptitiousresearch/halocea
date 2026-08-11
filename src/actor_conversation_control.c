@@ -15,9 +15,9 @@
 
 
 extern direction_specification *direction_get_empty(direction_specification *result);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 extern void unit_get_head_position(int unit_index, real_point3d *head_position);
-extern uint8_t actor_look_secondary(uint16_t actor_index, int16_t type, int16_t priority, direction_specification *direction);
+extern uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority, direction_specification *direction);
 
 void actor_conversation_control(int actor_index)
 {

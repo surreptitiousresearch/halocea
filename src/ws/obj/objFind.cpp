@@ -1,7 +1,7 @@
 #include "objOBJ.h"
 #include "objFILTER.h"
 #include "obj_free_functions.h"
-// 0x826829C0  ?objFind@@YAPAVobjOBJ@@PAV1@PAVobjFILTER@@@Z
+// @0x826829C0  ?objFind@@YAPAVobjOBJ@@PAV1@PAVobjFILTER@@@Z
 // Depth-first search of the subtree rooted at `pObj` (pre-order: self, then children in
 // sibling-ring order) for the first node accepted by `pObjFilter->IsUse()`. Returns nullptr
 // if `pObj` is null or no node in the subtree is accepted.

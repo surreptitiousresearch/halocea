@@ -1,4 +1,4 @@
-/* object_type_should_force_baseline_update @0x837028D0 — checks and clears an object's pending
+/* object_type_should_force_baseline_update @0x837028C0 — checks and clears an object's pending
  * force-baseline-update flag (bit 0x4000000), and separately tracks a network-at-rest transition (via
  * `was_network_at_rest`) that also forces a baseline update the first time it's observed while flag 0x20
  * is set. Returns whether either condition demands a forced baseline resend. */

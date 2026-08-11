@@ -1,4 +1,4 @@
-/* biped_adjust_placement @0x837AC3F8 — for a biped whose pill is centered at its origin
+/* biped_adjust_placement @0x837AC3C0 — for a biped whose pill is centered at its origin
  * (_biped_pill_centered_at_origin_bit) and that does not fly (_biped_flying_bit clear), nudge the
  * placement's position along its own "up" vector by the definition's collision_radius, so the pill's
  * base (feet) rather than its center lands at the placement point. */

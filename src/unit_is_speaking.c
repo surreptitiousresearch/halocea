@@ -11,7 +11,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t unit_is_speaking(uint16_t unit_index)
+uint8_t unit_is_speaking(int unit_index)
 {
     unit_datum *object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum;
     int v = object->unit.speech.current.priority;

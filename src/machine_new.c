@@ -1,4 +1,4 @@
-/* machine_new @0x837BBF58 — initializes a newly-created device-machine object's lighting flags. Always
+/* machine_new @0x837BBF30 — initializes a newly-created device-machine object's lighting flags. Always
  * flags the object for dynamic-lighting recompute; then, when the 'mach' tag definition is an elevator
  * (definition->machine.flags bit 2 = _machine_is_elevator, value 0x4), it additionally forces a static-
  * lighting recompute and a sideways static-lighting raycast (moving geometry must re-light). Non-elevator

@@ -1,4 +1,4 @@
-/* closest_available_point_on_surface @0x837D288C — projects `target_point` onto `surface_index` of the
+/* closest_available_point_on_surface @0x837D2880 — projects `target_point` onto `surface_index` of the
  * structure's collision BSP (find-closest-2D then re-project to 3D), and returns the Euclidean distance
  * from the target to the resulting closest point.
  *

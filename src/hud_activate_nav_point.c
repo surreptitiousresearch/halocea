@@ -1,4 +1,4 @@
-/* hud_activate_nav_point @0x837ECF70 — activates (or refreshes) a HUD nav point for a player. If a slot
+/* hud_activate_nav_point @0x837ECF68 — activates (or refreshes) a HUD nav point for a player. If a slot
  * already targets the same type+reference it is just updated in place; otherwise the function fills the
  * last deactivated slot (type nibble 0xF) with the new nav point. No-op if the player has no nav table
  * (local index > 1) or the inputs are invalid. */

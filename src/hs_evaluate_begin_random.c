@@ -15,7 +15,7 @@
 #include "headers/blam_data_globals.h"
 
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern uint32_t *get_global_random_seed_address(void);
 extern int16_t seed_random_range(uint32_t *seed, int16_t lower_bound, int16_t upper_bound);
 

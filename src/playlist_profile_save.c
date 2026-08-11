@@ -1,4 +1,4 @@
-/* playlist_profile_save @0x83782770 — validated wrapper around the playlist_profile_write.c write path: no-op
+/* playlist_profile_save @0x83782758 — validated wrapper around the playlist_profile_write.c write path: no-op
  * if there's no profile selected (index -1); otherwise cleans up the variant, waits for any in-flight write
  * thread to finish, disposes it, stages the (index, variant) write request into thread_input
  * (see playlist_profile_write.c), and kicks off a fresh write thread. */

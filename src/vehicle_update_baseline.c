@@ -1,4 +1,4 @@
-/* vehicle_update_baseline @0x8375E038 — snapshot a vehicle object's network-replicated state (15 opaque
+/* vehicle_update_baseline @0x8375E028 — snapshot a vehicle object's network-replicated state (15 opaque
  * dword fields at +92..+148) into its baseline copy (+1324..+1380), bump the baseline sequence byte
  * (+1318, wrapping via plain overflow) and mark the baseline valid/dirty (+1317 = 1, +1319 word = 1). */
 

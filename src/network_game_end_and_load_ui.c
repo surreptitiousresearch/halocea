@@ -1,4 +1,4 @@
-/* network_game_end_and_load_ui @0x83782A20 — tear down a finished network game's local state: if its
+/* network_game_end_and_load_ui @0x83782A10 — tear down a finished network game's local state: if its
  * objects were loaded, return to the UI scenario, then clear the local-data block. */
 
 #include <stdint.h>

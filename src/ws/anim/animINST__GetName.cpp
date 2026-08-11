@@ -1,3 +1,4 @@
+// animINST__GetName @0x823CD8E0
 #include "animINST.h"
 
 // Fallback returned when the instance carries no name: a global byte at 0x8200155A

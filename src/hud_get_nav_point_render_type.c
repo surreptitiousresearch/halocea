@@ -1,4 +1,4 @@
-/* hud_get_nav_point_render_type @0x837ED634 — decide how a HUD nav-point marker should be drawn based on
+/* hud_get_nav_point_render_type @0x837ED610 — decide how a HUD nav-point marker should be drawn based on
  * whether the player has a clear line of sight to its world position. Casts a collision ray from the
  * local player's head toward the nav point (ignoring the player's own unit). Returns 0 (visible) when
  * nothing blocks the ray, or when the only thing hit is the nav point's own reference object; returns 2

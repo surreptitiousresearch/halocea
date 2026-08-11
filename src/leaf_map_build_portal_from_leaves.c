@@ -31,11 +31,10 @@
 #include "headers/real_plane3d.h"
 
 #include "headers/real_vector3d.h"
+#include "headers/tag_groups.h"
 extern int16_t convex_hull2d_intersect(int16_t p_count, const real_point2d *p, int q_count, const real_point2d *q, int16_t maximum_count, real_point2d *result, float epsilon);
-extern int16_t tag_block_add_element(tag_block *block);
 extern int16_t projection_from_vector3d(const real_vector3d *n);
 extern real_point3d *project_point2d(const real_point2d *p2d, const real_plane3d *plane, int16_t projection, uint8_t sign, real_point3d *p3d);
-extern uint8_t tag_block_resize(tag_block *block, int element_count);
 extern float convex_hull2d_area(int16_t count, const real_point2d *points);
 extern float convex_hull2d_perimeter(int16_t count, const real_point2d *points);
 extern void leaf_map_close_portal(leaf_map *leaf_map, int portal_index);

@@ -1,4 +1,4 @@
-/* player_ui_vibrate_disabled @0x83698B68 — whether controller vibration is disabled in a local player's UI
+/* player_ui_vibrate_disabled @0x83698B60 — whether controller vibration is disabled in a local player's UI
  * profile. The flag lives at player_data[idx].profile.controller_settings.vibration_disabled (@302).
  * DEVIATION: the decompiler anchored this on join_players_to_next_multiplayer_game with a negative index
  * (1988*idx - 3674); that resolves to the vibration_disabled field. */

@@ -15,7 +15,7 @@
 
 
 #include "headers/path_state.h"
-extern void actor_set_dormant(uint16_t actor_index, uint8_t dormant);
+extern void actor_set_dormant(int actor_index, uint8_t dormant);
 extern uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state *cached_path_state);
 
 uint8_t actor_move_to_move_position(int actor_index, int16_t move_position_index)

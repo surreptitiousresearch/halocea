@@ -1,4 +1,4 @@
-/* update_human_tank_physics @0x8375E74C — per-tick physics for a human tank. Derives the two tracks'
+/* update_human_tank_physics @0x8375E700 — per-tick physics for a human tank. Derives the two tracks'
  * friction velocities from throttle ± turn, advances and wraps each track's tread-scroll angle into
  * [0,period), and when the vehicle uses the powered 4-point physics model (id 2) writes the per-track
  * ground friction velocities (with identity rotations) before handing off to physics_update.

@@ -4,7 +4,7 @@
 
 #include "../../headers/hcex/HCEX_EFFECT_LOC.h"
 
-// 0x823D62B4 — default-construct. name adopts the shared empty-string singleton via
+// @0x823D6298 — default-construct. name adopts the shared empty-string singleton via
 // UnsafeInitEmpty(); pos/vec are left uninitialized, matching the disassembly (no stores to
 // this->pos/this->vec appear before the name init).
 HCEX_EFFECT_LOC::HCEX_EFFECT_LOC()

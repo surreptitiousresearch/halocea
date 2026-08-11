@@ -1,4 +1,4 @@
-/* _rasterizer_set_default_state @0x8369D794 — reset the D3D pipeline to the rasterizer's default render
+/* _rasterizer_set_default_state @0x8369D778 — reset the D3D pipeline to the rasterizer's default render
  * state at the start of a window: depth test on (LESSEQUAL, writing), no depth bias, stencil off (with
  * the standard ALWAYS/keep configuration), alpha test off (GREATEREQUAL), alpha blend off (SRC/ZERO,
  * ADD), full color write mask, counter-clockwise culling, solid fill. */

@@ -1,4 +1,4 @@
-/* first_person_weapon_next_state @0x836A0358 — decide the first-person viewmodel's next state when the
+/* first_person_weapon_next_state @0x836A0350 — decide the first-person viewmodel's next state when the
  * current animation finishes. Idle/ready-style states return to idle (0); firing/charging states go to
  * the "put away"/ready transition (3). Shotgun reload states (0xD/0xE/0xF) advance into the per-shell
  * reload chain (16/17) only when the held weapon is a shotgun and a reload is pending. State 0x12 just

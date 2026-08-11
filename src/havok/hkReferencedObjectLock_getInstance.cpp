@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkReferencedObjectLock_getInstance @0x838D3208 (?getInstance@?$hkSingleton@VhkReferencedObjectLock@@@@SAAAVhkReferencedObjectLock@@XZ)
 #include "../headers/havok/hkReferencedObjectLock.h"
 
 /* hkSingleton<hkReferencedObjectLock>::s_instance — the process-wide refcount

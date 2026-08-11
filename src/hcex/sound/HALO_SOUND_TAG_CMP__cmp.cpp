@@ -1,4 +1,4 @@
-// ?cmp@CMP@HALO_SOUND_TAG@@QBAHABU2@PBD@Z -- 0x836B4EF8
+// ?cmp@CMP@HALO_SOUND_TAG@@QBAHABU2@PBD@Z -- @0x836B4EE0
 #include "../../headers/hcex/HALO_SOUND_TAG.h"
 
 extern "C" int stricmp(const char *a, const char *b);

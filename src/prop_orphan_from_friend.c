@@ -1,4 +1,4 @@
-/* prop_orphan_from_friend @0x837D1B5C — create a new orphan prop for an actor, seeded from a friend's
+/* prop_orphan_from_friend @0x837D1B38 — create a new orphan prop for an actor, seeded from a friend's
  * acknowledged prop. Allocates a prop datum, adds it to the actor (unitless, prop_add), and links it:
  * the unacknowledged prop's orphan_prop_index points at the new prop, and the new prop's orphan_prop_index
  * points back at the unacknowledged prop. If the friend's acknowledged prop is in engagement state 4 or 5,
@@ -17,7 +17,7 @@
 
 extern int datum_new(data_array *data);
 extern void prop_add(int actor_index, int unit_index, int prop_index);
-extern void prop_setup_orphan(uint16_t prop_index, uint16_t orphan_prop_index, int acknowledged_prop_index);
+extern void prop_setup_orphan(int prop_index, int orphan_prop_index, int acknowledged_prop_index);
 
 int prop_orphan_from_friend(int actor_index, int unacknowledged_prop_index, int friend_acknowledged_prop_index)
 {

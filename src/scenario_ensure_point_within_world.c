@@ -1,4 +1,4 @@
-/* scenario_ensure_point_within_world @0x837042C0 — nudge a point upward in 5cm steps until it lies inside
+/* scenario_ensure_point_within_world @0x83704290 — nudge a point upward in 5cm steps until it lies inside
  * the world BSP (or after 150 attempts), so a re-placed object isn't left embedded in/below geometry.
  * Returns true when the point was already inside (no adjustment needed). */
 

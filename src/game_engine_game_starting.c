@@ -1,4 +1,4 @@
-/* game_engine_game_starting @0x83746268 — notify the active game engine that the game is starting, then
+/* game_engine_game_starting @0x83746250 — notify the active game engine that the game is starting, then
  * build the level lighting.
  *
  * DEVIATION: the decompiler threaded an r3 "status" out of this function; r3 at the blr is only

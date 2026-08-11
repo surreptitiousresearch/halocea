@@ -1,4 +1,4 @@
-/* player_get_next_player_with_a_unit @0x837C3330 — find the next player (after old_player_index, cycling)
+/* player_get_next_player_with_a_unit @0x837C3320 — find the next player (after old_player_index, cycling)
  * that has a living unit and, when match_team is set, is on the same team as player_index. Returns that
  * player's index; if no eligible player has an index past old_player_index it wraps to the first eligible
  * one; if none qualify at all it returns old_player_index. Excludes player_index itself and players with no

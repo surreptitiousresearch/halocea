@@ -1,4 +1,4 @@
-/* static_array_resize @0x83784A34 — resize a fixed-capacity inline array's live element count, provided
+/* static_array_resize @0x83784A18 — resize a fixed-capacity inline array's live element count, provided
  * new_count is in [0, maximum_count). No-op (still returns success) if new_count already equals *count.
  *
  * Surprising-but-verified asymmetry (confirmed via disasm): shrinking poisons the vacated slots with 0xFF

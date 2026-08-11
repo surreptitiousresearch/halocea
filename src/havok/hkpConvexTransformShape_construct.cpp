@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: hkpConvexTransformShape_construct @0x83619CA0 (??0hkpConvexTransformShape@@QAA@PBVhkpConvexShape@@ABVhkTransform@@W4ReferencePolicy@hkpShapeContainer@@@Z)
 #include "../headers/havok/hkpConvexTransformShape.h"
 #include "../headers/havok/hkpConvexShape.h"
 

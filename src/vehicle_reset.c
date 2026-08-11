@@ -1,4 +1,4 @@
-/* vehicle_reset @0x8375CD6C — zeroes a vehicle's runtime physics/steering scratch fields (offsets 1228-1312;
+/* vehicle_reset @0x8375CD40 — zeroes a vehicle's runtime physics/steering scratch fields (offsets 1228-1312;
  * same salted object-header lookup as vehicle_hover.c). The hover anchor point at +1276 (see vehicle_hover.c)
  * is deliberately left untouched — it is not part of this reset range. */
 

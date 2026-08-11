@@ -1,6 +1,6 @@
 #include "objSPLIT.h"
 #include "../ds/ds_assert_boundary.h"
-// 0x82681828  ?GetEntry@objSPLIT@@QAAPAVobjSPLIT_ENTRY@@H@Z
+// @0x82681828  ?GetEntry@objSPLIT@@QAAPAVobjSPLIT_ENTRY@@H@Z
 // Bounds-checked access to split entry `i`.
 //
 // CAVEAT: the assert-disabled fallback clamps a negative index to 0 (and otherwise passes the

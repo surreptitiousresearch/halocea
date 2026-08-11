@@ -1,3 +1,4 @@
+// HALO_SOUND_SYSTEM__LoadTagParams @0x836C3448
 #include "../../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../../headers/ws/ps/psSYSTEM.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"

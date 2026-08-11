@@ -13,7 +13,7 @@ entENTITY *entCreate(animINST *pInst, const entCREATE_INFO &info);
 
 extern gsLVL_SYSTEM *gsSysLevel;
 
-// entCreate(scnSCENE*, entCREATE_INFO&) — 0x82536A48
+// entCreate(scnSCENE*, entCREATE_INFO&) — @0x82536A48
 //
 // Convenience glue between the 5-arg scnSCENE overload and the main entCreate: resolves
 // `info.nameTpl` to a live animTPL (unless it is the "-" sentinel, meaning "no scene instance --

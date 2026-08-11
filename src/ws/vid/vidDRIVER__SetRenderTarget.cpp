@@ -1,7 +1,7 @@
 #include "../../headers/vidDRIVER.h"
 #include "../../headers/ws/txm/txmTEXTURE.h"
 
-// 0x82668C38 -- ?SetRenderTarget@vidDRIVER@@QAAHPAVtxmTEXTURE@@0V?$apSTATE_T@K@@@Z
+// @0x82668C38 -- ?SetRenderTarget@vidDRIVER@@QAAHPAVtxmTEXTURE@@0V?$apSTATE_T@K@@@Z
 // Public convenience wrapper: build a single-color-target render-target stack entry from the
 // given color/depth textures and def-use state, then apply it through the virtual
 // SetRenderTarget(const vidRT_STACK_ENTRY *) slot. Afterwards latch the current target's pixel

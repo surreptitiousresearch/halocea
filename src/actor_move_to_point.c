@@ -13,7 +13,7 @@
 
 
 #include "headers/path_state.h"
-extern void actor_set_dormant(uint16_t actor_index, uint8_t dormant);
+extern void actor_set_dormant(int actor_index, uint8_t dormant);
 extern uint8_t actor_path_refresh(int actor_index, uint8_t new_destination, path_state *cached_path_state);
 
 uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index)

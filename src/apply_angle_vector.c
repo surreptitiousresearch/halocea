@@ -1,4 +1,4 @@
-/* apply_angle_vector @0x837F6B00 — applies a 2D animation-event angle (converted to a unit vector) to a
+/* apply_angle_vector @0x837F6AE0 — applies a 2D animation-event angle (converted to a unit vector) to a
  * unit's facing/aiming/looking vectors, skipping whichever one the event's own type omits (the paired
  * _playback_v1_*_angles_set codes name the two vectors they set; the excluded vector is the one skipped:
  * 21=aiming+looking skips facing, 20=facing+looking skips aiming, 19=facing+aiming skips looking). The

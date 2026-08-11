@@ -8,7 +8,7 @@
 #include "headers/hs_stack_frame.h"
 #include "headers/blam_data_globals.h"
 
-char * hs_stack_allocate(uint16_t thread_index, int16_t size, int alignment)
+char * hs_stack_allocate(int thread_index, int16_t size, int alignment)
 {
     hs_thread *thread = DATA_ARRAY_ELEMENT(hs_thread_data, hs_thread, thread_index);
     hs_stack_frame *frame = thread->stack;

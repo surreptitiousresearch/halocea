@@ -1,4 +1,4 @@
-/* rasterizer_lens_flares_submit_occlusion_tests @0x837928C8 — for each lens flare belonging to the current
+/* rasterizer_lens_flares_submit_occlusion_tests @0x837928A8 — for each lens flare belonging to the current
  * window, submit a hardware occlusion query at a point near the light and stash the resulting visible-pixel
  * count back on the flare. The query point is offset from the flare position per the definition's
  * occlusion_offset_direction: 0 pulls back along the camera forward by the occlusion radius, 1 pushes out

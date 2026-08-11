@@ -11,8 +11,8 @@
 #include "headers/blam_data_globals.h"
 
 extern void *datum_try_and_get(const data_array *data, int index);
-extern void actor_stimulus_enter_combat_friend_in_combat(uint16_t actor_index, uint16_t prop_index);
-extern void actor_stimulus_prop_fleeing(uint16_t actor_index, uint16_t prop_index);
+extern void actor_stimulus_enter_combat_friend_in_combat(int actor_index, int prop_index);
+extern void actor_stimulus_prop_fleeing(int actor_index, int prop_index);
 extern int actor_perception_create_orphan_from_friend(int actor_index, int unit_index, int friend_actor_index, int friend_prop_index);
 
 void actor_handle_communication(int actor_index, int prop_index, ai_information_packet *ai_information)

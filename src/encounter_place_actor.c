@@ -14,7 +14,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern int16_t encounter_get_actor_starting_location(uint16_t encounter_index, int squad_index, uint8_t spawn);
+extern int16_t encounter_get_actor_starting_location(int encounter_index, int squad_index, uint8_t spawn);
 extern void ai_get_major_upgrade_chance(int16_t upgrade_type, uint8_t *force_major, uint8_t *is_random, float *random_chance);
 extern uint8_t ai_consider_major_upgrade(int encounter_index, int16_t squad_index, float upgrade_chance);
 extern int actor_place(int actor_variant_definition_index, int encounter_index, int16_t squad_index, actor_starting_location_definition *starting_location, uint8_t upgrade_major, int16_t variant_number);

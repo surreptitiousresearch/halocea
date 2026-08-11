@@ -2,7 +2,7 @@
 #include "../../headers/hcex/HALO_SOUND_TAG.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-// dsVECTOR<HALO_SOUND_TAG,8>::operator[] (non-const) @ 0x836BA108
+// dsVECTOR<HALO_SOUND_TAG,8>::operator[] (non-const) @ 0x836BA0F0
 // Bounds-checked mutable access; returns a reference to the idx-th sound-tag entry.
 template<>
 HALO_SOUND_TAG &dsVECTOR<HALO_SOUND_TAG, 8>::operator[](int idx)

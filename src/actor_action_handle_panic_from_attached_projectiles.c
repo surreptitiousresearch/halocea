@@ -1,4 +1,4 @@
-/* actor_action_handle_panic_from_attached_projectiles @0x837F1F58 — when an actor has a live "attached
+/* actor_action_handle_panic_from_attached_projectiles @0x837F1F40 — when an actor has a live "attached
  * projectile" object (+432 object index), resolve the responsible unit behind it and, if this is the first
  * time noticing it (or the actor had no prior panic-source unit, +780), remember that unit as the panic
  * source. Raises panic_type (+776) to at least _actor_panic_delayed_projectile_attached_to_us. Returns whether an attached projectile was
@@ -17,9 +17,9 @@
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern int ai_get_responsible_unit(int object_index, uint8_t responsible_for_weapon_fire);
-extern int prop_get_active_by_unit_index(uint16_t actor_index, int unit_index);
+extern int prop_get_active_by_unit_index(int actor_index, int unit_index);
 
-uint8_t actor_action_handle_panic_from_attached_projectiles(uint16_t actor_index)
+uint8_t actor_action_handle_panic_from_attached_projectiles(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

@@ -1,4 +1,4 @@
-/* sv_ban @0x83766ED0 — server console command: ban the player matching a name/hash string. Rejected
+/* sv_ban @0x83766EB0 — server console command: ban the player matching a name/hash string. Rejected
  * off the server.
  *
  * DEVIATION: the binary issues three sequential calls to the symbol resolved as

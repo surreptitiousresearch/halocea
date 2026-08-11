@@ -1,6 +1,6 @@
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823C4530 — compiler-synthesized `scalar deleting destructor`: runs the real destructor, then
+// @0x823C4518 — compiler-synthesized `scalar deleting destructor`: runs the real destructor, then
 // (per bit 0 of the synthesized delete-flag argument) `operator delete`s this.
 SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry *
 SSL_EXPORTER_haloENGINE_CONTROL::SSLExportEntry::ScalarDeletingDestructor(unsigned int deleteFlag)

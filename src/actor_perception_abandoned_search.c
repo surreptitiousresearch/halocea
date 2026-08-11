@@ -14,8 +14,8 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void actor_situation_combat_status_update(uint16_t actor_index);
-extern void actor_situation_update_target_status(uint16_t actor_index);
+extern void actor_situation_combat_status_update(int actor_index);
+extern void actor_situation_update_target_status(int actor_index);
 
 void actor_perception_abandoned_search(int actor_index, int prop_index)
 {

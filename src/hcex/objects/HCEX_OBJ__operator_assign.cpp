@@ -1,4 +1,4 @@
-/* HCEX_OBJ::operator= @0x823EEBB0 — copy-assign id/pInst/modelIdx, delegate the two vectors to
+/* HCEX_OBJ::operator= @0x823EEB88 — copy-assign id/pInst/modelIdx, delegate the two vectors to
  * their own (already-reversed) copy-assignment operators, then copy the flags bitfield word from
  * `that`.
  *

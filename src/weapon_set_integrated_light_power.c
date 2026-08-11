@@ -1,4 +1,4 @@
-/* weapon_set_integrated_light_power @0x836D8E3C — set a weapon object's integrated-light power
+/* weapon_set_integrated_light_power @0x836D8E18 — set a weapon object's integrated-light power
  * (e.g. flashlight/scope glow).
  *
  * DEVIATION: the float argument arrives as a double via the soft-float ABI; the stored field is a float. */

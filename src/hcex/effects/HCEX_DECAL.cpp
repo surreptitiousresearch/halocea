@@ -11,7 +11,7 @@
 // here: the refcount release below is genuine, explicit body code (matching the sibling bridge
 // files, e.g. hcex_destroy_light.c, that manage this same flat dsTSTRING/ds_WEAK_PTR style by hand).
 
-// 0x823D6934 — default-construct: name adopts the shared empty-string singleton via
+// @0x823D6918 — default-construct: name adopts the shared empty-string singleton via
 // UnsafeInitEmpty(); pos is left uninitialized, matching the disassembly.
 HCEX_DECAL::HCEX_DECAL()
 {

@@ -10,8 +10,8 @@
 #include "headers/blam_data_globals.h"
 
 extern int hs_find_thread_by_script(int16_t script_index);
-extern void hs_wake(uint16_t thread_index);
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_wake(int thread_index);
+extern void hs_return(int thread_index, int value);
 
 void hs_evaluate_wake(int16_t function_index, int thread_index, uint8_t initialize)
 {

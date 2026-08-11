@@ -1,4 +1,4 @@
-/* object_predict @0x836ECB78 — precache the predicted resources for an object and all of its children:
+/* object_predict @0x836ECB68 — precache the predicted resources for an object and all of its children:
  * walk the next-object chain (object dword +69), and for each, precache its definition's
  * predicted-resources block (tag_block @ definition +368) and recurse into its first child (dword +70). */
 

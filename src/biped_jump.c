@@ -1,4 +1,4 @@
-/* biped_jump @0x837B2B54 — make a biped jump. Fails if the biped is already airborne (flags bit 0 at
+/* biped_jump @0x837B2B38 — make a biped jump. Fails if the biped is already airborne (flags bit 0 at
  * +1228) or in a state that forbids jumping (+1288 == 1). The jump magnitude comes from the biped
  * definition (+948); for a player-controlled biped it is scaled by the player jump-height info and the
  * biped's crouch/scale factor (+1060), and quadrupled under the super_jump cheat. The biped's velocity
@@ -26,7 +26,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_aim_jump(uint16_t actor_index, int unit_index, uint8_t leap, float jump_magnitude, real_vector3d *jump_velocity);
+extern uint8_t actor_aim_jump(int actor_index, int unit_index, uint8_t leap, float jump_magnitude, real_vector3d *jump_velocity);
 extern void biped_make_footstep(int biped_index, int16_t event_index, int16_t contact_point_index);
 
 int biped_jump(int biped_index)

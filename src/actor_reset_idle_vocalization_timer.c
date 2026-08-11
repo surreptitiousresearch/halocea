@@ -16,11 +16,11 @@
 #include "headers/global_tag_instances.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_in_combat(uint16_t actor_index);
+extern uint8_t actor_in_combat(int actor_index);
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-void actor_reset_idle_vocalization_timer(uint16_t actor_index)
+void actor_reset_idle_vocalization_timer(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     actor_definition *character = TAG_GET(actor_definition, actor->meta.definition_index);

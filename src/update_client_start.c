@@ -1,4 +1,4 @@
-/* update_client_start @0x836F5ECC — (re)initialize the client update queues at game start: validate and
+/* update_client_start @0x836F5EB0 — (re)initialize the client update queues at game start: validate and
  * clear the queue array, then allocate one queue datum per existing player.
  *
  * DEVIATION: the decompiler typed the result as void* (the trailing null iterator result). Attested void:

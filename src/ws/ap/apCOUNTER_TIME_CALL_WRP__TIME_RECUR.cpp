@@ -1,4 +1,4 @@
-// apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_RECUR>::apCOUNTER_TIME_CALL_WRP @0x82A3B5CC and
+// apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_RECUR>::apCOUNTER_TIME_CALL_WRP @0x82A3B5C0 and
 // ::~apCOUNTER_TIME_CALL_WRP @0x82A3B67C — re-entrant variant: only records the start timestamp
 // on the outermost entry (depth<=0) and only accumulates elapsed time once depth unwinds back to
 // 0 on exit; every other (de)activation just adjusts the per-processor `depth` counter.

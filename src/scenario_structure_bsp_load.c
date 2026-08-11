@@ -1,4 +1,4 @@
-/* scenario_structure_bsp_load @0x836F7400 — synchronously loads a structure BSP block from the cache
+/* scenario_structure_bsp_load @0x836F73E8 — synchronously loads a structure BSP block from the cache
  * file into its reserved address, spinning (yielding + servicing sound) until the read completes, then
  * publishes the loaded BSP header, points the tag instance at the parsed BSP data, and registers its
  * vertex buffers with the rasterizer. Always returns 1. */

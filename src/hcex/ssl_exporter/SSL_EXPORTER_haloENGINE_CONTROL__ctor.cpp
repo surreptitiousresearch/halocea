@@ -1,6 +1,6 @@
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
-// 0x823CC9F8 — private default ctor: member-initializes all 13 (id-slot, registrator) pairs in
+// @0x823CC9E0 — private default ctor: member-initializes all 13 (id-slot, registrator) pairs in
 // declaration order. The `sslFuncId_*` int slots are left uninitialized here (as in the decompile
 // — PerformExport() is what first writes them); each registrator ctor's side effect is pushing
 // its SSLExportEntry into the shared GetExportMap() table.

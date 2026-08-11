@@ -1,4 +1,4 @@
-/* hud_update_weapon @0x836B0E64 — refresh the weapon HUD for every local player. For each player's unit it
+/* hud_update_weapon @0x836B0E50 — refresh the weapon HUD for every local player. For each player's unit it
  * resolves the weapon in the current slot (falling back to the parent unit's weapon when riding a seat
  * whose flags inherit the driver's weapon HUD), builds the weapon interface state, updates the HCEX
  * weapon HUD, and renders the weapon's HUD interface. When the unit has no weapon at all the HUD is cleared

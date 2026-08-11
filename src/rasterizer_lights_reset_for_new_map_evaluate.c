@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 
-extern void hs_return(uint16_t thread_index, int value);
+extern void hs_return(int thread_index, int value);
 extern void rasterizer_lights_reset_for_new_map(void);
 
 void rasterizer_lights_reset_for_new_map_evaluate(int16_t function_index, int thread_index, uint8_t initialize)

@@ -3,7 +3,7 @@
 #include "psSECTION_BRANCH.h"
 #include "../ds/dsSTRID.h"
 #include "../../headers/apCL.h"
-// 0x825177AC — default-construct an empty section body: interned-empty name, no owner/parents/
+// @0x82517798 — default-construct an empty section body: interned-empty name, no owner/parents/
 // records, and a freshly allocated owning branch (refCount 0, pTopSection = this, isNeedRescan set).
 // `__nPsData` is a global live-count of allocated psSECTION_DATA bodies, bumped here.
 

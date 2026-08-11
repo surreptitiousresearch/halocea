@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 
-void actor_action_update(uint16_t actor_index)
+void actor_action_update(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     int16_t action = actor->state.action;

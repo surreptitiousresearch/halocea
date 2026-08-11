@@ -1,4 +1,4 @@
-/* crc32_big @0x82D61788 — big-endian/reflected slicing-by-4 CRC-32 update (zlib-style "crc32_big"
+/* crc32_big @0x82D61750 — big-endian/reflected slicing-by-4 CRC-32 update (zlib-style "crc32_big"
  * variant): byte-at-a-time until 4-byte alignment, then 32-byte (8-word) unrolled slicing-by-4
  * chunks, then a 4-byte tail loop, then a final byte-at-a-time tail. `crc_table_0` is an 8x256
  * word table (crc_table_0[4..7] are the slicing-by-4 sub-tables this variant indexes).

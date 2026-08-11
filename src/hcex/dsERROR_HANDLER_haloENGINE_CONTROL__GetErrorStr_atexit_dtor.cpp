@@ -2,7 +2,7 @@
 #include "../headers/ws/ds/dsTSTRING.h"
 #include "../headers/hcex/haloENGINE_CONTROL.h"
 
-// 0x84101BC8 — anonymous file-static function registered via atexit() the first time
+// @0x84101BC8 — anonymous file-static function registered via atexit() the first time
 // dsERROR_HANDLER<haloENGINE_CONTROL>::GetErrorStr() runs; destroys the function-local static
 // dsTSTRING error slot ('err') at process shutdown.
 // (Compiler-synthesized name: `dsERROR_HANDLER<haloENGINE_CONTROL>::GetErrorStr'::`2'::`dynamic

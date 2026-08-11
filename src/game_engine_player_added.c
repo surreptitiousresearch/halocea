@@ -1,4 +1,4 @@
-/* game_engine_player_added @0x83750420 — initialise per-player engine state when a player joins. Resets
+/* game_engine_player_added @0x83750410 — initialise per-player engine state when a player joins. Resets
  * the player's multiplayer info (speed multiplier = 1.0, teleporter/state-message/display fields = -1)
  * and zeroes the first two multiplayer statistics words. On the server it assigns a team: alternating
  * teams for a teamed variant, or the player's preferred team otherwise. Finally it broadcasts a join

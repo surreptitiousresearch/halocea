@@ -1,4 +1,4 @@
-/* parse_string @0x8376A0C8 — advance the markup string cursor by one token and classify it. Returns a result
+/* parse_string @0x8376A0B8 — advance the markup string cursor by one token and classify it. Returns a result
  * code stored in state->result: 0 end-of-string, 1 newline, 2 printable character, 3 tab, 4 justification
  * change, 6 whitespace/word-break. Style tokens (|b |i |k |p |u, result 7) update the active font and loop to
  * read the following token, so they are never returned. The '|xx' escape uses 0x7C in the high byte.

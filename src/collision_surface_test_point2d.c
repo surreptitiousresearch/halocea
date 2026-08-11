@@ -1,4 +1,4 @@
-/* collision_surface_test_point2d @0x837E0504 — test whether a 2D point lies inside a collision
+/* collision_surface_test_point2d @0x837E04F0 — test whether a 2D point lies inside a collision
  * surface's polygon, working in the surface's projection plane. Walks the surface's edge ring; for
  * each edge it orients the edge so the surface is on the consistent side, then computes the 2D cross
  * product of (point - tail) against the edge direction. If the point ever falls on the outside

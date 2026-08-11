@@ -3,7 +3,9 @@
 struct shader;
 struct vertex_buffer;
 
-extern void _rasterizer_environment_specular_lightmap_draw(const struct shader *shader, int16_t shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const struct vertex_buffer *vertex_buffer);
+#include "headers/shader.h"
+#include "headers/vertex_buffer.h"
+extern void _rasterizer_environment_specular_lightmap_draw(const shader *shader, int16_t shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer);
 
 void rasterizer_environment_specular_lightmap_draw(const struct shader *shader, int16_t shader_permutation_index, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const struct vertex_buffer *vertex_buffer)
 {

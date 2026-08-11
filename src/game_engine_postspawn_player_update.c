@@ -1,4 +1,4 @@
-/* game_engine_postspawn_player_update @0x8374DBA4 — give a just-spawned player their starting grenades,
+/* game_engine_postspawn_player_update @0x8374DB88 — give a just-spawned player their starting grenades,
  * according to the active game engine and variant. First the engine's optional postspawn callback may veto
  * the whole update. Otherwise it starts from the globals' default frag/plasma counts (overridden by custom
  * starting equipment for biped units when the variant allows it, or by the per-mode maximum), then applies

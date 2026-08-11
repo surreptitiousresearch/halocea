@@ -1,4 +1,4 @@
-/* grow_clipping_rectangle_by_portal_hull @0x837C51DC — expands a 2D clipping rectangle (min-x, max-x,
+/* grow_clipping_rectangle_by_portal_hull @0x837C51D8 — expands a 2D clipping rectangle (min-x, max-x,
  * min-y, max-y) to enclose every vertex of a portal hull. */
 
 #include <stdint.h>

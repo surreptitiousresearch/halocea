@@ -1,4 +1,4 @@
-/* actor_combat_enable_special_fire_situation @0x837B7834 — test whether an actor may enter a given
+/* actor_combat_enable_special_fire_situation @0x837B7828 — test whether an actor may enter a given
  * special-fire situation (1, 2 or 3), based on its combat state. Returns 1 if permitted, 0 otherwise.
  * Raw actor-datum offsets (stride 1828) reproduced from the decompiler. */
 
@@ -10,7 +10,7 @@
 #include "headers/blam_data_globals.h"
 
 
-uint8_t actor_combat_enable_special_fire_situation(uint16_t actor_index, int16_t special_fire_situation)
+uint8_t actor_combat_enable_special_fire_situation(int actor_index, int16_t special_fire_situation)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 

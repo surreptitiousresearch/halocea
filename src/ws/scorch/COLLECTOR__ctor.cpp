@@ -1,4 +1,4 @@
-// scorch::COLLECTOR::COLLECTOR @0x82C913D4 — default-construct scorchName/idNull("null")/cdtInfo,
+// scorch::COLLECTOR::COLLECTOR @0x82C913C0 — default-construct scorchName/idNull("null")/cdtInfo,
 // zero the five dsVECTOR members, set IsApplyTranspOnly=isShadeOnlySourceObj=false,
 // isFilterByDiscontinuity=isFilterByNormal=true, null pObjSource/pAtkDisp, then heap-allocate
 // pOfl (cdtOFL(500,0), single-level) and pOflFace (cdtOFL(1,3000)).

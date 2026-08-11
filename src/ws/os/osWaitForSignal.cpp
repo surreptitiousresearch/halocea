@@ -1,3 +1,4 @@
+// FUNCTION_INDEX entry: osWaitForSignal @0x825E6150 (?osWaitForSignal@@YAHPAUosHANDLE_DUMMY@@K@Z)
 #include "../../headers/ws/os/os_boundary.h"
 #include "../../headers/ws/os/osHANDLE_DUMMY.h"
 

@@ -1,4 +1,4 @@
-/* default_ascii_string_decoder @0x8379AC20 — decodes a length-prefixed ASCII string field: reads the
+/* default_ascii_string_decoder @0x8379AC10 — decodes a length-prefixed ASCII string field: reads the
  * length (in `overhead_bits` bits), then if it's within [0, parameters[0]] (the field's maximum length),
  * reads that many 8-bit characters and null-terminates the buffer. Returns the total bits consumed. */
 

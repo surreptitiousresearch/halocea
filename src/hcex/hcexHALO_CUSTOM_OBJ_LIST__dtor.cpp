@@ -1,4 +1,4 @@
-// hcexHALO_CUSTOM_OBJ_LIST::~hcexHALO_CUSTOM_OBJ_LIST() @ 0x823D97F0
+// hcexHALO_CUSTOM_OBJ_LIST::~hcexHALO_CUSTOM_OBJ_LIST() @ 0x823D97D8
 //
 // Tear down cdList (its dsVECTOR<dsPAIR<unsigned long,scnINST_CREATE_DATA>,8> destructor runs the
 // per-element teardown + frees the backing store), then re-stamp __vftable back to the

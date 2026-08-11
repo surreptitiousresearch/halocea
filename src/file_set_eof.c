@@ -1,4 +1,4 @@
-/* file_set_eof @0x837E6CD4 — seek an open file to `position` and truncate it there (SetEndOfFile). The Win32
+/* file_set_eof @0x837E6CB0 — seek an open file to `position` and truncate it there (SetEndOfFile). The Win32
  * file HANDLE lives at file->data+264 (see file_get_position.c). Returns 1 on success, 0 otherwise; on
  * failure, clears the last error after querying it (matching the sibling file_* error-handling idiom). */
 

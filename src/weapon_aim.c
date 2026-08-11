@@ -1,4 +1,4 @@
-/* weapon_aim @0x836D8E78 — aim a weapon's trigger at a target. Looks up the weapon's definition, validates
+/* weapon_aim @0x836D8E48 — aim a weapon's trigger at a target. Looks up the weapon's definition, validates
  * the trigger index against the definition's trigger count, fetches that trigger's projectile
  * reference, and runs projectile_aim to
  * compute the firing solution. Returns 1 if a valid trigger was aimed, 0 otherwise.

@@ -1,4 +1,4 @@
-/* hud_deactivate_nav_point @0x837ED3DC — deactivate the HUD nav-point of a given type that points at a
+/* hud_deactivate_nav_point @0x837ED3D8 — deactivate the HUD nav-point of a given type that points at a
  * given reference object/index, for the player's local screen. Searches the local player's 4 nav-point
  * slots; on a match clears its nav_index/reference_index and sets the type nibble to 0xF (invalid). */
 

@@ -4,6 +4,12 @@
  * ADD), full color write mask, counter-clockwise culling, solid fill. */
 
 #include "headers/d3d_render_boundary.h"
+#include "headers/_D3DSTENCILOP.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DFILLMODE.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -39,29 +45,29 @@ void _rasterizer_set_default_state(void)
 {
     D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1u);
     D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 1u);
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3u);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
     D3DDevice_SetRenderState_DepthBias(global_d3d_device, 0);
     D3DDevice_SetRenderState_SlopeScaleDepthBias(global_d3d_device, 0);
     D3DDevice_SetRenderState_StencilEnable(global_d3d_device, 0);
-    D3DDevice_SetRenderState_StencilFail(global_d3d_device, 0);
-    D3DDevice_SetRenderState_StencilZFail(global_d3d_device, 0);
-    D3DDevice_SetRenderState_StencilPass(global_d3d_device, 0);
-    D3DDevice_SetRenderState_StencilFunc(global_d3d_device, 7u);
+    D3DDevice_SetRenderState_StencilFail(global_d3d_device, D3DSTENCILOP_KEEP);
+    D3DDevice_SetRenderState_StencilZFail(global_d3d_device, D3DSTENCILOP_KEEP);
+    D3DDevice_SetRenderState_StencilPass(global_d3d_device, D3DSTENCILOP_KEEP);
+    D3DDevice_SetRenderState_StencilFunc(global_d3d_device, D3DCMP_ALWAYS);
     D3DDevice_SetRenderState_StencilRef(global_d3d_device, 0);
     D3DDevice_SetRenderState_StencilMask(global_d3d_device, 0);
     D3DDevice_SetRenderState_StencilWriteMask(global_d3d_device, 0);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
-    D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, 4u);
+    D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, D3DCMP_GREATER);
     D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1u);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ZERO);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
     D3DDevice_SetRenderState_SeparateAlphaBlendEnable(global_d3d_device, 0);
-    D3DDevice_SetRenderState_SrcBlendAlpha(global_d3d_device, 1u);
-    D3DDevice_SetRenderState_DestBlendAlpha(global_d3d_device, 0);
+    D3DDevice_SetRenderState_SrcBlendAlpha(global_d3d_device, D3DBLEND_ONE);
+    D3DDevice_SetRenderState_DestBlendAlpha(global_d3d_device, D3DBLEND_ZERO);
     D3DDevice_SetRenderState_BlendOpAlpha(global_d3d_device, 0);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0xFu);
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6u);
-    D3DDevice_SetRenderState_FillMode(global_d3d_device, 0);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
+    D3DDevice_SetRenderState_FillMode(global_d3d_device, D3DFILL_SOLID);
 }

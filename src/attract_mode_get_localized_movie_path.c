@@ -1,5 +1,6 @@
 /* attract_mode_get_localized_movie_path @0x83784D30 — resolves the on-disk path for one of the attract-mode
- * Bink movies (0=attract1, 1=attract2, 2=attract3, 3=intro, 4=credits, other=teaser), preferring the
+ * Bink movies (domain = enum bink_movie, DB $BC15C09D…; _bink_outro_movie's file is credits%s.bik — the
+ * outro IS the credits movie, DB name and filename both authentic), preferring the
  * current system language's localized cut (suffix picked the same way as cache_files_map_directory's
  * "maps_xx\" selection: 3=de, 4=fr, 5=es, 6=it, 1/2=unsuffixed) and falling back through every other
  * language suffix in ascending order if that file doesn't exist. Returns an empty path if none of the 7
@@ -8,6 +9,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "headers/bink_movie.h"
 #include "headers/file_reference.h"
 #include "headers/xc_language.h"
 
@@ -58,19 +60,19 @@ char *attract_mode_get_localized_movie_path(int16_t movie)
 
         switch (movie)
         {
-        case 0:
+        case _bink_attract1_movie:
             _snprintf_0(path_1, 0x80u, "%sbink\\attract1%s.bik", root, suffix);
             break;
-        case 1:
+        case _bink_attract2_movie:
             _snprintf_0(path_1, 0x80u, "%sbink\\attract2%s.bik", root, suffix);
             break;
-        case 2:
+        case _bink_attract3_movie:
             _snprintf_0(path_1, 0x80u, "%sbink\\attract3%s.bik", root, suffix);
             break;
-        case 3:
+        case _bink_intro_movie:
             _snprintf_0(path_1, 0x80u, "%sbink\\intro%s.bik", root, suffix);
             break;
-        case 4:
+        case _bink_outro_movie:
             _snprintf_0(path_1, 0x80u, "%sbink\\credits%s.bik", root, suffix);
             break;
         default:

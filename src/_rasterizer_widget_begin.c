@@ -26,6 +26,12 @@
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -96,15 +102,15 @@ void _rasterizer_widget_begin(int16_t type, uint16_t flags)
         unsigned int z_enable = flags & (1u << _rasterizer_widget_z_enable_bit);
         if ( !supports_occlusion_test )
             z_enable = 1;
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1);
-        D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+        D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, z_enable);
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, (flags >> _rasterizer_widget_z_write_enable_bit) & 1);
 
         widget_dxeffect_shader = rasterizer_shader_select(_dxshader_widget_sprite);
@@ -114,16 +120,16 @@ void _rasterizer_widget_begin(int16_t type, uint16_t flags)
         /* stage 0: mirror addressing if supported else wrap, point filter, separate-Z on */
         if ( (global_d3d_caps.TextureAddressCaps & 8) != 0 )
         {
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 3);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 3);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_MIRRORONCE);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_MIRRORONCE);
         }
         else
         {
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 1);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_MIRROR);
         }
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
         rasterizer_set_stencil_mode(0);
 
@@ -140,14 +146,14 @@ void _rasterizer_widget_begin(int16_t type, uint16_t flags)
     }
     else if ( type == _widget_type_internal_occlusion_test )
     {
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device,
             rasterizer_debug_options.lens_flare_occlusion_debug == 0 ? 0 : 7);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
         unsigned int z_enable = 1; /* occlusion-test pass is always depth-tested */
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, z_enable);
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, rasterizer_debug_options.lens_flare_occlusion_debug);
 
         widget_dxeffect_shader = rasterizer_shader_select(_dxshader_widget_sprite);

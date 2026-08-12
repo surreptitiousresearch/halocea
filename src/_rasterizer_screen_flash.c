@@ -36,6 +36,9 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -105,7 +108,7 @@ void _rasterizer_screen_flash(void)
     if (!shader || !shader->effect)
         return;
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6u);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7u);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
 
@@ -115,42 +118,42 @@ void _rasterizer_screen_flash(void)
         switch (flash->type)
         {
         case _render_screen_flash_type_lighten:
-            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1u);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7u);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             technique = hFlashLighten;
             break;
         case _render_screen_flash_type_darken:
-            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1u);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1u);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 4u);
+            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_REVSUBTRACT);
             technique = hFlashDarken;
             break;
         case _render_screen_flash_type_max:
-            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 9u);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0xDu);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 3u);
+            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_INVDESTCOLOR);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVBLENDFACTOR);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_MAX);
             D3DDevice_SetRenderState_BlendFactor(global_d3d_device, straight_color);
             technique = hFlashMax;
             break;
         case _render_screen_flash_type_min:
-            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 9u);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0xDu);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 2u);
+            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_INVDESTCOLOR);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVBLENDFACTOR);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_MIN);
             D3DDevice_SetRenderState_BlendFactor(global_d3d_device, straight_color);
             technique = hFlashMin;
             break;
         case _render_screen_flash_type_invert:
-            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 9u);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0xDu);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_INVDESTCOLOR);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVBLENDFACTOR);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             D3DDevice_SetRenderState_BlendFactor(global_d3d_device, straight_color);
             technique = hFlashInvert;
             break;
         default: /* type == _render_screen_flash_type_tint (the only value left in [1,6] not handled above) */
-            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1u);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0xDu);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+            D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVBLENDFACTOR);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             D3DDevice_SetRenderState_BlendFactor(global_d3d_device, inverted_color);
             technique = hFlashTint;
             break;

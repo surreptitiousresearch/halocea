@@ -4,6 +4,7 @@
  * two independent `bl` calls with no register moved between them — the decompiler mis-paired them. */
 
 #include <stdint.h>
+#include "headers/bink_movie.h"
 #include "headers/bink_playback_flags.h"
 
 extern void ui_stop_main_menu_music(void);
@@ -23,5 +24,5 @@ void game_end_teaser_start(uint8_t looping)
         flags |= (1u << _bink_playback_loop_bit)
                | (1u << _bink_playback_button_click_stops_movie_bit);
 
-    bink_playback_start(attract_mode_get_localized_movie_path(5), flags);
+    bink_playback_start(attract_mode_get_localized_movie_path(_bink_teaser_movie), flags);
 }

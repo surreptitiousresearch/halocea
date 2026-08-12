@@ -30,6 +30,9 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -74,13 +77,13 @@ void rasterizer_active_camouflage_cache_primary_render_target(void)
         D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_screen));
         rasterizer_set_target_as_texture_for_effect(0, 1, 0, shader);
 
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 0);
 
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);

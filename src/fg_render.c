@@ -19,6 +19,7 @@
 #include "headers/_D3DPRIMITIVETYPE.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
 #include "headers/rasterizer_vertex_shader_index.h"
+#include "headers/_D3DCULL.h"
 #include "headers/blam_data_globals.h"
 
 typedef struct D3DPixelShader D3DPixelShader; /* boundary type — not reversed */
@@ -95,7 +96,7 @@ void fg_render(uint8_t render_graph, uint8_t render_infos)
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xD, projection, 5, (uint64_t)3 << 59);
     D3DDevice_SetPixelShader(global_d3d_device, nullptr);
     rasterizer_set_stencil_mode(0);
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0xF);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);

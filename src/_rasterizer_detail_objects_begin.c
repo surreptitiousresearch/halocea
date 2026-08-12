@@ -2,6 +2,12 @@
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/d3d_boundary.h"
 #include "headers/d3d_render_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 extern int16_t main_get_window_count(void);
@@ -19,22 +25,22 @@ void _rasterizer_detail_objects_begin(void)
     if (!rasterizer_debug_options.draw_detail_objects || main_get_window_count() > 1)
         return;
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
     D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
     D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
 
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 0, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 0, D3DTEXF_LINEAR);
 
     /* screen-facing detail-object billboard basis + UV corner offsets, uploaded as a 6-vector4 block */
     float constants[24];

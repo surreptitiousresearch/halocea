@@ -16,6 +16,11 @@
 #include "headers/rasterizer_drawing_mode.h"
 #include "headers/rasterizer_stencil_mode.h"
 #include "headers/d3d_render_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -42,7 +47,7 @@ void _rasterizer_environment_diffuse_textures_begin(void)
     if (!rasterizer_debug_options.draw_environment_textures)
         return;
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device,
                                               rasterizer_debug_options.environment_specular_mask_enabled == 0
                                                   ? 7 : 15);
@@ -51,36 +56,36 @@ void _rasterizer_environment_diffuse_textures_begin(void)
                                       rasterizer_debug_options.drawing_mode != _rasterizer_drawing_mode_overdraw ? 8 : 1);
     D3DDevice_SetRenderState_DestBlend(global_d3d_device,
                                        rasterizer_debug_options.drawing_mode == _rasterizer_drawing_mode_overdraw);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
     D3DDevice_SetRenderState_ZEnable(global_d3d_device,
                                      rasterizer_debug_options.drawing_mode != _rasterizer_drawing_mode_overdraw);
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 2);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_EQUAL);
     D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
 
     /* Stage 2 */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 2, 1);
     /* Stage 3 */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 3, 1);
     /* Stage 0 */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
     /* Stage 1 */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 1);
 
     rasterizer_set_stencil_mode(_rasterizer_stencil_mode_reject_alpha_tested_decal);

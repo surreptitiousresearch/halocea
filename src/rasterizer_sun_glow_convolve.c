@@ -23,6 +23,9 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
@@ -54,12 +57,12 @@ int16_t rasterizer_sun_glow_convolve(int16_t primary_target, int16_t secondary_t
     rasterizer_dx9_shader *shader = rasterizer_shader_select(_dxshader_sun_glow_convolve);
     if (shader && shader->effect && passes > 0)
     {
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 0xA);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0);
-        D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_DESTALPHA);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ZERO);
+        D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 0);
 

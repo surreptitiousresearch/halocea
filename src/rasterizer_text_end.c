@@ -9,6 +9,7 @@
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/d3d_render_boundary.h"
 #include "headers/rasterizer_target.h"
+#include "headers/_D3DFILLMODE.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 
@@ -26,5 +27,5 @@ void rasterizer_text_end(void)
     }
 
     if (rasterizer_debug_options.wireframe_enabled)
-        D3DDevice_SetRenderState_FillMode(global_d3d_device, 0x25);
+        D3DDevice_SetRenderState_FillMode(global_d3d_device, D3DFILL_WIREFRAME);
 }

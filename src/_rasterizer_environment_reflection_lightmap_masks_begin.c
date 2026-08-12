@@ -19,6 +19,12 @@
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/rasterizer_globals.h"
 #include "headers/d3d_render_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);
@@ -47,21 +53,21 @@ void _rasterizer_environment_reflection_lightmap_masks_begin(void)
         && rasterizer_debug_options.draw_environment_reflections
         && !rasterizer_globals.lightmap_mode)
     {
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 8);   /* alpha channel only */
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 0xA);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0);
-        D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_DESTALPHA);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ZERO);
+        D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 2);
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_EQUAL);
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
 
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
     }
 

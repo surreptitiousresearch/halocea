@@ -22,6 +22,8 @@
 #include "headers/d3d_shader_boundary.h"
 #include "headers/bitmap_data.h"
 #include "headers/rasterizer_target.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DFILLMODE.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -63,14 +65,14 @@ void rasterizer_text_begin(const rasterizer_dynamic_screen_geometry_parameters *
 
     rasterizer_text_handle_mode_change();
     rasterizer_set_framebuffer_blend_function(parameters->framebuffer_blend_function);
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0);
     D3DDevice_SetRenderState_ZEnable(global_d3d_device, 0);
     if (rasterizer_debug_options.wireframe_enabled)
-        D3DDevice_SetRenderState_FillMode(global_d3d_device, 0);
+        D3DDevice_SetRenderState_FillMode(global_d3d_device, D3DFILL_SOLID);
 
     D3DDevice_SetVertexDeclaration(global_d3d_device, rasterizer_dx9_shaders_vdecl9_get(_vsdecl_screen));
     D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_screen));

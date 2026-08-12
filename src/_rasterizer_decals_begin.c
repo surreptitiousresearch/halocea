@@ -15,6 +15,10 @@
 #include "headers/point2d.h"
 #include "headers/decal_layer.h"
 #include "headers/rasterizer_stencil_mode.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -57,17 +61,17 @@ void _rasterizer_decals_begin(int16_t layer)
     local_filthy_decal_fog_hack_enabled = 0;
 
     rasterizer_set_texture(0, 0, 1, -1, 0);
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
     rasterizer_dx9_set_decal_zbias();
 
     if (layer == _decal_layer_alpha_tested)

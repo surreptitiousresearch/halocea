@@ -27,6 +27,7 @@
 #include "../headers/hcex/HCEX_LOADING_SCREEN.h"
 #include "../headers/d3d_render_boundary.h"
 #include "../headers/_D3DPRIMITIVETYPE.h"
+#include "headers/_D3DBLEND.h"
 
 /* Local minimal vidDRIVER view -- see CAVEAT above for the 0xA6C field. */
 typedef struct vidDRIVER
@@ -145,10 +146,10 @@ void HCEX_LOADING_SCREEN::ProcessRender()
     D3DDevice_SetRenderState_HalfPixelOffset(device, 1);
     D3DDevice_SetRenderState_SeparateAlphaBlendEnable(device, 1);
     D3DDevice_SetRenderState_AlphaBlendEnable(device, 1);
-    D3DDevice_SetRenderState_SrcBlend(device, 6);
-    D3DDevice_SetRenderState_DestBlend(device, 7);
-    D3DDevice_SetRenderState_SrcBlendAlpha(device, 1);
-    D3DDevice_SetRenderState_DestBlendAlpha(device, 0);
+    D3DDevice_SetRenderState_SrcBlend(device, D3DBLEND_SRCALPHA);
+    D3DDevice_SetRenderState_DestBlend(device, D3DBLEND_INVSRCALPHA);
+    D3DDevice_SetRenderState_SrcBlendAlpha(device, D3DBLEND_ONE);
+    D3DDevice_SetRenderState_DestBlendAlpha(device, D3DBLEND_ZERO);
 
     D3DBaseTexture *backgroundTex = *(D3DBaseTexture **)&((unsigned char *)this + 4)[28]; // ui_new::UI_FRAME field, absolute offset 32 -- boundary
     D3DBaseTexture *maskTex       = *(D3DBaseTexture **)&((unsigned char *)this + 4)[32]; // ui_new::UI_FRAME field, absolute offset 36 -- boundary

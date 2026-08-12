@@ -20,6 +20,7 @@
 #include "headers/rasterizer_dx9_shader_table.h"
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
+#include "headers/_D3DBLEND.h"
 #include "headers/blam_data_globals.h"
 #include "headers/_D3DTEXTURESTAGESTATETYPE.h"
 #include "headers/render_model_effect_type.h"
@@ -77,8 +78,8 @@ void rasterizer_glass_draw_tint_pp(const transparent_geometry_group *group)
             (uint64_t)3 << 60);
 
     D3DDevice_SetPixelShader(global_d3d_device, nullptr);
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 0);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 4);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ZERO);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_SRCCOLOR);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
 
     SetTextureStageStateSmart(0, D3DTSS_COLOROP, 4);   /* modulate */

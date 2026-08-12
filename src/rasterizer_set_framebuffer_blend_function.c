@@ -6,6 +6,8 @@
 #include <stdint.h>
 #include "headers/d3d_render_boundary.h"
 #include "headers/shader_framebuffer_blend_function.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 
 extern const unsigned int srcblend_table[];
@@ -23,9 +25,9 @@ void rasterizer_set_framebuffer_blend_function(int16_t framebuffer_blend_functio
 
     if (cf_MinMaxBlendOpIsBroken && is_min_max)
     {
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1);
-        D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+        D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
     }
     else
     {

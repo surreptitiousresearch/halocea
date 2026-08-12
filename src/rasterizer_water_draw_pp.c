@@ -46,6 +46,12 @@
 #include "headers/d3d_shader_boundary.h"
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/shader_transparent_water_flags.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
 #include "headers/point2d.h"
@@ -92,21 +98,21 @@ extern void D3DDevice_SetPixelShaderConstantFN(D3DDevice *device, unsigned int S
 /* Clamp-address + point-filter one sampler (compiler-inlined sampler-state setters). */
 static void water_clamp_sampler(unsigned int sampler)
 {
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, sampler, 2);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, sampler, 2);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, sampler, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, sampler, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, sampler, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, sampler, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, sampler, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, sampler, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, sampler, 1);
 }
 
 /* As above, plus AddressW clamp (for the 3D normalization / bump samplers). */
 static void water_clamp_sampler_w(unsigned int sampler)
 {
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, sampler, 2);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, sampler, 2);
-    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, sampler, 2);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, sampler, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, sampler, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, sampler, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, sampler, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, sampler, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, sampler, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, sampler, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, sampler, 1);
 }
 
@@ -166,12 +172,12 @@ void rasterizer_water_draw_pp(const transparent_geometry_group *group)
             /* Pass 0 — reflection sampled through the normalization cube map. */
             if ( (water->water.flags & (1u << _shader_transparent_water_base_map_alpha_modulates_reflection_bit)) != 0 )
             {
-                D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+                D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 8);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
                 D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
                 D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+                D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
                 D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, z_write);
                 rasterizer_set_texture_for_effect(0, 0, 1, water->water.base_map.index,
                         group->shader_permutation_index, reflection_shader);
@@ -193,15 +199,15 @@ void rasterizer_water_draw_pp(const transparent_geometry_group *group)
                 rasterizer_set_texture_for_effect(0, 0, 1, water->water.base_map.index,
                         group->shader_permutation_index, reflection_shader);
                 water_clamp_sampler(0);
-                D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+                D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 0);
-                D3DDevice_SetRenderState_DestBlend(global_d3d_device, 4);
-                D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ZERO);
+                D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_SRCCOLOR);
+                D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
                 D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
                 D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+                D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
                 D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, z_write);
                 ID3DXEffect_Begin(reflection_shader->effect, pass_count, 3);
                 ID3DXEffect_BeginPass(reflection_shader->effect, 1);
@@ -216,16 +222,16 @@ void rasterizer_water_draw_pp(const transparent_geometry_group *group)
         rasterizer_dx9_shader *surface_shader = rasterizer_shader_select(_dxshader_transparent_water_reflection);
         if ( surface_shader && surface_shader->effect )
         {
-            D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+            D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
             D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
             D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, (~group->geometry_flags >> 4) & 1);
             D3DDevice_SetRenderState_SrcBlend(global_d3d_device,
                     (water->water.flags & (1u << _shader_transparent_water_base_map_alpha_modulates_reflection_bit)) == 0 ? 1 : 10);
-            D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1);
-            D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+            D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+            D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
             D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+            D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
             D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, z_write);
             D3DDevice_SetVertexDeclaration(global_d3d_device,
                     rasterizer_dx9_shaders_vdecl9_get(vertex_declaration_index));
@@ -259,10 +265,10 @@ void rasterizer_water_draw_pp(const transparent_geometry_group *group)
                 reflection_mipmap = 1;
             rasterizer_set_target_as_texture_for_effect(0, 8, reflection_mipmap, surface_shader);
             /* sampler 0: wrap-address reflection target. */
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
             rasterizer_set_texture_for_effect(3, 2, 0, water->water.reflection_map.index,
                     group->shader_permutation_index, surface_shader);
@@ -312,12 +318,12 @@ void rasterizer_water_draw_pp(const transparent_geometry_group *group)
     else
     {
         /* Unsupported vertex type — plain fixed-function textured pass. */
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
         unsigned char z_write = 1; /* fallback pass always depth-writes */
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, z_write);
         D3DDevice_SetVertexDeclaration(global_d3d_device,

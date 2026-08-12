@@ -59,6 +59,9 @@
 #include "headers/d3dx_effect_boundary.h"
 
 #include <math.h>
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 
 /* one entry of the water_bumpmap_layer tag block referenced by water.ripples (tag +0x124, the offset the
@@ -143,7 +146,7 @@ void rasterizer_water_build_bumpmap(const shader *shader)
     vertex_data_0[3].position.n[1] = -0.9921875f;
     vertex_data_0[3].position.n[2] = 0.0f;
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
@@ -151,10 +154,10 @@ void rasterizer_water_build_bumpmap(const shader *shader)
 
     for ( unsigned int stage = 0; stage < 4; ++stage )
     {
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, 0);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, stage, 0);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, stage, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, stage, 1);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, D3DTADDRESS_WRAP);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, stage, D3DTADDRESS_WRAP);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, stage, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, stage, D3DTEXF_LINEAR);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, stage, 1);
     }
 

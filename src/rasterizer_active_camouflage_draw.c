@@ -42,6 +42,9 @@
 #include "headers/rasterizer_target.h"
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/rasterizer_active_camouflage_flags.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_index.h"
@@ -119,25 +122,25 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
             D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
             D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
             D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+            D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
             D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
 
             /* sampler 0 = the distortion bitmap */
             /* recovered: *(int *)(rdata + 0x5C) -> active_camouflage_distortion.index */
             rasterizer_set_texture_direct_for_effect(0, global_rasterizer_data->active_camouflage_distortion.index, 0, dxeffect);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 1);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 1);
-            D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 0, 1);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 0, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
 
             /* sampler 2 = the cached scene render target */
             rasterizer_set_target_as_texture_for_effect(2, 2, 0, dxeffect);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, 1);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, 1);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, 1);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 2, 0);
 
             D3DDevice_SetVertexShader(global_d3d_device, rasterizer_dx9_shaders_vshader9_get(_vs_model_active_camouflage));
@@ -213,7 +216,7 @@ void rasterizer_active_camouflage_draw(const transparent_geometry_group *group)
         }
     }
 
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 2);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_EQUAL);
 
     if ( intensity < 1.0f )
     {

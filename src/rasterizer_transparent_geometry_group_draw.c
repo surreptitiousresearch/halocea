@@ -54,6 +54,12 @@
 #include "headers/shader_transparent_meter_flags.h"
 #include "headers/shader_transparent_glass_reflection_type.h"
 #include "headers/periodic_function.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
 #include "headers/blam_data_globals.h"
 #include "headers/render_model_effect_type.h"
 #include "headers/_D3DTEXTURESTAGESTATETYPE.h"
@@ -153,13 +159,13 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
         if ( source_object_index != local_last_source_object_index && !dirty )
         {
             const transparent_geometry_group *g = group;
-            D3DDevice_SetRenderState_CullMode(global_d3d_device, 0 /* D3DCULL_NONE */);
+            D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
             D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0);
             D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
             D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
             D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
             D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3 /* D3DCMP_LESSEQUAL */);
+            D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
             D3DDevice_SetPixelShader(global_d3d_device, nullptr);
             SetTextureStageStateSmart(0, D3DTSS_COLOROP, 2);
             SetTextureStageStateSmart(0, D3DTSS_COLORARG1, 3);
@@ -214,13 +220,13 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
             if ( shader && shader->base.type == _shader_type_model && !dirty )
             {
                 const transparent_geometry_group *g = group;
-                D3DDevice_SetRenderState_CullMode(global_d3d_device, 6 /* D3DCULL_CCW */);
+                D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
                 D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
                 D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
                 D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3 /* D3DCMP_LESSEQUAL */);
+                D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
                 D3DDevice_SetPixelShader(global_d3d_device, nullptr);
                 SetTextureStageStateSmart(0, D3DTSS_COLOROP, 2);
                 SetTextureStageStateSmart(0, D3DTSS_COLORARG1, 3);
@@ -322,7 +328,7 @@ void rasterizer_transparent_geometry_group_draw(const transparent_geometry_group
     {
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3 /* D3DCMP_LESSEQUAL */);
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
         if ( shader_is_decal(group->shader) )
             rasterizer_dx9_set_transparent_decal_zbias();
         else
@@ -435,7 +441,7 @@ env_shader_selected:
                         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0,
                                 (~(unsigned int)(uint16_t)fx->effect.framebuffer_fade_mode >> 7) & 1);
                     }
-                    D3DDevice_SetRenderState_CullMode(global_d3d_device, 0 /* D3DCULL_NONE */);
+                    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
                     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
                     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
@@ -534,13 +540,13 @@ env_shader_selected:
                         (glass->glass.flags & (1u << _shader_transparent_glass_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0 /* D3DBLENDOP_ADD */);
+                D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
                 D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0);
                 /* DEVIATION: fetch-constant sampler pokes decoded to inline helpers. */
-                D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-                D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
-                D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-                D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+                D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+                D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+                D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+                D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
                 D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
                 if ( reflection_mode != _shader_transparent_glass_reflection_type_mirror
                      || (global_window_parameters.has_mirror
@@ -681,8 +687,8 @@ env_shader_selected:
                 rasterizer_set_texture_for_effect(0, 0, 1, mtr->meter.map.index,
                         group->shader_permutation_index, effect_shader);
                 /* DEVIATION: fetch-constant sampler pokes decoded to inline helpers. */
-                D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-                D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
+                D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+                D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
                 D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0,
                         ((unsigned int)~mtr->meter.flags >> _shader_transparent_meter_point_sampled_bit) & 1);
                 D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0,
@@ -693,9 +699,9 @@ env_shader_selected:
                         (mtr->meter.flags & (1u << _shader_transparent_meter_two_sided_bit)) != 0 ? 0 /* D3DCULL_NONE */ : 6 /* D3DCULL_CCW */);
                 D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1 /* D3DBLEND_ONE */);
-                D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1 /* D3DBLEND_ONE */);
-                D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0 /* D3DBLENDOP_ADD */);
+                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+                D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+                D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
                 D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
 
                 /* base-map transform (register 0xA, 3 vec4) */

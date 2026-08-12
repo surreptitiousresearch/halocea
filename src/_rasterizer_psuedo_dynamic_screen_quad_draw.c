@@ -51,6 +51,10 @@
 #include "headers/real_argb_color.h"
 #include "headers/rasterizer_target.h"
 #include "headers/shader_framebuffer_blend_function.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DCMPFUNC.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -86,7 +90,7 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
     if ( !rasterizer_debug_options.draw_dynamic_screen_geometry || global_window_parameters.rasterizer_target != _rasterizer_target_render_primary )
         return;
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7u);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
@@ -186,13 +190,13 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
         uint8_t meter_alpha_reference = meter[0];   /* byte 0: alpha ref, doubles as pass-1 alpha */
 
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, 3u);
+        D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, D3DCMP_LESSEQUAL);
         D3DDevice_SetRenderState_AlphaRef(global_d3d_device, meter_alpha_reference);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0xFu);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1u);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1u);
-        D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+        D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
 
         /* Pass 1: bytes 1..3 = empty-bar RGB, quantized [0,255]; * (1/255) to normalize. */
         pixel_shader_constants[0] = meter[1] * 0.00392156862745098f;   /* 1/255 */
@@ -206,7 +210,7 @@ void _rasterizer_psuedo_dynamic_screen_quad_draw(
         uint8_t first_pass_ok =
             _rasterizer_psuedo_dynamic_screen_quad_draw_fx(parameters, vertices, meter_shader, pixel_shader_constants) != 0;
 
-        D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, 4u);
+        D3DDevice_SetRenderState_AlphaFunc(global_d3d_device, D3DCMP_GREATER);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0xFu);
 
         /* Pass 2: bytes 9..11 = filled-bar RGB, byte 8 its alpha; same [0,255] quantization. */

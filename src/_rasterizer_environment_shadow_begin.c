@@ -8,6 +8,7 @@
 #include "headers/rasterizer_engine_globals.h"
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/rasterizer_target.h"
+#include "headers/_D3DCULL.h"
 #include "headers/blam_data_globals.h"
 
 extern void rasterizer_set_target(int16_t target, int16_t mipmap_index, uint32_t background_color, uint8_t clear, uint8_t zbuffer);
@@ -29,7 +30,7 @@ uint8_t _rasterizer_environment_shadow_begin(
     if (!rasterizer_globals.render_targets_disabled
      && rasterizer_debug_options.draw_environment_shadows)
     {
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6u);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7u);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1u);

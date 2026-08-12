@@ -31,6 +31,10 @@
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
 #include "headers/rasterizer_geometry_flags.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DCMPFUNC.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
@@ -79,15 +83,15 @@ void rasterizer_model_draw_environment_shader_pp(const shader *shader, int16_t s
     {
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);            /* D3DZB_TRUE */
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 1);       /* TRUE */
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);              /* D3DCMP_LESSEQUAL */
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);              /* D3DCMP_LESSEQUAL */
         rasterizer_dx9_reset_zbias();
     }
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);               /* D3DCULL_CCW */
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);               /* D3DCULL_CCW */
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);       /* RED|GREEN|BLUE color-write mask */
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);       /* FALSE */
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);               /* D3DBLEND_SRCALPHA */
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);              /* D3DBLEND_INVSRCALPHA */
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);                /* D3DBLENDOP_ADD */
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);               /* D3DBLEND_SRCALPHA */
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);              /* D3DBLEND_INVSRCALPHA */
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);                /* D3DBLENDOP_ADD */
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device,
             env->environment.flags & (1u << _shader_environment_alpha_tested_bit));
     D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0x7F);            /* alpha test reference 127 */

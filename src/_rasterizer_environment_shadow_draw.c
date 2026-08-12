@@ -41,6 +41,11 @@
 #include "headers/real_rgb_color.h"
 #include "headers/d3d_render_boundary.h"
 #include "headers/rasterizer_target.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -86,24 +91,24 @@ void _rasterizer_environment_shadow_draw(const shader *shader, int16_t shader_pe
 
         rasterizer_set_target_as_texture_for_effect(
             0, rasterizer_debug_options.shadow_convolution_enabled ? 4 : 3, 0, dxeffect_shader);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
 
         rasterizer_set_texture_direct_for_effect(1, global_rasterizer_data->linear_corner_fade.index, 0,
                                                  dxeffect_shader);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
 
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0xF);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 0);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 5);
-        D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ZERO);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCCOLOR);
+        D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
         D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0);
         D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-        D3DDevice_SetRenderState_ZFunc(global_d3d_device, 2);
+        D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_EQUAL);
         D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
 
         /* rescale the shadow-begin's cached projection matrix by 1/object_bounding_radius, splatting the

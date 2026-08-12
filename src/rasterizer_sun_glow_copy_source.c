@@ -27,6 +27,7 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
+#include "headers/_D3DCULL.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -59,7 +60,7 @@ void rasterizer_sun_glow_copy_source(int16_t target, const real_rectangle2d *bou
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 0);
     rasterizer_set_texture_direct_for_effect(1, global_rasterizer_data->glow.index, 0, shader);
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 0xF);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);

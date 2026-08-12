@@ -42,6 +42,11 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
 #include "headers/rasterizer_target.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -151,24 +156,24 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
         {
             /* odd video pass: composite the accumulated source RT + scanline map + noise map */
             rasterizer_set_target_as_texture_for_effect(0, source_rt, 0, shader);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 0);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 0);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_POINT);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_POINT);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 0);
 
             rasterizer_set_texture_bitmap_data_for_effect(1, cinematic_parameters->video_scanline_map, shader);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 2);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, 2);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 0);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 0);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_CLAMP);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, D3DTADDRESS_CLAMP);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_POINT);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_POINT);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 0);
 
             rasterizer_set_texture_bitmap_data_for_effect(2, cinematic_parameters->video_noise_map, shader);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, 0); /* noise wraps */
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, 0);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, 1);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, D3DTADDRESS_WRAP); /* noise wraps */
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, D3DTADDRESS_WRAP);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 2, 0);
         }
         else
@@ -236,10 +241,10 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
                     goto next_stage;
 
             stage_samplers: /* decompiler LABEL_57 */
-                D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, 2);
-                D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, stage, 2);
-                D3DDevice_SetSamplerState_MagFilter(global_d3d_device, stage, 1);
-                D3DDevice_SetSamplerState_MinFilter(global_d3d_device, stage, 1);
+                D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, D3DTADDRESS_CLAMP);
+                D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, stage, D3DTADDRESS_CLAMP);
+                D3DDevice_SetSamplerState_MagFilter(global_d3d_device, stage, D3DTEXF_LINEAR);
+                D3DDevice_SetSamplerState_MinFilter(global_d3d_device, stage, D3DTEXF_LINEAR);
                 D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, stage, 0);
 
             next_stage: /* decompiler LABEL_58 */
@@ -249,7 +254,7 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
         }
 
     render: /* decompiler LABEL_59 */
-        D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+        D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
         D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
         D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 0);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
@@ -286,9 +291,9 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
                             (const D3DXVECTOR4 *)effect_vector);
 
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1);
-                D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0);
-                D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+                D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ZERO);
+                D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             }
             rasterizer_set_technique(shader->effect, technique);
         }
@@ -413,16 +418,16 @@ void _rasterizer_screen_effect_ps(const rasterizer_screen_effect_parameters *par
             if ( total_passes == 1 )
             {
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 0);
-                D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);
-                D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ZERO);
+                D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
+                D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             }
             else if ( pass_index == total_passes - 1 )
             {
                 D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 7);
-                D3DDevice_SetRenderState_DestBlend(global_d3d_device, 0);
-                D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+                D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
+                D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ZERO);
+                D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
             }
         }
 

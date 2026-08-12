@@ -18,6 +18,12 @@
 #include "headers/rasterizer_shader_helpers.h"
 #include "headers/game_globals_rasterizer_data.h"
 #include "headers/d3d_render_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 extern float rasterizer_fog_eye_blend_factor;     /* atmospheric fog eye-blend factor */
@@ -76,32 +82,32 @@ void _rasterizer_environment_fog_begin(void)
     if ( !shader || !shader->effect )
         return;
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 6);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_AlphaRef(global_d3d_device, 0);
     D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 2);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_EQUAL);
     D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
 
     rasterizer_set_texture_direct_for_effect(0, global_rasterizer_data->atmospheric_fog_density.index, 0, shader);
     /* Stage 0 — clamp U/V, point filter, separate-Z */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 2);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 2);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
 
     rasterizer_set_texture_direct_for_effect(1, global_rasterizer_data->planar_fog_density.index, 0, shader);
     /* Stage 1 — clamp U/V, point filter, separate-Z */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 2);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, 2);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, D3DTADDRESS_CLAMP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 1);
 
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 1);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_ONE);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
 }

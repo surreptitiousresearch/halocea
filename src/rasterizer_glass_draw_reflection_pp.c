@@ -45,6 +45,9 @@
 #include "headers/point2d.h"
 #include "headers/shader_transparent_glass_reflection_type.h"
 #include "headers/rasterizer_vertex_type.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 #include "headers/render_model_effect_type.h"
 #include "headers/rasterizer_dx9_shader_index.h"
@@ -208,47 +211,47 @@ void rasterizer_glass_draw_reflection_pp(const transparent_geometry_group *group
         /* stage 1: normalization cube map. */
         rasterizer_set_texture_direct_for_effect(1, global_rasterizer_data->vector_normalization.index, 0,
                                                  effect_shader);
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 1);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, 1);
-        D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 1, 1);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 0);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_MIRROR);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, D3DTADDRESS_MIRROR);
+        D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 1, D3DTADDRESS_MIRROR);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_POINT);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 0);
 
         /* stage 2: normalization cube map (second sample). */
         rasterizer_set_texture_direct_for_effect(2, global_rasterizer_data->vector_normalization.index, 0,
                                                  effect_shader);
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, 1);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, 1);
-        D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 2, 1);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, 0);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, D3DTADDRESS_MIRROR);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, D3DTADDRESS_MIRROR);
+        D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 2, D3DTADDRESS_MIRROR);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, D3DTEXF_POINT);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 2, 0);
 
         /* stage 3: render target (mirror mode) or reflection texture (all other modes). */
         if (reflection_mode == _shader_transparent_glass_reflection_type_mirror)
         {
             rasterizer_set_target_as_texture_for_effect(3, 2, 0, effect_shader);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 3, 0);
         }
         else
         {
             rasterizer_set_texture_for_effect(3, 2, 0, glass->glass.reflection_map.index,
                                               group->shader_permutation_index, effect_shader);
-            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, 1);
-            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, 1);
+            D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+            D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
+            D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
             D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 3, 1);
         }
 
-        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);
-        D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1);
+        D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);
+        D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
         D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
 
         ID3DXEffect_Begin(effect_shader->effect, effect_pass_count, 3);

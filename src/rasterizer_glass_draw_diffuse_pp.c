@@ -33,6 +33,9 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -114,25 +117,25 @@ void rasterizer_glass_draw_diffuse_pp(const transparent_geometry_group *group)
     rasterizer_set_texture_for_effect(1, 0, 2, glass->glass.diffuse_detail_map.index,
             group->shader_permutation_index, effect_shader);
 
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 1, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 1, D3DTEXF_LINEAR);
 
     if ( group->lightmap )
     {
         rasterizer_set_texture_bitmap_data_for_effect(2, (bitmap_data *)group->lightmap, effect_shader); /* lazy hw-format mutation: drop const view */
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, 2);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, 2);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, 1);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, D3DTADDRESS_CLAMP);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, D3DTADDRESS_CLAMP);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
         pass_index = 1;
-        D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 2, 1);
+        D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 2, D3DTEXF_LINEAR);
     }
 
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 1);
 
     unsigned int passes[4];

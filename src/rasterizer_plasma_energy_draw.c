@@ -53,6 +53,12 @@
 #include "headers/global_frame_parameters.h"
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_index.h"
@@ -169,31 +175,31 @@ void rasterizer_plasma_energy_draw(const transparent_geometry_group *group)
 
     rasterizer_set_texture_for_effect(0, 1, 0, plasma->plasma.primary_noise_map.index,
             group->shader_permutation_index, dxeffect_shader);
-    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 0, 0);
+    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
     rasterizer_set_texture_for_effect(1, 1, 0, plasma->plasma.secondary_noise_map.index,
             group->shader_permutation_index, dxeffect_shader);
-    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 1, 0);
+    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
 
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 0, 1);
 
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
     D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 1);
 
-    D3DDevice_SetRenderState_CullMode(global_d3d_device, 0);
+    D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_NONE);
     D3DDevice_SetRenderState_ColorWriteEnable(global_d3d_device, 7);
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, 1);
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 1);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_ONE);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
     D3DDevice_SetRenderState_AlphaTestEnable(global_d3d_device, 0);
     D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
     D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, 0);
-    D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+    D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
 
     /* c10..c12: base-map / detail-map UV scale-bias, x/y pairs scaled by the animation color and glow_scale */
     float texture_transform_constants[12];

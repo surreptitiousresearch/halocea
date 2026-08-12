@@ -47,6 +47,10 @@
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/shader_model_flags.h"
 #include "headers/shader_model_self_illumination_flags.h"
+#include "headers/_D3DCULL.h"
+#include "headers/_D3DBLEND.h"
+#include "headers/_D3DCMPFUNC.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
 
@@ -134,7 +138,7 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
         if ( !force_alpha_blend )
         {
             D3DDevice_SetRenderState_ZEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_ZFunc(global_d3d_device, 3);
+            D3DDevice_SetRenderState_ZFunc(global_d3d_device, D3DCMP_LESSEQUAL);
             D3DDevice_SetRenderState_ZWriteEnable(global_d3d_device, decal_flag == 0);
         }
         if ( decal_flag )
@@ -161,9 +165,9 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
     if ( decal_flag || force_alpha_blend )
         alpha_blend_enable = 1;
     D3DDevice_SetRenderState_AlphaBlendEnable(global_d3d_device, alpha_blend_enable);
-    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, 6);
-    D3DDevice_SetRenderState_DestBlend(global_d3d_device, 7);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0);
+    D3DDevice_SetRenderState_SrcBlend(global_d3d_device, D3DBLEND_SRCALPHA);
+    D3DDevice_SetRenderState_DestBlend(global_d3d_device, D3DBLEND_INVSRCALPHA);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
 
     unsigned int alpha_test_enable = 1;
     if ( force_alpha_blend || decal_flag || (shader->model.flags & (1u << _shader_model_not_alpha_tested_bit)) )
@@ -546,7 +550,7 @@ void rasterizer_model_draw_model_shader_pp(const shader *shader_base, int16_t sh
         for ( unsigned int j = 0; j < pass_count[0]; ++j )
         {
             ID3DXEffect_BeginPass(effect_shader->effect, j);
-            D3DDevice_SetRenderState_CullMode(global_d3d_device, 2);
+            D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CW);
             rasterizer_draw(triangle_buffer, dynamic_triangle_buffer_index, 0, triangle_count, vertex_buffer,
                     dynamic_vertex_buffer_index);
             ID3DXEffect_EndPass(effect_shader->effect);

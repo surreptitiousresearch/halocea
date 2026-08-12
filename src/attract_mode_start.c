@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "headers/bink_movie.h"
 #include "headers/bink_playback_flags.h"
 #include "headers/blam_data_globals.h"
 /* attract_mode_start @0x83784F38 — begin attract-mode (idle demo) playback: pick a random movie 0-2
@@ -18,11 +19,11 @@ void attract_mode_start(void)
     short movie;
     do
     {
-        short roll = seed_random_range(get_global_local_random_seed_address(), 0, 3);
+        short roll = seed_random_range(get_global_local_random_seed_address(), 0, NUMBER_OF_ATTRACT_MODE_MOVIES);
         if ( roll < 0 )
-            movie = 0;
-        else if ( roll > 2 )
-            movie = 2;
+            movie = _bink_attract1_movie;
+        else if ( roll > _bink_attract3_movie )
+            movie = _bink_attract3_movie;
         else
             movie = roll;
     }

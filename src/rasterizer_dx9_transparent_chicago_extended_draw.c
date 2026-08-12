@@ -46,6 +46,8 @@
 #include "headers/tag_reference.h"
 #include "headers/d3d_boundary.h"
 #include "headers/rasterizer_geometry_flags.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DBLENDOP.h"
 #include "headers/blam_data_globals.h"
 #include "headers/render_model_effect_type.h"
 
@@ -184,7 +186,7 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
         D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, stage, address_u);
         D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, stage, address_v);
         D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, stage, address_w);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, stage, 1);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, stage, D3DTEXF_LINEAR);
         D3DDevice_SetSamplerState_MinFilter(global_d3d_device, stage, filter_flag);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, stage, filter_flag);
 
@@ -278,5 +280,5 @@ void rasterizer_dx9_transparent_chicago_extended_draw(const transparent_geometry
     D3DDevice_SetVertexShaderConstantFN(global_d3d_device, 0xA, color_constants, 3, (uint64_t)3 << 60);
     shader_transparent_chicago_extended_create(group->shader, use_additional_op);
     rasterizer_transparent_geometry_group_draw_internal(group, 0);
-    D3DDevice_SetRenderState_BlendOp(global_d3d_device, 0 /* D3DBLENDOP_ADD */);
+    D3DDevice_SetRenderState_BlendOp(global_d3d_device, D3DBLENDOP_ADD);
 }

@@ -29,6 +29,8 @@
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/rasterizer_stencil_mode.h"
 #include "headers/render_model_effect_type.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -61,30 +63,30 @@ void _rasterizer_model_begin(const rasterizer_model_begin_parameters *parameters
                              uint8_t do_not_change_z_stencil_states)
 {
     /* Stage 0: wrap addressing, point min/mag/mip filtering */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
-    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 0, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 0, D3DTEXF_LINEAR);
     /* Stage 1 */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
-    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 1, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 1, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 1, D3DTEXF_LINEAR);
     /* Stage 2 */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, 0);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, 0);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, 1);
-    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 2, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 2, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 2, D3DTADDRESS_WRAP);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 2, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 2, D3DTEXF_LINEAR);
     /* Stage 3: clamp addressing (all three axes — cube/volume-capable stage) */
-    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, 1);
-    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, 1);
-    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 3, 1);
-    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, 1);
-    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, 1);
-    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 3, 1);
+    D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+    D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+    D3DDevice_SetSamplerState_AddressW_Inline(global_d3d_device, 3, D3DTADDRESS_MIRROR);
+    D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 3, D3DTEXF_LINEAR);
+    D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 3, D3DTEXF_LINEAR);
 
     if (!rasterizer_debug_options.draw_models)
         return;

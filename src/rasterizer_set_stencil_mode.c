@@ -7,6 +7,8 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/rasterizer_stencil_mode.h"
+#include "headers/_D3DSTENCILOP.h"
+#include "headers/_D3DCMPFUNC.h"
 #include "headers/blam_data_globals.h"
 
 /* Stencil op codes below are _D3DSTENCILOP (KEEP=0, REPLACE=2); compare-func codes are _D3DCMPFUNC
@@ -37,10 +39,10 @@ void rasterizer_set_stencil_mode(int16_t stencil_mode)
         if (mode == _rasterizer_stencil_mode_write)
         {
             D3DDevice_SetRenderState_StencilEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_StencilFail(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, 0);   /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilPass(global_d3d_device, 2);    /* D3DSTENCILOP_REPLACE */
-            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, 7);    /* D3DCMP_ALWAYS */
+            D3DDevice_SetRenderState_StencilFail(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, D3DSTENCILOP_KEEP);   /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilPass(global_d3d_device, D3DSTENCILOP_REPLACE);    /* D3DSTENCILOP_REPLACE */
+            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, D3DCMP_ALWAYS);    /* D3DCMP_ALWAYS */
             D3DDevice_SetRenderState_StencilRef(global_d3d_device, 1);
             D3DDevice_SetRenderState_StencilMask(global_d3d_device, 1);
             D3DDevice_SetRenderState_StencilWriteMask(global_d3d_device, 1);
@@ -52,20 +54,20 @@ void rasterizer_set_stencil_mode(int16_t stencil_mode)
         if (mode == _rasterizer_stencil_mode_reject)
         {
             D3DDevice_SetRenderState_StencilEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_StencilFail(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, 0);   /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilPass(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, 2);    /* D3DCMP_EQUAL */
+            D3DDevice_SetRenderState_StencilFail(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, D3DSTENCILOP_KEEP);   /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilPass(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, D3DCMP_EQUAL);    /* D3DCMP_EQUAL */
             D3DDevice_SetRenderState_StencilRef(global_d3d_device, 0);
             stencil_mask = 1;
         }
         else if (mode == _rasterizer_stencil_mode_reject_invert && mode != _rasterizer_stencil_mode_none)
         {
             D3DDevice_SetRenderState_StencilEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_StencilFail(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, 0);   /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilPass(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, 5);    /* D3DCMP_NOTEQUAL */
+            D3DDevice_SetRenderState_StencilFail(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, D3DSTENCILOP_KEEP);   /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilPass(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, D3DCMP_NOTEQUAL);    /* D3DCMP_NOTEQUAL */
             D3DDevice_SetRenderState_StencilRef(global_d3d_device, 0);
             stencil_mask = 1;
         }
@@ -74,10 +76,10 @@ void rasterizer_set_stencil_mode(int16_t stencil_mode)
             if (mode == _rasterizer_stencil_mode_write_alpha_tested_decal && mode != _rasterizer_stencil_mode_none)
             {
                 D3DDevice_SetRenderState_StencilEnable(global_d3d_device, 1);
-                D3DDevice_SetRenderState_StencilFail(global_d3d_device, 0);   /* D3DSTENCILOP_KEEP */
-                D3DDevice_SetRenderState_StencilZFail(global_d3d_device, 0);  /* D3DSTENCILOP_KEEP */
-                D3DDevice_SetRenderState_StencilPass(global_d3d_device, 2);   /* D3DSTENCILOP_REPLACE */
-                D3DDevice_SetRenderState_StencilFunc(global_d3d_device, 2);   /* D3DCMP_EQUAL */
+                D3DDevice_SetRenderState_StencilFail(global_d3d_device, D3DSTENCILOP_KEEP);   /* D3DSTENCILOP_KEEP */
+                D3DDevice_SetRenderState_StencilZFail(global_d3d_device, D3DSTENCILOP_KEEP);  /* D3DSTENCILOP_KEEP */
+                D3DDevice_SetRenderState_StencilPass(global_d3d_device, D3DSTENCILOP_REPLACE);   /* D3DSTENCILOP_REPLACE */
+                D3DDevice_SetRenderState_StencilFunc(global_d3d_device, D3DCMP_EQUAL);   /* D3DCMP_EQUAL */
                 D3DDevice_SetRenderState_StencilRef(global_d3d_device, 2);
                 D3DDevice_SetRenderState_StencilMask(global_d3d_device, 1);
                 D3DDevice_SetRenderState_StencilWriteMask(global_d3d_device, 2);
@@ -92,10 +94,10 @@ void rasterizer_set_stencil_mode(int16_t stencil_mode)
             }
             /* mode == _rasterizer_stencil_mode_reject_alpha_tested_decal */
             D3DDevice_SetRenderState_StencilEnable(global_d3d_device, 1);
-            D3DDevice_SetRenderState_StencilFail(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, 0);   /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilPass(global_d3d_device, 0);    /* D3DSTENCILOP_KEEP */
-            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, 2);    /* D3DCMP_EQUAL */
+            D3DDevice_SetRenderState_StencilFail(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilZFail(global_d3d_device, D3DSTENCILOP_KEEP);   /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilPass(global_d3d_device, D3DSTENCILOP_KEEP);    /* D3DSTENCILOP_KEEP */
+            D3DDevice_SetRenderState_StencilFunc(global_d3d_device, D3DCMP_EQUAL);    /* D3DCMP_EQUAL */
             D3DDevice_SetRenderState_StencilRef(global_d3d_device, 0);
             stencil_mask = 3;
         }

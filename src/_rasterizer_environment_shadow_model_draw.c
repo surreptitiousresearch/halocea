@@ -42,6 +42,8 @@
 #include "headers/rasterizer_target.h"
 #include "headers/shader_type.h"
 #include "headers/shader_model_flags.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -86,11 +88,11 @@ void _rasterizer_environment_shadow_model_draw(
     {
         rasterizer_set_texture_for_effect(0, 0, 1, shader_mod->model.base_map.index,
                                           shader_permutation_index, effect_shader);
-        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, 0);
-        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, 0);
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, 1);
-        D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 0, 1);
+        D3DDevice_SetSamplerState_AddressU_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+        D3DDevice_SetSamplerState_AddressV_Inline(global_d3d_device, 0, D3DTADDRESS_WRAP);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 0, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MipFilter_Inline(global_d3d_device, 0, D3DTEXF_LINEAR);
     }
 
     float detail_map_u_scale = shader_mod->model.detail_map_scale;

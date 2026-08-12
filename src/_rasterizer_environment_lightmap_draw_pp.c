@@ -42,6 +42,7 @@
 #include "headers/d3d_render_boundary.h"
 #include "headers/d3d_shader_boundary.h"
 #include "headers/d3dx_effect_boundary.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
 #include "headers/blam_data_globals.h"
 #include "headers/shader_environment_flags.h"
 #include "headers/shader_environment_self_illumination_map_point_sampled_flags.h"
@@ -111,14 +112,14 @@ void _rasterizer_environment_lightmap_draw_pp(const shader *shader, int16_t shad
 
     if ( (shader_env->environment.self_illumination.flags & (1u << _shader_environment_self_illumination_map_point_sampled_bit)) != 0 )
     {
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 0);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 0);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_POINT);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_POINT);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 0);
     }
     else
     {
-        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, 1);
-        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, 1);
+        D3DDevice_SetSamplerState_MagFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
+        D3DDevice_SetSamplerState_MinFilter(global_d3d_device, 1, D3DTEXF_LINEAR);
         D3DDevice_SetSamplerState_SeparateZFilterEnable(global_d3d_device, 1, 1);
     }
 

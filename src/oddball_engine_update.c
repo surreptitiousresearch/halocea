@@ -8,11 +8,15 @@
  * shadow-register bug already confirmed at 2 other call sites (race_engine_initialize_for_new_map.c,
  * king_engine_update.c) — the float `vertical_offset` (0.0f here) consumes a shadow GPR slot, shifting the
  * decompiler's shown args one register early. Real mapping at this site: descriptor="target_blue" (r6),
- * player_index=-1 (r7), team_index=-1 (r8). The trailing `ignore_player_index` (r9) is NOT set by this call
- * at all — disasm traces r9 back to `subfe r9, r10, r10` inside the unrelated tick==60 announcement branch
- * (a leftover boolean-sign-extension byproduct, only even reachable on some calls), so it is genuine
- * leftover register garbage, not a real argument. Reproduced as a 0 placeholder, matching the established
- * precedent in king_engine_update.c for find_hill's similarly-garbage trailing args. */
+ * player_index=-1 (r7), team_index=-1 (r8), ignore_player_index = the ball's current owner (r9).
+ *
+ * DEVIATION (corrected): an earlier pass called the 7th argument leftover register garbage and reproduced it
+ * as a literal 0. It is not garbage. r9 is loaded in this very loop by `lwz r9, 0(r27)` @0x83817834
+ * (r27 = &oddball_globals.current_ball_owner[i]) and is never rewritten before `bl` @0x838178A0, so the
+ * compiler simply did not need a move; the value passed is the ball owner. The parameter is real: the callee
+ * stores r9 as the word at global_goal[index]+0x18 (`stwx r9, r31, r8` @0x83748388, r8 = &global_goal+0x18),
+ * and the three other callers set it explicitly (`mr r9, r27` @0x838078E0, `li r9, -1` @0x83815E34 and
+ * @0x8382C6E0). */
 
 #include <stdint.h>
 #include "headers/oddball_globals.h"
@@ -81,7 +85,8 @@ void oddball_engine_update(void)
                 {
                     real_point3d *owner_position = (real_point3d *)
                         ((uintptr_t)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, owner_object_index)->datum + 0xA0);
-                    game_engine_set_goal_position(i, owner_position, 0.0f, "target_blue", -1, -1, 0);
+                    game_engine_set_goal_position(i, owner_position, 0.0f, "target_blue", -1, -1,
+                                                  owner_object_index);
                 }
             }
         }

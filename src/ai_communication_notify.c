@@ -6,7 +6,8 @@
  * and any accompanying look.
  *
  * Deviations: the actor's head position is compared for the audible-range test (input.position.head_position). The
- * decompiler's final actor_audibility_at_point arg (line_of_sight) is an uninitialised local (v15); passed 0.
+ * decompiler shows actor_audibility_at_point's final arg (line_of_sight) as an uninitialised local (v15); the
+ * disassembly loads it from the prop record instead (see the DEVIATION at the call).
  * The packet information_data is the allegiance variant here; its fields are read from the raw union bytes. */
 
 #include <stdint.h>
@@ -17,6 +18,7 @@
 #include "headers/actor_iterator.h"
 #include "headers/actor_datum.h"
 #include "headers/actor_position_data.h"
+#include "headers/prop_datum.h"
 #include "headers/dialogue_usage.h"
 #include "headers/unit_speech_item.h"   /* ai_information_packet */
 #include "headers/location.h"
@@ -90,10 +92,15 @@ void ai_communication_notify(int unit_index, int16_t priority, int16_t vocalizat
         if ( prop_index == -1 )
             continue;
 
+        const prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
+
         actor_position_data sense_position;
         actor_perception_find_sense_position(actors.index, &speaker_head, prop_index, &sense_position);
+        /* DEVIATION: the line_of_sight argument is the prop record's own field, not a literal 0 —
+         * `lhz r9, 0x38(r30)` @0x837CF544 immediately before `bl actor_audibility_at_point` @0x837CF558,
+         * with r30 = prop_data element (stride 0x138) computed at 0x837CF524-0x837CF534. */
         if ( actor_audibility_at_point(actors.index, &sense_position, &speaker_head, sound_location,
-                                       sound_volume, 1.0f, 0) >= _ai_sound_volume_loud )
+                                       sound_volume, 1.0f, prop->line_of_sight) >= _ai_sound_volume_loud )
         {
             actor_handle_communication(actors.index, prop_index, ai_information);
             ai_communication_handle_received_looking(actors.index, prop_index, ai_information);

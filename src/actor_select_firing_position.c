@@ -522,7 +522,13 @@ int16_t actor_select_firing_position(int actor_index, firing_position_evaluation
         else if ( evaluation_context->target_pathfinding_surface_index != -1 )
         {
             path_input target_input;
-            path_input_new(&target_input, actor_def->moving.pathfinding_radius, 0, actor->emotions.ignorant_of_broken_surfaces);
+            /* DEVIATION: the two trailing arguments were interchanged. `pathfinding_radius` is a float, so it
+             * takes f1 AND consumes r4's GPR slot — ignore_broken_surfaces is r5 and ignore_source_object_index
+             * is r6. The binary sets `lbz r5, 0x376(r24)` (actor->emotions.ignorant_of_broken_surfaces) and
+             * `li r6, -1` @0x837F10A4/0x837F10A0, and path_input_new itself stores r5 as the byte at input+4 and
+             * r6 as the word at input+8 (`stb r30, 4(r31)` / `stw r29, 8(r31)` @0x837D220C-0x837D2210). */
+            path_input_new(&target_input, actor_def->moving.pathfinding_radius,
+                           actor->emotions.ignorant_of_broken_surfaces, -1);
             path_input_set_start(&target_input, &evaluation_context->target_pathfinding_point,
                                  evaluation_context->target_pathfinding_surface_index);
             path_input_set_search_bounds(&target_input, 20.0f);

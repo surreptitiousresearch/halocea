@@ -2,33 +2,31 @@
  * rest orientations (or, if the animation graph has one, the named `animations[]` state's current animation
  * frame — each state's phase is advanced by render.time_delta_since_frame_sec / state.speed and wrapped mod
  * the state's animation's frame_count, persisted per-state in render_sky_globals.animation_states). Then, for
- * each shader_function slot, forces the lighting's ambient color to white (a flat, unlit look for
+ * each shader_function slot, drives that shader function value to 1.0 (a flat, fully-on look for
  * function-driven shader effects). Then walks the sky's lights block: every light with a valid effect index
  * gets its lens-flare direction resolved either directly from its stored facing (if its marker name is empty)
  * or from a named marker on the sky model (dropped if the marker isn't found), and — if a direction was
  * resolved — queues a lens flare at a fixed distance along it from the camera. Finally the sky's node
  * matrices are re-based onto the camera position (scaled near to unity, so the
- * sky always renders "at infinity" around the viewer) and the model is drawn with a mostly-blank lighting
- * environment.
+ * sky always renders "at infinity" around the viewer) and the model is drawn with a cleared lighting
+ * environment whose ambient colour is white.
  *
- * DEVIATION: multiple LODWORD/HIDWORD-style decompiler artifacts here are confirmed via disasm to be genuine,
- * if bizarre, original-binary behavior rather than decompiler noise — reproduced faithfully rather than
- * "fixed":
- *   - The tail lighting-fill loads global_real_rgb_white's three components at displacements 0/+4/+8 off the
- *     loaded pointer — lwz r4/r3/r11 @0x837EBD64/0x837EBD5C/0x837EBD6C with r11 = 0x82113F0C — i.e. plain
- *     white.red / .green / .blue, stored to direction.n[1], direction.n[2] and distant_lights[1].color.n[0].
- *     CORRECTED 2026-08-06: this note previously claimed the first of the three was read 12 bytes PAST
- *     white's base (the next table entry's alpha), and the source carried that phantom out-of-bounds read.
- *     It is not one. IDA renders that load symbolically as `(private_real_argb_colors+4 - 0x82113F0C)(r11)`,
- *     whose value is displacement ZERO; the `+0xC` token on the neighbouring load is relative to the TABLE
- *     base, not to r11. No load in this function reaches outside private_real_argb_colors[0].
- *     What IS an original-binary oddity is the call: r4 still holds white.red's bit pattern at
- *     `bl render_model` @0x837EBD88, so it lands in the node_matrices slot (3rd parameter) while the REAL
- *     skinned-matrices buffer is passed one slot later. Both call-argument slots are reproduced verbatim.
- *   - The `v45` lighting-environment zero-fill (`v31 += 2; *(_QWORD*)v31 = 0;` x14) is reproduced as the raw
- *     pointer loop rather than converted to memset, since it demonstrably clears past render_lighting's
- *     documented 116-byte layout into adjacent stack space; a raw loop guarantees the same byte range
- *     regardless of that struct's exact modeled size. */
+ * DEVIATION (ABI, corrected 2026-08-12): render_model's second parameter `level_of_detail_pixels` is a float,
+ * so it is passed in f1 AND consumes r4's GPR slot; every pointer argument therefore sits one register later
+ * than the decompiler shows, and r4 is never read by the callee (see the register roles enumerated in
+ * src/render_model.c). Two earlier readings of this function followed the decompiler's shifted map and are
+ * corrected here:
+ *   - the buffer at r1+0x150 that the shader-function loop fills with 1.0 is the `function_values` argument
+ *     (r8), not the lighting environment's ambient colour;
+ *   - the 116-byte object at r1+0x170 is the `lighting` argument (r9). The 14 x `stdu` + trailing `stw`
+ *     zero-fill covers exactly its 116 bytes, so it is a whole-object clear rather than one that runs off the
+ *     end of the struct, and the three words taken from global_real_rgb_white land on its own ambient_color
+ *     rather than on distant_lights[] fields. There is consequently no "white.red bit pattern in the
+ *     node_matrices slot" oddity to reproduce: that was the float shadow register.
+ * The global_real_rgb_white loads themselves are at displacements 0/+4/+8 off the loaded pointer — IDA renders
+ * the first symbolically as `(private_real_argb_colors+4 - 0x82113F0C)(r11)`, whose value is displacement
+ * ZERO, and the `+0xC` token on the neighbouring load is relative to the TABLE base, not to r11. No load in
+ * this function reaches outside private_real_argb_colors[0]. */
 
 #include <stdint.h>
 #include <string.h>
@@ -120,11 +118,16 @@ void render_sky(void)
     model_node_matrices_from_orientations(sky_model, node_matrices, node_orientations, global_origin3d,
                                           global_forward3d, global_up3d);
 
-    render_lighting lighting;
+    /* DEVIATION: this loop fills the shader FUNCTION VALUES buffer — `addi r9, r1, 0x1760+var_1610` (r1+0x150)
+     * with `stfsx f29, r10, r9` at r10 = 4*i, @0x837EBA68-0x837EBA74 — which is the r8 argument of the
+     * render_model call below, not the lighting environment. The element count is the 4 of
+     * default_function_values[] (what render_model substitutes when this argument is null) and of
+     * _object_datum.outgoing_function_values[] (what every other render_model caller passes). */
+    float function_values[4];
     if (active_sky->shader_functions.count > 0)
     {
         for (int i = 0; i < active_sky->shader_functions.count; i++)
-            lighting.ambient_color.n[i] = 1.0f;
+            function_values[i] = 1.0f;
     }
 
     /* every light whose effect definition index is valid gets its lens flare queued (not just the first) */
@@ -211,39 +214,26 @@ void render_sky(void)
 
     rasterizer_models_begin(1);
 
-    /* zero the lighting environment's tail (everything after ambient_color/distant_light_count, which are
-     * set above/left as decompiled) — reproduced as the raw 8-byte-stride clearing loop the compiler emitted,
-     * which runs 14 iterations and (per disasm) clears past render_lighting's modeled 116-byte layout into
-     * adjacent stack space; see file header DEVIATION note. */
-    {
-        char *fill_cursor = (char *)&lighting.distant_lights[0].color.n[2];
-        for (int i = 0; i < 14; i++)
-        {
-            fill_cursor += 8;
-            *(int64_t *)fill_cursor = 0;
-        }
-    }
+    /* DEVIATION: the compiler spelled this clear as 14 x `stdu r9, 8(r10)` from r1+0x170 plus a trailing
+     * `stw r9, 8(r10)` (@0x837EBD1C-0x837EBD3C) — 112 + 4 = 116 bytes = sizeof(render_lighting), starting
+     * exactly at the r9 argument of the render_model call below. It is a whole-object clear. */
+    render_lighting lighting;
+    memset(&lighting, 0, sizeof(lighting));
 
-    /* DEVIATION (see file header): this word IS global_real_rgb_white->red, read at displacement ZERO
-     * (lwz r4, (private_real_argb_colors+4 - 0x82113F0C)(r11) @0x837EBD64, with r11 = 0x82113F0C). It is
-     * kept as a raw word only because the same register is still live at `bl render_model` @0x837EBD88 and
-     * therefore lands in the node_matrices slot as a float bit pattern — that call-argument oddity is the
-     * binary's, and is reproduced verbatim. */
-    unsigned int white_r_bits = *(const unsigned int *)&global_real_rgb_white->__s1.red;
-    float white_g = global_real_rgb_white->__s1.green;
-    float white_b = global_real_rgb_white->__s1.blue;
+    /* DEVIATION: the three words read from global_real_rgb_white at displacements 0/+4/+8 are stored to
+     * r1+0x170/0x174/0x178 (@0x837EBD74-0x837EBD7C) — the lighting environment's own ambient_color, i.e. a
+     * plain real_rgb_color copy, not the distant_lights[] fields an earlier (shifted) reading produced. */
+    lighting.ambient_color = *global_real_rgb_white;
 
-    *(unsigned int *)&lighting.distant_lights[0].direction.n[1] = white_r_bits;
-    lighting.distant_lights[0].direction.n[2] = white_g;
-    lighting.distant_lights[1].color.n[0] = white_b;
-
-    /* trailing stack args: disasm confirms forced_shader_permutation_index is the constant-0 register (r23,
-     * live as 0 for the whole function) and flags is a separately-set constant 1 (r28, set once earlier and
-     * unchanged); unique_identifier shares the same constant-0 register as the shader permutation index. */
-    render_model(active_sky->model.index, 0.0f, (const real_matrix4x3 *)white_r_bits,
-                (const char *)node_matrices, 0, 0, &lighting,
-                (const real_point3d *)&lighting.distant_lights[0].direction, 0.0f,
-                (const render_model_effect *)&render.camera, 0, 0, 1u);
+    /* DEVIATION (see file header): argument registers at `bl render_model` @0x837EBD88 —
+     * r3 = model index, f1 = 0.0 level_of_detail_pixels (r4 is its shadow and is never read),
+     * r5 = node_matrices (`addi r5, r1, 0x1760+var_D70` @0x837EBD60), r6 = 0 region_permutation_indices,
+     * r7 = 0 change_colors, r8 = function_values (r1+0x150), r9 = &lighting (r1+0x170),
+     * r10 = &render.camera (`addi r10, r24, 0x14` @0x837EBD40, r24 = &render), f2 = 0.0 radius, then the
+     * stack arguments model_effect = 0 @0x5C, unique_identifier = 0 @0x64,
+     * forced_shader_permutation_index = 0 @0x6E and flags = 1 @0x74. */
+    render_model(active_sky->model.index, 0.0f, node_matrices, 0, 0, function_values, &lighting,
+                 &render.camera.position, 0.0f, 0, 0, 0, 1u);
 
     rasterizer_models_end();
 }

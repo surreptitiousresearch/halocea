@@ -19,7 +19,16 @@
  * not a single-byte flag. r10 (where `ignore_hint_reference` would land next) is never set at this call site
  * (it still holds unrelated leftover arithmetic from the function's own prologue), so this call site only
  * meaningfully passes 7 arguments; declared that way here, matching the precedent set by
- * action_flee_find_flee_position's identical unset-trailing-register pattern. */
+ * action_flee_find_flee_position's identical unset-trailing-register pattern.
+ *
+ * CAVEAT (open, escalated): the binary hands action_vehicle_find_destination's 4th argument the SAME frame
+ * buffer that action_vehicle_evaluate_seat filled as `hint_point` — `addi r6, r1, 0xE0+var_70` @0x83822078 is
+ * the r1+0x70 slot of `addi r9, r1, 0xE0+var_70` @0x83822030 — while the entry_facing buffer (r1+0x90) is
+ * never read again. action_vehicle_find_destination's own body treats that parameter as a POINT (it measures
+ * its distance to the vehicle's bounding-sphere centre and casts it to real_point3d * to use as an anchor),
+ * so the parameter is a mis-named/mis-typed `real_vector3d *entry_facing` in src/action_vehicle_find_destination.c.
+ * Passing &hint_point here before that declaration is corrected would be a C4133 type mismatch, so the call
+ * below is left spelling the argument &entry_facing pending the cross-file signature fix. */
 
 #include <stdint.h>
 #include <string.h>
@@ -58,8 +67,14 @@ uint8_t action_vehicle_setup_specific(int actor_index, int vehicle_index, int16_
 
     real_point3d entry_point;
     real_vector3d entry_facing;
+    real_point3d hint_point;
+    /* DEVIATION: the hint_point out-parameter is a real frame buffer, not NULL — `addi r9, r1, 0xE0+var_70`
+     * @0x83822030 sets the r9 slot (allow_any_seat is r6, entry_point r7, entry_facing r8, hint_point r9,
+     * seat_weight_reference r10, and the three trailing byte references are the stack words at 0x54/0x5C/0x64
+     * that this site writes 0 to). action_vehicle_evaluate_seat itself fills it from
+     * unit_get_seat_entrance_point's hint point (`stw` triple through r17 @0x83821A54-0x83821A68). */
     if (!action_vehicle_evaluate_seat(actor_index, vehicle_index, seat_index, 1u, &entry_point, &entry_facing,
-            0, 0, 0, 0, 0))
+            &hint_point, 0, 0, 0, 0))
         return 0;
 
     if (!action_vehicle_find_destination(actor_index, vehicle_index, &entry_point, &entry_facing, 0,

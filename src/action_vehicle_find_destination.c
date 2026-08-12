@@ -1,21 +1,28 @@
 /* action_vehicle_find_destination @0x83821AD0 — picks a ground-level destination point (and its collision
  * surface index) near `vehicle_index` for the actor to walk to before boarding, starting from the entry
- * point/facing/hint already computed by action_vehicle_evaluate_seat. Anchors on entry_point or entry_facing
- * (whichever is closer to the vehicle's bounding-sphere center, refined by a couple of geometric sanity checks),
- * offsets perpendicular to the vehicle at roughly `approach_distance * 1.1`, nudges that point again to keep it
- * from crowding the actor's own current position, then drops straight down onto the collision BSP to find solid
- * ground. `*hint_point`'s leading byte doubles as an in/out flag recording whether entry_point (vs entry_facing)
- * was used as the anchor, matching action_vehicle_evaluate_seat's own point/facing convention.
+ * point/hint already computed by action_vehicle_evaluate_seat (or action_vehicle_find_impromptu_seat). Anchors
+ * on entry_point or hint_point (whichever is closer to the vehicle's bounding-sphere center, refined by a couple
+ * of geometric sanity checks), offsets perpendicular to the vehicle at roughly `approach_distance * 1.1`, nudges
+ * that point again to keep it from crowding the actor's own current position, then drops straight down onto the
+ * collision BSP to find solid ground. `*ignore_hint_reference` is the in/out byte flag recording whether
+ * entry_point (rather than the hint point) was used as the anchor.
  *
- * DEVIATION (signature): the DB's own applied prototype names params 6-8 `ignore_hint_reference`
- * (unsigned __int8*), `destination_point` (real_point3d*), `surface_index_reference` (int*) — but
- * disasm_range(0x83821AD0-0x83821F60) shows the physical r8/r9 argument registers are used the OTHER way
- * around: r8 (DB's "ignore_hint_reference") receives three float stores at its tail (a real_point3d — the true
- * destination point), while r9 (DB's "destination_point") receives exactly one word store (the true
- * surface_index_reference). r10 (DB's 8th param) is never read at all — dead, matching the identical
- * unset-trailing-register pattern already noted for action_flee_find_flee_position and confirmed at this
- * function's own call site in action_vehicle_setup_specific.c. Declared here with the corrected 7-param
- * signature, matching that call site's own extern exactly.
+ * DEVIATION (signature): the DB's own applied prototype is one parameter too long from slot 4 onward — it
+ * inserts a phantom `real_point3d *entry_facing` at r6 and shifts every later name one register right, which is
+ * why r10 (its 8th param) is never read at all. The physical registers are r6 = the DB's `hint_point`, r7 = the
+ * DB's `ignore_hint_reference`, r8 = the DB's `destination_point`, r9 = the DB's `surface_index_reference`;
+ * r10 dead. Corroborated at every level: r6 is only ever LOADED from as three floats (`lfs 0/4/8(r6)`
+ * @0x83821BE8-0x83821BF0 and the `mr r11, r6` anchor select @0x83821C44), so it is a read-only point, not a
+ * facing vector; r7 is a byte in/out (`lbz r9, 0(r31)` @0x83821B68, `stb r29, 0(r31)` @0x83821E74), which is
+ * `uint8_t *`, not the DB's `float *`; and all three call sites hand r6 the buffer the seat evaluator filled as
+ * its `hint_point` out-parameter, never the entry_facing buffer — `addi r6, r1, 0xE0+var_70` @0x83822078 is
+ * action_vehicle_evaluate_seat's r9 slot @0x83822030, `addi r6, r1, 0x100+var_68` @0x83822320 is its r9 slot
+ * @0x83822254, and `addi r6, r1, 0xC0+var_70` @0x838226B8 is action_vehicle_find_impromptu_seat's r7 slot
+ * @0x83822658. `ignore_hint_reference` is confirmed independently by vehicle_state_data's own
+ * `uint8_t ignore_hint` at +0x07, whose address action_vehicle_perform passes there (`addi r7, r31, 7`
+ * @0x8382231C); the other two call sites pass NULL. The unused r10 slot
+ * matches the identical unset-trailing-register pattern already noted for action_flee_find_flee_position.
+ * Declared here with the corrected 7-param signature.
  *
  * DEVIATION (body): the decompiler mis-attributes the `collision_bsp_test_vector` result-struct argument to
  * `(collision_bsp_test_vector_result *)global_down3d` — disasm shows the real 8th argument is `&result`, a
@@ -50,7 +57,7 @@ extern float normalize2d(real_vector2d *v);
 extern real_vector2d *perpendicular2d(const real_vector2d *a, real_vector2d *result);
 extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
 
-uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, real_point3d *destination_point, int *surface_index_reference)
+uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, const real_point3d *hint_point, uint8_t *ignore_hint_reference, real_point3d *destination_point, int *surface_index_reference)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
     real_point3d fallback_point = *entry_point;
@@ -58,7 +65,7 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
     object_datum *vehicle = (DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, vehicle_index)->datum);
     vehicle_definition *vehicle_def = TAG_GET(vehicle_definition, vehicle->definition_index);
 
-    uint8_t use_entry_point = hint_point ? *(unsigned char *)hint_point : 0;
+    uint8_t use_entry_point = ignore_hint_reference ? *ignore_hint_reference : 0;
 
     real_point3d chosen_point;
 
@@ -73,9 +80,9 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
         if ( !use_entry_point )
         {
             float marker_distance = __fsqrts(
-                    (entry_facing->n[0] - marker.n[0]) * (entry_facing->n[0] - marker.n[0])
-                  + (entry_facing->n[2] - marker.n[2]) * (entry_facing->n[2] - marker.n[2])
-                  + (entry_facing->n[1] - marker.n[1]) * (entry_facing->n[1] - marker.n[1]));
+                    (hint_point->n[0] - marker.n[0]) * (hint_point->n[0] - marker.n[0])
+                  + (hint_point->n[2] - marker.n[2]) * (hint_point->n[2] - marker.n[2])
+                  + (hint_point->n[1] - marker.n[1]) * (hint_point->n[1] - marker.n[1]));
             if ( marker_distance >= 0.5f )
             {
                 if ( approach_distance <= marker_distance + 0.3f )
@@ -87,7 +94,7 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
             }
         }
 
-        const real_point3d *anchor = use_entry_point ? entry_point : (const real_point3d *)entry_facing;
+        const real_point3d *anchor = use_entry_point ? entry_point : hint_point;
         real_point3d anchor_point = *anchor;
 
         real_vector2d entry_direction;
@@ -100,9 +107,9 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
 
         if ( !use_entry_point )
         {
-            /* if entry_facing sits close enough to the entry_point->actor line, prefer entry_point as anchor */
-            float dx = entry_facing->n[0] - entry_point->n[0];
-            float dy = entry_facing->n[1] - entry_point->n[1];
+            /* if the hint point sits close enough to the entry_point->actor line, prefer entry_point as anchor */
+            float dx = hint_point->n[0] - entry_point->n[0];
+            float dy = hint_point->n[1] - entry_point->n[1];
             float t = dx * entry_direction.n[0] - dy * entry_direction.n[1];
             float px = dx * t + entry_direction.n[0];
             float py = dy * t + entry_direction.n[1];
@@ -174,8 +181,8 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
     chosen_point = fallback_point;
 
 have_chosen_point:
-    if ( hint_point )
-        *(unsigned char *)hint_point = use_entry_point;
+    if ( ignore_hint_reference )
+        *ignore_hint_reference = use_entry_point;
 
     real_point3d test_point_above;
     test_point_above.n[0] = global_up3d->n[0] + chosen_point.n[0];

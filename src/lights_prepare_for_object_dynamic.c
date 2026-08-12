@@ -5,8 +5,10 @@
  * slot, which holds a light datum index, is resolved to that light's runtime render index (light datum +0x08).
  *
  * DEVIATION: the decompiler renders the point-light slots through the ambient_color float array (union overlay)
- * and passes a junk register for find_point_lights' vestigial 5th argument; reconstructed against the named
- * render_lighting fields and the verified find_point_lights signature. */
+ * and invents a 5th pointer argument for find_point_lights_for_object_in_cluster; there is none. The float
+ * `radius` occupies f1 and its GPR shadow slot r6, so the out-arrays start at r7 — the call at 0x836FA03C sets
+ * r3, r4, r5, f1, r7, r8, r9, r10 and a stack halfword and never writes r6. Reconstructed against the named
+ * render_lighting fields and the verified nine-parameter find_point_lights signature. */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -25,7 +27,7 @@
 
 extern int16_t object_get_first_cluster(object_cluster_iterator *iterator, int object_index);
 extern int16_t object_get_next_cluster(object_cluster_iterator *iterator, int object_index);
-extern void find_point_lights_for_object_in_cluster(int object_index, int16_t cluster_index, const real_point3d *point, float radius, int *vestigial_unused, int *selected_light_indices, float *light_priorities, float *light_falloffs, int16_t *light_count, int16_t maximum_count);
+extern void find_point_lights_for_object_in_cluster(int object_index, int16_t cluster_index, const real_point3d *point, float radius, int *selected_light_indices, float *light_priorities, float *light_falloffs, int16_t *light_count, int16_t maximum_count);
 
 extern void light_marker_begin(void);
 void lights_prepare_for_object_dynamic(int object_index, render_lighting *lighting)
@@ -49,7 +51,7 @@ void lights_prepare_for_object_dynamic(int object_index, render_lighting *lighti
           cluster = object_get_next_cluster(&iterator, object_index) )
     {
         find_point_lights_for_object_in_cluster(object_index, cluster, &center, radius,
-                                                0, lighting->point_light_indices,
+                                                lighting->point_light_indices,
                                                 light_priorities, light_falloffs,
                                                 &lighting->point_light_count, POINT_LIGHTS_PER_OBJECT);
     }

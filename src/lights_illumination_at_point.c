@@ -10,10 +10,11 @@
  * per-light attenuation at this point.
  *
  * DEVIATION: the DB prototype of find_point_lights_for_object_in_cluster is FPR-shadow-misaligned (the float
- * `radius` reserves a GPR slot, so IDA mislabels the out-array order). The true mapping, recovered from the
- * loop's use of the results, is: light_indices, light_brightness, light_attenuations, &light_count with a
- * maximum of 2. lights_globals.marker is bumped separately before the call; the &lights_globals the
- * decompiler shows in the radius-shadow slot is not an argument. */
+ * `radius` occupies f1 and its GPR shadow slot r6, so IDA mislabels the out-array order). The true mapping,
+ * recovered from the loop's use of the results, is r7=light_indices, r8=light_brightness, r9=light_attenuations,
+ * r10=&light_count and a stack-passed maximum of 2. The callee has NINE parameters: r6 is never read there, and
+ * the `addi r6, r31, lights_globals@l` @0x836F9E00 that the decompiler shows in the radius-shadow slot is this
+ * function's own scratch base for the marker bump, not an argument. */
 
 #include <stdint.h>
 #include "headers/structure_bsp.h"
@@ -35,7 +36,7 @@ extern uint8_t structure_test_vector(const real_point3d *p, const real_vector3d 
 extern bitmap_data *bitmap_group_try_and_get_bitmap(int bitmap_group_index, int16_t bitmap_index);
 extern int _texture_cache_bitmap_get_hardware_format(bitmap_data *bitmap, uint8_t block, uint8_t load);
 extern void sample_lightmap(const structure_material *material, const bitmap_data *bitmap, const structure_surface *surface, float s, float t, real_rgb_color *out_color);
-extern void find_point_lights_for_object_in_cluster(int object_index, int16_t cluster_index, const real_point3d *point, float radius, int *vestigial_unused, int *selected_light_indices, float *light_priorities, float *light_falloffs, int16_t *light_count, int16_t maximum_count);
+extern void find_point_lights_for_object_in_cluster(int object_index, int16_t cluster_index, const real_point3d *point, float radius, int *selected_light_indices, float *light_priorities, float *light_falloffs, int16_t *light_count, int16_t maximum_count);
 
 extern void light_marker_begin(void);
 void lights_illumination_at_point(const real_point3d *point, const location *location, real_rgb_color *color)
@@ -79,7 +80,6 @@ void lights_illumination_at_point(const real_point3d *point, const location *loc
         float light_attenuations[LIGHTS_ILLUMINATION_AT_POINT_LIGHT_COUNT];
         int16_t light_count = 0;
         find_point_lights_for_object_in_cluster(-1, location->cluster_index, point, 0.0f,
-                                                0, /* vestigial_unused (r7) — caller recon had dropped it */
                                                 light_indices, light_brightness, light_attenuations,
                                                 &light_count,
                                                 LIGHTS_ILLUMINATION_AT_POINT_LIGHT_COUNT);

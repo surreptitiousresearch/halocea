@@ -25,7 +25,14 @@
  * confirmed: r3-r9 used, r10 dead), not the 8 the stale DB prototype listed. The binary loads r10 with
  * unit_has_animation_to_enter_seat's masked result as a dead 8th arg, but the callee never reads r10, so
  * the extern and the call site here are synced to the real 7-param signature and that dead trailing arg
- * is dropped. */
+ * is dropped.
+ *
+ * DEVIATION: action_vehicle_find_destination's 4th argument is the HINT POINT, not entry_facing. The frame
+ * slots settle it: action_vehicle_find_impromptu_seat is handed entry_point at r1+0x60 (r5 @0x83822660),
+ * entry_facing at r1+0x70 (r6 @0x8382265C) and hint_point at r1+0x50 (r7 @0x83822658), and
+ * action_vehicle_find_destination is handed r1+0x60 (r5 @0x838226BC) and r1+0x50 (r6 @0x838226B8) — the
+ * hint-point buffer, never the entry_facing one. `hint_point` is left uninitialized by this function; the seat
+ * search fills it. */
 
 #include <stdint.h>
 #include <string.h>
@@ -42,7 +49,7 @@
 extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index, uint8_t scripted_request, float attempt_start_distance, float attempt_continue_distance, uint8_t already_inside, uint8_t already_attempting_entry);
 extern int16_t action_vehicle_find_impromptu_seat(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point);
 extern uint8_t unit_has_animation_to_enter_seat(int unit_index, int vehicle_index, int16_t seat_index);
-extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, real_point3d *destination_point, int *surface_index_reference);
+extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, const real_point3d *hint_point, uint8_t *ignore_hint_reference, real_point3d *destination_point, int *surface_index_reference);
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
 
 uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float attempt_distance, float continue_distance, vehicle_state_data *state_data)
@@ -61,10 +68,10 @@ uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float
 
             real_point3d entry_point;
             real_vector3d entry_facing_unused;
-            real_vector3d shared_scratch; /* hint_point (call 1, uninitialized) then reused as entry_facing (call 2) */
+            real_point3d hint_point;
 
             state_data->seat_index = action_vehicle_find_impromptu_seat(actor_index, vehicle_index, &entry_point,
-                &entry_facing_unused, (real_point3d *)&shared_scratch);
+                &entry_facing_unused, &hint_point);
 
             if ( state_data->seat_index != -1 )
             {
@@ -80,7 +87,7 @@ uint8_t action_vehicle_setup_impromptu(int actor_index, int vehicle_index, float
                      * binary also loads r10 with has_animation_to_enter_seat, but that is the callee's dead
                      * r10 slot, so it is dropped here. */
                     if ( action_vehicle_find_destination(actor_index, vehicle_index, &entry_point,
-                             &shared_scratch, 0, &state_data->destination_point,
+                             &hint_point, 0, &state_data->destination_point,
                              &state_data->destination_surface_index) )
                     {
                         return actor_move_to_point(actor_index, &state_data->destination_point,

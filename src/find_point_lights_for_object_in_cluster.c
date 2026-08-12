@@ -6,11 +6,13 @@
  * and once full the dimmest existing slot is evicted only if the newcomer is brighter.
  *
  * DEVIATION: the database prototype is misaligned for this call. `radius` is the only floating-point argument
- * (passed in f1); the true on-screen `maximum_count` is the final, stack-passed int16_t; the r10 pointer the DB
- * labels `maximum_count` is actually the in/out running slot count; and the DB's `light_brightness`/
- * `light_attenuations`/`light_count` are really the selected-index / priority / falloff output arrays. The r6
- * argument the DB calls `light_indices` is vestigial (the caller passes a junk register) and is unused here.
- * Parameter names below reflect the verified register/stack usage. */
+ * (passed in f1); the true on-screen `maximum_count` is the final, stack-passed int16_t (loaded by the callee
+ * with `lhz r23, 0xF0+arg_56(r1)` @0x836F8CB8); the r10 pointer the DB labels `maximum_count` is actually the
+ * in/out running slot count; and the DB's `light_brightness`/`light_attenuations`/`light_count` are really the
+ * selected-index / priority / falloff output arrays. There is NO fifth pointer parameter: `radius` occupies the
+ * f1 register and its GPR shadow slot r6, so the next argument lands in r7. The function reads r3, r4, r5, r7,
+ * r8, r9, r10 and f1 and never reads r6; neither caller sets r6 as an argument (at 0x836F9E00 it is a scratch
+ * base for `lights_globals`, at 0x836FA03C it is untouched). Nine parameters, not ten. */
 
 #include <stdint.h>
 #include <math.h>
@@ -31,12 +33,10 @@ extern int cluster_partition_get_next_datum(const cluster_partition *partition, 
 extern float real_rgb_color_brightness(const real_rgb_color *color);
 
 void find_point_lights_for_object_in_cluster(int object_index, int16_t cluster_index, const real_point3d *point,
-                                             float radius, int *vestigial_unused, int *selected_light_indices,
+                                             float radius, int *selected_light_indices,
                                              float *light_priorities, float *light_falloffs,
                                              int16_t *light_count, int16_t maximum_count)
 {
-    (void)vestigial_unused;
-
     int reference_index[12];
     for ( int datum_index = cluster_partition_get_first_datum(&light_cluster_partition, reference_index, cluster_index);
           datum_index != -1;

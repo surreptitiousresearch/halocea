@@ -27,7 +27,15 @@
  *     (in-range → if facing enter, else halt) fixes the assignment.
  *   - action_vehicle_find_destination (0x83822308-0x83822330): the DB's phantom 8th arg is dropped; its 7th arg
  *     is the int* surface_index_reference at actor+0xE4 (DB mis-casts it to real_point3d*), confirmed by the
- *     following actor_move_to_point(actor, &actor[0xCC], *(int*)&actor[0xE4], target_index). */
+ *     following actor_move_to_point(actor, &actor[0xCC], *(int*)&actor[0xE4], target_index).
+ *
+ * DEVIATION — action_vehicle_find_destination's 4th argument is the HINT POINT, not entry_facing:
+ * `addi r6, r1, 0x100+var_68` @0x83822320 is the very slot action_vehicle_evaluate_seat was handed as its
+ * `hint_point` out-parameter (`addi r9, r1, 0x100+var_68` @0x83822254); the entry_facing buffer (r1+0x88,
+ * evaluate_seat's r8 @0x8382225C) is not passed to it at all and is instead copied into
+ * `action_data->destination_facing` after the call. Its 5th argument is the byte in/out flag
+ * `&action_data->ignore_hint` (`addi r7, r31, 7` @0x8382231C), so the callee's corrected `uint8_t *`
+ * parameter type takes it without a cast. */
 
 #include <stdint.h>
 #include "headers/actor_datum.h"
@@ -43,7 +51,7 @@ extern void *object_try_and_get_and_verify_type(int object_index, unsigned int v
 extern int game_time_get(void);
 extern uint8_t action_vehicle_desirable(int actor_index, int vehicle_index, uint8_t scripted_request, float attempt_start_distance, float attempt_continue_distance, uint8_t already_inside, uint8_t already_attempting_entry);
 extern uint8_t action_vehicle_evaluate_seat(int actor_index, int vehicle_index, int16_t seat_index, uint8_t allow_any_seat, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, float *seat_weight_reference, uint8_t *within_range_reference, uint8_t *correct_facing_reference, uint8_t *could_potentially_fake_reference);
-extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, real_vector3d *entry_facing, real_point3d *hint_point, real_point3d *destination_point, int *surface_index_reference);
+extern uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real_point3d *entry_point, const real_point3d *hint_point, uint8_t *ignore_hint_reference, real_point3d *destination_point, int *surface_index_reference);
 extern uint8_t unit_enter_seat(int unit_index, int parent_unit_index, int16_t seat_index);
 extern uint8_t actor_move_halt(int actor_index);
 extern uint8_t actor_move_to_point(int actor_index, real_point3d *destination, int surface_index, int ignore_target_object_index);
@@ -140,9 +148,8 @@ uint8_t action_vehicle_perform(int actor_index)
                 if ( actor->meta.timeslice )
                 {
                     uint8_t moving = 0;
-                    if ( action_vehicle_find_destination(actor_index, target_index, &entry_point, &entry_facing,
-                                /* hint_point: reinterpret of vehicle_state_data.ignore_hint (byte +7), per decompile */
-                                (real_point3d *)&action_data->ignore_hint, &action_data->destination_point,
+                    if ( action_vehicle_find_destination(actor_index, target_index, &entry_point, &hint_point,
+                                &action_data->ignore_hint, &action_data->destination_point,
                                 &action_data->destination_surface_index) )
                     {
                         moving = actor_move_to_point(actor_index, &action_data->destination_point,

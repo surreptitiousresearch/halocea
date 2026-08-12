@@ -12,7 +12,13 @@ void       *CreateThread(void *attributes, uint32_t stack_size,
                          uint32_t flags, uint32_t *thread_id);
 
 
-void *cache_files_initialize(void)
+/* DEVIATION: the DB prototype says `void *` (the CreateThread HANDLE is still in r3 at the exit),
+ * but the binary computes no return value: the handle is STORED (stw r3@0x83755164) and merely left
+ * behind in r3 at blr@0x83755178, and no consumer exists anywhere — the only path in is the 1-insn
+ * tail-b thunk tag_files_open@0x836F6F40, whose single caller shell_initialize@0x836FBDB4 ignores r3.
+ * Both spellings emit identical code, so the image cannot falsify `void *`; the locked
+ * "0 consumers + r3 at blr only from callee => void" rule decides, and a DB prototype is a hint. */
+void cache_files_initialize(void)
 {
     void *thread;
 
@@ -33,5 +39,4 @@ void *cache_files_initialize(void)
         0,
         0);
     cache_file_globals_0.thread = thread;
-    return thread;
 }

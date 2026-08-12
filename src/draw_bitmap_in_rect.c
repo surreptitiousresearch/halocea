@@ -24,7 +24,7 @@
 #include "headers/dynamic_screen_vertex.h"
 #include "headers/rasterizer_dynamic_screen_geometry_parameters.h"
 
-extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
+extern void rasterizer_psuedo_dynamic_screen_quad_draw(const rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
 
 void draw_bitmap_in_rect(bitmap_data *bitmap, rectangle2d *rect, rectangle2d *bitmap_rect, rectangle2d *clip_rect,
                          unsigned int argb, rasterizer_dynamic_screen_geometry_parameters *multitexture_params,

@@ -11,7 +11,7 @@
 #include "headers/message_definition.h"
 #include "headers/message_delta_processor_mode.h"
 
-extern int encode_iterations(message_delta_processor_mode mode, message_delta_processor_message_definition_type definition_type, const void *const *headers, const void **datas, const void *const *baselines, int iterations, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
+extern int encode_iterations(message_delta_processor_mode mode, message_delta_processor_message_definition_type definition_type, const void *const *headers, const void *const *datas, const void *const *baselines, int iterations, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
 
 int message_delta_processor_encode_incremental(
         message_delta_processor_message_definition_type definition_type,

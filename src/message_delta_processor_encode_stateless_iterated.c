@@ -10,7 +10,7 @@
 #include "headers/message_definition.h"
 #include "headers/message_delta_processor_mode.h"
 
-extern int encode_iterations(message_delta_processor_mode mode, message_delta_processor_message_definition_type definition_type, const void *const *headers, const void **datas, const void *const *baselines, int iterations, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
+extern int encode_iterations(message_delta_processor_mode mode, message_delta_processor_message_definition_type definition_type, const void *const *headers, const void *const *datas, const void *const *baselines, int iterations, void *buffer, int buffer_size_in_bits, uint8_t allow_empty_body);
 
 int message_delta_processor_encode_stateless_iterated(
         message_delta_processor_message_definition_type definition_type,
@@ -21,6 +21,6 @@ int message_delta_processor_encode_stateless_iterated(
      * const void *const * while encode_iterations' attested datas param is const void ** (it only reads
      * through it). The cast discards the inner const to suppress C4090; not a type-confusion mask. Kept. */
     return encode_iterations(_message_delta_mode_stateless, definition_type, headers,
-                             (const void **)datas, (const void *const *)0, iterations, buffer,
+                             datas, (const void *const *)0, iterations, buffer,
                              buffer_size_in_bits, 0);
 }

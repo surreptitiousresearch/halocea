@@ -24,7 +24,7 @@
 #include "headers/rasterizer_lock_operation.h"
 
 
-extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
+extern void rasterizer_psuedo_dynamic_screen_quad_draw(const rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
 
 void draw_quad(rectangle2d *rect, unsigned int color)
 {

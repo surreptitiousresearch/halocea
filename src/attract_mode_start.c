@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "headers/bink_playback_flags.h"
 #include "headers/blam_data_globals.h"
 /* attract_mode_start @0x83784F38 — begin attract-mode (idle demo) playback: pick a random movie 0-2
  * different from the last one shown, stop the menu music, and start its localized Bink movie. If
@@ -30,7 +31,11 @@ void attract_mode_start(void)
     last_attract_movie = movie;
     attract_mode_immediate_start = 0;
     ui_stop_main_menu_music();
-    bink_playback_start(attract_mode_get_localized_movie_path(movie), 0x2Eu);
+    bink_playback_start(attract_mode_get_localized_movie_path(movie),
+                        (1u << _bink_playback_button_click_stops_movie_bit)
+                      | (1u << _bink_playback_prevent_events_to_ui_bit)
+                      | (1u << _bink_playback_dont_render_ui_bit)
+                      | (1u << _bink_playback_return_to_main_menu_when_finished_bit));
 
     /* return value is residue (bink_playback_active / system_milliseconds), ignored by caller: void */
     if ( !bink_playback_active() )

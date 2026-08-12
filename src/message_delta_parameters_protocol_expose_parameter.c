@@ -15,7 +15,7 @@
 
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
-extern char *dlStrdup(char *ptr, const char *file, uint32_t line);
+extern char *dlStrdup(const char *ptr, const char *file, uint32_t line);
 /* strcat declared by <string.h> */
 /* strlen declared by <string.h> */
 extern uint8_t find_parameter_in_exposed(const char *query, int *value);
@@ -41,8 +41,7 @@ void message_delta_parameters_protocol_expose_parameter(const char *type_name, c
     else
     {
         name = dlMalloc(strlen(parameter_name) + 1, source_file, 0xC2u);
-        /* dlStrdup only reads its source (returns a fresh writable copy); drop the caller's const view */
-        strcpy(name, dlStrdup((char *)parameter_name, source_file, 0xC3u));
+        strcpy(name, dlStrdup(parameter_name, source_file, 0xC3u));
     }
 
     if ( !find_parameter_in_exposed(name, nullptr) )

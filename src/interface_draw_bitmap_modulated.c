@@ -24,7 +24,7 @@
 #include <math.h>
 #include <string.h>
 
-extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
+extern void rasterizer_psuedo_dynamic_screen_quad_draw(const rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
 
 void interface_draw_bitmap_modulated(const bitmap_data *bitmap, const point2d *point, const real_rectangle2d *clip, float scale, float theta, const real_argb_color *modulated_color, int16_t shader_type)
 {

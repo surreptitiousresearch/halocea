@@ -58,7 +58,7 @@ extern bitmap_data *bitmap_group_get_bitmap_from_sequence(int bitmap_group_index
 extern uint8_t hud_draw_multitexture_overlay_get_current_weapon_definition(const player_datum *player, weapon_interface_state *weapon_state);
 extern void scalars_interpolate(float a, float b, float t, float *result);
 extern real_rgb_color *rgb_colors_interpolate(real_rgb_color *rgb_result, unsigned int flags, const real_rgb_color *rgb_lower_bound, const real_rgb_color *rgb_upper_bound, float u);
-extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
+extern void rasterizer_psuedo_dynamic_screen_quad_draw(const rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
 
 void hud_draw_multitexture_overlay(
         const multitexture_overlay_hud_element_definition *overlay,

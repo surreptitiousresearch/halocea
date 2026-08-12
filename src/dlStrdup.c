@@ -11,15 +11,15 @@ void dlDumpNoMemLeft(void); /* ?dlDumpNoMemLeft@@YAXXZ */
 int  __apMemoryDebugAdd(void *ptr, uint32_t size, const char *file, uint32_t line,
                         apMEM_BLOCK_TYPE type);
 
-extern "C" char *dlStrdup(char *ptr, const char *file, uint32_t line)
+extern "C" char *dlStrdup(const char *ptr, const char *file, uint32_t line)
 {
     const char *src;
-    char       *scan;
+    const char *scan;
     uint32_t    padded_size;
     void       *dup;
 
     if (!ptr)
-        return ptr;
+        return NULL;
 
     src = ptr;
     scan = ptr;

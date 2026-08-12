@@ -9,7 +9,7 @@
 #include "headers/rasterizer_dynamic_screen_geometry_parameters.h"
 #include "headers/shader_framebuffer_blend_function.h"
 
-extern void rasterizer_psuedo_dynamic_screen_quad_draw(rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
+extern void rasterizer_psuedo_dynamic_screen_quad_draw(const rasterizer_dynamic_screen_geometry_parameters *parameters, dynamic_screen_vertex *vertices);
 
 /* DEVIATION: DB proto uses float theta; decompiler shows double via FPR-shadow widening.
  * DEVIATION: the float arg theta (arg 7, f1) shadows GPR r9 (skipped), so the color arg lands

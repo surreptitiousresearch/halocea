@@ -27,7 +27,7 @@ extern int message_finished_encoding(iterated_message *message);
 
 int encode_iterations(message_delta_processor_mode mode,
                       message_delta_processor_message_definition_type definition_type,
-                      const void *const *headers, const void **datas, const void *const *baselines,
+                      const void *const *headers, const void *const *datas, const void *const *baselines,
                       int iterations, void *buffer, int buffer_size_in_bits,
                       uint8_t allow_empty_body)
 {
@@ -51,7 +51,7 @@ int encode_iterations(message_delta_processor_mode mode,
 
     if ( iterations > 0 )
     {
-        const void **data_cursor = datas;
+        const void *const *data_cursor = datas;
         int header_offset = (char *)headers - (char *)datas;
         int baseline_offset = (char *)baselines - (char *)datas;
         do

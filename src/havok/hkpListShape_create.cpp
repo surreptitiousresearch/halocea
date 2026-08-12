@@ -4,7 +4,8 @@
 /* HK_MEMORY_CLASS_CDINFO — collision-detection shape allocator class. DB exposes
    the enumerator NAME but not its value; the inlined call site loads it as the
    literal 0x28 (== 40), confirmed identical to the CDINFO alloc in
-   hkpConvexVerticesConnectivityUtil::_findConnectivity @ 0x83F93368. */
+   hkpConvexVerticesConnectivityUtil::_findConnectivity
+   @0x83F93368 (inlined in ?_findConnectivity@@YAPAVhkpConvexVerticesConnectivity@@). */
 extern const int HK_MEMORY_CLASS_CDINFO;
 
 /* hkpListShape::hkpListShape(const hkpShape* const*, int, ReferencePolicy). */
@@ -12,8 +13,10 @@ extern void hkpListShape_construct(hkpListShape *self, const hkpShape *const *sh
                                    int numShapes, int referencePolicy);
 
 /* hkpListShape_create — allocate-and-construct factory for an hkpListShape.
-   Inline-only in the shipped binary; body reconstructed from the sole inlined
-   call site in hkpShapeCutterUtil::cut @ 0x83F97B94-0x83F97BC4:
+   Inline-only in the shipped binary: it has NO entry of its own in the image, so every
+   address cited here is an interior citation of another function's body. Body reconstructed
+   from the sole inlined call site in hkpShapeCutterUtil::cut, 0x83F97B94-0x83F97BC4:
+   @0x83F97B94 (inlined in ?cut@hkpShapeCutterUtil@@SAPBVhkpShape@@PBV2@ABVhkVector4@@M@Z)
 
      0x83F97B94  lwz  r11, 0(r13)                 ; TLS thread base
      0x83F97B98  li   r10, 0x2C0
@@ -26,7 +29,8 @@ extern void hkpListShape_construct(hkpListShape *self, const hkpShape *const *sh
      0x83F97BB0  li   r6, 1                         ; ReferencePolicy = REFERENCE_POLICY_INCREMENT
      0x83F97BB8  lwz  r5, numShapes
      0x83F97BBC  lwz  r4, shapeArray
-     0x83F97BC0  bl   hkpListShape::hkpListShape(shapeArray, numShapes, 1)  ; ctor @ 0x83F97BC0
+     0x83F97BC0  bl   hkpListShape::hkpListShape(shapeArray, numShapes, 1)
+                 ; the ctor call site, @0x83F97BC0 (inlined in ?cut@hkpShapeCutterUtil@@SAPBVhkpShape@@PBV2@ABVhkVector4@@M@Z)
 
    DEVIATION: reconstructed from the inlined site; the raw store `sth r9,4(r3)` is
    expressed through the typed hkReferencedObject::m_memSizeAndFlags field

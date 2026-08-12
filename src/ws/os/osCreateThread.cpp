@@ -1,4 +1,4 @@
-// osCreateThread @0x825E63A0 — heap-allocate a {func,param} pair, hand it to Win32 CreateThread
+// osCreateThread @0x825E6370 — heap-allocate a {func,param} pair, hand it to Win32 CreateThread
 // via the fixed osCreateThread_DummyProc trampoline (which unpacks and calls func(param)),
 // STRONG_ASSERT the handle came back non-null, name the thread, and return the handle.
 #include "../../headers/ws/os/osHANDLE_DUMMY.h"

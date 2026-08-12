@@ -1,4 +1,4 @@
-// osSetThreadPriority @0x825E6448 — map the engine's 0..6 priority enum to a Win32
+// osSetThreadPriority @0x825E6430 — map the engine's 0..6 priority enum to a Win32
 // THREAD_PRIORITY_* value and apply it via SetThreadPriority. STRONG_ASSERT(0) on an
 // out-of-range priority (>6) rather than clamping.
 #include "../../headers/ws/os/osHANDLE_DUMMY.h"

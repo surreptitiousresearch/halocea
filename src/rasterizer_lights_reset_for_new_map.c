@@ -1,7 +1,7 @@
 #include <string.h>
 #include "headers/blam_data_globals.h"
 
-/* rasterizer_lights_reset_for_new_map @0x83792214 — clear the per-frame lens-flare occlusion test results and
+/* rasterizer_lights_reset_for_new_map @0x837921F8 — clear the per-frame lens-flare occlusion test results and
  * the active lens-flare count for a new map. */
 
 

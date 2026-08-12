@@ -1,4 +1,4 @@
-/* banlist_add_player @0x837661B4 — add a player's name/hash to the banned-players list, rejecting an
+/* banlist_add_player @0x83766198 — add a player's name/hash to the banned-players list, rejecting an
  * already-banned hash (see _banlist_player_is_banned.c). Mirrors banlist_init.c's own entry-write pattern
  * (banned_player_s: 13-byte name + 33-byte hash). */
 

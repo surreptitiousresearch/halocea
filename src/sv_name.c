@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "headers/blam_data_globals.h"
-/* sv_name @0x83766870 — "sv_name" server console command. With no argument it just echoes the current
+/* sv_name @0x83766860 — "sv_name" server console command. With no argument it just echoes the current
  * server name. With one argument it validates the name (1–15 characters, ASCII, and renderable by the
  * Halo UI font) and, if valid, stores it as the live server name. Any other arg count is a usage error. */
 

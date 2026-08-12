@@ -4,7 +4,7 @@
 #include "../../headers/ws/vid/vidFVF_DESCR.h"      // full layout — sizeOfFVF@0x92 (the fwd decl above is opaque)
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-// DynGeomDraw @ 0x827C9028  (D:\Projects\code\common\src.sys\render\rend_vis.cpp)
+// DynGeomDraw @0x827C9010  (D:\Projects\code\common\src.sys\render\rend_vis.cpp)
 // One-shot immediate-mode draw through the driver's dynamic-geometry buffer. Fits an FVF
 // descriptor for `fvf`, opens a fresh chunk, streams the vertices (and, when present, the
 // indices) into it, issues the draw, and closes the chunk. On a write failure the chunk is still

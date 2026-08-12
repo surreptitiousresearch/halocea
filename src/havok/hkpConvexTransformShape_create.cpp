@@ -6,9 +6,11 @@
 typedef struct hkpConvexVerticesShape hkpConvexVerticesShape;
 
 /* hkpConvexTransformShape_create — allocate-and-construct factory for an
-   hkpConvexTransformShape. This helper is inline-only in the shipped binary;
-   its body is reconstructed from the sole inlined call site in
-   hkpShapeCutterUtil::cut @ 0x83F97928-0x83F97958:
+   hkpConvexTransformShape. This helper is inline-only in the shipped binary: it has NO
+   entry of its own in the image, so the address below is an interior citation of another
+   function's body. Reconstructed from the sole inlined call site in
+   hkpShapeCutterUtil::cut, 0x83F97928-0x83F97958:
+   @0x83F97928 (inlined in ?cut@hkpShapeCutterUtil@@SAPBVhkpShape@@PBV2@ABVhkVector4@@M@Z)
 
      0x83F97928  lwz  r11, 0(r13)                 ; TLS thread base
      0x83F9792C  li   r10, 0x2C0

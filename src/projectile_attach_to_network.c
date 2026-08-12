@@ -2,7 +2,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/message_delta_message_ids.h"
 #include "headers/network_message_type.h"
-/* projectile_attach_to_network @0x83759858 — server-side encoder: notifies all loaded machines that a
+/* projectile_attach_to_network @0x83759830 — server-side encoder: notifies all loaded machines that a
  * projectile has attached to a parent object at a given node, message-delta-encoding the (network-index-
  * translated) projectile and parent indices plus the parent node index. Mirrors object_delete_to_network.c's
  * encode-then-broadcast pattern. */

@@ -3,11 +3,13 @@
 /* hkMeshShape is opaque here; only a pointer to it is stored/returned. */
 typedef struct hkMeshShape hkMeshShape;
 
-/* hkdMeshGraphicsShape::getMesh — inline-only field accessor.
-   Reconstructed from the inlined call site in
-   hkdAssetProcessingUtil::createBreakableShape @ 0x8383A46C:
+/* hkdMeshGraphicsShape::getMesh — inline-only field accessor. It has NO entry of its own in
+   the image, so every address below is an interior citation of another function's body.
+   Reconstructed from the inlined call site in hkdAssetProcessingUtil::createBreakableShape
+   @0x8383A46C (inlined in ?createBreakableShape@hkdAssetProcessingUtil@@):
        lwz  r3, 0x10(r28)    ; r28 = self (hkdGraphicsShape*), 0x10 = mesh field
-   Store side confirmed in the hkdMeshGraphicsShape ctor @ 0x83872BE8:
+   Store side confirmed in the hkdMeshGraphicsShape ctor
+   @0x83872BE8 (inlined in ??0hkdMeshGraphicsShape@@QAA@W4Type@hkdGraphicsShape@@PBVhkMeshShape@@H@Z):
        stw  r30, 0x10(r31)   ; r30 = ctor arg hkMeshShape*, r31 = this
    The mesh pointer sits immediately after the hkdGraphicsShape base
    (sizeof(hkdGraphicsShape) == 0x10, per DB type hkdGraphicsShape). */

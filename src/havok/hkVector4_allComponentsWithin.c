@@ -1,3 +1,4 @@
+/* FUNCTION_INDEX entry: hkVector4_allComponentsWithin @0x82ECC070 (?equals3@hkVector4@@QBAHABV1@M@Z) */
 #include "../headers/havok/hkVector4.h"
 
 #ifndef HK_MATH_FABSF
@@ -5,12 +6,15 @@
 #endif
 
 /* Returns non-zero iff every xyz component of a is within epsilon of the
-   matching component of b (|a[i]-b[i]| <= epsilon). Like addScaledDir this
-   op is inlined at its VMX128 call sites (vsubfp / vabs / vcmpgtfp +
-   all-lanes-true test), so this is the canonical scalar definition the
-   frontier caller (decorateConnection, comparing decoration normals)
-   references through the extern. Only the xyz lanes are compared — the
-   inputs are direction/normal vectors whose w lane is not significant. */
+   matching component of b (|a[i]-b[i]| <= epsilon). This is hkVector4::equals3;
+   the out-of-line body is the VMX128 form (vsubfp128, vand128 with
+   hkVector4::setAbs4's positiveMask, vcmpgefp128 against the splatted epsilon,
+   then vor128 with hkVector4Comparison::s_invMaskFromBits[0xE0/16] — the mask
+   that ignores the w lane — and an all-lanes-true vcmpequw128.). Only the xyz
+   lanes are compared, which is what selects the 0xE0 mask over equals4's 0xF0.
+   DEVIATION: reconstructed as a scalar loop; the frontier caller
+   (decorateConnection, comparing decoration normals) reaches it via the
+   extern. */
 int hkVector4_allComponentsWithin(const hkVector4 *a, const hkVector4 *b, float epsilon)
 {
     int i;

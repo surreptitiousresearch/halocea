@@ -1,7 +1,7 @@
 #include <wchar.h>
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
-/* sv_password @0x837669C8 — "sv_password" server console command. With no argument it echoes the
+/* sv_password @0x837669B8 — "sv_password" server console command. With no argument it echoes the
  * current password. With one argument it validates the password (at most 8 characters, ASCII, and
  * renderable by the Halo UI font) and stores it as the live server password; an empty string clears
  * it. Any other arg count is a usage error. */

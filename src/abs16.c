@@ -1,6 +1,7 @@
-/* abs16 — signed 16-bit absolute value. Inline-only helper reconstructed from its inlined call sites:
- *   hud_draw_numbers        @0x8379FD48 (srawi r10,r11,0x1F / xor r8,r11,r10 / subf r11,r10,r8)
- *   text_pick_draw_character @0x837699F8 (srawi r31,r8,0x1F / xor r8,r8,r31 / subf r8,r31,r8)
+/* abs16 — signed 16-bit absolute value. Inline-only helper: it has NO entry of its own in the
+ * image, so every address below is an interior citation of another function's body.
+ *   @0x8379FD48 (inlined in hud_draw_numbers)         srawi r10,r11,0x1F / xor r8,r11,r10 / subf r11,r10,r8
+ *   @0x837699F8 (inlined in text_pick_draw_character) srawi r31,r8,0x1F / xor r8,r8,r31 / subf r8,r31,r8
  *
  * DEVIATION: the binary has no out-of-line abs16 — it is the standard branchless integer-abs idiom
  * emitted inline at each site. The value is first sign-extended to 32 bits (extsh), then:

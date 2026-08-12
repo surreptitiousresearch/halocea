@@ -1,4 +1,4 @@
-// osGetStartupDir @0x825E57E4 — copy the hard-coded startup drive/dir ("d:\\") into `dir`;
+// osGetStartupDir @0x825E57D8 — copy the hard-coded startup drive/dir ("d:\\") into `dir`;
 // STRONG_ASSERT that the result still fits under `length`.
 #include <string.h>
 #include "../../headers/ws/os/osLOCK.h" // pulls in the shared os-subsystem boundary decls

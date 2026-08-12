@@ -2,7 +2,7 @@
 #include "headers/game_connection.h"
 #include "headers/hud_add_item_message.h"
 #include "headers/blam_data_globals.h"
-/* hud_add_item_message_server @0x836A5C40 — show (and, on a server, replicate) a HUD item-pickup
+/* hud_add_item_message_server @0x836A5C08 — show (and, on a server, replicate) a HUD item-pickup
  * message. On a non-networked or client session the message is shown locally; on a server it is encoded
  * as a message-delta to the clients.
  *

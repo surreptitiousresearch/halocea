@@ -15,6 +15,7 @@
 
 #include <stdint.h>
 #include "headers/game_engine.h"
+#include "headers/game_win_type.h"
 #include "headers/game_engine_globals.h"
 #include "headers/game_variant.h"
 #include "headers/player_datum.h"
@@ -77,7 +78,7 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
 
         switch (did_win)
         {
-        case -1:
+        case _player_tied:
         {
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             if (text_tag != -1)
@@ -88,7 +89,7 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
             }
             break;
         }
-        case 0:
+        case _player_lost:
         {
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             if (text_tag != -1)
@@ -99,7 +100,7 @@ void game_engine_generate_title_string(int player_index, uint16_t *title_string)
             }
             break;
         }
-        case 1:
+        case _player_won:
         {
             int text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             if (text_tag != -1)

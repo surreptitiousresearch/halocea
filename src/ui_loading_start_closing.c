@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
+#include "headers/loading_screen_state.h"
 /* ui_loading_start_closing @0x83764500 — begin (or force) closing the loading screen. When forced
  * ("just go"), the loading-screen state is hard-reset. Otherwise, if a loading screen is up, schedule its
  * close ~1.75s out, padding the delay so the screen stays up for a minimum of 2s (0x7D0) since it opened
@@ -23,7 +24,7 @@ void ui_loading_start_closing(uint8_t why_are_we_always_preparing_just_go)
     {
         unsigned int now = system_milliseconds();
         unsigned int pad = 0;
-        if ( loading_screen_open_time_ms != -1 && now - loading_screen_open_time_ms < 0x7D0 && loading_screen_state != 1 )
+        if ( loading_screen_open_time_ms != -1 && now - loading_screen_open_time_ms < 0x7D0 && loading_screen_state != LOADING_STATE_SOLO )
         {
             pad = loading_screen_open_time_ms - now + 2000;
             if ( pad > 0x7D0 )

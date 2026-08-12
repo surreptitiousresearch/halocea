@@ -16,6 +16,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/collision_result.h"
 #include "headers/collision_test_flags.h"
+#include "headers/unit_estimate_position_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -36,7 +37,7 @@ uint8_t action_charge_valid_melee_destination(int actor_index, real_point3d *goa
     }
     else if ( actor->control.path.path.valid )
     {
-        unit_estimate_position(actor->meta.unit_index, 1, &actor->control.path.path.endpoint.point, 0, 0, &start_point);
+        unit_estimate_position(actor->meta.unit_index, _unit_estimate_head_standing, &actor->control.path.path.endpoint.point, 0, 0, &start_point);
     }
     else
     {

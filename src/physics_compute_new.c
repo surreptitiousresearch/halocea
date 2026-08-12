@@ -16,6 +16,7 @@
 #include "headers/physics_definition.h"
 #include "headers/mass_point_definition.h"
 #include "headers/mass_point_datum.h"
+#include "headers/mass_point_flags.h"
 #include "headers/powered_mass_point_datum.h"
 #include "headers/powered_mass_point_definition.h"
 #include "headers/powered_mass_point_definition_flags.h"
@@ -274,11 +275,13 @@ void physics_compute_new(const physics_instance *instance, const powered_mass_po
         {
             float speed_sq = ((mp->velocity.n[2] * mp->velocity.n[2])
                                    + ((obj_velocity[0] * obj_velocity[0]) + (mp->velocity.n[1] * mp->velocity.n[1])));
-            /* runtime mass-point state bits (0x1 stationary, 0x2 on-ground, 0x8 in-water) are
-             * unnamed in the DB (only the definition-flags metallic bit is named) */
+            /* runtime mass-point state bits: enum mass_point_flags
+             * (DB $35EE1D98A1945FD2941159B669ED5A99) */
             mp->flags = (speed_sq >= 0.0011111111) ? (mp->flags & ~0x1u) : (mp->flags | 1);
-            mp->flags = (mp->ground_depth <= 0.0) ? (mp->flags & ~0x2u) : (mp->flags | 2);
-            mp->flags = (mp->water_depth <= 0.0) ? (mp->flags & ~0x8u) : (mp->flags | 8);
+            mp->flags = (mp->ground_depth <= 0.0) ? (mp->flags & ~(1u << _point_on_ground_bit))
+                                                  : (mp->flags | (1u << _point_on_ground_bit));
+            mp->flags = (mp->water_depth <= 0.0) ? (mp->flags & ~(1u << _point_in_water_bit))
+                                                 : (mp->flags | (1u << _point_in_water_bit));
         }
 
         /* --- powered thrust + antigravity --- */
@@ -345,7 +348,7 @@ void physics_compute_new(const physics_instance *instance, const powered_mass_po
                     mp->powered_force.n[0] += probe.plane.n.n[0] * magnitude;
                     mp->powered_force.n[1] += probe.plane.n.n[1] * magnitude;
                     mp->powered_force.n[2] += probe.plane.n.n[2] * magnitude;
-                    mp->flags |= 0x10u;
+                    mp->flags |= (1u << _point_antigraving_bit);
                 }
             }
         }

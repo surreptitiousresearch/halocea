@@ -11,6 +11,7 @@
 #include "headers/collision_bsp_test_vector_result.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
+#include "headers/contents.h"
 
 struct collision_bsp;
 
@@ -37,7 +38,7 @@ uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp
     /* fsel f13,f0(maximum_t),f0,f1(0.0): clamp negatives to 0. The prior reconstruction had the
      * false branch as maximum_t; the binary selects 0.0. */
     result->t = maximum_t >= 0.0f ? maximum_t : 0.0f;
-    data.last_contents = 0;
+    data.last_contents = _contents_unknown;
     data.last_plane_index = -1;
 
     if ( maximum_t >= 0.0 )

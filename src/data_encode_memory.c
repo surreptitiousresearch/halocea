@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "headers/data_encoding_state.h"
+#include "headers/byte_swap_definition.h"
 /* memset declared by <string.h> */
 
 int data_encode_memory(data_encoding_state *state, const void *buffer, int16_t count, int code)
@@ -15,10 +16,10 @@ int data_encode_memory(data_encoding_state *state, const void *buffer, int16_t c
     unsigned int byte_count;
     switch ( code )
     {
-        case -8: byte_count = 8 * count; break;
-        case -4: byte_count = 4 * count; break;
-        case -2: byte_count = 2 * count; break;
-        case 1:  byte_count = count;     break;
+        case _8byte: byte_count = 8 * count; break;
+        case _4byte: byte_count = 4 * count; break;
+        case _2byte: byte_count = 2 * count; break;
+        case _1byte: byte_count = count;     break;
         default: byte_count = 0;         break;
     }
 

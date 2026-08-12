@@ -21,7 +21,7 @@ uint8_t double_byte_character(const unsigned char *string)
     if ( lead == '|' && string[1] && strchr("ibukprlctn", string[1]) )
         return 1;
 
-    if ( (unsigned int)(global_language_code - 1) > 4 )
+    if ( global_language_code < _language_japanese || global_language_code > _language_korean_johab )
         return 0;
 
     switch ( global_language_code )

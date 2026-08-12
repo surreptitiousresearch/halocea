@@ -13,6 +13,7 @@
 
 #include "headers/tag_block.h"
 #include "headers/tag_groups.h"
+#include "headers/name_flags.h"
 extern char *tag_get_name(int tag_index);
 extern int sprintf_0(char *string, const char *format, ...);
 extern file_reference *file_reference_create_from_path(file_reference *reference, const char *path, uint8_t directory);
@@ -53,7 +54,7 @@ uint8_t hs_rebuild_source(void)
     for ( int16_t i = 0; i < file_count; i = (int16_t)(i + 1) )
     {
         char name[256];
-        file_reference_get_name(&found[i], 8u, name);
+        file_reference_get_name(&found[i], (1u << _name_extension_bit), name);
         if ( strcmp(name, "hsc") == 0 )
         {
             if ( hs_rebuild_source_file(&found[i]) == 0 )

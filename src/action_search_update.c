@@ -23,6 +23,7 @@
 #include "headers/search_state_data.h"
 #include "headers/prop_datum.h"
 #include "headers/ai_communication_type.h"
+#include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -45,7 +46,7 @@ void action_search_update(int actor_index)
       || ((actor_variant->flags & (1u << _actor_definition_sneak_uncovering_target_bit)) != 0
           && !actor->state.action_data.___u0.search.pursuit_location.type
           && actor->target.target_type == actor_target_uninspected_orphan
-          && (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index))->quantized_distance <= 2) )
+          && (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index))->quantized_distance <= _prop_distance_middle) )
     {
         actor->state.action_data.___u0.search.sneaking = 1;
     }

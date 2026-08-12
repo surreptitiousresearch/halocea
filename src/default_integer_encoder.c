@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include "headers/field_properties_definition.h"
+#include "headers/field_type_integer_parameters.h"
 #include "headers/bitstream_t.h"
 
 extern int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int bit_count);
@@ -14,39 +15,40 @@ extern int bitstream_write_bits(bitstream_t *bit_stream, const void *value, int 
 unsigned int default_integer_encoder(const _field_properties_definition *const field_properties,
     const void *const baseline_data, const void *const source_data, bitstream_t *const output_stream)
 {
-    const unsigned int *parameters = (const unsigned int *)field_properties->parameters;
-    unsigned int bit_width_class = parameters[0];
+    const _field_type_integer_parameters *parameters =
+        (const _field_type_integer_parameters *)field_properties->parameters;
+    _field_width bit_width_class = parameters->width;
 
-    if ( bit_width_class > 6 )
+    if ( (unsigned int)bit_width_class > 6 )
         return 0;
 
     switch ( bit_width_class )
     {
-        case 0:
+        case _field_width_small:
             if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 8u);
             break;
-        case 1:
+        case _field_width_medium:
             if ( !baseline_data || *(const uint16_t *)baseline_data != *(const uint16_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 0x10u);
             break;
-        case 2:
+        case _field_width_large:
             if ( !baseline_data || *(const unsigned int *)baseline_data != *(const unsigned int *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 0x20u);
             break;
-        case 3:
+        case _field_width_1_bit:
             if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 1u);
             break;
-        case 4:
+        case _field_width_3_bits:
             if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 3u);
             break;
-        case 5:
+        case _field_width_5_bits:
             if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 5u);
             break;
-        default:
+        default:   /* _field_width_6_bits */
             if ( !baseline_data || *(const uint8_t *)baseline_data != *(const uint8_t *)source_data )
                 return bitstream_write_bits(output_stream, source_data, 6u);
             break;

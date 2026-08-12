@@ -12,6 +12,7 @@
 #include "headers/actor_iterator.h"
 #include "headers/actor_datum.h"
 #include "headers/real_point3d.h"
+#include "headers/find_actor_mode.h"
 
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
 extern actor_datum *actor_iterator_next(actor_iterator *iterator);
@@ -45,7 +46,7 @@ int ai_communication_find_global_actor_to_talk(int16_t team_index, int16_t find_
         else
         {
             uint8_t is_enemy = game_team_is_enemy(team_index, actor->meta.team_index);
-            if ( find_actor_mode == 1 )
+            if ( find_actor_mode == _find_actor_mode_friend )
                 eligible = (is_enemy == 0);
             else if ( find_actor_mode )
                 eligible = is_enemy;

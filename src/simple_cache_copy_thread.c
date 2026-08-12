@@ -18,6 +18,7 @@
 #include "headers/cache_file_header.h"
 #include "headers/cache_copy_read_request.h"
 #include "headers/z_stream.h"
+#include "headers/copy_flags.h"
 
 #include "headers/cache_copy_read_request.h"
 #include "headers/cache_copy_read_request.h"
@@ -127,7 +128,7 @@ unsigned int simple_cache_copy_thread(void *parameter)
                         }
                         else if ( wait_result == 258 )
                         {
-                            global_self->flags |= 2;
+                            global_self->flags |= (1u << _copy_read_failed_bit);
                         }
                     }
                     while ( WaitForSingleObject(global_self->copy_stop_event, 0) );

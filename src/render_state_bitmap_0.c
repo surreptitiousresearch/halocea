@@ -22,6 +22,7 @@
 #include "headers/icon_hud_element_definition.h"
 #include "headers/icon_flags.h"
 #include "headers/interface_tag_index.h"
+#include "headers/hud_corner.h"
 
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern uint32_t system_milliseconds(void);
@@ -57,7 +58,7 @@ void render_state_bitmap_0(rectangle2d *bounds, unsigned int color, const icon_h
     point.y = (int16_t)(bounds->y1 - icon->offset.y * scale - 2.0f);
 
     unsigned int effective_color = (icon->flags & (1u << _hud_icon_use_color_bit)) ? icon->color : color;
-    hud_draw_bitmap_direct(bitmap, 2, &point, clip, scale, 0.0f, effective_color, 0);
+    hud_draw_bitmap_direct(bitmap, _hud_corner_bottom_left, &point, clip, scale, 0.0f, effective_color, 0);
 
     if (icon->flags & (1u << _hud_icon_absolute_width_bit))
         bounds->x0 = icon->width_offset + point.x;

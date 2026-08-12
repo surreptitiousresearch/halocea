@@ -28,6 +28,7 @@
 #include "headers/object_type.h"
 #include "headers/item_flags.h"
 #include "headers/equipment_flags.h"
+#include "headers/message_delta_message_ids.h"
 #include "headers/blam_data_globals.h"
 #include "headers/network_message_type.h"
 extern float __fsqrts(float);
@@ -143,7 +144,7 @@ void game_engine_update_item_spawn(void)
         message.netgame_equipment_index = i;
 
         int size_in_bits = message_delta_processor_encode_stateless(
-            0x2A /* _message_netgame_equipment_new */, nullptr, &message, g_message_encode_buffer, 32760);
+            _message_netgame_equipment_new, nullptr, &message, g_message_encode_buffer, 32760);
         network_game_server *server = global_network_game_server_get();
         network_game_server_send_message_to_all_loaded_machines(
             server, network_message_type_message_delta, g_message_encode_buffer, size_in_bits,

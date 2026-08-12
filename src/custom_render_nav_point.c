@@ -30,6 +30,7 @@
 #include "headers/number_hud_element_definition.h"
 #include "headers/hud_absolute_placement_definition.h"
 #include "headers/hud_corner.h"
+#include "headers/hud_number_show_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -170,7 +171,7 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
             | (uint8_t)(int64_t)(color.n[0] * 255.0f)) << 8)
             | (uint8_t)(int64_t)(color.n[1] * 255.0f)) << 8)
             | (uint8_t)(int64_t)(color.n[2] * 255.0f);
-    hud_draw_bitmap_direct(bitmap, 4, &point, clip, arrow_scale, rotation, color_argb, 0);
+    hud_draw_bitmap_direct(bitmap, _hud_corner_center, &point, clip, arrow_scale, rotation, color_argb, 0);
 
     if ( arrow_state != 1 && render_distance )
     {
@@ -183,7 +184,7 @@ void custom_render_nav_point(int16_t local_player_index, const real_point3d *pos
 
         placement.corner = _hud_corner_top_left;
         numbers.digits = 3;
-        numbers.number_flags = 5;
+        numbers.number_flags = (1u << _hud_number_show_all_leading_zeros_bit) | (1u << _hud_number_show_trailing_m);
         numbers.fractional_digits = 1;
         numbers.colors.flash_color = color_argb;
         numbers.colors.color = color_argb;

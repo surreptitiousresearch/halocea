@@ -32,6 +32,7 @@
 #include "headers/ai_information_type.h"
 #include "headers/direction_specification_type.h"
 #include "headers/secondary_look_type.h"
+#include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 #include "headers/real_point3d.h"
 extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
@@ -246,7 +247,7 @@ void actor_perception_update(int actor_index)
             int16_t weighted = ++prop->timer;
             if ( !enemy )
                 weighted >>= 3;
-            if ( prop->quantized_distance >= 3 )
+            if ( prop->quantized_distance >= _prop_distance_far )
                 weighted >>= 1;
             if ( !serviced_a_prop && weighted >= actor->meta.highest_prop_timer )
             {

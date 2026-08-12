@@ -39,6 +39,7 @@
 #include "headers/weapon_overlay_on_flags.h"
 #include "headers/hud_element_runtime_invalid_flags.h"
 #include "headers/weapon_number_flags.h"
+#include "headers/weapon_hud_state_index.h"
 #include "headers/blam_data_globals.h"
 
 /* engine globals — declared, not owned here */
@@ -115,31 +116,31 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
             split_screen = 1;
 
         /* state[0] — magazine 0 total ammo */
-        flags = state_flags[0];
+        flags = state_flags[_weapon_state_total_ammo];
         if (weapon_state->magazines[0].rounds_remaining > cutoffs->total_ammo) flags &= ~(1u << _hud_draw_flashing_bit); else flags |= 1u << _hud_draw_flashing_bit;
         if (weapon_state->magazines[0].rounds_remaining)                       flags &= ~(1u << _hud_draw_disabled_bit); else flags |= 1u << _hud_draw_disabled_bit;
         if (split_screen) flags |= 1u << _hud_draw_in_multiplayer_bit; else flags &= ~(1u << _hud_draw_in_multiplayer_bit);
-        state_flags[0] = flags;
+        state_flags[_weapon_state_total_ammo] = flags;
 
         /* state[1] — magazine 0 loaded ammo */
-        flags = state_flags[1];
+        flags = state_flags[_weapon_state_loaded_ammo];
         if (weapon_state->magazines[0].rounds_loaded > cutoffs->loaded_ammo || weapon_state->magazines[0].reloading)
             flags &= ~(1u << _hud_draw_flashing_bit);
         else
             flags |= 1u << _hud_draw_flashing_bit;
         flags &= ~((1u << _hud_draw_disabled_bit) | (1u << _hud_draw_in_multiplayer_bit));
         if (split_screen) flags |= 1u << _hud_draw_in_multiplayer_bit;
-        state_flags[1] = flags;
+        state_flags[_weapon_state_loaded_ammo] = flags;
 
         /* state[2] — heat */
-        flags = state_flags[2];
+        flags = state_flags[_weapon_state_heat];
         if ((weapon_state->heat * 100.0f) < (float)cutoffs->heat) flags &= ~(1u << _hud_draw_flashing_bit); else flags |= 1u << _hud_draw_flashing_bit;
         flags &= ~((1u << _hud_draw_disabled_bit) | (1u << _hud_draw_in_multiplayer_bit));
         if (split_screen) flags |= 1u << _hud_draw_in_multiplayer_bit;
-        state_flags[2] = flags;
+        state_flags[_weapon_state_heat] = flags;
 
         /* state[3] — age (battery/charge) */
-        flags = state_flags[3];
+        flags = state_flags[_weapon_state_age];
         if (((1.0f - weapon_state->age) * 100.0f) > (float)cutoffs->age)
             flags &= ~(1u << _hud_draw_flashing_bit);
         else
@@ -148,27 +149,27 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
         if (age_percent < 0) age_percent = 0; else if (age_percent > 100) age_percent = 100;
         if (age_percent == 100) flags |= 1u << _hud_draw_disabled_bit; else flags &= ~(1u << _hud_draw_disabled_bit);
         if (split_screen) flags |= 1u << _hud_draw_in_multiplayer_bit; else flags &= ~(1u << _hud_draw_in_multiplayer_bit);
-        state_flags[3] = flags;
+        state_flags[_weapon_state_age] = flags;
 
         /* state[4] — magazine 1 total ammo */
-        flags = state_flags[4];
+        flags = state_flags[_weapon_state_secondary_total_ammo];
         if (weapon_state->magazines[1].rounds_remaining > cutoffs->total_ammo) flags &= ~(1u << _hud_draw_flashing_bit); else flags |= 1u << _hud_draw_flashing_bit;
         if (weapon_state->magazines[1].rounds_remaining)                       flags &= ~(1u << _hud_draw_disabled_bit); else flags |= 1u << _hud_draw_disabled_bit;
         if (split_screen) flags |= 1u << _hud_draw_in_multiplayer_bit; else flags &= ~(1u << _hud_draw_in_multiplayer_bit);
-        state_flags[4] = flags;
+        state_flags[_weapon_state_secondary_total_ammo] = flags;
 
         /* state[5] — magazine 1 loaded ammo */
-        flags = state_flags[5];
+        flags = state_flags[_weapon_state_secondary_loaded_ammo];
         if (weapon_state->magazines[1].rounds_loaded > cutoffs->loaded_ammo || weapon_state->magazines[1].reloading)
             flags &= ~(1u << _hud_draw_flashing_bit);
         else
             flags |= 1u << _hud_draw_flashing_bit;
         flags &= ~((1u << _hud_draw_disabled_bit) | (1u << _hud_draw_in_multiplayer_bit));
         if (split_screen) flags |= 1u << _hud_draw_in_multiplayer_bit;
-        state_flags[5] = flags;
+        state_flags[_weapon_state_secondary_loaded_ammo] = flags;
 
         /* update the per-state flash timers from the low bit of each state flag */
-        for (state_index = 0; state_index < 8; state_index++)
+        for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
         {
             if (state_flags[state_index] & 1)
             {
@@ -241,20 +242,20 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
         overlay_flags[1] = flags | (1u << _weapon_overlay_on_always_bit);
 
         /* number readouts */
-        number_values[1] = weapon_state->magazines[0].rounds_loaded;
-        number_values[0] = weapon_state->magazines[0].rounds_remaining;
-        number_values[4] = weapon_state->magazines[1].rounds_remaining;
-        number_values[5] = weapon_state->magazines[1].rounds_loaded;
-        number_values[3] = (int)((1.0f - weapon_state->age) * 100.0f);
-        number_values[2] = (int)(weapon_state->heat * 255.0f);
+        number_values[_weapon_state_loaded_ammo] = weapon_state->magazines[0].rounds_loaded;
+        number_values[_weapon_state_total_ammo] = weapon_state->magazines[0].rounds_remaining;
+        number_values[_weapon_state_secondary_total_ammo] = weapon_state->magazines[1].rounds_remaining;
+        number_values[_weapon_state_secondary_loaded_ammo] = weapon_state->magazines[1].rounds_loaded;
+        number_values[_weapon_state_age] = (int)((1.0f - weapon_state->age) * 100.0f);
+        number_values[_weapon_state_heat] = (int)(weapon_state->heat * 255.0f);
 
         /* autoaim target distance readouts (feet), or the "no target" NaN sentinel */
         {
             int target_object_index = player_control_get_target_object_index(local_player_index);
             if (player_control_get_autoaim_level(local_player_index) != 1.0f || target_object_index == -1)
             {
-                *(unsigned int *)&number_fractions[6] = 0xFFC00000u; /* NaN sentinel: no locked target */
-                *(unsigned int *)&number_fractions[7] = 0xFFC00000u;
+                *(unsigned int *)&number_fractions[_weapon_state_distance_to_target] = 0xFFC00000u; /* NaN sentinel: no locked target */
+                *(unsigned int *)&number_fractions[_weapon_state_elevation_to_target] = 0xFFC00000u;
             }
             else
             {
@@ -271,8 +272,8 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
                 unit_get_camera_position(unit_index, &camera_position);
                 object_get_origin(target_object_index, &target_position);
 
-                number_fractions[7] = (target_position.n[2] - camera_position.n[2]) * 3.0480001f;
-                number_fractions[6] = __fsqrts(
+                number_fractions[_weapon_state_elevation_to_target] = (target_position.n[2] - camera_position.n[2]) * 3.0480001f;
+                number_fractions[_weapon_state_distance_to_target] = __fsqrts(
                     (((camera_position.n[1] - target_position.n[1]) * (camera_position.n[1] - target_position.n[1]))
                           + (((camera_position.n[0] - target_position.n[0]) * (camera_position.n[0] - target_position.n[0]))
                                   + ((camera_position.n[2] - target_position.n[2]) * (camera_position.n[2] - target_position.n[2])))))

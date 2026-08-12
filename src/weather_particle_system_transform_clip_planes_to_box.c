@@ -3,11 +3,12 @@
 
 #include "headers/real_plane3d.h"
 #include "headers/real_point3d.h"
+#include "headers/clipping_plane.h"
 
 void weather_particle_system_transform_clip_planes_to_box(float *clip_plane_d_transforms,
         const real_plane3d *clip_planes, real_point3d *box_offset)
 {
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < NUMBER_OF_CLIPPING_PLANES; i++)
     {
         clip_plane_d_transforms[i] = clip_planes[i].normal.n[0] * box_offset->n[0]
                                     + clip_planes[i].normal.n[1] * box_offset->n[1]

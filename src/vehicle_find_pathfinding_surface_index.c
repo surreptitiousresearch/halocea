@@ -18,6 +18,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
+#include "headers/collision_bsp_test_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -58,7 +59,7 @@ int vehicle_find_pathfinding_surface_index(int vehicle_index, real_point3d *path
         vector.n[2] = global_down3d->n[2] * 2.0f;
 
         collision_bsp_test_vector_result result;
-        if (collision_bsp_test_vector(1u, bsp, 0, nullptr, &point, &vector, 3.4028235e38f, &result))
+        if (collision_bsp_test_vector((1u << _collision_bsp_test_front_facing_surfaces_bit), bsp, 0, nullptr, &point, &vector, 3.4028235e38f, &result))
         {
             surface_index = result.surface_index;
             pathfinding_point->n[0] = vector.n[0] * result.t + point.n[0];

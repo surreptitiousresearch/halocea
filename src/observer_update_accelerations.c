@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "headers/observer_globals.h"
+#include "headers/observer_parameter.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -43,7 +44,7 @@ void observer_update_accelerations(int16_t local_player_index)
                 if ( value > observer_maximum_accelerations[group] || value < -observer_maximum_accelerations[group] )
                 {
                     int g;
-                    for ( g = 0; g < 5; g++ )
+                    for ( g = 0; g < NUMBER_OF_OBSERVER_PARAMETERS; g++ )
                     {
                         if ( g != group
                           && obs->last_command.parameter_timers[g] == *group_timer )
@@ -61,5 +62,5 @@ void observer_update_accelerations(int16_t local_player_index)
         }
         group++;
     }
-    while ( group < 5 );
+    while ( group < NUMBER_OF_OBSERVER_PARAMETERS );
 }

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "headers/font_drawing_globals.h"
 #include "headers/interface_tag_index.h"
+#include "headers/string_index.h"
 
 extern int interface_get_tag_index(int16_t interface_tag_index);
 extern char *string_list_get_string(int tag_index, int16_t string_index);
@@ -16,7 +17,7 @@ void draw_string_initialize_for_new_map(void)
     font_drawing_globals.string_list_index = tag_index;
     if ( tag_index != -1 )
     {
-        const char *language_string = string_list_get_string(tag_index, 0);
+        const char *language_string = string_list_get_string(tag_index, _string_index_language);
         int16_t language_code = atoi(language_string);
         set_language_code(language_code);
         font_drawing_globals.current_font_index = -1;

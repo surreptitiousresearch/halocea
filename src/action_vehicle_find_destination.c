@@ -49,6 +49,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/collision_bsp.h"
 #include "headers/collision_bsp_test_vector_result.h"
+#include "headers/collision_bsp_test_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -195,7 +196,7 @@ have_chosen_point:
     down_ray.n[2] = global_down3d->n[2] * 4.0f;
 
     collision_bsp_test_vector_result result;
-    if ( !collision_bsp_test_vector(1u, global_collision_bsp, 0, 0, &test_point_above, &down_ray, 3.4028235e38f, &result) )
+    if ( !collision_bsp_test_vector((1u << _collision_bsp_test_front_facing_surfaces_bit), global_collision_bsp, 0, 0, &test_point_above, &down_ray, 3.4028235e38f, &result) )
         return 0;
 
     destination_point->n[0] = down_ray.n[0] * result.t + test_point_above.n[0];

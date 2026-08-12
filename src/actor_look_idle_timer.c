@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "headers/actor_idle_looking.h"
 #include "headers/weapon_definition.h"
+#include "headers/idle_timer.h"
 
 extern weapon_definition *actor_get_weapon_definition(int actor_index);
 extern uint32_t *get_global_random_seed_address(void);
@@ -20,12 +21,12 @@ int actor_look_idle_timer(int actor_index, actor_idle_looking *looking_definitio
 
     float lower_bound;
     float upper_bound;
-    if ( timer_type == 0 )
+    if ( timer_type == _idle_timer_facing )
     {
         lower_bound = looking_definition->idle_facing_time_lower_bound;
         upper_bound = looking_definition->idle_facing_time_upper_bound;
     }
-    else if ( timer_type == 1 )
+    else if ( timer_type == _idle_timer_aiming )
     {
         lower_bound = looking_definition->idle_aim_time_lower_bound;
         upper_bound = looking_definition->idle_aim_time_upper_bound;

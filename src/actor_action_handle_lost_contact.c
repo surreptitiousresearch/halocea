@@ -41,6 +41,7 @@
 #include "headers/firing_point_evaluation_mode.h"
 #include "headers/pursuit_location_type.h"
 #include "headers/ai_communication_type.h"
+#include "headers/firing_position_group_selection.h"
 #include "headers/blam_data_globals.h"
 
 typedef struct wait_state_data wait_state_data;
@@ -257,7 +258,7 @@ uint8_t actor_action_handle_lost_contact(int actor_index)
                             evaluation_context.evaluation_data.___u0.pursue.tenacious = pursue_tenacious;
                             evaluation_context.find_path_direction_from_target = tracked_orphan != -1;
                             evaluation_context.allowed_position_mask =
-                                actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_pursue, 0);
+                                actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_pursue, _firing_position_group_normal);
                             evaluation_context.maximum_search_range = 20.0f;
                             firing_position best_firing_position;
                             firing_position_index = actor_select_firing_position(

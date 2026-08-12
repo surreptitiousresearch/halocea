@@ -28,6 +28,7 @@
 #include "headers/path_state.h"
 #include "headers/firing_point_evaluation_mode.h"
 #include "headers/actor_guard_location_type.h"
+#include "headers/firing_position_group_selection.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -74,7 +75,7 @@ uint8_t action_guard_perform(int actor_index)
         firing_position_evaluation_context evaluation_context;
         memset(&evaluation_context, 0, sizeof(evaluation_context));
         evaluation_context.evaluation_mode = _firing_point_evaluation_mode_guard;
-        evaluation_context.allowed_position_mask = actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_guard, 0);
+        evaluation_context.allowed_position_mask = actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_guard, _firing_position_group_normal);
         evaluation_context.allow_outside_range = 1;
 
         firing_position best_firing_position;

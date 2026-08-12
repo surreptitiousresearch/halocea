@@ -11,6 +11,8 @@
 #include "headers/actor_datum.h"
 #include "headers/prop_datum.h"
 #include "headers/prop_perception_state.h"
+#include "headers/prop_distance.h"
+#include "headers/prop_speed.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -45,22 +47,23 @@ float actor_look_compute_prop_interest(int actor_index, int prop_index)
     if ( prop->vehicle_index != -1 )
         weight = 1.5f;
 
-    /* no DB enum found: prop_datum.quantized_speed is a runtime-quantized bucket index (char, no named domain) */
+    /* prop_datum.quantized_speed domain: prop_speed.h (types_enum_values $2A7E5BA6EC108C666DF6E50CD8BAED3C);
+     * producer prop_status_refresh assigns 0/1/2/3 by ascending speed thresholds (_prop_speed_stopped is 0). */
     switch ( (uint8_t)prop->quantized_speed )
     {
-        case 1: interest = (weight * 0.5f) + interest; break;
-        case 2: interest = weight + interest; break;
-        case 3: interest = (weight * 2.0f) + interest; break;
+        case _prop_speed_walking: interest = (weight * 0.5f) + interest; break;
+        case _prop_speed_running: interest = weight + interest; break;
+        case _prop_speed_driving: interest = (weight * 2.0f) + interest; break;
     }
     if ( prop->shooting )
         interest = (weight * 2.0f) + interest;
 
-    /* no DB enum found: prop_datum.quantized_distance is a runtime-quantized bucket index (char, no named domain) */
+    /* prop_datum.quantized_distance domain: prop_distance.h (types_enum_values $44ADBAE443330A02246AB7D2120EBFC3) */
     switch ( (uint8_t)prop->quantized_distance )
     {
-        case 1: interest = interest * 0.60000002f; break;
-        case 3: interest = interest * 0.40000001f; break;
-        case 4: interest = interest * 0.2f; break;
+        case _prop_distance_near: interest = interest * 0.60000002f; break;
+        case _prop_distance_far: interest = interest * 0.40000001f; break;
+        case _prop_distance_distant: interest = interest * 0.2f; break;
     }
     return interest;
 }

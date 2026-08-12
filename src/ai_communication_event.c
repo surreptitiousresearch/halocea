@@ -79,6 +79,8 @@
 #include "headers/ai_communication_protagonist_type.h"
 #include "headers/unit_speech_priority.h"
 #include "headers/ai_information_look_type.h"
+#include "headers/find_actor_mode.h"
+#include "headers/secondary_look_type.h"
 #include "headers/blam_data_globals.h"
 extern float __fsqrts(float);
 extern int _cntlzw(unsigned int);
@@ -236,7 +238,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                         subject_recently_active = 1;
                 }
                 global_actor_to_talk = ai_communication_find_global_actor_to_talk(
-                    subject_team, 0, subject_unit_index, cause_unit_index, 18.0f,
+                    subject_team, _find_actor_mode_same_team, subject_unit_index, cause_unit_index, 18.0f,
                     communication_type /* _ai_communication_death in this branch */,
                     _ai_communication_priority_yell, -1, -1, -1, 0);
                 if ( global_actor_to_talk != -1 )
@@ -469,7 +471,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                     | (1 << _find_actor_allow_cause_bit) );
                 if ( subject_encounter_index == -1 )
                     actor_to_talk = ai_communication_find_global_actor_to_talk(
-                        subject_team, 1, subject_unit_index, cause_unit_index, 10.0f,
+                        subject_team, _find_actor_mode_friend, subject_unit_index, cause_unit_index, 10.0f,
                         communication_type, priority, speech_priority,
                         row->vocalization_type, row->animation_type, find_actor_flags);
                 else
@@ -515,7 +517,7 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
                     | (row->flags & (1u << _dialogue_usage_same_vehicle_bit) ? (1 << _find_actor_same_vehicle_bit) : 0)
                     | (row->flags & (1u << _dialogue_usage_allow_subject_bit) ? (1 << _find_actor_allow_subject_bit) : 0) );
                 actor_to_talk = ai_communication_find_global_actor_to_talk(
-                    subject_team, 2, subject_unit_index, cause_unit_index, 12.0f,
+                    subject_team, _find_actor_mode_enemy, subject_unit_index, cause_unit_index, 12.0f,
                     communication_type, priority, speech_priority,
                     row->vocalization_type, row->animation_type, find_actor_flags);
                 need_other_actor = 0;
@@ -720,7 +722,7 @@ resolve_done:
                     break;
                 ai_communication_candidate *rec = &candidates[candidate_count];
                 rec->weight = weight;
-                rec->interrupts = (row_flags & 2) != 0;
+                rec->interrupts = (row_flags & (1u << _dialogue_usage_force_bit)) != 0;
                 rec->is_reply = is_reply;
                 rec->vocalization_type = resolved_vocalization;
                 rec->priority = speech_priority;
@@ -738,7 +740,7 @@ resolve_done:
                 rec->look_unit_index = look_unit_index;
                 rec->sound_definition_index = sound_definition_index;
                 rec->table_row_index = table_row_index;
-                if ( (row_flags & 2) != 0 )   /* bit1 = interrupts (see rec->interrupts above); row flags word has no DB enum */
+                if ( (row_flags & (1u << _dialogue_usage_force_bit)) != 0 )
                     any_interrupt = 1;
                 total_weight += weight;
                 ++candidate_count;
@@ -862,7 +864,7 @@ next_row:
 
     int reply_actor = chosen->protagonist_actor_index;
     if ( reply_actor != -1 )
-        ai_communication_look_secondary_at_unit(reply_actor, 9, chosen->protagonist_look_priority, target_unit_index, -1);
+        ai_communication_look_secondary_at_unit(reply_actor, _secondary_look_communicated_direction, chosen->protagonist_look_priority, target_unit_index, -1);
 
     /* Deviation: the decompiler's 5th arg (reply_table_index) is an uninitialised local (v169); passed 0. */
     ai_communication_update_speech_timers(speaker_unit, priority, dialogue_type_index, -1); /* phantom 5th arg dropped */

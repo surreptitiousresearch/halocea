@@ -19,6 +19,7 @@
 #include "headers/gamepad_button.h"
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
+#include "headers/director_variable.h"
 #include "headers/blam_data_globals.h"
 #include "headers/first_person_camera.h"
 #include "headers/following_camera.h"
@@ -104,7 +105,7 @@ int director_update_controls(int16_t local_player_index, camera_control *control
             controls->position_delta.n[1] = ((((int)gamepad->sticks[0].__s1.x * dir->debug_input_scale)
                                                           * side_scale) * director_globals.dtime)
                                           * (float)speed;
-            controls->position_delta.n[2] = (dir->debug_variables[0].delta * (float)speed) + (float)up_delta;
+            controls->position_delta.n[2] = (dir->debug_variables[_variable_height].delta * (float)speed) + (float)up_delta;
             controls->active = 1;
             dir->inhibited_input = 1;
             dir->inhibited_facing = 1;

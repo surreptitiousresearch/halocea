@@ -27,6 +27,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/collision_bsp_test_vector_result.h"
 #include "headers/collision_bsp.h"
+#include "headers/collision_bsp_test_flags.h"
 extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
 
 uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *start_point,
@@ -42,7 +43,7 @@ uint8_t path_3d_available(structure_bsp *structure_bsp, const real_point3d *star
 
     collision_bsp_test_vector_result hit_result;
     uint8_t obstructed = 0;
-    if (collision_bsp_test_vector(1u, (const struct collision_bsp *)structure_bsp->collision_bsp.address,
+    if (collision_bsp_test_vector((1u << _collision_bsp_test_front_facing_surfaces_bit), (const struct collision_bsp *)structure_bsp->collision_bsp.address,
             0, 0, start_point, &ray_vector, FLT_MAX, &hit_result)
         && hit_result.t < 1.0f)
     {

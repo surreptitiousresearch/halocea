@@ -24,6 +24,7 @@
 #include "headers/actor_target_type.h"
 #include "headers/uncover_state_data.h"
 #include "headers/prop_datum.h"
+#include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -69,7 +70,7 @@ void action_uncover_update(int actor_index)
     {
         if ( (character_definition->flags & (1u << _actor_definition_sneak_uncovering_target_bit)) != 0
           && actor->target.target_type == actor_target_uninspected_orphan
-          && (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index))->quantized_distance <= 2 )
+          && (DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index))->quantized_distance <= _prop_distance_middle )
         {
             uncover_state->sneaking = 1;
         }

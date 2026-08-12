@@ -11,6 +11,7 @@
 #include "headers/collision_bsp_test_vector_result.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
+#include "headers/collision_bsp_test_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -37,7 +38,7 @@ int biped_find_ground_surface(int biped_index, float ground_distance,
     origin.n[2] += global_up3d->n[2] * 0.40000001f;
 
     collision_bsp_test_vector_result result;
-    if (!collision_bsp_test_vector(1u, bsp, 0, nullptr, &origin, &test_vector, 3.4028235e38f, &result))
+    if (!collision_bsp_test_vector((1u << _collision_bsp_test_front_facing_surfaces_bit), bsp, 0, nullptr, &origin, &test_vector, 3.4028235e38f, &result))
         return -1;
 
     if (surface_point)

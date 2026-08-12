@@ -32,6 +32,7 @@
 #include "headers/animation_graph.h"
 #include "headers/animation_graph_vehicle_animations.h"
 #include "headers/animation_graph_vehicle_suspension_animation.h"
+#include "headers/vehicle_animation.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -62,14 +63,14 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     int16_t *aiming_indices = (int16_t *)unit_block->animations.address;
 
     /* aiming screen: primary aiming animation driven by the steering direction */
-    int16_t aiming_index = screen_count <= 0 ? -1 : aiming_indices[0];
+    int16_t aiming_index = screen_count <= _vehicle_animation_steering ? -1 : aiming_indices[_vehicle_animation_steering];
     if ( aiming_index != -1 )
         aiming_screen_apply((const animation *)(180 * aiming_index + animations_data),
                 &unit_block->steering_screen_bounds, vehicle_object->vehicle.turn, 0.0f,
                 node_orientations);
 
     /* overlay 0: yaw from velocity . (basis triple product), mapped to 0..1 */
-    int16_t overlay0_index = screen_count <= 1 ? -1 : aiming_indices[1];
+    int16_t overlay0_index = screen_count <= _vehicle_animation_roll ? -1 : aiming_indices[_vehicle_animation_roll];
     if ( overlay0_index != -1 )
     {
         const animation *overlay0 = (const animation *)(180 * overlay0_index + animations_data);
@@ -93,7 +94,7 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     }
 
     /* overlay 1: signed steering value, split about zero by the definition's left/right ranges */
-    int16_t overlay1_index = screen_count <= 2 ? -1 : aiming_indices[2];
+    int16_t overlay1_index = screen_count <= _vehicle_animation_throttle ? -1 : aiming_indices[_vehicle_animation_throttle];
     if ( overlay1_index != -1 )
     {
         const animation *overlay1 = (const animation *)(180 * overlay1_index + animations_data);
@@ -109,7 +110,7 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     }
 
     /* overlay 2: forward-dot-velocity, clamped, normalized by the yaw range magnitude */
-    int16_t overlay2_index = screen_count <= 3 ? -1 : aiming_indices[3];
+    int16_t overlay2_index = screen_count <= _vehicle_animation_velocity ? -1 : aiming_indices[_vehicle_animation_velocity];
     if ( overlay2_index != -1 )
     {
         const animation *overlay2 = (const animation *)(180 * overlay2_index + animations_data);
@@ -129,7 +130,7 @@ void vehicle_preprocess_node_orientations(int vehicle_index, real_orientation *n
     }
 
     /* overlay 3: scalar ratio; uses frame_count (not frame_count - 1) */
-    int16_t overlay3_index = screen_count <= 5 ? -1 : aiming_indices[5];
+    int16_t overlay3_index = screen_count <= _vehicle_animation_ground_speed ? -1 : aiming_indices[_vehicle_animation_ground_speed];
     if ( overlay3_index != -1 )
     {
         const animation *overlay3 = (const animation *)(180 * overlay3_index + animations_data);

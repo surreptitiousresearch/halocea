@@ -23,6 +23,7 @@
 #include "headers/scenario_cutscene_flag.h"
 #include "headers/scenario_bsp_switch_trigger_volume.h"
 #include "headers/real_point3d.h"
+#include "headers/collision_test_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -56,7 +57,7 @@ void players_reconnect_to_structure_bsp(void)
                     [cutscene_flag_index].position;
             float raised = 0.0f;
             flag_position_valid = 1;
-            while ( collision_test_point(0x4029u, &destination, -1) )
+            while ( collision_test_point((1u << _collision_test_front_facing_surfaces_bit) | (1u << _collision_test_ignore_invisible_surfaces_bit) | (1u << _collision_test_structure_bit) | (1u << _collision_test_objects_scenery_bit), &destination, -1) )
             {
                 raised = raised + 0.05f;
                 destination.n[2] = destination.n[2] + 0.05f;

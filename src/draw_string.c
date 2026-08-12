@@ -14,6 +14,7 @@
 
 #include <stdint.h>
 #include "headers/parse_string_state.h"
+#include "headers/parse_string_result.h"
 #include "headers/draw_text_flags.h"
 #include "headers/text_justification.h"
 #include "headers/font_header.h"
@@ -169,11 +170,11 @@ void draw_string(
             goto check_continue;
         switch (state[0].result)
         {
-            case 1:  /* paragraph break */
+            case _parsed_end_of_line:  /* paragraph break */
                 tab_index = 0;
                 paragraph_line_offset += max_wrapped_line_index + 1;
                 goto reset_line_index;
-            case 2:  /* end of measured run / wrap → next line */
+            case _parsed_end_of_word:  /* end of measured run / wrap → next line */
             next_line:
                 wrapped_line_index = (int16_t)(wrapped_line_index + 1);
                 if (wrapped_line_index > max_wrapped_line_index)
@@ -184,7 +185,7 @@ void draw_string(
                     goto check_continue;
                 ++tab_index;
                 goto reset_line_index;
-            case 4:
+            case _parsed_justification_change:
             reset_line_index:
                 wrapped_line_index = 0;
                 goto check_continue;

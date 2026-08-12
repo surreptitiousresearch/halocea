@@ -12,6 +12,7 @@
 
 #include "headers/tag_block.h"
 #include "headers/tag_groups.h"
+#include "headers/name_flags.h"
 extern uint8_t file_exists(const file_reference *file);
 extern void *file_read_into_memory(file_reference *reference, unsigned int *size);
 extern char *file_reference_get_name(const file_reference *reference, unsigned int flags, char *name);
@@ -35,7 +36,7 @@ uint8_t hs_rebuild_source_file(file_reference *script_file)
     if ( !contents || !tag_data_resize(&entry->source, size) )
         return 0;
 
-    file_reference_get_name(script_file, 4u, name);
+    file_reference_get_name(script_file, (1u << _name_filename_bit), name);
     strncpy(entry->name, name, 0x1Fu);
     entry->name[31] = 0;
 

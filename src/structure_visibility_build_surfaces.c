@@ -20,6 +20,7 @@
 #include <string.h>
 #include "headers/blam_data_globals.h"
 #include "headers/bit_vector.h"
+#include "headers/intersection.h"
 
 #define STRUCTURE_SURFACE_FLAGS_WORDS 4096   /* bit vector, one bit per BSP surface */
 
@@ -54,7 +55,7 @@ int16_t structure_visibility_build_surfaces(int *surface_indices, int16_t maximu
     if (bounding_sphere_radius < structure_sphere_threshold)
         return structure_visibility_build_surfaces_traverse_node(0, &bsp->world_bounds, surface_flags,
             surface_indices, maximum_count, bounding_sphere_center, bounding_sphere_radius, bounding_box,
-            bounding_surface_count, bounding_surfaces, 1);
+            bounding_surface_count, bounding_surfaces, _intersection_spanning);
 
     if (cluster_indices)
         return structure_visibility_build_surfaces_traverse_clusters(surface_indices, maximum_count,
@@ -66,7 +67,7 @@ int16_t structure_visibility_build_surfaces(int *surface_indices, int16_t maximu
     if ((uint16_t)center_location.cluster_index == 0xFFFF)
         return structure_visibility_build_surfaces_traverse_node(0, &bsp->world_bounds, surface_flags,
             surface_indices, maximum_count, bounding_sphere_center, bounding_sphere_radius, bounding_box,
-            bounding_surface_count, bounding_surfaces, 1);
+            bounding_surface_count, bounding_surfaces, _intersection_spanning);
 
     int16_t found_cluster_indices[512];
     int16_t found_cluster_count = structure_clusters_in_sphere(center_location.cluster_index,

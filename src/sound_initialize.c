@@ -13,6 +13,8 @@
 #include "headers/sound_manager_globals.h"
 #include "headers/sound_preferences.h"
 #include "headers/data_array.h"
+#include "headers/sound_channel_type.h"
+#include "headers/sound_variety.h"
 #include "headers/blam_data_globals.h"
 
 extern void read_sound_preferences(sound_preferences **preferences);
@@ -33,7 +35,7 @@ void sound_initialize(void)
     if ( sound_manager_globals.disable_from_commandline )
         return;
 
-    sound_manager_globals.sound_variety = 0;
+    sound_manager_globals.sound_variety = _sound_variety_low;
     sound_manager_globals.sound_environment_tag = -1;
     sound_manager_globals.nondialog_gain = 1.0f;
     sound_manager_globals.music_gain = 1.0f;
@@ -67,7 +69,7 @@ void sound_initialize(void)
 
     short next_channel = 0;
     short channel_count = sound_manager_globals.channel_count;
-    for ( int i = 0; i < 4; i = (short)(i + 1) )
+    for ( int i = 0; i < NUMBER_OF_SOUND_CHANNEL_TYPES; i = (short)(i + 1) )
     {
         short type_count = prefs->virtual_channel_counts[i];
         channel_count = (short)(type_count + channel_count);

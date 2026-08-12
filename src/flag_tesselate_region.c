@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "headers/flag_definition.h"
 #include "headers/flag_datum.h"
+#include "headers/tesselate.h"
 
 void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y,
     int16_t size, int16_t tesselation)
@@ -30,12 +31,12 @@ void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, i
                 continue;
 
             int16_t horizontal_side, vertical_side;
-            if ( tesselation == 4 || tesselation == 5 )
+            if ( tesselation == _tesselate_top_right || tesselation == _tesselate_bottom_right )
                 horizontal_side = x - origin_x;
             else
                 horizontal_side = size - x + origin_x - 1;
 
-            if ( tesselation == 4 || tesselation == 2 )
+            if ( tesselation == _tesselate_top_right || tesselation == _tesselate_top_left )
                 vertical_side = row - origin_y;
             else
                 vertical_side = origin_y - row + size - 1;

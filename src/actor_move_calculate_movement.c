@@ -37,6 +37,7 @@
 #include "headers/ppc_intrinsics.h"
 #include <math.h>
 #include "headers/actor_movement_type.h"
+#include "headers/actor_facing.h"
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
 
@@ -92,21 +93,22 @@ void actor_move_calculate_movement(int actor_index, uint8_t move_in_3d, int16_t 
             scratch.n[2] = actor->input.facing_vector.n[2];
         }
 
-        /* BLOCKED: no enum for actor_move_orders.override_movement_facing */
+        /* actor_move_orders.override_movement_facing domain: actor_facing.h
+         * (types_enum_values $53D606AE39E79059735B54401B32FAA6) */
         switch ( override_facing )
         {
-            case 0:
+            case _actor_facing_forward:
                 facing_direction = scratch;
                 goto facing_ready;
-            case 1:
+            case _actor_facing_backward:
                 facing_direction.n[0] = -scratch.n[0];
                 facing_direction.n[1] = -scratch.n[1];
                 break;
-            case 2:
+            case _actor_facing_left:
                 facing_direction.n[1] = scratch.n[0];
                 facing_direction.n[0] = -scratch.n[1];
                 break;
-            default:
+            default:   /* _actor_facing_right (3); the guard above bounds override_facing to 0..3 */
                 facing_direction.n[0] = scratch.n[1];
                 facing_direction.n[1] = -scratch.n[0];
                 break;

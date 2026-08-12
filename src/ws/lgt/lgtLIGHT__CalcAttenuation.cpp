@@ -1,6 +1,7 @@
 // lgtLIGHT__CalcAttenuation @0x82A7A1C8
 #include <math.h>
 #include "../../headers/ws/lgt/lgtLIGHT.h"
+#include "../../headers/ws/lgt/LGT_ATTN.h"
 #include "../../headers/ws/m3d/m3dV.h"
 #include "../../headers/ws/m3d/m3d_boundary.h"
 
@@ -83,15 +84,15 @@ float lgtLIGHT::CalcAttenuation(m3dV *point) const
         // Apply the atten curve (selectors 2..4; anything else falls to the inverse-square form).
         if ((unsigned int)(atten - 2) <= 3) {
             switch (atten) {
-            case 2:
+            case LGT_ATTN_QADRATIC:
                 _m3dCheckValid(distAtten);
                 distAtten = distAtten * distAtten;
                 break;
-            case 3:
+            case LGT_ATTN_CUBIC:
                 _m3dCheckValid(distAtten);
                 distAtten = distAtten * distAtten * distAtten;
                 break;
-            case 4: {
+            case LGT_ATTN_SHADER: {
                 float a, b, c;
                 lgtLIGHT::GetLightDistAttenCoeffs(&b, &a, &c,
                                                   rangeScale * attenEnd,
@@ -101,7 +102,7 @@ float lgtLIGHT::CalcAttenuation(m3dV *point) const
                 distAtten = v * v;
                 break;
             }
-            default: {
+            default: /* LGT_ATTN_SHADER_FAST */ {
                 // Inverse-square falloff scaled by the end radius.
                 float r = attenEnd * scaleDeg * scale;
                 float v = 0.0f / ((-1.0f / (r * r)) * dist2 + 1.0f);

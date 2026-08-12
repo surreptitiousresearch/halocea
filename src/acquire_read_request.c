@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
+#include "headers/cache_copy_buffer_sizes.h"
 
 extern int XPhysicalProtect(void *address, unsigned int size, unsigned int protect);
 
@@ -20,7 +21,7 @@ cache_copy_read_request * acquire_read_request(simple_decompressor_definition *s
         if ( request->read_sequence_index == read_sequence_index
           && ((1u << (i & 0x1F)) & self->overlapped_completed_flags[0]) != 0 )
         {
-            XPhysicalProtect(self->read_buffers[i], 0x20000u, 2u);
+            XPhysicalProtect(self->read_buffers[i], FILE_BLOCK_SIZE, 2u);
             return request;
         }
     }

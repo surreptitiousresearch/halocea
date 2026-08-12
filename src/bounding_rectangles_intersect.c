@@ -4,26 +4,27 @@
 
 #include <stdint.h>
 #include "headers/real_rectangle3d.h"
+#include "headers/intersection.h"
 
 int16_t bounding_rectangles_intersect(const real_rectangle3d *test_rectangle, const real_rectangle3d *rectangle)
 {
     if (rectangle->n[1] < test_rectangle->n[0])
-        return 0;
+        return _intersection_out;
     if (rectangle->n[0] > test_rectangle->n[1])
-        return 0;
+        return _intersection_out;
     if (rectangle->n[3] < test_rectangle->n[2])
-        return 0;
+        return _intersection_out;
     if (rectangle->n[2] > test_rectangle->n[3])
-        return 0;
+        return _intersection_out;
     if (rectangle->n[5] < test_rectangle->n[4])
-        return 0;
+        return _intersection_out;
     if (rectangle->n[4] > test_rectangle->n[5])
-        return 0;
+        return _intersection_out;
 
     if (test_rectangle->n[0] < rectangle->n[0] || test_rectangle->n[1] > rectangle->n[1]
         || test_rectangle->n[2] < rectangle->n[2] || test_rectangle->n[3] > rectangle->n[3]
         || test_rectangle->n[4] < rectangle->n[4] || test_rectangle->n[5] > rectangle->n[5])
-        return 1;
+        return _intersection_spanning;
 
-    return 2;
+    return _intersection_in;
 }

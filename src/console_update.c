@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include "headers/console_globals.h"
 #include "headers/key_code.h"
+#include "headers/auxbutton.h"
 
 extern uint8_t input_abstraction_auxbutton_down(int16_t button);
 extern void console_open(void);
@@ -37,7 +38,7 @@ uint8_t console_update(void)
     if ( !console_globals.available )
         return console_globals.active;
 
-    if ( input_abstraction_auxbutton_down(0) == 1 )
+    if ( input_abstraction_auxbutton_down(_auxbutton_console) == 1 )
     {
         if ( console_globals.active )
             console_close();

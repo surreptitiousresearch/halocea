@@ -17,6 +17,7 @@
 #include "headers/byte_rectangle3d.h"
 
 #include "headers/byte_rectangle3d.h"
+#include "headers/intersection.h"
 extern void dequantize_byte_to_real_rectangle3d(const real_rectangle3d *parent, const byte_rectangle3d *compressed_rectangle, real_rectangle3d *result);
 extern int16_t bounding_rectangles_intersect(const real_rectangle3d *test_rectangle, const real_rectangle3d *rectangle);
 extern int16_t planes_intersect_rectangle(const real_rectangle3d *bounds, int16_t cull_plane_count, const real_plane3d *cull_planes);
@@ -31,7 +32,7 @@ int structure_visibility_build_surfaces_traverse_leaf(int leaf_index, const real
     dequantize_byte_to_real_rectangle3d(parent_bounds, &leaf->bounds, &leaf_bounds);
 
     int16_t leaf_intersection = intersection;
-    if (intersection != 2)
+    if (intersection != _intersection_in)
     {
         int16_t rectangle_hit = bounding_rectangles_intersect(&leaf_bounds, cull_bounds);
         int16_t plane_hit = planes_intersect_rectangle(&leaf_bounds, cull_plane_count, cull_planes);

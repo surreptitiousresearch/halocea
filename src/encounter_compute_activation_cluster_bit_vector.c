@@ -32,6 +32,7 @@
 #include "headers/actor_action.h"
 #include "headers/actor_mode.h"
 #include "headers/firing_point_evaluation_mode.h"
+#include "headers/firing_position_group_selection.h"
 #include "headers/blam_data_globals.h"
 
 /* actor_data / prop_data come from blam_data_globals.h (data_array *) */
@@ -97,12 +98,12 @@ void encounter_compute_activation_cluster_bit_vector(int encounter_index, uint8_
                 if ( actor_mode == _actor_mode_combat )
                 {
                     if ( actor->state.combat_status >= _actor_combat_status_investigate )          /* state.combat_status (0x6E) */
-                        firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_pursue, 1);
+                        firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_pursue, _firing_position_group_when_searching);
                     int16_t actor_action = actor->state.action;  /* state.action (0x6C) */
                     if ( actor_action == actor_action_guard || actor_action == actor_action_flee )
-                        firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_guard, 0);
+                        firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_guard, _firing_position_group_normal);
                     else if ( actor_action == actor_action_fight || actor_action == actor_action_uncover )
-                        firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_fight, 0);
+                        firing_position_group_mask |= actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_fight, _firing_position_group_normal);
                 }
                 else if ( actor_mode == _actor_mode_alert
                           && actor->state.action_data.___u0.alert.move_position_order )  /* alert arm of the action_data union (0x9C); mode-alert actors run the alert action */

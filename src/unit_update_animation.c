@@ -60,6 +60,7 @@
 #include "headers/base_seat.h"
 #include "headers/unit_definition_flags.h"
 #include "headers/unit_animation_overlay_action.h"
+#include "headers/animation_update_result.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -140,7 +141,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
 
     /* Soft-ping overlay: just advance it. */
     if (unit->unit.animation.soft_ping_animation.index != -1
-            && unit_animation_update(unit_index, overlay_animation_graph_index, &unit->unit.animation.soft_ping_animation) == 2)
+            && unit_animation_update(unit_index, overlay_animation_graph_index, &unit->unit.animation.soft_ping_animation) == _animation_will_restart_on_next_frame)
     {
         unit->unit.animation.soft_ping_animation.index = -1;
     }
@@ -151,7 +152,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
         int16_t result = unit_animation_update(unit_index, unit->object.animation.animation_graph_index,
                 &unit->object.animation.state);
 
-        if (result == 1)
+        if (result == _animation_key_frame)
         {
             /* Base animation finished a one-shot: fire its state-keyed side effect. */
             switch (unit->unit.animation.state)
@@ -168,7 +169,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
                 break;
             }
         }
-        else if (result == 2)
+        else if (result == _animation_will_restart_on_next_frame)
         {
             /* Base animation looped: per-state cleanup. */
             switch (unit->unit.animation.state)
@@ -295,7 +296,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
 
     /* Action animation: on end/loop, kick off the standard post-action interpolation blend. */
     if (unit->unit.animation.action_animation.index != -1
-            && unit_animation_update(unit_index, overlay_animation_graph_index, &unit->unit.animation.action_animation) == 2)
+            && unit_animation_update(unit_index, overlay_animation_graph_index, &unit->unit.animation.action_animation) == _animation_will_restart_on_next_frame)
     {
         object_start_interpolation(unit_index, 6);
         unit_animation_start_action(unit_index, 0);
@@ -307,7 +308,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
     {
         int16_t result = unit_animation_update(unit_index, overlay_animation_graph_index,
                 &unit->unit.animation.overlay_action_animation);
-        if (result == 2 || result == 4)
+        if (result == _animation_will_restart_on_next_frame || result == _animation_looped)
         {
             unsigned int state = unit->unit.animation.state;
             uint8_t keep = state >= _unit_state_turn_right && state <= _unit_state_move_front;

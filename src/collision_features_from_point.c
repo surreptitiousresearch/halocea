@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include "headers/real_point3d.h"
 #include "headers/collision_feature_list.h"
+#include "headers/collision_feature.h"
 
 void collision_features_from_point(const real_point3d *point, float height, float width,
                                    int object_index, int surface_index, uint8_t flags,
@@ -34,9 +35,9 @@ void collision_features_from_point(const real_point3d *point, float height, floa
     {
         float lowered_z = (point->n[2] - height);
 
-        if ( features->count[0] < 256 )
+        if ( features->count[_collision_feature_sphere] < 256 )
         {
-            collision_sphere *sphere = &features->spheres[features->count[0]++];
+            collision_sphere *sphere = &features->spheres[features->count[_collision_feature_sphere]++];
             sphere->object_index = object_index;
             sphere->surface_index = surface_index;
             sphere->flags = flags;
@@ -48,9 +49,9 @@ void collision_features_from_point(const real_point3d *point, float height, floa
             sphere->radius = width;
         }
 
-        if ( features->count[1] < 256 )
+        if ( features->count[_collision_feature_cylinder] < 256 )
         {
-            collision_cylinder *cylinder = &features->cylinders[features->count[1]++];
+            collision_cylinder *cylinder = &features->cylinders[features->count[_collision_feature_cylinder]++];
             cylinder->object_index = object_index;
             cylinder->surface_index = surface_index;
             cylinder->flags = flags;

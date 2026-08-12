@@ -17,6 +17,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/actor_mode.h"
+#include "headers/idle_timer.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -84,7 +85,7 @@ void actor_look_idle_new_minor_direction(int actor_index, actor_idle_looking *lo
 
     if (have_direction)
     {
-        int timer = actor_look_idle_timer(actor_index, looking_definition, 2, interesting_direction);
+        int timer = actor_look_idle_timer(actor_index, looking_definition, _idle_timer_looking, interesting_direction);
         actor->control.idle_minor_timer = timer;
         if (timer)
             actor->control.idle_minor_active = 1;

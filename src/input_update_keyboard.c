@@ -13,6 +13,7 @@
 #include "headers/key_modifier_flags.h"
 #include "headers/xinput_keystroke.h"
 #include "headers/blam_data_globals.h"
+#include "headers/input_constants.h"
 #include "headers/key_code.h"
 
 extern const int16_t ascii_to_key_table[128];
@@ -62,7 +63,7 @@ unsigned int input_update_keyboard()
             stroke.modifier_flags = modifiers & ~(1u << _key_modifier_alt_bit);
 
         unsigned char ascii_code = (unsigned char)keystroke[0].Unicode;
-        if (keystroke[0].Unicode < 0x80u)
+        if (keystroke[0].Unicode < NUMBER_OF_ASCII_CODES)
         {
             if ((uint16_t)ascii_to_key_table[keystroke[0].Unicode] == 0xFFFF)
                 ascii_code = (unsigned char)-1;

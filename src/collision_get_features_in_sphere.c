@@ -21,6 +21,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/object_datum.h"
 #include "headers/data_array.h"
+#include "headers/collision_feature.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -109,5 +110,5 @@ uint8_t collision_get_features_in_sphere(unsigned int flags, const real_point3d 
         }
     }
 
-    return features->count[0] || features->count[1] || features->count[2];
+    return features->count[_collision_feature_sphere] || features->count[_collision_feature_cylinder] || features->count[_collision_feature_prism];
 }

@@ -15,6 +15,7 @@
 #include "headers/flag_definition.h"
 #include "headers/flag_limits.h"
 #include "headers/real_vector3d.h"
+#include "headers/tesselate.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -64,7 +65,7 @@ int flag_new(int flag_definition_index)
                     {
                         int interior_height = definition->height - 1;
                         if ( row < interior_height )
-                            flag->cells[interior_height * column + row].tesselation = 0;
+                            flag->cells[interior_height * column + row].tesselation = _tesselate_both;
                     }
                     height = definition->height;
                 }

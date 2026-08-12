@@ -16,6 +16,7 @@
 #include "headers/flag_datum.h"
 #include "headers/flag_attachment_point.h"
 #include "headers/attached_edge_shape.h"
+#include "headers/tesselate.h"
 
 extern void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y, int16_t size, int16_t tesselation);
 
@@ -53,14 +54,14 @@ void flag_set_attachment_shape(flag_definition *flag_definition, flag_datum *fla
                     if ( col >= 0 && row >= 0 && col < flag_definition->width - 1 && row < flag_definition->height - 1 )
                     {
                         int16_t relative_row = (int16_t)(row - row_start);
-                        int16_t tesselation = col == relative_row ? 4 : (relative_row >= col ? 1 : 0);
+                        int16_t tesselation = col == relative_row ? _tesselate_top_right : (relative_row >= col ? _tesselate_none : _tesselate_both);
                         flag->cells[height * col + row].tesselation = tesselation;
                     }
                 }
             }
         }
 
-        flag_tesselate_region(flag_definition, flag, 0, (int16_t)(half_span + row_start), half_span, 5);
+        flag_tesselate_region(flag_definition, flag, 0, (int16_t)(half_span + row_start), half_span, _tesselate_bottom_right);
 
         point_index = (int16_t)(point_index + 1);
         row_start = (int16_t)(even_span + row_start);

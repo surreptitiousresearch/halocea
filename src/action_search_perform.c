@@ -20,6 +20,7 @@
 #include "headers/search_state_data.h"
 #include "headers/pursuit_location_type.h"
 #include "headers/prop_perception_state.h"
+#include "headers/unit_estimate_position_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -60,7 +61,7 @@ uint8_t action_search_perform(int actor_index)
                 if ( distance_squared <= 6.25f )
                 {
                     real_point3d estimated_position;
-                    unit_estimate_position(actor->meta.unit_index, 1, &actor->state.action_data.___u0.search.pursuit_location.position, 0, 0,
+                    unit_estimate_position(actor->meta.unit_index, _unit_estimate_head_standing, &actor->state.action_data.___u0.search.pursuit_location.position, 0, 0,
                             &estimated_position);
                     actor->state.action_data.___u0.search.at_destination = ai_test_line_of_sight(&actor->input.position.head_position,
                             actor->input.position.body_location.cluster_index, &estimated_position,

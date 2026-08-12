@@ -58,6 +58,7 @@ extern float real_seed_random(uint32_t *seed);
 #include "headers/first_person_weapon_state.h"
 #include "headers/first_person_weapon_animation.h"
 #include "headers/object_type.h"
+#include "headers/animation_update_result.h"
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
 
@@ -88,7 +89,7 @@ void first_person_weapon_update(int16_t local_player_index)
 
         int triggered_sound_index;
         if ( animation_update_internal(animation_update_kind_render_only, animation_graph_index,
-                                       &fpw->state_animation, &triggered_sound_index) == 2 )
+                                       &fpw->state_animation, &triggered_sound_index) == _animation_will_restart_on_next_frame )
             first_person_weapon_next_state(local_player_index);
 
         if ( triggered_sound_index != -1 && !director_get_perspective(local_player_index) )

@@ -10,6 +10,7 @@
 #include "headers/particle_datum.h"
 #include "headers/particle_definition.h"
 #include "headers/bitmap_group.h"
+#include "headers/particle_state.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -37,11 +38,11 @@ uint8_t particle_next_sequence(int particle_index)
         ++particle->state;
     }
 
-    if ( (uint16_t)particle->sequence_index == 0xFFFF && particle->state == 1 )
+    if ( (uint16_t)particle->sequence_index == 0xFFFF && particle->state == _particle_state_next_sequence_looping )
     {
-        particle->state = 2;
+        particle->state = _particle_state_still_looping;
     }
-    else if ( particle->state != 2 )
+    else if ( particle->state != _particle_state_still_looping )
     {
         goto check_death;
     }
@@ -60,7 +61,7 @@ uint8_t particle_next_sequence(int particle_index)
     }
 
 check_death:
-    if ( (uint16_t)particle->sequence_index == 0xFFFF && particle->state == 3 )
+    if ( (uint16_t)particle->sequence_index == 0xFFFF && particle->state == _particle_state_next_sequence_final )
     {
         int16_t death_count = definition->final_sequence_count;
         if ( death_count > 0 )

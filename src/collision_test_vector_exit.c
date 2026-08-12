@@ -18,6 +18,7 @@
 #include "headers/real_matrix4x3.h"
 #include "headers/real_plane3d.h"
 #include "headers/collision_result_type.h"
+#include "headers/collision_bsp_test_flags.h"
 
 extern uint8_t collision_model_instance_new(collision_model_instance *instance, int object_index);
 extern uint8_t collision_model_test_vector(const collision_model_instance *instance, unsigned int flags, const real_point3d *point, const real_vector3d *vector, collision_model_test_vector_result *result);
@@ -46,7 +47,7 @@ int collision_test_vector_exit(const collision_result *previous_collision, const
         if ( collision_model_instance_new(&instance, object_index) )
         {
             collision_model_test_vector_result result;
-            if ( collision_model_test_vector(&instance, 1u, &reverse_origin, &reverse_vector, &result) )
+            if ( collision_model_test_vector(&instance, (1u << _collision_bsp_test_front_facing_surfaces_bit), &reverse_origin, &reverse_vector, &result) )
             {
                 exit_collision->type = collision_result_object;
                 exit_collision->t = 1.0f - result.bsp_result.t;

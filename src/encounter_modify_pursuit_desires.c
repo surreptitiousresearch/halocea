@@ -7,6 +7,7 @@
 #include "headers/encounter_definition.h"
 #include "headers/squad_definition.h"
 #include "headers/squad_flags.h"
+#include "headers/actor_pursuit.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -21,20 +22,20 @@ void encounter_modify_pursuit_desires(int encounter_index, int16_t squad_index, 
 
     /* pursuit_search / the desired_* out-param values below are a small AI search-level tri-state
      * (0/1/2). No DB enum pins encounter_definition.searching's value domain — searched
-     * types_enum_values for %search%/%pursuit% (candidates _actor_pursuit_* 0/1/2 and _group_pursuit_*
-     * do not cleanly cover these out-params). Left raw pending user decision. */
+     * types_enum_values for %search%/%pursuit%. The three desired_* out-params ARE the actor_pursuit
+     * domain (actor_pursuit.h); encounter->searching itself stays raw. group_pursuit_restriction is separate. */
     if ( pursuit_search == 1 )
     {
         *group_pursuit_restriction = 1;
-        *desired_pursuit = 2;
-        *desired_pursuit_search = 2;
+        *desired_pursuit = _actor_pursuit_never;
+        *desired_pursuit_search = _actor_pursuit_never;
     }
     else if ( pursuit_search == 2 )
     {
         *pursue_tenacious = 1;
-        *desired_target_search = 0;
-        *desired_pursuit = 0;
-        *desired_pursuit_search = 0;
+        *desired_target_search = _actor_pursuit_always;
+        *desired_pursuit = _actor_pursuit_always;
+        *desired_pursuit_search = _actor_pursuit_always;
         *group_pursuit_controller = 0;
     }
 }

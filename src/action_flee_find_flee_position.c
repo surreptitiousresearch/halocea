@@ -29,6 +29,7 @@
 #include "headers/prop_perception_state.h"
 #include "headers/actor_panic_type.h"
 #include "headers/firing_point_evaluation_mode.h"
+#include "headers/firing_position_group_selection.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -78,7 +79,7 @@ void action_flee_find_flee_position(int actor_index, flee_state_data *state_data
         context.attractor_radius = 6.0f;
     }
 
-    context.allowed_position_mask = actor_get_firing_position_group(actor_index, context.evaluation_mode, 0);
+    context.allowed_position_mask = actor_get_firing_position_group(actor_index, context.evaluation_mode, _firing_position_group_normal);
 
     firing_position   best_firing_position;
     int               current_owner;

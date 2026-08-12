@@ -43,6 +43,7 @@
 #include "headers/projectile_definition_flags.h"
 #include "headers/projectile_datum_flags.h"
 #include "headers/damage_data_flags.h"
+#include "headers/ai_spatial_effect_type.h"
 #include "headers/blam_data_globals.h"
 
 #include "headers/real_rgb_color.h"
@@ -205,5 +206,5 @@ void projectile_detonate(int projectile_index, uint8_t first_collision, float ti
     }
 
     /* stage F: report the detonation noise to the AI */
-    ai_handle_spatial_effect(projectile_index, marker_points, 2, definition->projectile.detonation_noise, 1);
+    ai_handle_spatial_effect(projectile_index, marker_points, _ai_spatial_effect_weapon_detonation, definition->projectile.detonation_noise, 1);
 }

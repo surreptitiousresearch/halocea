@@ -22,6 +22,7 @@
 #include "headers/collision_bsp_test_flags.h"
 #include "headers/collision_surface_flags.h"
 #include "headers/collision_leaf.h"
+#include "headers/contents.h"
 #include <stdint.h>
 
 extern int collision_leaf_test_vector(const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, int leaf_index, int plane_index, double t, uint8_t test_surface);
@@ -70,7 +71,7 @@ uint8_t collision_bsp_test_vector_recursive(test_vector_data *data, int child_in
 
     {
         int leaf_index = -1;
-        unsigned char contents = 3;          /* 3 = no leaf (outside the BSP) */
+        unsigned char contents = _contents_solid;   /* no leaf: outside the BSP */
         unsigned int flags = data->flags;
         int last_leaf = -1;
         int do_test = 0;
@@ -78,21 +79,21 @@ uint8_t collision_bsp_test_vector_recursive(test_vector_data *data, int child_in
         if ( child_index != -1 )
         {
             leaf_index = child_index & 0x7FFFFFFF;
-            contents = (((collision_leaf *)data->bsp->leaves.address)[leaf_index].flags & 1) ? 2 : 1;
+            contents = (((collision_leaf *)data->bsp->leaves.address)[leaf_index].flags & 1) ? _contents_semi_empty : _contents_empty;
         }
 
         /* select which contents transition (if any) to resolve a surface for */
-        if ( (flags & (1u << _collision_bsp_test_front_facing_surfaces_bit)) != 0 && (data->last_contents == 1 || data->last_contents == 2) && contents == 3 )
+        if ( (flags & (1u << _collision_bsp_test_front_facing_surfaces_bit)) != 0 && (data->last_contents == _contents_empty || data->last_contents == _contents_semi_empty) && contents == _contents_solid )
         {
             last_leaf = data->last_leaf_index;
             do_test = 1;
         }
-        else if ( (flags & (1u << _collision_bsp_test_back_facing_surfaces_bit)) != 0 && data->last_contents == 3 && (contents == 1 || contents == 2) )
+        else if ( (flags & (1u << _collision_bsp_test_back_facing_surfaces_bit)) != 0 && data->last_contents == _contents_solid && (contents == _contents_empty || contents == _contents_semi_empty) )
         {
             last_leaf = leaf_index;
             do_test = 1;
         }
-        else if ( (flags & (1u << _collision_bsp_test_ignore_two_sided_surfaces_bit)) == 0 && data->last_contents == 2 && contents == 2 )
+        else if ( (flags & (1u << _collision_bsp_test_ignore_two_sided_surfaces_bit)) == 0 && data->last_contents == _contents_semi_empty && contents == _contents_semi_empty )
         {
             last_leaf = (flags & (1u << _collision_bsp_test_front_facing_surfaces_bit)) ? data->last_leaf_index : leaf_index;
             do_test = 1;

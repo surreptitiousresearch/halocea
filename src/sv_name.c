@@ -1,6 +1,7 @@
 #include <wchar.h>
 #include <stdint.h>
 #include <string.h>
+#include "headers/virtual_keyboard_validate_mode.h"
 #include "headers/blam_data_globals.h"
 /* sv_name @0x83766860 — "sv_name" server console command. With no argument it just echoes the current
  * server name. With one argument it validates the name (1–15 characters, ASCII, and renderable by the
@@ -36,7 +37,7 @@ void sv_name(int count, char **strings)
             int valid = ascii_to_wide(name, wide_name, 0x20u) == wide_name;
             wide_name[15] = 0;
             if (valid)
-                valid = string_is_ui_compatible(name, wide_name, 3);
+                valid = string_is_ui_compatible(name, wide_name, _virtual_keyboard_validate_not_empty);
             if (valid)
             {
                 global_network_game_server_get();

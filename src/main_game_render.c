@@ -23,6 +23,7 @@
 #include "headers/game_connection.h"
 #include <math.h>
 #include <string.h>
+#include "headers/auxbutton.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -139,7 +140,7 @@ void main_game_render(float time_delta_since_tick_sec, float time_delta_since_la
     if ( EnabledScreenShot )
     {
         int16_t shot_count;
-        if ( input_abstraction_auxbutton_down(2) )
+        if ( input_abstraction_auxbutton_down(_auxbutton_screenshot) )
         {
             shot_count = 1;
             global_screenshot_count = 1;

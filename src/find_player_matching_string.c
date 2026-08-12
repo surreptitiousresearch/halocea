@@ -11,6 +11,7 @@
 #include "headers/network_player.h"
 
 #include "headers/network_game_server.h"
+#include "headers/network_constants.h"
 extern network_game_server *global_network_game_server_get(void);
 extern unsigned short *__pctype_func(void);   /* CRT ctype table accessor */
 extern wchar_t *ascii_to_wide(const char *ascii, wchar_t *unicode, unsigned int unicode_length_bytes);
@@ -51,7 +52,7 @@ network_player * find_player_matching_string(const char *str)
     }
 
     unsigned int player_number = atoi(str) - 1;
-    if (player_number < 0x20)
+    if (player_number < NETWORK_GAME_MAXIMUM_PLAYER_COUNT)
     {
         for (int address = 0x142; address < 0x542; address += 32)
         {

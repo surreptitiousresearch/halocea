@@ -18,6 +18,8 @@
 #include "headers/projectile_datum_flags.h"
 #include "headers/projectile_definition_flags.h"
 #include "headers/game_difficulty_value.h"
+#include "headers/detonation_timer.h"
+#include "headers/ai_spatial_effect_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/networked_datum_role.h"
 #include "headers/projectile_action.h"
@@ -98,7 +100,7 @@ uint8_t projectile_update(int projectile_index)
         char should_age;
         int projectile_flags;
 
-        if (detonation_timer_style == 1 || detonation_timer_style == 2)
+        if (detonation_timer_style == _detonation_timer_once_bounced || detonation_timer_style == _detonation_timer_when_at_rest)
             should_age = (projectile->projectile.flags >> _projectile_stopped_after_collision_bit) & 1;
         else
             should_age = 1;
@@ -388,7 +390,7 @@ have_velocity_z:
                            site; pass the remaining frame time for a meaningful reconstruction */
                         projectile_collision(projectile_index, collision, &new_position, &working_velocity, (float)time_remaining);
                         ++collision_count;
-                        ai_handle_spatial_effect(projectile_index, &collision[0].point, 1,
+                        ai_handle_spatial_effect(projectile_index, &collision[0].point, _ai_spatial_effect_weapon_impact,
                                                  projectile_def->projectile.impact_noise, 1);
                         if ((projectile->projectile.flags & (1u << _projectile_attached_bit)) != 0)
                             object_moved = 0;

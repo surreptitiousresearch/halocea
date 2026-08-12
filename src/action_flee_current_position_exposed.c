@@ -20,6 +20,7 @@
 #include "headers/prop_perception_state.h"
 #include "headers/encounter_definition.h"
 #include "headers/firing_position_definition.h"
+#include "headers/unit_estimate_position_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -50,7 +51,7 @@ uint8_t action_flee_current_position_exposed(int actor_index, flee_state_data *f
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, flee_state_data->flee_prop_index);
 
     real_point3d estimated_position;
-    unit_estimate_position(actor->meta.unit_index, 2, &firing_position->position, nullptr, nullptr,
+    unit_estimate_position(actor->meta.unit_index, _unit_estimate_head_crouching, &firing_position->position, nullptr, nullptr,
         &estimated_position);
 
     int16_t sight_result = ai_test_line_of_sight(&estimated_position, firing_position->cluster_index,

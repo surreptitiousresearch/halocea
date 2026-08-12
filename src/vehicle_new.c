@@ -20,6 +20,7 @@
 #include "headers/vehicle_datum.h"
 #include "headers/vehicle_definition.h"
 #include "headers/object_flags.h"
+#include "headers/vehicle_upending_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -39,7 +40,7 @@ uint8_t vehicle_new(int vehicle_index)
     vehicle->vehicle.wheel = 0.0f;
     vehicle->vehicle.airborne_ticks = 0;
     vehicle->vehicle.left_tread = 0.0f;
-    vehicle->vehicle.upending_type = 0;
+    vehicle->vehicle.upending_type = _vehicle_not_upending;
     vehicle->vehicle.right_tread = 0.0f;
     vehicle->vehicle.upending_ticks = 0;
     vehicle->vehicle.thrust = 0.0f;

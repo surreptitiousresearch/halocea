@@ -14,6 +14,7 @@
 #include "headers/simple_decompressor_definition.h"
 #include "headers/cache_copy_read_request.h"
 #include "headers/z_stream.h"
+#include "headers/copy_flags.h"
 
 extern void cache_copy_update_write_buffers(simple_decompressor_definition *self);
 extern cache_copy_read_request * acquire_read_request(simple_decompressor_definition *self, int16_t read_sequence_index);
@@ -62,7 +63,7 @@ void cache_copy_run_decompression(simple_decompressor_definition *self)
             if ( inflate_result > 1 )
             {
                 if ( WaitForSingleObject(global_self->copy_stop_event, 0) )
-                    global_self->flags |= 4u;
+                    global_self->flags |= (1u << _copy_decompression_failed_bit);
                 return;
             }
 

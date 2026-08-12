@@ -35,7 +35,7 @@ char *attract_mode_get_localized_movie_path(int16_t movie)
 
     int language = XTLGetLanguage();
     int suffix_index;
-    if ((unsigned int)(language - 1) > 5)
+    if ((unsigned int)(language - XC_LANGUAGE_ENGLISH) > XC_LANGUAGE_ITALIAN - XC_LANGUAGE_ENGLISH)
     {
         suffix_index = 6;
     }

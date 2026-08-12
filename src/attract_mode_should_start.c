@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "headers/attract_mode_timing.h"
 #include "headers/blam_data_globals.h"
 /* attract_mode_should_start @ 0x83784BB8 — decide whether the idle attract-mode demo
  * should kick in: only at the main menu (no precache, not networked, no bink), once the
@@ -42,7 +43,7 @@ uint8_t attract_mode_should_start(void)
     reference = (attract_mode_countdown_timer <= last_event) ? last_event : attract_mode_countdown_timer;
     idle = now - reference;
 
-    if ( idle < 0x11F1C )
+    if ( idle < ATTRACT_MODE_COUNTDOWN - MUSIC_FADE_TIME )
     {
         if ( !ui_main_menu_music_active() )
             ui_start_main_menu_music();
@@ -52,7 +53,7 @@ uint8_t attract_mode_should_start(void)
         ui_stop_main_menu_music();
     }
 
-    if ( idle < 0x124F8 && !attract_mode_immediate_start )
+    if ( idle < ATTRACT_MODE_COUNTDOWN && !attract_mode_immediate_start )
         return 0;
     return 1;
 }

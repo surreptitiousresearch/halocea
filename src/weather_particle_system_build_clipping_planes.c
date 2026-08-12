@@ -5,6 +5,7 @@
 
 #include "headers/real_plane3d.h"
 #include "headers/render_globals.h"
+#include "headers/clipping_plane.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -15,10 +16,10 @@ void weather_particle_system_build_clipping_planes(real_plane3d *clip_planes, fl
     far_point.n[1] = render.camera.forward.n[1] * far_clip_distance + render.camera.position.n[1];
     far_point.n[2] = render.camera.forward.n[2] * far_clip_distance + render.camera.position.n[2];
 
-    clip_planes[4].normal = render.camera.forward;
-    clip_planes[4].distance = clip_planes[4].normal.n[0] * far_point.n[0]
-                             + clip_planes[4].normal.n[1] * far_point.n[1]
-                             + clip_planes[4].normal.n[2] * far_point.n[2];
+    clip_planes[_clip_far].normal = render.camera.forward;
+    clip_planes[_clip_far].distance = clip_planes[_clip_far].normal.n[0] * far_point.n[0]
+                                     + clip_planes[_clip_far].normal.n[1] * far_point.n[1]
+                                     + clip_planes[_clip_far].normal.n[2] * far_point.n[2];
 
     clip_planes[0] = render.frustum.world_planes[0];
     clip_planes[1] = render.frustum.world_planes[1];

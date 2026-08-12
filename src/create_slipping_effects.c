@@ -24,6 +24,7 @@
 #include "headers/location.h"
 #include "headers/powered_mass_point_datum.h"
 #include "headers/mass_point_datum.h"
+#include "headers/mass_point_flags.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
@@ -48,8 +49,8 @@ void create_slipping_effects(int vehicle_index, mass_point_datum *mass_points)
         mass_point_datum *mass_point = &mass_points[i];
         mass_point_definition *mass_point_def = &((mass_point_definition *)physics_def->mass_points.address)[i];
 
-        /* runtime mass_point_datum.flags bit 1 (touching-ground/slip candidate); bits unnamed in DB — see compute_airborne_ticks.c */
-        if ((mass_point->flags & 2) == 0)
+        /* runtime mass_point_datum.flags: only points touching the ground are slip candidates */
+        if ((mass_point->flags & (1u << _point_on_ground_bit)) == 0)
             continue;
 
         float slip_x = mass_point->velocity_relative_to_ground.n[0];

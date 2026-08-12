@@ -24,6 +24,7 @@
 #include "headers/unit_seat_flags.h"
 #include "headers/unit_seat.h"
 #include "headers/object_type.h"
+#include "headers/weapon_hud_state_index.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -85,7 +86,7 @@ void hud_render_weapon_interface(player_datum *player)
         if ( hud_index != -1 )
         {
             crosshairs_draw(player, hud_index, &weapon_state);
-            render_weapon_hud(hud_index, player->local_player_index, definition, &weapon_state, 0, 0, 0);
+            render_weapon_hud(hud_index, player->local_player_index, definition, &weapon_state, _weapon_state_total_ammo, 0, 0);
 
             if ( local_player_get_player_index(player->local_player_index) == -1 )
             {

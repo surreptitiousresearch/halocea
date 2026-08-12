@@ -20,6 +20,7 @@
 #include "headers/memory_pool.h"
 #include "headers/object_memory_release_function.h"
 #include "headers/object_header_flags.h"
+#include "headers/garbage_collect.h"
 #include "headers/blam_data_globals.h"
 
 extern const object_memory_release_function object_memory_release_procs[3];
@@ -43,18 +44,18 @@ void objects_garbage_collection(void)
 
     if ( object_globals->force_garbage_collection )
     {
-        mode = 0;
+        mode = _garbage_collect_everything;
     }
     else if ( memory_pool_get_contiguous_free_size(object_memory_pool) > 104857 )
     {
         if ( 2048 - object_header_data->actual_count > 102 )
         {
             if ( object_globals->active_garbage_object_count >= 50 )
-                mode = 1;
+                mode = _garbage_collect_active_objects;
         }
         else
         {
-            mode = 2;
+            mode = _garbage_collect_for_space;
         }
     }
     else
@@ -89,15 +90,15 @@ void objects_garbage_collection(void)
     char target_met = 0;
     while ( 1 )
     {
-        if ( mode == 0 )
+        if ( mode == _garbage_collect_everything )
         {
             target_met = 0;
         }
-        else if ( mode == 1 )
+        else if ( mode == _garbage_collect_active_objects )
         {
             target_met = (object_globals->active_garbage_object_count <= 30);
         }
-        else /* mode == 2 */
+        else /* mode == _garbage_collect_for_space */
         {
             target_met = (memory_pool_get_free_size(object_memory_pool) >= 209715
                        && 2048 - object_header_data->count >= 204);
@@ -109,7 +110,7 @@ void objects_garbage_collection(void)
         int   object_index = garbage_stack[--garbage_count];
         object_header_datum *object_header = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index);
         char was_active = 1;
-        if ( mode == 1 )
+        if ( mode == _garbage_collect_active_objects )
             was_active = object_header->flags & (1u << _object_header_active_bit);
 
         if ( ((uint8_t)((object_visible_to_any_player(object_index) != 0) - 1) & (uint8_t)was_active) != 0 )
@@ -144,7 +145,7 @@ void objects_garbage_collection(void)
             char near_critical = 0;
             char critical = 0;
 
-            if ( mode == 2 )
+            if ( mode == _garbage_collect_for_space )
             {
                 int free_size = memory_pool_get_contiguous_free_size(object_memory_pool);
                 int slots_free = 2048 - object_header_data->count;

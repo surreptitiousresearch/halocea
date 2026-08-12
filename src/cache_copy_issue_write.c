@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
+#include "headers/cache_copy_buffer_sizes.h"
 
 extern void XPhysicalProtect(void *lpAddress, unsigned int dwSize, unsigned int flNewProtect);
 extern void cache_copy_issue_write_internal(simple_decompressor_definition *self, void *buffer, int size, int offset, int16_t write_buffer_index);
@@ -17,10 +18,10 @@ void cache_copy_issue_write(simple_decompressor_definition *self, int16_t write_
     int write_bytes_left = self->write_bytes_left;
     void *buffer = self->write_buffers[write_buffer_index];
 
-    if ( write_bytes_left >= 0x400000 )
-        write_bytes_left = 0x400000;
+    if ( write_bytes_left >= WRITE_FILE_BLOCK_SIZE )
+        write_bytes_left = WRITE_FILE_BLOCK_SIZE;
 
-    XPhysicalProtect(buffer, 0x400000u, 2u);
+    XPhysicalProtect(buffer, WRITE_FILE_BLOCK_SIZE, 2u);
     cache_copy_issue_write_internal(self, buffer, write_bytes_left, self->current_write_offset, write_buffer_index);
 
     self->write_bytes_left -= write_bytes_left;

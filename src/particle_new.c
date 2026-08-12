@@ -25,6 +25,7 @@
 #include "headers/location.h"
 #include "headers/particle_definition_flags.h"
 #include "headers/particle_flags.h"
+#include "headers/particle_state.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -100,7 +101,7 @@ void particle_new(const new_particle_data *data)
     particle->local_player_index = data->local_player_index;
     particle->object_index = data->object_index;
     particle->node_index = data->node_index;
-    particle->state = 0;
+    particle->state = _particle_state_next_sequence_initial;
     particle->last_rendered_frame_index = render.frame_index;
 
     particle->life_span = real_seed_random_range(get_global_local_random_seed_address(),

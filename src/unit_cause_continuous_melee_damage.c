@@ -20,6 +20,7 @@
 #include "headers/real_vector3d.h"
 #include "headers/real_point3d.h"
 #include "headers/unit_melee_attack_state.h"
+#include "headers/collision_bsp_test_flags.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 
@@ -67,7 +68,7 @@ void unit_cause_continuous_melee_damage(int unit_index)
             origin.n[1] = origin.n[1] - (sweep.n[1] * 0.5f);
             origin.n[2] = origin.n[2] - (sweep.n[2] * 0.5f);
 
-            if ( collision_model_test_vector(&instance, 3, &origin, &sweep, &test_result) )
+            if ( collision_model_test_vector(&instance, (1u << _collision_bsp_test_front_facing_surfaces_bit) | (1u << _collision_bsp_test_back_facing_surfaces_bit), &origin, &sweep, &test_result) )
             {
                 impact.n[0] = (sweep.n[0] * test_result.bsp_result.t) + origin.n[0];
                 impact.n[1] = (sweep.n[1] * test_result.bsp_result.t) + origin.n[1];

@@ -13,6 +13,7 @@
 
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
+#include "headers/cache_copy_buffer_sizes.h"
 
 extern void XPhysicalProtect(void *address, unsigned int size, unsigned int flags);
 extern void cache_copy_issue_write_internal(simple_decompressor_definition *self, void *buffer, int size, int offset, int16_t write_buffer_index);
@@ -46,9 +47,9 @@ void cache_copy_update_write_buffers(simple_decompressor_definition *self)
                   && self->write_requests[0].write_sequence_index == self->current_write_sequence_index )
                 {
                     self->current_write_request = &self->write_requests[0];
-                    int chunk = write_bytes_left < 0x400000 ? write_bytes_left : 0x400000;
+                    int chunk = write_bytes_left < WRITE_FILE_BLOCK_SIZE ? write_bytes_left : WRITE_FILE_BLOCK_SIZE;
                     void *buffer = self->write_buffers[0];
-                    XPhysicalProtect(buffer, 0x400000, 2);
+                    XPhysicalProtect(buffer, WRITE_FILE_BLOCK_SIZE, 2);
                     cache_copy_issue_write_internal(self, buffer, chunk, self->current_write_offset, 0);
                     self->current_write_offset += chunk;
                     self->write_bytes_left -= chunk;
@@ -67,6 +68,6 @@ void cache_copy_update_write_buffers(simple_decompressor_definition *self)
         self->current_write_buffer_index = 0;
         ++self->write_requests_pending;
         ++self->next_write_sequence_index;
-        XPhysicalProtect(self->write_buffers[0], 0x400000, 4);
+        XPhysicalProtect(self->write_buffers[0], WRITE_FILE_BLOCK_SIZE, 4);
     }
 }

@@ -29,6 +29,7 @@
 #include "headers/weapon_definition.h"
 #include "headers/weapon_trigger_definition.h"
 #include "headers/weapon_trigger_definition_flags.h"
+#include "headers/weapon_control_flags.h"
 #include "headers/unit_definition.h"
 #include "headers/unit_definition_flags.h"
 #include "headers/projectile_definition.h"
@@ -243,7 +244,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
                 aim_error = error_angle;
             }
 
-            if ( (trigger->flags & (1u << _weapon_trigger_use_error_when_unzoomed_bit)) == 0 || (weapon->weapon.control_flags & 0x40) == 0 )
+            if ( (trigger->flags & (1u << _weapon_trigger_use_error_when_unzoomed_bit)) == 0 || (weapon->weapon.control_flags & (1u << _weapon_control_zoomed_bit)) == 0 )
                 seed_random_vector_in_cone3d(get_global_random_seed_address(), &placement.forward,
                         trigger->projectile_error_inner_cone_angle, error_angle, &placement.forward);
 

@@ -21,6 +21,7 @@
 #include "headers/ai_information_packet.h"
 #include "headers/unit_speech_item.h"
 #include "headers/unit_flags.h"
+#include "headers/unit_play_speech_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/unit_definition.h"
 
@@ -157,5 +158,5 @@ void unit_dialogue_update(int unit_index)
         unit->unit.speech.current.priority = 0;
 
     if ( !unit->unit.speech.current.priority && unit->unit.speech.queued.priority > 0 )
-        unit_speak(unit_index, 3, &unit->unit.speech.queued);
+        unit_speak(unit_index, _unit_play_speech_immediate_dequeue, &unit->unit.speech.queued);
 }

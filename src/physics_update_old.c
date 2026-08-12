@@ -30,6 +30,7 @@
 #include "headers/physics_definition.h"
 #include "headers/mass_point_definition.h"
 #include "headers/mass_point_datum.h"
+#include "headers/mass_point_flags.h"
 #include "headers/powered_mass_point_datum.h"
 #include "headers/powered_mass_point_definition.h"
 #include "headers/powered_mass_point_definition_flags.h"
@@ -392,11 +393,11 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                 mp->flags = flags;
                 flags |= 2;
                 if (mp->ground_depth <= 0.0)
-                    flags = mp->flags & ~0x2u;   /* clear ground-contact bit */
+                    flags = mp->flags & ~(1u << _point_on_ground_bit);
                 mp->flags = flags;
                 flags |= 8;
                 if (mp->water_depth <= 0.0)
-                    flags = mp->flags & ~0x8u;   /* clear in-water bit */
+                    flags = mp->flags & ~(1u << _point_in_water_bit);
                 mp->flags = flags;
 
                 stopped_count += flags & 1;

@@ -15,6 +15,7 @@
 #include "headers/font_header.h"
 #include "headers/global_tag_instances.h"
 #include "headers/text_justification.h"
+#include "headers/string_index.h"
 
 extern int tolower(int c);
 extern uint16_t get_next_character(const unsigned char *string, int16_t *index);
@@ -62,9 +63,9 @@ int16_t parse_string(parse_string_state *state)
             uint8_t *string = state->string;
             int16_t peek_index = *string_index;
             uint16_t following_character = get_next_character(string, &peek_index);
-            char *whitespace_pattern = string_list_get_string(font_drawing_globals.string_list_index, 4);
-            char *break_before_pattern = string_list_get_string(font_drawing_globals.string_list_index, 5);
-            char *break_after_pattern = string_list_get_string(font_drawing_globals.string_list_index, 6);
+            char *whitespace_pattern = string_list_get_string(font_drawing_globals.string_list_index, _string_index_can_end_words);
+            char *break_before_pattern = string_list_get_string(font_drawing_globals.string_list_index, _string_index_cannot_end_words);
+            char *break_after_pattern = string_list_get_string(font_drawing_globals.string_list_index, _string_index_cannot_begin_words);
 
             if ((next_character & 0xFF00) != 0)
                 goto check_break_before;

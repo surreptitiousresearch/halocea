@@ -9,6 +9,7 @@
 
 #include <stdint.h>
 #include "headers/test_pill_new_data.h"
+#include "headers/contents.h"
 
 extern uint8_t collision_bsp_test_pill_new_recursive(test_pill_new_data *data, int child_index, float t0, float t1);
 
@@ -25,7 +26,7 @@ uint8_t collision_bsp_test_pill_new(const collision_bsp *bsp, int16_t breakable_
     data.t = t;
     data.normal = normal;
     data.last_leaf_index = -1;
-    data.last_contents = 0;
+    data.last_contents = _contents_unknown;
     data.last_plane_designator = -1;
     data.radius = radius;
 

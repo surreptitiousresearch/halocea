@@ -39,6 +39,7 @@
 #include "headers/hud_corner.h"
 #include "headers/interface_tag_index.h"
 #include "headers/hud_number_definition.h"
+#include "headers/hud_number.h"
 #include "headers/blam_data_globals.h"
 #include "headers/hud_draw_flags.h"
 
@@ -154,7 +155,7 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
     /* "over 1000" suffix glyph (frame 14 in range, 13 out of range) */
     if ( numbers->number_flags & (1u << _hud_number_show_trailing_m) )
     {
-        hud_draw_number_glyph(bitmap_group_index, value_in_range ? 14 : 13, placement->corner,
+        hud_draw_number_glyph(bitmap_group_index, value_in_range ? _hud_number_kilometers_index : _hud_number_meters_index, placement->corner,
                 pen_x, pen_y, scale, color, is_interface_bitmap);
         pen_x = (int16_t)(int)-((advance * scale) - (float)pen_x);
     }
@@ -177,7 +178,7 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
         /* decimal point (frame 10): nudged right one advance then left by the decimal metric */
         int16_t decimal_anchor = (int16_t)(int)((advance * scale) + (float)pen_x);
         int16_t decimal_x = (int16_t)(int)-((decimal_metric * scale) - (float)decimal_anchor);
-        hud_draw_number_glyph(bitmap_group_index, 10, placement->corner,
+        hud_draw_number_glyph(bitmap_group_index, _hud_number_decimal_index, placement->corner,
                 decimal_x, pen_y, scale, color, is_interface_bitmap);
         pen_x = (int16_t)(int)-((advance * scale) - (float)decimal_x);
     }
@@ -200,7 +201,7 @@ void hud_draw_numbers(int16_t local_player_index, const hud_absolute_placement_d
     /* minus sign (frame 12) */
     if ( value_is_negative )
     {
-        hud_draw_number_glyph(bitmap_group_index, 12, placement->corner,
+        hud_draw_number_glyph(bitmap_group_index, _hud_number_negative_sign_index, placement->corner,
                 pen_x, pen_y, scale, color, is_interface_bitmap);
     }
 }

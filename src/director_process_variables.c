@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include "headers/director.h"
 #include "headers/director_variable_definition.h"
+#include "headers/director_variable.h"
 #include "headers/blam_data_globals.h"
 
 extern double pow(double base, double exponent);
@@ -30,7 +31,7 @@ void director_process_variables(int16_t local_player_index, int control_bits, fl
         scale = 50.0f;
     dir->debug_input_scale = scale;
 
-    for ( i = 0; i < 4; i = (int16_t)(i + 1) )
+    for ( i = 0; i < NUMBER_OF_DIRECTOR_VARIABLES; i = (int16_t)(i + 1) )
     {
         const director_variable_definition *def = &variables[i];
         float *value = &dir->debug_variables[i].value;
@@ -40,7 +41,7 @@ void director_process_variables(int16_t local_player_index, int control_bits, fl
         double damped_velocity;
 
         /* note: the original indexes variables[0].has_hyper_scale, not variables[i] */
-        hyper_scale = variables[0].has_hyper_scale ? dir->debug_input_scale : 1.0;
+        hyper_scale = variables[_variable_height].has_hyper_scale ? dir->debug_input_scale : 1.0;
 
         damping = (float)(director_globals.dtime * 5.0);
         if ( damping < 0.0 )       damping = 0.0;

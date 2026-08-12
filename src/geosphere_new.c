@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "headers/geosphere.h"
+#include "headers/geosphere_primitive.h"
 #include "headers/real_point3d.h"
 
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
@@ -24,7 +25,7 @@ geosphere *geosphere_new(int16_t segment_count)
         return sphere;
 
     sphere->segment_count  = segment_count;
-    sphere->triangle_count = 8 * segment_count * segment_count;
+    sphere->triangle_count = GEOSPHERE_PRIMITIVE_TRIANGLE_COUNT * segment_count * segment_count;
     vertex_count = ((8 * (segment_count - 2) * (segment_count - 1)) >> 1) + 12 * segment_count - 6;
     sphere->vertex_count = vertex_count;
 

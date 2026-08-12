@@ -40,6 +40,7 @@
 #include "headers/direction_specification_type.h"
 #include "headers/game_difficulty_value.h"
 #include "headers/ai_line_of_sight.h"
+#include "headers/unit_estimate_position_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/actor_special_fire_situation.h"
 #include "headers/ai_information_data.h"
@@ -509,7 +510,7 @@ resolve_burst:
             {
                 aim_facing.n[2] = 0.0f;
             }
-            unit_estimate_position(actor->meta.unit_index, 3, &actor->input.position.body_position, &aim_facing,
+            unit_estimate_position(actor->meta.unit_index, _unit_estimate_gun_position, &actor->input.position.body_position, &aim_facing,
                                    (real_vector3d *)gun_offset, &origin);
         }
 

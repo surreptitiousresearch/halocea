@@ -34,6 +34,7 @@
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/collision_test_flags.h"
+#include "headers/mass_point_flags.h"
 
 struct mass_point_definition;
 
@@ -83,9 +84,9 @@ void compute_ground_plane(int object_index, mass_point_datum *mass_point,
     if ( (contact_flags & (1u << collision_result_object)) == 0
       && (reference_object == -1
        || ((1 << DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, reference_object)->type) & object_mask_scenery) != 0) )
-        mass_point->flags &= ~4u;
+        mass_point->flags &= ~(1u << _point_on_volatile_surface_bit);
     else
-        mass_point->flags |= 4u;
+        mass_point->flags |= (1u << _point_on_volatile_surface_bit);
 
     if ( reference_object != -1 )
         object_deplete_shield(reference_object);

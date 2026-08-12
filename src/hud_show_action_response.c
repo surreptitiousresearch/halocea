@@ -32,6 +32,7 @@
 #include "headers/unit_definition.h"
 #include "headers/unit_seat.h"
 #include "headers/unit_seat_flags.h"
+#include "headers/hud_state_message_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -63,11 +64,11 @@ void hud_show_action_response(int player_index)
     {
         switch (respawn_failure)
         {
-            case _player_respawn_failure_enemies: hud_set_state_message(render.local_player_index, 10); break;
-            case _player_respawn_failure_moving:  hud_set_state_message(render.local_player_index, 9);  break;
-            case _player_respawn_failure_combat:  hud_set_state_message(render.local_player_index, 11); break;
+            case _player_respawn_failure_enemies: hud_set_state_message(render.local_player_index, _hud_message_respawn_failed_unsafe); break;
+            case _player_respawn_failure_moving:  hud_set_state_message(render.local_player_index, _hud_message_respawn_failed_moving);  break;
+            case _player_respawn_failure_combat:  hud_set_state_message(render.local_player_index, _hud_message_respawn_failed_combat); break;
             default: /* _player_respawn_failure_vehicle */
-                     hud_set_state_message(render.local_player_index, 12); break;
+                     hud_set_state_message(render.local_player_index, _hud_message_respawn_failed_vehicle); break;
         }
         return;
     }
@@ -81,19 +82,19 @@ void hud_show_action_response(int player_index)
                                             ->definition_index))->icon_text_index;
 
     /* action_result is a player_action_result (DB enum $8590DCD5). The hud_set_state_message indices are
-     * tag-data ordinals (hud_globals state-message elements) and remain unenumerated. */
+     * tag-data ordinals named by hud_state_message_type (DB enum $72ED394C1C18F2B8D9BADE33748E6301). */
     switch (player->action_result)
     {
         case _player_action_result_pickup_powerup:
         case _player_action_result_pickup_weapon:
-            hud_set_state_message(render.local_player_index, 0);
+            hud_set_state_message(render.local_player_index, _hud_message_pickup);
             hud_set_state_message_text(render.local_player_index, 0, item_name_index, 0);
             break;
 
         case _player_action_result_exit_vehicle:
         {
             unit_datum *target_datum = (unit_datum *)(DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, player->unit_index)->datum);
-            hud_set_state_message(render.local_player_index, 7);
+            hud_set_state_message(render.local_player_index, _hud_message_exit_vehicle);
             int16_t icon_index = get_object_icon_text_index(target_datum->object.parent_object_index);
             hud_set_state_message_text(render.local_player_index, 0, icon_index, 0);
             break;
@@ -101,7 +102,7 @@ void hud_show_action_response(int player_index)
 
         case _player_action_result_swap_for_powerup:
         {
-            hud_set_state_message(render.local_player_index, 1);
+            hud_set_state_message(render.local_player_index, _hud_message_swap_powerup);
             int16_t equipment_icon = get_object_icon_text_index(unit_get_current_equipment(player->unit_index));
             hud_set_state_message_text(render.local_player_index, 0, equipment_icon, 0);
             hud_set_state_message_text(render.local_player_index, 1, item_name_index, 0);
@@ -122,7 +123,7 @@ void hud_show_action_response(int player_index)
                         &((const weapon_hud_interface_definition *)TAG_DEF(icon_tag_index))->messaging_icon;
                     icon = (messaging_icon->sequence_index == -1) ? nullptr : messaging_icon;
                 }
-                hud_set_state_message(render.local_player_index, 4);
+                hud_set_state_message(render.local_player_index, _hud_message_swap_weapon);
                 int16_t local_player_index = render.local_player_index;
                 if (icon)
                     hud_set_state_message_icon(local_player_index, 0, icon);
@@ -146,7 +147,7 @@ void hud_show_action_response(int player_index)
                         &((const weapon_hud_interface_definition *)TAG_DEF(icon_tag_index))->messaging_icon;
                     icon = (messaging_icon->sequence_index == -1) ? nullptr : messaging_icon;
                 }
-                hud_set_state_message(render.local_player_index, 0);
+                hud_set_state_message(render.local_player_index, _hud_message_pickup);
                 int16_t local_player_index = render.local_player_index;
                 if (icon)
                     hud_set_state_message_icon(local_player_index, 0, icon);
@@ -160,7 +161,7 @@ void hud_show_action_response(int player_index)
         case _player_action_result_evict_from_vehicle:
         {
             /* vehicle seat label = unit_definition->unit.seats[seat].icon_text_index (DB). */
-            hud_set_state_message(render.local_player_index, 6);
+            hud_set_state_message(render.local_player_index, _hud_message_enter_vehicle);
             object_datum *vehicle_object = DATA_ARRAY_ELEMENT(
                 object_header_data, object_header_datum, action_object)->datum;
             unit_definition *vehicle_def = (unit_definition *)TAG_DEF(vehicle_object->definition_index);
@@ -176,12 +177,12 @@ void hud_show_action_response(int player_index)
             int16_t label = target_datum->control.hud_override_index;
             if ((uint16_t)label == 0xFFFF)
             {
-                hud_set_state_message(render.local_player_index, 2);
+                hud_set_state_message(render.local_player_index, _hud_message_touch_device);
                 hud_set_state_message_text(render.local_player_index, 0, item_name_index, 0);
             }
             else
             {
-                hud_set_state_message(render.local_player_index, 3);
+                hud_set_state_message(render.local_player_index, _hud_message_custom_device);
                 hud_set_state_message_text(render.local_player_index, 0, label, 1);
             }
             break;
@@ -189,7 +190,7 @@ void hud_show_action_response(int player_index)
 
         case _player_action_result_flip_vehicle:
         {
-            hud_set_state_message(render.local_player_index, 8);
+            hud_set_state_message(render.local_player_index, _hud_message_flip_vehicle);
             int16_t icon_index = get_object_icon_text_index(action_object);
             hud_set_state_message_text(render.local_player_index, 0, icon_index, 0);
             break;
@@ -267,7 +268,7 @@ void hud_show_action_response(int player_index)
                                               || candidate_age == 1.0f;
                         if (!final_depleted && candidate != weapon)
                         {
-                            hud_set_state_message(render.local_player_index, 5);
+                            hud_set_state_message(render.local_player_index, _hud_message_remind_to_switch_weapons);
                             object_datum *candidate_target = object_try_and_get_and_verify_type(candidate, object_mask_weapon);
                             if (candidate_target)
                             {

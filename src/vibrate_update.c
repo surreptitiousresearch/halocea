@@ -13,6 +13,7 @@
 #include "headers/vibrate_global_data.h"
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
+#include "headers/vibrate_frequency.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 
@@ -29,7 +30,7 @@ void vibrate_update(void)
     for ( controller = 0; controller < 2; controller++ )
     {
         player_vibrate_datum *vib = &vibrate_globals->player_vibrate_data[controller];
-        float channel[2];
+        float channel[NUMBER_OF_vibrate_FREQUENCIES];
         int impulse_index;
         double left, right;
         double scaled;
@@ -43,7 +44,7 @@ void vibrate_update(void)
         {
             float elapsed = vib->time_elapsed[impulse_index];
             int ch;
-            for ( ch = 0; ch < 2; ch++ )
+            for ( ch = 0; ch < NUMBER_OF_vibrate_FREQUENCIES; ch++ )
             {
                 vibrate_frequency_definition *freq = &vib->impulse[impulse_index].vibrate_frequencies[ch];
                 if ( freq->duration > elapsed )

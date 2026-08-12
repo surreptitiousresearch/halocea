@@ -21,6 +21,7 @@
 #include "headers/icon_hud_element_definition.h"
 #include "headers/hud_globals.h"
 #include "headers/icon_flags.h"
+#include "headers/hud_corner.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -58,7 +59,7 @@ void render_state_bitmap(rectangle2d *bounds, unsigned int color, const icon_hud
     point.__s1.y = (int16_t)(int)-((float)icon->offset.__s1.y * scale - (float)bounds->__s1.y1);
 
     unsigned int effective_color = (icon->flags & (1u << _hud_icon_use_color_bit)) ? icon->color : color;
-    hud_draw_bitmap_direct(bitmap, 2, &point, clip, scale, 0.0f, effective_color, 0);
+    hud_draw_bitmap_direct(bitmap, _hud_corner_bottom_left, &point, clip, scale, 0.0f, effective_color, 0);
 
     if ( icon->flags & (1u << _hud_icon_absolute_width_bit) )
         bounds->__s1.x0 = (int16_t)(int)((float)icon->width_offset * scale + (float)point.__s1.x);

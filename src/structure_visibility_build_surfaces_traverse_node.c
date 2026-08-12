@@ -17,6 +17,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_plane3d.h"
 #include "headers/byte_rectangle3d.h"
+#include "headers/intersection.h"
 
 extern void dequantize_byte_to_real_rectangle3d(const real_rectangle3d *parent, const byte_rectangle3d *compressed_rectangle, real_rectangle3d *result);
 extern int16_t bounding_rectangles_intersect(const real_rectangle3d *test_rectangle, const real_rectangle3d *rectangle);
@@ -35,13 +36,13 @@ int16_t structure_visibility_build_surfaces_traverse_node(int node_index, const 
 
     int16_t child_cull_plane_count = cull_plane_count;
     int16_t node_intersection = intersection;
-    if (intersection != 2)
+    if (intersection != _intersection_in)
     {
         int16_t rectangle_hit = bounding_rectangles_intersect(&node_bounds, cull_bounds);
         int16_t plane_hit = rectangle_hit
             ? planes_intersect_rectangle(&node_bounds, cull_plane_count, cull_planes)
-            : 0;
-        if (plane_hit == 2)
+            : _intersection_out;
+        if (plane_hit == _intersection_in)
             child_cull_plane_count = 0;   /* fully inside the planes — stop plane-culling children */
         node_intersection = (rectangle_hit > plane_hit) ? plane_hit : rectangle_hit;
     }

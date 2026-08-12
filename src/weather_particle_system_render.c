@@ -42,6 +42,7 @@
 #include "headers/shader_effect.h"
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
+#include "headers/clipping_plane.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -98,13 +99,13 @@ void weather_particle_system_render(int16_t system_index)
         }
 
         /* Clip volume: 4 lateral frustum planes + a forward depth plane pushed out by box_width. */
-        real_plane3d clip_planes[5];
+        real_plane3d clip_planes[NUMBER_OF_CLIPPING_PLANES];
         clip_planes[0] = render.frustum.world_planes[0];
         clip_planes[1] = render.frustum.world_planes[1];
         clip_planes[2] = render.frustum.world_planes[2];
         clip_planes[3] = render.frustum.world_planes[3];
-        clip_planes[4].normal = render.camera.forward;
-        clip_planes[4].distance =
+        clip_planes[_clip_far].normal = render.camera.forward;
+        clip_planes[_clip_far].distance =
             render.camera.forward.n[0] * (render.camera.forward.n[0] * box_width + render.camera.position.n[0])
           + (render.camera.forward.n[2] * (render.camera.forward.n[2] * box_width + render.camera.position.n[2])
            + render.camera.forward.n[1] * (render.camera.forward.n[1] * box_width + render.camera.position.n[1]));
@@ -158,7 +159,7 @@ void weather_particle_system_render(int16_t system_index)
                         corner[0] = cube_bounds.n[0];
                         corner[1] = cube_bounds.n[2];
                         corner[2] = cube_bounds.n[4];
-                        for ( int plane = 0; plane < 5; ++plane )
+                        for ( int plane = 0; plane < NUMBER_OF_CLIPPING_PLANES; ++plane )
                             cube_plane_distance[5 * visible_cube_count + plane] =
                                 corner[0] * clip_planes[plane].normal.n[0]
                               + (clip_planes[plane].normal.n[2] * corner[2]
@@ -191,7 +192,7 @@ void weather_particle_system_render(int16_t system_index)
             float local_z = particle->position.n[2];
 
             /* Signed distance of the particle's box-local position to each clip plane. */
-            float particle_clip_distance[5];
+            float particle_clip_distance[NUMBER_OF_CLIPPING_PLANES];
             for ( int plane = 0; plane < 5; ++plane )
                 particle_clip_distance[plane] =
                     (local_x * clip_planes[plane].normal.n[0]
@@ -203,7 +204,7 @@ void weather_particle_system_render(int16_t system_index)
             for ( cube = 0; cube < visible_cube_count; ++cube )
             {
                 int inside = 1;
-                for ( int plane = 0; plane < 5; ++plane )
+                for ( int plane = 0; plane < NUMBER_OF_CLIPPING_PLANES; ++plane )
                 {
                     if ( (cube_plane_distance[5 * cube + plane] + particle_clip_distance[plane]) < 0.0f )
                     {

@@ -53,6 +53,7 @@
 #include "headers/vehicle_type.h"
 #include "headers/vehicle_flags.h"
 #include "headers/math_constants.h"
+#include "headers/vehicle_upending_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 #include "headers/networked_datum_role.h"
@@ -197,11 +198,11 @@ uint8_t vehicle_update(int vehicle_index)
         && vehicle->object.up.n[2] <= 0.89999998f )
     {
         uint8_t righting_axis = vehicle->vehicle.upending_type;
-        float torque_sign = (righting_axis == 2 || righting_axis == 4) ? 0.3f : -0.3f;
+        float torque_sign = (righting_axis == _vehicle_upending_along_forward || righting_axis == _vehicle_upending_along_right) ? 0.3f : -0.3f;
 
         /* torque components, stored to +140/+144/+148 respectively */
         float torque_a, torque_b, torque_c;
-        if ( righting_axis == 4 || righting_axis == 3 )
+        if ( righting_axis == _vehicle_upending_along_right || righting_axis == _vehicle_upending_along_left )
         {
             torque_a = up_z * forward_y - up_y * forward_z;   /* (up x forward) components */
             torque_b = forward_z * up_x - up_z * forward_x;
@@ -222,7 +223,7 @@ uint8_t vehicle_update(int vehicle_index)
 
         vehicle->object.flags &= ~(1u << _object_at_rest_bit);
 
-        if ( righting_axis == 2 || righting_axis == 1 )
+        if ( righting_axis == _vehicle_upending_along_forward || righting_axis == _vehicle_upending_along_back )
         {
             float negate = -vehicle->object.forward.n[2];
             torque_a += negate * (up_z * forward_y - up_y * forward_z);
@@ -261,7 +262,7 @@ uint8_t vehicle_update(int vehicle_index)
     else
     {
         vehicle->vehicle.upending_ticks = 0;
-        vehicle->vehicle.upending_type = 0;
+        vehicle->vehicle.upending_type = _vehicle_not_upending;
         vehicle->vehicle.flags = vehicle_flags & ~(1u << _vehicle_upending_bit);
     }
 

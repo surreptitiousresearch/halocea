@@ -29,6 +29,7 @@
 #include "headers/path_state.h"
 #include "headers/structure_bsp.h"
 #include "headers/collision_bsp_test_vector_result.h"
+#include "headers/firing_point_evaluation_mode.h"
 #include "headers/blam_data_globals.h"
 
 struct path_debug_storage;
@@ -56,7 +57,7 @@ uint8_t actor_nearby_firing_positions(int actor_index, real_point3d *test_point,
     {
         encounter_definition *encounter =
             &((encounter_definition *)global_scenario->ai_encounters.address)[(uint16_t)actor->meta.encounter_index];
-        unsigned int firing_position_group = actor_get_firing_position_group(actor_index, 0, group_selection_mode);
+        unsigned int firing_position_group = actor_get_firing_position_group(actor_index, _firing_point_evaluation_mode_fight, group_selection_mode);
 
         path_state state;
         if ( !use_bsp_path_test )

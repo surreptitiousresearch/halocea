@@ -19,6 +19,7 @@
 #include <string.h>
 #include "headers/game_connection.h"
 #include "headers/loading_screen_string.h"
+#include "headers/loading_screen_state.h"
 #include "headers/control_button.h"
 #include "headers/blam_data_globals.h"
 
@@ -79,18 +80,16 @@ void ui_loading_update_and_render(void)
 
     if (input_abstraction_is_action_button_down(0, _button_back))
     {
-        if ((unsigned int)(loading_screen_state - 2) <= 7)
+        if (loading_screen_state >= LOADING_STATE_SERVER && loading_screen_state <= LOADING_STATE_WAITING_FOR_NEW_GAME)
         {
-            /* BLOCKED: no enum for the loading-screen state machine (internal ui_loading global,
-             * states 0-9) — not in src/headers, headers_ref, or the DB. */
             switch (loading_screen_state)
             {
-            case 3:
+            case LOADING_STATE_RESOLVING:
                 main_connect(0, 0);
                 main_goto_main_menu();
                 return;
 
-            case 4:
+            case LOADING_STATE_NEGOTIATING:
                 if (loading_screen_natneg_cookie != -1)
                 {
                     loading_screen_natneg_cookie = -1;
@@ -98,10 +97,10 @@ void ui_loading_update_and_render(void)
                 }
                 break;
 
-            case 8:
+            case LOADING_STATE_LOADING_MP_MAP:
                 break;
 
-            case 2:
+            case LOADING_STATE_SERVER:
             default:
                 main_connect(0, 0);
                 network_game_abort();
@@ -145,33 +144,33 @@ void ui_loading_update_and_render(void)
     rect.__s1.y1 = 430;
     rect.__s1.x1 = 640;
 
-    if ((unsigned int)(loading_screen_state - 2) <= 7)
+    if (loading_screen_state >= LOADING_STATE_SERVER && loading_screen_state <= LOADING_STATE_WAITING_FOR_NEW_GAME)
     {
         switch (loading_screen_state)
         {
-        case 2:
+        case LOADING_STATE_SERVER:
             usprintf(line, unicode_string_list_get_string(strings_index, loading_string_server));
             break;
 
-        case 3:
-        case 5:
+        case LOADING_STATE_RESOLVING:
+        case LOADING_STATE_CONNECTING:
             usprintf(line, unicode_string_list_get_string(strings_index, loading_string_connecting), loading_screen_connect_ip);
             break;
 
-        case 4:
+        case LOADING_STATE_NEGOTIATING:
             usprintf(line, unicode_string_list_get_string(strings_index, loading_string_natneg), loading_screen_connect_ip);
             break;
 
-        case 6:
+        case LOADING_STATE_RETRYING:
             usprintf(line, unicode_string_list_get_string(strings_index, loading_string_retrying), loading_screen_connect_ip,
                      loading_screen_retry_count);
             break;
 
-        case 7:
+        case LOADING_STATE_CONNECTED:
             usprintf(line, unicode_string_list_get_string(strings_index, loading_string_connected));
             break;
 
-        case 8:
+        case LOADING_STATE_LOADING_MP_MAP:
         {
             int16_t string_index = (game_connection() == _game_connection_network_server) 
                     ? loading_string_server_loading : loading_string_connected_loading;
@@ -179,7 +178,7 @@ void ui_loading_update_and_render(void)
             break;
         }
 
-        default: /* 9 */
+        default: /* LOADING_STATE_WAITING_FOR_NEW_GAME */
             usprintf(line, unicode_string_list_get_string(strings_index, loading_string_waiting_for_new_game), loading_screen_map);
             break;
         }
@@ -188,7 +187,7 @@ void ui_loading_update_and_render(void)
 
         rect.__s1.y0 += 20;
         rect.__s1.y1 += 20;
-        if (loading_screen_state != 8)
+        if (loading_screen_state != LOADING_STATE_LOADING_MP_MAP)
         {
             rasterizer_draw_unicode_string(&rect, 0, 0, 0,
                 unicode_string_list_get_string(strings_index, loading_string_press_escape));

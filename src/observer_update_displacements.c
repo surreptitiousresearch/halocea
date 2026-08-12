@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include "headers/observer_globals.h"
 #include "headers/real_matrix4x3.h"
+#include "headers/observer_parameter.h"
 
 extern void matrix4x3_rotation_from_vectors(real_matrix4x3 *matrix, const real_vector3d *forward, const real_vector3d *up);
 extern real_vector3d *vector_from_matrices4x3(const real_matrix4x3 *a, const real_matrix4x3 *b, real_vector3d *rotation);
@@ -24,9 +25,9 @@ void observer_update_displacements(int16_t local_player_index)
         displacements[scalar_index] = command_parameters[scalar_index] - current_positions[scalar_index];
         ++scalar_index;
     }
-    while ( scalar_index < 8 );
+    while ( scalar_index < NUMBER_OF_OBSERVER_CARTESIAN_REALS );
 
-    while ( scalar_index < 14 )
+    while ( scalar_index < NUMBER_OF_OBSERVER_REAL_PARAMETERS )
     {
         real_matrix4x3 current_rotation;
         real_matrix4x3 command_rotation;

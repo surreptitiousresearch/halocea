@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include "headers/build_sprite_data.h"
+#include "headers/build_sprite_flags.h"
 #include "headers/build_sprite_rotational_flags.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
@@ -79,7 +80,7 @@ void build_sprite_rotational(build_sprite_data *data, unsigned int flags, int16_
             frame_index = sprite_index;
             inner_rotation = rotation;
             if (angle_from_equator < 0.0f)
-                inner_flags = 3;
+                inner_flags = (1u << _build_sprite_viewer_space_bit) | (1u << _build_sprite_u_mirror_bit);
         }
 
         build_sprite(data, 0, first_sequence_index + 1, frame_index, &transformed_origin, NULL, inner_rotation,

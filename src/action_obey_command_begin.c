@@ -66,6 +66,8 @@
 #include "headers/unit_speech_priority.h"
 #include "headers/biped_datum.h"
 #include "headers/biped_datum_flags.h"
+#include "headers/ai_atom_animation_mode_modifier.h"
+#include "headers/actor_atom_grenade_modifier.h"
 #include "headers/blam_data_globals.h"
 #include "headers/direction_specification_type.h"
 #include "headers/ai_atom_look_modifier.h"
@@ -405,7 +407,7 @@ uint8_t action_obey_command_begin(
             if ( !complex_control )
                 return command_result;
             int16_t movement_type = command->atom_modifier;
-            if ( (unsigned int)movement_type >= 4 )
+            if ( (unsigned int)movement_type >= NUMBER_OF_AI_ATOM_ANIMATION_MODE_MODIFIERS )
                 return command_result;
             complex_control->override_movement_type = movement_type;
             command_result = 1;
@@ -456,7 +458,7 @@ uint8_t action_obey_command_begin(
             complex_control->grenade_throw_trajectory_type = 0;
             complex_control->grenade_target.n[2] = grenade_target_z;
             int16_t trajectory_type = command->atom_modifier;
-            if ( (unsigned int)trajectory_type <= 2 )
+            if ( (unsigned int)trajectory_type < NUMBER_OF_AI_ATOM_GRENADE_MODIFIERS )
                 complex_control->grenade_throw_trajectory_type = trajectory_type;
             simple_control->pause_timer = 60;
             command_result = 1;

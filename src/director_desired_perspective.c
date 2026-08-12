@@ -19,13 +19,14 @@
 #include "headers/unit_seat_flags.h"
 #include "headers/global_tag_instances.h"
 #include "headers/unit_animation_state.h"
+#include "headers/seat_state.h"
 #include "headers/director_perspective.h"
 #include "headers/blam_data_globals.h"
 
 
 int16_t director_desired_perspective(int unit_index, int16_t *seat_state)
 {
-    *seat_state = 0;
+    *seat_state = _not_in_seat;
     int result = _director_perspective_first_person;
 
     if (unit_index != -1)
@@ -51,21 +52,21 @@ int16_t director_desired_perspective(int unit_index, int16_t *seat_state)
 
             if (!third_person_on_enter)
             {
-                *seat_state = 2;
+                *seat_state = _seat_idle;
             }
             else if (unit->unit.animation.state == _unit_state_entering_seat)
             {
-                *seat_state = 1;
+                *seat_state = _entering_seat;
             }
             else
             {
-                *seat_state = (unit->unit.animation.state == _unit_state_exiting_seat) ? 3 : 2;
+                *seat_state = (unit->unit.animation.state == _unit_state_exiting_seat) ? _exiting_seat : _seat_idle;
             }
         }
     }
 
     int state = *seat_state;
-    if (state == 1 || state == 3)
+    if (state == _entering_seat || state == _exiting_seat)
         return _director_perspective_third_person;
     return result;
 }

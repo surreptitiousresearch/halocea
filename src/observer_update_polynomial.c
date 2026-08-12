@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "headers/observer_globals.h"
 #include "headers/observer_command_flags.h"
+#include "headers/observer_parameter.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -48,7 +49,7 @@ void observer_update_polynomial(int16_t local_player_index)
                 e[i] = 0.0f;
                 f[i] = disp[i];
 
-                if ( group == 0 )
+                if ( group == _observer_focus_position )
                 {
                     /* position group: blend toward the command's focus velocity (30 ticks/sec) */
                     float v = obs->last_command.focus_velocity.n[i] * 30.0f;
@@ -67,5 +68,5 @@ void observer_update_polynomial(int16_t local_player_index)
         }
         group++;
     }
-    while ( group < 5 );
+    while ( group < NUMBER_OF_OBSERVER_PARAMETERS );
 }

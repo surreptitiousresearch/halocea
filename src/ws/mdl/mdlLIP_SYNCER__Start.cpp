@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "../../headers/ws/mdl/mdlLIP_SYNCER.h"
 #include "../../headers/ws/mdl/mdl_lip_syncer_boundary.h"
+#include "../../headers/ws/mdl/lipsync_chunk_id.h"
 
 void mdlLIP_SYNCER::Start(const dsTSTRING<char> &name, bool isExclamation)
 {
@@ -39,7 +40,7 @@ void mdlLIP_SYNCER::Start(const dsTSTRING<char> &name, bool isExclamation)
     if (fioFILE_ReadNextChunk(file, &chunk)) {
         do {
             switch (chunk.id) {
-                case 0x1E0: {  // phoneme spline
+                case lipsync::FIO_CNK_PHONEM: {  // phoneme spline
                     unsigned char phonemeIdx;
                     fioFILE_ReadData(file, &phonemeIdx, 1, 1);
                     if (phonemeIdx >= 5u)
@@ -54,12 +55,12 @@ void mdlLIP_SYNCER::Start(const dsTSTRING<char> &name, bool isExclamation)
                         isClosedOnly = false;
                     break;
                 }
-                case 0x1E1: {  // unused 4-byte field
+                case lipsync::FIO_CNK_STATE: {  // state chunk; value unused here
                     int64_t scratch;
                     fioFILE_ReadData(file, &scratch, 4, 4);
                     break;
                 }
-                case 0x1E2:  // sample rate
+                case lipsync::FIO_CNK_SAMPLE_RATE:  // sample rate
                     fioFILE_ReadData(file, &sampleRate, 4, 4);
                     break;
                 default:

@@ -2,7 +2,7 @@
  * ai_communication_priority -> secondary_look_priority: the default look priority given to the
  * protagonist of a communication event when the dialogue row does not override it.
  * ai_communication_finished.c:171 passes it straight into
- * ai_communication_look_secondary_at_unit(actor, 8, <this>, unit_index, -1) -> actor_look_secondary,
+ * ai_communication_look_secondary_at_unit(actor, _secondary_look_communicating_prop, <this>, unit_index, -1) -> actor_look_secondary,
  * which is what pins the value domain to secondary_look_priority.
  *
  * 16 bytes / 2 == 8 == NUMBER_OF_AI_COMMUNICATION_PRIORITIES. int16 elements: the raw dwords
@@ -21,6 +21,7 @@
 #include <stdint.h>
 #include "../headers/ai_communication_priority.h"
 #include "../headers/secondary_look_priority.h"
+#include "headers/secondary_look_type.h"
 
 const int16_t communication_protagonist_default_look_priorities[NUMBER_OF_AI_COMMUNICATION_PRIORITIES] =
 {

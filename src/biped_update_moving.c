@@ -56,6 +56,7 @@
 #include "headers/unit_melee_attack_state.h"
 #include "headers/base_seat.h"
 #include "headers/game_difficulty_value.h"
+#include "headers/collision_bsp_test_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -651,7 +652,7 @@ void biped_update_moving(int biped_index, unit_animation_update_data *animation_
                 collision_result world_collision;
 
                 if ( collision_model_instance_new(&instance, biped->biped.impact_target_object_index)
-                  && collision_model_test_vector(&instance, 3u, &physics.position, &melee_vector, &model_result)
+                  && collision_model_test_vector(&instance, (1u << _collision_bsp_test_front_facing_surfaces_bit) | (1u << _collision_bsp_test_back_facing_surfaces_bit), &physics.position, &melee_vector, &model_result)
                   && collision_test_vector(_collision_test_for_bipeds_passthrough_living_flags /* 0xC2A0 */, &physics.position, &melee_vector, biped_index, &world_collision) == 0 )
                 {
                     real_point3d impact_point;

@@ -14,6 +14,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_plane3d.h"
 #include "headers/collision_feature_list.h"
+#include "headers/collision_feature.h"
 #include "headers/blam_data_globals.h"
 
 extern double __fabs(double x);
@@ -23,10 +24,10 @@ void collision_features_from_polygon(int16_t point_count, const real_point3d *po
                                      uint8_t flags, uint8_t breakable_surface_index,
                                      int16_t material_index, collision_feature_list *features)
 {
-    if ( features->count[2] >= 256 )
+    if ( features->count[_collision_feature_prism] >= 256 )
         return;
 
-    collision_prism *prism = &features->prisms[features->count[2]++];
+    collision_prism *prism = &features->prisms[features->count[_collision_feature_prism]++];
     prism->object_index = object_index;
     prism->surface_index = surface_index;
     prism->flags = flags;

@@ -35,6 +35,7 @@
 #include "headers/actor_combat_status.h"
 #include "headers/prop_perception_state.h"
 #include "headers/actor_vehicle_driver_type.h"
+#include "headers/actor_pursuit.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -46,15 +47,15 @@ void actor_action_determine_pursuit_options(int actor_index, int16_t desire_targ
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
 
-    if ( desire_target_search == 2 || (desire_target_search == 1 && controlling_group_pursuit) )
+    if ( desire_target_search == _actor_pursuit_never || (desire_target_search == _actor_pursuit_not_when_group && controlling_group_pursuit) )
         *allow_target_search = 0;
 
-    if ( desire_pursuit == 2 || (desire_pursuit == 1 && controlling_group_pursuit) )
+    if ( desire_pursuit == _actor_pursuit_never || (desire_pursuit == _actor_pursuit_not_when_group && controlling_group_pursuit) )
     {
         *allow_pursuit = 0;
         *allow_pursuit_search = 0;
     }
-    else if ( desire_pursuit_search == 2 || (desire_pursuit_search == 1 && controlling_group_pursuit) )
+    else if ( desire_pursuit_search == _actor_pursuit_never || (desire_pursuit_search == _actor_pursuit_not_when_group && controlling_group_pursuit) )
     {
         *allow_pursuit_search = 0;
     }

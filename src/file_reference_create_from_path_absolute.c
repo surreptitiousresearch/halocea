@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "headers/file_reference.h"
+#include "headers/file_reference_location.h"
 
 extern void file_path_add_name(char *path, const char *name);
 extern file_reference *file_reference_set_name(file_reference *reference, const char *name);
@@ -13,7 +14,7 @@ file_reference *file_reference_create_from_path_absolute(file_reference *referen
                                                          uint8_t directory)
 {
     memset(reference, 0, sizeof(file_reference));
-    reference->info.location = 2;
+    reference->info.location = _file_reference_absolute;
     reference->info.signature = 0x66696C65u; /* 'file' */
     if (directory)
         file_path_add_name(reference->info.path, path);

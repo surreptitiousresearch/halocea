@@ -43,6 +43,7 @@
 #include "headers/destination_type.h"
 #include "headers/actor_vehicle_driver_type.h"
 #include "headers/game_difficulty_value.h"
+#include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -83,7 +84,7 @@ uint8_t actor_action_handle_combat_selection(int actor_index)
         {
             uint8_t discovered =
                 prop->currently_damaging_me
-                || (prop->shooting && prop->quantized_distance <= 1)
+                || (prop->shooting && prop->quantized_distance <= _prop_distance_near)
                 || (definition->defensive.stalking_discovery_time > 0.0f
                     && charge->stalking_discovery_timer
                        >= (int16_t)(int)(definition->defensive.stalking_discovery_time * 30.0f));

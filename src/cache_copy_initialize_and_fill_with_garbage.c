@@ -12,6 +12,7 @@
 #include "headers/simple_decompressor_definition.h"
 #include <string.h>
 #include "headers/blam_data_globals.h"
+#include "headers/cache_copy_buffer_sizes.h"
 
 
 extern void XPhysicalProtect(void *address, unsigned int size, unsigned int flags); /* Xbox kernel boundary */
@@ -31,7 +32,7 @@ void cache_copy_initialize_and_fill_with_garbage(simple_decompressor_definition 
         cursor += 0x400000;
     }
 
-    XPhysicalProtect(self->allocated_buffer, 0x500000u, 2u);
+    XPhysicalProtect(self->allocated_buffer, TOTAL_READ_WRITE_BUFFER_SIZE, 2u);
 
     self->zlib_buffer = (unsigned char *)self->allocated_buffer + 5242880;
     self->zlib_buffer_size = 73728;

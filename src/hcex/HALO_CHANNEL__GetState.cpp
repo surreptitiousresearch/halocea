@@ -1,4 +1,5 @@
 #include "../headers/hcex/HALO_CHANNEL_boundary.h"
+#include "../headers/sound_channel_state.h"
 
 // HALO_CHANNEL::GetState @ 0x836C4228 — current/queued playback state as a simple tri-state
 // (0 = idle, 1 = playing normally or to-end, 2 = queued/crossfading). Runs Update() first so
@@ -30,8 +31,8 @@ int HALO_CHANNEL::GetState()
     }
 
     if (state == ST_IDLE)
-        return 0;
+        return _sound_channel_idle;
     if (state == ST_PLAYING || state == ST_PLAYING_TO_END)
-        return 1;
-    return 2;
+        return _sound_channel_playing;
+    return _sound_channel_full;
 }

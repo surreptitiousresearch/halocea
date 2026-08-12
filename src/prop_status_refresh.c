@@ -50,6 +50,8 @@
 #include "headers/object_damage_flags.h"
 #include "headers/actor_definition_flags.h"
 #include "headers/ai_line_of_sight.h"
+#include "headers/actor_knowledge.h"
+#include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 #include "headers/real_point3d.h"
@@ -223,18 +225,18 @@ done_target:;
         if ( distance >= 6.0f )
         {
             if ( distance >= 10.0f )
-                prop->quantized_distance = (distance >= 30.0f) ? 4 : 3;
+                prop->quantized_distance = (distance >= 30.0f) ? _prop_distance_distant : _prop_distance_far;
             else
-                prop->quantized_distance = 2;
+                prop->quantized_distance = _prop_distance_middle;
         }
         else
         {
-            prop->quantized_distance = 1;
+            prop->quantized_distance = _prop_distance_near;
         }
     }
     else
     {
-        prop->quantized_distance = 0;
+        prop->quantized_distance = _prop_distance_melee;
     }
 
     /* quantized facing from the unit's aiming vector vs the prop->actor direction */
@@ -467,7 +469,7 @@ done_target:;
             prop->ineffability = 0;
             if ( !sound_class2 )
                 prop->ineffability = 3;
-            if ( prop->flashlight && prop->quantized_facing <= 2 && prop->quantized_distance <= 2
+            if ( prop->flashlight && prop->quantized_facing <= 2 && prop->quantized_distance <= _prop_distance_middle
               && (!prop->line_of_sight || prop->line_of_sight == _ai_line_of_sight_occluded) )
             {
                 int extrasensory = prop->ineffability;
@@ -558,7 +560,7 @@ done_target:;
             uint8_t store_debugging_information = 0;
             int16_t vis = actor_visibility_at_point(actor_index, sense_position,
                                                     &prop->head_position, prop->lighting, los,
-                                                    use_frustum, store_debugging_information, 2);
+                                                    use_frustum, store_debugging_information, _actor_knowledge_searching);
             prop->visibility = vis;
             prop->audibility = _ai_sound_volume_silent;
             prop->ineffability = 0;

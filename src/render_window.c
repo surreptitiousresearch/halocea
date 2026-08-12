@@ -16,6 +16,7 @@
 #include "headers/render_frustum.h"
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/real_vector3d.h"
+#include "headers/decal_layer.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -116,22 +117,22 @@ void render_window(int16_t local_player_index, const render_camera *source_camer
 
         if (!rasterizer_debug_options.drawing_mode && rasterizer_debug_options.draw_environment_decals)
         {
-            rasterizer_decals_begin(2);
+            rasterizer_decals_begin(_decal_layer_light);
             render_window_draw_cluster_decals();
             rasterizer_decals_end();
         }
 
-        rasterizer_decals_begin(3);
+        rasterizer_decals_begin(_decal_layer_alpha_tested);
         render_window_draw_cluster_decals();
         rasterizer_decals_end();
         structure_render_diffuse_texture();
 
         if (!rasterizer_debug_options.drawing_mode && rasterizer_debug_options.draw_environment_decals)
         {
-            rasterizer_decals_begin(0);
+            rasterizer_decals_begin(_decal_layer_primary);
             render_window_draw_cluster_decals();
             rasterizer_decals_end();
-            rasterizer_decals_begin(1);
+            rasterizer_decals_begin(_decal_layer_secondary);
             render_window_draw_cluster_decals();
             rasterizer_decals_end();
         }
@@ -150,7 +151,7 @@ void render_window(int16_t local_player_index, const render_camera *source_camer
         render_contrails_normal();
         rasterizer_transparent_geometry_draw(1);
 
-        rasterizer_decals_begin(4);
+        rasterizer_decals_begin(_decal_layer_water);
         render_window_draw_cluster_decals();
         rasterizer_decals_end();
         structure_render_detail_objects();

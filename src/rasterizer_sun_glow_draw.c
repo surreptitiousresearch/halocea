@@ -53,6 +53,7 @@
 #include "headers/_D3DBLEND.h"
 #include "headers/_D3DTEXTUREADDRESS.h"
 #include "headers/_D3DCMPFUNC.h"
+#include "headers/rasterizer_target.h"
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_dx9_shader_index.h"
 #include "headers/rasterizer_vertex_shader_declaration_index.h"
@@ -270,9 +271,9 @@ void rasterizer_sun_glow_draw(const rasterizer_lens_flare_submit_parameters *fla
     glow_bounds.n[1] = right;
     glow_bounds.n[2] = top;
     glow_bounds.n[3] = bottom;
-    rasterizer_sun_glow_copy_source(6, &glow_bounds);
-    rasterizer_sun_glow_copy_source(7, &glow_bounds);
-    int16_t blurred_target = rasterizer_sun_glow_convolve(6, 7, 4);
+    rasterizer_sun_glow_copy_source(_rasterizer_target_sun_glow_primary, &glow_bounds);
+    rasterizer_sun_glow_copy_source(_rasterizer_target_sun_glow_secondary, &glow_bounds);
+    int16_t blurred_target = rasterizer_sun_glow_convolve(_rasterizer_target_sun_glow_primary, _rasterizer_target_sun_glow_secondary, 4);
 
     float convolve_projection[20];
     convolve_projection[0]  = (1.0f / viewport_width) * 2.0f;

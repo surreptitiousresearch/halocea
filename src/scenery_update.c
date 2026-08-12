@@ -11,6 +11,7 @@
 #include "headers/animation_update_kind.h"
 #include "headers/animation_state.h"
 #include "headers/scenery_flags.h"
+#include "headers/animation_update_result.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -30,7 +31,7 @@ uint8_t scenery_update(int scenery_index)
         &scenery->object.animation.state,
         0);
 
-    if ( result != 2 )
+    if ( result != _animation_will_restart_on_next_frame )
         --scenery->object.animation.state.frame_index;
 
     return 1;

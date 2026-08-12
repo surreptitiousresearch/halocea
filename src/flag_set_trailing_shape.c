@@ -8,6 +8,7 @@
 #include "headers/flag_definition.h"
 #include "headers/flag_datum.h"
 #include "headers/trailing_edge_shape.h"
+#include "headers/tesselate.h"
 
 extern void flag_tesselate_region(flag_definition *flag_definition, flag_datum *flag, int16_t x, int16_t y, int16_t size, int16_t tesselation);
 
@@ -32,7 +33,7 @@ void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
     switch ( trailing_edge_shape )
     {
         case _trailing_edge_shape_trapezoid_short_top:
-            tesselation = 3;
+            tesselation = _tesselate_bottom_left;
             size = split;
             y = 0;
             break;
@@ -40,18 +41,18 @@ void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
         case _trailing_edge_shape_trapezoid_short_bottom:
             size = split;
             y = 0;
-            tesselation = 2;
+            tesselation = _tesselate_top_left;
             break;
 
         case _trailing_edge_shape_concave_triangular:
-            flag_tesselate_region(flag_definition, flag, x, 0, split, 2);
+            flag_tesselate_region(flag_definition, flag, x, 0, split, _tesselate_top_left);
             tesselation = 3;
             size = split;
             y = split;
             break;
 
         case _trailing_edge_shape_convex_triangular:
-            flag_tesselate_region(flag_definition, flag, x, 0, split, 3);
+            flag_tesselate_region(flag_definition, flag, x, 0, split, _tesselate_bottom_left);
             size = split;
             y = split;
             tesselation = 2;

@@ -15,6 +15,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_matrix4x3.h"
 #include "headers/collision_feature_list.h"
+#include "headers/collision_feature.h"
 
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern void collision_features_from_point(const real_point3d *point, float height, float width, int object_index, int surface_index, uint8_t flags, uint8_t breakable_surface_index, int16_t material_index, collision_feature_list *features);
@@ -39,5 +40,5 @@ uint8_t physics_get_features_in_sphere(const physics_instance *instance, const r
         }
     }
 
-    return features->count[0] || features->count[1] || features->count[2];
+    return features->count[_collision_feature_sphere] || features->count[_collision_feature_cylinder] || features->count[_collision_feature_prism];
 }

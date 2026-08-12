@@ -22,6 +22,7 @@
 #include "headers/dialogue_event_status.h"
 #include "headers/object_type.h"
 #include "headers/ai_communication_protagonist_type.h"
+#include "headers/find_actor_mode.h"
 #include "headers/blam_data_globals.h"
 
 extern const reply_usage     global_reply_table[];
@@ -66,7 +67,7 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
             {
                 case _comm_protagonist_friend:
                     actor = ai_communication_find_global_actor_to_talk(
-                        unit->object.owner_team_index, 1, unit_index, -1, 9.0f, -1,
+                        unit->object.owner_team_index, _find_actor_mode_friend, unit_index, -1, 9.0f, -1,
                         row->communication_priority, speech_priority,
                         row->vocalization_type, row->animation_type, 0);
                     break;
@@ -79,7 +80,7 @@ int ai_communication_find_actor_to_reply_to_player(int unit_index, int target_un
                 }
                 case _comm_protagonist_enemy:
                     actor = ai_communication_find_global_actor_to_talk(
-                        unit->object.owner_team_index, 2, unit_index, -1, 9.0f, -1,
+                        unit->object.owner_team_index, _find_actor_mode_enemy, unit_index, -1, 9.0f, -1,
                         row->communication_priority, speech_priority,
                         row->vocalization_type, row->animation_type, 0);
                     break;

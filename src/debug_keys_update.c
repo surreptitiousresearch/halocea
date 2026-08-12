@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include "headers/debug_key.h"
 #include "headers/key_code.h"
+#include "headers/debug_key_modifier.h"
 
 extern uint8_t input_key_is_down(int16_t key_code);
 
@@ -13,14 +14,14 @@ void debug_keys_update(void)
     unsigned char mod_a = input_key_is_down(_key_shift);
     unsigned char mod_b = input_key_is_down(_key_control);
     /* modifier-combo table indexed by debug_key.modifier (0=none,1=A,2=B,3=A+B) */
-    char combo[4];
+    char combo[NUMBER_OF_DEBUG_KEY_MODIFIERS];
     int i;
     unsigned int bit;
 
-    combo[0] = !mod_a && !mod_b;
-    combo[1] =  mod_a && !mod_b;
-    combo[2] = !mod_a &&  mod_b;
-    combo[3] =  mod_a &&  mod_b;
+    combo[_debug_key_no_modifier] = !mod_a && !mod_b;
+    combo[_debug_key_shift] =  mod_a && !mod_b;
+    combo[_debug_key_ctrl] = !mod_a &&  mod_b;
+    combo[_debug_key_shift_ctrl] =  mod_a &&  mod_b;
 
     if ( !global_debug_key_list[0].name )
         return;

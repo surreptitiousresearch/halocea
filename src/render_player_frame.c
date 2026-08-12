@@ -23,6 +23,7 @@
 #include "headers/point2d.h"
 #include "headers/rasterizer_globals.h"
 #include "headers/render_planar_fog_mode.h"
+#include "headers/rasterizer_target.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -119,7 +120,7 @@ void render_player_frame(struct render_window *window, const point2d *screenshot
             render_camera_build_frustum(&mirror_camera, &frustum_bounds, &mirror_frustum, 1);
             rasterizer_profile_enable(0);
             render.cluster_index = mirror.cluster_index;
-            render_window(-1, &mirror_camera, &mirror_frustum, &mirror_camera, &mirror_frustum, 2, has_mirror /* still 0: mirror pass has no nested mirror */);
+            render_window(-1, &mirror_camera, &mirror_frustum, &mirror_camera, &mirror_frustum, _rasterizer_target_render_secondary, has_mirror /* still 0: mirror pass has no nested mirror */);
             render.cluster_index = saved_cluster_index;
             rasterizer_profile_enable(1);
             has_mirror = 1;
@@ -127,5 +128,5 @@ void render_player_frame(struct render_window *window, const point2d *screenshot
     }
 
     render_window(window->local_player_index, camera, &frustum, &window->rasterizer_camera, &rasterizer_frustum,
-                  1, has_mirror);
+                  _rasterizer_target_render_primary, has_mirror);
 }

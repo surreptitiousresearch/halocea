@@ -19,6 +19,7 @@
 #include "headers/object_change_color_definition.h"
 #include "headers/object_change_color_permutation.h"
 #include "headers/real_rgb_color.h"
+#include "headers/object_change_color.h"
 #include "headers/blam_data_globals.h"
 
 extern real_rgb_color *rgb_colors_interpolate(real_rgb_color *rgb_result, unsigned int flags, const real_rgb_color *rgb_lower_bound, const real_rgb_color *rgb_upper_bound, float u);
@@ -90,5 +91,5 @@ void object_choose_random_change_colors(int object_index, const real_rgb_color *
 
         change_color_index = (int16_t)(change_color_index + 1);
     }
-    while ( change_color_index < 4 );
+    while ( change_color_index < NUMBER_OF_OBJECT_CHANGE_COLORS );
 }

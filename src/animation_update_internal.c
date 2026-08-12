@@ -14,6 +14,7 @@
 #include "headers/animation_graph_sound_reference.h"
 #include "headers/animation_state.h"
 #include "headers/animation_update_kind.h"
+#include "headers/animation_update_result.h"
 
 extern int16_t animation_choose_random_permutation_internal(int render_or_affects_game_state, int animation_graph_index, int16_t animation_index);
 
@@ -40,9 +41,9 @@ int16_t animation_update_internal(animation_update_kind render_or_affects_game_s
     if (next_frame < frame_count)
     {
         if ((int16_t)(next_frame + 1) != frame_count || anim->private_loop_frame_index)
-            return state->frame_index == anim->private_key_frame_index || state->frame_index == anim->private_second_key_frame_index;
+            return (state->frame_index == anim->private_key_frame_index || state->frame_index == anim->private_second_key_frame_index) ? _animation_key_frame : _animation_running;
         else
-            return 2;
+            return _animation_will_restart_on_next_frame;
     }
     else
     {
@@ -52,14 +53,14 @@ int16_t animation_update_internal(animation_update_kind render_or_affects_game_s
             state->index = animation_choose_random_permutation_internal(render_or_affects_game_state,
                                                                         animation_graph_index, anim->runtime_parent_animation_index);
             state->frame_index = 0;
-            return 3;
+            return _animation_restarted;
         }
         else
         {
             if (loop_frame > frame_count - 1)
                 loop_frame = frame_count - 1;
             state->frame_index = loop_frame;
-            return 4;
+            return _animation_looped;
         }
     }
 }

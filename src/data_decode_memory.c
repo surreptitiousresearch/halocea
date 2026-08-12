@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include "headers/data_encoding_state.h"
+#include "headers/byte_swap_definition.h"
 
 char *data_decode_memory(data_encoding_state *state, int16_t count, int code)
 {
@@ -15,10 +16,10 @@ char *data_decode_memory(data_encoding_state *state, int16_t count, int code)
 
     switch (code)
     {
-        case -8: byte_count = 8 * count; break;
-        case -4: byte_count = 4 * count; break;
-        case -2: byte_count = 2 * count; break;
-        case 1:  byte_count = count; break;
+        case _8byte: byte_count = 8 * count; break;
+        case _4byte: byte_count = 4 * count; break;
+        case _2byte: byte_count = 2 * count; break;
+        case _1byte: byte_count = count; break;
         default: byte_count = uninitialized_fallback; break;
     }
 

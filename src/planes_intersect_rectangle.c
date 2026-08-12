@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include "headers/real_rectangle3d.h"
 #include "headers/real_plane3d.h"
+#include "headers/intersection.h"
 
 int16_t planes_intersect_rectangle(const real_rectangle3d *bounds, int16_t cull_plane_count, const real_plane3d *cull_planes)
 {
@@ -33,7 +34,7 @@ int16_t planes_intersect_rectangle(const real_rectangle3d *bounds, int16_t cull_
         if (x1 * nx + y1 * ny + z1 * nz - d < 0.0f) corner_mask |= 0x80;
 
         if (corner_mask == 255)
-            return 0;
+            return _intersection_out;
         accumulated_behind |= corner_mask;
     }
 

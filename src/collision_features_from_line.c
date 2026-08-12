@@ -14,6 +14,7 @@
 #include "headers/real_vector2d.h"
 #include "headers/collision_feature_list.h"
 #include "headers/blam_data_globals.h"
+#include "headers/collision_feature.h"
 
 extern float __fsqrts(float);
 extern double __fabs(double x);
@@ -35,9 +36,9 @@ void collision_features_from_line(const real_point3d *point, const real_vector3d
                                   uint8_t breakable_surface_index, int16_t material_index,
                                   collision_feature_list *features)
 {
-    if ( features->count[1] < 256 )
+    if ( features->count[_collision_feature_cylinder] < 256 )
     {
-        collision_cylinder *cylinder = &features->cylinders[features->count[1]++];
+        collision_cylinder *cylinder = &features->cylinders[features->count[_collision_feature_cylinder]++];
         cylinder->object_index = object_index;
         cylinder->surface_index = surface_index;
         cylinder->flags = flags;
@@ -99,9 +100,9 @@ void collision_features_from_line(const real_point3d *point, const real_vector3d
     corners[9] = point->n[0]; corners[10] = point->n[1]; corners[11] = lowered_z;
 
     /* front prism (+perpendicular) */
-    if ( features->count[2] < 256 )
+    if ( features->count[_collision_feature_prism] < 256 )
     {
-        collision_prism *prism = &features->prisms[features->count[2]++];
+        collision_prism *prism = &features->prisms[features->count[_collision_feature_prism]++];
         prism->object_index = object_index;
         prism->surface_index = surface_index;
         prism->flags = flags;

@@ -25,6 +25,7 @@
 #include "headers/data_array.h"
 #include "headers/real_vector3d.h"
 #include "headers/ai_line_of_sight.h"
+#include "headers/firing_position_group_selection.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -41,11 +42,11 @@ int16_t actor_active_select_firing_position(int actor_index,
         return -1;
 
     unsigned int default_group = actor_get_firing_position_group(actor_index,
-            evaluation_context->evaluation_mode, 0);
+            evaluation_context->evaluation_mode, _firing_position_group_normal);
     unsigned int group_mode2 = actor_get_firing_position_group(actor_index,
-            evaluation_context->evaluation_mode, 2);
+            evaluation_context->evaluation_mode, _firing_position_group_when_not_searching);
     unsigned int group_mode1 = actor_get_firing_position_group(actor_index,
-            evaluation_context->evaluation_mode, 1);
+            evaluation_context->evaluation_mode, _firing_position_group_when_searching);
     if ( (group_mode2 | group_mode1) <= default_group )
     {
         evaluation_context->allowed_position_mask = default_group;

@@ -50,6 +50,7 @@
 #include "headers/secondary_look_type.h"
 #include "headers/secondary_look_priority.h"
 #include "headers/idle_look_type.h"
+#include "headers/idle_timer.h"
 #include "headers/blam_data_globals.h"
 extern double cos(double x);
 extern double __fabs(double x);
@@ -445,7 +446,7 @@ after_stimulus_look: /* LABEL_103 */
         {
             actor->control.idle_major_active = 1;
             actor_index_copy = actor_index;
-            actor->control.idle_major_timer = actor_look_idle_timer(actor_index, idle, 2, 1u);
+            actor->control.idle_major_timer = actor_look_idle_timer(actor_index, idle, _idle_timer_looking, 1u);
             actor->control.idle_major_direction.type = _direction_specification_vector;
             actor->control.idle_major_direction.___u1.vector = actor->control.desired_aiming_vector;
         }
@@ -526,10 +527,10 @@ after_stimulus_look: /* LABEL_103 */
                     if (has_idle_look)
                     {
                         actor->control.idle_minor_active = 1;
-                        actor->control.idle_minor_timer = actor_look_idle_timer(actor_index_copy, idle, 2, actor->control.idle_major_direction_is_interesting);
+                        actor->control.idle_minor_timer = actor_look_idle_timer(actor_index_copy, idle, _idle_timer_looking, actor->control.idle_major_direction_is_interesting);
                         actor->control.idle_minor_direction = actor->control.idle_major_direction;
                         if (free_facing)
-                            actor->control.idle_facing_timer = actor_look_idle_timer(actor_index_copy, idle, 0, actor->control.idle_major_direction_is_interesting);
+                            actor->control.idle_facing_timer = actor_look_idle_timer(actor_index_copy, idle, _idle_timer_facing, actor->control.idle_major_direction_is_interesting);
                     }
                 }
             }

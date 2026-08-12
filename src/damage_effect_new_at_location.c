@@ -19,6 +19,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/real_rgb_color.h"
+#include "headers/effect_vector.h"
 #include "headers/blam_data_globals.h"
 #include "headers/real_rgb_color.h"
 #include "headers/effect_vector_field.h"
@@ -37,12 +38,12 @@ void damage_effect_new_at_location(int effect_definition_index, int object_index
                                    const real_point3d *position, const real_vector3d *direction,
                                    const real_vector3d *normal)
 {
-    const char *marker_names[5];
-    marker_names[0] = "normal";
-    marker_names[1] = "incident";
-    marker_names[2] = "negative incident";
-    marker_names[3] = "reflection";
-    marker_names[4] = "gravity";
+    const char *marker_names[NUMBER_OF_EFFECT_MARKERS];
+    marker_names[_effect_vector_normal] = "normal";
+    marker_names[_effect_vector_incident] = "incident";
+    marker_names[_effect_vector_negative_incident] = "negative incident";
+    marker_names[_effect_vector_reflected] = "reflection";
+    marker_names[_effect_vector_gravity] = "gravity";
 
     /* incident = normalised damage direction (fall back to global_forward3d when degenerate) */
     real_vector3d incident;
@@ -91,23 +92,23 @@ void damage_effect_new_at_location(int effect_definition_index, int object_index
     reflect_vector3d(&incident, &surface_normal, &reflection);
 
     /* marker forward vectors, in memory order matching marker_names positionally */
-    real_vector3d marker_forwards[5];
-    marker_forwards[0] = surface_normal;                                   /* normal */
-    marker_forwards[1].n[0] = incident.n[0] * -1.0f;                       /* (named "incident") */
-    marker_forwards[1].n[1] = incident.n[1] * -1.0f;
-    marker_forwards[1].n[2] = incident.n[2] * -1.0f;
-    marker_forwards[2] = incident;                                         /* (named "negative incident") */
-    marker_forwards[3] = reflection;                                       /* reflection */
-    marker_forwards[4] = *global_down3d;                                   /* gravity */
+    real_vector3d marker_forwards[NUMBER_OF_EFFECT_MARKERS];
+    marker_forwards[_effect_vector_normal] = surface_normal;                                   /* normal */
+    marker_forwards[_effect_vector_incident].n[0] = incident.n[0] * -1.0f;                       /* (named "incident") */
+    marker_forwards[_effect_vector_incident].n[1] = incident.n[1] * -1.0f;
+    marker_forwards[_effect_vector_incident].n[2] = incident.n[2] * -1.0f;
+    marker_forwards[_effect_vector_negative_incident] = incident;                                         /* (named "negative incident") */
+    marker_forwards[_effect_vector_reflected] = reflection;                                       /* reflection */
+    marker_forwards[_effect_vector_gravity] = *global_down3d;                                   /* gravity */
 
-    real_point3d marker_points[5];
-    for ( int i = 0; i < 5; ++i )
+    real_point3d marker_points[NUMBER_OF_EFFECT_MARKERS];
+    for ( int i = 0; i < NUMBER_OF_EFFECT_MARKERS; ++i )
         marker_points[i] = *position;
 
     if ( object_index == -1 || node_index == -1 )
-        effect_new_unattached_from_markers(effect_definition_index, object_index, global_zero_vector3d, 5,
+        effect_new_unattached_from_markers(effect_definition_index, object_index, global_zero_vector3d, NUMBER_OF_EFFECT_MARKERS,
                                            marker_names, marker_points, marker_forwards, 1.0, 0.0, 0, 0, 0);
     else
-        effect_new_attached_from_markers(effect_definition_index, object_index, object_index, node_index, 5,
+        effect_new_attached_from_markers(effect_definition_index, object_index, object_index, node_index, NUMBER_OF_EFFECT_MARKERS,
                                          marker_names, marker_points, marker_forwards, 1.0, 0.0, 0, 0);
 }

@@ -13,6 +13,7 @@
 #include "headers/observer_globals.h"
 #include "headers/observer_command_flags.h"
 #include "headers/real_vector3d.h"
+#include "headers/observer_parameter.h"
 #include "headers/blam_data_globals.h"
 
 extern void observer_apply_rotational_displacement(const real_vector3d *rotational_displacement, real_vector3d *forward, real_vector3d *up);
@@ -33,10 +34,10 @@ void observer_update_positions(int16_t local_player_index)
     int group;
     int i;
 
-    for ( i = 0; i < 11; i++ )
+    for ( i = 0; i < NUMBER_OF_OBSERVER_REAL_VELOCITIES; i++ )
         displacement[i] = 0.0f;
 
-    for ( group = 0; group < 5; group++ )
+    for ( group = 0; group < NUMBER_OF_OBSERVER_PARAMETERS; group++ )
     {
         double remaining = (*group_timer - observer_globals.dtime);
         int deriv_count = observer_parameter_derivative_real_counts[group];
@@ -70,7 +71,7 @@ void observer_update_positions(int16_t local_player_index)
                 delta[i] = -(velocity[i] * observer_globals.dtime);
         }
 
-        if ( group >= 4 )
+        if ( group >= _observer_orientation )
             observer_apply_rotational_displacement((const real_vector3d *)delta,
                                                    (real_vector3d *)resolved,
                                                    (real_vector3d *)resolved + 1);
@@ -96,7 +97,7 @@ void observer_update_positions(int16_t local_player_index)
      * has drifted from orthonormal (each test tolerance 0.001 / 1e-4). */
     {
         float *fwd = &obs->positions[8];          /* forward at [8..10], up at [11..13] */
-        int g = 4;
+        int g = _observer_orientation;
         do
         {
             float *up = fwd + 3;
@@ -153,6 +154,6 @@ void observer_update_positions(int16_t local_player_index)
             fwd += observer_parameter_real_counts[g];
             g++;
         }
-        while ( g < 5 );
+        while ( g < NUMBER_OF_OBSERVER_PARAMETERS );
     }
 }

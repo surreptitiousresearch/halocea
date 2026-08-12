@@ -6,6 +6,7 @@
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/vehicle_datum.h"
+#include "headers/vehicle_upending_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -20,7 +21,7 @@ void vehicle_reset(int vehicle_index)
     vehicle->vehicle.turn = 0.0f;
     vehicle->vehicle.airborne_ticks = 0;
     vehicle->vehicle.wheel = 0.0f;
-    vehicle->vehicle.upending_type = 0;
+    vehicle->vehicle.upending_type = _vehicle_not_upending;
     vehicle->vehicle.left_tread = 0.0f;
     vehicle->vehicle.upending_ticks = 0;
     vehicle->vehicle.right_tread = 0.0f;

@@ -25,6 +25,8 @@
 #include "headers/unit_speech_item.h"
 #include "headers/object_type.h"
 #include "headers/ai_communication_protagonist_type.h"
+#include "headers/find_actor_mode.h"
+#include "headers/secondary_look_type.h"
 #include "headers/blam_data_globals.h"
 
 extern const reply_usage global_reply_table[];
@@ -83,7 +85,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
                 case _comm_protagonist_friend:
                     if ( !speaker_actor || speaker_actor->meta.encounter_index == -1 )
                         found_actor = ai_communication_find_global_actor_to_talk(
-                            unit->object.owner_team_index, 1, unit_index, -1, 9.0f, -1,
+                            unit->object.owner_team_index, _find_actor_mode_friend, unit_index, -1, 9.0f, -1,
                             row->communication_priority, speech_priority,
                             row->vocalization_type, row->animation_type, 0);
                     else
@@ -105,7 +107,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
                     break;
                 case _comm_protagonist_enemy:
                     found_actor = ai_communication_find_global_actor_to_talk(
-                        unit->object.owner_team_index, 2, unit_index, -1, 9.0f, -1,
+                        unit->object.owner_team_index, _find_actor_mode_enemy, unit_index, -1, 9.0f, -1,
                         row->communication_priority, speech_priority,
                         row->vocalization_type, row->animation_type, 0);
                     if ( found_actor == -1 )
@@ -172,7 +174,7 @@ void ai_communication_finished(int unit_index, int16_t priority, int16_t vocaliz
 
         unit_speak(target_unit_index, considered_vocalization, &speech);
         ai_communication_update_speech_timers(target_unit_index, speech_priority, -1, reply_row_index); /* phantom 5th arg dropped */
-        ai_communication_look_secondary_at_unit(target->unit.actor_index, 8,
+        ai_communication_look_secondary_at_unit(target->unit.actor_index, _secondary_look_communicating_prop,
             communication_protagonist_default_look_priorities[row->communication_priority], unit_index, -1);
         return;
 

@@ -18,6 +18,7 @@
 #include <stdint.h>
 #include "headers/vibrate_global_data.h"
 #include "headers/vibrate_data.h"
+#include "headers/vibrate_frequency.h"
 
 extern float transition_function_evaluate(int16_t function_type, float value);
 
@@ -30,7 +31,7 @@ vibrate_data vibrate_calculate(player_vibrate_datum *datum)
     {
         float elapsed = datum->time_elapsed[i];
 
-        for ( int channel = 0; channel < 2; ++channel )
+        for ( int channel = 0; channel < NUMBER_OF_vibrate_FREQUENCIES; ++channel )
         {
             vibrate_frequency_definition *frequency = &datum->impulse[i].vibrate_frequencies[channel];
 
@@ -43,7 +44,7 @@ vibrate_data vibrate_calculate(player_vibrate_datum *datum)
                     t = 1.0f;
 
                 float contribution = transition_function_evaluate(frequency->fade_function, t) * frequency->frequency;
-                if ( channel == 0 )
+                if ( channel == _vibrate_frequency_left )
                     left += contribution;
                 else
                     right += contribution;

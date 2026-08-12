@@ -67,6 +67,7 @@
 #include "headers/firing_point_evaluation_mode.h"
 #include "headers/prop_perception_state.h"
 #include "headers/ai_line_of_sight.h"
+#include "headers/unit_estimate_position_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/actor_vehicle_driver_type.h"
 #include "headers/firing_position_attack_vector_type.h"
@@ -177,7 +178,7 @@ int16_t actor_select_firing_position(int actor_index, firing_position_evaluation
         evaluation_context->target_vehicle_index = -1;
         evaluation_context->target_current_distance = __fsqrts(((dx * dx)
                 + ((dz * dz) + (dy * dy))));
-        unit_estimate_position(actor->meta.unit_index, 1, &evaluation_context->target_point, nullptr, nullptr,
+        unit_estimate_position(actor->meta.unit_index, _unit_estimate_head_standing, &evaluation_context->target_point, nullptr, nullptr,
                                &evaluation_context->target_head_position);
         evaluation_context->target_line_of_sight_position.n[0] = evaluation_context->target_head_position.n[0];
         evaluation_context->target_line_of_sight_position.n[1] = evaluation_context->target_head_position.n[1];

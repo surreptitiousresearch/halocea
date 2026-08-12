@@ -24,6 +24,9 @@
 #include "headers/rasterizer_target.h"
 #include "headers/_D3DCULL.h"
 #include "headers/_D3DFILLMODE.h"
+#include "headers/_D3DSAMPLERSTATETYPE.h"
+#include "headers/_D3DTEXTUREADDRESS.h"
+#include "headers/_D3DTEXTUREFILTERTYPE.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -85,11 +88,13 @@ void rasterizer_text_begin(const rasterizer_dynamic_screen_geometry_parameters *
     ID3DXEffect_Begin(shader->effect, pass_count, 3);
     ID3DXEffect_BeginPass(shader->effect, 0);
 
-    SetTextureStageStateSmart(0, 0, parameters->map_wrapped[0] != 0 ? 0 : 2);
-    SetTextureStageStateSmart(0, 4, parameters->map_wrapped[0] != 0 ? 0 : 2); /* D3DTSS_ALPHAOP */
-    SetTextureStageStateSmart(0, 16, parameters->point_sampled == 0);
-    SetTextureStageStateSmart(0, 20, parameters->point_sampled == 0);
-    SetTextureStageStateSmart(0, 24, parameters->point_sampled == 0); /* D3DTSS_TEXTURETRANSFORMFLAGS */
+    /* DEVIATION: the old inline comments guessed PC-D3D9 D3DTSS_* selectors; the 360 second
+     * argument is the _D3DSAMPLERSTATETYPE register selector (stride-4 numbering, DB-verified). */
+    SetTextureStageStateSmart(0, D3DSAMP_ADDRESSU, parameters->map_wrapped[0] != 0 ? D3DTADDRESS_WRAP : D3DTADDRESS_CLAMP);
+    SetTextureStageStateSmart(0, D3DSAMP_ADDRESSV, parameters->map_wrapped[0] != 0 ? D3DTADDRESS_WRAP : D3DTADDRESS_CLAMP);
+    SetTextureStageStateSmart(0, D3DSAMP_MAGFILTER, parameters->point_sampled ? D3DTEXF_POINT : D3DTEXF_LINEAR);
+    SetTextureStageStateSmart(0, D3DSAMP_MINFILTER, parameters->point_sampled ? D3DTEXF_POINT : D3DTEXF_LINEAR);
+    SetTextureStageStateSmart(0, D3DSAMP_MIPFILTER, parameters->point_sampled ? D3DTEXF_POINT : D3DTEXF_LINEAR);
 
     constants[0] = 1.0f;
     constants[1] = 1.0f;

@@ -58,6 +58,7 @@
 #include "headers/item_flags.h"
 #include "headers/weapon_type.h"
 #include "headers/object_type.h"
+#include "headers/animation_update_result.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
 
@@ -107,7 +108,7 @@ uint8_t weapon_update(int weapon_index) /* was: int — DB prototype */
         int16_t animation_result = animation_update_internal(animation_update_kind_affects_game_state,
                                                              animation_graph_index,
                                                              &weapon->object.animation.state, 0);
-        if ( animation_result == 1 )
+        if ( animation_result == _animation_key_frame )
         {
             /* animation finished: eject a shell for chambering states */
             int animation_state_value = (uint8_t)weapon->weapon.state;
@@ -120,7 +121,7 @@ uint8_t weapon_update(int weapon_index) /* was: int — DB prototype */
                 goto animation_done;
             weapon_trigger_start_ejection_port(weapon_index, ejection_barrel_index, 1);
         }
-        else if ( animation_result == 2 )
+        else if ( animation_result == _animation_will_restart_on_next_frame )
         {
             /* animation interrupted: drop back to idle unless in a locked ready/put-away state */
             unsigned int animation_state_value = (uint8_t)weapon->weapon.state;

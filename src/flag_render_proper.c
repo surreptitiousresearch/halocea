@@ -48,6 +48,7 @@
 #include "headers/global_tag_instances.h"
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
+#include "headers/tesselate.h"
 #include "headers/blam_data_globals.h"
 
 struct triangle_buffer;
@@ -157,10 +158,10 @@ void flag_render_proper(flag_datum *flag, flag_definition *flag_definition, cons
                 int bottom_left = height * (column + 1) + row;
                 int bottom_right = bottom_left + 1;
 
-                if ( (unsigned int)tesselation > 5 || tesselation == 1 )
+                if ( (unsigned int)tesselation > 5 || tesselation == _tesselate_none )
                     continue;   /* no geometry in this cell */
 
-                if ( tesselation == 0 )
+                if ( tesselation == _tesselate_both )
                 {
                     triangles[triangle_count].vertex_indices[0] = top_left;
                     triangles[triangle_count].vertex_indices[1] = bottom_left;
@@ -175,22 +176,22 @@ void flag_render_proper(flag_datum *flag, flag_definition *flag_definition, cons
 
                 switch ( tesselation )
                 {
-                case 2:
+                case _tesselate_top_left:
                     triangles[triangle_count].vertex_indices[0] = top_left;
                     triangles[triangle_count].vertex_indices[1] = top_right;
                     triangles[triangle_count].vertex_indices[2] = bottom_left;
                     break;
-                case 3:
+                case _tesselate_bottom_left:
                     triangles[triangle_count].vertex_indices[0] = top_left;
                     triangles[triangle_count].vertex_indices[1] = top_right;
                     triangles[triangle_count].vertex_indices[2] = bottom_right;
                     break;
-                case 4:
+                case _tesselate_top_right:
                     triangles[triangle_count].vertex_indices[0] = top_left;
                     triangles[triangle_count].vertex_indices[1] = bottom_right;
                     triangles[triangle_count].vertex_indices[2] = bottom_left;
                     break;
-                default:   /* 5 */
+                default:   /* _tesselate_bottom_right */
                     triangles[triangle_count].vertex_indices[0] = top_right;
                     triangles[triangle_count].vertex_indices[1] = bottom_right;
                     triangles[triangle_count].vertex_indices[2] = bottom_left;

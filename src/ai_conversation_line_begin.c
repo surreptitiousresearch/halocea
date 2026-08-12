@@ -19,6 +19,7 @@
 #include "headers/ai_conversation_address_type.h"
 #include "headers/ai_conversation_selection_type.h"
 #include "headers/actor_datum.h"
+#include "headers/ai_conversation_address_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -63,7 +64,7 @@ int ai_conversation_line_begin(int conversation_index)
         conversation->line_unit_index = conversation_actor_unit_index(speaker_actor_index);
         conversation->line_address_unit_index = -1;
 
-        if (line->address_type == 1)
+        if (line->address_type == _ai_conversation_address_player)
         {
             conversation->line_address_unit_index = conversation->triggering_player_unit_index;
         }

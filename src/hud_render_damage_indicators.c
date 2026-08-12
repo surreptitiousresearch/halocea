@@ -14,6 +14,7 @@
 #include "headers/real_rectangle2d.h"
 #include "headers/point2d.h"
 #include "headers/object_type.h"
+#include "headers/hud_corner.h"
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
 
@@ -110,7 +111,7 @@ void hud_render_damage_indicators(int16_t local_player_index)
             /* DEVIATION: scale/theta are float args 5/6; on this PPC ABI they shadow r7/r8, so the next int args
              * land in r9/r10. The decompiler mistook the shadow slots for the trailing color/is_interface args
              * and left them uninitialized. */
-            hud_draw_bitmap_direct(bitmap, 4, &point, clip, scale, theta,
+            hud_draw_bitmap_direct(bitmap, _hud_corner_center, &point, clip, scale, theta,
                                    globals->damage_indicators.color, 0);
         }
     }

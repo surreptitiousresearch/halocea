@@ -42,6 +42,7 @@
 #include "headers/bitmap_group.h"
 #include "headers/bitmap_group_sequence.h"
 #include "headers/build_sprite_data.h"
+#include "headers/build_sprite_rotational_flags.h"
 #include "headers/render_globals.h"
 #include "headers/global_tag_instances.h"
 #include "headers/blam_data_globals.h"
@@ -203,7 +204,7 @@ void particle_system_render(int system_index)
 
             unsigned int rotational_flags = 1;
             if (type_def->flags & (1u << _particle_system_type_rotational_sprites_animate_sideways_bit))
-                rotational_flags = 3;
+                rotational_flags = (1u << _build_sprite_rotational_viewer_space_bit) | (1u << _build_sprite_rotational_sideways_rotation_animates_bit);
 
             build_sprite_data sprite_batch;
 

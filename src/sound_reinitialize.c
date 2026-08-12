@@ -8,6 +8,7 @@
 #include "headers/data_array.h"
 #include "headers/sound_manager_globals.h"
 #include "headers/sound_preferences.h"
+#include "headers/sound_channel_type.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -32,7 +33,7 @@ uint8_t sound_reinitialize(sound_preferences *preferences)
         int16_t channel_count = sound_manager_globals.channel_count;
         int16_t channel_index = 0;
 
-        for ( int group = 0; group < 4; ++group )
+        for ( int group = 0; group < NUMBER_OF_SOUND_CHANNEL_TYPES; ++group )
         {
             channel_count += preferences->virtual_channel_counts[group];
             sound_manager_globals.channel_count = channel_count;

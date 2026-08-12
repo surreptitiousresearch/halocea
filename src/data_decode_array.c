@@ -24,16 +24,16 @@ void * data_decode_array(data_encoding_state *state, int element_count_size, int
 
     switch ( element_count_size )
     {
-    case -8:
+    case _8byte:
         count = (int)(data_decode_int64(state) >> 32);
         break;
-    case -4:
+    case _4byte:
         count = data_decode_long(state);
         break;
-    case -2:
+    case _2byte:
         count = data_decode_short(state);
         break;
-    case 1:
+    case _1byte:
         count = data_decode_byte(state);
         break;
     default:

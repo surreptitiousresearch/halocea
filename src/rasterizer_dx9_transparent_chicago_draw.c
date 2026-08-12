@@ -59,6 +59,7 @@
 #include "headers/rasterizer_geometry_flags.h"
 #include "headers/_D3DTEXTUREFILTERTYPE.h"
 #include "headers/_D3DBLENDOP.h"
+#include "headers/shader_transparent_chicago_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/render_model_effect_type.h"
 
@@ -214,7 +215,7 @@ void rasterizer_dx9_transparent_chicago_draw(const transparent_geometry_group *g
         real_vector4d *out0 = (real_vector4d *)&texture_transform_constants[8 * stage];
         real_vector4d *out1 = (real_vector4d *)&texture_transform_constants[8 * stage + 4];
 
-        if ( stage < stage_count && (stage > 0 || !chicago->type) )
+        if ( stage < stage_count && (stage > 0 || chicago->type == _shader_transparent_chicago_type_2d_map) )
         {
             /* texture-animation path: evaluate the stage's uv scroll/scale into out0/out1 */
             shader_transparent_chicago_map *stage_ptr = &stage_array[stage];

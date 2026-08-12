@@ -14,6 +14,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/collision_result.h"
+#include "headers/collision_test_flags.h"
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
 
@@ -44,7 +45,10 @@ void actor_combat_find_nearby_target(real_point3d *target_point, float miss_dist
     float result_z = (scatter_direction.n[2] * miss_distance) + elevated_point.n[2];
 
     collision_result collision;
-    if ( collision_test_vector(0x23u, target_point, &up_offset, -1, &collision) )
+    if ( collision_test_vector((1u << _collision_test_front_facing_surfaces_bit)
+                                   | (1u << _collision_test_back_facing_surfaces_bit)
+                                   | (1u << _collision_test_structure_bit),
+             target_point, &up_offset, -1, &collision) )
     {
         elevated_point.n[0] = target_point->n[0];
         elevated_point.n[1] = target_point->n[1];
@@ -55,7 +59,10 @@ void actor_combat_find_nearby_target(real_point3d *target_point, float miss_dist
     trace_vector.n[0] = result_x - elevated_point.n[0];
     trace_vector.n[1] = result_y - elevated_point.n[1];
     trace_vector.n[2] = result_z - elevated_point.n[2];
-    if ( collision_test_vector(0x23u, &elevated_point, &trace_vector, -1, &collision) )
+    if ( collision_test_vector((1u << _collision_test_front_facing_surfaces_bit)
+                                   | (1u << _collision_test_back_facing_surfaces_bit)
+                                   | (1u << _collision_test_structure_bit),
+             &elevated_point, &trace_vector, -1, &collision) )
     {
         float distance = (collision.t * miss_distance) - 0.1f;
         if ( distance < 0.0f )

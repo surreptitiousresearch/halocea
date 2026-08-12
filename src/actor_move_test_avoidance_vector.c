@@ -23,6 +23,7 @@
 #include "headers/collision_bsp.h"
 #include "headers/collision_bsp_test_vector_result.h"
 #include "headers/actor_vector_avoidance_result.h"
+#include "headers/collision_bsp_test_flags.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -70,14 +71,14 @@ int16_t actor_move_test_avoidance_vector(vector_avoidance_data *avoidance_data,
 
     collision_bsp_test_vector_result bsp_result;
     float bsp_t;
-    if ( collision_bsp_test_vector(3, avoidance_data->bsp, 0, nullptr, &avoidance_data->origin, &origin_offset,
+    if ( collision_bsp_test_vector((1u << _collision_bsp_test_front_facing_surfaces_bit) | (1u << _collision_bsp_test_back_facing_surfaces_bit), avoidance_data->bsp, 0, nullptr, &avoidance_data->origin, &origin_offset,
             1.0f, &bsp_result) )
     {
         bsp_t = 0.0f;
         *collision_t = bsp_t;
         hit_kind = _actor_vector_avoidance_obstructed_structure;
     }
-    else if ( collision_bsp_test_vector(3, avoidance_data->bsp, 0, nullptr, ray_origin, ray_direction, 1.0f,
+    else if ( collision_bsp_test_vector((1u << _collision_bsp_test_front_facing_surfaces_bit) | (1u << _collision_bsp_test_back_facing_surfaces_bit), avoidance_data->bsp, 0, nullptr, ray_origin, ray_direction, 1.0f,
             &bsp_result) )
     {
         bsp_t = bsp_result.t;

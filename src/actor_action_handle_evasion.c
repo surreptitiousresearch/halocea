@@ -37,6 +37,7 @@
 #include "headers/charge_goal.h"
 #include "headers/ai_communication_type.h"
 #include "headers/ai_line_of_sight.h"
+#include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -129,7 +130,7 @@ uint8_t actor_action_handle_evasion(int actor_index)
                 prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
                 /* prop+0x122 (quantized_facing) <= 2 and prop+0x121 (quantized_distance) <= 1 */
                 if ( prop->quantized_facing <= 2 )
-                    prop_dangerous = prop->quantized_distance <= 1;
+                    prop_dangerous = prop->quantized_distance <= _prop_distance_near;
             }
         }
     }

@@ -23,7 +23,7 @@ uint16_t get_console_test_flags(uint16_t extra_flags)
 
     if ( game_engine_running() )
     {
-        mode_flags = 8201;
+        mode_flags = (1u << _hs_console_allowed_default) | (1u << _hs_console_ingame) | (1u << (_hs_console_cheating + HS_CONSOLE_DISALLOW_SHIFT));
     }
     else
     {

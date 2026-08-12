@@ -1,5 +1,6 @@
 #include <wchar.h>
 #include <stdint.h>
+#include "headers/virtual_keyboard_validate_mode.h"
 #include "headers/blam_data_globals.h"
 /* sv_password @0x837669B8 — "sv_password" server console command. With no argument it echoes the
  * current password. With one argument it validates the password (at most 8 characters, ASCII, and
@@ -43,7 +44,7 @@ void sv_password(int count, char **strings)
                 while (*length_scan++)
                     ;
                 if (length_scan - password != 1)   /* non-empty: must also be UI-renderable */
-                    valid = string_is_ui_compatible(password, wide_password, 0);
+                    valid = string_is_ui_compatible(password, wide_password, _virtual_keyboard_validate_none);
             }
             if (valid)
             {

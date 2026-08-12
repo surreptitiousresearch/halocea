@@ -17,6 +17,7 @@
 #include "headers/observer_globals.h"
 #include "headers/observer_command_flags.h"
 #include "headers/observer_command.h"
+#include "headers/observer_parameter.h"
 
 
 void observer_update_command(int16_t local_player_index)
@@ -28,7 +29,7 @@ void observer_update_command(int16_t local_player_index)
     if ( (pending->flags & (1u << _observer_command_valid_bit)) == 0 )
         return;
 
-    for ( i = 0; i < 5; i++ )
+    for ( i = 0; i < NUMBER_OF_OBSERVER_PARAMETERS; i++ )
     {
         float last_timer = obs->last_command.parameter_timers[i];
 

@@ -10,6 +10,7 @@
 #include <string.h>
 #include "headers/observer_globals.h"
 #include "headers/observer_command_flags.h"
+#include "headers/observer_parameter.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -69,5 +70,5 @@ void observer_update_velocities(int16_t local_player_index)
         }
         group++;
     }
-    while ( group < 5 );
+    while ( group < NUMBER_OF_OBSERVER_PARAMETERS );
 }

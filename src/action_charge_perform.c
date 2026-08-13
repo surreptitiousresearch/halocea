@@ -34,6 +34,7 @@
 
 #include "headers/weapon_definition.h"
 #include "headers/ai_information_data.h"
+#include "headers/prop_facing.h"
 extern actor_variant_definition *actor_combat_get_firing_variant_definition(int actor_index);
 extern weapon_definition *actor_get_weapon_definition(int actor_index);
 extern uint8_t actor_has_ranged_weapon(int actor_index);
@@ -97,7 +98,7 @@ uint8_t action_charge_perform(int actor_index) /* was: int — DB prototype */
             if (want_charge)
             {
                 char keep_charging = 1;
-                if ((prop->line_of_sight && prop->line_of_sight != _ai_line_of_sight_occluded) || prop->quantized_facing > 2)
+                if ((prop->line_of_sight && prop->line_of_sight != _ai_line_of_sight_occluded) || prop->quantized_facing > _prop_facing_central)
                     keep_charging = 0;
                 charge->stalking_currently_exposed = keep_charging;
                 charge->advancing = !keep_charging || (charge_def->flags & (1u << _actor_definition_stalking_freeze_when_exposed_bit)) == 0;

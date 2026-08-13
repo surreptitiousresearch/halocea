@@ -16,6 +16,7 @@
 #include "headers/global_tag_instances.h"
 #include "headers/actor_panic_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/prop_facing.h"
 
 
 extern int actor_perception_find_killer_prop_index(int actor_index, int killed_prop_index, uint8_t skip_friendlies);
@@ -54,7 +55,7 @@ void actor_stimulus_prop_just_killed(int actor_index, int prop_index)
         prop_datum *killer_prop = DATUM_GET(prop_data, prop_datum, killer_prop_index);
         if (killer_prop->enemy)
         {
-            if (killer_prop->visibility > 0 && killer_prop->quantized_facing <= 2)
+            if (killer_prop->visibility > 0 && killer_prop->quantized_facing <= _prop_facing_central)
             {
                 int character_flags2 = character->flags2;
                 float flee_chance = character->panic.panic_chance_friend_killed;

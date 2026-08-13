@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "headers/sound_source.h"
 #include "headers/sound_manager_globals.h"
+#include "headers/spatialization_mode.h"
 
 /* attested: r3 extsh on entry => int16_t; r4 read-only pointer => const; f1 single-precision
  * (fmuls/fmadds chains) => float return */
@@ -20,7 +21,7 @@ float source_distance_squared(int16_t listener_index, const sound_source *source
     if ( !source->spatialization_mode )
         return 0.0f;
 
-    if ( mode == 1 )
+    if ( mode == _sound_spatialization_mode_absolute )
     {
         const float *listener = sound_manager_globals.listeners[listener_index].matrix.n[3];
         float dz = listener[2] - source->location.position.n[2];
@@ -28,7 +29,7 @@ float source_distance_squared(int16_t listener_index, const sound_source *source
         float dy = listener[1] - source->location.position.n[1];
         result = dy * dy + (dx * dx + dz * dz);
     }
-    else if ( mode >= 3 )
+    else if ( mode >= NUMBER_OF_SOUND_SPATIALIZATION_MODES )
     {
         result = 0.0f;  /* deviation: original reads uninitialized stack (see NOTE) */
     }

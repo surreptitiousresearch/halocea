@@ -6,6 +6,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/weapon_datum.h"
 #include "headers/blam_data_globals.h"
+#include "headers/weapon_trigger_state.h"
 
 void weapon_trigger_idle(int weapon_index, int16_t trigger_index)
 {
@@ -13,6 +14,6 @@ void weapon_trigger_idle(int weapon_index, int16_t trigger_index)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, weapon_index)->datum;
     weapon_trigger *trigger = &weapon->weapon.triggers[trigger_index];
 
-    trigger->state = 0;
+    trigger->state = _weapon_trigger_idle;
     trigger->state_timer = 0;
 }

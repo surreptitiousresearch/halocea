@@ -101,7 +101,7 @@ void save_film_begin_recording(void)
     header.version = SAVED_FILM_VERSION;
     header.platform = 0;
 
-    int16_t game_encoded_size = 2048;
+    int16_t game_encoded_size = MAXIMUM_DECODED_SAVED_FILM_PACKET_SIZE;
     int16_t header_size[3];
     header_size[0] = 16;
 

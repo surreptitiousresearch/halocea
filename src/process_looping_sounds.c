@@ -34,6 +34,7 @@ extern int track_loop_impulse_sound(int looping_sound_index, const loop_impulse_
 extern int sound_new_impulse(int definition_index, sound_source *source, int source_identifier, uint8_t (*track_proc)(int, const void *, sound_source *), const void *track_data, int16_t track_data_size, uint8_t is_local_player);
 extern uint32_t *get_global_local_random_seed_address(void);
 #include <stdint.h>
+#include "headers/spatialization_mode.h"
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
 /* Evict the cached permutations of a music (class 32) track sound. Returns 0 (caller should stop
@@ -108,7 +109,7 @@ void process_looping_sounds(void)
 
                                 source.gain = detail->gain;
                                 source.scale = scale;
-                                source.spatialization_mode = (spatialization == 0) + 1;
+                                source.spatialization_mode = (spatialization == _sound_spatialization_mode_none) + 1;
                                 detail_sound_random_offset(detail, &tracking.position_offset);
                                 track_loop_impulse_sound(i, &tracking, &source);
                                 /* register a specific callback into the generic void*-data callback slot: funcptr cast is faithful */

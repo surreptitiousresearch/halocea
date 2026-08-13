@@ -43,6 +43,7 @@
 #include "headers/collision_result_type.h"
 #include "headers/unit_melee_attack_state.h"
 #include "headers/blam_data_globals.h"
+#include "headers/unit_grenade_type.h"
 
 
 
@@ -254,7 +255,7 @@ void unit_cause_player_melee_damage(int unit_index)
                     object_placement_data placement;
                     /* grenades.address dword[29] = grenades[1].item.index (the plasma-grenade item) */
                     object_placement_data_new(&placement,
-                                              ((game_globals_grenade *)global_game_globals->grenades.address)[1].item.index,
+                                              ((game_globals_grenade *)global_game_globals->grenades.address)[_unit_grenade_covenant_plasma].item.index,
                                               best_object);
                     int grenade_index = object_new(&placement);
                     if ( grenade_index != -1 )
@@ -262,9 +263,9 @@ void unit_cause_player_melee_damage(int unit_index)
                         object_disconnect_from_map(grenade_index);
                         unit_drop_item(best_object, grenade_index);
                     }
-                    char grenade_count = struck_data->unit.grenade_counts[1];
+                    char grenade_count = struck_data->unit.grenade_counts[_unit_grenade_covenant_plasma];
                     if ( grenade_count > 0 )
-                        struck_data->unit.grenade_counts[1] = grenade_count - 1;
+                        struck_data->unit.grenade_counts[_unit_grenade_covenant_plasma] = grenade_count - 1;
                 }
 
                 if ( hcex_recharge_on_melee )

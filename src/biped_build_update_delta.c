@@ -21,6 +21,7 @@
 #include "headers/biped_update_body.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/unit_grenade_type.h"
 
 
 typedef struct _field_properties_definition _field_properties_definition;
@@ -61,8 +62,8 @@ int biped_build_update_delta(int object_index, void *buffer, int buffer_size_in_
 
         int16_t shield_stun_ticks = object->object.shield_stun_ticks;
         /* DEVIATION: was a 16-bit pun copy spanning both bytes of char[2]; element-wise copy is identical */
-        payload.grenade_counts[0] = object->unit.grenade_counts[0];
-        payload.grenade_counts[1] = object->unit.grenade_counts[1];
+        payload.grenade_counts[0] = object->unit.grenade_counts[_unit_grenade_human_fragmentation];
+        payload.grenade_counts[1] = object->unit.grenade_counts[_unit_grenade_covenant_plasma];
         payload.body_vitality = object->object.body_vitality;
         payload.shield_stun_ticks_greater_than_zero = (shield_stun_ticks > 0);
 

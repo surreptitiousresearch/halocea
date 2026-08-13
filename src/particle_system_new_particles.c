@@ -22,6 +22,7 @@
 #include "headers/particle_system_flags.h"
 #include "headers/particle_system_type_flags.h"
 #include "headers/particle_system_type.h"
+#include "headers/particle_system_type_create.h"
 #include "headers/particle_type.h"
 #include "headers/ps_particle_datum.h"
 #include "headers/object_marker.h"
@@ -186,6 +187,9 @@ role_resolved:
 
                 {
                     int16_t marker = seed_random_range(get_global_local_random_seed_address(), 0, marker_count);
+                    /* creation_function's domain is enum particle_system_type_create
+                     * (headers/particle_system_type_create.h) — the index arrives from tag
+                     * data, never a literal */
                     particle_creation_functions[creation_function](system, type_index, particle, &markers[marker]);
                 }
                 scenario_location_from_point(&particle->location, &particle->position);

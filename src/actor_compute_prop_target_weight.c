@@ -24,6 +24,7 @@
 #include "headers/actor_type.h"
 #include "headers/ai_line_of_sight.h"
 #include "headers/blam_data_globals.h"
+#include "headers/prop_facing.h"
 
 extern uint8_t actor_has_ranged_weapon(int actor_index);
 extern weapon_definition *actor_get_weapon_definition(int actor_index);
@@ -122,7 +123,7 @@ float actor_compute_prop_target_weight(int actor_index, int prop_index)
         {
             threat_band = 3;
         }
-        else if ( !actor->meta.swarm && prop->shooting && prop->quantized_facing <= 1 )
+        else if ( !actor->meta.swarm && prop->shooting && prop->quantized_facing <= _prop_facing_nearby )
         {
             threat_band = 5;
         }

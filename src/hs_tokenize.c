@@ -29,7 +29,7 @@ int hs_tokenize(hs_tokenizer *state)
     node->___u1.function_index = -1;
     node->next_node_index = -1;
     /* flags = 1 for a primitive token, 0 for a group; the decompiler's arithmetic reduces to (cursor != '(') */
-    node->flags = (*state->cursor == '(') ? 0 : 1;
+    node->flags = (*state->cursor == '(') ? 0 : (1u << _hs_syntax_node_primitive_bit);
 
     if ( (node->flags & (1u << _hs_syntax_node_primitive_bit)) != 0 )
         hs_tokenize_primitive(state, expression_index);

@@ -58,6 +58,7 @@
 #include "headers/location.h"
 #include "headers/real_point3d.h"
 #include "headers/real_point3d.h"
+#include "headers/prop_facing.h"
 extern float __fsqrts(float);
 extern int _cntlzw(unsigned int);
 
@@ -253,13 +254,13 @@ done_target:;
         lateral = 3.4028235e38f;
 
     if ( facing > 0.99250001f || lateral < 0.5f )
-        prop->quantized_facing = 0;
+        prop->quantized_facing = _prop_facing_direct;
     else if ( facing > 0.90630001f || lateral < 1.5f )
-        prop->quantized_facing = 1;
+        prop->quantized_facing = _prop_facing_nearby;
     else if ( facing <= 0.5f )
-        prop->quantized_facing = (facing <= 0.0f) ? 4 : 3;
+        prop->quantized_facing = (facing <= 0.0f) ? _prop_facing_behind : _prop_facing_peripheral;
     else
-        prop->quantized_facing = 2;
+        prop->quantized_facing = _prop_facing_central;
 
     int current_state = prop->state;
     /* cntlzw(x-1) & 0x20 <=> x == 1: unit effect 1 is "shooting" */
@@ -469,7 +470,7 @@ done_target:;
             prop->ineffability = 0;
             if ( !sound_class2 )
                 prop->ineffability = 3;
-            if ( prop->flashlight && prop->quantized_facing <= 2 && prop->quantized_distance <= _prop_distance_middle
+            if ( prop->flashlight && prop->quantized_facing <= _prop_facing_central && prop->quantized_distance <= _prop_distance_middle
               && (!prop->line_of_sight || prop->line_of_sight == _ai_line_of_sight_occluded) )
             {
                 int extrasensory = prop->ineffability;

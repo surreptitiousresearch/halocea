@@ -28,6 +28,7 @@
 #include "headers/biped_datum.h"
 #include <string.h>
 #include "headers/blam_data_globals.h"
+#include "headers/unit_grenade_type.h"
 
 
 typedef struct _field_properties_definition _field_properties_definition;
@@ -117,7 +118,7 @@ void biped_new_from_network(message_delta_processor_header *header, network_game
     biped->unit.___u87.most_recent_control_data_for_network.looking_vector.n[0] = movement_block0;
     biped->unit.___u87.most_recent_control_data_for_network.looking_vector.n[1] = movement_block1;
     biped->unit.___u87.most_recent_control_data_for_network.looking_vector.n[2] = movement_block2;
-    biped->unit.grenade_counts[0] = predicted_grenades0;
-    biped->unit.grenade_counts[1] = predicted_grenades1;
+    biped->unit.grenade_counts[_unit_grenade_human_fragmentation] = predicted_grenades0;
+    biped->unit.grenade_counts[_unit_grenade_covenant_plasma] = predicted_grenades1;
     biped->unit.is_from_network_data_valid = 1;
 }

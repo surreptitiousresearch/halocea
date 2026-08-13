@@ -22,6 +22,7 @@
 #include "headers/prop_perception_state.h"
 #include "headers/actor_unopposable_danger_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/prop_facing.h"
 
 
 int16_t actor_emotion_assess_unopposable_danger(int actor_index, int prop_index)
@@ -36,7 +37,7 @@ int16_t actor_emotion_assess_unopposable_danger(int actor_index, int prop_index)
         return _actor_unopposable_danger_damaging;
 
     if ( prop->shooting )
-        return prop->quantized_facing > 1 ? _actor_unopposable_danger_shooting : _actor_unopposable_danger_shooting_nearby;
+        return prop->quantized_facing > _prop_facing_nearby ? _actor_unopposable_danger_shooting : _actor_unopposable_danger_shooting_nearby;
 
     return prop->visibility >= 2 ? _actor_unopposable_danger_visible : _actor_unopposable_danger_none;
 }

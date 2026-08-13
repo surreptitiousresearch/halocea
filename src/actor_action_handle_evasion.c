@@ -42,6 +42,7 @@
 
 
 #include "headers/ai_information_data.h"
+#include "headers/prop_facing.h"
 extern int game_time_get(void);
 extern uint8_t actor_action_allow_cover_seeking(int actor_index, uint8_t unopposable);
 extern uint8_t actor_action_try_to_seek_cover(int actor_index, uint8_t cover_from_last_visible_location, uint8_t allow_occluded_points);
@@ -129,7 +130,7 @@ uint8_t actor_action_handle_evasion(int actor_index)
             {
                 prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
                 /* prop+0x122 (quantized_facing) <= 2 and prop+0x121 (quantized_distance) <= 1 */
-                if ( prop->quantized_facing <= 2 )
+                if ( prop->quantized_facing <= _prop_facing_central )
                     prop_dangerous = prop->quantized_distance <= _prop_distance_near;
             }
         }

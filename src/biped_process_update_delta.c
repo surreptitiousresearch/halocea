@@ -21,6 +21,7 @@
 #include "headers/biped_update_body.h"
 #include "headers/object_flags.h"
 #include "headers/object_type.h"
+#include "headers/unit_grenade_type.h"
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern uint8_t object_type_is_update_valid(int object_index, const message_delta_processor_mode mode, const int baseline_index_from_update, int message_index_from_update, const int latest_valid_baseline_index, int latest_valid_message_index, const int maximum_message_index);
@@ -62,8 +63,8 @@ void biped_process_update_delta(int object_index, message_delta_processor_header
     }
 
     /* DEVIATION: was a 16-bit pun copy over char[2] (payload_a>>16, BE bytes 0-1); element-wise copy */
-    biped->unit.grenade_counts[0] = body.grenade_counts[0];
-    biped->unit.grenade_counts[1] = body.grenade_counts[1];
+    biped->unit.grenade_counts[_unit_grenade_human_fragmentation] = body.grenade_counts[0];
+    biped->unit.grenade_counts[_unit_grenade_covenant_plasma] = body.grenade_counts[1];
     biped->object.body_vitality = body.body_vitality;
 
     float tripled_crouch = body.shield_vitality * 3.0f;

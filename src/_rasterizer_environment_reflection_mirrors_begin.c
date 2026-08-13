@@ -38,8 +38,13 @@ extern void D3DDevice_SetSamplerState_SeparateZFilterEnable(D3DDevice *device, u
 
 void _rasterizer_environment_reflection_mirrors_begin(void)
 {
+    /* DEVIATION (member_fidelity, 2026-08-13): the decompiler draft dropped two early-outs
+     * the disasm shows — lbz has_mirror @0x837A6F8C and lhz rasterizer_target + cmplwi 1
+     * @0x837A6F94-A0 (the sibling _rasterizer_environment_reflections_begin has neither). */
     if ( rasterizer_debug_options.drawing_mode
-      || !rasterizer_debug_options.draw_environment_reflection_mirrors )
+      || !rasterizer_debug_options.draw_environment_reflection_mirrors
+      || !global_window_parameters.has_mirror
+      || global_window_parameters.rasterizer_target != 1 )
         return;
 
     D3DDevice_SetRenderState_CullMode(global_d3d_device, D3DCULL_CCW);

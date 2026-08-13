@@ -1,14 +1,5 @@
 #include "dsNODE_CACHE.h"
-
-// ds::MAP<objOBJ*,dsVECTOR<objOBJ*,8>,ds::HASH,ds::CMP,dsNODE_CACHE_ALLOCATOR>::DUMMY — a hash-map
-// node. DB-verified 28-byte layout: while free it is threaded through the intrusive list by
-// {pNext@0, pPrev@4}; those bytes alias the ITEM's {next,key} and the rest is the value payload
-// (a dsVECTOR<objOBJ*,8>). Distinct tag avoids ODR collision with other MAP DUMMY records.
-struct dsObjOBJVecMapDUMMY {
-    dsObjOBJVecMapDUMMY *pNext;  // 0x00 free-list forward link
-    dsObjOBJVecMapDUMMY *pPrev;  // 0x04 free-list back link
-    char                 payload[20]; // 0x08 ITEM value bytes (unused by the allocator)
-};
+#include "dsObjOBJVecMapDUMMY.h"
 
 // ds debug array allocator (operator new[] with a source-location cookie). Boundary.
 void *operator new[](size_t size, const char *file, int line);

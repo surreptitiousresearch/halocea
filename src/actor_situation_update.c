@@ -32,6 +32,7 @@
 #include "headers/ai_line_of_sight.h"
 #include "headers/prop_perception_state.h"
 #include "headers/blam_data_globals.h"
+#include "headers/prop_facing.h"
 extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 
 
@@ -94,7 +95,7 @@ void actor_situation_update(int actor_index)
                     ++actor->situation.cumulative_threats[actor_threat_shooting];
                     if ( threat_category <= actor_threat_shooting ) threat_category = actor_threat_shooting;
                 }
-                if ( prop->quantized_facing <= 2 )
+                if ( prop->quantized_facing <= _prop_facing_central )
                 {
                     if ( visibility >= 2 )
                     {
@@ -106,14 +107,14 @@ void actor_situation_update(int actor_index)
                             if ( threat_category <= actor_threat_extremely_close_to_me ) threat_category = actor_threat_extremely_close_to_me;
                         }
                     }
-                    if ( prop->quantized_facing <= 1 )
+                    if ( prop->quantized_facing <= _prop_facing_nearby )
                     {
                         if ( prop->shooting )
                         {
                             ++actor->situation.cumulative_threats[actor_threat_shooting_near_me];
                             if ( threat_category <= actor_threat_shooting_near_me ) threat_category = actor_threat_shooting_near_me;
                         }
-                        if ( prop->quantized_facing <= 0 )
+                        if ( prop->quantized_facing <= _prop_facing_direct )
                         {
                             if ( visibility >= 2 )
                             {

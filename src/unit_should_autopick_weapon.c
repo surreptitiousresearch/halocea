@@ -1,6 +1,6 @@
 /* unit_should_autopick_weapon @0x836A96D0 — decide whether a unit should automatically pick up a weapon it
  * is standing on, rather than only being offered a manual "pick up" prompt. A weapon is auto-picked when the
- * unit can pick it up and the weapon definition is flagged for it (weapon.flags & 0x10), or when the unit is
+ * unit can pick it up and the weapon definition is flagged for it (1u << _weapon_doesnt_count_toward_maximum_bit), or when the unit is
  * currently unarmed, or — outside a running multiplayer game engine — when the unit can pick it up and is
  * carrying fewer than two weapons. Otherwise the game engine gets a final say via game_engine_force_autopickup. */
 

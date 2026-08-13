@@ -274,9 +274,9 @@ void widget_instance_process_one_event_recursive(widget_instance *widget,
             if ( event->type == event_type_button && event->value.button_value.value == 1 )
             {
                 int b = event->value.button_value.button;
-                if ( b == 9 )
+                if ( b == _widget_event_button_dpad_down )
                     goto list20_next;
-                if ( b == 8 )
+                if ( b == _widget_event_button_dpad_up )
                     goto list20_prev;
             }
             else if ( event->type == event_type_left_analog_stick )

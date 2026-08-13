@@ -3,13 +3,12 @@
 
 /* biped_datum_flags — bit indices for the RUNTIME _biped_datum.biped.flags word (distinct from the
  * tag-side biped_definition_flags $D3F47BAF). Use as (1u << _bit).
- * No enum survives in headers_ref or the IDA DB; only bit 0 is confidently named:
- *   bit 0 = airborne. Anchors: unit_melee_attack_begin selects animation state
- *   (bit0 set ? 31 _unit_state_melee_airborne : 30 _unit_state_melee_attack);
- *   biped_exit_seat_end sets |1 (you leave a seat airborne); infection_swarm_control skips ground
- *   steering while it is set.
- * Other observed bits, unnamed: bit 1 (set alongside bit 0 by biped_accelerate's |= 3 on physics
- * wake), bit 5 (limp state per the flags-pass audit). */
+ * All 6 bits are DB-named via types_enum_values $7D1C0399 (the earlier "no enum survives /
+ * bits 1 and 5 unnamed" prose predated the enum extraction and was stale — corrected
+ * 2026-08-13). Behavioral anchors still hold: bit 0 airborne (unit_melee_attack_begin picks
+ * _unit_state_melee_airborne on it; biped_exit_seat_end sets it; infection_swarm_control
+ * skips ground steering on it); bits 0|1 set together by biped_accelerate on physics wake;
+ * bit 5 = limp-body physics. */
 /* layout bound to DB enum: types_enum_values _7D1C039996C018E08DA24C04FB666BB9 */
 enum biped_datum_flags {
 	_biped_airborne_bit = 0x0,

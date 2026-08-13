@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "headers/animation_playback_controller.h"
 #include "headers/animation_event_v1.h"
+#include "headers/playback_v1_event_type.h"
 
 typedef struct unit_control_data unit_control_data;
 
@@ -23,7 +24,7 @@ uint8_t recorded_animation_apply_event_stream_v1(animation_playback_controller *
 
     while ( *ticks >= event->time_delta )
     {
-        if ( event->type == 1 )
+        if ( event->type == _playback_v1_end )
             break;
 
         void (*apply)(unit_control_data *, const animation_event_v1 *, const char **) =
@@ -37,7 +38,7 @@ uint8_t recorded_animation_apply_event_stream_v1(animation_playback_controller *
         event = (const animation_event_v1 *)*playback_stream;
     }
 
-    if ( event->type != 1 )
+    if ( event->type != _playback_v1_end )
         return 1;
     return *ticks == event->time_delta ? 0 : 1;
 }

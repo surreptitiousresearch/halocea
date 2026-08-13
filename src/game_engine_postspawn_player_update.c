@@ -21,6 +21,7 @@
 #include "headers/game_engine_weapons.h"
 #include "headers/game_engine_universal_variant_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/unit_grenade_type.h"
 
 /* game_engine: canonical decl from game_engine.h (via blam_data_globals.h) */
 
@@ -123,6 +124,6 @@ void game_engine_postspawn_player_update(int player_index)
         frag_count = frag_maximum;
     if (plasma_count > plasma_maximum)
         plasma_count = plasma_maximum;
-    unit->unit.grenade_counts[0] = (char)frag_count;
-    unit->unit.grenade_counts[1] = (char)plasma_count;
+    unit->unit.grenade_counts[_unit_grenade_human_fragmentation] = (char)frag_count;
+    unit->unit.grenade_counts[_unit_grenade_covenant_plasma] = (char)plasma_count;
 }

@@ -7,7 +7,7 @@
  *   2. Gate the transition by the current state: fire/misfire states are rejected unless the viewmodel is
  *      idle or in an allowed prior state; light on/off require idle-or-posing; re-entering ready is
  *      rejected. A rejected transition sets the target to -1 and does nothing.
- *   3. Shotgun special-case: for a single-round-reload weapon (weapon_type == 3) entering overheated,
+ *   3. Plasma-pistol special-case: for weapon_type == _weapon_type_plasma_pistol (3) entering overheated,
  *      collapse to idle unless the weapon's flags bit 0 is set.
  *   4. Resolve the animation type, pick an interpolation blend length, and if the resolved animation exists:
  *      optionally stop the current looping sound (when reset_sounds is set), start the interpolation, and
@@ -134,7 +134,7 @@ void first_person_weapon_set_state(int16_t local_player_index, int16_t new_state
     if ( reset_sounds )
     {
         int current_sound_index = fp_weapon->current_sound_index;
-        if ( current_sound_index != -1 && fp_weapon->current_sound_state != 1 )
+        if ( current_sound_index != -1 && fp_weapon->current_sound_state != _first_person_weapon_state_overheating )
         {
             sound_stop_impulse(current_sound_index);
             fp_weapon->current_sound_index = -1;

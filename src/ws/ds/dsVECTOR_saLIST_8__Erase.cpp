@@ -3,24 +3,7 @@
 
 extern "C" void *memmove(void *dst, const void *src, unsigned int n); // boundary — CRT
 
-class msgADDR; // boundary — msg-system endpoint address
-
-// boundary — sa/ds intrusive message-address list. DB layout is 20 bytes; only Clear() (destroy all
-// nodes and reset to empty) is invoked by Erase.
-namespace ds {
-template<class T>
-struct LIST {
-    unsigned char _body[20]; // 0x00 opaque list head
-    void Clear(); // boundary
-};
-}
-
-// boundary — sa subsystem list element. DB-verified (types_members saLIST): msg@0 (int),
-// addList@4 (ds::LIST<msgADDR*>, 20 bytes) — size 24.
-struct saLIST {
-    int                 msg;     // 0x00
-    ds::LIST<msgADDR *> addList; // 0x04
-};
+#include "../msg/saLIST.h"
 
 // dsVECTOR<saLIST,8>::Erase @ 0x82AC62C0
 // Remove `n` saLIST elements starting at index `pos`. Each element owns an addList whose nodes must

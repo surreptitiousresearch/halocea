@@ -12,6 +12,7 @@
 #include "headers/unit_datum.h"
 #include "headers/object_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/unit_grenade_type.h"
 
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
@@ -41,7 +42,7 @@ void player_add_equipment(int unit_index, int16_t profile_index, uint8_t reset)
         unit_delete_all_weapons(unit_index);
         unit->object.shield_vitality = 0.0f;
         unit->object.body_vitality = 0.0f;
-        for (int i = 0; i < 2; i = (int16_t)(i + 1))
+        for (int i = 0; i < NUMBER_OF_UNIT_GRENADE_TYPES; i = (int16_t)(i + 1))
             unit->unit.grenade_counts[i] = 0;
     }
 
@@ -61,6 +62,6 @@ void player_add_equipment(int unit_index, int16_t profile_index, uint8_t reset)
 
     unit->object.shield_vitality += profile->starting_shield;
     unit->object.body_vitality += profile->starting_health;
-    for (int i = 0; i < 2; i = (int16_t)(i + 1))
+    for (int i = 0; i < NUMBER_OF_UNIT_GRENADE_TYPES; i = (int16_t)(i + 1))
         unit->unit.grenade_counts[i] += profile->starting_grenade_counts[i];
 }

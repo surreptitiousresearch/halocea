@@ -55,6 +55,7 @@
 #include "headers/scenario_type.h"
 #include "headers/blam_data_globals.h"
 #include "headers/bitmap_group_type.h"
+#include "headers/unit_grenade_type.h"
 
 
 extern int16_t local_player_count(void);
@@ -241,7 +242,7 @@ void crosshairs_draw(player_datum *player, int hud_index, weapon_interface_state
                     case _weapon_crosshair_flash_when_throwing_and_no_grenade:
                     {
                         uint8_t no_grenades = 1;
-                        for ( int grenade_type = 0; grenade_type < 2;
+                        for ( int grenade_type = 0; grenade_type < NUMBER_OF_UNIT_GRENADE_TYPES;
                               grenade_type = (int16_t)(grenade_type + 1) )
                         {
                             if ( no_grenades && !unit->unit.grenade_counts[grenade_type] )

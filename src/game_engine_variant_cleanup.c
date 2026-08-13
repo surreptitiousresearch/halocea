@@ -15,10 +15,10 @@
 void game_engine_variant_cleanup(game_variant *variant)
 {
     int mode;
-    if (variant->game_engine_index >= game_engine_ctf)
-        mode = variant->game_engine_index <= game_engine_race ? variant->game_engine_index : 5;
+    if (variant->game_engine_index >= first_usable_game_engine_index)
+        mode = variant->game_engine_index <= last_usable_game_engine_index ? variant->game_engine_index : last_usable_game_engine_index;
     else
-        mode = 1;
+        mode = first_usable_game_engine_index;
     variant->game_engine_index = mode;
 
     universal_variant *u = &variant->universal_variant;
@@ -44,7 +44,7 @@ void game_engine_variant_cleanup(game_variant *variant)
     if (u->vehicle_set.__s1.preset > _game_engine_vehicles_custom)
         u->vehicle_set.__s1.preset = _game_engine_vehicles_custom;
 
-    if (mode == 1)
+    if (mode == game_engine_ctf)
     {
         ctf_variant *ctf = &variant->game_engine_variant.ctf;
         u->teams = 1;
@@ -54,7 +54,7 @@ void game_engine_variant_cleanup(game_variant *variant)
         ctf->flag_at_home_to_score = ctf->flag_at_home_to_score != 0;
         ctf->single_flag_time = ctf->single_flag_time < 0 ? 0 : ctf->single_flag_time;
     }
-    else if (mode == 2)
+    else if (mode == game_engine_slayer)
     {
         ctf_variant *ctf = &variant->game_engine_variant.ctf;
         ctf->assault = ctf->assault != 0;

@@ -20,6 +20,7 @@
 #include "headers/ai_line_of_sight.h"
 #include "headers/object_damage_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/prop_facing.h"
 
 
 void actor_situation_update_target_status(int actor_index)
@@ -58,7 +59,7 @@ void actor_situation_update_target_status(int actor_index)
         {
             if ((uint16_t)prop->line_of_sight == _ai_line_of_sight_clear || (uint16_t)prop->line_of_sight == _ai_line_of_sight_occluded)
             {
-                if (prop->quantized_facing > 2 || prop->distance >= 6.0f)
+                if (prop->quantized_facing > _prop_facing_central || prop->distance >= 6.0f)
                     status = actor_target_clear_line_of_sight_enemy;
                 else
                     status = actor_target_potentially_dangerous_enemy;

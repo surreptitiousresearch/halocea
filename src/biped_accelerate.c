@@ -17,6 +17,7 @@
 #include "headers/object_damage_flags.h"
 #include "headers/object_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/biped_datum_flags.h"
 extern float __fsqrts(float);
 
 extern uint32_t *get_global_random_seed_address(void);
@@ -48,7 +49,7 @@ void biped_accelerate(int biped_index, real_vector3d *acceleration)
     biped->object.translational_velocity.__s1.j += acceleration->n[1];
     biped->object.translational_velocity.__s1.k += acceleration->n[2];
     biped->object.flags &= ~(1u << _object_at_rest_bit);
-    biped->biped.flags |= 3u;
+    biped->biped.flags |= (1u << _biped_airborne_bit) | (1u << _biped_slipping_bit);
 
     unsigned int definition_biped_flags = definition->biped.flags;
     if ( (damage_flags & (1u << _object_dead_bit)) != 0

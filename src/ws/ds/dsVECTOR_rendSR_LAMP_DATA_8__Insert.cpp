@@ -2,8 +2,7 @@
 #include "dsVECTOR.h"
 #include "ds_assert_boundary.h"
 
-// boundary — rend-subsystem lamp record; DB-verified as a single 4-byte { unsigned int data } POD.
-struct rendSR_LAMP_DATA { unsigned int data; };
+#include "../rend/rendSR_LAMP_DATA.h"
 
 // dsVECTOR<rendSR_LAMP_DATA,8>::Insert @ 0x8252E328
 // Splice `count` lamp records from `begin` in at index `pos`.

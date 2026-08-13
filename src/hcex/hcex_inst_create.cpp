@@ -100,16 +100,7 @@ extern animTPL *gsExtFindTplName(const char *name, void *affixes, int flags);
 extern entENTITY *entCreate(scnSCENE *scene, const char *nameClass, const char *nameTpl,
                 struct entCREATE_DATA *pCD, void *pMsgData);
 
-/* entCREATE_DATA : animCREATE_DATA + a dominant-spawn override pointer — DB-verified (232-byte
- * animCREATE_DATA base + gsDOM_SPAWN* @0xE8, total 236 bytes). Restated here (rather than
- * including the plain-byte entCREATE_DATA.h) so animCREATE_DATA::operator= slices into it
- * normally. */
-struct gsDOM_SPAWN; // boundary
-struct entCREATE_DATA : animCREATE_DATA {
-    gsDOM_SPAWN *pDomSpawn; // 0xE8
-    entCREATE_DATA();       // boundary
-    ~entCREATE_DATA();      // boundary
-};
+#include "../headers/entCREATE_DATA.h"
 
 extern "C" int sprintf_0(char *string, const char *format, ...);
 void _apLog(const char *format, ...);

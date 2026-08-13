@@ -35,6 +35,7 @@
 #include "headers/prop_distance.h"
 #include "headers/blam_data_globals.h"
 #include "headers/real_point3d.h"
+#include "headers/prop_facing.h"
 extern void prop_iterator_new(prop_iterator *iterator, int actor_index);
 
 
@@ -470,7 +471,7 @@ clear_definite:
                 prop->just_became_visible = 0;
             }
             if ( !actor->emotions.sighted_friendly_player && !prop->enemy && prop->player && prop->visibility >= 2
-              && prop->quantized_facing <= 2 && prop->distance < 7.0f )
+              && prop->quantized_facing <= _prop_facing_central && prop->distance < 7.0f )
             {
                 uint8_t new_enemy = 0;  /* friendly player sighting — never a new enemy */
                 actor->emotions.sighted_friendly_player = 1;
@@ -480,7 +481,7 @@ clear_definite:
             if ( actor->meta.unit_index != -1 && !prop->dead && prop->ally && prop->ally_status_changed )
             {
                 uint8_t is_enemy = game_team_is_enemy(actor->meta.team_index, prop->team_index);
-                float radius = is_enemy ? 15.0f : (prop->quantized_facing > 2 ? 3.0f : 10.0f);
+                float radius = is_enemy ? 15.0f : (prop->quantized_facing > _prop_facing_central ? 3.0f : 10.0f);
                 uint8_t in_radius = prop->distance < radius;
                 if ( is_enemy && prop->currently_damaging_me )
                     in_radius = 1;

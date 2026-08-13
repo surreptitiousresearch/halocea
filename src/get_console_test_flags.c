@@ -30,7 +30,7 @@ uint16_t get_console_test_flags(uint16_t extra_flags)
         player_profile profile;
         player_ui_get_active_player_profile(0, &profile);
         if ( ((profile.flags >> _profile_finished_game_bit) & 1) == 0 )
-            base = 8193;
+            base = (1u << _hs_console_allowed_default) | (1u << (_hs_console_cheating + HS_CONSOLE_DISALLOW_SHIFT));
         mode_flags = base | (1u << _hs_console_idle);
     }
 

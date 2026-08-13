@@ -56,9 +56,9 @@ void collision_features_from_line(const real_point3d *point, const real_vector3d
 
     float lowered_z = (point->n[2] - height);
 
-    if ( features->count[1] < 256 )
+    if ( features->count[_collision_feature_cylinder] < 256 )
     {
-        collision_cylinder *cylinder = &features->cylinders[features->count[1]++];
+        collision_cylinder *cylinder = &features->cylinders[features->count[_collision_feature_cylinder]++];
         cylinder->object_index = object_index;
         cylinder->surface_index = surface_index;
         cylinder->flags = flags;
@@ -123,9 +123,9 @@ void collision_features_from_line(const real_point3d *point, const real_vector3d
     corners[3] = point->n[0]; corners[4] = point->n[1];  corners[5]  = lowered_z;
     corners[9] = far_x;       corners[10] = far_y;       corners[11] = far_z;
 
-    if ( features->count[2] < 256 )
+    if ( features->count[_collision_feature_prism] < 256 )
     {
-        collision_prism *prism = &features->prisms[features->count[2]++];
+        collision_prism *prism = &features->prisms[features->count[_collision_feature_prism]++];
         prism->object_index = object_index;
         prism->surface_index = surface_index;
         prism->flags = flags;

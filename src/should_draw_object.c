@@ -30,7 +30,7 @@ uint8_t should_draw_object(int object_index)
 
     unit_datum *object = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum);
 
-    if ((object->unit.control_flags & (1u << _unit_control_weapon_primary_trigger_bit)) || (object->unit.grenade_throw_state && object->unit.grenade_throw_state != _grenade_throw_state_released))
+    if ((object->unit.control_flags & (1u << _unit_control_weapon_primary_trigger_bit)) || (object->unit.grenade_throw_state && object->unit.grenade_throw_state != _unit_grenade_throw_ending))
         return 1;
 
     real_vector3d velocity;

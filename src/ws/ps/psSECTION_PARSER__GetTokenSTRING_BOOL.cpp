@@ -92,7 +92,7 @@ int psSECTION_PARSER::GetTokenSTRING_BOOL(psTOKEN &tok, unsigned int flags)
         return 1;
     }
 
-    if ((flags & 4) == 0) {
+    if ((flags & PSGT_WAIT_IDENT) == 0) {
         unsigned int boolData = 0;
         if (psBOOL::IsThisBoolString(tok.begin, (int)(read.pos - tok.begin), &boolData)) {
             tok.id = 260; // BOOL

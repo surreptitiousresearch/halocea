@@ -5,6 +5,7 @@
 #include <string.h>
 #include "headers/input_abstraction_globals.h"
 #include "headers/blam_data_globals.h"
+#include "headers/auxbutton.h"
 
 extern uint32_t main_get_mseconds(void);
 extern void input_key_debounce_update(void);
@@ -24,7 +25,7 @@ void input_abstraction_update(void) /* attested void: tail restgprlr, 0/1 caller
     input_key_debounce_update();
 
     i = 0;
-    for ( m = keyboard_auxbutton_mapping; m < &keyboard_auxbutton_mapping[3]; ++m )   /* DB-typed __int16[3] map */
+    for ( m = keyboard_auxbutton_mapping; m < &keyboard_auxbutton_mapping[NUMBER_OF_AUXCONTROL_BUTTONS]; ++m )   /* DB-typed __int16[3] map */
     {
         result = input_key_is_down(*m);
         input_abstraction_globals.auxbutton_ticks[i++] = (unsigned char)result;

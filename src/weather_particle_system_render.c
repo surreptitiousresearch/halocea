@@ -125,7 +125,7 @@ void weather_particle_system_render(int16_t system_index)
         cube_corners[0] = wrap_offset_x;
         cube_corners[1] = wrap_offset_y;
         cube_corners[2] = wrap_offset_z;
-        for ( int plane = 0; plane < 5; ++plane )
+        for ( int plane = 0; plane < NUMBER_OF_CLIPPING_PLANES; ++plane )
             cube_plane_distance[plane] = clip_planes[plane].normal.n[0] * wrap_offset_x
                                        + (clip_planes[plane].normal.n[2] * wrap_offset_z
                                         + clip_planes[plane].normal.n[1] * wrap_offset_y);
@@ -193,7 +193,7 @@ void weather_particle_system_render(int16_t system_index)
 
             /* Signed distance of the particle's box-local position to each clip plane. */
             float particle_clip_distance[NUMBER_OF_CLIPPING_PLANES];
-            for ( int plane = 0; plane < 5; ++plane )
+            for ( int plane = 0; plane < NUMBER_OF_CLIPPING_PLANES; ++plane )
                 particle_clip_distance[plane] =
                     (local_x * clip_planes[plane].normal.n[0]
                    + (clip_planes[plane].normal.n[1] * local_y + clip_planes[plane].normal.n[2] * local_z))

@@ -37,6 +37,7 @@
 
 
 #include "headers/model.h"
+#include "headers/observer_time_flags.h"
 extern float game_time_get_speed(void);
 extern uint8_t game_time_get_paused(void);
 extern void animation_get_root_matrix(const model *model, const animation *animation, int16_t frame_index, real_matrix4x3 *matrix);
@@ -173,7 +174,7 @@ void scripted_camera_update(dead_camera *camera, const camera_control *controls,
                     result->___u1.__s0.focus_offset.n[0] = sine * offset_y + cosine * offset_x;
                     result->___u1.__s0.focus_offset.n[2] = offset_z;
                     result->___u1.__s0.focus_offset.n[1] = sine * offset_x - cosine * offset_y;
-                    result->___u4.__s0.position_flags = 1;
+                    result->___u4.__s0.position_flags = (1u << _observer_time_valid_bit);
                     result->___u5.__s0.position_timer = 0.0f;
                     result->flags |= (1 << _observer_command_valid_bit);
                 }

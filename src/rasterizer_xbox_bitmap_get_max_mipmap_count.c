@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include "headers/bitmap_data.h"
+#include "headers/bitmap_flags.h"
 
 extern int16_t floor_log2(unsigned int k);
 
@@ -17,14 +18,14 @@ int16_t rasterizer_xbox_bitmap_get_max_mipmap_count(const bitmap_data *bitmap)
 {
     uint16_t flags = bitmap->flags;
 
-    if ( (flags & 1) == 0 || (flags & 0x10) != 0 )
+    if ( (flags & 1) == 0 || (flags & (1u << _bitmap_linear_bit)) != 0 )
         return 0;
 
     int width  = bitmap->width;
     int height = bitmap->height;
     int depth  = bitmap->depth;
 
-    if ( (flags & 2) != 0 )
+    if ( (flags & (1u << _bitmap_compressed_bit)) != 0 )
     {
         width  /= 4;
         height /= 4;

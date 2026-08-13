@@ -1,5 +1,5 @@
 /* _byte_swap_data @0x83814150 — recursive, code-driven endian byte-swapper for tag structures. `codes` is a
- * swap-code stream: codes[0]=element size, codes[1]=element count, codes[2..] the per-field opcodes. It walks
+ * swap-code stream: codes[0]=_begin_bs_array (never read), codes[1]=element count, codes[2..] the per-field opcodes. It walks
  * the opcodes `count` times over `data`, reversing each field in place, and reports how many bytes and how many
  * codes it consumed through the two out-params. Opcodes: -2/-4/-8 reverse a 2/4/8-byte field; a positive value
  * skips that many bytes; -101 ends one element; -100 recurses into a nested array using the same definition;

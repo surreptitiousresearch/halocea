@@ -45,6 +45,7 @@
 #include "headers/shader_model.h"
 
 #include "headers/real_matrix4x3.h"
+#include "headers/render_model_flags.h"
 extern uint8_t shader_type_is_valid_for_model(int16_t shader_type);
 extern uint8_t shader_type_is_transparent(int16_t shader_type);
 extern void rasterizer_model_setupnodeparts(int num_nodes, const uint8_t *node_table, real_matrix4x3 *node_matrices);
@@ -63,7 +64,7 @@ void render_model_parts(
         int16_t forced_shader_permutation_index,
         int flags)
 {
-    int max_pass_index = ~flags & 2;                        /* 2 for a full 3-pass draw, 0 for opaque-only */
+    int max_pass_index = ~flags & (1u << _render_model_shadow_bit);  /* 2 for a full 3-pass draw, 0 for opaque-only */
     unsigned char suppress_transparent_links = flags & 1;
 
     real_point3d sort_scratch[58];
@@ -155,7 +156,7 @@ void render_model_parts(
                         if (!forced_shader_permutation_index)
                             shader_permutation = shader_ref->permutation_index;
 
-                        if (flags & 2)
+                        if (flags & (1u << _render_model_shadow_bit))
                         {
                             rasterizer_environment_shadow_model_draw(part_shader, shader_permutation,
                                     &part->triangle_buffer, &part->vertex_buffer);

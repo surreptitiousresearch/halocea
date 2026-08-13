@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
+#include "headers/render_constants.h"
 /* main_get_window_count @0x83689D60 — number of player viewports to render this frame: forced to 1 for
  * single-screen, cinematic or coop; otherwise the local player count clamped to 1..2. */
 
@@ -13,7 +14,7 @@ int16_t main_get_window_count(void)
         return 1;
     if ( local_player_count() < 1 )
         return 1;
-    if ( local_player_count() <= 2 )
+    if ( local_player_count() <= MAXIMUM_WINDOWS )
         return local_player_count();
-    return 2;
+    return MAXIMUM_WINDOWS;
 }

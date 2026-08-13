@@ -17,9 +17,9 @@ void collision_features_from_point(const real_point3d *point, float height, floa
                                    uint8_t breakable_surface_index, int16_t material_index,
                                    collision_feature_list *features)
 {
-    if ( features->count[0] < 256 )
+    if ( features->count[_collision_feature_sphere] < 256 )
     {
-        collision_sphere *sphere = &features->spheres[features->count[0]++];
+        collision_sphere *sphere = &features->spheres[features->count[_collision_feature_sphere]++];
         sphere->object_index = object_index;
         sphere->surface_index = surface_index;
         sphere->flags = flags;

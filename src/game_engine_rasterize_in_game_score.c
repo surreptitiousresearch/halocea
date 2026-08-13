@@ -42,6 +42,7 @@
 #include "headers/multiplayer_game_text_string.h"
 
 #include "headers/point2d.h"
+#include "headers/game_engine_place_constants.h"
 extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern int select_players_to_display(statistic_buffer *out_players, enum postgame_statistic statistic, int requested_count, int unused_max_capacity);
@@ -172,12 +173,12 @@ void game_engine_rasterize_in_game_score(int player_index, float alpha)
                         : unicode_string_list_get_string(text_tag_index, _string_quit);
             }
 
-            int rank = 31;
-            if ((entry->place & 0x7F) <= 0x1F)
+            int rank = maximum_places - 1;
+            if ((entry->place & 0x7F) < maximum_places)   /* rank clamp (0x1F = maximum_places - 1), not a string-index cap */
                 rank = entry->place & 0x7F;
             text_tag_index = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             const wchar_t *rank_text = text_tag_index == -1 ? empty_wide_string
-                    : unicode_string_list_get_string(text_tag_index, rank + 36);
+                    : unicode_string_list_get_string(text_tag_index, rank + _string_1st);
 
             usprintf(line_buffer, L"\t%s\t%s\t%s", rank_text, player->name, status_text);
 

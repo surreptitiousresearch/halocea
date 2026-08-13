@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "headers/game_engine.h"
 #include "headers/game_engine_type.h"
-#include "headers/netgame_game_type_category.h"
+#include "headers/game_matching_option.h"
 
 /* attested uint8_t: 4/4 callers clrlwi r3,24 */
 uint8_t match_game_type(int game_engine_type, int count, const int16_t *game_type)
@@ -21,13 +21,13 @@ uint8_t match_game_type(int game_engine_type, int count, const int16_t *game_typ
             result |= (game_engine_type == entry);
             switch (entry)
             {
-                case _netgame_game_type_all_games:
+                case _game_engine_all:
                     result = (uint8_t)result | 1;
                     break;
-                case _netgame_game_type_all_except_ctf:
+                case _game_engine_all_non_team:
                     result |= (game_engine_type != game_engine_ctf);
                     break;
-                case _netgame_game_type_all_except_ctf_race:
+                case _game_engine_all_normal:
                 {
                     char matches = 1;
                     if (game_engine_type == game_engine_ctf || game_engine_type == game_engine_race)

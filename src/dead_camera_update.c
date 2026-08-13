@@ -19,6 +19,7 @@
 
 #include "headers/real_euler_angles2d.h"
 #include "headers/real_vector3d.h"
+#include "headers/observer_time_flags.h"
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern real_vector3d *vector3d_from_euler_angles2d(real_vector3d *vector, const real_euler_angles2d *angles);
 extern void observer_up_from_forward(const real_vector3d *forward, real_vector3d *up);
@@ -55,13 +56,13 @@ void dead_camera_update(dead_camera *camera, const camera_control *controls, obs
     result->focus_velocity = *global_zero_vector3d;
     result->flags = 1;
 
-    result->___u4.__s0.position_flags = 3;
+    result->___u4.__s0.position_flags = ((1u << _observer_time_valid_bit) | (1u << _observer_time_force_bit));
     result->timer = camera->timer >= 0.0f ? camera->timer : 0.0f;   /* fsel: max(timer, 0) */
     result->___u5.__s0.position_timer = 0.0f;
     if ( camera->timer == 3.0f )
     {
         result->___u5.__s0.distance_timer = 0.0f;
-        result->___u4.__s0.distance_flags = 3;
+        result->___u4.__s0.distance_flags = ((1u << _observer_time_valid_bit) | (1u << _observer_time_force_bit));
         result->___u1.__s0.focus_distance = 0.5f;
     }
 

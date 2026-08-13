@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <windows.h>
 #include "headers/file_reference.h"
+#include "headers/permission_flags.h"
 
 /* memset provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
@@ -20,7 +21,7 @@ uint8_t file_open(file_reference *file, unsigned int flags)
 
     if ( flags & 1 )
         access = 0x80000000;
-    if ( flags & 2 )
+    if ( flags & (1u << _permission_write_bit) )
         access |= 0x40000000u;
 
     const char *leaf = tag_name_strip_path(full_path);
@@ -40,7 +41,7 @@ uint8_t file_open(file_reference *file, unsigned int flags)
         opened = 1;
     }
 
-    if ( (unsigned char)opened && (flags & 4)
+    if ( (unsigned char)opened && (flags & (1u << _permission_append_bit))
          && SetFilePointer(file->win32.handle, 0, 0, 2u) == (DWORD)-1 )
     {
         CloseHandle(file->win32.handle);

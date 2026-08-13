@@ -11,7 +11,7 @@ extern void hkdAssetProcessingUtil_convertAttributesToProperties(
 void hkdBreakableShape_setSimpleValuesFromBlueprint(hkdBreakableShape *self, const hkdShape *shapeBp)
 {
     if (!shapeBp->m_flattenChildCompounds.m_bool)
-        self->m_flags |= 2u;
+        self->m_flags |= FLAG_DO_NOT_FLATTEN_RECURSIVE_COMPOUNDS;
     self->m_strength                = shapeBp->m_strength;
     self->m_relativeSubpieceStrength = shapeBp->m_relativeSubpieceStrength;
     self->m_minDestructionRadius    = shapeBp->m_destructionRadius;

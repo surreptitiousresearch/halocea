@@ -47,6 +47,7 @@
 #include "headers/network_game_server.h"
 #include "headers/rasterizer_dynamic_screen_geometry_parameters.h"
 #include "headers/point2d.h"
+#include "headers/game_engine_place_constants.h"
 extern const wchar_t empty_wide_string[]; /* .rdata @0x820309EC - the shared L"" literal (def: src/data/empty_wide_string.c) */
 
 extern void draw_string_set_draw_mode(int font_index, int16_t style, int16_t justification, unsigned int flags, const real_argb_color *color);
@@ -215,14 +216,14 @@ after_winner:;
             draw_string_set_color(row_color);
             draw_string_set_tab_stops(tab_stops, 6);
 
-            /* Rank column: string (36 + rank), rank clamped to [0,31]. */
+            /* Rank column: string (_string_1st + rank), rank clamped to [0, maximum_places-1]. */
             int rank = entry->place & 0x7F;
-            if (rank > 31)
-                rank = 31;
+            if (rank >= maximum_places)
+                rank = maximum_places - 1;
             text_tag = tag_loaded(0x75737472u /* 'ustr' */, "ui\\multiplayer_game_text");
             const wchar_t *rank_string = (text_tag == -1)
                     ? *(const wchar_t **)background_rect.n
-                    : unicode_string_list_get_string(text_tag, rank + 36);
+                    : unicode_string_list_get_string(text_tag, rank + _string_1st);
             usnprintf(line, 0x100u, L" \t%s", rank_string);
             drawline(line, line_number, 0);
 

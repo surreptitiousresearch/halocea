@@ -32,6 +32,7 @@
 
 
 #include "headers/actor_position_data.h"
+#include "headers/find_actor_flags.h"
 extern float ai_communication_get_player_rating(int unit_index, uint8_t test_line_of_sight, int *unit_index_reference, float *distance_reference);
 extern uint8_t unit_test_animation_impulse(int unit_index, int16_t animation_impulse);
 extern int16_t ai_communication_consider_speech(int unit_index, int16_t communication_priority, int16_t speech_priority, int16_t delay_ticks, uint8_t allow_vocalization_lookup, uint8_t allow_recent_disabling, int16_t *vocalization_type, float *weight, int *sound_definition_index_reference, char *debugstring);
@@ -75,7 +76,7 @@ float ai_communication_actor_talk_weight(int actor_index, int subject_unit_index
         passes = in_range;
     }
 
-    if ( passes && (flags & 2) != 0 )
+    if ( passes && (flags & (1u << _find_actor_near_to_players_bit)) != 0 )
     {
         float player_rating = ai_communication_get_player_rating(actor_unit_index, 0, 0, 0);
         if ( player_rating == 0.0f )
@@ -84,7 +85,7 @@ float ai_communication_actor_talk_weight(int actor_index, int subject_unit_index
             weight = player_rating * 5.0f + 10.0f;
     }
 
-    if ( passes && (flags & 4) != 0 && subject_unit_index != -1 )
+    if ( passes && (flags & (1u << _find_actor_same_vehicle_bit)) != 0 && subject_unit_index != -1 )
     {
         object_datum *subject_object =
             DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, subject_unit_index)->datum;
@@ -117,7 +118,7 @@ float ai_communication_actor_talk_weight(int actor_index, int subject_unit_index
         {
             if ( actor_unit_index == subject_unit_index )
             {
-                if ( (flags & 8) != 0 )
+                if ( (flags & (1u << _find_actor_allow_subject_bit)) != 0 )
                     subject_ok = 1;
                 else
                     passes = 0;
@@ -154,7 +155,7 @@ float ai_communication_actor_talk_weight(int actor_index, int subject_unit_index
         {
             if ( actor_unit_index == cause_unit_index )
             {
-                if ( (flags & 0x10) != 0 )
+                if ( (flags & (1u << _find_actor_allow_cause_bit)) != 0 )
                     cause_ok = 1;
                 else
                     passes = 0;

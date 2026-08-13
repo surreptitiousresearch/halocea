@@ -184,7 +184,7 @@ flush_order_effects:
 
             char flags = obey->simple_control.simple_control_flags;
             obey->simple_control.simple_control_flags = flags | (1u << _obey_simple_jump_jumped_bit);
-            if ( (flags & 0x10) == 0 )
+            if ( (flags & (1u << _obey_simple_jump_targeted_bit)) == 0 )
                 obey->simple_control.___u5.jump.delay_ticks = 15;
         }
 

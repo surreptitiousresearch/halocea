@@ -18,6 +18,7 @@ typedef struct event_record event_record;
 #include "headers/stack_memory_pool.h"
 #include "headers/memory_block.h"
 #include "headers/stack_memory_pool.h"
+#include "headers/widget_deleted_player_control_flags.h"
 extern void player_control_inhibit_buttons(int16_t local_player_index, uint16_t button_flags, uint8_t uninhibit_when_released);
 extern uint8_t ui_widget_event_handler_function_invoke(widget_instance *widget, event_record *event, uint16_t function, unsigned char *widget_deleted);
 extern widget_instance *ui_widget_launch_widget(widget_instance *widget, int new_widget_tag_index);
@@ -47,7 +48,7 @@ void ui_widget_delete(widget_instance *widget)
     widget->delete_recursion_lock = 1;
 
     if ( local_player_index != 0xFFFF && !widget->parent )
-        player_control_inhibit_buttons(local_player_index, 0xFFFu, 1u);
+        player_control_inhibit_buttons(local_player_index, WIDGET_DELETED_PLAYER_CONTROL_INHIBIT_FLAGS, 1u);
 
     /* run on-close handlers */
     definition = TAG_GET(ui_widget_definition, widget->ui_widget_tag_index);

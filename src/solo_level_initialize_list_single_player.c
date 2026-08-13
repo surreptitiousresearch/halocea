@@ -94,9 +94,9 @@ uint8_t solo_level_initialize_list_single_player(widget_instance *list_widget, e
         {
             char flags = profile.single_player_map_flags[level_index];
             single_player_level_data[level_index].level_completed[0] = 1;
-            single_player_level_data[level_index].level_completed[1] = (flags & 2) != 0;
-            single_player_level_data[level_index].level_completed[2] = (flags & 4) != 0;
-            single_player_level_data[level_index].level_completed[3] = (flags & 8) != 0;
+            single_player_level_data[level_index].level_completed[1] = (flags & (1u << game_difficulty_level_normal)) != 0;
+            single_player_level_data[level_index].level_completed[2] = (flags & (1u << game_difficulty_level_hard)) != 0;
+            single_player_level_data[level_index].level_completed[3] = (flags & (1 << game_difficulty_level_impossible)) != 0;
         }
 
         int is_selected = list_widget->parameters.text_box_parameters.string_list_index - level_index;

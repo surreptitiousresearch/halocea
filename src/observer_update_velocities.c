@@ -12,6 +12,7 @@
 #include "headers/observer_command_flags.h"
 #include "headers/observer_parameter.h"
 #include "headers/blam_data_globals.h"
+#include "headers/observer_time_flags.h"
 
 
 void observer_update_velocities(int16_t local_player_index)
@@ -37,7 +38,7 @@ void observer_update_velocities(int16_t local_player_index)
                 int i;
                 /* *group_flags bit1 = per-parameter "pinned/snap" (no named DB enum for parameter_flags);
                  * command force_time_bit collapses the residual to an instant snap */
-                if ( (*group_flags & 2) != 0 || (flags & (1u << _observer_command_force_time_bit)) != 0 )
+                if ( (*group_flags & (1u << _observer_time_force_bit)) != 0 || (flags & (1u << _observer_command_force_time_bit)) != 0 )
                 {
                     memset(vel, 0, 4 * count);
                 }

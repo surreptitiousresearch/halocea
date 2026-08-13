@@ -52,6 +52,7 @@
 #include "headers/vehicle_flags.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
+#include "headers/mass_point_flags.h"
 
 
 extern float scenario_location_water_depth(const location *location, const real_point3d *position);
@@ -357,7 +358,7 @@ void update_alien_scout_physics(int vehicle_index, float steering,
                 if ((uint16_t)mass_point_defs[i].powered_mass_point_index != 0xFFFF)
                 {
                     grounded = (int16_t)(grounded + 1);
-                    if ((mass_points[i].flags & 0x10) != 0)
+                    if ((mass_points[i].flags & (1u << _point_antigraving_bit)) != 0)
                         ++grounded_settled;
                 }
             }

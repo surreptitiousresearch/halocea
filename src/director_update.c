@@ -22,6 +22,7 @@
 
 #include "headers/first_person_camera.h"
 #include "headers/dead_camera.h"
+#include "headers/observer_time_flags.h"
 /* memset declared by <string.h> */
 
 extern int local_player_get_player_index(int16_t local_player_index);
@@ -82,7 +83,7 @@ void director_update(float dt)
                 {
                     /* fast cut back to first person: snap the blended params to their targets */
                     dir->camera_change_pause = 0.0f;
-                    command_buffer.___u4.parameter_flags[3] = 3;
+                    command_buffer.___u4.parameter_flags[3] = ((1u << _observer_time_valid_bit) | (1u << _observer_time_force_bit));
                     command_buffer.parameter_timers[0] = 0.0f;
                     command_buffer.___u4.parameter_flags[2] = 3;
                     command_buffer.parameter_timers[2] = 0.0f;

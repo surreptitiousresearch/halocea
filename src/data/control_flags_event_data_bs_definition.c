@@ -10,7 +10,7 @@
 #include "../headers/byte_swap_definition.h"
 
 /* .data init: byte_swap_definition for control_flags_event_data. size=2, signature='bysw'. */
-static int control_flags_event_data_bs_codes[] = { _begin_bs_array, _1byte, _2byte, _end_bs_array };
+static int control_flags_event_data_bs_codes[] = { _begin_bs_array, 1 /* array element count */, _2byte, _end_bs_array };
 
 byte_swap_definition control_flags_event_data_bs_definition =
 {

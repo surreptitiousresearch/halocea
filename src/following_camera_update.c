@@ -17,6 +17,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/unit_control_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/observer_time_flags.h"
 
 
 extern void player_control_get_unit_camera_info(int16_t local_player_index, unit_camera_info *camera_info);
@@ -74,7 +75,7 @@ void following_camera_update(following_camera *camera, const camera_control *con
         /* crouch/zoom transition kicks a half-second focus-offset interpolation */
         if ( crouched != camera->crouched )
         {
-            result->___u4.__s0.focus_offset_flags = 1;
+            result->___u4.__s0.focus_offset_flags = (1u << _observer_time_valid_bit);
             if ( result->___u5.__s0.focus_offset_timer < 0.5f )
                 result->___u5.__s0.focus_offset_timer = 0.5f;
             camera->crouched = crouched;
@@ -84,7 +85,7 @@ void following_camera_update(following_camera *camera, const camera_control *con
         {
             camera->facing_offset.n[0] = controls->facing_delta.n[0] + camera->facing_offset.n[0];
             camera->facing_offset.n[1] = controls->facing_delta.n[1] + camera->facing_offset.n[1];
-            result->___u4.__s0.orientation_flags = 1;
+            result->___u4.__s0.orientation_flags = (1u << _observer_time_valid_bit);
             if ( result->___u5.__s0.orientation_timer < 0.40000001f )
                 result->___u5.__s0.orientation_timer = 0.40000001f;
         }

@@ -7,12 +7,13 @@
 #include <stdint.h>
 #include "tag_reference.h"
 #include "tag_block.h"
+#include "shader_transparent_generic_type.h"   /* the domain of `type` @ 0x02 */
 
 typedef struct _shader_transparent_generic
 {
     uint8_t         numeric_counter_limit;      /* 0x00 */
     uint8_t         flags;                       /* 0x01 — shader_transparent_generic_flags bits */
-    int16_t         type;                        /* 0x02 — shader_transparent_generic_type (first map type) */
+    int16_t         type;                        /* 0x02 — shader_transparent_generic_type (first map type); shader_transparent_generic_type.h, DB $9FCCCEA89881530A1DDE69E22F470E0D. Sole image read: shader_get_vertex_shader_permutation @0x837556BC (lhz 0x2A, +1 bias) */
     int16_t         framebuffer_blend_function;  /* 0x04 */
     int16_t         framebuffer_fade_mode;       /* 0x06 */
     int16_t         framebuffer_fade_source;     /* 0x08 */

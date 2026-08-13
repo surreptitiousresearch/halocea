@@ -11,6 +11,15 @@
 //   parentsSetup@24 (dsVECTOR<psSECTION_PARSER::PARENT_SETUP_REC,8>, 20 bytes) — size 44.
 
 struct psSECTION_PARSER {
+    // psSECTION_PARSER::psGET_TOKEN_FLAGS — GetToken behavior flags (MASK VALUES, OR/AND
+    // directly). DB-verified: types_enum_values psSECTION_PARSER::psGET_TOKEN_FLAGS,
+    // members verbatim (named by the round-2 flaghex triage from the GetToken* sites).
+    enum psGET_TOKEN_FLAGS {
+        PSGT_SKIP_SPACES = 1,
+        PSGT_SKIP_EOLS = 2,
+        PSGT_WAIT_IDENT = 4,
+    };
+
     // 0x27705 psSECTION_PARSER::psREADER — the raw text cursor (DB-verified layout).
     struct psREADER {
         const char *begin;     // 0x00 start of the source buffer

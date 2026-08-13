@@ -18,6 +18,7 @@
 #include "headers/observer_command_flags.h"
 #include "headers/observer_command.h"
 #include "headers/observer_parameter.h"
+#include "headers/observer_time_flags.h"
 
 
 void observer_update_command(int16_t local_player_index)
@@ -33,9 +34,9 @@ void observer_update_command(int16_t local_player_index)
     {
         float last_timer = obs->last_command.parameter_timers[i];
 
-        if ( (pending->___u4.parameter_flags[i] & 1) != 0 )
+        if ( (pending->___u4.parameter_flags[i] & (1u << _observer_time_valid_bit)) != 0 )
         {
-            if ( (pending->___u4.parameter_flags[i] & 2) == 0
+            if ( (pending->___u4.parameter_flags[i] & (1u << _observer_time_force_bit)) == 0
               && pending->parameter_timers[i] < last_timer )
                 pending->parameter_timers[i] = last_timer > 2.0f ? 2.0f : last_timer;
         }

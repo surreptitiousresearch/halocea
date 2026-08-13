@@ -27,6 +27,7 @@
 
 
 #include "headers/real_plane3d.h"
+#include "headers/collision_test_flags.h"
 extern uint8_t fast_vector_intersects_sphere(const real_point3d *point, const real_vector3d *vector, const real_point3d *center, float radius);
 extern uint8_t physics_instance_new(physics_instance *instance, int object_index);
 extern uint8_t physics_test_vector(const physics_instance *instance, const real_point3d *point, const real_vector3d *vector, physics_test_vector_result *result);
@@ -50,7 +51,7 @@ uint8_t object_test_vector(int object_index, unsigned int flags, unsigned int bs
           && fast_vector_intersects_sphere(point, vector, &object->object.bounding_sphere_center,
                                            object->object.bounding_sphere_radius) )
         {
-            if ( ((1 << object->object.type) & object_mask_vehicle) != 0 && (flags & 0x400000) != 0 )
+            if ( ((1 << object->object.type) & object_mask_vehicle) != 0 && (flags & (1u << _collision_test_use_vehicle_physics_bit)) != 0 )
             {
                 physics_instance physics;
                 physics_test_vector_result physics_result;

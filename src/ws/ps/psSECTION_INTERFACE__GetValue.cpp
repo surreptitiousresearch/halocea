@@ -3,6 +3,7 @@
 #include "psCOMPLEX_KEY_DATA.h"
 #include "../ds/dsDATA.h"
 #include "../ds/dsTSTRING_BUF_HEADER.h"
+#include "psGET_FLAGS.h"
 // 0x8251D870 — value stored under `key`: parse it into a complex key, then resolve against the
 // body. Empty dsDATA when the handle is null or the key does not split. sret return: the decompiler
 // swaps the sret slot with `this` (the real `this` is spelled `result` there). const (QBA).
@@ -19,7 +20,7 @@ dsDATA psSECTION_INTERFACE::GetValue(const char *key, unsigned int flags) const
     }
 
     psCOMPLEX_KEY_DATA complexKey;
-    if (this->SplitComplexKey(key, 1, flags & 8, complexKey)) { // arg4 is a reference
+    if (this->SplitComplexKey(key, 1, flags & PS_GET_SUBSTR, complexKey)) { // arg4 is a reference
         value = this->pData->GetValue(flags, complexKey);
     } else {
         value.type = nullptr;

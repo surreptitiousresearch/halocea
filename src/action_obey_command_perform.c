@@ -201,7 +201,7 @@ uint8_t action_obey_command_perform(int actor_index, int unit_index, int16_t com
                  * 0x1E is a 30-tick (1 s) hold, not a mask. Any state but _none = throw underway. */
                 uint8_t throw_state = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum)
                                           ->unit.grenade_throw_state;
-                simple_control->pause_timer = (throw_state != _grenade_throw_state_none) ? 30 : 0;
+                simple_control->pause_timer = (throw_state != _unit_grenade_throw_idle) ? 30 : 0;
                 return simple_control->pause_timer == 0;
             }
             else

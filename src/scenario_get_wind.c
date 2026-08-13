@@ -7,11 +7,12 @@
 #include "headers/location.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
+#include "headers/scenario_current_flags.h"
 
 extern uint8_t scenario_get_current(const location *location, const real_point3d *position, real_vector3d *wind_vector, unsigned int flags);
 
 void scenario_get_wind(const location *location, const real_point3d *position, real_vector3d *wind_vector,
         unsigned int flags)
 {
-    scenario_get_current(location, position, wind_vector, flags | 8);
+    scenario_get_current(location, position, wind_vector, flags | (1u << _scenario_current_force_no_water_bit));
 }

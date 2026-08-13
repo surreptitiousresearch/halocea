@@ -23,7 +23,7 @@ uint8_t any_unit_is_dangerous(void)
     while ( 1 )
     {
         int animation_state = unit->unit.animation.state;
-        if ( animation_state == _unit_state_throw_grenade && (uint8_t)unit->unit.grenade_throw_state != _grenade_throw_state_released )
+        if ( animation_state == _unit_state_throw_grenade && (uint8_t)unit->unit.grenade_throw_state != _unit_grenade_throw_ending )
             break;
         if ( (animation_state == _unit_state_dying || animation_state == _unit_state_dying_airborne) && (unit->unit.animation.flags & (1u << _unit_animation_ignore_translation_bit)) == 0 )
             break;

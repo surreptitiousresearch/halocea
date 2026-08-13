@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "headers/input_abstraction_globals.h"
 #include "headers/blam_data_globals.h"
+#include "headers/auxbutton.h"
 
 void input_abstraction_debounce_auxbutton_key(int16_t key_code)
 {
@@ -14,7 +15,7 @@ void input_abstraction_debounce_auxbutton_key(int16_t key_code)
     {
         m++;
         i++;
-        if (m >= &keyboard_auxbutton_mapping[3])   /* one past the DB-typed __int16[3] map */
+        if (m >= &keyboard_auxbutton_mapping[NUMBER_OF_AUXCONTROL_BUTTONS])   /* one past the DB-typed __int16[3] map */
             return;
     }
 

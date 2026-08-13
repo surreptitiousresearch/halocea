@@ -10,7 +10,7 @@
 #include "../headers/byte_swap_definition.h"
 
 /* .data init: byte_swap_definition for weapon_index_set_event_v1. size=6, signature='bysw'. */
-static int weapon_index_set_event_v1_bs_codes[] = { _begin_bs_array, _1byte, _2byte, _end_bs_array };
+static int weapon_index_set_event_v1_bs_codes[] = { _begin_bs_array, 1 /* array element count */, _2byte, _end_bs_array };
 
 byte_swap_definition weapon_index_set_event_v1_bs_definition =
 {

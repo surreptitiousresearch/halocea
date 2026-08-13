@@ -13,6 +13,7 @@
 #include <ctype.h>
 #include "headers/hs_type.h"
 #include "headers/blam_data_globals.h"
+#include "headers/cseries_limits.h"
 
 extern int atoi(const char *s);
 
@@ -38,7 +39,7 @@ int hs_parse_integer(int expression_index)
 parse:
     {
         int value = atoi(&hs_compile_globals.compiled_source[node->source_offset]);
-        if ( (unsigned char)valid && node->type != hs_type_long_integer && (value > 0x7FFF || value < -32768) )
+        if ( (unsigned char)valid && node->type != hs_type_long_integer && (value > SHORT_MAX || value < SHORT_MIN) )
         {
             valid = 0;
             hs_compile_globals.__noop = "shorts must be in the range [-32767, 32768].";

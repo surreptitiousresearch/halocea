@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 #include "headers/cache_copy_status.h"
+#include "headers/copy_flags.h"
 
 /* Win32 imports (kernel32 boundary; system <windows.h> collides with repo Win32 shim types). */
 extern void Sleep(unsigned long dwMilliseconds);
@@ -26,7 +27,7 @@ int16_t cache_copy_get_status(float *progress)
     unsigned int result;
     if ( flags || !self->copy_thread )
     {
-        if ( (flags & 2) != 0 )
+        if ( (flags & (1u << _copy_read_failed_bit)) != 0 )
             result = _cache_copy_read_failure;
         else
             /* verbatim: yields _cache_copy_bad_file_failure(0) or _cache_copy_write_failure(2) */

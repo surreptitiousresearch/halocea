@@ -72,7 +72,7 @@ int unit_throw_grenade_begin(int unit_index, const real_vector2d *alignment_vect
 
     unit->unit.grenade_throw_ticks = 0;
     int16_t animation_index = unit->object.animation.state.index;
-    unit->unit.grenade_throw_state = _grenade_throw_state_begin;
+    unit->unit.grenade_throw_state = _unit_grenade_throw_wind_up;
 
     const animation *animations =
         (const animation *)(TAG_GET(animation_graph, definition->object.animation_graph.index))->animations.address;

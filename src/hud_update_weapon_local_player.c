@@ -160,7 +160,7 @@ void hud_update_weapon_local_player(int16_t local_player_index, int weapon_index
                         both_charges_empty = 0;
                 }
                 if ( both_charges_empty
-                     && unit->unit.grenade_throw_state == _grenade_throw_state_none
+                     && unit->unit.grenade_throw_state == _unit_grenade_throw_idle
                      && (unit->unit.control_flags & (1u << _unit_control_throw_grenade_bit)) != 0 )
                     result = 1;
                 else

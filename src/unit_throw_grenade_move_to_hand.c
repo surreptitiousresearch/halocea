@@ -64,7 +64,7 @@ void unit_throw_grenade_move_to_hand(int unit_index)
     {
         /* Pure network client: record the held state only. */
         unit_object->unit.grenade_object_index = -1;
-        unit_object->unit.grenade_throw_state = _grenade_throw_state_in_hand;
+        unit_object->unit.grenade_throw_state = _unit_grenade_throw_in_hand;
         return;
     }
 
@@ -94,14 +94,14 @@ void unit_throw_grenade_move_to_hand(int unit_index)
     int grenade_object = object_new_with_datum_role_control(&placement, _networked_datum_autonomous);
     if (grenade_object == -1)
     {
-        unit_object->unit.grenade_throw_state = _grenade_throw_state_released;
+        unit_object->unit.grenade_throw_state = _unit_grenade_throw_ending;
     }
     else
     {
         hcex_obj_set_state(grenade_object, "throw");
         object_attach_to_node(unit_index, grenade_object, marker.node_index);
         unit_object->unit.grenade_object_index = grenade_object;
-        unit_object->unit.grenade_throw_state = _grenade_throw_state_in_hand;
+        unit_object->unit.grenade_throw_state = _unit_grenade_throw_in_hand;
         ((projectile_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum,
             grenade_object)->datum)->projectile.replicate_detonation = 1;
     }

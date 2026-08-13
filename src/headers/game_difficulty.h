@@ -15,3 +15,6 @@ enum game_difficulty {
 #endif /* GAME_DIFFICULTY_H */
 
 // game_difficulty: DB-verified via types_enum_values _F669C9C7B8AC2FCE4CE1CEBF490261B0 (anonymous compiled enum, names sans leading _)
+// game_difficulty: independently attested by hs_enum_table @0x8211C9C4 record 0 — the
+// binary's own HaloScript name table @0x841720A4 spells easy/normal/hard/impossible in
+// this exact order (decoded 2026-08-13, enum drain round 2).

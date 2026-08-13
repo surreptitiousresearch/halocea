@@ -16,6 +16,7 @@
 
 #include "headers/tag_block.h"
 #include "headers/tag_groups.h"
+#include "headers/tag_string_constants.h"
 extern int16_t string_list_find(const char *string, int16_t list_count, const char **string_list);
 extern int16_t hs_find_global_by_name(const char *name);
 extern uint8_t hs_parse(int expression_index, int16_t expected_type);
@@ -62,7 +63,7 @@ int hs_add_global(int expression_index)
 
     const char *name = &hs_compile_globals.compiled_source[HS_SYNTAX_NODE(name_node).source_offset];
     int length = name_length(name);
-    if ( length == 0 || (unsigned int)length > 0x1F )
+    if ( length == 0 || (unsigned int)length > TAG_STRING_LENGTH )
     {
         hs_compile_globals.__noop = "i expected a global variable name less than 32 characters.";
         hs_compile_globals.error_offset = HS_SYNTAX_NODE(name_node).source_offset;

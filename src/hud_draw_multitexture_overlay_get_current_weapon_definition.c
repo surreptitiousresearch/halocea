@@ -14,6 +14,7 @@
 #include "headers/unit_definition.h"
 #include "headers/unit_seat.h"
 #include "headers/blam_data_globals.h"
+#include "headers/unit_seat_flags.h"
 
 
 extern int unit_inventory_get_weapon(int unit_index, int16_t index);
@@ -37,7 +38,7 @@ uint8_t hud_draw_multitexture_overlay_get_current_weapon_definition(const player
         unit_datum *parent_object = (unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, parent_unit_index)->datum;
         unit_definition *parent_definition = TAG_GET(unit_definition, parent_object->definition_index);
         /* seat flags bit 0x8: seat allows weapon HUD */
-        if ( (((unit_seat *)parent_definition->unit.seats.address)[seat_weapon_index].flags & 8) == 0 )
+        if ( (((unit_seat *)parent_definition->unit.seats.address)[seat_weapon_index].flags & (1u << _unit_seat_is_gunner_bit)) == 0 )
             return 0;
 
         weapon = unit_inventory_get_weapon(parent_unit_index, parent_object->unit.current_weapon_index);

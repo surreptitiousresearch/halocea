@@ -21,6 +21,7 @@
 
 #include "headers/tag_block.h"
 #include "headers/tag_groups.h"
+#include "headers/tag_string_constants.h"
 extern int16_t string_list_find(const char *string, int16_t list_count, const char **string_list);
 extern int16_t hs_find_script_by_name(const char *name);
 extern int datum_new(data_array *data);
@@ -110,7 +111,7 @@ int hs_add_script(int expression_index)
 
     const char *name = &hs_compile_globals.compiled_source[HS_SYNTAX_NODE(name_node).source_offset];
     int length = name_length(name);
-    if ( length == 0 || (unsigned int)length > 0x1F )
+    if ( length == 0 || (unsigned int)length > TAG_STRING_LENGTH )
     {
         hs_compile_globals.__noop = "i expected a script name less than 32 characters.";
         hs_compile_globals.error_offset = HS_SYNTAX_NODE(name_node).source_offset;

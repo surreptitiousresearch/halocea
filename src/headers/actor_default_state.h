@@ -20,3 +20,7 @@ enum actor_default_state {
 #endif /* ACTOR_DEFAULT_STATE_H */
 
 // actor_default_state: DB-verified via types_enum_values _F7EF6512BC3C34595D6808ECB999616D (anonymous compiled enum, names sans leading _)
+// actor_default_state: independently attested by hs_enum_table @0x8211C9C4 record 2 —
+// the name table @0x8418537C spells none/sleep/alert/move_repeat/move_loop/
+// move_loop_back_and_forth/move_loop_random/move_random/guard/guard_at_position/search/
+// flee in this exact order (decoded 2026-08-13, enum drain round 2).

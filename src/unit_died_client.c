@@ -126,5 +126,5 @@ void unit_died_client(int unit_index, uint8_t feigned)
     unit->unit.animation.action_animation.index = -1;
     unit->unit.melee_attack_state = _unit_melee_attack_none;
     if ( pending_seat_reset == 1 )
-        unit->unit.grenade_throw_state = _grenade_throw_state_none;
+        unit->unit.grenade_throw_state = _unit_grenade_throw_idle;
 }

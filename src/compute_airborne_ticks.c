@@ -23,6 +23,7 @@
 #include "headers/mass_point_datum.h"
 #include "headers/vehicle_datum.h"
 #include "headers/blam_data_globals.h"
+#include "headers/mass_point_flags.h"
 
 void compute_airborne_ticks(int vehicle_index, mass_point_datum *mass_points)
 {
@@ -45,15 +46,13 @@ void compute_airborne_ticks(int vehicle_index, mass_point_datum *mass_points)
         do
         {
             int flags = mass_points[i].flags;
-            /* no DB enum found: runtime mass_point_datum.flags bits (searched mass_point/airborne/
-             * contact/grounded in types_enum_values). bit1 = ground contact, bit4 = grounded contact. */
-            if (flags & 2)
+            if (flags & (1u << _point_on_ground_bit))
             {
                 on_ground = 1;
                 vehicle_obj->vehicle.airborne_ticks = 0;
                 break;
             }
-            if (flags & 0x10)
+            if (flags & (1u << _point_antigraving_bit))
                 vehicle_obj->vehicle.airborne_ticks = 0;
             i = (int16_t)(i + 1);
         }

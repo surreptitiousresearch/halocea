@@ -46,7 +46,7 @@ void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
 
         case _trailing_edge_shape_concave_triangular:
             flag_tesselate_region(flag_definition, flag, x, 0, split, _tesselate_top_left);
-            tesselation = 3;
+            tesselation = _tesselate_bottom_left;
             size = split;
             y = split;
             break;
@@ -55,7 +55,7 @@ void flag_set_trailing_shape(flag_definition *flag_definition, flag_datum *flag)
             flag_tesselate_region(flag_definition, flag, x, 0, split, _tesselate_bottom_left);
             size = split;
             y = split;
-            tesselation = 2;
+            tesselation = _tesselate_top_left;
             break;
 
         default:

@@ -115,7 +115,7 @@ void virtual_keyboard_process_internal(void)
                 break;
 
             case _gamepad_binary_button_dpad_left: /* tab left (debounced) */
-                if (virtual_keyboard_globals.last_event != 0
+                if (virtual_keyboard_globals.last_event != _event_tab_left
                     || now - time_of_last_tab >= 0xFA
                     || event.value.button_value.value == 1)
                 {

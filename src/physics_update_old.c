@@ -391,11 +391,11 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                 if (speed_sq >= 0.0011111111)
                     flags = mp->flags & ~0x1u;   /* clear stopped bit */
                 mp->flags = flags;
-                flags |= 2;
+                flags |= (1u << _point_on_ground_bit);
                 if (mp->ground_depth <= 0.0)
                     flags = mp->flags & ~(1u << _point_on_ground_bit);
                 mp->flags = flags;
-                flags |= 8;
+                flags |= (1u << _point_in_water_bit);
                 if (mp->water_depth <= 0.0)
                     flags = mp->flags & ~(1u << _point_in_water_bit);
                 mp->flags = flags;

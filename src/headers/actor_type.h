@@ -36,3 +36,6 @@ enum actor_type {
 };
 
 #endif /* ACTOR_TYPE_H */
+// actor_type: independently attested by hs_enum_table @0x8211C9C4 record 3 — the name
+// table @0x84185320 spells all 16 types (elite..mounted_weapon) in this exact order
+// (decoded 2026-08-13, enum drain round 2).

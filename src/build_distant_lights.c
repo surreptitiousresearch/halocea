@@ -19,6 +19,7 @@
 #include "headers/real_rgb_color.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
+#include "headers/distant_lighting_flags.h"
 
 
 extern float real_rgb_color_brightness(const real_rgb_color *color);
@@ -102,7 +103,7 @@ void build_distant_lights(int flags, const real_vector3d *surface_normal, const 
     lighting->shadow_color.n[2] = clamp_lo(-((lighting->distant_lights[0].color.n[2] * 1.3f) - 1.0f) + accuracy_term,
                                            object_light_ambient_base);
 
-    if ( (flags & 4) != 0 )
+    if ( (flags & (1u << _distant_lighting_brighten_bit)) != 0 )
     {
         brighten_real_rgb_color(&lighting->ambient_color, 0.2f);
         brighten_real_rgb_color(&lighting->distant_lights[0].color, 0.30000001f);

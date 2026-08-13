@@ -6,6 +6,7 @@
 #include <string.h>
 #include "headers/file_reference.h"
 #include "headers/reference_info_flags.h"
+#include "headers/name_flags.h"
 
 extern void file_location_get_full_path(int16_t location, const char *path, char *full_path);
 extern void file_path_split(char *path, char **directory, char **parent_directory, char **filename, char **extension, uint8_t has_filename);
@@ -27,11 +28,11 @@ char *file_reference_get_name(const file_reference *reference, unsigned int flag
     *name = 0;
     if ( (flags & 1) != 0 )
         file_path_add_name(name, base_name);
-    if ( (flags & 2) != 0 )
+    if ( (flags & (1u << _name_parent_directory_bit)) != 0 )
         file_path_add_name(name, file_name);
-    if ( (flags & 4) != 0 )
+    if ( (flags & (1u << _name_filename_bit)) != 0 )
         file_path_add_name(name, directory);
-    if ( (flags & 8) != 0 )
+    if ( (flags & (1u << _name_extension_bit)) != 0 )
     {
         file_path_add_extension(name, extension);
         return name;

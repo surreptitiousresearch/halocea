@@ -12,6 +12,7 @@
 #include "headers/rasterizer_geometry_limits.h"
 #include "headers/d3d_render_boundary.h"
 #include "headers/blam_data_globals.h"
+#include "headers/geometry_constants.h"
 
 
 extern int rasterizer_dynamic_triangles_new(int count);
@@ -37,15 +38,15 @@ void rasterizer_draw_dynamic_vertices(int first_primitive_index, int primitive_c
 
         switch ( vertices_per_primitive )
         {
-            case 2:
+            case NUMBER_OF_VERTICES_PER_LINE:
                 primitive_type = D3DPT_LINELIST;
                 break;
 
-            case 3:
+            case NUMBER_OF_VERTICES_PER_TRIANGLE:
                 primitive_type = D3DPT_TRIANGLELIST;
                 break;
 
-            case 4:
+            case NUMBER_OF_VERTICES_PER_QUADRILATERAL:
             {
                 int triangle_count = 2 * remaining;
                 int triangle_buffer_index = rasterizer_dynamic_triangles_new(triangle_count);

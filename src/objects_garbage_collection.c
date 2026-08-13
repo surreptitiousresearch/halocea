@@ -62,7 +62,7 @@ void objects_garbage_collection(void)
     {
         memory_pool_compact(object_memory_pool);
         if ( memory_pool_get_contiguous_free_size(object_memory_pool) <= 209715 )
-            mode = 2;
+            mode = _garbage_collect_for_space;
     }
 
     if ( mode == -1 )

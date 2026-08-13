@@ -531,14 +531,14 @@ uint8_t unit_update(int unit_index)
         {
             /* grenade-throw state machine */
             uint8_t throw_state = unit->unit.grenade_throw_state;
-            if ( throw_state <= _grenade_throw_state_released )
+            if ( throw_state <= _unit_grenade_throw_ending )
             {
-                if ( throw_state == _grenade_throw_state_begin )
+                if ( throw_state == _unit_grenade_throw_wind_up )
                 {
                     if ( unit->object.animation.state.frame_index >= 2 )
                         unit_throw_grenade_move_to_hand(unit_index);
                 }
-                else if ( throw_state == _grenade_throw_state_in_hand )
+                else if ( throw_state == _unit_grenade_throw_in_hand )
                 {
                     int anim_state = (uint8_t)unit->unit.animation.state;
                     ++unit->unit.grenade_throw_ticks;
@@ -548,7 +548,7 @@ uint8_t unit_update(int unit_index)
                 else if ( unit->unit.grenade_throw_state )
                 {
                     if ( unit->unit.animation.state != _unit_state_throw_grenade && ((unit->unit.control_flags >> _unit_control_throw_grenade_bit) & 1) == 0 )
-                        unit->unit.grenade_throw_state = _grenade_throw_state_none;
+                        unit->unit.grenade_throw_state = _unit_grenade_throw_idle;
                 }
                 else if ( ((unit->unit.control_flags >> _unit_control_throw_grenade_bit) & 1) != 0 )
                 {

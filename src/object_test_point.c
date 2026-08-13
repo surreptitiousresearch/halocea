@@ -12,6 +12,7 @@
 #include "headers/physics_instance.h"
 #include "headers/object_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/collision_test_flags.h"
 
 
 extern uint8_t physics_instance_new(physics_instance *instance, int object_index);
@@ -39,7 +40,7 @@ uint8_t object_test_point(int object_index, unsigned int flags, const real_point
                 {
                     uint8_t collided;
                     char tested = 1;
-                    if ( ((1 << object_type) & object_mask_vehicle) != 0 && (flags & 0x400000) != 0 )
+                    if ( ((1 << object_type) & object_mask_vehicle) != 0 && (flags & (1u << _collision_test_use_vehicle_physics_bit)) != 0 )
                     {
                         physics_instance physics[2];
                         if ( !physics_instance_new(physics, object_index) )

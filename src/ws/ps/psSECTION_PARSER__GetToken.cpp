@@ -45,7 +45,7 @@ int psSECTION_PARSER::GetToken(psTOKEN &tok, unsigned int flags)
         if (tok.id == 256)
             break; // ordinary token starts here; fall through to classification below
 
-        if ((id != ' ' || (flags & 1) == 0) && (id != '\n' || (flags & 2) == 0))
+        if ((id != ' ' || (flags & PSGT_SKIP_SPACES) == 0) && (id != '\n' || (flags & PSGT_SKIP_EOLS) == 0))
             goto finalize; // report this SPACE/EOL token as-is
 
         // else: SPACE/EOL is being skipped per `flags` — loop and lex the next run

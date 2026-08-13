@@ -12,6 +12,7 @@
 #include "headers/hs_thread.h"
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
+#include "headers/hs_thread_flags.h"
 
 extern void hs_evaluate(int thread_index, int expression_index, int *destination);
 extern void hs_return(int thread_index, int value);
@@ -88,10 +89,10 @@ void hs_evaluate_sleep(int16_t function_index, int thread_index, uint8_t initial
                     if ( target_thread != thread_index )
                     {
                         unsigned char flags = target->flags;
-                        if ( (flags & 2) == 0 )
+                        if ( (flags & (1u << _hs_thread_latent_sleep_bit)) == 0 )
                         {
                             target->latent_sleep_until = current_wake;
-                            target->flags = flags | 2;
+                            target->flags = flags | (1u << _hs_thread_latent_sleep_bit);
                         }
                     }
                     target->sleep_until = wake_time;

@@ -21,6 +21,7 @@
 #include "headers/real_point3d.h"
 #include "headers/blam_data_globals.h"
 #include "headers/real_point3d.h"
+#include "headers/mass_point_flags.h"
 extern float __fsqrts(float);
 
 
@@ -54,7 +55,7 @@ void create_crashing_effects(int vehicle_index, const real_vector3d *old_velocit
     if (mass_point_count > 0)
     {
         int i = 0;
-        while ((mass_points[i].flags & 2) == 0)
+        while ((mass_points[i].flags & (1u << _point_on_ground_bit)) == 0)
         {
             i = (int16_t)(i + 1);
             if (i >= mass_point_count)

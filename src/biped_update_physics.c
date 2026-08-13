@@ -640,7 +640,7 @@ void biped_update_physics(biped_physics *physics)
             {
                 real_vector3d *contact_normal = &collisions[index].plane.n;
                 int walkable = (physics->in_flags & (1u << _biped_physics_in_dead_bit)) == 0
-                    && ((unsigned char)grounded || (collisions[index].flags & 4) != 0);
+                    && ((unsigned char)grounded || (collisions[index].flags & (1u << _collision_surface_climbable_bit)) != 0);
                 int is_stick = (stick_surface != -1
                     && chosen_surface_index != -1
                     && collisions[chosen_surface_index].surface_index == stick_surface);
@@ -684,7 +684,7 @@ void biped_update_physics(biped_physics *physics)
                 }
 
                 if ((physics->out_flags & (1u << _biped_physics_out_volatile_collision_bit)) == 0
-                    && ((collisions[index].flags & 8) != 0
+                    && ((collisions[index].flags & (1u << _collision_surface_breakable_bit)) != 0
                      || (collisions[index].object_index != -1
                       && ((1 << DATA_ARRAY_ELEMENT(object_header_data, object_header_datum,
                                 collisions[index].object_index)->type)

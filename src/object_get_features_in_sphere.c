@@ -21,6 +21,7 @@
 #include "headers/biped_datum_flags.h"
 #include "headers/object_flags.h"
 #include "headers/blam_data_globals.h"
+#include "headers/collision_test_flags.h"
 
 
 extern void biped_get_physics_pill(int biped_index, real_point3d *base, float *height, float *width);
@@ -66,7 +67,7 @@ void object_get_features_in_sphere(unsigned int flags, int object_index, const r
                             {
                                 if ( !object->object.type )           /* type 0 — biped */
                                 {
-                                    if ( ((flags & 0x200000) == 0 || (biped->biped.flags & (1u << _biped_movement_passes_through_bipeds_bit)) == 0)
+                                    if ( ((flags & (1u << _collision_test_skip_passthrough_bipeds_bit)) == 0 || (biped->biped.flags & (1u << _biped_movement_passes_through_bipeds_bit)) == 0)
                                       && (object->object.parent_object_index == -1
                                           || (uint16_t)biped->unit.parent_seat_index == 0xFFFF) )
                                     {
@@ -82,7 +83,7 @@ void object_get_features_in_sphere(unsigned int flags, int object_index, const r
                                     goto recurse;
                                 }
 dispatch_hull:
-                                if ( ((1 << object_type) & object_mask_vehicle) != 0 && (flags & 0x400000) != 0 )
+                                if ( ((1 << object_type) & object_mask_vehicle) != 0 && (flags & (1u << _collision_test_use_vehicle_physics_bit)) != 0 )
                                 {
                                     physics_instance physics;
                                     if ( physics_instance_new(&physics, object_index) )

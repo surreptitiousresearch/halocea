@@ -15,6 +15,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/blam_data_globals.h"
+#include "headers/scenario_current_flags.h"
 
 
 extern void wind_variance_get(const real_point3d *position, real_vector3d *out, float wind_local_variation_rate, float max_magnitude);
@@ -42,7 +43,7 @@ void scenario_get_current_from_weather_palette(const real_point3d *position, rea
         current_vector->n[1] = wy;
         current_vector->n[2] = wz;
 
-        if ( (flags & 2) != 0 )
+        if ( (flags & (1u << _scenario_current_damped_bit)) != 0 )
         {
             current_vector->n[0] = ((float)1.0 - definition->damping) * wx;
             current_vector->n[1] = ((float)1.0 - definition->damping) * wy;

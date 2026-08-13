@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "headers/blam_data_globals.h"
+#include "headers/hs_console_flags.h"
 
 /* strtok provided by CRT via <string.h>; local extern removed (C28251: the local redeclaration drops the header's annotations) */
 extern uint16_t get_console_test_flags(uint16_t extra_flags);
@@ -55,10 +56,10 @@ uint8_t console_exec(char *filename)
         console_globals.previous_command_count = count;
         console_globals.selected_previous_command_index = -1;
 
-        /* 0x2000: an extra hs symbol-category bit ORed into the enumeration mask; no DB enum
-         * found for the hs_tokens_enumerate category flags (searched types_enum_values for
-         * value 8192 / hs* token/script enums, src/headers/hs_*). Left raw. */
-        uint16_t test_flags = get_console_test_flags(0x2000u);
+        /* extra_flags for a script FILE: forbid cheat commands. The literal is in the
+         * disallow half of $B9FE84D7: bit N+8 strips allow bit N (attested at 0x837222F4,
+         * which tests 0x2000 and clears 0x20 = _hs_console_cheating). */
+        uint16_t test_flags = get_console_test_flags(1u << (_hs_console_cheating + HS_CONSOLE_DISALLOW_SHIFT));
         char is_known_function = 0;
         const char *tokens[256];
         int token_count = hs_tokens_enumerate(command, '(', tokens, 256, test_flags);

@@ -28,3 +28,6 @@ enum game_team {
 };
 
 #endif /* GAME_TEAM_H */
+// game_team: independently attested by hs_enum_table @0x8211C9C4 record 1 — the name
+// table @0x8417D40C spells default/player/human/covenant/flood/sentinel/unused6..9 in
+// this exact order (decoded 2026-08-13, enum drain round 2).

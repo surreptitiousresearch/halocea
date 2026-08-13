@@ -24,6 +24,7 @@
 #include "headers/bitmap_data.h"
 #include "headers/render_animation.h"
 #include "headers/real_point3d.h"
+#include "headers/geometry_constants.h"
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern void rasterizer_dynamic_vertices_unlock(int dynamic_vertex_buffer_index);
 extern void rasterizer_dynamic_vertices_delete(int dynamic_vertex_buffer_index);
@@ -52,12 +53,13 @@ void build_sprites_end(build_sprite_data *data)
             /* a negative dynamic_triangle_buffer_index is not a buffer handle: the transparent-group draw
              * path negates it back into vertices-per-primitive (see
              * rasterizer_transparent_geometry_group_draw_internal), so -4 selects the 4-vertices-per-
-             * primitive quad form each sprite is built as. Left raw per arg_catalog.tsv, which already
-             * adjudicates this slot for both callees as "leave". (The screen-geometry callee is a no-op
+             * primitive quad form each sprite is built as: neg/extsh @0x83812A60-0x83812A64 then cmpwi
+             * 3 / cmpwi 4 @0x83812A6C-0x83812A74 pick the arm. (The screen-geometry callee is a no-op
              * stub in this build, so its copy of the value is never decoded.) */
             if ( (data->flags & (1u << _build_sprites_screen_space_bit)) != 0 )
             {
-                rasterizer_dynamic_screen_geometry_draw(0, -4, group->vertex_buffer_index, 2 * triangle_count);
+                rasterizer_dynamic_screen_geometry_draw(0, -NUMBER_OF_VERTICES_PER_QUADRILATERAL,
+                                                        group->vertex_buffer_index, 2 * triangle_count);
             }
             else
             {
@@ -68,7 +70,8 @@ void build_sprites_end(build_sprite_data *data)
                         ((data->flags << (_rasterizer_geometry_first_person_bit - _build_sprites_first_person_bit))
                                 & (1u << _rasterizer_geometry_first_person_bit))
                         | (1u << _rasterizer_geometry_viewspace_bit);
-                rasterizer_dynamic_unlit_geometry_draw((const shader *)data->shader, group->bitmap, 0, -4,
+                rasterizer_dynamic_unlit_geometry_draw((const shader *)data->shader, group->bitmap, 0,
+                                                        -NUMBER_OF_VERTICES_PER_QUADRILATERAL,
                                                         group->vertex_buffer_index, 2 * triangle_count,
                                                         &data->centroid, geometry_flags);
             }

@@ -10,6 +10,7 @@
 #include "../ds/dsDATA.h"
 #include "../ds/dsDATA_TYPE.h"
 #include "../ds/ds_boundary.h"
+#include "psGET_FLAGS.h"
 
 // 0x8251C860 — resolve the parsed complex key `c` against this section, collecting located key
 // references. With an empty chain, this section itself is a reference. Otherwise the leaf key (or,
@@ -112,7 +113,7 @@ int psSECTION_DATA::GetValueRefs(unsigned int flags, dsVECTOR<psSECTION, 8> *pRe
     }
 
 parent_owner_walk:
-    if ((flags & 2) == 0) {
+    if ((flags & PS_GET_NO_PARENT) == 0) {
         if ((this->state & 1) == 0) {
             // Search parent sections newest-first, clearing the owner (0x40000000) and 0x1 flags.
             for (int parentIdx = this->psParents.nElem - 1; parentIdx >= 0; --parentIdx) {
@@ -121,10 +122,10 @@ parent_owner_walk:
                     return 1;
             }
         }
-        if ((this->state & 2) == 0 && (flags & 4) == 0 && this->pOwner) {
+        if ((this->state & 2) == 0 && (flags & PS_GET_NO_OWNER) == 0 && this->pOwner) {
             // Prepend this section's name to the chain and search the owner scope.
             c._psKeysArr.PushBack(this->name);
-            if (!this->pOwner->GetValueRefs(flags | 0x40000000, pRefArr, pOneRef, c)) {
+            if (!this->pOwner->GetValueRefs(flags | _PS_GET_NO_THIS_SYS, pRefArr, pOneRef, c)) {
                 if (c._psKeysArr.nElem > 0)
                     --c._psKeysArr.nElem;
                 return 0;

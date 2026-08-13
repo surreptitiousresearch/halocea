@@ -10,6 +10,7 @@
 #include "headers/camera_control.h"
 #include "headers/observer_command.h"
 #include "headers/real_vector3d.h"
+#include "headers/observer_time_flags.h"
 
 /* the last camera proc that ran this frame — a director.camera_proc value, typed as such so the
  * identity test below needs no cast */
@@ -35,7 +36,7 @@ void first_person_camera_update(first_person_camera *camera, const camera_contro
     result->field_of_view = field_of_view;
     if ( camera->last_field_of_view != field_of_view )
     {
-        result->___u4.__s0.field_of_view_flags = 1;
+        result->___u4.__s0.field_of_view_flags = (1u << _observer_time_valid_bit);
         camera->last_field_of_view = field_of_view;
         result->field_of_view_timer = 0.18000001f;
     }
@@ -46,7 +47,7 @@ void first_person_camera_update(first_person_camera *camera, const camera_contro
     result->orientation_timer = 0.0f;
     result->position_timer = 0.0f;
     result->timer = 0.0f;
-    result->___u4.__s0.orientation_flags |= 3;
-    result->___u4.__s0.position_flags |= 3;
+    result->___u4.__s0.orientation_flags |= ((1u << _observer_time_valid_bit) | (1u << _observer_time_force_bit));
+    result->___u4.__s0.position_flags |= ((1u << _observer_time_valid_bit) | (1u << _observer_time_force_bit));
     result->flags |= 1;
 }

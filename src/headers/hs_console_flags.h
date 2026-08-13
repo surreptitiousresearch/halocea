@@ -19,7 +19,9 @@ enum hs_console_flags {
 	_hs_console_flag_count = 7,
 };
 
-/* shift applied to a flag index to get its paired "disallow" bit */
+/* shift applied to a flag index to get its paired "disallow" bit.
+ * ATTESTED: get_console_test_flags 0x83722280-0x83722320 is 7 consecutive
+ * (test bit N+8 -> clear bit N) pairs, N=0..6 = the whole enum domain. */
 #define HS_CONSOLE_DISALLOW_SHIFT 8
 
 #endif /* HS_CONSOLE_FLAGS_H */

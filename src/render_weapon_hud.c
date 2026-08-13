@@ -83,13 +83,13 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
     int16_t flags;
     int     split_screen;
 
-    for (state_index = 0; state_index < 8; state_index++)
+    for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
         state_flags[state_index] = 0;
-    for (state_index = 0; state_index < 8; state_index++)
+    for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
         overlay_flags[state_index] = 0;
-    for (state_index = 0; state_index < 8; state_index++)
+    for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
         number_values[state_index] = 0;
-    for (state_index = 0; state_index < 8; state_index++)
+    for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
         number_fractions[state_index] = 0.0f;
 
     if (hcex_off_hud_element == 5)
@@ -98,11 +98,11 @@ void render_weapon_hud(int hud_index, int16_t local_player_index, const weapon_d
     if ((hud_def->flash_cutoffs.flags & (1u << _hud_use_parent_flash_parameters_bit)) != 0 && new_state_flags && new_overlay_flags && new_numbers)
     {
         /* parent-driven: use the flag arrays supplied by the caller verbatim */
-        for (state_index = 0; state_index < 8; state_index++)
+        for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
             state_flags[state_index] = new_state_flags[state_index];
-        for (state_index = 0; state_index < 8; state_index++)
+        for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
             overlay_flags[state_index] = new_overlay_flags[state_index];
-        for (state_index = 0; state_index < 8; state_index++)
+        for (state_index = 0; state_index < NUMBER_OF_WEAPON_HUD_STATES; state_index++)
             number_values[state_index] = new_numbers[state_index];
     }
     else

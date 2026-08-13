@@ -28,3 +28,6 @@ enum hud_corner {
 };
 
 #endif /* HUD_CORNER_H */
+// hud_corner: the label table cited above is hs_enum_table @0x8211C9C4 record 4 —
+// the registration block was fully decoded 2026-08-13 (enum drain round 2), confirming
+// count=5 and the order top_left/top_right/bottom_left/bottom_right/center.

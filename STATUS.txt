@@ -1,0 +1,37 @@
+Full gap check complete — the project is green across every gate: 27 battery stages all ok, gapgate PASS, both compile corpora at 0 errors / 0 unverified, tu_coverage clean, tree clean.
+
+Health snapshot
+
+┌─────────────────────┬──────────────────────────────────────────────────────────────────────┐
+│        Check        │                                Result                                │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ gapgate             │ PASS (all hard classes 0)                                            │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ Compile, C corpus   │ 9,708 TUs — 0 errors, 0 unverified                                   │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ Compile, C++ corpus │ 4,584 TUs — 0 errors, 0 unverified                                   │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ tu_coverage         │ PASS — 0 ungated / ghost / duplicate / misfiled                      │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ argwarn             │ 0 warnings across the corpus                                         │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ Attestation ledger  │ 7,244 ATTESTED · 1,442 DEFERRED-SABER · 67 WEAK · 0 DEFERRED-MACHINE │
+├─────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ idasql pool         │ 16/16 servers up                                                     │
+└─────────────────────┴──────────────────────────────────────────────────────────────────────┘
+
+Trend since the last journaled baseline (2026-08-07)
+
+The report-only residue has moved firmly in the right direction: castalign 2,955 → 510 (+86 host-ABI), sa_nullderef 211 → 105, shadow 758 → 680, fnptrcast 39 → 3, bitparen 99 → 71, and libredecl (409), consttrunc (45), hdrproto, byteshim, opaque all drained to zero. Several large new numbers (narrowing 1,370, record_drops 830, fillext_census 405, ledger_folded 369) are new measurement channels that came online since then, not regressions. The only populations that grew: signcompare 165 → 211 and unusedparam → 1,691 — both already flagged in BACKLOG C3 as moving the wrong way.
+
+Fresh numbers vs BACKLOG filings
+
+- Confirmed exact: castalign 510+86 (C1), narrowing 1,370 (C3), record_drops 830 (E4), header_probe 14 (D2), header_layout contested 135 (D1) — those items are sized correctly as filed.
+- Better than filed: db_verify open is now 20 (D3 filed 34); sigcheck reads db=335 MEDIUM+ facets against G13's filed 727 rows — either the unit differs or the residue shrank, so re-measure before sizing G13 work (the battery's own doctrine).
+- Small live signals worth a look next session: argvalue 5 literal-divergence candidates, param_width 12, paramdrop 1.
+
+Outstanding work (unchanged by this check)
+
+BACKLOG stands at 26 open / 6 blocked / 2 paused. The live frontier: A1b attestation tail-drain (~1,996 rows), the B1 provenance triangle, gate-residue triage (C1 castalign, C3 twelve populations, G13 sigcheck), and the D7 mangled↔demangled name bridge. Havok (M1) and Saber ai08 (M2) remain halted/paused by standing decision.
+
+Bottom line: the corpus is fully clean under every gate it has; what remains is the triage backlog BACKLOG already tracks, and the fresh battery confirms its numbers are (with the two noted exceptions) still accurate.

@@ -20,7 +20,7 @@ extern int message_delta_processor_encode_stateless(message_delta_processor_mess
 typedef struct network_game_server network_game_server;
 extern network_game_server *global_network_game_server_get(void);
 
-void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, uint8_t message_offset)
+void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, int8_t message_offset)
 {
     if ( !game_connection() || game_connection() == _game_connection_film_playback )
     {

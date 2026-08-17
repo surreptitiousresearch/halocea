@@ -28,7 +28,7 @@
 
 extern void render_debug_looping_sound(int definition_index, const sound_source *source);
 extern int looping_sound_find(int identifier);
-extern uint16_t looping_sound_new(int definition_index, int identifier, const sound_source *source);
+extern int looping_sound_new(int definition_index, int identifier, const sound_source *source);
 extern int looping_sound_new_sound(int looping_sound_index, int definition_index, int16_t track_index, int16_t type);
 extern uint8_t sound_cache_software_locks(const sound_permutation *sound);
 extern void sound_cache_sound_delete(sound_permutation *sound);

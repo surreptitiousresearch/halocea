@@ -53,7 +53,7 @@ extern float render_frustum_cube_view_fraction(const render_frustum *frustum, co
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern void rasterizer_debug_line(const real_point3d *p0, const real_point3d *p1, const real_argb_color *color);
 
-extern void build_sprite_compute_scale(const build_sprite_data *data, int16_t mode, unsigned int flags, const real_point3d *origin, const bitmap_data *bitmap, float *scale);
+extern void build_sprite_compute_scale(const build_sprite_data *data, int16_t mode, const real_point3d *origin, const bitmap_data *bitmap, float *scale);
 void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index, int16_t sprite_index, const real_point3d *untransformed_origin, const real_vector3d *untransformed_direction, float rotation, float scale, const real_argb_color *color, float fade, unsigned int flags)
 {
     bitmap_group *group = TAG_GET(bitmap_group, data->bitmap_group_index);
@@ -96,9 +96,9 @@ void build_sprite(build_sprite_data *data, int16_t mode, int16_t sequence_index,
                     build_sprite_compute_basis(data, mode, (const real_vector3d *)&transformed_origin,
                             (const real_point3d *)&transformed_direction, basis);
 
-                    /* DEVIATION: inlined copy of build_sprite_compute_scale@0x837EC058 (zero-xref out-of-line twin) collapsed to a call; all 6 args map directly to live host locals (data, mode, flags, &transformed_origin, bitmap, &scale) -- no constant folding, donor's `flags` param is read-through-only (never dereferenced in donor body) but passed for ABI fidelity. */
+                    /* DEVIATION: inlined copy of build_sprite_compute_scale@0x837EC058 (zero-xref out-of-line twin) collapsed to a call; args map directly to live host locals -- no constant folding. The donor's ABI is 5 slots (the decompiler's `flags` slot was a phantom, refuted 2026-08-18). */
                     const shader_effect *shader = data->shader;
-                    build_sprite_compute_scale(data, mode, flags, &transformed_origin, bitmap, &scale);
+                    build_sprite_compute_scale(data, mode, &transformed_origin, bitmap, &scale);
                     float sprite_size = scale;
                     /* billboard rows out of the compute_basis skip-scale layout */
                     float forward_x = basis[0].n[1], forward_y = basis[0].n[2], forward_z = basis[1].n[0];

@@ -60,7 +60,7 @@ extern vidDRIVER              *vidDriver;
 extern bool          ui_new_g_bLoadingScreenActive; // ui_new::g_bLoadingScreenActive
 extern unsigned int  gsAppState;
 extern unsigned int  gsAppState2;
-extern unsigned int  gsMsgMTConfig;
+extern int           gsMsgMTConfig;
 extern int           hcex_cur_render_mode;
 extern bool          hcex_enable_pix;
 extern bool          hcex_obj_sync_matrices_in_progress;

@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 /* attested callee widths: r5 stw (int), r6 sth (int16_t), r7 stb with li r7,-1 caller (int8_t) */
-extern void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, uint8_t message_offset);
+extern void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, int8_t message_offset);
 
 void hud_picked_up_grenade(int16_t local_player_index, uint8_t machine_index, int grenade_definition_index)
 {

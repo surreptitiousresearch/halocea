@@ -8,7 +8,7 @@
 #include "headers/equipment_powerup_type.h"
 
 extern void hcex_fire_plr_event(const char *eventName, int plr_idx);
-extern void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, uint8_t message_offset);
+extern void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, int8_t message_offset);
 
 void hud_picked_up_powerup(int16_t local_player_index, int8_t machine_index, int powerup_definition_index)
 {

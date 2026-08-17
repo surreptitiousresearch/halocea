@@ -10,12 +10,13 @@
  * perspective factor derived from the origin's depth (origin->n[2]) and the screen-projection focal term —
  * then multiplies the result by the bitmap's width.
  *
- * DEVIATION: disasm shows only 5 GPRs (r3-r7) actually referenced in the body, one fewer than the DB's
- * 6-parameter prototype. The decompiler's `flags+8`/`SHIWORD(origin->v)` accesses are actually
- * `origin->n[2]` (verified: matches real_point3d's z offset) and `bitmap->width` (verified: matches
- * bitmap_data.h's width field at +4) — one parameter-slot off from how the decompiler attributed them.
- * `flags` itself is never read in the body; kept as an unread parameter to match the DB's recorded
- * prototype/ABI. */
+ * DEVIATION: the DB's 6-parameter prototype is WRONG — the binary's ABI is 5 slots (r3 data, r4 mode,
+ * r5 origin, r6 bitmap, r7 scale): lwz 0x10(r3) @0x837EC058, extsh r4 @0x837EC08C, lfs 8(r5)
+ * @0x837EC0B0, lhz 4(r6) @0x837EC0C8, lfs/stfs 0(r7) @0x837EC06C; r8 is never referenced in the
+ * 38-insn body. The decompiler's `flags` slot is a phantom that shifted origin/bitmap/scale one
+ * register down; the prior "kept to match the DB prototype" note was refuted 2026-08-18 (zero
+ * binary callers exist to contradict — this is the zero-xref out-of-line twin of the copy inlined
+ * in build_sprite). */
 
 #include <stdint.h>
 #include "headers/build_sprite_data.h"
@@ -27,7 +28,7 @@
 #include "headers/blam_data_globals.h"
 
 
-void build_sprite_compute_scale(const build_sprite_data *data, int16_t mode, unsigned int flags, const real_point3d *origin, const bitmap_data *bitmap, float *scale)
+void build_sprite_compute_scale(const build_sprite_data *data, int16_t mode, const real_point3d *origin, const bitmap_data *bitmap, float *scale)
 {
     if ( (data->flags & (1u << _build_sprites_screen_space_bit)) != 0 )
     {

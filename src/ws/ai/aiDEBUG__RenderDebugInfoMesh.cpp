@@ -33,10 +33,9 @@ void aiDEBUG::RenderDebugInfoMesh(const dsVECTOR<aiDBGSHAPE_VERT, 8> &vBuf,
     rendDrv->Configure(0, &cfg, 0x40000001, 0, /*COORDSPACE_LOCAL*/ 0,
                        /*RENDERBLOCK_COLOR*/ 0, 0, 0);
 
-    // fvf = 0x40000001445F4941, callerID = 3 (disasm-verified). NOTE: the DB mangling for
-    // DrawIndexedPrimitive is 6 params; this header carries a spurious `a6` slot (passed 0).
+    // fvf = 0x40000001445F4941, callerID = 3 (disasm-verified).
     rendDrv->DrawIndexedPrimitive(vBuf.pData, vBuf.nElem, iBuf.pData, iBuf.nElem / 3,
-                                  /*a6*/ 0, 0x40000001445F4941ULL, 3);
+                                  0x40000001445F4941ULL, 3);
 
     if (cfg.texture && txmManager)
         cfg.texture->Release();

@@ -7,7 +7,7 @@
 extern void hcex_fire_plr_event(const char *event_name, int player_identifier); /* DEVIATION: slot 1 is int, not short -- def src/hcex/hcex_fire_plr_event.cpp + prologue stw r4 @0x823E4730 */
 extern int16_t game_connection(void);
 extern void hud_add_item_message_client(int16_t local_player_index, int item_definition_index, int16_t quantity, char message_offset);
-extern void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, uint8_t message_offset);
+extern void hud_add_item_message_server(int16_t local_player_index, int8_t machine_index, int item_definition_index, int16_t quantity, int8_t message_offset);
 
 void hud_picked_up_weapon(int16_t local_player_index, char machine_index, int weapon_definition_index, uint8_t is_client_side)
 {

@@ -49,11 +49,11 @@ snd::BUFFER *snd::SYSTEM_FMOD::GetBuffer(dsSTRID name, const snd::BUFFER_PARAMS 
         return nullptr;
 
     // Off-thread call guard — only meaningful once the driver singleton itself is live.
-    if ((snd::System->state.val & 1) != 0 && snd::THREAD_ID != (unsigned int)osGetCurThreadId())
+    if ((snd::System->state.val & 1) != 0 && snd::THREAD_ID != osGetCurThreadId())
     {
         osOutputDebugString("%s called from wrong thread, expecting 0x%x, i'm in 0x%x\n",
                             "snd::SYSTEM_FMOD::GetBuffer", snd::THREAD_ID, osGetCurThreadId());
-        if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != (unsigned int)osGetCurThreadId())
+        if (!IGNORE_STRONG_ASSERT && snd::THREAD_ID != osGetCurThreadId())
             static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("snd::THREAD_ID == osGetCurThreadId()",
                                                     "D:\\Projects\\code\\common\\src.sys\\drv\\sound\\snd_fmod.cpp",
                                                     1752,

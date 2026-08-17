@@ -32,9 +32,14 @@ void ui_new::UI_STAT_RENDER::Flush()
 
     // empty_string is the empty page-name string at 0x8200155A; SetCurDip's nameDip is const char*.
     vidDriver->dipStat.SetCurDip("UI", (const char *)empty_string, 0);
-    rendDRIVER_Configure(rendDrv, 0, &stateDesc, 0x2020495540000000ULL, COORDSPACE_SCREEN, RENDERBLOCK_COLOR, 0, 0);
+    /* DEVIATION: both calls previously passed a synthesized 0x2020495540000000 literal and dropped
+       the real callerID/coordspace. Disasm: Configure r6 = 0x0000001040000001 (lis/ori/insrdi
+       @0x82CEDD20-34) and r7 = 2 (li @0x82CEDD40, not COORDSPACE_SCREEN=0); DrawIndexedPrimitive
+       r8 = 0x0000001040000001 (@0x82CEDD5C-7C), r9 = 0x20204955 (FourCC bytes "  IU",
+       @0x82CEDD84-8C). Refuted 2026-08-18. */
+    rendDRIVER_Configure(rendDrv, 0, &stateDesc, 0x0000001040000001ULL, 2, RENDERBLOCK_COLOR, 0, 0);
     rendDRIVER_DrawIndexedPrimitive(rendDrv, vBuf.pData, vBuf.nElem, iBuf.pData, iBuf.nElem / 3,
-                                     0x2020495540000000ULL, 0);
+                                     0x0000001040000001ULL, 0x20204955u);
 
     Reset();
 

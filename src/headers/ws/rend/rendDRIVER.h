@@ -101,10 +101,11 @@ typedef struct rendDRIVER {
     void RenderOBB(const struct m3dOBB *obb, unsigned long color);
 
     // 0x827C91D8 — draw an indexed triangle list. Tail-calls DynGeomDraw with
-    // REND_PRIMTYPE_TRILIST and an index count of 3*nFace. `a6` is an opaque pass-through
-    // (unused by this thunk); `callerID` is a FourCC debug tag. Reversed this batch.
+    // REND_PRIMTYPE_TRILIST and an index count of 3*nFace. `callerID` is a FourCC debug tag.
+    // Six explicit params per the mangling ?DrawIndexedPrimitive@rendDRIVER@@QAAXPAXHPAGH_KK@Z
+    // (the old `a6` slot was a phantom, refuted 2026-08-18).
     void DrawIndexedPrimitive(void *vertList, int nVert, unsigned short *indList,
-                              int nFace, int a6, uint64_t fvf, unsigned int callerID);
+                              int nFace, uint64_t fvf, unsigned int callerID);
 
     // 0x827C91E8 — draw an unindexed triangle fan (a single convex polygon). Resets the
     // transform (SetTransform(nullptr)) then DynGeomDraw with REND_PRIMTYPE_TRIFAN. Reversed

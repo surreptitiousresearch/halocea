@@ -23,7 +23,11 @@ extern int datum_new(data_array *data);
 extern uint32_t *get_global_local_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);
 
-uint16_t looping_sound_new(int definition_index, int identifier, const sound_source *source)
+/* DEVIATION: return respelled uint16_t->int 2026-08-18 -- single epilogue returns full
+   32-bit (mr r3,r25 @0x83716174; early-out leaves li r3,-1 @0x83716058) and the sole caller
+   tests cmpwi r3,-1 @0x83718D10 BEFORE the clrlwi index masking; the prior attested uint16_t
+   made the -1 guard in sound_refresh_looping dead code. */
+int looping_sound_new(int definition_index, int identifier, const sound_source *source)
 {
     int index;
     looping_sound_datum *datum;

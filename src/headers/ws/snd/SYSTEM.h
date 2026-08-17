@@ -36,7 +36,9 @@ typedef struct SYSTEM {
 // ?System@snd@@3PAVSYSTEM@@A — the process-wide sound-driver singleton.
 extern SYSTEM *System;
 
-// ?THREAD_ID@snd@@3IA — owning-thread id every public snd method asserts against.
-extern unsigned int THREAD_ID;
+// ?THREAD_ID@snd@@3HA — owning-thread id every public snd method asserts against.
+// DEVIATION: was declared unsigned citing a @@3IA mangling that does not exist in the DB;
+// the sole symbol is ?THREAD_ID@snd@@3HA @0x84315E18 (int), and every compare is signed cmpw.
+extern int THREAD_ID;
 
 } // namespace snd

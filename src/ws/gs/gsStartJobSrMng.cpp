@@ -8,7 +8,7 @@
 #include "../../headers/ws/jbm/jbmMANAGER.h"
 #include "../../headers/ws/ap/apSTATE_T.h"
 
-extern unsigned int gsMsgMTConfig;   // boundary — active MT message configuration
+extern int gsMsgMTConfig;            // boundary — active MT message configuration
 extern jbmMANAGER   gsJobManager;    // boundary — global frame-job manager
 
 void gsStartJobSrMng(jbmJOB *pJob)

@@ -236,7 +236,7 @@ typedef struct SYSTEM_FMOD_BASE {
 } SYSTEM_FMOD_BASE;
 extern SYSTEM_FMOD_BASE *SystemFMod; // boundary global
 
-extern unsigned int THREAD_ID;             // owning-thread id asserted by every public method
+extern int THREAD_ID;                      // owning-thread id asserted by every public method (?THREAD_ID@snd@@3HA, int)
 extern dsTSTRING<char> CUSTOM_SOUND_PATH;  // "d:\sounds\xbox360\" base path for custom sounds
 extern dsTSTRING<char> SOUND_LOCALE;       // active locale code (e.g. "en")
 

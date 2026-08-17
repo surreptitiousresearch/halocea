@@ -13,7 +13,7 @@
 // struct pulled in transitively by gsFRAME_JOB_PIPELINE.h.
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 
-extern unsigned int gsMsgMTConfig;                 // boundary — active MT message configuration
+extern int gsMsgMTConfig;                          // boundary — active MT message configuration
 
 extern void osPIXBeginEvent(const char *label);    // boundary — GPU/PIX profiling marker (begin)
 extern void osPIXEndEvent();                        // boundary — GPU/PIX profiling marker (end)

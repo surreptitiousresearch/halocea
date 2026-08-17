@@ -15,10 +15,10 @@
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 
-void point_from_parametric_line(real_point3d *p0, real_vector3d *forward, float t, real_point3d *result,
-        float *output)
+/* DEVIATION: previous source declared a phantom 5th param `float *output`; the binary reads only
+ * r3,r4,f1,r6 (float-slot-skip: t consumes the r5 slot) — 4 args, matching the DB prototype. */
+void point_from_parametric_line(real_point3d *p0, real_vector3d *forward, float t, real_point3d *result)
 {
-    (void)output;                                    /* r7 is never read by the binary */
     result->n[0] = forward->n[0] * t + p0->n[0];
     result->n[1] = forward->n[1] * t + p0->n[1];
     result->n[2] = forward->n[2] * t + p0->n[1];

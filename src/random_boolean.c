@@ -1,3 +1,4 @@
+/* random_boolean @0x837B77E8 */
 #include <stdint.h>
 
 extern uint32_t *get_global_random_seed_address(void);

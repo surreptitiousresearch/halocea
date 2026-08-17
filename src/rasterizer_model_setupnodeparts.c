@@ -1,3 +1,4 @@
+/* rasterizer_model_setupnodeparts @0x836A6130 */
 #include <stdint.h>
 #include "headers/real_matrix4x3.h"
 

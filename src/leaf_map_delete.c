@@ -1,3 +1,4 @@
+/* leaf_map_delete @0x8381A940 */
 #include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/tag_block.h"

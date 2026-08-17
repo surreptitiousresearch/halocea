@@ -1,3 +1,4 @@
+/* pause_game_quit_to_main_menu @0x83692030 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

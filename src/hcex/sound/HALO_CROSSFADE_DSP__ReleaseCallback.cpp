@@ -1,3 +1,4 @@
+/* ?ReleaseCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@@Z @0x836B5498 */
 // ?ReleaseCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@@Z -- 0x836B54AC
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"

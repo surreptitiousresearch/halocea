@@ -1,3 +1,4 @@
+/* compare_video_resolutions @0x83785038 */
 #include "headers/video_resolution_s.h"
 
 int compare_video_resolutions(const video_resolution_s *res_1, const video_resolution_s *res_2)

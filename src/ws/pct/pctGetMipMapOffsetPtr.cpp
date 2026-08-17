@@ -1,3 +1,4 @@
+/* ?pctGetMipMapOffsetPtr@@YAPAXPAUpctPICTURE@@HH@Z @0x827C1240 */
 #include "../../headers/pctPICTURE.h"
 #include "../../headers/pct_boundary.h"
 

@@ -1,3 +1,4 @@
+/* cached_map_block_on_async_request @0x83753A08 */
 #include <stdint.h>
 
 extern uint32_t SleepEx(uint32_t ms, int alertable);

@@ -1,3 +1,4 @@
+/* ?GetFreeSound@HALO_SOUND_LIST@@QAAPAVSound@FMOD@@_N@Z @0x836C1F48 */
 #include "../headers/hcex/HALO_SOUND_LIST_boundary.h"
 
 // 0x836C1F48 — ?GetFreeSound@HALO_SOUND_LIST@@QAAPAVSound@FMOD@@_N@Z

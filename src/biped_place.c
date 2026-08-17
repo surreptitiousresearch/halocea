@@ -1,3 +1,4 @@
+/* biped_place @0x837AC378 */
 #include "headers/scenario_biped_datum.h"
 
 extern void unit_place(int unit_index, scenario_unit_datum *scenario_unit);

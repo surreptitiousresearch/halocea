@@ -1,3 +1,4 @@
+/* ?BuildString@psSECTION_INTERFACE@@QBA?AV?$dsTSTRING@D@@XZ @0x82518AF8 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 #include "../ds/dsDATA.h"

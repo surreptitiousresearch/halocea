@@ -1,3 +1,4 @@
+/* bitmap_format_to_d3d_format @0x836F4138 */
 #include <stdint.h>
 #include "headers/d3d_render_boundary.h"
 

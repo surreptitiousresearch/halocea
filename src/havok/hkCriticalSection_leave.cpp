@@ -1,3 +1,4 @@
+/* ?leave@hkCriticalSection@@QAAXXZ @0x838D3128 */
 #include "../headers/havok/hkReferencedObjectLock.h"
 
 /* Win32/NT critical-section primitive (external boundary). */

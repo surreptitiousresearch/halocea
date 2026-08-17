@@ -1,3 +1,4 @@
+/* render_object_list @0x836E66D0 */
 /* render_object_list 0x836E66F4 — recursively render an object and its attachment hierarchy. Walks the sibling
  * chain (object_data + 276) and, for each object, recurses into its first child (object_data + 280). For every
  * object it builds a per-object render_model_effect (inherited from the parent, with active-camo / type-2

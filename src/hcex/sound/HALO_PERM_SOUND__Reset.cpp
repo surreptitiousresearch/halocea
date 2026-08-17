@@ -1,3 +1,4 @@
+/* ?Reset@HALO_PERM_SOUND@@QAAXXZ @0x836B68B0 */
 // ?Reset@HALO_PERM_SOUND@@QAAXXZ -- 0x836B68BC
 #include "../../headers/hcex/HALO_PERM_SOUND.h"
 

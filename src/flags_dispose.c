@@ -1,3 +1,4 @@
+/* flags_dispose @0x8380DE70 */
 #include "headers/blam_data_globals.h"
 
 void flags_dispose(void)

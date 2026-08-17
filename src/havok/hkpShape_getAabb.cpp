@@ -1,3 +1,4 @@
+/* ?getAabb@hkpShape@@QBAXABVhkTransform@@MAAVhkAabb@@@Z @0x829391A8 */
 #include "../headers/havok/hkpShapeVtbl.h"
 
 /* hkpShape::getAabb — non-virtual forwarder to the shape's virtual getAabbImpl

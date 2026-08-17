@@ -1,3 +1,4 @@
+/* set_real_vector3d @0x8368C800 */
 #include "headers/real_vector3d.h"
 
 /* Params are Blam `real` (float); decompiler defaulted them to `double` (stored via stfs, no frsp). */

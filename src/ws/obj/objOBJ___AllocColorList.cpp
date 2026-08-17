@@ -1,3 +1,4 @@
+/* ?_AllocColorList@objOBJ@@QAAHHH@Z @0x82A7F348 */
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

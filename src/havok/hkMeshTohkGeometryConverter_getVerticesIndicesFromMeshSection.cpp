@@ -1,3 +1,4 @@
+/* ?getVerticesIndicesFromMeshSection@hkMeshTohkGeometryConverter@@SAXPBVhkMeshShape@@HAAV?$hkArray@VhkVector4@@@@AAV?$hkArray@H@@@Z @0x839EA4E0 */
 #include "../headers/havok/hkMeshSection_boundary.h"
 #include "../headers/havok/hkMeshShape.h"
 #include "../headers/havok/hkVector4.h"

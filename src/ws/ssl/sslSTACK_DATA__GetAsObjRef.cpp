@@ -1,3 +1,4 @@
+/* ?GetAsObjRef@sslSTACK_DATA@@QBA?AVsslERROR@@AAPAVsslOBJECT@@AAPAVsslCLASS@@PAVsslSYSTEM@@@Z @0x82AF41B8 */
 #include "sslSTACK_DATA.h"
 #include "sslOBJ_REF.h"
 #include "sslOBJECT.h"

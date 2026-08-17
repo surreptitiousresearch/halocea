@@ -1,3 +1,4 @@
+/* ?isApproximatelyEqual@hkTransform@@QBA?AVhkBool@@ABV1@M@Z @0x838E07F8 */
 #include "../headers/havok/hkTransform.h"
 #include "../headers/havok/hkMatrix3.h"
 #include "../headers/havok/hkBool.h"

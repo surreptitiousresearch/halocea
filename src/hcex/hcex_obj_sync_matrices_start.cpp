@@ -1,3 +1,4 @@
+/* hcex_obj_sync_matrices_start @0x823D4E70 */
 /* HCEX bridge boundary: hcexJOB_SYNC_INST_MNG is an opaque job-sync manager class. */
 typedef struct hcexJOB_SYNC_INST_MNG hcexJOB_SYNC_INST_MNG;
 

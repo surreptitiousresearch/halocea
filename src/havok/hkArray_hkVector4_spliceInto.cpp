@@ -1,3 +1,4 @@
+/* ?spliceInto@?$hkArray@VhkVector4@@@@QAAXHHPBVhkVector4@@H@Z @0x83611250 */
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkVector4.h"
 

@@ -1,3 +1,4 @@
+/* cancel_profile_delete @0x83696F08 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

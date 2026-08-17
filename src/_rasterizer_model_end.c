@@ -1,3 +1,4 @@
+/* _rasterizer_model_end @0x8378D180 */
 #include <stdint.h>
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/rasterizer_model_begin_parameters.h"

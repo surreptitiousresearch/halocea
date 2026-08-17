@@ -1,3 +1,4 @@
+/* render_frustum_build_point_flags @0x8376C800 */
 /* render_frustum_build_point_flags 0x8376C800 — classify a point against the four side planes of a render
  * frustum, returning a bitmask of the planes the point is on the positive (inside) side of: bit 1 = plane 0,
  * bit 2 = plane 1, bit 8 = plane 2, bit 4 = plane 3. Used for cheap point-in-frustum / clip culling. */

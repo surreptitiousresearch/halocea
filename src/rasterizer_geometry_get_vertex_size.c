@@ -1,3 +1,4 @@
+/* rasterizer_geometry_get_vertex_size @0x837E83F0 */
 /* rasterizer_geometry_get_vertex_size 0x837E83F0 — look up the byte size of one vertex of the given vertex
  * type from the static size table. */
 

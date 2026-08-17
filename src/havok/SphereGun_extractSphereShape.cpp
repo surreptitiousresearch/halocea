@@ -1,3 +1,4 @@
+/* SphereGun_extractSphereShape @0x8385E8B8 */
 /* =========================================================================
    NOTE / CAVEAT: the algorithm flow below is traced faithfully, but several
    boundary objects (hkdSphereExtractorVolume, hkdShapeExtractorUtil::Info,

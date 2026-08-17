@@ -1,3 +1,4 @@
+/* ?Start@mdlLIP_SYNCER@@QAAXABV?$dsTSTRING@D@@_N@Z @0x82747018 */
 // 0x82747018  ?Start@mdlLIP_SYNCER@@QAAXABV?$dsTSTRING@D@@_N@Z
 // Begin a lip-sync clip. Reset, transition OFF/EASE_OFF -> EASE_ON, then open the spline file
 // "<voPath|exPath>/<name>.spl". Each chunk supplies either a per-phoneme spline (id 0x1E0,

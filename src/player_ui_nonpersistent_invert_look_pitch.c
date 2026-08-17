@@ -1,3 +1,4 @@
+/* player_ui_nonpersistent_invert_look_pitch @0x83699AF0 */
 #include <stdint.h>
 #include "headers/player_ui_globals.h"
 

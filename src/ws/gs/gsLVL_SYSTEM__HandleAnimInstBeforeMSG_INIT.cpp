@@ -1,3 +1,4 @@
+/* ?HandleAnimInstBeforeMSG_INIT@gsLVL_SYSTEM@@QAAXPAVanimINST@@@Z @0x82739F48 */
 #include "gsLVL_SYSTEM.h"
 #include "../obj/objOBJ.h"
 

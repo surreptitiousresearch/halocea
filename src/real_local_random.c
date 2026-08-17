@@ -1,3 +1,4 @@
+/* real_local_random @0x83685398 */
 #include <stdint.h>
 
 extern uint32_t *get_global_local_random_seed_address(void);

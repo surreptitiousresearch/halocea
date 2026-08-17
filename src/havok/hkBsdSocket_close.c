@@ -1,3 +1,4 @@
+/* ?close@hkBsdSocket@@UAAXXZ @0x838EDFB0 */
 #include "../headers/havok/hkBsdSocket.h"
 
 /* boundary — Winsock/BSD sockets teardown. */

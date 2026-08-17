@@ -1,3 +1,4 @@
+/* hkExpandReal @0x83FA1060 */
 #include "../headers/havok/hkaQuantizeDesc.h"
 #include "../headers/havok/hkBool.h"
 

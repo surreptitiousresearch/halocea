@@ -1,3 +1,4 @@
+/* rasterizer_model_begin @0x836A6128 */
 /* rasterizer_model_begin 0x836A6128 — argument-forwarding tail-call thunk to _rasterizer_model_begin. */
 
 #include <stdint.h>

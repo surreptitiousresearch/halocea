@@ -1,3 +1,4 @@
+/* default_ascii_character_decoder @0x8379AAA8 */
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"
 

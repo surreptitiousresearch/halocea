@@ -1,3 +1,4 @@
+/* console_get_token @0x83722150 */
 extern char *strrchr(const char *s, int c);
 
 char * console_get_token(char *buffer)

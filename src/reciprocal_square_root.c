@@ -1,3 +1,4 @@
+/* reciprocal_square_root @0x836C5678 */
 #include <math.h>
 
 /* Param is Blam `real` (float); the decompiler defaulted it to `double` (used raw by fsqrts, no frsp).

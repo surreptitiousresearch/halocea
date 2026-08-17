@@ -1,3 +1,4 @@
+/* point_in_cone2d @0x836FE2A8 */
 #include <stdint.h>
 #include "headers/real_point2d.h"
 #include "headers/real_vector2d.h"

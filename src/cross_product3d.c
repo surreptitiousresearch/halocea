@@ -1,3 +1,4 @@
+/* cross_product3d @0x836A7760 */
 #include "headers/real_vector3d.h"
 
 /* result = a x b (3D cross product). */

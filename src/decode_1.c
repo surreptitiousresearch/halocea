@@ -1,3 +1,4 @@
+/* decode_1 @0x836888D0 */
 #include "headers/DecryptBuffer.h"
 
 /* decode_1 — TEA single 8-byte block decrypt (standard 32-round Feistel, delta 0x9E3779B9). Verified

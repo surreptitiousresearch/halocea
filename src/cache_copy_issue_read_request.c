@@ -1,3 +1,4 @@
+/* cache_copy_issue_read_request @0x83808A50 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 #include "headers/cache_copy_read_request.h"

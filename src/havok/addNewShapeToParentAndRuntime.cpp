@@ -1,3 +1,4 @@
+/* addNewShapeToParentAndRuntime @0x8384E740 */
 #include "../headers/havok/hkdWoodFracture_SplitParams.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkdBreakableShape.h"

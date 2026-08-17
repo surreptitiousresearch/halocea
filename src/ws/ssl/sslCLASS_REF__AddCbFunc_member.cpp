@@ -9,11 +9,12 @@
 struct sslLEX;
 struct sslPARSER;
 dsTSTRING<char> dsSPrintf(dsTSTRING<char> *out, const char *fmt, ...);
-namespace {
-    // sslPARSER::AddCbFuncToClass (member-callback overload, 0x82A447F0) — boundary.
-    sslERROR sslPARSER_AddCbFuncToClass(sslPARSER *self, sslCLASS_REF cls, sslLEX &lex,
-                                        sslCB_MEMBER_FN cbFunc, int *idx, int flags);
-}
+// sslPARSER::AddCbFuncToClass (member-callback overload, 0x82A447F0) — boundary.
+// DEVIATION: previously declared inside an anonymous namespace (internal linkage, never
+// defined, odr-used below — unresolvable at link); hoisted to file scope like the
+// sibling boundary decls.
+extern sslERROR sslPARSER_AddCbFuncToClass(sslPARSER *self, sslCLASS_REF cls, sslLEX &lex,
+                                           sslCB_MEMBER_FN cbFunc, int *idx, int flags);
 // sslLEX(const char *src, int maxLen) ctor / dtor, sslPARSER(sslSYSTEM *) ctor — boundary.
 extern void sslLEX_ctor(sslLEX *self, const char *src, int maxLen);
 extern void sslLEX_dtor(sslLEX *self);

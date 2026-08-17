@@ -1,3 +1,4 @@
+/* ?RecomputeViewport@camCAMERA@@AAAXXZ @0x82702358 */
 #include "../../headers/ws/cam/camCAMERA.h"
 #include <math.h>
 

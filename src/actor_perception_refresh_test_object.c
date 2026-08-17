@@ -221,12 +221,30 @@ void actor_perception_refresh_test_object(int actor_index, int object_index, act
                         dead, dead_ticks, suicide_radius, distance_squared, 0, &optional_reference) )
                 {
                     actor_prop_environment *environment = enemy ? enemies : friends;
-                    int prop_index = prop_new_unacknowledged(actor_index, current_object, enemy);
-                    if ( prop_index != -1 )
+                    /* DEVIATION: optional candidates are queued, not allocated — lbz optional_reference
+                     * @0x837D905C routes them into the bounded optional list (cap 0x80 @0x837D9070;
+                     * stores @0x837D9088/0x837D90A4/0x837D90C0), and only non-optional props take the
+                     * prop_new_unacknowledged path @0x837D90E0. Prior recovery allocated immediately. */
+                    if ( optional_reference )
                     {
-                        prop_position_refresh(actor_index, prop_index, &sense_position, 0, 0);
-                        if ( !dead )
-                            ++environment->existing_count;
+                        if ( environment->optional_count < 128 )
+                        {
+                            actor_optional_prop *candidate = &environment->optional_props[environment->optional_count];
+                            candidate->prop_index = -1;
+                            candidate->unit_index = current_object;
+                            candidate->distance_squared = distance_squared;
+                            ++environment->optional_count;
+                        }
+                    }
+                    else
+                    {
+                        int prop_index = prop_new_unacknowledged(actor_index, current_object, enemy);
+                        if ( prop_index != -1 )
+                        {
+                            prop_position_refresh(actor_index, prop_index, &sense_position, 0, 0);
+                            if ( !dead )
+                                ++environment->existing_count;
+                        }
                     }
                 }
             }

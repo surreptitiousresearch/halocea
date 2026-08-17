@@ -1,3 +1,4 @@
+/* _field_type_translated_index_size_calculator @0x8379B8E8 */
 /* _field_type_translated_index_size_calculator — maximum_size_calculator for the "translated index"
  * field type: serialized width is the number of bits needed to represent maximum_active_at_once,
  * cached back into the parameters' number_of_bits field. */

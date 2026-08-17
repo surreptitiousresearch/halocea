@@ -1,3 +1,4 @@
+/* rasterizer_environment_diffuse_light_draw @0x836A61B8 */
 /* rasterizer_environment_diffuse_light_draw 0x836A61B8 (thunk) — tail-call thunk to the underscore implementation. */
 #include <stdint.h>
 

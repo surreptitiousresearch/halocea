@@ -1,3 +1,4 @@
+/* message_delta_set_encoding_class @0x837A07A0 */
 /* message_delta_set_encoding_class — set the global message-delta encoding class (LAN vs internet).
  * The argument domain is the DB enum message_delta_processor_encoding_class. */
 

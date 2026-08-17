@@ -1,3 +1,4 @@
+/* ?Init@SWIZZLER@@QAAXKKK@Z @0x82D580C0 */
 #include "headers/ws/rend/SWIZZLER.h"
 
 // 0x82D580C4 -- assigns bits round-robin to U/V/W: each round, every axis whose dimension still

@@ -1,3 +1,4 @@
+/* ?getChildShapesRecursively@hkdBreakableShape@@QBAXABVhkTransform@@AAV?$hkArray@UhkdShapeInstanceInfo@@@@@Z @0x8384A548 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkTransform.h"

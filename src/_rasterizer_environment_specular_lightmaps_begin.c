@@ -1,3 +1,4 @@
+/* _rasterizer_environment_specular_lightmaps_begin @0x837A5978 */
 /* _rasterizer_environment_specular_lightmaps_begin 0x837A5978 — configure the D3D pipeline for the
  * environment specular-lightmap pass: additive blend (src 0xA / dest ONE), depth-tested (less-equal, no
  * z-write), alpha-tested, then the four sampler stages. Runs only in normal drawing mode, when specular

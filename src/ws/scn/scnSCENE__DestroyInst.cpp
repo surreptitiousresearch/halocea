@@ -1,3 +1,4 @@
+/* ?DestroyInst@scnSCENE@@QAAXPAVanimINST@@@Z @0x8253CF18 */
 #include "scnSCENE.h"
 
 // ?DestroyInst@scnSCENE@@QAAXPAVanimINST@@@Z  (0x8253CF18) — release collision/collision-anim

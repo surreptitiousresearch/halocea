@@ -1,3 +1,4 @@
+/* midpoint3d @0x837AC2F8 */
 #include "headers/real_point3d.h"
 
 real_point3d * midpoint3d(const real_point3d *p0, const real_point3d *p1, real_point3d *result)

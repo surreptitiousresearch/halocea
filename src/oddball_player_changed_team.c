@@ -1,3 +1,4 @@
+/* oddball_player_changed_team @0x83816ED8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/oddball_globals.h"

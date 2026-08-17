@@ -1,5 +1,9 @@
 #pragma once
 #include "../ds/dsSTRID.h"
+#include "../ds/dsVECTOR.h"
+#include "../ds/dsCONST_ARRAY.h"
+#include "../ds/dsSHARED_PTR.h"
+#include "fsmCB_HANDLER_T.h"
 // ws-engine fsm — the event handler owned by a body FSM state object (fsmSTATE_MANAGER /
 // fsmSTATE_FSM_HLD both derive it). Only the entry points the aiBODY event-forwarding methods reach
 // are modelled; the full layout/vtable is the next frontier.  boundary.
@@ -41,24 +45,63 @@ struct fsmEVENT_HANDLER {
     void SendEvent(const dsSTRID &(EV::*idGetter)());
 };
 
-// The two body-FSM state objects a propFSM points at; each is-a fsmEVENT_HANDLER. Both are modelled
-// as the fsmEVENT_HANDLER sub-object only, which is what the event-forwarding upcast needs and is
-// byte-exact for it — every base in both chains sits at offset 0. Their trailing state is the fsm
-// re-source frontier, so it is carried here as DB evidence rather than as members. boundary.
-//
-// DB types_members fsmSTATE_MANAGER (types size 196): <base> fsmEVENT_HANDLER@0 (12B) —
-// the base the header spells — then stackState@0xC (fsmSTATE_MANAGER::STATE_STACK, 16B),
-// stateList@0x1C (dsVECTOR<fsmPAIR_HLD<dsSTRID,fsmSTATE>,8>), stateGoalQueue@0x30
-// (dsVECTOR<dsSTRID,8>), isSyncMode@0x44, isSyncModeOvr@0x45, isClientMode@0x46,
-// idxCommonState@0x48, eventHandler@0x4C (fsmCB_HANDLER<dsSTRID>, 92B), idUndef@0xA8,
-// isFrameUpdate@0xAC, eventQueue@0xB0 (dsVECTOR<dsSTRID,8>).
-struct fsmSTATE_MANAGER : fsmEVENT_HANDLER {};
+// The body-FSM state-object family. Kept in this header (the family's canonical home — existing
+// consumers reach the two propFSM pointees through it) because every link derives from
+// fsmEVENT_HANDLER above; every base in every chain sits at offset 0, so the event-forwarding
+// upcasts are unchanged. Method bodies remain the fsm re-source frontier. boundary.
 
-// DB types_members fsmSTATE_FSM_HLD (types size 56) names fsmSTATE_CONTAINER as the direct base;
-// the header flattens the chain, which is exact because every link starts at offset 0:
-// fsmSTATE_FSM_HLD(56) : fsmSTATE_CONTAINER(40) : fsmSTATE(20) : fsmEVENT_HANDLER(12), with
-// fsmSTATE = {<base> fsmEVENT_HANDLER@0, id@0xC (u8), eventHandler@0x10 (fsmEVENT_HANDLER *)} and
-// fsmSTATE_CONTAINER = {<base> fsmSTATE@0, stateList@0x14 (dsVECTOR<fsmPAIR_HLD<dsSTRID,fsmSTATE>,8>)}.
-// fsmSTATE_FSM_HLD's own tail: fsm@0x28 (dsSHARED_PTR<fsmSTATE_MANAGER,...>), isSyncBySelf@0x30,
+template<class K, class V> struct fsmPAIR_HLD; // fsm name->state pair node — boundary (vector element, pointer-backed store)
+struct fsmDESC_HLD;                            // fsm descriptor — boundary (pointer only)
+
+// One FSM state node. DB-verified layout (types_members fsmSTATE, size 20):
+// <base> fsmEVENT_HANDLER@0 (12B), id@0xC (u8), eventHandler@0x10 (fsmEVENT_HANDLER *).
+struct fsmSTATE : fsmEVENT_HANDLER {
+    unsigned char     id;           // 0x0C state id
+    unsigned char     pad[3];       // 0x0D alignment padding (explicit in the DB record)
+    fsmEVENT_HANDLER *eventHandler; // 0x10 handler events on this state are forwarded to
+};
+
+// A state that owns child states. DB-verified layout (types_members fsmSTATE_CONTAINER, size 40):
+// <base> fsmSTATE@0 (20B), stateList@0x14 (dsVECTOR<fsmPAIR_HLD<dsSTRID,fsmSTATE>,8>, 20B).
+struct fsmSTATE_CONTAINER : fsmSTATE {
+    dsVECTOR<fsmPAIR_HLD<dsSTRID, fsmSTATE>, 8> stateList; // 0x14 named child states
+};
+
+// The body FSM state machine. DB-verified layout (types_members fsmSTATE_MANAGER, size 196):
+// <base> fsmEVENT_HANDLER@0 (12B), stackState@0xC (fsmSTATE_MANAGER::STATE_STACK, 16B),
+// stateList@0x1C, stateGoalQueue@0x30, isSyncMode@0x44, isSyncModeOvr@0x45, isClientMode@0x46,
+// idxCommonState@0x48, eventHandler@0x4C (fsmCB_HANDLER<dsSTRID>, 92B), idUndef@0xA8,
+// isFrameUpdate@0xAC, eventQueue@0xB0 (dsVECTOR<dsSTRID,8>, 20B).
+struct fsmSTATE_MANAGER : fsmEVENT_HANDLER {
+    // DB nested fsmSTATE_MANAGER::STATE_STACK (size 16): stackGoal@0 (dsCONST_ARRAY<int,3>).
+    struct STATE_STACK {
+        dsCONST_ARRAY<int, 3> stackGoal; // 0x00 pushed goal-state indices
+    };
+
+    STATE_STACK                                 stackState;     // 0x0C
+    dsVECTOR<fsmPAIR_HLD<dsSTRID, fsmSTATE>, 8> stateList;      // 0x1C named states
+    dsVECTOR<dsSTRID, 8>                        stateGoalQueue; // 0x30 pending goal states
+    bool                                        isSyncMode;     // 0x44
+    bool                                        isSyncModeOvr;  // 0x45
+    bool                                        isClientMode;   // 0x46
+    unsigned char                               pad[1];         // 0x47 alignment padding
+    int                                         idxCommonState; // 0x48
+    fsmCB_HANDLER<dsSTRID>                      eventHandler;   // 0x4C event-callback registry (92B)
+    int                                         idUndef;        // 0xA8
+    bool                                        isFrameUpdate;  // 0xAC
+    unsigned char                               pad2[3];        // 0xAD alignment padding
+    dsVECTOR<dsSTRID, 8>                        eventQueue;     // 0xB0 queued events
+}; // size 196
+
+// A state that holds (delegates to) a whole nested state machine. DB-verified layout
+// (types_members fsmSTATE_FSM_HLD, size 56): <base> fsmSTATE_CONTAINER@0 (40B), fsm@0x28
+// (dsSHARED_PTR<fsmSTATE_MANAGER,0,Deleter<fsmSTATE_MANAGER>>, 8B), isSyncBySelf@0x30,
 // isForceExit@0x31, isDeactivated@0x32, descStateDerivedFrom@0x34 (const fsmDESC_HLD *).
-struct fsmSTATE_FSM_HLD : fsmEVENT_HANDLER {};
+struct fsmSTATE_FSM_HLD : fsmSTATE_CONTAINER {
+    dsSHARED_PTR<fsmSTATE_MANAGER, 0, Deleter<fsmSTATE_MANAGER> > fsm; // 0x28 owned nested FSM
+    bool               isSyncBySelf;         // 0x30
+    bool               isForceExit;          // 0x31
+    bool               isDeactivated;        // 0x32
+    unsigned char      pad[1];               // 0x33 alignment padding
+    const fsmDESC_HLD *descStateDerivedFrom; // 0x34
+}; // size 56

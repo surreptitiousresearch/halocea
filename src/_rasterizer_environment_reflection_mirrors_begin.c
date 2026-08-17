@@ -1,4 +1,4 @@
-/* _rasterizer_environment_reflection_mirrors_begin 0x837A6F50 — configure the D3D pipeline for the environment
+/* _rasterizer_environment_reflection_mirrors_begin @0x837A6F50 — configure the D3D pipeline for the environment
  * reflection-mirror pass. Identical pipeline setup to _rasterizer_environment_reflections_begin (additive blend,
  * depth-tested no-z-write, alpha test off, four reflection sampler stages); only the debug gate differs. No-op
  * in a special drawing mode or when reflection mirrors are disabled.

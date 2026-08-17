@@ -1,3 +1,4 @@
+/* ?Show@instCONSTRUCTOR_NODE@@QAAXPAVanimINST@@_NAAV?$dsVECTOR@E$07@@@Z @0x826E11A8 */
 #include "../../headers/ws/prop/instCONSTRUCTOR_NODE.h"
 #include "../../headers/ws/anim/animINST.h"
 #include "../../headers/ws/obj/objOBJ.h"

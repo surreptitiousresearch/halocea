@@ -1,3 +1,4 @@
+/* player_ui_reset_single_player_local_player_controllers @0x83698830 */
 #include "headers/player_ui_globals.h"
 
 void player_ui_reset_single_player_local_player_controllers(void)

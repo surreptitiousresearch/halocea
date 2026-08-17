@@ -1,3 +1,4 @@
+/* ?IsEmptyHier@psSECTION_INTERFACE@@QBAHXZ @0x8251B390 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 #include "psSECTION_DATA.h"

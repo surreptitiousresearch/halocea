@@ -1,3 +1,4 @@
+/* ?ValidateHidden@animINST@@QAAXXZ @0x82B107F0 */
 #include "animINST.h"
 #include "animTPL.h"
 #include "tplSKIN.h"

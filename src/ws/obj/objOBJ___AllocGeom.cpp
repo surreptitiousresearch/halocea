@@ -1,3 +1,4 @@
+/* ?_AllocGeom@objOBJ@@QAAHXZ @0x82A7ECC0 */
 #include <new>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

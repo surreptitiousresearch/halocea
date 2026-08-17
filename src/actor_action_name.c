@@ -1,3 +1,4 @@
+/* actor_action_name @0x837F3DC8 */
 #include <stdint.h>
 #include "headers/action_specification.h"
 #include "headers/actor_action.h"

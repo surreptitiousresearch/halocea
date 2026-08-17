@@ -1,3 +1,4 @@
+/* ?AddKey@psSECTION_DATA@@QAAHVdsDATA@@KHAAUpsCOMPLEX_KEY_DATA@@@Z @0x8251C5C0 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"

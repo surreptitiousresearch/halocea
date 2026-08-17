@@ -1,3 +1,4 @@
+/* ?HandleAnimInstAfterMSG_INIT@gsLVL_SYSTEM@@QAAXPAVanimINST@@@Z @0x8273B278 */
 #include "gsLVL_SYSTEM.h"
 #include "../ds/dsAFFIX_READER.h"
 

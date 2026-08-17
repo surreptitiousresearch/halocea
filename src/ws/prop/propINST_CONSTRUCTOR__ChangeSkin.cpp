@@ -1,3 +1,4 @@
+/* ?ChangeSkin@propINST_CONSTRUCTOR@@QAAXABV?$dsTSTRING@D@@@Z @0x826E4750 */
 #include "../../headers/ws/prop/propINST_CONSTRUCTOR.h"
 #include "../../headers/ws/ent/entENTITY.h"
 

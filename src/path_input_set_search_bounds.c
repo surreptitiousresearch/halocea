@@ -1,3 +1,4 @@
+/* path_input_set_search_bounds @0x837D2288 */
 #include "headers/path_input.h"
 
 void path_input_set_search_bounds(path_input *input, float maximum_distance)

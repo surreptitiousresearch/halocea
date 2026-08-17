@@ -1,3 +1,4 @@
+/* ?Next@objITER_TREE@@QAAXXZ @0x823CD820 */
 #include "objITER_TREE.h"
 #include "objOBJ.h"
 // 0x823CD820  ?Next@objITER_TREE@@QAAXXZ

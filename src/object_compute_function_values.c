@@ -9,8 +9,10 @@
  * functions, flag 0x2) accumulates the previous output modulo 1. Results go to
  * outgoing_function_values[i]; the per-function active bits live in functions_active_flags.
  *
- * The 1-based incoming function indices address incoming_function_values[index-1] (base raw offset 292
- * = 4*(index+72) with index >= 1). */
+ * The 1-based incoming function indices address incoming_function_values[index-1] (binary: lfsx at
+ * object + 4*(index+0x48), e.g. addi r11,r11,0x48 / slwi r10,r11,2 / lfsx f0,r10,r30 @0x836ED910-
+ * 0x836ED918 — offset 292 at index 1; spelled [index-1] to keep the address computation well-defined
+ * on the x64 target, identical arithmetic). */
 
 #include <stdint.h>
 #include "headers/data_array.h"
@@ -25,7 +27,7 @@
 
 
 extern int game_time_get(void);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 extern float transition_function_evaluate(int16_t function_type, float value);
 extern double floor(double x);
 extern double fmod(double x, double y);
@@ -36,8 +38,8 @@ void object_compute_function_values(int object_index)
         DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;
     _object_definition *object_definition =
         TAG_GET(_object_definition, object->definition_index);
-    /* incoming_function_values[-1] base: the tag's function indices are 1-based */
-    float *incoming_values = object->object.incoming_function_values - 1;
+    /* the tag's function indices are 1-based; every subscript below is [index-1] */
+    float *incoming_values = object->object.incoming_function_values;
 
     int   time_ticks = game_time_get() + 57 * (uint16_t)object_index;
     float time_seconds = (float)time_ticks * SECONDS_PER_TICK;
@@ -56,14 +58,14 @@ void object_compute_function_values(int object_index)
             if ( function->scale_period_by_function_index )
             {
                 int16_t input_value_index = function->scale_period_by_function_index;
-                if ( incoming_values[input_value_index] > 0.0f )
-                    period_scale = function->runtime_one_over_period / incoming_values[input_value_index];
+                if ( incoming_values[input_value_index - 1] > 0.0f )
+                    period_scale = function->runtime_one_over_period / incoming_values[input_value_index - 1];
             }
 
             float value = periodic_function_evaluate(function->function_type, period_scale * time_seconds);
 
             if ( function->scale_function_by_function_index )
-                value = incoming_values[function->scale_function_by_function_index] * value;
+                value = incoming_values[function->scale_function_by_function_index - 1] * value;
             if ( (function->flags & (1u << _object_function_invert_function_bit)) != 0 )
                 value = 1.0f - value;
 
@@ -87,12 +89,12 @@ void object_compute_function_values(int object_index)
 
             if ( function->add_function_index )
             {
-                value = incoming_values[function->add_function_index] + value;
+                value = incoming_values[function->add_function_index - 1] + value;
                 if ( value > 1.0f )
                     value = 1.0f;
             }
             if ( function->scale_result_by_function_index )
-                value = incoming_values[function->scale_result_by_function_index] * value;
+                value = incoming_values[function->scale_result_by_function_index - 1] * value;
 
             float output = transition_function_evaluate(function->map_result_to_transition_function, value);
             if ( function->scale_by > 0.0f )

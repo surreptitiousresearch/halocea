@@ -73,7 +73,7 @@ extern uint8_t unit_unsuspecting(int unit_index, const real_point3d *attacker);
 extern void object_deplete_body(int object_index);
 extern void object_delete(int object_index);
 extern void object_damage_shield(int object_index, const damage_resistance *damage_resistance, const damage_material *damage_material, const damage_definition *damage_definition, const damage_data *damage_data, float *being_damaged_flags, float *shield_damage_reference, uint8_t should_do_actual_damage, uint8_t should_do_damage_effects, damage_dealt_network_data *replicated_damage_data);
-extern void object_damage_body(int object_index, int16_t region_index, int16_t node_index, const real_vector3d *object_normal, const damage_resistance *damage_resistance, const damage_material *damage_material, const damage_definition *damage_definition, const damage_data *damage_data, float total_damage, unsigned int *damage_flags_accumulator, float *body_damage_reference, float *body_damage_multiplier_reference, uint8_t should_do_actual_damage);
+extern void object_damage_body(int object_index, int16_t region_index, int16_t node_index, const real_vector3d *object_normal, const damage_resistance *damage_resistance, const damage_material *damage_material, const damage_definition *damage_definition, const damage_data *damage_data, unsigned int *damage_flags_accumulator, float *body_damage_reference, float *body_damage_multiplier_reference, float total_damage, uint8_t should_do_actual_damage);
 extern void damage_dealt_to_network(int owner_player_index, damage_dealt_network_data data);
 extern void object_damage_aftermath(int object_index, damage_data *damage_data, unsigned int being_damaged_flags, float shield_damage, float body_damage, float body_damage_multiplier, int16_t body_part, uint8_t should_do_actual_damage);
 
@@ -458,9 +458,9 @@ void object_cause_damage(damage_data *damage_data, int object_index, int16_t nod
                     }
                     object_damage_body(current_object_index, body_region, body_node,
                                        affected_count ? 0 : object_normal, resistance, material,
-                                       damage_definition, damage_data, total_damage,
+                                       damage_definition, damage_data,
                                        &working.definition_index, (float *)&working.owner_player_index,
-                                       (float *)&working.owner_team_index, should_do_actual_damage);
+                                       (float *)&working.owner_team_index, total_damage, should_do_actual_damage);
                     affected_count = 0;
                 }
             }

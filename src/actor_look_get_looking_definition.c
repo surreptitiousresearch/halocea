@@ -1,3 +1,4 @@
+/* actor_look_get_looking_definition @0x837FB1E8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"

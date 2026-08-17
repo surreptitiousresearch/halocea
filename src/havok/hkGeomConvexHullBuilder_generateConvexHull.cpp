@@ -1,3 +1,4 @@
+/* ?generateConvexHull@hkGeomConvexHullBuilder@@SAXPBVhkVector4@@HAAVhkGeomHull@@AAV?$hkArray@VhkVector4@@@@W4hkGeomConvexHullMode@@@Z @0x83FDEB70 */
 #include "../headers/havok/hkGeomConvexHull.h"
 #include "../headers/havok/hkThreadMemory.h"
 

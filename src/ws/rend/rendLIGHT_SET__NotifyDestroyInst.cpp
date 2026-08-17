@@ -1,3 +1,4 @@
+/* ?NotifyDestroyInst@rendLIGHT_SET@@QAAXPAVanimINST@@@Z @0x82ABBFA8 */
 #include "../../headers/ws/rend/rendLIGHT_SET.h"
 #include "../../headers/ws/anim/animINST.h"
 

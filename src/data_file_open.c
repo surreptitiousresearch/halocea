@@ -1,3 +1,4 @@
+/* data_file_open @0x83809778 */
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>

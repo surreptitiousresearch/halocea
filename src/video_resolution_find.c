@@ -1,3 +1,4 @@
+/* video_resolution_find @0x83785138 */
 #include "headers/video_resolution_s.h"
 
 int video_resolution_find(unsigned int width, unsigned int height)

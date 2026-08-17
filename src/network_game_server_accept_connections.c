@@ -1,3 +1,4 @@
+/* network_game_server_accept_connections @0x83697270 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

@@ -1,3 +1,4 @@
+/* stack_walk_disregard_symbol_names @0x83810C78 */
 #include <stdint.h>
 #include "headers/stack_walk_globals.h"
 

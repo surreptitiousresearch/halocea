@@ -1,3 +1,4 @@
+/* ?GetElement@psARRAY@@QBA?AVdsDATA@@H@Z @0x827AF3C0 */
 #include "psARRAY.h"
 #include "psARRAY_DATA.h"
 #include "../ds/dsDATA.h"

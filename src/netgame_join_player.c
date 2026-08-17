@@ -1,3 +1,4 @@
+/* netgame_join_player @0x83692A20 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

@@ -1,3 +1,4 @@
+/* actor_died @0x83720508 */
 /* actor_died @0x837205?? — handle an AI actor's death: randomly drop its current weapon and grenades, then
  * delete the actor and refresh its encounter. If the actor died in a controllable unit that still holds a
  * weapon (and has not already been told to persist control), it may keep "death-gripping" the trigger for a

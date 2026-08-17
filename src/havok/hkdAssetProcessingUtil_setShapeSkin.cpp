@@ -1,3 +1,4 @@
+/* hkdAssetProcessingUtil_setShapeSkin @0x8383C258 */
 #include "../headers/havok/hkpShapeSkinningUtil_boundary.h"
 #include "../headers/havok/hkMeshShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"

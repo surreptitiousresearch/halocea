@@ -1,3 +1,4 @@
+/* get_hud_state_0 @0x836D6618 */
 #include <stdint.h>
 #include "headers/unit_hud_globals_definition.h"
 

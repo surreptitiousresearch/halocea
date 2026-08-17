@@ -1,3 +1,4 @@
+/* oddball_test_flag @0x838169A0 */
 #include <stdint.h>
 #include "headers/game_variant.h"
 

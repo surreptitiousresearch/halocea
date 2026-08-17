@@ -1,3 +1,4 @@
+/* ?Init@HALO_PERM_SOUND@@QAAXPBUsound_permutation@@JABUHALO_CHANNEL_PROPERTIES@@@Z @0x836C0C30 */
 // ?Init@HALO_PERM_SOUND@@QAAXPBUsound_permutation@@JABUHALO_CHANNEL_PROPERTIES@@@Z -- 0x836C0C74
 #include <stdint.h>
 #include <string.h>

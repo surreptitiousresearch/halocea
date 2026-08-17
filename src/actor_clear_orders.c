@@ -1,3 +1,4 @@
+/* actor_clear_orders @0x8371F6F0 */
 #include <stdint.h>
 #include <string.h>
 

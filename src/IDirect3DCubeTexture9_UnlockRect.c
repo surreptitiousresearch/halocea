@@ -1,3 +1,4 @@
+/* IDirect3DCubeTexture9_UnlockRect @0x8369B478 */
 #include "headers/d3d_boundary.h"
 #include "headers/d3d_render_boundary.h"
 

@@ -1,3 +1,4 @@
+/* ?setNeg4@hkVector4@@QAAXABV1@@Z @0x83601D50 */
 #include "../headers/havok/hkVector4.h"
 
 /* dst = -x, all four lanes negated. DEVIATION: the original is VMX128

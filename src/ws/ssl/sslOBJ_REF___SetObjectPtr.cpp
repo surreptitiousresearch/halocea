@@ -1,3 +1,4 @@
+/* ?_SetObjectPtr@sslOBJ_REF@@QAAXPAVsslOBJECT@@@Z @0x82523728 */
 #include "sslOBJ_REF.h"
 #include "sslOBJECT.h"
 

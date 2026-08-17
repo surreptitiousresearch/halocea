@@ -1,3 +1,4 @@
+/* retransformResourceTree @0x83839518 */
 #include "../headers/havok/hkResourceContainer.h"
 #include "../headers/havok/hkpWorldObject.h"
 #include "../headers/havok/hkTransform.h"

@@ -1,3 +1,4 @@
+/* _rasterizer_dynamic_triangles_lock @0x83791388 */
 /* _rasterizer_dynamic_triangles_lock 0x83791388 — lock one dynamic-triangle sub-buffer's index range for CPU
  * writing. Asks the hcex index-buffer backend for a write pointer (stored back into the buffer's data field) and
  * records the returned index offset (in triangles, hence >> 1) as the buffer's start offset, then caches the live

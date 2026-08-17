@@ -1,3 +1,4 @@
+/* ?ConvertToDsData@sslSTACK_DATA@@QAA?AVsslERROR@@XZ @0x82AF3D50 */
 #include "sslSTACK_DATA.h"
 #include "sslERROR.h"
 #include "../ds/dsDATA.h"

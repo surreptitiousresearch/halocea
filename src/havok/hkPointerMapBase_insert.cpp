@@ -1,3 +1,4 @@
+/* ?insert@?$hkPointerMapBase@KKU?$hkPointerMapOperations@KK@@@@QAAHKK@Z @0x838E49E0 */
 #include "../headers/havok/hkPointerMapBase.h"
 
 /* hkPointerMapBase::insert — open-addressing (linear-probe) insert. Grows the

@@ -1,3 +1,4 @@
+/* netgame_unjoin_player @0x836974C8 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

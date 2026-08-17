@@ -1,3 +1,4 @@
+/* ?Think@SYSTEM@gts@@QAAXXZ @0x82783E88 */
 #include "../../headers/ws/gts/SYSTEM.h"
 #include "../../headers/ws/ds/dsEVENT_MGR.h"
 

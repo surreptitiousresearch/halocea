@@ -1,3 +1,4 @@
+/* ?removeFlaggedVertices@hkGeomConvexHullBuilder@@SAXAAV?$hkArray@VhkVector4@@@@@Z @0x83FDA970 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* hkGeomConvexHullBuilder::removeFlaggedVertices

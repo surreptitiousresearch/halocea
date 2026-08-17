@@ -1,3 +1,4 @@
+/* hkInverseWaveletTransform @0x83FA05E8 */
 /* hkInverseWaveletTransform — reconstruct a signal from its lifting-scheme
    wavelet coefficients, in place.
 

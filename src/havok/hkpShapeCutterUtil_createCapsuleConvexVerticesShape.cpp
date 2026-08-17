@@ -1,3 +1,4 @@
+/* ?createCapsuleConvexVerticesShape@hkpShapeCutterUtil@@SAPAVhkpConvexVerticesShape@@ABVhkVector4@@0MHH@Z @0x83F972F0 */
 #include "../headers/havok/hkpShapeCutterUtil_boundary.h"
 
 /* hkpShapeCutterUtil::createCapsuleConvexVerticesShape

@@ -1,3 +1,4 @@
+/* _field_type_integer_size_calculator @0x8379A700 */
 /* _field_type_integer_size_calculator — maps the field's _field_width parameter to its
  * serialized bit width. DB-verified enum _field_width (in field_type_enumeration_parameters.h). */
 

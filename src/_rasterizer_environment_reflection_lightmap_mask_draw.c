@@ -32,7 +32,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
+extern void shader_environment_texture_animation_evaluate(const struct shader *shader, double time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
                                                 uint64_t PendingMask0);

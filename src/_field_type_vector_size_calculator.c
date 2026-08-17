@@ -1,3 +1,4 @@
+/* _field_type_vector_size_calculator @0x8379C040 */
 /* _field_type_vector_size_calculator — message-delta "vector" field: 32 bits per component
  * (protocol-local wire width) times the component count in parameters[0], plus overhead_bits. */
 

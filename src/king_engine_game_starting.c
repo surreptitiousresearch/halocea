@@ -1,3 +1,4 @@
+/* king_engine_game_starting @0x8382BF98 */
 #include <stdint.h>
 #include "headers/game_engine_multiplayer_sound.h"
 

@@ -1,3 +1,4 @@
+/* ui_widgets_close_all_for_local_player @0x83733030 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 

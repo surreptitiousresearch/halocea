@@ -1,3 +1,4 @@
+/* ?Acquire@HALO_CROSSFADE_DSP@@SAPAU1@XZ @0x836BC9B0 */
 // ?Acquire@HALO_CROSSFADE_DSP@@SAPAU1@XZ -- 0x836BC9DC
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"

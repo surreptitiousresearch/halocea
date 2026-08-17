@@ -1,3 +1,4 @@
+/* action_obey_individual_begin @0x837DED58 */
 #include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/ai_command_list_flags.h"

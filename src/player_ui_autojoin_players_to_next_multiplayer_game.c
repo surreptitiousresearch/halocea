@@ -1,3 +1,4 @@
+/* player_ui_autojoin_players_to_next_multiplayer_game @0x83698948 */
 #include "headers/player_ui_globals.h"
 
 void player_ui_autojoin_players_to_next_multiplayer_game(void)

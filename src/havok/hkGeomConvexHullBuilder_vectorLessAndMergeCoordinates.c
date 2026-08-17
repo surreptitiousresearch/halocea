@@ -1,3 +1,4 @@
+/* ?vectorLessAndMergeCoordinates@hkGeomConvexHullBuilder@@SA?AVhkBool@@AAVhkVector4@@0@Z @0x83FD9518 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkBool.h"
 

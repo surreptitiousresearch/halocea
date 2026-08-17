@@ -1,3 +1,4 @@
+/* ?RemoveRec@psSECTION_DATA@@QAAXH@Z @0x8251AD20 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_RECORD.h"

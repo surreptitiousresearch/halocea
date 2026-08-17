@@ -1,3 +1,4 @@
+/* race_get_score_string @0x8382B018 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"

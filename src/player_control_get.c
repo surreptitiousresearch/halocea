@@ -1,3 +1,4 @@
+/* player_control_get @0x836DE258 */
 #include <stdint.h>
 #include "headers/player_control_globals.h"
 

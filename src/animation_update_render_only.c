@@ -1,3 +1,4 @@
+/* animation_update_render_only @0x8369DD60 */
 #include <stdint.h>
 #include "headers/animation_update_kind.h"
 #include "headers/animation_state.h"

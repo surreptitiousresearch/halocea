@@ -1,3 +1,4 @@
+/* real_math_dispose @0x836FC128 */
 extern void random_math_dispose(void);
 extern void periodic_functions_dispose(void);
 

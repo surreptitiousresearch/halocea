@@ -27,13 +27,12 @@ typedef struct hkaDeltaCompressedAnimation_QuantizationFormat
 } hkaDeltaCompressedAnimation_QuantizationFormat;
 
 /* Local alias so member spellings match the DB's nested-qualified type. */
-typedef hkaDeltaCompressedAnimation_QuantizationFormat QuantizationFormat;
 
 struct hkaDeltaCompressedAnimation : hkaAnimation
 {
     int m_numberOfPoses;                       /* +36  */
     int m_blockSize;                           /* +40  */
-    QuantizationFormat m_qFormat;              /* +44  */
+    hkaDeltaCompressedAnimation_QuantizationFormat m_qFormat;              /* +44  */
     unsigned int m_quantizedDataIdx;           /* +64  */
     unsigned int m_quantizedDataSize;          /* +68  */
     unsigned int m_staticMaskIdx;              /* +72  */

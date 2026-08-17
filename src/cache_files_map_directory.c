@@ -18,11 +18,13 @@ static int directory_path_exists(const char *cache_root, const char *subdir)
 {
     char path[256];
     strncpy(path, cache_root, 0x100u);
+    path[255] = 0; /* DEVIATION: guard store stb @0x836F6DF0 (twin 0x836F6E70) was dropped in transcription; load-bearing — strncpy(,,0x100) leaves a full 256-char copy unterminated */
 
     char *end = path;
     while ( *end++ )
         ;
     strncat(path, subdir, 256 - (end - path - 1));
+    path[255] = 0; /* DEVIATION: guard store stb @0x836F6E24 (twin 0x836F6EA4), dropped in transcription */
 
     file_reference reference;
     return file_exists(file_reference_create_from_path(&reference, path, 1u));

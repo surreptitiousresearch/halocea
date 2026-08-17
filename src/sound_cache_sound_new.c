@@ -1,3 +1,4 @@
+/* sound_cache_sound_new @0x837E7360 */
 #include "headers/sound_permutation.h"
 
 void sound_cache_sound_new(int tag_index, sound_permutation *sound)

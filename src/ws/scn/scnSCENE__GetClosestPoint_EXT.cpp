@@ -1,3 +1,4 @@
+/* ?GetClosestPoint_EXT@scnSCENE@@QAAHPAUm3dV@@MPAVcdtREFINE@@PAVcdtINFO@@@Z @0x82744B58 */
 #include "../../headers/ws/scn/scnSCENE.h"
 
 // 0x82744B58 (scnSCENE::GetClosestPoint_EXT). Thin wrapper around GetClosestPoint_INT: if the

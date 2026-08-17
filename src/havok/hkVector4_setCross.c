@@ -1,3 +1,4 @@
+/* ?setCross@hkVector4@@QAAXABV1@0@Z @0x82939118 */
 #include "../headers/havok/hkVector4.h"
 
 /* hkVector4::setCross — this = x cross y (3-lane cross product; the w lane

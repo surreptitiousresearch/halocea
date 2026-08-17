@@ -1,3 +1,4 @@
+/* ?SetVertBoneWeightList@objOBJ@@QAAXPAX@Z @0x82BCC900 */
 #include <stdint.h>
 #include "objOBJ.h"
 // 0x82BCC900  ?SetVertBoneWeightList@objOBJ@@QAAXPAX@Z  (mangle PAX = void*; stored as float*)

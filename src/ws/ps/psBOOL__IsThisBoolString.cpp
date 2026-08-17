@@ -1,3 +1,4 @@
+/* ?IsThisBoolString@psBOOL@@SAHPBDHPAK@Z @0x82A31298 */
 #include "psBOOL.h"
 #include <string.h>
 // 0x82A312B0 — recognize one of the six boolean spellings (case-insensitive): "no"/"yes" (style 1),

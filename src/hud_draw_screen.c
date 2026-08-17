@@ -1,3 +1,4 @@
+/* hud_draw_screen @0x83708DB8 */
 /* hud_draw_screen 0x83708DB8 — top-level HUD draw for the active local player, bracketed by the rasterizer HUD
  * begin/end pair. Draws player nameplates/team indicators, ticks the motion sensor for the primary (or co-op)
  * player, and — when the HUD is scripted-visible and the player is a living unit in a head/third-person view

@@ -20,7 +20,10 @@ void hs_evaluate_wake(int16_t function_index, int thread_index, uint8_t initiali
 
     int name_node = HS_SYNTAX_NODE(call_expression).data;
     int script_argument = HS_SYNTAX_NODE(name_node).next_node_index;
-    int16_t script_index = (int16_t)HS_SYNTAX_NODE(script_argument).data;
+    /* DEVIATION: the script literal is the FIRST halfword of the node's 32-bit data word — lhz r3,0x10(r11)
+     * @0x8368E56C loads the big-endian high half, matching the corpus-wide >>16 packed-halfword convention
+     * (hs_short_to_real et al.); the previous (int16_t)data read the low half. */
+    int16_t script_index = (int16_t)((uint32_t)HS_SYNTAX_NODE(script_argument).data >> 16);
 
     int thread_by_script = hs_find_thread_by_script(script_index);
     if ( thread_by_script != -1 )

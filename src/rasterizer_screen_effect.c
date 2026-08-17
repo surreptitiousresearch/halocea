@@ -1,3 +1,4 @@
+/* rasterizer_screen_effect @0x836A6110 */
 /* rasterizer_screen_effect 0x836A6110 — thunk to the screen-effect implementation. */
 
 #include "headers/rasterizer_screen_effect_parameters.h"

@@ -1,3 +1,4 @@
+/* data_decode_structures @0x838308F8 */
 #include <stdint.h>
 #include "headers/data_encoding_state.h"
 #include "headers/byte_swap_definition.h"

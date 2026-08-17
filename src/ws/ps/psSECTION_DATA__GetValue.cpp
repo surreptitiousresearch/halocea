@@ -1,3 +1,4 @@
+/* ?GetValue@psSECTION_DATA@@QAA?AVdsDATA@@KAAUpsCOMPLEX_KEY_DATA@@@Z @0x8251CBC8 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_KEY_REF.h"

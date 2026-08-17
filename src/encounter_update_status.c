@@ -179,6 +179,9 @@ mark_enemy_alive:
             any_postcombat_pending = 1;
     }
 
+    /* CAVEAT: as-shipped — the binary's only store to enemy_traitor is stb r26,0x46(r31)
+     * @0x8370D88C with r26=0 (li r26,0 @0x8370D4A8), guarded on saw_traitor; the flag is
+     * never written 1 anywhere in this function. */
     if (saw_traitor)
         encounter->enemy_traitor = 0;
 

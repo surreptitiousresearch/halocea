@@ -1,3 +1,4 @@
+/* ?removeReferenceLockUnchecked@hkReferencedObject@@QBAXXZ @0x838D2B78 */
 #include "../headers/havok/hkReferencedObject.h"
 
 /* hkReferencedObject vtable — only the destructor slot is used here. */

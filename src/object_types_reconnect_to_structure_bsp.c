@@ -1,3 +1,4 @@
+/* object_types_reconnect_to_structure_bsp @0x83703218 */
 #include <stdint.h>
 #include "headers/cinematic_globals.h"
 

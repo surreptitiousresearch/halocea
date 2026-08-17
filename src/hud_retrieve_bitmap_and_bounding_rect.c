@@ -1,3 +1,4 @@
+/* hud_retrieve_bitmap_and_bounding_rect @0x8379E4E8 */
 /* hud_retrieve_bitmap_and_bounding_rect 0x8379E4E8 — resolve a HUD (sequence, frame) within a bitmap group to its
  * bitmap_data and sprite clip rectangle. Sprite-sheet sequences index the sprites block directly (frame wrapped
  * modulo the sprite count) to name the bitmap; other sequences defer to bitmap_group_get_bitmap_from_sequence.

@@ -1,3 +1,4 @@
+/* ?GetArrayObject@psSECTION_PARSER@@IAAHAAVdsDATA@@@Z @0x82A2E928 */
 #include "psSECTION_PARSER.h"
 #include "psARRAY.h"
 #include "../ds/dsDATA.h"

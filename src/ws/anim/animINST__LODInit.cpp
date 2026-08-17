@@ -1,3 +1,4 @@
+/* ?LODInit@animINST@@QAAXXZ @0x82B0EC98 */
 #include "animINST.h"
 #include "animLOD_LOD_INFO.h"
 #include "objOBJ_boundary.h"

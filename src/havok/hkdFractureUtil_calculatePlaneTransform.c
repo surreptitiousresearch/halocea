@@ -1,3 +1,4 @@
+/* ?calculatePlaneTransform@hkdFractureUtil@@SAXABVhkVector4@@0AAVhkMatrix4@@@Z @0x83877378 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 #include "../headers/havok/hkMatrix4.h"

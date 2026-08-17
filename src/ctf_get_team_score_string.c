@@ -1,3 +1,4 @@
+/* ctf_get_team_score_string @0x83806E50 */
 #include <stdint.h>
 #include "headers/ctf_globals.h"
 

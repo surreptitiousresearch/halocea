@@ -7,12 +7,7 @@
 
 typedef struct hkpShape hkpShape; /* opaque */
 
-/* hkpSingleShapeContainer (DB: hkpShapeContainer base vtable @0, m_childShape @4) */
-typedef struct hkpSingleShapeContainer
-{
-    void *__vftable;                 /* 0  hkpShapeContainer */
-    const hkpShape *m_childShape;    /* 4  */
-} hkpSingleShapeContainer;
+#include "hkpSingleShapeContainer.h"
 
 typedef struct hkpMoppBvTreeShape
 {

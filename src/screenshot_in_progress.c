@@ -1,3 +1,4 @@
+/* screenshot_in_progress @0x83791E88 */
 #include <stdint.h>
 /* DEVIATION: this TU hand-declared `extern int global_screenshot_count`, but the definition is
  * int16_t — every reader is `lhz`+`extsh` and every writer `sth` (0x8368AA0C, 0x8368B4C8,

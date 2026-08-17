@@ -1,3 +1,4 @@
+/* ?sortAabbs@hk1AxisSweep@@SAXPAUAabbInt@1@H@Z @0x83945B58 */
 #include "../headers/havok/hk1AxisSweep.h"
 #include "../headers/havok/hkRadixSort.h"
 #include "../headers/havok/hkThreadMemory.h"

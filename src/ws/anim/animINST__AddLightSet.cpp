@@ -1,3 +1,4 @@
+/* ?AddLightSet@animINST@@QAAXV?$dsSMART_PTR@VrendLIGHT_SET@@V?$_dsSP_OWNER_PLC_REFCOUNT@PAVdsREF_COUNT@@@@@@@Z @0x825E4068 */
 #include "animINST.h"
 #include "../ds/dsSMART_PTR.h"
 #include "../ds/dsREF_COUNT.h"

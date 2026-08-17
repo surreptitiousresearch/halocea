@@ -1,3 +1,4 @@
+/* static_array_new @0x837849F0 */
 #include <stdint.h>
 #include <string.h>
 

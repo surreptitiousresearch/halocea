@@ -1,3 +1,4 @@
+/* ?GetLocalVarsOfs@sslSTACK@@QAAHXZ @0x82AF0588 */
 #include "sslSTACK.h"
 // 0x82AF0588  sslSTACK::GetLocalVarsOfs  (number of live locals = base offset for a new frame)
 

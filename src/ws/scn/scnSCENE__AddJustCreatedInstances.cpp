@@ -1,3 +1,4 @@
+/* ?AddJustCreatedInstances@scnSCENE@@QAAXH@Z @0x82540BD8 */
 #include "scnSCENE.h"
 #include "../ds/dsCMP.h"
 #include "../ds/ds_assert_boundary.h"

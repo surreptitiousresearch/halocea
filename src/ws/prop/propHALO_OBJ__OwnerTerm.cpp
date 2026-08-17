@@ -1,3 +1,4 @@
+/* ?OwnerTerm@propHALO_OBJ@@QAAXXZ @0x823EB418 */
 #include "../../headers/ws/prop/propHALO_OBJ.h"
 #include "../../headers/ws/prop/propHALO_OBJ_DESC.h"
 #include "../../headers/ws/gs/gsLVL_TIMER.h"

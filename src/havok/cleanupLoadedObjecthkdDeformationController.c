@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkdDeformationController @0x83832518 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

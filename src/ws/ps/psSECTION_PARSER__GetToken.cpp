@@ -1,3 +1,4 @@
+/* ?GetToken@psSECTION_PARSER@@IAAHAAUpsTOKEN@1@K@Z @0x82A2D6C8 */
 #include "psSECTION_PARSER.h"
 #include "../ds/dsTSTRING.h"
 #include <string.h>

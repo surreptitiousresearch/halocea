@@ -1,3 +1,4 @@
+/* ?GetVSync@vidCONFIG@@QBAHXZ @0x82BE9778 */
 #include "headers/ws/vid/vidCONFIG.h"
 
 // 0x82BE9778

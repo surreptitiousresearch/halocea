@@ -1,3 +1,4 @@
+/* ?_UnshareInstancedData@objOBJ@@QAAXXZ @0x82A80198 */
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

@@ -1,3 +1,4 @@
+/* stack_memory_pool_new_block_clear @0x83803970 */
 #include <string.h>
 #include "headers/stack_memory_pool.h"
 

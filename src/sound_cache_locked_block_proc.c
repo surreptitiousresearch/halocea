@@ -1,3 +1,4 @@
+/* sound_cache_locked_block_proc @0x837E7608 */
 #include <stdint.h>
 #include "headers/pc_sound_cache_globals.h"
 #include "headers/cache_sound_datum.h"

@@ -1,3 +1,4 @@
+/* ?EnsureShaderDecl@d3dDRIVER_INTERFACE@@UAAXPAVvidFVF_DESCR@@HH@Z @0x82694898 */
 #include "../../headers/d3dDRIVER_INTERFACE.h"
 #include "../../headers/ws/vid/vidFVF_DESCR.h"
 

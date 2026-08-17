@@ -1,3 +1,4 @@
+/* player_profile_get_argb_color @0x83765B08 */
 #include "headers/real_argb_color.h"
 
 extern real_rgb_color *player_profile_get_rgb_color(real_rgb_color *result, int index);

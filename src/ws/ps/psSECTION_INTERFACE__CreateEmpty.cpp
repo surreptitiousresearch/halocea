@@ -1,3 +1,4 @@
+/* ?CreateEmpty@psSECTION_INTERFACE@@QAAXXZ @0x8251A218 */
 #include "psSECTION_INTERFACE.h"
 #include <cstddef>
 #include <new> // placement new (body) psSECTION_DATA()

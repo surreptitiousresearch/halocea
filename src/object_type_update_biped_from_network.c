@@ -1,3 +1,4 @@
+/* object_type_update_biped_from_network @0x83702800 */
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"
 #include "headers/field_properties_definition.h"

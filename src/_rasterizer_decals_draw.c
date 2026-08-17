@@ -1,3 +1,4 @@
+/* _rasterizer_decals_draw @0x83711270 */
 /* _rasterizer_decals_draw 0x83711270 — draw every decal chained off one cluster's current layer. Walks the
  * per-cluster decal list (head from decal_get_first_decal_index, chained through decal+52), and for each decal:
  * reprograms the framebuffer blend + color-write mask when the definition's blend function changes, binds the

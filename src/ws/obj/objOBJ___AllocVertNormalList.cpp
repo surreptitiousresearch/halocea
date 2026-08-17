@@ -1,3 +1,4 @@
+/* ?_AllocVertNormalList@objOBJ@@QAAHH@Z @0x82A7F420 */
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"

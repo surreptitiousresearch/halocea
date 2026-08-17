@@ -1,3 +1,4 @@
+/* exit_gracefully_to_xbox_dashboard @0x83697590 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/event_record.h"

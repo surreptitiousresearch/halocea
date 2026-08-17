@@ -1,3 +1,4 @@
+/* hcex_memory_debug_add @0x823CF2C8 */
 #include <stdint.h>
 #include "../headers/ws/ap/apMEM_BLOCK_TYPE.h"
 

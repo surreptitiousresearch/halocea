@@ -1,3 +1,4 @@
+/* _rasterizer_detail_objects_begin @0x83712F18 */
 #include <stdint.h>
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/d3d_boundary.h"

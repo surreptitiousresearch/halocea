@@ -1,3 +1,4 @@
+/* ?setInverse@hkMatrix4@@QAA?AW4hkResult@@ABV1@M@Z @0x838E75D0 */
 #include "../headers/havok/hkMatrix4.h"
 #include "../headers/havok/hkResult.h"
 

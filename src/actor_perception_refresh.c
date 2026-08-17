@@ -13,7 +13,7 @@
  *
  * DEVIATION: the decompiler rendered actor_perception_desire_prop's last three arguments as uninitialised
  * stack slots; disasm (0x837DB440) shows they are prop->dead_ticks, prop->required_ticks, and a pointer to a
- * zero-initialised local (the optional_reference output, whose result is discarded here). */
+ * zero-initialised local (the optional_reference output, consulted below to re-queue optional props). */
 
 #include <stdint.h>
 #include "headers/structure_bsp.h"
@@ -183,7 +183,24 @@ void actor_perception_refresh(int actor_index)
         if ( desired )
         {
             actor_prop_environment *environment = prop->enemy ? &enemies : &friends;
-            if ( !prop->dead )
+            /* DEVIATION: secondary-interest props are re-queued as optional candidates, not retained —
+             * lbz optional_reference @0x837DB680 routes them into the bounded optional list (cap 0x80
+             * @0x837DB694) with distance_squared weighted by 0.6944444f (lfs __real_3f31c71c
+             * @0x837DB424, fmuls @0x837DB6A4) and the live prop index stored @0x837DB6D4 so phase 4
+             * promotes-or-deletes them; only non-optional live props count into existing_count
+             * (@0x837DB710). Prior recovery retained every desired prop as permanent. */
+            if ( optional_reference )
+            {
+                if ( environment->optional_count < 128 )
+                {
+                    actor_optional_prop *candidate = &environment->optional_props[environment->optional_count];
+                    candidate->unit_index = prop->unit_index;
+                    candidate->prop_index = prop_iter.index;
+                    candidate->distance_squared = (prop->distance * prop->distance) * 0.69444442f;   /* 0x3F31C71C */
+                    ++environment->optional_count;
+                }
+            }
+            else if ( !prop->dead )
                 ++environment->existing_count;
         }
         else

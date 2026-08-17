@@ -1,3 +1,4 @@
+/* dot_product4d @0x83711550 */
 #include "headers/real_vector4d.h"
 
 float dot_product4d(const real_vector4d *a, const real_vector4d *b)

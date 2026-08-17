@@ -5,6 +5,7 @@
  * [0] plane index, [1] back child, [2] front child. */
 
 #include "headers/bsp3d.h"
+#include "headers/fused_math.h"
 #include "headers/bsp3d_node.h"
 #include "headers/real_plane3d.h"
 #include "headers/real_point3d.h"
@@ -15,8 +16,11 @@ int bsp3d_test_point(const bsp3d *bsp, int node_index, const real_point3d *point
     {
         int *node = (int *)&((bsp3d_node *)bsp->nodes.address)[node_index];
         float *plane = (float *)&((real_plane3d *)bsp->planes.address)[node[0]];
-        int front = (plane[0] * point->n[0] + (plane[1] * point->n[1] + plane[2] * point->n[2]))
-                    - plane[3] >= 0.0f;
+        /* DEVIATION: fused Z/Y/X dot — fmuls @837EA20C, fmadds @837EA220/837EA224, fsubs @837EA228 */
+        float dot_z = plane[2] * point->n[2];
+        float dot_zy = fused_madd(plane[1], point->n[1], dot_z);
+        float distance = fused_madd(plane[0], point->n[0], dot_zy);
+        int front = distance - plane[3] >= 0.0f;
         node_index = node[front + 1];
     }
     while ( node_index >= 0 );

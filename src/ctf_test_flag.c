@@ -1,3 +1,4 @@
+/* ctf_test_flag @0x83806D78 */
 #include <stdint.h>
 #include "headers/ctf_globals.h"
 

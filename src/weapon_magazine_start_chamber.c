@@ -41,5 +41,8 @@ void weapon_magazine_start_chamber(int weapon_index, int16_t magazine_index)
     weapon_effect_new(weapon_index, magazine_definition->chambering_effect.index, 0.0f, 0.0f);
 
     magazine->state = _weapon_magazine_chambering;
-    magazine->state_timer = (int)(magazine_definition->chamber_time * 30.0f);
+    /* DEVIATION: fmuls @0x836DB2F8 rounds the 30Hz product to single precision before
+     * fctiwz @0x836DB2FC truncates — explicit float local pins that rounding step. */
+    float chamber_ticks = magazine_definition->chamber_time * 30.0f;
+    magazine->state_timer = (int)chamber_ticks;
 }

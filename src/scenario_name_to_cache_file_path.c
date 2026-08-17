@@ -1,3 +1,4 @@
+/* scenario_name_to_cache_file_path @0x83753FF0 */
 extern char *cache_files_map_directory(void);
 extern const char *cache_files_root_directory(void);
 extern int sprintf_0(char *string, const char *format, ...);

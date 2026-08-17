@@ -1,3 +1,4 @@
+/* location_potentially_audible @0x837143A8 */
 #include <stdint.h>
 #include "headers/bit_vector.h"
 #include "headers/location.h"

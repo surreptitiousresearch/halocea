@@ -1,3 +1,4 @@
+/* cluster_index_from_point @0x83800C90 */
 #include "headers/structure_bsp.h"
 #include "headers/structure_leaf.h"
 #include "headers/real_point3d.h"

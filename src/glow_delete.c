@@ -1,3 +1,4 @@
+/* glow_delete @0x8380B590 */
 #include "headers/glow_globals.h"
 #include "headers/glow_datum.h"
 #include "headers/glow_particle.h"

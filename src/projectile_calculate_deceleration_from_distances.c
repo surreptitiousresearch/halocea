@@ -1,3 +1,4 @@
+/* projectile_calculate_deceleration_from_distances @0x83759DF0 */
 #include "headers/projectile_definition.h"
 
 float projectile_calculate_deceleration_from_distances(projectile_definition *projectile_definition,

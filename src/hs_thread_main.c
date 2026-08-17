@@ -12,7 +12,12 @@
  * Threads are 536-byte data; thread+16 holds the current stack-frame pointer, thread+24 is the stack base,
  * thread+8 the wake time, byte thread+2 the thread/sleep type, and bit 0 of byte thread+3 the start-vs-return
  * flag. Frame+12 holds the frame size. The raw offsets and the result-slot allocation math are reproduced
- * verbatim from the compiled code (matching hs_evaluate's frame handling). */
+ * verbatim from the compiled code (matching hs_evaluate's frame handling).
+ *
+ * CAVEAT: as-shipped — the script pointer is unguarded: for a non-scenario thread (type != 0) r22
+ * stays 0 (mr r22,r23 @0x836907BC) yet the fresh-stack branch still passes it to hcex_on_start_script
+ * (mr r3,r22 @0x836907F4) and dereferences it (lwz r4,0x24(r22) @0x83690850) — a null deref if such a
+ * thread ever arrives with an empty stack. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

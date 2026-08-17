@@ -1,3 +1,4 @@
+/* ?SetRelations@instCONSTRUCTOR_NODE@@QAAXPAVanimINST@@PAUinstCONSTRUCTOR_NODE_RELATIONS@@@Z @0x826E1F98 */
 #include "../../headers/ws/prop/instCONSTRUCTOR_NODE.h"
 #include "../../headers/ws/anim/animINST.h"
 #include "../../headers/ws/obj/objOBJ.h"

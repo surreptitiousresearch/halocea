@@ -1,3 +1,4 @@
+/* cluster_get_first_light @0x836F8498 */
 #include <stdint.h>
 #include "headers/cluster_partition.h"
 #include "headers/blam_data_globals.h"

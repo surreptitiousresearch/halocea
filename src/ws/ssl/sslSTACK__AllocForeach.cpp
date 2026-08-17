@@ -1,3 +1,4 @@
+/* ?AllocForeach@sslSTACK@@QAAXVsslCLASS_REF@@@Z @0x82AF4670 */
 #include "sslSTACK.h"
 #include "sslFOREACH_DATA.h"
 #include "sslCLASS_REF.h"

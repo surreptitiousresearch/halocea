@@ -1,3 +1,4 @@
+/* ?collide@hk1AxisSweep@@SAHPBUAabbInt@1@H0HPIAUhkKeyPair@@HAAV?$hkPadSpu@H@@@Z @0x83945DA0 */
 #include "../headers/havok/hk1AxisSweep.h"
 
 /* hk1AxisSweep::collide — brute-force interval-overlap sweep-and-prune. Two

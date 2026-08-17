@@ -1,3 +1,4 @@
+/* ?WriteStatData@vidVBUF_MNG@@QAAXPAUvidDEFRAG_CHUNK@@HPBXH@Z @0x827B8BC8 */
 #include "../../headers/ws/vid/vidVBUF_MNG.h"
 #include "../ds/ds_assert_boundary.h"
 #include <string.h>

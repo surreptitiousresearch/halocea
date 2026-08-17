@@ -1,3 +1,4 @@
+/* IDirect3DDevice9_SetIndices @0x8369B348 */
 #include "headers/d3d_boundary.h"
 extern void D3DDevice_SetIndices(D3DDevice *pDevice, D3DIndexBuffer *pIndexData);
 

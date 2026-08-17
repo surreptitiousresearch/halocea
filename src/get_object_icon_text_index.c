@@ -1,3 +1,4 @@
+/* get_object_icon_text_index @0x83707F50 */
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/global_tag_instances.h"

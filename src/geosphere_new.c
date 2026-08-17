@@ -1,3 +1,4 @@
+/* geosphere_new @0x837FFD80 */
 #include <stdint.h>
 #include "headers/geosphere.h"
 #include "headers/geosphere_primitive.h"

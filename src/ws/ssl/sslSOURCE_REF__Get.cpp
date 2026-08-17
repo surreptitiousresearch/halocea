@@ -1,3 +1,4 @@
+/* ?Get@sslSOURCE_REF@@QBA?AV?$dsTSTRING@D@@XZ @0x825CB9C8 */
 #include "sslSOURCE_REF.h"
 #include "sslSOURCE.h"
 #include "../ds/dsTSTRING.h"

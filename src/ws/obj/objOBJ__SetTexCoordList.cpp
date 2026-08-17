@@ -1,3 +1,4 @@
+/* ?SetTexCoordList@objOBJ@@QAAXHPAX@Z @0x82BCCD18 */
 #include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

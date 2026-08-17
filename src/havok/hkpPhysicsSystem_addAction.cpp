@@ -1,3 +1,4 @@
+/* ?addAction@hkpPhysicsSystem@@QAAXPAVhkpAction@@@Z @0x83903680 */
 #include "../headers/havok/hkpPhysicsSystem.h"
 #include "../headers/havok/hkReferencedObject.h"
 #include "../headers/havok/hkArray.h"

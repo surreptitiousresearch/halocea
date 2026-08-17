@@ -1,3 +1,4 @@
+/* pin_fraction @0x837BDBE0 */
 float pin_fraction(float value, float value0, float value1)
 {
     if ( value0 >= value1 )

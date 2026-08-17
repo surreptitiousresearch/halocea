@@ -1,3 +1,4 @@
+/* ?setSimpleValuesFromBlueprint@hkdBreakableShape@@QAAXPBVhkdShape@@@Z @0x83848B38 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShape.h"
 

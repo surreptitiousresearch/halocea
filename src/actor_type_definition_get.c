@@ -1,3 +1,4 @@
+/* actor_type_definition_get @0x837F8DE8 */
 #include "headers/actor_type_definition.h"
 
 actor_type_definition * actor_type_definition_get(int actor_type)

@@ -39,6 +39,7 @@
 
 typedef struct network_game_server network_game_server;
 
+extern int sprintf_0(char *string, const char *format, ...);
 extern uint8_t game_engine_running(void);
 extern int16_t game_connection(void);
 extern int game_engine_remap_object_definition(int definition_index);
@@ -249,7 +250,8 @@ int object_new_with_datum_role_control(object_placement_data *data, NetworkedDat
         object_header_delete(object_header_data, object_index);
         object_index = -1;
 out_of_objects:
-        sprintf(message, "OUT OF OBJECTS: cannot create %s", tag_name_strip_path(tag_get_name(definition_index)));
+        /* DEVIATION: callee is sprintf_0 per bl @0x836F1C84 (no plain sprintf symbol exists) */
+        sprintf_0(message, "OUT OF OBJECTS: cannot create %s", tag_name_strip_path(tag_get_name(definition_index)));
         console_printf(0, "%s", message);
         return object_index;
     }

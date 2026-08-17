@@ -1,3 +1,4 @@
+/* ?addExtraTransformShape@hkdCompoundBreakableShape@@QAAPBVhkpShape@@PBV2@ABVhkTransform@@@Z @0x8384C8A0 */
 #include "../headers/havok/hkdCompoundBreakableShape.h"
 #include "../headers/havok/hkpShape.h"
 #include "../headers/havok/hkpShapeType.h"

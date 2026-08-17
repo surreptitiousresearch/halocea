@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkdDecorateFractureFaceAction @0x838319A0 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

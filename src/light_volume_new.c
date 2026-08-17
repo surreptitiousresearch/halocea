@@ -1,3 +1,4 @@
+/* light_volume_new @0x8380AAB0 */
 #include "headers/light_volume_globals.h"
 
 #include "headers/data_array.h"

@@ -1,3 +1,4 @@
+/* ?sort@PlaneAndPoints@hkGeomConvexHullBuilder@@QAAXXZ @0x83FD9F78 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* hkGeomConvexHullBuilder::PlaneAndPoints::sort

@@ -1,3 +1,4 @@
+/* ?Length@psARRAY@@QBAHXZ @0x827AE838 */
 #include "psARRAY.h"
 #include "psARRAY_DATA.h"
 // 0x827AE838 — element count, or 0 when the handle is null.

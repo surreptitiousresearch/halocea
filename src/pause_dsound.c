@@ -1,3 +1,4 @@
+/* pause_dsound @0x836BD958 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 /* DEVIATION: HALO_SOUND_SYSTEM::Pause is a C++ virtual method; represented as C extern. */

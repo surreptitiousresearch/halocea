@@ -1,3 +1,4 @@
+/* ?GetMatrix@animTRACKER@@QBA_NPAVm3dMATR@@@Z @0x82B2F110 */
 #include "animTRACKER.h"
 #include "animINST.h"
 #include "objOBJ_boundary.h"

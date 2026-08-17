@@ -1,3 +1,4 @@
+/* ?SplitComplexKey@psSECTION_INTERFACE@@ABAHPBDHHAAUpsCOMPLEX_KEY_DATA@@@Z @0x82518B70 */
 #include "psSECTION_INTERFACE.h"
 #include <string.h>
 #include "psCOMPLEX_KEY_DATA.h"

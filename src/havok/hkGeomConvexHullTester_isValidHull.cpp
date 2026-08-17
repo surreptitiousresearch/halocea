@@ -1,3 +1,4 @@
+/* ?isValidHull@hkGeomConvexHullTester@@SA?AVhkBool@@ABUhkGeomConvexHullTolerances@@PBVhkVector4@@HAAVhkGeomHull@@AAV?$hkArray@VhkVector4@@@@@Z @0x83FE3E48 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include "../headers/havok/hkThreadMemory.h"
 

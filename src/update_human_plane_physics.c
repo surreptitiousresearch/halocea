@@ -28,6 +28,7 @@
 #include "headers/vehicle_flags.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
+#include "headers/fused_math.h"
 
 #include "headers/powered_mass_point_datum.h"
 extern float normalize3d(real_vector3d *v);
@@ -81,8 +82,10 @@ void update_human_plane_physics(int vehicle_index, mass_point_datum *mass_points
                             : ((flags & (1u << _vehicle_control_jump_bit)) ? 1.0f : 0.75f);
 
         /* integrate the pitch-trim term toward the flap target, rate-limited to +/-0.05 per tick */
-        float pitch_trim_delta = (1.0f - throttle_fraction_sq) * antigrav * flap_factor
-                                 - vehicle->vehicle.hover;
+        /* DEVIATION: fmsubs @0x837611A4 fuses ((1-t^2)*antigrav)*flap - hover with one rounding
+         * (the (1-t^2)*antigrav product is the plain fmuls @0x837611A0). */
+        float pitch_trim_delta = fused_msub((1.0f - throttle_fraction_sq) * antigrav, flap_factor,
+                                            vehicle->vehicle.hover);
         if (pitch_trim_delta >= -0.050000001f)
         {
             if (pitch_trim_delta > 0.050000001f)
@@ -101,7 +104,8 @@ void update_human_plane_physics(int vehicle_index, mass_point_datum *mass_points
         vehicle->vehicle.thrust = antigrav * throttle_fraction_sq;
 
         real_vector3d lift_direction;
-        lift_direction.n[2] = -((control_direction.n[2] * control_direction.n[2]) - 1.0f);
+        /* DEVIATION: fnmsubs @0x83761208 computes 1 - z*z fused, not -((z*z)-1) in two roundings. */
+        lift_direction.n[2] = fused_nmsub(control_direction.n[2], control_direction.n[2], 1.0f);
         lift_direction.n[1] = -(control_direction.n[1] * control_direction.n[2]);
         lift_direction.n[0] = -(control_direction.n[0] * control_direction.n[2]);
         if (normalize3d(&lift_direction) == 0.0f)
@@ -112,23 +116,31 @@ void update_human_plane_physics(int vehicle_index, mass_point_datum *mass_points
         }
 
         /* forward speed = dot(linear velocity, forward axis) */
-        float forward_speed = vehicle->object.translational_velocity.n[0] * vehicle->object.forward.n[0]
-                              + (vehicle->object.translational_velocity.n[2] * vehicle->object.forward.n[2]
-                                 + vehicle->object.translational_velocity.n[1] * vehicle->object.forward.n[1]);
+        /* DEVIATION: the dot product accumulates through fmadds @0x83761288/0x837612A0 (single
+         * rounding per add; the vy*fy seed is the plain fmuls @0x83761248). */
+        float forward_speed = fused_madd(vehicle->object.translational_velocity.n[0], vehicle->object.forward.n[0],
+                              fused_madd(vehicle->object.translational_velocity.n[2], vehicle->object.forward.n[2],
+                                 vehicle->object.translational_velocity.n[1] * vehicle->object.forward.n[1]));
         float speed_fraction = fabsf(forward_speed / max_speed);
         float throttle_force = ((vehicle->vehicle.speed - forward_speed) * lift_scale
                                 * vehicle->vehicle.thrust) * 0.050000001f;
-        float lift = ((speed_fraction * 1.05f + vehicle->vehicle.hover * 1.3f) * lift_scale) * global_gravity;
+        /* DEVIATION: fmadds @0x837612B8 fuses speed_fraction*1.05 + hover*1.3 (hover*1.3 is the
+         * plain fmuls @0x83761280). */
+        float lift = (fused_madd(speed_fraction, 1.05f, vehicle->vehicle.hover * 1.3f) * lift_scale) * global_gravity;
 
         /* magic linear force = lift*up + throttle_force*forward */
         real_vector3d force;
-        force.n[0] = vehicle->object.up.n[0] * lift + vehicle->object.forward.n[0] * throttle_force;
-        force.n[1] = vehicle->object.up.n[1] * lift + vehicle->object.forward.n[1] * throttle_force;
-        force.n[2] = vehicle->object.up.n[2] * lift + vehicle->object.forward.n[2] * throttle_force;
+        /* DEVIATION: each component is fmadds @0x837612CC/0x837612E0/0x837612F4 — up*lift fused
+         * onto the plain forward*throttle_force fmuls partner. */
+        force.n[0] = fused_madd(vehicle->object.up.n[0], lift, vehicle->object.forward.n[0] * throttle_force);
+        force.n[1] = fused_madd(vehicle->object.up.n[1], lift, vehicle->object.forward.n[1] * throttle_force);
+        force.n[2] = fused_madd(vehicle->object.up.n[2], lift, vehicle->object.forward.n[2] * throttle_force);
 
         /* roll/bank angle from the lateral velocity relative to the control direction */
-        float bank_angle = ((vehicle->object.translational_velocity.n[1] * control_direction.n[0]
-                             - vehicle->object.translational_velocity.n[0] * control_direction.n[1]) * 1.5707964f)
+        /* DEVIATION: fmsubs @0x83761318 fuses vy*cx - (vx*cy) with one rounding (vx*cy is the
+         * plain fmuls @0x83761310). */
+        float bank_angle = (fused_msub(vehicle->object.translational_velocity.n[1], control_direction.n[0],
+                             vehicle->object.translational_velocity.n[0] * control_direction.n[1]) * 1.5707964f)
                            / __fabs(max_speed);
         yaw_vectors(&lift_direction, &control_direction, (float)sin((double)bank_angle),
                     (float)cos((double)bank_angle));

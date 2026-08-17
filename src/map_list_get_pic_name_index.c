@@ -1,3 +1,4 @@
+/* map_list_get_pic_name_index @0x837671E8 */
 #include <stdint.h>
 extern struct { int pic_name_index; } multiplayer_maps[];
 

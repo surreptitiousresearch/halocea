@@ -1,3 +1,4 @@
+/* ?Print@UI_STAT_SYS@ui_new@@AAAXAAVUI_STAT_RENDER@2@Um2dV@@PB_WABUUI_STAT_PARAMS@2@@Z @0x82CF01B8 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 
 // 0x82CF01D8 — split `str` on '\n' and PrintLine each segment, advancing `pos.y` by one font

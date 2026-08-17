@@ -1,3 +1,4 @@
+/* ?RecreateSplitScreen@txmTEXTURE@@IAAXXZ @0x826F61C8 */
 // ?RecreateSplitScreen@txmTEXTURE@@IAAXXZ  (0x826F61E4)
 // Rebuild the two split-screen sub-textures of a split-screen master after a resize: only runs
 // when this texture is flagged as a split-screen master (state bit 0x8) and the active video

@@ -1,3 +1,4 @@
+/* ?Set@txmTEXTURE@@UAAHPAUpctPICTURE@@H@Z @0x826F6488 */
 #include "../../headers/ws/txm/txmTEXTURE.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 #include "../../headers/pctPICTURE.h"

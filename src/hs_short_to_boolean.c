@@ -1,4 +1,7 @@
-/* DEVIATION: disasm tests sign-extension bits: non-negative short -> 1 (MSByte), negative -> 0 */
+/* hs_short_to_boolean @0x8368D508
+ * DEVIATION: disasm tests sign-extension bits: non-negative short -> 1 (MSByte), negative -> 0
+ * CAVEAT: as-shipped — stb @0x8368D51C writes only the MSByte, lwz @0x8368D520 returns the whole
+ * word; the low 3 bytes are whatever sits in the back-chain stack slot (not defined by this code). */
 int hs_short_to_boolean(int s)
 {
     /* PPC big-endian: lhz loads upper 16 bits of stored int (the sign-extension);

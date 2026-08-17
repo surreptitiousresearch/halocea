@@ -1,3 +1,4 @@
+/* ?SetMemberValue@sslCLASS@@QAA?AVsslERROR@@PAVsslOBJECT@@HABVdsDATA@@@Z @0x82A38CA0 */
 #include "sslCLASS.h"
 #include "sslCLASS_ELEMENT.h"
 #include "sslBASE_VAR.h"

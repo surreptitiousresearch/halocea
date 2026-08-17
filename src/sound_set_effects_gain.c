@@ -1,3 +1,4 @@
+/* sound_set_effects_gain @0x8371A6F0 */
 /* sound_set_effects_gain @0x83? — set the global sound-effects gain. When the gain crosses the mute boundary
  * the full set of effect sound classes is toggled to match: going from silent (0) to audible re-enables them
  * all (and clamps the gain to 1.0), while dropping a positive gain to <= 0 disables them all and forces the gain

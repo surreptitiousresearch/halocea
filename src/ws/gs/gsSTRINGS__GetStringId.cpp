@@ -1,3 +1,4 @@
+/* ?GetStringId@gsSTRINGS@@QAAHPBD@Z @0x826BA188 */
 #include "../../headers/ws/gs/gsSTRINGS.h"
 
 // _apLog (?_apLog@@YAXPBDZZ) — Saber varargs logging sink. boundary.

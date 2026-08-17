@@ -1,3 +1,4 @@
+/* game_state_get_persistent_storage_path @0x8371B400 */
 #include <stdint.h>
 
 extern uint8_t player_ui_get_path_to_local_player_profile_directory(int16_t local_player_index, char *full_path);

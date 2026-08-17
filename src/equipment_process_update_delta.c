@@ -78,8 +78,8 @@ void equipment_process_update_delta(int object_index, message_delta_processor_he
     }
 
     eq->equipment.last_network_data_valid = 1;
-    /* faithful: the binary stores the 9-int state starting at last_network_data_valid (+0x26C), so it
-     * spans that flag byte + padding + last_network_data — kept byte-exact via its address. */
-    for ( int i = 0; i < 9; i++ )
-        ((int *)&eq->equipment.last_network_data_valid)[i] = ((const int *)&decoded_state)[i];
+    /* DEVIATION: the decompiler based the 9-word copy at last_network_data_valid (+0x26C), but the
+     * binary's stwu loop pre-increments from +0x26C so the stores land at +0x270..+0x293 — exactly
+     * last_network_data (36 bytes); the flag byte just stored is NOT overwritten. */
+    eq->equipment.last_network_data = decoded_state;
 }

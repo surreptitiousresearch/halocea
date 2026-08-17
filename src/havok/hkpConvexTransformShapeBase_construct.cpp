@@ -1,3 +1,4 @@
+/* ??0hkpConvexTransformShapeBase@@QAA@W4hkpShapeType@@MPBVhkpConvexShape@@W4ReferencePolicy@hkpShapeContainer@@@Z @0x83602A18 */
 #include "../headers/havok/hkpConvexTransformShapeBase.h"
 #include "../headers/havok/hkReferencedObject.h"
 

@@ -1,3 +1,4 @@
+/* tiny_point2d_set @0x837BC698 */
 #include "headers/motion_sensor_globals.h"
 #include "headers/hud_globals.h"
 

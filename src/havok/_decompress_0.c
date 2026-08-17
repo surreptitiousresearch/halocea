@@ -1,3 +1,4 @@
+/* _decompress_0 @0x838C53F8 */
 #include "../headers/havok/hkDeltaDecompressionParameters.h"
 #include "../headers/havok/hkaQuantizeDesc.h"
 

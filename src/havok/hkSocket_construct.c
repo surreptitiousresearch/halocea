@@ -1,3 +1,4 @@
+/* ??0hkSocket@@IAA@XZ @0x838DF098 */
 #include "../headers/havok/hkSocket.h"
 
 /* hkSocket::hkSocket — initialise the referenced-object header, install the socket

@@ -1,3 +1,4 @@
+/* ?GetNKey@psSECTION_INTERFACE@@QBAHXZ @0x825169B0 */
 #include "psSECTION_INTERFACE.h"
 // 0x825169B0 — key/record count, or 0 when the handle is null.
 

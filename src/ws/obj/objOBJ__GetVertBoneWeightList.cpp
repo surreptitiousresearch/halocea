@@ -1,3 +1,4 @@
+/* ?GetVertBoneWeightList@objOBJ@@QAAPAXH@Z @0x82BCC998 */
 #include "objOBJ.h"
 // 0x82BCC998  ?GetVertBoneWeightList@objOBJ@@QAAPAXH@Z
 // Address of the per-vertex bone-weight entry for `offset`. When the geometry is compressed

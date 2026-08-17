@@ -1,3 +1,4 @@
+/* ?GetSubNameIdx@sslCLASS@@QAAHVdsSTRID@@@Z @0x82A38870 */
 #include "sslCLASS.h"
 #include "sslCLASS_NAME_TO_IDX.h"
 #include "../ds/dsSTRID.h"

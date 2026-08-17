@@ -1,3 +1,4 @@
+/* credits_initialize @0x83697F00 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

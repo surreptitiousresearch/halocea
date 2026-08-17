@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkdSplitInHalfFracture @0x83832048 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

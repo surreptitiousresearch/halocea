@@ -1,3 +1,4 @@
+/* ?_SaveScreenShot@gsRENDER_SYSTEM@@IAAXPAVcamCAMERA@@@Z @0x827A8978 */
 #include "../../headers/ws/gs/gsRENDER_SYSTEM.h"
 #include "../../headers/ws/gs/gsRENDER_SYSTEM_boundary.h"
 #include <time.h>

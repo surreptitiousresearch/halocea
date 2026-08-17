@@ -1,3 +1,4 @@
+/* ?Suspend@vidDRIVER@@UAAXXZ @0x82667BA0 */
 #include "../../headers/vidDRIVER.h"
 
 // 0x82667BA0 -- ?Suspend@vidDRIVER@@UAAXXZ (virtual).

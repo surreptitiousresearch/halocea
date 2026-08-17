@@ -1,3 +1,4 @@
+/* ?GetTokenEOF_EOL_SPACE@psSECTION_PARSER@@IAAHAAUpsTOKEN@1@@Z @0x82A2C3D0 */
 #include "psSECTION_PARSER.h"
 // 0x82A2C3E0 — lex a whitespace/EOF/EOL/comment run at the current reader position. Classifies the
 // next raw character(s):

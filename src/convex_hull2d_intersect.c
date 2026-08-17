@@ -1,3 +1,4 @@
+/* convex_hull2d_intersect @0x837FF8B0 */
 /* convex_hull2d_intersect @0x837FF8? — intersect two convex 2D polygons (p and q) by successively clipping q
  * against each edge-line of p (Sutherland-Hodgman). For each edge of p a clip line is built from the edge's two
  * vertices and q is clipped to its inside half-plane; the surviving polygon feeds the next edge. The clip output

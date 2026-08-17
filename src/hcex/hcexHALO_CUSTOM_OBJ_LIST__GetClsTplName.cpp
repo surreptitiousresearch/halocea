@@ -1,3 +1,4 @@
+/* ?GetClsTplName@hcexHALO_CUSTOM_OBJ_LIST@@QAA_NHHAAV?$dsTSTRING@D@@00@Z @0x823DCAD8 */
 #include "../headers/hcex/hcexHALO_CUSTOM_OBJ_LIST.h"
 #include "../headers/ws/ds/dsCMP.h"
 

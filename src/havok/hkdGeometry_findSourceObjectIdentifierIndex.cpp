@@ -1,3 +1,4 @@
+/* ?findSourceObjectIdentifierIndex@hkdGeometry@@QBAHABUObjectIdentifier@1@@Z @0x8384FF38 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkdGeometry_ObjectIdentifier.h"
 #include "../headers/havok/hkMatrix4.h"

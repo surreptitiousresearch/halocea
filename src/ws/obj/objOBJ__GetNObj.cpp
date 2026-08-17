@@ -1,3 +1,4 @@
+/* ?GetNObj@objOBJ@@QAAHP6AHPAV1@PAX@Z@Z @0x82681AF0 */
 #include "objOBJ.h"
 // 0x82681AF0  ?GetNObj@objOBJ@@QAAHP6AHPAV1@PAX@Z@Z
 // Count the objects in this subtree (this node plus all descendants) that satisfy the

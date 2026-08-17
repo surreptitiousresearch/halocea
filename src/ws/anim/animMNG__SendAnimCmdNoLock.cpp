@@ -1,3 +1,4 @@
+/* ?SendAnimCmdNoLock@animMNG@@QAAXABUanimCMD_BASE@@AAUanimUPDATE_STATUS@@@Z @0x8267C338 */
 #include "animMNG.h"
 #include "animLAYER_BASE.h"
 #include "animCMD_BASE.h"

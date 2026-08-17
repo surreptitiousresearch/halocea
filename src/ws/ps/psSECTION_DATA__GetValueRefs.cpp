@@ -1,3 +1,4 @@
+/* ?GetValueRefs@psSECTION_DATA@@QAAHKPAV?$dsVECTOR@VpsSECTION@@$07@@PAUpsSECTION_KEY_REF@@AAUpsCOMPLEX_KEY_DATA@@@Z @0x8251C860 */
 #include "psSECTION_DATA.h"
 #include <string.h>
 #include "psSECTION.h"

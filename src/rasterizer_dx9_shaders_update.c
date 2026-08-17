@@ -1,3 +1,4 @@
+/* rasterizer_dx9_shaders_update @0x836A2DB8 */
 #include <stdint.h>
 #include "headers/ID3DXEffectPool.h"
 extern void rasterizer_dx9_shaders_dispose(void);

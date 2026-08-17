@@ -1,3 +1,4 @@
+/* qsort_4byte @0x8381A6E8 */
 /* qsort_4byte 0x8381A6E8 — in-place sort of an array of 4-byte ints using an iterative quicksort with an
  * explicit pending-partition stack and a selection-sort fallback for partitions of <= 8 elements. The
  * comparator returns nonzero when its first argument should sort before its second. Partitions are pushed

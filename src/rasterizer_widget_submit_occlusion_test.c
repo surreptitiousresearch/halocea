@@ -1,3 +1,4 @@
+/* rasterizer_widget_submit_occlusion_test @0x836A63E8 */
 /* rasterizer_widget_submit_occlusion_test 0x836A63E8 (thunk) — tail-call thunk to the underscore
  * implementation, which returns the number of occlusion-test pixels that passed.
  *

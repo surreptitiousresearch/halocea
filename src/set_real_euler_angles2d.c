@@ -1,3 +1,4 @@
+/* set_real_euler_angles2d @0x836C5720 */
 #include "headers/real_euler_angles2d.h"
 
 /* Params are Blam `real` (float); decompiler defaulted them to `double` (stored via stfs, no frsp). */

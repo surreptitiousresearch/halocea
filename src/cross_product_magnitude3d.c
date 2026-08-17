@@ -1,3 +1,4 @@
+/* cross_product_magnitude3d @0x836FC020 */
 #include "headers/real_vector3d.h"
 
 /* Returns |a x b|, the magnitude of the 3D cross product. */

@@ -1,3 +1,4 @@
+/* apply_control_flags @0x837F6A08 */
 #include "headers/unit_control_data.h"
 #include "headers/animation_event_v1.h"
 

@@ -3,7 +3,7 @@
 
 extern "C" void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line); // boundary
 
-class objOBJ; // boundary — obj subsystem game object (element is a pointer)
+struct objOBJ; // boundary — obj subsystem game object (element is a pointer)
 
 // dsVECTOR<objOBJ*,8>::Realloc @ 0x82662060
 // Resize the backing store to hold exactly `size` elements. ShrinkResize clamps the live count

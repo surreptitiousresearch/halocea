@@ -1,3 +1,4 @@
+/* push_queued_sound @0x837B6A70 */
 #include <stdint.h>
 #include "headers/queued_mp_sound.h"
 #include "headers/blam_data_globals.h"

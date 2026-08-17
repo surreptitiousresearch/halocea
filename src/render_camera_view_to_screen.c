@@ -1,3 +1,4 @@
+/* render_camera_view_to_screen @0x8376D1D8 */
 /* render_camera_view_to_screen 0x8376D1D8 — project a view-space point to screen pixels. Returns 0 when the
  * point is behind the camera (view z >= 0) or its normalized device coordinates fall outside [-1, 1]; on success
  * writes the pixel position into screen_point and returns 1. The intermediate NDC is also written to screen_point

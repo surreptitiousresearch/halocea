@@ -1,3 +1,4 @@
+/* ?ensureConnectivity@hkpConvexVerticesConnectivityUtil@@SA?AW4hkResult@@PBVhkpConvexVerticesShape@@@Z @0x83F938C0 */
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkReferencedObject.h"
 

@@ -1,3 +1,4 @@
+/* get_sound_length_in_ticks @0x837B6B40 */
 #include "headers/game_globals_definition.h"
 #include "headers/game_globals_multiplayer_information.h"
 #include "headers/tag_reference.h"

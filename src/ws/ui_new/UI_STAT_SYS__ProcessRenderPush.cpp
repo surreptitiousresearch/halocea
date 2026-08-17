@@ -1,3 +1,4 @@
+/* ?ProcessRenderPush@UI_STAT_SYS@ui_new@@QAAXXZ @0x82CEEF10 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 #include "../../headers/ws/ui_new/ui_stat_boundary.h"
 

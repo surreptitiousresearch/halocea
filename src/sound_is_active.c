@@ -1,3 +1,4 @@
+/* sound_is_active @0x83715130 */
 #include "headers/sound_manager_globals.h"
 
 int sound_is_active(void)

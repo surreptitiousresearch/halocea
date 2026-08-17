@@ -1,3 +1,4 @@
+/* _rasterizer_dynamic_vertices_unlock @0x837915A8 */
 #include "headers/dynamic_vertices.h"
 
 extern void hcex_dyn_vbuf_unlock(int vertex_count);

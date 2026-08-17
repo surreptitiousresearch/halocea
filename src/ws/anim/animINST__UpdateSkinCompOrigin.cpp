@@ -1,3 +1,4 @@
+/* ?UpdateSkinCompOrigin@animINST@@QAAXPAVobjOBJ@@@Z @0x82B0F4F0 */
 #include "animINST.h"
 #include "objOBJ_boundary.h"
 #include "anim_validate_boundary.h"

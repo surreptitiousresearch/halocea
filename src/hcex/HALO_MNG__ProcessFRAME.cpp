@@ -1,3 +1,4 @@
+/* ?ProcessFRAME@HALO_MNG@@UAAXXZ @0x823E9F00 */
 #include "../headers/hcex/HALO_MNG.h"
 #include "../headers/hcex/HALO_MNG_boundary.h"
 

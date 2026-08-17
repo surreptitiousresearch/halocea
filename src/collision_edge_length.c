@@ -1,3 +1,4 @@
+/* collision_edge_length @0x837E0058 */
 #include "headers/collision_bsp.h"
 
 extern float __fsqrts(float x);

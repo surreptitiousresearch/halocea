@@ -1,3 +1,4 @@
+/* virtual_keyboard_free_space_in_text_buffer @0x83783E08 */
 #include "headers/virtual_keyboard_globals_t.h"
 
 extern unsigned int ustrlen(const wchar_t *string);

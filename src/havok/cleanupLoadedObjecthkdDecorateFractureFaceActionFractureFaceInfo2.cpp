@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkdDecorateFractureFaceActionFractureFaceInfo2 @0x83831A08 */
 #include "../headers/havok/hkReferencedObject.h"
 
 /* cleanup thunk: drop the held reference (if any) and clear the slot. */

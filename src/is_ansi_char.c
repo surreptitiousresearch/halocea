@@ -1,3 +1,4 @@
+/* is_ansi_char @0x8376D930 */
 #include <stdint.h>
 int is_ansi_char(uint16_t wide_char)
 {

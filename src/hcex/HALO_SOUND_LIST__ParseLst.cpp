@@ -1,3 +1,4 @@
+/* ?ParseLst@HALO_SOUND_LIST@@AAAXPBD@Z @0x836C46E8 */
 #include "../headers/hcex/HALO_SOUND_LIST_boundary.h"
 
 // 0x836C46E8 — ?ParseLst@HALO_SOUND_LIST@@AAAXPBD@Z

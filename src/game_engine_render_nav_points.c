@@ -1,3 +1,4 @@
+/* game_engine_render_nav_points @0x8374E310 */
 /* game_engine_render_nav_points 0x8374E310 — for each netgame goal that matches the local player,
  * determine its nav-point render type and submit it. Only runs when the goal_radar variant option
  * is on (== 1). The goal array is traversed via a data-segment pointer walk that stops at

@@ -1,3 +1,4 @@
+/* ?convertToUnitCube@hkGeomConvexHullBuilder@@SAXAAV?$hkArray@VhkVector4@@@@AAVhkVector4@@1@Z @0x83FD96C8 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* hkGeomConvexHullBuilder::convertToUnitCube

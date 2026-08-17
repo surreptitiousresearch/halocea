@@ -1,3 +1,4 @@
+/* ?_AllocVertList@objOBJ@@QAAHH@Z @0x82A7EFD0 */
 #include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"

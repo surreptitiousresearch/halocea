@@ -1,3 +1,4 @@
+/* ?StdAllocObjData@objOBJ@@SAPAXPAV1@HHPAX@Z @0x82A7E5A8 */
 #include "objOBJ.h"
 #include "obj_boundary.h"
 // 0x82A7E5A8  ?StdAllocObjData@objOBJ@@SAPAV1@... (SAPAX) — static object-data allocator.

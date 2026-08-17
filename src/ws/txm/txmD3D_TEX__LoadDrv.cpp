@@ -1,3 +1,4 @@
+/* ?LoadDrv@txmD3D_TEX@@UAAHPAUpctPICTURE@@@Z @0x827BC738 */
 // ?LoadDrv@txmD3D_TEX@@UAAHPAUpctPICTURE@@@Z  (0x827BC758)
 // Upload a source picture's pixels into this hardware texture. Byte-reorders the source for
 // endianness, logs the load (and any runtime format conversion), then locks each (face,mip)

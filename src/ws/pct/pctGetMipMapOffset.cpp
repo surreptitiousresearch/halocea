@@ -1,3 +1,4 @@
+/* ?pctGetMipMapOffset@@YAHPAUpctHEADER@@H@Z @0x827C1050 */
 #include "../../headers/pctHEADER.h"
 #include "../../headers/pctFORMAT.h"
 #include "../../headers/pct_format.h"

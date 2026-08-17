@@ -1,3 +1,4 @@
+/* validate_real_vector3d_axes3 @0x83819A50 */
 /* validate_real_vector3d_axes3 0x83819A50 — repair a forward/left/up basis into a valid right-handed
  * orthonormal frame. Forward and up are normalized (falling back to the world defaults if degenerate), then
  * left is rebuilt as up x forward, up as left x forward, and left once more as up x forward, each normalized

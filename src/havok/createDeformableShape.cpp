@@ -1,3 +1,4 @@
+/* createDeformableShape @0x8383F840 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdDeformableBreakableShape.h"
 #include "../headers/havok/hkdController.h"

@@ -1,3 +1,4 @@
+/* rasterizer_detail_objects_recreate_vbuf @0x83712ED0 */
 #include "headers/blam_data_globals.h"
 extern void *hcex_stat_vbuf_create_semi_dyn(int size);
 

@@ -1,3 +1,4 @@
+/* ?DistPoint@m3dOBB@@QAAHPBUm3dV@@MPAU2@PAMPAH@Z @0x82A70DD8 */
 #include "../../headers/ws/m3d/m3dOBB.h"
 #include "../../headers/ws/m3d/m3dBOX.h"
 #include "../../headers/ws/m3d/m3dMATR.h"

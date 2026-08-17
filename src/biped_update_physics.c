@@ -50,6 +50,7 @@
 #include "headers/collision_test_flags.h"
 #include "headers/blam_data_globals.h"
 #include "headers/game_time_constants.h"
+#include "headers/fused_math.h"
 
 /* ---- extern boundaries (siblings / engine primitives — declared, not reversed here) ---- */
 extern float normalize3d(real_vector3d *v);
@@ -89,22 +90,25 @@ void biped_update_physics(biped_physics *physics)
 
         biped_build_flying_axes(&physics->forward, &flying_left, &flying_up);
 
+        /* DEVIATION: each basis dot accumulates through fmadds pairs (@0x837AEFC0/0x837AEFD4,
+         * @0x837AEFC8/0x837AEFE4, @0x837AEFEC/0x837AEFFC) over a plain fmuls seed; the penalty
+         * scale and velocity subtraction stay plain (fmuls/fsubs @0x837AEFE8-0x837AF014). */
         movement_penalty_inv = 1.0f - physics->movement_penalty;
-        desired_z = ((physics->movement_desired.__s1.k * flying_up.__s1.k)
-                  + ((physics->forward.__s1.k * physics->movement_desired.__s1.i)
-                          + (physics->movement_desired.__s1.j * flying_left.__s1.k)));
-        desired_x = ((physics->movement_desired.__s1.j * flying_left.__s1.i)
-                          + (physics->movement_desired.__s1.k * flying_up.__s1.i));
+        desired_z = fused_madd(physics->movement_desired.__s1.k, flying_up.__s1.k,
+                  fused_madd(physics->forward.__s1.k, physics->movement_desired.__s1.i,
+                          physics->movement_desired.__s1.j * flying_left.__s1.k));
+        desired_x = fused_madd(physics->movement_desired.__s1.j, flying_left.__s1.i,
+                          physics->movement_desired.__s1.k * flying_up.__s1.i);
 
         accel.__s1.j = (movement_penalty_inv
-                        * ((physics->movement_desired.__s1.k * flying_up.__s1.j)
-                                + ((physics->forward.__s1.j * physics->movement_desired.__s1.i)
-                                        + (physics->movement_desired.__s1.j * flying_left.__s1.j))))
+                        * fused_madd(physics->movement_desired.__s1.k, flying_up.__s1.j,
+                                fused_madd(physics->forward.__s1.j, physics->movement_desired.__s1.i,
+                                        physics->movement_desired.__s1.j * flying_left.__s1.j)))
                 - physics->velocity.__s1.j;
         accel.__s1.k = (movement_penalty_inv * desired_z) - physics->velocity.__s1.k;
         accel.__s1.i = (movement_penalty_inv
-                        * ((physics->movement_desired.__s1.i * physics->forward.__s1.i)
-                                + desired_x))
+                        * fused_madd(physics->movement_desired.__s1.i, physics->forward.__s1.i,
+                                desired_x))
                 - physics->velocity.__s1.i;
 
         clamped_y = accel.__s1.j;
@@ -134,10 +138,12 @@ void biped_update_physics(biped_physics *physics)
     {
         /* ---- facing-relative (scripted) velocity: rotate movement_desired by the facing yaw ---- */
         new_velocity->__s1.k = physics->movement_desired.__s1.k;
-        new_velocity->__s1.j = ((physics->forward.__s1.j * physics->movement_desired.__s1.i)
-                                + (physics->movement_desired.__s1.j * physics->forward.__s1.i));
-        new_velocity->__s1.i = ((physics->forward.__s1.i * physics->movement_desired.__s1.i)
-                                - (physics->forward.__s1.j * physics->movement_desired.__s1.j));
+        /* DEVIATION: yaw rotation is fmadds @0x837AF0D0 / fmsubs @0x837AF0D8 over plain fmuls
+         * partners (@0x837AF0BC/0x837AF0C0). */
+        new_velocity->__s1.j = fused_madd(physics->forward.__s1.j, physics->movement_desired.__s1.i,
+                                physics->movement_desired.__s1.j * physics->forward.__s1.i);
+        new_velocity->__s1.i = fused_msub(physics->forward.__s1.i, physics->movement_desired.__s1.i,
+                                physics->forward.__s1.j * physics->movement_desired.__s1.j);
         horizontal_y = new_velocity->__s1.j;
         horizontal_x = new_velocity->__s1.i;
     }
@@ -148,13 +154,15 @@ void biped_update_physics(biped_physics *physics)
         float movement_penalty_inv = 1.0f - physics->movement_penalty;
         float clamped_x, clamped_y;
 
+        /* DEVIATION: yaw rotation is fmsubs @0x837AF12C / fmadds @0x837AF128 over plain fmuls
+         * partners (@0x837AF108/0x837AF10C); penalty scale and velocity subtraction stay plain. */
         horizontal_accel.__s1.i = ((movement_penalty_inv
-                                   * ((physics->forward.__s1.i * physics->movement_desired.__s1.i)
-                                           - (physics->forward.__s1.j * physics->movement_desired.__s1.j)))
+                                   * fused_msub(physics->forward.__s1.i, physics->movement_desired.__s1.i,
+                                           physics->forward.__s1.j * physics->movement_desired.__s1.j))
                                    - physics->velocity.__s1.i);
         horizontal_accel.__s1.j = ((movement_penalty_inv
-                                   * ((physics->forward.__s1.j * physics->movement_desired.__s1.i)
-                                           + (physics->movement_desired.__s1.j * physics->forward.__s1.i)))
+                                   * fused_madd(physics->forward.__s1.j, physics->movement_desired.__s1.i,
+                                           physics->movement_desired.__s1.j * physics->forward.__s1.i))
                                    - physics->velocity.__s1.j);
         clamped_x = horizontal_accel.__s1.i;
         clamped_y = horizontal_accel.__s1.j;
@@ -184,9 +192,11 @@ void biped_update_physics(biped_physics *physics)
         const real_vector3d *ground_normal = &physics->ground_plane.n;
         int airborne = 0;
 
-        speed_scale = __fsqrts(((physics->movement_desired.__s1.k * physics->movement_desired.__s1.k)
-                             + ((physics->movement_desired.__s1.i * physics->movement_desired.__s1.i)
-                                     + (physics->movement_desired.__s1.j * physics->movement_desired.__s1.j))));
+        /* DEVIATION: magnitude accumulates through fmadds @0x837AF1C8/0x837AF1CC (j*j seed plain
+         * fmuls @0x837AF1B8). */
+        speed_scale = __fsqrts(fused_madd(physics->movement_desired.__s1.k, physics->movement_desired.__s1.k,
+                             fused_madd(physics->movement_desired.__s1.i, physics->movement_desired.__s1.i,
+                                     physics->movement_desired.__s1.j * physics->movement_desired.__s1.j)));
 
         if ((in_flags & (1u << _biped_physics_in_climb_anything_bit)) != 0)
         {
@@ -194,47 +204,59 @@ void biped_update_physics(biped_physics *physics)
              * ground normal, then express the desired movement in it */
             real_vector3d tangent, bitangent;
 
-            tangent.__s1.i = (physics->ground_plane.n.__s1.j * physics->aiming.__s1.k)
-                      - (physics->ground_plane.n.__s1.k * physics->aiming.__s1.j);
-            tangent.__s1.j = (physics->ground_plane.n.__s1.k * physics->aiming.__s1.i)
-                      - (physics->ground_plane.n.__s1.i * physics->aiming.__s1.k);
-            tangent.__s1.k = (physics->ground_plane.n.__s1.i * physics->aiming.__s1.j)
-                      - (physics->ground_plane.n.__s1.j * physics->aiming.__s1.i);
+            /* DEVIATION: cross is fmsubs @0x837AF218/0x837AF224/0x837AF22C with plain fmuls
+             * minuends (@0x837AF208/0x837AF210/0x837AF220). */
+            tangent.__s1.i = fused_msub(physics->ground_plane.n.__s1.j, physics->aiming.__s1.k,
+                      physics->ground_plane.n.__s1.k * physics->aiming.__s1.j);
+            tangent.__s1.j = fused_msub(physics->ground_plane.n.__s1.k, physics->aiming.__s1.i,
+                      physics->ground_plane.n.__s1.i * physics->aiming.__s1.k);
+            tangent.__s1.k = fused_msub(physics->ground_plane.n.__s1.i, physics->aiming.__s1.j,
+                      physics->ground_plane.n.__s1.j * physics->aiming.__s1.i);
             if (normalize3d(&tangent) == 0.0f)
             {
                 /* aiming parallel to the ground normal — fall back to global up, then forward */
-                tangent.__s1.i = (global_up3d->n[2] * physics->ground_plane.n.__s1.j)
-                          - (global_up3d->n[1] * physics->ground_plane.n.__s1.k);
-                tangent.__s1.j = (global_up3d->n[0] * physics->ground_plane.n.__s1.k)
-                          - (global_up3d->n[2] * physics->ground_plane.n.__s1.i);
-                tangent.__s1.k = (global_up3d->n[1] * physics->ground_plane.n.__s1.i)
-                          - (global_up3d->n[0] * physics->ground_plane.n.__s1.j);
+                /* DEVIATION: cross is fmsubs @0x837AF270/0x837AF268/0x837AF278 with plain fmuls
+                 * minuends (@0x837AF25C/0x837AF258/0x837AF264). */
+                tangent.__s1.i = fused_msub(global_up3d->n[2], physics->ground_plane.n.__s1.j,
+                          global_up3d->n[1] * physics->ground_plane.n.__s1.k);
+                tangent.__s1.j = fused_msub(global_up3d->n[0], physics->ground_plane.n.__s1.k,
+                          global_up3d->n[2] * physics->ground_plane.n.__s1.i);
+                tangent.__s1.k = fused_msub(global_up3d->n[1], physics->ground_plane.n.__s1.i,
+                          global_up3d->n[0] * physics->ground_plane.n.__s1.j);
                 if (normalize3d(&tangent) == 0.0f)
                 {
-                    tangent.__s1.i = (global_forward3d->n[2] * physics->ground_plane.n.__s1.j)
-                              - (global_forward3d->n[1] * physics->ground_plane.n.__s1.k);
-                    tangent.__s1.j = (global_forward3d->n[0] * physics->ground_plane.n.__s1.k)
-                              - (global_forward3d->n[2] * physics->ground_plane.n.__s1.i);
-                    tangent.__s1.k = (global_forward3d->n[1] * physics->ground_plane.n.__s1.i)
-                              - (global_forward3d->n[0] * physics->ground_plane.n.__s1.j);
+                    /* DEVIATION: cross is fmsubs @0x837AF2C0/0x837AF2B8/0x837AF2C8 with plain fmuls
+                     * minuends (@0x837AF2AC/0x837AF2A8/0x837AF2B4). */
+                    tangent.__s1.i = fused_msub(global_forward3d->n[2], physics->ground_plane.n.__s1.j,
+                              global_forward3d->n[1] * physics->ground_plane.n.__s1.k);
+                    tangent.__s1.j = fused_msub(global_forward3d->n[0], physics->ground_plane.n.__s1.k,
+                              global_forward3d->n[2] * physics->ground_plane.n.__s1.i);
+                    tangent.__s1.k = fused_msub(global_forward3d->n[1], physics->ground_plane.n.__s1.i,
+                              global_forward3d->n[0] * physics->ground_plane.n.__s1.j);
                     normalize3d(&tangent);
                 }
             }
 
-            bitangent.__s1.i = (physics->ground_plane.n.__s1.j * tangent.__s1.k)
-                        - (physics->ground_plane.n.__s1.k * tangent.__s1.j);
-            bitangent.__s1.j = (physics->ground_plane.n.__s1.k * tangent.__s1.i)
-                        - (physics->ground_plane.n.__s1.i * tangent.__s1.k);
-            bitangent.__s1.k = (physics->ground_plane.n.__s1.i * tangent.__s1.j)
-                        - (physics->ground_plane.n.__s1.j * tangent.__s1.i);
+            /* DEVIATION: fmsubs @0x837AF2F8/0x837AF300/0x837AF308 compute tangent x ground-normal
+             * (bitangent.i = gp.k*t.j - gp.j*t.k, etc.) — the previous ground-normal x tangent order
+             * negated all three components; minuends are the plain fmuls @0x837AF2E0-0x837AF2F4. */
+            bitangent.__s1.i = fused_msub(physics->ground_plane.n.__s1.k, tangent.__s1.j,
+                        physics->ground_plane.n.__s1.j * tangent.__s1.k);
+            bitangent.__s1.j = fused_msub(physics->ground_plane.n.__s1.i, tangent.__s1.k,
+                        physics->ground_plane.n.__s1.k * tangent.__s1.i);
+            bitangent.__s1.k = fused_msub(physics->ground_plane.n.__s1.j, tangent.__s1.i,
+                        physics->ground_plane.n.__s1.i * tangent.__s1.j);
             normalize3d(&bitangent);
 
-            move_direction.__s1.i = (physics->movement_desired.__s1.j * tangent.__s1.i)
-                             + (physics->movement_desired.__s1.i * bitangent.__s1.i);
-            move_direction.__s1.j = (physics->movement_desired.__s1.j * tangent.__s1.j)
-                             + (physics->movement_desired.__s1.i * bitangent.__s1.j);
-            move_direction.__s1.k = ((physics->movement_desired.__s1.j * tangent.__s1.k)
-                                     + (physics->movement_desired.__s1.i * bitangent.__s1.k))
+            /* DEVIATION: fmadds @0x837AF33C/0x837AF344/0x837AF338 over plain md.i*bitangent fmuls
+             * seeds (@0x837AF328/0x837AF330/0x837AF31C); the trailing +md.k is the plain fadds
+             * @0x837AF34C. */
+            move_direction.__s1.i = fused_madd(physics->movement_desired.__s1.j, tangent.__s1.i,
+                             physics->movement_desired.__s1.i * bitangent.__s1.i);
+            move_direction.__s1.j = fused_madd(physics->movement_desired.__s1.j, tangent.__s1.j,
+                             physics->movement_desired.__s1.i * bitangent.__s1.j);
+            move_direction.__s1.k = fused_madd(physics->movement_desired.__s1.j, tangent.__s1.k,
+                                     physics->movement_desired.__s1.i * bitangent.__s1.k)
                              + physics->movement_desired.__s1.k;
         }
         else if (physics->ground_plane.n.__s1.k <= 0.000099999997f)
@@ -246,74 +268,71 @@ void biped_update_physics(biped_physics *physics)
             float aiming_j = physics->aiming.__s1.j;
             float aiming_k = physics->aiming.__s1.k;
 
-            tangent.__s1.k = (aiming_j * global_up3d->n[0]) - (aiming_i * global_up3d->n[1]);
-            tangent.__s1.i = (aiming_k * global_up3d->n[1]) - (aiming_j * global_up3d->n[2]);
-            tangent.__s1.j = (aiming_i * global_up3d->n[2]) - (aiming_k * global_up3d->n[0]);
+            /* DEVIATION: cross is fmsubs @0x837AF408/0x837AF410/0x837AF418 with plain fmuls
+             * minuends (@0x837AF3EC/0x837AF3F0/0x837AF3FC). */
+            tangent.__s1.k = fused_msub(aiming_j, global_up3d->n[0], aiming_i * global_up3d->n[1]);
+            tangent.__s1.i = fused_msub(aiming_k, global_up3d->n[1], aiming_j * global_up3d->n[2]);
+            tangent.__s1.j = fused_msub(aiming_i, global_up3d->n[2], aiming_k * global_up3d->n[0]);
             normalize3d(&tangent);
             ground_normal = &physics->ground_plane.n;
 
-            horizontal_x = ((physics->forward.__s1.i * physics->movement_desired.__s1.i)
-                                 - (physics->forward.__s1.j * physics->movement_desired.__s1.j));
-            horizontal_y = ((physics->forward.__s1.j * physics->movement_desired.__s1.i)
-                                 + (physics->movement_desired.__s1.j * physics->forward.__s1.i));
+            /* DEVIATION: fmsubs @0x837AF480 / fmadds @0x837AF48C over plain fmuls partners
+             * (@0x837AF45C/0x837AF47C). */
+            horizontal_x = fused_msub(physics->forward.__s1.i, physics->movement_desired.__s1.i,
+                                 physics->forward.__s1.j * physics->movement_desired.__s1.j);
+            horizontal_y = fused_madd(physics->forward.__s1.j, physics->movement_desired.__s1.i,
+                                 physics->movement_desired.__s1.j * physics->forward.__s1.i);
 
-            /* project (aiming, tangent) rotation of the desired movement onto the ground-normal plane */
-            bitangent_z = ((physics->forward.__s1.k
-                        * ((-((physics->ground_plane.n.__s1.i * tangent.__s1.i)
-                                                 + ((physics->ground_plane.n.__s1.j * tangent.__s1.j)
-                                                         + (physics->ground_plane.n.__s1.k * tangent.__s1.k)))
-                                        * physics->ground_plane.n.__s1.k)
-                                + tangent.__s1.k))   /* was ))) — extra ) prematurely closed the outer (float)( wrapper */
-                        + (physics->forward.__s1.i
-                        * ((-((physics->ground_plane.n.__s1.i * aiming_i)
-                                                 + ((physics->ground_plane.n.__s1.j * aiming_j)
-                                                         + (physics->ground_plane.n.__s1.k * aiming_k)))
-                                        * physics->ground_plane.n.__s1.k)
-                                + aiming_k)));
-            bitangent_y = ((physics->forward.__s1.k
-                        * ((-((physics->ground_plane.n.__s1.i * tangent.__s1.i)
-                                                 + ((physics->ground_plane.n.__s1.j * tangent.__s1.j)
-                                                         + (physics->ground_plane.n.__s1.k * tangent.__s1.k)))
-                                        * physics->ground_plane.n.__s1.j)
-                                + tangent.__s1.j))   /* was ))) — extra ) prematurely closed the outer (float)( wrapper */
-                        + (physics->forward.__s1.i
-                        * ((-((physics->ground_plane.n.__s1.i * aiming_i)
-                                                 + ((physics->ground_plane.n.__s1.j * aiming_j)
-                                                         + (physics->ground_plane.n.__s1.k * aiming_k)))
-                                        * physics->ground_plane.n.__s1.j)
-                                + aiming_j)));
-            bitangent_x = (physics->forward.__s1.k
-                        * ((-((physics->ground_plane.n.__s1.i * tangent.__s1.i)
-                                                 + ((physics->ground_plane.n.__s1.j * tangent.__s1.j)
-                                                         + (physics->ground_plane.n.__s1.k * tangent.__s1.k)))
-                                        * physics->ground_plane.n.__s1.i)
-                                + tangent.__s1.i))
-                        + (physics->forward.__s1.i
-                        * ((-((physics->ground_plane.n.__s1.i * aiming_i)
-                                                 + ((physics->ground_plane.n.__s1.j * aiming_j)
-                                                         + (physics->ground_plane.n.__s1.k * aiming_k)))
-                                        * physics->ground_plane.n.__s1.i)
-                                + aiming_i));
+            /* project the tangent and the aiming vector onto the ground-normal plane, then blend
+             * them by the desired movement.
+             * DEVIATION: transcribed from the fused sequence @0x837AF430-0x837AF4C8 — the plane
+             * dots finish in fnmadds (@0x837AF488/0x837AF484, spelled fused_nmsub with a negated
+             * addend), every projection/blend step is fmadds, and the blend weights are
+             * movement_desired.j/.i with a trailing +movement_desired.k (fadds @0x837AF4C8); the
+             * previous version weighted by forward.k/forward.i and added forward.k. */
+            {
+                float neg_dot_tangent = fused_nmsub(physics->ground_plane.n.__s1.i, tangent.__s1.i,
+                        -fused_madd(physics->ground_plane.n.__s1.j, tangent.__s1.j,
+                                physics->ground_plane.n.__s1.k * tangent.__s1.k));
+                float neg_dot_aiming = fused_nmsub(physics->ground_plane.n.__s1.i, aiming_i,
+                        -fused_madd(physics->ground_plane.n.__s1.j, aiming_j,
+                                physics->ground_plane.n.__s1.k * aiming_k));
+                float tangent_proj_i = fused_madd(neg_dot_tangent, physics->ground_plane.n.__s1.i, tangent.__s1.i);
+                float tangent_proj_j = fused_madd(neg_dot_tangent, physics->ground_plane.n.__s1.j, tangent.__s1.j);
+                float tangent_proj_k = fused_madd(neg_dot_tangent, physics->ground_plane.n.__s1.k, tangent.__s1.k);
+                float aiming_proj_i = fused_madd(neg_dot_aiming, physics->ground_plane.n.__s1.i, aiming_i);
+                float aiming_proj_j = fused_madd(neg_dot_aiming, physics->ground_plane.n.__s1.j, aiming_j);
+                float aiming_proj_k = fused_madd(neg_dot_aiming, physics->ground_plane.n.__s1.k, aiming_k);
+                bitangent_x = fused_madd(physics->movement_desired.__s1.j, tangent_proj_i,
+                        physics->movement_desired.__s1.i * aiming_proj_i);
+                bitangent_y = fused_madd(physics->movement_desired.__s1.j, tangent_proj_j,
+                        physics->movement_desired.__s1.i * aiming_proj_j);
+                bitangent_z = fused_madd(physics->movement_desired.__s1.j, tangent_proj_k,
+                        physics->movement_desired.__s1.i * aiming_proj_k);
+            }
 
             move_direction.__s1.i = bitangent_x;
             move_direction.__s1.j = bitangent_y;
-            move_direction.__s1.k = bitangent_z + physics->forward.__s1.k;
+            move_direction.__s1.k = bitangent_z + physics->movement_desired.__s1.k;
             if (((in_flags >> _biped_physics_in_climb_anything_bit) & 1) == 0)
-                move_direction.__s1.k = (bitangent_z + physics->forward.__s1.k) * 5.0f;
+                move_direction.__s1.k = (bitangent_z + physics->movement_desired.__s1.k) * 5.0f;
         }
         else
         {
             /* on a slope: rotate the desired movement by the facing yaw, then keep it in-plane */
             ground_normal = &physics->ground_plane.n;
-            horizontal_x = ((physics->forward.__s1.i * physics->movement_desired.__s1.i)
-                                 - (physics->forward.__s1.j * physics->movement_desired.__s1.j));
-            horizontal_y = ((physics->forward.__s1.j * physics->movement_desired.__s1.i)
-                                 + (physics->movement_desired.__s1.j * physics->forward.__s1.i));
+            /* DEVIATION: fmsubs @0x837AF394 / fmadds @0x837AF39C over plain fmuls partners
+             * (@0x837AF378/0x837AF384); the in-plane correction dot is fmadds @0x837AF3B0 over
+             * the plain gp.i*hx fmuls @0x837AF3A4. */
+            horizontal_x = fused_msub(physics->forward.__s1.i, physics->movement_desired.__s1.i,
+                                 physics->forward.__s1.j * physics->movement_desired.__s1.j);
+            horizontal_y = fused_madd(physics->forward.__s1.j, physics->movement_desired.__s1.i,
+                                 physics->movement_desired.__s1.j * physics->forward.__s1.i);
             move_direction.__s1.j = horizontal_y;
             move_direction.__s1.i = horizontal_x;
             move_direction.__s1.k = physics->movement_desired.__s1.k
-                - (((physics->ground_plane.n.__s1.j * horizontal_y)
-                                + (physics->ground_plane.n.__s1.i * horizontal_x))
+                - (fused_madd(physics->ground_plane.n.__s1.j, horizontal_y,
+                                physics->ground_plane.n.__s1.i * horizontal_x)
                         / physics->ground_plane.n.__s1.k);
         }
 
@@ -391,13 +410,15 @@ void biped_update_physics(biped_physics *physics)
             }
 
             /* small (1/128) push along the ground normal keeps the pill seated on the surface */
-            ground_nudge = -((ground_normal->n[0] * 0.0078125f) - clamped_x);
+            /* DEVIATION: each nudge is a fused fnmsubs @0x837AF648/0x837AF650/0x837AF654
+             * (clamped - normal/128 in one rounding); the +velocity is the plain fadds. */
+            ground_nudge = fused_nmsub(ground_normal->n[0], 0.0078125f, clamped_x);
             physics->out_flags = ((uint8_t)airborne == 0) ? 0 : (1u << _biped_physics_out_slipping_bit);
             physics->new_velocity.__s1.i = ground_nudge + physics->velocity.__s1.i;
             physics->new_velocity.__s1.j = physics->velocity.__s1.j
-                - ((ground_normal->n[1] * 0.0078125f) - clamped_y);
+                + fused_nmsub(ground_normal->n[1], 0.0078125f, clamped_y);
             physics->new_velocity.__s1.k = physics->velocity.__s1.k
-                - ((ground_normal->n[2] * 0.0078125f) - clamped_z);
+                + fused_nmsub(ground_normal->n[2], 0.0078125f, clamped_z);
             if ((physics->out_flags & (1u << _biped_physics_out_slipping_bit)) != 0)
                 physics->new_velocity.__s1.k = physics->new_velocity.__s1.k - global_gravity;
         }
@@ -481,13 +502,16 @@ void biped_update_physics(biped_physics *physics)
             surface_distance = support_plane.d;
 
             /* project the moved position onto the support plane to seed the probe point */
-            projection = -(((moved_position.__s1.x * support_plane.n.__s1.i)
-                                + ((moved_position.__s1.z * support_plane.n.__s1.k)
-                                        + (moved_position.__s1.y * support_plane.n.__s1.j)))
+            /* DEVIATION: plane dot is fmadds @0x837AF84C/0x837AF850 (y*n.j seed plain fmuls
+             * @0x837AF820; the -d and negate are the plain fsubs/fneg @0x837AF854/0x837AF858);
+             * each probe component is a fused fmadds @0x837AF85C/0x837AF860/0x837AF864. */
+            projection = -(fused_madd(moved_position.__s1.x, support_plane.n.__s1.i,
+                                fused_madd(moved_position.__s1.z, support_plane.n.__s1.k,
+                                        moved_position.__s1.y * support_plane.n.__s1.j))
                                 - support_plane.d);
-            probe_x = ((support_plane.n.__s1.i * projection) + moved_position.__s1.x);
-            probe_y = ((support_plane.n.__s1.j * projection) + moved_position.__s1.y);
-            probe_z = ((support_plane.n.__s1.k * projection) + moved_position.__s1.z);
+            probe_x = fused_madd(support_plane.n.__s1.i, projection, moved_position.__s1.x);
+            probe_y = fused_madd(support_plane.n.__s1.j, projection, moved_position.__s1.y);
+            probe_z = fused_madd(support_plane.n.__s1.k, projection, moved_position.__s1.z);
 
             do
             {
@@ -502,12 +526,15 @@ void biped_update_physics(biped_physics *physics)
                     {
                         bsp3d_get_plane_from_designator(&bsp->bsp3d, neighbour_surface->plane_designator,
                                                         &neighbour_plane);
-                        if (((neighbour_plane.n.__s1.i * moved_velocity.__s1.i)
-                                  + ((neighbour_plane.n.__s1.j * moved_velocity.__s1.j)
-                                          + (neighbour_plane.n.__s1.k * moved_velocity.__s1.k))) > 0.0f
-                            && (((neighbour_plane.n.__s1.i * moved_position.__s1.x)
-                                             + ((neighbour_plane.n.__s1.k * moved_position.__s1.z)
-                                                     + (neighbour_plane.n.__s1.j * moved_position.__s1.y)))
+                        /* DEVIATION: both plane dots accumulate through fmadds pairs
+                         * (@0x837AF8F8/0x837AF8FC and @0x837AF918/0x837AF91C) over plain fmuls
+                         * seeds (@0x837AF8EC/0x837AF908). */
+                        if (fused_madd(neighbour_plane.n.__s1.i, moved_velocity.__s1.i,
+                                  fused_madd(neighbour_plane.n.__s1.j, moved_velocity.__s1.j,
+                                          neighbour_plane.n.__s1.k * moved_velocity.__s1.k)) > 0.0f
+                            && (fused_madd(neighbour_plane.n.__s1.i, moved_position.__s1.x,
+                                             fused_madd(neighbour_plane.n.__s1.k, moved_position.__s1.z,
+                                                     neighbour_plane.n.__s1.j * moved_position.__s1.y))
                                      - neighbour_plane.d)
                                > (double)(physics->width * -0.5f))
                         {
@@ -521,22 +548,26 @@ void biped_update_physics(biped_physics *physics)
                             float edge_dz = (edge_end[2] - edge_start[2]);
                             float start_x = *edge_start;
                             float edge_dx = (*edge_end - *edge_start);
+                            /* DEVIATION: numerator/denominator accumulate through fmadds
+                             * @0x837AF980/0x837AF988 and @0x837AF984/0x837AF98C over the plain
+                             * y-term fmuls seeds (@0x837AF978/0x837AF97C); the divide stays plain. */
                             float segment_fraction =
-                                ((((probe_x - *edge_start) * (*edge_end - *edge_start))
-                                       + (((probe_z - edge_start[2]) * (edge_end[2] - edge_start[2]))
-                                               + ((probe_y - edge_start[1]) * (edge_end[1] - edge_start[1]))))
-                                     / (((*edge_end - *edge_start) * (*edge_end - *edge_start))
-                                             + ((edge_dz * edge_dz)
-                                                     + (edge_dy * edge_dy))));
+                                (fused_madd(probe_x - *edge_start, *edge_end - *edge_start,
+                                       fused_madd(probe_z - edge_start[2], edge_end[2] - edge_start[2],
+                                               (probe_y - edge_start[1]) * (edge_end[1] - edge_start[1])))
+                                     / fused_madd(*edge_end - *edge_start, *edge_end - *edge_start,
+                                             fused_madd(edge_dz, edge_dz,
+                                                     edge_dy * edge_dy)));
                             float closest_x, closest_y, closest_z;
                             float dist_sq;
                             if (segment_fraction >= 0.0f)
                             {
                                 if (segment_fraction <= 1.0f)
                                 {
-                                    closest_z = (((edge_end[2] - edge_start[2]) * segment_fraction) + edge_start[2]);
-                                    closest_y = ((edge_end[1] - edge_start[1]) * segment_fraction) + edge_start[1];
-                                    closest_x = (edge_dx * segment_fraction) + start_x;
+                                    /* DEVIATION: each lerp is a fused fmadds @0x837AF9F0/0x837AF9E8/0x837AF9E0. */
+                                    closest_z = fused_madd(edge_end[2] - edge_start[2], segment_fraction, edge_start[2]);
+                                    closest_y = fused_madd(edge_end[1] - edge_start[1], segment_fraction, edge_start[1]);
+                                    closest_x = fused_madd(edge_dx, segment_fraction, start_x);
                                 }
                                 else
                                 {
@@ -551,15 +582,17 @@ void biped_update_physics(biped_physics *physics)
                                 closest_y = edge_start[1];
                                 closest_z = edge_start[2];
                             }
-                            dist_sq = (((closest_x - probe_x) * (closest_x - probe_x))
-                                     + (((closest_z - probe_z) * (closest_z - probe_z))
-                                             + ((closest_y - probe_y) * (closest_y - probe_y))));
+                            /* DEVIATION: distance accumulates through fmadds @0x837AFA18/0x837AFA1C
+                             * over the plain y-delta fmuls seed @0x837AFA14. */
+                            dist_sq = fused_madd(closest_x - probe_x, closest_x - probe_x,
+                                     fused_madd(closest_z - probe_z, closest_z - probe_z,
+                                             (closest_y - probe_y) * (closest_y - probe_y)));
                             if (dist_sq < best_dist_sq)
                             {
                                 best_dist_sq = dist_sq;
-                                best_cos = ((neighbour_plane.n.__s1.i * moved_velocity.__s1.i)
-                                         + ((neighbour_plane.n.__s1.j * moved_velocity.__s1.j)
-                                                 + (neighbour_plane.n.__s1.k * moved_velocity.__s1.k)));
+                                best_cos = fused_madd(neighbour_plane.n.__s1.i, moved_velocity.__s1.i,
+                                         fused_madd(neighbour_plane.n.__s1.j, moved_velocity.__s1.j,
+                                                 neighbour_plane.n.__s1.k * moved_velocity.__s1.k));
                                 best_neighbour = neighbour;
                                 surface_normal_i = neighbour_plane.n.__s1.i;
                                 surface_normal_j = neighbour_plane.n.__s1.j;
@@ -577,34 +610,41 @@ void biped_update_physics(biped_physics *physics)
                 && best_dist_sq <= ((physics->width * 2.0f) * (physics->width * 2.0f))
                 && best_cos <= 0.053333335f)
             {
-                float drop = (((surface_normal_i * moved_position.__s1.x)
-                                   + ((surface_normal_k * moved_position.__s1.z)
-                                           + (surface_normal_j * moved_position.__s1.y)))
+                /* DEVIATION: plane dot is fmadds @0x837AFABC/0x837AFAC0 over the plain
+                 * y*n.j fmuls seed @0x837AFAA8; the -(d+width) is the plain fadds/fsubs. */
+                float drop = (fused_madd(surface_normal_i, moved_position.__s1.x,
+                                   fused_madd(surface_normal_k, moved_position.__s1.z,
+                                           surface_normal_j * moved_position.__s1.y))
                                    - (surface_distance + physics->width));
                 if (__fabs(drop) <= (physics->width * 0.5f))
                 {
                     /* snap the moved position onto the neighbour plane and synthesize one contact */
-                    moved_position.__s1.x = (surface_normal_i * -drop) + moved_position.__s1.x;
-                    moved_position.__s1.y = (surface_normal_j * -drop) + moved_position.__s1.y;
-                    moved_position.__s1.z = (surface_normal_k * -drop) + moved_position.__s1.z;
-                    if (((surface_normal_i * moved_velocity.__s1.i)
-                              + ((surface_normal_j * moved_velocity.__s1.j)
-                                      + (surface_normal_k * moved_velocity.__s1.k))) > -0.033333335f)
+                    /* DEVIATION: the snap and bias applications are fused fmadds
+                     * (@0x837AFAE8/0x837AFAF0/0x837AFAF8 and @0x837AFB1C/0x837AFB24/0x837AFB2C);
+                     * the velocity dot accumulates through fmadds @0x837AFAE4/0x837AFB00 over the
+                     * plain n.k*v.k fmuls seed @0x837AFAD4. */
+                    moved_position.__s1.x = fused_madd(surface_normal_i, -drop, moved_position.__s1.x);
+                    moved_position.__s1.y = fused_madd(surface_normal_j, -drop, moved_position.__s1.y);
+                    moved_position.__s1.z = fused_madd(surface_normal_k, -drop, moved_position.__s1.z);
+                    if (fused_madd(surface_normal_i, moved_velocity.__s1.i,
+                              fused_madd(surface_normal_j, moved_velocity.__s1.j,
+                                      surface_normal_k * moved_velocity.__s1.k)) > -0.033333335f)
                     {
-                        float bias = -(((surface_normal_i * moved_velocity.__s1.i)
-                                            + ((surface_normal_j * moved_velocity.__s1.j)
-                                                    + (surface_normal_k * moved_velocity.__s1.k)))
+                        float bias = -(fused_madd(surface_normal_i, moved_velocity.__s1.i,
+                                            fused_madd(surface_normal_j, moved_velocity.__s1.j,
+                                                    surface_normal_k * moved_velocity.__s1.k))
                                             + SECONDS_PER_TICK);
-                        moved_velocity.__s1.i = (bias * surface_normal_i) + moved_velocity.__s1.i;
-                        moved_velocity.__s1.j = (surface_normal_j * bias) + moved_velocity.__s1.j;
-                        moved_velocity.__s1.k = (surface_normal_k * bias) + moved_velocity.__s1.k;
+                        moved_velocity.__s1.i = fused_madd(bias, surface_normal_i, moved_velocity.__s1.i);
+                        moved_velocity.__s1.j = fused_madd(surface_normal_j, bias, moved_velocity.__s1.j);
+                        moved_velocity.__s1.k = fused_madd(surface_normal_k, bias, moved_velocity.__s1.k);
                     }
                     physics->stick_surface_index = best_neighbour;
                     collision_count = 1;
                     collisions[0].t = 0.0f;
-                    collisions[0].point.__s1.x = (-physics->width * surface_normal_i) + moved_position.__s1.x;
-                    collisions[0].point.__s1.y = (surface_normal_j * -physics->width) + moved_position.__s1.y;
-                    collisions[0].point.__s1.z = (surface_normal_k * -physics->width) + moved_position.__s1.z;
+                    /* DEVIATION: contact point offsets are fused fmadds @0x837AFB5C/0x837AFB64/0x837AFB6C. */
+                    collisions[0].point.__s1.x = fused_madd(-physics->width, surface_normal_i, moved_position.__s1.x);
+                    collisions[0].point.__s1.y = fused_madd(surface_normal_j, -physics->width, moved_position.__s1.y);
+                    collisions[0].point.__s1.z = fused_madd(surface_normal_k, -physics->width, moved_position.__s1.z);
                     collisions[0].plane.n.__s1.i = surface_normal_i;
                     collisions[0].plane.n.__s1.j = surface_normal_j;
                     collisions[0].plane.n.__s1.k = surface_normal_k;
@@ -620,8 +660,9 @@ void biped_update_physics(biped_physics *physics)
 
         /* re-normalize the facing used to bias support-surface selection */
         {
-            float facing_len_sq = ((horizontal_y * horizontal_y)
-                                 + (horizontal_x * horizontal_x));
+            /* DEVIATION: fmadds @0x837AFBB8 over the plain hx*hx fmuls seed @0x837AFBAC. */
+            float facing_len_sq = fused_madd(horizontal_y, horizontal_y,
+                                 horizontal_x * horizontal_x);
             if (facing_len_sq > 0.0000000099999991f)
             {
                 float facing_len = __fsqrts(facing_len_sq);
@@ -652,8 +693,9 @@ void biped_update_physics(biped_physics *physics)
                         take = (collisions[index].plane.n.__s1.k > best_normal_k);
                 }
                 else if (!grounded
-                         && ((collisions[index].plane.n.__s1.j * horizontal_y)
-                                  + (collisions[index].plane.n.__s1.i * horizontal_x)) > 0.5f)
+                         /* DEVIATION: fmadds @0x837AFCEC over the plain n.i*hx fmuls seed @0x837AFCDC. */
+                         && fused_madd(collisions[index].plane.n.__s1.j, horizontal_y,
+                                  collisions[index].plane.n.__s1.i * horizontal_x) > 0.5f)
                 {
                     take = 0;
                 }
@@ -662,9 +704,12 @@ void biped_update_physics(biped_physics *physics)
                     if (is_stick)
                         take = 1;
                     else if (!have_facing)
-                        take = -((contact_normal->__s1.i * physics->new_velocity.__s1.i)
-                                             + ((contact_normal->__s1.k * physics->new_velocity.__s1.k)
-                                                     + (contact_normal->__s1.j * physics->new_velocity.__s1.j)))
+                        /* DEVIATION: the negated dot is fnmadds @0x837AFCC8 (spelled fused_nmsub with
+                         * a negated addend) over fmadds @0x837AFCC4 and the plain n.j*v.j fmuls seed
+                         * @0x837AFCB8. */
+                        take = fused_nmsub(contact_normal->__s1.i, physics->new_velocity.__s1.i,
+                                             -fused_madd(contact_normal->__s1.k, physics->new_velocity.__s1.k,
+                                                     contact_normal->__s1.j * physics->new_velocity.__s1.j))
                              > best_normal_dot;
                 }
                 else
@@ -674,9 +719,9 @@ void biped_update_physics(biped_physics *physics)
 
                 if (take)
                 {
-                    best_normal_dot = -((contact_normal->__s1.i * physics->new_velocity.__s1.i)
-                                    + ((contact_normal->__s1.k * physics->new_velocity.__s1.k)
-                                            + (contact_normal->__s1.j * physics->new_velocity.__s1.j)));
+                    best_normal_dot = fused_nmsub(contact_normal->__s1.i, physics->new_velocity.__s1.i,
+                                    -fused_madd(contact_normal->__s1.k, physics->new_velocity.__s1.k,
+                                            contact_normal->__s1.j * physics->new_velocity.__s1.j));
                     chosen_surface_index = i;
                     have_walkable = walkable;
                     have_facing = (char)is_stick;
@@ -716,23 +761,28 @@ void biped_update_physics(biped_physics *physics)
                 stuck_object_valid = 1;
                 if ((physics->in_flags & (1u << _biped_physics_in_airborne_bit)) != 0 && physics->ground_tangential_velocity_max < 3.4028235e38f)
                 {
-                    float projection = -((normal_k * start_velocity.__s1.k)
-                                     + ((start_velocity.__s1.j * normal_j)
-                                             + (normal_i * start_velocity.__s1.i)));
-                    float slide_z = ((normal_k * projection) + start_velocity.__s1.k);
-                    float slide_x = (normal_i * projection) + start_velocity.__s1.i;
-                    float slide_y = (normal_j * projection) + start_velocity.__s1.j;
-                    if (((slide_x * slide_x)
-                              + ((slide_z * slide_z)
-                                      + (slide_y * slide_y)))
+                    /* DEVIATION: the negated dot is fnmadds @0x837AFE80 (spelled fused_nmsub with a
+                     * negated addend) over fmadds @0x837AFE78 and the plain n.i*v.i fmuls seed
+                     * @0x837AFE74; the slide components are fused fmadds @0x837AFEBC-0x837AFEC4,
+                     * and both magnitudes accumulate through fmadds pairs (@0x837AFED0/0x837AFED4,
+                     * @0x837AFEE8/0x837AFEEC) over plain fmuls seeds. */
+                    float projection = fused_nmsub(normal_k, start_velocity.__s1.k,
+                                     -fused_madd(start_velocity.__s1.j, normal_j,
+                                             normal_i * start_velocity.__s1.i));
+                    float slide_z = fused_madd(normal_k, projection, start_velocity.__s1.k);
+                    float slide_x = fused_madd(normal_i, projection, start_velocity.__s1.i);
+                    float slide_y = fused_madd(normal_j, projection, start_velocity.__s1.j);
+                    if (fused_madd(slide_x, slide_x,
+                              fused_madd(slide_z, slide_z,
+                                      slide_y * slide_y))
                         > (double)(physics->ground_tangential_velocity_max
                                         * physics->ground_tangential_velocity_max))
                     {
                         stuck_object_valid =
                             (projection
-                                  / __fsqrts(((start_velocity.__s1.i * start_velocity.__s1.i)
-                                                   + ((start_velocity.__s1.k * start_velocity.__s1.k)
-                                                           + (start_velocity.__s1.j * start_velocity.__s1.j)))))
+                                  / __fsqrts(fused_madd(start_velocity.__s1.i, start_velocity.__s1.i,
+                                                   fused_madd(start_velocity.__s1.k, start_velocity.__s1.k,
+                                                           start_velocity.__s1.j * start_velocity.__s1.j))))
                             >= (double)physics->ground_tangential_angle;
                     }
                 }
@@ -749,10 +799,12 @@ void biped_update_physics(biped_physics *physics)
                 if (physics->support_surface_index == -1
                     || physics->support_surface_index != physics->stick_surface_index)
                 {
+                    /* DEVIATION: fnmadds @0x837AFF88 (spelled fused_nmsub with a negated addend)
+                     * over fmadds @0x837AFF84 and the plain n.k*v.k fmuls seed @0x837AFF78. */
                     physics->landing_velocity =
-                        -((start_velocity.__s1.i * physics->ground_plane.n.__s1.i)
-                               + ((physics->ground_plane.n.__s1.j * start_velocity.__s1.j)
-                                       + (physics->ground_plane.n.__s1.k * start_velocity.__s1.k)));
+                        fused_nmsub(start_velocity.__s1.i, physics->ground_plane.n.__s1.i,
+                               -fused_madd(physics->ground_plane.n.__s1.j, start_velocity.__s1.j,
+                                       physics->ground_plane.n.__s1.k * start_velocity.__s1.k));
                     goto support_done;
                 }
             }
@@ -784,9 +836,12 @@ void biped_update_physics(biped_physics *physics)
                     float bump_dy = (contact_object->object.translational_velocity.n[1] - moved_velocity.__s1.j);
                     float bump_dz = (contact_object->object.translational_velocity.n[2] - moved_velocity.__s1.k);
                     float bump_dx = (contact_object->object.translational_velocity.n[0] - moved_velocity.__s1.i);
-                    float bump_sq = ((bump_dz * bump_dz)
-                                  + ((bump_dy * bump_dy)
-                                          + (bump_dx * bump_dx)));
+                    /* DEVIATION: magnitude accumulates dx^2 + (dz^2 + dy^2) through fmadds
+                     * @0x837B0048/0x837B0044 over the plain dy^2 fmuls seed @0x837B0040 — the
+                     * previous dz-outer grouping was mis-ordered. */
+                    float bump_sq = fused_madd(bump_dx, bump_dx,
+                                  fused_madd(bump_dz, bump_dz,
+                                          bump_dy * bump_dy));
                     int take;
                     if (bump_object == -1)
                         take = 1;
@@ -846,13 +901,15 @@ void biped_update_physics(biped_physics *physics)
         physics->new_velocity.__s1.i = moved_velocity.__s1.i;
         physics->new_velocity.__s1.j = moved_velocity.__s1.j;
         physics->new_velocity.__s1.k = physics->new_velocity.__s1.k - physics->crouch_velocity;
+        /* DEVIATION: magnitude accumulates through fmadds @0x837B01EC/0x837B01DC over the plain
+         * dj^2 fmuls seed @0x837B01CC. */
         physics->collision_velocity = __fsqrts(
-              (((moved_velocity.__s1.i - start_velocity.__s1.i)
-                            * (moved_velocity.__s1.i - start_velocity.__s1.i))
-                    + (((moved_velocity.__s1.k - start_velocity.__s1.k)
-                                    * (moved_velocity.__s1.k - start_velocity.__s1.k))
-                            + ((moved_velocity.__s1.j - start_velocity.__s1.j)
-                                    * (moved_velocity.__s1.j - start_velocity.__s1.j)))));
+              fused_madd(moved_velocity.__s1.i - start_velocity.__s1.i,
+                            moved_velocity.__s1.i - start_velocity.__s1.i,
+                    fused_madd(moved_velocity.__s1.k - start_velocity.__s1.k,
+                                    moved_velocity.__s1.k - start_velocity.__s1.k,
+                            (moved_velocity.__s1.j - start_velocity.__s1.j)
+                                    * (moved_velocity.__s1.j - start_velocity.__s1.j))));
 
         /* ---- final ledge/step feature test for climbable geometry ---- */
         {
@@ -885,8 +942,9 @@ void biped_update_physics(biped_physics *physics)
                                                              0.0f, sphere_width, physics->biped_index,
                                                              &features))
                         {
-                            float probe_scale = -((sphere_width * 2.0f)
-                                                       - definition->biped.collision_height_standing);
+                            /* DEVIATION: fused fnmsubs @0x837B02DC (height - width*2 in one rounding). */
+                            float probe_scale = fused_nmsub(sphere_width, 2.0f,
+                                                       definition->biped.collision_height_standing);
                             probe_vector.__s1.i = probe_scale * global_up3d->n[0];
                             probe_vector.__s1.j = global_up3d->n[1] * probe_scale;
                             probe_vector.__s1.k = global_up3d->n[2] * probe_scale;

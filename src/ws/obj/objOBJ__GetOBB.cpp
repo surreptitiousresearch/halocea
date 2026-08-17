@@ -1,3 +1,4 @@
+/* ?GetOBB@objOBJ@@QAAXPAVm3dOBB@@@Z @0x82A719D8 */
 #include "../../headers/ws/obj/objOBJ.h"
 #include "../../headers/ws/obj/objGEOM_UNSHARED.h"
 #include "../../headers/ws/obj/objGEOM_SHARED.h"

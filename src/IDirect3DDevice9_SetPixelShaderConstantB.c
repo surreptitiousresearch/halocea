@@ -1,3 +1,4 @@
+/* IDirect3DDevice9_SetPixelShaderConstantB @0x836A0CB0 */
 #include "headers/d3d_boundary.h"
 /* D3DDevice_SetPixelShaderConstantB's declaration home is chicago_shaders.h (the only header that
  * carries it); its signature there is the DB decl verbatim. */

@@ -1,3 +1,4 @@
+/* ?SetElements@psARRAY_DATA@@QAAXPBVdsDATA@@H@Z @0x827AFDD8 */
 #include "psARRAY_DATA.h"
 #include "../ds/dsVECTOR.h"
 #include "../ds/dsDATA.h"

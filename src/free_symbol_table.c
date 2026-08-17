@@ -1,3 +1,4 @@
+/* free_symbol_table @0x83810CC8 */
 #include "headers/debug_symbol_table.h"
 
 extern void dlFree(void *ptr);

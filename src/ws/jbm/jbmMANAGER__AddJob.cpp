@@ -1,3 +1,4 @@
+/* ?AddJob@jbmMANAGER@@QAAXV?$apSTATE_T@K@@PAVjbmJOB@@@Z @0x826ECAE0 */
 #include "../../headers/ws/jbm/jbmMANAGER.h"
 #include "../../headers/ws/jbm/jbmJOB.h"
 

@@ -1,3 +1,4 @@
+/* _rasterizer_environment_fog_begin @0x8378FA40 */
 /* _rasterizer_environment_fog_begin 0x8378FA40 — compute this frame's eye fog factors and set up the D3D
  * state for the environment fog pass. Computes the camera's signed distance to the fog plane, derives the
  * atmospheric eye-blend (clamped distance/atmospheric_maximum_distance, forced to 1 when the layer-fog flag

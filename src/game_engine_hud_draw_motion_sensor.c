@@ -1,3 +1,4 @@
+/* game_engine_hud_draw_motion_sensor @0x837491E8 */
 /* blam_data_globals.h first: supplies wchar_t before dependent headers are parsed (migration) */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"

@@ -1,3 +1,4 @@
+/* ?SetLodNmb@animLOD@@AAA_NHM@Z @0x82B0DFA0 */
 #include "animLOD_LOD_INFO.h"
 #include "../ds/ds_assert_boundary.h"
 #include <math.h>

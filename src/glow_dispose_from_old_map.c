@@ -1,3 +1,4 @@
+/* glow_dispose_from_old_map @0x8380B460 */
 #include "headers/glow_globals.h"
 
 extern void data_make_invalid(data_array *data);

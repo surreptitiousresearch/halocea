@@ -1,3 +1,4 @@
+/* sound_try_and_get @0x83715320 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"

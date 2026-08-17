@@ -1,3 +1,4 @@
+/* stack_walk_global_function_offset @0x83810C58 */
 #include "headers/stack_walk_globals.h"
 
 int stack_walk_global_function_offset(void)

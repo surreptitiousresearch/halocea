@@ -1,3 +1,4 @@
+/* ?LogTab@sslSYSTEM@@QAAXXZ @0x825CA340 */
 #include "sslSYSTEM.h"
 // 0x825CA340  sslSYSTEM::LogTab
 

@@ -1,3 +1,4 @@
+/* ?RecClearParents@psSECTION_BRANCH@@IAAXPAVpsSECTION_DATA@@@Z @0x82519180 */
 #include "psSECTION_BRANCH.h"
 #include "psSECTION_DATA.h"
 // 0x82519180 — clear `pData`'s parent list and recurse into every sub-section, tearing down the

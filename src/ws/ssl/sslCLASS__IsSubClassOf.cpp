@@ -1,3 +1,4 @@
+/* ?IsSubClassOf@sslCLASS@@QBAHPAV1@@Z @0x82A378C0 */
 #include "sslCLASS.h"
 
 // 0x82A378C0 — sslCLASS::IsSubClassOf. Walk the parent chain; true if `pClass` is this class or

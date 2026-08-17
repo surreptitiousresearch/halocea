@@ -1,3 +1,4 @@
+/* director_inhibit_facing @0x836E44E8 */
 #include <stdint.h>
 #include "headers/director.h"
 

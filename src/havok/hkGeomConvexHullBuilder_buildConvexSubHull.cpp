@@ -1,3 +1,4 @@
+/* ?buildConvexSubHull@hkGeomConvexHullBuilder@@SAXABUhkGeomConvexHullTolerances@@AAV?$hkArray@VhkVector4@@@@HHAAVhkGeomHull@@@Z @0x83FDE488 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* Append every edge of src->m_edges onto dst->m_edges, growing dst as needed.

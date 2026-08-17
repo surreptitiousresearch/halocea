@@ -1,3 +1,4 @@
+/* matrix3x3_determinant @0x83706918 */
 #include "headers/real_matrix3x3.h"
 
 float matrix3x3_determinant(const real_matrix3x3 *matrix)

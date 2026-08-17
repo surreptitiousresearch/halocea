@@ -1,3 +1,4 @@
+/* draw_string_set_indents @0x83769B48 */
 #include <stdint.h>
 #include "headers/font_drawing_globals.h"
 #include "headers/blam_data_globals.h"

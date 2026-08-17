@@ -1,3 +1,4 @@
+/* vehicle_place @0x8375CCF8 */
 #include "headers/scenario_vehicle_datum.h"
 
 extern void unit_place(int unit_index, scenario_unit_datum *scenario_unit);

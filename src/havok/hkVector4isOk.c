@@ -1,3 +1,4 @@
+/* hkVector4isOk @0x838D7A20 */
 #include "../headers/havok/hkBool.h"
 
 /* result = (all n floats are finite) — i.e. none has an all-ones exponent

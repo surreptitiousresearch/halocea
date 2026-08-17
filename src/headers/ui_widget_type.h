@@ -4,7 +4,7 @@
  * identifiers below are the consumer-facing names and are kept). */
 
 /* GUESS: enum recovered by reconciliation, no ground-truth source — rationale: widget_instance.widget_type
- * dispatch in widget_instance_render_recursive @0x83738F80 calls widget_instance_render_text_box for 1,
+ * dispatch in widget_instance_render_recursive @0x83734E48 calls widget_instance_render_text_box for 1,
  * widget_instance_render_spinner_list for 2, widget_instance_render_column_list for 3 (0 renders as a plain
  * container, only recursing into children). Ordering corroborated by the ui_widget_definition tag layout
  * (headers_ref), whose per-type parameter blocks appear in the order text_box(0x134), spinner_list(0x184),

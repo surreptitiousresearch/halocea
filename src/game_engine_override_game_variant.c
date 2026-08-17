@@ -1,3 +1,4 @@
+/* game_engine_override_game_variant @0x83749698 */
 #include "headers/play_stage.h"
 #include <string.h>
 

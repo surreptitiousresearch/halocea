@@ -1,3 +1,4 @@
+/* data_packet_groups_get_error @0x837DF7F8 */
 #include "headers/blam_data_globals.h"
 
 /* return const char*: propagates const of global_data_packet_groups_error_string (literal-only) 2026-07-31 (C4090) */

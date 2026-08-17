@@ -1,3 +1,4 @@
+/* set_state @0x83786560 */
 /* set_state 0x83786560 — apply a cached widget render state (texture stage + stencil mode) to the rasterizer,
  * skipping the work when it already matches the current state. Returns whether the texture is ready (the
  * non-blocking texture set did not stall); the stencil mode is always reconciled. Caller (flush_batch) treats

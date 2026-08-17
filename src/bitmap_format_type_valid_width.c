@@ -1,3 +1,4 @@
+/* bitmap_format_type_valid_width @0x836F4C08 */
 #include <stdint.h>
 int bitmap_format_type_valid_width(int16_t format, int16_t type, int16_t width)
 {

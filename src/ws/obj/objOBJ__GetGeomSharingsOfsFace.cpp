@@ -1,3 +1,4 @@
+/* ?GetGeomSharingsOfsFace@objOBJ@@QBAHXZ @0x82660328 */
 #include "objOBJ.h"
 #include "../ds/ds_assert_boundary.h"
 // 0x82660328  ?GetGeomSharingsOfsFace@objOBJ@@QBAHXZ

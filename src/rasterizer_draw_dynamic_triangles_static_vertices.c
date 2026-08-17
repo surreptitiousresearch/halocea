@@ -1,3 +1,4 @@
+/* rasterizer_draw_dynamic_triangles_static_vertices @0x837916C0 */
 /* rasterizer_draw_dynamic_triangles_static_vertices 0x837916C0 — draw a run of dynamic (per-frame) indexed
  * triangles against a single static vertex stream. The triangle run is split into batches of at most 10000
  * triangles per draw call. Bails out immediately if the buffer index is invalid or the vertex stream has no

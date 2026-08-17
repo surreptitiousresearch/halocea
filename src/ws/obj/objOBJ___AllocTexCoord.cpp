@@ -1,3 +1,4 @@
+/* ?_AllocTexCoord@objOBJ@@QAAHHH@Z @0x82A81B08 */
 #include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"

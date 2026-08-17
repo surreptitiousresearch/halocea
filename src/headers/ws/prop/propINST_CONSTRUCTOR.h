@@ -18,6 +18,7 @@
 // canRemove@0x48 — size 76. Same shape as propGAME_INFO_DESC (its sibling descriptor).
 struct propINST_CONSTRUCTOR_DESC : propENT_DESC {
     DEFAULT_CTOR<bool> isEntSslClassInited; // 0x34 lazy-init flag for the ssl class link
+    unsigned char      pad[3];              // 0x35 alignment padding (explicit in the DB record)
     dsTSTRING<char>    presetName;          // 0x38 default preset/skin name
     dsTSTRING<char>    nameCdtSkeleton;     // 0x3C collision-skeleton name
     dsTSTRING<char>    nameRagdoll;         // 0x40 ragdoll name

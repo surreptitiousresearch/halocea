@@ -1,3 +1,4 @@
+/* cache_file_tag_instance_get @0x836F7150 */
 #include <stdint.h>
 #include "headers/cache_file_tag_instance.h"
 #include "headers/blam_data_globals.h"

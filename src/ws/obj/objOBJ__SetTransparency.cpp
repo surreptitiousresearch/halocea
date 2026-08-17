@@ -1,3 +1,4 @@
+/* ?SetTransparency@objOBJ@@QAAXE@Z @0x82682110 */
 #include "objOBJ.h"
 // 0x82682110  ?SetTransparency@objOBJ@@QAAXE@Z
 // Set geometry transparency (0..255 -> 0..1) on this object's own geometry, then recurse

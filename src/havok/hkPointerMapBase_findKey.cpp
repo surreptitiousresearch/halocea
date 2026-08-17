@@ -1,3 +1,4 @@
+/* ?findKey@?$hkPointerMapBase@KKU?$hkPointerMapOperations@KK@@@@QBAPAVDummy@@K@Z @0x838E4AA0 */
 #include "../headers/havok/hkPointerMapBase.h"
 
 /* hkPointerMapBase::findKey — probe for key using the same multiplicative hash and

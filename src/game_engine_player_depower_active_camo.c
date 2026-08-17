@@ -1,3 +1,4 @@
+/* game_engine_player_depower_active_camo @0x83748E90 */
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/object_header_datum.h"

@@ -1,3 +1,4 @@
+/* _rasterizer_environment_diffuse_lights_begin @0x83788F08 */
 /* _rasterizer_environment_diffuse_lights_begin 0x83788F08 — configure the D3D pipeline for the environment
  * diffuse dynamic-light pass: select the diffuse-light effect shader (index 4), bind the distance-attenuation
  * ramp (stage 2) and the normalization cube map (stage 3), set up the four sampler stages, and set additive

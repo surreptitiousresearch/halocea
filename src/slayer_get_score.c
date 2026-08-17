@@ -1,3 +1,4 @@
+/* slayer_get_score @0x83815740 */
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/slayer_globals.h"

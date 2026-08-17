@@ -1,3 +1,4 @@
+/* _rasterizer_widget_begin @0x83786918 */
 /* _rasterizer_widget_begin 0x83786918 — begin a 2D widget render pass. Uploads a pixel->NDC orthographic
  * projection (built from the active viewport's width/height) into vertex-shader constant registers 0xD..0x11,
  * binds the widget vertex declaration and shader, then configures the pipeline for the requested pass type:

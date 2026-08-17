@@ -1,3 +1,4 @@
+/* recorded_animation_initialize_event_stream_v1 @0x837F6BF0 */
 #include <stdint.h>
 #include "headers/animation_playback_controller.h"
 #include "headers/unit_control_data.h"

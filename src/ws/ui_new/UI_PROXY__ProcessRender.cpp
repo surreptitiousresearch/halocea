@@ -1,3 +1,4 @@
+/* ?ProcessRender@UI_PROXY@ui_new@@QAAXXZ @0x82780BE0 */
 #include "../../headers/ws/ui_new/UI_PROXY.h"
 #include "../../headers/ws/ui_new/ui_proxy_boundary.h"
 #include "../../headers/ws/ui_new/ui_stat_boundary.h"

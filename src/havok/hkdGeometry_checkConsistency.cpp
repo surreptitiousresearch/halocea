@@ -1,3 +1,4 @@
+/* ?checkConsistency@hkdGeometry@@QBA?AW4hkResult@@XZ @0x83852338 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkdGeometry_Face.h"
 #include "../headers/havok/hkdGeometry_ObjectIdentifier.h"

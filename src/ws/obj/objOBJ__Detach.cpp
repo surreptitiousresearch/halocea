@@ -1,3 +1,4 @@
+/* ?Detach@objOBJ@@QAAXXZ @0x826605C8 */
 #include "objOBJ.h"
 #include "../../headers/animINST.h"
 // 0x826605C8  ?Detach@objOBJ@@QAAXXZ

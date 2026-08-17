@@ -1,3 +1,4 @@
+/* random_math_dispose @0x83722F48 */
 #include "headers/random_math_globals.h"
 #include "headers/blam_data_globals.h"
 

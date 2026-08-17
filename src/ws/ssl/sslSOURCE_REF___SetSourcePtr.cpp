@@ -1,3 +1,4 @@
+/* ?_SetSourcePtr@sslSOURCE_REF@@IAAXPAVsslSOURCE@@@Z @0x82A37060 */
 #include "sslSOURCE_REF.h"
 #include "sslSOURCE.h"
 

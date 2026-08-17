@@ -1,3 +1,4 @@
+/* ?setMulInverseMul@hkTransform@@QAAXABV1@0@Z @0x838E09D8 */
 #include "../headers/havok/hkTransform.h"
 
 /* this = inverse(bTa) * bTc  (Havok hkTransform::setMulInverseMul).

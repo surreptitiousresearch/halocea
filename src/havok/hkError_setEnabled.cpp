@@ -1,3 +1,4 @@
+/* ?setEnabled@hkDefaultError@@UAAXHVhkBool@@@Z @0x838EDB30 */
 #include "../headers/havok/hkDefaultError.h"
 #include <stdint.h>
 

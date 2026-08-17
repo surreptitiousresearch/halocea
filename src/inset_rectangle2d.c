@@ -1,3 +1,4 @@
+/* inset_rectangle2d @0x83799EC0 */
 #include <stdint.h>
 #include "headers/rectangle2d.h"
 

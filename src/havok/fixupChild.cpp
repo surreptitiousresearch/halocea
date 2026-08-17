@@ -1,3 +1,4 @@
+/* fixupChild @0x8383CAD0 */
 /*
  * hkdBreakableShape asset-processing helper (destruction subsystem).
  *

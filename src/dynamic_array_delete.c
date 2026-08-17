@@ -1,3 +1,4 @@
+/* dynamic_array_delete @0x83784878 */
 #include "headers/dynamic_array.h"
 
 extern void *dlRealloc(void *ptr, unsigned int size, const char *file, unsigned int line);

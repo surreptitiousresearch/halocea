@@ -1,3 +1,4 @@
+/* ?SetGeomSharingHost@objOBJ@@QAAXPAV1@@Z @0x82BCB288 */
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "../ds/ds_assert_boundary.h"

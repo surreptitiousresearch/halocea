@@ -1,3 +1,4 @@
+/* shade_scalar @0x836F75C8 */
 /* Params are Blam `real` (float); the Hex-Rays PPC decompiler defaulted them to `double` and wrapped
  * every use in a narrowing cast — the binary does the arithmetic entirely in single precision
  * (fsubs/fmuls/fmadds, no frsp). Reconstructed as:

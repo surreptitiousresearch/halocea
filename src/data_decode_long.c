@@ -1,3 +1,4 @@
+/* data_decode_long @0x83830AB8 */
 #include <stdint.h>
 #include "headers/data_encoding_state.h"
 

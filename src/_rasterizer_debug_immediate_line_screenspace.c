@@ -1,3 +1,4 @@
+/* _rasterizer_debug_immediate_line_screenspace @0x836E5B70 */
 #include "headers/point2d.h"
 #include "headers/real_rgb_color.h"
 

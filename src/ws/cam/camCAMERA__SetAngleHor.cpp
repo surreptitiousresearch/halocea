@@ -1,3 +1,4 @@
+/* ?SetAngleHor@camCAMERA@@QAAXM@Z @0x82702468 */
 #include "../../headers/ws/cam/camCAMERA.h"
 #include <math.h>
 

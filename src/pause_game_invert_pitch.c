@@ -1,3 +1,4 @@
+/* pause_game_invert_pitch @0x83692058 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/event_record.h"

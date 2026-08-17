@@ -1,3 +1,4 @@
+/* ?getClassType@hkReferencedObject@@UBAPBVhkClass@@XZ @0x838D2AF0 */
 #include "../headers/havok/hkReferencedObject.h"
 
 typedef struct hkClass hkClass;

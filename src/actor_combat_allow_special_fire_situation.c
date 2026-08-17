@@ -15,7 +15,7 @@
 #include "headers/actor_special_fire_situation.h"
 #include "headers/blam_data_globals.h"
 
-extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
+extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const real_point3d *test_point, int16_t *threat_count_out);
 
 uint8_t actor_combat_allow_special_fire_situation(int actor_index, int16_t special_fire_situation)
 {
@@ -32,6 +32,6 @@ uint8_t actor_combat_allow_special_fire_situation(int actor_index, int16_t speci
         return 0;
 
     int16_t enemy_count = 0;
-    actor_combat_check_collateral_damage(actor_index, 6.0f, 0.0f, (const float *)&prop->body_position, &enemy_count);
+    actor_combat_check_collateral_damage(actor_index, 6.0f, 0.0f, &prop->body_position, &enemy_count);
     return enemy_count >= 3 ? 1 : 0;
 }

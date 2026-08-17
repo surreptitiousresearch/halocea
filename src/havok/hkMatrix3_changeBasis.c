@@ -1,3 +1,4 @@
+/* ?changeBasis@hkMatrix3@@QAAXABVhkRotation@@@Z @0x838E3B28 */
 #include "../headers/havok/hkMatrix3.h"
 #include "../headers/havok/hkRotation.h"
 

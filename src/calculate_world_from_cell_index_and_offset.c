@@ -1,3 +1,4 @@
+/* calculate_world_from_cell_index_and_offset @0x83711588 */
 /* DEVIATION: decompiler double-return idiom; direct float. 0.0039215689 = 1/255.0 */
 float calculate_world_from_cell_index_and_offset(float cell, float offset)
 {

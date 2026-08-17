@@ -1,3 +1,4 @@
+/* file_read_only @0x837E6660 */
 #include <stdint.h>
 #include <windows.h>
 #include "headers/file_reference.h"

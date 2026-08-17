@@ -1,3 +1,4 @@
+/* tag_to_string @0x836F58A0 */
 char * tag_to_string(unsigned int t, char *s)
 {
     *(unsigned int *)s = t;

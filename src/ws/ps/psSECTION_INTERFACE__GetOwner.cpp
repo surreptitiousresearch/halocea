@@ -1,3 +1,4 @@
+/* ?GetOwner@psSECTION_INTERFACE@@QBA?AVpsSECTION@@XZ @0x8251ABF8 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 #include "psSECTION_DATA.h"

@@ -1,3 +1,4 @@
+/* cinematic_force_title @0x83691250 */
 #include <stdint.h>
 #include "headers/cinematic_globals.h"
 

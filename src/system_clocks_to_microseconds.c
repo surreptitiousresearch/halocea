@@ -1,3 +1,4 @@
+/* system_clocks_to_microseconds @0x83762D00 */
 #include "headers/blam_data_globals.h"
 
 /* DEVIATION: decompiler output garbled; reconstructed from disasm (mulld/divdu pattern) */

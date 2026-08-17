@@ -1,3 +1,4 @@
+/* ?FindRecord@gsSTRINGS@@IAAHPBD@Z @0x826B91A0 */
 #include "../../headers/ws/gs/gsSTRINGS.h"
 
 // 0x826B91A0 — binary-search mapTextIdToIdx for the record whose ID text case-insensitively

@@ -1,3 +1,4 @@
+/* player_effect_clear_damage_indicators @0x83737E50 */
 /* player_effect_clear_damage_indicators 0x83737E50 — reset the local player's four directional damage-indicator
  * timers to zero (a single 4-byte store over the damage_indicator_ticks[4] array). */
 

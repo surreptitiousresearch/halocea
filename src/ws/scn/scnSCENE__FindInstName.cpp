@@ -1,3 +1,4 @@
+/* ?FindInstName@scnSCENE@@QAAPAVanimINST@@PBD@Z @0x8253CFA8 */
 #include "scnSCENE.h"
 #include "../ds/ds_assert_boundary.h"
 

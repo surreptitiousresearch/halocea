@@ -1,3 +1,4 @@
+/* path_get_step_index @0x8381D030 */
 #include <stdint.h>
 #include "headers/obstacle_path.h"
 

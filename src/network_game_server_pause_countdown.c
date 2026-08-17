@@ -1,3 +1,4 @@
+/* network_game_server_pause_countdown @0x836918A8 */
 #include <stdint.h>
 #include "headers/network_game_server.h"
 

@@ -1,3 +1,4 @@
+/* update_client_build_client_update @0x836F61B8 */
 #include <string.h>
 #include "headers/update_client_globals.h"
 

@@ -1,3 +1,4 @@
+/* transition_to_game_in_progress @0x83730FB0 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 

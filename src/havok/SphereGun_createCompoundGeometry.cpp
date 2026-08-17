@@ -1,3 +1,4 @@
+/* SphereGun_createCompoundGeometry @0x8385E720 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkdBreakableShape.h"

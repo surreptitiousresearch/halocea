@@ -1,3 +1,4 @@
+/* ?UpdateInvalidateState@animINST@@AAAHH@Z @0x825E1E38 */
 #include "animINST.h"
 #include "animTPL.h"
 #include "tplSKIN.h"

@@ -1,3 +1,4 @@
+/* ?UngetChar@psSECTION_PARSER@@IAAXH@Z @0x82A2C310 */
 #include "psSECTION_PARSER.h"
 // 0x82A2C314 — push back `num` characters (walking `read.pos` backward one byte at a time, clamped
 // at `read.begin`); crossing a '\n' in reverse decrements the line counter and resets

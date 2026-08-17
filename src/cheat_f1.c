@@ -1,3 +1,4 @@
+/* cheat_f1 @0x836EAE70 */
 #include <stdint.h>
 extern void cheat_all_weapons(void);
 

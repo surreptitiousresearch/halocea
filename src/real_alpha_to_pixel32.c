@@ -1,3 +1,4 @@
+/* real_alpha_to_pixel32 @0x83787018 */
 /* DEVIATION: disasm: fctidz + lbz at back_chain+7 (LSByte of 64-bit result) + rotrwi 8 = value << 24 */
 unsigned int real_alpha_to_pixel32(float alpha)
 {

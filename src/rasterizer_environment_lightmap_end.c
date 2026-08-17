@@ -1,3 +1,4 @@
+/* rasterizer_environment_lightmap_end @0x836A6198 */
 /* rasterizer_environment_lightmap_end 0x836A6198 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 
 extern void _rasterizer_environment_lightmap_end(void);

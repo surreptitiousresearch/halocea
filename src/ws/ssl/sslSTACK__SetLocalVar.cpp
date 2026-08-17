@@ -1,3 +1,4 @@
+/* ?SetLocalVar@sslSTACK@@QAA?AVsslERROR@@HABVdsDATA@@@Z @0x82AF1C58 */
 #include "sslSTACK.h"
 #include "sslERROR.h"
 #include "../ds/dsDATA.h"

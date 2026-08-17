@@ -3,7 +3,9 @@
  * DEVIATION: the binary computes strlen then packs (cntlzw(length) & 0x20) != 0 — true iff length == 0 —
  * into the MSByte of the back-chain slot and reads the whole word back (big-endian).
  * DEVIATION: the parameter is the raw `int` script value word, which this coercion uses as the text
- * pointer (`mr r11, r3` / `lbz r10, 0(r11)`). The typecasting_procedures ABI is word-in/word-out. */
+ * pointer (`mr r11, r3` / `lbz r10, 0(r11)`). The typecasting_procedures ABI is word-in/word-out.
+ * CAVEAT: as-shipped — stb @0x8368D550 writes only the MSByte, lwz @0x8368D554 returns the whole
+ * word; the low 3 bytes are whatever sits in the back-chain stack slot (not defined by this code). */
 
 int hs_string_to_boolean(int value)
 {

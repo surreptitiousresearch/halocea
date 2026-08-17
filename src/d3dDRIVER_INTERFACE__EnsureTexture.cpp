@@ -1,3 +1,4 @@
+/* ?EnsureTexture@d3dDRIVER_INTERFACE@@UAAXPAVtxmTEXTURE@@HKK@Z @0x82695FD0 */
 // ?EnsureTexture@d3dDRIVER_INTERFACE@@UAAXPAVtxmTEXTURE@@HKK@Z  (0x82695FE8)
 // D3D override of vidDRIVER_INTERFACE::EnsureTexture. Bind (or unbind) the texture at `stage`,
 // skipping the work when the (texture, filter-flags, swizzle, gamma) tuple is unchanged from the

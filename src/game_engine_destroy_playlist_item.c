@@ -1,3 +1,4 @@
+/* game_engine_destroy_playlist_item @0x837493E8 */
 #include "headers/game_engine_playlist_item_s.h"
 
 extern void dlFree(void *ptr);

@@ -1,3 +1,4 @@
+/* delete_bitmap @0x83793EB0 */
 #include "headers/tag_block.h"
 #include "headers/bitmap_data.h"
 

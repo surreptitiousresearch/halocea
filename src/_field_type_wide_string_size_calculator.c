@@ -1,3 +1,4 @@
+/* _field_type_wide_string_size_calculator @0x8379ACA0 */
 /* message-delta "wide_string" field: 16 bits per wide character (protocol-local wire width)
  * times the max length in parameters[0], plus the overhead bits needed to encode the length. */
 

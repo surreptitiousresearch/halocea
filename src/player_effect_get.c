@@ -1,3 +1,4 @@
+/* player_effect_get @0x837374C0 */
 #include <stdint.h>
 #include "headers/player_effect_globals_definition.h"
 

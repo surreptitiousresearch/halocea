@@ -1,7 +1,7 @@
 #include "dsVECTOR.h"
 #include "ds_assert_boundary.h"
 
-class objOBJ; // boundary — obj subsystem game object (element is a pointer)
+struct objOBJ; // boundary — obj subsystem game object (element is a pointer)
 
 // dsVECTOR<objOBJ*,8>::ShrinkResize @ 0x826619B8
 // Shrink the live count to `size`. The element is a raw pointer (trivially destructible), so

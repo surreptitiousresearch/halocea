@@ -1,13 +1,7 @@
 #pragma once
 #include "hkpConvexShape.h"
 
-/* hkpSingleShapeContainer (size 8, DB types_members) — an hkpShapeContainer that
-   holds exactly one child shape: a vtable pointer plus the child pointer. */
-typedef struct hkpSingleShapeContainer
-{
-    void *__vftable;             /* 0 hkpSingleShapeContainer::`vftable' */
-    const hkpShape *m_childShape;/* 4 */
-} hkpSingleShapeContainer;
+#include "hkpSingleShapeContainer.h"
 
 /* hkpConvexTransformShapeBase (size 32, DB types_members) — hkpConvexShape base
    (shape type/userData/refcount + radius) then the single-shape container and its

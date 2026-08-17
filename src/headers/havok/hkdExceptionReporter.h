@@ -8,13 +8,10 @@
    "catching" scope is active, replacing the global hkError singleton and restoring
    the previous one on stop. Size 44 (DB types_members). */
 
-/* hkdExceptionReporter::ErrorMessage — DB-verified size 104. The full member layout
-   (m_type/m_id/m_description/m_file/m_line/m_debugType + six hkObjectArray<Debug*> members)
-   pulls a large havok Debug* type graph; sized opaque here since clearMessages only needs the
-   104-byte stride for pointer arithmetic and an external element destructor. (2026-07-31) */
-typedef struct hkdExceptionReporter_ErrorMessage {
-    unsigned char _opaque[104];
-} hkdExceptionReporter_ErrorMessage;
+/* hkdExceptionReporter::ErrorMessage — DB-verified size 104. Canonical typed layout
+   in hkdExceptionReporter_ErrorMessage.h (was restated opaque here; the ODR duplicate
+   made the bulk header probe drop both definitions). */
+#include "hkdExceptionReporter_ErrorMessage.h"
 typedef struct hkdExceptionReporter_vtbl hkdExceptionReporter_vtbl;                  /* boundary vtable */
 
 typedef struct hkdExceptionReporter

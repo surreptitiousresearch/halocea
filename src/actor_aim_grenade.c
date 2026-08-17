@@ -34,7 +34,7 @@
 extern float __fsqrts(float);
 extern double __fabs(double x);
 
-extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
+extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const real_point3d *test_point, int16_t *threat_count_out);
 extern int actor_combat_reaim_grenade(int actor_index, const real_point3d *grenade_origin);
 extern void rotate_vector_about_axis(real_vector3d *v, const real_vector3d *n, float sine, float cosine);
 
@@ -71,7 +71,7 @@ int actor_aim_grenade(int actor_index, const real_point3d *origin, real_vector3d
             if ( actor_combat_check_collateral_damage(actor_index,
                                                       variant_def->grenade_combat.enemy_radius,
                                                       variant_def->grenade_combat.collateral_damage_radius,
-                                                      (const float *)&test_point, 0) )
+                                                      &test_point, 0) )
             {
                 actor->control.grenade_current_target.x = aim_point_x;
                 actor->control.grenade_current_target.y = aim_point_y;

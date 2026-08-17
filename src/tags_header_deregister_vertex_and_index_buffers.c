@@ -1,3 +1,4 @@
+/* tags_header_deregister_vertex_and_index_buffers @0x83753B48 */
 #include "headers/cache_file_tags_header.h"
 #include "headers/blam_data_globals.h"
 

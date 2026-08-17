@@ -18,6 +18,9 @@ typedef struct jbmMANAGER {
     // Iterates thread indices from (threads.nEntry-1) down to 0, calling
     // jbmTHREAD::AddJob() on each live (startThread != nullptr) thread whose index bit is
     // in the mask.
+    // 0x826ECBE8 — grow the worker pool by nAdditionalThreads (?AddThreads@jbmMANAGER@@QAAXH@Z).
+    void AddThreads(int nAdditionalThreads);
+
     void AddJob(apSTATE_T<unsigned long> threadMask, jbmJOB *pJob);
 
     // 0x826EBE08 — block until every live thread whose bit is set in threadMask.state has

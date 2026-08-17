@@ -1,3 +1,4 @@
+/* ?Copy@rendSR_DATA@@QAAXABV1@@Z @0x829ECED0 */
 #include "../../headers/ws/rend/rendSR_DATA.h"
 
 // 0x829ECED0 — copy the position and per-lamp data vector from src; pLock/priorClass/priorCur

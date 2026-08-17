@@ -1,3 +1,4 @@
+/* path_state_reset @0x837D2518 */
 #include <string.h>
 
 #include "headers/path_state.h"

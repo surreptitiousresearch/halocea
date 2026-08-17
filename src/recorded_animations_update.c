@@ -1,5 +1,6 @@
 /* recorded_animations_update @ 0x83712008 — advance every active recorded-animation thread (scripted
- * unit animations / cutscene playback). For each thread whose target is still a valid unit:
+ * unit animations / cutscene playback). A thread whose target is no longer a valid unit is deleted
+ * immediately (the invalid-unit branch targets the datum_delete tail). For each remaining thread:
  *   - if the thread is not yet finished (flags bit0 clear): decrement its remaining-frame counter, run
  *     the thread's codec over the event stream to drive the unit_control_data, push that control to the
  *     unit, and set the finished bit when the codec reports the stream is exhausted (result == 0).
@@ -49,7 +50,13 @@ void recorded_animations_update(void)
         int16_t flags;
 
         if ( !object_try_and_get_and_verify_type(unit_index, object_mask_unit) )
+        {
+            /* DEVIATION (fixed 2026-08-17): the invalid-unit branch (beq cr6 @0x83712058) targets
+             * loc_8371215C — the datum_delete tail (lwz r4 iterator-index @0x8371215C / bl datum_delete
+             * @0x83712164) — not the loop head; a thread whose unit is gone IS retired, not orphaned. */
+            datum_delete(animation_threads, iter.index);
             continue;
+        }
 
         flags = thread->flags;
         if ( (flags & (1u << _recording_thread_finished_bit)) == 0 )

@@ -1,3 +1,4 @@
+/* ?_UnshareTexCoord@objOBJ@@QAAHH@Z @0x82A81C40 */
 #include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"

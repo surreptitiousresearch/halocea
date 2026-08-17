@@ -1,3 +1,4 @@
+/* get_global_random_seed_address @0x83722DF8 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 

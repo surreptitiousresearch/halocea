@@ -1,3 +1,4 @@
+/* render_frustum_cube_visible @0x8376C980 */
 /* render_frustum_cube_visible 0x8376C980 — test an axis-aligned box against a render frustum. Returns 0 if the
  * box is wholly outside, 2 if wholly inside, 1 if it straddles. Fast-rejects on the frustum/box world-bounds
  * AABB overlap, then classifies the 8 box corners against the 4 side planes (a corner's bit is set when it is

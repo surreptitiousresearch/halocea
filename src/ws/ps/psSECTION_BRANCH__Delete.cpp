@@ -1,3 +1,4 @@
+/* ?Delete@psSECTION_BRANCH@@QAAXXZ @0x82519A90 */
 #include "psSECTION_BRANCH.h"
 #include "psSECTION_DATA.h"
 #include <new>

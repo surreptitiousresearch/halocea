@@ -1,3 +1,4 @@
+/* ?Load@txmMANAGER@@QAAHPAVtxmTEXTURE@@H@Z @0x826F71F0 */
 #include "../../headers/ws/txm/txmMANAGER.h"
 
 extern void _apLog(const char *format, ...);              // boundary -- Saber logging sink (?_apLog@@YAXPBDZZ)

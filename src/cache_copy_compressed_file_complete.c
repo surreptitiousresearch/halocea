@@ -1,3 +1,4 @@
+/* cache_copy_compressed_file_complete @0x83807E70 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 

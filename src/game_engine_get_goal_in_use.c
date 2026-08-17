@@ -1,3 +1,4 @@
+/* game_engine_get_goal_in_use @0x83748300 */
 #include <stdint.h>
 #include "headers/netgame_goal.h"
 #include "headers/blam_data_globals.h"

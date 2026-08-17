@@ -1,3 +1,4 @@
+/* light_volumes_dispose_from_old_map @0x8380AA98 */
 #include "headers/light_volume_globals.h"
 #include "headers/data_array.h"
 

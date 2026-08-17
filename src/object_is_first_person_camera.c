@@ -1,3 +1,4 @@
+/* object_is_first_person_camera @0x836E5CB0 */
 /* object_is_first_person_camera 0x836E5CB0 — true if the given object is currently viewed through a
  * first-person camera: either it is the local player's own unit while in first-person perspective, or a
  * cutscene script has designated it the first-person camera object. */

@@ -1,3 +1,4 @@
+/* should_track_object @0x837BCB38 */
 #include <stdint.h>
 #include "headers/object_datum.h"
 #include "headers/object_damage_flags.h"

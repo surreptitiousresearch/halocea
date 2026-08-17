@@ -1,3 +1,4 @@
+/* widget_instance_set_visibility_recursive @0x83730E40 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 

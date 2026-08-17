@@ -1,3 +1,4 @@
+/* actor_firing_position_discarded @0x837EFE28 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"

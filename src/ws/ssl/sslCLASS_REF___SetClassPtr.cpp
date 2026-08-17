@@ -1,3 +1,4 @@
+/* ?_SetClassPtr@sslCLASS_REF@@QAAXPAVsslCLASS@@@Z @0x82523540 */
 #include "sslCLASS_REF.h"
 #include "sslCLASS.h"
 

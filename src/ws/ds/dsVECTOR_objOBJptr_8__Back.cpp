@@ -1,7 +1,7 @@
 #include "dsVECTOR.h"
 #include "ds_assert_boundary.h"
 
-class objOBJ; // boundary — obj subsystem game object (element is a pointer)
+struct objOBJ; // boundary — obj subsystem game object (element is a pointer)
 
 // dsVECTOR<objOBJ*,8>::Back @ 0x826864B8
 // Reference to the last live element pointer (index nElem-1); assert non-empty first.

@@ -1,3 +1,4 @@
+/* ?HaveAffix@objOBJ@@QBAHPBDH@Z @0x82684D60 */
 #include "objOBJ.h"
 #include "obj_boundary.h"
 #include "../ds/dsAFFIX_READER.h"

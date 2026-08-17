@@ -1,3 +1,4 @@
+/* interface_get_weapon_hud_index @0x836A6630 */
 /* interface_get_weapon_hud_index 0x836A6630 — resolve the weapon HUD tag index to display for the local
  * player being rendered, and report that weapon's flashlight/battery power through *flashlight_power. Returns
  * -1 when the HUD is hidden, the camera is in a non-first-person perspective (2/3), the player has no unit, or

@@ -159,7 +159,10 @@ int load_symbol_table(char *filename, debug_symbol_table *symbol_table, char *ti
         rva_value = strtoul(rva_token, &number_end, 16);
         rva_base = rva_value;
 
-        /* When we encounter our own symbol, record the map->image load-address fixup. */
+        /* When we encounter our own symbol, record the map->image load-address fixup.
+         * CAVEAT: on the "entry point at" path a malformed .map can leave symbol_name
+         * stale/uninitialized for this compare — same control flow as the binary
+         * (debug-only tooling, trusted input). */
         if (strcmp(symbol_name, "_load_symbol_table") == 0)
             stack_walk_globals.fixup = rva_value - (unsigned int)(uintptr_t)load_symbol_table;
 

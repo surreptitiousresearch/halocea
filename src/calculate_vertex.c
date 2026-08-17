@@ -1,3 +1,4 @@
+/* calculate_vertex @0x837FD060 */
 #include <math.h>
 #include <stdint.h>
 #include "headers/geosphere.h"

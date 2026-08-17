@@ -1,3 +1,4 @@
+/* dot_product2d @0x836FBEB8 */
 #include "headers/real_vector2d.h"
 
 /* DEVIATION: decompiler double-return idiom; replaced with direct float arithmetic */

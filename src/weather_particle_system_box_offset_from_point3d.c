@@ -1,3 +1,4 @@
+/* weather_particle_system_box_offset_from_point3d @0x8373CA10 */
 #include "headers/real_point3d.h"
 
 extern void weather_particle_system_wrap_point(float box_width, const real_point3d *point, real_point3d *result);

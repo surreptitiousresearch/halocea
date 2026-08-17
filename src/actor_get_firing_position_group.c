@@ -1,3 +1,4 @@
+/* actor_get_firing_position_group @0x837EF980 */
 /* actor_get_firing_position_group 0x837EF980 — return the scenario firing-position-group index
  * appropriate for the given actor and selection criteria. The group is read from the actor's squad
  * entry (stride 232) in the scenario encounter table (stride 176; squads pointer at encounter+132).

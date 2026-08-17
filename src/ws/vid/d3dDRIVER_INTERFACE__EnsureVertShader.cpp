@@ -1,3 +1,4 @@
+/* ?EnsureVertShader@d3dDRIVER_INTERFACE@@UAA_NPAVvidSHADER@@@Z @0x826948B8 */
 #include "../../headers/d3dDRIVER_INTERFACE.h"
 
 // boundary -- Xbox 360 D3D SDK: set the active vertex shader.

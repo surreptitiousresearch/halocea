@@ -1,3 +1,4 @@
+/* ?approxSphereRows@hkpShapeCutterUtil@@SAHMHM@Z @0x83F948D0 */
 #include <math.h>
 
 /* hkpShapeCutterUtil::approxSphereRows

@@ -1,3 +1,4 @@
+/* get_history_list_length_stats @0x837ABD80 */
 #include "headers/player_update_history.h"
 #include "headers/player_update.h"
 

@@ -1,3 +1,4 @@
+/* ?TermHW@d3dDRIVER@@MAAXXZ @0x82691730 */
 #include "headers/d3d_driver.h"
 #include "headers/d3dDRIVER_INTERFACE.h" // com-buffer interfaces are d3dDRIVER_INTERFACE (pDevice@0x128)
 #include "headers/vidCOMMAND_BUFFER_MANAGER.h" // typed vftable (dtr slot 0)

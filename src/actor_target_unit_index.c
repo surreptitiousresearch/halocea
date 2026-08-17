@@ -1,3 +1,4 @@
+/* actor_target_unit_index @0x8371DED8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"

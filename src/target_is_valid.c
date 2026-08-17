@@ -1,3 +1,4 @@
+/* target_is_valid @0x83815160 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"

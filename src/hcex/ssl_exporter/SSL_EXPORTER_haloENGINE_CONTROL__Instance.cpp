@@ -1,3 +1,4 @@
+/* ?Instance@SSL_EXPORTER_haloENGINE_CONTROL@@SAAAV1@XZ @0x823CCA78 */
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
 // 0x823CCA98 — Meyers-singleton local static: the one process-wide SSL_EXPORTER_haloENGINE_CONTROL,

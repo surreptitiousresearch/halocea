@@ -1,3 +1,4 @@
+/* first_person_weapon_draw @0x8369EB70 */
 /* first_person_weapon_draw 0x8369EB70 — render the local player's first-person viewmodel: the weapon model
  * and, separately, the first-person hands model. For each, the cached viewmodel node pose is remapped onto the
  * target model's node layout (model_remap...), then submitted to render_model with a per-object model effect

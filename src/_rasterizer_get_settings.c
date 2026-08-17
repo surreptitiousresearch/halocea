@@ -1,3 +1,4 @@
+/* _rasterizer_get_settings @0x8369B8D8 */
 #include "headers/rasterizer_settings_parameters.h"
 #include "headers/rasterizer_engine_globals.h"
 #include "headers/ppc_intrinsics.h"

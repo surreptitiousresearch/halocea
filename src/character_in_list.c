@@ -1,3 +1,4 @@
+/* character_in_list @0x83775E38 */
 #include <stdint.h>
 int character_in_list(char c, int16_t list_count, const char *list)
 {

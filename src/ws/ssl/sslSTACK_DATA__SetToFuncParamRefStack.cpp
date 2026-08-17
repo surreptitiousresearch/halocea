@@ -1,3 +1,4 @@
+/* ?SetToFuncParamRefStack@sslSTACK_DATA@@QAAAAV1@PAVsslSTACK@@H@Z @0x82AF0888 */
 #include "sslSTACK_DATA.h"
 
 // 0x82AF0888 — sslSTACK_DATA::SetToFuncParamRefStack. Stores a (stack, index) function-parameter

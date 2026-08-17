@@ -1,7 +1,7 @@
 #include "dsVECTOR.h"
 #include "ds_assert_boundary.h"
 
-class objOBJ; // boundary — obj subsystem game object (element is a pointer)
+struct objOBJ; // boundary — obj subsystem game object (element is a pointer)
 
 // dsVECTOR<objOBJ*,8>::Resize @ 0x82662648
 // Resize the live count to `size`. When growing past capacity, Realloc grows the backing store;

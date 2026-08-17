@@ -1,3 +1,4 @@
+/* rasterizer_set_texture @0x8369C960 */
 /* rasterizer_set_texture 0x8369C960 — bind a bitmap to a texture stage (blocking variant). Resolves the requested
  * bitmap from its group; if it matches the requested type it binds it and records its {width,height}. When nothing
  * is bound (bump map disabled with usage 3, missing/empty group, or type mismatch) it falls back to the

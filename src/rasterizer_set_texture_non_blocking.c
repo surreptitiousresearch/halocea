@@ -1,3 +1,4 @@
+/* rasterizer_set_texture_non_blocking @0x8369CA98 */
 /* rasterizer_set_texture_non_blocking 0x8369CAC4 — bind a bitmap to a texture stage without blocking on
  * streaming, with a type check and a default-texture fallback. Resolves the requested bitmap; if its hardware
  * texture is not yet resident it returns 1 (the "would block" signal) and still marks the stage handled. If the

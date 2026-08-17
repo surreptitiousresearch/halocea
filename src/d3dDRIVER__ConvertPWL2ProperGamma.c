@@ -1,3 +1,4 @@
+/* ?ConvertPWL2ProperGamma@d3dDRIVER@@QBAMM@Z @0x82696518 */
 #include "headers/d3d_render_state_boundary.h"
 
 // 0x82696538

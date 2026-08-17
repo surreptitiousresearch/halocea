@@ -1,3 +1,4 @@
+/* ?OnChangeMode@HALO_MNG@@UAAXKK@Z @0x823D06B0 */
 #include "../headers/hcex/HALO_MNG.h"
 #include "../headers/hcex/HALO_MNG_boundary.h"
 

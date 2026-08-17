@@ -1,3 +1,4 @@
+/* ??0hkGeomHull@@QAA@XZ @0x83FE0C28 */
 #include "../headers/havok/hkGeomHull.h"
 
 /* hkGeomHull::hkGeomHull — initialise an empty hull whose edge list starts in the

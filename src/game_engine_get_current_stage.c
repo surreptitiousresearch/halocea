@@ -1,3 +1,4 @@
+/* game_engine_get_current_stage @0x83747128 */
 #include <string.h>
 
 #include "headers/play_stage.h"

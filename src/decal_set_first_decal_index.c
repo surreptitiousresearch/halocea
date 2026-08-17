@@ -1,3 +1,4 @@
+/* decal_set_first_decal_index @0x83740198 */
 #include <stdint.h>
 #include "headers/decal_globals.h"
 #include "headers/blam_data_globals.h"

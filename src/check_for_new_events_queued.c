@@ -1,3 +1,4 @@
+/* check_for_new_events_queued @0x83726510 */
 #include <stdint.h>
 #include "headers/event_manager_globals.h"
 

@@ -1,3 +1,4 @@
+/* cache_files_dispose @0x83754E10 */
 #include <stdint.h>
 #include "headers/cache_file_globals.h"
 #include "headers/blam_data_globals.h"

@@ -1,3 +1,4 @@
+/* memory_pool_block_compute_actual_size @0x8371BD70 */
 int memory_pool_block_compute_actual_size(int size)
 {
     int result = size + 24;

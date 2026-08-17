@@ -1,3 +1,4 @@
+/* can_delete_item @0x83746940 */
 #include <stdint.h>
 #include "headers/object_type.h"
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);

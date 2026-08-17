@@ -1,3 +1,4 @@
+/* play_custom_impulse @0x836C46D0 */
 #include "headers/blam_data_globals.h"
 /* DEVIATION: HALO_SOUND_SYSTEM::PlayCustomSound is a C++ virtual method on haloSoundSystem.
  * Represented here as a C-callable extern matching the mangled calling convention. */

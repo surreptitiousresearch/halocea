@@ -1,3 +1,4 @@
+/* devices_initialize @0x837B4A08 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"

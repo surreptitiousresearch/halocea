@@ -1,3 +1,4 @@
+/* weapon_ammo_pickup_mid_reload_to_network @0x836D87A8 */
 /* weapon_ammo_pickup_mid_reload_to_network 0x836D87A8 — encode and broadcast a message-delta describing ammo
  * picked up into one of a weapon's magazines while a reload is in progress. The message carries the weapon's
  * network-stable object index, the magazine, the (unclamped) new loaded-round count, and the clamped number of

@@ -1,3 +1,4 @@
+/* ??0hkpNullCollisionFilter@@QAA@XZ @0x83847EC0 */
 #include "../headers/havok/hkpNullCollisionFilter.h"
 
 /* hkpNullCollisionFilter::hkpNullCollisionFilter — run the collision-filter base

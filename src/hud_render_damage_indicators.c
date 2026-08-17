@@ -1,3 +1,4 @@
+/* hud_render_damage_indicators @0x836D7E20 */
 /* hud_render_damage_indicators 0x836D7E20 — draw the local player's four directional damage indicators. The
  * player's unit must still exist (a biped/vehicle); otherwise the indicators are cleared. For each of the four
  * directions (front/left/back/right) whose timer is active (in the open range 0..30), an edge-anchored screen

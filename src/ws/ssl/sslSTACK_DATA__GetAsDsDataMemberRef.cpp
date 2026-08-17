@@ -1,3 +1,4 @@
+/* ?GetAsDsDataMemberRef@sslSTACK_DATA@@QBA?AVsslERROR@@AAVdsDATA@@AAVdsSTRID@@@Z @0x82AF0EF0 */
 #include "sslSTACK_DATA.h"
 #include "sslERROR.h"
 #include "../ds/dsDATA.h"

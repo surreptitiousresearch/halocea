@@ -1,3 +1,4 @@
+/* rasterizer_dynamic_vertices_get_type @0x836A5DF8 */
 #include <stdint.h>
 
 extern int _rasterizer_dynamic_vertices_get_type(int dynamic_vertex_buffer_index);

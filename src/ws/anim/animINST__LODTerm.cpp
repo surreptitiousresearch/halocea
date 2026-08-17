@@ -1,3 +1,4 @@
+/* ?LODTerm@animINST@@QAAXXZ @0x82B0D660 */
 #include "animINST.h"
 #include "animLOD_LOD_INFO.h"
 #include "anim_boundary.h"

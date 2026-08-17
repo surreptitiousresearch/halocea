@@ -1,3 +1,4 @@
+/* iterated_message_dispose @0x837A0C38 */
 #include "headers/iterated_message.h"
 
 #include "headers/bitstream_t.h"

@@ -1,3 +1,4 @@
+/* network_game_client_get_local_machine_index @0x837569D0 */
 #include <stdint.h>
 #include "headers/network_game_client.h"
 #include "headers/blam_data_globals.h"

@@ -1,3 +1,4 @@
+/* scenario_get_sky_definition_index @0x837036C8 */
 #include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/tag_reference.h"

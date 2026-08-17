@@ -1,3 +1,4 @@
+/* ?CalcVisDistFactor@animINST@@AAAXXZ @0x825E1828 */
 #include "animINST.h"
 #include "anim_boundary.h"
 #include "../m3d/m3d_boundary.h"

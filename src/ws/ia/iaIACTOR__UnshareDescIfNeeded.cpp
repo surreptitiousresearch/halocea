@@ -1,3 +1,4 @@
+/* ?UnshareDescIfNeeded@iaIACTOR@@QAAXVpsSECTION@@ABV?$dsTSTRING@D@@@Z @0x826D8450 */
 #include "iaIACTOR.h"
 #include "../sml/STATE.h"
 #include "../ps/psSECTION_INTERFACE.h"

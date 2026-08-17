@@ -1,3 +1,4 @@
+/* hs_runtime_dispose @0x8368CBF8 */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 

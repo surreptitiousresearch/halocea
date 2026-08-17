@@ -1,3 +1,4 @@
+/* ?ProcessMsg@HALO_MNG@@UAA?AW4msgRES@@HPAXPAVmsgADDR@@@Z @0x823DE9F0 */
 #include "../headers/hcex/HALO_MNG.h"
 #include "../headers/hcex/HALO_MNG_boundary.h"
 

@@ -1,3 +1,4 @@
+/* ?IsNull@psSECTION_INTERFACE@@QBAHXZ @0x82515EB0 */
 #include "psSECTION_INTERFACE.h"
 // 0x82515EB0 — true when the wrapped section handle carries no body.
 

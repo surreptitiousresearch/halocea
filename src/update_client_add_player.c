@@ -1,3 +1,4 @@
+/* update_client_add_player @0x836F5F28 */
 #include "headers/update_client_globals.h"
 
 #include "headers/data_array.h"

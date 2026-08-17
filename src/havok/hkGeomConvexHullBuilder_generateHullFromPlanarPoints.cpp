@@ -1,3 +1,4 @@
+/* ?generateHullFromPlanarPoints@hkGeomConvexHullBuilder@@SAXABVhkVector4@@PBV2@HAAV?$hkArray@VhkVector4@@@@2@Z @0x83FDB0A0 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include "../headers/havok/hkThreadMemory.h"
 #include <math.h>

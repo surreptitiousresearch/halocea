@@ -1,3 +1,4 @@
+/* hkMatrix3_setMulMat3Mat3 @0x838E3578 */
 #include "../headers/havok/hkMatrix3.h"
 
 /* out = aTb * bTc (column-major 3x3). Each output column is aTb applied to the

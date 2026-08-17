@@ -1,3 +1,4 @@
+/* ?GetPS@animINST@@QBA?AVpsSECTION@@XZ @0x825E18F8 */
 #include "animINST.h"
 #include "animTPL.h"
 #include "../ps/psSECTION.h"

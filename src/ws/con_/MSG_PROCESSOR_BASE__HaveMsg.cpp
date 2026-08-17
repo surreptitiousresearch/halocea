@@ -1,3 +1,4 @@
+/* ?HaveMsg@MSG_PROCESSOR_BASE@con@@QAAHXZ @0x8309B190 */
 #include "MSG_PROCESSOR_BASE.h"
 #include "../ds/ds_assert_boundary.h"
 

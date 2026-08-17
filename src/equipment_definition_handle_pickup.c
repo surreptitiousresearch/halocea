@@ -1,3 +1,4 @@
+/* equipment_definition_handle_pickup @0x837B5EC8 */
 /* equipment_definition_handle_pickup 0x837B5EC8 — play an equipment's pickup sound when it is collected. The
  * pickup sound tag index lives at dword[199] (offset 796) of the equipment tag definition; -1 means no sound. */
 

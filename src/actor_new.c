@@ -53,7 +53,9 @@ int actor_new(int variant_definition_index)
     actor->meta.swarm = (character_flags & (1u << _actor_definition_swarm_actor_bit)) != 0;
     int16_t actor_type = character->type;
     actor->meta.unit_index = -1;
-    actor->meta.disconnected_squad_index = -1;
+    /* DEVIATION: sth r11,0x3A(r31) @0x8371CE88 stores -1 to meta.squad_index (actor+0x3A); an earlier
+     * pass mis-transcribed this as a second disconnected_squad_index (+0x38) write. */
+    actor->meta.squad_index = -1;
     actor->meta.type = actor_type;
     actor->meta.unique_leader = 0;
     actor->meta.encounter_index = -1;

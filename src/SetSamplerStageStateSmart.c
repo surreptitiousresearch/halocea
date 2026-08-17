@@ -1,3 +1,4 @@
+/* SetSamplerStageStateSmart @0x83685A30 */
 #include "headers/d3d_boundary.h"
 #include "headers/blam_data_globals.h"
 

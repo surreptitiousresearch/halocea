@@ -1,3 +1,4 @@
+/* initialize_scratch_disk_root @0x83763110 */
 #include <string.h>
 #include "headers/blam_data_globals.h"
 

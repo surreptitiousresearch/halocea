@@ -1,3 +1,4 @@
+/* _field_type_ascii_string_size_calculator @0x8379AAD0 */
 #include "headers/field_properties_definition.h"
 
 extern int bits_needed_for_value(int value);

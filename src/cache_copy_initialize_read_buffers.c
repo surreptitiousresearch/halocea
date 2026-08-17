@@ -1,3 +1,4 @@
+/* cache_copy_initialize_read_buffers @0x83808C20 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 

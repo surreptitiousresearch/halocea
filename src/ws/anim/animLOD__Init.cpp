@@ -1,3 +1,4 @@
+/* ?Init@animLOD@@QAAXXZ @0x82B0E760 */
 #include "animLOD_LOD_INFO.h"
 #include "animINST.h"
 #include "animTPL.h"

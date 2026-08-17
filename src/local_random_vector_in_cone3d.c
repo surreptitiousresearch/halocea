@@ -1,3 +1,4 @@
+/* local_random_vector_in_cone3d @0x8373EEA0 */
 #include <stdint.h>
 #include "headers/real_vector3d.h"
 

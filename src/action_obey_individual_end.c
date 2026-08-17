@@ -1,3 +1,4 @@
+/* action_obey_individual_end @0x837DEDD8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"

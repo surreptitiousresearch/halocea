@@ -1,3 +1,4 @@
+/* rasterizer_environment_diffuse_textures_begin @0x836A6210 */
 /* rasterizer_environment_diffuse_textures_begin 0x836A6210 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 
 extern void _rasterizer_environment_diffuse_textures_begin(void);

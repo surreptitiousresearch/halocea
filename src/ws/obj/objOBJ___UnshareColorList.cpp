@@ -1,3 +1,4 @@
+/* ?_UnshareColorList@objOBJ@@QAAHH@Z @0x82A7FBB8 */
 #include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"

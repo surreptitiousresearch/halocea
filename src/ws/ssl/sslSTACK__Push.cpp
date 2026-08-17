@@ -1,3 +1,4 @@
+/* ?Push@sslSTACK@@QAAAAVsslSTACK_DATA@@XZ @0x82AF4508 */
 #include "sslSTACK.h"
 #include "sslSTACK_DATA.h"
 

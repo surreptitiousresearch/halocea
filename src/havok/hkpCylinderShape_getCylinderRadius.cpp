@@ -1,3 +1,4 @@
+/* ?getCylinderRadius@hkpCylinderShape@@QBAMXZ @0x83604988 */
 #include "../headers/havok/hkpCylinderShape.h"
 
 /* hkpCylinderShape::getCylinderRadius — the cylinder's barrel radius (distinct

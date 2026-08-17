@@ -1,3 +1,4 @@
+/* game_engine_game_mode_state_replicate_from_network @0x8374A518 */
 #include "headers/game_engine.h"
 #include "headers/message_delta_processor_header.h"
 #include "headers/network_game_client.h"

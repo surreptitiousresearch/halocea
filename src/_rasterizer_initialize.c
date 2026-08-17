@@ -43,9 +43,8 @@ extern uint8_t rasterizer_render_targets_initialize(void);
 extern uint8_t rasterizer_occulsion_test_initialize(void);
 
 /* Unconditional tail inits */
-typedef struct lruv_cache lruv_cache;   /* texture_cache_new returns it; only forward decl needed here */
 extern void rasterizer_screen_effects_initialize(void);
-extern lruv_cache *texture_cache_new(void);
+extern void texture_cache_new(void);
 extern void rasterizer_debug_begin(void);
 extern uint8_t rasterizer_windows_begin(void);
 extern void rasterizer_windows_end(void);

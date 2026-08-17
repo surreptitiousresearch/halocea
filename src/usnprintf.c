@@ -1,3 +1,4 @@
+/* usnprintf @0x8376D7F8 */
 #include <wchar.h>
 #include <stdarg.h>
 

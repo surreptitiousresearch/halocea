@@ -30,8 +30,8 @@
 extern int game_time_get(void);
 extern float game_difficulty_get_team_value(int16_t value_type, int16_t team_index);
 extern uint8_t actor_combat_find_grenade_target(int actor_index, real_point3d *grenade_target, int *grenade_target_prop_index, int *grenade_ignore_object_index);
-/* def (src/actor_combat_check_collateral_damage.c) types the point arg `const float *`; matched here. */
-extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
+/* def (src/actor_combat_check_collateral_damage.c) types the point arg `const real_point3d *`; matched here. */
+extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const real_point3d *test_point, int16_t *threat_count_out);
 extern uint8_t actor_combat_plan_grenade_trajectory(int actor_index, int16_t trajectory_type, const real_point3d *grenade_target, int grenade_target_prop_index, int grenade_ignore_object_index);
 
 uint8_t actor_action_test_grenade(int actor_index)
@@ -73,7 +73,7 @@ uint8_t actor_action_test_grenade(int actor_index)
 
     int16_t enemy_count;
     if ( !actor_combat_check_collateral_damage(actor_index, variant_definition->grenade_combat.enemy_radius,
-            variant_definition->grenade_combat.collateral_damage_radius, (const float *)&grenade_target, &enemy_count) )
+            variant_definition->grenade_combat.collateral_damage_radius, &grenade_target, &enemy_count) )
         return 0;
 
     if ( enemy_count < variant_definition->grenade_combat.minimum_enemy_count )

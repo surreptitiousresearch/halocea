@@ -1,3 +1,4 @@
+/* ?FilterAffixStringOverride@mtlMTL_MNG@@QBA?AV?$dsTSTRING@D@@ABV2@@Z @0x82A86ED0 */
 #include "mtlMTL_MNG.h"
 #include "../ds/dsAFFIX_BUILDER.h"
 

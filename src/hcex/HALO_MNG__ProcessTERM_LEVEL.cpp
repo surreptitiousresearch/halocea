@@ -1,3 +1,4 @@
+/* ?ProcessTERM_LEVEL@HALO_MNG@@UAAXXZ @0x823DE980 */
 #include "../headers/hcex/HALO_MNG.h"
 #include "../headers/hcex/HALO_MNG_boundary.h"
 #include "../headers/ws/inst/instMANAGER_HANDLER.h" // complete type for instManager+1 pointer arithmetic

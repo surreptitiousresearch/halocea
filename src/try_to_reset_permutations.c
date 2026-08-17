@@ -1,3 +1,4 @@
+/* try_to_reset_permutations @0x837F8BC8 */
 #include <stdint.h>
 #include "headers/sound_pitch_range.h"
 

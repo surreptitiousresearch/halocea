@@ -1,3 +1,4 @@
+/* update_controller_short @0x837F6FA0 */
 #include <stdint.h>
 #include "headers/vector_short_difference_data.h"
 #include "headers/direction_playback_controller.h"

@@ -1,3 +1,4 @@
+/* ?Create@txmTEXTURE@@UAAHHHHHHH@Z @0x826FDBC0 */
 // ?Create@txmTEXTURE@@UAAHHHHHHH@Z  (0x826FDBCC)
 // (Re)create the texture's geometry and driver surface. Returns 1 on success, 0 if the driver
 // surface allocation fails. The a8..a24 "parameters" the decompiler printed are stack spill

@@ -19,6 +19,7 @@
 #include "headers/unit_animation_state.h"
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
+#include "headers/fused_math.h"
 
 
 extern uint8_t biped_flying_through_air(int biped_index);
@@ -50,9 +51,11 @@ void biped_update_airborne(int biped_index, unit_animation_update_data *animatio
                 if (biped_up[2] < 0.80000001f)
                 {
                     /* axis = world_up x biped_up : rights the biped toward upright */
-                    axis.n[0] = global_up3d->n[2] * biped_up[1] - global_up3d->n[1] * biped_up[2];
-                    axis.n[1] = global_up3d->n[0] * biped_up[2] - global_up3d->n[2] * biped_up[0];
-                    axis.n[2] = global_up3d->n[1] * biped_up[0] - global_up3d->n[0] * biped_up[1];
+                    /* DEVIATION: cross is fmsubs @0x837AEBAC/0x837AEBA4/0x837AEB9C with plain fmuls
+                     * minuends (@0x837AEB98/0x837AEB94/0x837AEB8C). */
+                    axis.n[0] = fused_msub(global_up3d->n[2], biped_up[1], global_up3d->n[1] * biped_up[2]);
+                    axis.n[1] = fused_msub(global_up3d->n[0], biped_up[2], global_up3d->n[2] * biped_up[0]);
+                    axis.n[2] = fused_msub(global_up3d->n[1], biped_up[0], global_up3d->n[0] * biped_up[1]);
                     have_axis = normalize3d(&axis) > 0.0f;
                 }
                 if (!have_axis)
@@ -60,9 +63,10 @@ void biped_update_airborne(int biped_index, unit_animation_update_data *animatio
                     float angle = real_seed_random_range(get_global_random_seed_address(), 0.0f, TWO_PI);
                     vector3d_from_angle(&axis, angle);
                 }
-                biped->object.angular_velocity.n[0] += axis.n[0] * impulse;
-                biped->object.angular_velocity.n[1] += axis.n[1] * impulse;
-                biped->object.angular_velocity.n[2] += axis.n[2] * impulse;
+                /* DEVIATION: each accumulate is a fused fmadds @0x837AEBF8/0x837AEC08/0x837AEC18. */
+                biped->object.angular_velocity.n[0] = fused_madd(axis.n[0], impulse, biped->object.angular_velocity.n[0]);
+                biped->object.angular_velocity.n[1] = fused_madd(axis.n[1], impulse, biped->object.angular_velocity.n[1]);
+                biped->object.angular_velocity.n[2] = fused_madd(axis.n[2], impulse, biped->object.angular_velocity.n[2]);
             }
             biped_apply_rotation(biped_index);
         }

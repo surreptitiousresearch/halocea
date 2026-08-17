@@ -1,3 +1,4 @@
+/* ?AllocStatData@vidVBUF_MNG@@UAAPAUvidDEFRAG_CHUNK@@W4vidBUF_CONTENT@@V?$apSTATE_T@E@@HPAX@Z @0x827B9CE8 */
 #include "../../headers/ws/vid/vidVBUF_MNG.h"
 #include "../ds/dsCMP.h"
 

@@ -1,7 +1,7 @@
 #pragma once
 
 /* tesselate — value of flag_cell.tesselation, the per-cell cloth-grid tesselation code for flag objects.
- * flag_render_proper @0x8380F1E8 switches over the whole domain and pins two members semantically:
+ * flag_render_proper @0x8380E3A0 switches over the whole domain and pins two members semantically:
  * value 1 emits no geometry at all (_tesselate_none) and value 0 emits BOTH triangles of the quad
  * (_tesselate_both); values 2-5 each emit exactly one triangle, and the guard on that switch is
  * `(unsigned)tesselation > 5`, matching this family's cardinality exactly. flag_tesselate_region

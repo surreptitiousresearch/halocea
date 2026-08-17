@@ -1,3 +1,4 @@
+/* draw_string_get_string @0x83769AF0 */
 #include <stdint.h>
 #include "headers/font_drawing_globals.h"
 #include "headers/string_index.h"

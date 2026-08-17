@@ -1,3 +1,4 @@
+/* rasterizer_change_settings @0x836A5CB8 */
 #include <stdint.h>
 #include "headers/rasterizer_settings_parameters.h"
 

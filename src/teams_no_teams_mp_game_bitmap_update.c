@@ -1,3 +1,4 @@
+/* teams_no_teams_mp_game_bitmap_update @0x83780128 */
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 

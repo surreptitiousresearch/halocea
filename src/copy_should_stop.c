@@ -1,3 +1,4 @@
+/* copy_should_stop @0x83807DB8 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 

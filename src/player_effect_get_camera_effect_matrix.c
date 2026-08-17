@@ -41,7 +41,7 @@ extern void matrix4x3_rotation_from_angles(real_matrix4x3 *matrix, float yaw, fl
 extern void matrix4x3_rotation_from_axis_and_angle(real_matrix4x3 *matrix, const real_vector3d *axis, float sine, float cosine);
 extern void matrix4x3_multiply(const real_matrix4x3 *a, const real_matrix4x3 *b, real_matrix4x3 *result);
 extern float transition_function_evaluate(int16_t function_type, float value);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 extern void get_shake_matrix(float translation_magnitude, float rotation_magnitude, real_matrix4x3 *shake_matrix);
 
 void player_effect_get_camera_effect_matrix(int16_t local_player_index, real_matrix4x3 *matrix)

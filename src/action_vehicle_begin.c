@@ -1,3 +1,4 @@
+/* action_vehicle_begin @0x838213F8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"

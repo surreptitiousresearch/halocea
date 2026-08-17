@@ -1,3 +1,4 @@
+/* effect_scale_value @0x83738530 */
 #include <stdint.h>
 
 extern float transition_function_evaluate(int16_t function_type, float value);

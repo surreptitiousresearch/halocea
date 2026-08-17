@@ -1,3 +1,4 @@
+/* bitmap_mipmap_get_depth @0x836F4978 */
 #include <stdint.h>
 #include "headers/bitmap_data.h"
 

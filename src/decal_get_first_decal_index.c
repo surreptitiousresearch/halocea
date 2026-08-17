@@ -1,3 +1,4 @@
+/* decal_get_first_decal_index @0x83740850 */
 /* decal_get_first_decal_index 0x83740850 — head decal index for one cluster within one decal layer
  * (-1 when the layer/cluster bucket is empty). */
 

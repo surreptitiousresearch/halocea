@@ -33,6 +33,7 @@
 
 #include <stdint.h>
 #include "headers/obstacle_path.h"
+#include "headers/fused_math.h"
 
 extern float normalize2d(real_vector2d *v);
 
@@ -79,12 +80,17 @@ int16_t path_add_step(obstacle_path *path, const real_point2d *point, int surfac
                 const step *previous_step = &path->steps[previous_step_index];
                 float goal_delta_x = path->goal.n[0] - point->n[0];
 
-                float dot = opposite_step->direction.n[0] * goal_delta_x
-                        + opposite_step->direction.n[1] * goal_delta_y;
-                float cross_check = (previous_step->direction.n[1] * opposite_step->direction.n[0]
-                                - opposite_step->direction.n[1] * previous_step->direction.n[0])
-                        * (opposite_step->direction.n[0] * goal_delta_y
-                                - opposite_step->direction.n[1] * goal_delta_x);
+                /* DEVIATION: fused sequence — fmuls @0x8381D4F4 + fmadds @0x8381D4F8 (dot),
+                 * fmuls @0x8381D508 + fmsubs @0x8381D520 (goal side), fmuls @0x8381D528 +
+                 * fmsubs @0x8381D530 (wrap side), fmuls @0x8381D534 (product); plain
+                 * expressions double-round. */
+                float dot = fused_madd(opposite_step->direction.n[0], goal_delta_x,
+                        opposite_step->direction.n[1] * goal_delta_y);
+                float goal_side = fused_msub(opposite_step->direction.n[0], goal_delta_y,
+                        opposite_step->direction.n[1] * goal_delta_x);
+                float wrap_side = fused_msub(previous_step->direction.n[1], opposite_step->direction.n[0],
+                        opposite_step->direction.n[1] * previous_step->direction.n[0]);
+                float cross_check = wrap_side * goal_side;
 
                 if (dot > 0.0f && cross_check < 0.0f)
                     allow_step = 0;

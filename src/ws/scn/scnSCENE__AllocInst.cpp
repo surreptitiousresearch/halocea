@@ -1,3 +1,4 @@
+/* ?AllocInst@scnSCENE@@QAAPAVanimINST@@PAVanimTPL@@H@Z @0x82540C90 */
 #include "scnSCENE.h"
 #include "../ds/dsBIT_ARRAY_IMPL.h"
 #include "../ds/dsTSTRING.h"

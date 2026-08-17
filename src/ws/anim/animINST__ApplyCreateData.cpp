@@ -1,3 +1,4 @@
+/* ?ApplyCreateData@animINST@@QAAXPAVanimCREATE_DATA@@@Z @0x825E4170 */
 #include <stdint.h>
 #include "animINST.h"
 #include "animMNG.h"

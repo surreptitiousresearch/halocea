@@ -1,3 +1,4 @@
+/* ?GetVertBoneIdxList@objOBJ@@QAAPAXH@Z @0x82BCC9F0 */
 #include <stdint.h>
 #include "objOBJ.h"
 // 0x82BCC9F0  ?GetVertBoneIdxList@objOBJ@@QAAPAXH@Z

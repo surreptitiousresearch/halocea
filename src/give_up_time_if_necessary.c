@@ -1,3 +1,4 @@
+/* give_up_time_if_necessary @0x83808538 */
 #include "headers/simple_decompressor_definition.h"
 #include "headers/blam_data_globals.h"
 

@@ -1,3 +1,4 @@
+/* ?GetCounters@gfxRENDERER@gfx@@QAAXAAUgfxCounters@2@@Z @0x8332DA70 */
 #include "../../headers/ws/gfx/gfxRENDERER.h"
 
 // 0x8332DA74 — snapshot the current counters. DEVIATION: the decompiler rendered this as a raw

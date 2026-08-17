@@ -1,3 +1,4 @@
+/* bitmap_fill @0x8377A430 */
 #include <stdint.h>
 #include "headers/bitmap_data.h"
 

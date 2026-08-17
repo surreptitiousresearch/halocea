@@ -4,7 +4,10 @@
  * short-circuits: it returns as soon as the accumulator flips away from the seed value, or when the children
  * are exhausted.
  *
- * thread+16 = active stack frame; frame+4 = current expression; frame+12 = frame size (int16). */
+ * thread+16 = active stack frame; frame+4 = current expression; frame+12 = frame size (int16).
+ *
+ * CAVEAT: as-shipped — the hs_return value is packed by stb @0x8368F634 then lwz @0x8368F638: only
+ * the MSByte is written, the low 3 bytes are whatever sits in that stack slot (not defined here). */
 
 #include <stdint.h>
 #include "headers/hs_syntax_node.h"

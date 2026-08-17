@@ -1,3 +1,4 @@
+/* system_get_date_time_string @0x83762DA8 */
 extern int _time32(int *timeptr);
 extern const void *_localtime32(const int *ptime);
 extern unsigned int strftime(char *string, unsigned int maxsize, const char *format, const void *timeptr);

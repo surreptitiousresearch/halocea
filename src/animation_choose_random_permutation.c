@@ -1,3 +1,4 @@
+/* animation_choose_random_permutation @0x836C6B30 */
 #include <stdint.h>
 #include "headers/animation_update_kind.h"
 

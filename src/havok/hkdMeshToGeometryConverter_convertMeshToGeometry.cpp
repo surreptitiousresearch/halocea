@@ -1,3 +1,4 @@
+/* ?convertMeshToGeometry@hkdMeshToGeometryConverter@@SAPAVhkdGeometry@@ABUInput@1@PBVhkMeshShape@@PBD@Z @0x83872148 */
 #include "../headers/havok/hkdMeshToGeometryConverter_boundary.h"
 
 /* hkdMeshToGeometryConverter::convertMeshToGeometry — public entry point: build a

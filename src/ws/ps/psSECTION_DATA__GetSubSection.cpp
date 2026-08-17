@@ -1,3 +1,4 @@
+/* ?GetSubSection@psSECTION_DATA@@IAAPAV1@H@Z @0x82519010 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_RECORD.h"
 #include "psSECTION.h"

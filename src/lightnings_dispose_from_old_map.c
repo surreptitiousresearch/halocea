@@ -1,3 +1,4 @@
+/* lightnings_dispose_from_old_map @0x83809F70 */
 #include "headers/lightning_globals.h"
 #include "headers/data_array.h"
 

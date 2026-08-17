@@ -22,6 +22,7 @@ extern void       *hcexLights;   /* dsVECTOR<dsPAIR<int,HCEX_LIGHT>,8> */
 extern "C" int         effectId_0;
 
 extern "C" char      *hcex_conv_name(char *name, int size);
+extern "C" int        sprintf_0(char *string, const char *format, ...);
 extern void       entCREATE_DATA_ctor(entCREATE_DATA *data);
 extern void       animCREATE_DATA_dtor(animCREATE_DATA *data); /* ??1animCREATE_DATA@@UAA@XZ @0x8252CEA0; derived entCREATE_DATA upcasts implicitly */
 extern entENTITY *entCreate(ent_scene *scene, const char *tag_name, void *tpl_name, entCREATE_DATA *data, void *msg);
@@ -46,7 +47,7 @@ extern "C" void hcex_create_light(int lightId, int obj_follow, const char *light
     entCREATE_DATA create_data;
     entCREATE_DATA_ctor(&create_data);
     int instance_id = effectId_0++;
-    sprintf(create_data.name, "light%d", instance_id);
+    sprintf_0(create_data.name, "light%d", instance_id); /* DEVIATION: callee is sprintf_0 per bl @0x823E5920 */
 
     char saved_suspend = farmSys->isSuspendAdd;
     farmSys->isSuspendAdd = 1;

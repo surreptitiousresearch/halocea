@@ -1,3 +1,4 @@
+/* _field_type_item_placement_position_size_calculator @0x8379DD40 */
 #include "headers/blam_data_globals.h"
 
 int _field_type_item_placement_position_size_calculator(void *field_properties_definition)

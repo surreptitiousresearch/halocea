@@ -1,3 +1,4 @@
+/* ??0?$hkPointerMapBase@KKU?$hkPointerMapOperations@KK@@@@QAA@PAXH@Z @0x838E4968 */
 #include "../headers/havok/hkPointerMapBase.h"
 
 /* hkPointerMapBase::hkPointerMapBase(Pair *ptr, unsigned sizeInBytes) — adopt a

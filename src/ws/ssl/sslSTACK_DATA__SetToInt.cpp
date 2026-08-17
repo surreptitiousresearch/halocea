@@ -1,3 +1,4 @@
+/* ?SetToInt@sslSTACK_DATA@@QAAAAV1@H@Z @0x82AF06B0 */
 #include "sslSTACK_DATA.h"
 
 // 0x82AF06B0 — sslSTACK_DATA::SetToInt. Returns *this (AAV1) so callers can chain.

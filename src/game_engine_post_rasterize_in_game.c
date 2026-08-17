@@ -1,3 +1,4 @@
+/* game_engine_post_rasterize_in_game @0x83752EB0 */
 /* game_engine_post_rasterize_in_game 0x83752ECC — per-frame in-game scoreboard overlay for the local player.
  * Draws the targeted-player name, then fades the score-display alpha in (while the score button is held or
  * during the post-game delay) or out, clamped to [0,1]. While the alpha is positive it renders the score with a

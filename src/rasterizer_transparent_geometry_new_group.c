@@ -1,3 +1,4 @@
+/* rasterizer_transparent_geometry_new_group @0x83768370 */
 /* rasterizer_transparent_geometry_new_group 0x83768370 — allocate the next transparent-geometry group from the
  * static pool (capacity 384), stamping it with its own index as the initial sort key. Returns null when full. */
 

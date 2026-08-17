@@ -1,3 +1,4 @@
+/* ctf_flag_failure_sound @0x83806578 */
 #include <stdint.h>
 #include "headers/ctf_globals.h"
 #include "headers/game_engine_multiplayer_sound.h"

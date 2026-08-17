@@ -1,3 +1,4 @@
+/* rasterizer_dynamic_triangles_lock @0x836A5DD8 */
 /* rasterizer_dynamic_triangles_lock 0x836A5DD8 — tail-call thunk to _rasterizer_dynamic_triangles_lock. */
 
 #include "headers/rasterizer_triangle.h"

@@ -1,3 +1,4 @@
+/* ?_AllocInterleavedData@objOBJ@@QAAXHE_K@Z @0x82A7F638 */
 #include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

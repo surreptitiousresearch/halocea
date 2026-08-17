@@ -3,8 +3,9 @@
  * (on / off / failure). No-op if the control has no device group.
  *
  * control.type selects the value: 0 = flip from the current group value (a true toggle), 1 = force on
- * (1.0), 2 = force off (0.0), 3 = the definition's call_value. Type > 3 is invalid; the binary reads an
- * uninitialized stack slot there (reproduced as an indeterminate value). */
+ * (1.0), 2 = force off (0.0), 3 = the definition's call_value. Type > 3 is invalid; CAVEAT: as-shipped —
+ * the binary loads desired_value from an uninitialized stack float there (lfs f31, 0x90+var_40(r1)
+ * @0x837E9BF8; no store to that slot in the function), reproduced as an indeterminate value. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

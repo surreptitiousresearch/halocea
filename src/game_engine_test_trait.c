@@ -1,3 +1,4 @@
+/* game_engine_test_trait @0x83749280 */
 #include "headers/game_engine.h"
 
 int game_engine_test_trait(int player_index, int trait)

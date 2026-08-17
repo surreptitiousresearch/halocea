@@ -1,3 +1,4 @@
+/* pause_game_set_text_box_for_inverted @0x837801A0 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 

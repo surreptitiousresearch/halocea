@@ -1,3 +1,4 @@
+/* ?FreeUnnecessaryData@objOBJ@@QAAXXZ @0x82A7F5C0 */
 #include "objOBJ.h"
 // 0x82A7F5C0  ?FreeUnnecessaryData@objOBJ@@QAAXXZ
 // Recurse over the child sibling-ring, freeing unnecessary data on every descendant. The

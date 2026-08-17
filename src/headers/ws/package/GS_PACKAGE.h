@@ -45,8 +45,23 @@ struct GS_PACKAGE : iaIACTOR {
 // package::PKG_MNG_XENON (PKG_MNG@0, size 80), Close(dsTSTRING<char>, int) is virtual
 // (?Close@PKG_MNG_XENON@package@@UAAXV?$dsTSTRING@D@@H@Z).
 // DB-verified layout (types_members package::PKG_MNG): __vftable@0, state@4 — size 8.
+
+struct PKG_MNG;
+
+// DB-verified slots (types_members package::PKG_MNG_vtbl, 6 slots, size 24). The dtr slot models
+// the deleting-destructor flag per the corpus DTR CONVENTION; OpenByIdx returns a dsTSTRING by
+// value, spelled result-pointer-first per this binary's verified sret ABI (r3=result, r4=this).
+struct PKG_MNG_vtbl {
+    void (*dtr_PKG_MNG)(PKG_MNG *self, int freeFlags);                                    // 0x00
+    int  (*FillList)(PKG_MNG *self, int a2);                                              // 0x04
+    int  (*GetCount)(PKG_MNG *self);                                                      // 0x08
+    dsTSTRING<char> *(*OpenByIdx)(dsTSTRING<char> *result, PKG_MNG *self, int a3, int a4);// 0x0C
+    void (*Close)(PKG_MNG *self, dsTSTRING<char> name, int flags);                        // 0x10
+    PKG_MNG_STATES (*ProcessThink)(PKG_MNG *self);                                        // 0x14
+};
+
 struct PKG_MNG {
-    struct VTBL; VTBL *__vftable; // 0x00 (DB: package::PKG_MNG_vtbl *)
+    PKG_MNG_vtbl    *__vftable;   // 0x00
     PKG_MNG_STATES   state;       // 0x04 fill-list/open/close state machine
     void Close(dsTSTRING<char> name, int flags); // virtual dispatch
 };

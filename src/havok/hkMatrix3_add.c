@@ -1,3 +1,4 @@
+/* ?add@hkMatrix3@@QAAXABV1@@Z @0x838E3170 */
 #include "../headers/havok/hkMatrix3.h"
 
 /* hkMatrix3::add — this += a, column-major 3x3 with each column padded to a full

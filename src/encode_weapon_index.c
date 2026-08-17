@@ -1,3 +1,4 @@
+/* encode_weapon_index @0x8379D380 */
 #include <stdint.h>
 /* encode_weapon_index — pack a weapon-slot selection into the 3-bit compacted wire form (inverse of
  * decode_weapon_index). weapon_index == -1 (NONE) sets bit 2 (the "no weapon" sentinel) via

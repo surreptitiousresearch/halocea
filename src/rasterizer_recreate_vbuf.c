@@ -1,3 +1,4 @@
+/* rasterizer_recreate_vbuf @0x836A5FF0 */
 extern void rasterizer_decals_recreate_vbuf(void);
 extern void rasterizer_detail_objects_recreate_vbuf(void);
 

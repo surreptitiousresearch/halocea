@@ -1,3 +1,4 @@
+/* ?getMaximumProjection@hkpShape@@UBAMABVhkVector4@@@Z @0x8360B050 */
 #include "../headers/havok/hkpShapeVtbl.h"
 #include "../headers/havok/hkVector4.h"
 

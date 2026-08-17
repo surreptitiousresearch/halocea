@@ -1,3 +1,4 @@
+/* ?getNumChildShapes@hkpListShape@@UBAHXZ @0x83606A20 */
 #include "../headers/havok/hkpListShape.h"
 
 /* hkpListShape::getNumChildShapes — total child-shape count.

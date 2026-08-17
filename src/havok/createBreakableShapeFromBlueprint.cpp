@@ -1,3 +1,4 @@
+/* createBreakableShapeFromBlueprint @0x8383A5F8 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShape.h"
 #include "../headers/havok/hkdFracture.h"

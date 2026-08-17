@@ -1,3 +1,4 @@
+/* action_guard_begin @0x83823BD8 */
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/blam_data_globals.h"

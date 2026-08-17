@@ -41,8 +41,15 @@ uint8_t oddball_engine_initialize_for_new_map(void)
     find_netgame_flag(nullptr, 0.0f, 0.0f, _netgame_flag_oddball_ball_spawn, 0);
     find_netgame_flag(nullptr, 0.0f, 0.0f, _netgame_flag_oddball_ball_spawn, 1);
 
+    /* DEVIATION: the binary's ctr=16 loop @0x8381709C stores -1 through TWO pointers per
+     * iteration (stw -0x3C(r11) + stwu 4(r11), base oddball_globals+0x100) — it fills BOTH
+     * current_ball_owner[16] (0xC4) and last_oddball_baseline_time[16] (0x104); the second
+     * fill was dropped in the original transcription. */
     for ( int i = 0; i < 16; ++i )
+    {
         oddball_globals.current_ball_owner[i] = -1;
+        oddball_globals.last_oddball_baseline_time[i] = -1;
+    }
 
     if ( game_connection() != _game_connection_network_server )
         return 1;

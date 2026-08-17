@@ -1,3 +1,4 @@
+/* symbol_sort_proc @0x83810C88 */
 int symbol_sort_proc(unsigned int *elem1, unsigned int *elem2)
 {
     unsigned int key1 = elem1[1];

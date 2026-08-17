@@ -1,3 +1,4 @@
+/* ?setTransformedPos@hkVector4@@QAAXABVhkTransform@@ABV1@@Z @0x838D7BF8 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 

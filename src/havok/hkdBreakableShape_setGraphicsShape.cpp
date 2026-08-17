@@ -1,3 +1,4 @@
+/* ?setGraphicsShape@hkdBreakableShape@@QAAXPBVhkdGraphicsShape@@@Z @0x83848F80 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdGraphicsShape.h"
 #include "../headers/havok/hkReferencedObject.h"

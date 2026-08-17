@@ -1,3 +1,4 @@
+/* ?IsInstManagable@hcexHALO_CUSTOM_OBJ_LIST@@UAA_NPAUscnINST_CREATE_DATA@@@Z @0x823E5560 */
 #include "../headers/hcex/hcexHALO_CUSTOM_OBJ_LIST.h"
 #include "../headers/ws/ds/dsCMP.h"
 #include "../headers/object_type.h"

@@ -1,3 +1,4 @@
+/* periodic_functions_initialize @0x837B7700 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 

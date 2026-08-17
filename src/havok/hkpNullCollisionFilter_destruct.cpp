@@ -1,3 +1,4 @@
+/* ??1hkpNullCollisionFilter@@UAA@XZ @0x83618858 */
 #include "../headers/havok/hkpNullCollisionFilter.h"
 
 /* hkpNullCollisionFilter::~hkpNullCollisionFilter — devirtualize the object back

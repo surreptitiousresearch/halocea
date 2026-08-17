@@ -1,3 +1,4 @@
+/* ?Init@txmTEX_DESC_DB@@QAAXXZ @0x82C66C18 */
 // ?Init@txmTEX_DESC_DB@@QAAXXZ  (0x82C66C24)
 // One-shot lazy load of the 10 default texture descriptors: index 0 from "default_texdesc.td",
 // indices 1..9 from "default_texdesc_<TEX_SUFFIXES_1[i]>.td". Each file is parsed via the ".ps"

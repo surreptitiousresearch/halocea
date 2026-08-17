@@ -1,3 +1,4 @@
+/* lens_flare_occlusion_test_results_get @0x83791ED0 */
 /* lens_flare_occlusion_test_results_get 0x83791ED0 — return a pointer to the per-window occlusion-result byte(s)
  * for one submitted lens flare. The light_index's top bit selects which result pool: dynamic lights (top bit
  * set) index the large results2 pool keyed by (light_index<<16 | lens_flare_index); static lights index the

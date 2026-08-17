@@ -1,3 +1,4 @@
+/* object_types_disconnect_from_structure_bsp @0x83702BB0 */
 #include <stdint.h>
 #include "headers/object_iterator.h"
 #include "headers/object_datum.h"

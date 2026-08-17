@@ -1,3 +1,4 @@
+/* shell_get_command_line @0x836FBD78 */
 #include "headers/blam_data_globals.h"
 
 char * shell_get_command_line(void)

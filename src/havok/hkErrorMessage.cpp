@@ -1,3 +1,4 @@
+/* hkErrorMessage @0x838D78A0 */
 #include "../headers/havok/hkError.h"
 
 /* Emit a single error string to the global hkError sink; trap if the handler

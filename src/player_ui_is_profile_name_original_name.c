@@ -1,3 +1,4 @@
+/* player_ui_is_profile_name_original_name @0x83699070 */
 #include "headers/player_ui_globals.h"
 
 extern int ustrcmp(const wchar_t *string1, const wchar_t *string2);

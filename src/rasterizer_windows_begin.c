@@ -6,10 +6,9 @@
 
 #include <stdint.h>
 
-extern int _rasterizer_windows_begin(void);
+extern uint8_t _rasterizer_windows_begin(void);
 
 uint8_t rasterizer_windows_begin(void)
 {
-    /* truncation is real: callers byte-normalize the int-returning worker */
-    return (uint8_t)_rasterizer_windows_begin();
+    return _rasterizer_windows_begin();
 }

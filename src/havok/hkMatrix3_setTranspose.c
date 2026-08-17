@@ -1,3 +1,4 @@
+/* ?setTranspose@hkMatrix3@@QAAXABV1@@Z @0x838E2CB0 */
 #include "../headers/havok/hkMatrix3.h"
 
 /* hkMatrix3::setTranspose — this = transpose(s). Column-major 3x3: out column c

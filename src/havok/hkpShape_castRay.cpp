@@ -1,3 +1,4 @@
+/* ?castRay@hkpShape@@QBA?AVhkBool@@ABUhkpShapeRayCastInput@@AAUhkpShapeRayCastOutput@@@Z @0x82EB78A8 */
 #include "../headers/havok/hkpShapeVtbl.h"
 
 /* hkpShape::castRay — non-virtual forwarder to the shape's virtual castRayImpl

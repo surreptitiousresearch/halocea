@@ -1,3 +1,4 @@
+/* ?BindToProcessor@vidDRIVER@@QAAXH@Z @0x82667B10 */
 #include "../../headers/vidDRIVER.h"
 #include "../../headers/ws/vid/vidLOCK.h"
 

@@ -1,3 +1,4 @@
+/* object_type_render_debug @0x837022A8 */
 /* object_type_render_debug 0x837022F0 — fan out a debug-render call to every part definition in the object's
  * type chain. Indexes object_type_definitions by the object's type code, then walks the null-terminated
  * part_definitions[] list, invoking each part's render_debug(object_index) callback when present. */

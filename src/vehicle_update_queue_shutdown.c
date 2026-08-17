@@ -1,3 +1,4 @@
+/* vehicle_update_queue_shutdown @0x837B46A0 */
 #include "headers/vehicle_update_queue.h"
 
 extern void simple_circular_queue_shutdown(simple_circular_queue *queue);

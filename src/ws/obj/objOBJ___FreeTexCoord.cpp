@@ -1,3 +1,4 @@
+/* ?_FreeTexCoord@objOBJ@@QAAXH@Z @0x82A81008 */
 #include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

@@ -1,3 +1,4 @@
+/* enumerateAllInactiveEntitiesInWorld @0x838F7628 */
 #include "../headers/havok/hkpWorld.h"
 #include "../headers/havok/hkpSimulationIsland.h"
 #include "../headers/havok/hkpWorldObject.h" // m_collidable.base.m_shape (was raw +16 read)

@@ -1,6 +1,11 @@
 /* cache_files_precache_map_begin @0x83754EF8 — begin caching the named map: if not already cached, read its
  * header from DVD, reserve a free cached-map slot sized for it, open the destination .map file, and read its
- * header. Returns 1 on success (or already cached), 0 on failure (raising a damaged-media error if blocking). */
+ * header. Returns 1 on success (or already cached), 0 on failure (raising a damaged-media error if blocking).
+ *
+ * CAVEAT: as-shipped — the binary never guards cached_map_files_find_free_map's -1 return: the result goes
+ * straight through extsh/mulli into the slot address (extsh r10,r3 @0x83754F54; mulli r10,r10,0x80C
+ * @0x83754F5C; memset @0x83754F78) with no cmpwi -1 between the bl @0x83754F50 and the memset, so a full
+ * cache indexes cached_map_files[-1]. Reproduced verbatim. */
 
 /* removed <windows.h>: canonical blam_data_globals.h provides self-contained Win32 type shims (tagRECT/HWND__/_OVERLAPPED/_FILETIME); system windows.h collided. Win32 fn protos resolve via project headers/implicit-decl. */
 #include <stdint.h>

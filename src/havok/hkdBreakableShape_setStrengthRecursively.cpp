@@ -1,3 +1,4 @@
+/* ?setStrengthRecursively@hkdBreakableShape@@QAAXMMW4RecalcChildren@1@@Z @0x83849220 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 

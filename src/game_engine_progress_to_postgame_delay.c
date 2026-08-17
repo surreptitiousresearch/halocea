@@ -1,3 +1,4 @@
+/* game_engine_progress_to_postgame_delay @0x8374A6A8 */
 #include <stdint.h>
 #include "headers/game_engine_globals.h"
 #include "headers/game_engine_multiplayer_sound.h"

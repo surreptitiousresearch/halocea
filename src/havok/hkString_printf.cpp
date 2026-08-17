@@ -1,3 +1,4 @@
+/* ?printf@hkString@@QAAXPBDZZ @0x838D3A40 */
 #include "../headers/havok/hkString.h"
 #include <stdarg.h>
 #include <stdio.h>

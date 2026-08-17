@@ -1,3 +1,4 @@
+/* cache_file_windows_thread_proc @0x83754D10 */
 #include <stdint.h>
 #include "headers/cache_file_globals.h"
 #include "headers/cache_request.h"

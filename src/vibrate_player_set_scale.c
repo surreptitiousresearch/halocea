@@ -1,3 +1,4 @@
+/* vibrate_player_set_scale @0x83739188 */
 #include "headers/vibrate_global_data.h"
 
 void vibrate_player_set_scale(float scale)

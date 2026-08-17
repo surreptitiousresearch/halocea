@@ -1,3 +1,4 @@
+/* hkWorld_setupContactMgrFactories @0x838F6300 */
 #include "../headers/havok/hkpContactMgr_boundary.h"
 #include "../headers/havok/hkThreadMemory.h"
 

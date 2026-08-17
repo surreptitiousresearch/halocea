@@ -1,3 +1,4 @@
+/* ?Clear@animCREATE_DATA@@QAAXXZ @0x8252D3A8 */
 #include "animCREATE_DATA.h"
 #include "../ds/dsTSTRING.h"
 #include "anim_boundary.h"

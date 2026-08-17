@@ -1,3 +1,4 @@
+/* errors_output_to_debug_file @0x83764B30 */
 #include <stdint.h>
 #include "headers/error_global_data.h"
 

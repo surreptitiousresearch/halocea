@@ -1,3 +1,4 @@
+/* game_engine_rasterize_message @0x837480A0 */
 #include <wchar.h>
 #include <stdint.h>
 #include "headers/real_argb_color.h"

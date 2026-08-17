@@ -1,3 +1,4 @@
+/* ?GetAsObjSubElemRef@sslSTACK_DATA@@QBA?AVsslERROR@@AAPAVsslOBJECT@@AAPAVsslCLASS@@AAHPAVsslSYSTEM@@@Z @0x82AF0E08 */
 #include "sslSTACK_DATA.h"
 #include "sslERROR.h"
 #include "../ds/dsTSTRING.h"

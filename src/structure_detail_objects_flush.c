@@ -1,3 +1,4 @@
+/* structure_detail_objects_flush @0x83711650 */
 #include "headers/detail_object_global_runtime_data.h"
 
 void structure_detail_objects_flush(void)

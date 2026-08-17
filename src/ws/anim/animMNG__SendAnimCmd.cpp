@@ -1,3 +1,4 @@
+/* ?SendAnimCmd@animMNG@@QAAXABUanimCMD_BASE@@@Z @0x8267D8E0 */
 #include "animMNG.h"
 #include "animINST.h"
 #include "animCMD_BASE.h"

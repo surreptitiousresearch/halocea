@@ -1,3 +1,4 @@
+/* actor_perception_retreat_successful @0x837D6C20 */
 #include <stdint.h>
 #include "headers/prop_iterator.h"
 #include "headers/prop_datum.h"

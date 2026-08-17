@@ -1,7 +1,7 @@
 #include "dsVECTOR.h"
 #include "ds_assert_boundary.h"
 
-class objOBJ; // boundary — obj subsystem game object (element is a pointer)
+struct objOBJ; // boundary — obj subsystem game object (element is a pointer)
 
 // dsVECTOR<objOBJ*,8>::operator[] (const) @ 0x82B0D6C0
 // Bounds-checked read-only access; returns a const reference to the idx-th element pointer.

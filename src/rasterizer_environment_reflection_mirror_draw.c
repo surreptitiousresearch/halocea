@@ -1,3 +1,4 @@
+/* rasterizer_environment_reflection_mirror_draw @0x836A62A8 */
 #include <stdint.h>
 /* rasterizer_environment_reflection_mirror_draw 0x836A62A8 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 struct shader;

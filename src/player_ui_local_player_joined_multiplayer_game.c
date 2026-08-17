@@ -1,3 +1,4 @@
+/* player_ui_local_player_joined_multiplayer_game @0x836988E0 */
 #include <stdint.h>
 #include "headers/player_ui_globals.h"
 

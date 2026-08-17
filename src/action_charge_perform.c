@@ -1,3 +1,4 @@
+/* action_charge_perform @0x837F98C8 */
 /* =========================================================================
    NOTE / CAVEAT: Hex-Rays flagged this "local variable allocation has failed,
    the output may be wrong". It is a dense AI charge/melee action solver; this is

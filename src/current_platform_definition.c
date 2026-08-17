@@ -1,3 +1,4 @@
+/* current_platform_definition @0x83715058 */
 #include "headers/sound_manager_globals.h"
 #include "headers/platform_sound_manager_definition.h"
 

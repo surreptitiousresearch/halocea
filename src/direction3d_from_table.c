@@ -1,3 +1,4 @@
+/* direction3d_from_table @0x83723048 */
 #include <stdint.h>
 #include "headers/random_math_globals.h"
 #include "headers/blam_data_globals.h"

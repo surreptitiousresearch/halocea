@@ -1,3 +1,4 @@
+/* SetRenderStateSmart @0x83685A10 */
 #include "headers/d3d_boundary.h"
 #include "headers/blam_data_globals.h"
 

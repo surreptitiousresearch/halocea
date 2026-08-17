@@ -1,3 +1,4 @@
+/* reply_filter_fighting_close @0x837CC1F0 */
 #include <stdint.h>
 #include "headers/ai_information_packet.h"
 

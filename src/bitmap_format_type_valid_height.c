@@ -1,3 +1,4 @@
+/* bitmap_format_type_valid_height @0x836F4C30 */
 #include <stdint.h>
 int bitmap_format_type_valid_height(int16_t format, int16_t type, int16_t height)
 {

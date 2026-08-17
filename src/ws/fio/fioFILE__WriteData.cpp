@@ -1,3 +1,4 @@
+/* ?WriteData@fioFILE@@QAAXPBXHH@Z @0x825AF408 */
 /* CAVEAT: byte-reorder-on-write scratch buffer. When the stream has FIO_OPEN_BYTE_REORDER
  * set and the element size (`reorderGain`) is > 1 bytes, each element is endian-swapped
  * into a shared scratch dsVECTOR<unsigned char,8> before being handed to DoWriteData.

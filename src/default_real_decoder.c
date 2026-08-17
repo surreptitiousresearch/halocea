@@ -1,3 +1,4 @@
+/* default_real_decoder @0x8379A9E8 */
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"
 

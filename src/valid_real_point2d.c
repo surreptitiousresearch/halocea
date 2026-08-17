@@ -1,3 +1,4 @@
+/* valid_real_point2d @0x837FCF60 */
 #include <stdint.h>
 #include "headers/real_point2d.h"
 

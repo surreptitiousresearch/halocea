@@ -1,3 +1,4 @@
+/* ?pctGetFormat@@YAPAUpctFORMAT@@H@Z @0x827BFC60 */
 #include "../../headers/pctFORMAT.h"
 #include "../../headers/pct_format.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"

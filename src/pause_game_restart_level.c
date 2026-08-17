@@ -1,3 +1,4 @@
+/* pause_game_restart_level @0x83692008 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

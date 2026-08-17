@@ -1,3 +1,4 @@
+/* ustrstr @0x8376D580 */
 #include <wchar.h>
 
 /* ustrstr — locate the first occurrence of substring `needle` in `haystack`. Tail-jump thunk

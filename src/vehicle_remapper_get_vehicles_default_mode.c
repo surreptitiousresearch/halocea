@@ -1,3 +1,4 @@
+/* vehicle_remapper_get_vehicles_default_mode @0x83700BA8 */
 #include "headers/game_variant.h"
 #include "headers/game_engine_vehicles.h"
 

@@ -1,3 +1,4 @@
+/* game_engine_player_get_team_index @0x837476A8 */
 #include "headers/data_array.h"
 #include "headers/game_engine.h"
 #include "headers/player_datum.h"

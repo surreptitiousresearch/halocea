@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkpSpatialRigidBodyDeactivator @0x838F06D8 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

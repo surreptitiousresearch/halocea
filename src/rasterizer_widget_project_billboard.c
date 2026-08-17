@@ -1,3 +1,4 @@
+/* rasterizer_widget_project_billboard @0x83785C58 */
 /* rasterizer_widget_project_billboard 0x83785C58 — project a world-space billboard (center + radius)
  * into screen space. Transforms the center point through the view matrix, then applies the projection
  * matrix to compute screen-pixel center coordinates and half-extents.

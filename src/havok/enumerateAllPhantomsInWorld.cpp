@@ -1,3 +1,4 @@
+/* enumerateAllPhantomsInWorld @0x838F7AE0 */
 #include "../headers/havok/hkpWorld.h"
 #include "../headers/havok/hkpBroadPhaseBorder.h"
 #include "../headers/havok/hkpPhantom.h"

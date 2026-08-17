@@ -1,3 +1,4 @@
+/* projectile_handle_parent_destroyed @0x8375A538 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"

@@ -1,3 +1,4 @@
+/* ?BuildMtlAffixString@mtlMTL_MNG@@QAA?AV?$dsTSTRING@D@@PAVobjOBJ@@ABV2@@Z @0x82A86B30 */
 #include "mtlMTL_MNG.h"
 #include "../obj/objOBJ.h"
 #include <cstring>

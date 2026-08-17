@@ -1,3 +1,4 @@
+/* rasterizer_environment_specular_light_draw @0x836A6238 */
 #include <stdint.h>
 /* rasterizer_environment_specular_light_draw 0x836A6238 (thunk) — tail-call thunk to the underscore implementation. */
 struct shader;

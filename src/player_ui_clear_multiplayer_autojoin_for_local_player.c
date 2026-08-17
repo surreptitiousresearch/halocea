@@ -1,3 +1,4 @@
+/* player_ui_clear_multiplayer_autojoin_for_local_player @0x83698928 */
 #include <stdint.h>
 #include "headers/player_ui_globals.h"
 

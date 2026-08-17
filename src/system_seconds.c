@@ -1,3 +1,4 @@
+/* system_seconds @0x83762B78 */
 #include <stdint.h>
 #include "headers/_LARGE_INTEGER.h"
 #include "headers/blam_data_globals.h"

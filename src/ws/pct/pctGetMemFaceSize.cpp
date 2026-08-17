@@ -1,3 +1,4 @@
+/* ?pctGetMemFaceSize@@YAHPAUpctHEADER@@@Z @0x827C1C58 */
 #include "../../headers/pctHEADER.h"
 #include "../../headers/pct_boundary.h"
 

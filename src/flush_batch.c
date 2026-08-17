@@ -1,3 +1,4 @@
+/* flush_batch @0x83786638 */
 /* flush_batch 0x83786638 — draw and reset one accumulated widget batch. When the batch has vertices and its
  * cached render state can be applied (set_state), draw its triangles out of the batch's inline vertex buffer
  * (28-byte dynamic_unlit_vertex_spec stride), then clear the fill cursor and time stamp. */

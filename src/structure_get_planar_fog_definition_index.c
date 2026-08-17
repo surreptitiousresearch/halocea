@@ -1,3 +1,4 @@
+/* structure_get_planar_fog_definition_index @0x83744A38 */
 /* structure_get_planar_fog_definition_index @0x83? — resolve the planar fog tag definition affecting a cluster.
  * With get_fog_from_sky set, the sky's indoor fog plane reference is returned directly. Otherwise the cluster's
  * fog plane reference is followed: a referenced fog plane (high bit set) names a fog region indirectly, a direct

@@ -1,3 +1,4 @@
+/* object_type_get_datum_size @0x83700B48 */
 #include <stdint.h>
 #include "headers/object_type_definition.h"
 

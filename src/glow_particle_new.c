@@ -1,3 +1,4 @@
+/* glow_particle_new @0x8380BA78 */
 #include "headers/data_array.h"
 #include "headers/glow_datum.h"
 #include "headers/glow_particle.h"

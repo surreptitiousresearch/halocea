@@ -1,3 +1,4 @@
+/* screenshot_record @0x8368A9F8 */
 #include "headers/bitmap_data.h"
 #include "headers/file_reference.h"
 

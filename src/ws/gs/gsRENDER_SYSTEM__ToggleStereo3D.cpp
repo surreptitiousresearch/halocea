@@ -1,3 +1,4 @@
+/* ?ToggleStereo3D@gsRENDER_SYSTEM@@QAAXXZ @0x827A1D20 */
 #include "../../headers/ws/gs/gsRENDER_SYSTEM.h"
 
 // 0x827A1D20 — toggle the stereo-3D enable flag and request a visibility re-evaluation.

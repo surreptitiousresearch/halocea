@@ -1,3 +1,4 @@
+/* message_definition_dispose @0x837A1E40 */
 #include "headers/message_definition.h"
 
 typedef struct _message_definition_field_reference_set _message_definition_field_reference_set;

@@ -1,3 +1,4 @@
+/* ?StartCine@gsANITEC_ACTOR@@QAAXXZ @0x825B9880 */
 #include "../../headers/ws/gs/gsANITEC_ACTOR.h"
 #include "../../headers/ws/ssl/sslOBJ_REF.h"
 #include "../../headers/ws/ssl/sslERROR.h"

@@ -4,6 +4,7 @@
 
 #include "headers/real_matrix4x3.h"
 #include "headers/real_vector3d.h"
+#include "headers/fused_math.h"
 
 void matrix4x3_rotation_from_vectors(real_matrix4x3 *matrix, const real_vector3d *forward,
                                      const real_vector3d *up)
@@ -13,9 +14,11 @@ void matrix4x3_rotation_from_vectors(real_matrix4x3 *matrix, const real_vector3d
     matrix->n[0][1] = forward->n[1];
     matrix->n[0][2] = forward->n[2];
 
-    matrix->n[1][1] = (up->n[2] * forward->n[0]) - (forward->n[2] * up->n[0]);
-    matrix->n[1][0] = (forward->n[2] * up->n[1]) - (up->n[2] * forward->n[1]);
-    matrix->n[1][2] = (up->n[0] * forward->n[1]) - (forward->n[0] * up->n[1]);
+    /* DEVIATION: cross-product terms are fused — fmsubs @0x837058C8/0x837058D0/0x837058D8 subtract
+     * the plain fmuls minuend (@0x837058BC-C4) with a single rounding; respelled through fused_msub. */
+    matrix->n[1][1] = fused_msub(up->n[2], forward->n[0], forward->n[2] * up->n[0]);
+    matrix->n[1][0] = fused_msub(forward->n[2], up->n[1], up->n[2] * forward->n[1]);
+    matrix->n[1][2] = fused_msub(up->n[0], forward->n[1], forward->n[0] * up->n[1]);
 
     matrix->n[2][0] = up->n[0];
     matrix->n[2][1] = up->n[1];

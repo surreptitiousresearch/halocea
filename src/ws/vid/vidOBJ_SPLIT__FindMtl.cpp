@@ -1,3 +1,4 @@
+/* ?FindMtl@vidOBJ_SPLIT@@QBAHABV?$dsTSTRING@D@@@Z @0x82C87370 */
 #include "vidOBJ_SPLIT.h"
 #include "../ds/ds_assert_boundary.h"
 

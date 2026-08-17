@@ -1,3 +1,4 @@
+/* render_player_frame @0x83707728 */
 /* render_player_frame @0x83? — set up and submit the render for one player's window. The camera's structure
  * visibility is resolved, atmospheric and planar fog are gathered and used to pull the far clip plane in (so
  * fully-dense fog bounds the view distance), and the near/far planes are sanitised. The frustum bounds are

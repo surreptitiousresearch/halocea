@@ -1,3 +1,4 @@
+/* rasterizer_environment_reflection_lightmap_mask_begin @0x836A6280 */
 /* rasterizer_environment_reflection_lightmap_mask_begin 0x836A6280 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 struct bitmap_data;
 

@@ -1,3 +1,4 @@
+/* message_delta_parameters_protocol_initialize @0x83811FC0 */
 #include "headers/blam_data_globals.h"
 extern void message_delta_parameters_protocol_reload_from_config_file(void);
 

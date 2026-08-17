@@ -1,3 +1,4 @@
+/* IDirect3DSurface9_GetDesc @0x8369B4A8 */
 #include "headers/d3d_boundary.h"
 #include "headers/d3d_render_boundary.h"
 

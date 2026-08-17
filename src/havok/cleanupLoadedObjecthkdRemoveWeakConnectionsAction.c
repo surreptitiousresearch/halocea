@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkdRemoveWeakConnectionsAction @0x83832208 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

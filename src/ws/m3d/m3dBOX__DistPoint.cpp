@@ -1,3 +1,4 @@
+/* ?DistPoint@m3dBOX@@QAAHPBUm3dV@@MPAU2@PAMPAH@Z @0x8265BFD8 */
 #include "../../headers/ws/m3d/m3dBOX.h"
 #include "../../headers/ws/m3d/m3dV.h"
 #include "../../headers/ws/m3d/m3d_boundary.h"

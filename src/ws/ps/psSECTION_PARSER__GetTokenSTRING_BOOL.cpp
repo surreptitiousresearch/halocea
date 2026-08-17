@@ -1,3 +1,4 @@
+/* ?GetTokenSTRING_BOOL@psSECTION_PARSER@@IAAHAAUpsTOKEN@1@K@Z @0x82A2CB78 */
 #include "psSECTION_PARSER.h"
 #include "psBOOL.h"
 // 0x82A2CB88 — lex a quoted string ("..."), a "<<<...>>>" heredoc, or a bareword (which may then be

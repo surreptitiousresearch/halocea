@@ -1,3 +1,4 @@
+/* bitstream_read_bits @0x83810360 */
 #include "headers/bitstream_t.h"
 
 extern unsigned char s_one_masks[];

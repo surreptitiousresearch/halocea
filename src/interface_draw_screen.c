@@ -1,3 +1,4 @@
+/* interface_draw_screen @0x836A6868 */
 /* interface_draw_screen 0x836A6868 — apply the active weapon's zoom screen-effect (convolution blur, light
  * enhancement, and desaturation filters) then draw the HUD. The effect parameters come from the weapon HUD
  * interface's zoom screen-effect definition; each filter is gated on being zoomed in (or its "always" flag) and
@@ -34,7 +35,7 @@ extern void scalars_interpolate(float a, float b, float t, float *result);
 extern float rasterizer_script_screen_effect_get_value(int16_t index);
 extern void rasterizer_screen_effect(const rasterizer_screen_effect_parameters *parameters);
 extern void hud_draw_screen(void);
-extern int game_engine_post_rasterize(void);
+extern void game_engine_post_rasterize(void);
 
 void interface_draw_screen(void)
 {

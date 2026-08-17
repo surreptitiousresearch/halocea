@@ -1,3 +1,4 @@
+/* dequantize_byte_to_real_rectangle3d @0x837C44D0 */
 /* dequantize_byte_to_real_rectangle3d 0x837C44D0 — expand a byte-quantized 3D rectangle back into world units by
  * interpolating each of the six bounds within the parent rectangle's corresponding axis span (byte/255 of the
  * span, biased by the low edge). A byte of 255 maps exactly to the high edge. The six entries pair up by axis:

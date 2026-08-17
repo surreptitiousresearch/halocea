@@ -1,3 +1,4 @@
+/* _rasterizer_window_get_fog @0x8369BE38 */
 #include <string.h>
 #include "headers/rasterizer_window_begin_parameters.h"
 #include "headers/render_fog.h"

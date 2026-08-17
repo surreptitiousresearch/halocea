@@ -1,3 +1,4 @@
+/* ?Pack@haloPLAYER_ACTION_PACKER@@QBAXAAVBIT_STREAM@ds@@ABVdsDATA@@@Z @0x823BC310 */
 #include <stdint.h>
 #include "../headers/hcex/haloPLAYER_ACTION_PACKER.h"
 #include "../headers/ws/ds/dsDATA.h"

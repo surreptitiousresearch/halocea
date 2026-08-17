@@ -1,3 +1,4 @@
+/* detail_object_offset @0x83711668 */
 #include "headers/blam_data_globals.h"
 
 void detail_object_offset(float offset)

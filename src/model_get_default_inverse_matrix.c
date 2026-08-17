@@ -1,3 +1,4 @@
+/* model_get_default_inverse_matrix @0x837991B0 */
 #include <stdint.h>
 #include "headers/model.h"
 #include "headers/model_node.h"

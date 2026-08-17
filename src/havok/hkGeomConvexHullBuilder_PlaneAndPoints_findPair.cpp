@@ -1,3 +1,4 @@
+/* ?findPair@PlaneAndPoints@hkGeomConvexHullBuilder@@SA?AVhkBool@@PAVhkGeomEdge@@0000AAV12@1@Z @0x83FD91C0 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* hkGeomConvexHullBuilder::PlaneAndPoints::findPair

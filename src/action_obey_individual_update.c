@@ -1,3 +1,4 @@
+/* action_obey_individual_update @0x837DEE48 */
 #include <stdint.h>
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"

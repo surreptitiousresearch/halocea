@@ -1,3 +1,4 @@
+/* pop_widget @0x837312A0 */
 #include "headers/widget_stack_node.h"
 #include "headers/blam_data_globals.h"
 

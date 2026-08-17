@@ -1,3 +1,4 @@
+/* ?ReleaseThreadOwnership@vidDRIVER@@UAAXXZ @0x82668F78 */
 #include "../../headers/vidDRIVER.h"
 #include "../ds/ds_assert_boundary.h"
 

@@ -1,3 +1,4 @@
+/* ?GetTexCoordList@objOBJ@@QAAPAXH@Z @0x826601C0 */
 #include "objOBJ.h"
 #include "../ds/ds_assert_boundary.h"
 // 0x826601C0  ?GetTexCoordList@objOBJ@@QAAPAXH@Z

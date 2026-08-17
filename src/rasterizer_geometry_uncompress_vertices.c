@@ -1,3 +1,4 @@
+/* rasterizer_geometry_uncompress_vertices @0x837E8718 */
 /* rasterizer_geometry_uncompress_vertices 0x837E8718 — expand a packed geometry vertex buffer into
  * its full float representation. Dispatched on the vertex-declaration `type`: each type selects a
  * compressed source layout and its matching uncompressed destination layout, then decodes every

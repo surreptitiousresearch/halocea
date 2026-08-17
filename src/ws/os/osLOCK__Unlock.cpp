@@ -1,3 +1,4 @@
+/* ?Unlock@osLOCK@@QAAXPBDH@Z @0x825E69F0 */
 #include "osLOCK.h"
 #include "os_boundary.h"
 

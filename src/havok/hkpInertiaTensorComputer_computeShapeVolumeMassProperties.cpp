@@ -1,3 +1,4 @@
+/* ?computeShapeVolumeMassProperties@hkpInertiaTensorComputer@@SAXPBVhkpShape@@MAAUhkpMassProperties@@@Z @0x83A10108 */
 #include "../headers/havok/hkpShape.h"
 #include "../headers/havok/hkpMassProperties.h"
 #include "../headers/havok/hkTransform.h"

@@ -1,3 +1,4 @@
+/* hkCalcQuantizedSize @0x83FA1888 */
 #include "../headers/havok/hkaQuantizeDesc.h"
 
 /* hkCalcQuantizedSize — byte size of the quantized stream for nValues samples.

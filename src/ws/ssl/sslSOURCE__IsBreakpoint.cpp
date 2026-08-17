@@ -1,3 +1,4 @@
+/* ?IsBreakpoint@sslSOURCE@@QAA_NHHH@Z @0x82A374B8 */
 #include "sslSOURCE.h"
 #include "sslBREAKPOINT.h"
 #include "../ds/dsVECTOR.h"

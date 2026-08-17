@@ -1,3 +1,4 @@
+/* hkdAssetProcessingUtil_findNode @0x83839150 */
 #include "../headers/havok/hkxNode.h"
 #include "../headers/havok/hkClass.h"
 

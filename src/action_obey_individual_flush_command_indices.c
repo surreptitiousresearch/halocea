@@ -1,3 +1,4 @@
+/* action_obey_individual_flush_command_indices @0x837DED18 */
 #include <stdint.h>
 #include "headers/obey_individual_simple_control.h"
 #include "headers/obey_individual_complex_control.h"

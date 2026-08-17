@@ -1,3 +1,4 @@
+/* errors_initialize @0x83764D10 */
 #include "headers/error_global_data.h"
 #include "headers/developer_mode.h"
 #include "headers/blam_data_globals.h"

@@ -1,3 +1,4 @@
+/* ?removeUnusedVertices@hkGeomConvexHullBuilder@@SAXAAVhkGeomHull@@AAV?$hkArray@VhkVector4@@@@@Z @0x83FDC7D0 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* Per-thread scratch (bump) stack allocator. DEVIATION: the original inlines the

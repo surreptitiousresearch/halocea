@@ -1,3 +1,4 @@
+/* race_get_team_score_string @0x8382B0F8 */
 #include <stdint.h>
 #include "headers/race_globals.h"
 #include <stddef.h>   /* wchar_t */

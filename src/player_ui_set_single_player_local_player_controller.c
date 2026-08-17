@@ -1,3 +1,4 @@
+/* player_ui_set_single_player_local_player_controller @0x83698848 */
 #include <stdint.h>
 #include "headers/player_ui_globals.h"
 

@@ -1,3 +1,4 @@
+/* ?ReadCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@PAM1IHH@Z @0x836B8FB8 */
 // ?ReadCallback@HALO_CROSSFADE_DSP@@SA?AW4FMOD_RESULT@@PAUFMOD_DSP_STATE@@PAM1IHH@Z -- 0x836B8FD0
 //
 // CAVEAT: the decompiler flags this function "local variable allocation has failed" and packs

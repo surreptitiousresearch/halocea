@@ -1,3 +1,4 @@
+/* _field_type_locality_reference_position_size_calculator @0x8379CB88 */
 #include "headers/field_properties_definition.h"
 #include "headers/blam_data_globals.h"
 

@@ -1,3 +1,4 @@
+/* light_attenuation @0x836F8248 */
 /* DEVIATION: decompiler double-return idiom; replaced with direct float arithmetic */
 float light_attenuation(float radius, float distance)
 {

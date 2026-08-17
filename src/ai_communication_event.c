@@ -315,8 +315,11 @@ void ai_communication_event(int16_t communication_type, int subject_unit_index, 
     if ( hostility_level != -1 )
     {
         hostility_flags[hostility_level] = 1;
+        /* DEVIATION: binary @0x837D0680 stores to var_57D = hostility_flags+3
+         * (_comm_hostility_enemy) on the traitor test — traitor implies enemy; the prior
+         * transcription wrote flags[0] (_comm_hostility_none). */
         if ( hostility_level == _comm_hostility_traitor )
-            hostility_flags[0] = 1;
+            hostility_flags[_comm_hostility_enemy] = 1;
     }
 
     /* ---- speech-throttle availability per team/dialogue/group ---- */
@@ -793,6 +796,10 @@ next_row:
     int look_unit = chosen->look_unit_index;
     int16_t dialogue_type_index = chosen->table_row_index;
 
+    /* CAVEAT: as-shipped UB — the binary never zeroes the packet; fields are stored individually
+     * (stb/sth/stw @0x837D1480-0x837D14A8) leaving pad bytes 0x0B and 0x16-0x17 uninitialised, and
+     * the whole 0x20-byte block is then copied into the speech item (lwzu/stwu loop
+     * @0x837D15D4-0x837D15DC) and passed to ai_communication_notify/finished. */
     ai_information_packet packet;
     packet.look_priority = chosen->recipient_look_priority;
     packet.updated_dialogue_timers = 1;

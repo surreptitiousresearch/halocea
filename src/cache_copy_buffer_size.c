@@ -1,3 +1,4 @@
+/* cache_copy_buffer_size @0x83807DF0 */
 #include <stdint.h>
 #include "headers/cache_copy_buffer_sizes.h"
 #include "headers/simple_decompressor_definition.h"

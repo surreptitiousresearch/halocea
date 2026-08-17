@@ -1,3 +1,4 @@
+/* magnitude2d @0x8369DC68 */
 #include <math.h>
 #include "headers/real_vector2d.h"
 

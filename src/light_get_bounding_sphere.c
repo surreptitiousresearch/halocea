@@ -1,3 +1,4 @@
+/* light_get_bounding_sphere @0x836F84C0 */
 #include <stdint.h>
 #include "headers/real_point3d.h"
 

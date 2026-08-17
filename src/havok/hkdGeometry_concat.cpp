@@ -1,3 +1,4 @@
+/* ?concat@hkdGeometry@@QAAXABV1@@Z @0x83851030 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkThreadMemory.h"
 #include "../headers/havok/hkArray.h"

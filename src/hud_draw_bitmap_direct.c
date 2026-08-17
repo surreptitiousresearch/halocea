@@ -1,3 +1,4 @@
+/* hud_draw_bitmap_direct @0x8379F698 */
 /* hud_draw_bitmap_direct 0x8379F698 — draw a single HUD bitmap at a point with a uniform scale and rotation.
  * Builds a default unit texture-coordinate rect (or, for interface bitmaps, the bitmap's full pixel rect), uses
  * the caller's clip rect when supplied, computes the placement bounds, and submits the quad with no meter.

@@ -1,3 +1,4 @@
+/* ?GetKeyLineNmb@psSECTION_INTERFACE@@QBAHH@Z @0x82519528 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_DATA.h"
 #include "psSECTION_RECORD.h"

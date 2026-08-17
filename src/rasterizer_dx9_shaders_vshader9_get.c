@@ -1,3 +1,4 @@
+/* rasterizer_dx9_shaders_vshader9_get @0x83723838 */
 /* rasterizer_dx9_shaders_vshader9_get 0x83723838 — return the D3D vertex shader at the given table slot, marking
  * it used and recording its filename as the last-fetched shader. Three debug-flag-gated maintenance passes run
  * first: vneed_clear zeroes the shader pointer slots, and vneed_dump_used / vneed_dump_unused print the filenames

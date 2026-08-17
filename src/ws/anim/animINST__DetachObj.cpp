@@ -1,3 +1,4 @@
+/* ?DetachObj@animINST@@QAAXPAVobjOBJ@@@Z @0x825E1238 */
 #include "animINST.h"
 #include "objOBJ_boundary.h"
 #include "../ds/ds_assert_boundary.h"

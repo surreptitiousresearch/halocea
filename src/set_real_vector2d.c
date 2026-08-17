@@ -1,3 +1,4 @@
+/* set_real_vector2d @0x836C69B8 */
 #include "headers/real_vector2d.h"
 
 /* Params are Blam `real` (float); decompiler defaulted them to `double` (stored via stfs, no frsp). */

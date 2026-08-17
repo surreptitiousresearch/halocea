@@ -1,3 +1,4 @@
+/* _rasterizer_environment_specular_lights_begin @0x837A48D0 */
 /* _rasterizer_environment_specular_lights_begin 0x837A48D0 — configure the D3D pipeline for the environment
  * specular dynamic-light pass: additive blend (src=DESTCOLOR style 0xA, dest=ONE), depth-tested (less-equal,
  * no z-write), alpha-tested, then the four light/gel sampler stages. No-op in a special drawing mode or when

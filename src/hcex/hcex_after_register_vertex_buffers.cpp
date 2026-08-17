@@ -1,3 +1,4 @@
+/* hcex_after_register_vertex_buffers @0x823CEDA0 */
 /* ws-engine streaming boundary: strmVID_MEM_MANAGER is an opaque Saber class. */
 typedef struct strmVID_MEM_MANAGER strmVID_MEM_MANAGER;
 

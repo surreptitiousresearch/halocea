@@ -31,7 +31,7 @@
 extern void ai_index_squad_iterator_new(unsigned int ai_index, ai_index_squad_iterator *iterator);
 extern squad_datum *ai_index_squad_iterator_next(ai_index_squad_iterator *iterator);
 extern uint32_t tag_get_group_tag(int16_t tag_index);
-extern int16_t ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_variant_definition *source_variant, actor_definition *source_actor, uint8_t match_by_squad_index, int target_encounter_index, int unused_target_ai_index, const char *unused_debug_description);
+extern int16_t ai_scripting_migrate_find_target_squad(int16_t source_squad_index, actor_definition *source_actor, actor_variant_definition *source_variant, uint8_t match_by_squad_index, int target_encounter_index, int unused_target_ai_index, const char *unused_debug_description);
 extern void encounter_actor_iterator_new(encounter_actor_iterator *iterator, int encounter_index);
 extern actor_datum *encounter_actor_iterator_next(encounter_actor_iterator *iterator);
 extern void actor_iterator_new(actor_iterator *iterator, uint8_t active_only);
@@ -85,18 +85,20 @@ void ai_scripting_migrate_internal(int source_index, int target_index, uint8_t g
         {
             actor_palette_entry *palette_entry =
                 &((actor_palette_entry *)scenario_globals->ai_actor_palette.address)[palette_index];
-            int actor_tag_index = palette_entry->reference.index;
-            if ( actor_tag_index != -1 && tag_get_group_tag(actor_tag_index) == 0x61637472u /* 'actr' */ )
+            /* G13 2026-08-17: group tag is 'actv' (0x61637476 @0x837705C8); the palette entry is the
+             * VARIANT, whose actor_reference (+0x10 @0x83770654) yields the actor. */
+            int variant_tag_index = palette_entry->reference.index;
+            if ( variant_tag_index != -1 && tag_get_group_tag(variant_tag_index) == 0x61637476u /* 'actv' */ )
             {
-                source_actor = TAG_GET(actor_definition, actor_tag_index);
-                unsigned int variant_tag = source_actor->unused3[2];
-                if ( variant_tag != -1 )
-                    source_variant = TAG_GET(actor_variant_definition, variant_tag);
+                source_variant = TAG_GET(actor_variant_definition, variant_tag_index);
+                int actor_tag_index = source_variant->actor_reference.index;
+                if ( actor_tag_index != -1 )
+                    source_actor = TAG_GET(actor_definition, actor_tag_index);
             }
         }
 
         squad_mapping[squad_index] = ai_scripting_migrate_find_target_squad(
-            (int16_t)squad_index, source_variant, source_actor,
+            (int16_t)squad_index, source_actor, source_variant,
             target == source, target_index, 0, nullptr);
     }
 

@@ -1,3 +1,4 @@
+/* ?removeReference@hkReferencedObject@@QBAXXZ @0x838D2DE0 */
 #include "../headers/havok/hkReferencedObject.h"
 #include "../headers/havok/hkReferencedObjectLock.h"
 

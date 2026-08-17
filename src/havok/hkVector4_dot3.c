@@ -1,3 +1,4 @@
+/* ?dot3@hkVector4@@QBA?AVhkSimdReal@@ABV1@@Z @0x8293CF08 */
 #include "../headers/havok/hkVector4.h"
 
 /* hkVector4::dot3 — 3-lane dot product of two vectors, broadcast into the

@@ -1,3 +1,4 @@
+/* ?GetPos@animINST@@QAAXPAUm3dV@@@Z @0x825E14D8 */
 #include "animINST.h"
 #include "../m3d/m3d_boundary.h"
 

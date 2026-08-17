@@ -1,3 +1,4 @@
+/* ?SwapBuffers@gsRENDER_SYSTEM@@QAAXHH@Z @0x827A9598 */
 #include "../../headers/ws/gs/gsRENDER_SYSTEM.h"
 #include "../../headers/ws/gs/gsRENDER_SYSTEM_boundary.h"
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL_WRP.h"

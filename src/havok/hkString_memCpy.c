@@ -1,3 +1,4 @@
+/* ?memCpy@hkString@@SAXPAXPBXH@Z @0x838D38E8 */
 #include <string.h>
 
 /* hkString::memCpy — a thunk straight to the CRT memcpy (the binary tail-calls

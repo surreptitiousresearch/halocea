@@ -1,3 +1,4 @@
+/* ?recalcMassPropertiesFromChildren@hkdCompoundBreakableShape@@UAAXXZ @0x8384CD50 */
 #include "../headers/havok/hkdCompoundBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkpMassElement.h"

@@ -1,3 +1,4 @@
+/* ?ResetLocalVar@sslSTACK@@QAAXPBVdsDATA_TYPE@@H@Z @0x82AF4590 */
 #include "sslSTACK.h"
 #include "../ds/dsDATA.h"
 #include "../ds/dsDATA_TYPE.h"

@@ -1,3 +1,4 @@
+/* hkdAssetProcessingUtil_setBoneCenterSkin @0x8383C420 */
 #include "../headers/havok/hkMeshShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkVector4.h"

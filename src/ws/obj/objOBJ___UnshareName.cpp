@@ -1,3 +1,4 @@
+/* ?_UnshareName@objOBJ@@QAAHXZ @0x82A7EBF0 */
 #include "objOBJ.h"
 // 0x82A7EBF0  ?_UnshareName@objOBJ@@QAAHXZ
 // If this object's name is shared (stateShare bit 0x20), replace it with a privately-allocated

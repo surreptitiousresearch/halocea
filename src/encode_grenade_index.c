@@ -1,3 +1,4 @@
+/* encode_grenade_index @0x8379D4A8 */
 #include <stdint.h>
 /* encode_grenade_index — pack a grenade selection into the network-compacted wire form (inverse of
  * decode_grenade_index). grenade_index == -1 (NONE) sets bit 1 (the "no grenade" sentinel) via

@@ -1,3 +1,4 @@
+/* biped_disconnect_from_structure_bsp @0x837AC7E8 */
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/biped_datum.h"

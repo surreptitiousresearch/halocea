@@ -66,8 +66,8 @@ extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclarati
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
         const float *pConstantData, unsigned int Vector4fCount, uint64_t PendingMask0);
-extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern void shader_environment_texture_animation_evaluate(const struct shader *shader, double time_value, float *u_offset, float *v_offset);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 extern void rasterizer_draw_dynamic_triangles_static_vertices2(int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer0, const vertex_buffer *vertex_buffer1);
 
 void _rasterizer_environment_lightmap_draw_pp(const shader *shader, int16_t shader_permutation_index,

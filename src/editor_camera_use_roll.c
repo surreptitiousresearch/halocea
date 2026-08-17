@@ -1,3 +1,4 @@
+/* editor_camera_use_roll @0x837C3B30 */
 #include <stdint.h>
 #include "headers/flying_camera.h"
 #include "headers/blam_data_globals.h"

@@ -1,3 +1,4 @@
+/* ?StopDelayedCDT@gsPARTICLE_SYS@@UAAXH@Z @0x82673A98 */
 #include "../../headers/ws/gs/gsPARTICLE_SYS.h"
 #include "../../headers/ws/gs/gsPARTICLE_SYS_boundary.h"
 

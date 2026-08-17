@@ -1,3 +1,4 @@
+/* ?CullAABB@camFRUSTUM@@QBA_NPBM@Z @0x82C45A90 */
 #include "../../headers/ws/cam/camFRUSTUM.h"
 
 // 0x82C45AAC  ?CullAABB@camFRUSTUM@@QBA_NPBM@Z

@@ -1,3 +1,4 @@
+/* ?AddParent@psSECTION_DATA@@QAAXVpsSECTION@@@Z @0x8251C508 */
 #include "psSECTION_DATA.h"
 #include "psSECTION.h"
 #include "psSECTION_BRANCH.h"

@@ -1,3 +1,4 @@
+/* _rasterizer_widget_end @0x83786F68 */
 /* _rasterizer_widget_end 0x83786F68 — finish the UI-widget pass: flush every batch that has
  * accumulated vertices, then end and release the widget DX effect.
  *

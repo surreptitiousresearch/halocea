@@ -1,3 +1,4 @@
+/* set_cursor @0x8380F8E0 */
 #include "headers/bitstream_t.h"
 
 int set_cursor(bitstream_t *const stream, unsigned int bit_position)

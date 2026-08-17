@@ -1,3 +1,4 @@
+/* encounter_get_platoon @0x837090A8 */
 #include <stdint.h>
 #include "headers/encounter_datum.h"
 #include "headers/platoon_datum.h"

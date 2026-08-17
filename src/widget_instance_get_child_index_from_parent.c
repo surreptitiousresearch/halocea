@@ -1,3 +1,4 @@
+/* widget_instance_get_child_index_from_parent @0x83730DF8 */
 #include "headers/widget_instance.h"
 
 int widget_instance_get_child_index_from_parent(widget_instance *widget)

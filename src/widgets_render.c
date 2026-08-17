@@ -1,3 +1,4 @@
+/* widgets_render @0x83756488 */
 /* widgets_render 0x837564CC — render every widget attached to an object. Walks the object's widget chain
  * (first widget at object_data + 364, each widget's next at +8) and dispatches to the widget type's
  * render_proc(object_index, widget_index, lighting, animation) when present. Widget datum stride is 12 bytes;

@@ -1,3 +1,4 @@
+/* ?GetGlobalObj@sslSYSTEM@@QAA?AVsslOBJ_REF@@XZ @0x825C9A48 */
 #include "sslSYSTEM.h"
 #include "sslOBJ_REF.h"
 

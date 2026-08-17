@@ -1,3 +1,4 @@
+/* observer_command_has_finished @0x8370EAE8 */
 #include <stdint.h>
 #include "headers/observer_globals.h"
 

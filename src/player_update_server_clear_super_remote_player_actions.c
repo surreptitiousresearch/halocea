@@ -1,3 +1,4 @@
+/* player_update_server_clear_super_remote_player_actions @0x83756D10 */
 #include "headers/super_remote_players_action_update.h"
 #include "headers/blam_data_globals.h"
 

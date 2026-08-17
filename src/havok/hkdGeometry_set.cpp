@@ -1,3 +1,4 @@
+/* ?set@hkdGeometry@@QAAXABV1@@Z @0x83851BE8 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkThreadMemory.h"
 #include <string.h>

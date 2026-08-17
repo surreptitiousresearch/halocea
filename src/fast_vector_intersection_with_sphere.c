@@ -1,3 +1,4 @@
+/* fast_vector_intersection_with_sphere @0x836FDE88 */
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
 #include "headers/ppc_intrinsics.h"

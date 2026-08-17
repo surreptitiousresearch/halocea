@@ -1,3 +1,4 @@
+/* cheat_f5 @0x836EAEC0 */
 #include <stdint.h>
 extern void cheat_teleport_to_camera(void);
 

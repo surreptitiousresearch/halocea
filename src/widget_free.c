@@ -1,3 +1,4 @@
+/* widget_free @0x83730858 */
 #include "headers/blam_data_globals.h"
 #include "headers/stack_memory_pool.h"
 #include "headers/memory_block.h"

@@ -1,3 +1,4 @@
+/* ?GetAsDsData@sslSTACK_DATA@@QBA?AVsslERROR@@AAVdsDATA@@@Z @0x82AF2D20 */
 #include "sslSTACK_DATA.h"
 #include "sslSTACK.h"
 #include "sslCLASS.h"

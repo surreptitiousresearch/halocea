@@ -1,3 +1,4 @@
+/* light_volumes_initialize @0x8380AA40 */
 #include <stdint.h>
 #include "headers/light_volume_globals.h"
 

@@ -1,3 +1,4 @@
+/* ?Default@ENGINE_TEX_DESC@@SAABU1@XZ @0x82C66A90 */
 #include "headers/ws/txm/ENGINE_TEX_DESC.h"
 #include <string.h>
 

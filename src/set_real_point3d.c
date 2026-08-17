@@ -1,3 +1,4 @@
+/* set_real_point3d @0x8368C7F0 */
 #include "headers/real_point3d.h"
 
 /* Params are Blam `real` (float); the Hex-Rays PPC decompiler defaulted them to `double`.

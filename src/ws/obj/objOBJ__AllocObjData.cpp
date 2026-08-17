@@ -1,3 +1,4 @@
+/* ?AllocObjData@objOBJ@@QAAPAXHHPAX@Z @0x82A7E640 */
 #include "objOBJ.h"
 #include "OBJ_DATA.h"
 #include "../ds/ds_assert_boundary.h"

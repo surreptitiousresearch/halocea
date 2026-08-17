@@ -1,3 +1,4 @@
+/* code @0x83688700 */
 /* TEA (Tiny Encryption Algorithm) block encode: encrypts the two 32-bit words at
  * *v in place using the 128-bit key at k, 32 rounds, delta = 0x9E3779B9. */
 void code(unsigned int *v, int *k)

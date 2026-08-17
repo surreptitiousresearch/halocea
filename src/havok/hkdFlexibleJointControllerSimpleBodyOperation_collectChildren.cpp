@@ -1,3 +1,4 @@
+/* hkdFlexibleJointControllerSimpleBodyOperation_collectChildren @0x838551C8 */
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkdBreakableShape.h"
 

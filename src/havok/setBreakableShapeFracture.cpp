@@ -1,3 +1,4 @@
+/* setBreakableShapeFracture @0x8383A6C8 */
 #include "../headers/havok/FractureInfo.h"
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdFracture.h"

@@ -1,3 +1,4 @@
+/* cheat_f10 @0x836EAF10 */
 #include <stdint.h>
 #include "headers/cheats.h"
 

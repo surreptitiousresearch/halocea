@@ -1,3 +1,4 @@
+/* internal_set_texture @0x837860A0 */
 #include <stdint.h>
 
 extern uint8_t rasterizer_set_texture_direct_non_blocking(int16_t stage, int bitmap_group_index, int16_t bitmap_index);

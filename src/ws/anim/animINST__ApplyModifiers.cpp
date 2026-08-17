@@ -1,3 +1,4 @@
+/* ?ApplyModifiers@animINST@@IAAXH@Z @0x825E4720 */
 #include "animINST.h"
 #include "objOBJ_boundary.h"
 #include "../ds/ds_assert_boundary.h"

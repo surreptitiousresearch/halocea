@@ -1,3 +1,4 @@
+/* ?CallScriptedFunc@sslCLASS@@IAA?AVsslERROR@@PAVsslOBJECT@@HHPAVdsDATA@@AAV4@0@Z @0x82A39A18 */
 #include "sslCLASS.h"
 #include "sslCLASS_ELEMENT.h"
 #include "sslSCRIPTED_FUNCTION.h"

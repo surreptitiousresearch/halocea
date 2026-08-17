@@ -1,3 +1,4 @@
+/* ?ResetFrameCounters@gfxRENDERER@gfx@@QAAXXZ @0x8332DA50 */
 #include "../../headers/ws/gfx/gfxRENDERER.h"
 
 // 0x8332DA54 — zero the 5 per-frame (non-cumulative) counters; m_NTextures/m_TextureMem/

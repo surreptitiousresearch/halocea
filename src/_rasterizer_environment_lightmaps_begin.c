@@ -1,3 +1,4 @@
+/* _rasterizer_environment_lightmaps_begin @0x8378ECE0 */
 /* _rasterizer_environment_lightmaps_begin 0x8378ECE0 — configure the D3D pipeline for the environment
  * lightmap pass: back-face cull, full color write, opaque (no alpha blend), z-test less-equal with z-writes,
  * then per-sampler addressing/filtering for the four lightmap-related stages. With lightmap drawing disabled

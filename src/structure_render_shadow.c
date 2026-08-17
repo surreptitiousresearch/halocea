@@ -1,3 +1,4 @@
+/* structure_render_shadow @0x837C7010 */
 /* structure_render_shadow 0x837C7010 — render the structure (BSP) geometry that falls inside an object's
  * shadow volume. Gathers the BSP surfaces overlapping the shadow bounds (a sphere + an oriented box given as a
  * set of clip planes) into a local index buffer, builds a dynamic triangle batch from them, then runs a render

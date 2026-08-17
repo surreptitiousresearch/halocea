@@ -1,3 +1,4 @@
+/* ?_UnshareFaceList@objOBJ@@QAAHXZ @0x82A805D0 */
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

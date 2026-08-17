@@ -1,3 +1,4 @@
+/* get_local_player_datum @0x837115A8 */
 #include <stdint.h>
 #include "headers/detail_object_global_runtime_data.h"
 

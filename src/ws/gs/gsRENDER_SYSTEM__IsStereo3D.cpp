@@ -1,3 +1,4 @@
+/* ?IsStereo3D@gsRENDER_SYSTEM@@QBA_NXZ @0x823CDD08 */
 #include "../../headers/ws/gs/gsRENDER_SYSTEM.h"
 
 // 0x823CDD08 — const getter for the stereo-3D enable flag.

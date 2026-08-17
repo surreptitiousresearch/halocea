@@ -1,3 +1,4 @@
+/* cheat_f2 @0x836EAE88 */
 #include <stdint.h>
 extern void cheat_all_vehicles(void);
 

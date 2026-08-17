@@ -1,3 +1,4 @@
+/* hkTraceStreamcreate @0x838E59F8 */
 #include "../headers/havok/hkTraceStream.h"
 #include "../headers/havok/hkThreadMemory.h"
 

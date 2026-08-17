@@ -1,3 +1,4 @@
+/* single_player_reset_controller_choices @0x83697360 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

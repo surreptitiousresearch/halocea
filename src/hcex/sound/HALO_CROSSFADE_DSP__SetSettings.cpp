@@ -1,3 +1,4 @@
+/* ?SetSettings@HALO_CROSSFADE_DSP@@QAAX_KH_N@Z @0x836B5480 */
 // ?SetSettings@HALO_CROSSFADE_DSP@@QAAX_KH_N@Z -- 0x836B5480
 #include <stdint.h>
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"

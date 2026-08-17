@@ -1,3 +1,4 @@
+/* ?GetPresetCount@propINST_CONSTRUCTOR@@QBAHXZ @0x826DD228 */
 #include "../../headers/ws/prop/propINST_CONSTRUCTOR.h"
 // 0x826DD228 — propINST_CONSTRUCTOR::GetPresetCount() const
 // Ignores `this` entirely: reads the preset count straight off the shared instCONSTRUCTOR_MNG

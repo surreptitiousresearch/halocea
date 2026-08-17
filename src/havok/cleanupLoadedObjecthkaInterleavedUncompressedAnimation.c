@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkaInterleavedUncompressedAnimation @0x838BD128 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

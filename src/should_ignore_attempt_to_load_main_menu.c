@@ -1,3 +1,4 @@
+/* should_ignore_attempt_to_load_main_menu @0x836DF508 */
 #include "headers/player_control_globals.h"
 #include "headers/player_control_action_test_flags.h"
 

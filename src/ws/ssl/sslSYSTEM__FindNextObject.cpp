@@ -1,3 +1,4 @@
+/* ?FindNextObject@sslSYSTEM@@QAA?AVsslOBJ_REF@@AAHVsslCLASS_REF@@@Z @0x825CECD8 */
 #include "sslSYSTEM.h"
 #include "sslOBJ_REF.h"
 #include "sslOBJECT.h"

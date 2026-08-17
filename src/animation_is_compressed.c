@@ -1,3 +1,4 @@
+/* animation_is_compressed @0x837956E0 */
 #include "headers/animation.h"
 #include "headers/animation_flags.h"
 #include "headers/blam_data_globals.h"

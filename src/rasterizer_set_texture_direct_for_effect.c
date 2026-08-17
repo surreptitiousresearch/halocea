@@ -1,3 +1,4 @@
+/* rasterizer_set_texture_direct_for_effect @0x8369C650 */
 /* rasterizer_set_texture_direct_for_effect 0x8369C650 — resolve a bitmap tag group + bitmap index to a
  * concrete bitmap_data and bind it to a pixel-shader effect texture stage. Returns 1 on success, 0 if the
  * group reference is null, holds no bitmaps, or the bitmap could not be fetched. The bitmap index wraps

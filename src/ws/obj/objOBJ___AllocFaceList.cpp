@@ -1,3 +1,4 @@
+/* ?_AllocFaceList@objOBJ@@QAAHH@Z @0x82A803A0 */
 #include <string.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

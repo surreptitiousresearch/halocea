@@ -1,3 +1,4 @@
+/* ?CopyBackBufferToTexture@d3dDRIVER@@MAAHPAVtxmTEXTURE@@HHHH@Z @0x8268E698 */
 #include "../../headers/d3d_driver.h"
 #include "../../headers/ws/txm/txmD3D_TEX.h"
 #include "../../headers/ws/vid/vidLOCK.h"

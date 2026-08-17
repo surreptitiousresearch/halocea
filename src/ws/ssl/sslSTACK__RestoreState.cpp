@@ -1,3 +1,4 @@
+/* ?RestoreState@sslSTACK@@QAAXABUsslSTACK_STATE@@@Z @0x82AF1B60 */
 #include "sslSTACK.h"
 #include "sslSTACK_STATE.h"
 

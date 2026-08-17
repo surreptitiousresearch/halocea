@@ -1,3 +1,4 @@
+/* render_object_shadow_end @0x836E63E8 */
 /* render_object_shadow_end 0x836E63E8 — close an object's shadow pass by submitting its shadow volume.
  *
  * Builds, on the stack, a single contiguous float[32] describing an oriented shadow box derived from the

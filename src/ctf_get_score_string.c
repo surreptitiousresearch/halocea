@@ -1,3 +1,4 @@
+/* ctf_get_score_string @0x83806D90 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"

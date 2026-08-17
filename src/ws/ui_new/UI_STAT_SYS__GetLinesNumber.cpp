@@ -1,3 +1,4 @@
+/* ?GetLinesNumber@UI_STAT_SYS@ui_new@@AAAHPB_W@Z @0x82CED430 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 #include <wchar.h>
 

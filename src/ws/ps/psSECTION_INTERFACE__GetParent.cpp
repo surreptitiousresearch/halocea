@@ -1,3 +1,4 @@
+/* ?GetParent@psSECTION_INTERFACE@@QBA?AVpsSECTION@@H@Z @0x8251AC90 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 #include "psSECTION_DATA.h"

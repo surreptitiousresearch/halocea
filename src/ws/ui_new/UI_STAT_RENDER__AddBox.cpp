@@ -1,3 +1,4 @@
+/* ?AddBox@UI_STAT_RENDER@ui_new@@QAAXKABUm3dRECT@@U3@@Z @0x82CEF5E8 */
 #include "../../headers/ws/ui_new/UI_STAT_RENDER.h"
 
 // 0x82CEF5F8 — append one textured quad (two triangles) to the batch: 4 vertices at rect's

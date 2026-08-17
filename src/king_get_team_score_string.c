@@ -1,3 +1,4 @@
+/* king_get_team_score_string @0x8382CFF0 */
 #include <stdint.h>
 #include "headers/king_globals.h"
 

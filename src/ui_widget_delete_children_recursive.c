@@ -1,3 +1,4 @@
+/* ui_widget_delete_children_recursive @0x83731370 */
 #include "headers/widget_globals.h"
 
 extern void ui_widget_delete(widget_instance *widget);

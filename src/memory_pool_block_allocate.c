@@ -2,7 +2,14 @@
  * Rounds the requested size (plus the 24-byte header) up to a multiple of 4, places the block right
  * after the current last block (or at the pool base if empty), links it into the block list, stamps
  * the header/trailer signatures, and hands the caller the payload pointer through *reference. Returns
- * 0 (without allocating) if the pool would overflow. */
+ * 0 (without allocating) if the pool would overflow.
+ *
+ * CAVEAT (as-shipped evaluation order, verified 2026-08-17): the binary forms block and block+size
+ * BEFORE any null test — add r6,r11,r9 @0x8371BE9C then the overflow compare cmplw cr6,r6,r5 /
+ * bgt @0x8371BEA8-BEAC, and only THEN cmplwi cr6,r11,0 / beq @0x8371BEB0-BEB4. The null test does
+ * NOT dominate the arithmetic, so the C below keeps the shipped order (overflow test first, || null
+ * test second); do not reorder to a null-first guard. On a null pool base the arithmetic is C UB but
+ * matches the shipped address computation. */
 
 #include <stdint.h>
 

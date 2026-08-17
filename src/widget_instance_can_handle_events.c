@@ -1,3 +1,4 @@
+/* widget_instance_can_handle_events @0x837316F8 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/global_tag_instances.h"

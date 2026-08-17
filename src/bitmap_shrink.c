@@ -1,3 +1,4 @@
+/* bitmap_shrink @0x8377DB50 */
 #include <stdint.h>
 #include "headers/bitmap_data.h"
 #include "headers/bitmap_type.h"

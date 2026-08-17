@@ -1,3 +1,4 @@
+/* _rasterizer_environment_shadow_model_end @0x837A3DC0 */
 /* _rasterizer_environment_shadow_model_end 0x837A3DC0 — end a shadow-casting model's contribution to the
  * environment shadow pass by clearing the cached submit parameters set in _rasterizer_environment_shadow_model_begin. */
 

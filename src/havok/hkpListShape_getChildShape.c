@@ -1,3 +1,4 @@
+/* ?getChildShape@hkpListShape@@UBAPBVhkpShape@@IAAY0CAA@D@Z @0x83605E20 */
 #include "../headers/havok/hkpListShape.h"
 
 /* hkpListShape::getChildShape — fetch the child hkpShape* for a shape key.

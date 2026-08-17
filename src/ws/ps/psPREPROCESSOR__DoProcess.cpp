@@ -1,3 +1,4 @@
+/* ?DoProcess@psPREPROCESSOR@@IAAHXZ @0x82A2FF78 */
 #include "psPREPROCESSOR.h"
 #include "../ds/dsCMP.h"
 #include <string.h>

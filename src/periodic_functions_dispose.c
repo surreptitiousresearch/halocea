@@ -1,3 +1,4 @@
+/* periodic_functions_dispose @0x837B6DA0 */
 #include "headers/blam_data_globals.h"
 extern void dlFree(void *ptr);
 extern unsigned char periodic_functions_built_flag;

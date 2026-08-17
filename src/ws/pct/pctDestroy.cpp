@@ -1,3 +1,4 @@
+/* ?pctDestroy@@YAXPAUpctPICTURE@@@Z @0x827C19E8 */
 #include "../../headers/pctPICTURE.h"
 #include "../../headers/ws/gs/gsRENDER_SYSTEM_boundary.h" /* pctPIXEL (dsVECTOR element) */
 

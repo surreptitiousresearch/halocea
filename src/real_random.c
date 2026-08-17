@@ -1,3 +1,4 @@
+/* real_random @0x836B10B8 */
 #include <stdint.h>
 extern uint32_t *get_global_random_seed_address(void);
 extern float real_seed_random(uint32_t *seed);

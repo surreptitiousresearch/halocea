@@ -1,3 +1,4 @@
+/* ?AdjustStringPos@UI_STAT_SYS@ui_new@@AAA?AUm2dV@@U3@HHMM@Z @0x82CED340 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 
 // 0x82CED340 — offset a line's anchor `pos` by its measured extent according to `alignment`:

@@ -1,3 +1,4 @@
+/* rasterizer_draw_dynamic_triangles_static_vertices2 @0x837917A8 */
 /* rasterizer_draw_dynamic_triangles_static_vertices2 0x837917A8 — like
  * rasterizer_draw_dynamic_triangles_static_vertices but binds two static vertex streams (stream 0 and 1)
  * before each draw. Used by shaders that read a second per-vertex stream (e.g. lightmap UVs). The triangle

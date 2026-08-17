@@ -1,3 +1,4 @@
+/* ?Term@osASYNC_INFO@@QAAXXZ @0x82612BF0 */
 #include "../fio/osASYNC_INFO.h" // NOTE: canonical osASYNC_INFO header already lives under ws/fio — reused, not duplicated
 
 // os subsystem boundary — cancels/releases the completion signal held by a pending async-I/O request.

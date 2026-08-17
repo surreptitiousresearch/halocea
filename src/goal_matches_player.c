@@ -1,3 +1,4 @@
+/* goal_matches_player @0x8374E0C8 */
 #include <stdint.h>
 #include "headers/player_datum.h"
 #include "headers/game_engine.h"

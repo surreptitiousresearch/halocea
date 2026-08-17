@@ -1,3 +1,4 @@
+/* ?FindClass@sslSYSTEM@@QAA?AVsslCLASS_REF@@VdsSTRID@@@Z @0x825CEB38 */
 #include "sslSYSTEM.h"
 #include "sslCLASS_REF.h"
 #include "sslCLASS_MAP_ELEM.h"

@@ -1,3 +1,4 @@
+/* ?createBreakableShape@hkdAssetProcessingUtil@@SAPAVhkdBreakableShape@@PBDPBVhkdGraphicsShape@@PBVhkpShape@@PAVhkdGraphicsSystem@@_N4@Z @0x8383A360 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdGraphicsShape.h"
 #include "../headers/havok/hkdGraphicsSystem.h"

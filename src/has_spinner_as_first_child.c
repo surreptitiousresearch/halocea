@@ -1,3 +1,4 @@
+/* has_spinner_as_first_child @0x83780A90 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/ui_widget_type.h"

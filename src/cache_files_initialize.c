@@ -1,3 +1,4 @@
+/* cache_files_initialize @0x837550E0 */
 #include <stdint.h>
 #include "headers/cache_file_globals.h"
 #include "headers/cache_request.h"

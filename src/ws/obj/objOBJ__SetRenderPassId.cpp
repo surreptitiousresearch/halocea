@@ -1,3 +1,4 @@
+/* ?SetRenderPassId@objOBJ@@QAAXH@Z @0x826823C0 */
 #include "objOBJ.h"
 // 0x826823C0  ?SetRenderPassId@objOBJ@@QAAXH@Z
 // Set the render-pass id on this object's geometry and recurse over the whole child sibling

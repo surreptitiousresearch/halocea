@@ -1,3 +1,4 @@
+/* IDirect3DDevice9_SetVertexDeclaration_2 @0x83712B18 */
 #include "headers/d3d_boundary.h"
 extern void D3DDevice_SetVertexDeclaration(D3DDevice *device, D3DVertexDeclaration *declaration);
 

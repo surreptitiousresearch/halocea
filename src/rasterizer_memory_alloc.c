@@ -1,3 +1,4 @@
+/* rasterizer_memory_alloc @0x83791DB0 */
 #include <string.h>
 #include "headers/blam_data_globals.h"
 #include "headers/rasterizer_limits.h"

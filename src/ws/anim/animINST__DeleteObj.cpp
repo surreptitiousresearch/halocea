@@ -1,3 +1,4 @@
+/* ?DeleteObj@animINST@@QAAXPAVobjOBJ@@@Z @0x825E2DF8 */
 #include "animINST.h"
 #include "../ds/ds_assert_boundary.h"
 

@@ -1,3 +1,4 @@
+/* ?getClassType@hkdGraphicsShape@@UBAPBVhkClass@@XZ @0x82EC0378 */
 /* hkdGraphicsShape::getClassType — return the type's reflection descriptor.
    hkdGraphicsShape and hkClass are only referenced by pointer here, so they stay
    opaque (the existing hkClass.h / hkdGraphicsShape.h carry C++-only syntax that

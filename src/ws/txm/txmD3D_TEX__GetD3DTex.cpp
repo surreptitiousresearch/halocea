@@ -1,3 +1,4 @@
+/* ?GetD3DTex@txmD3D_TEX@@QBAPAUD3DBaseTexture@@XZ @0x827BB8E8 */
 #include "../../headers/ws/txm/txmD3D_TEX.h"
 #include "../../headers/ws/txm/txmMANAGER.h"
 #include "../../headers/ws/txm/txm_vid_boundary.h"

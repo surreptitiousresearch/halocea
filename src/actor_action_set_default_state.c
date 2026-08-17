@@ -1,3 +1,4 @@
+/* actor_action_set_default_state @0x837F3F88 */
 /* actor_action_set_default_state @0x83? — drive an actor back to a default behaviour when it has nothing more
  * pressing to do. An explicit override_state may be supplied; otherwise the actor's pending default state
  * (actor+96) is consumed, or its fallback (actor+98) used, and the routine is throttled to once every 45 game

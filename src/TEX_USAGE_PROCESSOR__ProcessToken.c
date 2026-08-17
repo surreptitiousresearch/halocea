@@ -1,3 +1,4 @@
+/* ?ProcessToken@TEX_USAGE_PROCESSOR@@QAA?AW4TOKENIZE_RESULT@ds@@PBDH@Z @0x82C65BA8 */
 #include "headers/ws/txm/TEX_USAGE_PROCESSOR.h"
 
 // 0x82C65BB8 -- matches `token` against the ENGINE_MAP_TYPE_NAME string table (terminated by

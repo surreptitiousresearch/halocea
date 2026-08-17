@@ -1,3 +1,4 @@
+/* cache_copy_compressed_alloc @0x83808080 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 #include "headers/blam_data_globals.h"

@@ -1,3 +1,4 @@
+/* ?StealOldChannel@HALO_SOUND_SYSTEM@@AAAXXZ @0x836BCA90 */
 #include "../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../headers/ws/ds/ds_assert_boundary.h"
 

@@ -1,3 +1,4 @@
+/* integer_square_root @0x8379A468 */
 unsigned int integer_square_root(unsigned int k)
 {
     unsigned int result = 0;

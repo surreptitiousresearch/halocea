@@ -1,3 +1,4 @@
+/* ?SetName@animINST@@QAAHPBD@Z @0x825E0F58 */
 #include "animINST.h"
 #include "anim_boundary.h"
 

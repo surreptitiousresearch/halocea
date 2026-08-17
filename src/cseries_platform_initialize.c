@@ -1,3 +1,4 @@
+/* cseries_platform_initialize @0x83763128 */
 #include <string.h>
 #include "headers/_LARGE_INTEGER.h"
 #include "headers/blam_data_globals.h"

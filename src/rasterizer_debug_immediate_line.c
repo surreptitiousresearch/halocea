@@ -1,3 +1,4 @@
+/* rasterizer_debug_immediate_line @0x836A5F88 */
 #include "headers/real_point3d.h"
 #include "headers/real_rgb_color.h"
 

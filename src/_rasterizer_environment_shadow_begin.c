@@ -1,3 +1,4 @@
+/* _rasterizer_environment_shadow_begin @0x837A37F8 */
 #include <stdint.h>
 #include <string.h>
 #include "headers/d3d_boundary.h"

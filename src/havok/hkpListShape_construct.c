@@ -1,3 +1,4 @@
+/* ??0hkpListShape@@QAA@PBQBVhkpShape@@HW4ReferencePolicy@hkpShapeContainer@@@Z @0x83606750 */
 #include "../headers/havok/hkpListShape.h"
 
 /* Boundary callees / data (2-level descent limit). */

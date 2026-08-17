@@ -9,6 +9,7 @@
  * single-precision intermediates. */
 
 #include "headers/real_matrix4x3.h"
+#include "headers/fused_math.h"
 
 extern double cos(double);
 extern double sin(double);
@@ -30,10 +31,13 @@ void matrix4x3_rotation_from_angles(real_matrix4x3 *matrix, float yaw, float pit
     matrix->n[0][0] = cos_yaw * cos_pitch;
     matrix->n[2][0] = -sin_pitch;
     matrix->n[2][2] = cos_pitch * cos_roll;
-    matrix->n[1][1] = (sin_pitch * sin_roll * sin_yaw) + (cos_yaw * cos_roll);
+    /* DEVIATION: the four two-term matrix cells are fused — fmadds @0x837059D0/0x837059E0 and
+     * fmsubs @0x837059E8/0x837059F0 apply one rounding over a plain fmuls partner term; the
+     * sin_pitch*sin_roll / sin_pitch*cos_roll products are the plain fmuls @0x8370597C/0x83705984. */
+    matrix->n[1][1] = fused_madd(sin_pitch * sin_roll, sin_yaw, cos_yaw * cos_roll);
     matrix->n[2][1] = -(cos_pitch * sin_roll);
-    matrix->n[0][2] = (sin_pitch * cos_roll * cos_yaw) + (sin_yaw * sin_roll);
-    matrix->n[0][1] = (sin_yaw * cos_roll) - (sin_pitch * sin_roll * cos_yaw);
-    matrix->n[1][2] = (cos_yaw * sin_roll) - (sin_pitch * cos_roll * sin_yaw);
+    matrix->n[0][2] = fused_madd(sin_pitch * cos_roll, cos_yaw, sin_yaw * sin_roll);
+    matrix->n[0][1] = fused_msub(sin_yaw, cos_roll, (sin_pitch * sin_roll) * cos_yaw);
+    matrix->n[1][2] = fused_msub(cos_yaw, sin_roll, (sin_pitch * cos_roll) * sin_yaw);
     matrix->n[1][0] = -(sin_yaw * cos_pitch);
 }

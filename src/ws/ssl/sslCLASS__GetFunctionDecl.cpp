@@ -1,3 +1,4 @@
+/* ?GetFunctionDecl@sslCLASS@@QAAPAVsslFUNCTION_DECL@@H@Z @0x82A3AD78 */
 #include "sslCLASS.h"
 #include "sslCLASS_ELEMENT.h"
 #include "sslFUNCTION_DECL.h"

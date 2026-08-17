@@ -1,3 +1,4 @@
+/* ??1?$hkPointerMapBase@KKU?$hkPointerMapOperations@KK@@@@QAA@XZ @0x838E49A8 */
 #include "../headers/havok/hkPointerMapBase.h"
 
 /* hkPointerMapBase::~hkPointerMapBase — free the slot buffer unless it is

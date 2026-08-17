@@ -1,3 +1,4 @@
+/* ?Make@objOBJ@@SAPAV1@XZ @0x82A7E300 */
 #include <new>
 #include "objOBJ.h"
 #include "obj_boundary.h"

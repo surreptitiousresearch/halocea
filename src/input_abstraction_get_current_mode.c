@@ -1,3 +1,4 @@
+/* input_abstraction_get_current_mode @0x83724BD8 */
 #include "headers/input_abstraction_globals.h"
 #include "headers/input_abstraction_mode_flags.h"
 

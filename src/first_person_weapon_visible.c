@@ -1,3 +1,4 @@
+/* first_person_weapon_visible @0x8369F038 */
 #include <stdint.h>
 #include "headers/first_person_weapon.h"
 

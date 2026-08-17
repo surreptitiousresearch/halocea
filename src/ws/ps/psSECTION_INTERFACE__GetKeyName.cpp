@@ -1,3 +1,4 @@
+/* ?GetKeyName@psSECTION_INTERFACE@@QBA?AVdsSTRID@@H@Z @0x82519480 */
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsSTRID.h"
 // 0x82519480 — key name at record index `idx`, forwarding to the body; an empty (interned "")

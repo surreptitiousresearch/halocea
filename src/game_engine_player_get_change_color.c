@@ -1,3 +1,4 @@
+/* game_engine_player_get_change_color @0x83748CF0 */
 /* game_engine_player_get_change_color 0x83748CF0 — fill `result` with the change/armor color used to tint a
  * player's model. In a team game this is the team color (blue for team index != 0, else red); otherwise it is the
  * player's chosen profile color. */

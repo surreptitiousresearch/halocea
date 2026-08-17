@@ -1,3 +1,4 @@
+/* ?ClearSource@vidDRIVER_INTERFACE@@UAAXXZ @0x82666DC0 */
 #include "../../headers/vidDRIVER_INTERFACE.h"
 
 // 0x82666DC0 -- ?ClearSource@vidDRIVER_INTERFACE@@...

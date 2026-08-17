@@ -1,3 +1,4 @@
+/* ?Load@gsINP_KINECT@@QAAXXZ @0x826EE930 */
 #include "../../headers/ws/inp/gsINP_KINECT.h"
 #include "../../headers/ws/inp/gsINP_KINECT_boundary.h"
 #include "../../headers/ws/ds/dsSTATIC_PARAM_LIST.h"

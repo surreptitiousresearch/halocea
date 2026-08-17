@@ -1,3 +1,4 @@
+/* ?SetColorMPHier@objOBJ@@QAAXK@Z @0x826838C0 */
 #include "objOBJ.h"
 // 0x826838C0  ?SetColorMPHier@objOBJ@@QAAXK@Z
 // Recursively apply a multiplayer tint colour down the child hierarchy, then set it on this

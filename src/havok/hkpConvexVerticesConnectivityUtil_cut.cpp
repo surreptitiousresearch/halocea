@@ -1,3 +1,4 @@
+/* ?cut@hkpConvexVerticesConnectivityUtil@@SAPBVhkpConvexVerticesShape@@PBV2@ABVhkVector4@@MM@Z @0x83F91F90 */
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkArray.h"

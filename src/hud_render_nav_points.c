@@ -1,3 +1,4 @@
+/* hud_render_nav_points @0x837EDE80 */
 /* hud_render_nav_points 0x837EDE8C — draw the local player's HUD navigation waypoints. For each of the four
  * nav-point slots, resolve a world position from the slot's type (top nibble of the packing word): type 0 from a
  * scenario cutscene flag, type 1 from a referenced object's origin, anything else from the game engine's goal

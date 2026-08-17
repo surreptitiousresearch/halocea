@@ -1,3 +1,4 @@
+/* ?GetPresetName@propINST_CONSTRUCTOR@@QBAABV?$dsTSTRING@D@@H@Z @0x826E19B8 */
 #include "../../headers/ws/prop/propINST_CONSTRUCTOR.h"
 // 0x826E19B8 — propINST_CONSTRUCTOR::GetPresetName(int) const
 // Ignores `this` entirely (same as GetPresetCount): indexes the shared instCONSTRUCTOR_MNG's

@@ -1,3 +1,4 @@
+/* hud_draw_players @0x83708B68 */
 /* hud_draw_players 0x83708B94 — draw teammate markers on the local player's HUD. Collects every other player on
  * the local player's team that has a live unit, then for each projects the teammate's head position (raised
  * 0.3 wu) to screen space and, if on-screen, draws the team interface bitmap there. The marker's clip rectangle

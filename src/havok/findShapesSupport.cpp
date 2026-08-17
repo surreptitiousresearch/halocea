@@ -1,3 +1,4 @@
+/* findShapesSupport @0x83877C48 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 #include "../headers/havok/hkArray.h"

@@ -1,3 +1,4 @@
+/* _rasterizer_detail_objects_rebuild_vertices @0x837131C0 */
 #include <stdint.h>
 #include "headers/rasterizer_debug_options_struct.h"
 #include "headers/scenario.h"

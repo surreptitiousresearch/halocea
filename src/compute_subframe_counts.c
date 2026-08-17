@@ -1,3 +1,4 @@
+/* compute_subframe_counts @0x83689730 */
 /* Chooses a near-square (horizontal x vertical) subframe grid whose cell count is
  * at least num_players, preferring wider-than-tall layouts (increments horizontal
  * first, and only adds a row when the grid is already square-or-wider). */

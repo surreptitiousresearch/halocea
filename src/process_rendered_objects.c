@@ -1,3 +1,4 @@
+/* process_rendered_objects @0x836E71F8 */
 /* process_rendered_objects 0x836E71F8 — render every object found visible this frame (render_object_globals),
  * driven by one object_render_data request block. Two modes:
  *  - shadow pass (data->shadow set): skip first-person-camera objects and objects flagged 0x40000 (or flag 1

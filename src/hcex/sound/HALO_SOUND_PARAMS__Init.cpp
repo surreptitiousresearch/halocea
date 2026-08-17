@@ -1,3 +1,4 @@
+/* ?Init@HALO_SOUND_PARAMS@@QAAXABVpsSECTION@@@Z @0x836BFEA0 */
 // ?Init@HALO_SOUND_PARAMS@@QAAXABVpsSECTION@@@Z -- 0x836BFEC0
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"
 #include "../../headers/ws/ps/psSECTION_INTERFACE.h"

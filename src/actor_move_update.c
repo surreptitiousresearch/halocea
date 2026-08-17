@@ -73,6 +73,11 @@ void actor_move_update(int actor_index)
     uint8_t move_in_3d = 0, free_movement = 0;
     uint8_t allow_all_moving_turns = 0;
     char allow_jump = 0, is_busy_anim = 0, force_throttle_facing = 0;
+    /* DEVIATION: the binary keeps TWO independent flags — r17 (set only @0x837CB0A8, gates the
+     * actor_clear_discarded_firing_positions call @0x837CB204) and r20 (set for asleep @0x837CAFCC and
+     * flaming @0x837CB0E0, gates the stationary-facing overwrite @0x837CB1B4). A prior reconstruction
+     * fused them into one force_throttle_facing. */
+    char clear_firing_positions_request = 0;
     int16_t override_facing;
 
     float *throttle = &actor->control.desired_facing_vector.n[0];
@@ -351,9 +356,13 @@ void actor_move_update(int actor_index)
         goto resolve_movement;
     }
 
-    if ( actor->orders.move.destination.destination_type <= _destination_none )
+    /* DEVIATION: this branch gates on emotions.moving_into_fire_timer, not destination_type —
+     * `lhz r10, 0x360(r31)` / `extsh` / `cmpwi` / `ble` @0x837CB084-0x837CB090 (actor+0x360 =
+     * emotions 0x350 + 0x10 = moving_into_fire_timer). A prior reconstruction tested the
+     * destination enum here. */
+    if ( actor->emotions.moving_into_fire_timer <= 0 )
     {
-        force_throttle_facing = 1;
+        clear_firing_positions_request = 1;                    /* r17 @0x837CB0A8 */
         if ( actor->output.movement_type == actor_movement_type_combat )
         {
             int turn_flag = character_def->flags & (1u << _actor_definition_crouching_must_move_forward_bit);
@@ -367,7 +376,7 @@ void actor_move_update(int actor_index)
             actor->control.moving_forced_by_aiming = 0;
         }
         if ( actor->output.movement_type == actor_movement_type_flaming )
-            force_throttle_facing = 1;
+            force_throttle_facing = 1;                         /* r20 @0x837CB0E0 */
         if ( (character_def->flags & (1u << _actor_definition_flying_bit)) != 0 )
         {
             free_movement = 1;
@@ -426,7 +435,7 @@ resolve_movement:
         actor->control.free_facing_vector = 0;
     }
 
-    if ( force_throttle_facing && !committed )
+    if ( clear_firing_positions_request && !committed )        /* r17 @0x837CB204, not r20 */
         actor_clear_discarded_firing_positions(actor_index, 1u);
 
     if ( actor->control.moving )

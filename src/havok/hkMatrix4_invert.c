@@ -1,3 +1,4 @@
+/* ?invert@hkMatrix4@@QAA?AW4hkResult@@M@Z @0x838E72C0 */
 #include "../headers/havok/hkMatrix4.h"
 
 /* Lane accessor for a column vector of the 4x4 matrix. */

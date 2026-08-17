@@ -1,3 +1,4 @@
+/* _rasterizer_screen_effect @0x83686FB8 */
 /* _rasterizer_screen_effect 0x83686FB8 — argument-forwarding tail-call thunk to the pixel-shader
  * screen-effect implementation _rasterizer_screen_effect_ps. */
 

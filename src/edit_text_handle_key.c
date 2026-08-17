@@ -1,3 +1,4 @@
+/* edit_text_handle_key @0x83799A08 */
 /* edit_text_handle_key 0x83799A08 — apply one keystroke to a text-edit control. Handles delete/backspace
  * (_key_backspace / _key_delete), printable character insertion (ascii >= 0x20, != 0xFF), and left/right caret
  * movement (_key_left_arrow / _key_right_arrow) with shift-to-select. A live selection is replaced/deleted as a unit; otherwise edits

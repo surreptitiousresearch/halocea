@@ -1,3 +1,4 @@
+/* ?GetBuffer@SYSTEM_FMOD@snd@@UAAPAVBUFFER@2@VdsSTRID@@ABUBUFFER_PARAMS@2@@Z @0x82E36928 */
 #include "../../headers/ws/snd/SYSTEM_FMOD.h"
 #include "../../headers/ws/snd/SYSTEM.h"
 #include "../../headers/ws/snd/BUFFER.h"

@@ -1,3 +1,4 @@
+/* ?GetClass@sslOBJ_REF@@QBA?AVsslCLASS_REF@@XZ @0x82524370 */
 #include "sslOBJ_REF.h"
 #include "sslOBJECT.h"
 #include "sslCLASS_REF.h"

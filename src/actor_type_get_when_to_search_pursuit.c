@@ -1,3 +1,4 @@
+/* actor_type_get_when_to_search_pursuit @0x837F8EA0 */
 #include <stdint.h>
 #include "headers/actor_type_definition.h"
 

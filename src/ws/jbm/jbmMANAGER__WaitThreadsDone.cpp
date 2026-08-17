@@ -1,3 +1,4 @@
+/* ?WaitThreadsDone@jbmMANAGER@@QAAXV?$apSTATE_T@K@@@Z @0x826EBE08 */
 #include "../../headers/ws/jbm/jbmMANAGER.h"
 #include "../ds/ds_assert_boundary.h"
 

@@ -1,3 +1,4 @@
+/* sound_delete @0x837156C8 */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 

@@ -1,3 +1,4 @@
+/* ?RemoveParent@psSECTION_DATA@@QAAXVpsSECTION@@@Z @0x8251B6C8 */
 #include "psSECTION_DATA.h"
 #include "psSECTION.h"
 #include "psSECTION_BRANCH.h"

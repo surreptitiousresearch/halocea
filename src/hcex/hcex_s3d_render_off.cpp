@@ -1,3 +1,4 @@
+/* hcex_s3d_render_off @0x823CE2E8 */
 /* HCEX render-mode selector (mangled: _hcex_new_render_mode__3HA). */
 extern int hcex_new_render_mode;
 

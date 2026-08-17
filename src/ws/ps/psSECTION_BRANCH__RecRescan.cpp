@@ -1,3 +1,4 @@
+/* ?RecRescan@psSECTION_BRANCH@@IAAXPAVpsSECTION_DATA@@@Z @0x825190B8 */
 #include "psSECTION_BRANCH.h"
 #include "psSECTION_DATA.h"
 #include "psSECTION.h"

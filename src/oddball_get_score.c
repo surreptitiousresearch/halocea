@@ -1,3 +1,4 @@
+/* oddball_get_score @0x83816898 */
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/oddball_globals.h"

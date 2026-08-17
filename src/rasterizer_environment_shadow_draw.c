@@ -1,3 +1,4 @@
+/* rasterizer_environment_shadow_draw @0x836A61F8 */
 /* rasterizer_environment_shadow_draw 0x836A61F8 — tail-call thunk to _rasterizer_environment_shadow_draw. */
 
 #include <stdint.h>

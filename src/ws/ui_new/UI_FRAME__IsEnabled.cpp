@@ -1,3 +1,4 @@
+/* ?IsEnabled@UI_FRAME@ui_new@@QAA_NXZ @0x827D31A8 */
 #include "../../headers/ws/ui_new/UI_FRAME.h"
 
 // 0x827D31AC — return whether this frame is currently enabled.

@@ -1,3 +1,4 @@
+/* ?findCommonParent@hkdBreakableShape@@SAPBV1@PBV1@0@Z @0x8384ABD8 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkInplaceArray.h"
 #include "../headers/havok/hkThreadMemory.h"

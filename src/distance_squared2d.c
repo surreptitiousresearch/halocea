@@ -1,3 +1,4 @@
+/* distance_squared2d @0x836FBE90 */
 #include "headers/real_point2d.h"
 
 /* DEVIATION: decompiler double-return idiom; replaced with direct float arithmetic */

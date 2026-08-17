@@ -1,3 +1,4 @@
+/* ?_DetachInst@scnSCENE@@AAAXPAVanimINST@@@Z @0x8253CE60 */
 #include "scnSCENE.h"
 #include "../ds/dsBIT_ARRAY_IMPL.h"
 

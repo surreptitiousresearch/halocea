@@ -1,3 +1,4 @@
+/* rasterizer_environment_reflection_lightmap_mask_draw @0x836A6288 */
 #include <stdint.h>
 /* rasterizer_environment_reflection_lightmap_mask_draw 0x836A6288 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 struct shader;

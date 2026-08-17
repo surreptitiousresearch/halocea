@@ -1,3 +1,4 @@
+/* weapon_handle_potential_inventory_item @0x836D89F0 */
 /* weapon_handle_potential_inventory_item 0x836D89F0 — try to absorb a walked-over item's ammunition into a
  * weapon's magazines. For each weapon magazine that is not full, either (a) merge rounds directly from a
  * dropped weapon of the same type (transferring loaded rounds, playing the pickup sound, deleting the source

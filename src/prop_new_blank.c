@@ -1,3 +1,4 @@
+/* prop_new_blank @0x837D1980 */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 

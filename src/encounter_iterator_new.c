@@ -1,3 +1,4 @@
+/* encounter_iterator_new @0x83709948 */
 #include <stdint.h>
 #include "headers/encounter_iterator.h"
 #include "headers/ai_globals.h"

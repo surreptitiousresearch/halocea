@@ -5,7 +5,10 @@
  *
  * The 536-byte hs_thread datum is initialized by raw field offset (its struct was not
  * reconstructed): +16 = stack-frame pointer (set to +24), +4 = result/parent (-1),
- * +2 = state byte (2 = running), +20 = evaluation result. */
+ * +2 = state byte (2 = running), +20 = evaluation result.
+ *
+ * CAVEAT: as-shipped — the immediate-result path (flag clear: beq @0x83690DE0 -> lwz r3,0(r29)
+ * @0x83690DF8) returns without any datum_delete; the freshly allocated thread datum leaks. */
 
 #include "headers/data_array.h"
 #include "headers/hs_thread.h"

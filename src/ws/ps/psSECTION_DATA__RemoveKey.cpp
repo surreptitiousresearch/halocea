@@ -1,3 +1,4 @@
+/* ?RemoveKey@psSECTION_DATA@@QAAHKAAUpsCOMPLEX_KEY_DATA@@@Z @0x8251B768 */
 #include "psSECTION_DATA.h"
 #include "psSECTION.h"
 #include "psCOMPLEX_KEY_DATA.h"

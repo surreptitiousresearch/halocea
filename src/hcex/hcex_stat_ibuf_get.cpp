@@ -1,3 +1,4 @@
+/* hcex_stat_ibuf_get @0x823EFC28 */
 /* Reconstruction (no DB/PDB type) — adjudicated KEEP, see .complete/ESCALATIONS.md */
 #include <stdint.h>
 #include "../headers/d3d_boundary.h"

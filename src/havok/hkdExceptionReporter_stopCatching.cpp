@@ -1,3 +1,4 @@
+/* ?stopCatching@hkdExceptionReporter@@SAXW4ReportType@1@@Z @0x8386CC90 */
 #include "../headers/havok/hkdExceptionReporter.h"
 #include "../headers/havok/hkReferencedObject.h"
 

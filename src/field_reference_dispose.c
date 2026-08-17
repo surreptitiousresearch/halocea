@@ -1,3 +1,4 @@
+/* field_reference_dispose @0x837A1148 */
 #include "headers/field_reference_definition.h"
 #include "headers/field_type_definition.h"
 #include "headers/blam_data_globals.h"

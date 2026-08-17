@@ -1,3 +1,4 @@
+/* ?SelectMaterialsByInstAffixes@MTL_DESC_DB@@QAAXPAVobjOBJ@@ABV?$dsTSTRING@D@@@Z @0x82A83B38 */
 #include "MTL_DESC_DB.h"
 #include "../obj/objOBJ.h"
 

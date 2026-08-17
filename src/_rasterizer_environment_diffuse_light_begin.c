@@ -1,3 +1,4 @@
+/* _rasterizer_environment_diffuse_light_begin @0x83789318 */
 /* _rasterizer_environment_diffuse_light_begin 0x83789318 — set up the diffuse lighting pass for one dynamic
  * light. Selects the diffuse-light pixel-shader effect, binds the light's projected gel map, animates the gel
  * frame by the per-axis yaw/pitch/roll periodic functions (scaled to radians), and uploads the rotated light
@@ -26,7 +27,7 @@
 
 #include "headers/point2d.h"
 extern point2d *rasterizer_set_texture_for_effect(int16_t stage, int16_t type, int16_t usage, int bitmap_group_index, int16_t bitmap_index, rasterizer_dx9_shader *dxeffect_shader);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 extern void matrix4x3_rotation_from_angles(real_matrix4x3 *matrix, float yaw, float pitch, float roll);
 extern real_vector3d *matrix4x3_transform_normal(const real_matrix4x3 *matrix, const real_vector3d *normal, real_vector3d *result);
 extern float normalize3d(real_vector3d *v);

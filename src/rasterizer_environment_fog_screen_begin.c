@@ -1,3 +1,4 @@
+/* rasterizer_environment_fog_screen_begin @0x836A6338 */
 /* rasterizer_environment_fog_screen_begin 0x836A6338 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 
 #include <stdint.h>

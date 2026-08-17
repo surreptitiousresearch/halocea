@@ -1,3 +1,4 @@
+/* cached_map_file_invalidate @0x83753E80 */
 #include <stdint.h>
 #include "headers/cache_file_globals.h"
 

@@ -1,3 +1,4 @@
+/* hkMath_atan2fApproximation @0x838E24D8 */
 /* Branch-selected cubic min-max approximation of atan2(y, x). DEVIATION: the
    decompiler models both args as double (PPC FP promotion); they are floats.
    eps = 2^-23 guards the divide when the dominant axis is ~0. The polynomial

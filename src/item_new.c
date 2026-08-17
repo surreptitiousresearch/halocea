@@ -1,3 +1,4 @@
+/* item_new @0x83757BD0 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/item_datum.h"

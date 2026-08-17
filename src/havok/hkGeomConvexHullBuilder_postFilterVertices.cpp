@@ -1,3 +1,4 @@
+/* ?postFilterVertices@hkGeomConvexHullBuilder@@SAXAAVhkGeomHull@@HHABUhkGeomConvexHullTolerances@@AAVhkBool@@@Z @0x83FDA140 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include <math.h>
 

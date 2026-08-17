@@ -1,3 +1,4 @@
+/* ?AdjustMatrW2C@camCAMERA@@AAAXXZ @0x82702A88 */
 #include "../../headers/ws/cam/camCAMERA.h"
 #include "../../headers/ws/cam/cam_boundary.h"
 #include "../../headers/ws/m3d/m3d_boundary.h"

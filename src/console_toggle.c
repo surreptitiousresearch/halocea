@@ -1,3 +1,4 @@
+/* console_toggle @0x83722B38 */
 #include "headers/console_globals.h"
 
 extern void console_close(void);

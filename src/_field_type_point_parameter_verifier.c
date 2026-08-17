@@ -1,3 +1,4 @@
+/* _field_type_point_parameter_verifier @0x8379BD50 */
 #include "headers/field_properties_definition.h"
 
 unsigned int _field_type_point_parameter_verifier(

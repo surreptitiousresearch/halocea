@@ -1,3 +1,4 @@
+/* king_get_score @0x8382C8F8 */
 #include "headers/data_array.h"
 #include "headers/player_datum.h"
 #include "headers/king_globals.h"

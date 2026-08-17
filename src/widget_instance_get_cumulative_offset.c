@@ -1,3 +1,4 @@
+/* widget_instance_get_cumulative_offset @0x83731458 */
 #include "headers/widget_globals.h"
 #include "headers/point2d.h"
 

@@ -1,3 +1,4 @@
+/* ?registerShape@hkdGraphicsSystem_S3D@@UAAXPBVhkdGraphicsShape@@PBD@Z @0x82EC0450 */
 /* hkdGraphicsSystem_S3D::registerShape — no-op in this build (the S3D graphics
    system does not track registered shapes; the body compiled away to nothing).
    The parameters are only referenced by pointer, so the types stay opaque. */

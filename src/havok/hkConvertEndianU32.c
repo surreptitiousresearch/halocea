@@ -1,3 +1,4 @@
+/* hkConvertEndianU32 @0x838BDB78 */
 /* 32-bit byte swap. */
 unsigned int hkConvertEndianU32(unsigned int n)
 {

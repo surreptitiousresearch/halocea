@@ -1,3 +1,4 @@
+/* ?Unpack@haloPLAYER_ACTIONS_ENV@@QAAXAAVBIT_STREAM@ds@@ABVdsDATA@@@Z @0x823BC868 */
 #include <stdint.h>
 #include "../headers/hcex/haloPLAYER_ACTIONS_ENV.h"
 #include "../headers/ws/ds/dsDATA.h"

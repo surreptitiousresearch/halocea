@@ -1,3 +1,4 @@
+/* ?FreeObjData@objOBJ@@QAAXHPAX@Z @0x82A7E6E0 */
 #include "objOBJ.h"
 #include "OBJ_DATA.h"
 #include "obj_boundary.h"

@@ -1,3 +1,4 @@
+/* generate_default_player_profile @0x83699330 */
 #include <stdint.h>
 #include "headers/player_profile.h"
 

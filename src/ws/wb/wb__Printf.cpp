@@ -5,7 +5,7 @@
 // helper (not in wb/ds) that formats `format` against an already-open varargs cursor and
 // returns the result by value (sret). This binary's va_list is a plain pointer into the
 // spilled register-argument area (Xbox 360 PPC ABI), matching the `char*` 2nd parameter here.
-extern "C" dsTSTRING<char> dsSPrintfV(const char *format, char *args); // boundary
+extern dsTSTRING<char> dsSPrintfV(const char *format, char *args); // boundary — C++ linkage per DB mangling ?dsSPrintfV@@YA?AV?$dsTSTRING@D@@PBDPAD@Z
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);  // boundary — CRT
 extern "C" void dlFree(void *ptr);                                    // boundary — dlmalloc free
 

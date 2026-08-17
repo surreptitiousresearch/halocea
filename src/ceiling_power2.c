@@ -1,3 +1,4 @@
+/* ceiling_power2 @0x8379A448 */
 #include <stdint.h>
 int ceiling_power2(uint16_t x)
 {

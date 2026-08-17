@@ -1,3 +1,4 @@
+/* offset_point2d @0x83799E70 */
 #include <stdint.h>
 #include "headers/point2d.h"
 

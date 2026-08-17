@@ -1,3 +1,4 @@
+/* ?setMassRecursively@hkdBreakableShape@@QAAXMM@Z @0x83848C00 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkVector4.h"

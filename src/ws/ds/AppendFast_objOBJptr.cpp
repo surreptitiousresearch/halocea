@@ -3,7 +3,7 @@
 #include "ds_assert_boundary.h"
 #include "../obj/objDEPENDENCY_CACHE.h" // declares ds::AppendFast<T>
 
-class objOBJ; // boundary — obj subsystem game object
+struct objOBJ; // boundary — obj subsystem game object
 
 // ds::AppendFast<objOBJ*>(dsVECTOR<objOBJ*,8>&,const dsVECTOR<objOBJ*,8>&,int,int) @ 0x82688E48
 // Bulk-append `right[start .. start+count)` onto `left` (count == -1 means "from start to the

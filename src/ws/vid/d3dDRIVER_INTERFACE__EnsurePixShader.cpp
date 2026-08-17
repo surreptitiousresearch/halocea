@@ -1,3 +1,4 @@
+/* ?EnsurePixShader@d3dDRIVER_INTERFACE@@UAA_NPAVvidSHADER@@_N@Z @0x82694910 */
 #include "../../headers/d3dDRIVER_INTERFACE.h"
 
 // boundary -- Xbox 360 D3D SDK: set the active pixel shader.

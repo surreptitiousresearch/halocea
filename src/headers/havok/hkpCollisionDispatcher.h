@@ -140,5 +140,7 @@ struct hkpCollisionDispatcher : hkReferencedObject
     DebugEntry (*m_debugAgent3TablePred)[32][32];          /* 0x1E3C */
     float m_expectedMaxLinearVelocity;                     /* 0x1E40 */
     float m_expectedMinPsiDeltaTime;                       /* 0x1E44 */
+    unsigned char _pad1E48[8];                             /* 0x1E48 -> 0x1E50: DB sizeof is
+                                                              7760 (16-aligned tail) */
 };
 typedef struct hkpCollisionDispatcher hkpCollisionDispatcher;

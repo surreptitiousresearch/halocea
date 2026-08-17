@@ -1,3 +1,4 @@
+/* draw_string_set_format @0x83769BD0 */
 #include <stdint.h>
 #include "headers/font_drawing_globals.h"
 

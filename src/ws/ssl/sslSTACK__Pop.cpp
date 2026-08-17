@@ -1,3 +1,4 @@
+/* ?Pop@sslSTACK@@QAAXXZ @0x82AF1B48 */
 #include "sslSTACK.h"
 // 0x82AF1B48  sslSTACK::Pop
 

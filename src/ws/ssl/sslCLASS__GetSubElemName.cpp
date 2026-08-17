@@ -1,3 +1,4 @@
+/* ?GetSubElemName@sslCLASS@@QBA?AVdsSTRID@@H@Z @0x82A38B40 */
 #include "sslCLASS.h"
 #include "sslCLASS_ELEMENT.h"
 #include "../ds/dsSTRID.h"

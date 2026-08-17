@@ -1,3 +1,4 @@
+/* ustrncmp @0x8376D558 */
 #include <wchar.h>
 
 /* ustrncmp — compare at most `count` characters of two UTF-16 strings. Tail-jump thunk

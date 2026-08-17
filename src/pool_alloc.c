@@ -1,3 +1,4 @@
+/* pool_alloc @0x83730658 */
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);
 
 void * pool_alloc(unsigned int size)

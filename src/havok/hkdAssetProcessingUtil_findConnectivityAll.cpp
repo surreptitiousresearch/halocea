@@ -1,3 +1,4 @@
+/* ?findConnectivityAll@hkdAssetProcessingUtil@@SAXPAVhkpCollisionDispatcher@@PBVhkdBreakableShape@@MM@Z @0x8383E630 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkdBreakableShape_Connection.h"

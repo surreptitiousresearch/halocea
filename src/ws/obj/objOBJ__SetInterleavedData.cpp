@@ -1,3 +1,4 @@
+/* ?SetInterleavedData@objOBJ@@QAAXPAXH_K@Z @0x82BCB5D0 */
 #include <stdint.h>
 #include "objOBJ.h"
 // 0x82BCB5D0  ?SetInterleavedData@objOBJ@@QAAXPAXH_K@Z

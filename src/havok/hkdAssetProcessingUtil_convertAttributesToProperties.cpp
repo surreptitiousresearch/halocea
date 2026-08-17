@@ -1,3 +1,4 @@
+/* ?convertAttributesToProperties@hkdAssetProcessingUtil@@SAXABV?$hkArray@UhkxAttribute@@@@PBDPAVhkdProperties@@@Z @0x83839BD0 */
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkxAttribute.h"
 #include "../headers/havok/hkdProperties.h"

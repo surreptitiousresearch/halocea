@@ -1,3 +1,4 @@
+/* ?ApplyModifiers@objOBJ@@QAAHH@Z @0x82A8AE30 */
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objMODIFIER.h"

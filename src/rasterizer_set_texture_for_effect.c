@@ -1,3 +1,4 @@
+/* rasterizer_set_texture_for_effect @0x8369C818 */
 /* rasterizer_set_texture_for_effect 0x8369C818 — variant of rasterizer_set_texture that also passes
  * a DX9 effect shader to the bind call. Falls back to the per-type default texture on type mismatch
  * or missing group, exactly as the blocking variant does. Returns bound dimensions or null. */

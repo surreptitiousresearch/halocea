@@ -1,3 +1,4 @@
+/* lightning_new @0x83809F88 */
 #include "headers/lightning_globals.h"
 
 #include "headers/data_array.h"

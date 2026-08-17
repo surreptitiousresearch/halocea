@@ -1,3 +1,4 @@
+/* lightnings_initialize_for_new_map @0x83809F58 */
 #include "headers/lightning_globals.h"
 #include "headers/data_array.h"
 

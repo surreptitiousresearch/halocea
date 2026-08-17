@@ -1,3 +1,4 @@
+/* system_clock_delta_microseconds @0x83762D80 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 

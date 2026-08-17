@@ -1,3 +1,4 @@
+/* hcex_get_elapsed_tics @0x83684238 */
 #include <stdint.h>
 
 extern "C" int16_t game_time_get_elapsed(void);

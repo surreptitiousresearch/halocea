@@ -1,3 +1,4 @@
+/* network_server_list_dispose @0x83692258 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

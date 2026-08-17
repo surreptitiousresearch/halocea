@@ -1,3 +1,4 @@
+/* update_controller_char @0x837F6F40 */
 #include <stdint.h>
 #include "headers/vector_char_difference_data.h"
 #include "headers/direction_playback_controller.h"

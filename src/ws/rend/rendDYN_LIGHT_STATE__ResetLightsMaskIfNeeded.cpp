@@ -1,3 +1,4 @@
+/* ?ResetLightsMaskIfNeeded@rendDYN_LIGHT_STATE@@IAAXI@Z @0x8273E290 */
 #include "../../headers/ws/rend/rendDYN_LIGHT_STATE.h"
 
 // 0x8273E290 — lastLgtUpdFrameNmb packs a 30-bit frame number in bits [0,29] plus a sticky

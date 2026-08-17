@@ -1,3 +1,4 @@
+/* ?MarkAsUsedInRender@txmTEXTURE@@QAAXXZ @0x826F59C8 */
 #include "../../headers/ws/txm/txmTEXTURE.h"
 #include "../../headers/ws/txm/txmMANAGER.h"
 

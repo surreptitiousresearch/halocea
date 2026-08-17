@@ -1,3 +1,4 @@
+/* ?UpdateTextureSwizzle@txmTEXTURE@@IAAXXZ @0x826F5798 */
 #include "headers/ws/txm/txmTEXTURE.h"
 #include "headers/ws/txm/txm_vid_boundary.h"
 

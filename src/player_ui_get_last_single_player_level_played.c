@@ -1,3 +1,4 @@
+/* player_ui_get_last_single_player_level_played @0x83698A98 */
 #include <stdint.h>
 #include "headers/player_ui_globals.h"
 

@@ -1,3 +1,4 @@
+/* ?GetAsInt@sslSTACK_DATA@@QBA?AVsslERROR@@AAH@Z @0x82AF3A58 */
 #include "sslSTACK_DATA.h"
 #include "sslERROR.h"
 #include "../ds/dsDATA.h"

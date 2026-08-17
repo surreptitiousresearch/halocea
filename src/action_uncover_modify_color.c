@@ -1,3 +1,4 @@
+/* action_uncover_modify_color @0x838250D0 */
 #include <stdint.h>
 #include "headers/actor_datum.h"
 #include "headers/data_array.h"

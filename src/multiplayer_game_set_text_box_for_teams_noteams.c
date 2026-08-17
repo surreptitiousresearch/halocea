@@ -1,3 +1,4 @@
+/* multiplayer_game_set_text_box_for_teams_noteams @0x8377FBF0 */
 #include "headers/widget_instance.h"
 #include "headers/network_game_data.h"
 #include "headers/multiplayer_game_text_string.h"

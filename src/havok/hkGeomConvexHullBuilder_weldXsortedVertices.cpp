@@ -1,3 +1,4 @@
+/* ?weldXsortedVertices@hkGeomConvexHullBuilder@@SAXMAAV?$hkArray@VhkVector4@@@@AAH@Z @0x83FD9FF8 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkArray.h"
 

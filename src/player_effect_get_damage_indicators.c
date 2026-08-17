@@ -1,3 +1,4 @@
+/* player_effect_get_damage_indicators @0x83737DA0 */
 /* player_effect_get_damage_indicators 0x83737DA0 — copy the local player's four directional damage-indicator
  * timers into the caller's buffer, then advance each non-zero timer by the elapsed game time (saturating at
  * 255). The timers count up toward 255 (fully faded). */

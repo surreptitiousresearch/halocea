@@ -1,3 +1,4 @@
+/* ?FillLinearList@animINST@@QAAXXZ @0x825E1358 */
 #include <stdint.h>
 #include "animINST.h"
 #include "anim_boundary.h"

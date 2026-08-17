@@ -1,3 +1,4 @@
+/* ?GetPosFromViewport@UI_STAT_SYS@ui_new@@AAA?AUm2dV@@PB_WHM@Z @0x82CED960 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 
 // 0x82CED99C — anchor position for a multi-line string within `viewport`, honoring the same

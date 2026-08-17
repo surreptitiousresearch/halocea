@@ -1,3 +1,4 @@
+/* ?GetExportMap@SSL_EXPORTER_haloENGINE_CONTROL@@CAAAV?$dsVECTOR@USSLExportEntry@SSL_EXPORTER_haloENGINE_CONTROL@@$07@@XZ @0x823C6DF8 */
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
 // 0x823C6E18 — Meyers-singleton local static: the shared, process-wide export table. Guarded by

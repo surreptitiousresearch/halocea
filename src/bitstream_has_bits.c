@@ -1,3 +1,4 @@
+/* bitstream_has_bits @0x8380F978 */
 #include <stdint.h>
 #include "headers/bitstream_t.h"
 

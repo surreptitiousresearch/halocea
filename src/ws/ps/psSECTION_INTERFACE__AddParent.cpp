@@ -1,3 +1,4 @@
+/* ?AddParent@psSECTION_INTERFACE@@QAAXVpsSECTION@@@Z @0x8251D700 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 #include "psSECTION_DATA.h"

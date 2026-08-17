@@ -1,3 +1,4 @@
+/* ?SetVertNormalList@objOBJ@@QAAXPAX@Z @0x82BCCB40 */
 #include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

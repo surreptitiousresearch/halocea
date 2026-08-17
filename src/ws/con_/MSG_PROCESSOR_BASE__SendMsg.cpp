@@ -1,3 +1,4 @@
+/* ?SendMsg@MSG_PROCESSOR_BASE@con@@QAAXPBXHH@Z @0x8309B380 */
 #include <stdint.h>
 #include "MSG_PROCESSOR_BASE.h"
 #include "../ap/apProfileTimer.h"

@@ -1,3 +1,4 @@
+/* ?pctSaveBMP@@YAHPBDPAUpctPICTURE@@@Z @0x82D4CF20 */
 #include "../../headers/pctPICTURE.h"
 #include "../../headers/ws/gs/gsRENDER_SYSTEM_boundary.h" /* pctPIXEL, pctGetPixel */
 #include "../../headers/ws/fio/fioFILE_DISK.h"

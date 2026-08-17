@@ -1,3 +1,4 @@
+/* apply_animation_state_0 @0x837F6E88 */
 #include "headers/animation_playback_controller.h"
 #include "headers/unit_control_data.h"
 #include "headers/animation_event_header.h"

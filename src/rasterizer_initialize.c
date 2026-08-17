@@ -11,9 +11,11 @@ extern int _rasterizer_initialize(void);
 
 real_argb_color *global_rasterizer_model_ambient_reflection_tint;
 
-int rasterizer_initialize(void)
+/* DEVIATION: r3 at blr is only _rasterizer_initialize's threaded status (no own r3 def);
+   sole caller shell_initialize @0x836FBDC0 ignores it — void per the render_dispose rule. */
+void rasterizer_initialize(void)
 {
     global_rasterizer_model_ambient_reflection_tint =
         game_state_malloc("rasterizer model ambient reflection tint", 0, 16);
-    return _rasterizer_initialize();
+    _rasterizer_initialize();
 }

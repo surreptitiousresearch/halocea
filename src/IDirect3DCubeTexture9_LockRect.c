@@ -1,3 +1,4 @@
+/* IDirect3DCubeTexture9_LockRect @0x8369B450 */
 #include "headers/d3d_boundary.h"
 #include "headers/d3d_render_boundary.h"
 

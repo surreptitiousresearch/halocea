@@ -1,3 +1,4 @@
+/* ?transformVerticesAndPlaneEquations@hkpConvexVerticesShape@@QAAXABVhkTransform@@@Z @0x83610480 */
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkArray.h"

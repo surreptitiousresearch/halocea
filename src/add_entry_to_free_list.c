@@ -1,3 +1,4 @@
+/* add_entry_to_free_list @0x83818908 */
 #include "headers/index_resolution_table.h"
 #include "headers/index_entry.h"
 

@@ -1,3 +1,4 @@
+/* render_frustum_get_projection_bounds @0x8376D170 */
 /* render_frustum_get_projection_bounds @0x83? — recover the near-plane projection rectangle (left, right,
  * bottom, top at unit depth) from a frustum's projection matrix. The horizontal extents come from the third
  * column's x shear offset ±1 divided by the x scale; the vertical extents likewise from the y shear ±1 divided

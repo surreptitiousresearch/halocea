@@ -1,3 +1,4 @@
+/* ?GetMatrMainBody@physSYSTEM_BASE@@QAAXAAVm3dMATR@@@Z @0x82C40D80 */
 #include "../../headers/ws/phys/physSYSTEM_BASE.h"
 #include "../../headers/ws/obj/objOBJ.h"
 #include "../../headers/ws/anim/animINST.h"

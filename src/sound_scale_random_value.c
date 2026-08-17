@@ -1,3 +1,4 @@
+/* sound_scale_random_value @0x83715448 */
 #include <stdint.h>
 extern uint32_t *get_global_local_random_seed_address(void);
 extern float real_seed_random_range(uint32_t *seed, float lower_bound, float upper_bound);

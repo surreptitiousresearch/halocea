@@ -17,7 +17,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const float *test_point, int16_t *threat_count_out);
+extern uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius, const real_point3d *test_point, int16_t *threat_count_out);
 
 uint8_t actor_combat_retarget_grenade(int actor_index, const real_point3d *desired_grenade_target)
 {
@@ -31,7 +31,7 @@ uint8_t actor_combat_retarget_grenade(int actor_index, const real_point3d *desir
     float collateral_damage_radius = variant_definition->grenade_combat.collateral_damage_radius;
 
     if ( !actor_combat_check_collateral_damage(actor_index, enemy_radius, collateral_damage_radius,
-            (const float *)desired_grenade_target, nullptr) )
+            desired_grenade_target, nullptr) )
         return 0;
 
     actor->control.grenade_current_target = *desired_grenade_target;

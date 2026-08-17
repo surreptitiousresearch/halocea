@@ -1,3 +1,4 @@
+/* sound_set_variety @0x83715038 */
 #include <stdint.h>
 #include "headers/sound_manager_globals.h"
 

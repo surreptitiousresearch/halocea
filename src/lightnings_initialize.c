@@ -1,3 +1,4 @@
+/* lightnings_initialize @0x83809F18 */
 #include <stdint.h>
 #include "headers/lightning_globals.h"
 

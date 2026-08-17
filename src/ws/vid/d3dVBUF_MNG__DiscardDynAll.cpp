@@ -1,3 +1,4 @@
+/* ?DiscardDynAll@d3dVBUF_MNG@@UAAXXZ @0x827CD738 */
 #include "../../headers/ws/vid/d3dVBUF_MNG.h"
 #include "../../headers/ws/vid/vidBUFFER.h"
 

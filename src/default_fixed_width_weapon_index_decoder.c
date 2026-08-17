@@ -1,3 +1,4 @@
+/* default_fixed_width_weapon_index_decoder @0x8379D448 */
 #include <stdint.h>
 #include "headers/field_properties_definition.h"
 #include "headers/bitstream_t.h"

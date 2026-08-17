@@ -1,3 +1,4 @@
+/* antennas_initialize @0x8380D2C8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"

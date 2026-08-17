@@ -1,3 +1,4 @@
+/* ?RenderIngameStat@UI_STAT_SYS@ui_new@@QAAXXZ @0x82CF0528 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 #include "../../headers/ws/ui_new/ui_stat_boundary.h"
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL.h"

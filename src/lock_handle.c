@@ -1,3 +1,4 @@
+/* lock_handle @0x83803428 */
 #include "headers/stack_memory_pool.h"
 
 void lock_handle(stack_memory_pool *pool, void ***h)

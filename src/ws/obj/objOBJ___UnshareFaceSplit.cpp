@@ -1,3 +1,4 @@
+/* ?_UnshareFaceSplit@objOBJ@@QAAHXZ @0x82A80728 */
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"

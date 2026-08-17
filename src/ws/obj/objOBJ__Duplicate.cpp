@@ -1,3 +1,4 @@
+/* ?Duplicate@objOBJ@@QAAPAV1@PAV1@@Z @0x826621B0 */
 #include "objOBJ.h"
 #include "objOBJ_ITER_SAFE.h"
 #include "obj_boundary.h"

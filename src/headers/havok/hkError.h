@@ -11,8 +11,9 @@ typedef struct hkErrStream { hkOstream base; } hkErrStream;
    (zero-size empty base; spelled as a member here, does not contribute bytes in the binary). */
 typedef struct hkError
 {
-    hkReferencedObject   base;           /* 0x00 */
-    hkSingleton<hkError> singleton_base; /* 0x08 — zero-size base class in DB */
+    hkReferencedObject base; /* 0x00; hkSingleton<hkError> is a second, ZERO-SIZE base in the
+                                DB — spelling it as a member would occupy a byte + padding and
+                                inflate sizeof to 12, so it is a comment, not a member. */
 } hkError;
 
 /* DB exposes these enumerator/singleton NAMES, not their values/addresses. */

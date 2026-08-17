@@ -1,3 +1,4 @@
+/* player_control_get_aiming_unit_index @0x836DE6E8 */
 #include <stdint.h>
 #include "headers/player_control_globals.h"
 

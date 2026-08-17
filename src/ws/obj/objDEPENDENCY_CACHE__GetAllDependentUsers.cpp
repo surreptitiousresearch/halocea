@@ -1,3 +1,4 @@
+/* ?GetAllDependentUsers@objDEPENDENCY_CACHE@@QBAXPAVobjOBJ@@AAV?$dsVECTOR@PAVobjOBJ@@$07@@@Z @0x82689D80 */
 #include "objDEPENDENCY_CACHE.h"
 #include "objOBJ.h"
 // 0x82689D80  ?GetAllDependentUsers@objDEPENDENCY_CACHE@@QBAXPAVobjOBJ@@AAV?$dsVECTOR@...@Z

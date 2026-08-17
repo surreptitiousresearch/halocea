@@ -1,3 +1,4 @@
+/* ?sortPlanes@hkpConvexVerticesShape@@IAAXXZ @0x836108A8 */
 #include <math.h>
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkThreadMemory.h"

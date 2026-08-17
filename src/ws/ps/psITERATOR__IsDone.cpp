@@ -1,3 +1,4 @@
+/* ?IsDone@psITERATOR@@QBAHXZ @0x825169F8 */
 #include "psITERATOR.h"
 // 0x825169F8 — iteration finished when the cursor has reached the end of the collected record set.
 // DEVIATION: the decompiler renders this as the expanded signed-compare idiom

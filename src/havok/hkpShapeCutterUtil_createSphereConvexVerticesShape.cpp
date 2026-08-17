@@ -1,3 +1,4 @@
+/* ?createSphereConvexVerticesShape@hkpShapeCutterUtil@@SAPAVhkpConvexVerticesShape@@MH@Z @0x83F951B8 */
 #include <math.h>
 #include "../headers/havok/hkpShapeCutterUtil_boundary.h"
 

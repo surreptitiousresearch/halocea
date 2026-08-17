@@ -1,3 +1,4 @@
+/* debug_pvs @0x837C4668 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 

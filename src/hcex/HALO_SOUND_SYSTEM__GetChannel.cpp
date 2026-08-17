@@ -1,3 +1,4 @@
+/* ?GetChannel@HALO_SOUND_SYSTEM@@QAAPAUHALO_CHANNEL@@H_N@Z @0x836BEFF0 */
 #include "../headers/hcex/HALO_SOUND_SYSTEM.h"
 
 // 0x836BEFF0 — look up the virtual channel with the given slot index; when `createNew` is set and

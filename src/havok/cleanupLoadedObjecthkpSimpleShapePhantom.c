@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkpSimpleShapePhantom @0x838F08F8 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

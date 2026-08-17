@@ -1,3 +1,4 @@
+/* ?OnCreateLightSet@rendLIGHT_SET_LIST@@QAAXPAVrendLIGHT_SET@@@Z @0x82ABDBB0 */
 #include "../../headers/ws/rend/rendLIGHT_SET_LIST.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"
 

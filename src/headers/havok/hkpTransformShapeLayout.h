@@ -9,12 +9,7 @@
 
 typedef struct hkpSingleShapeContainer_vtbl hkpSingleShapeContainer_vtbl; /* boundary vtable */
 
-/* hkpSingleShapeContainer (8 bytes) — single-child shape holder. */
-typedef struct hkpSingleShapeContainer
-{
-    hkpSingleShapeContainer_vtbl *__vftable; /* 0x00 */
-    const hkpShape *m_childShape;            /* 0x04 */
-} hkpSingleShapeContainer;
+#include "hkpSingleShapeContainer.h"
 
 /* hkpTransformShape (112 bytes) — see DB types_members / hkpTransformShape.h. */
 struct hkpTransformShapeFull : hkpShape

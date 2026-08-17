@@ -1,3 +1,4 @@
+/* hud_calculate_bitmap_bounds @0x8379E8D0 */
 #include <stdint.h>
 #include "headers/bitmap_data.h"
 #include "headers/real_rectangle2d.h"

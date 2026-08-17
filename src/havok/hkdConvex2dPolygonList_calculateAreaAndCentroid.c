@@ -1,3 +1,4 @@
+/* ?calculateAreaAndCentroid@hkdConvex2dPolygonList@@QBAMAAUhkdVector2@@@Z @0x8387B558 */
 #include "../headers/havok/hkdConvex2dPolygonList.h"
 
 /* hkdConvex2dPolygonList::calculateAreaAndCentroid — total signed area and

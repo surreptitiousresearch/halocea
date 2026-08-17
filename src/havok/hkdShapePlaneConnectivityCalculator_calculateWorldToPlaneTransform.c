@@ -1,3 +1,4 @@
+/* ?calculateWorldToPlaneTransform@hkdShapePlaneConnectivityCalculator@@SAXABVhkVector4@@AAVhkTransform@@@Z @0x838759C8 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 

@@ -1,3 +1,4 @@
+/* actor_action_try_to_panic @0x837F3368 */
 #include <stdint.h>
 #include "headers/flee_state_data.h"
 #include "headers/action_state_data.h"

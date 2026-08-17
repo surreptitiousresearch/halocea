@@ -5,8 +5,9 @@
  *
  * Slot capacity classes: index<=1 -> 0x18000000, index==2 -> 0x2300000, index>2 -> 0x8000000.
  *
- * Deviation: for scenario_type >= NUMBER_OF_SCENARIO_TYPES the decompiler reads an uninitialized stack slot (HIWORD(v14)) as the slot
- * range — a degenerate/unused path reproduced as a read of an indeterminate value; left as-is below. */
+ * CAVEAT: as-shipped — for scenario_type >= NUMBER_OF_SCENARIO_TYPES the binary loads the slot range from an
+ * uninitialized stack halfword (lhz r11/r9, 0xA0+var_50(r1) @0x83754C10/0x83754C14; no store to that slot
+ * precedes it); reproduced as a read of an indeterminate value below. */
 
 /* removed <windows.h>: canonical blam_data_globals.h provides self-contained Win32 type shims (tagRECT/HWND__/_OVERLAPPED/_FILETIME); system windows.h collided. Win32 fn protos resolve via project headers/implicit-decl. */
 #include <stdint.h>

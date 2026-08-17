@@ -1,3 +1,4 @@
+/* ?setInverse@hkTransform@@QAAXABV1@@Z @0x838E08A0 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 

@@ -121,7 +121,7 @@ void observer_update_positions(int16_t local_player_index)
                 /* Gram-Schmidt rebuild: up = forward x (up x forward), then normalize both vectors. */
                 double fz = fwd[2];
                 double fx = fwd[0];
-                double cross_x = ((up[2] * fwd[0]) - (fwd[0] * fwd[2]));   /* preserved verbatim */
+                double cross_x = ((up[2] * fwd[0]) - (up[0] * fwd[2]));   /* DEVIATION: second term is up[0]*fwd[2] per fmsubs @0x8370FB44 (f9 = up[0]*fwd[2] from lfs @0x8370FB2C); prior fwd[0]*fwd[2] was a transcription error */
                 double cross_y = ((up[1] * fwd[2]) - (up[2] * fwd[1]));
                 double tmp_z = (fwd[2] * ((up[2] * fwd[0]) - (up[0] * fwd[2])));
                 double tmp_x = (fwd[0] * ((up[0] * fwd[1]) - (up[1] * fwd[0])));

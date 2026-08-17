@@ -1,3 +1,4 @@
+/* ?LoadPsFromFile@psSYSTEM@@QAA?AVpsSECTION@@V?$dsTSTRING@D@@00H@Z @0x825B4780 */
 #include "psSYSTEM.h"
 #include "psSECTION.h"
 #include "../ds/dsTSTRING.h"

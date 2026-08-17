@@ -4,7 +4,7 @@
 // DB-verified layout (types_members animLOD / animLOD::LOD_INFO): animLOD size 100 (0x64),
 // LOD_INFO size 20.
 
-class objOBJ;    // boundary — obj subsystem game object (vectors hold pointers)
+struct objOBJ;    // boundary — obj subsystem game object (vectors hold pointers)
 struct animINST; // boundary — owning animated instance (pointer only)
 
 typedef struct animLOD {

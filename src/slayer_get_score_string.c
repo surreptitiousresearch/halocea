@@ -1,3 +1,4 @@
+/* slayer_get_score_string @0x838157C0 */
 #include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 #include "headers/slayer_globals.h"

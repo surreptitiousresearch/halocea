@@ -1,3 +1,4 @@
+/* ?Init@objDEPENDENCY_CACHE@@QAAXPAVobjOBJ@@@Z @0x8268B9B0 */
 #include "objDEPENDENCY_CACHE.h"
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

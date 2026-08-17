@@ -1,3 +1,4 @@
+/* ?Compact@psSECTION_INTERFACE@@QAAXXZ @0x8251F0E8 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_DATA.h"
 // 0x8251F0F8 — shrink both the parent-list and record tables to exactly fit their live counts.

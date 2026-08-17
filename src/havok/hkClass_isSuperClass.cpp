@@ -1,3 +1,4 @@
+/* ?isSuperClass@hkClass@@QBA?AVhkBool@@ABV1@@Z @0x838DF498 */
 #include "../headers/havok/hkClass.h"
 #include "../headers/havok/hkBool.h"
 

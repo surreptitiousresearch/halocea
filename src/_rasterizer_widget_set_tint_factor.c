@@ -1,3 +1,4 @@
+/* _rasterizer_widget_set_tint_factor @0x83786110 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 /* _rasterizer_widget_set_tint_factor 0x83786110 — set the widget specular tint to a uniform grey whose level is

@@ -1,3 +1,4 @@
+/* ?PushRenderTarget@vidDRIVER@@QAAXXZ @0x8266BA08 */
 #include "../../headers/vidDRIVER.h"
 
 // 0x8266BA08 -- ?PushRenderTarget@vidDRIVER@@QAAXXZ

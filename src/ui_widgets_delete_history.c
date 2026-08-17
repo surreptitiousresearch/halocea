@@ -1,3 +1,4 @@
+/* ui_widgets_delete_history @0x837330A0 */
 #include "headers/widget_globals.h"
 
 #include "headers/stack_memory_pool.h"

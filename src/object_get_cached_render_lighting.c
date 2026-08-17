@@ -1,3 +1,4 @@
+/* object_get_cached_render_lighting @0x836E6E98 */
 /* object_get_cached_render_lighting 0x836E6E98 — return the render lighting for an object. If the object has a
  * valid cached render state, returns the render_lighting embedded in that cached-state datum (stride 256, field
  * at +20); otherwise it freshly prepares static + dynamic lighting into the shared lighting_storage and returns

@@ -1,3 +1,4 @@
+/* weather_particle_system_type_delete_particle @0x8373C4E0 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/weather_particle_system_globals.h"

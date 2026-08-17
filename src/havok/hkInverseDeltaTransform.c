@@ -1,3 +1,4 @@
+/* hkInverseDeltaTransform @0x83FAC1B8 */
 /* hkInverseDeltaTransform — undo a delta (successive-difference) encoding in
    place: each sample becomes the running cumulative sum of itself and all
    preceding deltas. data[0] is the seed; data[i] += data[i-1] for i >= 1.

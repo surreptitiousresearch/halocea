@@ -1,3 +1,4 @@
+/* get_postgame_hilite_colors @0x83746628 */
 #include "headers/real_argb_color.h"
 
 void get_postgame_hilite_colors(real_argb_color *normal, real_argb_color *column_hilite, real_argb_color *winner)

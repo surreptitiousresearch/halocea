@@ -1,3 +1,4 @@
+/* input_get_raw_data_string @0x836FBC78 */
 #include <stdint.h>
 void input_get_raw_data_string(char *buffer, int16_t size)
 {

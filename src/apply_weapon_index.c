@@ -1,3 +1,4 @@
+/* apply_weapon_index @0x837F6A20 */
 #include "headers/unit_control_data.h"
 #include "headers/animation_event_v1.h"
 

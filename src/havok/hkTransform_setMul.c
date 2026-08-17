@@ -1,3 +1,4 @@
+/* ?setMul@hkTransform@@QAAXABV1@0@Z @0x838E0920 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 

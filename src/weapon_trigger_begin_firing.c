@@ -62,7 +62,10 @@ void weapon_trigger_begin_firing(int weapon_index, int16_t trigger_index, uint8_
             if ( trigger_definition->overloading_time > 0.0f )
             {
                 trigger->state = _weapon_trigger_firing;
-                trigger->state_timer = (int16_t)(trigger_definition->overloading_time * 30.0f);
+                /* DEVIATION: fmuls @0x836DCF38 rounds the 30Hz product to single precision before
+                 * fctiwz @0x836DCF48 truncates — explicit float local pins that rounding step. */
+                float ramp_ticks = trigger_definition->overloading_time * 30.0f;
+                trigger->state_timer = (int16_t)ramp_ticks;
                 return;
             }
         }
@@ -87,7 +90,10 @@ void weapon_trigger_begin_firing(int weapon_index, int16_t trigger_index, uint8_
                         trigger_definition->charging_effect.index, 0.0f, 0.0f);
             }
             trigger->state = _weapon_trigger_charging;
-            trigger->state_timer = (int16_t)(trigger_definition->charging_time * 30.0f);
+            /* DEVIATION: fmuls @0x836DCF90 rounds the 30Hz product to single precision before
+             * fctiwz @0x836DCFA0 truncates — explicit float local pins that rounding step. */
+            float charge_ticks = trigger_definition->charging_time * 30.0f;
+            trigger->state_timer = (int16_t)charge_ticks;
             hcex_obj_set_state(weapon_index, "charging_start");
             return;
         }

@@ -1,3 +1,4 @@
+/* errors_clear @0x83764D70 */
 #include "headers/error_global_data.h"
 
 void errors_clear(void)

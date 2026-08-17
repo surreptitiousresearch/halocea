@@ -1,3 +1,4 @@
+/* obstacles_get_disc @0x8381CFB8 */
 #include <stdint.h>
 #include "headers/obstacles.h"
 

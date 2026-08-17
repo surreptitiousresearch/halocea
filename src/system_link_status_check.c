@@ -1,3 +1,4 @@
+/* system_link_status_check @0x837800E8 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/error_type.h"

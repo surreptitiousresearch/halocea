@@ -1,3 +1,4 @@
+/* ?FindRecThisOnly@psSECTION_DATA@@IAAHVdsSTRID@@@Z @0x8251A768 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_RECORD.h"
 #include "../ds/dsSTRID.h"

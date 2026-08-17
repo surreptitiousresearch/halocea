@@ -1,3 +1,4 @@
+/* bitmap_type_get_string @0x836F4240 */
 #include <stdint.h>
 #include "headers/bitmap_format_tables.h"
 

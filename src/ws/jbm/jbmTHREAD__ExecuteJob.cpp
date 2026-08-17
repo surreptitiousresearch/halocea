@@ -1,3 +1,4 @@
+/* ?ExecuteJob@jbmTHREAD@@AAAXPAVjbmJOB@@@Z @0x826EBA90 */
 #include "../../headers/ws/jbm/jbmTHREAD.h"
 
 // 0x826EBA90 jbmTHREAD::ExecuteJob(jbmJOB*) — run one job to completion on this worker

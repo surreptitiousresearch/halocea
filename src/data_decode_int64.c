@@ -1,3 +1,4 @@
+/* data_decode_int64 @0x83830B00 */
 #include <stdint.h>
 #include "headers/data_encoding_state.h"
 

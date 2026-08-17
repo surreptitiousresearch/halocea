@@ -1,3 +1,4 @@
+/* ?SetOwner@psSECTION_INTERFACE@@QAAXVpsSECTION@@@Z @0x8251A410 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION.h"
 // 0x8251A410 — adopt `psOwner` as this section's owner. If this handle is empty it first creates an

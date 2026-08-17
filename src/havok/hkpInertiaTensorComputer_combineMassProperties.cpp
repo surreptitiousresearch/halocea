@@ -1,3 +1,4 @@
+/* ?combineMassProperties@hkpInertiaTensorComputer@@SA?AW4hkResult@@ABV?$hkArray@UhkpMassElement@@@@AAUhkpMassProperties@@@Z @0x83A0C198 */
 #include "../headers/havok/hkpMassElement.h"
 #include "../headers/havok/hkpMassProperties.h"
 #include "../headers/havok/hkMatrix3.h"

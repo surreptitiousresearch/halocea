@@ -4,14 +4,9 @@
 #include "hkArray.h"
 #include "hkReferencedObject.h"
 
-/* hkpConvexVerticesConnectivity (size 32, DB types_members) — per-hull vertex
-   adjacency generated on demand by the connectivity util. */
-typedef struct hkpConvexVerticesConnectivity
-{
-    hkReferencedObject base;                     /* 0  */
-    hkArray<unsigned short> m_vertexIndices;     /* 8  */
-    hkArray<unsigned char>  m_numVerticesPerFace;/* 20 */
-} hkpConvexVerticesConnectivity;
+/* hkpConvexVerticesConnectivity — canonical definition in its own header (was
+   restated here; the ODR duplicate made the bulk header probe drop both). */
+#include "hkpConvexVerticesConnectivity.h"
 
 /* hkpConvexVerticesShape (size 96, DB types_members) — convex hull described by
    its rotated vertices and plane equations, with an optional connectivity object.

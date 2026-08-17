@@ -1,3 +1,4 @@
+/* animation_list_get_string @0x83818750 */
 #include <stdint.h>
 #include "headers/animation_list.h"
 

@@ -24,6 +24,7 @@
 #include "headers/real_point3d.h"
 #include "headers/real_plane3d.h"
 #include "headers/blam_data_globals.h"
+#include "headers/fused_math.h"
 
 
 extern void biped_get_physics_pill(int biped_index, real_point3d *base, float *height, float *width);
@@ -68,7 +69,10 @@ void biped_find_nearby_support_surface(int biped_index)
             nx = -plane[0]; ny = -plane[1]; nz = -plane[2]; d = -plane[3];
         }
 
-        float signed_distance = (centre[0].n[1] * ny + (nx * centre[0].n[0] + centre[0].n[2] * nz)) - d;
+        /* DEVIATION: plane dot accumulates through fmadds @0x837B0588/0x837B058C (centre.z*nz seed
+         * is the plain fmuls @0x837B0578; the -d step is the plain fsubs @0x837B0590). */
+        float signed_distance = fused_madd(centre[0].n[1], ny,
+                fused_madd(nx, centre[0].n[0], centre[0].n[2] * nz)) - d;
         if ( signed_distance < best_distance )
         {
             best_distance = signed_distance;

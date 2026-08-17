@@ -1,3 +1,4 @@
+/* hkBlockDecode @0x83FA1520 */
 #include "../headers/havok/hkaBlockDesc.h"
 
 /* hkBlockDecode — decode one run-length + bit-packed block back into a raw

@@ -1,3 +1,4 @@
+/* ?findConnections@hkdControllerUtil@@SAXPBUhkdShapeInstanceInfo@@HAAV?$hkArray@UConnectionRef@hkdControllerUtil@@@@PAV?$hkPointerMap@PBVhkdBreakableShape@@H@@@Z @0x83846490 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkdBreakableShape_Connection.h"

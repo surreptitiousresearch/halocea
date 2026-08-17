@@ -1,3 +1,4 @@
+/* antenna_delete @0x8380D5B8 */
 #include "headers/data_array.h"
 #include "headers/blam_data_globals.h"
 

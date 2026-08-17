@@ -90,7 +90,11 @@ void obstacles_get_discs_in_sphere(obstacles *obstacles, const real_point3d *cen
             continue;
 
         int16_t candidate_type = candidate_object->object.type;
-        if (candidate_type != 0 && (candidate_object->object.damage_flags & (1u << _object_dead_bit)) == 0)
+        /* DEVIATION: dead test applies only to bipeds (type 0) and rejects the DEAD ones —
+         * bne cr6,0x8382FB68 @0x8382FB54 skips the test for type!=0; rlwinm(dead bit)+bne
+         * @0x8382FB5C-0x8382FB64 rejects when set. Prior recovery had it inverted and gating
+         * non-bipeds. */
+        if (candidate_type == 0 && (candidate_object->object.damage_flags & (1u << _object_dead_bit)) != 0)
             continue;
 
         if (candidate_type == object_type_machine)

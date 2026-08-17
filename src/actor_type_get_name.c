@@ -1,3 +1,4 @@
+/* actor_type_get_name @0x837F8E20 */
 #include <stdint.h>
 #include "headers/actor_type_definition.h"
 

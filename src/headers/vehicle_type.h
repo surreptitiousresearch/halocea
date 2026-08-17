@@ -7,7 +7,7 @@
 /* vehicle_type — the vehicle tag's physics-model selector (_vehicle_definition.type).
  *
  * Values 0..5 are ground truth from the binary's own DB-named physics drivers dispatched on this field
- * in vehicle_update @0x8375FAB8: 0 -> update_human_tank_physics, 1 -> update_human_jeep_physics,
+ * in vehicle_update @0x83761F70: 0 -> update_human_tank_physics, 1 -> update_human_jeep_physics,
  * 2 -> update_human_boat_physics, 3 -> update_human_plane_physics, 4 -> update_alien_scout_physics,
  * 5 -> update_alien_fighter_physics.
  * Value 6 = turret is DB-confirmed (DB _vehicle_turret); it takes only the generic physics_update

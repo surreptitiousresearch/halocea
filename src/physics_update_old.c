@@ -159,6 +159,10 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
             float *mp_up = mp->up.n;
             float *mp_velocity = mp->velocity.n;
             real_point3d local_position;
+            /* DEVIATION: hoisted from the pmp block below — the binary keeps this slot (var_1B0) live
+             * past it (addi r3,r1,var_1B0 @0x837C051C feeds the up-transform @0x837C0544); the old
+             * block-scoped form left normal_matrix dangling at that use. Semantics unchanged. */
+            real_matrix4x3 powered_matrix;
 
             if (powered_index != -1 && powered_mass_points)
             {
@@ -178,7 +182,6 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
 
             if (pmp)
             {
-                real_matrix4x3 powered_matrix;
                 matrix4x3_multiply(world_matrix, &pmp->rotation_matrix, &powered_matrix);
                 matrix4x3_transform_normal(&powered_matrix, &def->forward, &mp->forward);
                 normal_matrix = &powered_matrix;

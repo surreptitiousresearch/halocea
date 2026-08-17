@@ -1,3 +1,4 @@
+/* heap_left_index @0x8381D060 */
 #include <stdint.h>
 int16_t heap_left_index(int16_t heap_index)
 {

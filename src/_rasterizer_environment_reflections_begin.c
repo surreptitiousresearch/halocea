@@ -1,3 +1,4 @@
+/* _rasterizer_environment_reflections_begin @0x837A7C08 */
 /* _rasterizer_environment_reflections_begin 0x837A7C08 — configure the D3D pipeline for the environment
  * reflection pass: additive blend (src 0xA / dest ONE), depth-tested (less-equal, no z-write), alpha test off,
  * then the four reflection/gel sampler stages. No-op in a special drawing mode or when environment reflections

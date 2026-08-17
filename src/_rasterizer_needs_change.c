@@ -1,3 +1,4 @@
+/* _rasterizer_needs_change @0x8369B910 */
 #include "headers/rasterizer_settings_parameters.h"
 #include "headers/rasterizer_engine_globals.h"
 

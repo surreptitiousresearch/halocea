@@ -1,3 +1,4 @@
+/* ?Reset@UI_STAT_RENDER@ui_new@@QAAXXZ @0x82CED900 */
 #include "../../headers/ws/ui_new/UI_STAT_RENDER.h"
 
 // 0x82CED900 — drop the batched quad geometry back to empty (only once a texture is bound; an

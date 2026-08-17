@@ -41,6 +41,8 @@ uint8_t race_engine_initialize_for_new_map(void)
 {
     race_flags_make_unique();
 
+    /* DEVIATION: binary also stores an explicit 0 into race_globals.vehicles_have_been_added
+     * @0x8382B8E0 immediately before this memset (redundant; original likely had `= false`). */
     memset(&race_globals, 0, sizeof(race_globals));
     memset(&race_globals_baseline, 0, sizeof(race_globals_baseline));
     timeout_for_endgame_sound = 30;

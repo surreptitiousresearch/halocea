@@ -1,3 +1,4 @@
+/* cheat_all_chars @0x8369A1D8 */
 #include <stdint.h>
 #include "headers/tag_iterator.h"
 #include "headers/game_globals_tag_reference.h"

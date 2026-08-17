@@ -1,3 +1,4 @@
+/* cheat_f3 @0x836EAEA0 */
 #include <stdint.h>
 extern void cheat_all_chars(void);
 

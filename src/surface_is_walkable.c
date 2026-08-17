@@ -1,3 +1,4 @@
+/* surface_is_walkable @0x8381E9B0 */
 #include <stdint.h>
 #include "headers/collision_bsp.h"
 #include "headers/collision_surface.h"

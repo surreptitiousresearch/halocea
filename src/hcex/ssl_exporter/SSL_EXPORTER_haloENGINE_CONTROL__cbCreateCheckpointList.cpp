@@ -1,3 +1,4 @@
+/* ?cbCreateCheckpointList@SSL_EXPORTER_haloENGINE_CONTROL@@SAXVsslOBJ_REF@@HPAVdsDATA@@AAV3@0@Z @0x823CB128 */
 #include "../../headers/hcex/ssl_exporter/SSL_EXPORTER_haloENGINE_CONTROL.h"
 #include "../../headers/hcex/ssl_exporter/sslOBJ_REF_ssl_export_bridge.h"
 

@@ -1,3 +1,4 @@
+/* unit_find_nearby_seat @0x836CE788 */
 /* unit_find_nearby_seat @0x836D9... — for an AI unit, pick the best seat to board on a nearby vehicle. Each
  * of the vehicle definition's seats (stride 284 at definition+744) whose entrance/seat points are within one
  * world unit of the unit, whose seat label the unit is allowed to use, and which the unit may enter — either

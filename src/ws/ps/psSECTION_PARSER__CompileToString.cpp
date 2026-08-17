@@ -1,3 +1,4 @@
+/* ?CompileToString@psSECTION_PARSER@@SA?AV?$dsTSTRING@D@@VdsDATA@@H@Z @0x82A2DAB8 */
 #include "psSECTION_PARSER.h"
 #include "psSECTION.h"
 #include "psSECTION_INTERFACE.h"

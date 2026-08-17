@@ -1,3 +1,4 @@
+/* ?Pack@haloRAW_INPUT_X360_ENV@@QBAXAAVBIT_STREAM@ds@@ABVdsDATA@@@Z @0x823BD160 */
 #include <stdint.h>
 #include "../headers/hcex/haloRAW_INPUT_X360_ENV.h"
 #include "../headers/ws/ds/dsDATA.h"

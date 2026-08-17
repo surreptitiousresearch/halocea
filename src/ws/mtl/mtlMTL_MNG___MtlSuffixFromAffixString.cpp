@@ -1,3 +1,4 @@
+/* ?_MtlSuffixFromAffixString@mtlMTL_MNG@@IBA?AV?$dsTSTRING@D@@ABV2@@Z @0x82A86A50 */
 #include "mtlMTL_MNG.h"
 
 // zlib CRC32 — boundary, matches the corpus convention for leaf CRT/zlib primitives.

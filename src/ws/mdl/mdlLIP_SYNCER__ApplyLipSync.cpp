@@ -1,3 +1,4 @@
+/* ?ApplyLipSync@mdlLIP_SYNCER@@UAAXXZ @0x827495D8 */
 // 0x827495D8  ?ApplyLipSync@mdlLIP_SYNCER@@UAAXXZ  (vtbl slot 1).
 // Apply the current phoneme blend to every driven face object. For each object: seed an identity
 // TRS (from the closed idle pose when useClosedAsIdle, else from the object's current model

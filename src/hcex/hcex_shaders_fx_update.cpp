@@ -1,3 +1,4 @@
+/* hcex_shaders_fx_update @0x836A2DE0 */
 #include <stdint.h>
 #include "../headers/ID3DXEffectPool.h"
 

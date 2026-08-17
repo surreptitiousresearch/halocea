@@ -1,3 +1,4 @@
+/* actor_action_handle_initial_action @0x837F42B0 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"

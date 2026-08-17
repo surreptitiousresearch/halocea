@@ -1,3 +1,4 @@
+/* hs_enumerate_hud_messages @0x8372F7A0 */
 #include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/global_tag_instances.h"

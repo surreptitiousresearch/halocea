@@ -1,3 +1,4 @@
+/* rasterizer_dynamic_triangles_new @0x836A5DD0 */
 /* rasterizer_dynamic_triangles_new 0x836A5DD0 (thunk) — tail-call thunk to the underscore implementation. */
 extern int _rasterizer_dynamic_triangles_new(int count);
 

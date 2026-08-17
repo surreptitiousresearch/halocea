@@ -1,3 +1,4 @@
+/* ?DistPoint@cdtSKEL@@QBAHPAVanimINST@@PBUm3dV@@MPAVcdtREFINE@@PAVcdtINFO@@@Z @0x82B0BE88 */
 #include "../../headers/ws/cdt/cdtSKEL.h"
 #include "../../headers/ws/cdt/cdtBONE.h"
 #include "../../headers/ws/cdt/cdtINFO.h"

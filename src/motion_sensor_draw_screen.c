@@ -1,3 +1,4 @@
+/* motion_sensor_draw_screen @0x837BDBA0 */
 #include <stdint.h>
 #include "headers/point2d.h"
 

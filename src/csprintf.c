@@ -1,3 +1,4 @@
+/* csprintf @0x836F5B40 */
 #include <stdarg.h>
 
 extern int vsprintf_0(char *string, const char *format, va_list ap);

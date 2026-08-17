@@ -1,3 +1,4 @@
+/* ?setSkinningValues@hkSkinningUtil@@SA?AW4hkResult@@ABV?$hkArray@UEntry@hkSkinningUtil@@@@PAVhkMeshVertexBuffer@@M@Z @0x839E6DE0 */
 #include "../headers/havok/hkSkinningUtil_Entry.h"
 #include "../headers/havok/hkMeshSection_boundary.h"
 #include "../headers/havok/hkVertexFormat.h"

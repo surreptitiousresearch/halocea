@@ -1,3 +1,4 @@
+/* magnitude_squared2d @0x8369DC50 */
 #include "headers/real_vector2d.h"
 
 float magnitude_squared2d(const real_vector2d *v)

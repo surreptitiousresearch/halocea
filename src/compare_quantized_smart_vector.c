@@ -1,3 +1,4 @@
+/* compare_quantized_smart_vector @0x8379D800 */
 #include "headers/quantized_smart_vector.h"
 
 BOOL compare_quantized_smart_vector(const quantized_smart_vector *const in1, const quantized_smart_vector *const in2)

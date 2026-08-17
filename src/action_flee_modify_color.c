@@ -1,3 +1,4 @@
+/* action_flee_modify_color @0x83825190 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"

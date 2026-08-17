@@ -1,3 +1,4 @@
+/* wait_for_raw_write @0x838082A0 */
 #include "headers/simple_decompressor_definition.h"
 
 /* Win32 import (kernel32 boundary; system <windows.h> collides with repo Win32 shim types). */

@@ -1,3 +1,4 @@
+/* playlist_settings_menu_update_extended_description @0x8377E228 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 

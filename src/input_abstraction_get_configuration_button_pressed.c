@@ -1,3 +1,4 @@
+/* input_abstraction_get_configuration_button_pressed @0x83724E68 */
 #include "headers/input_abstraction_globals.h"
 
 void input_abstraction_get_configuration_button_pressed(input_abstraction_input_button *button)

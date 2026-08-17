@@ -1,3 +1,4 @@
+/* ?GetDynHwB@d3dVBUF_MNG@@UBAPAXW4vidBUF_CONTENT@@@Z @0x827CEC10 */
 #include "../../headers/ws/vid/d3dVBUF_MNG.h"
 
 // 0x827CEC10 -- ?GetDynHwB@d3dVBUF_MNG@@UBAPAXW4vidBUF_CONTENT@@@Z (virtual, const)

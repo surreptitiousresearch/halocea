@@ -1,3 +1,4 @@
+/* ?SetDesc@iaIACTOR@@QAAXV?$dsSMART_PTR@VdscDESC@@V?$_dsSP_OWNER_PLC_REFCOUNT@PAVdsREF_COUNT@@@@@@@Z @0x826D8010 */
 #include "iaIACTOR.h"
 #include "iaDESC.h"
 #include "../dsc/dscDESC.h"

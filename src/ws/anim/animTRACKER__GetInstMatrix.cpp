@@ -1,3 +1,4 @@
+/* ?GetInstMatrix@animTRACKER@@IBAXPAVanimINST@@PAVm3dMATR@@@Z @0x82B2EB48 */
 #include "animTRACKER.h"
 #include "animINST.h"
 #include "../phys/physSYSTEM_BASE.h"

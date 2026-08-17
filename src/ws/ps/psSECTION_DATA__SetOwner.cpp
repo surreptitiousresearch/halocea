@@ -1,3 +1,4 @@
+/* ?SetOwner@psSECTION_DATA@@QAAXPAV1@@Z @0x82519938 */
 #include "psSECTION_DATA.h"
 #include <cstddef>
 #include "psSECTION_BRANCH.h"

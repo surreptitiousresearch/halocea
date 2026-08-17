@@ -1,3 +1,4 @@
+/* ?RegisterEntry@SSL_EXPORTER_haloENGINE_CONTROL@@CAXP6AXVsslOBJ_REF@@HPAVdsDATA@@AAV3@0@ZPQ1@HABV?$dsTSTRING@D@@@Z @0x823CB8A0 */
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 
 // 0x823CB8AC — build one SSLExportEntry from (cb, id, sslDecl) and push it into GetExportMap().

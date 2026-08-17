@@ -1,3 +1,4 @@
+/* shader_type_is_vertex_lit @0x83755910 */
 /* shader_type_is_vertex_lit — true for model (4) and transparent_glass (9). */
 
 #include <stdint.h>

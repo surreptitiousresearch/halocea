@@ -1,3 +1,4 @@
+/* actor_get_grenade_definition @0x837B7F28 */
 #include <stdint.h>
 #include "headers/global_tag_instances.h"
 #include "headers/game_globals.h"

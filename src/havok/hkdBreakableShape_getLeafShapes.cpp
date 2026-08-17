@@ -1,3 +1,4 @@
+/* ?getLeafShapes@hkdBreakableShape@@QBAXABVhkTransform@@AAV?$hkArray@UhkdShapeInstanceInfo@@@@@Z @0x83849B20 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkTransform.h"

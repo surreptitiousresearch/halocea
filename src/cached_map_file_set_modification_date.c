@@ -1,3 +1,4 @@
+/* cached_map_file_set_modification_date @0x83754938 */
 /* removed <windows.h>: canonical blam_data_globals.h provides self-contained Win32 type shims (tagRECT/HWND__/_OVERLAPPED/_FILETIME); system windows.h collided. Win32 fn protos resolve via project headers/implicit-decl. */
 
 #include <stdint.h>

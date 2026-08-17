@@ -1,3 +1,4 @@
+/* IDirect3DVolumeTexture9_UnlockBox_0 @0x837933D0 */
 #include "headers/d3d_boundary.h"
 #include "headers/d3d_render_boundary.h"
 

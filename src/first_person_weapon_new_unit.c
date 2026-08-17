@@ -1,3 +1,4 @@
+/* first_person_weapon_new_unit @0x8369FFE8 */
 #include <stdint.h>
 #include "headers/first_person_weapon.h"
 #include "headers/blam_data_globals.h"

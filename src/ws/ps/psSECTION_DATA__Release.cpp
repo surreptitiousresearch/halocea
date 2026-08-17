@@ -1,3 +1,4 @@
+/* ?Release@psSECTION_DATA@@QAAXXZ @0x8251A000 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_BRANCH.h"
 // 0x8251A000 — drop one reference on this section body (and its branch). When a rescan is pending

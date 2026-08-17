@@ -1,3 +1,4 @@
+/* ?_UnshareGeom@objOBJ@@QAAXXZ @0x82A7F798 */
 #include <new>
 #include "objOBJ.h"
 // 0x82A7F798  ?_UnshareGeom@objOBJ@@QAAXXZ

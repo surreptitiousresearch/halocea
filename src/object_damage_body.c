@@ -7,9 +7,9 @@
  * body_damage_multiplier_reference, and ORs result bits into damage_flags_accumulator.
  *
  * Deviation: PPC float-skip ABI + many stack args. Verified the 13-arg signature against the prologue
- * (0x836B2FC0) and call site (0x836B4020): 8 GPR args, total_damage in f1, then four stack args
+ * (0x836B2FC0) and call site (0x836B4020): 8 GPR args, then stack args
  * (damage_flags_accumulator, body_damage_reference, body_damage_multiplier_reference,
- * should_do_actual_damage). effect_new_from_object color/impulse args are NULL float-skip phantoms.
+ * total_damage in f1, should_do_actual_damage). effect_new_from_object color/impulse args are NULL float-skip phantoms.
  * material modifier indexes by damage_material->type. */
 
 #include <stdint.h>
@@ -51,10 +51,15 @@ extern void damage_effect_new_at_location(int effect_definition_index, int objec
 void object_damage_body(int object_index, int16_t region_index, int16_t node_index,
                         const real_vector3d *object_normal, const damage_resistance *damage_resistance,
                         const damage_material *damage_material, const damage_definition *damage_definition,
-                        const damage_data *damage_data, float total_damage,
+                        const damage_data *damage_data,
                         unsigned int *damage_flags_accumulator, float *body_damage_reference,
-                        float *body_damage_multiplier_reference, uint8_t should_do_actual_damage)
+                        float *body_damage_multiplier_reference, float total_damage,
+                        uint8_t should_do_actual_damage)
 {
+    /* DEVIATION: total_damage moved after the three pointer out-params — the binary's stack
+     * slots 9/10/11 are the pointers (0x836B30B0 lwz r23,arg_54; 0x836B357C lwz arg_5C;
+     * 0x836B3580 lwz arg_64) with total_damage in f1 (home slot arg_6C never read); placing
+     * the float at position 9 would shift all three pointer slots. */
     float body_damage = damage_material->body_damage_multiplier * total_damage;
     uint8_t harmless_to_vehicle = 0;
     object_datum *object = DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, object_index)->datum;

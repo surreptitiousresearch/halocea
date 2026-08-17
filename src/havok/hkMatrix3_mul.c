@@ -1,3 +1,4 @@
+/* ?mul@hkMatrix3@@QAAXABVhkSimdReal@@@Z @0x838E3200 */
 #include "../headers/havok/hkMatrix3.h"
 #include "../headers/havok/hkSimdReal.h"
 

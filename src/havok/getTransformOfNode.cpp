@@ -1,3 +1,4 @@
+/* getTransformOfNode @0x83839310 */
 #include "../headers/havok/hkResourceContainer.h"
 #include "../headers/havok/hkTransform.h"
 

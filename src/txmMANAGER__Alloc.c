@@ -1,3 +1,4 @@
+/* ?Alloc@txmMANAGER@@AAAPAVtxmTEXTURE@@PBDH@Z @0x826FB0A8 */
 #include "headers/ws/txm/txmMANAGER.h"
 
 // 0x826FB0CC

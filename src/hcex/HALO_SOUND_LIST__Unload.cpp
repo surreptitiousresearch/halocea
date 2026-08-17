@@ -1,3 +1,4 @@
+/* ?Unload@HALO_SOUND_LIST@@QAAXXZ @0x836BCF78 */
 #include "../headers/hcex/HALO_SOUND_LIST_boundary.h"
 
 // 0x836BCF78 — ?Unload@HALO_SOUND_LIST@@QAAXXZ

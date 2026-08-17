@@ -1,3 +1,4 @@
+/* _rasterizer_decals_flush @0x83710F70 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 #include "headers/lruv_cache.h"

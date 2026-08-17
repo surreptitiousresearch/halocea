@@ -1,3 +1,4 @@
+/* ?addConnection@hkdBreakableShape@@QAAXABUConnection@1@@Z @0x83849D68 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdBreakableShape_Connection.h"
 

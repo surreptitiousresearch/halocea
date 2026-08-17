@@ -1,3 +1,4 @@
+/* hkMeshVertexBufferUtil_convertUint8DwordToUint8 @0x839ECD30 */
 #include "../headers/havok/hkMeshVertexBuffer_Buffer.h"
 
 /* hkMeshVertexBufferUtil::convertUint8DwordToUint8 — unpack a UINT8_DWORD element

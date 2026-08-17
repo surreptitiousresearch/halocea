@@ -28,7 +28,7 @@
 #include "headers/ai_information_data.h"
 extern dive_animation_possibility global_dive_animation_table[];
 
-extern uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignment_vector, float evade_distance, int16_t *evade_direction_reference, float maximum_ledge_height, path_collision_result *evasion_is_ledge, path_collision_result *result);
+extern uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignment_vector, float evade_distance, int16_t *evade_direction_reference, float maximum_ledge_height, uint8_t *evasion_is_ledge, path_collision_result *result);
 extern uint8_t unit_test_animation_impulse(int unit_index, int16_t animation_impulse);
 extern uint8_t actor_move_animation_impulse(int actor_index, int16_t animation_impulse, const real_vector2d *animation_alignment);
 extern void ai_communication_event(int16_t communication_type, int subject_unit_index, int cause_unit_index, int16_t hostility, int16_t damage_type, int16_t information_type, ai_information_data *information_data);
@@ -44,7 +44,7 @@ uint8_t actor_action_try_to_dive(int actor_index, int16_t escape_direction, floa
 
     if ( actor->input.vehicle_index != -1
       || !actor_move_try_evasion_direction(actor_index, alignment_vector, dive_distance, &evade_direction,
-                maximum_ledge_height, (path_collision_result *)&evasion_is_ledge, &path_result) )
+                maximum_ledge_height, &evasion_is_ledge, &path_result) )
     {
         return 0;
     }

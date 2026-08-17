@@ -1,3 +1,4 @@
+/* ?AllocStatDataImpl@d3dVBUF_MNG@@UAAPAUvidDEFRAG_CHUNK@@W4vidBUF_CONTENT@@V?$apSTATE_T@E@@HPAX@Z @0x827CFF28 */
 #include "../../headers/ws/vid/d3dVBUF_MNG.h"
 #include "../../headers/ws/vid/vidDEFRAG_CHUNK_TEX.h"
 #include "../../headers/ws/vid/vidDEFRAG_CHUNK_OBJ_X360.h"

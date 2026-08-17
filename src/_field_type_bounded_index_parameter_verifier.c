@@ -1,3 +1,4 @@
+/* _field_type_bounded_index_parameter_verifier @0x8379B810 */
 #include <stdint.h>
 #include "headers/field_properties_definition.h"
 

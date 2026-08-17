@@ -1,3 +1,4 @@
+/* rasterizer_environment_specular_lightmap_begin @0x836A6258 */
 /* rasterizer_environment_specular_lightmap_begin 0x836A6258 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 struct bitmap_data;
 

@@ -1,3 +1,4 @@
+/* hcex_get_instance @0x823CE7B8 */
 /* ws-engine platform-abstraction boundary global (mangled: _apHInstance__3PAXA). */
 extern void *apHInstance;
 

@@ -1,3 +1,4 @@
+/* random_math_initialize @0x83722E70 */
 #include <stdlib.h>
 #include <stdint.h>
 #include "headers/geosphere.h"

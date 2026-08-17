@@ -1,3 +1,4 @@
+/* render_camera_mirror @0x8376B738 */
 /* render_camera_mirror @0x83? — build the virtual camera used to render a mirror's reflection (or refraction)
  * pass. The result starts as a copy of the source camera. For a plain reflector (index_of_refraction == 0) the
  * forward and up vectors are reflected through the mirror plane and the position is mirrored across it; when the

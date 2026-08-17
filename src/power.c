@@ -1,3 +1,4 @@
+/* power @0x836D8460 */
 #include <math.h>
 
 /* DEVIATION: decompiler shows double params; prototype is float; PPC FPRs hold both */

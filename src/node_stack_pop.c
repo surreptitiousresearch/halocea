@@ -1,3 +1,4 @@
+/* node_stack_pop @0x8381A8F0 */
 #include "headers/leaf_map.h"
 
 int node_stack_pop(void)

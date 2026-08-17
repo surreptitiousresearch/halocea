@@ -1,3 +1,4 @@
+/* ?Transform@animINST@@QAAXPBVm3dMATR@@H@Z @0x825E28C8 */
 #include "animINST.h"
 
 // ?Transform@animINST@@QAAXPBVm3dMATR@@H@Z  (0x825E28C8) — pre/post-multiply the instance's

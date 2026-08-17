@@ -1,3 +1,4 @@
+/* ?SetStateProc@objOBJ@@QAAXHHP6AHPAV1@PAX@Z@Z @0x82682430 */
 #include "objOBJ.h"
 // 0x82682430  ?SetStateProc@objOBJ@@QAAXHHP6AHPAV1@PAX@Z@Z
 // Set or clear the `stateProc` bits on this object and, recursively, on every sibling in its

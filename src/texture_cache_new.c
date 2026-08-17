@@ -10,12 +10,12 @@ extern lruv_cache *lruv_new(const char *name, int page_count, int page_size_bits
 extern void texture_cache_delete_block_proc(int block_index);
 extern uint8_t texture_cache_locked_block_proc(int block_index);
 
-lruv_cache *texture_cache_new(void)
+/* DEVIATION: the lruv_new result at blr is residue already stored to
+   pc_texture_cache_globals.cache (stw @0x836F41A8); sole caller ignores r3 — void. */
+void texture_cache_new(void)
 {
     pc_texture_cache_globals.textures = data_new("pc texture", 1280, 16);
-    lruv_cache *cache = lruv_new("pc texture cache", 1280, 14, 1280,
-                                 texture_cache_delete_block_proc,
-                                 texture_cache_locked_block_proc);
-    pc_texture_cache_globals.cache = cache;
-    return cache;
+    pc_texture_cache_globals.cache = lruv_new("pc texture cache", 1280, 14, 1280,
+                                              texture_cache_delete_block_proc,
+                                              texture_cache_locked_block_proc);
 }

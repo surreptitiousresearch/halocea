@@ -1,3 +1,4 @@
+/* ?createCylinderConvexVerticesShape@hkpShapeCutterUtil@@SAPAVhkpConvexVerticesShape@@MMHABVhkTransform@@@Z @0x83F955F8 */
 #include <math.h>
 #include "../headers/havok/hkpShapeCutterUtil_boundary.h"
 

@@ -1,3 +1,4 @@
+/* ?FreeTopForeach@sslSTACK@@QAAXXZ @0x82AF1ED0 */
 #include "sslSTACK.h"
 // 0x82AF1ED0  sslSTACK::FreeTopForeach
 

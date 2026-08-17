@@ -1,3 +1,4 @@
+/* cluster_get_next_light @0x836F84B0 */
 #include "headers/cluster_partition.h"
 #include "headers/blam_data_globals.h"
 

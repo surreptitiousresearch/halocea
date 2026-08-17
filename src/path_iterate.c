@@ -28,6 +28,7 @@
 
 #include <stdint.h>
 #include "headers/obstacle_path.h"
+#include "headers/fused_math.h"
 #include "headers/path_test_pill2d_result.h"
 
 #include "headers/structure_bsp.h"
@@ -84,8 +85,11 @@ uint8_t path_iterate(obstacle_path *path)
                 if (reached_goal)
                 {
                     real_point2d goal_point;
-                    goal_point.n[0] = current_step->direction.n[0] * result.distance + current_step->point.n[0];
-                    goal_point.n[1] = current_step->direction.n[1] * result.distance + current_step->point.n[1];
+                    /* DEVIATION: fmadds @0x8381DE20/@0x8381DE2C — goal-point advance is fused per axis */
+                    goal_point.n[0] = fused_madd(current_step->direction.n[0], result.distance,
+                            current_step->point.n[0]);
+                    goal_point.n[1] = fused_madd(current_step->direction.n[1], result.distance,
+                            current_step->point.n[1]);
 
                     float previous_distance =
                             (current_step->total_distance - current_step->distance) + result.distance;

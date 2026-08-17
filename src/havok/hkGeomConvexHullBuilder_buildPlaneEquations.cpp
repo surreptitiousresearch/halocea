@@ -1,3 +1,4 @@
+/* ?buildPlaneEquations@hkGeomConvexHullBuilder@@SA?AVhkBool@@ABUhkGeomConvexHullTolerances@@AAVhkGeomHull@@ABV?$hkArray@VhkVector4@@@@AAVhkVector4@@AAV2@AAV5@AAV?$hkArray@VPlaneAndPoints@hkGeomConvexHullBuilder@@@@@Z @0x83FDBC58 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include "../headers/havok/hkThreadMemory.h"
 #include <math.h>

@@ -1,3 +1,4 @@
+/* model_remap_node_matrices_to_match_animation_graph @0x8369E830 */
 /* model_remap_node_matrices_to_match_animation_graph 0x8369E830 — re-order a set of posed node matrices so they
  * match a target model's node layout: for each of the model's nodes, copy the matrix of the source (animation-
  * graph) node it maps to. Used to pose a viewmodel/attachment whose node order differs from the animation graph.

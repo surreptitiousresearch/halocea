@@ -1,3 +1,4 @@
+/* build_message_header @0x83810590 */
 /* build_message_header — pack a 16-bit message_header word from its fields: flags in bits 0-1
  * (encrypted / new-encryption-key), message type in bits 2-3, message size (length) in bits 4-15.
  *

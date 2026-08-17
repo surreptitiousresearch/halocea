@@ -1,3 +1,4 @@
+/* datum_get @0x836FAFF8 */
 #include "headers/data_array.h"
 #include <stddef.h>
 #include "headers/datum_index.h"

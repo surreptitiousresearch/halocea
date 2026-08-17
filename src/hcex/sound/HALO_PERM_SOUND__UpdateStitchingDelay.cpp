@@ -1,3 +1,4 @@
+/* ?UpdateStitchingDelay@HALO_PERM_SOUND@@QAAX_N@Z @0x836C2530 */
 // ?UpdateStitchingDelay@HALO_PERM_SOUND@@QAAX_N@Z -- 0x836C2530
 //
 // CAVEAT: the decompiler flags this function "local variable allocation has failed" and

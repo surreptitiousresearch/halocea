@@ -7,6 +7,7 @@
  * real `real_vector3d *out` parameter. */
 
 #include <stdint.h>
+#include <string.h>
 #include "headers/wind_globals.h"
 #include "headers/real_point3d.h"
 #include "headers/real_vector3d.h"
@@ -26,9 +27,14 @@ void wind_variance_get(const real_point3d *position, real_vector3d *out, float w
     for ( axis = 0; axis < 3; ++axis )
     {
         float time = (float)wind_globals.time;
+        /* DEVIATION: the index is the low 6 mantissa bits of the bias-added float read as an integer word
+         * (stfs f6 @0x837C1F64; lwz r9 @0x837C1F68; clrlwi r5,r9,26 @0x837C1F6C), the +8388608.0 magic-bias
+         * trick — not a float->int convert (rounds-to-nearest, where a convert truncates). */
         float key = fabs((((axis_scale[axis] * time) * wind_local_variation_rate)
                                  + position->n[axis]) * 8.0f) + 8388608.0f;
-        int index = (axis << 6) + ((uint8_t)key & 0x3F);
+        uint32_t key_bits;
+        memcpy(&key_bits, &key, sizeof(key_bits));
+        int index = (axis << 6) + (int16_t)(key_bits & 0x3F);
         const real_vector3d *sample = &wind_globals.variance[0][index];
 
         out->n[0] = sample->n[0] + out->n[0];

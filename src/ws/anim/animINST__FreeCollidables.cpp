@@ -1,3 +1,4 @@
+/* ?FreeCollidables@animINST@@QAAXXZ @0x8291A5F8 */
 /* CAVEAT: the two backing arrays are released through a per-frame heap interface obtained from
  * the engine-root pointer held in the small-data anchor slot (disasm: `lwz r31,0(r13)` then
  * `lwzx r3,0x2C0,r31` -> heap at root+0x2C0), whose vtable slot +1 is Free(self, ptr). The root

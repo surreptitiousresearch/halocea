@@ -9,9 +9,11 @@
 
 typedef long HRESULT;
 
-/* D3D SDK enum types (external boundary; 4-byte enums modeled as unsigned int). */
+/* D3D SDK enum types (external boundary; 4-byte enums modeled as unsigned int).
+   _D3DSAMPLERSTATETYPE has a DB-verified enum header — include it rather than
+   restate (the typedef redefinition broke the bulk header probe's C partition). */
 typedef unsigned int _D3DRENDERSTATETYPE;
-typedef unsigned int _D3DSAMPLERSTATETYPE;
+#include "_D3DSAMPLERSTATETYPE.h"
 
 #include <stdint.h>
 #include "_D3DDEVTYPE.h"

@@ -1,3 +1,4 @@
+/* get_nav_point_datum @0x837ECEE8 */
 #include <stdint.h>
 #include "headers/hud_nav_point_player_datum.h"
 #include "headers/blam_data_globals.h"

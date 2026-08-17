@@ -1,3 +1,4 @@
+/* lightning_delete @0x83809FD0 */
 #include "headers/lightning_globals.h"
 #include "headers/data_array.h"
 

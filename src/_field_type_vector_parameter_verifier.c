@@ -1,3 +1,4 @@
+/* _field_type_vector_parameter_verifier @0x8379C060 */
 #include "headers/field_properties_definition.h"
 
 unsigned int _field_type_vector_parameter_verifier(

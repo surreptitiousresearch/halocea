@@ -1,3 +1,4 @@
+/* ?ReleaseSound@HALO_SOUND_LIST@@QAAXPAVSound@FMOD@@@Z @0x836BD2E8 */
 #include "../headers/hcex/HALO_SOUND_LIST_boundary.h"
 
 // 0x836BD2E8 — ?ReleaseSound@HALO_SOUND_LIST@@QAAXPAVSound@FMOD@@@Z

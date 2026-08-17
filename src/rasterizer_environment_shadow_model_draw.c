@@ -1,3 +1,4 @@
+/* rasterizer_environment_shadow_model_draw @0x836A61E8 */
 #include <stdint.h>
 #include "headers/shader.h"
 #include "headers/triangle_buffer.h"

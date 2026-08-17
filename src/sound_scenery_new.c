@@ -1,3 +1,4 @@
+/* sound_scenery_new @0x837E9CF8 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"

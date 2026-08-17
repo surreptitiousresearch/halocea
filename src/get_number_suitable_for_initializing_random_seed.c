@@ -1,3 +1,4 @@
+/* get_number_suitable_for_initializing_random_seed @0x83722E30 */
 #include <stdint.h>
 
 extern uint32_t system_milliseconds(void);

@@ -1,3 +1,4 @@
+/* bitmap_format_get_bits_per_pixel @0x836F4270 */
 #include <stdint.h>
 #include "headers/bitmap_format_tables.h"
 

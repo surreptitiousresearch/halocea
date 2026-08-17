@@ -1,3 +1,4 @@
+/* virtual_keyboard_playlist_name_unique @0x83783490 */
 #include <stdint.h>
 #include "headers/game_variant.h"
 

@@ -1,3 +1,4 @@
+/* cache_files_open_cache_file @0x837540B0 */
 #include <stdint.h>
 
 void *CreateFileA(const char *path, uint32_t access, int share_read, void *security,

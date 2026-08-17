@@ -1,3 +1,4 @@
+/* magnitude_squared3d @0x8369DCD8 */
 #include "headers/real_vector3d.h"
 
 /* DEVIATION: decompiler double-return idiom; replaced with direct float arithmetic */

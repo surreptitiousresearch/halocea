@@ -1,3 +1,4 @@
+/* ?CreateObject@psARRAY@@QAA?AVdsDATA@@XZ @0x827AEA80 */
 #include "psARRAY.h"
 #include "psARRAY_DATA.h"
 #include "../ds/dsDATA.h"

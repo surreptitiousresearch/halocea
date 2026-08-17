@@ -1,3 +1,4 @@
+/* RGBToColor @0x837E3FD0 */
 #include <stdint.h>
 #include "headers/s3tc_block.h"
 

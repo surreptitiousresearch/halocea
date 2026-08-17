@@ -1,3 +1,4 @@
+/* cache_request_next_free_index @0x83753D08 */
 #include "headers/cache_file_globals.h"
 #include "headers/blam_data_globals.h"
 

@@ -1,3 +1,4 @@
+/* lruv_update_function_pointers @0x8371C0E8 */
 #include "headers/lruv_cache.h"
 
 void lruv_update_function_pointers(lruv_cache *cache,

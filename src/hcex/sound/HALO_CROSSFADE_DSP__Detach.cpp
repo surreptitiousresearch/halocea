@@ -1,3 +1,4 @@
+/* ?Detach@HALO_CROSSFADE_DSP@@QAAXXZ @0x836B5398 */
 // ?Detach@HALO_CROSSFADE_DSP@@QAAXXZ -- 0x836B53B0
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 

@@ -1,3 +1,4 @@
+/* calculate_message_dependent_header_non_data_component_size_in_bits @0x837A0F48 */
 #include "headers/iterated_message.h"
 #include "headers/message_definition.h"
 

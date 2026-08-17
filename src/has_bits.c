@@ -1,3 +1,4 @@
+/* has_bits @0x8380F8A0 */
 #include "headers/bitstream_t.h"
 
 int has_bits(const bitstream_t *const stream, const unsigned int bit_count)

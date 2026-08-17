@@ -1,3 +1,4 @@
+/* ?addChild@hkdBreakableShape@@QAAXPBV1@ABVhkTransform@@@Z @0x83849990 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkTransform.h"

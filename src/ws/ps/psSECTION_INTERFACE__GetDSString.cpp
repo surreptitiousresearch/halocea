@@ -1,3 +1,4 @@
+/* ?GetDSString@psSECTION_INTERFACE@@QBAHPBDPAV?$dsTSTRING@D@@K@Z @0x8251DEB8 */
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
 #include "../ds/dsTSTRING.h"

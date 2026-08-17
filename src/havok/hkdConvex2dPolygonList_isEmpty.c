@@ -1,3 +1,4 @@
+/* ?isEmpty@hkdConvex2dPolygonList@@QBA?AVhkBool@@XZ @0x8387B4B8 */
 #include "../headers/havok/hkdConvex2dPolygonList.h"
 
 /* hkdConvex2dPolygonList::isEmpty — true when the list holds no polygons, i.e.

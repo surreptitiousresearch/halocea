@@ -1,3 +1,4 @@
+/* rasterizer_debug_model_vertices @0x836A6178 */
 #include "headers/render_skinning.h"
 #include "headers/gbxmodel_geometry_part.h"
 

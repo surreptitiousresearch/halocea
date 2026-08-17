@@ -1,3 +1,4 @@
+/* ?EventModifier@propOBJ_MODIFIER_LIST@@QAAXABV?$dsTSTRING@D@@0ABV?$REF_TYPE@VdsVECTOR_PARAM_LIST@@@ds_data@@@Z @0x826D0680 */
 #include "../../headers/ws/prop/propOBJ_MODIFIER_LIST.h"
 #include "../../headers/ws/prop/propOBJ_MODIFIER_LIST_DESC.h"
 #include "../../headers/ws/ds/dsCMP.h"

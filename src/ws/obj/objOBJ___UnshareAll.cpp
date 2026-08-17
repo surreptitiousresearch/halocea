@@ -1,3 +1,4 @@
+/* ?_UnshareAll@objOBJ@@QAAHXZ @0x82660760 */
 #include "objOBJ.h"
 #include "../ps/psSECTION.h"
 // 0x82660760  ?_UnshareAll@objOBJ@@QAAHXZ

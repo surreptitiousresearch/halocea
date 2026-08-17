@@ -1,3 +1,4 @@
+/* ?Find@txmMANAGER@@QAAPAVtxmTEXTURE@@PBD@Z @0x826FAFD8 */
 #include "../../headers/ws/txm/txmMANAGER.h"
 #include "../../headers/ws/ds/dsSWAP.h"
 

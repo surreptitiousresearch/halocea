@@ -1,3 +1,4 @@
+/* ?Invalidate@animINST@@QAAXHH@Z @0x825E20E8 */
 #include "animINST.h"
 #include "anim_validate_boundary.h"
 

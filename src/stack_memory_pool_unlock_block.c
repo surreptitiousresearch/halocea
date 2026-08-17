@@ -1,3 +1,4 @@
+/* stack_memory_pool_unlock_block @0x838031D0 */
 #include "headers/stack_memory_pool.h"
 
 void stack_memory_pool_unlock_block(stack_memory_pool *pool, memory_block *reference)

@@ -1,3 +1,4 @@
+/* cache_requests_flush @0x83753D68 */
 /* removed <windows.h>: canonical blam_data_globals.h provides self-contained Win32 type shims (tagRECT/HWND__/_OVERLAPPED/_FILETIME); system windows.h collided. Win32 fn protos resolve via project headers/implicit-decl. */
 
 #include "headers/cache_file_globals.h"

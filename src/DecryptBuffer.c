@@ -1,3 +1,4 @@
+/* DecryptBuffer @0x83688960 */
 #include <stdint.h>
 #include "headers/DecryptBuffer.h"
 

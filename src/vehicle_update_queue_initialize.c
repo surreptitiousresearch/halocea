@@ -1,3 +1,4 @@
+/* vehicle_update_queue_initialize @0x837B4640 */
 #include <string.h>
 #include "headers/vehicle_update_queue.h"
 

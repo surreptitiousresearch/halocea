@@ -1,3 +1,4 @@
+/* rasterizer_environment_fog_draw @0x836A6320 */
 #include <stdint.h>
 /* rasterizer_environment_fog_draw 0x836A6320 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 struct shader;

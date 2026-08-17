@@ -27,13 +27,12 @@ typedef struct hkaWaveletCompressedAnimation_QuantizationFormat
 } hkaWaveletCompressedAnimation_QuantizationFormat;
 
 /* Local alias so member spellings match the DB's nested-qualified type. */
-typedef hkaWaveletCompressedAnimation_QuantizationFormat QuantizationFormat;
 
 struct hkaWaveletCompressedAnimation : hkaAnimation
 {
     int m_numberOfPoses;                   /* +36  */
     int m_blockSize;                       /* +40  */
-    QuantizationFormat m_qFormat;          /* +44  */
+    hkaWaveletCompressedAnimation_QuantizationFormat m_qFormat;          /* +44  */
     unsigned int m_staticMaskIdx;          /* +64  */
     unsigned int m_staticDOFsIdx;          /* +68  */
     unsigned int m_numStaticTransformDOFs; /* +72  */

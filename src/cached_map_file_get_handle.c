@@ -1,3 +1,4 @@
+/* cached_map_file_get_handle @0x83753EA0 */
 #include <stdint.h>
 #include "headers/cached_map_file.h"
 #include "headers/cache_file_globals.h"

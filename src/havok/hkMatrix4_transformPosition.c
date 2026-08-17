@@ -1,3 +1,4 @@
+/* ?transformPosition@hkMatrix4@@QBAXABVhkVector4@@AAV2@@Z @0x83838D20 */
 #include "../headers/havok/hkMatrix4.h"
 #include "../headers/havok/hkVector4.h"
 

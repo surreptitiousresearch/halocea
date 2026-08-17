@@ -1,3 +1,4 @@
+/* encounter_get_squad @0x836E75F8 */
 #include <stdint.h>
 #include "headers/encounter_datum.h"
 #include "headers/squad_datum.h"

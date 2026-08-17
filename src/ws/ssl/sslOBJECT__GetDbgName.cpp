@@ -1,3 +1,4 @@
+/* ?GetDbgName@sslOBJECT@@QBA?AV?$dsTSTRING@D@@XZ @0x825246E0 */
 #include "sslOBJECT.h"
 // 0x825246E0  sslOBJECT::GetDbgName
 // Returns a copy of the debug name. The decompiler renders the sret return buffer as `this` and

@@ -1,3 +1,4 @@
+/* processFlyingColors @0x83FD4518 */
 /* processFlyingColors — Havok Physics "flying colors" evaluation-key check. The
    embedded key string is scanned past its first two '.'-delimited fields; the
    trailing field is folded with the hash h = 23*h + c and compared against the

@@ -1,3 +1,4 @@
+/* slayer_get_team_score_string @0x83815878 */
 #include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 #include "headers/slayer_globals.h"

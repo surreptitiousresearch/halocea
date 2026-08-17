@@ -1,3 +1,4 @@
+/* ?isApproximatelyEqual@hkMatrix4@@QBA?AVhkBool@@ABV1@M@Z @0x838E71C0 */
 #include "../headers/havok/hkMatrix4.h"
 #include "../headers/havok/hkBool.h"
 

@@ -1,3 +1,4 @@
+/* ?GetSection@psITERATOR@@QBA?AVpsSECTION@@XZ @0x8251A648 */
 #include "psITERATOR.h"
 #include "psSECTION.h"
 #include "../ds/dsDATA.h"

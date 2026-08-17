@@ -1,3 +1,4 @@
+/* animation_frame_get_xy_translation @0x837957D0 */
 #include <stdint.h>
 #include "headers/animation.h"
 #include "headers/real_vector2d.h"

@@ -1,3 +1,4 @@
+/* ?ensureConnectivityAll@hkpConvexVerticesConnectivityUtil@@SA?AW4hkResult@@PBVhkpShape@@@Z @0x83F93930 */
 #include "../headers/havok/hkpConvexVerticesShape.h"
 #include "../headers/havok/hkpShape.h"
 #include "../headers/havok/hkpShapeType.h"

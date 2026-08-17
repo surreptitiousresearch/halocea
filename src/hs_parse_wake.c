@@ -23,7 +23,9 @@ int hs_parse_wake(int16_t function_index, int expression_index)
     {
         if ( hs_parse(script, hs_type_script) )
         {
-            int16_t script_index = (int16_t)HS_SYNTAX_NODE(script).data;
+            /* DEVIATION: lhz r10,0x10(r31) @0x837799A8 reads the FIRST halfword of the node's data word
+             * (big-endian high half, corpus >>16 packed-halfword convention); was the low half. */
+            int16_t script_index = (int16_t)((uint32_t)HS_SYNTAX_NODE(script).data >> 16);
             int16_t script_type = ((hs_script *)global_scenario->hs_scripts.address)[script_index].script_type;
             if ( script_type != _hs_script_static && script_type != _hs_script_stub )
                 return 1;

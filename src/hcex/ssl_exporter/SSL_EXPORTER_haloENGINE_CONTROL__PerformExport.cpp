@@ -1,3 +1,4 @@
+/* ?PerformExport@SSL_EXPORTER_haloENGINE_CONTROL@@QAAHVsslCLASS_REF@@@Z @0x823C9978 */
 #include "../../headers/hcex/ssl_exporter/SSLExportEntry.h"
 #include "../../headers/hcex/ssl_exporter/sslCLASS_REF_ssl_export_bridge.h"
 

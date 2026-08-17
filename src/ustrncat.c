@@ -1,3 +1,4 @@
+/* ustrncat @0x8376D550 */
 #include <wchar.h>
 
 /* ustrncat — append at most `count` characters of `source` onto `dest`. Tail-jump thunk

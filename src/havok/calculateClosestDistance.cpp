@@ -1,3 +1,4 @@
+/* calculateClosestDistance @0x83A49928 */
 #include "../headers/havok/hkpCollisionDispatcher.h"
 #include "../headers/havok/hkContactPoint.h"
 #include "../headers/havok/hkTransform.h"
@@ -50,10 +51,14 @@ typedef struct ClosestPointInput
    DEVIATION: the collector/CdBody/input frames are reconstructed from the DB
    stack layout; the final contact-point copy is a VMX128 two-vector store,
    reproduced here as a structure copy. */
+/* DEVIATION: 7 args — the prologue reads exactly r3-r7, r9 and f1
+   (0x83A49938-54); r8 is the float-slot shadow burned by maxDistance(f1) and
+   r10 is never read. A previously-declared trailing `int unused` 8th parameter
+   was a transcribed Hex-Rays phantom and has been removed. */
 extern "C" int calculateClosestDistance(hkpCollisionDispatcher *dispatcher, const hkpShape *a,
                              const hkTransform *transA, const hkpShape *b,
                              const hkTransform *transB, float maxDistance,
-                             hkContactPoint *contactPointOut, int unused)
+                             hkContactPoint *contactPointOut)
 {
     hkpNullCollisionFilter filter;
     unsigned int typeA, typeB;
@@ -62,8 +67,6 @@ extern "C" int calculateClosestDistance(hkpCollisionDispatcher *dispatcher, cons
     CdBodyScratch bodyA, bodyB;
     ClosestPointCollector collector;
     ClosestPointInput input;
-
-    (void)unused;
 
     hkpNullCollisionFilter_construct(&filter);
     typeA = a->m_type.m_storage;

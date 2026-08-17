@@ -1,3 +1,4 @@
+/* _rasterizer_environment_shadow_end @0x837A4308 */
 #include <stdint.h>
 #include "headers/global_window_parameters.h"
 #include "headers/rasterizer_globals.h"

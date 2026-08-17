@@ -1,3 +1,4 @@
+/* ?clearMessages@hkdExceptionReporter@@SAXXZ @0x8386B060 */
 #include "../headers/havok/hkdExceptionReporter.h"
 #include "../headers/havok/hkError.h"
 

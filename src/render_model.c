@@ -1,3 +1,4 @@
+/* render_model @0x83799258 */
 /* render_model 0x83799258 — draw one model (or its shadow): build the skinned node-matrix palette from the
  * supplied node pose (or the view matrix when no pose is given), pick the geometry detail level from the
  * level-of-detail pixel size (overridable by the debug LOD), assemble a rasterizer_model_begin_parameters block

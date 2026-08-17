@@ -1,6 +1,6 @@
 #include "dsVECTOR.h"
 
-class objOBJ; // boundary — obj subsystem game object (element is a pointer)
+struct objOBJ; // boundary — obj subsystem game object (element is a pointer)
 
 // dsVECTOR<objOBJ*,8>::operator= @ 0x826890B8
 // Self-assignment no-op; otherwise resets nElem to 0 (deferring to Realloc/Insert to

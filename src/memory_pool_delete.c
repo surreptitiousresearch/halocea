@@ -1,3 +1,4 @@
+/* memory_pool_delete @0x8371BB68 */
 #include "headers/memory_pool.h"
 #include <string.h>
 

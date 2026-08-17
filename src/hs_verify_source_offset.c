@@ -1,3 +1,4 @@
+/* hs_verify_source_offset @0x83775D68 */
 #include "headers/hs_compile_globals.h"
 
 int hs_verify_source_offset(int source_offset)

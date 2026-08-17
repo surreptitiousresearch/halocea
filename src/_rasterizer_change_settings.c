@@ -1,3 +1,4 @@
+/* _rasterizer_change_settings @0x8369BA20 */
 #include <stdint.h>
 #include "headers/rasterizer_settings_parameters.h"
 

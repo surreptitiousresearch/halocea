@@ -1,3 +1,4 @@
+/* uncompress_int32_to_real_vector3d @0x837E8350 */
 /* uncompress_int32_to_real_vector3d 0x837E8350 — decode a packed 32-bit vector into three floats. The low 11
  * bits, middle 11 bits, and top 10 bits are each treated as a signed field (shifted to the top of a 32-bit word
  * so the sign extends), converted to float, biased by +1, and scaled — the 11-bit fields by 1/2047, the 10-bit

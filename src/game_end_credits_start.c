@@ -1,3 +1,4 @@
+/* game_end_credits_start @0x83784CD0 */
 #include <stdint.h>
 
 extern void ui_stop_main_menu_music(void);

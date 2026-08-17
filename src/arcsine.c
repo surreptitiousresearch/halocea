@@ -1,3 +1,4 @@
+/* arcsine @0x83705540 */
 #include <math.h>
 
 /* DEVIATION: decompiler shows double param; prototype is float; PPC FPRs hold both */

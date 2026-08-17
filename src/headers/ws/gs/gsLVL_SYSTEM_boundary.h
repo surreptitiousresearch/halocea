@@ -9,7 +9,7 @@
 // DB-verified layout (types_members scnSCENE — 10352 bytes). Two bodies for one type is a latent
 // C2011 and a second, contradictory layout; the canonical header is included instead, and the
 // four template-store/bbox methods this file declared were moved onto it (all four DB-confirmed
-// scnSCENE members: ?FindTplName@scnSCENE@@QAAPAVanimTPL@@PBD@Z @0x8253C6A8,
+// scnSCENE members: ?FindTplName@scnSCENE@@QAAPAVanimTPL@@PBD@Z @0x825404A8,
 // ?AllocTpl@scnSCENE@@QAAPAVanimTPL@@XZ @0x8253EAA0,
 // ?DestroyTpl@scnSCENE@@QAAXPAVanimTPL@@@Z @0x8253EBC8,
 // ?IsBelongPosSceneBox@scnSCENE@@QAAHPAUm3dV@@@Z @0x827430B8).

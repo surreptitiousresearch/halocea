@@ -1,3 +1,4 @@
+/* texture_cache_flush @0x836F3F60 */
 #include "headers/pc_texture_cache_globals.h"
 
 #include "headers/lruv_cache.h"

@@ -1,3 +1,4 @@
+/* ?CallCbFunc@sslCLASS@@IAA?AVsslERROR@@PAVsslOBJECT@@HHPAVdsDATA@@AAV4@0@Z @0x82A398D0 */
 #include "sslCLASS.h"
 #include "sslCLASS_ELEMENT.h"
 #include "sslCB_FUNCTION.h"

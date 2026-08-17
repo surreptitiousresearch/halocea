@@ -1,3 +1,4 @@
+/* ?AddJob@jbmTHREAD@@QAAXPAVjbmJOB@@@Z @0x826EC800 */
 #include "../../headers/ws/jbm/jbmTHREAD.h"
 
 // boundary — os subsystem (matches convention in src/ws/scn/scnSCENE__AddJustCreatedInstances.cpp)

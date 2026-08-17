@@ -1,3 +1,4 @@
+/* ?Lock@vidLOCK@@QAAXPBDH@Z @0x82667738 */
 #include "vidLOCK.h"
 #include "../ds/ds_assert_boundary.h"
 #include "../../headers/vid_boundary.h"

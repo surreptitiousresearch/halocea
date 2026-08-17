@@ -1,3 +1,4 @@
+/* ?GetName@psSECTION_INTERFACE@@QBA?AVdsSTRID@@XZ @0x82516930 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_DATA.h"
 #include "../ds/dsSTRID.h"

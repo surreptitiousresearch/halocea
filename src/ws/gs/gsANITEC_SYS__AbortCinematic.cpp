@@ -1,3 +1,4 @@
+/* ?AbortCinematic@gsANITEC_SYS@@QAAXXZ @0x825B5B20 */
 #include "../../headers/ws/gs/gsANITEC_SYS.h"
 
 // 0x825B5B20 — gsANITEC_SYS::AbortCinematic

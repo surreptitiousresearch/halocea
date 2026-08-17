@@ -1,3 +1,4 @@
+/* ?set@hkMatrix4@@QAAXABVhkTransform@@@Z @0x838E7B50 */
 #include "../headers/havok/hkMatrix4.h"
 #include "../headers/havok/hkTransform.h"
 

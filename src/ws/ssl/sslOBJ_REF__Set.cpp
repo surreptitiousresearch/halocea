@@ -1,3 +1,4 @@
+/* ?Set@sslOBJ_REF@@QAA?AVsslERROR@@ABVdsDATA@@PAVsslSYSTEM@@@Z @0x82524AC0 */
 #include "sslOBJ_REF.h"
 #include "sslERROR.h"
 #include "../ds/dsDATA.h"

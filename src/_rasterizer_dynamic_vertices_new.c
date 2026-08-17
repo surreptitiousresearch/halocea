@@ -1,3 +1,4 @@
+/* _rasterizer_dynamic_vertices_new @0x83791438 */
 #include <stdint.h>
 #include "headers/dynamic_vertices.h"
 #include "headers/blam_data_globals.h"

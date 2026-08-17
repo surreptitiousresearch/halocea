@@ -1,3 +1,4 @@
+/* pause_game_restart_at_checkpoint @0x83691FE0 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

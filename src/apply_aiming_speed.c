@@ -1,3 +1,4 @@
+/* apply_aiming_speed @0x837F69F0 */
 #include "headers/unit_control_data.h"
 #include "headers/animation_event_v1.h"
 

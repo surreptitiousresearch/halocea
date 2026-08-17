@@ -1,3 +1,4 @@
+/* hkIsDigit @0x838EE120 */
 #include "../headers/havok/hkBool.h"
 
 /* result = (c is an ASCII decimal digit '0'..'9'). */

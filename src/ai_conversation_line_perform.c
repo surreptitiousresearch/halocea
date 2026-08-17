@@ -1,3 +1,4 @@
+/* ai_conversation_line_perform @0x837CDAA0 */
 /* ai_conversation_line_perform @0x83? — advance one line of a running AI conversation, returning its "done"
  * flag. While not yet started: if no required participant is still busy talking/looking (and no scripted dialog
  * is already playing), the line is begun — either as a bare scripted sound (no speaker, or forced) or by asking

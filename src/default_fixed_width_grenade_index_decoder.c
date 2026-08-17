@@ -1,3 +1,4 @@
+/* default_fixed_width_grenade_index_decoder @0x8379D570 */
 /* default_fixed_width_grenade_index_decoder — unpack the 2-bit compacted grenade-index wire form: bit 1
  * is the "no grenade" (NONE) sentinel -> -1; bit 0 is the 1-bit grenade type index [0,1]. Structural wire
  * layout (matches encode_grenade_index.c); bit widths are protocol constants, not a DB enum. */

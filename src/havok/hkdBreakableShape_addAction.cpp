@@ -1,3 +1,4 @@
+/* ?addAction@hkdBreakableShape@@QAAXPAVhkdAction@@@Z @0x838498F8 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdAction.h"
 #include "../headers/havok/hkReferencedObject.h"

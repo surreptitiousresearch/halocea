@@ -1,3 +1,4 @@
+/* editor_preprocess_rendered_object @0x83737488 */
 /* editor_preprocess_rendered_object 0x83737488 — editor hook that can veto/preprocess an object before it is
  * rendered. Compiled out in the release build: always reports "render it" (1). */
 

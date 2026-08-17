@@ -1,3 +1,4 @@
+/* convert_proj_offset_to_screen @0x836AFB68 */
 #include <stdint.h>
 
 extern float hud_globals_get_scale(uint8_t in_multiplayer);

@@ -1,3 +1,4 @@
+/* light_volume_delete @0x8380AAF8 */
 #include "headers/light_volume_globals.h"
 #include "headers/data_array.h"
 

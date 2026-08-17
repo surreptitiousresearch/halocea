@@ -1,3 +1,4 @@
+/* ?RegisterSmlState@iaDESC@@QAAHABV?$dsTSTRING@D@@@Z @0x826AEE58 */
 #include "iaDESC.h"
 
 // iaDESC::RegisterSmlState(const dsTSTRING<char>&) — 0x826AEE58

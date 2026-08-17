@@ -1,3 +1,4 @@
+/* coop_game_initialize @0x83692340 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

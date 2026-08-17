@@ -1,3 +1,4 @@
+/* game_engine_display_team_indicators @0x837484C8 */
 /* game_engine_display_team_indicators 0x837484CC — true when team indicators should be drawn: a multiplayer
  * game engine is running and the active variant is a team game (allow-friendly-navpoints universal flag
  * set and teams enabled). */

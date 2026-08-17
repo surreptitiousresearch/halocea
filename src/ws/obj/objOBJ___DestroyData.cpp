@@ -1,3 +1,4 @@
+/* ?_DestroyData@objOBJ@@QAAXXZ @0x82661B08 */
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"

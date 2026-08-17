@@ -1,3 +1,4 @@
+/* ?Stop@HALO_PERM_SOUND@@QAAXXZ @0x836C2210 */
 // ?Stop@HALO_PERM_SOUND@@QAAXXZ -- 0x836C2248
 #include <stdint.h>
 #include "../../headers/hcex/HALO_PERM_SOUND.h"

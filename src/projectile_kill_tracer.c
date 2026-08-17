@@ -1,3 +1,4 @@
+/* projectile_kill_tracer @0x83759098 */
 /* projectile_kill_tracer — clear the projectile's tracer flag (projectile.flags _projectile_tracer_bit). */
 
 #include "headers/data_array.h"

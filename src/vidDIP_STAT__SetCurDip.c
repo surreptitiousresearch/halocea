@@ -1,3 +1,4 @@
+/* ?SetCurDip@vidDIP_STAT@@QAAXPBD0K@Z @0x8266D108 */
 #include "headers/ws/vid/vidDIP.h"
 #include "headers/ws/ds/dsCMP.h"
 #include <string.h>

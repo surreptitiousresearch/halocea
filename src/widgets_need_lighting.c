@@ -1,3 +1,4 @@
+/* widgets_need_lighting @0x83756410 */
 /* widgets_need_lighting 0x83756410 — walk an object's widget sibling chain (antennas, fluids, light volumes,
  * etc.) and report whether any widget's type requires the object's render lighting to be computed. */
 

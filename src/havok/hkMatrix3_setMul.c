@@ -1,3 +1,4 @@
+/* ?setMul@hkMatrix3@@QAAXABVhkSimdReal@@ABV1@@Z @0x838E2D10 */
 #include "../headers/havok/hkMatrix3.h"
 
 /* hkMatrix3::setMul(hkSimdReal scale, hkMatrix3 a)

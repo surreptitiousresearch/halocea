@@ -1,3 +1,4 @@
+/* ?getVertex@hkpCylinderShape@@QBAABVhkVector4@@H@Z @0x83604918 */
 #include "../headers/havok/hkpCylinderShape.h"
 #include "../headers/havok/hkVector4.h"
 

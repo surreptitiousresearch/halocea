@@ -1,3 +1,4 @@
+/* ?Parse@psSECTION_PARSER_OLD@@QAAHPBD0VpsSECTION@@@Z @0x83086FA0 */
 #include "psSECTION_PARSER_OLD.h"
 #include "psSECTION.h"
 #include "psSECTION_INTERFACE.h"

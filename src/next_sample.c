@@ -1,3 +1,4 @@
+/* next_sample @0x837639F8 */
 #include <stdint.h>
 #include "headers/net_graph.h"
 

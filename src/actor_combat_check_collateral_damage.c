@@ -28,7 +28,7 @@ extern prop_datum *prop_iterator_next(prop_iterator *iterator);
 
 
 uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius, float collateral_damage_radius,
-                                             const float *test_point, int16_t *threat_count_out)
+                                             const real_point3d *test_point, int16_t *threat_count_out)
 {
     int acceptable = 1;
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
@@ -46,9 +46,9 @@ uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius
 
         if ( prop->enemy )
         {
-            float dx = test_point[0] - prop->body_position.n[0];
-            float dz = test_point[2] - prop->body_position.n[2];
-            float dy = test_point[1] - prop->body_position.n[1];
+            float dx = test_point->n[0] - prop->body_position.n[0];
+            float dz = test_point->n[2] - prop->body_position.n[2];
+            float dy = test_point->n[1] - prop->body_position.n[1];
             if ( (dy * dy) + ((dz * dz) + (dx * dx)) < enemy_radius * enemy_radius )
             {
                 if ( prop->player )
@@ -76,9 +76,9 @@ uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius
         }
         else if ( collateral_damage_radius > 0.0f )
         {
-            float dy = test_point[1] - prop->body_position.n[1];
-            float dz = test_point[2] - prop->body_position.n[2];
-            float dx = test_point[0] - prop->body_position.n[0];
+            float dy = test_point->n[1] - prop->body_position.n[1];
+            float dz = test_point->n[2] - prop->body_position.n[2];
+            float dx = test_point->n[0] - prop->body_position.n[0];
             if ( (dx * dx) + ((dz * dz) + (dy * dy)) < collateral_damage_radius * collateral_damage_radius )
             {
                 acceptable = 0;
@@ -119,9 +119,9 @@ uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius
                 checked:
                     if ( !already_counted )
                     {
-                        float dy = test_point[1] - encounter_actor->input.position.body_position.n[1];
-                        float dz = test_point[2] - encounter_actor->input.position.body_position.n[2];
-                        float dx = test_point[0] - encounter_actor->input.position.body_position.n[0];
+                        float dy = test_point->n[1] - encounter_actor->input.position.body_position.n[1];
+                        float dz = test_point->n[2] - encounter_actor->input.position.body_position.n[2];
+                        float dx = test_point->n[0] - encounter_actor->input.position.body_position.n[0];
                         if ( (dx * dx) + ((dz * dz) + (dy * dy)) < enemy_radius * enemy_radius )
                         {
                             if ( encounter_actor->meta.swarm )
@@ -148,9 +148,9 @@ uint8_t actor_combat_check_collateral_damage(int actor_index, float enemy_radius
                   encounter_actor;
                   encounter_actor = encounter_actor_iterator_next(&iterator) )
             {
-                float dy = test_point[1] - encounter_actor->input.position.body_position.n[1];
-                float dz = test_point[2] - encounter_actor->input.position.body_position.n[2];
-                float dx = test_point[0] - encounter_actor->input.position.body_position.n[0];
+                float dy = test_point->n[1] - encounter_actor->input.position.body_position.n[1];
+                float dz = test_point->n[2] - encounter_actor->input.position.body_position.n[2];
+                float dx = test_point->n[0] - encounter_actor->input.position.body_position.n[0];
                 if ( (dx * dx) + ((dz * dz) + (dy * dy)) < collateral_radius_sq )
                 {
                     acceptable = 0;

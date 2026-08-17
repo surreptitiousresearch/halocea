@@ -1,3 +1,4 @@
+/* _rasterizer_decal_vertices_new @0x83710FD0 */
 #include "headers/lruv_cache.h"
 #include "headers/blam_data_globals.h"
 

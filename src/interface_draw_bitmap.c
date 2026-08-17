@@ -1,3 +1,4 @@
+/* interface_draw_bitmap @0x836A6EA8 */
 /* interface_draw_bitmap 0x836A6EA8 — draw a single bitmap quad at pixel `point`, rotated by
  * `theta` radians around the bitmap's registration_point, scaled by `scale`, with alpha `fade`.
  * When `clip` is NULL the full UV rect {0,1,0,1} is used.  Blend function 7 = alpha_multiply_add.

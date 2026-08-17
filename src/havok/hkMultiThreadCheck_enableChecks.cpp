@@ -1,3 +1,4 @@
+/* ?enableChecks@hkMultiThreadCheck@@QAAXXZ @0x838EBC38 */
 #include "../headers/havok/hkReferencedObjectLock.h"
 
 /* hkMultiThreadCheck::enableChecks — re-arm the single-threaded access checker.

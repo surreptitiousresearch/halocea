@@ -44,12 +44,12 @@ extern unsigned char processFlyingColorsDestruction(void);
 
 /* ---- extern boundary functions (not sourced here) ---- */
 /* hkpCollisionDispatcher-driven closest-features query; fills `contactOut`. */
-/* def is 8 args returning int; the trailing `int unused` is the r10 slot the
-   float maxDistance's GPR-skip leaves (synced to hkTransform per the def types). */
+/* def is 7 args returning int (0x83A49928 prologue reads r3-r7, r9, f1; r10
+   never read — a previously-declared trailing `int unused` was a phantom). */
 extern int calculateClosestDistance(hkpCollisionDispatcher *dispatcher,
                                     const hkpShape *shapeA, const hkTransform *transformA,
                                     const hkpShape *shapeB, const hkTransform *transformB,
-                                    float maxDistance, hkContactPoint *contactOut, int unused);
+                                    float maxDistance, hkContactPoint *contactOut);
 
 extern void hkTransform_setInverse(hkTransform *out, const hkTransform *in);              /* hkTransform::setInverse */
 extern void hkTransform_setMul(hkTransform *out, const hkTransform *a, const hkTransform *b); /* hkTransform::setMul */
@@ -146,7 +146,7 @@ int hkdConnectivityCalculator_calculateSemiAccurateConnectivity(
     if (!calculateClosestDistance(input->m_dispatcher,
                                   input->m_shapeA, &input->m_transformA,
                                   input->m_shapeB, &input->m_transformB,
-                                  input->m_maxDistance, &contact, 0))
+                                  input->m_maxDistance, &contact))
         return 0;
 
     contactNormalWorld = contact.m_separatingNormal;

@@ -1,3 +1,4 @@
+/* machine_remove_all_players @0x836A7B38 */
 #include "headers/blam_data_globals.h"
 
 void machine_remove_all_players(int machine_index)

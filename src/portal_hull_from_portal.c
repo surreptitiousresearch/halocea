@@ -1,3 +1,4 @@
+/* portal_hull_from_portal @0x837C50E0 */
 #include <stdint.h>
 #include "headers/structure_bsp.h"
 #include "headers/cluster_portal.h"

@@ -1,3 +1,4 @@
+/* rasterizer_set_texture_direct_non_blocking @0x8369C778 */
 /* rasterizer_set_texture_direct_non_blocking 0x8369C790 — bind a bitmap-group bitmap to a texture stage without
  * blocking on streaming. Resolves the bitmap (wrapping the index by the group's bitmap count), and if its
  * hardware texture is already resident, binds it and returns 0; if the texture is not yet available it returns 1

@@ -17,10 +17,12 @@
  * object sub-struct sits at object_datum+4, so e.g. the network-blocked flag is object.flags and the position
  * compared in the snap test is object.position.
  *
- * DEVIATION: `message_transit_ticks` (decompiler v38, stack slot sp+0x50) is read but never written by this
- * function's own code — the message-delta decoder is presumed to populate it as an out-value the disassembly
- * does not attribute to the decode call. Reproduced as read as-is; it gates is_update_timestamp_valid and the
- * last_update_timestamp = custom_header.timestamp - transit computation. */
+ * CAVEAT: as-shipped — `message_transit_ticks` (stack slot sp+0x50, IDA var_A0) is read (lwz r11,
+ * 0xF0+var_A0(r1) @0x8375E594/@0x8375E5A0) with NO store to that slot anywhere in the function, and no
+ * pointer to it is passed to any callee (the only out-buffers handed out are &payload at var_90 and its
+ * sub-vectors). The reported "missing network_game_client_get_time_samples/_get_time_delay computation" does
+ * not exist in this function's body — the binary genuinely reads an uninitialized stack word. Reproduced as
+ * an indeterminate read; it gates is_update_timestamp_valid and last_update_timestamp = timestamp - transit. */
 
 #include <stdint.h>
 #include "headers/message_delta_processor_header.h"
@@ -129,7 +131,7 @@ void vehicle_process_update_delta(int object_index, message_delta_processor_head
         vehicle_set_position_and_correct_children(object_index, &payload.position);
     }
 
-    int message_transit_ticks;   /* DEVIATION: a stack local (sp+0x50) read but never written here — see header note */
+    int message_transit_ticks;   /* as-shipped uninitialized read (lwz @0x8375E594) — see header CAVEAT */
     if ( message_transit_ticks <= 10 )
     {
         vehicle->object.is_update_timestamp_valid = 0;

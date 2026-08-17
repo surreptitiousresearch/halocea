@@ -1,3 +1,4 @@
+/* uatoi @0x8376D908 */
 #include <wchar.h>
 
 /* uatoi — parse a UTF-16 string as a base-10 integer. Tail-jump thunk (single `b _wtoi`)

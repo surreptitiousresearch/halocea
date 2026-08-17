@@ -1,3 +1,4 @@
+/* ?SetStartRenderingState@d3dDRIVER_INTERFACE@@QAAXXZ @0x826942B0 */
 #include "headers/d3d_render_state_boundary.h"
 #include "headers/_D3DCULL.h"
 #include "headers/_D3DFILLMODE.h"

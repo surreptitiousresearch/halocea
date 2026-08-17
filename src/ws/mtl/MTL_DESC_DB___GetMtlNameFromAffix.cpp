@@ -1,3 +1,4 @@
+/* ?_GetMtlNameFromAffix@MTL_DESC_DB@@AAA?AV?$dsTSTRING@D@@ABVdsAFFIX_STRING@@@Z @0x82A82BA0 */
 #include "MTL_DESC_DB.h"
 #include "../ds/dsAFFIX_STRING.h"
 #include "../ds/dsAFFIX_READER.h"

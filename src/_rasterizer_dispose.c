@@ -1,3 +1,4 @@
+/* _rasterizer_dispose @0x8369DA80 */
 #include "headers/d3d_boundary.h"
 #include "headers/rasterizer_globals.h"
 #include "headers/rasterizer_engine_globals.h"

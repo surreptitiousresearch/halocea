@@ -1,3 +1,4 @@
+/* system_clock_delta_seconds @0x83762D48 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 /* DEVIATION: decompiler generated spurious weather_particle_system_globals refs; reconstructed from

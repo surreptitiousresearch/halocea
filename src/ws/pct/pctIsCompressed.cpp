@@ -1,3 +1,4 @@
+/* ?pctIsCompressed@@YAHH@Z @0x827C0338 */
 #include "../../headers/pctFORMAT.h"
 #include "../../headers/pct_format.h"
 #include "../../headers/pct_boundary.h"

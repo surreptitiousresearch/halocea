@@ -1,3 +1,4 @@
+/* rasterizer_environment_transparent_geometry_submit @0x836A62D8 */
 #include <stdint.h>
 /* rasterizer_environment_transparent_geometry_submit 0x836A62D8 (thunk) — tail-call thunk to the underscore
  * implementation that enqueues one environment transparent-geometry surface batch into the sorted group list. */

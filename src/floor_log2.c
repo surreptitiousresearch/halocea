@@ -1,3 +1,4 @@
+/* floor_log2 @0x8379A3A8 */
 #include <stdint.h>
 int16_t floor_log2(unsigned int k)
 {

@@ -1,3 +1,4 @@
+/* reset_error_state @0x83764CF0 */
 #include "headers/error_global_data.h"
 
 void reset_error_state(void)

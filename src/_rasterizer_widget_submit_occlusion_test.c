@@ -1,3 +1,4 @@
+/* _rasterizer_widget_submit_occlusion_test @0x83786170 */
 /* _rasterizer_widget_submit_occlusion_test 0x83786170 — issue a hardware occlusion query for a lens-flare
  * billboard. Projects the world-space billboard (point + radius) to a screen rectangle, computes the expected
  * pixel coverage (two-thirds of the rectangle area, clamped non-negative), and — when the hardware supports

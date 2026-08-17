@@ -16,6 +16,9 @@ typedef union _967C8B9C0D9207D1E708619458A2B618 { // DB types_members _967C8B9C0
     unsigned int u[4]; /* 0x00 */
 } _967C8B9C0D9207D1E708619458A2B618;
 
-typedef struct __vector4 { // DB types_members __vector4
+/* 16-byte aligned like the SDK's __declspec(align(16)) __vector4 (a VMX128 register
+   image); without it every record embedding one under-pads its tail vs the DB
+   (hkpLinearCastCollisionInput measured 108 vs DB 112). */
+typedef struct __declspec(align(16)) __vector4 { // DB types_members __vector4
     _967C8B9C0D9207D1E708619458A2B618 ___u0; /* 0x00 */
 } __vector4;

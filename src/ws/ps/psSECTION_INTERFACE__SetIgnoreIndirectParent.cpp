@@ -1,3 +1,4 @@
+/* ?SetIgnoreIndirectParent@psSECTION_INTERFACE@@QAAXH@Z @0x8251A540 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_DATA.h"
 // 0x8251A554 — set (bit 1, 0x02) or clear the "ignore indirectly-inherited parent lookups" flag in

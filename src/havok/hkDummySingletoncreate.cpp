@@ -1,3 +1,4 @@
+/* hkDummySingletoncreate @0x838DE3C8 */
 #include "../headers/havok/hkReferencedObject.h"
 #include "../headers/havok/hkThreadMemory.h"
 

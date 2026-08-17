@@ -1,3 +1,4 @@
+/* memory_pool_block_new @0x8371BD90 */
 #include "headers/memory_pool.h"
 
 memory_pool_block * memory_pool_block_new(memory_pool *pool, int size)

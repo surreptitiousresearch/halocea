@@ -1,3 +1,4 @@
+/* flush_hardware_character @0x83768C18 */
 #include "headers/hardware_character_cache.h"
 #include "headers/font_character.h"
 

@@ -1,3 +1,4 @@
+/* ?setSimpleValuesFromChildren@hkdBreakableShape@@QAAXPBUhkdShapeInstanceInfo@@H@Z @0x83848D80 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 

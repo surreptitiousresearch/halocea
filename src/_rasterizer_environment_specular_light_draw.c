@@ -1,3 +1,4 @@
+/* _rasterizer_environment_specular_light_draw @0x837A4F50 */
 /* _rasterizer_environment_specular_light_draw 0x837A4F50 — draw the environment specular dynamic-light pass for
  * one surface batch. Runs when the specular-lights debug toggle is on, the shader's specular brightness is
  * positive, and the global specular light brightness is positive. Selects a specular-light effect shader by the
@@ -39,7 +40,7 @@
 extern rasterizer_dx9_shader *rasterizer_shader_select(int16_t shader_index);
 extern point2d *rasterizer_set_texture_for_effect(int16_t stage, int16_t type, int16_t usage, int bitmap_group_index, int16_t bitmap_index, rasterizer_dx9_shader *dxeffect_shader);
 extern int rasterizer_set_texture_direct_for_effect(int16_t stage, int bitmap_group_index, int16_t bitmap_index, rasterizer_dx9_shader *dxeffect_shader);
-extern void shader_environment_texture_animation_evaluate(const struct shader *shader, float time_value, float *u_offset, float *v_offset);
+extern void shader_environment_texture_animation_evaluate(const struct shader *shader, double time_value, float *u_offset, float *v_offset);
 extern void D3DDevice_SetVertexShaderConstantFN(D3DDevice *device, unsigned int StartRegister,
                                                 const float *pConstantData, unsigned int Vector4fCount,
                                                 uint64_t PendingMask0);

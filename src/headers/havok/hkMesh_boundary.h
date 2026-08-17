@@ -18,13 +18,10 @@ typedef struct hkMeshVertexBuffer_LockInput
     int m_lockFlags;              /* 12 */
 } hkMeshVertexBuffer_LockInput;
 
-/* types_members hkMeshVertexBuffer::LockedVertices::Buffer size 16 */
-typedef struct hkMeshVertexBuffer_LockedVertices_Buffer
-{
-    void *m_start;                    /* 0  */
-    int m_stride;                     /* 4  */
-    Element m_element;                /* 8  hkVertexFormat::Element */
-} hkMeshVertexBuffer_LockedVertices_Buffer;
+/* types_members hkMeshVertexBuffer::LockedVertices::Buffer size 16 — canonical
+   definition in hkMeshVertexBuffer_Buffer.h (was restated here; the ODR duplicate
+   made the bulk header probe drop both). */
+#include "hkMeshVertexBuffer_Buffer.h"
 
 /* Local alias so member spellings match the DB's nested-qualified type
    (hkMeshVertexBuffer::LockedVertices::Buffer). */

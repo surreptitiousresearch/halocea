@@ -1,3 +1,4 @@
+/* ?_DuplicateTpl2Inst@objOBJ@@QAAPAV1@H@Z @0x82661600 */
 #include <stdint.h>
 #include <string.h>
 #include <new>

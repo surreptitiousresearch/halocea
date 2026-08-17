@@ -1,3 +1,4 @@
+/* ?Release@HALO_CROSSFADE_DSP@@QAAXXZ @0x836C0A60 */
 // ?Release@HALO_CROSSFADE_DSP@@QAAXXZ -- 0x836C0A7C
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 #include "../../headers/ws/ds/ds_assert_boundary.h"

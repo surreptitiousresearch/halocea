@@ -1,3 +1,4 @@
+/* update_parameters_from_globals @0x83763280 */
 #include "headers/net_graph.h"
 
 extern void clear_graph(net_graph *graph);

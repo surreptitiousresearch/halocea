@@ -1,3 +1,4 @@
+/* particle_system_new_particle_default @0x8373B4F0 */
 #include <stdint.h>
 #include "headers/particle_system_datum.h"
 #include "headers/ps_particle_datum.h"

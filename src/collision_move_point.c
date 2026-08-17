@@ -30,6 +30,7 @@
 #include <math.h>
 #include <string.h>
 #include "headers/blam_data_globals.h"
+#include "headers/fused_math.h"
 
 
 extern uint8_t collision_features_test_vector(const collision_feature_list *features, const real_point3d *point, const real_vector3d *vector, collision_plane *collision);
@@ -121,14 +122,19 @@ int16_t collision_move_point(
         last_plane_z = plane_z;
 
         /* project the (scaled) velocity onto the struck plane; push the position out of penetration */
-        float pushout = -((contact_x * plane_x + (contact_y * plane_y + contact_z * plane_z)) - plane_d);
-        float velocity_dot = plane_x * velocity_x + (plane_z * velocity_z + plane_y * velocity_y);
-        move.n[0] = plane_x * -velocity_dot + velocity_x;
-        move.n[1] = plane_y * -velocity_dot + velocity_y;
-        move.n[2] = plane_z * -velocity_dot + velocity_z;
-        position.n[0] = pushout * plane_x + contact_x;
-        position.n[1] = plane_y * pushout + contact_y;
-        position.n[2] = plane_z * pushout + contact_z;
+        /* DEVIATION: fused slide projection — fmuls @83774654/83774660, fmadds @8377465C/83774664/83774668,
+         * fsubs @8377466C, fnmadds @83774670 (= exact negation of the fused madd), fneg @83774674,
+         * fmadds @83774678/83774680/83774688/83774690/83774698/837746A0 */
+        float pushout = -(fused_madd(contact_x, plane_x,
+                              fused_madd(contact_y, plane_y, contact_z * plane_z)) - plane_d);
+        float velocity_dot_neg = -fused_madd(plane_x, velocity_x,
+                                      fused_madd(plane_z, velocity_z, plane_y * velocity_y));
+        move.n[0] = fused_madd(plane_x, velocity_dot_neg, velocity_x);
+        move.n[1] = fused_madd(plane_y, velocity_dot_neg, velocity_y);
+        move.n[2] = fused_madd(plane_z, velocity_dot_neg, velocity_z);
+        position.n[0] = fused_madd(pushout, plane_x, contact_x);
+        position.n[1] = fused_madd(plane_y, pushout, contact_y);
+        position.n[2] = fused_madd(plane_z, pushout, contact_z);
 
         if ( previous_active_count <= 0 )
             goto slide_done;
@@ -136,8 +142,10 @@ int16_t collision_move_point(
         /* already sliding on a plane: does the new move still drive into the previous plane? */
         collision_plane *prev = &collisions[active_stack[0]];
         const real_plane3d *prev_plane = &prev->plane;
-        float into_prev = prev->plane.n.n[0] * move.n[0]
-                        + (prev->plane.n.n[2] * move.n[2] + prev->plane.n.n[1] * move.n[1]);
+        /* DEVIATION: fused plane·move dot — fmuls @837746C4, fmadds @837746D0/837746D4 */
+        float into_prev = fused_madd(prev->plane.n.n[0], move.n[0],
+                              fused_madd(prev->plane.n.n[2], move.n[2],
+                                  prev->plane.n.n[1] * move.n[1]));
         if ( into_prev < -eps )
         {
             /* slide along the crease where the current and previous planes meet */
@@ -148,21 +156,26 @@ int16_t collision_move_point(
                 crease_y = crease_line.n[1];
                 new_stack[1] = active_stack[0];
 
-                float crease_len2 = crease_line.n[2] * crease_line.n[2]
-                                  + (crease_line.n[1] * crease_line.n[1] + crease_line.n[0] * crease_line.n[0]);
-                float velocity_along = (crease_line.n[0] * velocity_x
-                                      + (crease_line.n[1] * velocity_y + velocity_z * crease_line.n[2])) / crease_len2;
+                /* DEVIATION: fused crease slide — fmuls @83774714/8377471C/83774738,
+                 * fmadds @8377473C/83774740/83774744/83774748/8377474C/83774750, fdivs @83774754/83774758,
+                 * fmadds @83774774/8377477C/83774784 */
+                float crease_len2 = fused_madd(crease_line.n[2], crease_line.n[2],
+                                        fused_madd(crease_line.n[1], crease_line.n[1],
+                                            crease_line.n[0] * crease_line.n[0]));
+                float velocity_along = fused_madd(crease_line.n[0], velocity_x,
+                                           fused_madd(crease_line.n[1], velocity_y,
+                                               velocity_z * crease_line.n[2])) / crease_len2;
                 move.n[0] = crease_line.n[0] * velocity_along;
                 move.n[1] = crease_line.n[1] * velocity_along;
                 move.n[2] = velocity_along * crease_line.n[2];
 
                 /* project the contact point onto the crease line */
-                float proj = ((contact_x - crease_point.n[0]) * crease_line.n[0]
-                            + ((contact_y - crease_point.n[1]) * crease_line.n[1]
-                             + (contact_z - crease_point.n[2]) * crease_line.n[2])) / crease_len2;
-                position.n[0] = proj * crease_line.n[0] + crease_point.n[0];
-                position.n[1] = crease_line.n[1] * proj + crease_point.n[1];
-                position.n[2] = proj * crease_line.n[2] + crease_point.n[2];
+                float proj = fused_madd(contact_x - crease_point.n[0], crease_line.n[0],
+                                 fused_madd(contact_y - crease_point.n[1], crease_line.n[1],
+                                     (contact_z - crease_point.n[2]) * crease_line.n[2])) / crease_len2;
+                position.n[0] = fused_madd(proj, crease_line.n[0], crease_point.n[0]);
+                position.n[1] = fused_madd(crease_line.n[1], proj, crease_point.n[1]);
+                position.n[2] = fused_madd(proj, crease_line.n[2], crease_point.n[2]);
                 crease_z = crease_line.n[2];
 
                 if ( previous_active_count <= 1 )
@@ -170,8 +183,10 @@ int16_t collision_move_point(
 
                 /* three planes: collapse to the corner if the crease move still drives into the third */
                 collision_plane *third = &collisions[active_stack[1]];
-                float into_third = third->plane.n.n[0] * move.n[0]
-                                 + (third->plane.n.n[2] * move.n[2] + third->plane.n.n[1] * move.n[1]);
+                /* DEVIATION: fused plane·move dot — fmuls @837747A8, fmadds @837747B4/837747B8 */
+                float into_third = fused_madd(third->plane.n.n[0], move.n[0],
+                                       fused_madd(third->plane.n.n[2], move.n[2],
+                                           third->plane.n.n[1] * move.n[1]));
                 if ( into_third >= -eps )
                     goto iteration_end;
 
@@ -197,8 +212,10 @@ int16_t collision_move_point(
 
         /* two planes but the previous does not block: try the crease with the second plane */
         collision_plane *other = &collisions[active_stack[1]];
-        float into_other = other->plane.n.n[0] * move.n[0]
-                         + (other->plane.n.n[2] * move.n[2] + other->plane.n.n[1] * move.n[1]);
+        /* DEVIATION: fused plane·move dot — fmuls @83774854, fmadds @83774860/83774864 */
+        float into_other = fused_madd(other->plane.n.n[0], move.n[0],
+                               fused_madd(other->plane.n.n[2], move.n[2],
+                                   other->plane.n.n[1] * move.n[1]));
         if ( into_other >= -eps )
             goto slide_done;
 
@@ -210,20 +227,25 @@ int16_t collision_move_point(
         new_active = 2;
         new_stack[1] = active_stack[1];
         {
-            float crease_len2 = crease_line.n[2] * crease_line.n[2]
-                              + (crease_line.n[1] * crease_line.n[1] + crease_line.n[0] * crease_line.n[0]);
-            float velocity_along = (crease_line.n[0] * velocity_x
-                                  + (crease_line.n[1] * velocity_y + velocity_z * crease_line.n[2])) / crease_len2;
+            /* DEVIATION: fused crease slide — fmuls @83774898/837748AC/837748C4,
+             * fmadds @837748C0/837748C8/837748CC/837748D0/837748D4/837748D8, fdivs @837748DC/837748E0,
+             * fmadds @837748FC/83774904/8377490C */
+            float crease_len2 = fused_madd(crease_line.n[2], crease_line.n[2],
+                                    fused_madd(crease_line.n[1], crease_line.n[1],
+                                        crease_line.n[0] * crease_line.n[0]));
+            float velocity_along = fused_madd(crease_line.n[0], velocity_x,
+                                       fused_madd(crease_line.n[1], velocity_y,
+                                           velocity_z * crease_line.n[2])) / crease_len2;
             move.n[0] = velocity_along * crease_line.n[0];
             move.n[1] = crease_line.n[1] * velocity_along;
             move.n[2] = velocity_along * crease_line.n[2];
 
-            float proj = ((contact_y - crease_point.n[1]) * crease_line.n[1]
-                        + ((contact_z - crease_point.n[2]) * crease_line.n[2]
-                         + (contact_x - crease_point.n[0]) * crease_line.n[0])) / crease_len2;
-            position.n[0] = proj * crease_line.n[0] + crease_point.n[0];
-            position.n[1] = crease_line.n[1] * proj + crease_point.n[1];
-            position.n[2] = proj * crease_line.n[2] + crease_point.n[2];
+            float proj = fused_madd(contact_y - crease_point.n[1], crease_line.n[1],
+                             fused_madd(contact_z - crease_point.n[2], crease_line.n[2],
+                                 (contact_x - crease_point.n[0]) * crease_line.n[0])) / crease_len2;
+            position.n[0] = fused_madd(proj, crease_line.n[0], crease_point.n[0]);
+            position.n[1] = fused_madd(crease_line.n[1], proj, crease_point.n[1]);
+            position.n[2] = fused_madd(proj, crease_line.n[2], crease_point.n[2]);
             crease_z = crease_line.n[2];
         }
         goto iteration_end;
@@ -251,16 +273,23 @@ iteration_end:
     if ( active_plane_count == 1 )
     {
         /* project the original velocity onto the surviving plane */
-        float d = -(old_velocity->n[0] * last_plane_x + (last_plane_y * old_velocity->n[1] + last_plane_z * old_velocity->n[2]));
-        new_velocity->n[0] = d * last_plane_x + old_velocity->n[0];
-        new_velocity->n[1] = last_plane_y * d + old_velocity->n[1];
-        new_velocity->n[2] = last_plane_z * d + old_velocity->n[2];
+        /* DEVIATION: fused velocity projection — fmuls @837749D0, fmadds @837749DC,
+         * fnmadds @837749E4 (= exact negation of the fused madd), fmadds @837749E8/837749F0/837749FC */
+        float d = -fused_madd(old_velocity->n[0], last_plane_x,
+                       fused_madd(last_plane_y, old_velocity->n[1],
+                           last_plane_z * old_velocity->n[2]));
+        new_velocity->n[0] = fused_madd(d, last_plane_x, old_velocity->n[0]);
+        new_velocity->n[1] = fused_madd(last_plane_y, d, old_velocity->n[1]);
+        new_velocity->n[2] = fused_madd(last_plane_z, d, old_velocity->n[2]);
     }
     else if ( active_plane_count == 2 )
     {
         /* project the original velocity onto the crease direction */
-        float len2 = crease_z * crease_z + (crease_y * crease_y + crease_x * crease_x);
-        float t = (old_velocity->n[0] * crease_x + (old_velocity->n[1] * crease_y + old_velocity->n[2] * crease_z)) / len2;
+        /* DEVIATION: fused crease projection — fmuls @83774A0C/83774A10, fmadds @83774A1C/83774A20/83774A24/83774A28, fdivs @83774A2C */
+        float len2 = fused_madd(crease_z, crease_z, fused_madd(crease_y, crease_y, crease_x * crease_x));
+        float t = fused_madd(old_velocity->n[0], crease_x,
+                      fused_madd(old_velocity->n[1], crease_y,
+                          old_velocity->n[2] * crease_z)) / len2;
         new_velocity->n[0] = t * crease_x;
         new_velocity->n[1] = crease_y * t;
         new_velocity->n[2] = t * crease_z;
@@ -319,20 +348,25 @@ iteration_end:
         if ( steepest_stack_index == -1 )
         {
             floor->plane.n = *global_up3d;
-            plane_dist = floor->plane.n.n[0] * corner_point.n[0]
-                       + (floor->plane.n.n[1] * corner_point.n[1] + floor->plane.n.n[2] * corner_point.n[2]);
+            /* DEVIATION: fused plane-dist dot — fmuls @83774D44, fmadds @83774D4C/83774D50 */
+            plane_dist = fused_madd(floor->plane.n.n[0], corner_point.n[0],
+                             fused_madd(floor->plane.n.n[1], corner_point.n[1],
+                                 floor->plane.n.n[2] * corner_point.n[2]));
         }
         else
         {
             collision_plane *steepest = &collisions[active_stack[steepest_stack_index]];
             float scale = -steepest->plane.n.n[2];
-            floor->plane.n.n[0] = steepest->plane.n.n[0] * scale + global_up3d->n[0];
-            floor->plane.n.n[1] = steepest->plane.n.n[1] * scale + global_up3d->n[1];
-            floor->plane.n.n[2] = steepest->plane.n.n[2] * scale + global_up3d->n[2];
+            /* DEVIATION: fused floor-normal build — fneg @83774C84, fmadds @83774C8C/83774CA0/83774CB0 */
+            floor->plane.n.n[0] = fused_madd(steepest->plane.n.n[0], scale, global_up3d->n[0]);
+            floor->plane.n.n[1] = fused_madd(steepest->plane.n.n[1], scale, global_up3d->n[1]);
+            floor->plane.n.n[2] = fused_madd(steepest->plane.n.n[2], scale, global_up3d->n[2]);
             if ( normalize3d(&floor->plane.n) == 0.0f )
                 return (int16_t)(collision_count - 1);
-            plane_dist = floor->plane.n.n[0] * corner_point.n[0]
-                       + (corner_point.n[1] * floor->plane.n.n[1] + corner_point.n[2] * floor->plane.n.n[2]);
+            /* DEVIATION: fused plane-dist dot — fmuls @83774CCC, fmadds @83774CE0/83774CE4 */
+            plane_dist = fused_madd(floor->plane.n.n[0], corner_point.n[0],
+                             fused_madd(corner_point.n[1], floor->plane.n.n[1],
+                                 corner_point.n[2] * floor->plane.n.n[2]));
         }
         floor->plane.d = plane_dist;
         return collision_count;
@@ -341,10 +375,13 @@ iteration_end:
     /* two planes: floor normal is world-up with the crease component removed, or up × steepest */
     if ( steepest_stack_index == -1 )
     {
-        float t = -(crease_z / (crease_z * crease_z + (crease_y * crease_y + crease_x * crease_x)));
-        floor->plane.n.n[0] = t * crease_x + global_up3d->n[0];
-        floor->plane.n.n[1] = crease_y * t + global_up3d->n[1];
-        floor->plane.n.n[2] = t * crease_z + global_up3d->n[2];
+        /* DEVIATION: fused up-minus-crease build — fmuls @83774BD0, fmadds @83774BDC/83774BE4,
+         * fdivs @83774BE8, fneg @83774BEC, fmadds @83774BF0/83774BFC/83774C08 */
+        float t = -(crease_z / fused_madd(crease_z, crease_z,
+                                   fused_madd(crease_y, crease_y, crease_x * crease_x)));
+        floor->plane.n.n[0] = fused_madd(t, crease_x, global_up3d->n[0]);
+        floor->plane.n.n[1] = fused_madd(crease_y, t, global_up3d->n[1]);
+        floor->plane.n.n[2] = fused_madd(t, crease_z, global_up3d->n[2]);
     }
     else
     {
@@ -354,21 +391,25 @@ iteration_end:
         float bz = steepest->plane.n.n[2];
         if ( steepest_stack_index )
         {
-            floor->plane.n.n[0] = by * crease_z - bz * crease_y;
-            floor->plane.n.n[1] = bz * crease_x - bx * crease_z;
-            floor->plane.n.n[2] = bx * crease_y - by * crease_x;
+            /* DEVIATION: fused cross product — fmuls @83774BA4/83774BAC/83774BB0, fmsubs @83774BB4/83774BBC/83774BC4 */
+            floor->plane.n.n[0] = fused_msub(by, crease_z, bz * crease_y);
+            floor->plane.n.n[1] = fused_msub(bz, crease_x, bx * crease_z);
+            floor->plane.n.n[2] = fused_msub(bx, crease_y, by * crease_x);
         }
         else
         {
-            floor->plane.n.n[1] = bx * crease_z - bz * crease_x;
-            floor->plane.n.n[0] = bz * crease_y - by * crease_z;
-            floor->plane.n.n[2] = by * crease_x - bx * crease_y;
+            /* DEVIATION: fused cross product — fmuls @83774B74/83774B7C/83774B80, fmsubs @83774B84/83774B8C/83774B94 */
+            floor->plane.n.n[1] = fused_msub(bx, crease_z, bz * crease_x);
+            floor->plane.n.n[0] = fused_msub(bz, crease_y, by * crease_z);
+            floor->plane.n.n[2] = fused_msub(by, crease_x, bx * crease_y);
         }
     }
     if ( normalize3d(&floor->plane.n) != 0.0f )
     {
-        floor->plane.d = crease_point.n[1] * floor->plane.n.n[1]
-                              + (floor->plane.n.n[0] * crease_point.n[0] + crease_point.n[2] * floor->plane.n.n[2]);
+        /* DEVIATION: fused plane-d dot — fmuls @83774C28, fmadds @83774C3C/83774C40 */
+        floor->plane.d = fused_madd(crease_point.n[1], floor->plane.n.n[1],
+                             fused_madd(floor->plane.n.n[0], crease_point.n[0],
+                                 crease_point.n[2] * floor->plane.n.n[2]));
         return collision_count;
     }
     return (int16_t)(collision_count - 1);

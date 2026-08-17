@@ -1,3 +1,4 @@
+/* ?EndScene@vidDRIVER@@UAAXXZ @0x8266E418 */
 #include "../../headers/vidDRIVER.h"
 #include "../../headers/vid_boundary.h" /* vidVBMng / vidVBUF_MNG__DiscardDynAll */
 

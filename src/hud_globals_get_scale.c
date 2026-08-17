@@ -1,3 +1,4 @@
+/* hud_globals_get_scale @0x8379E100 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 /* hud_globals_get_scale 0x8379E100 — return the global HUD scale factor. The in_multiplayer parameter is

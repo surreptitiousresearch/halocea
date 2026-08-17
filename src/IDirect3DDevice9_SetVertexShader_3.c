@@ -1,3 +1,4 @@
+/* IDirect3DDevice9_SetVertexShader_3 @0x83712B40 */
 #include "headers/d3d_boundary.h"
 extern void D3DDevice_SetVertexShader(D3DDevice *device, D3DVertexShader *shader);
 

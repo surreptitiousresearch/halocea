@@ -1,3 +1,4 @@
+/* ustrcasecmp @0x8376D668 */
 #include <wchar.h>
 
 /* ustrcasecmp — case-insensitive compare of two UTF-16 strings. Implemented as a tail-jump thunk

@@ -1,3 +1,4 @@
+/* cleanupLoadedObjecthkdSphereGun @0x838320B8 */
 #include "../headers/havok/havok_cleanup_thunk.h"
 
 /* cleanupLoadedObject<T> instantiation: run the object's virtual (deleting)

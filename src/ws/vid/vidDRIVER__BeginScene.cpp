@@ -1,3 +1,4 @@
+/* ?BeginScene@vidDRIVER@@UAAXXZ @0x82669190 */
 #include "../../headers/vidDRIVER.h"
 
 // 0x82669190 -- ?BeginScene@vidDRIVER@@UAAXXZ

@@ -53,7 +53,10 @@ void weapon_trigger_release_charge(int weapon_index, int16_t trigger_index)
     else
     {
         original_trigger->state = _weapon_trigger_releasing;
-        original_trigger->state_timer = (int)(release_decay_time * 30.0f);
+        /* DEVIATION: fmuls @0x836DD22C rounds the 30Hz product to single precision before
+         * fctiwz @0x836DD234 truncates — explicit float local pins that rounding step. */
+        float release_ticks = release_decay_time * 30.0f;
+        original_trigger->state_timer = (int)release_ticks;
     }
 
     original_trigger->rate_of_fire = 0.0f;  /* held-charge fraction (DB member name kept) */

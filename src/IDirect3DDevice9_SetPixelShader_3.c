@@ -1,3 +1,4 @@
+/* IDirect3DDevice9_SetPixelShader_3 @0x8378D950 */
 #include "headers/d3d_boundary.h"
 extern void D3DDevice_SetPixelShader(D3DDevice *device, D3DPixelShader *shader);
 

@@ -1,3 +1,4 @@
+/* ?OnLoadInst@hcexHALO_OBJECT@@UAAXPAVanimINST@@@Z @0x823D6B88 */
 #include "../headers/hcex/hcexHALO_OBJECT.h"
 #include "../headers/animINST.h"
 #include "../headers/animTPL.h"

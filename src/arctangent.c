@@ -1,3 +1,4 @@
+/* arctangent @0x836886B0 */
 #include <math.h>
 
 /* DEVIATION: decompiler shows double params; prototype is float; PPC FPRs hold both */

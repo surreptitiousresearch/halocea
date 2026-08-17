@@ -1,3 +1,4 @@
+/* SphereGun_newBreakableBody @0x8385E5D8 */
 #include "../headers/havok/hkdBreakableBody.h"
 #include "../headers/havok/hkdWorld.h"
 #include "../headers/havok/hkdBreakableShape.h"

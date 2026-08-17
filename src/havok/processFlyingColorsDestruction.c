@@ -1,3 +1,4 @@
+/* processFlyingColorsDestruction @0x83A4D890 */
 /* processFlyingColorsDestruction — Havok Destruction "flying colors" evaluation-
    key check. Identical structure to processFlyingColors but over the Destruction
    key globals (HK_DESTRUCTION_KEYCODE / HK_DESTRUCTION_KEYVALUE) and the

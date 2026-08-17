@@ -1,3 +1,4 @@
+/* pause_game_invert_spinner_get_inverted @0x83692060 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/event_record.h"

@@ -1,3 +1,4 @@
+/* hkpShapeCutterUtil_inverseTransformPlane @0x83F949D8 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 #include "../headers/havok/hkRotation.h"

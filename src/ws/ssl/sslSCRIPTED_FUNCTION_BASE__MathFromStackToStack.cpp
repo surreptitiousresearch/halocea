@@ -1,3 +1,4 @@
+/* ?MathFromStackToStack@sslSCRIPTED_FUNCTION_BASE@@IAA?AVsslERROR@@PAVsslOBJECT@@AAVsslSTACK@@H@Z @0x82AD8470 */
 #include "sslSCRIPTED_FUNCTION_BASE.h"
 #include "sslFUNCTION_DECL.h"
 #include "sslSTACK.h"

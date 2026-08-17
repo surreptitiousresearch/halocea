@@ -1,3 +1,4 @@
+/* ?SetDesc@txmTEXTURE@@IAAXABUENGINE_TEX_DESC@@@Z @0x826F6D78 */
 #include "headers/ws/txm/txmTEXTURE.h"
 #include "headers/ws/txm/txm_functions.h"
 

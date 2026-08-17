@@ -1,8 +1,9 @@
 /* sound_definition_next_permutation @ 0x837F8C10 — pick the next permutation to play within a
  * pitch range. A permutation discarded by prioritize_sounds (runtime_discarded_permutation_index)
  * is replayed first. Otherwise, if the definition has linked permutations AND a current
- * permutation is supplied, returns -1 and leaves the choice to the caller — as built, nothing
- * here chains through sound_permutation.next_permutation_index. Otherwise a random permutation is
+ * permutation is supplied, returns -1 and leaves the choice to the caller — BUG-AS-SHIPPED
+ * (verified 2026-08-17): the linked+current path is exactly `li r3, -1` @0x837F8C7C then return;
+ * nothing here chains through sound_permutation.next_permutation_index. Otherwise a random permutation is
  * chosen, using a per-range played-bitmask so all permutations are heard before any repeats, and
  * weighted by each permutation's skip fraction. Returns the chosen permutation index. */
 

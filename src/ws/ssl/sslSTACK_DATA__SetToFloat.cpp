@@ -1,3 +1,4 @@
+/* ?SetToFloat@sslSTACK_DATA@@QAAAAV1@M@Z @0x82AF0740 */
 #include "sslSTACK_DATA.h"
 
 // 0x82AF0740 — sslSTACK_DATA::SetToFloat. Param is float per the mangle (M); the decompiler's

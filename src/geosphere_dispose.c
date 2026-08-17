@@ -1,3 +1,4 @@
+/* geosphere_dispose @0x837FD020 */
 #include "headers/geosphere.h"
 
 extern void dlFree(void *ptr);

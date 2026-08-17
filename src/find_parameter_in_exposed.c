@@ -14,7 +14,16 @@ uint8_t find_parameter_in_exposed(const char *query, int *value)
         if ( !strcmp(query, g_exposed_params[i].parameter_name) )
         {
             if ( value )
-                *value = *g_exposed_params[i].___u2.integer_param;
+            {
+                /* DEVIATION: the decompiler dropped the type discrimination — disasm
+                 * @0x83811CE4 reads .type (offset 4), cmpwi ,1 (INTEGER): lwz/stw int copy,
+                 * else lfs/stfs float copy @0x83811CD8. Bit-identical on PPC, but the branch
+                 * is in the binary. Restored from disassembly. */
+                if ( g_exposed_params[i].type == INTEGER )
+                    *value = *g_exposed_params[i].___u2.integer_param;
+                else
+                    *(float *)value = *g_exposed_params[i].___u2.real_param;
+            }
             return 1;
         }
     }

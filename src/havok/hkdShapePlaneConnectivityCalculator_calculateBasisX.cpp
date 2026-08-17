@@ -1,3 +1,4 @@
+/* hkdShapePlaneConnectivityCalculator_calculateBasisX @0x83875600 */
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkTransform.h"
 

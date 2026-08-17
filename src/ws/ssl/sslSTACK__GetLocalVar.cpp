@@ -1,3 +1,4 @@
+/* ?GetLocalVar@sslSTACK@@QAAABVdsDATA@@H@Z @0x82AF1BC0 */
 #include "sslSTACK.h"
 #include "../ds/dsDATA.h"
 

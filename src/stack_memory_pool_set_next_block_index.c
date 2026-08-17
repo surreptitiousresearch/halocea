@@ -1,3 +1,4 @@
+/* stack_memory_pool_set_next_block_index @0x83803260 */
 #include "headers/stack_memory_pool.h"
 
 void stack_memory_pool_set_next_block_index(stack_memory_pool *pool)

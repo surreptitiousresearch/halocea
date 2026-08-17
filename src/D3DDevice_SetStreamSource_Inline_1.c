@@ -1,3 +1,4 @@
+/* D3DDevice_SetStreamSource_Inline_1 @0x82697C08 */
 #include "headers/d3d_boundary.h"
 
 extern void D3DDevice_SetStreamSource(D3DDevice *pDevice, unsigned int StreamNumber, D3DVertexBuffer *pVertexBuffer, unsigned int OffsetInBytes, unsigned int StrideInBytes, unsigned long long PendingMask3);

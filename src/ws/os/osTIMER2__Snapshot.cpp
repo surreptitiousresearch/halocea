@@ -1,3 +1,4 @@
+/* ?Snapshot@osTIMER2@@QAAMXZ @0x82506D48 */
 #include <stdint.h>
 #include "../os/osTIMER2.h"
 

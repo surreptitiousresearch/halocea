@@ -1,3 +1,4 @@
+/* vehicle_is_flipped @0x8375F5D8 */
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/vehicle_datum.h"

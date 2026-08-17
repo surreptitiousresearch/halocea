@@ -1,3 +1,4 @@
+/* rasterizer_text_cache_dispose @0x83768B88 */
 #include "headers/hardware_character_cache.h"
 
 extern void rasterizer_text_cache_flush(void);

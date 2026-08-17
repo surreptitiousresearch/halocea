@@ -1,3 +1,4 @@
+/* hs_enumerate_special_form_names @0x8372F388 */
 extern void hs_tokens_enumerate_add_string(const char *string);
 
 void hs_enumerate_special_form_names(void)

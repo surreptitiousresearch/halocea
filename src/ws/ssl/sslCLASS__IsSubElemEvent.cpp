@@ -1,3 +1,4 @@
+/* ?IsSubElemEvent@sslCLASS@@QBAHH@Z @0x82A389B0 */
 #include "sslCLASS.h"
 #include "sslCLASS_ELEMENT.h"
 

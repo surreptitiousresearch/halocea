@@ -1,3 +1,4 @@
+/* ?Cancel@haloSTORAGE_TASK@@MAAXXZ @0x823F4A38 */
 #include "../headers/hcex/haloSTORAGE_TASK.h"
 
 // 0x823F4A44

@@ -1,3 +1,4 @@
+/* ?_OnObjectDelete@sslSYSTEM@@QAAXH@Z @0x825CDEE0 */
 #include "sslSYSTEM.h"
 #include "../ds/dsCMP.h"
 

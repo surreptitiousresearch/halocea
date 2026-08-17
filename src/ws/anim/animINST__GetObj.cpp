@@ -1,3 +1,4 @@
+/* ?GetObj@animINST@@QBAPAVobjOBJ@@H@Z @0x823CD930 */
 #include "animINST.h"
 #include "../ds/ds_assert_boundary.h"
 

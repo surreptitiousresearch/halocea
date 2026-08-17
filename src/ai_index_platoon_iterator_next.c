@@ -1,3 +1,4 @@
+/* ai_index_platoon_iterator_next @0x8376EFA8 */
 #include <stdint.h>
 #include "headers/ai_index_platoon_iterator.h"
 #include "headers/platoon_datum.h"

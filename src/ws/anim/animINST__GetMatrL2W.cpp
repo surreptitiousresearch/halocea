@@ -1,3 +1,4 @@
+/* ?GetMatrL2W@animINST@@QAAXPAVm3dMATR@@@Z @0x825E4E80 */
 #include "animINST.h"
 
 // ?GetMatrL2W@animINST@@QAAXPAVm3dMATR@@@Z  (0x825E4E80) — copy the instance's cached

@@ -1,3 +1,4 @@
+/* ?InitSetupTagParams@HALO_SOUND_LIST@@AAAXXZ @0x836C0E80 */
 #include "../headers/hcex/HALO_SOUND_LIST_boundary.h"
 
 // 0x836C0E80 — ?InitSetupTagParams@HALO_SOUND_LIST@@AAAXXZ

@@ -1,3 +1,4 @@
+/* update_client_get_ticks_left_for_current_action @0x836F6120 */
 #include "headers/update_client_globals.h"
 
 int update_client_get_ticks_left_for_current_action(void)

@@ -1,3 +1,4 @@
+/* trouble_is_brewing @0x83732B50 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 extern uint32_t system_milliseconds(void);

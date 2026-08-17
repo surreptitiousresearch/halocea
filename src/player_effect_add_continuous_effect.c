@@ -12,7 +12,7 @@
 #include "headers/continuous_damage_effect_definition.h"
 
 extern int game_time_get(void);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 
 void player_effect_add_continuous_effect(int16_t local_player_index, int effect_index, float distance)
 {

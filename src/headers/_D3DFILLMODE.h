@@ -6,8 +6,8 @@
  * WIREFRAME=37/0x25 — a GPU register encoding, not an ordinal). */
 typedef enum _D3DFILLMODE
 {
-    D3DFILL_SOLID       = 0,
     D3DFILL_POINT       = 1,
     D3DFILL_WIREFRAME   = 37,
+    D3DFILL_SOLID       = 0,
     D3DFILL_FORCE_DWORD = 2147483647,
 } _D3DFILLMODE; /* 4 bytes */

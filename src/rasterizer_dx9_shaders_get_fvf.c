@@ -1,3 +1,4 @@
+/* rasterizer_dx9_shaders_get_fvf @0x83723FE0 */
 #include "headers/rasterizer_dx9_shader_tables.h"
 
 unsigned int rasterizer_dx9_shaders_get_fvf(unsigned int index)

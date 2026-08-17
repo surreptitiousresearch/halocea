@@ -4,7 +4,7 @@
  * per-state arrays (state_flags[8], overlay_flags[8], number_values[8], number_fractions[8]) and into
  * weapon_hud_state.last_weapon_flash_time[8].
  *
- * Confirmed member-by-member from render_weapon_hud @0x83792C10, which fills the whole domain from
+ * Confirmed member-by-member from render_weapon_hud @0x836AEA00, which fills the whole domain from
  * named weapon_interface_state fields: number_values[0]=magazines[0].rounds_remaining (total ammo),
  * [1]=magazines[0].rounds_loaded, [2]=heat*255, [3]=(1-age)*100, [4]=magazines[1].rounds_remaining
  * (secondary total), [5]=magazines[1].rounds_loaded (secondary loaded), and number_fractions[6]/[7] =

@@ -1,3 +1,4 @@
+/* hs_get_function_documentation_string @0x8372FE80 */
 #include <stdint.h>
 #include "headers/hs_function_definition.h"
 

@@ -1,3 +1,4 @@
+/* widget_controller @0x83804078 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/blam_data_globals.h"

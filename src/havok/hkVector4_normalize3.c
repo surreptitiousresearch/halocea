@@ -1,3 +1,4 @@
+/* ?normalize3@hkVector4@@QAAXXZ @0x83604778 */
 #include "../headers/havok/hkVector4.h"
 
 extern float sqrtf(float);

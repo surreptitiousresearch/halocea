@@ -1,3 +1,4 @@
+/* IDirect3DDevice9_Present @0x8369B088 */
 #include "headers/d3d_boundary.h"
 extern void D3DDevice_Present(D3DDevice *device);
 

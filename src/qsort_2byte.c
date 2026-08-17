@@ -1,3 +1,4 @@
+/* qsort_2byte @0x8381A508 */
 /* qsort_2byte 0x8381A508 — in-place sort of an array of 2-byte (__int16) elements using an iterative quicksort
  * with an explicit pending-partition stack and a selection-sort fallback for partitions of <= 8 elements. The
  * comparator returns nonzero when its first argument should sort before its second. Partitions are pushed

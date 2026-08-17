@@ -1,3 +1,4 @@
+/* ?GetValue@psSECTION_INTERFACE@@QBA?AVdsDATA@@PBDK@Z @0x8251D870 */
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_DATA.h"
 #include "psCOMPLEX_KEY_DATA.h"

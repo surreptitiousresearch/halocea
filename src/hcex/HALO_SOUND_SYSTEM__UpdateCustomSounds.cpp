@@ -1,3 +1,4 @@
+/* ?UpdateCustomSounds@HALO_SOUND_SYSTEM@@QAAXXZ @0x836BEA48 */
 #include "../headers/hcex/HALO_SOUND_SYSTEM.h"
 
 // 0x836BEA48 — advance every one-off "custom" sound; unordered-remove any that reports finished

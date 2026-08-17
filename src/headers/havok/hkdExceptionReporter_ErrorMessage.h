@@ -11,7 +11,7 @@ typedef struct hkdExceptionReporter_DebugPoint    { unsigned char _b[32]; } hkdE
 typedef struct hkdExceptionReporter_DebugLine     { unsigned char _b[48]; } hkdExceptionReporter_DebugLine;     /* 48 */
 typedef struct hkdExceptionReporter_DebugTriangle { unsigned char _b[64]; } hkdExceptionReporter_DebugTriangle; /* 64 */
 typedef struct hkdExceptionReporter_DebugPlane    { unsigned char _b[48]; } hkdExceptionReporter_DebugPlane;    /* 48 */
-typedef struct hkdExceptionReporter_DebugText     { unsigned char _b[48]; } hkdExceptionReporter_DebugText;     /* 48 */
+#include "hkdExceptionReporter_DebugText.h"  /* typed 48-byte layout; was an opaque blob restated here (ODR dup) */
 typedef struct hkdExceptionReporter_DebugFrame    { unsigned char _b[80]; } hkdExceptionReporter_DebugFrame;    /* 80 */
 
 typedef struct hkdExceptionReporter_ErrorMessage

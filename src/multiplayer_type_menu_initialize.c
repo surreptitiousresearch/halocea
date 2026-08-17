@@ -1,3 +1,4 @@
+/* multiplayer_type_menu_initialize @0x836923D0 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

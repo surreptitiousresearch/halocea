@@ -83,7 +83,7 @@ extern void rasterizer_dx9_reset_zbias(void);
 extern point2d *rasterizer_set_texture_for_effect(int16_t stage, int16_t type, int16_t usage, int bitmap_group_index, int16_t bitmap_index, rasterizer_dx9_shader *dxeffect_shader);
 #include <stdint.h>
 extern float real_seed_random(uint32_t *seed);
-extern float periodic_function_evaluate(int16_t function_type, float time);
+extern float periodic_function_evaluate(int16_t function_type, double time);
 extern void shader_texture_animation_evaluate(const shader_texture_animation *texture_animation, const render_animation *render_animation, float u_scale, float v_scale, float u_offset, float v_offset, float r_offset, float time_value, real_vector4d *u_transform_reference, real_vector4d *v_transform_reference);
 extern void rasterizer_draw(const triangle_buffer *triangle_buffer, int dynamic_triangle_buffer_index, int first_triangle_index, int triangle_count, const vertex_buffer *vertex_buffer, int dynamic_vertex_buffer_index);
 

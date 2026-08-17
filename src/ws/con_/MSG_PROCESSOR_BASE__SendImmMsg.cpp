@@ -1,3 +1,4 @@
+/* ?SendImmMsg@MSG_PROCESSOR_BASE@con@@QAAHPBXHAAUCON_MSG@2@PAP6AHXZ@Z @0x8309B718 */
 #include <stdint.h>
 #include "MSG_PROCESSOR_BASE.h"
 #include "../ds/ds_assert_boundary.h"

@@ -1,3 +1,4 @@
+/* animation_update @0x836C6B18 */
 #include <stdint.h>
 #include "headers/animation_update_kind.h"
 #include "headers/animation_state.h"

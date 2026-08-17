@@ -1,3 +1,4 @@
+/* render_object_shadow_begin @0x836E61C0 */
 /* render_object_shadow_begin 0x836E61C0 — begin rendering an object's projected shadow. Builds the shadow
  * projection matrix from the object's origin, a normalized vector perpendicular to the light's shadow vector,
  * and the shadow vector itself; fades the shadow color toward "no shadow" (white) as the level-of-detail factor

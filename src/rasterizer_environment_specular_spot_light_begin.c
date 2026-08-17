@@ -1,3 +1,4 @@
+/* rasterizer_environment_specular_spot_light_begin @0x837A4C08 */
 /* rasterizer_environment_specular_spot_light_begin 0x837A4C08 — fill the point-light vertex-shader constant
  * block for a spot light's specular pass. Builds a right-handed frame from the light's forward and up vectors
  * (the third axis is the normalized up x forward), then writes the negated basis rows, the light position,

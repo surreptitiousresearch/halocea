@@ -1,3 +1,4 @@
+/* game_engine_did_player_win @0x8374E700 */
 #include "headers/game_engine.h"
 
 extern int game_engine_did_player_win_default(int player_index);

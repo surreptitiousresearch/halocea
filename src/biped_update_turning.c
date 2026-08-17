@@ -45,6 +45,7 @@
 #include "headers/blam_data_globals.h"
 #include "headers/math_constants.h"
 #include "headers/game_time_constants.h"
+#include "headers/fused_math.h"
 
 
 #include "headers/real_matrix4x3.h"
@@ -64,25 +65,30 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
     {
         /* flying-camera mode */
         int nearly_stationary = 0;
-        if ( (biped->object.translational_velocity.n[0] * biped->object.translational_velocity.n[0]
-                    + (biped->object.translational_velocity.n[2] * biped->object.translational_velocity.n[2]
-                        + biped->object.translational_velocity.n[1] * biped->object.translational_velocity.n[1]))
+        /* DEVIATION: each magnitude accumulates z*z + (x*x + y*y) through fmadds pairs
+         * (@0x837B1010/0x837B1014, @0x837B1038/0x837B103C, @0x837B1060/0x837B1064; the y*y seed
+         * is the plain fmuls) — previous x + (z + y) grouping was mis-ordered and unfused. */
+        if ( fused_madd(biped->object.translational_velocity.n[2], biped->object.translational_velocity.n[2],
+                    fused_madd(biped->object.translational_velocity.n[0], biped->object.translational_velocity.n[0],
+                        biped->object.translational_velocity.n[1] * biped->object.translational_velocity.n[1]))
                 < 0.00027777778f
-          && (biped->object.angular_velocity.n[0] * biped->object.angular_velocity.n[0]
-                    + (biped->object.angular_velocity.n[2] * biped->object.angular_velocity.n[2]
-                        + biped->object.angular_velocity.n[1] * biped->object.angular_velocity.n[1]))
+          && fused_madd(biped->object.angular_velocity.n[2], biped->object.angular_velocity.n[2],
+                    fused_madd(biped->object.angular_velocity.n[0], biped->object.angular_velocity.n[0],
+                        biped->object.angular_velocity.n[1] * biped->object.angular_velocity.n[1]))
                 < 0.0000013538552f
-          && (biped->unit.throttle.n[0] * biped->unit.throttle.n[0]
-                    + (biped->unit.throttle.n[2] * biped->unit.throttle.n[2]
-                        + biped->unit.throttle.n[1] * biped->unit.throttle.n[1]))
+          && fused_madd(biped->unit.throttle.n[2], biped->unit.throttle.n[2],
+                    fused_madd(biped->unit.throttle.n[0], biped->unit.throttle.n[0],
+                        biped->unit.throttle.n[1] * biped->unit.throttle.n[1]))
                 < 0.010000001f )
         {
             float stationary_turning_threshold = (biped->unit.control_flags & (1u << _unit_control_exact_facing_bit)) != 0
                     ? 0.99000001f
                     : definition->biped.runtime_cosine_stationary_turning_threshold;
-            nearly_stationary = (biped->object.forward.n[0] * biped->unit.desired_facing_vector.n[0]
-                        + (biped->unit.desired_facing_vector.n[2] * biped->object.forward.n[2]
-                            + biped->unit.desired_facing_vector.n[1] * biped->object.forward.n[1]))
+            /* DEVIATION: dot accumulates through fmadds @0x837B10B0/0x837B10B4 (dy*fy seed is the
+             * plain fmuls @0x837B109C). */
+            nearly_stationary = fused_madd(biped->object.forward.n[0], biped->unit.desired_facing_vector.n[0],
+                        fused_madd(biped->unit.desired_facing_vector.n[2], biped->object.forward.n[2],
+                            biped->unit.desired_facing_vector.n[1] * biped->object.forward.n[1]))
                     > stationary_turning_threshold;
         }
 
@@ -112,13 +118,21 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
         }
 
         /* banking: turn-rate signal derived from the desired-facing cross-track error against up/forward */
-        float turn_rate = ((biped->object.up.n[2] * biped->object.forward.n[1] - biped->object.up.n[1] * biped->object.forward.n[2])
-                    * biped->unit.desired_facing_vector.n[0]
-                + (biped->unit.desired_facing_vector.n[2]
-                        * (biped->object.up.n[1] * biped->object.forward.n[0] - biped->object.up.n[0] * biped->object.forward.n[1])
-                    + biped->unit.desired_facing_vector.n[1]
-                        * (biped->object.up.n[0] * biped->object.forward.n[2] - biped->object.up.n[2] * biped->object.forward.n[0])))
-                * 3.3333333f * biped->unit.throttle.n[0] - biped->unit.throttle.n[1];
+        /* DEVIATION: cross terms are fmsubs @0x837B1194/0x837B119C/0x837B11A0, the accumulation is
+         * fmadds @0x837B11A8/0x837B11AC (dy*cross_y seed plain fmuls @0x837B11A4), and the final
+         * *throttle.x - throttle.y step is the fused fmsubs @0x837B11B4. */
+        float turn_rate = fused_msub(
+                fused_madd(fused_msub(biped->object.up.n[2], biped->object.forward.n[1],
+                                biped->object.up.n[1] * biped->object.forward.n[2]),
+                        biped->unit.desired_facing_vector.n[0],
+                    fused_madd(biped->unit.desired_facing_vector.n[2],
+                            fused_msub(biped->object.up.n[1], biped->object.forward.n[0],
+                                    biped->object.up.n[0] * biped->object.forward.n[1]),
+                        biped->unit.desired_facing_vector.n[1]
+                            * fused_msub(biped->object.up.n[0], biped->object.forward.n[2],
+                                    biped->object.up.n[2] * biped->object.forward.n[0])))
+                * 3.3333333f,
+                biped->unit.throttle.n[0], biped->unit.throttle.n[1]);
         if ( turn_rate > 1.5f )
             turn_rate = 1.5f;
 
@@ -136,8 +150,10 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
             bank_blend = 1.0f;
         }
 
-        float bank_time = (1.0f - bank_blend) * definition->biped.flying_bank_decay_time
-                + definition->biped.flying_bank_apply_time * bank_blend;
+        /* DEVIATION: fmadds @0x837B1214 fuses (1-blend)*decay onto the plain apply*blend fmuls
+         * @0x837B120C. */
+        float bank_time = fused_madd(1.0f - bank_blend, definition->biped.flying_bank_decay_time,
+                definition->biped.flying_bank_apply_time * bank_blend);
         if ( bank_time <= 0.0f )
             biped->biped.bank = target_bank;
         else
@@ -178,27 +194,25 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
 
     real_vector3d turn_axis;
     float dot_current_desired;
+    float facing_alignment;
     if ( (flags & (1u << _biped_climbs_anything_bit)) != 0 )
     {
         /* climbs-anything: turn direction from the up-axis cross product of forward and desired facing */
-        turn_axis.n[0] = biped->object.up.n[2]
-                    * (biped->object.up.n[0] * biped->unit.desired_facing_vector.n[1]
-                        - biped->object.up.n[1] * biped->unit.desired_facing_vector.n[0])
-                - biped->object.up.n[0]
-                    * (biped->unit.desired_facing_vector.n[2] * biped->object.up.n[1]
-                        - biped->unit.desired_facing_vector.n[1] * biped->object.up.n[2]);
-        turn_axis.n[1] = biped->object.up.n[0]
-                    * (biped->unit.desired_facing_vector.n[1] * biped->object.up.n[0]
-                        - biped->object.up.n[1] * biped->unit.desired_facing_vector.n[0])
-                - biped->object.up.n[2]
-                    * (biped->object.up.n[2] * biped->unit.desired_facing_vector.n[0]
-                        - biped->unit.desired_facing_vector.n[2] * biped->object.up.n[0]);
-        turn_axis.n[2] = biped->object.up.n[1]
-                    * (biped->unit.desired_facing_vector.n[2] * biped->object.up.n[1]
-                        - biped->unit.desired_facing_vector.n[1] * biped->object.up.n[2])
-                - biped->object.up.n[0]
-                    * (biped->object.up.n[2] * biped->unit.desired_facing_vector.n[0]
-                        - biped->unit.desired_facing_vector.n[2] * biped->object.up.n[0]);
+        /* DEVIATION: whole triple-product transcribed from the fused sequence @0x837B1378-0x837B13A0 —
+         * inner crosses are fmsubs @0x837B1378/0x837B137C/0x837B1380 and each component is a fused
+         * fmsubs over a plain fmuls partner (@0x837B1390/0x837B1398/0x837B13A0); the previous x/y
+         * components paired the wrong inner terms (e.g. x used a.z/a.x where the binary uses a.y/a.z). */
+        {
+            float cross_ax = fused_msub(biped->unit.desired_facing_vector.n[2], biped->object.up.n[1],
+                    biped->unit.desired_facing_vector.n[1] * biped->object.up.n[2]);
+            float cross_ay = fused_msub(biped->object.up.n[2], biped->unit.desired_facing_vector.n[0],
+                    biped->unit.desired_facing_vector.n[2] * biped->object.up.n[0]);
+            float cross_az = fused_msub(biped->unit.desired_facing_vector.n[1], biped->object.up.n[0],
+                    biped->object.up.n[1] * biped->unit.desired_facing_vector.n[0]);
+            turn_axis.n[0] = fused_msub(biped->object.up.n[2], cross_ay, biped->object.up.n[1] * cross_az);
+            turn_axis.n[1] = fused_msub(biped->object.up.n[0], cross_az, biped->object.up.n[2] * cross_ax);
+            turn_axis.n[2] = fused_msub(biped->object.up.n[1], cross_ax, biped->object.up.n[0] * cross_ay);
+        }
 
         if ( normalize3d(&turn_axis) == 0.0f )
         {
@@ -207,12 +221,23 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
             turn_axis.n[2] = biped->object.forward.n[2];
         }
 
-        dot_current_desired = biped->object.forward.n[0] * turn_axis.n[2] - biped->object.forward.n[2] * turn_axis.n[0];
-        dot_current_desired = biped->object.up.n[0]
-                    * (biped->object.forward.n[2] * turn_axis.n[1] - biped->object.forward.n[1] * turn_axis.n[2])
-                + (dot_current_desired * biped->object.up.n[1]
-                    + biped->object.up.n[2]
-                        * (biped->object.forward.n[1] * turn_axis.n[0] - biped->object.forward.n[0] * turn_axis.n[1]));
+        /* DEVIATION: error crosses are fmsubs @0x837B1410/0x837B1414/0x837B1418 and the accumulation
+         * fmadds @0x837B1428/0x837B142C (up.z partner plain fmuls @0x837B1420); facing_alignment in
+         * this branch is the fused 3D dot fmadds @0x837B141C/0x837B1424 — the previously shared 2D
+         * dot dropped the axis.z*forward.z term here. */
+        {
+            float error_x = fused_msub(biped->object.forward.n[2], turn_axis.n[1],
+                    biped->object.forward.n[1] * turn_axis.n[2]);
+            float error_y = fused_msub(biped->object.forward.n[0], turn_axis.n[2],
+                    biped->object.forward.n[2] * turn_axis.n[0]);
+            float error_z = fused_msub(biped->object.forward.n[1], turn_axis.n[0],
+                    biped->object.forward.n[0] * turn_axis.n[1]);
+            dot_current_desired = fused_madd(biped->object.up.n[0], error_x,
+                    fused_madd(error_y, biped->object.up.n[1], biped->object.up.n[2] * error_z));
+            facing_alignment = fused_madd(turn_axis.n[2], biped->object.forward.n[2],
+                    fused_madd(biped->object.forward.n[0], turn_axis.n[0],
+                            turn_axis.n[1] * biped->object.forward.n[1]));
+        }
     }
     else
     {
@@ -226,10 +251,14 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
             turn_axis.n[1] = biped->object.forward.n[1];
             turn_axis.n[2] = biped->object.forward.n[2];
         }
-        dot_current_desired = biped->object.forward.n[1] * turn_axis.n[0] - biped->object.forward.n[0] * turn_axis.n[1];
+        /* DEVIATION: fmsubs @0x837B149C (fwd.x*axis.y minuend plain fmuls @0x837B148C) and the 2D
+         * alignment dot fmadds @0x837B14A0 (fwd.y*axis.y plain fmuls @0x837B1490). */
+        dot_current_desired = fused_msub(biped->object.forward.n[1], turn_axis.n[0],
+                biped->object.forward.n[0] * turn_axis.n[1]);
+        facing_alignment = fused_madd(biped->object.forward.n[0], turn_axis.n[0],
+                biped->object.forward.n[1] * turn_axis.n[1]);
     }
 
-    float facing_alignment = biped->object.forward.n[0] * turn_axis.n[0] + biped->object.forward.n[1] * turn_axis.n[1];
     uint8_t turn_right = dot_current_desired > 0.0f;
 
     if ( facing_alignment < -0.89999998f )
@@ -257,17 +286,28 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
         if ( (flags & (1u << _biped_climbs_anything_bit)) != 0 )
         {
             rotate_vector_about_axis(&biped->object.forward, &biped->object.up, sin_step, cos_step);
-            progress = biped->object.up.n[0] * (turn_axis.n[2] * biped->object.forward.n[1] - turn_axis.n[1] * biped->object.forward.n[2])
-                    + (biped->object.up.n[2] * (turn_axis.n[1] * biped->object.forward.n[0] - turn_axis.n[0] * biped->object.forward.n[1])
-                        + biped->object.up.n[1] * (turn_axis.n[0] * biped->object.forward.n[2] - turn_axis.n[2] * biped->object.forward.n[0]));
+            /* DEVIATION: transcribed from fmsubs @0x837B162C/0x837B1630/0x837B1634 + fmadds
+             * @0x837B163C/0x837B1640 — each inner term is forward-cross-axis (fwd.z*axis.y - fwd.y*axis.z,
+             * etc.); the previous version had every term negated (axis-cross-forward), inverting the
+             * turn-completion sign test. */
+            progress = fused_madd(biped->object.up.n[0],
+                    fused_msub(biped->object.forward.n[2], turn_axis.n[1], biped->object.forward.n[1] * turn_axis.n[2]),
+                    fused_madd(biped->object.up.n[2],
+                        fused_msub(biped->object.forward.n[1], turn_axis.n[0], biped->object.forward.n[0] * turn_axis.n[1]),
+                        biped->object.up.n[1]
+                            * fused_msub(biped->object.forward.n[0], turn_axis.n[2], biped->object.forward.n[2] * turn_axis.n[0])));
         }
         else
         {
             float old_forward_x = biped->object.forward.n[0];
             float old_forward_y = biped->object.forward.n[1];
-            biped->object.forward.n[0] = old_forward_x * cos_step - old_forward_y * sin_step;
-            biped->object.forward.n[1] = old_forward_x * sin_step + old_forward_y * cos_step;
-            progress = turn_axis.n[0] * biped->object.forward.n[1] - turn_axis.n[1] * biped->object.forward.n[0];
+            /* DEVIATION: the 2D rotation is fmsubs @0x837B1658 / fmadds @0x837B1660 (fwd.y*sin and
+             * fwd.y*cos partners are plain fmuls @0x837B164C/0x837B1654), and progress is the fused
+             * fmsubs @0x837B1674 over the plain new_x*axis.y fmuls @0x837B1668. */
+            biped->object.forward.n[0] = fused_msub(old_forward_x, cos_step, old_forward_y * sin_step);
+            biped->object.forward.n[1] = fused_madd(old_forward_x, sin_step, old_forward_y * cos_step);
+            progress = fused_msub(turn_axis.n[0], biped->object.forward.n[1],
+                    biped->object.forward.n[0] * turn_axis.n[1]);
         }
 
         if ( turn_right )
@@ -283,15 +323,20 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
         if ( (flags & (1u << _biped_climbs_anything_bit)) != 0 )
         {
             real_vector3d rotation_axis;
-            rotation_axis.n[0] = biped->object.up.n[1] * turn_axis.n[2] - biped->object.up.n[2] * turn_axis.n[1];
-            rotation_axis.n[1] = biped->object.up.n[2] * turn_axis.n[0] - biped->object.up.n[0] * turn_axis.n[2];
-            rotation_axis.n[2] = biped->object.up.n[0] * turn_axis.n[1] - biped->object.up.n[1] * turn_axis.n[0];
+            /* DEVIATION: cross is fmsubs @0x837B16C8/0x837B16D0/0x837B16D8 with plain fmuls minuends
+             * (@0x837B16B8/0x837B16C0/0x837B16C4). */
+            rotation_axis.n[0] = fused_msub(biped->object.up.n[1], turn_axis.n[2], biped->object.up.n[2] * turn_axis.n[1]);
+            rotation_axis.n[1] = fused_msub(biped->object.up.n[2], turn_axis.n[0], biped->object.up.n[0] * turn_axis.n[2]);
+            rotation_axis.n[2] = fused_msub(biped->object.up.n[0], turn_axis.n[1], biped->object.up.n[1] * turn_axis.n[0]);
             if ( normalize3d(&rotation_axis) > 0.0f )
             {
                 real_vector3d rotated;
-                rotated.n[0] = biped->object.up.n[1] * rotation_axis.n[2] - biped->object.up.n[2] * rotation_axis.n[1];
-                rotated.n[1] = biped->object.up.n[2] * rotation_axis.n[0] - biped->object.up.n[0] * rotation_axis.n[2];
-                rotated.n[2] = biped->object.up.n[0] * rotation_axis.n[1] - biped->object.up.n[1] * rotation_axis.n[0];
+                /* DEVIATION: fmsubs @0x837B170C/0x837B1714/0x837B171C compute rotation_axis x up
+                 * (fwd.x = up.z*axis.y - up.y*axis.z, etc.) — the previous up x rotation_axis order
+                 * negated all three components. */
+                rotated.n[0] = fused_msub(biped->object.up.n[2], rotation_axis.n[1], biped->object.up.n[1] * rotation_axis.n[2]);
+                rotated.n[1] = fused_msub(biped->object.up.n[0], rotation_axis.n[2], biped->object.up.n[2] * rotation_axis.n[0]);
+                rotated.n[2] = fused_msub(biped->object.up.n[1], rotation_axis.n[0], biped->object.up.n[0] * rotation_axis.n[1]);
                 biped->object.forward = rotated;
             }
         }

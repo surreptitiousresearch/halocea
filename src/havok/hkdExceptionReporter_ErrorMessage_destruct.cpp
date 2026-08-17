@@ -1,3 +1,4 @@
+/* ??1ErrorMessage@hkdExceptionReporter@@QAA@XZ @0x8386EF60 */
 #include "../headers/havok/hkdExceptionReporter_ErrorMessage.h"
 #include "../headers/havok/hkThreadMemory.h"
 

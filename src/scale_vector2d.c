@@ -1,3 +1,4 @@
+/* scale_vector2d @0x8369DC30 */
 #include "headers/real_vector2d.h"
 
 /* DEVIATION: decompiler confused signature; disasm: r3=v, f1=c, r5=result */

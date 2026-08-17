@@ -1,3 +1,4 @@
+/* ?FitFVF@vidVBUF_MNG@@QAAPAVvidFVF_DESCR@@_K@Z @0x827B7890 */
 #include "../../headers/ws/vid/vidVBUF_MNG.h"
 #include "../../headers/ws/vid/vidFVF_DESCR.h"
 

@@ -1,3 +1,4 @@
+/* get_write_buffer @0x838083D0 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 

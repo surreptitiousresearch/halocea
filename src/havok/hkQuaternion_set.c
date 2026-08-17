@@ -1,3 +1,4 @@
+/* ?set@hkQuaternion@@QAAXABVhkRotation@@@Z @0x838E1230 */
 #include "../headers/havok/hkQuaternion.h"
 #include "../headers/havok/hkRotation.h"
 

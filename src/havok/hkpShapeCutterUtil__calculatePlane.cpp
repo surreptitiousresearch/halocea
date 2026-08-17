@@ -1,3 +1,4 @@
+/* ?_calculatePlane@hkpShapeCutterUtil@@KAXPAHABV?$hkArray@VhkVector4@@@@AAVhkVector4@@@Z @0x83F94AD0 */
 #include <math.h>
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkArray.h"

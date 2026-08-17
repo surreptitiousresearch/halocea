@@ -1,3 +1,4 @@
+/* ?GetEnclBox@cdtSKEL@@QAAXPAVanimINST@@PAVm3dBOX@@@Z @0x82B0C2C0 */
 #include "../../headers/ws/cdt/cdtSKEL.h"
 #include "../../headers/ws/anim/animINST.h"
 #include "../../headers/ws/obj/objOBJ.h"

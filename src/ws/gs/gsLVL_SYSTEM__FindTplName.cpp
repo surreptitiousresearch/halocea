@@ -1,3 +1,4 @@
+/* ?FindTplName@gsLVL_SYSTEM@@UAAPAVanimTPL@@PBDPAVdsAFFIX_STRING@@H@Z @0x827986D0 */
 #include "../../headers/ws/gs/gsLVL_SYSTEM.h"
 #include "../../headers/ws/gs/gsLVL_SYSTEM_boundary.h"
 #include "../../headers/ws/ds/dsTSTRING.h"

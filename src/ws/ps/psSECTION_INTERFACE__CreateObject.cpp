@@ -1,3 +1,4 @@
+/* ?CreateObject@psSECTION_INTERFACE@@QBA?AVdsDATA@@XZ @0x82517730 */
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
 // 0x82517008 — box this section handle as a dsDATA value; an empty dsDATA when the handle is null.

@@ -1,3 +1,4 @@
+/* ?SetRefTo@sslSTACK_DATA@@QAA?AVsslERROR@@ABVdsDATA@@@Z @0x82AF27D0 */
 #include "sslSTACK_DATA.h"
 #include "sslSTACK.h"
 #include "sslCLASS.h"

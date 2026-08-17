@@ -1,3 +1,4 @@
+/* player_wants_to_join_multiplayer_game @0x836920A0 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

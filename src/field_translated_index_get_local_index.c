@@ -1,3 +1,4 @@
+/* field_translated_index_get_local_index @0x8379BC68 */
 #include "headers/field_properties_definition.h"
 #include "headers/_field_type_translated_index_parameters.h"
 

@@ -1,3 +1,4 @@
+/* ?IsPlayToEnd@HALO_PERM_SOUND@@QBA_NXZ @0x836B6880 */
 // ?IsPlayToEnd@HALO_PERM_SOUND@@QBA_NXZ -- 0x836B6880
 #include "../../headers/hcex/HALO_PERM_SOUND.h"
 #include "../../headers/hcex/HALO_SOUND_PARAMS.h"

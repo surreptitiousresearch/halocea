@@ -1,3 +1,4 @@
+/* ?Cleanup@sslSTACK_DATA@@IAAXXZ @0x82AF05F8 */
 #include "sslSTACK_DATA.h"
 #include "sslOBJECT.h"
 #include "sslCLASS.h"

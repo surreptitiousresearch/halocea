@@ -1,3 +1,4 @@
+/* ?SetToDsDataMemberRef@sslSTACK_DATA@@QAAAAV1@ABVdsDATA@@VdsSTRID@@@Z @0x82AF0BD8 */
 #include "sslSTACK_DATA.h"
 #include "../ds/dsDATA.h"
 #include "../ds/dsSTRID.h"

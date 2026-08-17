@@ -1,3 +1,4 @@
+/* sound_permutation_get_mouth_aperture @0x837F8AB0 */
 #include <stdint.h>
 #include "headers/sound_permutation.h"
 #include "headers/tag_data.h"

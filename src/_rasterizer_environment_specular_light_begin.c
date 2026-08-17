@@ -1,3 +1,4 @@
+/* _rasterizer_environment_specular_light_begin @0x837A4DC0 */
 /* _rasterizer_environment_specular_light_begin 0x837A4DC0 — set up the per-light state for an environment
  * specular lighting pass. No-op unless debug drawing is in normal mode and environment specular lights are
  * enabled. A light with a real spot cone (runtime_cosine_falloff_angle != -1) AND at least one gel map takes

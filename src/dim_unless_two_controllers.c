@@ -1,3 +1,4 @@
+/* dim_unless_two_controllers @0x83780200 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 

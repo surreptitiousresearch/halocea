@@ -1,3 +1,4 @@
+/* decode_grenade_index @0x8379D4C0 */
 /* decode_grenade_index — unpack a network-compacted grenade selection. Bit 1 is the "no grenade"
  * sentinel (returns -1 / NONE); bit 0 is the grenade type index, matching the unit_grenade_type enum
  * (DB $C04139DE66CD4C6C6A695EB26A7024EE: 0 = _unit_grenade_human_fragmentation,

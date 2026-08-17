@@ -1,3 +1,4 @@
+/* ?PrintLine@UI_STAT_SYS@ui_new@@AAAXAAVUI_STAT_RENDER@2@PB_WABUUI_STAT_PARAMS@2@HUm2dV@@@Z @0x82CEFF58 */
 #include "../../headers/ws/ui_new/UI_STAT_SYS.h"
 
 // 0x82CEFFA8 — draw one already-split (no embedded '\n') line of `lineLength` characters,

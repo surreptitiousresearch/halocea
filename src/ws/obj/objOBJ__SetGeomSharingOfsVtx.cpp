@@ -1,3 +1,4 @@
+/* ?SetGeomSharingOfsVtx@objOBJ@@QAAXH@Z @0x826603B8 */
 #include "objOBJ.h"
 #include "../ds/ds_assert_boundary.h"
 // 0x826603B8  ?SetGeomSharingOfsVtx@objOBJ@@QAAXH@Z

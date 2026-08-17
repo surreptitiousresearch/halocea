@@ -20,7 +20,10 @@
  * DEVIATION 2: the DB prototype types evade_direction_reference as unsigned __int8*, but the accesses are
  * halfword (lhz/sth); typed here as short* to match the binary.
  * DEVIATION 3: the actor_move_try_evasion_vector call passes evasion_is_ledge (r7) and result (r8); the
- * decompiler mislabeled these using the scrambled parent parameter names. */
+ * decompiler mislabeled these using the scrambled parent parameter names.
+ * DEVIATION 4: the DB types evasion_is_ledge (r8) as path_collision_result*, but it is forwarded verbatim
+ * as actor_move_try_evasion_vector's evasion_is_ledge_reference (0x837C77E4 mr r7,r27), through which that
+ * callee stores a byte (0x837C7698 stb) — typed uint8_t* here. */
 
 #include <stdint.h>
 #include "headers/real_vector2d.h"
@@ -30,7 +33,7 @@ extern uint32_t *get_global_random_seed_address(void);
 extern uint16_t seed_random(uint32_t *seed);
 extern uint8_t actor_move_try_evasion_vector(int actor_index, real_vector2d *evasion_vector, float evade_distance, float maximum_ledge_height, uint8_t *evasion_is_ledge_reference, path_collision_result *result);
 
-uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignment_vector, float evade_distance, int16_t *evade_direction_reference, float maximum_ledge_height, path_collision_result *evasion_is_ledge, path_collision_result *result)
+uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignment_vector, float evade_distance, int16_t *evade_direction_reference, float maximum_ledge_height, uint8_t *evasion_is_ledge, path_collision_result *result)
 {
     int16_t direction_code = *evade_direction_reference;
     int evasion_succeeded = 0;
@@ -100,7 +103,7 @@ uint8_t actor_move_try_evasion_direction(int actor_index, real_vector2d *alignme
     if ( attempt_limit > 0 )
     {
         while ( !actor_move_try_evasion_vector(actor_index, &evasion_vector, evade_distance,
-                    maximum_ledge_height, (uint8_t *)evasion_is_ledge, result) )
+                    maximum_ledge_height, evasion_is_ledge, result) )
         {
             evasion_i = -evasion_i;
             evasion_j = -evasion_j;

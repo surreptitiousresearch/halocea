@@ -1,3 +1,4 @@
+/* ?EnableGamma@txmD3D_TEX@@UAAXH@Z @0x827BC5B0 */
 #include "../../headers/ws/txm/txmD3D_TEX.h"
 #include "../../headers/ws/txm/txm_vid_boundary.h" /* vidDriver / vidDRIVER */
 #include "../../headers/d3dDRIVER_INTERFACE.h"

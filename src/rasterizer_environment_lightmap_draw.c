@@ -1,3 +1,4 @@
+/* rasterizer_environment_lightmap_draw @0x836A6190 */
 /* rasterizer_environment_lightmap_draw 0x836A6190 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 #include <stdint.h>
 

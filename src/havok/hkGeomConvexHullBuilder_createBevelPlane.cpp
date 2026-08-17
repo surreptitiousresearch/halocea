@@ -1,3 +1,4 @@
+/* ?createBevelPlane@hkGeomConvexHullBuilder@@SAXABVhkVector4@@000AAV?$hkArray@VhkVector4@@@@@Z @0x83FDA7B8 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include <math.h>
 

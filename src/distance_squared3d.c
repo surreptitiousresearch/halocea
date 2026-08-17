@@ -1,3 +1,4 @@
+/* distance_squared3d @0x836A76F0 */
 #include "headers/real_point3d.h"
 
 /* distance_squared3d — squared Euclidean distance between two 3D points. */

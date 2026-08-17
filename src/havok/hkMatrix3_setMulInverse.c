@@ -1,3 +1,4 @@
+/* ?setMulInverse@hkMatrix3@@QAAXABV1@ABVhkRotation@@@Z @0x838E3620 */
 #include "../headers/havok/hkMatrix3.h"
 
 /* hkMatrix3::setMulInverse(hkMatrix3 aTb, hkRotation cTb)

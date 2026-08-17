@@ -1,3 +1,4 @@
+/* ?InitLevel@HALO_SOUND_SYSTEM@@UAAXABV?$dsTSTRING@D@@@Z @0x836C03D8 */
 #include "../headers/hcex/HALO_SOUND_SYSTEM.h"
 #include "../headers/ws/ds/dsTSTRING.h"
 #include "../headers/ws/fnm/fnm.h"

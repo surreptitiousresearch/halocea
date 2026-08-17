@@ -1,3 +1,4 @@
+/* ?_AllocVertTangentList@objOBJ@@QAAHHH@Z @0x82A7F508 */
 #include <stdint.h>
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"

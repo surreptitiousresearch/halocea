@@ -1,3 +1,4 @@
+/* _rasterizer_is_fullscreen @0x8369B8A8 */
 #include "headers/rasterizer_engine_globals.h"
 
 int _rasterizer_is_fullscreen(void)

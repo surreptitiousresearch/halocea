@@ -1,3 +1,4 @@
+/* ?Resize@txmD3D_TEX@@UAAIII@Z @0x827BC270 */
 #include "../../headers/ws/txm/txmD3D_TEX.h"
 #include "../../headers/d3d_render_boundary.h"
 

@@ -1,3 +1,4 @@
+/* periodic_function_build_variable_period_x_table @0x837B70E0 */
 #include <math.h>
 #include <stdint.h>
 

@@ -1,3 +1,4 @@
+/* projectile_handle_deleted_object @0x837597B0 */
 #include "headers/data_array.h"
 #include "headers/object_header_datum.h"
 #include "headers/projectile_datum.h"

@@ -1,3 +1,4 @@
+/* ?recalcAabbExtents@hkpListShape@@QAAXAAVhkAabb@@@Z @0x83605CF8 */
 #include "../headers/havok/hkpListShape.h"
 #include "../headers/havok/hkAabb.h"
 #include "../headers/havok/hkTransform.h"

@@ -1,3 +1,4 @@
+/* ?RenderPush@UI_PROXY@ui_new@@QAAXXZ @0x82780B20 */
 #include "../../headers/ws/ui_new/UI_PROXY.h"
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL.h"
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL_WRP.h" // apCOUNTER_TIME_CALL_WRP<> RAII scope timer

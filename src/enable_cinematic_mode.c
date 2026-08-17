@@ -1,3 +1,4 @@
+/* enable_cinematic_mode @0x836B5B80 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 /* DEVIATION: HALO_SOUND_SYSTEM is an opaque hcex C++ class (canonical forward-decl in

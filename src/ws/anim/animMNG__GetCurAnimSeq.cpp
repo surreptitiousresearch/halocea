@@ -1,3 +1,4 @@
+/* ?GetCurAnimSeq@animMNG@@QAA?AUSEQ_ID_FULL@anim_blend@@H@Z @0x8267C430 */
 #include "animMNG.h"
 #include "animINST.h"
 #include "animLAYER_BASE.h"

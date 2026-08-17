@@ -1,3 +1,4 @@
+/* ?SetToBool@sslSTACK_DATA@@QAAAAV1@_N@Z @0x82AF06F8 */
 #include "sslSTACK_DATA.h"
 
 // 0x82AF06F8 — sslSTACK_DATA::SetToBool.

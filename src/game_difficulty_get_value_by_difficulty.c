@@ -1,3 +1,4 @@
+/* game_difficulty_get_value_by_difficulty @0x837B66F8 */
 /* blam_data_globals.h first: supplies wchar_t before dependent headers are parsed (migration) */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"

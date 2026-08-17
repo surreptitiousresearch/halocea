@@ -1,3 +1,4 @@
+/* ?AddRec@psSECTION_DATA@@IAAHVdsSTRID@@VdsDATA@@KH@Z @0x8251B868 */
 #include "psSECTION_DATA.h"
 #include "psSECTION_INTERFACE.h"
 #include "psSECTION_RECORD.h"

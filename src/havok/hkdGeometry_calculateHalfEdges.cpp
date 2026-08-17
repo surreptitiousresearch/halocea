@@ -1,3 +1,4 @@
+/* ?calculateHalfEdges@hkdGeometry@@QBAXAAV?$hkArray@UHalfEdge@hkdGeometry@@@@@Z @0x83851AC8 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkdGeometry_Face.h"
 #include "../headers/havok/hkdGeometry_Triangle.h"

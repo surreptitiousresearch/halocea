@@ -1,3 +1,4 @@
+/* input_abstraction_flush_configuration_button_pressed @0x83724F18 */
 #include "headers/input_abstraction_globals.h"
 
 void input_abstraction_flush_configuration_button_pressed(void)

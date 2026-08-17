@@ -1,3 +1,4 @@
+/* rasterizer_models_begin @0x836A6120 */
 /* rasterizer_models_begin 0x836A6120 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 
 #include <stdint.h>

@@ -1,3 +1,4 @@
+/* build_crc_table @0x8371BA58 */
 void build_crc_table(unsigned int *crc_table)
 {
     for ( unsigned int i = 0; i < 256; i++ )

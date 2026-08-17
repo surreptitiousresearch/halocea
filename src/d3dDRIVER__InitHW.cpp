@@ -1,3 +1,4 @@
+/* ?InitHW@d3dDRIVER@@MAAHXZ @0x82690EF0 */
 #include "headers/d3d_driver.h"
 
 // --- boundary externs (deeper than this wave's descent) ---

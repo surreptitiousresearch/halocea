@@ -1,3 +1,4 @@
+/* input_abstraction_set_enabled_mode_game @0x83724D08 */
 #include <stdint.h>
 #include "headers/input_abstraction_globals.h"
 

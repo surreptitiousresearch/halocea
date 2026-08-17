@@ -1,3 +1,4 @@
+/* ?startCatching@hkdExceptionReporter@@SAXXZ @0x8386B0B0 */
 #include "../headers/havok/hkdExceptionReporter.h"
 #include "../headers/havok/hkPointerMapBase.h"
 #include "../headers/havok/hkReferencedObject.h"

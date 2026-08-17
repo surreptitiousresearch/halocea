@@ -1,3 +1,4 @@
+/* base_seat_label_get @0x836CC038 */
 #include <stdint.h>
 #include "headers/blam_data_globals.h"
 

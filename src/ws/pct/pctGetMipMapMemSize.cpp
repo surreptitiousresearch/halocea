@@ -1,3 +1,4 @@
+/* ?pctGetMipMapMemSize@@YAHPAUpctHEADER@@H@Z @0x827C0DF8 */
 #include "../../headers/pctHEADER.h"
 #include "../../headers/pctFORMAT.h"
 #include "../../headers/pct_format.h"

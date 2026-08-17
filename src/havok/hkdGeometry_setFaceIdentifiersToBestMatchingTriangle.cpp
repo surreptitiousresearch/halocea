@@ -1,3 +1,4 @@
+/* ?setFaceIdentifiersToBestMatchingTriangle@hkdGeometry@@QAAXPBVhkVector4@@PBHABV?$hkArray@H@@2AAUTriangleMap@hkGeometryMatchingUtils@@M@Z @0x838531F0 */
 #include "../headers/havok/hkdGeometry.h"
 #include "../headers/havok/hkGeometryMatchingUtils_Geometry.h"
 #include "../headers/havok/hkGeometryMatchingUtils_TriangleMap.h"

@@ -1,3 +1,4 @@
+/* bitstream_tell @0x8380F830 */
 #include "headers/bitstream_t.h"
 
 unsigned int bitstream_tell(const bitstream_t *bit_stream)

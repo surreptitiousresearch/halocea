@@ -1,3 +1,4 @@
+/* weapon_state_is_depleted @0x83707D08 */
 #include "headers/weapon_interface_state.h"
 
 int weapon_state_is_depleted(const weapon_interface_state *state)

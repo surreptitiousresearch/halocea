@@ -1,3 +1,4 @@
+/* credits_dispose @0x83697F48 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

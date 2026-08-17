@@ -1,3 +1,4 @@
+/* ?buildConvexHull@hkGeomConvexHullBuilder@@SAXABUhkGeomConvexHullTolerances@@PBVhkVector4@@HAAVhkGeomHull@@AAV?$hkArray@VhkVector4@@@@@Z @0x83FDE968 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 
 /* hkArrayUtil::_reserveMore — SDK-floor boundary. */

@@ -1,3 +1,4 @@
+/* ?calcAabb@hkpAabbUtil@@SAXABVhkTransform@@ABVhkVector4@@MAAVhkAabb@@@Z @0x836027A8 */
 #include "../headers/havok/hkTransform.h"
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkAabb.h"

@@ -1,3 +1,4 @@
+/* ?GetString@psSECTION_INTERFACE@@QBAHPBDPADHK@Z @0x8251DF28 */
 #include "psSECTION_INTERFACE.h"
 #include "../ds/dsDATA.h"
 // 0x8251DF54 — value under `key` coerced to a NUL-terminated string copied into `buf` (capacity

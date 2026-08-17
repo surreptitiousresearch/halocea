@@ -64,6 +64,7 @@
 
 #include "headers/animation_state.h"
 #include "headers/animation_update_kind.h"
+#include "headers/fused_math.h"
 
 extern void *object_try_and_get_and_verify_type(int object_index, unsigned int valid_type_flags);
 extern int16_t animation_update_internal(animation_update_kind render_or_affects_game_state, int animation_graph_index, animation_state *state, int *triggered_sound_index);
@@ -215,10 +216,12 @@ animation_done:
         {
             float heat_decrement = (definition->weapon.heat_loss_per_second * SECONDS_PER_TICK);
             if ( definition->weapon.age_heat_recovery_penalty > 0.0 )
-                heat_decrement = (-((weapon->weapon.age
-                                                                 * definition->weapon.age_heat_recovery_penalty)
-                                                         - (float)1.0)
-                                         * (definition->weapon.heat_loss_per_second * (float)0.033333335));
+                /* DEVIATION: fnmsubs @0x836DD62C fuses -(age*penalty - 1) with one rounding, and
+                 * fmuls @0x836DD630 reuses the base per-tick loss product already in heat_decrement. */
+                heat_decrement = fused_nmsub(weapon->weapon.age,
+                                             definition->weapon.age_heat_recovery_penalty,
+                                             (float)1.0)
+                                         * heat_decrement;
             float new_heat = (weapon->weapon.heat - heat_decrement);
             weapon->weapon.heat = weapon->weapon.heat - heat_decrement;
             if ( new_heat < 0.0 )
@@ -435,7 +438,10 @@ animation_done:
                     {
                         if ( trigger + 1 < definition->weapon.triggers.count )
                             weapon_trigger_fire(weapon_index, trigger + 1);
-                        int16_t fire_duration = (int)(trigger_definition->overloading_time * (float)30.0);
+                        /* DEVIATION: fmuls @0x836DDD7C rounds the 30Hz product to single precision
+                         * before fctiwz @0x836DDD94 truncates — explicit float local pins it. */
+                        float fire_duration_ticks = trigger_definition->overloading_time * (float)30.0;
+                        int16_t fire_duration = (int)fire_duration_ticks;
                         trigger_state->state = _weapon_trigger_firing;
                         trigger_state->state_timer = fire_duration;
                     }
@@ -469,7 +475,10 @@ animation_done:
                     {
                         float charge_hold_time = trigger_definition->charged_time;
                         trigger_state->state = _weapon_trigger_charged;
-                        trigger_state->state_timer = (int)(charge_hold_time * (float)30.0);
+                        /* DEVIATION: fmuls @0x836DDE88 rounds the 30Hz product to single precision
+                         * before fctiwz @0x836DDE8C truncates — explicit float local pins it. */
+                        float charge_hold_ticks = charge_hold_time * (float)30.0;
+                        trigger_state->state_timer = (int)charge_hold_ticks;
                         /* trigger 0 -> weapon_state_primary_charged (7), trigger 1 -> secondary_charged (8) */
                         weapon_set_state(weapon_index, weapon_state_primary_charged + trigger, 1);
                         first_person_weapon_message_from_weapon(weapon_index, _first_person_weapon_message_charged);

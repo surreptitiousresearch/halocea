@@ -1,3 +1,4 @@
+/* rematchGraphics @0x8383FCA8 */
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkVector4.h"
 #include "../headers/havok/hkThreadMemory.h"

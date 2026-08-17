@@ -1,3 +1,4 @@
+/* ?_UnshareVertList@objOBJ@@QAAHXZ @0x82A7F830 */
 #include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"

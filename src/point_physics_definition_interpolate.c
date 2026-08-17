@@ -1,3 +1,4 @@
+/* point_physics_definition_interpolate @0x836E06C0 */
 #include "headers/point_physics_definition.h"
 
 /* point_physics_definition_interpolate — blend two point-physics tags by `t`, copying `physics1`'s

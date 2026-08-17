@@ -1,3 +1,4 @@
+/* ?isValidNonPlanarHull@hkGeomConvexHullTester@@SA?AVhkBool@@AAV?$hkArray@VhkVector4@@@@AAVhkGeomHull@@00AAV?$hkArray@VPlaneAndPoints@hkGeomConvexHullBuilder@@@@M@Z @0x83FE3BC0 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include <math.h>
 

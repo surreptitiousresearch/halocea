@@ -1,3 +1,4 @@
+/* hkdMeshSplittingPlaneUtil_addBackFaces @0x838733D8 */
 #include "../headers/havok/hkMesh_boundary.h"
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkVector4.h"

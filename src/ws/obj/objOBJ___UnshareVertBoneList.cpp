@@ -1,3 +1,4 @@
+/* ?_UnshareVertBoneList@objOBJ@@QAAXXZ @0x82A7F960 */
 #include <stdint.h>
 #include <string.h>
 #include "objOBJ.h"

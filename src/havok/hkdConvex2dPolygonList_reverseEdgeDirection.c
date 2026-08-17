@@ -1,3 +1,4 @@
+/* ?reverseEdgeDirection@hkdConvex2dPolygonList@@QAAXXZ @0x8387B4D8 */
 #include "../headers/havok/hkdConvex2dPolygonList.h"
 
 /* hkdConvex2dPolygonList::reverseEdgeDirection — reverse the winding of every

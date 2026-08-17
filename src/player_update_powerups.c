@@ -1,3 +1,4 @@
+/* player_update_powerups @0x836AC728 */
 #include <stdint.h>
 #include "headers/data_array.h"
 #include "headers/player_datum.h"

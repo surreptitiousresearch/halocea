@@ -1,3 +1,4 @@
+/* ?isOk@hkMatrix4@@QBA?AVhkBool@@XZ @0x838E7030 */
 #include "../headers/havok/hkMatrix4.h"
 #include "../headers/havok/hkBool.h"
 

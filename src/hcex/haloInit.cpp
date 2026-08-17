@@ -16,9 +16,21 @@
 
 #include <new>
 #include "headers/game_time_constants.h"
+#include "../headers/ws/jbm/jbmMANAGER.h"
+
+extern jbmMANAGER gsJobManager;
 
 int haloInit()
 {
+    /* DEVIATION: the decompiler dropped the function's first statement — disasm @0x823EA254
+     * loads gsJobManager.threads.nEntry, computes max(0, 6 - nEntry) branchlessly
+     * (subfic/srwi/addme/and, operand comment names it nAdditionalTreads), and calls
+     * jbmMANAGER::AddThreads. Restored from disassembly. */
+    int additionalThreads = 6 - gsJobManager.threads.nEntry;
+    if (additionalThreads < 0)
+        additionalThreads = 0;
+    gsJobManager.AddThreads(additionalThreads);
+
     dsTSTRING<char> t1, t2;
 
     t1.pBuffer = nullptr;

@@ -1,3 +1,4 @@
+/* rasterizer_set_target_as_texture_for_effect @0x836F3898 */
 /* rasterizer_set_target_as_texture_for_effect 0x836F3898 — bind one of the global render targets as a
  * texture input on a pixel-shader effect. `target` selects which render target (0..9, else none) and
  * `stage` selects which of the effect's texture parameter handles receives it. */

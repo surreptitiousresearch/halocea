@@ -1,3 +1,4 @@
+/* network_game_server_allow_game_start @0x836972C0 */
 #include <stdint.h>
 #include "headers/widget_instance.h"
 #include "headers/event_record.h"

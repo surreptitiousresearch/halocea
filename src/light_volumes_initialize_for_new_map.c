@@ -1,3 +1,4 @@
+/* light_volumes_initialize_for_new_map @0x8380AA80 */
 #include "headers/light_volume_globals.h"
 #include "headers/data_array.h"
 

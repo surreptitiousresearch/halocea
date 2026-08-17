@@ -1,3 +1,4 @@
+/* ?Term@osLOCK@@AAAXXZ @0x825E54C0 */
 #include "osLOCK.h"
 
 // 0x825E54C0 -- CAVEAT: disasm is exactly 3 instructions (li r11,0 / stb r11,0x20(r3) / blr,

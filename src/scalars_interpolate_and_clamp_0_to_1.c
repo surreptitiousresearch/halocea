@@ -1,3 +1,4 @@
+/* scalars_interpolate_and_clamp_0_to_1 @0x836FCA10 */
 /* scalars_interpolate_and_clamp_0_to_1 — linearly interpolate a->b by `t`, then clamp to [0,1]
  * and store through `out`. Floats arrive in the FP registers (a=f1, b=f2, t=f3); the output pointer
  * is arg3 (r6).

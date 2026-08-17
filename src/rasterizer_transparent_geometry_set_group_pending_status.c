@@ -1,3 +1,4 @@
+/* rasterizer_transparent_geometry_set_group_pending_status @0x83768540 */
 /* rasterizer_transparent_geometry_set_group_pending_status 0x83768540 — flip a group's "pending" bit in the
  * 384-bit bucket vector. The group must live inside the transparent_geometry_groups[] pool; its array index
  * selects the dword (index>>5) and bit (index&0x1F).

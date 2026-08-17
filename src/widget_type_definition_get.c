@@ -1,3 +1,4 @@
+/* widget_type_definition_get @0x83755F98 */
 #include <stdint.h>
 #include "headers/widget_type_definition.h"
 

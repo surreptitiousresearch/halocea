@@ -1,3 +1,4 @@
+/* rasterizer_model_draw @0x836A6138 */
 #include <stdint.h>
 #include "headers/shader.h"
 #include "headers/triangle_buffer.h"

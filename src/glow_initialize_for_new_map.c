@@ -1,3 +1,4 @@
+/* glow_initialize_for_new_map @0x8380B410 */
 #include "headers/glow_globals.h"
 
 extern void data_make_valid(data_array *data);

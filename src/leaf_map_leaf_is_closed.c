@@ -1,3 +1,4 @@
+/* leaf_map_leaf_is_closed @0x8381AEB8 */
 #include <stdint.h>
 #include "headers/leaf_map.h"
 #include "headers/map_leaf.h"

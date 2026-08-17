@@ -1,3 +1,4 @@
+/* ?GetFace@objOBJ@@QAAPAUobjFACE@@H@Z @0x82661278 */
 #include "objOBJ.h"
 #include "objGEOM_UNSHARED.h"
 #include "objGEOM_SHARED.h"

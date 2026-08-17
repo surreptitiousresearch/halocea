@@ -1,3 +1,4 @@
+/* ?SetAffixes@animINST@@QAAXABVdsAFFIX_STRING@@@Z @0x825E38A0 */
 #include "animINST.h"
 #include "../ds/dsAFFIX_STRING.h"
 #include "../ds/dsTSTRING.h"

@@ -1,3 +1,4 @@
+/* ?removeCollinearVertices@hkGeomConvexHullBuilder@@SAXAAV?$hkArray@VhkVector4@@@@M@Z @0x83FDB958 */
 #include "../headers/havok/hkGeomConvexHullBuilder_internal.h"
 #include <math.h>
 

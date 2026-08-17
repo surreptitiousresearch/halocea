@@ -1,3 +1,4 @@
+/* get_read_request_buffer @0x838083B0 */
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 

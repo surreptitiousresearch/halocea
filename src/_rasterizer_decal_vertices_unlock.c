@@ -1,3 +1,4 @@
+/* _rasterizer_decal_vertices_unlock @0x83711040 */
 #include "headers/rasterizer_globals.h"
 #include "headers/rasterizer_lock_operation.h"
 

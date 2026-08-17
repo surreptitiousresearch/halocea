@@ -1,3 +1,4 @@
+/* rasterizer_environment_diffuse_texture_draw @0x836A6218 */
 /* rasterizer_environment_diffuse_texture_draw 0x836A6218 (thunk) — tail-call thunk to the underscore rasterizer implementation. */
 #include <stdint.h>
 

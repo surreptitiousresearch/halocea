@@ -1,3 +1,4 @@
+/* structure_bsp_header_deregister_vertex_buffers @0x83753CA0 */
 #include "headers/blam_data_globals.h"
 extern void hcex_stat_vbuf_free(void *vbuf);
 

@@ -1,3 +1,4 @@
+/* ?PopRenderTarget@vidDRIVER@@QAAHXZ @0x8266B3A8 */
 #include "../../headers/vidDRIVER.h"
 
 // 0x8266B3A8 -- ?PopRenderTarget@vidDRIVER@@QAAHXZ

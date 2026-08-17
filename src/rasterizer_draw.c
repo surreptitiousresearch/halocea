@@ -1,3 +1,4 @@
+/* rasterizer_draw @0x83791B48 */
 #include "headers/triangle_buffer.h"
 #include "headers/vertex_buffer.h"
 

@@ -1,3 +1,4 @@
+/* fast_normals_interpolate @0x836FC700 */
 #include "headers/real_vector3d.h"
 #include "headers/ppc_intrinsics.h"
 

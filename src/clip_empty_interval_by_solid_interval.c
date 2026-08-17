@@ -1,3 +1,4 @@
+/* clip_empty_interval_by_solid_interval @0x8381CF58 */
 BOOL clip_empty_interval_by_solid_interval(float *empty_t0, float *empty_t1, float solid_t0, float solid_t1)
 {
     if ( *empty_t0 > solid_t1 )

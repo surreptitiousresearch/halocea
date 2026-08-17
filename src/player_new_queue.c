@@ -1,3 +1,4 @@
+/* player_new_queue @0x836F61D0 */
 #include "headers/update_server_globals.h"
 
 #include "headers/data_array.h"

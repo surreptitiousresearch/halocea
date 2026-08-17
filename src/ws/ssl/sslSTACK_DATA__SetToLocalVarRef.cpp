@@ -1,3 +1,4 @@
+/* ?SetToLocalVarRef@sslSTACK_DATA@@QAAAAV1@PAVsslSTACK@@H@Z @0x82AF08C0 */
 #include "sslSTACK_DATA.h"
 
 // 0x82AF08C0 — sslSTACK_DATA::SetToLocalVarRef. Stores a (stack, index) local-variable reference

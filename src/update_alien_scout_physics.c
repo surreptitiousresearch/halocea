@@ -257,12 +257,16 @@ void update_alien_scout_physics(int vehicle_index, float steering,
             }
 
             {
-                float force_a = physics->xx_moment * level_torque_a;
-                float force_b = physics->yy_moment * level_torque_b;
+                /* DEVIATION: the leveling accumulation targets the magic_torque stack vector, not
+                 * magic_force — fmadds f31/f30/f29 + stfs @0x83761B20-0x83761B3C write var_138/134/130,
+                 * the block passed as physics_update's magic_torque (addi r7 @0x83761D84); magic_force
+                 * is var_148-based (addi r6 @0x83761D88). An earlier pass accumulated this into force. */
+                float torque_a = physics->xx_moment * level_torque_a;
+                float torque_b = physics->yy_moment * level_torque_b;
                 float one_minus_ratio = 1.0f - antigrav_ratio;
-                magic_force.n[0] += one_minus_ratio * (-force_a * forward->n[0] + force_b * left_axis.n[0]);
-                magic_force.n[1] += (forward->n[1] * -force_a + left_axis.n[1] * force_b) * one_minus_ratio;
-                magic_force.n[2] += (-force_a * forward->n[2] + left_axis.n[2] * force_b) * one_minus_ratio;
+                magic_torque.n[0] += one_minus_ratio * (-torque_a * forward->n[0] + torque_b * left_axis.n[0]);
+                magic_torque.n[1] += (forward->n[1] * -torque_a + left_axis.n[1] * torque_b) * one_minus_ratio;
+                magic_torque.n[2] += (-torque_a * forward->n[2] + left_axis.n[2] * torque_b) * one_minus_ratio;
             }
         }
 

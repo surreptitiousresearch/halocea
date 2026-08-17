@@ -1,3 +1,4 @@
+/* _field_type_wide_string_parameter_verifier @0x8379ACF0 */
 /* message-delta "wide_string" field parameter verifier: returns 1 iff the length in
  * parameters[0] is a power of two ((-n & ~n) >> 31); protocol-local validation. */
 

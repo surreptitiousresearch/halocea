@@ -1,3 +1,4 @@
+/* ?SetToObjRef@sslSTACK_DATA@@QAAAAV1@PAVsslOBJECT@@PAVsslCLASS@@@Z @0x82AF07D0 */
 #include "sslSTACK_DATA.h"
 #include "sslOBJECT.h"
 #include "sslCLASS.h"

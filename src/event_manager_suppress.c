@@ -1,3 +1,4 @@
+/* event_manager_suppress @0x83726410 */
 #include <stdint.h>
 #include "headers/event_manager_globals.h"
 

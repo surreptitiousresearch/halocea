@@ -1,6 +1,6 @@
 #include "dsVECTOR.h"
 
-class objOBJ; // boundary — obj engine game object (opaque; element is a pointer)
+struct objOBJ; // boundary — obj engine game object (opaque; element is a pointer)
 
 // dsVECTOR<objOBJ *,8>::PushBack @ 0x82687E08
 // Append `val` to the tail, growing the backing store first when there is no spare capacity,

@@ -1,3 +1,4 @@
+/* ?isDescendantOf@hkdBreakableShape@@QBA_NPBV1@@Z @0x83848BB0 */
 #include "../headers/havok/hkdBreakableShape.h"
 
 /* hkdBreakableShape::isDescendantOf — walk the parent chain upward from this

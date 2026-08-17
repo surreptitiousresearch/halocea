@@ -1,3 +1,4 @@
+/* encounter_force_deactivate @0x8370D450 */
 #include "headers/data_array.h"
 #include "headers/encounter_datum.h"
 #include "headers/blam_data_globals.h"

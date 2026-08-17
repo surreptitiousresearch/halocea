@@ -1,3 +1,4 @@
+/* halo_update_pelican_effects @0x83682348 */
 /* halo_update_pelican_effects 0x83682348 — bridge shim: forward a pelican thruster effect update from the
  * Blam engine (real_point3d/real_vector3d) into the hcex engine (hcex_float3). Either spatial argument may
  * be null, in which case the corresponding hcex_float3 is left uninitialized (matching the original; the

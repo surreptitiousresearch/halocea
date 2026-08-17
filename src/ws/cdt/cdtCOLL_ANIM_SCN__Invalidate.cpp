@@ -1,3 +1,4 @@
+/* ?Invalidate@cdtCOLL_ANIM_SCN@@QAAXPAVanimINST@@H@Z @0x82A25C70 */
 #include "../../headers/ws/cdt/cdtCOLL_ANIM_SCN.h"
 #include "../../headers/ws/anim/animINST.h"
 #include "../../headers/ws/m3d/m3dOBB.h"

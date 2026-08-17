@@ -1,3 +1,4 @@
+/* sound_cache_sound_hardware_unlock @0x837E75C0 */
 #include "headers/pc_sound_cache_globals.h"
 #include "headers/sound_permutation.h"
 #include "headers/cache_sound_datum.h"

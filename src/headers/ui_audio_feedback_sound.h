@@ -5,7 +5,7 @@
 
 /* GUESS: enum recovered by reconciliation, no ground-truth source for the enum NAME — but the value→meaning
  * mapping is binary ground truth: both ui_play_audio_feedback_sound @0x83733210 and
- * widget_instance_process_one_event_recursive @0x837384B0 map 1 -> "sound\sfx\ui\cursor",
+ * widget_instance_process_one_event_recursive @0x83735AB0 map 1 -> "sound\sfx\ui\cursor",
  * 2 -> "sound\sfx\ui\forward", 3 -> "sound\sfx\ui\back", 4 (default of the 1..4 range) ->
  * "sound\sfx\ui\flag_failure". Member names are taken verbatim from those sound tag paths. */
 enum ui_audio_feedback_sound {

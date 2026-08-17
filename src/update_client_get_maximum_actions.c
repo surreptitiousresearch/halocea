@@ -1,3 +1,4 @@
+/* update_client_get_maximum_actions @0x836F6048 */
 #include "headers/update_client_globals.h"
 
 int update_client_get_maximum_actions(void)

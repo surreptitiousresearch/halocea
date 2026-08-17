@@ -1,3 +1,4 @@
+/* oddball_ball_transfer_by_killing @0x83816900 */
 #include "headers/game_variant.h"
 #include "headers/oddball_ball_type.h"
 

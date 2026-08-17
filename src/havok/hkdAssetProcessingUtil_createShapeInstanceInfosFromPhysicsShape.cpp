@@ -1,3 +1,4 @@
+/* ?createShapeInstanceInfosFromPhysicsShape@hkdAssetProcessingUtil@@SAXPBVhkpListShape@@AAV?$hkArray@UhkdShapeInstanceInfo@@@@@Z @0x8383B288 */
 #include "../headers/havok/hkdBreakableShape.h"
 #include "../headers/havok/hkdShapeInstanceInfo.h"
 #include "../headers/havok/hkTransform.h"

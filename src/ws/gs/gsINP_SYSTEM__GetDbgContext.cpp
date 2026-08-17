@@ -1,3 +1,4 @@
+/* ?GetDbgContext@gsINP_SYSTEM@@QAA?AV?$REF_TYPE@VgsiCONTEXT@@@ds_data@@XZ @0x826565A0 */
 #include "../../headers/ws/gs/gsINP_SYSTEM.h"
 
 // 0x826565A0 — return this system's debug binding-context handle (this->dbgCtx @ 0x40) by value,

@@ -1,3 +1,4 @@
+/* ?GetSizeY@txmTEXTURE@@QBAHXZ @0x826F6070 */
 #include "../../headers/ws/txm/txmMANAGER.h"
 
 // 0x826F6070 -- ?GetSizeY@txmTEXTURE@@QBAHXZ

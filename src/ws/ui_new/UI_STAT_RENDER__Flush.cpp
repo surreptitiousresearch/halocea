@@ -1,3 +1,4 @@
+/* ?Flush@UI_STAT_RENDER@ui_new@@QAAXXZ @0x82CEDC68 */
 #include "../../headers/ws/ui_new/UI_STAT_RENDER.h"
 #include "../../headers/ws/ui_new/ui_stat_render_boundary.h"
 #include "../../headers/ws/txm/txmMANAGER.h"

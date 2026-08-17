@@ -1,3 +1,4 @@
+/* ?Eval@sslSCRIPTED_FUNCTION@@QAA?AVsslERROR@@PAVsslOBJECT@@HPAVdsDATA@@0@Z @0x82ADF2A8 */
 #include "sslSCRIPTED_FUNCTION.h"
 #include "sslFUNCTION_DECL.h"
 #include "sslOBJECT.h"

@@ -1,3 +1,4 @@
+/* hs_unit_can_see_flag @0x837F7A88 */
 #include <stdint.h>
 #include "headers/scenario.h"
 #include "headers/scenario_cutscene_flag.h"

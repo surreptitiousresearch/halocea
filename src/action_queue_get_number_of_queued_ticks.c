@@ -1,3 +1,4 @@
+/* action_queue_get_number_of_queued_ticks @0x837AB100 */
 #include "headers/action_queue.h"
 
 int action_queue_get_number_of_queued_ticks(const action_queue *queue)

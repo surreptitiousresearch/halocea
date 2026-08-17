@@ -1,3 +1,4 @@
+/* rasterizer_environment_shadow_begin @0x836A61D8 */
 /* rasterizer_environment_shadow_begin 0x836A61D8 — argument-forwarding tail-call thunk to
  * _rasterizer_environment_shadow_begin. */
 

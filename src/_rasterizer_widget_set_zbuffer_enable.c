@@ -1,3 +1,4 @@
+/* _rasterizer_widget_set_zbuffer_enable @0x83786160 */
 #include "headers/blam_data_globals.h"
 extern void D3DDevice_SetRenderState_ZEnable(D3DDevice *device, unsigned int zbuffer_enable);
 

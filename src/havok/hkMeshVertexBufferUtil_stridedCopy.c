@@ -1,3 +1,4 @@
+/* ?stridedCopy@hkMeshVertexBufferUtil@@SAXPBXHPAXHHH@Z @0x839EC268 */
 /* boundary — Havok's byte copy (sibling TU hkString_memCpy). */
 extern void hkString_memCpy(void *dst, const void *src, int numBytes);
 

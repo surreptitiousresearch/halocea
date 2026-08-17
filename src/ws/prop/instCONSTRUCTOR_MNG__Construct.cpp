@@ -1,3 +1,4 @@
+/* ?Construct@instCONSTRUCTOR_MNG@@QAAXABV?$dsTSTRING@D@@PAVanimINST@@_N@Z @0x826E3FD0 */
 #include "../../headers/ws/prop/instCONSTRUCTOR_MNG.h"
 #include "../../headers/ws/obj/objOBJ.h"
 #include "../../headers/ws/wb/dbgVAR_boundary.h"

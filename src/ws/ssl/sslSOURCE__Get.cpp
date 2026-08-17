@@ -1,3 +1,4 @@
+/* ?Get@sslSOURCE@@QBA?AV?$dsTSTRING@D@@XZ @0x825CAB58 */
 #include "sslSOURCE.h"
 // 0x825CAB58  sslSOURCE::Get
 // Returns a copy of the source text. As with sslOBJECT::GetDbgName, the decompiler shows the

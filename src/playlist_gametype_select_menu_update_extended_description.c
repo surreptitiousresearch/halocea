@@ -1,3 +1,4 @@
+/* playlist_gametype_select_menu_update_extended_description @0x8377E290 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 

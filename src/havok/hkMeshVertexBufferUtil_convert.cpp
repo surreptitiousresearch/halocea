@@ -1,3 +1,4 @@
+/* ?convert@hkMeshVertexBufferUtil@@SAXABUBuffer@LockedVertices@hkMeshVertexBuffer@@0H@Z @0x839ED7F0 */
 #include "../headers/havok/hkMeshVertexBuffer_Buffer.h"
 #include "../headers/havok/hkVertexFormat.h"
 

@@ -1,3 +1,4 @@
+/* calcTransform @0x8384DE38 */
 /* =========================================================================
    NOTE / CAVEAT (read before trusting this file):
    Reconstructed from a decompile that Hex-Rays itself flagged
@@ -44,10 +45,22 @@ static float damp(float x)
     return (x <= 0.0f) ? x * 0.25f : x * 0.5f;
 }
 
+/* DEVIATION: 7-arg signature re-derived from the prologue read-before-write set
+   (r3 splittingData 0x8384DEF0, r4 normalAxis lvx128 0x8384E264, r5 woodNormalAxis
+   lvx128 0x8384E26C, r6 objectAabb 0x8384DE5C/64, r7 splitterAabb via r26,
+   r8 rand LCG 0x8384DECC, r9 matrixOut identity stores 0x8384DE9C..B4; r10 never
+   read). A prior 6-arg decl dropped woodNormalAxis and sat rand/matrixOut one
+   slot early; the DB's 8-arg proto (extra splitCenter@r8) is also refuted. */
 void calcTransform(const hkdWoodFracture_SplittingData *splittingData, const hkVector4 *normalAxis,
+                   const hkVector4 *woodNormalAxis,
                    const hkAabb *objectAabb, const hkAabb *splitterAabb,
                    hkPseudoRandomGenerator *rand, hkMatrix4 *matrixOut)
 {
+    /* woodNormalAxis (r5) feeds the inlined VMX matrix-compose block at
+       0x8384E26C (cross/permute math with normalAxis) — that block is the
+       BEST-EFFORT region flagged in the file CAVEAT above. */
+    (void)woodNormalAxis;
+
     hkMatrix4 shear;
     float scale[3];
     float extents[4];

@@ -1,3 +1,4 @@
+/* ?matchTriangles@hkGeometryMatchingUtils@@SAXABV?$hkArray@UGeometry@hkGeometryMatchingUtils@@@@0MAAUTriangleMap@1@@Z @0x839EB040 */
 #include <math.h>
 #include "../headers/havok/hkArray.h"
 #include "../headers/havok/hkPadSpu.h"

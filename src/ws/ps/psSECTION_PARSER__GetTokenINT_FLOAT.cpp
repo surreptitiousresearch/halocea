@@ -1,3 +1,4 @@
+/* ?GetTokenINT_FLOAT@psSECTION_PARSER@@IAAHAAUpsTOKEN@1@@Z @0x82A2C828 */
 #include "psSECTION_PARSER.h"
 // 0x82A2C83C — lex a numeric literal (INT or FLOAT). Grammar: an optional leading '+'/'-', a run of
 // decimal digits, an optional '.'-led fractional digit run (upgrades the token to FLOAT and may be

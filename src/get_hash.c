@@ -1,3 +1,4 @@
+/* get_hash @0x838188E8 */
 #include "headers/index_resolution_table.h"
 
 int get_hash(index_resolution_table *table, int object_index)

@@ -1,3 +1,4 @@
+/* playlist_profile_get_display_name @0x83782168 */
 #include <stdint.h>
 #include <stddef.h>   /* wchar_t */
 

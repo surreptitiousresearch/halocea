@@ -1,3 +1,4 @@
+/* cache_files_enable_writes @0x836F7028 */
 extern unsigned int XPhysicalProtect(void *BaseAddress, unsigned int RegionSize, unsigned int Protect);
 
 void cache_files_enable_writes(void)

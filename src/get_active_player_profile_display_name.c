@@ -1,3 +1,4 @@
+/* get_active_player_profile_display_name @0x8377F718 */
 #include <stdint.h>
 #include "headers/widget_globals.h"
 #include "headers/player_profile.h"

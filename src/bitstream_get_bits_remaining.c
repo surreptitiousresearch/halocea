@@ -1,3 +1,4 @@
+/* bitstream_get_bits_remaining @0x8380F850 */
 #include "headers/bitstream_t.h"
 
 unsigned int bitstream_get_bits_remaining(const bitstream_t *const bit_stream)

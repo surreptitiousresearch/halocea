@@ -1,3 +1,4 @@
+/* ?GetGlobalObj@sslSYSTEM@@QAA?AVsslOBJ_REF@@XZ @0x825C9A48 */
 // Flattened bridge for hcex_cine_init_boundary.h: free-function form of
 // sslSYSTEM::GetGlobalObj() (0x825C9A48, re-sourced in sslSYSTEM__GetGlobalObj.cpp —
 // copy-constructs from this->globalObj @0x98). The by-value sret return is materialized by

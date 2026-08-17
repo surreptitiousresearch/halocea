@@ -1,3 +1,4 @@
+/* ?IsSkipCreation@hcexHALO_CUSTOM_OBJ_LIST@@QAA_NPAUscnINST_CREATE_DATA@@@Z @0x823D95B0 */
 #include "../headers/hcex/hcexHALO_CUSTOM_OBJ_LIST.h"
 
 // 0x823D95B0

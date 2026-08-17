@@ -1,3 +1,4 @@
+/* ?GetName@sslOBJ_REF@@QBA?AV?$dsTSTRING@D@@XZ @0x825248E8 */
 #include "sslOBJ_REF.h"
 #include "sslOBJECT.h"
 

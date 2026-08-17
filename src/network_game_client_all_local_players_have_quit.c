@@ -1,3 +1,4 @@
+/* network_game_client_all_local_players_have_quit @0x83756A00 */
 #include "headers/blam_data_globals.h"
 extern void hud_chat_close(void);
 

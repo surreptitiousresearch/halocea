@@ -1,3 +1,4 @@
+/* ?GetFloat@psARRAY@@QBAMHM@Z @0x827AF500 */
 #include "psARRAY.h"
 #include "../ds/dsDATA.h"
 // 0x827AF500 — element `idx` coerced to float, falling back to `def` when the element is absent or

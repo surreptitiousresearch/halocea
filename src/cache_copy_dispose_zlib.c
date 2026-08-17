@@ -1,3 +1,4 @@
+/* cache_copy_dispose_zlib @0x83808038 */
 #include "headers/simple_decompressor_definition.h"
 
 extern int inflateEnd(z_stream *strm);

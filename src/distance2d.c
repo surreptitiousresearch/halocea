@@ -1,3 +1,4 @@
+/* distance2d @0x837C70C0 */
 #include <math.h>
 
 #include "headers/real_point2d.h"

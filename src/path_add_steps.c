@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "headers/bit_vector.h"
+#include "headers/fused_math.h"
 #include "headers/obstacle_path.h"
 #include "headers/path_test_pill2d_result.h"
 #include "headers/structure_test_ray2d_result.h"
@@ -67,7 +68,8 @@ void path_add_steps(obstacle_path *path, int16_t step_index, int16_t seed_disc_i
             path_test_pill2d_result pill_hit;
             path_test_pill2d(path->structure, path->ignore_broken_surfaces, path->obstacles, disc_index,
                     &current_step->point, current_step->surface_index, direction, path->radius,
-                    path->radius * 2.0f + tangent_distance, 0, 0, path->ignore_optional, &pill_hit);
+                    /* DEVIATION: fmadds @0x8381DBA4 — radius*2 + tangent_distance is fused */
+                    fused_madd(path->radius, 2.0f, tangent_distance), 0, 0, path->ignore_optional, &pill_hit);
 
             if ((uint16_t)pill_hit.disc_index != 0xFFFF)
             {
@@ -90,8 +92,9 @@ void path_add_steps(obstacle_path *path, int16_t step_index, int16_t seed_disc_i
                         current_step->surface_index, direction, midpoint_distance, &midpoint_probe);
 
                 real_point2d midpoint;
-                midpoint.n[0] = direction->n[0] * midpoint_distance + current_step->point.n[0];
-                midpoint.n[1] = direction->n[1] * midpoint_distance + current_step->point.n[1];
+                /* DEVIATION: fmadds @0x8381DC70/@0x8381DC7C — midpoint advance is fused per axis */
+                midpoint.n[0] = fused_madd(direction->n[0], midpoint_distance, current_step->point.n[0]);
+                midpoint.n[1] = fused_madd(direction->n[1], midpoint_distance, current_step->point.n[1]);
 
                 float previous_distance = (current_step->total_distance - current_step->distance) + midpoint_distance;
                 path_add_step(path, &midpoint, midpoint_probe.surface_index, obstacle_index, side,

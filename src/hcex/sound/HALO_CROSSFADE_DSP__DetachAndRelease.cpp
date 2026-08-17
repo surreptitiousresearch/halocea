@@ -1,3 +1,4 @@
+/* ?DetachAndRelease@HALO_CROSSFADE_DSP@@SAXAAPAU1@@Z @0x836C1C48 */
 // ?DetachAndRelease@HALO_CROSSFADE_DSP@@SAXAAPAU1@@Z -- 0x836C1C5C
 #include "../../headers/hcex/HALO_CROSSFADE_DSP.h"
 

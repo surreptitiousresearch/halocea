@@ -1,3 +1,4 @@
+/* ?SetParameters@camCAMERA@@QAAXPAUm3dV@@000@Z @0x82703060 */
 #include "../../headers/ws/cam/camCAMERA.h"
 #include "../../headers/ws/m3d/m3d_boundary.h"
 

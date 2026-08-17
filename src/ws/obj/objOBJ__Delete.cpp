@@ -1,3 +1,4 @@
+/* ?Delete@objOBJ@@SAXPAV1@@Z @0x82A7EB40 */
 #include "objOBJ.h"
 #include "obj_boundary.h"
 // 0x82A7EB40  ?Delete@objOBJ@@SAXPAV1@@Z

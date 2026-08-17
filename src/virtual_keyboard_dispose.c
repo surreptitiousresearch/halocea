@@ -1,3 +1,4 @@
+/* virtual_keyboard_dispose @0x83783388 */
 #include "headers/virtual_keyboard_globals_t.h"
 #include <stdint.h>
 

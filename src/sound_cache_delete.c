@@ -1,3 +1,4 @@
+/* sound_cache_delete @0x837E7308 */
 #include "headers/pc_sound_cache_globals.h"
 
 #include "headers/data_array.h"

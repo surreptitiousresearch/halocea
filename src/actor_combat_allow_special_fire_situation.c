@@ -23,7 +23,7 @@ uint8_t actor_combat_allow_special_fire_situation(int actor_index, int16_t speci
         return 1;
 
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    uint16_t prop_index = (uint16_t)actor->control.current_fire_target_type;
+    uint16_t prop_index = (uint16_t)actor->control.___u58.current_fire_target_prop_index; /* DEVIATION: lwz r6,0x610 @0x837B8928 (32-bit) = the union's prop-index arm, not current_fire_target_type (0x60C) */
     prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, prop_index);
 
     if ( prop->vehicle_index != -1 )

@@ -89,7 +89,7 @@ void objects_update(void)
             object_header_datum *header = (object_header_datum *)data;
             /* DEVIATION: bit tests respelled from data[1] (BE halfword = flags<<8|type; would test
                the TYPE byte on the original target) to the flags byte the binary actually reads
-               (lbz 2(r31) @0x836F2A38/0x836F2AC4 etc.), endian-neutral. 2026-08-18 */
+               (lbz r10, 2(r31) @0x836F2A1C, bit-tested @0x836F2A20/2A2C/2A38/2AC4), endian-neutral. 2026-08-18 */
             /* must be a live, connected, activatable object */
             if ( !data[0]
               || (header->flags & (1u << _object_header_automatically_deactivate_bit)) == 0

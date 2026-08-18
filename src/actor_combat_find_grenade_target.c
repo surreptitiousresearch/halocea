@@ -38,7 +38,7 @@ uint8_t actor_combat_find_grenade_target(int actor_index, real_point3d *grenade_
     {
         prop_datum *prop = DATA_ARRAY_ELEMENT(prop_data, prop_datum, actor->target.target_prop_index);
 
-        if ( prop->enemy && !prop->really_dead )
+        if ( prop->enemy && !prop->dead ) /* DEVIATION: lbz 0x127 @0x837B8314 = dead, not really_dead (0x128) */
         {
             if ( (prop->state >= _prop_state_becoming_unacknowledged && prop->state <= _prop_state_acknowledged) || prop->state == _prop_state_uninspected_orphan )
             {

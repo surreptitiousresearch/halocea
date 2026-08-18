@@ -35,7 +35,7 @@ int hs_parse_enum(int expression_index)
 
     if ( ordinal != definition->count )
     {
-        /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r9, 0x10(r26)` @0x8377693C
+        /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r9, 0x10(r26)` @0x837768FC
          * (was an *(int16_t*)&node->data pun); hs_evaluate passes node->data whole-word to hs_cast, which
          * extracts (int16_t)(value >> 16) 2026-08-18 */
         node->data = (unsigned int)((uint16_t)ordinal) << 16;
@@ -61,7 +61,7 @@ int hs_parse_enum(int expression_index)
 
     hs_compile_globals.__noop = hs_compile_globals.error_buffer;
     hs_compile_globals.error_offset = node->source_offset;
-    /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r30, 0x10(r26)` @0x83776948
+    /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r30, 0x10(r26)` @0x83776908
      * (was an *(int16_t*)&node->data pun); hs_cast extracts (int16_t)(value >> 16) 2026-08-18 */
     node->data = (unsigned int)((uint16_t)last) << 16;
     return 0;

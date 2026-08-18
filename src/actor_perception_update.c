@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include "headers/encounter_datum.h"
 #include "headers/actor_datum.h"
+#include "headers/actor_fire_target_type.h"
 #include "headers/actor_definition.h"
 #include "headers/data_array.h"
 #include "headers/global_tag_instances.h"
@@ -382,12 +383,12 @@ accumulate_awareness:
                 {
                     char inspecting = 0;
                     int16_t inspection_threshold = actor->input.vehicle_gunner_bombardment ? 300 : 45;
-                    /* Both reads are faithful decompiler type-puns over the DB control layout:
-                     * weapon_maximum_range (float @412) read as __int16, current_fire_target_type
-                     * (__int16 @416) read as int. Kept byte-exact — the reinterpretation is the
-                     * decompiler's; do not "simplify" to a float/short compare. */
+                    /* DEVIATION: natural-width reads of the next members up — lhz 0x60C @0x837DC6A4 =
+                     * current_fire_target_type, lwz 0x610 @0x837DC6B0 = ___u58.current_fire_target_prop_index
+                     * ("fire target is a prop AND it is this prop"). The old "faithful type-pun over
+                     * weapon_maximum_range" comment was a wrong-rationale caveat; 0x608 is never read here. */
                     if ( prop->visibility >= 2
-                      || (*((int16_t *)&actor->control.weapon_maximum_range) == 1 && *((int *)&actor->control.current_fire_target_type) == iterator.index
+                      || (actor->control.current_fire_target_type == actor_fire_target_prop && actor->control.___u58.current_fire_target_prop_index == iterator.index
                           && game_time_get() % 3 == 0) )
                         inspecting = 1;
                     if ( inspecting )

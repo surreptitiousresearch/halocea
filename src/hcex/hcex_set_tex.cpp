@@ -21,6 +21,6 @@ void hcex_set_tex(txmTEXTURE *pTex, pctPICTURE *pPict, int is2d)
     txmTEXTURE__Set(pTex, pPict, 0);
     hcex_halo_tex_size += pTex->texSize;
 
-    pctGetFormat(pPict->hdr.format); /* decl takes format code, not picture */
+    pctGetFormat(pPict); /* DEVIATION: mr r3,r30 (pPict) -> ?pctGetFormat@@YAPAUpctFORMAT@@PAUpctPICTURE@@@Z -- the picture overload */
     pctDestroy(pPict);
 }

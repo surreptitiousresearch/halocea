@@ -36,7 +36,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
         int   *node = (int *)&((bsp3d_node *)data->bsp->bsp3d.nodes.address)[child_index];
         int    plane_index = *node;
         float  radius_plus = (data->radius + 0.00024414062f);
-        float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[plane_index & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E25B8 discards bit 31; plane_index stays raw for the stack push below */
+        float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[plane_index & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E25B8 discards bit 31 (mask faithful to the shift; node[0] planes are provably bit-31-clean, see collision_leaf_test_vector's clrlwi+cmpw @0x837E1454) */
 
         float along = ((vector->n[0] * plane[0])
                             + ((vector->n[1] * plane[1]) + (vector->n[2] * plane[2])));
@@ -94,7 +94,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
                 }
 
                 float fraction = 0.0;
-                float *plane = (float *)&((real_plane3d *)bsp->bsp3d.planes.address)[reference_plane];
+                float *plane = (float *)&((real_plane3d *)bsp->bsp3d.planes.address)[reference_plane & 0x7FFFFFFF]; /* DEVIATION: slwi r10,r10,4 @0x837E27E8 discards bit 31 (designator orientation bit, set by the oris 0x8000 push @0x837E266C) */
                 const real_point3d  *point  = data->point;
                 const real_vector3d *vector = data->vector;
                 float along = ((plane[0] * vector->n[0])

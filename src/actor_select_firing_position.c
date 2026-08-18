@@ -344,7 +344,7 @@ int16_t actor_select_firing_position(int actor_index, firing_position_evaluation
     evaluation_context->dangerous_enemy_attack_vector_count = 0;
     unsigned char build_attack_vectors = 0;
     if ( (int)actor_def->flags < 0 && actor->state.combat_status >= _actor_combat_status_definite )
-        build_attack_vectors = actor->situation.known_enemies > 0;
+        build_attack_vectors = actor->situation.area_friends > 0; /* DEVIATION: lbz 0x200 @0x837F0A40 = situation.area_friends (the block builds FRIEND attack vectors), not known_enemies (0x1EC, never read here) */
     if ( (actor_def->flags2 & (1u << _actor_definition_flags2_avoid_all_enemy_attack_vectors_bit)) != 0 && actor->state.combat_status >= _actor_combat_status_definite )
         build_attack_vectors = 1;
     unsigned int mode = (uint16_t)evaluation_context->evaluation_mode;

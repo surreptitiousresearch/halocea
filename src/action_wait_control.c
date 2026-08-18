@@ -25,7 +25,7 @@ void action_wait_control(int actor_index)
     else
     {
         int saved_path_target = actor->external_orders.pursuit_group_prop_index;
-        if ( actor->external_orders.stand_down || saved_path_target == -1 || actor->state.action_data.___u0.wait.look_timer <= 0 )
+        if ( actor->external_orders.pursuit_is_coordinator || saved_path_target == -1 || actor->state.action_data.___u0.wait.look_timer <= 0 ) /* DEVIATION: lbz 0x1CC @0x83822AE0 = pursuit_is_coordinator, not stand_down (0x1C8) */
         {
             actor->orders.look.primary_priority = _primary_priority_face_360;
         }

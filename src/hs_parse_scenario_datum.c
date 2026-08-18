@@ -28,7 +28,7 @@ int hs_parse_scenario_datum(int expression_index, int16_t offset, tag_block *blo
             if ( !stricmp(&element[offset], token) )
             {
                 /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r25, 0x10(r28)`
-                 * @0x83776978 (was an *(int16_t*)&node->data pun); hs_cast extracts (int16_t)(value >> 16) 2026-08-18 */
+                 * @0x837769B8 (was an *(int16_t*)&node->data pun); hs_cast extracts (int16_t)(value >> 16) 2026-08-18 */
                 node->data = (unsigned int)((uint16_t)i) << 16;
                 found = 1;
                 break;

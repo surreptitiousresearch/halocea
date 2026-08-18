@@ -44,5 +44,5 @@ void action_flee_update(int actor_index)
     }
 
     if ( flee_state->panic_type > _actor_panic_none )
-        actor->emotions.last_flee_failed_time = game_time_get() + 750;
+        actor->emotions.flee_with_friends_disable_time = game_time_get() + 750; /* DEVIATION: stw 0x39C @0x83825DAC = flee_with_friends_disable_time, not last_flee_failed_time (0x398) */
 }

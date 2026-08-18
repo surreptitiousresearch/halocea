@@ -50,7 +50,7 @@ uint8_t actor_action_allow_cover_seeking(int actor_index, uint8_t unopposable)
         }
 
         float danger_threshold = unit_definition->defensive.cover_damage_threshold;
-        if ( danger_threshold > 0.0f && actor->input.recent_shield_damage < danger_threshold )
+        if ( danger_threshold > 0.0f && actor->input.recent_body_damage < danger_threshold ) /* DEVIATION: lfs f13,0x1C0 @0x837F265C = recent_body_damage, not shield (0x1C4) */
             allow = 0;
     }
 

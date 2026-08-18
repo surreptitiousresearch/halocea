@@ -38,7 +38,7 @@ int actor_action_handle_active_cover_seeking(int actor_index, uint8_t allow_pani
     const actor_definition *definition_tag = TAG_GET(const actor_definition, actor->meta.definition_index);
 
     /* cover-seek threshold: definition_tag->defensive.shield_fraction_hide (actor_definition tag+732). */
-    if ( actor->input.recent_shield_damage > definition_tag->defensive.shield_fraction_hide )
+    if ( actor->input.shield_vitality > definition_tag->defensive.shield_fraction_hide ) /* DEVIATION: lfs f0,0x1BC @0x837F5418 = input.shield_vitality (shield FRACTION vs fraction threshold), not recent_shield_damage (0x1C4) */
         return 0;
 
     int16_t action_class = global_action_functions[actor->state.action].action_class;

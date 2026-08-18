@@ -127,7 +127,7 @@ void jackal_decide_action(int actor_index)
                     guard_range = character_definition->defensive.shield_fraction_emerge_attack;
 
                 char keep_guarding;
-                if ( actor->emotions.original_body_vitality >= guard_range )
+                if ( actor->input.shield_vitality >= guard_range ) /* DEVIATION: lfs f13,0x1BC @0x8382989C = input.shield_vitality vs the shield_fraction_emerge thresholds, not emotions.original_body_vitality (0x3B4, never read) */
                 {
                     keep_guarding = 0;
                     actor->state.action_data.___u0.guard.cower_ticks = 0;

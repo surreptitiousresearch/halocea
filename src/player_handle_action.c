@@ -22,6 +22,8 @@
 #include "headers/biped_datum.h"
 #include "headers/biped_datum_state.h"
 #include "headers/biped_datum_flags.h"
+#include "headers/vehicle_datum.h"
+#include "headers/vehicle_flags.h"
 #include "headers/game_connection.h"
 #include "headers/unit_animation_state.h"
 #include "headers/object_type.h"
@@ -112,17 +114,20 @@ uint8_t player_handle_action(int player_index)
                         float dot = (cross_x * target_object->object.forward.n[0])
                                   + ((target_object->object.forward.n[1] * cross_y)
                                           + (target_object->object.forward.n[2] * cross_z));
-                        side = (dot > 0.0f) + 1;   /* 1 = left, 2 = right */
+                        side = (dot > 0.0f) + 1;   /* vehicle_upending_type 1/2 = along back/forward */
                     }
                     else
                     {
-                        side = (forward_z < 0.0f) + 3;   /* 3 = front, 4 = back */
+                        side = (forward_z < 0.0f) + 3;   /* vehicle_upending_type 3/4 = along left/right */
                     }
 
-                    /* biped melee-flinch response (DB names): side in landing_recovery_time, state cleared */
-                    target_object->biped.landing_recovery_time = side;
-                    target_object->biped.state = biped_state_idle;
-                    target_object->biped.flags |= (1u << _biped_movement_passes_through_bipeds_bit);
+                    /* DEVIATION: this is the flip-vehicle branch and the target is the VEHICLE body,
+                     * not biped fields -- sth 0x4CC (vehicle.flags |= _vehicle_upending_bit),
+                     * stb 0x4D1 (upending_type = side), stb 0x4D2 (upending_ticks = 0) @0x836A9DA8;
+                     * a halfword RMW is incoherent against biped.flags (4 bytes). */
+                    ((vehicle_datum *)target_object)->vehicle.upending_type = side;
+                    ((vehicle_datum *)target_object)->vehicle.upending_ticks = 0;
+                    ((vehicle_datum *)target_object)->vehicle.flags |= (1u << _vehicle_upending_bit);
                 }
                 result = 1;
             }

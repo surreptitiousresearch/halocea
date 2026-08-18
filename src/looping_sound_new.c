@@ -15,7 +15,6 @@
 #include "headers/global_tag_instances.h"
 #include "headers/sound_manager_globals.h"
 #include "headers/sound_source.h"
-#include "headers/looping_sound_refresh_state.h"
 #include "headers/blam_data_globals.h"
 
 
@@ -47,8 +46,10 @@ int looping_sound_new(int definition_index, int identifier, const sound_source *
     definition = TAG_GET(looping_sound_definition, definition_index);
     datum->definition_index = definition_index;
     datum->loop_identifier = identifier;
-    datum->state = _looping_sound_refresh_start;
-    datum->ordered_permutations_finished = 0;
+    datum->component_sound_count = 0;         /* sth r30,0x50(r29) @0x837160D8 */
+    datum->ordered_permutations_finished = 0; /* stb r30,0x4E(r29) @0x837160DC */
+    /* DEVIATION: datum->state (0x52) is deliberately NOT initialized here -- no store to 0x52
+     * exists anywhere in looping_sound_new; state is first written by sound_refresh_looping. */
 
     for ( track = 0; track < definition->details.count; track = (int16_t)(track + 1) )
     {

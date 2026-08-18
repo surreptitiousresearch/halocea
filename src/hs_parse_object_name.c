@@ -36,7 +36,7 @@ int hs_parse_object_name(int expression_index)
         if ( ((1 << object_type) & hs_object_type_masks[node->type - first_hs_object_name_type]) != 0 )
         {
             /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r10, 0x10(r30)`
-             * @0x83776BEC (was an *(int16_t*)&node->data pun); hs_cast reads the packed name index as
+             * @0x83776C2C (was an *(int16_t*)&node->data pun); hs_cast reads the packed name index as
              * `object_index_from_name_index((int16_t)(value >> 16))` 2026-08-18 */
             node->data = (unsigned int)((uint16_t)name_index) << 16;
             return 1;

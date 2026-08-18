@@ -11,10 +11,13 @@ extern char *pctGetMipMapOffsetPtr(pctPICTURE *pic, int mipmap, int face);
 extern int pctGetMemFaceSize(pctHEADER *hdr);
 extern int pctGetMipMapMemSize(pctHEADER *hdr, int mipmap); /* DEVIATION: char->int per mangling ?pctGetMipMapMemSize@@YAHPAUpctHEADER@@H@Z */
 extern int pctGetMipMapOffset(pctHEADER *hdr, int mipmap);
-/* Returns a pointer into the global pctFormatList table for the given PCT_FORMAT
-   code (NOT a query on a picture). The former `int pctGetFormat(pctPICTURE*)`
-   prototype was wrong — corrected against the DB signature. */
-extern pctFORMAT *pctGetFormat(unsigned int format);
+/* pctGetFormat is an OVERLOAD SET of five in the binary (names table); the two used here:
+   ?pctGetFormat@@YAPAUpctFORMAT@@H@Z @0x827BFC60 (by format code) and
+   ?pctGetFormat@@YAPAUpctFORMAT@@PAUpctPICTURE@@@Z @0x827C0AB8 (by picture — what the
+   hcex_tex/hcex_set_tex call sites pass: `mr r3,pPict`). The earlier one-declaration
+   "corrections" in each direction were both flattening this set to one signature. */
+extern pctFORMAT *pctGetFormat(int format);
+extern pctFORMAT *pctGetFormat(pctPICTURE *pic);
 extern void pctDestroy(pctPICTURE *pic);
 /* Deep-copy a picture (allocates and returns a new pctPICTURE). boundary. */
 extern pctPICTURE *pctDuplicate(pctPICTURE *pic);

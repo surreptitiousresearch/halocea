@@ -35,7 +35,7 @@ void actor_freeze(int actor_index)
         return;
     }
 
-    int swarm_index = actor->meta.swarm_unit_index;   /* actor+0x28 */
+    int swarm_index = actor->meta.swarm_cache_index;   /* DEVIATION: lwz 0x28 @0x8371E568 = swarm_cache_index (indexes swarm_data), not swarm_unit_index (0x24) */
     if ( swarm_index == -1 )
     {
         actor->meta.frozen = 1;

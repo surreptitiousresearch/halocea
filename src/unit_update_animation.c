@@ -120,7 +120,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
             new_base_seat = (char)magic_seat_index;
         if ((unit->unit.control_flags & (1u << _unit_control_force_alert_bit)) != 0)
             new_base_seat = _base_seat_alert;
-        if (unit->unit.melee_continuous_damage_effect_timer)
+        if (unit->unit.flaming_death_delay) /* DEVIATION: lbz r10,0x28B @0x836D12C8+ = flaming_death_delay, not melee_continuous_damage_effect_timer (0x28A) */
             new_base_seat = _base_seat_flaming;
 
         if (unit->unit.animation.base_seat_index != new_base_seat

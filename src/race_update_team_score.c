@@ -52,8 +52,9 @@ void race_update_team_score(void)
                 if ( player->team_index != team_index || player->quit_out_of_game )
                     goto next_player;
 
-                /* +396 = race lap-progress, overlaying the server_update_data union arm. */
-                player_value = player->___u26.server_update_data.time_of_last_remote_player_vehicle_update;
+                /* DEVIATION: lhz r11,0xC6 + extsh @0x8382A268 = race_statistics.laps (signed halfword);
+                 * the old +396 union-arm read was a word/dword mis-scale (396 = 2x198). */
+                player_value = player->statistics.multiplayer_statistics.race_statistics.laps;
                 single_flag_time = game_engine_get_variant()->game_engine_variant.ctf.single_flag_time;
 
                 if ( !single_flag_time )

@@ -44,7 +44,7 @@ void actor_customize_unit(int actor_variant_definition_index, int unit_index)
     actor_variant_definition *variant =
         TAG_GET(actor_variant_definition, actor_variant_definition_index);
     unit_datum *unit = ((unit_datum *)DATA_ARRAY_ELEMENT(object_header_data, object_header_datum, unit_index)->datum);
-    unit_definition *unit_def = TAG_GET(unit_definition, variant->unit_reference.index);
+    unit_definition *unit_def = TAG_GET(unit_definition, variant->actor_reference.index); /* DEVIATION: lwz r8,0x10 @0x8371D0E8 = actor_reference.index, not unit_reference (0x20) */
 
     unit->object.actor_variant_definition = actor_variant_definition_index;
     hcex_obj_customize(unit_index, actor_variant_definition_index);

@@ -51,6 +51,6 @@ extern "C" void hcex_tex_cube_copytohw(unsigned int *tex, char *tex_data, int wi
     (*(void (**)(unsigned int *, pctPICTURE *, int))(*tex + 76))(tex, pic, 0);
     hcex_halo_tex_size += tex[28];
 
-    pctGetFormat(pic->hdr.format); /* decl takes format code, not picture */
+    pctGetFormat(pic); /* DEVIATION: mr r3,pic -> the pctPICTURE* overload @0x827C0AB8 */
     pctDestroy(pic);
 }

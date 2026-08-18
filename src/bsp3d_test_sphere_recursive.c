@@ -32,7 +32,7 @@ void bsp3d_test_sphere_recursive(test_sphere_data *data, int child_index)
         while ( 1 )
         {
             node = (int *)&((bsp3d_node *)data->bsp->bsp3d.nodes.address)[child_index];
-            float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[*node & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E1F98 discards bit 31 in the table index */
+            float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[*node & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E1F98 discards bit 31 (mask faithful to the shift; node[0] planes are provably bit-31-clean, see collision_leaf_test_vector's clrlwi+cmpw @0x837E1454) */
             float distance = (((plane[0] * cx)
                                            + ((plane[1] * cy) + (plane[2] * cz)))
                                    - plane[3]);

@@ -7,7 +7,7 @@
 #include "headers/data_array.h"
 #include "headers/actor_datum.h"
 #include "headers/ai_index_actor_iterator.h"
-#include "headers/actor_action.h"
+#include "headers/actor_mode.h"
 #include "headers/actor_target_type.h"
 #include "headers/blam_data_globals.h"
 
@@ -25,7 +25,7 @@ int16_t ai_scripting_status(int ai_index)
         int16_t status;
         if ( actor->meta.active )                              /* meta.active */
         {
-            if ( actor->state.action >= actor_action_fight )                    /* actor +0x6A combat phase */
+            if ( actor->state.mode >= _actor_mode_combat )                    /* DEVIATION: lhz 0x6A @0x83771FB0 = state.mode (actor_mode enum, 3 = combat), not state.action (0x6C); values coincide at 3 */
             {
                 if ( actor->state.combat_status )              /* actor +0x6E has-enemy */
                 {

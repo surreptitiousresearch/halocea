@@ -283,7 +283,7 @@ void physics_update_old(int object_index, powered_mass_point_datum *powered_mass
                     else
                         up_dot = 0.0f;
 
-                    along = ((mp_forward[0] * drive * gn[0]) + ((mp_forward[1] * drive * gn[1]) + (mp_forward[2] * drive * gn[2]))); /* DEVIATION: fnmadds f13,f0,f10,f5 @0x837C0810 -- the dot carries the gn[i] factors */
+                    along = ((mp_forward[0] * drive * gn[0]) + ((mp_forward[1] * drive * gn[1]) + (mp_forward[2] * drive * gn[2]))); /* DEVIATION: fnmadds f13,f0,f10,f5 @0x837C0818 -- the dot carries the gn[i] factors */
                     drive_x = (-along * gn[0]) + (mp_forward[0] * drive);
                     drive_y = (-along * gn[1]) + (mp_forward[1] * drive);
                     drive_z = (-along * gn[2]) + (mp_forward[2] * drive);

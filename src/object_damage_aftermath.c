@@ -44,9 +44,10 @@
 typedef struct network_game_server network_game_server;
 struct field_properties_definition;
 
-#define NETWORK_MESSAGE_TYPE_MESSAGE_DELTA 9
-#define MESSAGE_ITEM_ACCELERATE            3
+#define NETWORK_MESSAGE_TYPE_MESSAGE_DELTA 1
 #define MESSAGE_ENCODE_BUFFER_BITS         0x7FF8
+
+#include "headers/message_delta_message_ids.h"
 
 #include "headers/field_properties_definition.h"
 #include "headers/blam_data_globals.h"
@@ -160,13 +161,15 @@ void object_damage_aftermath(int object_index, damage_data *damage_data, unsigne
                     item_accelerate_message.magnitude = acceleration_magnitude;
                     item_accelerate_message.direction = accel_direction;
 
+                    /* DEVIATION: li r3,0x2C @0x836B1C74 -- the message id is _message_item_accelerate
+                     * (0x2C), not the file's former bogus local define of 3 (3 is the PRIORITY, r10). */
                     int size_in_bits = message_delta_processor_encode_stateless(
-                        MESSAGE_ITEM_ACCELERATE, 0, &item_accelerate_message,
+                        _message_item_accelerate, 0, &item_accelerate_message,
                         g_message_encode_buffer, MESSAGE_ENCODE_BUFFER_BITS);
                     network_game_server *server = global_network_game_server_get();
                     network_game_server_send_message_to_all_loaded_machines(
                         server, NETWORK_MESSAGE_TYPE_MESSAGE_DELTA, g_message_encode_buffer, size_in_bits,
-                        0, 0, 0, MESSAGE_ITEM_ACCELERATE);
+                        0, 0, 0, 3);
                 }
 
                 int network_role = object->object.datum_role;

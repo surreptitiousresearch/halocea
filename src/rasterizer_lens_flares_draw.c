@@ -16,10 +16,11 @@
  * in the original is a `continue`/loop-body-end; "goto LABEL_68" when the scan exhausts is the loop's
  * natural exit). DEVIATIONS, all disasm-verified (0x83792F74-0x837930E0): (1) the decompiler pointed
  * scalars_interpolate's destination at the same buffer as rgb_colors_interpolate's ("v46->n"); the real
- * destination (r6 = sp+var_140) is a distinct float immediately preceding it, and this whole interpolated
- * color/alpha computation is dead — the tint factor passed to rasterizer_widget_set_tint_factor is 1.0
- * when tint_color is all-zero (f30 = f25 = 1.0) and the raw static tint_color.alpha otherwise (f30 reloaded
- * from offset +0x40 past the merge point, never from the interpolated value). (2) the decompiler hallucinated a 6th
+ * destination (r6 = sp+var_140) is a distinct float immediately preceding it. The interpolated RGB feeds the
+ * packed color (fmuls @0x83792FB4/FBC/FC0) and the interpolated alpha feeds the packed alpha byte
+ * (fmuls f11,f7,f31 @0x83792FAC — interpolated_alpha * brightness); only the TINT FACTOR is untouched by the
+ * interpolation — it is 1.0 when tint_color is all-zero (f30 = f25 = 1.0) and the raw static tint_color.alpha
+ * otherwise (f30 reloaded from offset +0x40 past the merge point). (2) the decompiler hallucinated a 6th
  * "v52" (real_vector2d*) argument to rasterizer_widget_draw_sprite3d, splitting one FPR-shadowed register
  * across two mislabeled slots; the real call is the standard 5-argument (point, radius, scale, rotation,
  * color) form, with `scale` = &corona_radius_scale and `color` = a byte-packed ARGB built inline (traced
@@ -242,6 +243,7 @@ void rasterizer_lens_flares_draw(void)
                     static_color.n[0] = reflection->tint_color.__s1.rgb.__s1.red;
                     static_color.n[1] = reflection->tint_color.__s1.rgb.__s1.green;
                     static_color.n[2] = reflection->tint_color.__s1.rgb.__s1.blue;
+                    float packed_alpha = brightness; /* 0x83792F28 fmr f11,f31 */
                     if ( reflection->animation_function > 1 )
                     {
                         float animation_phase = (reflection->animation_period + (float)global_frame_parameters.game_time_sec)
@@ -254,6 +256,7 @@ void rasterizer_lens_flares_draw(void)
                         float interpolated_alpha;
                         scalars_interpolate(reflection->animation_color_lower_bound.__s1.alpha,
                                 reflection->animation_color_upper_bound.__s1.alpha, animation_t, &interpolated_alpha);
+                        packed_alpha = interpolated_alpha * brightness; /* 0x83792FAC fmuls f11,f7,f31 */
                         static_color.n[0] *= interpolated_color.n[0];
                         static_color.n[1] *= interpolated_color.n[1];
                         static_color.n[2] *= interpolated_color.n[2];
@@ -261,7 +264,7 @@ void rasterizer_lens_flares_draw(void)
                     unsigned int red_byte = (uint8_t)(int)(static_color.n[0] * 255.0f);
                     unsigned int green_byte = (uint8_t)(int)(static_color.n[1] * 255.0f);
                     unsigned int blue_byte = (uint8_t)(int)(static_color.n[2] * 255.0f);
-                    unsigned int alpha_byte = (uint8_t)(int)(reflection->tint_color.__s1.alpha * 255.0f);
+                    unsigned int alpha_byte = (uint8_t)(int)(packed_alpha * 255.0f); /* 0x83792FE4 fmuls f8,f11,f19; f19=255.0 */
                     color = (alpha_byte << 24) | (red_byte << 16) | (green_byte << 8) | blue_byte;
                     tint_factor = reflection->tint_color.__s1.alpha;
                 }

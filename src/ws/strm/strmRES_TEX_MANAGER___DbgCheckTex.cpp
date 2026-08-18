@@ -35,11 +35,14 @@ void strmRES_TEX_MANAGER::_DbgCheckTex(txmTEXTURE *pTex)
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 731,
                 empty_string);
 
-        unsigned int baseSize = 0, mipSize = 0;
-        XGGetTextureLayout(pD3DTex->lpSysSurf, nullptr, &baseSize, nullptr, nullptr, 0x1000u,
-                            nullptr, &mipSize);
+        /* DEVIATION: addi r4,r1,var_30 / addi r9,r1,var_2C @0x826704B0 -- the out-pointers occupy
+         * the pBaseData (arg 2) and pMipData (arg 7) slots, not the size slots; the post-call
+         * compare reloads var_30 against memHandle->offset, a base DATA pointer. */
+        unsigned int baseData = 0, mipData = 0;
+        XGGetTextureLayout(pD3DTex->lpSysSurf, &baseData, nullptr, nullptr, nullptr, 0x1000u,
+                            &mipData, nullptr);
 
-        if (!IGNORE_STRONG_ASSERT && (uintptr_t)pD3DTex->memHandle->offset != baseSize)
+        if (!IGNORE_STRONG_ASSERT && (uintptr_t)pD3DTex->memHandle->offset != baseData)
             static_cast<STRONG_ASSERT_DUMMY *>(nullptr)->Crash("pTex->memHandle->offset == (BYTE*)base",
                 "D:\\Projects\\code\\common\\src.sys\\drv\\strm_res_tex_mng.cpp", 735,
                 empty_string);

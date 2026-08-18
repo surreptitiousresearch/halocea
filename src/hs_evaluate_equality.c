@@ -41,7 +41,8 @@ void hs_evaluate_equality(int16_t function_index, int thread_index, uint8_t init
     }
 
     unsigned char equal = (function_index == _hs_function_not_equal) ? (diff != 0) : (diff == 0);
-    int result = 0;
-    *(unsigned char *)&result = equal;
+    /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(unsigned char*)&result pun over a
+     * zeroed word; hs_inspect_boolean extracts value >> 24, and the low three bytes stay zeroed) 2026-08-18 */
+    int result = (int)((uint8_t)equal) << 24;
     hs_return(thread_index, result);
 }

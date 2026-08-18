@@ -49,15 +49,15 @@ uint8_t actor_look_secondary(int actor_index, int16_t type, int16_t priority,
                 if ( prop )
                 {
                     if ( type < _secondary_look_communicating_prop
-                      && ((!prop->enemy && !prop->player)
-                          || (prop->player && actor->state.mode >= _actor_mode_combat)) )
+                      && ((!prop->enemy && !prop->dead)
+                          || (prop->dead && actor->state.mode >= _actor_mode_combat)) ) /* DEVIATION: lbz 0x127 (dead) twice @0x837FA5F4-614, not player (0x12E) */
                     {
                         int now = game_time_get();
                         if ( in_combat )
                         {
                             accepted = 0;
                         }
-                        else if ( !prop->in_combat || type < _secondary_look_newly_acknowledged_prop )
+                        else if ( !prop->player || type < _secondary_look_newly_acknowledged_prop ) /* DEVIATION: lbz 0x12E (player) @0x837FA63C, not in_combat (0x12C) */
                         {
                             int last_look = prop->last_idle_look_time;
                             if ( last_look != -1 )

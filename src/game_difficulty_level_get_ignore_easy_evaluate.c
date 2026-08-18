@@ -8,7 +8,7 @@ extern int16_t game_difficulty_level_get_ignore_easy(void);
 
 void game_difficulty_level_get_ignore_easy_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result = 0;
-    *(int16_t *)&result = game_difficulty_level_get_ignore_easy();
+    /* DEVIATION: endian-portable respelling of the BE high-halfword store (was an *(narrow*)&result pun; hs extracts value >> 16) 2026-08-18 */
+    int result = (int)((uint16_t)game_difficulty_level_get_ignore_easy()) << 16;
     hs_return(thread_index, result);
 }

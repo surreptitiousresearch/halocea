@@ -5,8 +5,8 @@
 #include <stdint.h>
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL_WRP.h"
 
-extern "C" unsigned int osGetCurThreadProcessor();
-extern "C" unsigned int osGetPerfCounter();
+extern int osGetCurThreadProcessor(); /* DEVIATION: symbol is ?osGetCurThreadProcessor@@YAHXZ (C++-mangled, int) */
+extern uint64_t osGetPerfCounter(); /* DEVIATION: was extern "C" unsigned int -- symbol ?osGetPerfCounter@@YA_KXZ (C++-mangled, uint64_t) */
 
 template<>
 apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_RECUR>::apCOUNTER_TIME_CALL_WRP(apCOUNTER_TIME_RECUR *cnt)
@@ -38,8 +38,8 @@ apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_RECUR>::~apCOUNTER_TIME_CALL_WRP()
         unsigned int proc = osGetCurThreadProcessor();
         apCOUNTER_TIME_RECUR::tmDATA &slot = counter->tmData[proc];
         if (slot.depth <= 1) {
-            unsigned int now = osGetPerfCounter();
-            slot.sum += (int64_t)now - slot.start;
+            int64_t now = osGetPerfCounter();
+            slot.sum += now - slot.start;
             --slot.depth;
         } else {
             --slot.depth;

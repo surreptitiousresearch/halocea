@@ -56,7 +56,8 @@ void hs_evaluate_inequality(int16_t function_index, int thread_index, uint8_t in
         default:               comparison = left <= right; break;   /* <= (_hs_function_lte) */
     }
 
-    int result = 0;
-    *(unsigned char *)&result = comparison;
+    /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(unsigned char*)&result pun over a
+     * zeroed word; hs_inspect_boolean extracts value >> 24, and the low three bytes stay zeroed) 2026-08-18 */
+    int result = (int)((uint8_t)comparison) << 24;
     hs_return(thread_index, result);
 }

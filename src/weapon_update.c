@@ -583,7 +583,7 @@ clear_firing_block:
                                 {
                                     char autoreload_counter = trigger_state->delay_ticks_before_empty_clip_auto_reload + 1;
                                     trigger_state->delay_ticks_before_empty_clip_auto_reload = autoreload_counter;
-                                    /* can_fire = (reserve rounds > 0) */
+                                    /* can_fire = (reserve rounds <= 0): 1 iff rounds_total <= 0 */
                                     can_fire = (~((unsigned int)trigger_magazine->rounds_total >> 31)
                                                 + ((uint16_t)trigger_magazine->rounds_total != 0)) & 1;
                                     if ( autoreload_counter > 10 )

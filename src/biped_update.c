@@ -38,7 +38,7 @@
 extern void biped_blend_client_and_server(int biped_index);
 extern void biped_vehicle_speech(int biped_index);
 extern uint8_t unit_try_and_exit_seat(int object_index, uint8_t should_allow_clients);
-extern int16_t halo_hud_get_timer_enabled(void);
+extern int halo_hud_get_timer_enabled(void);
 extern void hcex_fire_plr_event(const char *eventName, int plr_idx);
 extern void unit_exit_seat_end(int object_index, uint8_t is_part_of_non_forced_exit, uint8_t should_allow_clients, uint8_t should_replicate_if_appropriate);
 extern void biped_snap_facing(biped_datum *biped, const biped_definition *biped_definition);

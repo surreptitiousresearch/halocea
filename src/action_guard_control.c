@@ -157,11 +157,11 @@ arrived_check:
         actor->orders.combat.use_manual_target_point = 1;
         actor->orders.look.primary_priority = _primary_priority_locked_aiming;
         actor->orders.look.primary_direction.type = _direction_specification_target;
-        actor->output.animation.alignment_vector.__s1.i = (global_up3d->n[0] * (float)0.050000001) + actor->state.action_data.___u0.guard.___u17.guard_point.position.x;
-        actor->output.animation.alignment_vector.__s1.j = (global_up3d->n[1] * (float)0.050000001) + actor->state.action_data.___u0.guard.___u17.guard_point.position.y;
-        /* DEVIATION: DB types animation.alignment_vector as real_vector2d (8B); the decompiler's
-         * .z store lands one float past it. Preserved byte-exact via explicit +8 offset. See escalation. */
-        *(float *)((char *)&actor->output.animation.alignment_vector + 8) = (global_up3d->n[2] * (float)0.050000001) + actor->state.action_data.___u0.guard.___u17.guard_point.position.z;
+        /* DEVIATION: stores target orders.combat.target_point (stfs 0x460/0x464/0x468 @0x83824530-50),
+         * not output.animation.alignment_vector (0x6F0) as previously misattributed. */
+        actor->orders.combat.target_point.x = (global_up3d->n[0] * (float)0.050000001) + actor->state.action_data.___u0.guard.___u17.guard_point.position.x;
+        actor->orders.combat.target_point.y = (global_up3d->n[1] * (float)0.050000001) + actor->state.action_data.___u0.guard.___u17.guard_point.position.y;
+        actor->orders.combat.target_point.z = (global_up3d->n[2] * (float)0.050000001) + actor->state.action_data.___u0.guard.___u17.guard_point.position.z;
     }
     else if ( actor->state.action_data.___u0.guard.guard_look_prop_index == -1 )
     {

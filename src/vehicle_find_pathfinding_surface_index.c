@@ -23,7 +23,7 @@
 
 
 extern real_point3d *object_get_origin(int object_index, real_point3d *origin);
-extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
+extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, float maximum_t, collision_bsp_test_vector_result *result);
 
 int vehicle_find_pathfinding_surface_index(int vehicle_index, real_point3d *pathfinding_point)
 {

@@ -18,7 +18,7 @@
 extern void matrix4x3_inverse(const real_matrix4x3 *matrix, real_matrix4x3 *result);
 extern real_point3d *matrix4x3_transform_point(const real_matrix4x3 *matrix, const real_point3d *point, real_point3d *result);
 extern real_vector3d *matrix4x3_transform_vector(const real_matrix4x3 *matrix, const real_vector3d *vector, real_vector3d *result);
-extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
+extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, float maximum_t, collision_bsp_test_vector_result *result);
 
 uint8_t collision_model_test_vector(const collision_model_instance *instance, unsigned int flags,
                                 const real_point3d *point, const real_vector3d *vector,

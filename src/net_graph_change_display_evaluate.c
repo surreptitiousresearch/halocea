@@ -10,11 +10,11 @@ extern uint8_t net_graph_change_display(const char *type_string, const char *dir
 
 void net_graph_change_display_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result = 0;
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *(unsigned char *)&result = net_graph_change_display((const char *)arguments[0], (const char *)arguments[1]);
+        /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(narrow*)&result pun; hs_inspect_boolean extracts value >> 24) 2026-08-18 */
+        int result = (int)((uint8_t)(net_graph_change_display((const char *)arguments[0], (const char *)arguments[1]))) << 24;
         hs_return(thread_index, result);
     }
 }

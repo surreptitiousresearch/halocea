@@ -70,7 +70,7 @@ int16_t convex_polygon2d_clip_to_plane(int16_t count, const real_point2d *points
             /* edge crosses the plane: emit the interpolated intersection point */
             if ((current_distance >= 0.0f) != previous_in_front)
             {
-                char emitted_bit_index = output_count;
+                int emitted_bit_index = output_count; /* DEVIATION: was char; slw @0x837FE044 shifts by the full word, no extsb exists */
                 if ((int16_t)output_count == maximum_count)
                     goto overflow;
                 if (clipped)

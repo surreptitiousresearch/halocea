@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "headers/vibrate_global_data.h"
-extern void input_set_gamepad_vibrater_state(int, int, int);
+extern void input_set_gamepad_vibrater_state(int, uint16_t, uint16_t);
 extern uint8_t input_has_gamepad(int16_t gamepad_index);
 void vibrate_dispose_from_old_map(void)
 {

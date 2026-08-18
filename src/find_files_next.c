@@ -89,7 +89,7 @@ uint8_t find_files_next(file_reference *file, file_last_modification_date *date)
         else if (strcmp(find_files_globals.data.cFileName, ".") != 0
                  && strcmp(find_files_globals.data.cFileName, "..") != 0)
         {
-            char flags = find_files_globals.flags;
+            unsigned int flags = find_files_globals.flags;
             if ((flags & (1 << _find_files_enumerate_directories_bit)) != 0)
             {
                 /* Return the directory itself as a result. */

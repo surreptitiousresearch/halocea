@@ -18,12 +18,17 @@ int hs_parse_boolean(int expression_index)
 
     if ( !strcmp(token, "false") || !strcmp(token, "off") || !strcmp(token, "0") )
     {
-        *(unsigned char *)&node->data = 0;
+        /* DEVIATION: endian-portable respelling of the BE high-byte store `stb r10, 0x10(r7)` @0x83776224
+         * (was an *(unsigned char*)&node->data pun); hs_evaluate passes node->data whole-word to hs_cast and
+         * boolean consumers extract value >> 24 2026-08-18 */
+        node->data = (unsigned int)((uint8_t)0) << 24;
         return 1;
     }
     if ( !strcmp(token, "true") || !strcmp(token, "on") || !strcmp(token, "1") )
     {
-        *(unsigned char *)&node->data = 1;
+        /* DEVIATION: endian-portable respelling of the BE high-byte store `stb r11, 0x10(r7)` @0x83776230
+         * (was an *(unsigned char*)&node->data pun); boolean consumers extract value >> 24 2026-08-18 */
+        node->data = (unsigned int)((uint8_t)1) << 24;
         return 1;
     }
     hs_compile_globals.__noop = "i expected \"true\" or \"false\".";

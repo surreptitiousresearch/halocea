@@ -8,7 +8,6 @@ extern uint8_t unit_custom_animation_at_frame(int unit_index, int animation_grap
 
 void unit_custom_animation_at_frame_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result = 0;
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
@@ -16,9 +15,10 @@ void unit_custom_animation_at_frame_evaluate(int16_t function_index, int thread_
          * frame __int16 at +16; read at exact byte offsets to preserve big-endian semantics. */
         unsigned char *argument_bytes = (unsigned char *)arguments;
         int16_t *argument_words = (int16_t *)arguments;
-        *(unsigned char *)&result = unit_custom_animation_at_frame(
+        /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(narrow*)&result pun; hs_inspect_boolean extracts value >> 24) 2026-08-18 */
+        int result = (int)((uint8_t)(unit_custom_animation_at_frame(
             arguments[0], arguments[1], (const char *)arguments[2],
-            argument_bytes[12], argument_words[8]);
+            argument_bytes[12], argument_words[8]))) << 24;
         hs_return(thread_index, result);
     }
 }

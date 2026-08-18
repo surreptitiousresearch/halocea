@@ -128,13 +128,13 @@ uint8_t actor_look_idle_find_prop(int actor_index, uint8_t free_facing, uint8_t 
                     }
                     else
                     {
-                        /* Args reordered to def order (verified via disasm @0x837FB148-0x837FB158:
-                         * r4=facing_vector→cone_limits, r5=desired_facing→aiming_vector,
-                         * r6=desired_looking→attempted_looking_vector, r7=prop+0xE0→look_vector). */
+                        /* Args verified via disasm @0x837FB148-0x837FB158:
+                         * r4=facing_vector, r5=&control.desired_facing_vector (0x5A4),
+                         * r6=&control.desired_aiming_vector (addi r6,r29,0x5B0), r7=prop+0xE0. */
                         valid = actor_look_valid_look_vector(yaw_deviation,
                                                              (const real_vector2d *)facing_vector,
                                                              (const real_vector2d *)&actor->control.desired_facing_vector,
-                                                             (const real_vector2d *)&actor->control.desired_looking_vector,
+                                                             (const real_vector2d *)&actor->control.desired_aiming_vector,
                                                              (const real_vector2d *)&prop->actor_to_prop);
                     }
 

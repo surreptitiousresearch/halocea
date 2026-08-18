@@ -40,7 +40,7 @@ void game_engine_postspawn_player_update(int player_index)
     if (!proceed)
         return;
 
-    char flags = game_engine_globals.flags;
+    unsigned int flags /* DEVIATION: was char; binary caches the 32-bit word lwz @0x8374DBEC */ = game_engine_globals.flags;
     int16_t *grenades = (int16_t *)global_game_globals->grenades.address;
     int frag_maximum = grenades[0];
     int frag_count = grenades[1];

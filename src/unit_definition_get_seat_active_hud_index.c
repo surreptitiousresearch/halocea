@@ -14,7 +14,7 @@ int unit_definition_get_seat_active_hud_index(const unit_definition *unit_defini
 {
     const unit_seat *seat = &((const unit_seat *)unit_definition->unit.seats.address)[seat_index];
     int16_t preferred_hud = (in_multiplayer && hcex_coop_local_player_index < 0) ? 1 : 0;
-    int16_t hud_count_minus_one = seat->seat_huds.count - 1;
+    int hud_count_minus_one /* DEVIATION: was int16_t; binary compares the full-word tag_block.count (lwz+cmpw @0x837BC64C-58, no extsh) */ = seat->seat_huds.count - 1;
     int16_t active_hud_index = (preferred_hud <= hud_count_minus_one) ? preferred_hud : hud_count_minus_one;
 
     if ( active_hud_index < 0 )

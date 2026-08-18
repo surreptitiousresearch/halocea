@@ -16,7 +16,7 @@ extern void player_ui_set_active_player_profile(int16_t local_player_index, int 
 void player_profile_save_level_completed(int16_t local_player_index)
 {
     short current_solo_level = main_get_current_solo_level();
-    char difficulty = game_difficulty_level_get();
+    int16_t difficulty = game_difficulty_level_get();
     int active_player_profile_index = player_ui_get_active_player_profile_index(local_player_index);
 
     if ( active_player_profile_index != -1 )

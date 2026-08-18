@@ -12,8 +12,8 @@ void ai_scripting_allegiance_broken_evaluate(int16_t function_index, int thread_
     int16_t *arguments = (int16_t *)hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        int result = 0;
-        *(unsigned char *)&result = ai_scripting_allegiance_broken(arguments[0], arguments[2]);
+        /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(narrow*)&result pun; hs extracts value >> 24) 2026-08-18 */
+        int result = (int)((uint8_t)ai_scripting_allegiance_broken(arguments[0], arguments[2])) << 24;
         hs_return(thread_index, result);
     }
 }

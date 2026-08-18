@@ -9,8 +9,8 @@
 #include "../../headers/ws/ap/apCOUNTER_TIME_CALL_WRP.h"
 #include "../../headers/ws/os/osLOCK.h" // osGetCurThreadProcessor/osGetPerfCounter decls (os globals)
 
-extern "C" unsigned int osGetCurThreadProcessor();
-extern "C" unsigned int osGetPerfCounter();
+extern int osGetCurThreadProcessor(); /* DEVIATION: symbol is ?osGetCurThreadProcessor@@YAHXZ (C++-mangled, int) */
+extern uint64_t osGetPerfCounter(); /* DEVIATION: was extern "C" unsigned int -- symbol ?osGetPerfCounter@@YA_KXZ (C++-mangled, uint64_t); caller std r3 doubleword @0x823CDE48 */
 
 template<>
 apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_CALL>::apCOUNTER_TIME_CALL_WRP(apCOUNTER_TIME_CALL *cnt)
@@ -46,8 +46,8 @@ apCOUNTER_TIME_CALL_WRP<apCOUNTER_TIME_CALL>::~apCOUNTER_TIME_CALL_WRP()
     if (s0 & 0x40) s0 |= 0x02;
     if (s0 & 0x02) {
         unsigned int proc = osGetCurThreadProcessor();
-        unsigned int now  = osGetPerfCounter();
-        counter->tmData[proc].sum += (int64_t)now - counter->tmData[proc].start;
+        int64_t now  = osGetPerfCounter();
+        counter->tmData[proc].sum += now - counter->tmData[proc].start;
     }
 
     if (unit0.myProfiler) unit0.myProfiler->Stop();

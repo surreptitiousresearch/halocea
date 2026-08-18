@@ -43,7 +43,7 @@ void director_process_variables(int16_t local_player_index, int control_bits, fl
         /* note: the original indexes variables[0].has_hyper_scale, not variables[i] */
         hyper_scale = variables[_variable_height].has_hyper_scale ? dir->debug_input_scale : 1.0;
 
-        damping = (float)(director_globals.dtime * 5.0);
+        damping = director_globals.dtime * friction; /* DEVIATION: the 5.0 literal is the named .rdata global friction (lfs @0x836E4A88, single xref) */
         if ( damping < 0.0 )       damping = 0.0;
         else if ( damping > 1.0 )  damping = 1.0;
         retain = (1.0f - (float)damping);

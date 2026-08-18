@@ -9,7 +9,7 @@
 #include "headers/render_screen_flash.h"
 extern "C" rasterizer_window_begin_parameters global_window_parameters;
 
-extern "C" short hcex_render_player_index(int cam_idx);
+extern "C" int hcex_render_player_index(int cam_idx);
 extern "C" void player_effect_get_screen_flash(int16_t local_player_index, render_screen_flash *screen_flash);
 
 extern "C" void hcex_update_screen_flash(int cam_idx)

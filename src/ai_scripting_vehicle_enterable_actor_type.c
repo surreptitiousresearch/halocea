@@ -8,7 +8,7 @@ extern ai_vehicle_enterable * ai_scripting_find_vehicle_enterable(int vehicle_in
 
 void ai_scripting_vehicle_enterable_actor_type(int unit_index, int16_t actor_type)
 {
-    char type = actor_type;
+    int16_t type = actor_type;
     if ( unit_index != -1 )
     {
         ai_vehicle_enterable *vehicle_enterable = ai_scripting_find_vehicle_enterable(unit_index);

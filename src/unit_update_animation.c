@@ -9,7 +9,7 @@
  *     (melee damage, grenade release, or nothing);
  *   - the base animation looping (return 2) fires a per-state cleanup (destroy-and-respawn or start limp-body
  *     physics for the dead state, a parented-seat visibility handoff, a root-motion-driven seat exit,
- *     decrementing pending interpolation frames, or forcing `state_desired` to 40 for state 0x27) and, for a
+ *     stepping the base animation's frame index back one, or forcing `state_desired` to 40 for state 0x27) and, for a
  *     broad range of "busy" states, marks the transition as forced regardless of interruptability;
  *   - the action animation reaching its end/loop kicks off the standard post-action interpolation blend;
  *   - the overlay-action animation reaching its end/loop (2 or 4) while the base state is NOT a horizontal
@@ -208,7 +208,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
                 {
                     if (unit->object.type == object_type_biped)
                         biped_start_limp_body_physics(unit_index);
-                    unit->object.animation.interpolation_frame_index--;
+                    unit->object.animation.state.frame_index--; /* DEVIATION: 0xD2 is state.frame_index, not the interpolation cursor at 0xD4 (sth r10,0xD2 @0x836D1668) */
                     unit->unit.animation.flags |= (1u << _unit_animation_ignore_translation_bit);
                 }
                 break;
@@ -239,7 +239,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
                         &((const animation *)base_graph->animations.address)[unit->object.animation.state.index];
 
                 real_vector3d root_velocity;
-                animation_get_root_velocity(unit_model, base_anim, unit->object.animation.interpolation_frame_index,
+                animation_get_root_velocity(unit_model, base_anim, unit->object.animation.state.frame_index, /* DEVIATION: lhz r5,0xD2 @0x836D1690 = state.frame_index */
                         &root_velocity);
 
                 real_matrix4x3 world_matrix;
@@ -255,7 +255,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
             }
             case _unit_state_opening:
             case _unit_state_closing:
-                unit->object.animation.interpolation_frame_index--;
+                unit->object.animation.state.frame_index--; /* DEVIATION: sth r10,0xD2 @0x836D15A4 = state.frame_index */
                 break;
             case _unit_state_leap_start:
                 just_died = 1;

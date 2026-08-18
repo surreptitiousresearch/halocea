@@ -47,6 +47,7 @@ extern void collision_features_new(collision_feature_list *features);
 extern uint8_t collision_model_get_features_in_sphere(const collision_model_instance *instance, const real_point3d *center, float radius, float height, float width, collision_feature_list *features);
 extern uint8_t collision_features_test_point(const collision_feature_list *features, const real_point3d *point, collision_plane *collision);
 extern float normalize3d(real_vector3d *v);
+extern float magnitude3d(const real_vector3d *v);
 extern void biped_accelerate(int biped_index, real_vector3d *acceleration);
 extern uint8_t collision_fix_pill(unsigned int flags, const real_point3d *old_position, float distance, float height, float width, int ignore_object_index, real_point3d *new_position);
 extern void object_translate(int object_index, const real_point3d *new_position, const location *new_location);
@@ -107,13 +108,14 @@ uint8_t physics_compute_biped_collision(collision_model_instance *instance, int 
                       - obstacle_object->object.bounding_sphere_center.n[1];
     push_vector.n[2] = biped_object->object.bounding_sphere_center.n[2]
                       - obstacle_object->object.bounding_sphere_center.n[2];
-    float obstacle_speed = normalize3d(&push_vector);
+    /* DEVIATION: obstacle_speed is |obstacle_object->translational_velocity| (fsqrts f30 of 0x68/0x6C/0x70
+     * @0x837BF2C0-F8, computed BEFORE the normalize3d calls); both normalize3d returns are discarded. */
+    real_vector3d obstacle_velocity = obstacle_object->object.translational_velocity;
+    float obstacle_speed = magnitude3d(&obstacle_velocity);
+    normalize3d(&push_vector);
     push_vector.n[2] = push_vector.n[2] + 0.8f;
     normalize3d(&push_vector);
 
-    /* obstacle_speed is really |obstacle_object->translational_velocity|, computed above before either
-     * normalize3d call and never overwritten (normalize3d doesn't touch this nonvolatile FPR) */
-    real_vector3d obstacle_velocity = obstacle_object->object.translational_velocity;
     float speed_scale = obstacle_speed;
     if (speed_scale < 0.1f)
         speed_scale = 0.1f;

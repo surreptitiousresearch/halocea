@@ -36,7 +36,7 @@ uint8_t bsp3d_test_pill_recursive(test_pill_data *data, int child_index)
         int   *node = (int *)&((bsp3d_node *)data->bsp->bsp3d.nodes.address)[child_index];
         int    plane_index = *node;
         float  radius_plus = (data->radius + 0.00024414062f);
-        float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[plane_index];
+        float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[plane_index & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E25B8 discards bit 31; plane_index stays raw for the stack push below */
 
         float along = ((vector->n[0] * plane[0])
                             + ((vector->n[1] * plane[1]) + (vector->n[2] * plane[2])));

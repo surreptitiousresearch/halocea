@@ -136,7 +136,10 @@ uint8_t item_update(int item_index)
         velocity.n[1] = velocity_y;
         velocity.n[2] = velocity_z;
 
-        double integrated_z;
+        /* DEVIATION: integrated_z/surface_normal_z/impact_scale respelled double->float 2026-08-18;
+           the path is all-single in the binary (fsqrts @0x837588E8, fmuls 10.0f @0x837588EC,
+           fcmpu vs 0.0f/1.0f, lfs-only loads @0x837588B4/0x83758950) -- no fdiv/frsp/lfd. */
+        float integrated_z;
         if ( (definition_flags & (1u << _item_antigravity_bit)) != 0 )
         {
             integrated_z = velocity.n[2];
@@ -148,7 +151,7 @@ uint8_t item_update(int item_index)
         }
         candidate.n[0] = od->position.x + velocity.n[0];
         candidate.n[1] = od->position.y + velocity.n[1];
-        candidate.n[2] = od->position.z + (float)integrated_z;
+        candidate.n[2] = od->position.z + integrated_z;
 
         if ( collision_test_line(
                  item_update_collision_test_flags,
@@ -157,23 +160,23 @@ uint8_t item_update(int item_index)
                  item->item.ignore_object_index,
                  &collision) )
         {
-            double surface_normal_z = collision.plane.normal.n[2];
+            float surface_normal_z = collision.plane.normal.n[2];
             candidate.n[0] = (collision.plane.normal.n[0] * (float)0.050000001) + candidate.n[0];
             candidate.n[1] = (collision.plane.normal.n[1] * (float)0.050000001) + candidate.n[1];
             candidate.n[2] = (collision.plane.normal.n[2] * (float)0.050000001) + candidate.n[2];
 
-            double impact_scale = (__fsqrts((((float)integrated_z * (float)integrated_z)
+            float impact_scale = (__fsqrts(((integrated_z * integrated_z)
                                                                 + ((velocity.n[1] * velocity.n[1])
                                                                         + (velocity.n[0] * velocity.n[0]))))
-                                        * (float)10.0);
-            if ( impact_scale >= 0.0 )
+                                        * 10.0f);
+            if ( impact_scale >= 0.0f )
             {
-                if ( impact_scale > 1.0 )
-                    impact_scale = 1.0;
+                if ( impact_scale > 1.0f )
+                    impact_scale = 1.0f;
             }
             else
             {
-                impact_scale = 0.0;
+                impact_scale = 0.0f;
             }
 
             if ( item_def->item.material_effects.index != -1 )

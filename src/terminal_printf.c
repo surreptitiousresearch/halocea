@@ -26,7 +26,7 @@ void terminal_printf(const real_argb_color *color, const char *format, ...)
 
     if ( error_globals.developer_mode >= _developer_mode_conprint_enabled && terminal_globals.initialized )
     {
-        short line_index = terminal_new_line();
+        int line_index = terminal_new_line();
         if ( line_index != -1 )
         {
             output_line_datum *line =

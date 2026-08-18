@@ -48,7 +48,10 @@ parse:
         if ( node->type == hs_type_long_integer )
             node->data = value;
         else
-            *(int16_t *)&node->data = value;
+            /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r3, 0x10(r30)`
+             * @0x83776448 (was an *(int16_t*)&node->data pun); the full-word `stw r3, 0x10(r30)` @0x83776434
+             * is the long-integer path above. hs_cast extracts (int16_t)(value >> 16) 2026-08-18 */
+            node->data = (unsigned int)((uint16_t)value) << 16;
         return valid;
     }
 }

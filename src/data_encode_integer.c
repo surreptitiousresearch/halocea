@@ -12,23 +12,37 @@ extern int data_encode_memory(data_encoding_state *state, const void *buffer, in
 int data_encode_integer(data_encoding_state *state, int value, int maximum_value)
 {
     int encoded = 0;
+    uint8_t *encoded_bytes = (uint8_t *)&encoded;   /* data_encode_memory memcpy's the LEADING byte_count bytes */
     int code;
     if ( maximum_value > 255 )
     {
         if ( maximum_value > 0xFFFF )
         {
-            encoded = value;          /* full 32-bit */
+            /* DEVIATION: `encoded = value` emitted the word in host order onto the wire (big-endian
+             * on PPC, little-endian on x64) — same wire-order class as the halfword path below.
+             * Spelled as explicit big-endian leading-byte writes, byte-identical on PPC. 2026-08-18 */
+            encoded_bytes[0] = (uint8_t)((unsigned int)value >> 24);
+            encoded_bytes[1] = (uint8_t)((unsigned int)value >> 16);
+            encoded_bytes[2] = (uint8_t)((unsigned int)value >> 8);
+            encoded_bytes[3] = (uint8_t)value;
             code = -4;
         }
         else
         {
-            *(int16_t *)&encoded = value; /* HIWORD on big-endian = leading 2 bytes */
+            /* DEVIATION: the `*(int16_t *)&encoded = value` pun was NOT endian-neutral — it emits the
+             * halfword in host order into the two leading bytes that data_encode_memory copies, so an
+             * x64 build would put the encoding on the wire little-endian. Spelled as explicit
+             * big-endian leading-byte writes, byte-identical to the image on PPC. 2026-08-18 */
+            encoded_bytes[0] = (uint8_t)((unsigned int)value >> 8);
+            encoded_bytes[1] = (uint8_t)value;
             code = -2;
         }
     }
     else
     {
-        *(char *)&encoded = value;        /* HIBYTE on big-endian = leading byte */
+        /* single leading byte: the low 8 bits of `value` land at &encoded[0] on either endianness,
+         * so this one is already endian-neutral — kept as an explicit leading-byte write. */
+        encoded_bytes[0] = (uint8_t)value;
         code = 1;
     }
     data_encode_memory(state, &encoded, 1, code);

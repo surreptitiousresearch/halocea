@@ -27,7 +27,7 @@
 #include "headers/blam_data_globals.h"
 
 
-extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, double maximum_t, collision_bsp_test_vector_result *result);
+extern uint8_t collision_bsp_test_vector(unsigned int flags, const struct collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, float maximum_t, collision_bsp_test_vector_result *result);
 extern uint8_t pill_test_vector3d(const real_point3d *base, float height, float width, const real_point3d *point, const real_vector3d *vector, float *t_reference, real_vector3d *normal);
 
 int16_t actor_move_test_avoidance_vector(vector_avoidance_data *avoidance_data,

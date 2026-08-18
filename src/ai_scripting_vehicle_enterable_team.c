@@ -8,7 +8,7 @@ extern ai_vehicle_enterable * ai_scripting_find_vehicle_enterable(int vehicle_in
 
 void ai_scripting_vehicle_enterable_team(int unit_index, int16_t team_index)
 {
-    char team = team_index;
+    int16_t team = team_index;
     if ( unit_index != -1 )
     {
         ai_vehicle_enterable *vehicle_enterable = ai_scripting_find_vehicle_enterable(unit_index);

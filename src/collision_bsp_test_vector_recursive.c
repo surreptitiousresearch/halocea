@@ -25,7 +25,7 @@
 #include "headers/contents.h"
 #include <stdint.h>
 
-extern int collision_leaf_test_vector(const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, int leaf_index, int plane_index, double t, uint8_t test_surface);
+extern int collision_leaf_test_vector(const collision_bsp *bsp, int16_t breakable_surface_count, const uint8_t *breakable_surface_flags, const real_point3d *point, const real_vector3d *vector, int leaf_index, int plane_index, float t, uint8_t test_surface);
 
 /* Return is 8-bit: the self-recursive callers (0x837E1A40/0x837E1A80/0x837E1AC0) normalize the
  * result with clrlwi rN,r3,24, as does the entry collision_bsp_test_vector. */

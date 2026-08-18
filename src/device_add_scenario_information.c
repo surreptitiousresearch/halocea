@@ -12,6 +12,7 @@
 #include "headers/object_header_datum.h"
 #include "headers/device_datum.h"
 #include "headers/device_datum_flags.h"
+#include "headers/device_group_flags.h"
 #include "headers/device_group_datum.h"
 #include "headers/scenario_device_datum.h"
 #include "headers/scenario_device_flags.h"
@@ -29,7 +30,7 @@ void device_add_scenario_information(unsigned int device_index, scenario_device_
     if ( power_group_index == -1 )
     {
         float desired_value = (scenario_device->flags & (1u << _scenario_device_initially_off_bit)) ? 0.0f : 1.0f;
-        power_group_index = device_group_new(desired_value, device_index);
+        power_group_index = device_group_new(desired_value, 1 << _device_group_runtime_bit); /* DEVIATION: li r4,4 @0x837B5BE0 -- flags constant, not device_index */
     }
     device->device.power_group_index = power_group_index;
 
@@ -37,7 +38,9 @@ void device_add_scenario_information(unsigned int device_index, scenario_device_
     if ( position_group_index == -1 )
     {
         float desired_value = (scenario_device->flags & (1u << _scenario_device_initially_open_bit)) ? 1.0f : 0.0f;
-        position_group_index = device_group_new(desired_value, device_index);
+        position_group_index = device_group_new(desired_value,
+                (1 << _device_group_runtime_bit) |
+                ((scenario_device->flags >> _scenario_device_changes_only_once_bit) & 1)); /* DEVIATION: li r4,4; rlwimi r4,r11,30,31,31 @0x837B5C1C-20 -- propagates changes-only-once */
     }
     device->device.position_group_index = position_group_index;
 

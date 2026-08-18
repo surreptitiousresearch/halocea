@@ -7,7 +7,7 @@ extern uint8_t player0_look_pitch_is_inverted(void);
 
 void player0_look_pitch_is_inverted_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result = 0;
-    *(unsigned char *)&result = player0_look_pitch_is_inverted();
+    /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(narrow*)&result pun; hs extracts value >> 24) 2026-08-18 */
+    int result = (int)((uint8_t)player0_look_pitch_is_inverted()) << 24;
     hs_return(thread_index, result);
 }

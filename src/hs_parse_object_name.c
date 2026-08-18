@@ -35,7 +35,10 @@ int hs_parse_object_name(int expression_index)
         int16_t object_type = ((scenario_object_name *)global_scenario->object_names.address)[name_index].runtime_object_type;
         if ( ((1 << object_type) & hs_object_type_masks[node->type - first_hs_object_name_type]) != 0 )
         {
-            *(int16_t *)&node->data = name_index;
+            /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r10, 0x10(r30)`
+             * @0x83776BEC (was an *(int16_t*)&node->data pun); hs_cast reads the packed name index as
+             * `object_index_from_name_index((int16_t)(value >> 16))` 2026-08-18 */
+            node->data = (unsigned int)((uint16_t)name_index) << 16;
             return 1;
         }
         sprintf_0(hs_compile_globals.error_buffer, "this is not an object of type %s.", hs_type_names[node->type]);

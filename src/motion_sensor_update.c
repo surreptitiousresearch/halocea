@@ -177,7 +177,7 @@ void motion_sensor_update(void)
                                     motion_sensor_blip *blip = &sensor_datum->blips[blip_count];
                                     blip->type = blip_type;
 
-                                    uint8_t blip_size;
+                                    int16_t blip_size; /* DEVIATION: was uint8_t; binary range-checks the SIGNED halfword (lhz+extsh @0x837BD32C-30, cmpwi 0 AND cmpwi 3 @0x837BD334-40) */
                                     if (iter.index == -1 || !object_try_and_get_and_verify_type(iter.index, object_mask_unit))
                                     {
                                         blip_size = 0;
@@ -186,9 +186,8 @@ void motion_sensor_update(void)
                                     {
                                         int vehicle_tag_index = object->definition_index;
                                         unit_definition *vehicle_definition = TAG_GET(unit_definition, vehicle_tag_index);
-                                        /* original read was unsigned __int16 of the __int16 blip_type @+664 */
-                                        blip_size = (uint16_t)vehicle_definition->unit.blip_type; /* hud_blip_type */
-                                        if (blip_size >= NUMBER_OF_HUD_BLIP_TYPES)
+                                        blip_size = vehicle_definition->unit.blip_type; /* hud_blip_type, int16_t */
+                                        if (blip_size < 0 || blip_size >= NUMBER_OF_HUD_BLIP_TYPES)
                                             blip_size = _hud_blip_type_medium;
                                     }
                                     blip->size = blip_size;

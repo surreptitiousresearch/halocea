@@ -1,7 +1,7 @@
 /* garbage_update @0x837EA108 — decrement the object's despawn timer (+556); when it reaches (or wraps past)
- * zero, delete the object. Returns 1 once the timer has reached zero, else 0.
- * Bit-trick faithfully reproduced from disasm_range(0x837EA108,0x837EA170) (`-timer & ~timer`, then the sign
- * bit tests "timer == 0"). */
+ * zero, delete the object. Returns 1 while the timer is still nonzero (object survives), 0 when it hit zero
+ * and the object was deleted. Bit-trick faithfully reproduced from disasm_range(0x837EA108,0x837EA170)
+ * (`-timer & ~timer`; the sign bit is set iff timer != 0). */
 
 #include <stdint.h>
 #include "headers/data_array.h"

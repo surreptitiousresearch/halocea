@@ -8,7 +8,7 @@
 // described by pHdr. Block-compressed (DXTn) formats are computed from their
 // 4x4-block granularity; all other formats fall back to bpp * texel count.
 // Source: D:\Projects\code\common\src.sys\picture\picture.cpp
-int pctGetMipMapMemSize(pctHEADER *pHdr, char mipMap)
+int pctGetMipMapMemSize(pctHEADER *pHdr, int mipMap)
 {
     int depth = pHdr->sz;
     int height = pHdr->sy >> mipMap;

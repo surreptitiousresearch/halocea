@@ -10,8 +10,8 @@ void object_list_count_evaluate(int16_t function_index, int thread_index, uint8_
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        int result = 0;
-        *(int16_t *)&result = object_list_count(arguments[0]);
+        /* DEVIATION: endian-portable respelling of the BE high-halfword store (was an *(narrow*)&result pun; hs extracts value >> 16) 2026-08-18 */
+        int result = (int)((uint16_t)object_list_count(arguments[0])) << 16;
         hs_return(thread_index, result);
     }
 }

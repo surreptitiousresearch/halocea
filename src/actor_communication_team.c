@@ -13,7 +13,7 @@ extern uint16_t actor_type_get_race(int16_t actor_type);
 int16_t actor_communication_team(int actor_index)
 {
     actor_datum *actor = DATA_ARRAY_ELEMENT(actor_data, actor_datum, actor_index);
-    char race = actor_type_get_race(actor->meta.type);
+    int16_t race = actor_type_get_race(actor->meta.type);
     if ( (race & _race_human) != 0 )
         return 0;
     if ( (race & _race_covenant) != 0 )

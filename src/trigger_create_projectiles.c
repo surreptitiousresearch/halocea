@@ -86,7 +86,7 @@ void trigger_create_projectiles(int weapon_index, int16_t trigger_index, Network
             marker_object_index = parent;
     }
 
-    object_marker markers[28];
+    object_marker markers[64]; /* DEVIATION: native frame (stwu r1,-0x1D40 @0x836DB528) reserves 64x108-byte records; count 64 is passed below */
     int16_t marker_count = object_get_marker_by_name(marker_object_index,
             trigger_marker_names[trigger_index], markers, 64);
     if ( !marker_count )

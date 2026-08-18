@@ -363,7 +363,7 @@ after_parent:
             ++component->ground_ticks;
 
         {
-            char wander_flags = component->flags & ~((1u << _swarm_component_melee_engaged_bit)
+            int16_t wander_flags = component->flags & ~((1u << _swarm_component_melee_engaged_bit)
                                                    | (1u << _swarm_component_attached_bit));
             component->flags &= ~((1u << _swarm_component_melee_engaged_bit)
                                 | (1u << _swarm_component_attached_bit));

@@ -247,7 +247,7 @@ void object_damage_update(int object_index)
     {
         biped_datum *biped = (biped_datum *)unit;
         int16_t stun = biped->object.shield_stun_ticks;
-        if ( (unsigned int)((-stun & ~stun) >> 31)
+        if ( ((unsigned int)(-stun & ~stun) >> 31) /* DEVIATION: srwi r5,r6,31 @0x836B4650 -- logical shift, yields 0/1 not 0/-1 */
                 != biped->biped.baseline.shield_stun_ticks_greater_than_zero )
             biped->object.flags |= (1u << _object_force_baseline_update_bit);
     }

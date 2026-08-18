@@ -10,8 +10,9 @@
  *   reach the target spawns the open/close (or the two closed) effects. Marks the object dirty on a position
  *   change. Returns 1 if either accelerate step reported completion (a state change occurred).
  *
- * DEVIATION: accelerate_to_position's final circular_position arg is 0 (disasm `li r10,0`; the decompiler's
- * 0x82000000 is a stale FPR-shadow GPR). The (float)__int64 counter comparison is (float)(int)dwell_counter.
+ * DEVIATION: the POWER call's final circular_position arg is 0 (disasm `li r10,0` @0x837B5700; the decompiler's
+ * 0x82000000 is a stale FPR-shadow GPR); the POSITION call's is device.flags bit 0 (clrlwi r10,r11,31
+ * @0x837B5894). The (float)__int64 counter comparison is (float)(int)dwell_counter.
  *
  * BUGFIX vs. prior source: the device tag definition is element[index].base_address (loaded at
  * `lwz r30, 0x14(r7)`, disasm 0x837B56D8), i.e. `*(int *)TAG_INSTANCE(index)` — the same read device_export
@@ -27,6 +28,7 @@
 #include "headers/global_tag_instances.h"
 #include <math.h>
 #include "headers/device_datum_flags.h"
+#include "headers/device_position_flags.h"
 #include "headers/blam_data_globals.h"
 #include "headers/ppc_intrinsics.h"
 
@@ -100,7 +102,8 @@ uint8_t device_update(int device_index)
     }
 
     if ( accelerate_to_position(&device->device.position, &device->device.position_velocity, group->desired_value,
-            acceleration_limit, velocity_limit, 0.0f, 1.0f, 0) )
+            acceleration_limit, velocity_limit, 0.0f, 1.0f,
+            (definition->device.flags >> _device_position_loops_bit) & 1) ) /* DEVIATION: lwz r11,0x17C(r30); clrlwi r10,r11,31 @0x837B587C-94 -- arg8 is the position-loops flag, not 0 (that li r10,0 belongs to the power call) */
     {
         if ( velocity_positive )
             device_effect_new(device_index, definition->device.positive_stop_effect.index);

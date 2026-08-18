@@ -13,7 +13,7 @@ extern "C" render_window hcex_window[];
 extern "C" float hcex_fov[];
 extern "C" int hcex_coop_local_player_index;
 
-extern "C" int16_t hcex_render_player_index(int cam_idx);
+extern "C" int hcex_render_player_index(int cam_idx);
 extern "C" const observer_result *observer_get_camera(int16_t local_player_index);
 extern "C" int16_t local_player_count(void);
 extern "C" void compute_window_bounds(int player_index, int num_players, rectangle2d *pixel_bounds, rectangle2d *safe_frame_bounds);

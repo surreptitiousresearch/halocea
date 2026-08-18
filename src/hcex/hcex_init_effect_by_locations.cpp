@@ -18,9 +18,11 @@ extern "C" data_array *effect_data;
 
 extern "C" int16_t object_get_marker_by_name(int object_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
 extern "C" int16_t first_person_weapon_get_marker_by_name(int weapon_index, const char *name, object_marker *markers, int16_t maximum_marker_count);
-extern "C" void hcex_init_effect(int definition_index, int obj_follow, int16_t local_player_index,
+/* DEVIATION: local_player_index int16_t->int (stw r5 full word @0x836823CC), scale double->float
+   (per the definition) 2026-08-18 */
+extern "C" void hcex_init_effect(int definition_index, int obj_follow, int local_player_index,
                              const real_point3d *positions, const real_vector3d *forwards,
-                             const char **names, int count, double scale);
+                             const char **names, int count, float scale);
 
 /* DEVIATION: arg0 was `uint16_t`, on the strength of the prologue's `clrlwi r11, r3, 16`. That mask
  * is DATA_ARRAY_ELEMENT's own datum-handle low-word extraction, not a parameter narrowing — the

@@ -169,6 +169,7 @@
 #include "headers/scenario_scenery_datum.h"
 #include "headers/scenario_vehicle_datum.h"
 #include "headers/scenario_weapon_datum.h"
+#include "headers/secondary_look_type.h"
 #include "headers/sound_location.h"
 #include "headers/sound_permutation.h"
 #include "headers/sound_preferences.h"
@@ -255,6 +256,7 @@
 #include "rasterizer_model_begin_parameters.h"
 #include "rasterizer_model_techniques.h"
 #include "rasterizer_render_target.h"
+#include "rasterizer_target_dimensions.h"
 #include "rasterizer_vertex_shader_index.h"
 #include "rasterizer_vertex_type.h"
 #include "real_argb_color.h"
@@ -1216,6 +1218,7 @@ extern light_volume_frame frame_storage;
 extern hs_global_external framerate_lock_definition;
 extern hs_global_external framerate_throttle_definition;
 extern hs_global_external freeze_flying_camera_definition;
+extern const float friction;
 extern float fudge_offset;
 extern unsigned char fudge_vector;
 extern const real_vector3d fudge_vectors[27];

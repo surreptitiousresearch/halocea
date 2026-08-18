@@ -9,7 +9,7 @@ extern "C" int strcmp(const char *a, const char *b); // boundary — CRT
 
 // dsSPrintf(dsTSTRING<char>&, const char*, ...) @ 0x82790400 — sprintf into a dsTSTRING (sret).
 // Boundary — generic ds string-formatting helper, not reversed here.
-extern dsTSTRING<char> dsSPrintf(dsTSTRING<char> *result, const char *fmt, ...);
+extern dsTSTRING<char> *dsSPrintf(dsTSTRING<char> *result, const char *fmt, ...); /* DEVIATION: was by-value return + explicit out-ptr (double sret, arg shift) */
 
 // operator+(dsTSTRING<char>&, const char*, const dsTSTRING<char>&) @ sret concat helper.
 // Boundary — generic dsTSTRING concatenation operator, not reversed here.

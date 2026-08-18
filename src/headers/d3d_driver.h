@@ -44,7 +44,7 @@ typedef struct d3dDRIVER
     // 0x82695BBC -- reversed in d3dDRIVER__SetStartRenderingState.c.
     void SetStartRenderingState();
     // 0x82696538 -- reversed in d3dDRIVER__ConvertPWL2ProperGamma.c.
-    float ConvertPWL2ProperGamma(double C) const;
+    float ConvertPWL2ProperGamma(float C) const;
 
     // 0x8268E518 -- reversed in d3dDRIVER__SetViewport.cpp. Virtual. Set the D3D viewport under the
     // video lock (only while the device-ready state bit 0x04000000 is set); a non-positive width or

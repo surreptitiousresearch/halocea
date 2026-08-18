@@ -19,7 +19,11 @@ extern void hcex_correct_time_elapsed(float *);
 void main_update_time(void)
 {
     int64_t now_clocks;
-    float dt;
+    /* DEVIATION: dt respelled float->double 2026-08-18; the callee returns a true double
+       (fdiv @0x83762D3C, no frsp), fmr f31,f1 keeps it wide, every clamp compares lfd DOUBLE
+       constants, and the sole narrowing is frsp @0x8368A9CC before the stfs. A float cap takes
+       a different clamp branch near 1/15 (0.066666670f vs 0.066666666666666666). */
+    double dt;
 
     if ( !timeDemo && !global_frame_rate_throttle )
         cinematic_in_progress();
@@ -34,14 +38,14 @@ void main_update_time(void)
     }
     else
     {
-        main_globals.did_time_overflow_occur = dt > 1.0f;
-        if ( dt < 0.0f )
-            dt = 0.0f;
-        else if ( dt > 1.0f )
-            dt = 1.0f;
+        main_globals.did_time_overflow_occur = dt > 1.0;
+        if ( dt < 0.0 )
+            dt = 0.0;
+        else if ( dt > 1.0 )
+            dt = 1.0;
         if ( !main_globals.connection && !cinematic_in_progress() )
         {
-            float cap = debug_force_frame_rate_update ? (1.0f / 30.0f) : (1.0f / 15.0f);
+            double cap = debug_force_frame_rate_update ? (1.0 / 30.0) : (1.0 / 15.0);
             if ( dt > cap )
                 dt = cap;
         }

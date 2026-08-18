@@ -80,18 +80,18 @@ sslERROR sslCLASS::CallFunc(sslOBJECT *pSelf, int idx, int argc, dsDATA *argv, d
 
         if (sslTracker.IsRecording())
         {
-            double elapsed = callTimer.Snapshot();
+            float elapsed = callTimer.Snapshot();
             char nameBuf[0x400];
 
             _snprintf_0(nameBuf, 0x400, "CallFunc/%s/%s/time", pSelf->GetDbgName().CStr(), elem.name.CStr());
             sslTracker.AddValue(nameBuf, elapsed);
             _snprintf_0(nameBuf, 0x400, "CallFunc/%s/%s/calls", pSelf->GetDbgName().CStr(), elem.name.CStr());
-            sslTracker.AddValue(nameBuf, 1.0);
+            sslTracker.AddValue(nameBuf, 1.0f);
 
             if (cbdeep == 1)
             {
                 sslTracker.AddValue("CallFunc/_sum/time", elapsed);
-                sslTracker.AddValue("CallFunc/_sum/calls", 1.0);
+                sslTracker.AddValue("CallFunc/_sum/calls", 1.0f);
             }
         }
 

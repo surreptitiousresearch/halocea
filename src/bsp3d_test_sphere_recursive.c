@@ -32,7 +32,7 @@ void bsp3d_test_sphere_recursive(test_sphere_data *data, int child_index)
         while ( 1 )
         {
             node = (int *)&((bsp3d_node *)data->bsp->bsp3d.nodes.address)[child_index];
-            float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[*node];
+            float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[*node & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E1F98 discards bit 31 in the table index */
             float distance = (((plane[0] * cx)
                                            + ((plane[1] * cy) + (plane[2] * cz)))
                                    - plane[3]);
@@ -85,7 +85,7 @@ leaf:
                         goto next_reference;
                 }
 
-                float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[reference_plane];
+                float *plane = (float *)&((real_plane3d *)data->bsp->bsp3d.planes.address)[reference_plane & 0x7FFFFFFF]; /* DEVIATION: slwi r11,r10,4 @0x837E2164 discards bit 31; the raw value keeps its sign for the stack compares above */
                 const real_point3d *center = data->center;
                 float ax = __fabs(plane[0]);
                 float ay = __fabs(plane[1]);

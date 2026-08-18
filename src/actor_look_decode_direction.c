@@ -89,9 +89,9 @@ uint8_t actor_look_decode_direction(int actor_index, direction_specification *sp
     {
         if (actor->danger_zone.danger_type > actor_danger_zone_none)
         {
-            direction->n[0] = actor->danger_zone.initial_position.x - actor->input.position.head_position.x;
-            direction->n[1] = actor->danger_zone.initial_position.y - actor->input.position.head_position.y;
-            direction->n[2] = actor->danger_zone.initial_position.z - actor->input.position.head_position.z;
+            direction->n[0] = actor->danger_zone.position.x - actor->input.position.head_position.x; /* DEVIATION: lfs f0,0x2B0 @0x837FABE4 = danger_zone.position (+0x30), not initial_position (+0x18) */
+            direction->n[1] = actor->danger_zone.position.y - actor->input.position.head_position.y;
+            direction->n[2] = actor->danger_zone.position.z - actor->input.position.head_position.z;
             return normalize3d(direction) > 0.0f;
         }
         return 0;

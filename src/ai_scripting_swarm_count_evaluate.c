@@ -12,8 +12,10 @@ void ai_scripting_swarm_count_evaluate(int16_t function_index, int thread_index,
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        int result = 0;   /* LOWORD = 0 */
-        *(int16_t *)&result = ai_scripting_swarm_count(arguments[0]);
+        /* DEVIATION: was an endian-dependent pun (*(int16_t*)&result wrote the LOW half on LE;
+           the binary sth writes the HIGH half of the pre-zeroed word and hs_cast extracts
+           (int16_t)(value >> 16)) -- respelled to the portable corpus idiom 2026-08-18 */
+        int result = (int)((uint16_t)ai_scripting_swarm_count(arguments[0])) << 16;
         hs_return(thread_index, result);
     }
 }

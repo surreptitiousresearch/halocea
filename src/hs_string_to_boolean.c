@@ -5,7 +5,8 @@
  * DEVIATION: the parameter is the raw `int` script value word, which this coercion uses as the text
  * pointer (`mr r11, r3` / `lbz r10, 0(r11)`). The typecasting_procedures ABI is word-in/word-out.
  * CAVEAT: as-shipped — stb @0x8368D550 writes only the MSByte, lwz @0x8368D554 returns the whole
- * word; the low 3 bytes are whatever sits in the back-chain stack slot (not defined by this code). */
+ * word, so the shipped low 3 bytes are whatever sat in the back-chain stack slot: indeterminate, not
+ * defined by this code. Zero is the portable choice reproduced here; consumers read value >> 24. */
 
 int hs_string_to_boolean(int value)
 {
@@ -15,7 +16,7 @@ int hs_string_to_boolean(int value)
         ;
     long length = (long)(cursor - string) - 1;
 
-    int back_chain;
-    *(unsigned char *)&back_chain = (length == 0) ? 1 : 0;
-    return back_chain;
+    /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(unsigned char*)&back_chain
+     * pun; hs_inspect_boolean and hs_cast's boolean consumers extract value >> 24) 2026-08-18 */
+    return (int)((unsigned char)((length == 0) ? 1 : 0)) << 24;
 }

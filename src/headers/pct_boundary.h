@@ -9,7 +9,7 @@ extern pctPICTURE *pctCreate(int format, int width, int height, int mipmaps, int
 /* The pct* size/offset helpers below are reversed in src/ws/pct/. */
 extern char *pctGetMipMapOffsetPtr(pctPICTURE *pic, int mipmap, int face);
 extern int pctGetMemFaceSize(pctHEADER *hdr);
-extern int pctGetMipMapMemSize(pctHEADER *hdr, char mipmap);
+extern int pctGetMipMapMemSize(pctHEADER *hdr, int mipmap); /* DEVIATION: char->int per mangling ?pctGetMipMapMemSize@@YAHPAUpctHEADER@@H@Z */
 extern int pctGetMipMapOffset(pctHEADER *hdr, int mipmap);
 /* Returns a pointer into the global pctFormatList table for the given PCT_FORMAT
    code (NOT a query on a picture). The former `int pctGetFormat(pctPICTURE*)`

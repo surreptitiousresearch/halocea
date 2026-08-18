@@ -86,16 +86,20 @@ void objects_update(void)
         for ( i = 0; i < object_header_data->count; i++, data += 6 )
         {
             int cluster;
+            object_header_datum *header = (object_header_datum *)data;
+            /* DEVIATION: bit tests respelled from data[1] (BE halfword = flags<<8|type; would test
+               the TYPE byte on the original target) to the flags byte the binary actually reads
+               (lbz 2(r31) @0x836F2A38/0x836F2AC4 etc.), endian-neutral. 2026-08-18 */
             /* must be a live, connected, activatable object */
             if ( !data[0]
-              || (data[1] & (1u << _object_header_automatically_deactivate_bit)) == 0
-              || (data[1] & (1u << _object_header_connected_to_map_bit)) == 0 )
+              || (header->flags & (1u << _object_header_automatically_deactivate_bit)) == 0
+              || (header->flags & (1u << _object_header_connected_to_map_bit)) == 0 )
                 continue;
 
-            if ( (data[1] & (1u << _object_header_active_bit)) == 0 )
+            if ( (header->flags & (1u << _object_header_active_bit)) == 0 )
             {
                 /* currently inactive: activate if its cluster is now visible */
-                if ( (data[1] & (1u << _object_header_child_bit)) != 0 )
+                if ( (header->flags & (1u << _object_header_child_bit)) != 0 )
                     continue;
                 cluster = (uint16_t)data[2];
                 if ( cluster == 0xFFFF
@@ -127,14 +131,16 @@ void objects_update(void)
     data = (int16_t *)object_header_data->data;
     for ( i = 0; i < object_header_data->count; i++, data += 6 )
     {
+        object_header_datum *header2 = (object_header_datum *)data;
         if ( !data[0] )
             continue;
-        if ( (data[1] & (1u << _object_header_active_bit)) != 0
-          && (data[1] & (1u << _object_header_being_created_bit)) == 0 )
+        /* DEVIATION: data[1] halfword bit tests -> flags byte per binary lbz @0x836F2B6C-7C */
+        if ( (header2->flags & (1u << _object_header_active_bit)) != 0
+          && (header2->flags & (1u << _object_header_being_created_bit)) == 0 )
         {
             int handle = BUILD_DATUM_INDEX(data[0], i);
             last_handle = handle;
-            object_header_datum *record = (object_header_datum *)data;
+            object_header_datum *record = header2;
             if ( !double_speed_half_tick
               || (((1 << record->type) & object_mask_unit) != 0
                   && ((unit_datum *)record->datum)->unit.player_index != -1) )  /* types 0/1 are unit-shaped */
@@ -152,15 +158,18 @@ void objects_update(void)
             continue;
         {
             object_header_datum *record = (object_header_datum *)data;
-            int needs_final_update = data[1] & (1u << _object_header_being_created_bit);
-            unsigned char flags = data[1] & ~(1u << _object_header_do_not_update_bit);
+            /* DEVIATION: was data[1]-based (masked the TYPE byte and stored it into flags on BE);
+               binary is byte-wide on the flags byte: lbz @0x836F2C20, rlwinm 0,28,26, stb
+               @0x836F2C34, re-lbz @0x836F2C54. Real per-tick corruption as previously written. */
+            int needs_final_update = record->flags & (1u << _object_header_being_created_bit);
+            uint8_t flags = record->flags & ~(1u << _object_header_do_not_update_bit);
             record->flags = flags;
             if ( needs_final_update )
             {
                 record->flags = flags & ~(1u << _object_header_being_created_bit);
                 last_handle = object_update(BUILD_DATUM_INDEX(data[0], i));
             }
-            if ( (data[1] & (1u << _object_header_being_deleted_bit)) != 0 )
+            if ( (record->flags & (1u << _object_header_being_deleted_bit)) != 0 )
                 object_delete_recursive(((uint16_t)data[0] << 16) | i, 0);
         }
     }

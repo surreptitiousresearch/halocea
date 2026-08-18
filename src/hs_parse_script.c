@@ -20,6 +20,8 @@ int hs_parse_script(int expression_index)
         hs_compile_globals.error_offset = node->source_offset;
         return 0;
     }
-    *(int16_t *)&node->data = script_index;
+    /* DEVIATION: endian-portable respelling of the BE high-halfword store `sth r11, 0x10(r30)` @0x837764F8
+     * (was an *(int16_t*)&node->data pun); hs_cast extracts (int16_t)(value >> 16) 2026-08-18 */
+    node->data = (unsigned int)((uint16_t)script_index) << 16;
     return 1;
 }

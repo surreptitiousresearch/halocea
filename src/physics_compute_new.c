@@ -174,12 +174,12 @@ void physics_compute_new(const physics_instance *instance, const powered_mass_po
                     else if (up_dot > 1.0f) up_dot = 1.0f;
                     weight = ((((up_dot * up_dot) * pin) * pin) * ground_scale);
 
-                    along = ((fwd[0] * -pmp->ground_friction_velocity))
-                          + ((fwd[1] * -pmp->ground_friction_velocity) + (fwd[2] * -pmp->ground_friction_velocity));
+                    along = ((fwd[0] * -pmp->ground_friction_velocity * gn[0]))
+                          + ((fwd[1] * -pmp->ground_friction_velocity * gn[1]) + (fwd[2] * -pmp->ground_friction_velocity * gn[2])); /* DEVIATION: fnmadds f6,f12,f2,f8 @0x837BE990 -- the dot carries the gn[i] factors */
                     /* project the powered velocity into the ground plane */
-                    px = (gn[0] * -((gn[0] * along)) ) + (fwd[0] * -pmp->ground_friction_velocity);
-                    py = (gn[1] * -((gn[1] * along)) ) + (fwd[1] * -pmp->ground_friction_velocity);
-                    pz = (gn[2] * -((gn[2] * along)) ) + (fwd[2] * -pmp->ground_friction_velocity);
+                    px = (gn[0] * -along) + (fwd[0] * -pmp->ground_friction_velocity); /* DEVIATION: fmadds applies gn[i] exactly once @0x837BE99C */
+                    py = (gn[1] * -along) + (fwd[1] * -pmp->ground_friction_velocity);
+                    pz = (gn[2] * -along) + (fwd[2] * -pmp->ground_friction_velocity);
 
                     mp->velocity_relative_to_ground.n[0] += px;
                     mp->velocity_relative_to_ground.n[1] += py;

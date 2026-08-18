@@ -8,7 +8,7 @@ extern uint8_t game_safe_to_speak(void);
 
 void game_safe_to_speak_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result = 0;
-    *(unsigned char *)&result = game_safe_to_speak();
+    /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(narrow*)&result pun; hs extracts value >> 24) 2026-08-18 */
+    int result = (int)((uint8_t)game_safe_to_speak()) << 24;
     hs_return(thread_index, result);
 }

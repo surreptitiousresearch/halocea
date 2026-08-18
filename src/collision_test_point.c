@@ -61,7 +61,7 @@ uint8_t collision_test_point(unsigned int flags, const real_point3d *point, int 
             if ( candidate != ignore_object_index
               && (object->object.flags & (1u << _object_invisible_bit)) == 0 )
             {
-                char object_type = object->object.type;
+                int16_t object_type = object->object.type;
                 if ( ((1 << (object_type + 8)) & flags) != 0 )
                 {
                     float dz = object->object.bounding_sphere_center.n[2] - point->n[2];

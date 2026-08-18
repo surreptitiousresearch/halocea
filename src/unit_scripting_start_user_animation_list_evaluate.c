@@ -8,13 +8,13 @@ extern uint8_t unit_scripting_start_user_animation_list(int object_list_index, i
 
 void unit_scripting_start_user_animation_list_evaluate(int16_t function_index, int thread_index, uint8_t initialize)
 {
-    int result = 0;
     int *arguments = hs_macro_function_evaluate(function_index, thread_index, initialize);
     if ( arguments )
     {
-        *(unsigned char *)&result = unit_scripting_start_user_animation_list(
+        /* DEVIATION: endian-portable respelling of the BE high-byte store (was an *(narrow*)&result pun; hs_inspect_boolean extracts value >> 24) 2026-08-18 */
+        int result = (int)((uint8_t)(unit_scripting_start_user_animation_list(
             /* HS packed arg block: byte +12 is the boolean interpolate arg (BE high byte of arguments[3]) */
-            arguments[0], arguments[1], (const char *)arguments[2], ((unsigned char *)arguments)[12]);
+            arguments[0], arguments[1], (const char *)arguments[2], ((unsigned char *)arguments)[12]))) << 24;
         hs_return(thread_index, result);
     }
 }

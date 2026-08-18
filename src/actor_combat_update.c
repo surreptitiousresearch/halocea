@@ -119,11 +119,11 @@ void actor_combat_update(int actor_index)
             }
             else if ( new_kind == actor_fire_target_manual_point )
             {
-                float dx = actor->control.___u58.current_fire_target_manual_point.x - actor->output.animation.alignment_vector.__s1.i;
-                float dy = actor->control.___u58.current_fire_target_manual_point.y - actor->output.animation.alignment_vector.__s1.j;
-                /* DEVIATION: DB types animation.alignment_vector as real_vector2d (8B); the decompiler's
-                 * .z read lands one float past it. Preserved byte-exact via explicit +8 offset. See escalation. */
-                float dz = actor->control.___u58.current_fire_target_manual_point.z - *(float *)((char *)&actor->output.animation.alignment_vector + 8);
+                /* DEVIATION: subtrahend is orders.combat.target_point (lfs 0x460/0x464/0x468 @0x837B990C-30),
+                 * not output.animation.alignment_vector (0x6F0) as previously misattributed. */
+                float dx = actor->control.___u58.current_fire_target_manual_point.x - actor->orders.combat.target_point.x;
+                float dy = actor->control.___u58.current_fire_target_manual_point.y - actor->orders.combat.target_point.y;
+                float dz = actor->control.___u58.current_fire_target_manual_point.z - actor->orders.combat.target_point.z;
                 target_changed = (dz * dz + (dx * dx + dy * dy)) > 0.25f;
             }
         }

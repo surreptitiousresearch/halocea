@@ -6,7 +6,7 @@
 #include <string.h>
 
 extern uint8_t input_has_gamepad(int16_t gamepad_index);
-extern void input_set_gamepad_vibrater_state(int gamepad_index, int low_frequency, int high_frequency);
+extern void input_set_gamepad_vibrater_state(int gamepad_index, uint16_t low_frequency, uint16_t high_frequency);
 
 void vibrate_clear_all_now(void)
 {

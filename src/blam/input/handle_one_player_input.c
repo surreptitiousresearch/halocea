@@ -188,11 +188,13 @@ commit:
     if ( local_player_get_player_index(local_player_index) != -1 )
     {
         /* repack player_control into a player_action for the client queue */
-        real_euler_angles2d facing = control->desired_angles;
-        *(unsigned int *)&facing.n[0] = control->control_flags;   /* pack control_flags bit-image into the facing float slot (wire format) */
+        /* DEVIATION: the previous "wire format" pun (control_flags bit-image through facing.n[0]) was a
+         * fused-64-bit-slot decompiler artifact; binary stores the fields separately — desired_angles pair
+         * ld 0xC(r31) @0x836E03B8 / std into action.desired_facing @0x836E03DC, control_flags
+         * lwz 4(r31) @0x836E03C0 / stw into action.control_flags @0x836E03E0. */
         action.primary_trigger = control->primary_trigger;
-        action.desired_facing = facing;
-        action.control_flags = *(unsigned int *)&facing.n[0];   /* same bit-image back out */
+        action.desired_facing = control->desired_angles;
+        action.control_flags = control->control_flags;
         action.desired_weapon_index = control->desired_weapon_index;
         action.desired_grenade_index = control->desired_grenade_index;
         action.desired_zoom_level = control->desired_zoom_level;

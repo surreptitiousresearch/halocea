@@ -111,7 +111,9 @@ uint8_t action_vehicle_find_destination(int actor_index, int vehicle_index, real
             /* if the hint point sits close enough to the entry_point->actor line, prefer entry_point as anchor */
             float dx = hint_point->n[0] - entry_point->n[0];
             float dy = hint_point->n[1] - entry_point->n[1];
-            float t = dx * entry_direction.n[0] - dy * entry_direction.n[1];
+            /* DEVIATION: was dx*ex - dy*ey; binary negates the full dot product — fmuls f4,f8,f0 (dx*ex)
+             * @0x83821CC8 then fnmadds f3,f5,f13,f4 = -(dy*ey + dx*ex) @0x83821CCC. */
+            float t = -(dx * entry_direction.n[0] + dy * entry_direction.n[1]);
             float px = dx * t + entry_direction.n[0];
             float py = dy * t + entry_direction.n[1];
             if ( py * py + px * px < 0.1225f )

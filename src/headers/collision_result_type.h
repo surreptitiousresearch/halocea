@@ -2,8 +2,8 @@
 #define COLLISION_RESULT_TYPE_H
 
 /* collision_result_type — what a collision test hit (collision_result.type).
- * Source: reference enum _C2F628667FF40A3B5E6B3AB3BE52BA27 (headers_ref); the IDA DB keeps only the
- * anonymized member-less enum shell. */
+ * Source: DB enum _C2F628667FF40A3B5E6B3AB3BE52BA27, which carries all five members with values
+ * (types_enum_values; names sans the leading underscore). */
 enum collision_result_type {
 	collision_result_media = 0,
 	collision_result_mesh = 1,

@@ -1,9 +1,11 @@
 /* biped_start_limp_body_physics @0x837AD558 — switch a biped into limp-body (ragdoll-noodle) physics if its
- * biped definition allows it (biped definition flags bit 9 = "uses limp body physics") and the object
- * is connected to the map (object.flags bit 5, 0x20). No-ops when biped.flags already has bit 0
- * (_biped_airborne_bit) or bit 5 (_biped_limp_body_physics_active_bit) set. Otherwise: clears the
- * relaxation counter, latches the definition's max relaxation iterations, marks the object flags with
- * 0x800000 (limp-body physics), and sets the limp-body-active state bit. */
+ * biped definition allows it (biped definition flags bit 9 = "uses limp body physics") and the object is
+ * _object_at_rest_bit (object.flags bit 5, 0x20 — at rest, NOT "connected to the map", which is bit 0xB;
+ * `rlwinm r10,r11,0,26,26` @0x837AD5B8). No-ops when biped.flags already has bit 0 (_biped_airborne_bit)
+ * or bit 5 (_biped_limp_body_physics_active_bit) set. Otherwise: clears the relaxation counter, latches
+ * the definition's max relaxation iterations, sets object flag 0x800000
+ * (_object_do_not_recompute_node_matrices_bit, `oris r7,r10,0x80` @0x837AD5F0), and sets the
+ * limp-body-active state bit. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

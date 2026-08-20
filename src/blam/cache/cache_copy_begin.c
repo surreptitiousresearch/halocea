@@ -7,6 +7,11 @@
  * copy into global_self->src_name, restored as such. destination_file_size is unused, matching the DB's own
  * prototype (never referenced in the decompiled body either). */
 
+/* CAVEAT: dead in the shipped image. This function has ZERO code cross-references --
+ * its only reference is the ExceptionDir unwind entry at 0x82370A10. The DVD-to-HDD copy engine is compiled in
+ * and never armed, so a reader should not assume this path runs at runtime.
+ * (xrefs to 0x83807EA8: 1 total, 0 code.) */
+
 #include <string.h>
 #include "headers/simple_decompressor_definition.h"
 

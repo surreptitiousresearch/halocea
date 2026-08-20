@@ -27,12 +27,16 @@ void widget_instance_go_back_to_previous(widget_instance *widget)
 
     if ( node )
     {
-        int packed_focus = node->data.focused_child_index;   /* low=controller, high=child index */
+        /* DEVIATION: the decompiler fused the two adjacent int16s at +0x8 into one packed dword
+         * (lwz r7, 8(r4) @0x837341F4) and the reconstruction then unpacked them the wrong way
+         * round. The binary passes the BE low half (+0xA) as local_player_index
+         * (lhz r28, var_38+2 @0x83734210 -> mr r6,r28 @0x83734260) and the high half (+0x8) as
+         * focused_child_index (lhz r5, var_38 @0x83734288); untangled into the real members. */
         previous_widget_tag = node->data.previous_widget_tag;
         focused_child_parent_widget_tag = node->data.focused_child_parent_widget_tag;
+        focused_child_index = node->data.focused_child_index;
+        restore_controller = node->data.local_player_index;
         widget_globals.widget_stack[slot] = node->next;
-        focused_child_index = (int16_t)(packed_focus >> 16);
-        restore_controller = (int16_t)packed_focus;
         dispose_pointer(widget_memory_pool, node);
     }
 

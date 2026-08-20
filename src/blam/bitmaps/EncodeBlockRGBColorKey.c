@@ -26,9 +26,11 @@
 #include <stdint.h>
 #include "headers/s3tc_block.h"
 #include "headers/fcolor.h"
-/* wtPrimary here is a DISTINCT file-local object (FCOLOR @0x8422EE00), not the canonical
- * float wtPrimary[3]; kept static to avoid the same-name canonical collision (DB-verified distinct). */
-static FCOLOR wtPrimary;
+/* DEVIATION: this was a file-local `static FCOLOR wtPrimary;` claiming a distinct object at 0x8422EE00.
+ * There is no symbol there (16 zero bytes, no name), so every weighted channel was 0.0f; the code references the
+ * canonical global at 0x84184D00 (lis wtPrimary@ha @0x837E4690). Declared as float[3] to match
+ * src/data/wtPrimary.c and the other consumers (ColorToFcolor.c, FcolorToColor.c). */
+extern float wtPrimary[3];
 extern const unsigned int mapRGB4[4];    /* selector-index -> DXT1 2-bit code table (canonical global) */
 
 extern float __fsqrts(float);            /* PPC single-precision sqrt intrinsic */
@@ -53,9 +55,9 @@ void EncodeBlockRGBColorKey(S3TC_COLOR *colorSrc, S3TCBlockRGB *pblockDst, int c
     float weightedPixels[16][4];
     for ( int pixel = 0; pixel < 16; ++pixel )
     {
-        weightedPixels[pixel][0] = (float)colorSrc[pixel].rgba[0] * wtPrimary.rgba[0] * 0.0039215689f;
-        weightedPixels[pixel][1] = (float)colorSrc[pixel].rgba[1] * wtPrimary.rgba[1] * 0.0039215689f;
-        weightedPixels[pixel][2] = (float)colorSrc[pixel].rgba[2] * wtPrimary.rgba[2] * 0.0039215689f;
+        weightedPixels[pixel][0] = (float)colorSrc[pixel].rgba[0] * wtPrimary[0] * 0.0039215689f;
+        weightedPixels[pixel][1] = (float)colorSrc[pixel].rgba[1] * wtPrimary[1] * 0.0039215689f;
+        weightedPixels[pixel][2] = (float)colorSrc[pixel].rgba[2] * wtPrimary[2] * 0.0039215689f;
     }
 
     /* 2) Block centroid (fixed 1/16 divisor, matching the reference encoder). */

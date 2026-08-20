@@ -1,8 +1,8 @@
 /* game_state_write_to_persistent_storage @0x8371B818 — write the game state buffer to the persistent
  * storage file: checksums the whole buffer's fixed leading region (4489216 bytes) into
  * *header_checksum, backs up the header portion, zeroes it in the live buffer, then writes the
- * (now header-zeroed) buffer followed by the real header separately. If any step of that fails, deletes
- * the local player's save file as a corruption guard. Always restores the header into the live buffer
+ * (now header-zeroed) buffer followed by the real header separately. If any step of that fails, it calls
+ * DeleteFileA on the bare local-player profile-directory path (see the BINARY BUG note below). Always restores the header into the live buffer
  * before returning (whether or not the write succeeded) and closes the storage handle. No-op if the
  * storage file couldn't be opened. */
 
@@ -48,6 +48,8 @@ void game_state_write_to_persistent_storage(void *buffer, unsigned int *header_c
       || !WriteFile(file, header_backup, header_size, &bytes_transferred, nullptr)
       || bytes_transferred != (unsigned int)header_size )
     {
+        /* BINARY BUG (0x8371B92C..0x8371B94C): deletes the bare profile-directory
+         * path — "savegame.bin" is never appended before DeleteFileA. Kept faithful. */
         char profile_directory[256];
         if ( player_ui_get_path_to_local_player_profile_directory(0, profile_directory) )
             DeleteFileA(profile_directory);

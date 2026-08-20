@@ -6,8 +6,12 @@
  * DEVIATION: the decompiler's __int64 v9/v10 register puns (LODWORD/HIDWORD/BYTE1/BYTE2) are plain per-channel
  * byte extraction — the three source channels are (pixel & 0xFF), (pixel >> 8) & 0xFF, (pixel >> 16) & 0xFF.
  * 0.0078431377 = 2/255 (encode [0,255] -> [-1,1]); 127.5/0.5 do the inverse round; the 0.0001 guard skips
- * degenerate vectors. Note the shipped channel arrangement: source channels 0/1/2 map to output bytes
- * 0/2/1 respectively (reproduced verbatim). Hex-Rays flagged "local variable allocation has failed". */
+ * degenerate vectors. Hex-Rays flagged "local variable allocation has failed".
+ *
+ * DEVIATION: the previous reconstruction claimed source channels 1 and 2 land in swapped output bytes; they do
+ * not. extrwi r9, 8,8 @0x8377C58C is (pixel>>16)&0xFF and feeds f13 -> f0 -> the value packed at bit 16
+ * (0x8377C65C/0x8377C660); extrwi r8, 8,16 @0x8377C5A0 is (pixel>>8)&0xFF and feeds f12 -> f13 -> bits 8-15
+ * (0x8377C664/0x8377C668). Each channel returns to its own byte. */
 
 #include <stdint.h>
 #include <string.h>
@@ -51,8 +55,8 @@ void bitmap_2d_vector_map(bitmap_data *bitmap)
             }
 
             int out0 = (int)((n0 + 1.0f) * 127.5f + 0.5f);
-            int out1 = (int)((n2 + 1.0f) * 127.5f + 0.5f);
-            int out2 = (int)((n1 + 1.0f) * 127.5f + 0.5f);
+            int out1 = (int)((n1 + 1.0f) * 127.5f + 0.5f);
+            int out2 = (int)((n2 + 1.0f) * 127.5f + 0.5f);
             *(int *)&converted[4 * (bitmap->width * y + x)] =
                 (out2 << 16) | (out1 << 8) | out0 | (pixel & 0xFF000000);
         }

@@ -43,12 +43,45 @@
  *   +0x009C = 0x00000000
  *   ... 9444 further bytes elided; full hex in .sweep/data_image.tsv
  * 9604 bytes = int (*[49][49])(int).
- *    HS (HaloScript) type-cast dispatch matrix: [source_type][dest_type] -> conversion
+ *    HS (HaloScript) type-cast dispatch matrix: [desired_type][actual_type] -> conversion
  *    procedure, or NULL when no cast exists. Reconstructed from the raw image (big-endian);
  *    only 70 of the 2401 slots are non-NULL, referencing 13 distinct conversion functions,
  *    all resolved to named functions via the DB funcs table. Emitted as a designated-index
  *    initializer so the null majority stays implicit-zero and every reloc lands in its exact
  *    [row][col] cell.
+ *
+ *    Index order proved from both consumers: hs_can_cast(actual_type in r3, desired_type in r4)
+ *    scales the DESIRED type by the stride -- `mulli r10, r10, 0x31` @0x8368D820 with r10 =
+ *    extsh r4 -- and hs_cast(..., actual_type in r4, desired_type in r5, value in r6) does the
+ *    same with `mulli r11, r11, 0x31` @0x8368D8C4, r11 = extsh r5. Row 4 (hs_type_void) filled
+ *    across columns 5-48 is the anchor: every type from hs_type_boolean up casts to void.
+ *
+ * CAVEAT: two properties of the shipped image are reproduced verbatim here and are NOT to be
+ *    "corrected". Both were re-verified against the image on 2026-08-20.
+ *
+ *    1. [8][8] holds hs_long_to_short (0x8368D618) in a long -> long identity cell. It is
+ *       unreachable: hs_can_cast returns 1 for actual_type == desired_type before touching the
+ *       table (`cmpw cr6, r11, r10` / `beq` @0x8368D728-0x8368D72C) and hs_cast returns the
+ *       value unchanged on the same test (@0x8368D86C-0x8368D870).
+ *
+ *    2. Rows 6 and 23 index columns that do not line up with the hs_type enum, and the enum is
+ *       not in doubt: the image's own hs_type_names[49] @0x84177F68 spells out
+ *       32 game_difficulty .. 36 hud_corner, 37 object .. 42 scenery, 43 object_name ..
+ *       48 scenery_name, matching src/headers/hs_type.h exactly, and hs_can_cast range-tests
+ *       0x25/0x2A/0x2B/0x30 (37/42/43/48) against those same bounds. Yet the image places
+ *       hs_enum_to_real at columns 30-33 (damage_effect, object_definition, game_difficulty,
+ *       team) rather than 32-36; object_list_from_ai_reference at column 16 (device_group)
+ *       rather than 17 (ai); hs_object_to_object_list at 34-38 rather than 37-42; and
+ *       hs_object_name_to_object_list at 39-44 rather than 43-48. The skew grows run by run
+ *       (-1, -2, -3, -4) and the run lengths do not survive it, so no single shift explains it;
+ *       the shape is consistent with these two rows having been authored against an earlier,
+ *       shorter hs_type list and never re-synced, but that is a hypothesis, not a finding.
+ *       It is behavioural, not cosmetic: hs_object_to_object_list and
+ *       hs_object_name_to_object_list are different functions (the latter runs
+ *       object_index_from_name_index first, @0x8368D648), so a vehicle/weapon/device/scenery
+ *       value cast to object_list takes the name path, and vehicle_name..scenery_name
+ *       (columns 45-48) have no entry at all and cannot cast to object_list.
+ *       Root cause unresolved -- do not adjust the data to fit either model.
  */
 #include <stdint.h>
 

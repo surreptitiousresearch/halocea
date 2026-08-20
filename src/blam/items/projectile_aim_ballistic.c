@@ -8,9 +8,12 @@
  * DEVIATION (FPR-shadow disaster): the two leading float args (base_velocity in f1, gravity_scale in f2) shadow
  * GPR slots r3/r4, so every pointer arg shifts down: origin=r5, target_point=r6, target_velocity_min=r7 (loaded
  * but never used), target_ballistic_fraction_min=r8, forced_velocity=r9, lob=r10, then six stack out-params.
- * The decompiler mis-parsed this completely — it packed origin+target_point into one __int64, invented ~25
- * phantom args, and scrambled the result stores. This was reconstructed from the disassembly against the DB
- * prototype. fcfid/__fsqrts/fsel/fabs sequences are restored as plain casts / intrinsics. */
+ * The decompiler mis-parsed this completely — the DB prototype at 0x837592A8 keeps origin and target_point
+ * as separate pointers but fuses target_velocity_min into an __int64 target_ballistic_fraction_min,
+ * invents ~25 phantom args, and scrambles the result stores. (The origin/target_point pair-fusion belongs
+ * to projectile_aim @0x83759680, whose prototype carries the __int64 target_point.) This was reconstructed
+ * from the disassembly against the DB prototype. fcfid/__fsqrts/fsel/fabs sequences are restored as plain
+ * casts / intrinsics. */
 
 #include <stdint.h>
 #include "headers/real_point3d.h"

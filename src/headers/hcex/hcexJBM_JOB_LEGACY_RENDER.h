@@ -103,17 +103,17 @@ struct hcexJBM_JOB_LEGACY_RENDER : jbmJOB
 {
     static hcexJBM_JOB_LEGACY_RENDER_vtbl vftable; // `hcexJBM_JOB_LEGACY_RENDER::`vftable'' -- boundary
 
-    // 0x823F08DC -- default-construct: name "legacy_render", own vtable, clear state.
+    // 0x823F08C8 -- default-construct: name "legacy_render", own vtable, clear state.
     hcexJBM_JOB_LEGACY_RENDER();
 
-    // 0x823EF6B8 -- thunk: re-point the vtable back to the jbmJOB base before base teardown.
+    // 0x823EF6B0 -- thunk: re-point the vtable back to the jbmJOB base before base teardown.
     ~hcexJBM_JOB_LEGACY_RENDER();
 
-    // 0x823F090C -- `scalar deleting destructor': re-point the vtable to jbmJOB's, then
+    // 0x823F08F0 -- `scalar deleting destructor': re-point the vtable to jbmJOB's, then
     // conditionally operator-delete `this` when bit 0 of deleteFlags is set.
     hcexJBM_JOB_LEGACY_RENDER *ScalarDeletingDtor(unsigned char deleteFlags);
 
-    // 0x823EF6F8 -- run the legacy Blam renderer under vidLock: hcex_legacy_render(), release the
+    // 0x823EF6D0 -- run the legacy Blam renderer under vidLock: hcex_legacy_render(), release the
     // rasterizer's FX textures, close out any still-open dynamic-geometry chunk, then discard the
     // frame's dynamic vertex/index buffers.
     void Execute(int threadID);

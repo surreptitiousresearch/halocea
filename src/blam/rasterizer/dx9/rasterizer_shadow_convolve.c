@@ -1,18 +1,21 @@
 /* rasterizer_shadow_convolve @0x837A31F0 — post-process pass that convolves the raw shadow-map render
- * target (target 3) into the blurred shadow buffer, using effect 45. Binds render targets 3 as texture
- * inputs on samplers 0-3 (wrap addressing, point min/mag filtering, separate-Z filtering), draws a
- * full-viewport quad through a fixed 8x1 pixel-offset sample-tap matrix (technique pass 0), then — only
- * when the shadow-convolution debug view is on — redraws target 4 and overlays a 128x128 debug grid
- * outline (technique pass 1) showing the convolution kernel's sample footprint, nudged by the global
- * `ofsx`/`ofsy` screen-shake offsets.
+ * target (target 3) into the blurred shadow buffer, using effect 45. Binds render target 3 as texture
+ * inputs on samplers 0-3 (mirror addressing, linear min/mag filtering, separate-Z filtering), retargets
+ * output to target 4, and draws a full-viewport quad through a fixed 8x1 pixel-offset sample-tap matrix
+ * (technique pass 0), then draws a 128x128 box outline as an 8-vertex line list (technique pass 1)
+ * showing the convolution kernel's sample footprint, nudged by the global `ofsx`/`ofsy` screen-shake
+ * offsets. The line-list pass has NO guard of its own — both draws are gated only by the
+ * `shadow_convolution_enabled` check at entry (@0x837A322C); the disassembly holds no branch between
+ * 0x837A337C and the second draw at 0x837A37B4.
  *
  * DEVIATION ("local variable allocation failed"): the per-stage sampler setup (address-mode U/V, min/mag
  * filter, separate-Z filter) was emitted as raw inline GPU pending-register pokes
  * (`global_d3d_device->m_Pending.m_Mask[...]` with `__ROL4__`/`__ROR4__` bit-rotate masks); restored to
  * the equivalent `D3DDevice_SetSamplerState_*_Inline` calls already established for this exact pattern in
  * sibling rasterizer begin/draw functions (`_rasterizer_decals_begin.c`,
- * `_rasterizer_environment_diffuse_textures_begin.c`) — same call set, same value (1 = wrap / point
- * filter / enabled).
+ * `_rasterizer_environment_diffuse_textures_begin.c`) — same call set, same value 1, which on the 360
+ * numbering is D3DTADDRESS_MIRROR / D3DTEXF_LINEAR / enabled (address poke rlwimi r10,r27,11,19,21
+ * @0x837A32B0 and rlwimi r3,r27,14,16,18 @0x837A32D0, filter li r5,1 @0x837A32EC, r27 = 1).
  *
  * DEVIATION: both `D3DDevice_SetVertexShaderConstantFN` calls show corrupted `Vector4fCount`/`PendingMask0`
  * arguments (`0x1C000000u`/a string-literal cast, and an unassigned local, respectively); both resolved via

@@ -1,8 +1,15 @@
-/* ctf_engine_allow_pick_up @0x83806670 — CTF pickup gate for `item_index` by `unit_index`'s player: always
- * allowed except on a dedicated server (game_connection() == _game_connection_network_server) for a flag whose "cannot be picked up" flag
- * (item+556, bit 0x40) is set or whose owning team (object.owner_team_index @ item+184, a signed halfword)
- * doesn't match the would-be picker's team (player_datum.team_index @ +32). Non-flag items, unowned items, and
- * local/non-networked play are always allowed. */
+/* ctf_engine_allow_pick_up @0x83806670 — CTF pickup gate for `item_index` by `unit_index`'s player. The
+ * rule is: you may not pick up your OWN team's flag. Only a network server (game_connection() == 2,
+ * `cmpwi cr6,r11,2 / bne @0x838066A4-A8`) gates at all; every other path returns 1 (allow).
+ * On the server, for an item that weapon_is_flag() accepts:
+ *   - _weapon_multiplayer_flag (weapon.flags @ item+0x22C, bit 0x40) SET => allow
+ *     (`rlwinm r10,r11,0,25,25` / `bne cr6,loc_83806720` @0x838066F0-F8 branches to the return-1 epilogue);
+ *   - otherwise the result is `player.team_index != item->object.owner_team_index`
+ *     (`lhz r11,0xB8(r31)` / `subf r8,r9,r10` / `subfic r7,r8,0` / `subfe r5,r6,r6` / `and r3,r5,r28`
+ *     @0x838066FC-0x83806714 — r5 is 0 when the difference is zero), so a MATCHING team is the denial.
+ * Non-flag items, unresolvable items, and local/client play are always allowed.
+ * (The previous banner stated both clauses inverted and invented the label "cannot be picked up" for
+ * bit 0x40; that reading is what the derived documentation copied.) */
 
 #include <stdint.h>
 #include "headers/data_array.h"

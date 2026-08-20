@@ -29,7 +29,7 @@
  *
  * ENCOUNTER EXTRACT -- TWO SPELLINGS, AND THEY ARE NOT INTERCHANGEABLE.
  * The corpus does the low-halfword extract two different ways and the difference is live:
- *   * `extsh` (SIGN-extend)  -- ai_scripting_vehicle_encounter @0x837720E4, which compares the
+ *   * `extsh` (SIGN-extend)  -- ai_scripting_vehicle_encounter @0x83772098, which compares the
  *     result `>= 0` and assigns it to an int16_t. Use AI_INDEX_ENCOUNTER_SIGNED.
  *   * `clrlwi rX,rY,16` (ZERO-extend) -- every one of the ten ai_index_ and ai_scripting_ files
  *     drained 2026-08-06, all spelled (uint16_t). Use AI_INDEX_ENCOUNTER.

@@ -3,7 +3,7 @@
 /* shader_transparent_chicago_type — value of _shader_transparent_chicago.type (offset 0x02), the
  * "first map type" selector of a shader_transparent_chicago tag. It indexes the two 4-entry .rdata
  * tables in src/data — bitmap_type_table (2d vs cube map) and bitmap_address_table (D3DTADDRESS_WRAP
- * vs _CLAMP) — whose only consumer is rasterizer_dx9_transparent_chicago_draw @0x8382EBCC; both
+ * vs _CLAMP) — whose only consumer is rasterizer_dx9_transparent_chicago_draw @0x8382E838; both
  * tables already carry this enum's member names as their per-entry comments.
  * Source: types_enum_values $1587AB03BBD65F212ACF40B64423BA8C (DB-verified). */
 enum shader_transparent_chicago_type {

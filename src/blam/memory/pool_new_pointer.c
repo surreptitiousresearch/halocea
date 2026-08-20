@@ -17,7 +17,7 @@ void *pool_new_pointer(stack_memory_pool *pool, unsigned int size)
     if ( !block )
         return 0;
 
-    marked_bits = block->bits | MEMORY_BLOCK_IN_USE_FLAG;
+    marked_bits = block->bits | MEMORY_BLOCK_LOCKED_FLAG;
     block->bits = marked_bits;
 
     total_bytes = MEMORY_BLOCK_SIZE(marked_bits) + pool->statistics.bytes_allocated;

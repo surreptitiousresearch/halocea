@@ -15,8 +15,9 @@
  *    _biped_turns_without_animating_bit), rotates the facing by a fixed per-tick turning speed —
  *    re-orthogonalizing it against the biped's own up axis for climbs-anything bipeds, else snapping it
  *    into the world XY plane — and stops as soon as the facing crosses the desired direction; if idle and
- *    not seated/vehicle-controlled, only sets the animation's desired turning state without touching the
- *    actual facing.
+ *    neither in the _base_seat_flaming base seat nor _unit_aim_without_turning, only sets the animation's
+ *    desired turning state without touching the actual facing. A base_seat_index of 0 (_base_seat_asleep)
+ *    returns immediately.
  *
  * Clean decompile. object/unit sub-record field names come from the newly-typed _object_datum/_unit_datum
  * (object_datum.h/unit_datum.h) — previously opaque byte blobs in biped_datum.h, now reused as-is since
@@ -182,14 +183,15 @@ void biped_update_turning(int biped_index, unit_animation_update_data *animation
     }
 
     /* normal ground/vehicle mode */
-    int not_seated = 0;
+    int is_asleep = 0;  /* base_seat_index == 0 is _base_seat_asleep, not "not seated" (lbz r11,0x2A7 /
+                         * cmpwi r11,0 @0x837B1300-10) */
     int is_flaming_seat = 0;  /* was mislabelled "is_gunner_seat"; value 5 is _base_seat_flaming */
     if ( biped->unit.animation.base_seat_index )
         is_flaming_seat = biped->unit.animation.base_seat_index == _base_seat_flaming;
     else
-        not_seated = 1;
+        is_asleep = 1;
 
-    if ( not_seated )
+    if ( is_asleep )
         return;
 
     real_vector3d turn_axis;

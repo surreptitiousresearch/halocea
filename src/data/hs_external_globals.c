@@ -5,6 +5,17 @@
  * data-init hs_global_external *[482]. Table of
  * engine-exposed HaloScript global variable descriptors. Pointer targets recovered from
  * the binary reloc order (all named globals).
+ *
+ * The 482 extent is not from applied_types (which declares the array unbounded, which is why
+ * data_image can only verify the first word); it is the gap to the next symbol, `offsets`
+ * @0x84181478 -- (0x84181478 - 0x84180CF0) / 4 = 482 exactly.
+ *
+ * CAVEAT: slot 249 (@0x841810D4) and slot 262 (@0x84181108) both hold 0x841800D0, and
+ *    `names` resolves 0x841800D0 to decals_definition -- the image really does register the
+ *    same descriptor twice, so the duplicate entry and its duplicate extern declaration are
+ *    faithful and must NOT be de-duplicated. All 482 words were read back from `bytes`,
+ *    resolved through `names` and compared against this initializer on 2026-08-20: 0
+ *    mismatches, and decals_definition is the only value that appears more than once.
  */
 #include "../headers/hs_global_external.h"
 

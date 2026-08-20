@@ -3,8 +3,12 @@
  * water current, then sweep it for collision. On collision the point either stops (return with bit set)
  * or reflects with contact friction + elasticity and continues the remaining time, up to 3 bounces.
  *
- * Return value: the medium code in the low bits (1 = air, 2 = water — see medium_result: in_water sets 2,
- * otherwise 1) OR'd with collision bits 4 = hit solid/structure and 8 = hit a non-structure surface.
+ * Return value: a `point_physics_state_flags` word (headers/point_physics_state_flags.h, DB-verified
+ * _505539376C7924454D70AC4B98153419): bit 0 `_point_physics_in_air_bit` (1) / bit 1
+ * `_point_physics_in_water_bit` (2) carry the medium, bit 2 `_point_physics_collided_with_structure_bit`
+ * (4) is set for collision_result_structure (and for collision_result_object under the flamethrower
+ * flag), and bit 3 `_point_physics_collided_with_water_bit` (8) is set only for
+ * collision_result_media — a water/media surface, not "any non-structure surface".
  *
  * NOTE: the decompiler reordered the trailing arguments (it shows radius/dt ahead of the material-type
  * output and adds a spurious tail). The true signature is the database 11-arg form below; the material

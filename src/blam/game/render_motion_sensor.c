@@ -9,7 +9,8 @@
  * rasterizer_hud_motion_sensor_blip_begin/_end, the latter given the sweep center and current sweep angle.
  *
  * Sibling of update_motion_sensor / render_blip. In split-screen the sensor center is offset by
- * split_sensor_ofsx/ofsy and the blip scale halved (scale_2 = 0.75 vs 1.0).
+ * split_sensor_ofsx/ofsy and the blip scale reduced to three quarters, not halved: scale_2 = 0.75
+ * (__real_3f400000 @0x837BD8D0-D4) versus 1.0 (__real_3f800000 @0x837BD8C0/8E0).
  *
  * DEVIATIONS (Hex-Rays emitted "local variable allocation has failed"): the __PAIR64__/SBYTE puns around the
  * blip coordinates decode to plain signed-char-to-float conversions; the (active - i + 10) % 10 slot index is

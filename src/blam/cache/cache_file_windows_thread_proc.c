@@ -1,4 +1,17 @@
-/* cache_file_windows_thread_proc @0x83754D10 */
+/* cache_file_windows_thread_proc @0x83754D10 — the cache-file I/O elevator thread: sleep on the
+ * request event, then repeatedly pick one pending, not-yet-running request and issue it.
+ *
+ * CAVEAT: the selection test below is a shipped bug, faithfully reconstructed -- do not "fix" it.
+ * It swaps the incumbent out only when BOTH `best->blocking > candidate->blocking` AND
+ * `best->overlapped.Offset > candidate->overlapped.Offset` hold. Two things are wrong with that.
+ * `blocking` is a 0/1 byte, so the first test is true exactly when the incumbent IS the blocking
+ * request and the challenger is not -- the elevator therefore prefers non-blocking work and starves
+ * the request somebody is waiting on. And the two tests are &&-joined instead of being a primary key
+ * with the seek offset as a tie-break, so neither ordering is actually applied on its own: a blocking
+ * incumbent at a low offset is never displaced, and a non-blocking incumbent is never displaced at all.
+ * Proof: lbz r8,0x1C(r11) / lbz r7,0x1C(r31) / cmplw cr6,r7,r8 / ble @0x83754D80-0x83754D8C, then
+ * lwz r8,8(r31) / lwz r7,8(r11) / cmplw cr6,r8,r7 / ble @0x83754D90-0x83754D9C, both branching to the
+ * same loop-continue label (loc_83754DA4) with the single mr r31,r11 @0x83754DA0 behind them. */
 #include <stdint.h>
 #include "headers/cache_file_globals.h"
 #include "headers/cache_request.h"

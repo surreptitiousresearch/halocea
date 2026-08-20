@@ -6,9 +6,12 @@
  * and is clamped to [0,255]. Returns the new bitmap (which may be non-null but empty if allocation of its
  * pixel store failed).
  *
- * The channel packing is reproduced verbatim from the shipped code: out = (alpha<<24) | (avg(byte1)<<16) |
- * (avg(byte2)<<8) | avg(byte0) — i.e. the source's byte1/byte2 land in swapped positions. Rounded division
- * adds half the sample count before dividing. */
+ * Rounded division adds half the sample count before dividing.
+ *
+ * DEVIATION: the previous reconstruction transposed red and green, on the strength of Hex-Rays' BYTE1/BYTE2
+ * names (little-endian register bytes, transposed on this big-endian target). There is no transposition:
+ * extrwi r9, 8,8 @0x8377A730 is (texel>>16)&0xFF (red) and extrwi r8, 8,16 @0x8377A734 is (texel>>8)&0xFF
+ * (green), and the pack at 0x8377A7B8-0x8377A7E4 returns each to its own bit position. */
 
 #include <stdint.h>
 #include "headers/bitmap_data.h"
@@ -34,7 +37,7 @@ bitmap_data * bitmap_2d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
         {
             for ( int16_t x_out = 0; x_out < out_width; ++x_out )
             {
-                int sum_alpha = 0, sum_byte1 = 0, sum_byte2 = 0, sum_byte0 = 0, count = 0;
+                int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0, count = 0;
                 int *dest_pixel = (int *)bitmap_2d_address(dest, x_out, y_out, 0);
 
                 for ( int16_t sy = 0; sy < sample_height; ++sy )
@@ -46,9 +49,9 @@ bitmap_data * bitmap_2d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
                         if ( (texel >> 24) != 0 || !ignore_zero_alpha )
                         {
                             sum_alpha += texel >> 24;
-                            sum_byte1 += (texel >> 8) & 0xFF;
-                            sum_byte2 += (texel >> 16) & 0xFF;
-                            sum_byte0 += texel & 0xFF;
+                            sum_red += (texel >> 16) & 0xFF;
+                            sum_green += (texel >> 8) & 0xFF;
+                            sum_blue += texel & 0xFF;
                             ++count;
                         }
                     }
@@ -62,9 +65,9 @@ bitmap_data * bitmap_2d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
                     else if ( alpha > 255 )
                         alpha = 255;
                     *dest_pixel = (alpha << 24)
-                        | (((count / 2 + sum_byte1) / count) << 16)
-                        | (((count / 2 + sum_byte2) / count) << 8)
-                        | ((count / 2 + sum_byte0) / count);
+                        | (((count / 2 + sum_red) / count) << 16)
+                        | (((count / 2 + sum_green) / count) << 8)
+                        | ((count / 2 + sum_blue) / count);
                 }
                 else
                 {

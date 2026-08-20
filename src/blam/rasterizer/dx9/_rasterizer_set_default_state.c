@@ -1,7 +1,7 @@
 /* _rasterizer_set_default_state @0x8369D778 — reset the D3D pipeline to the rasterizer's default render
  * state at the start of a window: depth test on (LESSEQUAL, writing), no depth bias, stencil off (with
- * the standard ALWAYS/keep configuration), alpha test off (GREATEREQUAL), alpha blend off (SRC/ZERO,
- * ADD), full color write mask, counter-clockwise culling, solid fill. */
+ * the standard ALWAYS/keep configuration), alpha test off (GREATER, li r4,4 @0x8369D834), alpha blend
+ * off (ONE/ZERO, ADD), full color write mask, counter-clockwise culling, solid fill. */
 
 #include "headers/d3d_render_boundary.h"
 #include "headers/_D3DSTENCILOP.h"

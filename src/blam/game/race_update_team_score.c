@@ -52,7 +52,8 @@ void race_update_team_score(void)
                 if ( player->team_index != team_index || player->quit_out_of_game )
                     goto next_player;
 
-                /* DEVIATION: lhz r11,0xC6 + extsh @0x8382A268 = race_statistics.laps (signed halfword);
+                /* DEVIATION: `lhz r11,0xC6(r3)` @0x8382A2C4 + `extsh r31,r11` @0x8382A2C8 =
+                 * race_statistics.laps (signed halfword);
                  * the old +396 union-arm read was a word/dword mis-scale (396 = 2x198). */
                 player_value = player->statistics.multiplayer_statistics.race_statistics.laps;
                 single_flag_time = game_engine_get_variant()->game_engine_variant.ctf.single_flag_time;

@@ -4,8 +4,10 @@
  * destination/source offsets to the supplied draw_character callback. Characters inside the highlight range
  * are drawn with the color inverted.
  *
- * DEVIATION: the database types the draw_character callback with ten parameters; the call site passes eight,
- * so the eight-parameter form is used here. rectangle2d layout is [y0, x0, y1, x1]. */
+ * DEVIATION: the call site passes ten arguments, not eight - the clipped glyph extents occupy the ninth and
+ * tenth parameter slots (r1+0x50 / r1+0x58, each int16 at slot+6): sth r6, r1+0x56 @0x8376A6C8 is the clipped
+ * bitmap_width and sth r3, r1+0x5E @0x8376A6C0 the clipped bitmap_height. Every callback reads them back
+ * (lhz arg_56 / arg_5E @0x8376991C/0x83769924). rectangle2d layout is [y0, x0, y1, x1]. */
 
 #include <stdint.h>
 #include "headers/parse_string_state.h"
@@ -23,7 +25,8 @@ extern font_character *font_get_character_by_ascii_code(font_header *header, uin
 
 void draw_string_partial(
     void (*draw_character)(parse_string_state *, font_header *, font_character *, unsigned int color,
-                           int16_t dest_x, int16_t dest_y, int16_t source_x, int16_t source_y),
+                           int16_t dest_x, int16_t dest_y, int16_t source_x, int16_t source_y,
+                           int16_t width, int16_t height),
     point2d *cursor, const rectangle2d *bounds, const rectangle2d *clip, unsigned int color,
     const char *string, int16_t string_index, int16_t string_length)
 {
@@ -104,6 +107,7 @@ void draw_string_partial(
 
         if (bitmap_width > 0 && bitmap_height > 0)
             draw_character(&state, state.font_header, glyph, character_color,
-                           destination_x, destination_y, source_x, source_y);
+                           destination_x, destination_y, source_x, source_y,
+                           bitmap_width, bitmap_height);
     }
 }

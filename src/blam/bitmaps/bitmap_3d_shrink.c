@@ -6,8 +6,11 @@
  * averaged alpha has alpha_bias added and is clamped to [0,255]. Returns the new bitmap (possibly non-null but
  * empty if its pixel store could not be allocated).
  *
- * The channel packing is reproduced verbatim (same swapped byte1/byte2 layout as bitmap_2d_shrink): out =
- * (alpha<<24) | (avg(byte1)<<16) | (avg(byte2)<<8) | avg(byte0). Rounded division adds half the sample count. */
+ * Rounded division adds half the sample count.
+ *
+ * DEVIATION: the previous reconstruction transposed red and green (same BYTE1/BYTE2 big-endian misreading as
+ * bitmap_2d_shrink). extrwi r9, 8,8 @0x8377A9D4 is (texel>>16)&0xFF (red) and extrwi r8, 8,16 @0x8377A9D8 is
+ * (texel>>8)&0xFF (green); the pack at 0x8377AA4C-0x8377AAA0 returns each to its own bit position. */
 
 #include <stdint.h>
 #include "headers/bitmap_data.h"
@@ -38,7 +41,7 @@ bitmap_data * bitmap_3d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
             {
                 for ( int16_t x_out = 0; x_out < out_width; ++x_out )
                 {
-                    int sum_alpha = 0, sum_byte1 = 0, sum_byte2 = 0, sum_byte0 = 0, count = 0;
+                    int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0, count = 0;
                     /* bitmap_3d_address returns char*; the destination voxel is a packed 32-bit
                      * ARGB word (stw @0x8377AAA0), matching the (unsigned int *) read below */
                     unsigned int *dest_voxel =
@@ -56,9 +59,9 @@ bitmap_data * bitmap_3d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
                                 if ( (texel >> 24) != 0 || !ignore_zero_alpha )
                                 {
                                     sum_alpha += texel >> 24;
-                                    sum_byte1 += (texel >> 8) & 0xFF;
-                                    sum_byte2 += (texel >> 16) & 0xFF;
-                                    sum_byte0 += texel & 0xFF;
+                                    sum_red += (texel >> 16) & 0xFF;
+                                    sum_green += (texel >> 8) & 0xFF;
+                                    sum_blue += texel & 0xFF;
                                     ++count;
                                 }
                             }
@@ -73,9 +76,9 @@ bitmap_data * bitmap_3d_shrink(const bitmap_data *source_bitmap, int16_t scale, 
                         else if ( alpha > 255 )
                             alpha = 255;
                         *dest_voxel = (alpha << 24)
-                            | (((count / 2 + sum_byte1) / count) << 16)
-                            | (((count / 2 + sum_byte2) / count) << 8)
-                            | ((count / 2 + sum_byte0) / count);
+                            | (((count / 2 + sum_red) / count) << 16)
+                            | (((count / 2 + sum_green) / count) << 8)
+                            | ((count / 2 + sum_blue) / count);
                     }
                     else
                     {

@@ -1,6 +1,7 @@
 /* item_update @0x83758680 — per-frame physics/settling update for a dropped item object (weapon/equipment).
  * Runs only for items in free-physics mode (object flag 0x800 set and no owning slot, +284 == -1). When the
- * item's stored scale drifts from 1.0 it re-orthonormalizes the object's forward axis against world up. Moving
+ * item's up vector has tilted off world up (and the definition sets _item_always_maintains_z_up_bit) it snaps
+ * up back to global_up3d and re-orthonormalizes the object's forward axis against it. Moving
  * items (object flag 0x20 clear) integrate velocity (with gravity unless the item definition disables it),
  * sweep the motion segment with collision_test_line, and on a hit spawn material/impact-sound effects, bounce or
  * settle onto the surface (recording the resting surface/BSP or the object it rests on), then translate. Settled
@@ -96,7 +97,9 @@ uint8_t item_update(int item_index)
     if ( (od->flags & (1u << _object_connected_to_map_bit)) == 0 || od->parent_object_index != -1 )
         goto despawn_and_touch;
 
-    /* re-orthonormalize the forward axis against world up when the stored scale has drifted from 1.0 */
+    /* items flagged _item_always_maintains_z_up_bit: when the object's up vector has tilted off world up
+     * (|up.k - 1.0| >= 1e-4 — `lfs f0,0x88(r31)` / `fsubs f13,f0,f26` / `fabs f12,f13` @0x83758710-0x83758720),
+     * snap up back to global_up3d and re-orthonormalize forward against it. Not a scale test. */
     if ( (item_def->item.flags & (1u << _item_always_maintains_z_up_bit)) != 0 && __fabs((od->up.k - (float)1.0)) >= 0.000099999997 )
     {
         od->up = *global_up3d;

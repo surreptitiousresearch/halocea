@@ -4,11 +4,14 @@
  * per-vehicle-type physics dispatch (tank/jeep/boat/plane/scout/fighter/generic) with suspension,
  * slip/crash effects, vehicle floor/ceiling clamping and falling damage. Returns 1.
  *
- * Vehicle object fields are accessed by raw offset (matching unit_update.c / biped_update.c), since the
- * runtime object/unit struct is kept opaque project-wide. Key offsets: +16 object flags, +92..+100
- * position, +104..+112 linear velocity, +116..+124 orientation forward, +128..+136 orientation up,
- * +140..+148 angular velocity, +548..+556 desired/movement forward, +1228 vehicle flags,
- * +1236 throttle, +1240 yaw rate, +1244 steering position, +1452 respawn timer, +1456 spawn datum index.
+ * Vehicle object fields are reached through the typed `vehicle_datum` (headers/vehicle_datum.h), whose
+ * object/unit/vehicle sub-structs cover the offsets this function touches: object.flags (+16),
+ * object.position (+92), object.translational_velocity (+104), object.forward (+116), object.up (+128),
+ * object.angular_velocity (+140), unit.desired_facing_vector (+548), vehicle.flags (+1228),
+ * vehicle.speed (+1236), vehicle.slide (+1240), vehicle.turn (+1244),
+ * vehicle.last_controlled_time (+1452) and vehicle.___u27.vehicle_scenario_datum_index (+1456).
+ * (The pre-2026-08-20 banner mis-named +1236/+1240/+1244 as throttle / yaw rate / steering position;
+ * types_members calls them speed / slide / turn.)
  *
  * DEVIATIONS (all verified against disassembly at 0x837626D4-0x83762850):
  *  - The atan2 steering args are rendered as long doubles by the decompiler (PPC double-double ABI

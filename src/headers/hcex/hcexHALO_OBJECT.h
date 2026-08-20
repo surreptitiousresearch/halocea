@@ -15,16 +15,16 @@ typedef struct hcexHALO_OBJECT_vtbl {
 struct hcexHALO_OBJECT : entMANAGER_HANDLER {
     static hcexHALO_OBJECT_vtbl vftable; // `hcexHALO_OBJECT::`vftable'' — boundary, not decompiled
 
-    // 0x823D1240 — install this class's vftable (no other state to init).
+    // 0x823D1238 — install this class's vftable (no other state to init).
     hcexHALO_OBJECT();
 
-    // 0x823CEBD0 — reset __vftable to the entMANAGER_HANDLER base slot (no owned state to release).
+    // 0x823CEBC8 — reset __vftable to the entMANAGER_HANDLER base slot (no owned state to release).
     ~hcexHALO_OBJECT();
 
-    // 0x823D12B4 — compiler-generated scalar deleting destructor (`??_G` mangle).
+    // 0x823D1298 — compiler-generated scalar deleting destructor (`??_G` mangle).
     hcexHALO_OBJECT *scalarDeletingDtor(unsigned char deleteFlags);
 
-    // 0x823D6BA0 (overrides entMANAGER_HANDLER's load-instance hook) — after the base engine's
+    // 0x823D6B88 (overrides entMANAGER_HANDLER's load-instance hook) — after the base engine's
     // pre-init handling, mark the instance initialized (state |= 2) and walk its "permutations"
     // section: for each key (a region name), find the matching object on the instance by
     // case-insensitive name; if found, resolve the key's string value (a substitute region/object

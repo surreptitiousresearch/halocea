@@ -1,7 +1,9 @@
 /* biped_update_dead @0x837B2888 — per-frame animation update for a dead biped. While the corpse is
  * still settling (limp flag 0x20 set and the relax counter hasn't reached its limit) it relaxes the
- * ragdoll nodes onto the environment. Once settled it requests either the "dead" (24) or "dead settled"
- * (25) animation state depending on whether the body has come to rest, snapping its facing when it has. */
+ * ragdoll nodes onto the environment. Once settled it requests _unit_state_dying_airborne (24,
+ * "airborne-dead", li r11,0x18 @0x837B2948) when the corpse has been airborne for 3+ ticks and the
+ * definition does not set _biped_has_no_dying_airborne, else _unit_state_dying (25, "landing-dead",
+ * li r11,0x19 @0x837B2970), snapping its facing on the landing transition. */
 
 #include <stdint.h>
 #include "headers/biped_datum.h"

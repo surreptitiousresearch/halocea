@@ -1,8 +1,9 @@
 /* game_state_open_persistent_storage @0x8371B480 — opens (creating if needed) the "savegame.bin"
  * persistent-storage file, either in the caller-supplied directory or, when directory is null, in the
- * local player's profile directory. Pre-sizes a freshly created file to 4.5 MB (writing a zeroed 16 KB
- * first block, then extending with SetFilePointer/SetEndOfFile); if pre-sizing fails, the just-fetched
- * profile-directory path is deleted. Returns the open file handle, or INVALID_HANDLE_VALUE (-1) on
+ * local player's profile directory. Pre-sizes the file to 4.5 MB whenever GetFileSize is not 0x480000
+ * (writing a zeroed 16 KB first block, then extending with SetFilePointer/SetEndOfFile) — so an *existing*
+ * file of the wrong size also gets its first 16 KB zeroed, not just a freshly created one; if pre-sizing
+ * fails, the just-fetched profile-directory path is deleted. Returns the open file handle, or INVALID_HANDLE_VALUE (-1) on
  * failure. */
 
 #include <stdint.h>

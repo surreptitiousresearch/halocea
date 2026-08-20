@@ -10,8 +10,10 @@
 #include "headers/bitmap_data.h"
 #include "headers/bitmap_type.h"
 #include "headers/bitmap_flags.h"
-
-extern const int face_mapping_inverse_table[];
+/* DEVIATION: this file declared `extern const int face_mapping_inverse_table[]`; the object is
+ * const int16_t[6] (12 bytes) -- slwi r24,r20,1 @0x837E3D5C then lhzx r11,r24,r21 @0x837E3D84 --
+ * so the int-strided decl read past the end for faces 3..5. Use the canonical declaration. */
+#include "headers/blam_data_globals.h"
 
 extern int rasterizer_bitmap_get_hw_size(const bitmap_data *bitmap);
 extern void *dlMalloc(unsigned int size, const char *file, unsigned int line);

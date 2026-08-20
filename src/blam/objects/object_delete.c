@@ -1,7 +1,9 @@
-/* object_delete @ 0x836F07F0 — request deletion of one object. The network-simulation word at
- * object_data+4 selects who owns the delete: 0 = locally simulated, so notify the network first;
- * 3 = the network told us to delete (proceed); any other value means the object is remotely owned
- * and we must not delete it here, so bail. Then run the recursive teardown (children + this object).
+/* object_delete @ 0x836F07F0 — request deletion of one object. The NetworkedDatumRole word at
+ * object_data+4 (lwz r11,4(r6) @0x836F0828) selects who owns the delete:
+ * 0 = _networked_datum_master — we own a replicated datum, so notify the network first;
+ * 3 = _networked_datum_autonomous — never replicated, delete locally with no notification;
+ * 1/2 = _networked_datum_puppet[_controlled_by_local_player] — remotely owned, so bail.
+ * Then run the recursive teardown (children + this object).
  * Object datum: 12-byte header element, ->datum is the object data pointer. */
 
 #include <stdint.h>

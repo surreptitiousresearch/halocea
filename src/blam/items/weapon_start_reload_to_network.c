@@ -33,8 +33,10 @@ void weapon_start_reload_to_network(int weapon_index, int16_t magazine_index)
     message.weapon_index =
         field_translated_index_translate_index(&field_properties_object_index_definition, weapon_index);
     message.magazine_index = magazine_index;
-    /* DEVIATION: the wire fields are populated crossed vs their names — loaded_rounds is filled from
-     * magazines[].rounds_total (+694) and magazine_rounds from rounds_loaded (+696); reproduced faithfully. */
+    /* Wire fields match their names: message+6 `starting_total_rounds` <- magazines[mag].rounds_total
+     * (`lhz r8,0x2B6(r10)` @0x836D9ABC, r10 = weapon + 12*mag, 12*mag+694) and message+8
+     * `starting_loaded_rounds` <- magazines[mag].rounds_loaded (`lhzx r11,r9,r31` @0x836D9ACC,
+     * r9 = 12*mag+696). An earlier DEVIATION here claimed the two were crossed; they are not. */
     message.starting_total_rounds   = weapon->weapon.magazines[magazine_index].rounds_total;
     message.starting_loaded_rounds = weapon->weapon.magazines[magazine_index].rounds_loaded;
 

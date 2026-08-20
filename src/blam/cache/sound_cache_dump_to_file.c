@@ -2,10 +2,22 @@
  * a header summarising page usage (allocated / used-this-frame / old / locked) and memory totals,
  * followed by one line per resident cached sound (tag name, compressed and uncompressed byte sizes).
  *
- * Deviation: the page-state classification and the MB / percent-free arithmetic are reconstructed
- * from the PPC float/int64-mangled decompiler output into their evident intent. The four page states
- * are read from the per-page usage bitmap (bit b set in page byte => that page is in state b):
- * state 0 = allocated, 1 = used this frame, 2 = old, 3 = locked. used_bytes = size * allocated/total. */
+ * Deviation: the page-state classification is reconstructed from the PPC float/int64-mangled
+ * decompiler output into its evident intent. The four page states are read from the per-page usage
+ * bitmap (bit b set in page byte => that page is in state b): state 0 = allocated, 1 = used this
+ * frame, 2 = old, 3 = locked.
+ *
+ * DEVIATION: the megabyte arithmetic previously divided by 1048576 and computed used = size *
+ * allocated / total. Both were wrong. `sound_cache_size` is already a megabyte count (8), not a byte
+ * count -- sound_cache_new derives the page count as size << 20 >> 12, i.e. MB -> 4 KB pages -- and
+ * with the /1048576 the dump printed "0.00 MB / 0.00 MB". The binary prints the raw value as the
+ * total and computes the used figure the same way sound_cache_debug_render does. Proof, all in
+ * 0x837E78C4-0x837E7984: frsp f5 = (float)page_count @0x837E78F4, frsp f10 = (float)pages_allocated
+ * @0x837E7934, frsp f7 = (float)sound_cache_size @0x837E792C; fsubs f3,f5,f10 @0x837E7944;
+ * fdivs f4,f7,f5 @0x837E794C; fmuls f1,f3,f4 @0x837E7964 (free MB); fdivs f13,f1,f7 @0x837E7968
+ * (free fraction); fsubs f1,f7,f1 @0x837E796C (used MB); fmuls f3,f13,f0 @0x837E7978 with
+ * f0 = 100.0f (__real_42c80000 @0x837E7928). The total-MB argument is fcfid f2,f6 @0x837E793C with
+ * no frsp -- a direct int->double of sound_cache_size, not a scaled float. */
 
 #include <stdint.h>
 #include <string.h>
@@ -44,8 +56,12 @@ void sound_cache_dump_to_file(void)
     {
         data_iterator iterator;
         int state;
+        float total_pages_f;
+        float allocated_pages_f;
+        float megabytes_total;
+        float megabytes_free;
         float free_fraction;
-        float used_bytes;
+        float megabytes_used;
         int length;
         cache_sound_datum *cache_sound;
 
@@ -70,8 +86,12 @@ void sound_cache_dump_to_file(void)
         while ( data_iterator_next(&iterator) )
             ++sounds_in_cache;
 
-        free_fraction = ((float)(total_pages - pages_allocated) / (float)total_pages);
-        used_bytes = ((float)sound_cache_size * (float)pages_allocated / (float)total_pages);
+        total_pages_f = (float)total_pages;
+        allocated_pages_f = (float)pages_allocated;
+        megabytes_total = (float)sound_cache_size;
+        megabytes_free = (total_pages_f - allocated_pages_f) * (megabytes_total / total_pages_f);
+        free_fraction = megabytes_free / megabytes_total;
+        megabytes_used = megabytes_total - megabytes_free;
 
         sprintf_0(line,
                   "%d / 512 sounds in cache\n"
@@ -82,7 +102,7 @@ void sound_cache_dump_to_file(void)
                   "%d / %d pages locked\n"
                   "\n",
                   sounds_in_cache,
-                  (double)(used_bytes / 1048576.0f), (double)((float)sound_cache_size / 1048576.0f),
+                  (double)megabytes_used, (double)sound_cache_size,
                   (double)(free_fraction * 100.0f),
                   pages_allocated, total_pages,
                   pages_used_this_frame, total_pages,

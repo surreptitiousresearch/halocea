@@ -4,7 +4,7 @@
 /* parse_string_result — token classification returned by parse_unicode_string (state->result).
  * DB-verified via types_enum_values $403D44D8579E3FC5128F842C44A4E0BF (DB counter name
  * NUMBER_OF_PARSE_STRING_STATES; enum tag renamed here because the parse_string_state tag is the
- * cursor struct). NOTE: the ASCII parse_string @0x8376A0C8 does NOT follow these assignments
+ * cursor struct). NOTE: the ASCII parse_string @0x8376A0B8 does NOT follow these assignments
  * (its 2=printable/6=word-break are inverted vs this enum) — see the note in parse_string.c;
  * only the unicode path binds these names. */
 enum parse_string_result {

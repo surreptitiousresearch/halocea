@@ -1,7 +1,9 @@
-/* effect_stop @0x836E2088 — stop a playing effect. Object-driven effects (flag 0x2) jump to the
- * definition's designated stop event (loop_stop_index) and mark themselves stopping (flag 0x4), or flag
- * themselves finished (flag 0x8) if there is no valid stop event; `and_delete` additionally marks the
- * effect for deletion once stopped (flag 0x20). Non-object effects are deleted immediately. */
+/* effect_stop @0x836E2088 — stop a playing effect. The one branch is _effect_loop_bit (bit 1, mask 0x2;
+ * rlwinm r8,r11,0,30,30 @0x836E20C8): a LOOPING effect jumps to the definition's designated stop event
+ * (loop_stop_index + 1) and marks itself _effect_stopping_bit (0x4 @0x836E2138), or marks itself
+ * _effect_stopped_bit (0x8 @0x836E214C) when there is no valid stop event; `and_delete` sets or clears
+ * _effect_delete_on_stop_bit (0x20 @0x836E20F0 / 0x836E2100) first. A non-looping effect is deleted
+ * immediately (bl effect_delete @0x836E2160). Nothing here consults the effect's owning object. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

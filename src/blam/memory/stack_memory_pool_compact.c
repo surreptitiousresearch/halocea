@@ -1,4 +1,4 @@
-/* stack_memory_pool_compact @0x838032C0 — slide every free (not-in-use) block in the pool's block chain down
+/* stack_memory_pool_compact @0x838032C0 — slide every unlocked block in the pool's block chain down
  * to close the gap left by the block before it, coalescing free space toward the end of the pool. No-op if
  * the pool is empty or locked. */
 
@@ -16,7 +16,7 @@ void stack_memory_pool_compact(stack_memory_pool *pool)
 
     do
     {
-        if ( !MEMORY_BLOCK_IS_IN_USE(block->bits) && (char *)block - gap - (char *)destination > 0 )
+        if ( !MEMORY_BLOCK_IS_LOCKED(block->bits) && (char *)block - gap - (char *)destination > 0 )
         {
             memory_block *moved_block = (memory_block *)&destination[gap];
             memmove(&destination[gap], block, MEMORY_BLOCK_SIZE(block->bits));

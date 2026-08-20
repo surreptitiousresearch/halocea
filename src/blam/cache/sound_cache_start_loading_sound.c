@@ -4,6 +4,11 @@
  * disk and deliberately crashes (`*(int*)0 = 1`, a debug-assert-by-null-write — this should never happen in
  * practice). Otherwise links a new cache_sounds datum at the block's page offset and marks it loading. */
 
+/* CAVEAT: dead in the shipped image. This function has ZERO code cross-references --
+ * its only reference is the ExceptionDir unwind entry at 0x82370150. The sound-streaming path is compiled in
+ * and never armed, so a reader should not assume this path runs at runtime.
+ * (xrefs to 0x837E7B38: 1 total, 0 code.) */
+
 #include <stdint.h>
 #include "headers/pc_sound_cache_globals.h"
 #include "headers/sound_permutation.h"

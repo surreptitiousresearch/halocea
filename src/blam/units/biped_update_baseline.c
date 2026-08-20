@@ -1,9 +1,10 @@
 /* biped_update_baseline @0x837ADC40 — snapshot a biped object's network-baseline copy: record body/shield
- * vitality (shield scaled by 1/3), grenade counts and the shield-stun sign flag, advance the baseline
+ * vitality (shield scaled by 1/3), grenade counts and the shield-stun-positive flag, advance the baseline
  * generation index, mark the baseline valid, and reset the message index.
  *
- * DEVIATION: the shield-stun flag is `shield_stun_ticks < 0` (`(-v2 & ~v2) < 0` is true iff the sign bit
- * is set), reproduced per the decompiler's arithmetic. */
+ * DEVIATION: the flag is `neg r5,r8` / `andc r11,r5,r8` / `srwi r8,r11,31` @0x837ADC9C, i.e. bit 31 of
+ * `(-v & ~v)`, which for the sign-extended 16-bit `v` is set iff `v > 0`; written as `shield_stun_ticks > 0`
+ * (was `< 0`, which inverted the wire bit and disagreed with biped_build_update_delta.c). */
 
 #include <stdint.h>
 #include "headers/biped_datum.h"
@@ -27,7 +28,7 @@ void biped_update_baseline(int object_index)
         object->biped.baseline_valid = 1;
         object->biped.baseline_index = next_generation;
         object->biped.message_index = 0;
-        object->biped.baseline.shield_stun_ticks_greater_than_zero = shield_stun_ticks < 0;
+        object->biped.baseline.shield_stun_ticks_greater_than_zero = shield_stun_ticks > 0;
         object->biped.baseline.grenade_counts[0] = grenade_counts;
     }
 }

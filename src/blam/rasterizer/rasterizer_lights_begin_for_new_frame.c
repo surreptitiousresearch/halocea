@@ -1,9 +1,9 @@
 /* rasterizer_lights_begin_for_new_frame @0x83792250 — folds this frame's lens-flare occlusion query
  * results into each flare's smoothed visibility byte, then resets the per-frame flare list. The new
  * per-flare visibility (0..255) is the fraction of the flare's pixels that passed the occlusion test;
- * it is blended toward the previous value (fading in slowly — average — and out faster — 3:1) so flares
- * don't pop. Skipped entirely when lens flares are disabled or while a multi-tile screenshot is in
- * progress.
+ * it is blended toward the previous value (fading in slowly — (3*previous+latest)/4, a quarter step —
+ * and out faster — (previous+latest)/2, a half step) so flares don't pop. Skipped entirely when lens
+ * flares are disabled or while a multi-tile screenshot is in progress.
  *
  * DEVIATION: the decompiler caches local_lens_flare_count in v4 but only refreshes it inside the
  * occlusion>0 branch (leaving it stale on the loop guard if the first flare has no pixels); the count

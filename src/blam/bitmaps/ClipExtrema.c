@@ -7,16 +7,16 @@
  * DEVIATION: the raw decompile walks `plower` via byte-pointer arithmetic (`(FCOLOR*)((char*)v2+4)` each
  * iteration, then reads offset `pupper-plower` / `wtPrimary-plower` bytes past the current pointer) rather
  * than plain per-channel indexing. This is algebraically identical to indexing `plower->rgba[channel]`,
- * `pupper->rgba[channel]`, `wtPrimary.rgba[channel]` for channel = 0,1,2 — rewritten that way here since the
+ * `pupper->rgba[channel]`, `wtPrimary[channel]` for channel = 0,1,2 — rewritten that way here since the
  * byte-offset form is only an artifact of how the compiler folded the two pointer subtractions into
- * loop-invariant constants. `wtPrimary` (@0x8422EE00) is a global; the DB has no type for it, but every use
- * dereferences it exactly like an FCOLOR (a 16-byte float[4] read at the same per-channel offsets as
- * plower/pupper), so it's declared as FCOLOR here. */
+ * loop-invariant constants. */
 
 #include "headers/fcolor.h"
-/* wtPrimary here is a DISTINCT file-local object (FCOLOR @0x8422EE00), not the canonical
- * float wtPrimary[3]; kept static to avoid the same-name canonical collision (DB-verified distinct). */
-static FCOLOR wtPrimary;
+/* DEVIATION: this was a file-local `static FCOLOR wtPrimary;` claiming a distinct object at 0x8422EE00.
+ * There is no symbol there (16 zero bytes, no name), so the clip threshold was always 0.0f; the code references the
+ * canonical global at 0x84184D00 (lis wtPrimary@ha @0x837E436C). Declared as float[3] to match
+ * src/data/wtPrimary.c and the other consumers (ColorToFcolor.c, FcolorToColor.c). */
+extern float wtPrimary[3];
 
 
 void ClipExtrema(FCOLOR *plower, FCOLOR *pupper)
@@ -45,7 +45,7 @@ void ClipExtrema(FCOLOR *plower, FCOLOR *pupper)
             target->rgba[0] = (pupper->rgba[0] - plower->rgba[0]) * t + target->rgba[0];
         }
 
-        float threshold = wtPrimary.rgba[channel];
+        float threshold = wtPrimary[channel];
 
         if ( (lower_channel > threshold) != (upper_channel > threshold) )
         {

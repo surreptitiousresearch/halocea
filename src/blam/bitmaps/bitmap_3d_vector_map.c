@@ -6,11 +6,11 @@
  * variant) and bitmap_3d_alpha_bleed (same per-slice scaffolding).
  *
  * DEVIATION: Hex-Rays reported "local variable allocation has failed" and punned the channel bytes through
- * OVERLAPPED __int64s. Disasm (0x8377C7D4-0x8377C8C0) settles the mapping: the low/high bytes (byte0, bits 0-7,
- * and byte2, bits 16-23) map straight through, but the two middle color bytes are SWAPPED on write —
- * output = (encode(norm(byte1)) << 16) | (encode(norm(byte2)) << 8) | encode(norm(byte0)) | alpha. This is unlike
- * bitmap_cm_vector_map, which writes the channels back in place with no swap; the swap here is real, not a
- * decompiler artifact. */
+ * OVERLAPPED __int64s. The previous reconstruction read that pun as a real channel swap; disasm
+ * (0x8377C7D4-0x8377C8C0) shows there is none. extrwi r9, 8,8 @0x8377C7DC is (texel>>16)&0xFF and feeds the
+ * value packed at bit 16 (0x8377C8AC/0x8377C8B0); extrwi r8, 8,16 @0x8377C7F0 is (texel>>8)&0xFF and feeds
+ * bits 8-15 (0x8377C8B4/0x8377C8B8). The instruction sequence is identical to bitmap_cm_vector_map, which
+ * always described it correctly. */
 
 #include <stdint.h>
 #include "headers/bitmap_data.h"
@@ -64,7 +64,7 @@ void bitmap_3d_vector_map(bitmap_data *bitmap)
                         unsigned int e2 = (int)((c2 + 1.0f) * 127.5f + 0.5f);
 
                         *(unsigned int *)&buffer[4 * (slice->width * y + x)] =
-                                (e1 << 16) | (e2 << 8) | e0 | (texel & 0xFF000000);
+                                (e2 << 16) | (e1 << 8) | e0 | (texel & 0xFF000000);
                     }
                 }
 

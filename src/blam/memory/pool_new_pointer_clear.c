@@ -15,7 +15,7 @@ void *pool_new_pointer_clear(stack_memory_pool *pool, unsigned int size)
 
     memset(block + 1, 0, size);
 
-    unsigned int marked_bits = block->bits | MEMORY_BLOCK_IN_USE_FLAG;
+    unsigned int marked_bits = block->bits | MEMORY_BLOCK_LOCKED_FLAG;
     block->bits = marked_bits;
 
     int total_bytes = MEMORY_BLOCK_SIZE(marked_bits) + pool->statistics.bytes_allocated;

@@ -1,6 +1,8 @@
 /* oddball_engine_initialize_for_new_map @0x83816FE0 — reset Oddball state for a new map: zero
  * oddball_globals/oddball_globals_baseline, seed score_to_win from the variant (x1800 unless the ball type
- * is terminator), touch-check both teams' oddball flags, and fill current_ball_owner[0..15] with -1. On the
+ * is terminator), touch-check both teams' oddball flags, and fill BOTH current_ball_owner[0..15] (@0xC4)
+ * and last_oddball_baseline_time[0..15] (@0x104) with -1 — one ctr=16 loop storing through two pointers
+ * per iteration (`stw r10,-0x3C(r11)` + `stwu r10,4(r11)` @0x8381709C-A0). On the
  * server (game_connection() == _game_connection_network_server): for magic/terminator ball types, zero individual_score[0..15] and spawn
  * ball_spawn_count balls (each via create_the_ball); otherwise, seed individual_score[i] with a running
  * 450-per-ball total (juggernaut-style staggered scoring) up to ball_spawn_count entries. Always returns 1.

@@ -10,7 +10,16 @@
  * each object_memory_release_procs[] subsystem to release objects until space is recovered.
  *
  * Object data accessed by raw offset; the diagnostic-message block mirrors the decompiler's control flow
- * (the percentage-message format string could not be recovered from the binary — see RAW (irreducible) note). */
+ * (the percentage-message format string could not be recovered from the binary — see RAW (irreducible) note).
+ *
+ * CAVEAT (shipped bug, faithfully reconstructed — do NOT "fix"): every free-slot computation here is
+ * `2048 - object_header_data->count/actual_count`, with 2048 baked into the instruction stream
+ * (subfic r8,r9,0x800 @0x836F2430, @0x836F2500, and subfic r5,r9,0x800 @0x836F26E0). But
+ * objects_initialize allocates a 10240-element object header array in the editor
+ * (data_new("object", 10240, 12)) and only the non-editor path is 2048. In an editor build the
+ * arithmetic therefore goes negative long before the array is actually full, so the mode-2 target test
+ * and the "%d slots free" / critical warnings are wrong there. The 2097152 divisor in the percentage
+ * message is the same class: the editor pool is 10485760 bytes, not 2 MB. Both are what the binary does. */
 
 #include <stdint.h>
 #include "headers/data_array.h"

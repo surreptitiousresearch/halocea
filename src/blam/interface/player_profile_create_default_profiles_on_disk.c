@@ -1,7 +1,14 @@
-/* player_profile_create_default_profiles_on_disk @ 0x837654E8 — write the two default
- * .sav profiles. The decompiler builds each profile image directly in a raw word buffer
+/* player_profile_create_default_profiles_on_disk @ 0x837654E8 — build the two default
+ * .sav profile images. The decompiler builds each profile image directly in a raw word buffer
  * (a stack player_profile), so the field writes are reproduced as raw indices with the
- * equivalent named-field meaning noted in comments. */
+ * equivalent named-field meaning noted in comments.
+ *
+ * CAVEAT — faithfully reconstructed; despite its name the function never writes anything to disk.
+ * It builds the full 1,980-byte image, formats "%s\%02d.sav" and creates a file_reference — and
+ * then the loop simply repeats and the function returns (bl file_reference_create_from_path_absolute
+ * @0x83765608 is the LAST call; 0x8376560C-0x8376561C are the loop increment and
+ * `b __restgprlr_16`). There is no file-create/write/close call anywhere in the 78 instructions.
+ * The stack image and the file_reference are both discarded. Do not add the missing write. */
 
 #include <stdint.h>
 #include <string.h>

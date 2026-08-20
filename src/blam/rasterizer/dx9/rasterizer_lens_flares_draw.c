@@ -230,8 +230,11 @@ void rasterizer_lens_flares_draw(void)
                 if ( reflection->tint_color.__s1.alpha == 0.0f && reflection->tint_color.__s1.rgb.__s1.red == 0.0f
                   && reflection->tint_color.__s1.rgb.__s1.green == 0.0f && reflection->tint_color.__s1.rgb.__s1.blue == 0.0f )
                 {
-                    /* no per-reflection tint: reuse the light's own color, refreshing only its alpha byte */
-                    color = (flare->compressed_light_color & 0xFFFFFF00) | (compress_real_to_int8(brightness) & 0xFF);
+                    /* no per-reflection tint: reuse the light's own color, refreshing only its alpha byte.
+                     * DEVIATION: was written as a low(blue)-byte replace; the binary inserts into the HIGH
+                     * byte -- insrwi r29,r3,8,0 @0x83792F1C after lwz r29,0x18(r28) @0x83792F14. */
+                    color = (flare->compressed_light_color & 0x00FFFFFF)
+                            | ((unsigned int)compress_real_to_int8(brightness) << 24);
                     tint_factor = 1.0f;
                 }
                 else

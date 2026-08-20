@@ -1,7 +1,10 @@
-/* contrail_fade @0x837EA830 — per-point fade factor for a contrail point: fade_mode 0 is fully opaque;
- * otherwise the factor is |cos| of the angle between the (unnormalized) camera→point ray and the point's
- * world normal, optionally shaped through transition function 2 (definition flags bit 6, "fade smoothly"),
- * and inverted (1 - f) for fade_mode 2 (fade when facing). */
+/* contrail_fade @0x837EA830 — per-point fade factor for a contrail point. fade_mode is a
+ * shader_framebuffer_fade_mode: 0 = _shader_framebuffer_fade_mode_none, fully opaque. Otherwise the factor
+ * is |cos| of the angle between the (unnormalized) camera→point ray and the point's world normal, optionally
+ * shaped through _transition_function_very_early (li r3,2 @0x837EA8C4) when _contrail_fades_slowly_bit
+ * (bit 6, rlwinm 0,25,25 @0x837EA874) is set, and inverted (1 - f) only for fade_mode 2 =
+ * _shader_framebuffer_fade_mode_fade_when_parallel (cmpwi r31,2 @0x837EA8CC). Mode 1 is
+ * _shader_framebuffer_fade_mode_fade_when_perpendicular and takes the uninverted factor. */
 
 #include <stdint.h>
 #include "headers/contrail_definition.h"

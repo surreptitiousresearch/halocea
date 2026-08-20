@@ -1,5 +1,8 @@
-/* objects_place @0x836EE188 — place every scenario object for a freshly loaded map. The initial_placement flag
- * is raised across the call so object creation uses map-load semantics (e.g. no creation effects). */
+/* objects_place @0x836EE188 — place every scenario object for a freshly loaded map. The initial_placement
+ * flag is raised across the call. Its only reader corpus-wide is object_new_from_scenario, where it gates
+ * out scenario objects carrying _scenario_object_placement_not_automatic_bit; nothing else in the object
+ * system consults it, and the creation effect still fires (bl effect_new_from_object @0x836F1CD4 is
+ * unconditional in object_new_with_datum_role_control). */
 
 #include "headers/object_globals.h"
 #include "headers/scenario.h"

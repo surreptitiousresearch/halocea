@@ -8,23 +8,24 @@
  * DEVIATION: Hex-Rays emitted "local variable allocation has failed" and merged pfcolor1 and pblock into one
  * OVERLAPPED __int64 (pfcolor1 = HIDWORD, pblock = LODWORD) with heavy register punning through the dequantize
  * math. The DB's 4-arg prototype is authoritative; the packing/expansion bit expressions were verified against
- * the pseudocode (RGB565 with rgba[2]->R, rgba[1]->G, rgba[0]->B; 1/255 == 0.0039215689). wtPrimary is a FCOLOR
- * (Hex-Rays indexed it as a bare float array; wtPrimary[i] == wtPrimary.rgba[i]). */
+ * the pseudocode (RGB565 with rgba[2]->R, rgba[1]->G, rgba[0]->B; 1/255 == 0.0039215689). */
 
 #include <stdint.h>
 #include "headers/s3tc_block.h"
 #include "headers/FCOLOR.h"
-/* wtPrimary here is a DISTINCT file-local object (FCOLOR @0x8422EE00), not the canonical
- * float wtPrimary[3]; kept static to avoid the same-name canonical collision (DB-verified distinct). */
-static FCOLOR wtPrimary;
+/* DEVIATION: this was a file-local `static FCOLOR wtPrimary;` claiming a distinct object at 0x8422EE00.
+ * There is no symbol there (16 zero bytes, no name), so quantize_endpoint divided by 0.0f; the code references the
+ * canonical global at 0x84184D00 (lis wtPrimary@ha @0x837E40EC). Declared as float[3] to match
+ * src/data/wtPrimary.c and the other consumers (ColorToFcolor.c, FcolorToColor.c). */
+extern float wtPrimary[3];
 extern const unsigned int mapRGB4[4];    /* selector-index -> DXT1 2-bit code table */
 
 
 static uint16_t quantize_endpoint(const FCOLOR *color)
 {
-    int channel2 = (int)(color->rgba[2] / wtPrimary.rgba[2] * 255.0f);
-    int channel1 = (int)(color->rgba[1] / wtPrimary.rgba[1] * 255.0f);
-    int channel0 = (int)(color->rgba[0] / wtPrimary.rgba[0] * 255.0f);
+    int channel2 = (int)(color->rgba[2] / wtPrimary[2] * 255.0f);
+    int channel1 = (int)(color->rgba[1] / wtPrimary[1] * 255.0f);
+    int channel0 = (int)(color->rgba[0] / wtPrimary[0] * 255.0f);
     return (uint16_t)((8 * ((32 * channel2 & 0x1F00) | (uint8_t)channel1)) & 0xFFE0
             | ((uint8_t)channel0 >> 3));
 }
@@ -37,9 +38,9 @@ static void dequantize_endpoint(uint16_t color, FCOLOR *result)
     uint8_t r8 = (uint8_t)((r5 << 3) | (r5 >> 2));
     uint8_t g8 = (uint8_t)((g6 << 2) | (g6 >> 4));
     uint8_t b8 = (uint8_t)((b5 << 3) | (b5 >> 2));
-    result->rgba[0] = (float)b8 * wtPrimary.rgba[0] * 0.0039215689f;
-    result->rgba[1] = (float)g8 * wtPrimary.rgba[1] * 0.0039215689f;
-    result->rgba[2] = (float)r8 * wtPrimary.rgba[2] * 0.0039215689f;
+    result->rgba[0] = (float)b8 * wtPrimary[0] * 0.0039215689f;
+    result->rgba[1] = (float)g8 * wtPrimary[1] * 0.0039215689f;
+    result->rgba[2] = (float)r8 * wtPrimary[2] * 0.0039215689f;
 }
 
 void Quantize(FCOLOR *pfcolor0, FCOLOR *pfcolor1, S3TCBlockRGB *pblock, int cOpaque)

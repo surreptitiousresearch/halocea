@@ -2,9 +2,10 @@
  * loads (skipped entirely in the editor). Vehicles (type 1) are special-cased: in a netgame the vehicle
  * remapper decides which vehicles spawn and how they are substituted per game variant.
  *
- * Object types are skipped when bit i is set in object_mask_remove_on_bsp_switch (bits 6 and 9 — scenery
- * and light_fixture, placed per-BSP by object_types_place_objects) and, on a dedicated/network-client
- * connection, the player type (i==1 path) is filtered by the remapper. */
+ * Object types are skipped when bit i is set in object_mask_remove_on_bsp_switch (576 = bits 6 and 9 —
+ * scenery and light_fixture, placed per-BSP by object_types_place_objects), and on a network client
+ * (game_connection() == 1, cmpwi @0x83702FD4/0x83702FE4) the vehicle type (i == 1) is skipped as well —
+ * a client receives its vehicles from the server rather than placing them itself. */
 
 #include <stdint.h>
 #include "headers/scenario.h"
@@ -47,7 +48,7 @@ void object_types_place_all(scenario *scenario_ptr)
     if ( !is_race_variant )
     {
         vehicle_remapper_init();
-        if ( game_connection() == _game_connection_network_server ) /* network client: register the scenario vehicles with the remapper */
+        if ( game_connection() == _game_connection_network_server ) /* network SERVER (cmpwi r11,2 @0x83702F24): register the scenario vehicles with the remapper */
         {
             const tag_block *placements = (const tag_block *)((char *)scenario_ptr + object_type_definitions[1]->placement_tag_block_offset);
             int placement_element_size = object_type_definitions[1]->placement_tag_block_element_size;
@@ -71,7 +72,7 @@ void object_types_place_all(scenario *scenario_ptr)
     for ( int i = 0; i < 12; i = (int16_t)(i + 1) )
     {
         /* on a network client (connection 1) skip vehicles (i==1); always skip scenery+light_fixture
-         * (object_mask_remove_on_bsp_switch) — placed per-BSP by object_types_place_objects */
+         * (object_mask_remove_on_bsp_switch = 576) — placed per-BSP by object_types_place_objects */
         if ( (game_connection() != _game_connection_network_client || (game_connection() == _game_connection_network_client && i != 1)) && ((1 << i) & object_mask_remove_on_bsp_switch) == 0 )
         {
             object_type_definition *type = object_type_definitions[i];

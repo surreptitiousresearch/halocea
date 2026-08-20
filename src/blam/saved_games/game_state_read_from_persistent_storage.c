@@ -1,6 +1,6 @@
 /* game_state_read_from_persistent_storage @0x8371B970 — read the saved game-state arena back from its
- * persistent-storage file into buffer. On any failure (open, seek, short read), the local player's profile
- * directory copy is deleted so the corrupt save isn't reused. */
+ * persistent-storage file into buffer. On any failure (open, seek, short read), DeleteFileA is called on
+ * the bare local-player profile-directory path (see the BINARY BUG note below). */
 
 #include <stdint.h>
 
@@ -23,6 +23,8 @@ void game_state_read_from_persistent_storage(void *buffer, unsigned int buffer_s
           || !ReadFile(file, buffer, buffer_size, &bytes_read, 0)
           || bytes_read != buffer_size )
         {
+            /* BINARY BUG (0x8371B9E4..0x8371BA04): deletes the bare profile-directory
+             * path — "savegame.bin" is never appended before DeleteFileA. Kept faithful. */
             char profile_path[288];
             if ( player_ui_get_path_to_local_player_profile_directory(0, profile_path) )
                 DeleteFileA(profile_path);

@@ -1,8 +1,8 @@
 /* actor_start_pause @0x837B9358 — set the actor's between-burst pause timer (word +1524). Picks a random
  * separation in the firing variant's burst-separation range (burst geometry +0x1C/+0x20), scales it by the
  * team difficulty value, applies the firing pattern's burst-separation modifier (firing pattern +0x4) when
- * present, adds a 1.7x panic factor when the actor is suppressed (byte +458), and converts seconds to ticks
- * (*30).
+ * present, adds a 1.7x factor when the actor is playfighting (external_orders.playfighting, byte +458;
+ * lbz r11,0x1CA @0x837B93FC), and converts seconds to ticks (*30).
  * DEVIATION: the soft-float double juggling is reproduced as plain float math. */
 
 #include <stdint.h>

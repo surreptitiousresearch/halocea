@@ -1,6 +1,9 @@
 /* actor_aim_projectile @0x837B89E0 — compute the firing direction for an actor's projectile shot from `origin`,
  * clamped to within 30 degrees of the actor's weapon vector, and report the aiming error. Returns the target's
- * unit index when the actor is pursuing a valid orphaned prop (state 2..3), otherwise -1. When the actor has a
+ * unit index when the actor is firing at a prop whose perception state is in the acknowledged band
+ * (_prop_state_becoming_unacknowledged .. _prop_state_acknowledged, 2..3; `cmpwi r10,2/blt @0x837B8A60`,
+ * `cmpwi r10,3/bgt @0x837B8A68`), otherwise -1. The orphan rungs of prop_perception_state are 4/5 and are
+ * excluded by this test. When the actor has a
  * cached aim vector (actor->control.burst_aim_by_vector) it is used directly; otherwise the direction to the
  * actor's aim point (actor->control.burst_target) is used. If the desired direction lies more than 30 degrees
  * from the weapon vector, it is snapped onto the 30-degree cone around the weapon vector (rotating about the

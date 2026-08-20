@@ -17,7 +17,14 @@
  * spelled that register as `biped_faux` and reached both outputs as byte [1] of its definition_index,
  * which put the movement-direction state (stores @0x837B19B4 and @0x837B1A68, both to byte 0) on top of
  * the crouch flag (byte 1, @0x837B2158/0x837B237C/0x837B2398). The outputs are the same pair the
- * non-simulated sibling biped_update_moving writes: animation_update->state_desired / ->crouching. */
+ * non-simulated sibling biped_update_moving writes: animation_update->state_desired / ->crouching.
+ *
+ * CAVEAT (twin divergence, shipped behaviour — do not "fix"): this simulated path writes object.position
+ * DIRECTLY (`stw` 0x5C/0x60/0x64(r31) @0x837B2354-70) instead of calling object_translate — the function
+ * has no `bl object_translate` at all — so the predicted move performs no BSP re-link. It also never
+ * recomputes physics.crouch_velocity: its only store to that slot is the zero-init
+ * `stfs f28, crouch_velocity` @0x837B1868, where the authoritative biped_update_moving has a second store
+ * @0x837B3A00. The two functions are otherwise near-twins, so the divergence on crouch-jumps is silent. */
 
 #include <stdint.h>
 #include <string.h>

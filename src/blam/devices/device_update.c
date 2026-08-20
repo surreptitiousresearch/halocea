@@ -8,7 +8,9 @@
  *   power. A per-side "fully closed" dwell counter (+528) spawns the close effect once when the position has
  *   settled at 0; otherwise the position velocity is clamped to the interpolated limit, and reaching / failing to
  *   reach the target spawns the open/close (or the two closed) effects. Marks the object dirty on a position
- *   change. Returns 1 if either accelerate step reported completion (a state change occurred).
+ *   change. Returns 1 if either accelerate step did *not* reach its target this tick, i.e. the device is
+ *   still in motion: accelerate_to_position returns 1 on arrival, and `changed = 1` is set only on its
+ *   zero (not-arrived) paths.
  *
  * DEVIATION: the POWER call's final circular_position arg is 0 (disasm `li r10,0` @0x837B5700; the decompiler's
  * 0x82000000 is a stale FPR-shadow GPR); the POSITION call's is device.flags bit 0 (clrlwi r10,r11,31

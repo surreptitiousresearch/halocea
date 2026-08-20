@@ -1,8 +1,12 @@
-/* damage_dealt_to_network @0x836B1678 — notify the network of damage an owner player dealt to another
- * player's biped, so the attacker's client can play a hit confirmation. Only fires when the damaged
- * object is a living biped (type 0, flags 0) controlled by a different player. On a dedicated server
- * (the damaged player's local_player_index == 0xFFFF, i.e. a non-local server-owned player) it encodes and sends a "damage dealt" message-delta to the
- * owner's machine; otherwise (local) it just plays the multiplayer hit sound.
+/* damage_dealt_to_network @0x836B1678 — notify the network of damage the owner (attacking) player dealt to
+ * another player's biped, so that attacker's client can play a hit confirmation. Only fires when the damaged
+ * object is a biped (type == 0, lhz 0xB4 @0x836B16C0) whose NetworkedDatumRole is _networked_datum_master
+ * (lwz 4(r3) @0x836B16CC — locally simulated and replicated) and whose unit player_index is not the
+ * attacker's own (@0x836B16DC). The player datum consulted is the OWNER's, fetched with owner_player_index
+ * (@0x836B168C-9C): when that attacker is not a local player on this machine
+ * (owner->local_player_index == 0xFFFF, lhz 2(r30) @0x836B16E4) it encodes and sends a "damage dealt"
+ * message-delta to the owner's machine; otherwise the attacker is local and it just plays the multiplayer
+ * hit sound here.
  *
  * The damage_dealt_network_data is passed by value (r4/r5). The message-delta encoder, field-index
  * translator and network server are the Blam network-message subsystem (extern boundary). */
@@ -49,7 +53,7 @@ void damage_dealt_to_network(int owner_player_index, damage_dealt_network_data d
         return;
 
     if ( object->object.type != object_type_biped                             /* not a biped */
-      || object->object.datum_role != _networked_datum_master                       /* not locally simulated */
+      || object->object.datum_role != _networked_datum_master                   /* not a locally-simulated master datum */
       || object->unit.player_index == owner_player_index )    /* controlled by the attacker */
         return;
 

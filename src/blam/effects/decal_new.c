@@ -1,10 +1,13 @@
 /* decal_new @0x83742E78 — cast a ray from origin along velocity and, if it strikes structure (collision
- * type 2), place a decal of the given definition there. Skipped when environment decals are disabled, or
- * when the decal would be filtered out (unless it is a sequence-1 / type-3 forced decal). When a forced
- * sequence is requested the local random seed is temporarily replaced with a hash of the origin so the
- * decal's randomized sequence/orientation is deterministic for that point, then restored.
+ * type 2), place a decal of the given definition there. Skipped when the rasterizer has environment decals
+ * turned off, unless this is a permanent decal (permanent == 1, cmplwi @0x83742EC4) whose definition layer
+ * is _decal_layer_alpha_tested (layer == 3, lhz 4(r10) / cmplwi 3 @0x83742EDC-E0). For a permanent decal the
+ * local random seed is temporarily replaced with a hash of the origin so the decal's randomized
+ * sequence/orientation is deterministic for that point, then restored.
  *
- * Decal definition: flags word @0x00 (0x10 = no environment placement), type word @0x02, layer @0x04. */
+ * Decal definition: flags halfword @0x00, type halfword @0x02, layer halfword @0x04. Mask 0x10 on the flags
+ * halfword (rlwinm r8,r9,0,27,27 @0x83742F8C) is bit 4 = _decal_definition_water_effect_bit; when it is set
+ * this call places nothing. */
 
 #include <stdint.h>
 #include "headers/global_tag_instances.h"

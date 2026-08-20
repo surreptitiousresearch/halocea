@@ -2,6 +2,11 @@
  * (complete: manual-reset, initially signaled; start: auto-reset; stop and progress: manual-reset), the
  * zlib allocator hooks, and the 16KB-stack copy thread. */
 
+/* CAVEAT: dead in the shipped image. This function has ZERO code cross-references --
+ * its only reference is the ExceptionDir unwind entry at 0x82370AB8. The DVD-to-HDD copy engine is compiled in
+ * and never armed, so a reader should not assume this path runs at runtime.
+ * (xrefs to 0x83809350: 1 total, 0 code.) */
+
 #include <stdint.h>
 #include "headers/simple_decompressor_definition.h"
 #include "headers/blam_data_globals.h"

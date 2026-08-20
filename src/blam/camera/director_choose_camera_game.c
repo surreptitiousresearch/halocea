@@ -2,7 +2,9 @@
  * On initialize it forces the first-person camera. Otherwise: a key press rotates through the game
  * camera modes (first/following/orbiting); then, unless a scripted camera is active, it chooses the
  * game perspective and swaps in (or out of) the dead/respawn camera based on whether the player is
- * awaiting respawn (no unit, respawn input latched). */
+ * awaiting respawn — which the binary tests as `unit_index == -1` (lwz r10,0x34; cmpwi -1
+ * @0x836E5240-44) AND `statistics.deaths > 0` (lhz r11,0xAE; cmpwi 0; bgt @0x836E524C-5C). There is
+ * no respawn-input latch in this test. */
 
 #include <stdint.h>
 #include "headers/player_datum.h"

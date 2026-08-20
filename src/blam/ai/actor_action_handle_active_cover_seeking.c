@@ -1,15 +1,18 @@
 /* actor_action_handle_active_cover_seeking @0x837F53D0 — reconsider taking cover while the actor is
- * actively in danger (+76 flag), once its distance-to-threat (+444) exceeds its definition's cover-seek
- * distance threshold (tag def word offset 732). Only re-evaluates while mid combat-status (>= 2) in a
- * pursuit or active action class (_action_class_pursuit / _action_class_active) and not already suppressed (+888), and at most once every
- * 30+ ticks. Attempts to seek cover (preferring the last-visible-location cover point) and, failing that,
- * falls back to panicking if allow_panicking is set. Returns whether either action succeeded.
+ * timesliced in this tick (meta.timeslice, +76; `lbz r9,0x4C(r31) @0x837F5404` is the first gate) and its
+ * own shield fraction (input.shield_vitality, +444) is at or below its definition's hide threshold
+ * (defensive.shield_fraction_hide, tag def word offset 732; `lfs f0,0x1BC / lfs f13,0x2DC / bgt
+ * @0x837F5418`). There is no distance-to-threat term and no "actively threatened" condition — the test is
+ * an absolute comparison of the actor's own shield fraction. Only re-evaluates while mid combat-status
+ * (>= 2) in a pursuit or active action class (_action_class_pursuit / _action_class_active), while not
+ * berserk (emotions.berserk, +888), and at most once every 30+ ticks. Attempts to seek cover (preferring
+ * the last-visible-location cover point) and, failing that, falls back to panicking if allow_panicking is
+ * set. Returns whether either action succeeded.
  *
- * Note: the danger/threat-distance/suppression/last-attempt fields (decompiler offsets +76/+444/+888/+880)
- * are read through named actor_datum members in the body; +108/+110 are state.action/combat_status and
- * +624 the target prop index. This function looks up the actor's own definition tag
- * (meta.definition_index), not its variant tag. The tag-def cover-seek threshold at word offset 732 is
- * read through definition_tag->defensive.shield_fraction_hide. */
+ * Note: the timeslice/shield/berserk/last-attempt fields (decompiler offsets +76/+444/+888/+880) are read
+ * through named actor_datum members in the body; +108/+110 are state.action/combat_status and +624 the
+ * target prop index. This function looks up the actor's own definition tag (meta.definition_index), not
+ * its variant tag. */
 
 #include <stdint.h>
 #include "headers/actor_definition.h"
@@ -37,7 +40,7 @@ int actor_action_handle_active_cover_seeking(int actor_index, uint8_t allow_pani
 
     const actor_definition *definition_tag = TAG_GET(const actor_definition, actor->meta.definition_index);
 
-    /* cover-seek threshold: definition_tag->defensive.shield_fraction_hide (actor_definition tag+732). */
+    /* hide threshold: definition_tag->defensive.shield_fraction_hide (actor_definition tag+732). */
     if ( actor->input.shield_vitality > definition_tag->defensive.shield_fraction_hide ) /* DEVIATION: lfs f0,0x1BC @0x837F5418 = input.shield_vitality (shield FRACTION vs fraction threshold), not recent_shield_damage (0x1C4) */
         return 0;
 

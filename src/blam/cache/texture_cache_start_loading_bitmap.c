@@ -4,6 +4,11 @@
  * streaming is globally disabled — issues the async cache_file_read. Returns 0 only if no cache block
  * could be allocated. */
 
+/* CAVEAT: dead in the shipped image. This function has ZERO code cross-references --
+ * its only reference is the ExceptionDir unwind entry at 0x8236AB98. The texture-streaming path is compiled in
+ * and never armed, so a reader should not assume this path runs at runtime.
+ * (xrefs to 0x836F4038: 1 total, 0 code.) */
+
 #include <stdint.h>
 #include "headers/pc_texture_cache_globals.h"
 #include "headers/texture_cache_texture.h"

@@ -2,9 +2,11 @@
  * game_engine is null). Updates multiplayer sound, purges expired state and weapons; (re)spawns items
  * on the server / singleplayer / saved-film; and on the server replicates score and state to the network.
  *
- * Then per player: unless the variant suppresses it, the player's unit camera-shake accumulators are
- * cleared; per-player always-invisible and teleporter handling run; and the mode's player_update hook
- * fires. After the player loop the mode's global update hook fires.
+ * Then per player: game_engine_update_player_no_shield (verbatim-inlined donor @0x8374D208) zeroes the
+ * player's unit shield_vitality and maximum_shield_vitality (`stfs f0,0xE4` / `stfs f0,0xDC`
+ * @0x8374D290-94) when the variant sets _no_shields_bit (3) — nothing to do with camera shake;
+ * per-player always-invisible and teleporter handling run; and the mode's player_update hook fires.
+ * After the player loop the mode's global update hook fires.
  *
  * Finally drives the end-game state machine: in post-game delay it fades ambience down over the last
  * ~1 s (mute everything, then restore ambient classes at 0.2 over 30 ticks), counts the ending timer

@@ -7,7 +7,8 @@
  * Returns the new block index, or -1 if no run is large enough.
  *
  * Block record = 7 dwords (28 bytes): [1]=size_in_pages, [2]=page_offset, [3]=next, [4]=previous,
- * [5]=last_touched_frame. Faithful reproduction including the original's 255-wrap window ring. */
+ * [5]=last_touched_frame. Faithful reproduction including the original's 255-wrap window ring
+ * (256 entries — see the DEVIATION note on the `windows` declaration). */
 
 #include <stdint.h>
 #include "headers/lruv_cache.h"
@@ -35,7 +36,15 @@ int lruv_block_new(lruv_cache *cache, int size)
     int chosen_start_block = -1;
     int chosen_page_offset = 0;
     int chosen_accumulated = 0;
-    lruv_window windows[8];
+    /* DEVIATION: was declared [8]; the binary's ring is 256 entries. The frame is 0x1100 bytes
+     * (stwu r1,-0x1100(r1) @0x8371C674), the window base is r1+0x80 (addi r11,r1,0x80 @0x8371C6FC,
+     * addi r10,r1,0x80 @0x8371C818), the stride is 16 (slwi ..,4 @0x8371C6F8 and @0x8371C81C) and
+     * the head/tail wrap at 255 (cmpwi ..,0xFF @0x8371C6E0, 0x8371C700, 0x8371C8A0, 0x8371C8B8),
+     * so the array spans 0x80..0x1080 — exactly 256 x 16 — with the __savegprlr_17 save area
+     * (15 x std + LR = 0x80) filling 0x1080..0x1100. Declaring [8] made windows[8..255] a
+     * 3,968-byte stack overrun. sizeof(lruv_window) == 16 is confirmed by the four dword stores at
+     * +0/+4/+8/+0xC (0x8371C708-0x8371C714) against that slwi-4 stride. */
+    lruv_window windows[256];
     int insert_after;
     int result;
     lruv_cache_block *blocks = (lruv_cache_block *)cache->blocks->data;

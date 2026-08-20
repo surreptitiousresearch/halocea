@@ -2,15 +2,21 @@
  * ("suppression") desire. Steps:
  *   1. Cancel berserk when the actor no longer qualifies (no combat status, low action category, or pinned).
  *   2. Emit a berserk start/stop communication event when the berserk flag transitions.
- *   3. Recompute the aggression target from the highest occupied threat-histogram bucket (actor+494..+503,
- *      filled by actor_situation_update) and low-pass the current aggression toward it.
+ *   3. Recompute the aggression target from the highest occupied threat-histogram bucket
+ *      (situation.specific_threats, actor+494..+502, filled by actor_situation_update) and low-pass the
+ *      current aggression toward it.
  *   4. When the character is a "friendly-fire aware" type, scan friend_prop props to see whether the actor is in a
  *      friend_prop's line of fire (sets actor+860..+863), optionally requesting a firing-position discard.
  *   5. Evaluate the character-tag-driven suppression desire (mode at character+760 with thresholds at +764/
  *      +768) and run it through an on/off-delay hysteresis (actor+856 state, actor+858 timer).
  *
  * The character definition is resolved through TAG_INSTANCE to the DB actor_definition struct; actor fields
- * use named actor_datum members; prop fields use the prop_datum database layout. */
+ * use named actor_datum members; prop fields use the prop_datum database layout.
+ *
+ * CAVEAT: step 3's histogram scan seeds at bucket 9 over the 9-entry specific_threats array, so its first
+ * pass reads one byte past the end (situation.cumulative_threats[0], actor+503). That is what the shipped
+ * binary does (`li r11,9` / `lbz r10,0x1EE(r10)` @0x837D9DE4) and it is preserved deliberately — see the
+ * in-line note at the loop. */
 
 #include <stdint.h>
 #include "headers/actor_definition.h"

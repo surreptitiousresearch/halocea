@@ -11,7 +11,11 @@
  * DEVIATION: the decompiler reported "local variable allocation has failed" and mis-rendered the sprintf argument
  * list (punned float/int registers). The 11 arguments were recovered from the disassembly (0x837E7DA8-837E7E48):
  * sound count; used MB (= size - (pages-allocated)*(size/pages)); total MB (= size); then four
- * "allocated/used/old/locked  /  page_count" integer pairs. */
+ * "allocated/used/old/locked  /  page_count" integer pairs. This arithmetic is correct as written:
+ * `sound_cache_size` is a megabyte count (sound_cache_new derives the page count as size << 20 >> 12),
+ * so the total-MB argument is the raw value -- fcfid f2,f9 @0x837E7E00 with no frsp, and
+ * fnmsubs f1,f3,f4,f6 @0x837E7E3C is size - free_pages*(size/pages). sound_cache_dump_to_file used to
+ * divide both by 1048576 and disagree; it has been corrected to match. */
 
 #include <stdint.h>
 #include "headers/pc_sound_cache_globals.h"

@@ -366,7 +366,6 @@ frame:
     if ( game_in_progress() )
     {
         int ticks;
-        unsigned char cheats;
         float delta_seconds;
         unsigned char did_simulate;
 
@@ -376,9 +375,16 @@ frame:
 
         debug_keys_update();
         cheats_update();
-        cheats = 0;   /* cheats_update is a no-op stub; r3 stays the li 0 arg */
         delta_seconds = ((float)main_globals.halt_time_scale * main_globals.seconds_elapsed);
-        ticks = determine_number_of_ticks(delta_seconds, cheats);
+        /* DEVIATION 2026-08-20: this passed a zeroed `cheats` local, justified by a comment
+           claiming "r3 stays the li 0 arg". There is no li r3 before bl cheats_update
+           @0x8368BFD4; the binary loads li r4,1 @0x8368BFE0 with the float in f1
+           (fmr f1,f31 @0x8368BFF8), so under the float-slot-skip ABI r4 is the SECOND
+           parameter -- is_peek = 1. This call only peeks: game_time_update makes the real
+           consuming call (li r4,0 @0x8369ABE0). With is_peek = 0 the leftover banked twice
+           per frame and the recomputed tick count diverged from the `ticks` already handed
+           to player_control_update. */
+        ticks = determine_number_of_ticks(delta_seconds, /*is_peek=*/1);
         player_control_update(delta_seconds, ticks);
 
         if ( connection == _game_connection_network_server )
@@ -438,12 +444,19 @@ frame:
             if ( !debug_no_drawing )
             {
                 int64_t render_clocks = system_clocks();
-                float since_render = 0.0f;
+                /* DEVIATION 2026-08-20: since_render respelled float->double and the two
+                   arguments un-reversed. The callee computes r3 - r4
+                   (subf r11,r4,r3 @0x83762D20); the binary passes render_clocks in r3
+                   (mr r3,r30 @0x8368C20C) and last_render_clocks in r4
+                   (ld r4 @0x8368C210) -- now - last. No frsp exists between
+                   bl @0x8368C214 and bl @0x8368C22C, so the value stays double.
+                   hcex_legacy_render.cpp:23 already spells the same call correctly. */
+                double since_render = 0.0;
                 if ( !game_time_get_paused() && !console_is_active() )
                 {
                     game_time_get_since_tick();
-                    since_render = system_clock_delta_seconds_real(main_globals.last_render_clocks,
-                                                                   render_clocks);
+                    since_render = system_clock_delta_seconds_real(render_clocks,
+                                                                   main_globals.last_render_clocks);
                 }
                 hcex_do_legacy_render = 1;
                 hcex_pix_begin_event("sound_render", since_render, 0.0);

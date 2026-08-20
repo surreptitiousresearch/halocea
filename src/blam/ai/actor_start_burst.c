@@ -104,7 +104,7 @@ void actor_start_burst(int actor_index)
                 burst_geometry->burst_duration_lower_bound, burst_geometry->burst_duration_upper_bound);
         if ( firing_pattern && firing_pattern->burst_duration_modifier != 0.0f )
             burst_duration = firing_pattern->burst_duration_modifier * burst_duration;
-        if ( actor->external_orders.playfighting )   /* berserk: shorter bursts */
+        if ( actor->external_orders.playfighting )   /* playfighting (external_orders.playfighting): shorter bursts, x0.6 @0x837B8D78 */
             burst_duration = burst_duration * 0.60000002f;
     }
     int16_t team_index = actor->meta.team_index;
@@ -117,7 +117,7 @@ void actor_start_burst(int actor_index)
     if ( firing_pattern && firing_pattern->error_angle_modifier != 0.0f )
         error_angle = firing_pattern->error_angle_modifier * (error_team_value * projectile_error_angle);
     if ( actor->external_orders.playfighting )
-        error_angle = error_angle * 2.0f + DEG_TO_RAD;   /* berserk: double + 1 degree */
+        error_angle = error_angle * 2.0f + DEG_TO_RAD;   /* playfighting: double + 1 degree (fmadds f0,f0,2.0,0.0174533 @0x837B8DEC) */
     actor->control.burst_damage_modifier = 0.0f;  /* DEVIATION: stfs 0x69C(r31); was burst_error */
     actor->control.burst_error = error_angle;     /* DEVIATION: stfs 0x698(r31); was burst_aim_vector.z */
 

@@ -29,7 +29,11 @@ void main_update_time(void)
         cinematic_in_progress();
 
     now_clocks = system_clocks();
-    dt = system_clock_delta_seconds_real(main_globals.last_time_clocks, now_clocks);
+    /* DEVIATION 2026-08-20: arguments were reversed, producing a negative delta every
+       frame. The callee computes r3 - r4 (subf r11,r4,r3 @0x83762D20), and the binary
+       leaves system_clocks' result in r3 while loading last_time_clocks into r4
+       (ld r4, main_globals@l(r11) @0x8368A8BC, bl @0x8368A8C0) -- i.e. now - last. */
+    dt = system_clock_delta_seconds_real(now_clocks, main_globals.last_time_clocks);
     Sleep(0);
 
     if ( main_globals.movie )

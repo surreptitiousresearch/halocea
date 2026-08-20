@@ -22,7 +22,14 @@ extern void *operator new(size_t size, const char *file, int line);
 struct dscBRAND_vtbl; // boundary — dsc subsystem
 template<class R, class T> R *dsMakeFunc(const char *file, int line); // boundary — factory-thunk template
 class entLIGHT;      // boundary — ws-engine entity subsystem (extern per re-source conventions)
-class entLIGHT_DESC; // boundary — ws-engine entity subsystem (extern per re-source conventions)
+struct psSECTION;    // ws/ps — 4-byte section handle, passed by value (full type: ws/ps/psSECTION.h)
+struct entDESC;      // ws/ent — entity descriptor (full type: ws/ent/entDESC.h)
+/* entLIGHT_DESC — boundary (ws-engine entity subsystem); no members modeled. Only the static
+ * CheckLightDesc hook is named, because haloInit installs its address into CHECK_LIGHT_DESC_FN.
+ * 0x823D9BC8 (?CheckLightDesc@entLIGHT_DESC@@SAPAVentDESC@@VpsSECTION@@PAV2@@Z). */
+struct entLIGHT_DESC {
+    static entDESC *CheckLightDesc(psSECTION section, entDESC *pDesc);
+};
 
 /* --- ent (entity handler registry): only AddHandler is called --- */
 #include "../ws/ent/entMANAGER_HANDLER.h" // full entMANAGER_HANDLER (AddHandler param base type)
@@ -66,6 +73,14 @@ extern iaFAMILY *iaFamily;
 /* --- gsPARTICLE_SYS / instance-manager-handler swap-in for Halo mode --- */
 extern gsPARTICLE_SYS *gsSysParticle;
 extern instMANAGER_HANDLER *instManager;
+
+/* --- global function-pointer hooks installed by haloInit's prologue --- */
+#include "hcexJOB_SYNC_INST_MNG.h" // hcexJOB_SYNC_INST_MNG::PushInst — the value stored @0x823EA294
+/* DB applied_types @0x841CB1A4: `bool (*gsMsgAddRenderableInstExt)(animINST *)` — the ws render
+ * message hook the HCEX instance-sync manager installs itself into. */
+extern bool (*gsMsgAddRenderableInstExt)(animINST *);
+/* DB applied_types @0x841DB5B0: `entDESC *(*CHECK_LIGHT_DESC_FN)(psSECTION, entDESC *)`. */
+extern entDESC *(*CHECK_LIGHT_DESC_FN)(psSECTION, entDESC *);
 
 /* --- misc globals/functions touched only here --- */
 extern float gsElapsedTimeMin;

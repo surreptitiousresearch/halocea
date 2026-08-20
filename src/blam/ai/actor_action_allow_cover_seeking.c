@@ -3,8 +3,8 @@
  * threat is unopposable or the actor's external orders mark it playfighting, further denies it while
  * combat_status is "certain" (>=7) and, when target.target_last_visible_time (+620) is set and the unit
  * definition's intimidation duration (+728, `float` seconds) hasn't yet elapsed
- * since it was set, or while the unit definition's danger threshold (+804) is positive and the actor's
- * recent shield damage hasn't reached it.
+ * since it was set, or while the unit definition's danger threshold (defensive.cover_damage_threshold,
+ * +804) is positive and the actor's recent body damage (input.recent_body_damage, +448) hasn't reached it.
  *
  * DEVIATION: the decompiler renders the elapsed-time check via a `__CFADD__` carry-flag intrinsic on a
  * subtraction; algebraically this is just `game_time_get() >= (duration_ticks + timestamp)` — reproduced

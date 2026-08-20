@@ -14,7 +14,15 @@
  * was reconstructed as (dot(forward,desired) > 0.5) followed by opposite signs of the two scalar triple
  * products up . (desired x forward) and up . (desired x rotated_forward); on overshoot the biped adopts
  * the desired facing and aborts the turn animation (unit_abort_animation). All movement-classification
- * outputs are written to unit_animation_update_data (animation_update->state_desired / animation_update->crouching). */
+ * outputs are written to unit_animation_update_data (animation_update->state_desired / animation_update->crouching).
+ *
+ * CAVEAT (twin divergence, shipped behaviour — do not "fix"): this authoritative path commits the new
+ * position through object_translate (`bl object_translate` @0x837B3C08) so the object is re-linked into
+ * the BSP, and it recomputes physics.crouch_velocity from the standing/crouching collision heights
+ * (`stfs f10, crouch_velocity` @0x837B3A00). biped_update_moving_simulated does neither: it stores
+ * object.position directly (`stw` 0x5C/0x60/0x64(r31) @0x837B2354-70) and leaves crouch_velocity at its
+ * initial 0 (its only store is the zero-init @0x837B1868). The two near-twins therefore diverge on
+ * crouch-jumps, which is a silent client-prediction divergence. */
 
 #include <stdint.h>
 #include <string.h>
@@ -549,11 +557,11 @@ void biped_update_moving(int biped_index, unit_animation_update_data *animation_
     }
 
     {
-        int in_water = biped->object.damage_flags & (1u << _object_dead_bit);
-        if ( in_water )                                              { in_flags |= (1u << _biped_physics_in_dead_bit);  physics.in_flags = in_flags; }
-        if ( (definition->biped.flags & (1u << _biped_flying_bit)) != 0 && !in_water )       { in_flags |= (1u << _biped_physics_in_flying_bit);  physics.in_flags = in_flags; }
+        int is_dead = biped->object.damage_flags & (1u << _object_dead_bit);
+        if ( is_dead )                                              { in_flags |= (1u << _biped_physics_in_dead_bit);  physics.in_flags = in_flags; }
+        if ( (definition->biped.flags & (1u << _biped_flying_bit)) != 0 && !is_dead )       { in_flags |= (1u << _biped_physics_in_flying_bit);  physics.in_flags = in_flags; }
         if ( (definition->biped.flags & (1u << _biped_passes_through_bipeds_bit)) != 0 )                 { in_flags |= (1u << _biped_physics_in_pass_through_bipeds_bit); physics.in_flags = in_flags; }
-        if ( (definition->biped.flags & (1u << _biped_climbs_anything_bit)) != 0 && !in_water ) physics.in_flags = in_flags | (1u << _biped_physics_in_climb_anything_bit);
+        if ( (definition->biped.flags & (1u << _biped_climbs_anything_bit)) != 0 && !is_dead ) physics.in_flags = in_flags | (1u << _biped_physics_in_climb_anything_bit);
     }
 
     biped_update_physics(&physics);

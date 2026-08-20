@@ -1,6 +1,12 @@
 /* scenery_update @0x837E9E38 — per-tick scenery update: if the object's "animated" flag (+500 bit 0x1) isn't
- * set, nothing to do. Otherwise runs its animation one tick (kind = affects_game_state); once the animation
- * loop finishes (result != 2), decrements the object's remaining-loop counter (+210). Always returns 1.
+ * set, nothing to do. Otherwise runs its animation one tick (kind = affects_game_state); when that reports
+ * _animation_will_restart_on_next_frame it decrements object.animation.state.frame_index (+0xD2 == 210).
+ * Always returns 1.
+ *
+ * DEVIATION: the guard was reconstructed with its sense inverted (`result != ...`). The binary steps the
+ * frame index only on the equal path: `cmpwi cr6,r11,2` @0x837E9E98 / `bne cr6,loc_837E9EC4` @0x837E9E9C
+ * branches *past* `lhz r11,0xD2(r31)` @0x837E9EA0 and `sth r10,0xD2(r31)` @0x837E9EA8. (+0xD2 is the frame
+ * index, not a loop counter; +0xD4 is the interpolation cursor.)
  *
  * Object header lookup matches the established salted object-header idiom (see vehicle_reset.c). */
 
@@ -31,7 +37,7 @@ uint8_t scenery_update(int scenery_index)
         &scenery->object.animation.state,
         0);
 
-    if ( result != _animation_will_restart_on_next_frame )
+    if ( result == _animation_will_restart_on_next_frame )
         --scenery->object.animation.state.frame_index;
 
     return 1;

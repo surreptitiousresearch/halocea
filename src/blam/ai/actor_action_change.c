@@ -1,7 +1,12 @@
 /* actor_action_change @ 0x837F2D98 — switch an actor to a new action. Ends the current action (end callback),
- * updates the action-class category counter (actor->state.mode) when crossing the combat-class threshold (class 3),
- * clears discarded firing positions, copies the supplied action state into the action data block (actor->state.action_data,
- * data_size bytes) when present, records the new action type (actor->state.action), raises the action-changed flag
+ * promotes/demotes the actor's top-level mode (actor->state.mode) according to whether the new action's
+ * action_class is nonzero (`cmplwi cr6,r10,0 @0x837F2E04`): nonzero raises mode to _actor_mode_combat (3)
+ * when it is below it, zero (_action_class_noncombat) drops mode to _actor_mode_alert (2) when it is at or
+ * above combat. The action classes are 0 noncombat / 1 passive / 2 transitory / 3 pursuit / 4 active;
+ * the "3" in this test is the actor_mode value, not an action class.
+ * Also clears discarded firing positions, copies the supplied action state into the action data block
+ * (actor->state.action_data, data_size bytes) when present, records the new action type
+ * (actor->state.action), raises the action-changed flag
  * (actor->state.action_changed), and runs the new action's begin callback. */
 
 #include <stdint.h>

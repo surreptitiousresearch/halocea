@@ -19,8 +19,8 @@ void *pool_resize_pointer(stack_memory_pool *pool, void *p, unsigned int new_siz
     if (!new_block)
         return nullptr;
 
-    if (!MEMORY_BLOCK_IS_IN_USE(new_block->bits))
-        new_block->bits |= MEMORY_BLOCK_IN_USE_FLAG;
+    if (!MEMORY_BLOCK_IS_LOCKED(new_block->bits))
+        new_block->bits |= MEMORY_BLOCK_LOCKED_FLAG;
 
     int bytes_allocated = pool->statistics.bytes_allocated;
     int peak_bytes_allocated = pool->statistics.peak_bytes_allocated;

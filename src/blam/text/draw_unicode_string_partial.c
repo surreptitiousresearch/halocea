@@ -2,7 +2,9 @@
  * layout/clip/blit logic, differing only in the string element type and that it tokenizes through
  * parse_unicode_string. See draw_string_partial for the algorithm. rectangle2d layout is [y0, x0, y1, x1].
  *
- * DEVIATION: the database types the draw_character callback with ten parameters; the call site passes eight. */
+ * DEVIATION: the call site passes ten arguments, not eight - the clipped glyph extents occupy the ninth and
+ * tenth parameter slots: sth r6, r1+0x56 @0x8376A960 (clipped bitmap_width) and sth r3, r1+0x5E @0x8376A958
+ * (clipped bitmap_height). */
 
 #include <stdint.h>
 #include <stddef.h>
@@ -21,7 +23,8 @@ extern font_character *font_get_character_by_ascii_code(font_header *header, uin
 
 void draw_unicode_string_partial(
     void (*draw_character)(parse_string_state *, font_header *, font_character *, unsigned int color,
-                           int16_t dest_x, int16_t dest_y, int16_t source_x, int16_t source_y),
+                           int16_t dest_x, int16_t dest_y, int16_t source_x, int16_t source_y,
+                           int16_t width, int16_t height),
     point2d *cursor, const rectangle2d *bounds, const rectangle2d *clip, unsigned int color,
     const wchar_t *string, int16_t string_index, int16_t string_length)
 {
@@ -102,6 +105,7 @@ void draw_unicode_string_partial(
 
         if (bitmap_width > 0 && bitmap_height > 0)
             draw_character(&state, state.font_header, glyph, character_color,
-                           destination_x, destination_y, source_x, source_y);
+                           destination_x, destination_y, source_x, source_y,
+                           bitmap_width, bitmap_height);
     }
 }

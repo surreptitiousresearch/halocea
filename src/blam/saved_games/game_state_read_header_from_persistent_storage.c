@@ -4,8 +4,8 @@
  * the field is zeroed, and a CRC is accumulated over the header followed by the remaining file in 128 KB
  * chunks (calling sound_idle between chunks so audio keeps mixing during the blocking read). Returns 1 if
  * the computed CRC matches the stored one. On mismatch with a non-zero stored checksum, *corrupted is set.
- * If the file cannot be read or is the wrong size, the corrupt profile file is deleted. Returns 0 on any
- * failure.
+ * If the file cannot be read or is the wrong size, DeleteFileA is called on the bare local-player
+ * profile-directory path (see the BINARY BUG note below). Returns 0 on any failure.
  *
  * DEVIATION: the decompiler inflated this to 31 args and a 64-bit packed local because _RtlCheckStack12
  * (the large-frame stack probe for the 128 KB read buffer) clobbered its register/stack tracking. The DB
@@ -79,7 +79,8 @@ uint8_t game_state_read_header_from_persistent_storage(void *header, unsigned in
         }
     }
 
-    /* file unreadable or wrong size: delete the corrupt profile file */
+    /* file unreadable or wrong size. BINARY BUG (0x8371B7DC..0x8371B7FC): deletes the bare
+     * profile-directory path — "savegame.bin" is never appended before DeleteFileA. Kept faithful. */
     char full_path[256];
     if (player_ui_get_path_to_local_player_profile_directory(0, full_path))
         DeleteFileA(full_path);

@@ -6,9 +6,11 @@
  * of 2*filter_size with round-to-nearest (adding 1<<(2*filter_size-1) before the shift) — the coefficient sum is
  * assumed to be 2^(2*filter_size). A filter larger than the bitmap is rejected with a stderr warning.
  *
- * Channel packing reproduced verbatim from the shipped code (matching bitmap_2d_shrink): out =
- * (chan(byte3)<<24) | (chan(byte1)<<16) | (chan(byte2)<<8) | chan(byte0) — the source's byte1/byte2 land in
- * swapped positions. The scratch buffer holds the full pixel-data size; both passes index it as width*y + x. */
+ * DEVIATION: the previous reconstruction transposed red and green, following Hex-Rays' BYTE1/BYTE2 names
+ * (little-endian register bytes, which read transposed on this big-endian target). There is no transposition:
+ * extrwi r29, 8,8 @0x8377AE60 is (texel>>16)&0xFF and extrwi r17, 8,16 @0x8377AE64 is (texel>>8)&0xFF, and the
+ * pack at 0x8377AE90-0x8377AED0 returns each to its own bit position. The scratch buffer holds the full
+ * pixel-data size; both passes index it as width*y + x. */
 
 #include <stdint.h>
 #include "headers/bitmap_data.h"
@@ -48,23 +50,23 @@ void bitmap_2d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
         int width = bitmap->width;
         for ( int x = 0; x < width; x = (int16_t)(x + 1) )
         {
-            int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
+            int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0;
             for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
             {
                 int source_width = bitmap->width;
                 int wrapped = (int16_t)((source_width + tap + x) % source_width);
                 int coefficient = filter_coefficients[tap + filter_size];
                 unsigned int texel = pixels[wrapped + source_width * y];
-                sum3 += (texel >> 24) * coefficient;
-                sum2 += ((texel >> 8) & 0xFF) * coefficient;
-                sum1 += ((texel >> 16) & 0xFF) * coefficient;
-                sum0 += (texel & 0xFF) * coefficient;
+                sum_alpha += (texel >> 24) * coefficient;
+                sum_red += ((texel >> 16) & 0xFF) * coefficient;
+                sum_green += ((texel >> 8) & 0xFF) * coefficient;
+                sum_blue += (texel & 0xFF) * coefficient;
             }
             width = bitmap->width;
             scratch[y * width + x] =
-                    ((((((round_add + sum3) >> shift << 8) | ((round_add + sum2) >> shift)) << 8)
-                            | ((round_add + sum1) >> shift)) << 8)
-                    | ((round_add + sum0) >> shift);
+                    ((((((round_add + sum_alpha) >> shift << 8) | ((round_add + sum_red) >> shift)) << 8)
+                            | ((round_add + sum_green) >> shift)) << 8)
+                    | ((round_add + sum_blue) >> shift);
         }
     }
 
@@ -74,23 +76,23 @@ void bitmap_2d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
         int width = bitmap->width;
         for ( int col = 0; col < width; col = (int16_t)(col + 1) )
         {
-            int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
+            int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0;
             for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
             {
                 int source_height = bitmap->height;
                 int wrapped = (int16_t)((source_height + tap + row) % source_height);
                 int coefficient = filter_coefficients[tap + filter_size];
                 unsigned int texel = scratch[wrapped * width + col];
-                sum3 += (texel >> 24) * coefficient;
-                sum2 += ((texel >> 8) & 0xFF) * coefficient;
-                sum1 += ((texel >> 16) & 0xFF) * coefficient;
-                sum0 += (texel & 0xFF) * coefficient;
+                sum_alpha += (texel >> 24) * coefficient;
+                sum_red += ((texel >> 16) & 0xFF) * coefficient;
+                sum_green += ((texel >> 8) & 0xFF) * coefficient;
+                sum_blue += (texel & 0xFF) * coefficient;
             }
             width = bitmap->width;
             pixels[row * width + col] =
-                    ((((((round_add + sum3) >> shift << 8) | ((round_add + sum2) >> shift)) << 8)
-                            | ((round_add + sum1) >> shift)) << 8)
-                    | ((round_add + sum0) >> shift);
+                    ((((((round_add + sum_alpha) >> shift << 8) | ((round_add + sum_red) >> shift)) << 8)
+                            | ((round_add + sum_green) >> shift)) << 8)
+                    | ((round_add + sum_blue) >> shift);
         }
     }
 

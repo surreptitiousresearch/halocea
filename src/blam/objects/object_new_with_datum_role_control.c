@@ -8,7 +8,15 @@
  * Deviations:
  *  - The trailing effect_new_from_object call passes NULL color and NULL impulse_field (r9=r10=0 at
  *    0x836F1CBC-0x836F1CC0); the decompiler's v25/v26 args are phantoms. v25 is really a local object-
- *    type bitmask used only in the node-block allocation branch, not an effect argument. */
+ *    type bitmask used only in the node-block allocation branch, not an effect argument.
+ *
+ * CAVEAT: object_new can delete the object it just created. After the per-type new chain succeeds, an
+ * object whose header is still inactive, whose _object_deleted_when_deactivated_bit is set, and which
+ * either was not requested never-automatically-delete or landed in a valid cluster, is handed straight to
+ * object_delete (@0x836F1BB0, guarded by lbz 2(r28)/rlwinm @0x836F1B70-0x836F1BA8). Control then falls
+ * through to the normal success tail: `success` is still 1, so the function fires the definition's
+ * creation effect on that index and returns it. Callers therefore can receive a valid-looking object
+ * index for an object that is already flagged for deletion — this is what the binary does. */
 
 #include <stdint.h>
 #include <stdio.h>

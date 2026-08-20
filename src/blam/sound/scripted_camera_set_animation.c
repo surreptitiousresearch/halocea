@@ -3,8 +3,10 @@
  * records with the name at offset 0) and, if found, switches the camera to animation mode for the animation's
  * duration (animation.frame_count / 30).
  *
- * DEVIATION: the binary writes relative_object_index/animation_graph_index as one 64-bit store, placing the
- * graph index in relative_object_index and -1 in animation_graph_index; reproduced as written. */
+ * DEVIATION: the two indices were transcribed swapped. The binary stores the graph index into
+ * animation_graph_index (stw r26, +0x38 @0x83704EA0, r26 = the r3 argument @0x83704DE4) and -1 into
+ * relative_object_index (stw r8, +0x34 @0x83704EA4, li r8, -1 @0x83704E80) — two stw, not one 64-bit
+ * store; corrected to match. */
 
 #include <stdint.h>
 #include "headers/camera_script_globals.h"
@@ -45,7 +47,7 @@ void scripted_camera_set_animation(unsigned int animation_graph_index, const cha
     camera_script_globals.first_update = 1;
     camera_script_globals.animation_index = found;
     camera_script_globals.camera_point_index = -1;
-    camera_script_globals.relative_object_index = animation_graph_index;
-    camera_script_globals.animation_graph_index = -1;
+    camera_script_globals.relative_object_index = -1;
+    camera_script_globals.animation_graph_index = animation_graph_index;
     camera_script_globals.timer = (float)(anim->frame_count / 30);
 }

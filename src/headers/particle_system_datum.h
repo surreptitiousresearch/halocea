@@ -15,7 +15,8 @@ typedef struct particle_system_datum
 {
     int16_t              identifier;        /* 0x00 */
     unsigned char _pad0[2]; /* db-verified padding */
-    unsigned int         flags;             /* 0x04 — bit0 emitting, bit1 transient-new */
+    unsigned int         flags;             /* 0x04 — particle_system_flags: bit0 _particle_system_active_bit,
+                                                bit1 _particle_system_initializing_bit (DB $B480F3D5302DDD26DD58C5FA84DA868D) */
     int                  definition_index;  /* 0x08 */
     int                  object_index;      /* 0x0C — host object, -1 if free */
     int16_t              attachment_index;  /* 0x10 */

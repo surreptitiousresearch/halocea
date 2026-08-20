@@ -2,13 +2,25 @@
  * Includes a backwards-compatibility alias: the legacy name "player_effect_set_max_rumble" is remapped to the
  * current "player_effect_set_max_vibrate" before the (case-insensitive, 471-entry) table search.
  *
- * Deviation: the decompiler builds the legacy alias by concatenating two literal fragments
- * ("player_effect_set_max_ru" + "mble"); reconstructed here as the single literal it forms. */
+ * DEVIATION: the image never stores the legacy name whole — it assembles it at run time in the 176-byte
+ * stack buffer from two literals. memcpy(buf, "player_effect_set_max_ru", 0x19) @0x8372F094 (literal
+ * @0x8211CA00, 24 chars + NUL) is followed by an inlined strlen/strcat of "mble" @0x8372F0A4-0x8372F0CC
+ * (literal @0x8211C9F8 = 6D 62 6C 65 00), and stricmp(name, buf) @0x8372F0D8 therefore compares against the
+ * full 28-character "player_effect_set_max_rumble". Reconstructed as strcpy + strcat: the compiler expands
+ * strcpy of a 24-character literal into memcpy of 25 bytes and inlines strcat, so this is the same code, not
+ * a simplification.
+ *
+ * A 2026-08-06 find_string_fidelity.py hit was adjudicated as a fabricated string and the pair was collapsed
+ * to the 24-character fragment alone; that made the legacy alias unmatchable and is reverted here. The
+ * fragment "mble" is five bytes, below the strings-table minimum length, which is why the string search could
+ * not see the second half. (The reverted note also cited @0x8213E440 for the first fragment; that address
+ * holds Havok configuration text — the fragment is at 0x8211CA00.) */
 
 #include <stdint.h>
 #include "headers/hs_function_definition.h"
 
 extern char *strcpy(char *dst, const char *src);
+extern char *strcat(char *dst, const char *src);
 extern int stricmp(const char *a, const char *b);
 
 #define HS_FUNCTION_COUNT 471
@@ -18,13 +30,8 @@ int16_t hs_find_function_by_name(const char *name)
     const char *lookup = name;
 
     char legacy_alias[176];
-    /* DEVIATION: the alias was transcribed as "player_effect_set_max_rumble". The binary's string
-     * is "player_effect_set_max_ru" @0x8213E440 — 24 characters, NUL-terminated (strings.length
-     * 25, and the following bytes are 00 00 00 00 then the next literal), and no string containing
-     * "rumble" exists anywhere in the image. Four invented characters made this comparison
-     * unmatchable, so the legacy name never resolved to player_effect_set_max_vibrate.
-     * Found 2026-08-06 by tools/find_string_fidelity.py. */
     strcpy(legacy_alias, "player_effect_set_max_ru");
+    strcat(legacy_alias, "mble");
     if ( !stricmp(name, legacy_alias) )
         lookup = "player_effect_set_max_vibrate";
 

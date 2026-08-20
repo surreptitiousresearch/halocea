@@ -1,5 +1,7 @@
-/* cache_copy_set_priority @0x83807E40 — set the async map-copy worker thread's priority: above-normal (1)
- * while non-blocking precaching, normal (0) when blocking.
+/* cache_copy_set_priority @0x83807E40 — record the blocking flag and set the async map-copy worker
+ * thread's priority from it: priority 1 (above normal) when blocking, priority 0 (normal) when not.
+ * The previous banner had this inverted. Proof: clrlwi r10,r3,24 / cmplwi cr6,r10,0 @0x83807E44-0x83807E48,
+ * beq -> loc_83807E64 @0x83807E58 where li r4,0 @0x83807E64; the fall-through at 0x83807E5C is li r4,1.
  *
  * Boundary: SetThreadPriority is a Win32 extern. */
 

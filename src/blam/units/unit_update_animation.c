@@ -9,14 +9,16 @@
  *     (melee damage, grenade release, or nothing);
  *   - the base animation looping (return 2) fires a per-state cleanup (destroy-and-respawn or start limp-body
  *     physics for the dead state, a parented-seat visibility handoff, a root-motion-driven seat exit,
- *     stepping the base animation's frame index back one, or forcing `state_desired` to 40 for state 0x27) and, for a
+ *     stepping the base animation's frame index back one, or forcing `state_desired` to _unit_state_leap_airborne (40)
+ *     for _unit_state_leap_start (39)) and, for a
  *     broad range of "busy" states, marks the transition as forced regardless of interruptability;
  *   - the action animation reaching its end/loop kicks off the standard post-action interpolation blend;
  *   - the overlay-action animation reaching its end/loop (2 or 4) while the base state is NOT a horizontal
  *     turn/move (_unit_state_turn_right..._unit_state_move_front, values 3-4) clears its slot.
  * Finally commits `state_desired` via unit_animation_set_state if forced, or if it differs from the current
- * `state` and the current animation is interruptable to it. Returns 1 only when state 0x27 forced
- * `state_desired` to 40 this tick (the caller-visible "just finished dying" signal).
+ * `state` and the current animation is interruptable to it. Returns 1 only when _unit_state_leap_start (39) forced
+ * `state_desired` to _unit_state_leap_airborne (40) this tick — the caller-visible "leap wind-up finished,
+ * launch the leap" signal, whose sole consumer is biped_update -> biped_jump (biped_update.c:248).
  *
  * DEVIATIONS (disasm-resolved, 0x836D12C8-0x836D1800; no decompiler warning on this one, but several call
  * argument / array-index locals were still lost):
@@ -86,7 +88,7 @@ extern void unit_animation_start_action(int unit_index, int16_t action);
 
 int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
 {
-    int16_t just_died = 0;
+    int16_t launch_leap = 0;
     int16_t state_desired = data->state_desired;
     uint8_t force_transition = 0;
 
@@ -258,7 +260,7 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
                 unit->object.animation.state.frame_index--; /* DEVIATION: sth r10,0xD2 @0x836D15A4 = state.frame_index */
                 break;
             case _unit_state_leap_start:
-                just_died = 1;
+                launch_leap = 1;
                 state_desired = _unit_state_leap_airborne;
                 break;
             default:
@@ -327,5 +329,5 @@ int16_t unit_update_animation(int unit_index, unit_animation_update_data *data)
         unit_animation_set_state(unit_index, state_desired);
     }
 
-    return just_died;
+    return launch_leap;
 }

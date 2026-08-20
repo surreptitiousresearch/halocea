@@ -56,7 +56,10 @@ void weapon_magazine_start_reload(int weapon_index, int16_t magazine_index, uint
 
     if ( !magazine->state || magazine->state == _weapon_magazine_reloaded )
     {
-        /* only proceed if no trigger is firing, no melee in progress and no overheat */
+        /* only proceed if both triggers and the weapon itself are in state 0:
+         * `lbz r10,0x261` @0x836DBE90 (triggers[0].state), `lbz r10,0x289` @0x836DBE9C
+         * (triggers[1].state), `lbz r11,0x238` @0x836DBEA8 (weapon.state) — no melee or
+         * overheat term is tested here. */
         char proceed = (weapon->weapon.triggers[0].state || weapon->weapon.triggers[1].state
                         || weapon->weapon.state) ? 0 : 1;
 

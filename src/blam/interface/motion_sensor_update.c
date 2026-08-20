@@ -3,9 +3,15 @@
  * player's previous-slot snapshot into the new slot (cheap). On a 15-tick boundary (a full rescan),
  * resets every local player's current sensor datum (blips off, count 0), snapshots each local player's
  * camera position, then walks every unit-type object via `object_iterator`, and for objects that are
- * visible/drawable and within `motion_sensor_range` of a given local player's camera, records a blip
- * (type via `blip_type_get`, size from the object's own vehicle tag if it is itself a vehicle) into
- * that player's current sensor datum.
+ * visible/drawable and pass the per-player admission test, records a blip (type via `blip_type_get`,
+ * size from the object's own vehicle tag if it is itself a vehicle) into that player's current sensor
+ * datum.
+ *
+ * FAITHFUL QUIRK: the admission test is NOT simply "within `motion_sensor_range`". `game_engine_running`
+ * short-circuits it: `bl game_engine_running` @0x837BD254 then `bne cr6, loc_837BD2A4` @0x837BD260 jumps
+ * over the entire squared-distance computation (0x837BD264-0x837BD2A0). Whenever a game engine is running
+ * — i.e. in multiplayer — every drawable unit blips regardless of `motion_sensor_range`; the range test
+ * only runs in single-player. Reproduced as the `game_engine_running() || ...` disjunction below.
  *
  * DEVIATION: the decompiler renders the per-tick stack scratch as one bogus `object_iterator v53[2]`
  * (an array of TWO iterators). Only `v53[0]` is ever used as a real iterator; `v53[1]` is decompiler

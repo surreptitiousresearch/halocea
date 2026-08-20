@@ -16,13 +16,13 @@ hcexJBM_JOB_LEGACY_RENDER::hcexJBM_JOB_LEGACY_RENDER()
     this->state.state = 0;
 }
 
-// 0x823EF6B8 -- thunk: re-point the vtable back to the jbmJOB base before base teardown.
+// 0x823EF6B0 -- thunk: re-point the vtable back to the jbmJOB base before base teardown.
 hcexJBM_JOB_LEGACY_RENDER::~hcexJBM_JOB_LEGACY_RENDER()
 {
     this->__vftable = (jbmJOB_vtbl *)&jbmJOB::vftable;
 }
 
-// 0x823F090C
+// 0x823F08F0
 hcexJBM_JOB_LEGACY_RENDER *hcexJBM_JOB_LEGACY_RENDER::ScalarDeletingDtor(unsigned char deleteFlags)
 {
     this->__vftable = (jbmJOB_vtbl *)&jbmJOB::vftable;
@@ -34,7 +34,7 @@ hcexJBM_JOB_LEGACY_RENDER *hcexJBM_JOB_LEGACY_RENDER::ScalarDeletingDtor(unsigne
     return this;
 }
 
-// 0x823EF6F8
+// 0x823EF6D0
 void hcexJBM_JOB_LEGACY_RENDER::Execute(int threadID)
 {
     // DEVIATION: the decompiler showed both Lock/Unlock calls with (nullptr, 0) file/line

@@ -8,7 +8,7 @@
  *               an identity value).
  *
  * Two stream encodings are handled. Uncompressed: rotation is 4 packed int16 quaternion components scaled by
- * 1/32768, translation is 3 raw floats, scale is 1 raw float — each read advances a cursor. Compressed: animated
+ * 1/32767, translation is 3 raw floats, scale is 1 raw float — each read advances a cursor. Compressed: animated
  * channels are fetched by per-channel keyframe ordinal via the animation_get_keyframe_* helpers; default rotation
  * is a 6-byte compressed quaternion indexed by node, default translation is indexed into a sub-table, and default
  * scale is identity. Reconstructed from disassembly — the decompiler's local allocation failed for this routine. */
@@ -24,7 +24,11 @@
 #include "headers/animation_type.h"
 #include "headers/blam_data_globals.h"
 
-/* 0x38000100: int16 component -> normalized quaternion component (~1/32768). */
+/* 0x38000100: int16 component -> normalized quaternion component, scale 1/32767 — 0x38000100
+ * decodes to 3.0518509447574615e-05, the float nearest 1/32767
+ * (1/32768 would be 0x38000000), and 0x38000100 * 32767 = 0.999999999, exactly inverting
+ * the x 32767.0f encode.
+ * Loaded at `lfs f31, __real_38000100@l(r10)` @0x83796C54. */
 #define ROTATION_COMPONENT_SCALE 0.000030518509f
 
 

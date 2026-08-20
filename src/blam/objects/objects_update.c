@@ -5,13 +5,18 @@
  *     potentially-visible set. Objects whose cluster left the PVS are either deleted (if flagged to die
  *     out of view) or marked for deactivation; inactive objects whose cluster entered are activated.
  *     Structure decals are refreshed for the changed cluster set.
- *  2. Active update: tick every active, non-frozen object. At double game speed the odd half-tick only
- *     updates objects whose connection-bucket bit is set and that have a valid networked datum.
- *  3. Deferred ops: clear the per-object scratch flags, run a final update for objects flagged for it,
- *     and recursively delete objects flagged for deletion. Ends with a garbage-collection pass.
+ *  2. Active update: tick every object whose header _object_header_active_bit is set and whose
+ *     _object_header_being_created_bit is clear (lbz r9,2(r31) @0x836F2B6C). At double game speed the
+ *     odd half-tick further restricts the pass to unit-shaped types ((1 << header->type) & object_mask_unit,
+ *     i.e. types 0/1 @0x836F2BA0) whose unit player_index is not -1 (@0x836F2BD0).
+ *  3. Deferred ops: clear _object_header_do_not_update_bit on every live header (stb 2(r31) @0x836F2C34),
+ *     run a final update for objects still flagged being-created, and recursively delete objects flagged
+ *     being-deleted. Ends with a garbage-collection pass.
  *
- * Object header datum is 12 bytes (6 int16): [0] type/salt signature (0 = empty slot), [1] flags,
- * [2] cluster index; the int at byte +8 is the object data pointer. */
+ * Object header datum is 12 bytes, DB layout: identifier int16 @0x0 (0 = empty slot), flags uint8 @0x2,
+ * type uint8 @0x3, cluster_index int16 @0x4, data_size int16 @0x6, object_datum* @0x8. All three loops
+ * read the flags BYTE at +0x2 (lbz @0x836F2A1C / 0x836F2B6C / 0x836F2C20); the int16 at halfword [1] is
+ * the big-endian packed (flags << 8) | type pair, never a flags word. */
 
 #include <stdint.h>
 #include <string.h>

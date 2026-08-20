@@ -8,10 +8,10 @@
  * 1<<(2*filter_size-1) before the shift) — the coefficient sum is assumed to be 2^(2*filter_size). A filter
  * larger than the bitmap in any dimension is rejected with a stderr warning.
  *
- * Channel packing is reproduced verbatim from the shipped code (matching bitmap_2d_smooth): out =
- * (chan(byte3)<<24) | (chan(byte1)<<16) | (chan(byte2)<<8) | chan(byte0) — the source's byte1/byte2 land in
- * swapped positions. The scratch buffer holds the full pixel-data size; all passes index it as the flattened
- * voxel address ((height*z + y)*width + x). */
+ * DEVIATION: the previous reconstruction transposed red and green (same BYTE1/BYTE2 big-endian misreading as
+ * bitmap_2d_smooth). extrwi r30, 8,8 @0x8377B1E8 is (texel>>16)&0xFF and extrwi r15, 8,16 @0x8377B1EC is
+ * (texel>>8)&0xFF; the pack at 0x8377B21C-0x8377B268 returns each to its own bit position. The scratch buffer
+ * holds the full pixel-data size; all passes index it as the flattened voxel address ((height*z + y)*width + x). */
 
 #include <stdint.h>
 #include "headers/bitmap_data.h"
@@ -54,23 +54,23 @@ void bitmap_3d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
             int width = bitmap->width;
             for ( int x = 0; x < width; x = (int16_t)(x + 1) )
             {
-                int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
+                int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0;
                 for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
                 {
                     int source_width = bitmap->width;
                     int wrapped = (int16_t)((source_width + tap + x) % source_width);
                     int coefficient = filter_coefficients[tap + filter_size];
                     unsigned int texel = pixels[wrapped + (bitmap->height * z + y) * source_width];
-                    sum3 += (texel >> 24) * coefficient;
-                    sum2 += ((texel >> 8) & 0xFF) * coefficient;
-                    sum1 += ((texel >> 16) & 0xFF) * coefficient;
-                    sum0 += (texel & 0xFF) * coefficient;
+                    sum_alpha += (texel >> 24) * coefficient;
+                    sum_red += ((texel >> 16) & 0xFF) * coefficient;
+                    sum_green += ((texel >> 8) & 0xFF) * coefficient;
+                    sum_blue += (texel & 0xFF) * coefficient;
                 }
                 width = bitmap->width;
                 scratch[(bitmap->height * z + y) * width + x] =
-                        ((((((round_add + sum3) >> shift << 8) | ((round_add + sum2) >> shift)) << 8)
-                                | ((round_add + sum1) >> shift)) << 8)
-                        | ((round_add + sum0) >> shift);
+                        ((((((round_add + sum_alpha) >> shift << 8) | ((round_add + sum_red) >> shift)) << 8)
+                                | ((round_add + sum_green) >> shift)) << 8)
+                        | ((round_add + sum_blue) >> shift);
             }
         }
     }
@@ -83,23 +83,23 @@ void bitmap_3d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
             int width = bitmap->width;
             for ( int x = 0; x < width; x = (int16_t)(x + 1) )
             {
-                int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
+                int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0;
                 for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
                 {
                     int source_height = bitmap->height;
                     int wrapped = (int16_t)((source_height + tap + y) % source_height);
                     int coefficient = filter_coefficients[tap + filter_size];
                     unsigned int texel = scratch[(wrapped + source_height * z) * width + x];
-                    sum3 += (texel >> 24) * coefficient;
-                    sum2 += ((texel >> 8) & 0xFF) * coefficient;
-                    sum1 += ((texel >> 16) & 0xFF) * coefficient;
-                    sum0 += (texel & 0xFF) * coefficient;
+                    sum_alpha += (texel >> 24) * coefficient;
+                    sum_red += ((texel >> 16) & 0xFF) * coefficient;
+                    sum_green += ((texel >> 8) & 0xFF) * coefficient;
+                    sum_blue += (texel & 0xFF) * coefficient;
                 }
                 width = bitmap->width;
                 pixels[(bitmap->height * z + y) * width + x] =
-                        ((((((round_add + sum3) >> shift << 8) | ((round_add + sum2) >> shift)) << 8)
-                                | ((round_add + sum1) >> shift)) << 8)
-                        | ((round_add + sum0) >> shift);
+                        ((((((round_add + sum_alpha) >> shift << 8) | ((round_add + sum_red) >> shift)) << 8)
+                                | ((round_add + sum_green) >> shift)) << 8)
+                        | ((round_add + sum_blue) >> shift);
             }
         }
     }
@@ -112,23 +112,23 @@ void bitmap_3d_smooth(bitmap_data *bitmap, int16_t filter_size, const int16_t *f
             int width = bitmap->width;
             for ( int x = 0; x < width; x = (int16_t)(x + 1) )
             {
-                int sum3 = 0, sum2 = 0, sum1 = 0, sum0 = 0;
+                int sum_alpha = 0, sum_red = 0, sum_green = 0, sum_blue = 0;
                 for ( int tap = -filter_size; tap <= filter_size; tap = (int16_t)(tap + 1) )
                 {
                     int source_depth = bitmap->depth;
                     int wrapped = (int16_t)((source_depth + tap + z) % source_depth);
                     int coefficient = filter_coefficients[tap + filter_size];
                     unsigned int texel = pixels[(wrapped * bitmap->height + y) * width + x];
-                    sum3 += (texel >> 24) * coefficient;
-                    sum2 += ((texel >> 8) & 0xFF) * coefficient;
-                    sum1 += ((texel >> 16) & 0xFF) * coefficient;
-                    sum0 += (texel & 0xFF) * coefficient;
+                    sum_alpha += (texel >> 24) * coefficient;
+                    sum_red += ((texel >> 16) & 0xFF) * coefficient;
+                    sum_green += ((texel >> 8) & 0xFF) * coefficient;
+                    sum_blue += (texel & 0xFF) * coefficient;
                 }
                 width = bitmap->width;
                 scratch[(bitmap->height * z + y) * width + x] =
-                        ((((((round_add + sum3) >> shift << 8) | ((round_add + sum2) >> shift)) << 8)
-                                | ((round_add + sum1) >> shift)) << 8)
-                        | ((round_add + sum0) >> shift);
+                        ((((((round_add + sum_alpha) >> shift << 8) | ((round_add + sum_red) >> shift)) << 8)
+                                | ((round_add + sum_green) >> shift)) << 8)
+                        | ((round_add + sum_blue) >> shift);
             }
         }
     }

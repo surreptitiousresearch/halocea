@@ -44,7 +44,7 @@ memory_block *stack_memory_pool_allocate(stack_memory_pool *pool, int size)
         int prev_size = 0;
         do
         {
-            if ( !MEMORY_BLOCK_IS_IN_USE(first_block->bits)
+            if ( !MEMORY_BLOCK_IS_LOCKED(first_block->bits)
               && (char *)first_block - prev_size - (char *)write_base > 0 )
             {
                 memory_block *moved = (memory_block *)&write_base[prev_size];

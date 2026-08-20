@@ -1,7 +1,7 @@
 /* device_group_set_actual_value @0x837B4F18 — immediately set a device group's value (clamped to [0,1]) and
  * propagate it to every device object bound to that group, updating the object's actual value, zeroing its
- * change rate, and flagging it changed. Position-group members (object +0x1F8) take the value in their
- * position slot (+0x1FC); power-group members (object +0x204) take it in their power slot (+0x208). */
+ * change rate, and flagging it changed. Power-group members (object +0x1F8) take the value in their
+ * power slot (+0x1FC); position-group members (object +0x204) take it in their position slot (+0x208). */
 
 #include <stdint.h>
 #include "headers/data_array.h"

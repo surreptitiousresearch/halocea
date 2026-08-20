@@ -31,6 +31,16 @@ int haloInit()
         additionalThreads = 0;
     gsJobManager.AddThreads(additionalThreads);
 
+    /* DEVIATION: the decompiler also dropped the two global function-pointer installs that
+     * immediately follow AddThreads — `stw r11, gsMsgAddRenderableInstExt@l(r7)` @0x823EA294 and
+     * `stw r10, CHECK_LIGHT_DESC_FN@l(r6)` @0x823EA298. The stored values are the lis/addi pairs
+     * @0x823EA280/0x823EA288 (?PushInst@hcexJOB_SYNC_INST_MNG@@SA_NPAVanimINST@@@Z, 0x823D4B38)
+     * and @0x823EA284/0x823EA28C
+     * (?CheckLightDesc@entLIGHT_DESC@@SAPAVentDESC@@VpsSECTION@@PAV2@@Z, 0x823D9BC8).
+     * Restored from disassembly. */
+    gsMsgAddRenderableInstExt = &hcexJOB_SYNC_INST_MNG::PushInst;
+    CHECK_LIGHT_DESC_FN = &entLIGHT_DESC::CheckLightDesc;
+
     dsTSTRING<char> t1, t2;
 
     t1.pBuffer = nullptr;
